@@ -5,31 +5,31 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-12">
-            <h1 class="heading">{% trans "Statistics" %}</h1>
+            <h1 class="heading">{% translate "Statistics" %}</h1>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 2xl:grid-cols-4">
             <div class="lg:col-span-2 2xl:row-span-2 2xl:col-span-3 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="rounded p-4 bg-water-500">
                     <h3 class="heading font-bold text-black">
-                        <i icon-name="trending-up" class="pb-1"></i> {% trans "Number of online accesses" %}
+                        <i icon-name="trending-up" class="pb-1"></i> {% translate "Number of online accesses" %}
                     </h3>
                 </div>
                 <div class="p-5 bg-white text-center">
                     <div id="chart-network-error" class="text-red-500 px-4 hidden">
-                        <i icon-name="alert-triangle"></i> {% trans "A network error has occurred." %} {% trans "Please try again later." %}
+                        <i icon-name="alert-triangle"></i> {% translate "A network error has occurred." %} {% translate "Please try again later." %}
                     </div>
                     <div id="chart-heavy-traffic-error" class="text-red-500 px-4 hidden">
-                        <i icon-name="alert-triangle"></i> {% trans "The statistics network is currently experiencing heavy traffic." %} {% trans "Please try again later." %}
+                        <i icon-name="alert-triangle"></i> {% translate "The statistics network is currently experiencing heavy traffic." %} {% translate "Please try again later." %}
                     </div>
                     <div id="chart-server-error" class="text-red-500 px-4 hidden">
-                        <i icon-name="alert-triangle"></i> {% trans "A server error has occurred." %} {% trans "Please contact the administrator." %}
+                        <i icon-name="alert-triangle"></i> {% translate "A server error has occurred." %} {% translate "Please contact the administrator." %}
                     </div>
                     <div id="chart-loading" class="px-4 hidden">
-                        <i icon-name="loader" class="animate-spin"></i> {% trans "Loading..." %}
+                        <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
                     </div>
                     <div id="chart-label-help-text"
                          class="my-2 text-s text-gray-600 text-left hidden">
-                        {% trans "Individual languages can be hidden by clicking on the labels." %}
+                        {% translate "Individual languages can be hidden by clicking on the labels." %}
                     </div>
                     <canvas id="statistics"
                             data-statistics-url="{% url 'statistics_visits_per_language' region_slug=request.region.slug %}"></canvas>
@@ -38,7 +38,7 @@
             <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="rounded p-4 bg-water-500">
                     <h3 class="heading font-bold text-black">
-                        <i icon-name="calendar" class="pb-1"></i> {% trans "Adjust time period" %}
+                        <i icon-name="calendar" class="pb-1"></i> {% translate "Adjust time period" %}
                     </h3>
                 </div>
                 <form id="statistics-form" class="flex flex-col p-4 pt-2">
@@ -60,31 +60,31 @@
                     <div id="period_error" class="chart-client-error text-red-500 pb-2 hidden">
                         <i icon-name="alert-triangle"></i>
                     </div>
-                    <button class="btn mt-4">{% trans "Customize view" %}</button>
+                    <button class="btn mt-4">{% translate "Customize view" %}</button>
                 </form>
             </div>
             <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="rounded p-4 bg-water-500">
                     <h3 class="heading font-bold text-black">
-                        <i icon-name="download" class="pb-1"></i> {% trans "Export" %}
+                        <i icon-name="download" class="pb-1"></i> {% translate "Export" %}
                     </h3>
                 </div>
                 <div class="flex flex-col gap-4 p-4 pt-2">
-                    <label for="export-format">{% trans "Choose format" %}</label>
+                    <label for="export-format">{% translate "Choose format" %}</label>
                     <select id="export-format"
-                            data-filename-prefix="{% trans "Statistics" %} {{ request.region.name }}"
-                            data-language-column-title="{% trans "Language" %}">
+                            data-filename-prefix="{% translate "Statistics" %} {{ request.region.name }}"
+                            data-language-column-title="{% translate "Language" %}">
                         <option value="" selected>
-                            --- {% trans "please select" %} ---
+                            --- {% translate "please select" %} ---
                         </option>
                         <option value="image">
-                            {% trans "Image/PNG" %}
+                            {% translate "Image/PNG" %}
                         </option>
                         <option value="csv">
-                            {% trans "Table Document/CSV" %}
+                            {% translate "Table Document/CSV" %}
                         </option>
                     </select>
-                    <button id="export-button" class="btn" disabled>{% trans "Export" %}</button>
+                    <button id="export-button" class="btn" disabled>{% translate "Export" %}</button>
                     <a id="export-download-link" class="hidden"></a>
                 </div>
             </div>

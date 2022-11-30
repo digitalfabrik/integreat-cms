@@ -1,7 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ..events.event_translation import EventTranslation
 from .feedback import Feedback

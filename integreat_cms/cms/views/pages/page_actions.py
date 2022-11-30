@@ -12,7 +12,7 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 from django.db import transaction
 

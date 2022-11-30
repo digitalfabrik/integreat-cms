@@ -3,7 +3,7 @@ This module contains all string representations of event time range filter optio
 :class:`~integreat_cms.cms.forms.events.event_filter_form.EventFilterForm` and
 :class:`~integreat_cms.cms.views.events.event_list_view.EventListView`.
 """
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 #: Events in the future

@@ -7,7 +7,7 @@ from zoneinfo import available_timezones
 from django import forms
 from django.conf import settings
 from django.db.models import Q
-from django.utils.translation import override, ugettext_lazy as _
+from django.utils.translation import override, gettext_lazy as _
 from django.apps import apps
 
 from linkcheck.listeners import disable_listeners
@@ -19,7 +19,7 @@ from ...constants import status
 from ...models import Region, Page, PageTranslation, LanguageTreeNode
 from ....matomo_api.matomo_api_client import MatomoException
 from ...utils.slug_utils import generate_unique_slug_helper
-from ...utils.translation_utils import ugettext_many_lazy as __
+from ...utils.translation_utils import gettext_many_lazy as __
 from ..icon_widget import IconWidget
 from ..custom_model_form import CustomModelForm
 

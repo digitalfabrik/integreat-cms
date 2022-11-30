@@ -12,7 +12,7 @@ from jsonschema.exceptions import ValidationError
 from ...constants import opening_hours
 from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ...models import POI
-from ...utils.translation_utils import ugettext_many_lazy as __
+from ...utils.translation_utils import gettext_many_lazy as __
 from ..custom_model_form import CustomModelForm
 from ..icon_widget import IconWidget
 

@@ -6,11 +6,11 @@ from django.contrib.auth.password_validation import (
     validate_password,
     password_validators_help_texts,
 )
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ..custom_model_form import CustomModelForm
 from ...models import Role
-from ...utils.translation_utils import ugettext_many_lazy as __
+from ...utils.translation_utils import gettext_many_lazy as __
 from .organization_field import OrganizationField
 
 logger = logging.getLogger(__name__)

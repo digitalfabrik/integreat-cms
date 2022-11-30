@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from linkcheck.models import Link
 
@@ -8,7 +8,7 @@ from ..abstract_content_model import AbstractContentModel
 from ..media.media_file import MediaFile
 from ..pois.poi_translation import POITranslation
 from ..poi_categories.poi_category import POICategory
-from ...utils.translation_utils import ugettext_many_lazy as __
+from ...utils.translation_utils import gettext_many_lazy as __
 
 
 def get_default_opening_hours():

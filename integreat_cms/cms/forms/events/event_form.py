@@ -3,7 +3,7 @@ import zoneinfo
 from datetime import time, timedelta, datetime
 
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ...models import Event
 from ..custom_model_form import CustomModelForm

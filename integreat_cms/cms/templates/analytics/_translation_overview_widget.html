@@ -5,13 +5,13 @@
     check-circle
 {% endblock collapsible_box_icon %}
 {% block collapsible_box_title %}
-    {% trans "Translation Status" %}
+    {% translate "Translation Status" %}
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <div class="flex flex-wrap justify-between gap-2">
-        <p class="py-3">{% trans "The list below shows the current status of the translations." %}</p>
+        <p class="py-3">{% translate "The list below shows the current status of the translations." %}</p>
         <a href="{% url 'translation_coverage' region_slug=request.region.slug %}"
-           class="btn">{% trans "Details" %}</a>
+           class="btn">{% translate "Details" %}</a>
     </div>
     <div class="p-3 w-full">
         <!-- TODO -->

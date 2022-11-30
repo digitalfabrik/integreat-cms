@@ -1,7 +1,7 @@
 """
 This module contains the possible names of roles to make them translatable and the permission definitions.
 """
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 #: Region management

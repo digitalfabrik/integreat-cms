@@ -1,7 +1,7 @@
 """
 This module contains constants which represent all possible administrative divisions of a region in Germany.
 """
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 #: Federal state (German: "Bundesland")

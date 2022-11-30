@@ -4,17 +4,17 @@
     {% load static %}
     <div class="table-header">
         <div class="flex flex-wrap justify-between gap-4">
-            <h1 class="heading">{% trans "Manage Roles" %}</h1>
-            <a href="{% url 'new_role' %}" class="btn">{% trans "Create role" %}</a>
+            <h1 class="heading">{% translate "Manage Roles" %}</h1>
+            <a href="{% url 'new_role' %}" class="btn">{% translate "Create role" %}</a>
         </div>
     </div>
     <div class="table-listing">
         <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
                 <tr class="border-b border-solid border-gray-200">
-                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% trans "Name" %}</th>
-                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% trans "Staff role" %}</th>
-                    <th class="text-sm text-left uppercase py-3 p2-4 pr-4 min">{% trans "Options" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% translate "Name" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% translate "Staff role" %}</th>
+                    <th class="text-sm text-left uppercase py-3 p2-4 pr-4 min">{% translate "Options" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,7 +22,7 @@
                     {% include "roles/role_list_row.html" %}
                 {% empty %}
                     <tr>
-                        <td colspan="6" class="px-2 py-3">{% trans "No roles available yet." %}</td>
+                        <td colspan="6" class="px-2 py-3">{% translate "No roles available yet." %}</td>
                     </tr>
                 {% endfor %}
             </tbody>

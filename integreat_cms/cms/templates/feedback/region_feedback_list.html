@@ -6,12 +6,12 @@
 {% block content %}
     {% with filter_form.filters_visible as filters_visible %}
         <div class="table-header">
-            <h1 class="heading">{% trans "Feedback" %}</h1>
+            <h1 class="heading">{% translate "Feedback" %}</h1>
             <div class="flex justify-between">
                 {% include "_search_input.html" with object_type="feedback" region_slug=request.region.slug related_form="region-feedback-filter-form" %}
                 <button id="filter-toggle" class="btn btn-light-blue">
-                    <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% trans "Show filters" %}</span>
-                    <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% trans "Hide filters" %}</span>
+                    <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% translate "Show filters" %}</span>
+                    <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% translate "Hide filters" %}</span>
                 </button>
             </div>
         </div>
@@ -27,17 +27,17 @@
             <tr class="border-b border-solid border-gray-200">
                 <th class="text-sm text-left uppercase py-3 pr-2"
                     style="padding-left: 10px"
-                    title="{% trans "Select all" %}">
+                    title="{% translate "Select all" %}">
                     <input type="checkbox" id="bulk-select-all"/>
                 </th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Category" %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Feedback on" %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Language" %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Comment" %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Rating" %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Rating" %} ({% trans "overall" %})</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Marked as read by" %}</th>
-                <th class="text-sm text-right uppercase py-3 pr-2">{% trans "Date" %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Category" %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Feedback on" %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Language" %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Comment" %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Rating" %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Rating" %} ({% translate "overall" %})</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Marked as read by" %}</th>
+                <th class="text-sm text-right uppercase py-3 pr-2">{% translate "Date" %}</th>
             </tr>
             {% for feedback in region_feedback %}
                 <tr class="border-t border-solid border-gray-200 hover:bg-gray-200 {% if not feedback.read %}bg-yellow-100 border-yellow-200 hover:border-gray-200{% endif %}">
@@ -58,7 +58,7 @@
                                 <span class="feedback-entry-content">{{ feedback.object_name }}</span>
                                 <a class="copy-search-btn btn-icon inline"
                                    data-copy-to-clipboard="{{ feedback.object_name }}"
-                                   title="{% trans "Copy to clipboard" %}">
+                                   title="{% translate "Copy to clipboard" %}">
                                     <i icon-name="copy"></i>
                                     <i icon-name="check" class="hidden text-green-500"></i>
                                 </a>
@@ -112,9 +112,9 @@
                 <tr>
                     <td colspan="9" class="px-2 py-3 text-center">
                         {% if filter_form.has_changed %}
-                            {% trans "No feedback found with these filters." %}
+                            {% translate "No feedback found with these filters." %}
                         {% else %}
-                            {% trans "No feedback available yet." %}
+                            {% translate "No feedback available yet." %}
                         {% endif %}
                     </td>
                 </tr>
@@ -123,7 +123,7 @@
         {% if region_feedback %}
             <div class="pt-2 px-2">
                 <div class="inline">
-                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% trans "Feedback entries selected" %}</span>
+                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Feedback entries selected" %}</span>
                 </div>
             </div>
         {% endif %}
@@ -131,21 +131,21 @@
             <div class="flex self-start gap-2 mt-2">
                 <select id="bulk-action">
                     <option>
-                        {% trans "Select bulk action" %}
+                        {% translate "Select bulk action" %}
                     </option>
                     <option data-bulk-action="{% url 'mark_region_feedback_as_read' region_slug=request.region.slug %}">
-                        {% trans "Mark as read" %}
+                        {% translate "Mark as read" %}
                     </option>
                     <option data-bulk-action="{% url 'mark_region_feedback_as_unread' region_slug=request.region.slug %}">
-                        {% trans "Mark as unread" %}
+                        {% translate "Mark as unread" %}
                     </option>
                     {% if perms.cms.delete_feedback %}
                         <option data-bulk-action="{% url 'delete_region_feedback' region_slug=request.region.slug %}">
-                            {% trans "Delete" %}
+                            {% translate "Delete" %}
                         </option>
                     {% endif %}
                 </select>
-                <button id="bulk-action-execute" class="btn" disabled>{% trans "Execute" %}</button>
+                <button id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
             </div>
         </div>
         {% include "pagination.html" with chunk=region_feedback %}

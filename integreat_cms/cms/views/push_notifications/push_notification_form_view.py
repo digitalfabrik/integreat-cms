@@ -8,14 +8,14 @@ from django.core.exceptions import PermissionDenied, ImproperlyConfigured
 from django.forms import inlineformset_factory
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
 from ....firebase_api.firebase_api_client import FirebaseApiClient
 from ...decorators import permission_required
 from ...forms import PushNotificationForm, PushNotificationTranslationForm
 from ...models import Language, PushNotification, PushNotificationTranslation
-from ...utils.translation_utils import ugettext_many_lazy as __
+from ...utils.translation_utils import gettext_many_lazy as __
 
 logger = logging.getLogger(__name__)
 

@@ -2,7 +2,7 @@
 This module contains all constants representing the period choices for the Matomo API
 (See https://developer.matomo.org/api-reference/reporting-api).
 """
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 #: Daily

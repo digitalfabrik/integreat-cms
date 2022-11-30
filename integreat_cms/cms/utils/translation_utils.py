@@ -7,7 +7,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.text import format_lazy
 
 
-def ugettext_many_lazy(*strings):
+def gettext_many_lazy(*strings):
     r"""
     This function is a wrapper for :func:`django.utils.text.format_lazy` for the special case that the given strings
     should be concatenated with a space in between. This is useful for splitting lazy translated strings by sentences

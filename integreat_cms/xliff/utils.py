@@ -15,7 +15,7 @@ from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
 from django.core.files.base import ContentFile
 from django.forms.models import model_to_dict
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from linkcheck import update_lock
 
@@ -23,7 +23,7 @@ from ..cms.constants import text_directions
 from ..cms.forms import PageTranslationForm
 from ..cms.models import Page, PageTranslation
 from ..cms.utils.file_utils import create_zip_archive
-from ..cms.utils.translation_utils import ugettext_many_lazy as __
+from ..cms.utils.translation_utils import gettext_many_lazy as __
 
 
 upload_storage = FileSystemStorage(location=settings.XLIFF_UPLOAD_DIR)

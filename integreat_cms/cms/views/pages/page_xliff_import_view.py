@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
 from ....xliff.utils import get_xliff_import_diff, xliff_import_confirm

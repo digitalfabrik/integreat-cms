@@ -13,7 +13,7 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.utils.text import capfirst
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.decorators.cache import never_cache
 from xhtml2pdf import pisa
 from xhtml2pdf.default import DEFAULT_CSS

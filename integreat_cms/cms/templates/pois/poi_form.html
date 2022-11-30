@@ -20,24 +20,24 @@
                             {% blocktrans %}Edit location "{{ poi_title }}"{% endblocktrans %}
                         {% endwith %}
                     {% else %}
-                        {% trans "Create new translation of the location" %}
+                        {% translate "Create new translation of the location" %}
                     {% endif %}
                     {% get_current_language as LANGUAGE_CODE %}
                     {% if poi_form.instance.backend_translation and LANGUAGE_CODE != language.slug %}
-                        ({% trans "Title in" %} {% translated_language_name LANGUAGE_CODE %}: "{{ poi_form.instance.backend_translation.title }}")
+                        ({% translate "Title in" %} {% translated_language_name LANGUAGE_CODE %}: "{{ poi_form.instance.backend_translation.title }}")
                     {% endif %}
                 {% else %}
-                    {% trans "Create new location" %}
+                    {% translate "Create new location" %}
                 {% endif %}
             </h1>
             {% if not poi_form.instance.archived and perms.cms.change_poi %}
                 <div class="flex flex-wrap gap-4 ml-auto mr-0">
-                    <button name="status" value="{{ DRAFT }}" class="btn btn-gray">{% trans "Save as draft" %}</button>
+                    <button name="status" value="{{ DRAFT }}" class="btn btn-gray">{% translate "Save as draft" %}</button>
                     <button name="status" value="{{ PUBLIC }}" class="btn">
                         {% if poi_translation_form.instance.status == PUBLIC %}
-                            {% trans "Update" %}
+                            {% translate "Update" %}
                         {% else %}
-                            {% trans "Publish" %}
+                            {% translate "Publish" %}
                         {% endif %}
                     </button>
                 </div>
@@ -56,15 +56,15 @@
                                 </label>
                                 {% if poi_translation_form.instance.id %}
                                     <div class="grid grid-cols-2 text-left">
-                                        <div class="font-bold pr-2">{% trans "Version" %}:</div>
+                                        <div class="font-bold pr-2">{% translate "Version" %}:</div>
                                         <div>
                                             {{ poi_translation_form.instance.version }}
                                             <!-- TODO: POI Revisions -->
                                         </div>
-                                        <div class="font-bold pr-2">{% trans "Status" %}:</div>
+                                        <div class="font-bold pr-2">{% translate "Status" %}:</div>
                                         <div>
                                             {% if poi.archived %}
-                                                {% trans "Archived" %}
+                                                {% translate "Archived" %}
                                             {% else %}
                                                 {{ poi_translation_form.instance.get_status_display }}
                                             {% endif %}
@@ -83,12 +83,14 @@
                                 <a id="slug-link"
                                    href="{{ url_link }}{{ poi_translation_form.instance.slug }}/"
                                    class="text-blue-500 hover:underline">{{ url_link }}{{ poi_translation_form.instance.slug }}</a>
-                                <a id="edit-slug-btn" title="{% trans "Edit" %}" class="mx-2 btn-icon">
+                                <a id="edit-slug-btn"
+                                   title="{% translate "Edit" %}"
+                                   class="mx-2 btn-icon">
                                     <i icon-name="edit-3"></i>
                                 </a>
                                 <a id="copy-slug-btn"
                                    data-copy-to-clipboard="{{ poi_translation_form.instance.base_link }}{{ poi_translation_form.instance.slug }}"
-                                   title="{% trans "Copy to clipboard" %}"
+                                   title="{% translate "Copy to clipboard" %}"
                                    class="btn-icon">
                                     <i icon-name="copy"></i>
                                     <i icon-name="check" class="hidden text-green-500"></i>
@@ -114,7 +116,7 @@
                                 <div class="rounded p-4 bg-water-500">
                                     <h3 class="heading font-bold text-black">
                                         <i icon-name="search" class="pb-1"></i>
-                                        {% trans "SEO section" %}
+                                        {% translate "SEO section" %}
                                     </h3>
                                 </div>
                                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
@@ -138,7 +140,7 @@
                         <div class="rounded p-4 bg-water-500">
                             <h3 class="heading font-bold text-black">
                                 <i icon-name="feather" class="pb-1"></i>
-                                {% trans "Minor edit" %}
+                                {% translate "Minor edit" %}
                             </h3>
                         </div>
                         <div class="w-full px-4 pb-4 rounded shadow bg-white">
@@ -156,12 +158,12 @@
                     <div class="rounded p-4 bg-water-500">
                         <h3 class="heading font-bold text-black">
                             <i icon-name="map-pin" class="h-5"></i>
-                            {% trans "Position" %}
+                            {% translate "Position" %}
                         </h3>
                     </div>
                     <div class="flex flex-col flex-auto px-4 pb-4 divide-y divide-gray-200 space-y-2">
                         <div>
-                            <label>{% trans "Address" %}</label>
+                            <label>{% translate "Address" %}</label>
                             <div id="nominatim-error"
                                  class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-2 hidden"
                                  role="alert">
@@ -181,14 +183,14 @@
                             <div class="help-text">{{ poi_form.location_on_map.help_text }}</div>
                         </div>
                         <div>
-                            <label>{% trans "Position" %}</label>
+                            <label>{% translate "Position" %}</label>
                             <div>
                                 <input type="checkbox"
                                        id="auto-fill-coordinates"
                                        data-url="{% url "auto_complete_poi_address" region_slug=request.region.slug %}"
                                        checked/>
                                 <label for="auto-fill-coordinates" class="secondary !inline">
-                                    {% trans "Derive coordinates automatically from address" %}
+                                    {% translate "Derive coordinates automatically from address" %}
                                 </label>
                             </div>
                             <label for="{{ poi_form.latitude.id_for_label }}" class="secondary">{{ poi_form.latitude.label }}</label>
@@ -204,7 +206,7 @@
                         </div>
                         <div>
                             <label>
-                                {% trans "Map" %}
+                                {% translate "Map" %}
                             </label>
                             <div id="map"
                                  class="aspect-video"
@@ -212,10 +214,10 @@
                                  data-bounding-box="{{ request.region.bounding_box.api_representation }}">
                             </div>
                             <div id="set_map_position_text" class="help-text hidden">
-                                {% trans "You can set the position by clicking on the map" %}
+                                {% translate "You can set the position by clicking on the map" %}
                             </div>
                             <div id="change_map_position_text" class="help-text hidden">
-                                {% trans "You can change the position via drag & drop" %}
+                                {% translate "You can change the position via drag & drop" %}
                             </div>
                             <div id="update_position_from_map_marker" class="hidden">
                                 <p class="mb-3">
@@ -228,14 +230,14 @@
                                 <div id="no_address_found"
                                      class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 my-2 hidden"
                                      role="alert">
-                                    {% trans "No address found at this position" %}
+                                    {% translate "No address found at this position" %}
                                 </div>
                                 <div id="address_loading" class="text-center hidden">
-                                    <i icon-name="loader" class="animate-spin"></i> {% trans "Loading..." %}
+                                    <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
                                 </div>
                                 <div id="update_address_from_map_marker" class="mb-2 hidden">
                                     <div class="bg-green-100 border-l-4 border-green-500 text-green-500 px-4 py-3 my-2">
-                                        {% trans "New address found" %}
+                                        {% translate "New address found" %}
                                     </div>
                                     <p id="updated_street" class="hidden">
                                     </p>
@@ -254,7 +256,7 @@
                                 <label for="update_address_and_coordinates"
                                        form="update_position_form"
                                        class="secondary !inline text-gray-500 depends-on-address cursor-not-allowed">
-                                    {% trans "Update address and coordinates" %}
+                                    {% translate "Update address and coordinates" %}
                                 </label>
                                 <br/>
                                 <input type="radio"
@@ -265,7 +267,7 @@
                                        disabled/>
                                 <label for="update_address"
                                        class="secondary !inline text-gray-500 depends-on-address cursor-not-allowed">
-                                    {% trans "Update only address" %}
+                                    {% translate "Update only address" %}
                                 </label>
                                 <br/>
                                 <input type="radio"
@@ -274,21 +276,21 @@
                                        required
                                        checked/>
                                 <label for="update_coordinates" class="secondary !inline">
-                                    {% trans "Update only coordinates" %}
+                                    {% translate "Update only coordinates" %}
                                 </label>
                                 <br/>
                                 <div id="update_address_error"
                                      class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-2 hidden"
                                      role="alert">
-                                    {% trans "Please choose one option or cancel" %}
+                                    {% translate "Please choose one option or cancel" %}
                                 </div>
                                 <button id="confirm_map_input" type="button" class="btn btn-blue w-full mt-2">
                                     <i icon-name="check" class="h-5"></i>
-                                    {% trans "Confirm" %}
+                                    {% translate "Confirm" %}
                                 </button>
                                 <button id="discard_map_input" type="button" class="btn btn-red w-full mt-2">
                                     <i icon-name="x" class="h-5"></i>
-                                    {% trans "Cancel" %}
+                                    {% translate "Cancel" %}
                                 </button>
                             </div>
                         </div>
@@ -300,7 +302,7 @@
                     <div class="rounded p-4 bg-water-500">
                         <h3 class="heading font-bold text-black">
                             <i icon-name="phone" class="pb-1"></i>
-                            {% trans "Contact details" %}
+                            {% translate "Contact details" %}
                         </h3>
                     </div>
                     <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
@@ -330,7 +332,7 @@
                             <i icon-name="calendar-clock" class="pb-1"></i>
                             {{ poi_form.opening_hours.label }}
                         </h3>
-                        ({% trans "Currently not visible in apps" %})
+                        ({% translate "Currently not visible in apps" %})
                     </div>
                     <div class="divide-y divide-gray-200">
                         <opening-hours-widget></opening-hours-widget>
@@ -353,7 +355,7 @@
                             <i icon-name="tag" class="pb-1"></i>
                             {{ poi_form.category.label }}
                         </h3>
-                        ({% trans "Currently not visible in apps" %})
+                        ({% translate "Currently not visible in apps" %})
                     </div>
                     <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
                         <div>
@@ -386,47 +388,47 @@
                         <div class="rounded p-4 bg-water-500">
                             <h3 class="heading font-bold text-black">
                                 <i icon-name="wrench" class="pb-1"></i>
-                                {% trans "Actions" %}
+                                {% translate "Actions" %}
                             </h3>
                         </div>
                         <div class="w-full px-4 pb-4 rounded shadow bg-white">
                             <div>
                                 {% if poi_form.instance.archived %}
                                     <label>
-                                        {% trans "Restore location" %}
+                                        {% translate "Restore location" %}
                                     </label>
-                                    <button title="{% trans "Restore location" %}"
+                                    <button title="{% translate "Restore location" %}"
                                             class="btn confirmation-button w-full"
                                             data-confirmation-title="{{ restore_dialog_title }}"
                                             data-confirmation-text="{{ restore_dialog_text }}"
                                             data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
                                             data-action="{% url 'restore_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                        <i icon-name="refresh-ccw" class="mr-2"></i> {% trans "Restore this location" %}
+                                        <i icon-name="refresh-ccw" class="mr-2"></i> {% translate "Restore this location" %}
                                     </button>
                                 {% else %}
                                     <label>
-                                        {% trans "Archive location" %}
+                                        {% translate "Archive location" %}
                                     </label>
-                                    <button title="{% trans "Archive location" %}"
+                                    <button title="{% translate "Archive location" %}"
                                             class="btn confirmation-button w-full"
                                             data-confirmation-title="{{ archive_dialog_title }}"
                                             data-confirmation-text="{{ archive_dialog_text }}"
                                             data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
                                             data-action="{% url 'archive_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                        <i icon-name="archive" class="mr-2"></i> {% trans "Archive this location" %}
+                                        <i icon-name="archive" class="mr-2"></i> {% translate "Archive this location" %}
                                     </button>
                                 {% endif %}
                             </div>
                             {% if perms.cms.delete_poi %}
                                 <div>
                                     <label>
-                                        {% trans "Delete location" %}
+                                        {% translate "Delete location" %}
                                     </label>
                                     {% if poi_form.instance.events.exists %}
                                         <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
                                              role="alert">
                                             <p>
-                                                {% trans "You cannot delete a location which is referenced by an event." %}
+                                                {% translate "You cannot delete a location which is referenced by an event." %}
                                                 <br />
                                                 {% blocktrans count counter=poi_form.instance.events.count trimmed %}
                                         To delete this location, you have to delete this event first:
@@ -442,13 +444,13 @@
                                             </a>
                                         {% endfor %}
                                     {% else %}
-                                        <button title="{% trans "Delete location" %}"
+                                        <button title="{% translate "Delete location" %}"
                                                 class="btn confirmation-button w-full btn-red"
                                                 data-confirmation-title="{{ delete_dialog_title }}"
                                                 data-confirmation-text="{{ delete_dialog_text }}"
                                                 data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
                                                 data-action="{% url 'delete_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                            <i icon-name="trash-2" class="mr-2"></i> {% trans "Delete this location" %}
+                                            <i icon-name="trash-2" class="mr-2"></i> {% translate "Delete this location" %}
                                         </button>
                                     {% endif %}
                                 </div>

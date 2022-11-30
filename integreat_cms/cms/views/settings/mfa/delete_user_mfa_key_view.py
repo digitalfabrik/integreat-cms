@@ -6,7 +6,7 @@ import logging
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
 from ....decorators import modify_mfa_authenticated

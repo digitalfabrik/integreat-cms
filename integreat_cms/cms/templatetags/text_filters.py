@@ -4,7 +4,7 @@ This is a collection of tags and filters for strings.
 import json
 
 from django import template
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 register = template.Library()
 

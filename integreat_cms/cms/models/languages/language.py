@@ -2,14 +2,14 @@ from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
 
 from cacheops import invalidate_obj
 
 from ..abstract_base_model import AbstractBaseModel
 from ...constants import countries, text_directions
-from ...utils.translation_utils import ugettext_many_lazy as __
+from ...utils.translation_utils import gettext_many_lazy as __
 
 
 class Language(AbstractBaseModel):
@@ -130,7 +130,7 @@ class Language(AbstractBaseModel):
         :return: The translated name of the language
         :rtype: str
         """
-        return ugettext(self.english_name)
+        return gettext(self.english_name)
 
     def save(self, *args, **kwargs):
         r"""

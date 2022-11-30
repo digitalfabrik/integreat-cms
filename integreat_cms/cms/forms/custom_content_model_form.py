@@ -8,7 +8,7 @@ from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.contrib import messages
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ..utils.slug_utils import generate_unique_slug_helper
 from ..constants import status
