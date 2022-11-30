@@ -115,6 +115,7 @@ module.exports = {
         "prefer-destructuring": ["error", { array: false }],
         "prefer-arrow/prefer-arrow-functions": "error",
         "prefer-object-spread": "error",
+        "prefer-template": "error",
         "react/function-component-definition": ["error", { namedComponents: "arrow-function" }],
         "react-hooks/exhaustive-deps": "error",
         "vars-on-top": "error",
