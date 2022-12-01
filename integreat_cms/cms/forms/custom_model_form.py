@@ -50,6 +50,8 @@ class CustomModelForm(forms.ModelForm):
             attributes.append("data")
         if self.files:
             attributes.append("files")
+        if self.initial:
+            attributes.append("initial")
         if self.instance.id:
             attributes.append("instance")
 
