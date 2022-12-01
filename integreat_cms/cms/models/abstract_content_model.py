@@ -394,7 +394,7 @@ class AbstractContentModel(AbstractBaseModel):
         :return: A string describing the state of the translation, one of :data:`~integreat_cms.cms.constants.translation_status.CHOICES`
         :rtype: str
         """
-        translation = self.get_major_translation(language_slug)
+        translation = self.get_translation(language_slug)
         if not translation:
             if self.fallback_translations_enabled:
                 fallback_translation = self.get_translation(

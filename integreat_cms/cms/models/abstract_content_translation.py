@@ -431,7 +431,8 @@ class AbstractContentTranslation(AbstractBaseModel):
             # If the page does not have a major public version, it is considered "missing" (keep in mind that it might
             # have draft versions or public versions that are marked as "minor edit")
             return translation_status.MISSING
-        if translation.currently_in_translation:
+        # For "currently in translation", we consider the latest version instead of the latest major version
+        if self.currently_in_translation:
             return translation_status.IN_TRANSLATION
         if not self.source_language:
             # If the language of this translation is the root of this region's language tree, it is always "up to date"
