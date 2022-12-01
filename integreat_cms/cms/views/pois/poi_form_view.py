@@ -167,7 +167,7 @@ class POIFormView(
         else:
             # Save forms
             poi_translation_form.instance.poi = poi_form.save()
-            poi_translation_form.save()
+            poi_translation_form.save(foreign_form_changed=poi_form.has_changed())
             # If any source translation changes to draft, set all depending translations/versions to draft
             if poi_translation_form.instance.status == status.DRAFT:
                 language_tree_node = region.language_node_by_slug.get(language.slug)

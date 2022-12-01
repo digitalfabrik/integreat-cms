@@ -10,6 +10,7 @@ UNRELEASED
 * [ [#1494](https://github.com/digitalfabrik/integreat-cms/issues/1494) ] Add a role without page editing permissions
 * [ [#1914](https://github.com/digitalfabrik/integreat-cms/issues/1914) ] Always uncheck minor edit field by default
 * [ [#1934](https://github.com/digitalfabrik/integreat-cms/issues/1934) ] Make sure translations are never a minor version after XLIFF import
+* [ [#1864](https://github.com/digitalfabrik/integreat-cms/issues/1864) ] Fix possibility to mark page as up-to-date without performing changes
 
 
 2022.11.4

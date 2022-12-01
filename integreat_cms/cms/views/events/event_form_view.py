@@ -227,7 +227,11 @@ class EventFormView(
             # Save event from event form
             event = event_form.save()
             event_translation_form.instance.event = event
-            event_translation_form.save()
+            event_translation_form.save(
+                foreign_form_changed=(
+                    event_form.has_changed() or recurrence_rule_form.has_changed()
+                )
+            )
             # If any source translation changes to draft, set all depending translations/versions to draft
             if event_translation_form.instance.status == status.DRAFT:
                 language_tree_node = region.language_node_by_slug.get(language.slug)

@@ -323,7 +323,7 @@ class PageFormView(
             ):
                 page_translation_form.instance.page = page_form.save()
             # Save page translation form
-            page_translation_form.save()
+            page_translation_form.save(foreign_form_changed=page_form.has_changed())
 
             # Show a message that the slug was changed if it was not unique
             if user_slug and user_slug != page_translation_form.cleaned_data["slug"]:
