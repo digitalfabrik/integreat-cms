@@ -39,7 +39,7 @@ class CustomContentModelForm(CustomModelForm):
         # Instantiate CustomModelForm
         super().__init__(**kwargs)
 
-        # Always set the minor edit to unchecked to make sure it does ot influence future versions
+        # Always set the minor edit to unchecked to make sure it does not influence future versions
         # (unless manually enabled)
         self.initial["minor_edit"] = False
 
