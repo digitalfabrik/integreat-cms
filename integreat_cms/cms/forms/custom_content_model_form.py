@@ -215,3 +215,6 @@ class CustomContentModelForm(CustomModelForm):
                     model_name, self.instance.title
                 ),
             )
+
+    class Meta:
+        fields = ["title", "status", "content", "minor_edit", "machine_translated"]

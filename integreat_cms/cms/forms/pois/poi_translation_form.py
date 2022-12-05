@@ -21,14 +21,7 @@ class POITranslationForm(CustomContentModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = POITranslation
         #: The fields of the model which should be handled by this form
-        fields = [
-            "title",
-            "meta_description",
-            "status",
-            "content",
-            "slug",
-            "minor_edit",
-        ]
+        fields = CustomContentModelForm.Meta.fields + ["meta_description", "slug"]
 
     def __init__(self, **kwargs):
         r"""

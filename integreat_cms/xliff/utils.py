@@ -354,7 +354,7 @@ def get_xliff_import_diff(request, xliff_dir):
     return diff
 
 
-def xliff_import_confirm(request, xliff_dir):
+def xliff_import_confirm(request, xliff_dir, machine_translated):
     """
     Confirm the XLIFF import and write changes to database
 
@@ -363,6 +363,9 @@ def xliff_import_confirm(request, xliff_dir):
 
     :param xliff_dir: The directory containing the xliff files
     :type xliff_dir: str
+
+    :param machine_translated: A flag indicating the import was marked as machine translated
+    :type machine_translated: bool
 
     :return: A dict containing data about the imported xliff files
     :rtype: dict
@@ -409,6 +412,7 @@ def xliff_import_confirm(request, xliff_dir):
                     if existing_translation:
                         # Delete link objects of existing translation
                         existing_translation.links.all().delete()
+                    page_translation.machine_translated = machine_translated
                     # Confirm import and write changes to the database
                     page_translation.save()
 
