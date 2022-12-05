@@ -19,6 +19,7 @@ from ..conftest import (
     MANAGEMENT,
     EDITOR,
     AUTHOR,
+    OBSERVER,
 )
 
 
@@ -65,7 +66,7 @@ def test_xliff_export(
         export_xliff, data={"selected_ids[]": [1, 2, 3, 4, 5, 14, 15]}
     )
     print(response.headers)
-    if role in STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]:
+    if role in STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]:
         # If the role should be allowed to access the view, we expect a successful result
         assert response.status_code == 302
         page_tree = reverse(

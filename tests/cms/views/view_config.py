@@ -13,10 +13,11 @@ from ...conftest import (
     ALL_ROLES,
     AUTHOR,
     EDITOR,
+    OBSERVER,
     HIGH_PRIV_STAFF_ROLES,
     MANAGEMENT,
     PRIV_STAFF_ROLES,
-    REGION_ROLES,
+    WRITE_ROLES,
     ROLES,
     ROOT,
     STAFF_ROLES,
@@ -151,7 +152,7 @@ VIEWS = [
     (
         [
             ("sitemap:region_language", ALL_ROLES),
-            ("archived_pages", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
+            ("archived_pages", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             ("archived_pois", ROLES),
             ("edit_imprint", STAFF_ROLES + [MANAGEMENT]),
             (
@@ -164,7 +165,7 @@ VIEWS = [
             ("new_event", ROLES),
             (
                 "new_event",
-                PRIV_STAFF_ROLES + REGION_ROLES,
+                PRIV_STAFF_ROLES + WRITE_ROLES,
                 {
                     "title": "new event",
                     "start_date": "2030-01-01",
@@ -173,7 +174,7 @@ VIEWS = [
                     "status": status.DRAFT,
                 },
             ),
-            ("new_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
+            ("new_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             (
                 "new_page",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
@@ -199,7 +200,7 @@ VIEWS = [
             ("new_poi", ROLES),
             (
                 "new_poi",
-                PRIV_STAFF_ROLES + REGION_ROLES,
+                PRIV_STAFF_ROLES + WRITE_ROLES,
                 {
                     "title": "new poi",
                     "meta_description": "meta description",
@@ -213,7 +214,7 @@ VIEWS = [
                     "opening_hours": json.dumps(get_default_opening_hours()),
                 },
             ),
-            ("pages", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
+            ("pages", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             ("pois", ROLES),
             (
                 "bulk_archive_pages",
@@ -227,22 +228,22 @@ VIEWS = [
             ),
             (
                 "bulk_archive_events",
-                PRIV_STAFF_ROLES + REGION_ROLES,
+                PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"selected_ids[]": [1]},
             ),
             (
                 "bulk_restore_events",
-                PRIV_STAFF_ROLES + REGION_ROLES,
+                PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"selected_ids[]": [1]},
             ),
             (
                 "bulk_archive_pois",
-                PRIV_STAFF_ROLES + REGION_ROLES,
+                PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"selected_ids[]": [4]},
             ),
             (
                 "bulk_restore_pois",
-                PRIV_STAFF_ROLES + REGION_ROLES,
+                PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"selected_ids[]": [4]},
             ),
         ],
@@ -448,7 +449,12 @@ VIEWS = [
         {"region_slug": "nurnberg", "url_filter": "invalid"},
     ),
     (
-        [("get_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR])],
+        [
+            (
+                "get_page_order_table_ajax",
+                STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
+            )
+        ],
         # The kwargs for these views
         {"region_slug": "augsburg", "parent_id": 1},
     ),
@@ -572,7 +578,12 @@ VIEWS = [
         {"region_slug": "augsburg", "language_slug": "de", "page_id": 15},
     ),
     (
-        [("get_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR])],
+        [
+            (
+                "get_page_order_table_ajax",
+                STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
+            )
+        ],
         # The kwargs for these views
         {"region_slug": "augsburg", "parent_id": 1, "page_id": 2},
     ),
@@ -582,7 +593,12 @@ VIEWS = [
         {"region_slug": "nurnberg", "parent_id": 7, "page_id": 8},
     ),
     (
-        [("get_page_order_table_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR])],
+        [
+            (
+                "get_page_order_table_ajax",
+                STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
+            )
+        ],
         # The kwargs for these views
         {"region_slug": "augsburg", "page_id": 2},
     ),
@@ -592,7 +608,7 @@ VIEWS = [
         {"region_slug": "nurnberg", "page_id": 8},
     ),
     (
-        [("get_page_tree_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR])],
+        [("get_page_tree_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER])],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "de", "tree_id": 2},
     ),
@@ -603,8 +619,8 @@ VIEWS = [
     ),
     (
         [
-            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
-            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
+            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
+            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             (
                 "edit_page",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
@@ -649,8 +665,8 @@ VIEWS = [
                     "status": status.PUBLIC,
                 },
             ),
-            ("sbs_edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
-            ("page_revisions", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
+            ("sbs_edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
+            ("page_revisions", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             (
                 "archive_page",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
@@ -668,8 +684,8 @@ VIEWS = [
     ),
     (
         [
-            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
-            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
+            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
+            ("edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             (
                 "edit_page",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
@@ -703,7 +719,7 @@ VIEWS = [
                     "status": status.PUBLIC,
                 },
             ),
-            ("sbs_edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]),
+            ("sbs_edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "en", "page_id": 2},
@@ -738,7 +754,7 @@ VIEWS = [
         },
     ),
     (
-        [("page_revisions", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR])],
+        [("page_revisions", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER])],
         # The kwargs for these views
         {
             "region_slug": "augsburg",
@@ -752,7 +768,7 @@ VIEWS = [
             ("edit_event", ROLES),
             (
                 "edit_event",
-                PRIV_STAFF_ROLES + REGION_ROLES,
+                PRIV_STAFF_ROLES + WRITE_ROLES,
                 {
                     "title": "new title",
                     "start_date": "2030-01-01",
@@ -761,8 +777,16 @@ VIEWS = [
                     "status": status.DRAFT,
                 },
             ),
-            ("archive_event", PRIV_STAFF_ROLES + REGION_ROLES, {"post_data": True}),
-            ("restore_event", PRIV_STAFF_ROLES + REGION_ROLES, {"post_data": True}),
+            (
+                "archive_event",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"post_data": True},
+            ),
+            (
+                "restore_event",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"post_data": True},
+            ),
             ("delete_event", HIGH_PRIV_STAFF_ROLES, {"post_data": True}),
         ],
         # The kwargs for these views
@@ -773,7 +797,7 @@ VIEWS = [
             ("edit_poi", ROLES),
             (
                 "edit_poi",
-                PRIV_STAFF_ROLES + REGION_ROLES,
+                PRIV_STAFF_ROLES + WRITE_ROLES,
                 {
                     "title": "new title",
                     "meta_description": "meta description",
@@ -787,8 +811,16 @@ VIEWS = [
                     "opening_hours": json.dumps(get_default_opening_hours()),
                 },
             ),
-            ("archive_poi", PRIV_STAFF_ROLES + REGION_ROLES, {"post_data": True}),
-            ("restore_poi", PRIV_STAFF_ROLES + REGION_ROLES, {"post_data": True}),
+            (
+                "archive_poi",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"post_data": True},
+            ),
+            (
+                "restore_poi",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"post_data": True},
+            ),
             ("delete_poi", HIGH_PRIV_STAFF_ROLES, {"post_data": True}),
         ],
         # The kwargs for these views
