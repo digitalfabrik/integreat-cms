@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-11-15T15:40:59+00:00" />
+    <meta property="article:modified_time" content="2022-12-05T17:08:14+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tests &mdash; integreat-cms 2022.11.4 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1083,6 +1083,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#tests.conftest.ROLES"><code class="docutils literal notranslate"><span class="pre">ROLES</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tests.conftest.ROOT"><code class="docutils literal notranslate"><span class="pre">ROOT</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tests.conftest.STAFF_ROLES"><code class="docutils literal notranslate"><span class="pre">STAFF_ROLES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tests.conftest.WRITE_ROLES"><code class="docutils literal notranslate"><span class="pre">WRITE_ROLES</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tests.conftest.load_test_data"><code class="docutils literal notranslate"><span class="pre">load_test_data()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tests.conftest.login_role_user"><code class="docutils literal notranslate"><span class="pre">login_role_user()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#tests.conftest.login_role_user_async"><code class="docutils literal notranslate"><span class="pre">login_role_user_async()</span></code></a></li>
@@ -1542,13 +1543,14 @@
 <p>This module contains shared fixtures for pytest</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="tests.conftest.ALL_ROLES">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">ALL_ROLES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['MANAGEMENT',</span> <span class="pre">'EDITOR',</span> <span class="pre">'AUTHOR',</span> <span class="pre">'EVENT_MANAGER',</span> <span class="pre">'ROOT',</span> <span class="pre">'SERVICE_TEAM',</span> <span class="pre">'CMS_TEAM',</span> <span class="pre">'APP_TEAM',</span> <span class="pre">'MARKETING_TEAM',</span> <span class="pre">'ANONYMOUS']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.ALL_ROLES" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">ALL_ROLES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['MANAGEMENT',</span> <span class="pre">'EDITOR',</span> <span class="pre">'AUTHOR',</span> <span class="pre">'EVENT_MANAGER',</span> <span class="pre">'OBSERVER',</span> <span class="pre">'ROOT',</span> <span class="pre">'SERVICE_TEAM',</span> <span class="pre">'CMS_TEAM',</span> <span class="pre">'APP_TEAM',</span> <span class="pre">'MARKETING_TEAM',</span> <span class="pre">'ANONYMOUS']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.ALL_ROLES" title="Permalink to this definition"></a></dt>
 <dd><p>All region and staff roles and anonymous users</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="w"></span>
 <span class="w">    </span><span class="s1">&#39;MANAGEMENT&#39;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="s1">&#39;EDITOR&#39;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="s1">&#39;AUTHOR&#39;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="s1">&#39;EVENT_MANAGER&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s1">&#39;OBSERVER&#39;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="s1">&#39;ROOT&#39;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="s1">&#39;SERVICE_TEAM&#39;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="s1">&#39;CMS_TEAM&#39;</span><span class="p">,</span><span class="w"></span>
@@ -1586,22 +1588,23 @@
 
 <dl class="py data">
 <dt class="sig sig-object py" id="tests.conftest.REGION_ROLES">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">REGION_ROLES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['MANAGEMENT',</span> <span class="pre">'EDITOR',</span> <span class="pre">'AUTHOR',</span> <span class="pre">'EVENT_MANAGER']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.REGION_ROLES" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">REGION_ROLES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['MANAGEMENT',</span> <span class="pre">'EDITOR',</span> <span class="pre">'AUTHOR',</span> <span class="pre">'EVENT_MANAGER',</span> <span class="pre">'OBSERVER']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.REGION_ROLES" title="Permalink to this definition"></a></dt>
 <dd><p>All roles of region users</p>
-<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;MANAGEMENT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;EDITOR&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;AUTHOR&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;EVENT_MANAGER&#39;</span><span class="p">]</span><span class="w"></span>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;MANAGEMENT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;EDITOR&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;AUTHOR&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;EVENT_MANAGER&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;OBSERVER&#39;</span><span class="p">]</span><span class="w"></span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py" id="tests.conftest.ROLES">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">ROLES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['MANAGEMENT',</span> <span class="pre">'EDITOR',</span> <span class="pre">'AUTHOR',</span> <span class="pre">'EVENT_MANAGER',</span> <span class="pre">'ROOT',</span> <span class="pre">'SERVICE_TEAM',</span> <span class="pre">'CMS_TEAM',</span> <span class="pre">'APP_TEAM',</span> <span class="pre">'MARKETING_TEAM']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.ROLES" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">ROLES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['MANAGEMENT',</span> <span class="pre">'EDITOR',</span> <span class="pre">'AUTHOR',</span> <span class="pre">'EVENT_MANAGER',</span> <span class="pre">'OBSERVER',</span> <span class="pre">'ROOT',</span> <span class="pre">'SERVICE_TEAM',</span> <span class="pre">'CMS_TEAM',</span> <span class="pre">'APP_TEAM',</span> <span class="pre">'MARKETING_TEAM']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.ROLES" title="Permalink to this definition"></a></dt>
 <dd><p>All region and staff roles</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="w"></span>
 <span class="w">    </span><span class="s1">&#39;MANAGEMENT&#39;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="s1">&#39;EDITOR&#39;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="s1">&#39;AUTHOR&#39;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="s1">&#39;EVENT_MANAGER&#39;</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="s1">&#39;OBSERVER&#39;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="s1">&#39;ROOT&#39;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="s1">&#39;SERVICE_TEAM&#39;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="s1">&#39;CMS_TEAM&#39;</span><span class="p">,</span><span class="w"></span>
@@ -1627,9 +1630,18 @@
 </div>
 </dd></dl>
 
+<dl class="py data">
+<dt class="sig sig-object py" id="tests.conftest.WRITE_ROLES">
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">WRITE_ROLES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['MANAGEMENT',</span> <span class="pre">'EDITOR',</span> <span class="pre">'AUTHOR',</span> <span class="pre">'EVENT_MANAGER']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.WRITE_ROLES" title="Permalink to this definition"></a></dt>
+<dd><p>All roles with editing permissions</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;MANAGEMENT&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;EDITOR&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;AUTHOR&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;EVENT_MANAGER&#39;</span><span class="p">]</span><span class="w"></span>
+</pre></div>
+</div>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.conftest.load_test_data">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">load_test_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">django_db_setup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">django_db_blocker</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.load_test_data" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">load_test_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">django_db_setup</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">django_db_blocker</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.load_test_data" title="Permalink to this definition"></a></dt>
 <dd><p>Load the test data initially for all test cases</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1643,7 +1655,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.conftest.login_role_user">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">login_role_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">django_db_blocker</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.login_role_user" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">login_role_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">django_db_blocker</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.login_role_user" title="Permalink to this definition"></a></dt>
 <dd><p>Get the test user of the current role and force a login. Gets executed only once per user.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1664,7 +1676,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.conftest.login_role_user_async">
-<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">login_role_user_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">django_db_blocker</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.login_role_user_async" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.conftest.</span></span><span class="sig-name descname"><span class="pre">login_role_user_async</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">django_db_blocker</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/conftest.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.conftest.login_role_user_async" title="Permalink to this definition"></a></dt>
 <dd><p>Get the test user of the current role and force a login. Gets executed only once per user.
 Identical to <a class="reference internal" href="#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a> with the difference that it returns
 an <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.client.AsyncClient</span></code> instead of <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.client.Client</span></code>.</p>
@@ -1709,7 +1721,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 15, 2022.
+      <span class="lastupdated">Last updated on Dec 05, 2022.
       </span></p>
   </div>
 
