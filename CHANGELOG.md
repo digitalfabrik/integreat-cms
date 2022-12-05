@@ -8,6 +8,7 @@ UNRELEASED
 * [ [#1890](https://github.com/digitalfabrik/integreat-cms/issues/1890) ] Add hint about icon aspect ratio to location form
 * [ [#1889](https://github.com/digitalfabrik/integreat-cms/issues/1889) ] Make translation status independent from publishing status
 * [ [#1494](https://github.com/digitalfabrik/integreat-cms/issues/1494) ] Add a role without page editing permissions
+* [ [#1914](https://github.com/digitalfabrik/integreat-cms/issues/1914) ] Always uncheck minor edit field by default
 
 
 2022.11.4
