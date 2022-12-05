@@ -1,7 +1,7 @@
 UNRELEASED
 ----------
 
-* [ [#1701](https://github.com/digitalfabrik/integreat-cms/issues/1701) ] Fix mismatching columns on weekly report
+* [ [#1701](https://github.com/digitalfabrik/integreat-cms/issues/1701) ] Fix mismatching columns on CSV export of weekly statistics report
 * [ [#1886](https://github.com/digitalfabrik/integreat-cms/issues/1886) ] Fix push notification character counter
 
 
