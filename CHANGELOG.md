@@ -12,6 +12,7 @@ UNRELEASED
 * [ [#1934](https://github.com/digitalfabrik/integreat-cms/issues/1934) ] Make sure translations are never a minor version after XLIFF import
 * [ [#1864](https://github.com/digitalfabrik/integreat-cms/issues/1864) ] Fix possibility to mark page as up-to-date without performing changes
 * [ [#1885](https://github.com/digitalfabrik/integreat-cms/issues/1885) ] Fix ongoing translation cancel button
+* [ [#1942](https://github.com/digitalfabrik/integreat-cms/issues/1942) ] Fix auto save functionality
 
 
 2022.11.4
