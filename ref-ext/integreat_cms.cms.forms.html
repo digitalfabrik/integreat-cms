@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-12-06T10:11:31+00:00" />
+    <meta property="article:modified_time" content="2022-12-06T10:23:13+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Forms &mdash; integreat-cms 2022.11.4 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -2979,7 +2979,7 @@ dictionary.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm.add_error_messages">
-<span class="sig-name descname"><span class="pre">add_error_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_model_form.py#L134"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm.add_error_messages" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_error_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_model_form.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm.add_error_messages" title="Permalink to this definition"></a></dt>
 <dd><p>This function accepts the current request and adds the form’s error messages to the message queue of
 <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/messages/#module-django.contrib.messages" title="(in Django v3.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.contrib.messages</span></code></a>.</p>
 <dl class="field-list simple">
@@ -3005,7 +3005,7 @@ prefix set.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm.add_success_message">
-<span class="sig-name descname"><span class="pre">add_success_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_content_model_form.py#L185"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm.add_success_message" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_success_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_content_model_form.py#L188"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm.add_success_message" title="Permalink to this definition"></a></dt>
 <dd><p>This adds a success message for a translation form.
 Requires the attributes “title”, “status” and “foreign_object” on the form instance.</p>
 <dl class="field-list simple">
@@ -3108,7 +3108,7 @@ to <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</spa
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm.get_error_messages">
-<span class="sig-name descname"><span class="pre">get_error_messages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_model_form.py#L155"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm.get_error_messages" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_error_messages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_model_form.py#L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm.get_error_messages" title="Permalink to this definition"></a></dt>
 <dd><p>Return all error messages of this form and append labels to field-errors</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -3191,12 +3191,15 @@ without redefining ordering.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_content_model_form.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm.save" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreign_form_changed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_content_model_form.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm.save" title="Permalink to this definition"></a></dt>
 <dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
 which are not directly determined by input fields.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>commit</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether or not the changes should be written to the database</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>commit</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether or not the changes should be written to the database</p></li>
+<li><p><strong>foreign_form_changed</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether or not the foreign form of this translation form was changed</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The saved page translation object</p>
@@ -3487,7 +3490,7 @@ dictionary.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.custom_model_form.CustomModelForm.add_error_messages">
-<span class="sig-name descname"><span class="pre">add_error_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_model_form.py#L134"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_model_form.CustomModelForm.add_error_messages" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_error_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_model_form.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_model_form.CustomModelForm.add_error_messages" title="Permalink to this definition"></a></dt>
 <dd><p>This function accepts the current request and adds the form’s error messages to the message queue of
 <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/messages/#module-django.contrib.messages" title="(in Django v3.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.contrib.messages</span></code></a>.</p>
 <dl class="field-list simple">
@@ -3536,7 +3539,7 @@ prefix set.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.custom_model_form.CustomModelForm.clean">
-<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_model_form.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_model_form.CustomModelForm.clean" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_model_form.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_model_form.CustomModelForm.clean" title="Permalink to this definition"></a></dt>
 <dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">clean()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to provide debug
 logging</p>
 <dl class="field-list simple">
@@ -3573,7 +3576,7 @@ logging</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.custom_model_form.CustomModelForm.get_error_messages">
-<span class="sig-name descname"><span class="pre">get_error_messages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_model_form.py#L155"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_model_form.CustomModelForm.get_error_messages" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_error_messages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_model_form.py#L157"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_model_form.CustomModelForm.get_error_messages" title="Permalink to this definition"></a></dt>
 <dd><p>Return all error messages of this form and append labels to field-errors</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -3656,7 +3659,7 @@ without redefining ordering.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.custom_model_form.CustomModelForm.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_model_form.py#L112"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_model_form.CustomModelForm.save" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_model_form.py#L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.custom_model_form.CustomModelForm.save" title="Permalink to this definition"></a></dt>
 <dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to provide debug
 logging</p>
 <dl class="field-list simple">
