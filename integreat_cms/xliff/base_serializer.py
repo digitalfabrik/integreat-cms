@@ -230,6 +230,8 @@ class Deserializer(xml_serializer.Deserializer):
         page_translation.version = page_translation.version + 1
         # Make sure object is not in translation anymore if it was before
         page_translation.currently_in_translation = False
+        # Make sure object is not a minor edit anymore if it was before
+        page_translation.minor_edit = False
         # Set the id to None to make sure a new object is stored in the database when save() is called
         page_translation.id = None
 

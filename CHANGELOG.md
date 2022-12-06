@@ -9,6 +9,7 @@ UNRELEASED
 * [ [#1889](https://github.com/digitalfabrik/integreat-cms/issues/1889) ] Make translation status independent from publishing status
 * [ [#1494](https://github.com/digitalfabrik/integreat-cms/issues/1494) ] Add a role without page editing permissions
 * [ [#1914](https://github.com/digitalfabrik/integreat-cms/issues/1914) ] Always uncheck minor edit field by default
+* [ [#1934](https://github.com/digitalfabrik/integreat-cms/issues/1934) ] Make sure translations are never a minor version after XLIFF import
 
 
 2022.11.4
