@@ -5,7 +5,10 @@ export const autosaveEditor = async () => {
     const form = document.getElementById("content_form") as HTMLFormElement;
     tinymce.triggerSave();
     const formData = new FormData(form);
-    formData.append("submit_auto", "true");
+    // Override status to "auto save"
+    formData.append("status", "AUTO_SAVE");
+    // Override minor edit field to keep translation status
+    formData.set("minor_edit", "on");
     const data = await fetch(form.action, {
         method: "POST",
         headers: {
