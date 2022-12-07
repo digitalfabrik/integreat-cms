@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.12.0
+---------
+
 * [ [#1701](https://github.com/digitalfabrik/integreat-cms/issues/1701) ] Fix malformed CSV export on weekly statistics report
 * [ [#1886](https://github.com/digitalfabrik/integreat-cms/issues/1886) ] Fix push notification character counter
 * [ [#1912](https://github.com/digitalfabrik/integreat-cms/issues/1912) ] Fix alignment of page permission button
