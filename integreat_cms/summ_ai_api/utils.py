@@ -11,10 +11,10 @@ from lxml.html import fromstring, tostring
 
 from django.conf import settings
 from django.contrib import messages
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from ..cms.constants import status
-from ..cms.utils.translation_utils import ugettext_many_lazy as __
+from ..cms.utils.translation_utils import gettext_many_lazy as __
 
 logger = logging.getLogger(__name__)
 

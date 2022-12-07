@@ -6,7 +6,7 @@ from django.conf import settings
 from django.db import models
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from cacheops import invalidate_model
 
@@ -14,7 +14,7 @@ from linkcheck.models import Link
 
 from treebeard.ns_tree import NS_NodeQuerySet
 
-from ...utils.translation_utils import ugettext_many_lazy as __
+from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_content_model import ContentQuerySet
 from ..abstract_tree_node import AbstractTreeNode
 from ..decorators import modify_fields

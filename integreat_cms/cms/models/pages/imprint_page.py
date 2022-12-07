@@ -1,6 +1,6 @@
 import logging
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .imprint_page_translation import ImprintPageTranslation
 from ..abstract_content_model import AbstractContentModel

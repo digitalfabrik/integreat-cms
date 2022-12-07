@@ -1,6 +1,20 @@
 UNRELEASED
 ----------
 
+* [ [#1701](https://github.com/digitalfabrik/integreat-cms/issues/1701) ] Fix malformed CSV export on weekly statistics report
+* [ [#1886](https://github.com/digitalfabrik/integreat-cms/issues/1886) ] Fix push notification character counter
+* [ [#1912](https://github.com/digitalfabrik/integreat-cms/issues/1912) ] Fix alignment of page permission button
+* [ [#1892](https://github.com/digitalfabrik/integreat-cms/issues/1892) ] Fix copy short url button in page tree
+* [ [#1890](https://github.com/digitalfabrik/integreat-cms/issues/1890) ] Add hint about icon aspect ratio to location form
+* [ [#1889](https://github.com/digitalfabrik/integreat-cms/issues/1889) ] Make translation status independent from publishing status
+* [ [#1494](https://github.com/digitalfabrik/integreat-cms/issues/1494) ] Add a role without page editing permissions
+* [ [#1914](https://github.com/digitalfabrik/integreat-cms/issues/1914) ] Always uncheck minor edit field by default
+* [ [#1934](https://github.com/digitalfabrik/integreat-cms/issues/1934) ] Make sure translations are never a minor version after XLIFF import
+* [ [#1864](https://github.com/digitalfabrik/integreat-cms/issues/1864) ] Fix possibility to mark page as up-to-date without performing changes
+* [ [#1885](https://github.com/digitalfabrik/integreat-cms/issues/1885) ] Fix ongoing translation cancel button
+* [ [#1942](https://github.com/digitalfabrik/integreat-cms/issues/1942) ] Fix auto save functionality
+* [ [#1922](https://github.com/digitalfabrik/integreat-cms/issues/1922) ] Fix html escape in xliff import error message
+
 
 2022.11.4
 ---------

@@ -1,6 +1,6 @@
 from django.urls import reverse
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .feedback import Feedback
 from ..pages.imprint_page import ImprintPage

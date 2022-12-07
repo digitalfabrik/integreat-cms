@@ -15,7 +15,8 @@ from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
 from django.core.files.base import ContentFile
 from django.forms.models import model_to_dict
-from django.utils.translation import ugettext as _
+from django.utils.html import format_html, format_html_join
+from django.utils.translation import gettext as _
 
 from linkcheck import update_lock
 
@@ -23,7 +24,7 @@ from ..cms.constants import text_directions
 from ..cms.forms import PageTranslationForm
 from ..cms.models import Page, PageTranslation
 from ..cms.utils.file_utils import create_zip_archive
-from ..cms.utils.translation_utils import ugettext_many_lazy as __
+from ..cms.utils.translation_utils import gettext_many_lazy as __
 
 
 upload_storage = FileSystemStorage(location=settings.XLIFF_UPLOAD_DIR)
@@ -206,9 +207,14 @@ def page_to_xliff(page, target_language, dir_name, only_public=False):
     logger.debug("Created XLIFF file %r", actual_filename)
 
     # Set "currently in translation" status for existing target translation
-    if target_page_translation.id:
-        target_page_translation.currently_in_translation = True
-        target_page_translation.save()
+    if latest_version := page.get_translation(target_language.slug):
+        latest_version.currently_in_translation = True
+        latest_version.save(update_timestamp=False)
+        logger.debug(
+            "Updated translation status of %r to %r",
+            latest_version,
+            latest_version.translation_state,
+        )
 
     return download_storage.path(actual_filename)
 
@@ -380,34 +386,23 @@ def xliff_import_confirm(request, xliff_dir):
                         page_translation,
                         errors,
                     )
-                    error_list = "<ul>"
-                    for error in errors:
-                        error_list += f"<li><i icon-name='alert-triangle' class='pb-1'></i> {error['message']}</li>"
-                    error_list += "</ul>"
+
                     messages.error(
                         request,
-                        _(
-                            "Page {} could not be imported successfully because of the errors: {}"
-                        ).format(page_translation.readable_title, error_list),
-                    )
-                    success = False
-                elif not has_changed:
-                    # Update existing translation
-                    existing_translation = page_translation.latest_version
-                    existing_translation.currently_in_translation = False
-                    existing_translation.save()
-                    logger.info(
-                        "%r of XLIFF file %r was imported without changes by %r",
-                        existing_translation,
-                        xliff_file,
-                        request.user,
-                    )
-                    messages.info(
-                        request,
-                        _("Page {} was imported without changes.").format(
-                            page_translation.readable_title
+                        format_html(
+                            "{} <ul>{}</ul>",
+                            _(
+                                "Page {} could not be imported successfully because of the errors:"
+                            ).format(page_translation.readable_title),
+                            format_html_join(
+                                "",
+                                "<li><i icon-name='alert-triangle' class='pb-1'></i>{}</li>",
+                                [[error["message"]] for error in errors],
+                            ),
                         ),
                     )
+
+                    success = False
                 else:
                     # Check if previous version already exists
                     existing_translation = page_translation.latest_version
@@ -416,18 +411,34 @@ def xliff_import_confirm(request, xliff_dir):
                         existing_translation.links.all().delete()
                     # Confirm import and write changes to the database
                     page_translation.save()
-                    logger.info(
-                        "%r of XLIFF file %r was imported successfully by %r",
-                        page_translation,
-                        xliff_file,
-                        request.user,
-                    )
-                    messages.success(
-                        request,
-                        _("Page {} was imported successfully.").format(
-                            page_translation.readable_title
-                        ),
-                    )
+
+                    if has_changed:
+                        logger.info(
+                            "%r of XLIFF file %r was imported successfully by %r",
+                            page_translation,
+                            xliff_file,
+                            request.user,
+                        )
+                        messages.success(
+                            request,
+                            _("Page {} was imported successfully.").format(
+                                page_translation.readable_title
+                            ),
+                        )
+                    else:
+                        logger.info(
+                            "%r of XLIFF file %r was imported without changes by %r",
+                            existing_translation,
+                            xliff_file,
+                            request.user,
+                        )
+                        messages.info(
+                            request,
+                            _("Page {} was imported without changes.").format(
+                                page_translation.readable_title
+                            ),
+                        )
+
     return success
 
 

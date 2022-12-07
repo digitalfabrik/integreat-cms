@@ -6,12 +6,12 @@
     {% with filter_form.filters_visible as filters_visible %}
         <div class="table-header">
             <div class="flex flex-wrap justify-between">
-                <h1 class="heading">{% trans "Events" %}</h1>
+                <h1 class="heading">{% translate "Events" %}</h1>
                 <a href="{% url 'events_archived' region_slug=request.region.slug language_slug=language.slug %}"
                    class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
                     <span>
                         <i icon-name="archive" class="align-top h-5"></i>
-                        {% trans "Archived events" %}
+                        {% translate "Archived events" %}
                         ({{ archived_count }})
                     </span>
                 </a>
@@ -23,19 +23,19 @@
                 </div>
                 <div class="flex flex-wrap gap-4">
                     <button id="filter-toggle" class="btn btn-light-blue">
-                        <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% trans "Show filters" %}</span>
-                        <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% trans "Hide filters" %}</span>
+                        <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% translate "Show filters" %}</span>
+                        <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% translate "Hide filters" %}</span>
                     </button>
                     {% if request.region.default_language == language and perms.cms.change_event %}
                         <a href="{% url 'new_event' region_slug=request.region.slug language_slug=language.slug %}"
                            class="btn">
-                            {% trans "Create event" %}
+                            {% translate "Create event" %}
                         </a>
                     {% else %}
                         {% blocktrans trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
                         You can only create events in the default language ({{ default_language }}).
                     {% endblocktrans %}
-                        <button title="{{ disabled_button_title }}" class="btn" disabled>{% trans "Create event" %}</button>
+                        <button title="{{ disabled_button_title }}" class="btn" disabled>{% translate "Create event" %}</button>
                     {% endif %}
                 </div>
             </div>
@@ -56,11 +56,13 @@
                     <th class="py-3 pl-4 min">
                         <input form="bulk-action-form" type="checkbox" id="bulk-select-all"/>
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% trans "Title in" %} {{ language.translated_name }}</th>
+                    <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% translate "Title in" %} {{ language.translated_name }}</th>
                     {% get_current_language as LANGUAGE_CODE %}
                     {% get_language LANGUAGE_CODE as backend_language %}
                     {% if backend_language and backend_language != language %}
-                        <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Title in" %} {{ backend_language.translated_name }}</th>
+                        <th class="text-sm text-left uppercase py-3 pr-2">
+                            {% translate "Title in" %} {{ backend_language.translated_name }}
+                        </th>
                     {% endif %}
                     <th class="text-sm text-left uppercase py-3 pr-2">
                         <div class="lang-grid flags whitespace-nowrap">
@@ -74,12 +76,12 @@
                             {% endspaceless %}
                         </div>
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Status" %}</th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Event location" %}</th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Start" %}</th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "End" %}</th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% trans "Recurrence" %}</th>
-                    <th class="text-sm text-right uppercase py-3 pr-4 min">{% trans "Options" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Publication status" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Event location" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Start" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% translate "End" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Recurrence" %}</th>
+                    <th class="text-sm text-right uppercase py-3 pr-4 min">{% translate "Options" %}</th>
                 </tr>
             </thead>
             <tbody>
@@ -92,9 +94,9 @@
                     <tr>
                         <td colspan="8" class="pl-4 pr-2 py-3">
                             {% if filter_form.has_changed %}
-                                {% trans "No events found with these filters." %}
+                                {% translate "No events found with these filters." %}
                             {% else %}
-                                {% trans "No upcoming events available." %}
+                                {% translate "No upcoming events available." %}
                             {% endif %}
                         </td>
                     </tr>
@@ -105,42 +107,42 @@
     {% if events %}
         <div class="pt-2 px-2">
             <div class="inline">
-                <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% trans "Events selected" %}</span>
+                <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Events selected" %}</span>
             </div>
         </div>
     {% endif %}
     <div class="flex flex-wrap gap-2 mt-4">
         <select id="bulk-action" class="w-auto max-w-full">
             <option>
-                {% trans "Select bulk action" %}
+                {% translate "Select bulk action" %}
             </option>
             <option data-bulk-action="{% url 'bulk_archive_events' region_slug=request.region.slug language_slug=language.slug %}">
-                {% trans "Archive events" %}
+                {% translate "Archive events" %}
             </option>
             {% if DEEPL_ENABLED %}
                 {% if language == request.region.default_language %}
                     <option disabled
-                            title="{% trans "You cannot translate into the default language" %}">
-                        {% trans "Create missing translations automatically" %}
+                            title="{% translate "You cannot translate into the default language" %}">
+                        {% translate "Create missing translations automatically" %}
                     </option>
                 {% elif DEEPL_AVAILABLE %}
                     <option data-bulk-action="{% url 'automatic_translation_events' region_slug=request.region.slug language_slug=language.slug %}">
-                        {% trans "Create missing translations automatically" %}
+                        {% translate "Create missing translations automatically" %}
                     </option>
                 {% else %}
                     <option disabled
-                            title="{% trans "This language is not supported by DeepL" %}">
-                        {% trans "Create missing translations automatically" %}
+                            title="{% translate "This language is not supported by DeepL" %}">
+                        {% translate "Create missing translations automatically" %}
                     </option>
                 {% endif %}
             {% endif %}
             {% if SUMM_AI_ENABLED %}
                 <option data-bulk-action="{% url 'auto_translate_easy_german_events' region_slug=request.region.slug language_slug=language.slug %}">
-                    {% trans "Automatically translate this event into Easy German" %}
+                    {% translate "Automatically translate this event into Easy German" %}
                 </option>
             {% endif %}
         </select>
-        <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% trans "Execute" %}</button>
+        <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
     </div>
     {% include "../generic_confirmation_dialog.html" %}
     {% url "events" as url %}

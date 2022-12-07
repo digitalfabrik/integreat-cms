@@ -1,7 +1,7 @@
 """
 This module contains the possible names of roles to make them translatable and the permission definitions.
 """
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 #: Region management
@@ -12,6 +12,8 @@ EDITOR = "EDITOR"
 AUTHOR = "AUTHOR"
 #: Event manager
 EVENT_MANAGER = "EVENT_MANAGER"
+#: User without editing permission
+OBSERVER = "OBSERVER"
 
 #: Choices for non-staff roles
 ROLES = [
@@ -19,6 +21,7 @@ ROLES = [
     (EDITOR, _("Editor")),
     (AUTHOR, _("Author")),
     (EVENT_MANAGER, _("Event manager")),
+    (OBSERVER, _("Observer")),
 ]
 
 #: Service team
@@ -54,6 +57,20 @@ EVENT_MANAGER_PERMISSIONS = [
     "view_directory",
     "view_event",
     "view_mediafile",
+    "view_poi",
+]
+
+#: The permissions of the limited_page_manager
+OBSERVER_PERMISSIONS = [
+    "add_directory",
+    "change_directory",
+    "view_directory",
+    "change_mediafile",
+    "replace_mediafile",
+    "upload_mediafile",
+    "view_mediafile",
+    "view_page",
+    "view_event",
     "view_poi",
 ]
 
@@ -167,6 +184,7 @@ CMS_TEAM_PERMISSIONS = SERVICE_TEAM_PERMISSIONS
 #: The permissions of all roles
 PERMISSIONS = {
     EVENT_MANAGER: EVENT_MANAGER_PERMISSIONS,
+    OBSERVER: OBSERVER_PERMISSIONS,
     AUTHOR: AUTHOR_PERMISSIONS,
     EDITOR: EDITOR_PERMISSIONS,
     MANAGEMENT: MANAGEMENT_PERMISSIONS,

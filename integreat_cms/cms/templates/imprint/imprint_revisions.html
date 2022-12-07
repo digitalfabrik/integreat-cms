@@ -5,10 +5,10 @@
     {% load widget_tweaks %}
     {% load rules %}
     <div class="mb-6">
-        <h1 class="heading">{% trans "Imprint versions" %}</h1>
+        <h1 class="heading">{% translate "Imprint versions" %}</h1>
         <a href="{% url 'edit_imprint' region_slug=request.region.slug language_slug=language.slug %}"
            class="btn btn-gray">
-            <i icon-name="arrow-left-circle" class="align-top"></i> {% trans "Back to the imprint form" %}
+            <i icon-name="arrow-left-circle" class="align-top"></i> {% translate "Back to the imprint form" %}
         </a>
     </div>
     <form method="post"
@@ -24,11 +24,11 @@
                    id="revision-slider"
                    list="steplist"/>
             <output id="revision-info" class="whitespace-nowrap">
-                <b>{% trans "Version" %}:</b> <span id="revision-number"></span>
+                <b>{% translate "Version" %}:</b> <span id="revision-number"></span>
                 <br />
-                <b>{% trans "Author" %}:</b> <span id="revision-editor"></span>
+                <b>{% translate "Author" %}:</b> <span id="revision-editor"></span>
                 <br />
-                <b>{% trans "Date" %}:</b> <span id="revision-date"></span>
+                <b>{% translate "Date" %}:</b> <span id="revision-date"></span>
             </output>
             <datalist id="steplist" class="w-full flex font-mono">
                 {% for imprint_translation in imprint_translations reversed %}
@@ -43,29 +43,29 @@
                 {% endfor %}
             </datalist>
         </div>
-        {% trans "deleted account" as deleted_user_text %}
+        {% translate "deleted account" as deleted_user_text %}
         {% for imprint_translation in imprint_translations %}
             <div class="w-full hidden revision-wrapper"
                  id="revision-{{ imprint_translation.version }}"
                  data-date="{{ imprint_translation.last_updated }}"
                  data-editor="{% firstof imprint_translation.creator deleted_user_text %}">
-                <label class="inline-block mb-2 font-bold">{% trans "Status" %}:</label>
+                <label class="inline-block mb-2 font-bold">{% translate "Status" %}:</label>
                 {{ imprint_translation.get_status_display }}
                 {% if imprint_translation == api_revision %}
-                    ({% trans "This is the version shown in the apps." %})
+                    ({% translate "This is the version shown in the apps." %})
                 {% elif forloop.first %}
-                    ({% trans "This is <b>not</b> the version shown in the apps." %})
+                    ({% translate "This is <b>not</b> the version shown in the apps." %})
                 {% endif %}
                 <span class="float-right">
-                    <label class="inline-block mb-2 font-bold">{% trans "Author" %}:</label>
+                    <label class="inline-block mb-2 font-bold">{% translate "Author" %}:</label>
                     {% firstof imprint_translation.creator deleted_user_text %}
                 </span>
                 <div class="revision-plain hidden">
-                    <label>{% trans "Permalink" %}:</label>
+                    <label>{% translate "Permalink" %}:</label>
                     {{ imprint_translation.get_absolute_url }}
-                    <label>{% trans "Title" %}</label>
+                    <label>{% translate "Title" %}</label>
                     <h1>{{ imprint_translation.title }}</h1>
-                    <label>{% trans "Content" %}</label>
+                    <label>{% translate "Content" %}</label>
                     {{ imprint_translation.content|safe }}
                 </div>
                 <div class="revision-diff w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white"></div>
@@ -73,15 +73,15 @@
         {% endfor %}
         <div id="revision-0" class="hidden">
             <div class="revision-plain">
-                <label>{% trans "Permalink" %}:</label>
-                <label>{% trans "Title" %}</label>
-                <label>{% trans "Content" %}</label>
+                <label>{% translate "Permalink" %}:</label>
+                <label>{% translate "Title" %}</label>
+                <label>{% translate "Content" %}</label>
             </div>
         </div>
         {% if perms.cms.change_imprintpage %}
             <div class="w-full p-4 flex justify-end gap-4">
-                <button name="status" value="{{ DRAFT }}" class="btn btn-gray">{% trans "Restore this version as draft" %}</button>
-                <button name="status" value="{{ PUBLIC }}" class="btn">{% trans "Restore and publish this version" %}</button>
+                <button name="status" value="{{ DRAFT }}" class="btn btn-gray">{% translate "Restore this version as draft" %}</button>
+                <button name="status" value="{{ PUBLIC }}" class="btn">{% translate "Restore and publish this version" %}</button>
             </div>
         {% endif %}
     </form>

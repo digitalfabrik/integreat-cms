@@ -1,4 +1,4 @@
-import tinymce from "tinymce";
+import tinymce, { Editor } from "tinymce";
 
 import "tinymce/icons/default";
 
@@ -19,47 +19,40 @@ import "tinymce/plugins/preview";
 import "tinymce/plugins/wordcount";
 import "tinymce-i18n/langs/de.js";
 
-import { Editor } from "tinymce";
-
 import { autosaveEditor } from "./autosave";
 
-export function storeDraft() {
+export const storeDraft = () => {
     tinymce.activeEditor.plugins.autosave.storeDraft();
-}
+};
 
-function parseSvg(svgUrl: string): string {
-    return atob(svgUrl.replace("data:image/svg+xml;base64,", ""));
-}
+const parseSvg = (svgUrl: string): string => atob(svgUrl.replace("data:image/svg+xml;base64,", ""));
 
 /* This function adds an icon which can be inserted in the content */
-function addIcon(editor: Editor, tinymceConfig: HTMLElement, name: string): void {
+const addIcon = (editor: Editor, tinymceConfig: HTMLElement, name: string): void => {
+    /* eslint-disable-next-line @typescript-eslint/no-var-requires, global-require, import/no-dynamic-require */
     editor.ui.registry.addIcon(name, parseSvg(require(`../../svg/${name}.svg`)));
     editor.ui.registry.addMenuItem(name, {
         text: tinymceConfig.getAttribute(`data-${name}-icon-text`),
         icon: name,
         onAction: () => {
-            let src = tinymceConfig.getAttribute(`data-${name}-icon-src`);
+            const src = tinymceConfig.getAttribute(`data-${name}-icon-src`);
             editor.insertContent(`<img src="${src}" style="width:15px; height:15px">`);
         },
     });
-}
+};
 
 /* This function toggles the no-translate attribute of a selected text */
-function toggleNoTranslate(editor: Editor) {
+const toggleNoTranslate = (editor: Editor) => {
     editor.focus();
     const val = tinymce.activeEditor.dom.getAttrib(tinymce.activeEditor.selection.getNode(), "translate", "yes");
-    if (val == "no") {
+    if (val === "no") {
         tinymce.activeEditor.dom.setAttrib(tinymce.activeEditor.selection.getNode(), "translate", null);
     } else if (editor.selection.getContent().length > 0) {
-        editor.selection.setContent(
-            '<span class="notranslate" translate="no">' + editor.selection.getContent() + "</span>"
-        );
+        editor.selection.setContent(`<span class="notranslate" translate="no">${editor.selection.getContent()}</span>`);
     }
-}
+};
 
-export function getContent(): string {
-    return tinymce.activeEditor.getContent();
-}
+export const getContent = (): string => tinymce.activeEditor.getContent();
 
 /**
  * This file initializes the tinymce editor.
@@ -176,6 +169,7 @@ window.addEventListener("load", () => {
                 addIcon(editor, tinymceConfig, "clock");
                 addIcon(editor, tinymceConfig, "idea");
                 addIcon(editor, tinymceConfig, "group");
+                /* eslint-disable-next-line @typescript-eslint/no-var-requires, global-require */
                 editor.ui.registry.addIcon("no-translate", parseSvg(require(`../../svg/no-translate.svg`)));
                 editor.ui.registry.addButton("notranslate", {
                     tooltip: tinymceConfig.getAttribute("data-no-translate-tooltip"),
@@ -189,7 +183,7 @@ window.addEventListener("load", () => {
                 });
             },
             readonly: !!tinymceConfig.getAttribute("data-readonly"),
-            init_instance_callback: function (editor: Editor) {
+            init_instance_callback: (editor: Editor) => {
                 editor.on("StoreDraft", autosaveEditor);
                 // When the editor becomes dirty, send an input event, so that the unsaved warning can be shown
                 editor.on("dirty", () =>

@@ -1,10 +1,10 @@
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ..abstract_base_model import AbstractBaseModel
 from ...constants import postal_code
-from ...utils.translation_utils import ugettext_many_lazy as __
+from ...utils.translation_utils import gettext_many_lazy as __
 
 
 class OfferTemplate(AbstractBaseModel):

@@ -7,14 +7,14 @@ from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
 from ...constants import status
 from ...decorators import permission_required
 from ...forms import POIForm, POITranslationForm
 from ...models import POI, POITranslation, Language
-from ...utils.translation_utils import translate_link, ugettext_many_lazy as __
+from ...utils.translation_utils import translate_link, gettext_many_lazy as __
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
 from .poi_context_mixin import POIContextMixin
@@ -167,7 +167,7 @@ class POIFormView(
         else:
             # Save forms
             poi_translation_form.instance.poi = poi_form.save()
-            poi_translation_form.save()
+            poi_translation_form.save(foreign_form_changed=poi_form.has_changed())
             # If any source translation changes to draft, set all depending translations/versions to draft
             if poi_translation_form.instance.status == status.DRAFT:
                 language_tree_node = region.language_node_by_slug.get(language.slug)

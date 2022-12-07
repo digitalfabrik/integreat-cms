@@ -17,7 +17,8 @@ import UploadFile from "./component/upload-file";
 import { setSearchQueryEventListeners } from "../search-query";
 import { getCsrfToken } from "../utils/csrf-token";
 
-export interface LibraryProps {
+export type LibraryProps = {
+    /* eslint-disable-next-line react/no-unused-prop-types */
     path?: string;
     directoryId?: string;
     searchQuery?: string;
@@ -36,15 +37,16 @@ export interface LibraryProps {
     selectionMode?: boolean;
     onlyImage?: boolean;
     selectMedia?: (file: File) => any;
+    /* eslint-disable-next-line react/no-unused-prop-types */
     ajaxRequest: (
         url: string,
         urlParams: URLSearchParams,
         successCallback: (data: any) => void,
         errorCallback?: (data: any) => void
     ) => void;
-}
+};
 
-export default function Library({
+const Library = ({
     directoryId,
     searchQuery,
     loadingState,
@@ -62,13 +64,13 @@ export default function Library({
     onlyImage,
     showMessage,
     selectMedia,
-}: LibraryProps) {
+}: LibraryProps) => {
     // The directory path contains the current directory and all its parents
-    const [directoryPath, setDirectoryPath] = directoryPathState;
+    const [directoryPath, _setDirectoryPath] = directoryPathState;
     // The current directory is the last element of the directory path
     const directory = directoryPath[directoryPath.length - 1];
     // The directory content contains all subdirectories and files of the current directory
-    const [mediaLibraryContent, setMediaLibraryContent] = mediaLibraryContentState;
+    const [mediaLibraryContent, _setMediaLibraryContent] = mediaLibraryContentState;
     // The file index contains the index of the file which is currently opened in the sidebar
     const [fileIndex, setFileIndex] = fileIndexState;
     // This state is a semaphore to block actions while an ajax call is running
@@ -85,18 +87,19 @@ export default function Library({
     const [draggedItem, setDraggedItem] = useState<DraggedElement | null>(null);
 
     const moveIntoDirectory = async (targetDirectoryId: number) => {
-        let form = document.getElementById("media-move-form") as HTMLFormElement;
         (document.getElementById("parent_directory") as HTMLInputElement).value =
-            targetDirectoryId == 0 ? "" : targetDirectoryId.toString();
+            targetDirectoryId === 0 ? "" : targetDirectoryId.toString();
         (document.getElementById("media-move-btn") as HTMLInputElement).click();
     };
+
+    const HTTP_STATUS_OK = 200;
 
     // This submit function is used for all form submissions
     const submitForm = async (event: Event, successCallback?: (data: any) => void) => {
         event.preventDefault();
         setLoading(true);
         console.debug("Submitting form:", event.target);
-        let form = event.target as HTMLFormElement;
+        const form = event.target as HTMLFormElement;
 
         try {
             const response = await fetch(form.action, {
@@ -109,7 +112,7 @@ export default function Library({
             console.debug(response);
             const data = await response.json();
             console.debug(data);
-            if (response.status === 200) {
+            if (response.status === HTTP_STATUS_OK) {
                 console.debug("Form submission successful!");
                 if (typeof successCallback === "function") {
                     console.debug("Calling success callback...");
@@ -123,7 +126,7 @@ export default function Library({
             }
             if (data.messages) {
                 data.messages.forEach(showMessage);
-            } else if (response.status !== 200) {
+            } else if (response.status !== HTTP_STATUS_OK) {
                 showMessage({
                     type: "error",
                     text: mediaTranslations.text_error,
@@ -144,7 +147,7 @@ export default function Library({
         // Search for the sidebar file in the media library content
         if (sidebarFile) {
             console.debug("Changed file:", sidebarFile);
-            let index = mediaLibraryContent.findIndex((x) => x.id === sidebarFile.id && x.type !== "directory");
+            const index = mediaLibraryContent.findIndex((x) => x.id === sidebarFile.id && x.type !== "directory");
             if (index !== -1) {
                 console.debug(`Open changed file at index ${index} in the sidebar again after reload...`);
                 // Open file in the sidebar
@@ -158,13 +161,14 @@ export default function Library({
                 setSidebarFile(null);
             }
         }
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [mediaLibraryContent]);
 
     // Set the search query event listeners after a refresh
     useEffect(setSearchQueryEventListeners, [mediaLibraryContent]);
 
     return (
-        <div className={`flex flex-col flex-grow h-full overflow-hidden`}>
+        <div className="flex flex-col flex-grow h-full overflow-hidden">
             <h1 className="w-full heading p-2">{mediaTranslations.heading_media_library}</h1>
             <div className="flex flex-wrap justify-between gap-x-2 gap-y-4">
                 <div id="table-search" class="flex">
@@ -174,8 +178,7 @@ export default function Library({
                         method="POST"
                         encType="multipart/form-data"
                         onSubmit={submitForm}
-                        action={apiEndpoints.moveFile}
-                    >
+                        action={apiEndpoints.moveFile}>
                         <input name="mediafile_id" value={draggedItem?.id} />
                         <input name="parent_directory" id="parent_directory" />
                         <input id="media-move-btn" type="submit" />
@@ -193,8 +196,7 @@ export default function Library({
                             } else {
                                 route(`/search/${encodeURIComponent(searchInput.value)}`);
                             }
-                        }}
-                    >
+                        }}>
                         <input
                             id="table-search-input"
                             form="media-search-form"
@@ -206,18 +208,18 @@ export default function Library({
                             data-object-type="media"
                             data-archived="false"
                             value={searchQuery}
-                        ></input>
+                        />
                         <div
                             id="table-search-suggestions"
                             class="absolute hidden shadow rounded-b top-full bg-graz-200 w-full z-10 max-h-60 overflow-y-auto cursor-pointer"
-                        ></div>
+                        />
                     </form>
                     <button
                         id="search-submit-btn"
                         title={mediaTranslations.btn_search}
                         class="bg-blue-500 hover:bg-blue-600 text-white rounded-r py-2 px-3"
-                        form="media-search-form"
-                    >
+                        type="submit"
+                        form="media-search-form">
                         <Search className="w-5" />
                     </button>
                 </div>
@@ -226,16 +228,16 @@ export default function Library({
                         <button
                             title={mediaTranslations.btn_create_directory}
                             class="btn"
-                            onClick={() => setCreateDirectory(!isCreateDirectory)}
-                        >
+                            type="submit"
+                            onClick={() => setCreateDirectory(!isCreateDirectory)}>
                             <FolderPlus class="inline-block mr-2 h-5" />
                             {mediaTranslations.btn_create_directory}
                         </button>
                         <button
                             title={mediaTranslations.btn_upload_file}
                             class="btn"
-                            onClick={() => setUploadFile(!isUploadFile)}
-                        >
+                            type="submit"
+                            onClick={() => setUploadFile(!isUploadFile)}>
                             <FilePlus class="inline-block mr-2 h-5" />
                             {mediaTranslations.btn_upload_file}
                         </button>
@@ -273,7 +275,7 @@ export default function Library({
                     <div
                         className="absolute w-full h-full flex flex-col bg-white border border-blue-500 shadow-2xl rounded"
                         onClick={() => setFileIndex(null)}
-                    >
+                        onKeyDown={() => setFileIndex(null)}>
                         <div class="rounded w-full bg-water-500 font-bold">
                             <Breadcrumbs
                                 breadCrumbs={directoryPath}
@@ -335,4 +337,5 @@ export default function Library({
             </div>
         </div>
     );
-}
+};
+export default Library;

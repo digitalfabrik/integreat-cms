@@ -3,7 +3,7 @@ import deepl
 
 from django.conf import settings
 from django.contrib import messages
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.apps import apps
 
 logger = logging.getLogger(__name__)

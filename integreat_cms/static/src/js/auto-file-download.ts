@@ -1,7 +1,8 @@
 window.addEventListener("load", () => {
     document.querySelectorAll("[data-auto-download]").forEach((node) => {
-        setTimeout(function () {
+        const timeoutDuration = 500;
+        setTimeout(() => {
             (node as HTMLLinkElement).click();
-        }, 500);
+        }, timeoutDuration);
     });
 });

@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 from django.db import transaction
 
@@ -13,7 +13,7 @@ from ...constants import status, text_directions
 from ...decorators import permission_required
 from ...forms import PageForm, PageTranslationForm
 from ...models import PageTranslation
-from ...utils.translation_utils import translate_link, ugettext_many_lazy as __
+from ...utils.translation_utils import translate_link, gettext_many_lazy as __
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
 from .page_context_mixin import PageContextMixin
@@ -323,7 +323,7 @@ class PageFormView(
             ):
                 page_translation_form.instance.page = page_form.save()
             # Save page translation form
-            page_translation_form.save()
+            page_translation_form.save(foreign_form_changed=page_form.has_changed())
 
             # Show a message that the slug was changed if it was not unique
             if user_slug and user_slug != page_translation_form.cleaned_data["slug"]:

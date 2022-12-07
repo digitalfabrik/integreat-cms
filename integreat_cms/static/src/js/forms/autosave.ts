@@ -1,11 +1,14 @@
-import { getCsrfToken } from "../utils/csrf-token";
 import tinymce from "tinymce";
+import { getCsrfToken } from "../utils/csrf-token";
 
-export async function autosaveEditor() {
+export const autosaveEditor = async () => {
     const form = document.getElementById("content_form") as HTMLFormElement;
     tinymce.triggerSave();
-    let formData = new FormData(form);
-    formData.append("submit_auto", "true");
+    const formData = new FormData(form);
+    // Override status to "auto save"
+    formData.append("status", "AUTO_SAVE");
+    // Override minor edit field to keep translation status
+    formData.set("minor_edit", "on");
     const data = await fetch(form.action, {
         method: "POST",
         headers: {
@@ -20,4 +23,4 @@ export async function autosaveEditor() {
     document.querySelectorAll("[data-unsaved-warning]").forEach((element) => {
         element.dispatchEvent(new Event("autosave"));
     });
-}
+};

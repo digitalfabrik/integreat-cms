@@ -6,19 +6,19 @@
     <div class="flex items-center bg-water-500 w-full rounded h-12">
         <i icon-name="help-circle" class="text-black ml-2"></i>
         <h2 class="flex items-center font-semibold leading-normal pl-2 text-black text-xl">
-            {% trans "Introduction - Page Tree" %}
+            {% translate "Introduction - Page Tree" %}
         </h2>
     </div>
     <!-- Pop-Up Content -->
     <div class="px-4">
         <p class="mt-4 text-s max-w-fit text-gray-600">
-            {% trans "We merged 'All pages' and 'Tree View' into one single view. In this view you can do the following:" %}
+            {% translate "We merged 'All pages' and 'Tree View' into one single view. In this view you can do the following:" %}
         </p>
         <ul class="list-disc my-2 pl-5 text-s text-gray-600">
-            <li>{% trans "View the page hierarchy." %}</li>
-            <li>{% trans "Change the hierarchy with drag & drop." %}</li>
-            <li>{% trans "View the translation status." %}</li>
-            <li>{% trans "Open the page editor by clicking on a page." %}</li>
+            <li>{% translate "View the page hierarchy." %}</li>
+            <li>{% translate "Change the hierarchy with drag & drop." %}</li>
+            <li>{% translate "View the translation status." %}</li>
+            <li>{% translate "Open the page editor by clicking on a page." %}</li>
         </ul>
         {% get_current_language as LANGUAGE_CODE %}
         {% with "images/page_tree_tutorial_"|add:LANGUAGE_CODE|add:'.gif' as image_static %}

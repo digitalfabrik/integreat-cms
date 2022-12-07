@@ -32,33 +32,33 @@
                         {% endwith %}
                         {% if LANGUAGE_CODE != language.slug %}
                             {% if page.backend_translation %}
-                                ({% trans "Title in" %} {% translated_language_name LANGUAGE_CODE %}: "{{ page.backend_translation.title }}")
+                                ({% translate "Title in" %} {% translated_language_name LANGUAGE_CODE %}: "{{ page.backend_translation.title }}")
                             {% endif %}
                         {% endif %}
                     {% else %}
-                        {% trans "Create new translation" %}
+                        {% translate "Create new translation" %}
                     {% endif %}
                 {% else %}
-                    {% trans "Create new page" %}
+                    {% translate "Create new page" %}
                 {% endif %}
             </h1>
             {% if not page_form.instance.id or not page_form.instance.archived %}
                 <div class="flex flex-wrap grow justify-end gap-2">
                     <button name="preview_page" type="button" data-preview-page data-edit-page-mode data-right-to-left={{ right_to_left }} class="btn btn-gray">
-                        {% trans "Preview" %}
+                        {% translate "Preview" %}
                     </button>
                     {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
                     {% if can_publish_page %}
-                        <button name="status" value="{{ DRAFT }}" class="btn btn-gray">{% trans "Save as draft" %}</button>
+                        <button name="status" value="{{ DRAFT }}" class="btn btn-gray">{% translate "Save as draft" %}</button>
                         <button name="status" value="{{ PUBLIC }}" class="btn whitespace-nowrap">
                             {% if page_translation_form.instance.status == PUBLIC %}
-                                {% trans "Update" %}
+                                {% translate "Update" %}
                             {% else %}
-                                {% trans "Publish" %}
+                                {% translate "Publish" %}
                             {% endif %}
                         </button>
                     {% elif can_edit_page %}
-                        <button name="status" value="{{ REVIEW }}" class="btn">{% trans "Submit for review" %}</button>
+                        <button name="status" value="{{ REVIEW }}" class="btn">{% translate "Submit for review" %}</button>
                     {% endif %}
                 </div>
             {% endif %}
@@ -71,13 +71,13 @@
                         {% if page_translation_form.instance.currently_in_translation %}
                             <div id="currently-in-translation-warning">
                                 <i icon-name="alert-triangle" class="text-red-500"></i>
-                                <label class="inline-block mb-2 font-bold">{% trans "Warning" %}:</label>
-                                {% trans "Translation in progress" %}
+                                <label class="inline-block mb-2 font-bold">{% translate "Warning" %}:</label>
+                                {% translate "Translation in progress" %}
                                 (<a href="#"
    data-cancel-translation-process
    data-url="{% url 'cancel_translation_process_ajax' region_slug=request.region.slug language_slug=page_translation_form.instance.language.slug page_id=page.id %}"
    id="cancel-translation"
-   class="text-blue-500 hover:underline">{% trans "Cancel translation process" %}</a>)
+   class="text-blue-500 hover:underline">{% translate "Cancel translation process" %}</a>)
                                 <br />
                             </div>
                         {% endif %}
@@ -88,18 +88,18 @@
                             </label>
                             {% if page_translation_form.instance.id %}
                                 <div class="grid grid-cols-2 text-right">
-                                    <div class="font-bold pr-2">{% trans "Version" %}:</div>
+                                    <div class="font-bold pr-2">{% translate "Version" %}:</div>
                                     <div>
                                         {{ page_translation_form.instance.version }}
                                         (<a href="{% url 'page_revisions' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
-   class="text-blue-500 hover:underline">{% trans "Show" %}</a>)
+   class="text-blue-500 hover:underline">{% translate "Show" %}</a>)
                                     </div>
-                                    <div class="font-bold pr-2">{% trans "Status" %}:</div>
+                                    <div class="font-bold pr-2">{% translate "Publication status" %}:</div>
                                     <div>
                                         {% if page.explicitly_archived %}
-                                            {% trans "Archived" %}
+                                            {% translate "Archived" %}
                                         {% elif page.implicitly_archived %}
-                                            {% trans "Archived, because a parent page is archived" %}
+                                            {% translate "Archived, because a parent page is archived" %}
                                         {% else %}
                                             {{ page_translation_form.instance.get_status_display }}
                                         {% endif %}
@@ -111,14 +111,14 @@
                         {% if page_translation_form.instance.id %}
                             {% if request.region.short_urls_enabled and request.user.expert_mode %}
                                 <div class="flex items-center">
-                                    <label class="inline-block mr-2">{% trans "Short URL" %}:</label>
+                                    <label class="inline-block mr-2">{% translate "Short URL" %}:</label>
                                     <a href="{{ page_translation_form.instance.short_url }}"
                                        target="_blank"
                                        rel="noopener noreferrer"
                                        class="text-blue-500 hover:underline">{{ page_translation_form.instance.short_url }}</a>
                                     <a href="#"
                                        data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}"
-                                       title="{% trans "Copy to clipboard" %}"
+                                       title="{% translate "Copy to clipboard" %}"
                                        class="mx-2 text-gray-800 hover:text-blue-500">
                                         <i icon-name="copy"></i>
                                         <i icon-name="check" class="hidden text-green-500"></i>
@@ -134,12 +134,14 @@
                             <a id="slug-link"
                                href="{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}"
                                class="text-blue-500 hover:underline">{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}</a>
-                            <a id="edit-slug-btn" title="{% trans "Edit" %}" class="mx-2 btn-icon">
+                            <a id="edit-slug-btn"
+                               title="{% translate "Edit" %}"
+                               class="mx-2 btn-icon">
                                 <i icon-name="edit-3"></i>
                             </a>
                             <a id="copy-slug-btn"
                                data-copy-to-clipboard="{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}"
-                               title="{% trans "Copy to clipboard" %}"
+                               title="{% translate "Copy to clipboard" %}"
                                class="btn-icon">
                                 <i icon-name="copy"></i>
                                 <i icon-name="check" class="hidden text-green-500"></i>
@@ -169,7 +171,7 @@
                         <div class="rounded p-4 bg-water-500">
                             <h3 class="heading font-bold text-black">
                                 <i icon-name="feather" class="pb-1"></i>
-                                {% trans "Minor edit" %}
+                                {% translate "Minor edit" %}
                             </h3>
                         </div>
                         <div class="w-full px-4 pb-4 rounded shadow bg-white">
@@ -187,7 +189,7 @@
                     <div class="rounded p-4 bg-water-500">
                         <h3 class="heading font-bold text-black">
                             <i icon-name="settings" class="pb-1"></i>
-                            {% trans "Settings of the page" %}
+                            {% translate "Settings of the page" %}
                         </h3>
                     </div>
                     <div class="w-full px-4 pb-4 rounded shadow bg-white">
@@ -196,16 +198,16 @@
                             {% render_field page_form.icon label=page_form.icon.label %}
                         </div>
                         <div>
-                            <label>{% trans "Positioning" %}</label>
+                            <label>{% translate "Positioning" %}</label>
                             <label for="{{ page_form.parent.id_for_label }}" class="secondary">{{ page_form.parent.label }}</label>
                             {% render_field page_form|get_private_member:"ref_node_id" %}
                             {% render_field page_form|get_private_member:"position" %}
                             {% render_field page_form.parent id="parent" %}
-                            <label class="btn-gray">{% trans "Order" %}</label>
+                            <label class="btn-gray">{% translate "Order" %}</label>
                             <div id="page_order_table" class="mb-4">{% include "pages/_page_order_table.html" %}</div>
                         </div>
                         <div {% if not request.user.expert_mode %}hidden{% endif %}>
-                            <label for="mirrored_page_region">{% trans "Embed live content" %}</label>
+                            <label for="mirrored_page_region">{% translate "Embed live content" %}</label>
                             {% render_field page_form.mirrored_page_region id="mirrored_page_region" %}
                             <div class="relative my-2 {% if not page.mirrored_page %} hidden{% endif %}"
                                  id="mirrored_page_div"
@@ -230,12 +232,12 @@
                                     <div class="flex my-2">
                                         {% render_field page_form.api_token|add_error_class:"border-red-500" class+="flex-grow text-ellipsis pointer-events-none !rounded-none !rounded-l" %}
                                         <button id="copy-api-token"
-                                                title="{% trans "Copy to clipboard" %}"
+                                                title="{% translate "Copy to clipboard" %}"
                                                 class="bg-blue-500 hover:bg-blue-600 text-white px-3 rounded-r">
                                             <i icon-name="copy" class="w-5 align-bottom"></i>
                                         </button>
                                         <button id="copy-api-token-success"
-                                                title="{% trans "Access token was successfully copied to clipboard" %}"
+                                                title="{% translate "Access token was successfully copied to clipboard" %}"
                                                 class="bg-green-500 text-white px-3 rounded-r hidden"
                                                 disabled>
                                             <i icon-name="check-circle" class="w-5 align-middle"></i>
@@ -249,10 +251,10 @@
                             {% if perms.cms.grant_page_permissions and request.region.page_permissions_enabled %}
                                 <div>
                                     <label>
-                                        {% trans "Additional permissions for this page" %}
+                                        {% translate "Additional permissions for this page" %}
                                     </label>
                                     <p class="italic">
-                                        {% trans "This affects only users, who don't have the permission to change arbitrary pages anyway." %}
+                                        {% translate "This affects only users, who don't have the permission to change arbitrary pages anyway." %}
                                     </p>
                                     <div id="page_permission_table">
                                         {% include "pages/_page_permission_table.html" %}
@@ -281,37 +283,37 @@
                             <div class="rounded p-4 bg-water-500">
                                 <h3 class="heading font-bold text-black">
                                     <i icon-name="wrench" class="pb-1"></i>
-                                    {% trans "Actions" %}
+                                    {% translate "Actions" %}
                                 </h3>
                             </div>
                             <div class="w-full px-4 pb-4 rounded shadow bg-white">
                                 {% if page_form.instance.id and can_edit_page and not page.archived %}
                                     <label>
-                                        {% trans "Refresh date" %}
+                                        {% translate "Refresh date" %}
                                     </label>
-                                    <button title="{% trans "Mark this page as up-to-date" %}"
+                                    <button title="{% translate "Mark this page as up-to-date" %}"
                                             form="refresh_date_form"
                                             name="refresh_page"
                                             class="btn text-center w-full">
                                         <i icon-name="check-circle" class="mr-2"></i>
-                                        {% trans "Mark this page as up-to-date" %}
+                                        {% translate "Mark this page as up-to-date" %}
                                     </button>
                                 {% endif %}
                                 {% if page.explicitly_archived %}
                                     <label>
-                                        {% trans "Restore page" %}
+                                        {% translate "Restore page" %}
                                     </label>
-                                    <button title="{% trans "Restore page" %}"
+                                    <button title="{% translate "Restore page" %}"
                                             class="btn confirmation-button w-full"
                                             data-confirmation-title="{{ restore_dialog_title }}"
                                             data-confirmation-text="{{ restore_dialog_text }}"
                                             data-confirmation-subject="{{ page_translation_form.instance.title }}"
                                             data-action="{% url 'restore_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-                                        <i icon-name="refresh-ccw" class="mr-2"></i> {% trans "Restore this page" %}
+                                        <i icon-name="refresh-ccw" class="mr-2"></i> {% translate "Restore this page" %}
                                     </button>
                                 {% elif page.implicitly_archived %}
                                     <label>
-                                        {% trans "Restore page" %}
+                                        {% translate "Restore page" %}
                                     </label>
                                     <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
                                          role="alert">
@@ -331,28 +333,28 @@
                                     {% endfor %}
                                 {% else %}
                                     <label>
-                                        {% trans "Archive page" %}
+                                        {% translate "Archive page" %}
                                     </label>
-                                    <button title="{% trans "Archive page" %}"
+                                    <button title="{% translate "Archive page" %}"
                                             class="btn confirmation-button w-full"
                                             data-confirmation-title="{{ archive_dialog_title }}"
                                             data-confirmation-text="{{ archive_dialog_text }}"
                                             data-confirmation-subject="{{ page_translation_form.instance.title }}"
                                             data-action="{% url 'archive_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
                                         <i icon-name="archive" class="mr-2"></i>
-                                        {% trans "Archive this page" %}
+                                        {% translate "Archive this page" %}
                                     </button>
                                 {% endif %}
                                 {% if perms.cms.delete_page %}
                                     <label>
-                                        {% trans "Delete page" %}
+                                        {% translate "Delete page" %}
                                     </label>
                                     {% if not page.is_leaf %}
                                         {% with page.get_descendants.prefetch_translations as descendants %}
                                             <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
                                                  role="alert">
                                                 <p>
-                                                    {% trans "You cannot delete a page which has subpages." %}
+                                                    {% translate "You cannot delete a page which has subpages." %}
                                                     <br />
                                                     {% blocktrans count counter=descendants|length trimmed %}
                                                 To delete this page, you have to delete or move its subpage first:
@@ -373,7 +375,7 @@
                                             <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-2"
                                                  role="alert">
                                                 <p>
-                                                    {% trans "This page cannot be deleted because it was embedded as live content from another page." %}
+                                                    {% translate "This page cannot be deleted because it was embedded as live content from another page." %}
                                                 </p>
                                             </div>
                                             <p>
@@ -405,14 +407,14 @@
                                             {% endfor %}
                                         {% endwith %}
                                     {% else %}
-                                        <button title="{% trans "Delete page" %}"
+                                        <button title="{% translate "Delete page" %}"
                                                 class="btn confirmation-button btn-red w-full"
                                                 data-confirmation-title="{{ delete_dialog_title }}"
                                                 data-confirmation-text="{{ delete_dialog_text }}"
                                                 data-confirmation-subject="{{ page_translation_form.instance.title }}"
                                                 data-action="{% url 'delete_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
                                             <i icon-name="trash-2" class="mr-2"></i>
-                                            {% trans "Delete this page" %}
+                                            {% translate "Delete this page" %}
                                         </button>
                                     {% endif %}
                                 {% endif %}
@@ -423,12 +425,12 @@
                         <div class="rounded p-4 bg-water-500">
                             <h3 class="heading font-bold text-black">
                                 <i icon-name="columns" class="pb-1"></i>
-                                {% trans "Translator view" %}
+                                {% translate "Translator view" %}
                             </h3>
                         </div>
                         <div class="w-full px-4 pb-4 rounded shadow bg-white flex flex-col">
                             <label for="side-by-side-select">
-                                {% trans "Direction of translation" %}
+                                {% translate "Direction of translation" %}
                             </label>
                             <select id="side-by-side-select">
                                 <option value="">
@@ -443,7 +445,7 @@
                             </select>
                             <a id="side-by-side-link" class="btn mt-4" disabled="disabled">
                                 <i icon-name="external-link"></i>
-                                {% trans "Show translator view" %}
+                                {% translate "Show translator view" %}
                             </a>
                         </div>
                     </div>

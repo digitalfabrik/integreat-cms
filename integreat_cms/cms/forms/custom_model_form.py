@@ -4,7 +4,7 @@ from django import forms
 from django.contrib import messages
 from django.core.exceptions import FieldDoesNotExist
 from django.utils import translation
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.utils.text import capfirst
 
 from ..utils.text_utils import lowfirst
@@ -50,6 +50,8 @@ class CustomModelForm(forms.ModelForm):
             attributes.append("data")
         if self.files:
             attributes.append("files")
+        if self.initial:
+            attributes.append("initial")
         if self.instance.id:
             attributes.append("instance")
 

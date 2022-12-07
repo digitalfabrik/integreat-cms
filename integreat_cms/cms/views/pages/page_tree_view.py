@@ -2,15 +2,18 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext as _
+from django.utils.html import format_html, format_html_join
+from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
 from ...decorators import permission_required
 from ...forms import PageFilterForm
 from ..mixins import SummAiContextMixin
 from .page_context_mixin import PageContextMixin
+from ...models import Page
 
 logger = logging.getLogger(__name__)
 
@@ -70,7 +73,7 @@ class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
                 **{
                     "region_slug": region.slug,
                     "language_slug": region.default_language.slug,
-                }
+                },
             )
         else:
             messages.error(
@@ -81,13 +84,40 @@ class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
                 "language_tree",
                 **{
                     "region_slug": region.slug,
-                }
+                },
             )
 
         if not request.user.has_perm("cms.change_page"):
-            messages.warning(
-                request, _("You don't have the permission to edit or create pages.")
-            )
+            access_granted_pages = Page.objects.filter(
+                Q(editors=request.user) | Q(publishers=request.user)
+            ).filter(region=request.region)
+            if request.user.organization:
+                access_granted_pages = access_granted_pages.union(
+                    Page.objects.filter(organization=request.user.organization)
+                )
+            if len(access_granted_pages) > 0:
+                messages.info(
+                    request,
+                    format_html(
+                        "{}<ul class='list-disc pl-4'>{}</ul>",
+                        _("You can edit only those pages: "),
+                        format_html_join(
+                            "\n",
+                            "<li><a href='{}' class='underline hover:no-underline'>{}</a></li>",
+                            [
+                                (
+                                    page.best_translation.backend_edit_link,
+                                    page.best_translation.title,
+                                )
+                                for page in access_granted_pages
+                            ],
+                        ),
+                    ),
+                )
+            else:
+                messages.warning(
+                    request, _("You don't have the permission to edit or create pages.")
+                )
 
         # Initialize page filter form
         filter_form = PageFilterForm(data=request.GET)

@@ -9,13 +9,13 @@ from django.http import Http404
 from django.utils import timezone as django_timezone
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
-from django.utils.translation import override, ugettext, ugettext_lazy as _
+from django.utils.translation import override, gettext, gettext_lazy as _
 from django.conf import settings
 
 
 from ....nominatim_api.utils import BoundingBox
 from ...constants import region_status, administrative_division
-from ...utils.translation_utils import ugettext_many_lazy as __
+from ...utils.translation_utils import gettext_many_lazy as __
 from ....matomo_api.matomo_api_client import MatomoApiClient
 from ..abstract_base_model import AbstractBaseModel
 from ..offers.offer_template import OfferTemplate
@@ -709,10 +709,10 @@ class Region(AbstractBaseModel):
         label = escape(self.full_name)
         if self.status == region_status.HIDDEN:
             # Add warning if region is hidden
-            label += " (&#9888; " + ugettext("Hidden") + ")"
+            label += " (&#9888; " + gettext("Hidden") + ")"
         elif self.status == region_status.ARCHIVED:
             # Add warning if region is archived
-            label += " (&#9888; " + ugettext("Archived") + ")"
+            label += " (&#9888; " + gettext("Archived") + ")"
         # mark as safe so that the warning triangle is not escaped
         return mark_safe(label)
 

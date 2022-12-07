@@ -16,9 +16,83 @@ import { getCsrfToken } from "../utils/csrf-token";
 // See https://www.chartjs.org/docs/latest/getting-started/integration.html#bundlers-webpack-rollup-etc for details
 Chart.register(DoughnutController, ArcElement, CategoryScale, LinearScale, Tooltip, Title);
 
+const updateChart = (chart: Chart, value: number) => {
+    const hixMaxValue = 20;
+    const hixThresholdGood = 15;
+    const hixThresholdOk = 7;
+
+    chart.data.datasets.forEach((dataset) => {
+        // Set new data
+        /* eslint-disable-next-line no-param-reassign */
+        dataset.data = [value, hixMaxValue - value];
+
+        // Set color based on HIX value
+        let backgroundColor;
+        if (value > hixThresholdGood) {
+            backgroundColor = "rgb(74, 222, 128)";
+        } else if (value > hixThresholdOk) {
+            backgroundColor = "rgb(250, 204, 21)";
+        } else {
+            backgroundColor = "rgb(239, 68, 68)";
+        }
+        /* eslint-disable-next-line no-param-reassign */
+        dataset.backgroundColor = [backgroundColor, "rgb(220, 220, 220)"];
+    });
+    // Set Title to current HIX value
+    const roundedHixValue = (Math.round(value * 100) / 100).toString();
+    /* eslint-disable-next-line no-param-reassign */
+    chart.options.plugins.title.text = ["HIX", roundedHixValue];
+    chart.update();
+};
+
+/* Show a label based on a state defined in hix_widget.html.
+ * States are "updated", "outdated", "no-content" and "error" */
+const setHixLabelState = (state: string) => {
+    document.querySelectorAll("[data-hix-state]").forEach((element) => {
+        if (element.getAttribute("data-hix-state") === state) {
+            element.classList.remove("hidden");
+        } else {
+            element.classList.add("hidden");
+        }
+    });
+
+    // Hide the canvas if an error occurred
+    if (state === "error" || state === "no-content") {
+        document.getElementById("hix-container").classList.add("hidden");
+    } else if (state === "updated") {
+        document.getElementById("hix-container").classList.remove("hidden");
+    }
+};
+
+const getHixValue = async (url: string) => {
+    let result;
+    await fetch(url, {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": getCsrfToken(),
+        },
+        body: JSON.stringify({
+            text: getContent(),
+        }),
+    })
+        .then((response) => {
+            // Hide loading spinner
+            document.getElementById("hix-loading")?.classList.add("hidden");
+            return response.json();
+        })
+        .then((json) => {
+            const labelState = json.error ? "error" : "updated";
+            setHixLabelState(labelState);
+            result = json.score;
+        });
+    return result;
+};
+
 window.addEventListener("load", async () => {
     // If the page has no diagram, do nothing
-    if (!document.getElementById("hix-chart")) return;
+    if (!document.getElementById("hix-chart")) {
+        return;
+    }
 
     document.getElementById("hix-loading")?.classList.remove("hidden");
 
@@ -81,8 +155,9 @@ window.addEventListener("load", async () => {
     });
 
     // Delay the first request, so that tinyMCE can be initialized first
+    const initialDelyLength = 1000;
     setTimeout(async () => {
-        let updateButton = document.getElementById("btn-update-hix-value") as HTMLSelectElement;
+        const updateButton = document.getElementById("btn-update-hix-value") as HTMLSelectElement;
         if (!getContent().trim()) {
             updateButton.disabled = true;
             setHixLabelState("no-content");
@@ -90,65 +165,5 @@ window.addEventListener("load", async () => {
         } else {
             updateChart(chart, await getHixValue(updateButton.dataset.url));
         }
-    }, 1000);
+    }, initialDelyLength);
 });
-
-function updateChart(chart: Chart, value: number) {
-    const hixMaxValue = 20;
-
-    chart.data.datasets.forEach((dataset) => {
-        // Set new data
-        dataset.data = [value, hixMaxValue - value];
-
-        // Set color based on HIX value
-        let backgroundColor;
-        if (value > 15) backgroundColor = "rgb(74, 222, 128)";
-        else if (value > 7) backgroundColor = "rgb(250, 204, 21)";
-        else backgroundColor = "rgb(239, 68, 68)";
-        dataset.backgroundColor = [backgroundColor, "rgb(220, 220, 220)"];
-    });
-    // Set Title to current HIX value
-    const roundedHixValue = (Math.round(value * 100) / 100).toString();
-    chart.options.plugins.title.text = ["HIX", roundedHixValue];
-    chart.update();
-}
-
-async function getHixValue(url: string) {
-    let result;
-    await fetch(url, {
-        method: "POST",
-        headers: {
-            "X-CSRFToken": getCsrfToken(),
-        },
-        body: JSON.stringify({
-            text: getContent(),
-        }),
-    })
-        .then((response) => {
-            // Hide loading spinner
-            document.getElementById("hix-loading")?.classList.add("hidden");
-            return response.json();
-        })
-        .then((json) => {
-            const labelState = json.error ? "error" : "updated";
-            setHixLabelState(labelState);
-            result = json.score;
-        });
-    return result;
-}
-
-/* Show a label based on a state defined in hix_widget.html.
- * States are "updated", "outdated", "no-content" and "error" */
-function setHixLabelState(state: String) {
-    document.querySelectorAll("[data-hix-state]").forEach((element) => {
-        if (element.getAttribute("data-hix-state") === state) {
-            element.classList.remove("hidden");
-        } else {
-            element.classList.add("hidden");
-        }
-    });
-
-    // Hide the canvas if an error occurred
-    if (state === "error" || state === "no-content") document.getElementById("hix-container").classList.add("hidden");
-    else if (state === "updated") document.getElementById("hix-container").classList.remove("hidden");
-}

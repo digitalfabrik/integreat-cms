@@ -4,17 +4,18 @@ import { transformAssertionForServer, transformCredentialRequestOptions } from "
 // Based on https://github.com/duo-labs/py_webauthn/blob/master/flask_demo/static/js/webauthn.js
 window.addEventListener("load", async () => {
     const assertUrlData = document.querySelector("[data-mfa-login]");
+    const timeoutDuration = 2000;
     if (!assertUrlData) {
         return;
     }
     try {
-        const webauthn_assert = await (await fetch(assertUrlData.getAttribute("data-mfa-login-assert-url"))).json();
+        const webauthnAssert = await (await fetch(assertUrlData.getAttribute("data-mfa-login-assert-url"))).json();
 
-        const transformedCredentialRequestOptions = transformCredentialRequestOptions(webauthn_assert);
+        const transformedCredentialRequestOptions = transformCredentialRequestOptions(webauthnAssert);
 
         // request the authenticator to create an assertion signature using the
         // credential private key
-        let assertion = (await navigator.credentials.get({
+        const assertion = (await navigator.credentials.get({
             publicKey: transformedCredentialRequestOptions,
         })) as PublicKeyCredential;
 
@@ -32,14 +33,18 @@ window.addEventListener("load", async () => {
         });
         const data = await result.json();
         if (data.success) {
-            location.href = "/";
+            window.location.href = "/";
         } else {
             document.querySelector(".auth-error").classList.remove("hidden");
-            setTimeout(() => (location.href = "/"), 2000);
+            setTimeout(() => {
+                window.location.href = "/";
+            }, timeoutDuration);
         }
     } catch (e) {
         console.error(e);
         document.querySelector(".auth-error").classList.remove("hidden");
-        setTimeout(() => (location.href = "/"), 2000);
+        setTimeout(() => {
+            window.location.href = "/";
+        }, timeoutDuration);
     }
 });

@@ -2,7 +2,7 @@
 This module contains all possible positions inside a MPTT tree model.
 It is used to determine the relative position of nodes in relation to another node.
 """
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 #: First child of node

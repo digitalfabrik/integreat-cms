@@ -1,23 +1,20 @@
-export interface LinkcheckStats {
+export type LinkcheckStats = {
     number_invalid_urls: number;
     number_valid_urls: number;
     number_ignored_urls: number;
     number_unchecked_urls: number;
     number_all_urls: number;
-}
-
-window.addEventListener("load", async () => {
-    // Initialize stats data
-    await loadLinkcheckStats();
-});
+};
 
 /*
  * This function inserts the linkcheck stats into the widget
  */
-async function loadLinkcheckStats(): Promise<void> {
+const loadLinkcheckStats = async (): Promise<void> => {
     // If the page has no table, do nothing
     const linkcheckTable = document.getElementById("linkcheck-stats");
-    if (!linkcheckTable) return;
+    if (!linkcheckTable) {
+        return;
+    }
 
     // Get HTML elements
     const statsNetworkError = document.getElementById("stats-network-error");
@@ -37,9 +34,10 @@ async function loadLinkcheckStats(): Promise<void> {
     try {
         const response = await fetch(url);
 
-        if (response.status === 200) {
+        const HTTP_STATUS_OK = 200;
+        if (response.status === HTTP_STATUS_OK) {
             // The response text contains the data from Matomo as JSON.
-            let stats = (await response.json()) as LinkcheckStats;
+            const stats = (await response.json()) as LinkcheckStats;
             document.getElementById("number_invalid_urls").textContent = stats.number_invalid_urls.toString();
             document.getElementById("number_valid_urls").textContent = stats.number_valid_urls.toString();
             document.getElementById("number_ignored_urls").textContent = stats.number_ignored_urls.toString();
@@ -49,7 +47,7 @@ async function loadLinkcheckStats(): Promise<void> {
             linkcheckTable.classList.remove("hidden");
         } else {
             // Server error - CMS server down/malfunctioning
-            console.error("Server Error:", await response.headers);
+            console.error("Server Error:", response.headers);
             statsServerError.classList.remove("hidden");
         }
     } catch (error) {
@@ -60,4 +58,9 @@ async function loadLinkcheckStats(): Promise<void> {
         // Hide loading icon
         statsLoading.classList.add("hidden");
     }
-}
+};
+
+window.addEventListener("load", async () => {
+    // Initialize stats data
+    await loadLinkcheckStats();
+});

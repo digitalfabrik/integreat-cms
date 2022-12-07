@@ -1,10 +1,10 @@
 import logging
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin
 
 from ...constants import translation_status
-from ...utils.translation_utils import ugettext_many_lazy as __
+from ...utils.translation_utils import gettext_many_lazy as __
 
 logger = logging.getLogger(__name__)
 

@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
 
@@ -71,17 +71,6 @@ class EventFormView(
         recurrence_rule_instance = RecurrenceRule.objects.filter(
             event=event_instance
         ).first()
-        if event_instance:
-            poi_instance = event_instance.location
-            initial = {
-                "start_date": event_instance.start_local.date(),
-                "start_time": event_instance.start_local.time(),
-                "end_date": event_instance.end_local.date(),
-                "end_time": event_instance.end_local.time(),
-            }
-        else:
-            poi_instance = None
-            initial = {}
         # Make form disabled if event is archived or user doesn't have the permission to edit the event
         if event_instance and event_instance.archived:
             disabled = True
@@ -105,7 +94,6 @@ class EventFormView(
             )
 
         event_form = EventForm(
-            initial=initial,
             instance=event_instance,
             disabled=disabled,
         )
@@ -124,7 +112,7 @@ class EventFormView(
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
                 "recurrence_rule_form": recurrence_rule_form,
-                "poi": poi_instance,
+                "poi": event_instance.location if event_instance else None,
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],
                 "url_link": url_link,
@@ -227,7 +215,11 @@ class EventFormView(
             # Save event from event form
             event = event_form.save()
             event_translation_form.instance.event = event
-            event_translation_form.save()
+            event_translation_form.save(
+                foreign_form_changed=(
+                    event_form.has_changed() or recurrence_rule_form.has_changed()
+                )
+            )
             # If any source translation changes to draft, set all depending translations/versions to draft
             if event_translation_form.instance.status == status.DRAFT:
                 language_tree_node = region.language_node_by_slug.get(language.slug)

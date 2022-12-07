@@ -6,14 +6,17 @@ Chart.register(BarElement, BarController, CategoryScale, LinearScale, Legend, To
 
 window.addEventListener("load", async () => {
     // If the page has no diagram, do nothing
-    if (!document.getElementById("translation_coverage_chart")) return;
+    if (!document.getElementById("translation_coverage_chart")) {
+        return;
+    }
 
-    const json_data: ChartData = JSON.parse(document.getElementById("chart_data").textContent);
+    const JsonData: ChartData = JSON.parse(document.getElementById("chart_data").textContent);
     const chart: HTMLElement = document.getElementById("translation_coverage_chart");
 
+    /* eslint-disable-next-line no-new */
     new Chart("translation_coverage_chart", {
         type: "bar",
-        data: json_data,
+        data: JsonData,
         options: {
             indexAxis: "y",
             responsive: true,

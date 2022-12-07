@@ -12,7 +12,7 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.http import Http404, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 from django.db import transaction
 
@@ -323,7 +323,7 @@ def cancel_translation_process_ajax(request, region_slug, language_slug, page_id
             status=404,
         )
     page_translation.currently_in_translation = False
-    page_translation.save()
+    page_translation.save(update_timestamp=False)
     # Get new (respectively old) translation state
     translation_state = page.get_translation_state(language_slug)
     return JsonResponse(

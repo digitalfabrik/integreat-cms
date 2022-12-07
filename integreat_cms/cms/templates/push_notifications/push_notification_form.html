@@ -13,15 +13,15 @@
                             {% blocktrans %}Edit news message "{{ push_notification_title }}"{% endblocktrans %}
                         {% endwith %}
                     {% else %}
-                        {% trans "Create news message" %}
+                        {% translate "Create news message" %}
                     {% endif %}
                 </h1>
                 <div class="flex flex-wrap gap-4 ml-auto mr-0">
                     {% if perms.cms.change_pushnotification %}
-                        <button name="submit_save" class="btn btn-gray">{% trans "Save" %}</button>
+                        <button name="submit_save" class="btn btn-gray">{% translate "Save" %}</button>
                     {% endif %}
                     {% if perms.cms.send_push_notification and not push_notification_form.instance.sent_date %}
-                        <button name="submit_send" class="btn">{% trans "Save & Send" %}</button>
+                        <button name="submit_send" class="btn">{% translate "Save & Send" %}</button>
                     {% endif %}
                 </div>
             </div>
@@ -55,7 +55,7 @@
                                     </label>
                                     {% if push_notification_form.instance.sent_date and push_notification_translation_form.instance.id %}
                                         <div class="text-right py-2">
-                                            <span class="text-lg font-bold">{% trans "Link" %}:</span>
+                                            <span class="text-lg font-bold">{% translate "Link" %}:</span>
                                             <a href="{{ WEBAPP_URL }}{{ push_notification_translation_form.instance.get_absolute_url }}"
                                                class="text-blue-500 hover:underline"
                                                target="_blank"
@@ -90,7 +90,7 @@
                     <div class="rounded p-4 bg-water-500">
                         <h3 class="heading font-bold text-black">
                             <i icon-name="settings" class="pb-1"></i>
-                            {% trans "Settings" %}
+                            {% translate "Settings" %}
                         </h3>
                     </div>
                     <div class="px-4 pb-4 rounded bg-white">
@@ -105,17 +105,17 @@
                         <div class="rounded p-4 bg-water-500">
                             <h3 class="heading font-bold text-black">
                                 <i icon-name="settings" class="pb-1"></i>
-                                {% trans "Status" %}
+                                {% translate "Status" %}
                             </h3>
                         </div>
                         <div class="px-4 pb-4 rounded bg-white">
-                            <label>{% trans "Sent" %}</label>
+                            <label>{% translate "Sent" %}</label>
                             {% if push_notification_form.instance.sent_date %}
                                 <i icon-name="check" class="text-green-500 align-text-top"></i>
                                 {{ push_notification_form.instance.sent_date }}
                             {% else %}
                                 <i icon-name="x" class="text-red-500 align-text-top"></i>
-                                {% trans "Message not sent yet" %}
+                                {% translate "Message not sent yet" %}
                             {% endif %}
                         </div>
                     </div>

@@ -3,7 +3,7 @@ import zoneinfo
 from datetime import time, timedelta, datetime
 
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ...models import Event
 from ..custom_model_form import CustomModelForm
@@ -95,7 +95,11 @@ class EventForm(CustomModelForm):
         self.fields["start"].required = False
         self.fields["end"].required = False
         if self.instance.id:
-            # Initialize BooleanFields based on Event properties
+            # Initialize non-model fields based on event
+            self.fields["start_date"].initial = self.instance.start_local.date()
+            self.fields["start_time"].initial = self.instance.start_local.time()
+            self.fields["end_date"].initial = self.instance.end_local.date()
+            self.fields["end_time"].initial = self.instance.end_local.time()
             self.fields["is_all_day"].initial = self.instance.is_all_day
             self.fields["is_recurring"].initial = self.instance.is_recurring
             self.fields["has_not_location"].initial = not self.instance.has_location
@@ -188,5 +192,9 @@ class EventForm(CustomModelForm):
                 cleaned_data["end_date"],
                 cleaned_data["end_time"],
             ).replace(tzinfo=tzinfo)
+            # Also update data to fix the change detection
+            self.data = self.data.copy()
+            self.data["start"] = cleaned_data["start"]
+            self.data["end"] = cleaned_data["end"]
         logger.debug("EventForm validated [2] with cleaned data %r", cleaned_data)
         return cleaned_data

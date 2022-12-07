@@ -1,5 +1,3 @@
 import { getCookie } from "./cookies";
 
-export function getCsrfToken(): string {
-    return getCookie("csrftoken");
-}
+export const getCsrfToken = (): string => getCookie("csrftoken");

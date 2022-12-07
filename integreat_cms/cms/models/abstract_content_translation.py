@@ -3,12 +3,12 @@ from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .languages.language import Language
 from .abstract_base_model import AbstractBaseModel
 from ..constants import status, translation_status
-from ..utils.translation_utils import ugettext_many_lazy as __
+from ..utils.translation_utils import gettext_many_lazy as __
 
 
 # pylint: disable=too-many-public-methods
@@ -326,6 +326,22 @@ class AbstractContentTranslation(AbstractBaseModel):
         return None
 
     @cached_property
+    def major_source_translation(self):
+        """
+        This property returns the latest major version of the translation which was used to create the ``self``
+        translation. It derives this information from the :class:`~integreat_cms.cms.models.regions.region.Region`'s root
+        :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode`.
+
+        :return: The content translation in the source :class:`~integreat_cms.cms.models.languages.language.Language`
+                 (:obj:`None` if the translation is in the :class:`~integreat_cms.cms.models.regions.region.Region`'s
+                 default :class:`~integreat_cms.cms.models.languages.language.Language`)
+        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
+        """
+        if self.source_language:
+            return self.foreign_object.get_major_translation(self.source_language.slug)
+        return None
+
+    @cached_property
     def latest_version(self):
         """
         This property is a link to the most recent version of this translation.
@@ -356,6 +372,17 @@ class AbstractContentTranslation(AbstractBaseModel):
         :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
         return self.foreign_object.get_major_public_translation(self.language.slug)
+
+    @cached_property
+    def major_version(self):
+        """
+        This property is a link to the most recent major version of this translation.
+        This is used when translations, which are derived from this translation, check whether they are up to date.
+
+        :return: The latest major public revision of the translation
+        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
+        """
+        return self.foreign_object.get_major_translation(self.language.slug)
 
     @cached_property
     def is_outdated(self):
@@ -399,17 +426,18 @@ class AbstractContentTranslation(AbstractBaseModel):
         :return: A string describing the state of the translation, one of :data:`~integreat_cms.cms.constants.translation_status.CHOICES`
         :rtype: str
         """
-        translation = self.major_public_version
+        translation = self.major_version
         if not translation:
             # If the page does not have a major public version, it is considered "missing" (keep in mind that it might
             # have draft versions or public versions that are marked as "minor edit")
             return translation_status.MISSING
-        if translation.currently_in_translation:
+        # For "currently in translation", we consider the latest version instead of the latest major version
+        if self.currently_in_translation:
             return translation_status.IN_TRANSLATION
         if not self.source_language:
             # If the language of this translation is the root of this region's language tree, it is always "up to date"
             return translation_status.UP_TO_DATE
-        source_translation = self.major_public_source_translation
+        source_translation = self.major_source_translation
         if not source_translation:
             # If the source language does not have a major public version, the translation is considered "outdated",
             # because the content is not in sync with its source translation

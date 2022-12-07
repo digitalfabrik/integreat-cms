@@ -1,5 +1,6 @@
 import logging
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 
 from debug_toolbar.panels.sql.tracking import SQLQueryTriggered
@@ -52,11 +53,16 @@ class AbstractBaseModel(models.Model):
         # pylint: disable=broad-except
         except Exception as e:
             fallback_repr = f"<{type(self).__name__} (id: {self.id})>"
-            if not isinstance(e, SQLQueryTriggered):
+            # Skip logging if it's either a triggered SQL query or the id of the object is None and related objects do not exist yet
+            if not (
+                isinstance(e, SQLQueryTriggered)
+                or (isinstance(e, ObjectDoesNotExist) and not self.id)
+            ):
                 logger.debug(
-                    "repr() for object %s failed because of %s: %s",
+                    "repr() for object %s failed because of %s: %s "
+                    "(If you think this is no problem, please exclude this exception in the repr() method of the AbstractBaseModel.)",
                     fallback_repr,
-                    type(e),
+                    type(e).__name__,
                     e,
                     exc_info=e,
                 )

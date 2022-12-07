@@ -1,3 +1,4 @@
+/* eslint react/button-has-type: 0 */
 /*
  * This component renders a sidebar which shows information about the currently
  * active file as well as provides the possibility to modify and delete it
@@ -32,7 +33,7 @@ import cn from "classnames";
 import { showConfirmationPopupAjax } from "../../confirmation-popups";
 import { MediaApiPaths, File, MediaLibraryEntry, Directory } from "../index";
 
-interface Props {
+type Props = {
     directory: Directory;
     fileIndexState: [number | null, StateUpdater<number | null>];
     mediaLibraryContent: MediaLibraryEntry[];
@@ -45,9 +46,9 @@ interface Props {
     selectMedia?: (file: File) => any;
     submitForm: (event: Event) => void;
     isLoading: boolean;
-}
+};
 
-export default function EditSidebar({
+const EditSidebar = ({
     fileIndexState,
     mediaLibraryContent,
     apiEndpoints,
@@ -59,7 +60,7 @@ export default function EditSidebar({
     onlyImage,
     submitForm,
     isLoading,
-}: Props) {
+}: Props) => {
     // The file index contains the index of the file which is currently opened in the sidebar
     const [fileIndex, setFileIndex] = fileIndexState;
     // The current directory is the last element of the directory path
@@ -96,16 +97,16 @@ export default function EditSidebar({
                     <button
                         title={mediaTranslations.btn_close}
                         class="hover:bg-blue-500 hover:text-white font-bold rounded-full"
-                        onClick={() => setFileIndex(null)}
-                    >
+                        onClick={() => setFileIndex(null)}>
                         <XCircle class="inline-block h-5 align-text-bottom" />
                     </button>
                 </div>
             </div>
             <div className="overflow-auto flex-1">
                 <div class="items-center max-w-full">
+                    {/* eslint-disable-next-line no-nested-ternary */}
                     {file.thumbnailUrl ? (
-                        <img src={file.thumbnailUrl} class="max-w-60 m-2 mx-auto"></img>
+                        <img src={file.thumbnailUrl} alt="" class="max-w-60 m-2 mx-auto" />
                     ) : file.type.startsWith("image/") ? (
                         <Image className="w-full h-36 align-middle mt-4" />
                     ) : (
@@ -115,7 +116,8 @@ export default function EditSidebar({
                 <form onSubmit={submitForm} action={apiEndpoints.editFile}>
                     <input name="id" type="hidden" value={file.id} />
                     {/* Add button which submits the form when the enter-key is pressed (otherwise, the edit-buttons would be triggered) */}
-                    <button class="hidden" disabled={isLoading}></button>
+                    {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                    <button class="hidden" disabled={isLoading} />
                     <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-t border-b">
                         <label
                             for="filename-input"
@@ -123,7 +125,9 @@ export default function EditSidebar({
                                 "cursor-auto": !isEditingAllowed,
                             })}
                             onClick={() => isEditingAllowed && !isLoading && setFileNameEditable(!isFileNameEditable)}
-                        >
+                            onKeyDown={() =>
+                                isEditingAllowed && !isLoading && setFileNameEditable(!isFileNameEditable)
+                            }>
                             {mediaTranslations.label_file_name}
                         </label>
                         {!isFileNameEditable && (
@@ -136,8 +140,7 @@ export default function EditSidebar({
                                             e.preventDefault();
                                             setFileNameEditable(true);
                                         }}
-                                        disabled={isLoading}
-                                    >
+                                        disabled={isLoading}>
                                         <Edit3 class="inline-block" />
                                     </button>
                                 )}
@@ -165,7 +168,7 @@ export default function EditSidebar({
                                 "cursor-auto": !isEditingAllowed,
                             })}
                             onClick={() => isEditingAllowed && !isLoading && setAltTextEditable(!isAltTextEditable)}
-                        >
+                            onKeyDown={() => isEditingAllowed && !isLoading && setAltTextEditable(!isAltTextEditable)}>
                             {mediaTranslations.label_alt_text}
                         </label>
                         {!isAltTextEditable && (
@@ -178,8 +181,7 @@ export default function EditSidebar({
                                             e.preventDefault();
                                             setAltTextEditable(true);
                                         }}
-                                        disabled={isLoading}
-                                    >
+                                        disabled={isLoading}>
                                         <Edit3 class="inline-block" />
                                     </button>
                                 )}
@@ -221,9 +223,9 @@ export default function EditSidebar({
                             <a
                                 href={file.url}
                                 target="_blank"
+                                rel="noreferrer"
                                 class="hover:text-blue-500 break-all"
-                                {...{ native: "" }}
-                            >
+                                {...{ native: "" }}>
                                 {file.url}
                                 <ExternalLink class="inline-block ml-1 h-5" />
                             </a>
@@ -247,8 +249,7 @@ export default function EditSidebar({
                                             { "cursor-not-allowed bg-gray-500": isLoading },
                                             { "bg-blue-500 hover:bg-blue-600": !isLoading }
                                         )}
-                                        disabled={isLoading}
-                                    >
+                                        disabled={isLoading}>
                                         <RefreshCw class="mr-1 inline-block h-5" />
                                         {mediaTranslations.btn_replace_file}
                                     </label>
@@ -260,8 +261,7 @@ export default function EditSidebar({
                                     data-confirmation-subject={file.name}
                                     disabled={isLoading}
                                     onClick={showConfirmationPopupAjax}
-                                    onaction-confirmed={() => document.getElementById("delete-file").click()}
-                                >
+                                    onaction-confirmed={() => document.getElementById("delete-file").click()}>
                                     <Trash2 class="inline-block" />
                                     {mediaTranslations.btn_delete_file}
                                 </button>
@@ -283,8 +283,7 @@ export default function EditSidebar({
                                         }
                                     }}
                                     class="btn"
-                                    disabled={isLoading}
-                                >
+                                    disabled={isLoading}>
                                     <CheckCircle class="inline-block" />
                                     {mediaTranslations.btn_select}
                                 </button>
@@ -311,15 +310,16 @@ export default function EditSidebar({
                             document.getElementById("replace-file").click();
                         }}
                     />
-                    <button id="replace-file" type="submit"></button>
+                    <button id="replace-file" type="submit" aria-label="submit replace file" />
                 </form>
 
                 {/* Hidden form for file deletion (on success, close sidebar) */}
                 <form onSubmit={submitForm} action={apiEndpoints.deleteFile} class="hidden">
                     <input name="id" type="hidden" value={file.id} />
-                    <button id="delete-file" />
+                    <button id="delete-file" aria-label="delete file" />
                 </form>
             </div>
         </div>
     );
-}
+};
+export default EditSidebar;

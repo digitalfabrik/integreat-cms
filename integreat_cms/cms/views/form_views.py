@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import (
 )
 from django.core.exceptions import FieldDoesNotExist
 from django.urls import reverse
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 from django.views.generic.edit import ModelFormMixin, BaseCreateView, BaseUpdateView
 
 from .media import MediaContextMixin

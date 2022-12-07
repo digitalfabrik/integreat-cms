@@ -6,7 +6,7 @@ from django.core.mail import BadHeaderError
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.utils.text import capfirst
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from .account_activation_token_generator import account_activation_token_generator
 

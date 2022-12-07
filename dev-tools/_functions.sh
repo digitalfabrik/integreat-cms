@@ -185,7 +185,7 @@ function ensure_not_root {
 function ensure_root {
     # Check if script is not running as root
     if ! [[ $(id -u) == 0 ]]; then
-        echo "The script ${SCRIPT_NAME} needs root privileges to connect to the docker deamon. It is be automatically restarted with sudo." | print_warning
+        echo "The script ${SCRIPT_NAME} needs root privileges to connect to the docker daemon. It will automatically be restarted with sudo." | print_warning
         # Call this script again as root (pass -E because we want the user's environment, not root's)
         sudo --preserve-env=HOME,PATH env "${SCRIPT_PATH}" "${SCRIPT_ARGS[@]}"
         # Exit with code of subprocess

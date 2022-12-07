@@ -34,7 +34,7 @@ def update_roles(apps, schema_editor):
 
     # Assign the correct permissions
     for role_name in dict(roles.CHOICES):
-        group = Group.objects.filter(name=role_name).first()
+        group, _ = Group.objects.get_or_create(name=role_name)
         # Clear permissions
         group.permissions.clear()
         # Set permissions

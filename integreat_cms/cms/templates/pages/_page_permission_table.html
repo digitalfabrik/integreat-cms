@@ -35,7 +35,7 @@
         <span class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue-500 text-white text-xl"
               title="{{ user.username }}">
             {{ user.full_user_name }}
-            <a class="revoke-page-permission inline-block align-middle hover:text-red-500"
+            <a class="revoke-page-permission inline-block hover:text-red-500"
                href="{% url 'revoke_page_permission_ajax' region_slug=request.region.slug %}"
                data-user-id="{{ user.id }}"
                data-page-id="{{ page.id }}"
@@ -48,12 +48,12 @@
 </div>
 <div class="w-full flex flex-wrap mt-2">
     {% render_field page_form.editors %}
-    <a class="grant-page-permission bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 mt-2 rounded w-full"
-       data-url="{% url 'grant_page_permission_ajax' region_slug=request.region.slug %}"
-       data-page-id="{{ page.id }}"
-       data-permission="edit">
-        <i icon-name="plus-circle" class="mr-2"></i> {% trans "Add to authors" %}
-    </a>
+    <button class="btn grant-page-permission mt-2 w-full"
+            data-url="{% url 'grant_page_permission_ajax' region_slug=request.region.slug %}"
+            data-page-id="{{ page.id }}"
+            data-permission="edit">
+        <i icon-name="plus-circle" class="mr-2"></i> {% translate "Add to authors" %}
+    </button>
 </div>
 <label for="{{ page_form.publishers.id_for_label }}" class="secondary">{{ page_form.publishers.label }}</label>
 <div class="help-text">{{ page_form.publishers.help_text }}</div>
@@ -62,7 +62,7 @@
         <span class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue-500 text-white text-xl"
               title="{{ user.username }}">
             {{ user.full_user_name }}
-            <a class="revoke-page-permission inline-block align-middle hover:text-red-500"
+            <a class="revoke-page-permission inline-block hover:text-red-500"
                href="{% url 'revoke_page_permission_ajax' region_slug=request.region.slug %}"
                data-user-id="{{ user.id }}"
                data-page-id="{{ page.id }}"
@@ -75,10 +75,10 @@
 </div>
 <div class="w-full flex flex-wrap mt-2">
     {% render_field page_form.publishers %}
-    <button class="btn grant-page-permission bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 mt-2 rounded w-full"
+    <button class="btn grant-page-permission mt-2 w-full"
             data-url="{% url 'grant_page_permission_ajax' region_slug=request.region.slug %}"
             data-page-id="{{ page.id }}"
             data-permission="publish">
-        <i icon-name="plus-circle" class="mr-2"></i> {% trans "Add to editors" %}
+        <i icon-name="plus-circle" class="mr-2"></i> {% translate "Add to editors" %}
     </button>
 </div>

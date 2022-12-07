@@ -8,7 +8,7 @@ from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.contrib import messages
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from ..utils.slug_utils import generate_unique_slug_helper
 from ..constants import status
@@ -38,6 +38,10 @@ class CustomContentModelForm(CustomModelForm):
 
         # Instantiate CustomModelForm
         super().__init__(**kwargs)
+
+        # Always set the minor edit to unchecked to make sure it does not influence future versions
+        # (unless manually enabled)
+        self.initial["minor_edit"] = False
 
         # The slug is not required because it will be auto-generated if left blank
         if "slug" in self.fields:
@@ -151,13 +155,16 @@ class CustomContentModelForm(CustomModelForm):
         return unique_slug
 
     # pylint: disable=arguments-differ
-    def save(self, commit=True):
+    def save(self, commit=True, foreign_form_changed=False):
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
         which are not directly determined by input fields.
 
         :param commit: Whether or not the changes should be written to the database
         :type commit: bool
+
+        :param foreign_form_changed: Whether or not the foreign form of this translation form was changed
+        :type foreign_form_changed: bool
 
         :return: The saved page translation object
         :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
@@ -166,8 +173,8 @@ class CustomContentModelForm(CustomModelForm):
         # Delete now outdated link objects
         self.instance.links.all().delete()
 
-        # If none of the text content fields changed, treat as minor edit (even if checkbox isn't clicked)
-        if {"title", "content"}.isdisjoint(self.changed_data):
+        # If none of the text content fields were changed, but the foreign form was, treat as minor edit (even if checkbox isn't clicked)
+        if {"title", "content"}.isdisjoint(self.changed_data) and foreign_form_changed:
             self.logger.debug("Set 'minor_edit=True' since the content did not change")
             self.instance.minor_edit = True
 

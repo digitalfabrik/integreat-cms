@@ -6,23 +6,23 @@
     trello
 {% endblock collapsible_box_icon %}
 {% block collapsible_box_title %}
-    {% trans "Integreat News" %}
+    {% translate "Integreat News" %}
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <div class="rss-feed " data-feed-url="{{ feed_url }}">
         <div id="feed-loading" class="px-4 hidden">
-            <i icon-name="loader" class="animate-spin"></i> {% trans "Loading..." %}
+            <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
         </div>
     </div>
     <div id="reload" class="hidden">
         <div class="text-red-500 px-4">
-            <i icon-name="alert-triangle"></i> {% trans "Unfortunately there was a problem and the news feed could not load." %}
+            <i icon-name="alert-triangle"></i> {% translate "Unfortunately there was a problem and the news feed could not load." %}
         </div>
         <button id="reload-button" class="btn">
-            <i icon-name="refresh-ccw"></i> {% trans "Reload page" %}
+            <i icon-name="refresh-ccw"></i> {% translate "Reload page" %}
         </button>
     </div>
     <button id="read-more" class="btn hidden">
-        <i icon-name="book-open"></i> {% trans "Continue reading" %}
+        <i icon-name="book-open"></i> {% translate "Continue reading" %}
     </button>
 {% endblock collapsible_box_content %}
