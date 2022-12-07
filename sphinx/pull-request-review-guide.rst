@@ -23,7 +23,7 @@ Goals and purpose
 
 .. tip::
 
-    Have a personal goal of a minimum of reviews. You should aim to make a review for every own PR that you open.
+    Have a personal goal of a minimum of reviews. You should aim to make two reviews for every own PR that you open.
 
 
 Checklist
