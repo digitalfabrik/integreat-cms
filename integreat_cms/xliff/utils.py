@@ -15,6 +15,7 @@ from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
 from django.core.files.base import ContentFile
 from django.forms.models import model_to_dict
+from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext as _
 
 from linkcheck import update_lock
@@ -385,16 +386,22 @@ def xliff_import_confirm(request, xliff_dir):
                         page_translation,
                         errors,
                     )
-                    error_list = "<ul>"
-                    for error in errors:
-                        error_list += f"<li><i icon-name='alert-triangle' class='pb-1'></i> {error['message']}</li>"
-                    error_list += "</ul>"
+
                     messages.error(
                         request,
-                        _(
-                            "Page {} could not be imported successfully because of the errors: {}"
-                        ).format(page_translation.readable_title, error_list),
+                        format_html(
+                            "{} <ul>{}</ul>",
+                            _(
+                                "Page {} could not be imported successfully because of the errors:"
+                            ).format(page_translation.readable_title),
+                            format_html_join(
+                                "",
+                                "<li><i icon-name='alert-triangle' class='pb-1'></i>{}</li>",
+                                [[error["message"]] for error in errors],
+                            ),
+                        ),
                     )
+
                     success = False
                 else:
                     # Check if previous version already exists

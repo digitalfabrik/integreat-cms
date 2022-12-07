@@ -13,6 +13,7 @@ UNRELEASED
 * [ [#1864](https://github.com/digitalfabrik/integreat-cms/issues/1864) ] Fix possibility to mark page as up-to-date without performing changes
 * [ [#1885](https://github.com/digitalfabrik/integreat-cms/issues/1885) ] Fix ongoing translation cancel button
 * [ [#1942](https://github.com/digitalfabrik/integreat-cms/issues/1942) ] Fix auto save functionality
+* [ [#1922](https://github.com/digitalfabrik/integreat-cms/issues/1922) ] Fix html escape in xliff import error message
 
 
 2022.11.4
