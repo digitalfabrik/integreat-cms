@@ -72,6 +72,19 @@ class ContentQuerySet(models.QuerySet):
             status__in=[status.DRAFT, status.PUBLIC],
         )
 
+    def prefetch_major_translations(self):
+        """
+        Get the queryset including the custom attribute ``prefetched_major_translations`` which contains the
+        latest major (in other words not a minor edit) translations of each content object in each language
+
+        :return: The queryset of content objects
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel ]
+        """
+        return self.prefetch_translations(
+            to_attr="prefetched_major_translations",
+            minor_edit=False,
+        )
+
     def prefetch_major_public_translations(self):
         """
         Get the queryset including the custom attribute ``prefetched_major_public_translations`` which contains the
@@ -286,10 +299,9 @@ class AbstractContentModel(AbstractBaseModel):
         :return: The public translation of a content object
         :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
-        translation = self.prefetched_public_or_draft_translations_by_language_slug.get(
+        return self.prefetched_public_or_draft_translations_by_language_slug.get(
             language_slug
         )
-        return translation
 
     @cached_property
     def prefetched_major_public_translations_by_language_slug(self):
@@ -306,20 +318,6 @@ class AbstractContentModel(AbstractBaseModel):
             minor_edit=False,
         )
 
-    @cached_property
-    def prefetched_major_translations_by_language_slug(self):
-        """
-        This method returns a mapping from language slugs to their major translations of this object
-
-        :return: The object translation in the requested :class:`~integreat_cms.cms.models.languages.language.Language` or
-                 :obj:`None` if no translation exists
-        :rtype: dict
-        """
-        return self.get_prefetched_translations_by_language_slug(
-            attr="prefetched_major_translations",
-            minor_edit=False,
-        )
-
     def get_major_public_translation(self, language_slug):
         """
         This function retrieves the newest major public translation of a content object.
@@ -332,6 +330,20 @@ class AbstractContentModel(AbstractBaseModel):
         """
         return self.prefetched_major_public_translations_by_language_slug.get(
             language_slug
+        )
+
+    @cached_property
+    def prefetched_major_translations_by_language_slug(self):
+        """
+        This method returns a mapping from language slugs to their major translations of this object
+
+        :return: The object translation in the requested :class:`~integreat_cms.cms.models.languages.language.Language` or
+                 :obj:`None` if no translation exists
+        :rtype: dict
+        """
+        return self.get_prefetched_translations_by_language_slug(
+            attr="prefetched_major_translations",
+            minor_edit=False,
         )
 
     def get_major_translation(self, language_slug):

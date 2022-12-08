@@ -41,8 +41,9 @@ class PartialPageTreeView(TemplateView, PageContextMixin):
         # Get the tree of the given id
         pages = (
             region.pages.filter(tree_id=tree_id)
-            .prefetch_major_public_translations()
-            .cache_tree(False)
+            .prefetch_major_translations()
+            .prefetch_related("mirroring_pages")
+            .cache_tree(archived=False)
         )
         # The first element must be the root node
         parent = pages[0]
