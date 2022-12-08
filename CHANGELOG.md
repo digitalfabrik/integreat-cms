@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#686](https://github.com/digitalfabrik/integreat-cms/issues/686) ] Improve page filter
+
 
 2022.12.1
 ---------
