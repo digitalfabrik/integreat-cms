@@ -24,13 +24,21 @@ while [[ $# -gt 0 ]]; do
     case $1 in
         # If only tests affected by recent changed should be run, --changed can be passed as a flag
         --changed) CHANGED=1;shift;;
+        # Verbosity for pytest
+        -v|-vv|-vvv|-vvvv) VERBOSITY="$1";shift;;
         # If only particular tests should be run, test path can be passed as CLI argument
         *) TEST_PATH=$1;shift;;
     esac
 done
 
 # The default pytests args we use
-PYTEST_ARGS=("--quiet" "--disable-warnings" "--numprocesses=auto")
+PYTEST_ARGS=("--disable-warnings" "--color=yes")
+
+if [[ -n "${VERBOSITY}" ]]; then
+    PYTEST_ARGS+=("$VERBOSITY")
+else
+    PYTEST_ARGS+=("--quiet" "--numprocesses=auto")
+fi
 
 # Check if --changed flag was passed
 if [[ -n "${CHANGED}" ]]; then

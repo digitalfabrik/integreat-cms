@@ -87,7 +87,7 @@ Testing
 
 Run tests and generate coverage report with :github-source:`dev-tools/test.sh`::
 
-    ./dev-tools/test.sh [--changed] [TEST_PATH]
+    ./dev-tools/test.sh [--changed] [-v[v[v[v]]]] [TEST_PATH]
 
 **Arguments:**
 
@@ -96,6 +96,10 @@ Run tests and generate coverage report with :github-source:`dev-tools/test.sh`::
 **Options:**
 
 * ``--changed``: Run only tests affected by recent changes
+
+* ``-v``, ``-vv``, ``-vvv``, ``-vvvv``: Verbosity levels, passed directly to pytest.
+  Notice that if none are specified, we automatically pass ``--quiet``
+  and run tests on multiple CPUs using xdist, resulting in much shorter wait times.
 
 
 Code Quality
