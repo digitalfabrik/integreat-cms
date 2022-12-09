@@ -63,6 +63,18 @@ urlpatterns = [
                     name="login",
                 ),
                 path(
+                    "passwordless/",
+                    authentication.PasswordlessLoginView.as_view(
+                        extra_context=auth_context
+                    ),
+                    name="passwordless_login",
+                ),
+                path(
+                    "totp/",
+                    authentication.TOTPLoginView.as_view(),
+                    name="login_totp",
+                ),
+                path(
                     "mfa/",
                     include(
                         [

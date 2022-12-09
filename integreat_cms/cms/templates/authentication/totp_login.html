@@ -1,0 +1,30 @@
+{% extends "authentication/_base.html" %}
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+{% block heading %}
+    <i icon-name="smartphone"></i>
+    {% translate "Authentication" %}
+{% endblock heading %}
+{% block content %}
+    <div class="mb-3">
+        {% blocktrans trimmed with BRANDING=BRANDING|capfirst %}
+            Please open your authenticator app on your device and enter the 6-digit code for "{{ BRANDING }}" to verify your identity:
+        {% endblocktrans %}
+    </div>
+    <form method="post"
+          autocomplete="off"
+          action="{% url 'public:login_totp' %}"
+          class="flex flex-nowrap gap-4">
+        {% csrf_token %}
+        <input autocomplete="false"
+               id="totp_code"
+               name="totp_code"
+               type="text"
+               minlength="6"
+               maxlength="6"
+               pattern="\d{6}"
+               autofocus/>
+        <button class="btn-blue btn">{% translate "Confirm" %}</button>
+    </form>
+{% endblock content %}

@@ -63,7 +63,7 @@ class BulkActionView(PermissionRequiredMixin, MultipleObjectMixin, RedirectView)
         redirect_kwargs = {
             "region_slug": self.request.region.slug,
         }
-        # If this bulk action is bound to a language url paramter, also pass this to the redirect url
+        # If this bulk action is bound to a language url parameter, also pass this to the redirect url
         if "language_slug" in kwargs:
             redirect_kwargs["language_slug"] = kwargs["language_slug"]
         return reverse(f"{self.model._meta.model_name}s", kwargs=redirect_kwargs)
