@@ -1,10 +1,29 @@
 {% load i18n %}
 {% load widget_tweaks %}
 <form class="p-4" id="page-filter-form">
-    <label for="{{ filter_form.translation_status.id_for_label }}">
-        {{ filter_form.translation_status.label }} ({{ language.translated_name }})
-    </label>
-    {% render_field filter_form.translation_status %}
+    <div class="grid grid-cols-3 gap-4">
+        <div>
+            <label for="{{ filter_form.status.id_for_label }}">{{ filter_form.status.label }}</label>
+            {% render_field filter_form.status %}
+        </div>
+        <div>
+            <label for="{{ filter_form.date_from.id_for_label }}">{% translate "Last updated" %}</label>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    {% render_field filter_form.date_from %}
+                    <label for="{{ filter_form.date_from.id_for_label }}" class="secondary">{{ filter_form.date_from.label }}</label>
+                </div>
+                <div>
+                    {% render_field filter_form.date_to %}
+                    <label for="{{ filter_form.date_to.id_for_label }}" class="secondary">{{ filter_form.date_to.label }}</label>
+                </div>
+            </div>
+        </div>
+        <div>
+            <label for="{{ filter_form.translation_status.id_for_label }}">{{ filter_form.translation_status.label }}</label>
+            {% render_field filter_form.translation_status %}
+        </div>
+    </div>
     <div class="flex justify-end gap-4">
         <a id="filter-reset" class="btn btn-light-blue">{% translate "Reset filter" %}</a>
         <button class="btn">{% translate "Apply filter" %}</button>

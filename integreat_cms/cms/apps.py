@@ -66,7 +66,7 @@ def user_logged_in_callback(sender, request, user, **kwargs):
     :type \**kwargs: dict
     """
     ip = request.META.get("REMOTE_ADDR")
-    authlog.info("login user=%s, ip=%s", user, ip)
+    authlog.info("login  user=%r, ip=%s", user, ip)
 
 
 # pylint: disable=unused-argument

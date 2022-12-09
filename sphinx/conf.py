@@ -157,6 +157,7 @@ nitpick_ignore = [
     ("py:class", "django.core.serializers.base.SerializationError"),
     ("py:class", "django.core.serializers.xml_serializer.Serializer"),
     ("py:class", "django.core.serializers.xml_serializer.Deserializer"),
+    ("py:class", "django.contrib.auth.forms.UsernameField"),
     ("py:class", "django.forms.BaseInlineFormSet"),
     ("py:class", "django.forms.formsets.POICategoryTranslationFormFormSet"),
     ("py:class", "django.forms.models.ModelChoiceIterator"),

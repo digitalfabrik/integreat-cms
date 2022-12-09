@@ -1382,6 +1382,7 @@ msgstr "Einmalig stattfindende Veranstaltungen"
 
 #: cms/constants/region_status.py
 #: cms/templates/languagetreenodes/languagetreenode_list.html
+#: cms/templates/settings/user_settings.html
 #: cms/templates/users/region_user_list.html
 #: cms/templates/users/region_user_list_row.html
 #: cms/templates/users/user_list.html cms/templates/users/user_list_row.html
@@ -1719,12 +1720,14 @@ msgid "Rating"
 msgstr "Bewertung"
 
 #: cms/forms/feedback/region_feedback_filter_form.py
+#: cms/forms/pages/page_filter_form.py
 #: cms/forms/statistics/statistics_filter_form.py
 #: cms/templates/events/_event_filter_form.html
 msgid "From"
 msgstr "Von"
 
 #: cms/forms/feedback/region_feedback_filter_form.py
+#: cms/forms/pages/page_filter_form.py
 #: cms/forms/statistics/statistics_filter_form.py
 #: cms/templates/events/_event_filter_form.html
 msgid "To"
@@ -1787,6 +1790,17 @@ msgid ""
 msgstr ""
 "Eine Organisation mit diesem Namen existiert bereits in dieser Region. Bitte "
 "wählen Sie einen anderen Namen."
+
+#: cms/forms/pages/page_filter_form.py cms/templates/events/event_form.html
+#: cms/templates/events/event_list.html cms/templates/pages/page_form.html
+#: cms/templates/pages/page_revisions.html cms/templates/pages/page_tree.html
+#: cms/templates/pois/poi_form.html cms/templates/pois/poi_list.html
+msgid "Publication status"
+msgstr "Veröffentlichungsstatus"
+
+#: cms/forms/pages/page_filter_form.py
+msgid "All"
+msgstr "Alle"
 
 #: cms/forms/pages/page_filter_form.py
 msgid "Translation status"
@@ -1932,6 +1946,31 @@ msgstr "Passwort"
 #: cms/forms/users/password_reset_form.py cms/templates/_tinymce_config.html
 msgid "Email"
 msgstr "Email"
+
+#: cms/forms/users/passwordless_authentication_form.py
+msgid "The username or email address is incorrect."
+msgstr "Der Kontoname oder die E-Mail-Adresse ist falsch."
+
+#: cms/forms/users/passwordless_authentication_form.py
+msgid "This account is inactive."
+msgstr "Dieses Konto ist inaktiv."
+
+#: cms/forms/users/passwordless_authentication_form.py
+msgid "Your account is not activated for passwordless authentication."
+msgstr ""
+"Ihr Konto ist nicht für die passwortlose Authentifizierung freigeschaltet."
+
+#: cms/forms/users/passwordless_authentication_form.py
+msgid "Please use the default login."
+msgstr "Bitte verwenden Sie den normalen Login."
+
+#: cms/forms/users/passwordless_authentication_form.py
+msgid ""
+"In order to use passwordless authentication, you have to configure at least "
+"one 2-factor authentication method."
+msgstr ""
+"Um die passwortlose Authentifizierung zu verwenden, müssen Sie mindestens "
+"eine Methode der 2-Faktor-Authentifizierung aktiviert haben."
 
 #: cms/forms/users/user_filter_form.py cms/forms/users/user_form.py
 #: cms/templates/organizations/organization_form.html
@@ -3408,6 +3447,26 @@ msgstr ""
 "Wird auf wahr gesetzt, wenn der:die Benutzer:in das Tutorial zum Seitenbaum "
 "angesehen hat"
 
+#: cms/models/users/user.py
+msgid "TOTP key"
+msgstr "TOTP-Schlüssel"
+
+#: cms/models/users/user.py
+msgid "Will be used to generate TOTP codes"
+msgstr "Wird verwendet, um TOTP-Codes zu erzeugen"
+
+#: cms/models/users/user.py
+msgid "Enable passwordless authentication"
+msgstr "Passwortlose Authentifizierung aktivieren"
+
+#: cms/models/users/user.py
+msgid ""
+"Enable this option to activate the passwordless login routine for this "
+"account"
+msgstr ""
+"Aktiveren Sie diese Option, um den passwortlosen Login für dieses Konto "
+"freizuschalten"
+
 #: cms/models/users/user.py cms/models/users/user_mfa_key.py
 msgid "user"
 msgstr "Benutzer:in"
@@ -3841,6 +3900,7 @@ msgid "Activate your account"
 msgstr "Konto aktivieren"
 
 #: cms/templates/authentication/login.html
+#: cms/templates/authentication/passwordless_login.html
 #: cms/templates/users/region_user_form.html cms/templates/users/user_form.html
 msgid "Login"
 msgstr "Login"
@@ -3851,14 +3911,17 @@ msgstr "Der Kontoname oder das Passwort ist falsch."
 
 #: cms/templates/authentication/login.html
 #: cms/templates/settings/mfa/authenticate.html
+#: cms/views/authentication/totp_login_view.py
 msgid "Please try again."
 msgstr "Bitte versuchen Sie es erneut."
 
 #: cms/templates/authentication/login.html
+#: cms/templates/authentication/passwordless_login.html
 msgid "Username or email address"
 msgstr "Kontoname oder E-Mail-Adresse"
 
 #: cms/templates/authentication/login.html
+#: cms/templates/authentication/passwordless_login.html
 msgid "Enter your username or email address here"
 msgstr "Kontoname oder E-Mail-Adresse hier eingeben"
 
@@ -3868,6 +3931,7 @@ msgid "Enter your password here"
 msgstr "Ihr Passwort hier eingeben"
 
 #: cms/templates/authentication/login.html
+#: cms/templates/authentication/passwordless_login.html
 #: cms/templates/settings/mfa/authenticate.html
 msgid "Log in"
 msgstr "Anmelden"
@@ -3877,6 +3941,7 @@ msgid "Forgot your password?"
 msgstr "Passwort vergessen?"
 
 #: cms/templates/authentication/login_mfa.html
+#: cms/templates/authentication/totp_login.html
 #: cms/templates/settings/mfa/authenticate.html
 msgid "Authentication"
 msgstr "Authentifizierung"
@@ -3915,6 +3980,23 @@ msgstr "Zurück zur Anmeldung"
 #: cms/templates/authentication/password_reset_form.html
 msgid "Enter your e-mail address here"
 msgstr "Ihre E-Mail-Adresse hier eingeben"
+
+#: cms/templates/authentication/totp_login.html
+#, python-format
+msgid ""
+"Please open your authenticator app on your device and enter the 6-digit code "
+"for \"%(BRANDING)s\" to verify your identity:"
+msgstr ""
+"Bitte öffnen Sie Ihre Authenticator-App und geben Sie den 6-stelligen Code "
+"für \"%(BRANDING)s\" ein, um ihre Identität zu bestätigen:"
+
+#: cms/templates/authentication/totp_login.html
+#: cms/templates/generic_confirmation_dialog.html
+#: cms/templates/pages/page_xliff_import_view.html
+#: cms/templates/pois/poi_form.html cms/templates/settings/delete_totp.html
+#: cms/templates/settings/register_totp.html
+msgid "Confirm"
+msgstr "Bestätigen"
 
 #: cms/templates/chat/_chat_messages.html
 msgid "Delete chat message"
@@ -4125,13 +4207,6 @@ msgstr "Veröffentlichen"
 #: cms/templates/pages/page_sbs.html
 msgid "Submit for review"
 msgstr "Zur Überprüfung vorlegen"
-
-#: cms/templates/events/event_form.html cms/templates/events/event_list.html
-#: cms/templates/pages/page_form.html cms/templates/pages/page_revisions.html
-#: cms/templates/pages/page_tree.html cms/templates/pois/poi_form.html
-#: cms/templates/pois/poi_list.html
-msgid "Publication status"
-msgstr "Veröffentlichungsstatus"
 
 #: cms/templates/events/event_form.html cms/templates/pages/page_form.html
 #: cms/templates/pois/poi_form.html
@@ -4487,12 +4562,6 @@ msgstr "Noch kein Feedback vorhanden."
 msgid "Warning"
 msgstr "Warnung"
 
-#: cms/templates/generic_confirmation_dialog.html
-#: cms/templates/pages/page_xliff_import_view.html
-#: cms/templates/pois/poi_form.html
-msgid "Confirm"
-msgstr "Bestätigen"
-
 #: cms/templates/generic_tutorial_dialog.html
 msgid "Don't show again"
 msgstr "Nie wieder anzeigen"
@@ -4814,6 +4883,7 @@ msgstr "Erstellt"
 
 #: cms/templates/languages/language_list.html
 #: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/pages/_page_filter_form.html
 #: cms/templates/pages/_page_xliff_import_diff.html
 #: cms/templates/pages/page_tree.html
 #: cms/templates/pages/page_tree_archived.html
@@ -6013,6 +6083,25 @@ msgstr "Noch keine Rollen vorhanden."
 msgid "Deleting roles is not implemented yet."
 msgstr "Das Löschen von Rollen ist noch nicht implementiert."
 
+#: cms/templates/settings/delete_totp.html
+msgid "Disconnect authenticator app"
+msgstr "Authentifizierung-App trennen"
+
+#: cms/templates/settings/delete_totp.html
+msgid ""
+"You are about to disconnect your authenticator app from your account and "
+"deactivate TOTP authentication."
+msgstr ""
+"Sie sind dabei Ihre Authenticator-App zu trennen und TOTP zu deaktivieren."
+
+#: cms/templates/settings/delete_totp.html
+msgid "Are you sure about that?"
+msgstr "Sind Sie sicher?"
+
+#: cms/templates/settings/delete_totp.html
+msgid "Back to the user settings"
+msgstr "Zurück zu den Kontoeinstellungen"
+
 #: cms/templates/settings/mfa/add_key.html
 msgid "Add 2FA key"
 msgstr "2FA Schlüssel hinzufügen"
@@ -6060,6 +6149,23 @@ msgstr "Schlüssel entfernen"
 msgid "Nickname"
 msgstr "Schlüsselname"
 
+#: cms/templates/settings/register_totp.html
+msgid "Add authenticator app"
+msgstr "Authentifizierung-App hinzufügen"
+
+#: cms/templates/settings/register_totp.html
+msgid "Please scan the QR code with your authenticator app:"
+msgstr "Bitte scannen Sie den QR-Code mit Ihrer Authenticator-App."
+
+#: cms/templates/settings/register_totp.html
+#, python-format
+msgid ""
+"Please enter the 6-digit code for \"%(BRANDING)s\" to  confirm the "
+"registration:"
+msgstr ""
+"Bitte geben Sie den 6-stelligen Code für \"%(BRANDING)s\" ein, um die "
+"Registrierung zu bestätigen:"
+
 #: cms/templates/settings/user_settings.html
 msgid "My Account Settings"
 msgstr "Meine Konto-Einstellungen"
@@ -6101,28 +6207,63 @@ msgid "Change password"
 msgstr "Passwort ändern"
 
 #: cms/templates/settings/user_settings.html
-msgid "My 2-Factor-Authentication Keys"
-msgstr "Meine 2-Faktor-Authentifizierungsschlüssel"
+msgid "My 2-Factor-Authentication methods"
+msgstr "Meine 2-Faktor-Authentifizierungs-Methoden"
 
 #: cms/templates/settings/user_settings.html
 msgid ""
-"You can use your FIDO2 keys to secure your account. Once you added a key to "
-"your account you won't be able to log in without using the key."
+"To further protect your account, you can add additional authentication "
+"methods (2-factor authentication)."
 msgstr ""
-"Sie können einen FIDO2 2-Faktor-Schlüssel verwenden um Ihren Account "
-"abzusichern. Sobald ein Schlüssel hinzugefügt wurde, ist ein Login nur noch "
-"mit diesem möglich."
+"Um ihr Konto weiter abzusichern, können Sie weitere Authentifizierungs-"
+"Methoden einrichten (2-Faktor-Authentifizierung)."
+
+#: cms/templates/settings/user_settings.html
+msgid ""
+"The system currently supports the setup of FIDO2 keys and TOTP "
+"authentication via authenticator apps."
+msgstr ""
+"Das System unterstützt aktuell FIDO2-Schlüssel und die Verwendung von "
+"Authenticator-Apps."
+
+#: cms/templates/settings/user_settings.html
+msgid ""
+"Once you add a method, it will always be requested when logging in and "
+"potential attackers will have a harder time gaining control over your "
+"account."
+msgstr ""
+"Nachdem Sie eine Methode eingerichtet haben, wird Sie beim Login ebenfalls "
+"abgefragt."
+
+#: cms/templates/settings/user_settings.html
+msgid "FIDO2 keys"
+msgstr "FIDO2-Schlüssel"
+
+#: cms/templates/settings/user_settings.html
+msgid "You can use your FIDO2 keys to secure your account."
+msgstr ""
+"Sie können einen FIDO2-Schlüssel verwenden, um Ihren Account abzusichern"
+
+#: cms/templates/settings/user_settings.html
+msgid ""
+"Once you added a key to your account you won't be able to log in without "
+"using the key."
+msgstr ""
+"Sobald ein Schlüssel hinzugefügt wurde, ist ein Login nur noch mit diesem "
+"möglich."
 
 #: cms/templates/settings/user_settings.html
 msgid ""
 "To make sure that you don't loose access to your account when you loose your "
-"FIDO2 key it is recommended to add multiple keys. Just make sure to keep at "
-"least one key at a secure place."
+"FIDO2 key it is recommended to add multiple keys."
 msgstr ""
 "Um sicherzustellen, dass Sie den Zugriff auf Ihren Account nicht verlieren, "
 "wenn Sie Ihren Sicherheitsschlüssel nicht mehr verwenden können, wird "
-"empfohlen mindestens einen weiteren Schlüssel zu hinterlegen. Diesen "
-"Ersatzschlüssel sollten Sie an einem sicheren Ort aufbewahren."
+"empfohlen mindestens einen weiteren Schlüssel zu hinterlegen."
+
+#: cms/templates/settings/user_settings.html
+msgid "Make sure to keep your keys at a secure place."
+msgstr "Schlüssel sollten Sie an einem sicheren Ort aufbewahren."
 
 #: cms/templates/settings/user_settings.html
 msgid "Key name"
@@ -6137,12 +6278,46 @@ msgid "Date added"
 msgstr "Hinzugefügt am"
 
 #: cms/templates/settings/user_settings.html
-msgid "No 2FA keys have been added yet."
-msgstr "Es wurden noch keine 2-Faktor-Schlüssel hinzugefügt."
+msgid "No FIDO2 keys have been added yet."
+msgstr "Es wurden noch keine FIDO2-Schlüssel hinzugefügt."
 
 #: cms/templates/settings/user_settings.html
-msgid "Add a new 2FA key"
-msgstr "Neuen Schlüssel hinzufügen"
+msgid "Add a new FIDO2 key"
+msgstr "Neuen FIDO2-Schlüssel hinzufügen"
+
+#: cms/templates/settings/user_settings.html
+msgid "Authenticator app"
+msgstr "Authenticator-App"
+
+#: cms/templates/settings/user_settings.html
+msgid ""
+"You can use an authenticator application to secure your account with time-"
+"based one-time passwords (TOTP)."
+msgstr ""
+"Sie können eine Authenticator-App verwenden, um Ihr Konto mittels zeit-"
+"basierten Einmalpasswörtern (TOTP) abzusichern."
+
+#: cms/templates/settings/user_settings.html
+msgid ""
+"If you connect an authenticator with your account you will be asked to enter "
+"the shown digits on your smartphone to log into your account."
+msgstr ""
+"Wenn Sie eine solche App mit Ihrem Konto verbinden, werden Sie beim Login "
+"nach den Ziffern gefragt werden, die auf Ihrem Smartphone sichtbar sind."
+
+#: cms/templates/settings/user_settings.html
+msgid "Disconnect"
+msgstr "Trennen"
+
+#: cms/templates/settings/user_settings.html
+#: cms/templates/users/region_user_list_row.html
+#: cms/templates/users/user_list_row.html
+msgid "Inactive"
+msgstr "Inaktiv"
+
+#: cms/templates/settings/user_settings.html
+msgid "Register authenticator app"
+msgstr "Authenticator-App registrieren"
 
 #: cms/templates/statistics/_statistics_widget.html
 msgid "Number of online accesses over the last 14 days."
@@ -6307,13 +6482,15 @@ msgstr "Bisher keine Anmeldung"
 
 #: cms/templates/users/region_user_list_row.html
 #: cms/templates/users/user_list_row.html
-msgid "Inactive"
-msgstr "Inaktiv"
-
-#: cms/templates/users/region_user_list_row.html
-#: cms/templates/users/user_list_row.html
 msgid "Resend activation link"
 msgstr "Aktivierungslink erneut versenden"
+
+#: cms/templates/users/user_form.html
+msgid ""
+"This setting is only available if the user has an active TOTP or FIDO2 setup."
+msgstr ""
+"Diese Einstellung ist nur verfügbar, wenn das Konto TOTP oder FIDO2 "
+"eingerichtet hat."
 
 #: cms/templates/users/user_form.html
 msgid "Designates whether this account has access to the network management."
@@ -6475,6 +6652,10 @@ msgstr ""
 "Wenn Sie keine E-Mail erhalten, vergewissern Sie sich bitte, dass Sie die "
 "Adresse eingegeben haben, mit der Sie sich registriert haben, und überprüfen "
 "Sie Ihren Spam-Ordner."
+
+#: cms/views/authentication/totp_login_view.py
+msgid "Login failed."
+msgstr "Login fehlgeschlagen."
 
 #: cms/views/bulk_action_views.py
 msgid "Automatic translations are disabled"
@@ -7556,6 +7737,29 @@ msgstr ""
 "Der 2-Faktor-Authentifizierungsschlüssel \"{}\" wurde erfolgreich "
 "registriert."
 
+#: cms/views/settings/totp_delete_view.py
+msgid ""
+"You have successfully disconnected your account from your authenticator app."
+msgstr "Sie haben Ihr Konto erfolgreich von der Authenticator-App getrennt."
+
+#: cms/views/settings/totp_register_view.py
+msgid ""
+"You have already registered a TOTP key. Please disconnect your app before "
+"adding a new one."
+msgstr ""
+"Du hast bereits einen TOTP-Schlüssel registriert. Bitte trenne diesen bevor "
+"du einen neuen hinzufügst."
+
+#: cms/views/settings/totp_register_view.py
+msgid "The TOTP Authenticator has been added successfully."
+msgstr "Ihre Authenticator-App wurde erfolgreich verbunden."
+
+#: cms/views/settings/totp_register_view.py
+msgid "Something went wrong. Please check the generated code and try again."
+msgstr ""
+"Verbindung fehlgeschlagen. Bitte überprüfen Sie den erzeugten Code und "
+"versuchen Sie es erneut."
+
 #: cms/views/settings/user_settings_view.py
 msgid "E-mail-address was successfully saved"
 msgstr "E-Mail-Adresse wurde erfolgreich geändert"
@@ -7601,6 +7805,11 @@ msgid "Superuser permissions need to be set by another superuser."
 msgstr ""
 "Administrations-Rechte können nur von anderen Administrator:innen vergeben "
 "werden."
+
+#: cms/views/users/user_form_view.py
+msgid "Only superusers can enable or disable passwordless authentication."
+msgstr ""
+"Nur Administrator:innen können die Passwortlose Authentifizierung aktivieren"
 
 #: core/settings.py
 msgid "German"
@@ -7715,6 +7924,31 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid ""
+#~ "To further protect your account you can add additional authentication "
+#~ "methods (2-factor authentication). The system currently supports the "
+#~ "setup of FIDO2 keys and authentication via authentication apps. Once you "
+#~ "add a method, it will always be requested when logging in and potential "
+#~ "attackers will have a harder time gaining control over your account."
+#~ msgstr ""
+#~ "Um ihr Konto weiter abzusichern, können Sie weitere Authentifizierungs-"
+#~ "Methoden einrichten (2-Faktor-Authentifizierung). Das System unterstützt "
+#~ "aktuell FIDO2 Schlüssel und die Verwendung von Authentifikatoren-Apps. "
+#~ "Nachdem Sie eine Methode eingerichtet haben, wird Sie beim Login "
+#~ "ebenfalls abgefragt."
+
+#~ msgid "Authenticator-App"
+#~ msgstr "Authentifizierungs-App"
+
+#~ msgid "Authenticator Status:"
+#~ msgstr "Authentifizierungs Status:"
+
+#~ msgid "Not active"
+#~ msgstr "Nicht aktiv"
+
+#~ msgid "Login failed. Please try again."
+#~ msgstr "Login fehlgeschlagen. Bitte versuchen Sie es erneut."
+
 #~ msgid "restored"
 #~ msgstr "wiederhergestellt"
 
@@ -7749,9 +7983,6 @@ msgstr ""
 
 #~ msgid "User was successfully deleted"
 #~ msgstr "Konto wurde erfolgreich gelöscht"
-
-#~ msgid "User Settings"
-#~ msgstr "Kontoeinstellungen"
 
 #~ msgid "Select days and time"
 #~ msgstr "Tage und Zeit auswählen"
@@ -8753,6 +8984,9 @@ msgstr ""
 #~ msgid "Please enter a correct end date."
 #~ msgstr "Bitte fügen sie ein gültiges Enddatum ein"
 
+#~ msgid "Select end time"
+#~ msgstr "Endzeitpunkt auswählen"
+
 #~ msgid "Administrative division"
 #~ msgstr "Verwaltungseinheit"
 
@@ -9328,9 +9562,6 @@ msgstr ""
 
 #~ msgid "Organization saved successfully"
 #~ msgstr "Organisation wurde erfolgreich gespeichert."
-
-#~ msgid "Push notification created successfully."
-#~ msgstr "Push-Benachrichtigung wurde erfolgreich erstellt."
 
 #~ msgid "Role saved successfully"
 #~ msgstr "Rolle wurde erfolgreich gespeichert."
