@@ -237,6 +237,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#slug-utils">Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#text-utils">Text Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#totp-utils">Totp Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#translation-utils">Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#user-utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
@@ -565,6 +566,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.slug_utils">Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.text_utils">Text Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.totp_utils">Totp Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.translation_utils">Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.user_utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
@@ -1814,6 +1816,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#module-integreat_cms.cms.forms.users.authentication_form">Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#module-integreat_cms.cms.forms.users.organization_field">Organization Field</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#module-integreat_cms.cms.forms.users.password_reset_form">Password Reset Form</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#module-integreat_cms.cms.forms.users.passwordless_authentication_form">Passwordless Authentication Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#module-integreat_cms.cms.forms.users.region_user_form">Region User Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#module-integreat_cms.cms.forms.users.user_email_form">User Email Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#module-integreat_cms.cms.forms.users.user_filter_form">User Filter Form</a></li>
@@ -2101,6 +2104,11 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.text_utils.truncate_bytewise"><code class="docutils literal notranslate"><span class="pre">truncate_bytewise()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.totp_utils">Totp Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.totp_utils.check_totp_code"><code class="docutils literal notranslate"><span class="pre">check_totp_code()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.totp_utils.generate_totp_qrcode"><code class="docutils literal notranslate"><span class="pre">generate_totp_qrcode()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.translation_utils">Translation Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.translation_utils.gettext_many_lazy"><code class="docutils literal notranslate"><span class="pre">gettext_many_lazy()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.translation_utils.translate_link"><code class="docutils literal notranslate"><span class="pre">translate_link()</span></code></a></li>
@@ -2129,6 +2137,8 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.logout_view">Logout View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.password_reset_confirm_view">Password Reset Confirm View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.password_reset_view">Password Reset View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.passwordless_login_view">Passwordless Login View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.totp_login_view">Totp Login View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.chat.html">Chat</a><ul>
@@ -2228,6 +2238,8 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.settings.html">Settings</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.mfa.html">MFA</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.html#module-integreat_cms.cms.views.settings.dismiss_tutorial_view">Dismiss Tutorial View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.html#module-integreat_cms.cms.views.settings.totp_delete_view">Totp Delete View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.html#module-integreat_cms.cms.views.settings.totp_register_view">Totp Register View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.html#module-integreat_cms.cms.views.settings.user_settings_view">User Settings View</a></li>
 </ul>
 </li>

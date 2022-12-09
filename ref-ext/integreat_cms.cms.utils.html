@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-12-07T11:10:27+00:00" />
+    <meta property="article:modified_time" content="2022-12-09T14:04:27+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2022.12.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -237,6 +237,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#slug-utils">Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#text-utils">Text Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#totp-utils">Totp Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#translation-utils">Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#user-utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
@@ -565,6 +566,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.slug_utils">Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.text_utils">Text Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.totp_utils">Totp Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.translation_utils">Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.user_utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
@@ -1867,6 +1869,50 @@ as fallback (either <code class="docutils literal notranslate"><span class="pre"
 </dd></dl>
 
 </section>
+<section id="module-integreat_cms.cms.utils.totp_utils">
+<span id="totp-utils"></span><h2>Totp Utils<a class="headerlink" href="#module-integreat_cms.cms.utils.totp_utils" title="Permalink to this heading"></a></h2>
+<p>This module contains helper functions that are used within the TOTP registration and authentication.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.totp_utils.check_totp_code">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.totp_utils.</span></span><span class="sig-name descname"><span class="pre">check_totp_code</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">given_totp_code</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/totp_utils.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.totp_utils.check_totp_code" title="Permalink to this definition"></a></dt>
+<dd><p>Helper method to check the given code with the initial key</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>given_totp_code</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The entered TOTP code form the user</p></li>
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The key that is used for the generation of the true code</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the given code matches the initiated</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.totp_utils.generate_totp_qrcode">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.totp_utils.</span></span><span class="sig-name descname"><span class="pre">generate_totp_qrcode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/totp_utils.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.totp_utils.generate_totp_qrcode" title="Permalink to this definition"></a></dt>
+<dd><p>Render event form for HTTP GET requests</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The required key to generate the QR code</p></li>
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user account that is trying to add TOTP to its account</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The QR code as a base64-encoded string</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-integreat_cms.cms.utils.translation_utils">
 <span id="translation-utils"></span><h2>Translation Utils<a class="headerlink" href="#module-integreat_cms.cms.utils.translation_utils" title="Permalink to this heading"></a></h2>
 <p>This module contains helpers for the translation process.</p>
@@ -1964,7 +2010,7 @@ version and also attach the integreat logo.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Dec 07, 2022.
+      <span class="lastupdated">Last updated on Dec 09, 2022.
       </span></p>
   </div>
 

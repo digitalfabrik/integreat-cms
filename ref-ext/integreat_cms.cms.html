@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-12-07T11:10:27+00:00" />
+    <meta property="article:modified_time" content="2022-12-09T14:04:27+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CMS &mdash; integreat-cms 2022.12.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -237,6 +237,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#pdf-utils">PDF Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#slug-utils">Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#text-utils">Text Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#totp-utils">Totp Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#translation-utils">Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#user-utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
@@ -565,6 +566,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.pdf_utils">PDF Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.slug_utils">Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.text_utils">Text Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.totp_utils">Totp Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.translation_utils">Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.user_utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
@@ -1815,6 +1817,10 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.password_reset_form.CustomPasswordResetForm"><code class="docutils literal notranslate"><span class="pre">CustomPasswordResetForm</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.users.html#module-integreat_cms.cms.forms.users.passwordless_authentication_form">Passwordless Authentication Form</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.passwordless_authentication_form.PasswordlessAuthenticationForm"><code class="docutils literal notranslate"><span class="pre">PasswordlessAuthenticationForm</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.forms.users.html#module-integreat_cms.cms.forms.users.region_user_form">Region User Form</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.region_user_form.RegionUserForm"><code class="docutils literal notranslate"><span class="pre">RegionUserForm</span></code></a></li>
 </ul>
@@ -2687,6 +2693,11 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.text_utils.truncate_bytewise"><code class="docutils literal notranslate"><span class="pre">truncate_bytewise()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.totp_utils">Totp Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.totp_utils.check_totp_code"><code class="docutils literal notranslate"><span class="pre">check_totp_code()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.totp_utils.generate_totp_qrcode"><code class="docutils literal notranslate"><span class="pre">generate_totp_qrcode()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.translation_utils">Translation Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.translation_utils.gettext_many_lazy"><code class="docutils literal notranslate"><span class="pre">gettext_many_lazy()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.translation_utils.translate_link"><code class="docutils literal notranslate"><span class="pre">translate_link()</span></code></a></li>
@@ -2739,6 +2750,14 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.password_reset_view">Password Reset View</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.password_reset_view.PasswordResetView"><code class="docutils literal notranslate"><span class="pre">PasswordResetView</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.passwordless_login_view">Passwordless Login View</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.passwordless_login_view.PasswordlessLoginView"><code class="docutils literal notranslate"><span class="pre">PasswordlessLoginView</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.totp_login_view">Totp Login View</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.totp_login_view.TOTPLoginView"><code class="docutils literal notranslate"><span class="pre">TOTPLoginView</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -3051,6 +3070,14 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.settings.html#module-integreat_cms.cms.views.settings.dismiss_tutorial_view">Dismiss Tutorial View</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.dismiss_tutorial_view.DismissTutorial"><code class="docutils literal notranslate"><span class="pre">DismissTutorial</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.settings.html#module-integreat_cms.cms.views.settings.totp_delete_view">Totp Delete View</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.totp_delete_view.TOTPDeleteView"><code class="docutils literal notranslate"><span class="pre">TOTPDeleteView</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.settings.html#module-integreat_cms.cms.views.settings.totp_register_view">Totp Register View</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.html#integreat_cms.cms.views.settings.totp_register_view.TOTPRegisterView"><code class="docutils literal notranslate"><span class="pre">TOTPRegisterView</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.settings.html#module-integreat_cms.cms.views.settings.user_settings_view">User Settings View</a><ul>
@@ -4651,7 +4678,7 @@ If not, the PermissionDenied exception is raised.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Dec 07, 2022.
+      <span class="lastupdated">Last updated on Dec 09, 2022.
       </span></p>
   </div>
 
