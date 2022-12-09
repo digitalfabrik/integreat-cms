@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.12.2
+---------
+
 * [ [#686](https://github.com/digitalfabrik/integreat-cms/issues/686) ] Improve page filter
 * [ [#1132](https://github.com/digitalfabrik/integreat-cms/issues/1132) ] Add TOTP 2-factor authentication
 * [ [#1884](https://github.com/digitalfabrik/integreat-cms/issues/1884) ] Add support for passwordless authentication
