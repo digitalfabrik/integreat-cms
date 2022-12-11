@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#1876](https://github.com/digitalfabrik/integreat-cms/issues/1876) ] Make sidebar boxes on page form collapsible and save status as cookie
+* [ [#1345](https://github.com/digitalfabrik/integreat-cms/issues/1345) ] Track DeepL API usage by regions
 
 
 2022.12.3

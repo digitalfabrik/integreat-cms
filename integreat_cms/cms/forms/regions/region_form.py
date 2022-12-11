@@ -18,6 +18,7 @@ from ....gvz_api.utils import GvzRegion
 from ...constants import status
 from ...models import Region, Page, PageTranslation, LanguageTreeNode
 from ....matomo_api.matomo_api_client import MatomoException
+from ...models.regions.region import format_deepl_help_text
 from ...utils.slug_utils import generate_unique_slug_helper
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..icon_widget import IconWidget
@@ -82,6 +83,17 @@ class RegionForm(CustomModelForm):
         required=False,
     )
 
+    deepl_midyear_start_enabled = forms.BooleanField(
+        required=False,
+        label=_("DeepL budget year start differs from renewal date"),
+        help_text=__(
+            _("Enable to set an add-on starting date differing from the renewal date."),
+            format_deepl_help_text(
+                _("Budget will be set as a monthly fraction of {} credits")
+            ),
+        ),
+    )
+
     class Meta:
         """
         This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
@@ -125,6 +137,9 @@ class RegionForm(CustomModelForm):
             "fallback_translations_enabled",
             "summ_ai_enabled",
             "hix_enabled",
+            "deepl_renewal_month",
+            "deepl_addon_booked",
+            "deepl_midyear_start_month",
         ]
         #: The widgets which are used in this form
         widgets = {
@@ -159,6 +174,9 @@ class RegionForm(CustomModelForm):
             self.instance and self.instance.hix_enabled
         ):
             self.fields["hix_enabled"].disabled = True
+        self.fields["deepl_midyear_start_enabled"].initial = bool(
+            self.instance.deepl_midyear_start_month
+        )
 
     def save(self, commit=True):
         """
@@ -200,6 +218,7 @@ class RegionForm(CustomModelForm):
 
         return region
 
+    # pylint: disable=too-many-branches
     def clean(self):
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
@@ -208,7 +227,7 @@ class RegionForm(CustomModelForm):
         :rtype: dict
         """
         cleaned_data = super().clean()
-        # Check wether statistics can be enabled
+        # Check whether statistics can be enabled
         if cleaned_data["statistics_enabled"] and not cleaned_data["matomo_token"]:
             self.add_error(
                 "statistics_enabled",
@@ -229,6 +248,22 @@ class RegionForm(CustomModelForm):
                 )
         else:
             cleaned_data["matomo_id"] = None
+
+        # If DeepL budget year differs from renewal date is set, make sure a budget year start date is set
+        if (
+            cleaned_data["deepl_midyear_start_enabled"]
+            and cleaned_data["deepl_midyear_start_month"] is None
+        ):
+            self.add_error(
+                "deepl_midyear_start_month",
+                _("Please provide a valid DeepL budget year start date."),
+            )
+        elif (
+            not cleaned_data["deepl_midyear_start_enabled"]
+            or cleaned_data["deepl_midyear_start_month"]
+            == cleaned_data["deepl_renewal_month"]
+        ):
+            cleaned_data["deepl_midyear_start_month"] = None
 
         # Get additional data from GVZ API
         if apps.get_app_config("gvz_api").api_available:

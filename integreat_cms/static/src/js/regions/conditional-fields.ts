@@ -33,18 +33,43 @@ window.addEventListener("load", () => {
         });
     }
 
-    // event handler to toggle statistic fields
-    const statisticsEnabled = document.getElementById("id_statistics_enabled");
-    const statisticsToggle = document.getElementById("statistics-toggle-div");
-    if (statisticsEnabled && statisticsToggle) {
-        statisticsEnabled.addEventListener("click", ({ target }) => {
-            if ((target as HTMLInputElement).checked) {
-                statisticsToggle.classList.remove("hidden");
-            } else {
-                statisticsToggle.classList.add("hidden");
+    // event handler to toggle form fields
+    const toggleables = [
+        ["id_statistics_enabled", "statistics-toggle-div"],
+        ["id_deepl_addon_booked", "deepl-toggle-div"],
+        ["id_deepl_midyear_start_enabled", "deepl-renewal-toggle-div"],
+    ];
+    toggleables.forEach((it) => {
+        const toggleControl = document.getElementById(it[0]);
+        const toBeToggled = document.getElementById(it[1]);
+
+        // remove "hidden" if toggleControl is already checked on page load
+        if ((toggleControl as HTMLInputElement).checked) {
+            toBeToggled.classList.remove("hidden");
+        }
+        if (toggleControl && toBeToggled) {
+            toggleControl.addEventListener("click", ({ target }) => {
+                if ((target as HTMLInputElement).checked) {
+                    toBeToggled.classList.remove("hidden");
+                } else {
+                    toBeToggled.classList.add("hidden");
+                }
+            });
+        }
+    });
+
+    // event handler for auto-filling DeepL renewal budget year start month
+    const midyearDateEnabledCheckbox = document.getElementById("id_deepl_midyear_start_enabled");
+    const midyearDateSelector = document.getElementById("id_deepl_midyear_start_month") as HTMLSelectElement;
+    if (midyearDateEnabledCheckbox && midyearDateSelector) {
+        midyearDateEnabledCheckbox.addEventListener("click", ({ target }) => {
+            if ((target as HTMLInputElement).checked && !midyearDateSelector.value) {
+                const currentDate = new Date();
+                midyearDateSelector.value = String(currentDate.getMonth());
             }
         });
     }
+
     // add conditional logic to display options within the second timezone dropdown
     const timezoneAreaDropdown = document.getElementById("id_timezone_area") as HTMLSelectElement;
     const timezoneDropdown = document.getElementById("id_timezone") as HTMLSelectElement;

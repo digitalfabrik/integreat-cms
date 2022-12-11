@@ -31,6 +31,7 @@ def test_duplicate_regions(load_test_data, admin_client):
             "latitude": 1,
             "duplicated_region": 1,
             "timezone": "Europe/Berlin",
+            "deepl_renewal_month": 6,
         },
     )
     print(response.headers)
