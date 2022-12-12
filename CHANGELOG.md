@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1945](https://github.com/digitalfabrik/integreat-cms/issues/1945) ] Make message and button in list and form of page/event/poi uniform for observer users
+
 
 2022.12.2
 ---------

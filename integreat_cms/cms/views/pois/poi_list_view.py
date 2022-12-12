@@ -92,6 +92,11 @@ class POIListView(TemplateView, POIContextMixin, SummAiContextMixin):
                 }
             )
 
+        if not request.user.has_perm("cms.change_poi"):
+            messages.warning(
+                request, _("You don't have the permission to edit or create locations.")
+            )
+
         pois = region.pois.filter(archived=self.archived)
         query = None
 
