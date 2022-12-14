@@ -21,7 +21,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
     Form for creating and modifying page objects
     """
 
-    editors = forms.ModelChoiceField(
+    authors = forms.ModelChoiceField(
         queryset=get_user_model().objects.all(),
         required=False,
         label=_("Authors"),
@@ -29,7 +29,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             "These users can edit this page, but are not allowed to publish it."
         ),
     )
-    publishers = forms.ModelChoiceField(
+    editors = forms.ModelChoiceField(
         queryset=get_user_model().objects.all(),
         required=False,
         label=_("Editors"),
@@ -111,16 +111,16 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
                     id=mirrored_page_region
                 ).pages.all()
             # Dirty hack to remove fields when submitted by POST (since they are handles by AJAX)
+            del self.fields["authors"]
             del self.fields["editors"]
-            del self.fields["publishers"]
         else:
             # If form is unbound (rendered without data), set the initial queryset to the pages of the initial region
             # to render the options for the mirrored page
             if self.instance.mirrored_page:
                 mirrored_page_queryset = self.instance.mirrored_page.region.pages.all()
             # Update the querysets otherwise
+            self.fields["authors"].queryset = self.get_author_queryset()
             self.fields["editors"].queryset = self.get_editor_queryset()
-            self.fields["publishers"].queryset = self.get_publisher_queryset()
 
         # Check if instance of this form already exists
         if self.instance.id:
@@ -178,12 +178,12 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         del self.cleaned_data["enable_api_token"]
         return super()._clean_cleaned_data()
 
-    def get_editor_queryset(self):
+    def get_author_queryset(self):
         """
-        This method retrieves all users, who are eligible to be defined as page editors because they don't yet have the
-        permission to edit this page but the permission to view pages.
+        This method retrieves all users, who are eligible to be defined as page authors because they don't yet have the
+        permission to edit this page.
 
-        :return: All potential page editors
+        :return: All potential page authors
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
 
@@ -204,16 +204,16 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         )
         if self.instance.id:
             users_without_permissions = users_without_permissions.difference(
-                self.instance.editors.all()
+                self.instance.authors.all()
             )
         return users_without_permissions
 
-    def get_publisher_queryset(self):
+    def get_editor_queryset(self):
         """
-        This method retrieves all users, who are eligible to be defined as page publishers because they don't yet have
-        the permission to publish this page but the permission to view pages.
+        This method retrieves all users, who are eligible to be defined as page editors because they don't yet have
+        the permission to publish this page.
 
-        :return: All potential page publishers
+        :return: All potential page editors
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
 
@@ -233,6 +233,6 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         )
         if self.instance.id:
             users_without_permissions = users_without_permissions.difference(
-                self.instance.publishers.all()
+                self.instance.editors.all()
             )
         return users_without_permissions

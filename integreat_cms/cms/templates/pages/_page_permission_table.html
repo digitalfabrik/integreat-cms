@@ -28,10 +28,10 @@
         </div>
     {% endif %}
 {% endif %}
-<label for="{{ page_form.editors.id_for_label }}" class="secondary">{{ page_form.editors.label }}</label>
-<div class="help-text">{{ page_form.editors.help_text }}</div>
+<label for="{{ page_form.authors.id_for_label }}" class="secondary">{{ page_form.authors.label }}</label>
+<div class="help-text">{{ page_form.authors.help_text }}</div>
 <div>
-    {% for user in page.editors.all %}
+    {% for user in page.authors.all %}
         <span class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue-500 text-white text-xl"
               title="{{ user.username }}">
             {{ user.full_user_name }}
@@ -47,7 +47,7 @@
     {% endfor %}
 </div>
 <div class="w-full flex flex-wrap mt-2">
-    {% render_field page_form.editors %}
+    {% render_field page_form.authors %}
     <button class="btn grant-page-permission mt-2 w-full"
             data-url="{% url 'grant_page_permission_ajax' region_slug=request.region.slug %}"
             data-page-id="{{ page.id }}"
@@ -55,10 +55,10 @@
         <i icon-name="plus-circle" class="mr-2"></i> {% translate "Add to authors" %}
     </button>
 </div>
-<label for="{{ page_form.publishers.id_for_label }}" class="secondary">{{ page_form.publishers.label }}</label>
-<div class="help-text">{{ page_form.publishers.help_text }}</div>
+<label for="{{ page_form.editors.id_for_label }}" class="secondary">{{ page_form.editors.label }}</label>
+<div class="help-text">{{ page_form.editors.help_text }}</div>
 <div>
-    {% for user in page.publishers.all %}
+    {% for user in page.editors.all %}
         <span class="inline-block rounded-full py-2 px-4 mx-2 my-1 bg-blue-500 text-white text-xl"
               title="{{ user.username }}">
             {{ user.full_user_name }}
@@ -74,7 +74,7 @@
     {% endfor %}
 </div>
 <div class="w-full flex flex-wrap mt-2">
-    {% render_field page_form.publishers %}
+    {% render_field page_form.editors %}
     <button class="btn grant-page-permission mt-2 w-full"
             data-url="{% url 'grant_page_permission_ajax' region_slug=request.region.slug %}"
             data-page-id="{{ page.id }}"

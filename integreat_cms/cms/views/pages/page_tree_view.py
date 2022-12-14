@@ -90,7 +90,7 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
 
         if not request.user.has_perm("cms.change_page"):
             access_granted_pages = Page.objects.filter(
-                Q(editors=request.user) | Q(publishers=request.user)
+                Q(authors=request.user) | Q(editors=request.user)
             ).filter(region=request.region)
             if request.user.organization:
                 access_granted_pages = access_granted_pages.union(

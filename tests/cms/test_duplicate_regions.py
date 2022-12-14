@@ -73,8 +73,8 @@ def test_duplicate_regions(load_test_data_transactional, admin_client):
                 "region",
                 "parent",
                 "api_token",
+                "authors",
                 "editors",
-                "publishers",
             ],
         )
         target_page_dict = model_to_dict(
@@ -85,8 +85,8 @@ def test_duplicate_regions(load_test_data_transactional, admin_client):
                 "region",
                 "parent",
                 "api_token",
+                "authors",
                 "editors",
-                "publishers",
             ],
         )
         assert source_page_dict == target_page_dict

@@ -152,11 +152,11 @@ class Page(AbstractTreeNode, AbstractBasePage):
             "If a mirrored page is set, this field determines whether the live content is embedded before the content of this page or after."
         ),
     )
-    editors = models.ManyToManyField(
+    authors = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         blank=True,
         related_name="editable_pages",
-        verbose_name=_("editors"),
+        verbose_name=_("authors"),
         help_text=__(
             _("A list of users who have the permission to edit this specific page."),
             _(
@@ -164,11 +164,11 @@ class Page(AbstractTreeNode, AbstractBasePage):
             ),
         ),
     )
-    publishers = models.ManyToManyField(
+    editors = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
         blank=True,
         related_name="publishable_pages",
-        verbose_name=_("publishers"),
+        verbose_name=_("editors"),
         help_text=__(
             _("A list of users who have the permission to publish this specific page."),
             _(
