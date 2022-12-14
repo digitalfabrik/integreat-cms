@@ -1,0 +1,15 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    image
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {{ poi_form.icon.label }}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <div class="help-text">{{ poi_form.icon.help_text }}</div>
+    {% render_field poi_form.icon label=poi_form.icon.label %}
+{% endblock collapsible_box_content %}

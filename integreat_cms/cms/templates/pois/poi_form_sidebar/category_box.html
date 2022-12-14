@@ -1,0 +1,20 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    tag
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {{ poi_form.category.label }}
+    <br />
+    ({% translate "Currently not visible in apps" %})
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <div>
+        <label for="{{ poi_form.category.id_for_label }}" class="mt-0">{{ poi_form.category.label }}</label>
+        {% render_field poi_form.category|add_error_class:"border-red-500" %}
+        <div class="help-text">{{ poi_form.category.help_text }}</div>
+    </div>
+{% endblock collapsible_box_content %}

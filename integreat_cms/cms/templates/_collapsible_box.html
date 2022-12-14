@@ -15,7 +15,7 @@
            class="down-arrow {% if not collapsed %}hidden{% endif %}"></i>
     </div>
     <div class="collapsible-content transition-all duration-200 ease-in-out overflow-hidden {% if collapsed %}h-0{% endif %}">
-        <div class="p-4">
+        <div class="{% if not no_padding %} p-4{% endif %}">
             {% block collapsible_box_content %}
             {% endblock collapsible_box_content %}
         </div>

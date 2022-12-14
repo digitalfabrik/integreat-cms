@@ -1,0 +1,69 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% load poi_filters %}
+{% block collapsible_box_icon %}
+    map-pin
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% translate "Venue" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    {% render_field event_form.has_not_location class+='inline-block' %}
+    <label class="secondary !inline"
+           for="{{ event_form.has_not_location.id_for_label }}">
+        {{ event_form.has_not_location.label }}
+    </label>
+    <div id="location-block"
+         class="{% if event_form.has_not_location.value %}hidden{% endif %}">
+        <label for="{{ event_form.location.id_for_label }}">{{ event_form.location.label }}</label>
+        {% translate "Name of event location" as poi_title_placeholder %}
+        <div class="relative my-2">
+            <input id="poi-query-input"
+                   type="search"
+                   autocomplete="off"
+                   class="pr-8 appearance-none block w-full bg-white text-gray-800 placeholder-gray-800 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:placeholder-gray-600"
+                   {% if event_form.disabled %} disabled{% endif %}
+                   placeholder="{% if poi %}{{ poi|poi_translation_title:current_language }}{% else %}{{ poi_title_placeholder }}{% endif %}"
+                   data-url="{% url 'search_poi_ajax' region_slug=request.region.slug %}"
+                   data-region-slug="{{ request.region.slug }}"
+                   data-default-placeholder="{{ poi_title_placeholder }}"/>
+            <div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
+                <button id="poi-remove"
+                        title="{% translate "Remove location from event" %}"
+                        {% if event_form.disabled %} disabled{% endif %}>
+                    <i icon-name="trash-2" class="h-5 w-5"></i>
+                </button>
+            </div>
+        </div>
+        <p class="text-sm italic block mt-2 mb-2">
+            {% translate "Create an event location or start typing the name of an existing location" %}.
+        </p>
+        <div class="relative" id="poi-query-result">{% include "events/_poi_query_result.html" %}</div>
+        <div id="poi-address-container" class="{% if not poi %} hidden{% endif %}">
+            <label class="secondary">{% translate "Address" %}</label>
+            <input name="location"
+                   id="id_location"
+                   class="hidden"
+                   value="{% if poi %}{{ poi.id }}{% else %}-1{% endif %}"
+                   readonly
+                   {% if event_form.has_not_location.value %} disabled{% endif %}/>
+            <div id="poi-address" class="text-lg whitespace-pre-line">
+                {% if poi %}
+                    {{ poi.address }}
+                    {{ poi.postcode }} {{ poi.city }}
+                    {{ poi.country }}
+                {% endif %}
+            </div>
+            <a id="poi-google-maps-link"
+               href="https://www.google.com/maps/search/?api=1&query={% if poi %}{{ poi.address }},{{ poi.city }},{{ poi.country }}{% endif %}"
+               class="text-blue-500 hover:underline"
+               target="_blank"
+               rel="noopener noreferrer">
+                {% translate "Open on Google Maps" %}
+            </a>
+        </div>
+    </div>
+{% endblock collapsible_box_content %}

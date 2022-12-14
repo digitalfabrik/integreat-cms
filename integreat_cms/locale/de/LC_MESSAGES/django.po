@@ -3787,7 +3787,8 @@ msgstr "Speichern"
 
 #: cms/templates/_tinymce_config.html
 #: cms/templates/generic_confirmation_dialog.html
-#: cms/templates/linkcheck/link_list_row.html cms/templates/pois/poi_form.html
+#: cms/templates/linkcheck/link_list_row.html
+#: cms/templates/pois/poi_form_sidebar/position_box.html
 #: cms/views/pois/poi_context_mixin.py
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -3867,7 +3868,7 @@ msgstr "Bitte kontaktieren Sie eine:n Administrator:in."
 
 #: cms/templates/analytics/_broken_links_widget.html
 #: cms/templates/dashboard/_news_widget.html cms/templates/hix_widget.html
-#: cms/templates/pois/poi_form.html
+#: cms/templates/pois/poi_form_sidebar/position_box.html
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_overview.html
 msgid "Loading..."
@@ -4060,7 +4061,8 @@ msgstr ""
 #: cms/templates/authentication/totp_login.html
 #: cms/templates/generic_confirmation_dialog.html
 #: cms/templates/pages/page_xliff_import_view.html
-#: cms/templates/pois/poi_form.html cms/templates/settings/delete_totp.html
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+#: cms/templates/settings/delete_totp.html
 #: cms/templates/settings/register_totp.html
 msgid "Confirm"
 msgstr "Bestätigen"
@@ -4291,80 +4293,85 @@ msgstr "Bearbeiten"
 msgid "Copy to clipboard"
 msgstr "In die Zwischenablage kopieren"
 
-#: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
-#: cms/templates/pages/page_form_sidebar/minor_edit_box.html
-#: cms/templates/pages/page_revisions.html cms/templates/pois/poi_form.html
-msgid "Minor edit"
-msgstr "Geringfügige Änderung"
+#: cms/templates/events/event_form_sidebar/actions_box.html
+#: cms/templates/imprint/imprint_form.html
+#: cms/templates/imprint/imprint_sbs.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
+#: cms/templates/pages/page_sbs.html
+#: cms/templates/poicategories/poicategory_list.html
+#: cms/templates/pois/poi_form_sidebar/action_box.html
+#: cms/templates/regions/region_list.html
+#: cms/templates/settings/user_settings.html
+msgid "Actions"
+msgstr "Aktionen"
 
-#: cms/templates/events/event_form.html
+#: cms/templates/events/event_form_sidebar/actions_box.html
+#: cms/templates/events/event_list_archived_row.html
+msgid "Restore event"
+msgstr "Veranstaltung wiederherstellen"
+
+#: cms/templates/events/event_form_sidebar/actions_box.html
+msgid "Restore this event"
+msgstr "Diese Veranstaltung wiederherstellen"
+
+#: cms/templates/events/event_form_sidebar/actions_box.html
+#: cms/templates/events/event_list_row.html
+msgid "Archive event"
+msgstr "Veranstaltung archivieren"
+
+#: cms/templates/events/event_form_sidebar/actions_box.html
+msgid "Archive this event"
+msgstr "Diese Veranstaltung archivieren"
+
+#: cms/templates/events/event_form_sidebar/actions_box.html
+#: cms/templates/events/event_list_archived_row.html
+#: cms/templates/events/event_list_row.html
+msgid "Delete event"
+msgstr "Veranstaltung löschen"
+
+#: cms/templates/events/event_form_sidebar/actions_box.html
+msgid "Delete this event"
+msgstr "Diese Veranstaltung löschen"
+
+#: cms/templates/events/event_form_sidebar/date_and_time_box.html
 msgid "Date and time"
 msgstr "Datum und Uhrzeit"
 
-#: cms/templates/events/event_form.html
+#: cms/templates/events/event_form_sidebar/minor_edit_box.html
+#: cms/templates/imprint/imprint_form.html
+#: cms/templates/pages/page_form_sidebar/minor_edit_box.html
+#: cms/templates/pages/page_revisions.html
+#: cms/templates/pois/poi_form_sidebar/minor_edit_box.html
+msgid "Minor edit"
+msgstr "Geringfügige Änderung"
+
+#: cms/templates/events/event_form_sidebar/venue_box.html
 msgid "Venue"
 msgstr "Veranstaltungsort"
 
-#: cms/templates/events/event_form.html
+#: cms/templates/events/event_form_sidebar/venue_box.html
 msgid "Name of event location"
 msgstr "Name des Veranstaltungsortes"
 
-#: cms/templates/events/event_form.html
+#: cms/templates/events/event_form_sidebar/venue_box.html
 msgid "Remove location from event"
 msgstr "Veranstaltungsort von Veranstaltung entfernen"
 
-#: cms/templates/events/event_form.html
+#: cms/templates/events/event_form_sidebar/venue_box.html
 msgid ""
 "Create an event location or start typing the name of an existing location"
 msgstr ""
 "Erstellen Sie einen Veranstaltungsort oder beginnen Sie den Namen eines "
 "bestehenden Veranstaltungsortes einzutippen"
 
-#: cms/templates/events/event_form.html cms/templates/pois/poi_form.html
+#: cms/templates/events/event_form_sidebar/venue_box.html
+#: cms/templates/pois/poi_form_sidebar/position_box.html
 msgid "Address"
 msgstr "Adresse"
 
-#: cms/templates/events/event_form.html
+#: cms/templates/events/event_form_sidebar/venue_box.html
 msgid "Open on Google Maps"
 msgstr "Auf Google Maps öffnen"
-
-#: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
-#: cms/templates/imprint/imprint_sbs.html
-#: cms/templates/pages/page_form_sidebar/actions_box.html
-#: cms/templates/pages/page_sbs.html
-#: cms/templates/poicategories/poicategory_list.html
-#: cms/templates/pois/poi_form.html cms/templates/regions/region_list.html
-#: cms/templates/settings/user_settings.html
-msgid "Actions"
-msgstr "Aktionen"
-
-#: cms/templates/events/event_form.html
-#: cms/templates/events/event_list_archived_row.html
-msgid "Restore event"
-msgstr "Veranstaltung wiederherstellen"
-
-#: cms/templates/events/event_form.html
-msgid "Restore this event"
-msgstr "Diese Veranstaltung wiederherstellen"
-
-#: cms/templates/events/event_form.html
-#: cms/templates/events/event_list_row.html
-msgid "Archive event"
-msgstr "Veranstaltung archivieren"
-
-#: cms/templates/events/event_form.html
-msgid "Archive this event"
-msgstr "Diese Veranstaltung archivieren"
-
-#: cms/templates/events/event_form.html
-#: cms/templates/events/event_list_archived_row.html
-#: cms/templates/events/event_list_row.html
-msgid "Delete event"
-msgstr "Veranstaltung löschen"
-
-#: cms/templates/events/event_form.html
-msgid "Delete this event"
-msgstr "Diese Veranstaltung löschen"
 
 #: cms/templates/events/event_list.html
 #: cms/templates/events/event_list_archived.html
@@ -5805,95 +5812,97 @@ msgstr ""
 msgid "SEO section"
 msgstr "SEO-Bereich"
 
-#: cms/templates/pois/poi_form.html
-msgid "Position"
-msgstr "Position"
-
-#: cms/templates/pois/poi_form.html
-msgid "Derive coordinates automatically from address"
-msgstr "Koordinaten automatisch aus der Adresse ableiten"
-
-#: cms/templates/pois/poi_form.html
-msgid "Map"
-msgstr "Karte"
-
-#: cms/templates/pois/poi_form.html
-msgid "You can set the position by clicking on the map"
-msgstr "Sie können die Position auswählen, indem Sie auf die Karte klicken"
-
-#: cms/templates/pois/poi_form.html
-msgid "You can change the position via drag & drop"
-msgstr "Sie können die Position mit Drag & Drop ändern"
-
-#: cms/templates/pois/poi_form.html
-msgid "No address found at this position"
-msgstr "Keine Adresse an dieser Position gefunden"
-
-#: cms/templates/pois/poi_form.html
-msgid "New address found"
-msgstr "Neue Adresse gefunden"
-
-#: cms/templates/pois/poi_form.html
-msgid "Update address and coordinates"
-msgstr "Adresse und Koordinaten übernehmen"
-
-#: cms/templates/pois/poi_form.html
-msgid "Update only address"
-msgstr "Nur Addresse übernehmen"
-
-#: cms/templates/pois/poi_form.html
-msgid "Update only coordinates"
-msgstr "Nur Koordinaten übernehmen"
-
-#: cms/templates/pois/poi_form.html
-msgid "Please choose one option or cancel"
-msgstr "Bitte eine Option auswählen oder abbrechen"
-
-#: cms/templates/pois/poi_form.html
-msgid "Contact details"
-msgstr "Kontaktdaten"
-
-#: cms/templates/pois/poi_form.html
-msgid "Currently not visible in apps"
-msgstr "Wird noch nicht in den Apps angezeigt"
-
-#: cms/templates/pois/poi_form.html
+#: cms/templates/pois/poi_form_sidebar/action_box.html
 #: cms/templates/pois/poi_list_archived_row.html
 msgid "Restore location"
 msgstr "Ort wiederherstellen"
 
-#: cms/templates/pois/poi_form.html
+#: cms/templates/pois/poi_form_sidebar/action_box.html
 msgid "Restore this location"
 msgstr "Diesen Ort wiederherstellen"
 
-#: cms/templates/pois/poi_form.html cms/templates/pois/poi_list_row.html
+#: cms/templates/pois/poi_form_sidebar/action_box.html
+#: cms/templates/pois/poi_list_row.html
 msgid "Archive location"
 msgstr "Ort archivieren"
 
-#: cms/templates/pois/poi_form.html
+#: cms/templates/pois/poi_form_sidebar/action_box.html
 msgid "Archive this location"
 msgstr "Diesen Ort archivieren"
 
-#: cms/templates/pois/poi_form.html
+#: cms/templates/pois/poi_form_sidebar/action_box.html
 #: cms/templates/pois/poi_list_archived_row.html
 #: cms/templates/pois/poi_list_row.html
 msgid "Delete location"
 msgstr "Ort löschen"
 
-#: cms/templates/pois/poi_form.html
+#: cms/templates/pois/poi_form_sidebar/action_box.html
 msgid "You cannot delete a location which is referenced by an event."
 msgstr ""
 "Der Ort kann nicht gelöscht werden, da er von einem Event verwendet wird."
 
-#: cms/templates/pois/poi_form.html
+#: cms/templates/pois/poi_form_sidebar/action_box.html
 msgid "To delete this location, you have to delete this event first:"
 msgid_plural "To delete this location, you have to delete these events first:"
 msgstr[0] "Löschen Sie zuerst diese Veranstaltung, um den Ort zu löschen:"
 msgstr[1] "Löschen Sie zuerst diese Veranstaltungen, um den Ort zu löschen:"
 
-#: cms/templates/pois/poi_form.html
+#: cms/templates/pois/poi_form_sidebar/action_box.html
 msgid "Delete this location"
 msgstr "Diesen Ort löschen"
+
+#: cms/templates/pois/poi_form_sidebar/category_box.html
+#: cms/templates/pois/poi_form_sidebar/opening_hours_box.html
+msgid "Currently not visible in apps"
+msgstr "Wird noch nicht in den Apps angezeigt"
+
+#: cms/templates/pois/poi_form_sidebar/contact_box.html
+msgid "Contact details"
+msgstr "Kontaktdaten"
+
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+msgid "Position"
+msgstr "Position"
+
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+msgid "Derive coordinates automatically from address"
+msgstr "Koordinaten automatisch aus der Adresse ableiten"
+
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+msgid "Map"
+msgstr "Karte"
+
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+msgid "You can set the position by clicking on the map"
+msgstr "Sie können die Position auswählen, indem Sie auf die Karte klicken"
+
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+msgid "You can change the position via drag & drop"
+msgstr "Sie können die Position mit Drag & Drop ändern"
+
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+msgid "No address found at this position"
+msgstr "Keine Adresse an dieser Position gefunden"
+
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+msgid "New address found"
+msgstr "Neue Adresse gefunden"
+
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+msgid "Update address and coordinates"
+msgstr "Adresse und Koordinaten übernehmen"
+
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+msgid "Update only address"
+msgstr "Nur Addresse übernehmen"
+
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+msgid "Update only coordinates"
+msgstr "Nur Koordinaten übernehmen"
+
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+msgid "Please choose one option or cancel"
+msgstr "Bitte eine Option auswählen oder abbrechen"
 
 #: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
 msgid "Archived locations"
