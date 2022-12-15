@@ -31,10 +31,10 @@
                            class="btn">
                             {% translate "Create event" %}
                         </a>
-                    {% else %}
+                    {% elif perms.cms.change_event %}
                         {% blocktrans trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
-                        You can only create events in the default language ({{ default_language }}).
-                    {% endblocktrans %}
+                            You can only create events in the default language ({{ default_language }}).
+                        {% endblocktrans %}
                         <button title="{{ disabled_button_title }}" class="btn" disabled>{% translate "Create event" %}</button>
                     {% endif %}
                 </div>

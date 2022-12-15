@@ -82,16 +82,16 @@ class EventFormView(
             messages.warning(
                 request, _("You don't have the permission to edit events.")
             )
-        else:
+        elif not request.user.has_perm("cms.publish_event"):
             disabled = False
-
-        if not request.user.has_perm("cms.publish_event"):
             messages.warning(
                 request,
                 _(
                     "You don't have the permission to publish events, but you can propose changes and submit them for review instead."
                 ),
             )
+        else:
+            disabled = False
 
         event_form = EventForm(
             instance=event_instance,
