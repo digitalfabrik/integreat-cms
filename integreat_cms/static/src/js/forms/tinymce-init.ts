@@ -27,6 +27,10 @@ export const storeDraft = () => {
 
 const parseSvg = (svgUrl: string): string => atob(svgUrl.replace("data:image/svg+xml;base64,", ""));
 
+const insertIcon = (editor: Editor, tinymceConfig: HTMLElement, name: string): void => {
+    const icon = tinymceConfig.getAttribute(`data-${name}-icon-src`);
+    editor.insertContent(`<img src="${icon}" style="width:15px; height:15px">`);
+};
 /* This function adds an icon which can be inserted in the content */
 const addIcon = (editor: Editor, tinymceConfig: HTMLElement, name: string): void => {
     /* eslint-disable-next-line @typescript-eslint/no-var-requires, global-require, import/no-dynamic-require */
@@ -35,8 +39,7 @@ const addIcon = (editor: Editor, tinymceConfig: HTMLElement, name: string): void
         text: tinymceConfig.getAttribute(`data-${name}-icon-text`),
         icon: name,
         onAction: () => {
-            const src = tinymceConfig.getAttribute(`data-${name}-icon-src`);
-            editor.insertContent(`<img src="${src}" style="width:15px; height:15px">`);
+            insertIcon(editor, tinymceConfig, name);
         },
     });
 };
@@ -184,6 +187,28 @@ window.addEventListener("load", () => {
             },
             readonly: !!tinymceConfig.getAttribute("data-readonly"),
             init_instance_callback: (editor: Editor) => {
+                editor.shortcuts.add("alt+|+1", "Add pin icon", () => {
+                    insertIcon(editor, tinymceConfig, "pin");
+                });
+                editor.shortcuts.add("alt+|+2", "Add www icon", () => {
+                    insertIcon(editor, tinymceConfig, "www");
+                });
+                editor.shortcuts.add("alt+|+3", "Add email icon", () => {
+                    insertIcon(editor, tinymceConfig, "email");
+                });
+                editor.shortcuts.add("alt+|+4", "Add call icon", () => {
+                    insertIcon(editor, tinymceConfig, "call");
+                });
+                editor.shortcuts.add("alt+|+5", "Add clock icon", () => {
+                    insertIcon(editor, tinymceConfig, "clock");
+                });
+                editor.shortcuts.add("alt+|+6", "Add idea icon", () => {
+                    insertIcon(editor, tinymceConfig, "idea");
+                });
+                editor.shortcuts.add("alt+|+7", "Add group icon", () => {
+                    insertIcon(editor, tinymceConfig, "group");
+                });
+
                 editor.on("StoreDraft", autosaveEditor);
                 // When the editor becomes dirty, send an input event, so that the unsaved warning can be shown
                 editor.on("dirty", () =>
