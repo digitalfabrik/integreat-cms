@@ -264,6 +264,54 @@ VIEWS = [
     ),
     (
         [
+            (
+                "edit_page",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                {
+                    "title": "new page",
+                    "mirrored_page_region": "",
+                    "_ref_node_id": 1,
+                    "_position": "first-child",
+                    "status": status.PUBLIC,
+                },
+            ),
+        ],
+        {"region_slug": "augsburg", "language_slug": "de", "page_id": 4},
+    ),
+    (
+        [
+            (
+                "edit_page",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
+                {
+                    "title": "new page",
+                    "mirrored_page_region": "",
+                    "_ref_node_id": 1,
+                    "_position": "first-child",
+                    "status": status.REVIEW,
+                },
+            ),
+        ],
+        {"region_slug": "augsburg", "language_slug": "de", "page_id": 5},
+    ),
+    (
+        [
+            (
+                "edit_page",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, OBSERVER],
+                {
+                    "title": "new page",
+                    "mirrored_page_region": "",
+                    "_ref_node_id": 1,
+                    "_position": "first-child",
+                    "status": status.PUBLIC,
+                },
+            ),
+        ],
+        {"region_slug": "augsburg", "language_slug": "de", "page_id": 6},
+    ),
+    (
+        [
             ("archived_pages", STAFF_ROLES),
             ("archived_pois", STAFF_ROLES),
             ("edit_imprint", STAFF_ROLES),

@@ -563,7 +563,14 @@ def grant_page_permission_ajax(request, region_slug):
                 )
                 raise PermissionDenied
 
-        if permission == "edit":
+        if not user.has_perm("cms.view_page"):
+            # check if the selected user has the permission to view pages (e.g. exclude users with role Event Manager)
+            message = _(
+                "Page-specific permissions cannot be granted to users who do not have permission to view pages (e.g event managers)."
+            )
+            level_tag = "warning"
+
+        elif permission == "edit":
             # check, if the user already has this permission
             if user.has_perm("cms.change_page_object", page):
                 message = _(

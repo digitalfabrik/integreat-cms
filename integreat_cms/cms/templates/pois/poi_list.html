@@ -28,7 +28,7 @@
                    class="btn">
                     {% translate "Create location" %}
                 </a>
-            {% else %}
+            {% elif perms.cms.change_poi %}
                 {% blocktrans trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
                     You can only create locations in the default language ({{ default_language }}).
                 {% endblocktrans %}
