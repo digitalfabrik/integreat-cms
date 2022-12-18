@@ -4,6 +4,7 @@ UNRELEASED
 * [ [#1945](https://github.com/digitalfabrik/integreat-cms/issues/1945) ] Make message and button in list and form of page/event/poi uniform for observer users
 * [ [#1957](https://github.com/digitalfabrik/integreat-cms/issues/1957) ] Add keyboard shortcuts for icons in the editor
 * [ [#1900](https://github.com/digitalfabrik/integreat-cms/issues/1900) ] Exclude users without view_page permission from page-specific permissions
+* [ [#1956](https://github.com/digitalfabrik/integreat-cms/issues/1956) ] Add Amharic fonts and fix PDF export in Amharic
 
 
 2022.12.2

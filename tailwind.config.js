@@ -55,10 +55,11 @@ module.exports = {
         'border-left': 'linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-from) 4px, var(--tw-gradient-to, rgba(0, 0, 0, 0)) 4px)',
       },
       fontFamily: {
-        'default': ["Raleway", "Lateef", "Noto Sans SC", "sans-serif"],
+        'default': ["Raleway", "Lateef", "Noto Sans SC", "sans-serif", "Noto Sans Ethiopic"],
         'content': ["Open Sans", "sans-serif"],
         'content-rtl': ["Lateef", "sans-serif"],
         'content-sc': ["Noto Sans SC", "sans-serif"],
+        'content-am': ["Noto Sans Ethiopic", "sans-serif"],
       },
       maxHeight: {
         '15': '3.75rem',
