@@ -6,6 +6,7 @@ UNRELEASED
 * [ [#1957](https://github.com/digitalfabrik/integreat-cms/issues/1957) ] Add keyboard shortcuts for icons in the editor
 * [ [#1900](https://github.com/digitalfabrik/integreat-cms/issues/1900) ] Exclude users without view_page permission from page-specific permissions
 * [ [#1956](https://github.com/digitalfabrik/integreat-cms/issues/1956) ] Add Amharic fonts and fix PDF export in Amharic
+* [ [#1906](https://github.com/digitalfabrik/integreat-cms/issues/1906) ] Fix link escape in message in imprint form
 
 
 2022.12.2

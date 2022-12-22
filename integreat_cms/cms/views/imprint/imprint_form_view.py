@@ -15,6 +15,7 @@ from ...forms import ImprintTranslationForm
 from ...models import ImprintPageTranslation, ImprintPage
 from ...constants import status
 from ...utils.content_edit_lock import get_locking_user
+from ...utils.translation_utils import gettext_many_lazy as __, translate_link
 
 logger = logging.getLogger(__name__)
 
@@ -92,25 +93,38 @@ class ImprintFormView(TemplateView, MediaContextMixin):
 
         disabled = False
         if imprint:
-            # Show information if latest changes are only saved as draft
+            # Show information if latest changes are only saved as draft, but there is an earlier public version of this translation
             public_translation = imprint.get_public_translation(language.slug)
-            if public_translation and imprint_translation != public_translation:
+            if (
+                public_translation
+                and imprint_translation != public_translation
+                and public_translation.id  # checking that public translation is not a fallback translation
+            ):
+                public_translation_url = reverse(
+                    "imprint_revisions",
+                    kwargs={
+                        "region_slug": region.slug,
+                        "language_slug": language.slug,
+                        "selected_revision": public_translation.version,
+                    },
+                )
+                message = __(
+                    _(
+                        "This is not the most recent public revision of this translation."
+                    ),
+                    _(
+                        "Instead, <a>revision {}</a> is shown in the apps.",
+                    ).format(public_translation.version),
+                )
                 messages.info(
                     request,
-                    _(
-                        "This is <b>not</b> the most recent public revision of this translation. Instead, <a href='%(revision_url)s' class='underline hover:no-underline'>revision %(revision)s</a> is shown in the apps."
-                    )
-                    % {
-                        "revision_url": reverse(
-                            "imprint_revisions",
-                            kwargs={
-                                "region_slug": region.slug,
-                                "language_slug": language.slug,
-                                "selected_revision": public_translation.version,
-                            },
-                        ),
-                        "revision": public_translation.version,
-                    },
+                    translate_link(
+                        message,
+                        attributes={
+                            "href": public_translation_url,
+                            "class": "underline hover:no-underline",
+                        },
+                    ),
                 )
 
         # Make form disabled if user has no permission to manage the imprint
@@ -122,11 +136,6 @@ class ImprintFormView(TemplateView, MediaContextMixin):
 
         imprint_translation_form = ImprintTranslationForm(
             instance=imprint_translation, disabled=disabled
-        )
-
-        # Pass side by side language options
-        side_by_side_language_options = self.get_side_by_side_language_options(
-            region, language, imprint
         )
 
         # If the imprint does not exist yet, create the key manually
@@ -145,7 +154,9 @@ class ImprintFormView(TemplateView, MediaContextMixin):
                 "language": language,
                 # Languages for tab view
                 "languages": region.active_languages if imprint else [language],
-                "side_by_side_language_options": side_by_side_language_options,
+                "side_by_side_language_options": self.get_side_by_side_language_options(
+                    region, language, imprint
+                ),
                 "translation_states": imprint.translation_states if imprint else [],
                 "lock_key": edit_lock_key,
             },
