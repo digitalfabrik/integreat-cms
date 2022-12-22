@@ -7,6 +7,8 @@
 {% get_files 'editor_content' 'css' as editor_content_css_files %}
 {% if language.slug == 'zh-CN' %}
     {% firstof "body { font-family: 'Noto Sans SC', sans-serif; }" as font_style %}
+{% elif language.slug == 'am' %}
+    {% firstof "body { font-family: 'Noto Sans Ethiopic', sans-serif; }" as font_style %}
 {% elif right_to_left %}
     {% firstof "body { font-family: 'Lateef', sans-serif; font-size: 1.2rem; }" as font_style %}
 {% else %}

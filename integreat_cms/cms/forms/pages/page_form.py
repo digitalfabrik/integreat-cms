@@ -182,7 +182,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
     def get_editor_queryset(self):
         """
         This method retrieves all users, who are eligible to be defined as page editors because they don't yet have the
-        permission to edit this page.
+        permission to edit this page but the permission to view pages.
 
         :return: All potential page editors
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
@@ -191,7 +191,10 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         users_without_permissions = (
             get_user_model()
             .objects.filter(
-                regions=self.instance.region, is_superuser=False, is_staff=False
+                regions=self.instance.region,
+                is_superuser=False,
+                is_staff=False,
+                groups__permissions__codename="view_page",
             )
             .exclude(
                 Q(groups__permissions__codename="change_page")
@@ -209,7 +212,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
     def get_publisher_queryset(self):
         """
         This method retrieves all users, who are eligible to be defined as page publishers because they don't yet have
-        the permission to publish this page.
+        the permission to publish this page but the permission to view pages.
 
         :return: All potential page publishers
         :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
@@ -218,7 +221,10 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         users_without_permissions = (
             get_user_model()
             .objects.filter(
-                regions=self.instance.region, is_superuser=False, is_staff=False
+                regions=self.instance.region,
+                is_superuser=False,
+                is_staff=False,
+                groups__permissions__codename="view_page",
             )
             .exclude(
                 Q(groups__permissions__codename="publish_page")

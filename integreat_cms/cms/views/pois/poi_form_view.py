@@ -70,6 +70,11 @@ class POIFormView(
             messages.warning(
                 request, _("You cannot edit this location because it is archived.")
             )
+        elif not request.user.has_perm("cms.change_poi"):
+            disabled = True
+            messages.warning(
+                request, _("You don't have the permission to edit locations.")
+            )
         else:
             disabled = False
 

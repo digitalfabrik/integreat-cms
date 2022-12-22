@@ -120,7 +120,12 @@ const registerEventHandlers = () => {
     });
 };
 
-const escapeMeta = (raw: string) => raw.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+const escapeMeta = (raw: any) => {
+    if (typeof raw !== "string") {
+        return "";
+    }
+    return raw.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+};
 
 // This function updates the page order table each time the parent select changes
 const getPageOrderTable = async ({ target }: Event) => {

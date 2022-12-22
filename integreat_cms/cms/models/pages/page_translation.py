@@ -167,7 +167,9 @@ class PageTranslation(AbstractBasePageTranslation):
         fallback_translations = [
             translation
             for translation in self.page.prefetched_public_translations_by_language_slug.values()
-            if translation.content and not translation.content.isspace()
+            if translation.content
+            and not translation.content.isspace()
+            and translation.language in self.page.region.visible_languages
         ]
 
         if not fallback_translations:

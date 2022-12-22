@@ -1,6 +1,15 @@
 UNRELEASED
 ----------
 
+* [ [#1772](https://github.com/digitalfabrik/integreat-cms/issues/1772) ] Fix hidden languages being listed in fallback translation text on the API endpoint
+* [ [#1945](https://github.com/digitalfabrik/integreat-cms/issues/1945) ] Make message and button in list and form of page/event/poi uniform for observer users
+* [ [#1957](https://github.com/digitalfabrik/integreat-cms/issues/1957) ] Add keyboard shortcuts for icons in the editor
+* [ [#1900](https://github.com/digitalfabrik/integreat-cms/issues/1900) ] Exclude users without view_page permission from page-specific permissions
+* [ [#1956](https://github.com/digitalfabrik/integreat-cms/issues/1956) ] Add Amharic fonts and fix PDF export in Amharic
+* [ [#1906](https://github.com/digitalfabrik/integreat-cms/issues/1906) ] Fix link escape in message in imprint form
+* [ [#1983](https://github.com/digitalfabrik/integreat-cms/issues/1983) ] Fix broken page form ordering box
+* [ [#1978](https://github.com/digitalfabrik/integreat-cms/issues/1978) ] Fix PDF export for Greek
+
 
 2022.12.2
 ---------

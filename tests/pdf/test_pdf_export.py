@@ -23,9 +23,9 @@ from django.urls import reverse
         ),
         (
             "de",
-            [1, 2, 3, 4, 5, 6, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+            [1, 2, 3, 4, 5, 6, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 26],
             "",
-            "2861aa8c8d/Integreat - Deutsch - Augsburg.pdf",
+            "92ff67bd01/Integreat - Deutsch - Augsburg.pdf",
         ),
         (
             "en",
@@ -38,6 +38,24 @@ from django.urls import reverse
             [1, 2, 3, 4, 5, 6],
             "/augsburg/ar/معلومات-الوصول/",
             "3b02f5ea5b/Integreat - Arabisch - معلومات الوصول.pdf",
+        ),
+        (
+            "am",
+            [1, 2, 3, 4, 5, 6],
+            "/augsburg/am/እንኳን-ደህና-መጡ/",
+            "52d22a85dc/Integreat - Amharisch - እንኳን ደህና መጡ.pdf",
+        ),
+        (
+            "uk",
+            [1, 2, 3, 4, 5, 6],
+            "/augsburg/uk/ласкаво-просимо-в-аугсбург/",
+            "28814d44dd/Integreat - Ukrainisch - Ласкаво просимо в Аугсбург.pdf",
+        ),
+        (
+            "el",
+            [1, 2, 3, 4, 5, 6],
+            "/augsburg/ar/καλώς-ήλθατε-στο-augsburg-2",
+            "ba6f45d0ab/Integreat - Griechisch - Καλώς ήλθατε στο Augsburg.pdf",
         ),
     ],
 )
