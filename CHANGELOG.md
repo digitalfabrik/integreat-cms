@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2022.12.3
+---------
+
 * [ [#1772](https://github.com/digitalfabrik/integreat-cms/issues/1772) ] Fix hidden languages being listed in fallback translation text on the API endpoint
 * [ [#1945](https://github.com/digitalfabrik/integreat-cms/issues/1945) ] Make message and button in list and form of page/event/poi uniform for observer users
 * [ [#1957](https://github.com/digitalfabrik/integreat-cms/issues/1957) ] Add keyboard shortcuts for icons in the editor
