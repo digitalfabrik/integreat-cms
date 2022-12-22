@@ -39,6 +39,18 @@ from django.urls import reverse
             "/augsburg/ar/معلومات-الوصول/",
             "3b02f5ea5b/Integreat - Arabisch - معلومات الوصول.pdf",
         ),
+        (
+            "am",
+            [1, 2, 3, 4, 5, 6],
+            "/augsburg/am/እንኳን-ደህና-መጡ/",
+            "52d22a85dc/Integreat - Amharisch - እንኳን ደህና መጡ.pdf",
+        ),
+        (
+            "uk",
+            [1, 2, 3, 4, 5, 6],
+            "/augsburg/uk/ласкаво-просимо-в-аугсбург/",
+            "28814d44dd/Integreat - Ukrainisch - Ласкаво просимо в Аугсбург.pdf",
+        ),
     ],
 )
 def test_pdf_export(
