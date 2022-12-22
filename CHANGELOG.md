@@ -8,6 +8,7 @@ UNRELEASED
 * [ [#1956](https://github.com/digitalfabrik/integreat-cms/issues/1956) ] Add Amharic fonts and fix PDF export in Amharic
 * [ [#1906](https://github.com/digitalfabrik/integreat-cms/issues/1906) ] Fix link escape in message in imprint form
 * [ [#1983](https://github.com/digitalfabrik/integreat-cms/issues/1983) ] Fix broken page form ordering box
+* [ [#1978](https://github.com/digitalfabrik/integreat-cms/issues/1978) ] Fix PDF export for Greek
 
 
 2022.12.2

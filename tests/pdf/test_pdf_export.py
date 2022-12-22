@@ -51,6 +51,12 @@ from django.urls import reverse
             "/augsburg/uk/ласкаво-просимо-в-аугсбург/",
             "28814d44dd/Integreat - Ukrainisch - Ласкаво просимо в Аугсбург.pdf",
         ),
+        (
+            "el",
+            [1, 2, 3, 4, 5, 6],
+            "/augsburg/ar/καλώς-ήλθατε-στο-augsburg-2",
+            "ba6f45d0ab/Integreat - Griechisch - Καλώς ήλθατε στο Augsburg.pdf",
+        ),
     ],
 )
 def test_pdf_export(
