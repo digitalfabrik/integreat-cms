@@ -1,0 +1,29 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    columns
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% translate "Translator view" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <label for="side-by-side-select" class="mt-0">{% translate "Direction of translation" %}</label>
+    <select id="side-by-side-select">
+        <option value="">
+            ---------
+        </option>
+        {% for side_by_side_language_option in side_by_side_language_options %}
+            <option value="{% url 'sbs_edit_page' page_id=page.id region_slug=request.region.slug language_slug=side_by_side_language_option.value %}"
+                    {% if side_by_side_language_option.disabled %}disabled{% elif side_by_side_language_option.selected %}selected{% endif %}>
+                {{ side_by_side_language_option.label }}
+            </option>
+        {% endfor %}
+    </select>
+    <a id="side-by-side-link" class="btn mt-4" disabled="disabled">
+        <i icon-name="external-link"></i>
+        {% translate "Show translator view" %}
+    </a>
+{% endblock collapsible_box_content %}

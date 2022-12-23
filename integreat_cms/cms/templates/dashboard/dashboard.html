@@ -9,11 +9,11 @@
             <div class="xl:w-1/2">
                 <!-- Statistic Widget -->
                 {% if request.region.statistics_enabled and perms.cms.view_statistics %}
-                    {% include "statistics/_statistics_widget.html" %}
+                    {% include "statistics/_statistics_widget.html" with box_id="dashboard-statistics" %}
                 {% endif %}
                 <!-- Chat Widget -->
                 {% if chat_form and perms.cms.change_chatmessage %}
-                    {% include "chat/_chat_widget.html" %}
+                    {% include "chat/_chat_widget.html" with box_id="dashboard-chat" %}
                 {% endif %}
                 <!-- Translation Status Widget: TODO-->
                 <!-- App Size Widget: TODO -->
@@ -21,10 +21,10 @@
             <div class="xl:w-1/2">
                 <!-- Broken Link Widget -->
                 {% if perms.cms.view_broken_links %}
-                    {% include "analytics/_broken_links_widget.html" %}
+                    {% include "analytics/_broken_links_widget.html" with box_id="dashboard-links" %}
                 {% endif %}
                 <!-- News Widget -->
-                {% include "dashboard/_news_widget.html" %}
+                {% include "dashboard/_news_widget.html" with box_id="dashboard-news" %}
             </div>
         </div>
     </div>

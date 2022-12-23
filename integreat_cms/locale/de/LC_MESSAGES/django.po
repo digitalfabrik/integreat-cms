@@ -4219,13 +4219,14 @@ msgstr "Bearbeiten"
 #: cms/templates/feedback/region_feedback_list.html
 #: cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/settings_box.html
 #: cms/templates/pois/poi_form.html
 msgid "Copy to clipboard"
 msgstr "In die Zwischenablage kopieren"
 
 #: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
-#: cms/templates/pages/page_form.html cms/templates/pages/page_revisions.html
-#: cms/templates/pois/poi_form.html
+#: cms/templates/pages/page_form_sidebar/minor_edit_box.html
+#: cms/templates/pages/page_revisions.html cms/templates/pois/poi_form.html
 msgid "Minor edit"
 msgstr "Geringfügige Änderung"
 
@@ -4261,7 +4262,8 @@ msgid "Open on Google Maps"
 msgstr "Auf Google Maps öffnen"
 
 #: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
+#: cms/templates/imprint/imprint_sbs.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 #: cms/templates/pages/page_sbs.html
 #: cms/templates/poicategories/poicategory_list.html
 #: cms/templates/pois/poi_form.html cms/templates/regions/region_list.html
@@ -4673,7 +4675,8 @@ msgstr "Das Impressum löschen"
 msgid "Side-by-Side view"
 msgstr "Side-by-Side-Ansicht"
 
-#: cms/templates/imprint/imprint_form.html cms/templates/pages/page_form.html
+#: cms/templates/imprint/imprint_form.html
+#: cms/templates/pages/page_form_sidebar/translator_view_box.html
 msgid "Direction of translation"
 msgstr "Übersetzungsrichtung"
 
@@ -5243,56 +5246,25 @@ msgstr "Übersetzungsprozess abbrechen"
 msgid "Archived, because a parent page is archived"
 msgstr "Archiviert, weil eine übergeordnete Seite archiviert ist"
 
-#: cms/templates/pages/page_form.html
-msgid "Settings of the page"
-msgstr "Einstellungen der Seite"
-
-#: cms/templates/pages/page_form.html
-msgid "Positioning"
-msgstr "Anordnung"
-
-#: cms/templates/pages/page_form.html
-msgid "Order"
-msgstr "Reihenfolge"
-
-#: cms/templates/pages/page_form.html
-msgid "Embed live content"
-msgstr "Live-Inhalte einbinden"
-
-#: cms/templates/pages/page_form.html
-msgid "Access token was successfully copied to clipboard"
-msgstr "Zugangs-Token wurde erfolgreich in die Zwischenablage kopiert."
-
-#: cms/templates/pages/page_form.html
-msgid "Additional permissions for this page"
-msgstr "Zusätzliche Berechtigungen für diese Seite"
-
-#: cms/templates/pages/page_form.html
-msgid ""
-"This affects only users, who don't have the permission to change arbitrary "
-"pages anyway."
-msgstr ""
-"Dies betrifft nur Benutzer:innen, die nicht ohnehin die Berechtigung haben, "
-"beliebige Seiten zu ändern."
-
-#: cms/templates/pages/page_form.html cms/templates/pages/page_revisions.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
+#: cms/templates/pages/page_revisions.html
 msgid "Refresh date"
 msgstr "Datum aktualisieren"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "Mark this page as up-to-date"
 msgstr "Seite als aktuell markieren"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 #: cms/templates/pages/page_tree_archived_node.html
 msgid "Restore page"
 msgstr "Seite wiederherstellen"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "Restore this page"
 msgstr "Diese Seite wiederherstellen"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "To restore this page, you have to restore its parent page:"
 msgid_plural ""
 "To restore this page, you have to restore all its archived parent pages:"
@@ -5303,27 +5275,28 @@ msgstr[1] ""
 "Um diese Seite wiederherzustellen, müssen Sie alle ihre archivierten "
 "übergeordneten Seiten wiederherstellen:"
 
-#: cms/templates/pages/page_form.html cms/templates/pages/page_tree_node.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
+#: cms/templates/pages/page_tree_node.html
 msgid "Archive page"
 msgstr "Seite archivieren"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "Archive this page"
 msgstr "Diese Seite archivieren"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 #: cms/templates/pages/page_tree_archived_node.html
 #: cms/templates/pages/page_tree_node.html
 msgid "Delete page"
 msgstr "Seite löschen"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 #: cms/templates/pages/page_tree_archived_node.html
 #: cms/templates/pages/page_tree_node.html cms/views/pages/page_actions.py
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "To delete this page, you have to delete or move its subpage first:"
 msgid_plural ""
 "To delete this page, you have to delete or move its subpages first:"
@@ -5334,7 +5307,7 @@ msgstr[1] ""
 "Um diese Seite zu löschen, müssen Sie zuerst ihre Unterseiten löschen oder "
 "verschieben:"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 #: cms/templates/pages/page_tree_archived_node.html
 #: cms/templates/pages/page_tree_node.html cms/views/pages/page_actions.py
 msgid ""
@@ -5344,7 +5317,7 @@ msgstr ""
 "Diese Seite kann nicht gelöscht werden, da sie von einer anderen Seite als "
 "Live-Inhalt eingebunden wurde."
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid ""
 "To delete this page, you have to remove the embedded live content from this "
 "page first:"
@@ -5358,15 +5331,47 @@ msgstr[1] ""
 "Um diese Seite zu löschen, müssen Sie den eingebetteten Live-Inhalt von "
 "dieser Seiten entfernen:"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "Delete this page"
 msgstr "Diese Seite löschen"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/settings_box.html
+msgid "Settings of the page"
+msgstr "Einstellungen der Seite"
+
+#: cms/templates/pages/page_form_sidebar/settings_box.html
+msgid "Positioning"
+msgstr "Anordnung"
+
+#: cms/templates/pages/page_form_sidebar/settings_box.html
+msgid "Order"
+msgstr "Reihenfolge"
+
+#: cms/templates/pages/page_form_sidebar/settings_box.html
+msgid "Embed live content"
+msgstr "Live-Inhalte einbinden"
+
+#: cms/templates/pages/page_form_sidebar/settings_box.html
+msgid "Access token was successfully copied to clipboard"
+msgstr "Zugangs-Token wurde erfolgreich in die Zwischenablage kopiert."
+
+#: cms/templates/pages/page_form_sidebar/settings_box.html
+msgid "Additional permissions for this page"
+msgstr "Zusätzliche Berechtigungen für diese Seite"
+
+#: cms/templates/pages/page_form_sidebar/settings_box.html
+msgid ""
+"This affects only users, who don't have the permission to change arbitrary "
+"pages anyway."
+msgstr ""
+"Dies betrifft nur Benutzer:innen, die nicht ohnehin die Berechtigung haben, "
+"beliebige Seiten zu ändern."
+
+#: cms/templates/pages/page_form_sidebar/translator_view_box.html
 msgid "Translator view"
 msgstr "Übersetzungs-Ansicht"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/translator_view_box.html
 msgid "Show translator view"
 msgstr "Übersetzungs-Ansicht anzeigen"
 

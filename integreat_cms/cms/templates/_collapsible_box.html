@@ -1,6 +1,8 @@
 {# Set collapsed=True when including this template to show the box collapsed in the beginning #}
 <div class="rounded shadow-2xl border border-blue-500 bg-white mb-3">
-    <div class="collapsible cursor-pointer rounded p-4 bg-water-500 text-black font-bold flex justify-between">
+    <div {% if box_id %}id="{{ box_id }}"{% endif %}
+         class="collapsible cursor-pointer rounded p-4 bg-water-500 text-black font-bold flex justify-between"
+         {% if collapsed %}data-collapsed{% endif %}>
         <span>
             <i icon-name="{% spaceless %}{% block collapsible_box_icon %}{% endblock collapsible_box_icon %}{% endspaceless %}"
                class="pb-1"></i>

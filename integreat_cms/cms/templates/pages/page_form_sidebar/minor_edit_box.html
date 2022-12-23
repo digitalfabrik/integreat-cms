@@ -1,0 +1,20 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    feather
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% translate "Minor edit" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <label class="mt-0">{% minor_edit_label request.region language %}</label>
+    {% render_field page_translation_form.minor_edit %}
+    <label for="{{ page_translation_form.minor_edit.id_for_label }}"
+           class="secondary">
+        {{ page_translation_form.minor_edit.label }}
+    </label>
+    <div class="help-text">{% minor_edit_help_text request.region language page_translation_form %}</div>
+{% endblock collapsible_box_content %}

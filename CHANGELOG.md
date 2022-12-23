@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1876](https://github.com/digitalfabrik/integreat-cms/issues/1876) ] Make sidebar boxes on page form collapsible and save status as cookie
+
 
 2022.12.3
 ---------
