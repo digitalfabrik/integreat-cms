@@ -234,7 +234,6 @@ INSTALLED_APPS = [
     "integreat_cms.nominatim_api",
     "integreat_cms.summ_ai_api",
     "integreat_cms.textlab_api",
-    "integreat_cms.linkcheck.apps.ModifiedLinkcheckConfig",
     # Installed Django apps
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -245,11 +244,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Installed third-party-apps
     "corsheaders",
+    "linkcheck",
+    "polymorphic",
     "rules.apps.AutodiscoverRulesConfig",
     "treebeard",
     "webpack_loader",
     "widget_tweaks",
-    "polymorphic",
 ]
 
 # Install cacheops only if redis cache is available
