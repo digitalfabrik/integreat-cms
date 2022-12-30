@@ -3,7 +3,7 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -57,7 +57,7 @@ class ImprintView(TemplateView, MediaContextMixin):
         # current language
         language_slug = kwargs.get("language_slug")
         if language_slug:
-            language = get_object_or_404(region.languages, slug=language_slug)
+            language = region.get_language_or_404(language_slug, only_active=True)
         elif region.default_language:
             return redirect(
                 "edit_imprint",
@@ -145,7 +145,7 @@ class ImprintView(TemplateView, MediaContextMixin):
                 "imprint": imprint,
                 "language": language,
                 # Languages for tab view
-                "languages": region.languages if imprint else [language],
+                "languages": region.active_languages if imprint else [language],
                 "side_by_side_language_options": side_by_side_language_options,
             },
         )
@@ -171,7 +171,9 @@ class ImprintView(TemplateView, MediaContextMixin):
         """
 
         region = Region.get_current_region(request)
-        language = get_object_or_404(region.languages, slug=kwargs.get("language_slug"))
+        language = region.get_language_or_404(
+            kwargs.get("language_slug"), only_active=True
+        )
 
         try:
             imprint_instance = region.imprint
@@ -229,7 +231,9 @@ class ImprintView(TemplateView, MediaContextMixin):
                 "imprint": imprint_instance,
                 "language": language,
                 # Languages for tab view
-                "languages": region.languages if imprint_instance else [language],
+                "languages": region.active_languages
+                if imprint_instance
+                else [language],
                 "side_by_side_language_options": self.get_side_by_side_language_options(
                     region, language, imprint_instance
                 ),
@@ -254,7 +258,7 @@ class ImprintView(TemplateView, MediaContextMixin):
         :rtype: list
         """
         side_by_side_language_options = []
-        for language_node in region.language_tree_nodes.all():
+        for language_node in region.language_tree_nodes.filter(active=True):
             if language_node.parent:
                 source_translation = ImprintPageTranslation.objects.filter(
                     page=imprint,

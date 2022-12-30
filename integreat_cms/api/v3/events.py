@@ -152,7 +152,7 @@ def events(request, region_slug, language_slug):
     region = Region.get_current_region(request)
     result = []
     now = timezone.now().date()
-    for event in region.events.filter(archived=False):
+    for event in region.events.prefetch_public_translations().filter(archived=False):
         event_translation = event.get_public_translation(language_slug)
         if event_translation:
             if event.end_date >= now:

@@ -1,6 +1,7 @@
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 
@@ -96,7 +97,7 @@ class Language(models.Model):
         ),
     )
 
-    @property
+    @cached_property
     def translated_name(self):
         """
         Returns the name of the language in the current backend language
@@ -105,22 +106,6 @@ class Language(models.Model):
         :rtype: str
         """
         return ugettext(self.english_name)
-
-    def get_source_language(self, region):
-        """
-        This returns the source language of this language in the given region
-
-        :param region: The requested region
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
-        :return: The source language of the language
-        :rtype: ~integreat_cms.cms.models.languages.language.Language
-        """
-        # Since LanguageTreeNodes are unique per region and language, this is unambiguous
-        language_tree_node = self.language_tree_nodes.filter(region=region).first()
-        if language_tree_node and language_tree_node.parent:
-            return language_tree_node.parent.language
-        return None
 
     def __str__(self):
         """

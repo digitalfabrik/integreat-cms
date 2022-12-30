@@ -81,7 +81,7 @@ def locations(request, region_slug, language_slug):
     """
     region = Region.get_current_region(request)
     result = []
-    for poi in region.pois.filter(archived=False):
+    for poi in region.pois.prefetch_public_translations().filter(archived=False):
         translation = poi.get_public_translation(language_slug)
         if translation:
             result.append(transform_poi_translation(translation))

@@ -260,7 +260,9 @@ def export_pdf(request, region_slug, language_slug):
     # retrieve the selected page ids
     page_ids = request.POST.getlist("selected_ids[]")
     # collect the corresponding page objects
-    pages = region.pages.filter(explicitly_archived=False, id__in=page_ids)
+    pages = region.pages.filter(
+        explicitly_archived=False, id__in=page_ids
+    ).prefetch_public_translations()
     # generate PDF document wrapped in a HtmlResponse object
     response = generate_pdf(region, language_slug, pages)
     if response.status_code == 200:

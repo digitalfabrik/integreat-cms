@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
@@ -51,7 +51,9 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
         :rtype: ~django.template.response.TemplateResponse
         """
         region = Region.get_current_region(request)
-        language = get_object_or_404(region.languages, slug=kwargs.get("language_slug"))
+        language = region.get_language_or_404(
+            kwargs.get("language_slug"), only_active=True
+        )
 
         # get event and event translation objects if they exist, otherwise objects are None
         event_instance = region.events.filter(id=kwargs.get("event_id")).first()
@@ -105,7 +107,7 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
                 "recurrence_rule_form": recurrence_rule_form,
                 "poi": poi_instance,
                 "language": language,
-                "languages": region.languages if event_instance else [language],
+                "languages": region.active_languages if event_instance else [language],
                 "url_link": url_link,
             },
         )
@@ -236,6 +238,6 @@ class EventView(TemplateView, EventContextMixin, MediaContextMixin):
                 "recurrence_rule_form": recurrence_rule_form,
                 "poi": poi,
                 "language": language,
-                "languages": region.languages if event_instance else [language],
+                "languages": region.active_languages if event_instance else [language],
             },
         )

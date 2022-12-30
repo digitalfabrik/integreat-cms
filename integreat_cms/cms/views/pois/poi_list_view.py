@@ -115,7 +115,9 @@ class POIListView(TemplateView, POIContextMixin):
 
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         # for consistent pagination querysets should be ordered
-        paginator = Paginator(pois.order_by("region__slug"), chunk_size)
+        paginator = Paginator(
+            pois.prefetch_translations().order_by("region__slug"), chunk_size
+        )
         chunk = request.GET.get("page")
         poi_chunk = paginator.get_page(chunk)
         context = self.get_context_data(**kwargs)
@@ -127,7 +129,7 @@ class POIListView(TemplateView, POIContextMixin):
                 "pois": poi_chunk,
                 "archived_count": region.pois.filter(archived=True).count(),
                 "language": language,
-                "languages": region.languages,
+                "languages": region.active_languages,
                 "search_query": query,
                 "WEBAPP_URL": settings.WEBAPP_URL,
                 "PUBLIC": status.PUBLIC,

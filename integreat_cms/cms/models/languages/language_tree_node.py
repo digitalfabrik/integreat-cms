@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from .language import Language
@@ -40,7 +41,7 @@ class LanguageTreeNode(AbstractTreeNode):
         verbose_name=_("modification date"),
     )
 
-    @property
+    @cached_property
     def slug(self):
         """
         Returns the slug of this node's language
@@ -50,7 +51,7 @@ class LanguageTreeNode(AbstractTreeNode):
         """
         return self.language.slug
 
-    @property
+    @cached_property
     def native_name(self):
         """
         Returns the native name of this node's language
@@ -60,7 +61,7 @@ class LanguageTreeNode(AbstractTreeNode):
         """
         return self.language.native_name
 
-    @property
+    @cached_property
     def english_name(self):
         """
         Returns the name of this node's language in English
@@ -70,7 +71,7 @@ class LanguageTreeNode(AbstractTreeNode):
         """
         return self.language.english_name
 
-    @property
+    @cached_property
     def translated_name(self):
         """
         Returns the name of this node's language in the current backend language
@@ -80,7 +81,7 @@ class LanguageTreeNode(AbstractTreeNode):
         """
         return self.language.translated_name
 
-    @property
+    @cached_property
     def text_direction(self):
         """
         Returns the text direction (e.g. left-to-right) of this node's language

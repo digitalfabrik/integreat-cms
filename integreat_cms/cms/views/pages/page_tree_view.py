@@ -96,7 +96,11 @@ class PageTreeView(TemplateView, PageContextMixin):
             )
         context = self.get_context_data(**kwargs)
 
-        pages = region.get_pages(archived=self.archived)
+        pages = region.get_pages(
+            archived=self.archived,
+            prefetch_translations=True,
+            prefetch_public_translations=True,
+        )
         enable_drag_and_drop = True
         query = None
         # Filter pages according to given filters, if any
@@ -154,7 +158,7 @@ class PageTreeView(TemplateView, PageContextMixin):
                 "pages": pages,
                 "archived_count": region.get_pages(archived=True).count(),
                 "language": language,
-                "languages": region.languages,
+                "languages": region.active_languages,
                 "filter_form": filter_form,
                 "enable_drag_and_drop": enable_drag_and_drop,
                 "search_query": query,

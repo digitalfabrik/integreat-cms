@@ -3,7 +3,7 @@ import logging
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
@@ -56,7 +56,9 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
         """
 
         region = Region.get_current_region(request)
-        language = get_object_or_404(region.languages, slug=kwargs.get("language_slug"))
+        language = region.get_language_or_404(
+            kwargs.get("language_slug"), only_active=True
+        )
 
         # get page and translation objects if they exist
         page = region.pages.filter(id=kwargs.get("page_id")).first()
@@ -154,7 +156,7 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
                 "siblings": siblings,
                 "language": language,
                 # Languages for tab view
-                "languages": region.languages if page else [language],
+                "languages": region.active_languages if page else [language],
                 "side_by_side_language_options": side_by_side_language_options,
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
@@ -187,7 +189,9 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
         """
 
         region = Region.get_current_region(request)
-        language = get_object_or_404(region.languages, slug=kwargs.get("language_slug"))
+        language = region.get_language_or_404(
+            kwargs.get("language_slug"), only_active=True
+        )
         context = self.get_context_data(**kwargs)
 
         page_instance = region.pages.filter(id=kwargs.get("page_id")).first()
@@ -291,7 +295,7 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
                 "siblings": siblings,
                 "language": language,
                 # Languages for tab view
-                "languages": region.languages if page_instance else [language],
+                "languages": region.active_languages if page_instance else [language],
                 "side_by_side_language_options": self.get_side_by_side_language_options(
                     region, language, page_instance
                 ),
@@ -320,7 +324,7 @@ class PageView(TemplateView, PageContextMixin, MediaContextMixin):
         """
 
         side_by_side_language_options = []
-        for language_node in region.language_tree_nodes.all():
+        for language_node in region.language_tree_nodes.filter(active=True):
             if language_node.parent:
                 source_translation = PageTranslation.objects.filter(
                     page=page,

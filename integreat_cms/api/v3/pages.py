@@ -23,12 +23,13 @@ def transform_page(page_translation):
         thumbnail = settings.BASE_URL + page_translation.page.icon.url
     else:
         thumbnail = None
-    if page_translation.page.parent:
-        parent_absolute_url = page_translation.page.parent.get_translation(
+    parent_page = page_translation.page.get_parent()
+    if parent_page:
+        parent_absolute_url = parent_page.get_public_translation(
             page_translation.language.slug
         ).get_absolute_url()
         parent = {
-            "id": page_translation.page.parent.id,
+            "id": parent_page.id,
             "url": settings.BASE_URL + parent_absolute_url,
             "path": parent_absolute_url,
         }
@@ -73,7 +74,9 @@ def pages(request, region_slug, language_slug):
     """
     region = Region.get_current_region(request)
     result = []
-    for page in region.get_pages():
+    for page in region.get_pages(
+        prefetch_translations=True, prefetch_public_translations=True
+    ):
         page_translation = page.get_public_translation(language_slug)
         if page_translation:
             result.append(transform_page(page_translation))

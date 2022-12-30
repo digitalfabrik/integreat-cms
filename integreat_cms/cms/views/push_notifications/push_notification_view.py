@@ -54,7 +54,9 @@ class PushNotificationView(TemplateView):
         """
 
         region = Region.get_current_region(request)
-        language = Language.objects.get(slug=kwargs.get("language_slug"))
+        language = region.get_language_or_404(
+            kwargs.get("language_slug"), only_active=True
+        )
 
         push_notification = PushNotification.objects.filter(
             id=kwargs.get("push_notification_id")
@@ -65,22 +67,22 @@ class PushNotificationView(TemplateView):
 
         push_notification_form = PushNotificationForm(instance=push_notification)
 
-        num_languages = len(region.languages)
+        num_languages = len(region.active_languages)
         PNTFormset = modelformset_factory(
             PushNotificationTranslation,
             form=PushNotificationTranslationForm,
             max_num=num_languages,
             extra=num_languages - push_notification_translations.count(),
         )
+        existing_languages = push_notification.languages if push_notification else []
         pnt_formset = PNTFormset(
             # Add queryset for all translations which exist already
             queryset=push_notification_translations,
             # Add initial data for all languages which do not yet have a translation
             initial=[
                 {"language": language}
-                for language in region.languages.exclude(
-                    push_notification_translations__in=push_notification_translations
-                )
+                for language in region.active_languages
+                if language not in existing_languages
             ],
         )
 
@@ -92,7 +94,7 @@ class PushNotificationView(TemplateView):
                 "push_notification_form": push_notification_form,
                 "pnt_formset": pnt_formset,
                 "language": language,
-                "languages": region.languages,
+                "languages": region.active_languages,
             },
         )
 
@@ -143,12 +145,15 @@ class PushNotificationView(TemplateView):
             },
         )
 
-        num_languages = len(region.languages)
+        num_languages = len(region.active_languages)
         PNTFormset = modelformset_factory(
             PushNotificationTranslation,
             form=PushNotificationTranslationForm,
             max_num=num_languages,
             extra=num_languages - push_notification_translations.count(),
+        )
+        existing_languages = (
+            push_notification_instance.languages if push_notification_instance else []
         )
         pnt_formset = PNTFormset(
             data=request.POST,
@@ -157,9 +162,8 @@ class PushNotificationView(TemplateView):
             # Add initial data for all languages which do not yet have a translation
             initial=[
                 {"language": language}
-                for language in region.languages.exclude(
-                    push_notification_translations__in=push_notification_translations
-                )
+                for language in region.active_languages
+                if language not in existing_languages
             ],
         )
 
@@ -236,6 +240,6 @@ class PushNotificationView(TemplateView):
                 "push_notification_form": pn_form,
                 "pnt_formset": pnt_formset,
                 "language": language,
-                "languages": region.languages,
+                "languages": region.active_languages,
             },
         )

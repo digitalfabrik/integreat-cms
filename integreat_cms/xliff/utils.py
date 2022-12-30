@@ -83,7 +83,7 @@ def pages_to_xliff_file(request, pages, target_language):
     # Generate file path for ZIP archive
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
     region = pages[0].region
-    zip_name = f"{region.slug}_{timestamp}_{target_language.get_source_language(region).slug}_{target_language.slug}.zip"
+    zip_name = f"{region.slug}_{timestamp}_{region.get_source_language(target_language.slug).slug}_{target_language.slug}.zip"
     actual_filename = download_storage.save(f"{dir_name}/{zip_name}", ContentFile(""))
     # Create ZIP archive
     create_zip_archive(
@@ -126,7 +126,7 @@ def page_to_xliff(page, target_language, dir_name):
         )
     source_translation = target_page_translation.source_translation
     if not source_translation:
-        source_language = target_language.get_source_language(page.region)
+        source_language = page.region.get_source_language(target_language.slug)
         logger.warning(
             "Page translation %r does not have a source translation in %r and therefore cannot be exported to XLIFF.",
             target_page_translation,

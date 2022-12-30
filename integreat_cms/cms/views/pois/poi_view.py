@@ -84,7 +84,7 @@ class POIView(TemplateView, POIContextMixin, MediaContextMixin):
                 "poi_translation_form": poi_translation_form,
                 "language": language,
                 # Languages for tab view
-                "languages": region.languages if poi else [language],
+                "languages": region.active_languages if poi else [language],
             },
         )
 
@@ -191,6 +191,6 @@ class POIView(TemplateView, POIContextMixin, MediaContextMixin):
                 "poi_translation_form": poi_translation_form,
                 "language": language,
                 # Languages for tab view
-                "languages": region.languages if poi_instance else [language],
+                "languages": region.active_languages if poi_instance else [language],
             },
         )

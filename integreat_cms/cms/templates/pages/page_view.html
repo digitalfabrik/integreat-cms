@@ -6,15 +6,15 @@
     <h1 class="pt-4 font-bold text-lg font-default">{{ page_translation.title }}</h1>
     {% if mirrored_translation and mirrored_page_first %}
         <div class="pt-2">
-            {{ mirrored_translation.text|safe }}
+            {{ mirrored_translation.content|safe }}
         </div>
     {% endif %}
     <div class="pt-2">
-        {{ page_translation.text|safe }}
+        {{ page_translation.content|safe }}
     </div>
     {% if mirrored_translation and not mirrored_page_first %}
         <div class="pt-2">
-            {{ mirrored_translation.text|safe }}
+            {{ mirrored_translation.content|safe }}
         </div>
     {% endif %}
 </div>

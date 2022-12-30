@@ -68,11 +68,11 @@
             <div class="xliff-diff-preview w-full p-4 rounded border-2 border-blue-500 bg-white flex-auto flex-grow">
                 <div class="xliff-import-source hidden">
                     <h1 class="font-default">{{ diff.existing.title }}</h1>
-                    {{ diff.existing.text|safe }}
+                    {{ diff.existing.content|safe }}
                 </div>
                 <div class="xliff-import-target hidden">
                     <h1 class="font-default">{{ diff.import.title }}</h1>
-                    {{ diff.import.text|safe }}
+                    {{ diff.import.content|safe }}
                 </div>
                 <div class="xliff-diff-preview-rendered {% if diff.existing.language.slug == 'zh-CN' %} font-content-sc {% elif diff.right_to_left %} font-content-rtl text-right {% else %} font-content {% endif %}"></div>
             </div>
@@ -81,7 +81,7 @@
                 <label class="block mb-2 font-bold">{% trans 'Title' %}</label>
                 <p class="whitespace-pre-wrap font-mono">{% firstof diff.source_diff.title no_change_text %}</p>
                 <label class="block mb-2 mt-4 font-bold">{% trans 'Content' %}</label>
-                <p class="whitespace-pre-wrap font-mono">{% firstof diff.source_diff.text no_change_text %}</p>
+                <p class="whitespace-pre-wrap font-mono">{% firstof diff.source_diff.content no_change_text %}</p>
             </div>
         </div>
     </div>

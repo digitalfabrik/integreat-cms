@@ -1,9 +1,59 @@
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import get_language, ugettext_lazy as _
 from django.utils import timezone
 
 from ..constants import status
 from .regions.region import Region
+
+
+class ContentQuerySet(models.QuerySet):
+    """
+    This queryset provides the option to prefetch translations for content objects
+    """
+
+    def prefetch_translations(self):
+        """
+        Get the queryset including the custom attribute ``prefetched_translations`` which contains the latest
+        translations of each content object in each language
+
+        :return: The queryset of content objects
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel ]
+        """
+        TranslationModel = self.model.get_translation_model()
+        foreign_field = TranslationModel.foreign_field() + "_id"
+        return self.prefetch_related(
+            models.Prefetch(
+                "translations",
+                queryset=TranslationModel.objects.order_by(
+                    foreign_field, "language_id", "-version"
+                )
+                .distinct(foreign_field, "language_id")
+                .select_related("language"),
+                to_attr="prefetched_translations",
+            )
+        )
+
+    def prefetch_public_translations(self):
+        """
+        Get the queryset including the custom attribute ``prefetched_public_translations`` which contains the latest
+        public translations of each content object in each language
+
+        :return: The queryset of content objects
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel ]
+        """
+        TranslationModel = self.model.get_translation_model()
+        foreign_field = TranslationModel.foreign_field() + "_id"
+        return self.prefetch_related(
+            models.Prefetch(
+                "translations",
+                queryset=TranslationModel.objects.filter(status=status.PUBLIC)
+                .order_by(foreign_field, "language_id", "-version")
+                .distinct(foreign_field, "language_id")
+                .select_related("language"),
+                to_attr="prefetched_public_translations",
+            )
+        )
 
 
 class AbstractContentModel(models.Model):
@@ -20,7 +70,10 @@ class AbstractContentModel(models.Model):
         default=timezone.now, verbose_name=_("creation date")
     )
 
-    @property
+    #: Custom model manager for content objects
+    objects = ContentQuerySet.as_manager()
+
+    @cached_property
     def languages(self):
         """
         This property returns a list of all :class:`~integreat_cms.cms.models.languages.language.Language` objects, to
@@ -42,7 +95,22 @@ class AbstractContentModel(models.Model):
                  :obj:`None` if no translation exists
         :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
-        return self.translations.filter(language__slug=language_slug).first()
+        try:
+            # Try to get the prefetched translations (which are already distinct per language)
+            return next(
+                (
+                    translation
+                    for translation in self.prefetched_translations
+                    if translation.language.slug == language_slug
+                )
+            )
+        except (AttributeError, StopIteration):
+            # If the translations were not prefetched, query it from the database
+            return (
+                self.translations.filter(language__slug=language_slug)
+                .select_related("language")
+                .first()
+            )
 
     def get_public_translation(self, language_slug):
         """
@@ -54,12 +122,27 @@ class AbstractContentModel(models.Model):
         :return: The public translation of a content object
         :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
-        return self.translations.filter(
-            language__slug=language_slug,
-            status=status.PUBLIC,
-        ).first()
+        try:
+            # Try to get the prefetched translations (which are already distinct per language)
+            return next(
+                (
+                    translation
+                    for translation in self.prefetched_public_translations
+                    if translation.language.slug == language_slug
+                )
+            )
+        except (AttributeError, StopIteration):
+            # If the translations were not prefetched or the latest version was not public, query it from the database
+            return (
+                self.translations.filter(
+                    language__slug=language_slug,
+                    status=status.PUBLIC,
+                )
+                .select_related("language")
+                .first()
+            )
 
-    @property
+    @cached_property
     def backend_translation(self):
         """
         This function returns the translation of this content object in the current backend language.
@@ -69,7 +152,7 @@ class AbstractContentModel(models.Model):
         """
         return self.translations.filter(language__slug=get_language()).first()
 
-    @property
+    @cached_property
     def default_translation(self):
         """
         This function returns the translation of this content object in the region's default language.
@@ -81,7 +164,7 @@ class AbstractContentModel(models.Model):
         """
         return self.translations.filter(language=self.region.default_language).first()
 
-    @property
+    @cached_property
     def best_translation(self):
         """
         This function returns the translation of this content object in the current backend language and if it doesn't

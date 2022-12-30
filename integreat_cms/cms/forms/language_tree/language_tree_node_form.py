@@ -60,9 +60,11 @@ class LanguageTreeNodeForm(CustomModelForm, MoveNodeForm):
         self.fields["_position"].widget = forms.HiddenInput()
 
         parent_queryset = self.instance.region.language_tree_nodes
-        excluded_languages = self.instance.region.languages.exclude(
-            language_tree_nodes=self.instance
-        )
+        excluded_languages = [
+            language
+            for language in self.instance.region.languages
+            if language != self.instance.language
+        ]
 
         if self.instance.id:
             children = self.instance.get_descendants(include_self=True)

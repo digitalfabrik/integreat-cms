@@ -4,7 +4,7 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views.generic import TemplateView
@@ -78,8 +78,8 @@ class PageXliffImportView(TemplateView, PageContextMixin):
         """
         # Get current region and language
         self.region = Region.get_current_region(request)
-        self.language = get_object_or_404(
-            self.region.languages, slug=kwargs.get("language_slug")
+        self.language = self.region.get_language_or_404(
+            kwargs.get("language_slug"), only_active=True
         )
         # Get directory path of the uploaded XLIFF files
         self.xliff_dir = os.path.join(

@@ -1,8 +1,8 @@
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse
 
-from .poi import POI
 from ..abstract_content_translation import AbstractContentTranslation
 
 
@@ -12,7 +12,7 @@ class POITranslation(AbstractContentTranslation):
     """
 
     poi = models.ForeignKey(
-        POI,
+        "cms.POI",
         on_delete=models.CASCADE,
         related_name="translations",
         verbose_name=_("location"),
@@ -21,7 +21,7 @@ class POITranslation(AbstractContentTranslation):
         max_length=2048, verbose_name=_("short description")
     )
 
-    @property
+    @cached_property
     def foreign_object(self):
         """
         This property is an alias of the POI foreign key and is needed to generalize the :mod:`~integreat_cms.cms.utils.slug_utils`
@@ -42,7 +42,7 @@ class POITranslation(AbstractContentTranslation):
         """
         return "poi"
 
-    @property
+    @cached_property
     def url_infix(self):
         """
         Generates the infix of the url of the poi translation object
@@ -55,7 +55,7 @@ class POITranslation(AbstractContentTranslation):
         """
         return "pois"
 
-    @property
+    @cached_property
     def backend_edit_link(self):
         """
         This function returns the absolute url to the editor for this translation

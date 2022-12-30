@@ -102,7 +102,7 @@ class PushNotificationListView(TemplateView):
                 **self.base_context,
                 "push_notifications": push_notifications_chunk,
                 "language": language,
-                "languages": region.languages,
+                "languages": region.active_languages,
                 "region_slug": region.slug,
                 "search_query": query,
             },

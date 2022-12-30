@@ -1,8 +1,8 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
-from .event import Event
 from ..abstract_content_translation import AbstractContentTranslation
 
 
@@ -12,13 +12,13 @@ class EventTranslation(AbstractContentTranslation):
     """
 
     event = models.ForeignKey(
-        Event,
+        "cms.Event",
         on_delete=models.CASCADE,
         related_name="translations",
         verbose_name=_("event"),
     )
 
-    @property
+    @cached_property
     def foreign_object(self):
         """
         This property is an alias of the event foreign key and is needed to generalize the :mod:`~integreat_cms.cms.utils.slug_utils`
@@ -39,7 +39,7 @@ class EventTranslation(AbstractContentTranslation):
         """
         return "event"
 
-    @property
+    @cached_property
     def url_infix(self):
         """
         Returns the string "events" which is the infix of the url of  the event translation object
@@ -53,7 +53,7 @@ class EventTranslation(AbstractContentTranslation):
         """
         return "events"
 
-    @property
+    @cached_property
     def backend_edit_link(self):
         """
         This function returns the absolute url to the editor for this translation

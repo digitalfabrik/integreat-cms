@@ -4,18 +4,43 @@ from html import escape
 
 from django.conf import settings
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from .abstract_base_page import AbstractBasePage
+from treebeard.ns_tree import NS_NodeManager, NS_NodeQuerySet
+
+from ...utils.translation_utils import ugettext_many_lazy as __
+from ..abstract_content_model import ContentQuerySet
 from ..abstract_tree_node import AbstractTreeNode
 from ..decorators import modify_fields
 from ..languages.language import Language
-from ..media.media_file import MediaFile
-from ..users.organization import Organization
-from ...utils.translation_utils import ugettext_many_lazy as __
+from .abstract_base_page import AbstractBasePage
+from .page_translation import PageTranslation
 
 logger = logging.getLogger(__name__)
+
+
+class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
+    """
+    Custom queryset for pages to inherit methods from both querysets for tree nodes and content objects
+    """
+
+
+# pylint: disable=too-few-public-methods
+class PageManager(NS_NodeManager):
+    """
+    Custom manager for pages to inherit methods from both managers for tree nodes and content objects
+    """
+
+    def get_queryset(self):
+        """
+        Sets the custom queryset as the default.
+
+        :return: The sorted queryset
+        :rtype: ~integreat_cms.cms.models.pages.page.PageQuerySet
+        """
+        return PageQuerySet(self.model).order_by("tree_id", "lft")
 
 
 @modify_fields(parent={"verbose_name": _("parent page")})
@@ -25,7 +50,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
     """
 
     icon = models.ForeignKey(
-        MediaFile,
+        "cms.MediaFile",
         verbose_name=_("icon"),
         on_delete=models.SET_NULL,
         blank=True,
@@ -76,7 +101,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         ),
     )
     organization = models.ForeignKey(
-        Organization,
+        "cms.Organization",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -86,7 +111,20 @@ class Page(AbstractTreeNode, AbstractBasePage):
         ),
     )
 
-    @property
+    #: Custom model manager to inherit methods from tree manager as well as the custom content queryset
+    objects = PageManager()
+
+    @staticmethod
+    def get_translation_model():
+        """
+        Returns the translation model of this content model
+
+        :return: The class of translations
+        :rtype: type
+        """
+        return PageTranslation
+
+    @cached_property
     def explicitly_archived_ancestors(self):
         """
         This returns all of the page's ancestors which are archived.
@@ -96,7 +134,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         """
         return self.get_ancestors().filter(explicitly_archived=True)
 
-    @property
+    @cached_property
     def implicitly_archived(self):
         """
         This checks whether one of the page's ancestors is archived which means that this page is implicitly archived as well.
@@ -106,7 +144,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         """
         return self.explicitly_archived_ancestors.exists()
 
-    @property
+    @cached_property
     def archived(self):
         """
         A hierarchical page is archived either explicitly if ``explicitly_archived=True`` or implicitly if one of its
@@ -117,7 +155,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         """
         return self.explicitly_archived or self.implicitly_archived
 
-    @property
+    @cached_property
     def languages(self):
         """
         This property returns a list of all :class:`~integreat_cms.cms.models.languages.language.Language` objects, to which a page

@@ -66,8 +66,8 @@
                 <label>{{ imprint_translation_form.title.label }}</label>
                 <input id="source_translation_title" type="text" value="{{source_imprint_translation.title}}" disabled>
 	            <div class="mt-4">
-                    <label class="block mt-4 font-bold">{{ imprint_translation_form.text.label }}</label>
-                    <textarea id="source_translation_tinymce" cols="40" rows="10" class="tinymce_textarea bg-gray-200 w-full p-2" disabled>{{ source_imprint_translation.text }}</textarea>
+                    <label class="block mt-4 font-bold">{{ imprint_translation_form.content.label }}</label>
+                    <textarea id="source_translation_tinymce" cols="40" rows="10" class="tinymce_textarea bg-gray-200 w-full p-2" disabled>{{ source_imprint_translation.content }}</textarea>
                 </div>
 
                 <span class="block font-bold mt-4 mb-4">{% trans 'Copy content' %}</span>
@@ -128,7 +128,7 @@
                 {% endif %}
                 <label for="{{ imprint_translation_form.title.id_for_label }}">{{ imprint_translation_form.title.label }}</label>
                 {% render_field imprint_translation_form.title|add_error_class:"border-red-500" id="target_translation_title" %}
-                <label for="{{ imprint_translation_form.text.id_for_label }}">{{ imprint_translation_form.text.label }}</label>
+                <label for="{{ imprint_translation_form.content.id_for_label }}">{{ imprint_translation_form.text.label }}</label>
                 {% render_field imprint_translation_form.text|add_error_class:"border-red-500" id="target_translation_tinymce" class="tinymce_textarea" %}
                 <label>{% trans 'Implications on other translations' %}</label>
                 {% render_field imprint_translation_form.minor_edit %}

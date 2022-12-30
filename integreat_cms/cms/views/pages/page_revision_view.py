@@ -50,9 +50,9 @@ class PageRevisionView(TemplateView):
         region = Region.get_current_region(request)
         page = get_object_or_404(region.pages, id=kwargs.get("page_id"))
 
-        language = get_object_or_404(
-            region.language_tree_nodes, language__slug=kwargs.get("language_slug")
-        ).language
+        language = region.get_language_or_404(
+            kwargs.get("language_slug"), only_active=True
+        )
 
         page_translations = page.translations.filter(language=language)
 

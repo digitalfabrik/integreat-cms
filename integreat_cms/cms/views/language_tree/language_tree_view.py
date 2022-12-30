@@ -43,7 +43,6 @@ class LanguageTreeView(TemplateView, LanguageTreeContextMixin):
         :rtype: ~django.template.response.TemplateResponse
         """
         region = Region.get_current_region(request)
-        language_tree = region.language_tree_nodes.all().select_related("language")
         context = self.get_context_data(**kwargs)
         return render(
             request,
@@ -51,6 +50,6 @@ class LanguageTreeView(TemplateView, LanguageTreeContextMixin):
             {
                 **self.base_context,
                 **context,
-                "language_tree": language_tree,
+                "language_tree": region.language_tree,
             },
         )

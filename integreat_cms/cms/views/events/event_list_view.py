@@ -71,7 +71,7 @@ class EventListView(TemplateView, EventContextMixin):
         # current language
         language_slug = kwargs.get("language_slug")
         if language_slug:
-            language = region.languages.get(slug=language_slug)
+            language = region.get_language_or_404(language_slug, only_active=True)
         elif region.default_language is not None:
             return redirect(
                 "events",
@@ -186,7 +186,10 @@ class EventListView(TemplateView, EventContextMixin):
             poi = None
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         # for consistent pagination querysets should be ordered
-        paginator = Paginator(events.order_by("start_date", "start_time"), chunk_size)
+        paginator = Paginator(
+            events.prefetch_translations().order_by("start_date", "start_time"),
+            chunk_size,
+        )
         chunk = request.GET.get("page")
         event_chunk = paginator.get_page(chunk)
         context = self.get_context_data(**kwargs)
@@ -199,7 +202,7 @@ class EventListView(TemplateView, EventContextMixin):
                 "events": event_chunk,
                 "archived_count": region.events.filter(archived=True).count(),
                 "language": language,
-                "languages": region.languages,
+                "languages": region.active_languages,
                 "filter_form": event_filter_form,
                 "filter_poi": poi,
                 "search_query": query,

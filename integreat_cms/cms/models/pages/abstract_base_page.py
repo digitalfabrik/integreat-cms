@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
 from ..abstract_content_model import AbstractContentModel
@@ -15,7 +16,7 @@ class AbstractBasePage(AbstractContentModel):
         help_text=_("Whether or not the page is explicitly archived"),
     )
 
-    @property
+    @cached_property
     def archived(self):
         """
         This is an alias of ``explicitly_archived``. Used for hierarchical pages to implement a more complex notion of
@@ -26,7 +27,7 @@ class AbstractBasePage(AbstractContentModel):
         """
         return self.explicitly_archived
 
-    @property
+    @cached_property
     def languages(self):
         """
         This property returns a list of all :class:`~integreat_cms.cms.models.languages.language.Language` objects, to

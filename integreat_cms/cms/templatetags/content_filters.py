@@ -115,20 +115,27 @@ def build_url(target, region_slug, language_slug, content_field, content_id):
 
 
 @register.filter
-def remove(queryset, instance):
+def remove(elements, element):
     """
-    This tag removes an object instance from a QuerySet.
+    This tag removes an element from a list.
 
-    :param queryset: The given QuerySet
-    :type queryset: ~django.db.models.query.QuerySet
+    :param elements: The given list of elements
+    :type elements: list
 
-    :param instance: The object instance to be removed
-    :type instance: object
+    :param element: The element to be removed
+    :type element: object
 
-    :return: The QuerySet without the object instance
-    :rtype: ~django.db.models.query.QuerySet
+    :return: The list without the element
+    :rtype: list
     """
-    return queryset.exclude(id=instance.id)
+    try:
+        # Copy input list to make sure it is not modified in place
+        result = elements.copy()
+        result.remove(element)
+        return result
+    except ValueError:
+        # If the element wasn't in the list to begin with, just return the input
+        return elements
 
 
 @register.filter
@@ -140,16 +147,14 @@ def sort_languages(other_languages, current_language):
     :type current_language: ~integreat_cms.cms.models.languages.language.Language
 
     :param other_languages: Other languages
-    :type other_languages: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
+    :type other_languages: list [ ~integreat_cms.cms.models.languages.language.Language ]
 
     :return: the filtered list with the current language on the second position
     :rtype: list
     """
-    other_languages = list(other_languages)
     if other_languages[0] != current_language:
         other_languages.remove(current_language)
         other_languages.insert(1, current_language)
-
     return other_languages
 
 
