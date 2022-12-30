@@ -46,6 +46,8 @@ type Props = {
     selectMedia?: (file: File) => any;
     submitForm: (event: Event) => void;
     isLoading: boolean;
+    canDeleteFile: boolean;
+    canReplaceFile: boolean;
 };
 
 const EditSidebar = ({
@@ -60,6 +62,8 @@ const EditSidebar = ({
     onlyImage,
     submitForm,
     isLoading,
+    canDeleteFile,
+    canReplaceFile,
 }: Props) => {
     // The file index contains the index of the file which is currently opened in the sidebar
     const [fileIndex, setFileIndex] = fileIndexState;
@@ -240,7 +244,7 @@ const EditSidebar = ({
                                         {mediaTranslations.btn_save_file}
                                     </button>
                                 )}
-                                {!selectionMode && (
+                                {!selectionMode && canReplaceFile && (
                                     <label
                                         for="replace-file-input"
                                         title={mediaTranslations.btn_replace_file}
@@ -254,17 +258,19 @@ const EditSidebar = ({
                                         {mediaTranslations.btn_replace_file}
                                     </label>
                                 )}
-                                <button
-                                    title={mediaTranslations.btn_delete_file}
-                                    className={cn("btn", { "btn-red": !isLoading })}
-                                    data-confirmation-title={mediaTranslations.text_file_delete_confirm}
-                                    data-confirmation-subject={file.name}
-                                    disabled={isLoading}
-                                    onClick={showConfirmationPopupAjax}
-                                    onaction-confirmed={() => document.getElementById("delete-file").click()}>
-                                    <Trash2 class="inline-block" />
-                                    {mediaTranslations.btn_delete_file}
-                                </button>
+                                {canDeleteFile && (
+                                    <button
+                                        title={mediaTranslations.btn_delete_file}
+                                        className={cn("btn", { "btn-red": !isLoading })}
+                                        data-confirmation-title={mediaTranslations.text_file_delete_confirm}
+                                        data-confirmation-subject={file.name}
+                                        disabled={isLoading}
+                                        onClick={showConfirmationPopupAjax}
+                                        onaction-confirmed={() => document.getElementById("delete-file").click()}>
+                                        <Trash2 class="inline-block" />
+                                        {mediaTranslations.btn_delete_file}
+                                    </button>
+                                )}
                             </>
                         ) : (
                             <p class="italic">

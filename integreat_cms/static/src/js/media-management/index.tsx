@@ -67,6 +67,9 @@ type Props = {
     allowedMediaTypes?: string;
     selectionMode?: boolean;
     selectMedia?: (file: File) => any;
+    canDeleteFile: boolean;
+    canReplaceFile: boolean;
+    canDeleteDirectory: boolean;
 };
 
 const MediaManagement = (props: Props) => {

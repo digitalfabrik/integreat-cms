@@ -18,6 +18,7 @@ type Props = {
     globalEdit?: boolean;
     submitForm: (event: Event, successCallback?: (data: any) => void) => void;
     isLoading: boolean;
+    canDeleteDirectory: boolean;
 };
 const EditDirectorySidebar = ({
     directory,
@@ -26,6 +27,7 @@ const EditDirectorySidebar = ({
     globalEdit,
     submitForm,
     isLoading,
+    canDeleteDirectory,
 }: Props) => {
     // This state is a buffer for the currently changed directory
     const [changedDirectory, setChangedDirectory] = useState<Directory>(directory);
@@ -116,23 +118,25 @@ const EditDirectorySidebar = ({
                                         {mediaTranslations.btn_rename_directory}
                                     </button>
                                 )}
-                                <button
-                                    title={`${
-                                        directory.numberOfEntries === 0
-                                            ? mediaTranslations.btn_delete_directory
-                                            : mediaTranslations.btn_delete_empty_directory
-                                    }`}
-                                    className={cn("btn", {
-                                        "btn-red": !isLoading && directory.numberOfEntries === 0,
-                                    })}
-                                    data-confirmation-title={mediaTranslations.text_dir_delete_confirm}
-                                    data-confirmation-subject={directory.name}
-                                    disabled={isLoading || directory.numberOfEntries !== 0}
-                                    onClick={showConfirmationPopupAjax}
-                                    onaction-confirmed={() => document.getElementById("delete-directory").click()}>
-                                    <Trash2 class="mr-2 inline-block h-5" />
-                                    {mediaTranslations.btn_delete_directory}
-                                </button>
+                                {canDeleteDirectory && (
+                                    <button
+                                        title={`${
+                                            directory.numberOfEntries === 0
+                                                ? mediaTranslations.btn_delete_directory
+                                                : mediaTranslations.btn_delete_empty_directory
+                                        }`}
+                                        className={cn("btn", {
+                                            "btn-red": !isLoading && directory.numberOfEntries === 0,
+                                        })}
+                                        data-confirmation-title={mediaTranslations.text_dir_delete_confirm}
+                                        data-confirmation-subject={directory.name}
+                                        disabled={isLoading || directory.numberOfEntries !== 0}
+                                        onClick={showConfirmationPopupAjax}
+                                        onaction-confirmed={() => document.getElementById("delete-directory").click()}>
+                                        <Trash2 class="mr-2 inline-block h-5" />
+                                        {mediaTranslations.btn_delete_directory}
+                                    </button>
+                                )}
                             </div>
                         ) : (
                             <p class="italic">
