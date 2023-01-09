@@ -2,6 +2,7 @@
 {% load l10n %}
 {% load i18n %}
 {% load static %}
+{% load humanize %}
 {% load widget_tweaks %}
 {% block content %}
     <form enctype="multipart/form-data" method="post" data-unsaved-warning>
@@ -258,6 +259,76 @@
                             </p>
                         </div>
                     {% endif %}
+                </div>
+                <div>
+                    <!-- Options related to DeepL machine translation -->
+                    <label>
+                        {% trans "DeepL machine translation" %}
+                    </label>
+                    {% if form.instance.id %}
+                        <div class="max-w-xs">
+                            <div class="flex flex-wrap justify-between">
+                                <label class="secondary m-0">
+                                    {% trans "Current total budget" %}:
+                                </label>
+                                <p>
+                                    {{ form.instance.deepl_budget|intcomma }}
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap justify-between">
+                                <label class="secondary m-0">
+                                    {% trans "Already consumed" %}:
+                                </label>
+                                <p>
+                                    {{ form.instance.deepl_budget_used|intcomma }}
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap justify-between">
+                                <label class="secondary m-0">
+                                    {% trans "Remaining words" %}:
+                                </label>
+                                <p>
+                                    {{ form.instance.deepl_budget_remaining|intcomma }}
+                                </p>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <label for="{{ form.deepl_renewal_month.id_for_label }}" class="secondary">
+                        {{ form.deepl_renewal_month.label }}
+                    </label>
+                    {% render_field form.deepl_renewal_month %}
+                    <div class="help-text">
+                        {{ form.deepl_renewal_month.help_text }}
+                    </div>
+                    {% render_field form.deepl_addon_booked %}
+                    <label for="{{ form.deepl_addon_booked.id_for_label }}" class="secondary">
+                        {{ form.deepl_addon_booked.label }}
+                    </label>
+                    <div class="help-text">
+                        {{ form.deepl_addon_booked.help_text }}
+                    </div>
+                    <div id="deepl-toggle-div"
+                         {% if not form.instance.deepl_addon_booked %} class="hidden"{% endif %}>
+                        {% render_field form.deepl_midyear_start_enabled %}
+                        <label for="{{ form.deepl_midyear_start_enabled.id_for_label }}"
+                               class="secondary">
+                            {{ form.deepl_midyear_start_enabled.label }}
+                        </label>
+                        <div class="help-text">
+                            {{ form.deepl_midyear_start_enabled.help_text }}
+                        </div>
+                        <div id="deepl-renewal-toggle-div"
+                             {% if not form.instance.deepl_midyear_start_enabled %} class="hidden"{% endif %}>
+                            <label for="{{ form.deepl_midyear_start_month.id_for_label }}"
+                                   class="secondary">
+                                {{ form.deepl_midyear_start_month.label }}
+                            </label>
+                            {% render_field form.deepl_midyear_start_month %}
+                            <div class="help-text">
+                                {{ form.deepl_midyear_start_month.help_text }}
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <!-- Options related to tunews -->
