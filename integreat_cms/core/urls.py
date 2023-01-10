@@ -39,7 +39,9 @@ urlpatterns = [
 # Add url patterns of debug views
 if settings.DEBUG:
     # Admin endpoint is only visible in debug mode
+    urlpatterns.append(path("admin/linkcheck/", include("linkcheck.urls")))
     urlpatterns.append(path("admin/", admin.site.urls))
+
     # The Django debug toolbar urlpatterns will only be activated if the debug_toolbar app is installed
     if "debug_toolbar" in settings.INSTALLED_APPS:
         urlpatterns.append(path("__debug__/", include("debug_toolbar.urls")))
