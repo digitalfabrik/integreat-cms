@@ -100,6 +100,7 @@ MANAGEMENT_PERMISSIONS = EDITOR_PERMISSIONS + [
     "delete_mediafile",
     "delete_organization",
     "grant_page_permissions",
+    "manage_translations",
     "send_push_notification",
     "view_feedback",
     "view_imprintpage",
@@ -175,6 +176,7 @@ SERVICE_TEAM_PERMISSIONS = APP_TEAM_PERMISSIONS + [
     "delete_region",
     "delete_user",
     "grant_page_permissions",
+    "manage_translations",
 ]
 
 #: The permissions of the cms team

@@ -1280,6 +1280,18 @@ msgstr "Funktionierender interner Link"
 msgid "Working redirect"
 msgstr "Funktionierende Weiterleitung"
 
+#: cms/constants/machine_translation_permissions.py
+msgid "No"
+msgstr "Nein"
+
+#: cms/constants/machine_translation_permissions.py
+msgid "Yes"
+msgstr "Ja"
+
+#: cms/constants/machine_translation_permissions.py
+msgid "Yes, only managers"
+msgstr "Ja, nur Verwalter:innen"
+
 #: cms/constants/mirrored_page_first.py
 msgid "Embed mirrored page before this page"
 msgstr "Gespiegelte Seite vor dieser Seite einbinden"
@@ -2427,8 +2439,8 @@ msgstr "Impressum"
 msgid "imprint feedback"
 msgstr "Impressums-Feedback"
 
-#: cms/models/feedback/map_feedback.py cms/templates/_base.html
-#: cms/templates/pois/poi_list.html
+#: cms/models/feedback/map_feedback.py cms/models/regions/region.py
+#: cms/templates/_base.html cms/templates/pois/poi_list.html
 msgid "Locations"
 msgstr "Orte"
 
@@ -3416,6 +3428,16 @@ msgstr "Monat ab welchem das Add-On Paket gebucht wurde"
 msgid "used DeepL budget"
 msgstr "verbrauchtes DeepL budget"
 
+#: cms/models/regions/region.py cms/templates/_base.html
+#: cms/templates/organizations/organization_form.html
+msgid "Pages"
+msgstr "Seiten"
+
+#: cms/models/regions/region.py cms/templates/_base.html
+#: cms/templates/events/event_list.html
+msgid "Events"
+msgstr "Veranstaltungen"
+
 #: cms/models/regions/region.py cms/models/users/user.py
 msgid "regions"
 msgstr "Regionen"
@@ -3620,6 +3642,15 @@ msgstr "Feedback"
 msgid "Broken Links"
 msgstr "Fehlerhafte Links"
 
+#: cms/templates/_base.html cms/templates/languages/language_form.html
+msgid "Translations"
+msgstr "Übersetzungen"
+
+#: cms/templates/_base.html
+#: cms/templates/translations/translations_management.html
+msgid "Manage Translations"
+msgstr "Verwaltung"
+
 #: cms/templates/_base.html cms/templates/imprint/imprint_revisions.html
 #: cms/templates/pages/_page_xliff_import_diff.html
 #: cms/templates/pages/page_revisions.html
@@ -3630,14 +3661,6 @@ msgstr "Inhalt"
 #: cms/views/media/media_context_mixin.py
 msgid "Media Library"
 msgstr "Medienbibliothek"
-
-#: cms/templates/_base.html cms/templates/organizations/organization_form.html
-msgid "Pages"
-msgstr "Seiten"
-
-#: cms/templates/_base.html cms/templates/events/event_list.html
-msgid "Events"
-msgstr "Veranstaltungen"
 
 #: cms/templates/_base.html
 #: cms/templates/push_notifications/push_notification_list.html
@@ -4867,6 +4890,7 @@ msgstr "Neue Sprache erstellen"
 #: cms/templates/poicategories/poicategory_form.html
 #: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/regions/region_form.html cms/templates/roles/role_form.html
+#: cms/templates/translations/translations_management.html
 #: cms/templates/users/region_user_form.html cms/templates/users/user_form.html
 #: cms/views/pois/poi_context_mixin.py
 msgid "Save"
@@ -4891,10 +4915,6 @@ msgstr "Das ist in vielen Fällen ein einzelner (Makro-)Sprachen-Tag aus der"
 #: cms/templates/languages/language_form.html
 msgid "or"
 msgstr "oder"
-
-#: cms/templates/languages/language_form.html
-msgid "Translations"
-msgstr "Übersetzungen"
 
 #: cms/templates/languages/language_form.html
 #: cms/templates/offertemplates/offertemplate_form.html
@@ -6463,6 +6483,18 @@ msgstr "Bild/PNG"
 msgid "Table Document/CSV"
 msgstr "Tabellendokument/CSV"
 
+#: cms/templates/translations/translations_management.html
+msgid "Machine Translation"
+msgstr "Maschinelle Übersetzung"
+
+#: cms/templates/translations/translations_management.html
+msgid "Automatic translations"
+msgstr "Automatische Übersetzungen"
+
+#: cms/templates/translations/translations_management.html
+msgid "Automatically machine translate the following types of content:"
+msgstr "Folgende Inhalte automatisch maschinell übersetzen:"
+
 #: cms/templates/tutorials/page_tree.html
 msgid "Introduction - Page Tree"
 msgstr "Einführung in den neuen Seiten-Baum"
@@ -7884,6 +7916,11 @@ msgstr "Passwort wurde erfolgreich geändert"
 msgid "Statistics are not enabled for this region."
 msgstr "Statistiken sind für diese Region nicht aktiviert."
 
+#: cms/views/translations/translations_management_view.py
+msgid "Automatic translation settings were saved successfully."
+msgstr ""
+"Einstellungen für automatische Übersetzungen wurden erfolgreich gespeichert."
+
 #: cms/views/users/region_user_actions.py cms/views/users/user_actions.py
 msgid "Account \"{}\" was successfully deleted."
 msgstr "Das Konto von \"{}\" wurde erfolgreich gelöscht."
@@ -8101,6 +8138,9 @@ msgstr ""
 
 #~ msgid "Duplicate page translation in XLIFF, skipping"
 #~ msgstr "Doppelte Übersetzung in XLIFF, überspringe"
+
+#~ msgid "POIs"
+#~ msgstr "POIs"
 
 #~ msgid ""
 #~ "To further protect your account you can add additional authentication "
@@ -8645,12 +8685,6 @@ msgstr ""
 
 #~ msgid "Time Range"
 #~ msgstr "Zeitraum"
-
-#~ msgid "Yes"
-#~ msgstr "Ja"
-
-#~ msgid "No"
-#~ msgstr "Nein"
 
 #~ msgid "upcoming events"
 #~ msgstr "Zukünftige Termine"
@@ -9681,9 +9715,6 @@ msgstr ""
 
 #~ msgid "Yes, restore this POI now."
 #~ msgstr "Ja, diesen POI wiederherstellen."
-
-#~ msgid "POIs"
-#~ msgstr "POIs"
 
 #~ msgid "Restore POI"
 #~ msgstr "POI Wiederherstellen"

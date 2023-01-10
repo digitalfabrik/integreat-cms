@@ -255,4 +255,5 @@ class User(AbstractUser, AbstractBaseModel):
             ("view_translation_report", "view_translation_report"),
             ("view_broken_links", "view_broken_links"),
             ("view_statistics", "view_statistics"),
+            ("manage_translations", "manage_translations"),
         )
