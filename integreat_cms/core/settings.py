@@ -720,6 +720,10 @@ DEEPL_SOFT_MARGIN_FRACTION = float(
 #: The actual number of words which are used as soft margin
 DEEPL_SOFT_MARGIN = int(DEEPL_SOFT_MARGIN_FRACTION * DEEPL_CREDITS_FREE)
 
+#: The minimum HIX-value required to allow machine translation
+MIN_HIX_TO_TRANSLATE = 15
+
+
 
 #########################
 # SUMM.AI - EASY GERMAN #
@@ -775,6 +779,9 @@ SUMM_AI_HTML_TAGS = ["p", "li"]
 SUMM_AI_IS_INITIAL = bool(
     strtobool(os.environ.get("INTEGREAT_CMS_SUMM_AI_IS_INITIAL", "True"))
 )
+
+
+
 
 
 ################

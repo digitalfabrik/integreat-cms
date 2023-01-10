@@ -1,0 +1,11 @@
+{% load i18n %}
+{% load content_filters %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_language LANGUAGE_CODE as backend_language %}
+<table>
+    <tbody>
+        {% for page in pages %}
+            {% include "translate_pages/translate_pages_tree_node.html" %}
+        {% endfor %}
+    </tbody>
+</table>

@@ -159,6 +159,11 @@
                                 {% translate "Manage Translations" %}
                             </a>
                         {% endif %}
+                            <a href="{% url 'translate_pages' region_slug=request.region.slug %}"
+                                class="{% if current_menu_item == 'translate_pages' %} active{% endif %}">
+                                <i icon-name='check-circle'></i>
+                                {% translate "Translate pages" %}
+                            </a>
                     {% endif %}
                 {% endif %}
                 <!-- Content Section -->
@@ -171,7 +176,7 @@
                         <i icon-name='file'></i>
                         {% translate "Media Library" %}
                     </a>
-                {% endif %}
+                {% endif %} 
                 {% if perms.cms.view_page %}
                     <div class="{% if current_menu_item|in_list:'pages,new_page' %} active {% endif %}">
                         <a href="{% url 'pages' region_slug=request.region.slug %}">

@@ -46,6 +46,7 @@ from ..views import (
     roles,
     settings,
     statistics,
+    translate_pages,
     users,
     utils,
     feedback,
@@ -545,6 +546,11 @@ urlpatterns = [
                                                         pages.PartialPageTreeView.as_view(),
                                                         name="get_page_tree_ajax",
                                                     ),
+                                                    path(
+                                                        "partial-translate-pages-tree/tree-<int:tree_id>/",
+                                                        translate_pages.PartialTranslatePagesTreeView.as_view(),
+                                                        name="get_translate_pages_tree_ajax",
+                                                    ),
                                                 ]
                                             ),
                                         ),
@@ -723,16 +729,37 @@ urlpatterns = [
                     ),
                 ),
                 path(
-                    "translations/",
+                "translations/",
+                include(
+                    [
+                        path(
+                            "manage/",
+                            translations.TranslationsManagementView.as_view(),
+                            name="translations_management",
+                        ),
+                    ],
+                    ),
+                ),
+                path(
+                "translate_pages/", 
                     include(
                         [
+                            path("", translate_pages.TranslatePagesView.as_view(), name="translate_pages"),
                             path(
-                                "manage/",
-                                translations.TranslationsManagementView.as_view(),
-                                name="translations_management",
-                            ),
-                        ],
-                    ),
+                                "<slug:language_slug>/",
+                                include(
+                                    [
+                                        path(
+                                            "",
+                                            translate_pages.TranslatePagesView.as_view(),
+                                            name="translate_pages",
+                                        ),
+                                    ]
+                                )
+                            )
+
+                        ]
+                    )
                 ),
                 path(
                     "pages/",

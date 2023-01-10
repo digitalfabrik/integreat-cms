@@ -1,0 +1,139 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load page_filters %}
+{% load rules %}
+{% block content %}
+    {% with filter_form.filters_visible as filters_visible %}
+        <div class="table-header">
+            <div class="flex flex-wrap justify-between gap-4">
+                <!-- @TODO: archiving needed here?
+                    <h3 class="heading">
+                    {% translate "Translate Pages" %}
+                    <button data-show-tutorial="translate-pages" class="hover:text-blue-500">
+                        <i icon-name="help-circle" class="align-baseline"></i>
+                    </button>
+                </h3>
+                <a href="{% url 'archived_pages' region_slug=request.region.slug language_slug=language.slug %}"
+                   class="font-bold text-sm text-gray-800 flex items-center gap-1 mb-2 hover:underline">
+                    <span><i icon-name="archive" class="align-top h-5"></i> {% translate "Archived pages" %}</span>
+                </a>-->
+            </div>
+            <!-- @TODO: filter needed here? -->
+            <div class="flex flex-wrap justify-between gap-4">
+                <div class="flex flex-wrap gap-4">
+                    {% include "_search_input.html" with object_type="page" related_form="page-filter-form" search_query=filter_form.cleaned_data.query %}
+                </div>
+                <div class="flex flex-wrap gap-4">
+                    {% if request.user.expert_mode %}
+                        <button id="filter-toggle" class="btn btn-light-blue">
+                            <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% translate "Show filters" %}</span>
+                            <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% translate "Hide filters" %}</span>
+                        </button>
+                    {% endif %}
+                 </div>
+            </div>
+        </div>
+        <div id="filter-form-container"
+             class="{% if not filters_visible %}hidden{% endif %} w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+            {% include "pages/_page_filter_form.html" %}
+        </div>
+    {% endwith %}
+    <form method="post" id="bulk-action-form" class="table-listing">
+        {% csrf_token %}
+        <div class="overflow-x-auto">
+            <table {% if not filter_form.is_enabled %} data-delay-event-handlers data-activate-tree-drag-drop{% endif %}
+                   class="w-full mt-4 rounded border-2 border-solid border-gray-200 shadow bg-white table-auto">
+                <thead>
+                    <tr class="border-b border-solid border-gray-200">
+                        {% if not filter_form.is_enabled %}
+                            <th class="text-sm text-left uppercase py-3 pl-2 pr-2 min">{% translate "Hierarchy" %}</th>
+                        {% endif %}
+                        <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% translate "Title in" %} {{ language.translated_name }}</th>
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_language LANGUAGE_CODE as backend_language %}
+                        {% if backend_language and backend_language != language %}
+                            <th class="text-sm text-left uppercase py-3 px-2">
+                                {% translate "Title in" %} {{ backend_language.translated_name }}
+                            </th>
+                        {% endif %}
+                        <th class="text-sm text-center uppercase py-3 pr-6 min">{% translate "Tags" %}</th>
+                        <th class="text-sm text-left uppercase py-3 px-2">
+                            <div class="lang-grid flags whitespace-nowrap">
+                                {% spaceless %}
+                                    {% for lang in languages %}
+                                        <a href="{% url 'translate_pages' region_slug=request.region.slug language_slug=lang.slug %}">
+                                            <span class="fp fp-rounded fp-{{ lang.primary_country_code }}"
+                                                  title="{{ lang.translated_name }}"></span>
+                                        </a>
+                                    {% endfor %}
+                                {% endspaceless %}
+                            </div>
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% translate "Select language" %}</th>
+                        <th class="text-sm text-left uppercase py-3 pl-2">&nbsp;</th>
+                        <th class="text-sm text-right uppercase py-3 pl-2 pr-4 min">{% translate "HIX value" %}</th>
+                        <th class="text-sm text-right uppercase py-3 pl-2 pr-4 min-w-0"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for page in pages %}
+                        {% include "translate_pages/translate_pages_tree_node.html" %}
+                        {% if forloop.last %}
+                            <tr data-drop-id="{% if page.is_root %}{{ page.id }}{% else %}{{ page.get_cached_ancestors.0.id }}{% endif %}"
+                                data-drop-position="right"
+                                class="drop drop-between h-3 hidden"
+                                title="test">
+                                <td colspan="8">
+                                    <div>
+                                        {# djlint:off H020 #}
+                                        <span></span>
+                                        {# djlint:on #}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% empty %}
+                        <tr>
+                            <td></td>
+                            <td colspan="8" class="px-2 py-3">
+                                {% if filter_form.is_enabled %}
+                                    {% translate "No pages found with these filters." %}
+                                {% else %}
+                                    {% translate "No pages available yet." %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% if pages %}
+            <div class="pt-2 px-2">
+                {% if not filter_form.is_enabled %}
+                    <a id="expand-all-pages" class="text-blue-500 !cursor-wait">
+                        {% spaceless %}
+                            <i icon-name="chevron-down"
+                               class="align-sub h-5 rounded-full group-hover:bg-blue-500 group-hover:text-white"></i>
+                            {% translate "Expand all" %}
+                        {% endspaceless %}
+                    </a>
+                    <span class="text-gray-600 font-default">|</span>
+                    <a id="collapse-all-pages" class="text-blue-500 !cursor-wait">
+                        {% spaceless %}
+                            <i icon-name="chevron-up"
+                               class="align-sub h-5 rounded-full group-hover:bg-blue-500 group-hover:text-white"></i>
+                            {% translate "Collapse all" %}
+                        {% endspaceless %}
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </form>
+    {% include "../generic_confirmation_dialog.html" %}
+    <!-- @TODO -->
+    {% include "../tutorials/page_tree.html" with tutorial_id="page-tree" hidden=request.user.page_tree_tutorial_seen %}
+    {% include "pages/_page_preview_overlay.html" %}
+    {% include "pages/_page_xliff_export_overlay.html" %}
+{% endblock content %}

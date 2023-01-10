@@ -1,0 +1,146 @@
+{% load i18n %}
+{% load content_filters %}
+{% load page_filters %}
+{% load tree_filters %}
+{% get_translation page language.slug as page_translation %}
+<tr id="page-{{ page.id }}-drop-left"
+    data-drop-id="{{ page.id }}"
+    data-drop-position="left"
+    class="drop {% if not parent_id %} drop-between{% endif %} h-3 -m-3 hidden level-{{ page.relative_depth }}">
+    <td colspan="8">
+        <div>
+            {# djlint:off H020 #}
+            <span></span>
+            {# djlint:on #}
+        </div>
+    </td>
+</tr>
+<tr id="page-{{ page.id }}"
+    data-drop-id="{{ page.id }}"
+    data-drop-position="last-child"
+    class="page-row drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 level-{{ page.relative_depth }} {% if parent_id %} hidden parent-page-{{ parent_id }}{% endif %}">
+    {% if not filter_form.is_enabled %}
+        <td class="hierarchy single_icon whitespace-nowrap">
+            <span data-drag-id="{{ page.id }}"
+                  data-node-descendants="{{ page|get_descendant_ids }}"
+                  class="drag cursor-move text-gray-800 inline-block pl-4 align-middle"
+                  draggable="true"
+                  title="{% translate "Change the order and position of the pages with drag & drop." %}">
+                <i icon-name="move"></i>
+            </span>
+            {% if not page.parent_id and not page.is_leaf or page.parent_id and page.cached_children|length > 0 %}
+                <span class="toggle-subpages inline-block align-middle cursor-wait transform"
+                      data-expand-title="{% translate "Expand all subpages" %}"
+                      data-collapse-title="{% translate "Collapse all subpages" %}"
+                      data-page-id="{{ page.id }}"
+                      data-page-children="{{ page|get_children_ids }}"
+                      data-page-descendants-url="{% url 'get_translate_pages_tree_ajax' region_slug=request.region.slug language_slug=language.slug tree_id=page.tree_id %}">
+                    <i icon-name="chevron-right"></i>
+                </span>
+            {% endif %}
+        </td>
+    {% endif %}
+    <td>
+        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+           class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
+           title="{% if page_translation %} {{ page_translation.title }}{% endif %}">
+            {% if page_translation %}
+                {{ page_translation.title }} 
+            {% else %}
+                <i>{% translate "Translation not available" %}</i>
+            {% endif %}
+        </a>
+    </td>
+    {% if backend_language and backend_language != language %}
+        <td>
+            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}"
+               class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
+               title="{% if page.backend_translation %} {{ page.backend_translation.title }}{% endif %}">
+                <div class="translation-title">
+                    {% if page.backend_translation %}
+                        {{ page.backend_translation.title }}
+                    {% else %}
+                        <i>{% translate "Translation not available" %}</i>
+                    {% endif %}
+                </div>
+            </a>
+        </td>
+    {% endif %}
+    <td class="whitespace-nowrap">
+        <div class="block py-1.5 px-2 text-gray-800">
+            {% for tag in page_translation.tags %}
+                <span class="bg-orange-400 text-white rounded px-2 py-1">{{ tag }}</span>
+            {% endfor %}
+        </div>
+    </td>
+    <td class="whitespace-nowrap">
+        <div class="block py-1.5 px-2 text-gray-800">
+            <div class="lang-grid">
+                {% spaceless %}
+                    {% for other_language, other_status in page.translation_states.values %}
+                        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=other_language.slug %}"
+                           class="{{ other_language.slug }}">
+                            <div id="translation-icon">
+                                {% if other_status == translation_status.IN_TRANSLATION %}
+                                    <span title="{% translate "Currently in translation" %}">
+                                        <i icon-name="clock"
+                                           class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
+                                    </span>
+                                {% elif other_status == translation_status.OUTDATED %}
+                                    <span title="{% translate "Translation outdated" %}">
+                                        <i icon-name="alert-triangle"
+                                           class="{% if other_language.slug == language.slug %}text-yellow-500{% else %}text-gray-800{% endif %}"></i>
+                                    </span>
+                                {% elif other_status == translation_status.UP_TO_DATE %}
+                                    <span title="{% translate "Translation up-to-date" %}">
+                                        <i icon-name="check"
+                                           class="{% if other_language.slug == language.slug %}text-green-500{% else %}text-gray-800{% endif %}"></i>
+                                    </span>
+                                {% elif other_status == translation_status.MISSING %}
+                                    <span title="{% translate "Translation missing" %}" class="no-trans">
+                                        <i icon-name="x"
+                                           class="{% if other_language.slug == language.slug %}text-red-500{% else %}text-gray-800{% endif %}"></i>
+                                    </span>
+                                {% endif %}
+                            </div>
+                            <div id="ajax-icon" class="hidden">
+                                <span title="{% translate "Currently in translation" %}">
+                                    <i icon-name="clock"
+                                       class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>
+                                </span>
+                            </div>
+                        </a>
+                    {% endfor %}
+                {% endspaceless %}
+            </div>
+        </div>
+    </td>
+    <td>
+        <div class="block py-1.5 px-1.5 text-gray-800">
+            <select name="language" id="language">
+                <option value="">{% translate "Select language" %}</option>
+            {% for language in languages %}
+                <option value="{{ language }}">{{ language.translated_name }}</option>
+            {% endfor %}
+            </select>
+        </div>
+    </td>
+    <td>
+        <div class="block py-1.5 px-1.5 whitespace-nowrap text-gray-800"><!-- @TODO --><input type="checkbox" id="translate_to_all_languages" name="translate_to_all_languages" value="1">{% translate "Translate to all languages" %}
+        </div>
+    </td>
+    <td> 
+        <div class="pl-2 pr-4 py-1.5 text-right flex flex-nowrap gap-2">
+        <!-- @TODO: --> 9 {{ page_translation.hix_value }}
+        </div>
+    </td>
+    <td>
+        <div class="pl-2 pr-4 py-1.5 text-right flex flex-nowrap gap-2" >
+            <!-- @TODO - check value / variable setting -->
+        {% if page_translation.hix_value > MIN_HIX_TO_TRANSLATE  %}
+            <button id="@TODO" class="btn">{% translate "Translate" %}</button>
+        {% endif  %}
+            <button id="@TODO" class="btn" disabled="">{% translate "Adjust HIX-value" %}</button><br />
+        </div>
+    </td>
+</tr>
