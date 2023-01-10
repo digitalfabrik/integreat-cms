@@ -313,10 +313,6 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.gvz_api.html#utils">Utils</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ref/integreat_cms.linkcheck.html">Linkcheck</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.linkcheck.html#apps">Apps</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="ref/integreat_cms.matomo_api.html">Matomo API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.matomo_api.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.matomo_api.html#matomo-api-client">Matomo API Client</a></li>
@@ -700,7 +696,11 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEBUG"><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEBUG_TOOLBAR_PANELS"><code class="docutils literal notranslate"><span class="pre">DEBUG_TOOLBAR_PANELS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_AUTH_KEY"><code class="docutils literal notranslate"><span class="pre">DEEPL_AUTH_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_CREDITS_ADDON"><code class="docutils literal notranslate"><span class="pre">DEEPL_CREDITS_ADDON</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_CREDITS_FREE"><code class="docutils literal notranslate"><span class="pre">DEEPL_CREDITS_FREE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_ENABLED"><code class="docutils literal notranslate"><span class="pre">DEEPL_ENABLED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_SOFT_MARGIN"><code class="docutils literal notranslate"><span class="pre">DEEPL_SOFT_MARGIN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_SOFT_MARGIN_FRACTION"><code class="docutils literal notranslate"><span class="pre">DEEPL_SOFT_MARGIN_FRACTION</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_AUTO_FIELD"><code class="docutils literal notranslate"><span class="pre">DEFAULT_AUTO_FIELD</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_BLOG_URL"><code class="docutils literal notranslate"><span class="pre">DEFAULT_BLOG_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_BOUNDING_BOX"><code class="docutils literal notranslate"><span class="pre">DEFAULT_BOUNDING_BOX</span></code></a></li>
@@ -848,13 +848,6 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.gvz_api.html#module-integreat_cms.gvz_api.utils">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzApiWrapper"><code class="docutils literal notranslate"><span class="pre">GvzApiWrapper</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzRegion"><code class="docutils literal notranslate"><span class="pre">GvzRegion</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="ref-ext/integreat_cms.linkcheck.html">Linkcheck</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.linkcheck.html#module-integreat_cms.linkcheck.apps">Apps</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.linkcheck.html#integreat_cms.linkcheck.apps.ModifiedLinkcheckConfig"><code class="docutils literal notranslate"><span class="pre">ModifiedLinkcheckConfig</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1396,9 +1389,9 @@
 <ol class="arabic">
 <li><p>Build all static files which are required:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Compile translation file</span>
-pipenv run integreat-cms-cli compilemessages
+pipenv<span class="w"> </span>run<span class="w"> </span>integreat-cms-cli<span class="w"> </span>compilemessages
 <span class="c1"># Bundle static files</span>
-npm run prod
+npm<span class="w"> </span>run<span class="w"> </span>prod
 </pre></div>
 </div>
 </li>
@@ -1408,13 +1401,13 @@ npm run prod
 </div>
 </li>
 <li><p>Move the README to make sure to include the PyPI-README instead of the GitHub-README:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mv integreat_cms/README.md .
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mv<span class="w"> </span>integreat_cms/README.md<span class="w"> </span>.
 </pre></div>
 </div>
 </li>
-<li><p>After that, you can build the python package with <a class="reference external" href="https://setuptools.pypa.io/en/latest/index.html" title="(in setuptools v65.6.3.post20221220)"><span>Documentation</span></a>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install --upgrade pip setuptools wheel
-python3 setup.py sdist bdist_wheel
+<li><p>After that, you can build the python package with <a class="reference external" href="https://setuptools.pypa.io/en/latest/index.html" title="(in setuptools v65.6.3.post20230107)"><span>Documentation</span></a>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>wheel
+python3<span class="w"> </span>setup.py<span class="w"> </span>sdist<span class="w"> </span>bdist_wheel
 </pre></div>
 </div>
 <p>Then, the built package can be found in <code class="docutils literal notranslate"><span class="pre">./dist/</span></code>.</p>
@@ -1424,7 +1417,7 @@ python3 setup.py sdist bdist_wheel
 <section id="publish-package">
 <h2>Publish package<a class="headerlink" href="#publish-package" title="Permalink to this heading"></a></h2>
 <p>You can publish the package to a python repository like e.g. <a class="reference external" href="https://pypi.org/">PyPI</a> with <a class="reference external" href="https://twine.readthedocs.io/en/latest/index.html" title="(in twine v4.0)"><span>Twine</span></a>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pipenv run twine upload ./dist/integreat-cms-*.tar.gz
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pipenv<span class="w"> </span>run<span class="w"> </span>twine<span class="w"> </span>upload<span class="w"> </span>./dist/integreat-cms-*.tar.gz
 </pre></div>
 </div>
 <p>See the <a class="reference external" href="https://twine.readthedocs.io/en/latest/index.html" title="(in twine v4.0)"><span class="xref std std-doc">Twine documentation</span></a> for all configuration options of this command.</p>
@@ -1442,7 +1435,7 @@ python3 setup.py sdist bdist_wheel
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022 Tür an Tür – Digitalfabrik gGmbH.
+    <p>&#169; Copyright 2023 Tür an Tür – Digitalfabrik gGmbH.
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>

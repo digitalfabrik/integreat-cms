@@ -313,10 +313,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.gvz_api.html#utils">Utils</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../ref/integreat_cms.linkcheck.html">Linkcheck</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.linkcheck.html#apps">Apps</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/integreat_cms.matomo_api.html">Matomo API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.matomo_api.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.matomo_api.html#matomo-api-client">Matomo API Client</a></li>
@@ -700,7 +696,11 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEBUG"><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEBUG_TOOLBAR_PANELS"><code class="docutils literal notranslate"><span class="pre">DEBUG_TOOLBAR_PANELS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEEPL_AUTH_KEY"><code class="docutils literal notranslate"><span class="pre">DEEPL_AUTH_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEEPL_CREDITS_ADDON"><code class="docutils literal notranslate"><span class="pre">DEEPL_CREDITS_ADDON</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEEPL_CREDITS_FREE"><code class="docutils literal notranslate"><span class="pre">DEEPL_CREDITS_FREE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEEPL_ENABLED"><code class="docutils literal notranslate"><span class="pre">DEEPL_ENABLED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEEPL_SOFT_MARGIN"><code class="docutils literal notranslate"><span class="pre">DEEPL_SOFT_MARGIN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEEPL_SOFT_MARGIN_FRACTION"><code class="docutils literal notranslate"><span class="pre">DEEPL_SOFT_MARGIN_FRACTION</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_AUTO_FIELD"><code class="docutils literal notranslate"><span class="pre">DEFAULT_AUTO_FIELD</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_BLOG_URL"><code class="docutils literal notranslate"><span class="pre">DEFAULT_BLOG_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_BOUNDING_BOX"><code class="docutils literal notranslate"><span class="pre">DEFAULT_BOUNDING_BOX</span></code></a></li>
@@ -848,13 +848,6 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.gvz_api.html#module-integreat_cms.gvz_api.utils">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzApiWrapper"><code class="docutils literal notranslate"><span class="pre">GvzApiWrapper</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzRegion"><code class="docutils literal notranslate"><span class="pre">GvzRegion</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="integreat_cms.linkcheck.html">Linkcheck</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.linkcheck.html#module-integreat_cms.linkcheck.apps">Apps</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.linkcheck.html#integreat_cms.linkcheck.apps.ModifiedLinkcheckConfig"><code class="docutils literal notranslate"><span class="pre">ModifiedLinkcheckConfig</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1466,7 +1459,7 @@ prefix set.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.add_subtree">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_subtree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">for_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/forms.py#L181"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.add_subtree" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_subtree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">for_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/forms.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.add_subtree" title="Permalink to this definition"></a></dt>
 <dd><p>Recursively build options tree.</p>
 </dd></dl>
 
@@ -1573,7 +1566,7 @@ Useful for manual form layout in templates.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.is_loop_safe">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_loop_safe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">for_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">possible_parent</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/forms.py#L169"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.is_loop_safe" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_loop_safe</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">for_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">possible_parent</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/forms.py#L165"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.is_loop_safe" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1618,7 +1611,7 @@ additional queries to render the node titles should be avoided.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.mk_indent">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mk_indent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/forms.py#L177"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.mk_indent" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">mk_indent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/forms.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.language_tree.language_tree_node_form.LanguageTreeNodeForm.mk_indent" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -1699,7 +1692,7 @@ The opposite of the hidden_fields() method.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022 Tür an Tür – Digitalfabrik gGmbH.
+    <p>&#169; Copyright 2023 Tür an Tür – Digitalfabrik gGmbH.
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>

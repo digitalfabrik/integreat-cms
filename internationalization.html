@@ -313,10 +313,6 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.gvz_api.html#utils">Utils</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ref/integreat_cms.linkcheck.html">Linkcheck</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.linkcheck.html#apps">Apps</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="ref/integreat_cms.matomo_api.html">Matomo API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.matomo_api.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.matomo_api.html#matomo-api-client">Matomo API Client</a></li>
@@ -700,7 +696,11 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEBUG"><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEBUG_TOOLBAR_PANELS"><code class="docutils literal notranslate"><span class="pre">DEBUG_TOOLBAR_PANELS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_AUTH_KEY"><code class="docutils literal notranslate"><span class="pre">DEEPL_AUTH_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_CREDITS_ADDON"><code class="docutils literal notranslate"><span class="pre">DEEPL_CREDITS_ADDON</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_CREDITS_FREE"><code class="docutils literal notranslate"><span class="pre">DEEPL_CREDITS_FREE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_ENABLED"><code class="docutils literal notranslate"><span class="pre">DEEPL_ENABLED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_SOFT_MARGIN"><code class="docutils literal notranslate"><span class="pre">DEEPL_SOFT_MARGIN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_SOFT_MARGIN_FRACTION"><code class="docutils literal notranslate"><span class="pre">DEEPL_SOFT_MARGIN_FRACTION</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_AUTO_FIELD"><code class="docutils literal notranslate"><span class="pre">DEFAULT_AUTO_FIELD</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_BLOG_URL"><code class="docutils literal notranslate"><span class="pre">DEFAULT_BLOG_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_BOUNDING_BOX"><code class="docutils literal notranslate"><span class="pre">DEFAULT_BOUNDING_BOX</span></code></a></li>
@@ -848,13 +848,6 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.gvz_api.html#module-integreat_cms.gvz_api.utils">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzApiWrapper"><code class="docutils literal notranslate"><span class="pre">GvzApiWrapper</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzRegion"><code class="docutils literal notranslate"><span class="pre">GvzRegion</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="ref-ext/integreat_cms.linkcheck.html">Linkcheck</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.linkcheck.html#module-integreat_cms.linkcheck.apps">Apps</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.linkcheck.html#integreat_cms.linkcheck.apps.ModifiedLinkcheckConfig"><code class="docutils literal notranslate"><span class="pre">ModifiedLinkcheckConfig</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1419,13 +1412,13 @@
 <section id="translation-file">
 <h2>Translation File<a class="headerlink" href="#translation-file" title="Permalink to this heading"></a></h2>
 <p>After you finished your changes to the code base, run the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> integreat_cms
-pipenv run integreat-cms-cli makemessages -l de --add-location file
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>integreat_cms
+pipenv<span class="w"> </span>run<span class="w"> </span>integreat-cms-cli<span class="w"> </span>makemessages<span class="w"> </span>-l<span class="w"> </span>de<span class="w"> </span>--add-location<span class="w"> </span>file
 </pre></div>
 </div>
 <p>Then, open the file <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/locale/de/LC_MESSAGES/django.po">https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/locale/de/LC_MESSAGES/django.po</a> and fill in the german translations:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>msgid <span class="s2">&quot;Your string&quot;</span>
-msgstr <span class="s2">&quot;Deine Zeichenkette&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>msgid<span class="w"> </span><span class="s2">&quot;Your string&quot;</span>
+msgstr<span class="w"> </span><span class="s2">&quot;Deine Zeichenkette&quot;</span>
 </pre></div>
 </div>
 <p>Apart from German, we also try to support the following additional languages:</p>
@@ -1434,8 +1427,8 @@ msgstr <span class="s2">&quot;Deine Zeichenkette&quot;</span>
 </ul>
 <p>Since not all of our developers are fluent in those languages, they are not required to be up to date all the time.
 However, if you are, feel free to update these additional translation files from time to time be executing:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> integreat_cms
-pipenv run integreat-cms-cli makemessages --all --add-location file
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>integreat_cms
+pipenv<span class="w"> </span>run<span class="w"> </span>integreat-cms-cli<span class="w"> </span>makemessages<span class="w"> </span>--all<span class="w"> </span>--add-location<span class="w"> </span>file
 </pre></div>
 </div>
 <p>And fill in all translations you can.</p>
@@ -1443,8 +1436,8 @@ pipenv run integreat-cms-cli makemessages --all --add-location file
 <section id="compilation">
 <h2>Compilation<a class="headerlink" href="#compilation" title="Permalink to this heading"></a></h2>
 <p>To actually see the translated strings in the backend UI, compile the django.po file as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> integreat_cms
-pipenv run integreat-cms-cli compilemessages
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>integreat_cms
+pipenv<span class="w"> </span>run<span class="w"> </span>integreat-cms-cli<span class="w"> </span>compilemessages
 </pre></div>
 </div>
 </section>
@@ -1476,7 +1469,7 @@ pipenv run integreat-cms-cli compilemessages
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022 Tür an Tür – Digitalfabrik gGmbH.
+    <p>&#169; Copyright 2023 Tür an Tür – Digitalfabrik gGmbH.
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>

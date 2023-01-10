@@ -313,10 +313,6 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.gvz_api.html#utils">Utils</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ref/integreat_cms.linkcheck.html">Linkcheck</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.linkcheck.html#apps">Apps</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="ref/integreat_cms.matomo_api.html">Matomo API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.matomo_api.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.matomo_api.html#matomo-api-client">Matomo API Client</a></li>
@@ -700,7 +696,11 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEBUG"><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEBUG_TOOLBAR_PANELS"><code class="docutils literal notranslate"><span class="pre">DEBUG_TOOLBAR_PANELS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_AUTH_KEY"><code class="docutils literal notranslate"><span class="pre">DEEPL_AUTH_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_CREDITS_ADDON"><code class="docutils literal notranslate"><span class="pre">DEEPL_CREDITS_ADDON</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_CREDITS_FREE"><code class="docutils literal notranslate"><span class="pre">DEEPL_CREDITS_FREE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_ENABLED"><code class="docutils literal notranslate"><span class="pre">DEEPL_ENABLED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_SOFT_MARGIN"><code class="docutils literal notranslate"><span class="pre">DEEPL_SOFT_MARGIN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_SOFT_MARGIN_FRACTION"><code class="docutils literal notranslate"><span class="pre">DEEPL_SOFT_MARGIN_FRACTION</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_AUTO_FIELD"><code class="docutils literal notranslate"><span class="pre">DEFAULT_AUTO_FIELD</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_BLOG_URL"><code class="docutils literal notranslate"><span class="pre">DEFAULT_BLOG_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_BOUNDING_BOX"><code class="docutils literal notranslate"><span class="pre">DEFAULT_BOUNDING_BOX</span></code></a></li>
@@ -848,13 +848,6 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.gvz_api.html#module-integreat_cms.gvz_api.utils">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzApiWrapper"><code class="docutils literal notranslate"><span class="pre">GvzApiWrapper</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzRegion"><code class="docutils literal notranslate"><span class="pre">GvzRegion</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="ref-ext/integreat_cms.linkcheck.html">Linkcheck</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.linkcheck.html#module-integreat_cms.linkcheck.apps">Apps</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.linkcheck.html#integreat_cms.linkcheck.apps.ModifiedLinkcheckConfig"><code class="docutils literal notranslate"><span class="pre">ModifiedLinkcheckConfig</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1414,14 +1407,14 @@ Check out e.g.:</p>
 <h3>1. Update feature branch<a class="headerlink" href="#update-feature-branch" title="Permalink to this heading"></a></h3>
 <p>You want to merge recent changes of the develop branch into your current feature branch, e.g. because there are conflicts that prevent your branch from being merged:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># fetch upstream changes of origin/develop</span>
-git fetch --all
+git<span class="w"> </span>fetch<span class="w"> </span>--all
 <span class="c1"># rebase your feature branch onto the current upstream develop branch</span>
-git rebase origin/develop
+git<span class="w"> </span>rebase<span class="w"> </span>origin/develop
 <span class="c1"># if the rebase cannot be performed automatically, resolve the conflicts and continue</span>
-git rebase --continue
+git<span class="w"> </span>rebase<span class="w"> </span>--continue
 <span class="c1"># if more conflicts pop up, repeat the previous step until the rebase is finished</span>
 <span class="c1"># force-push your changes</span>
-git push --force-with-lease
+git<span class="w"> </span>push<span class="w"> </span>--force-with-lease
 </pre></div>
 </div>
 </section>
@@ -1429,16 +1422,16 @@ git push --force-with-lease
 <h3>2. Clean up git history<a class="headerlink" href="#clean-up-git-history" title="Permalink to this heading"></a></h3>
 <p>You have many small commits which clutter the git history, or want to combine rearrange commits on your current feature branch:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># fetch upstream changes of origin/develop</span>
-git fetch --all
+git<span class="w"> </span>fetch<span class="w"> </span>--all
 <span class="c1"># interactive rebase starting at the commit where your current branch was forked from develop</span>
-git rebase --interactive <span class="k">$(</span>git merge-base --fork-point origin/develop <span class="k">$(</span>git rev-parse --abbrev-ref HEAD<span class="k">))</span>
+git<span class="w"> </span>rebase<span class="w"> </span>--interactive<span class="w"> </span><span class="k">$(</span>git<span class="w"> </span>merge-base<span class="w"> </span>--fork-point<span class="w"> </span>origin/develop<span class="w"> </span><span class="k">$(</span>git<span class="w"> </span>rev-parse<span class="w"> </span>--abbrev-ref<span class="w"> </span>HEAD<span class="k">))</span>
 <span class="c1"># sort and modify your commits as you want</span>
 <span class="c1"># exit the editor and save</span>
 <span class="c1"># if the rebase cannot be performed automatically, resolve the conflicts and continue</span>
-git rebase --continue
+git<span class="w"> </span>rebase<span class="w"> </span>--continue
 <span class="c1"># if more conflicts pop up, repeat the previous step until the rebase is finished</span>
 <span class="c1"># force-push your changes</span>
-git push --force-with-lease
+git<span class="w"> </span>push<span class="w"> </span>--force-with-lease
 </pre></div>
 </div>
 <div class="admonition warning">
@@ -1453,8 +1446,8 @@ You have to overwrite the upstream branch with your rebased commits by using the
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you want to pull your rebased branch <code class="docutils literal notranslate"><span class="pre">feature</span></code> from another machine, use the following:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git fetch --all
-git reset --hard origin/feature
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>fetch<span class="w"> </span>--all
+git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> </span>origin/feature
 </pre></div>
 </div>
 </div>
@@ -1476,11 +1469,11 @@ At the moment, the following hooks are configured:</p>
 <section id="activation">
 <h3>Activation<a class="headerlink" href="#activation" title="Permalink to this heading"></a></h3>
 <p>To activate the pre-commit hooks, either install the CMS with the command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/install.sh --pre-commit
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/install.sh<span class="w"> </span>--pre-commit
 </pre></div>
 </div>
 <p>or execute:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pipenv run pre-commit install
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pipenv<span class="w"> </span>run<span class="w"> </span>pre-commit<span class="w"> </span>install
 </pre></div>
 </div>
 <p>manually after installing.</p>
@@ -1488,15 +1481,15 @@ At the moment, the following hooks are configured:</p>
 <section id="deactivation">
 <h3>Deactivation<a class="headerlink" href="#deactivation" title="Permalink to this heading"></a></h3>
 <p>To deactivate a specific hook (in this example the <code class="docutils literal notranslate"><span class="pre">translations</span></code>-hook), use:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SKIP</span><span class="o">=</span>translations git commit
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SKIP</span><span class="o">=</span>translations<span class="w"> </span>git<span class="w"> </span>commit
 </pre></div>
 </div>
 <p>To deactivate all pre-commit hooks for a specific commit, use:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git commit --no-verify
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>commit<span class="w"> </span>--no-verify
 </pre></div>
 </div>
 <p>If you want to deactivate pre-commit hooks for this repository entirely, use:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pipenv run pre-commit uninstall
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pipenv<span class="w"> </span>run<span class="w"> </span>pre-commit<span class="w"> </span>uninstall
 </pre></div>
 </div>
 </section>
@@ -1514,7 +1507,7 @@ At the moment, the following hooks are configured:</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022 Tür an Tür – Digitalfabrik gGmbH.
+    <p>&#169; Copyright 2023 Tür an Tür – Digitalfabrik gGmbH.
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>

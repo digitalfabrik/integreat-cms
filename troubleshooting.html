@@ -313,10 +313,6 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.gvz_api.html#utils">Utils</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="ref/integreat_cms.linkcheck.html">Linkcheck</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.linkcheck.html#apps">Apps</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="ref/integreat_cms.matomo_api.html">Matomo API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.matomo_api.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.matomo_api.html#matomo-api-client">Matomo API Client</a></li>
@@ -700,7 +696,11 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEBUG"><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEBUG_TOOLBAR_PANELS"><code class="docutils literal notranslate"><span class="pre">DEBUG_TOOLBAR_PANELS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_AUTH_KEY"><code class="docutils literal notranslate"><span class="pre">DEEPL_AUTH_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_CREDITS_ADDON"><code class="docutils literal notranslate"><span class="pre">DEEPL_CREDITS_ADDON</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_CREDITS_FREE"><code class="docutils literal notranslate"><span class="pre">DEEPL_CREDITS_FREE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_ENABLED"><code class="docutils literal notranslate"><span class="pre">DEEPL_ENABLED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_SOFT_MARGIN"><code class="docutils literal notranslate"><span class="pre">DEEPL_SOFT_MARGIN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEEPL_SOFT_MARGIN_FRACTION"><code class="docutils literal notranslate"><span class="pre">DEEPL_SOFT_MARGIN_FRACTION</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_AUTO_FIELD"><code class="docutils literal notranslate"><span class="pre">DEFAULT_AUTO_FIELD</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_BLOG_URL"><code class="docutils literal notranslate"><span class="pre">DEFAULT_BLOG_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_BOUNDING_BOX"><code class="docutils literal notranslate"><span class="pre">DEFAULT_BOUNDING_BOX</span></code></a></li>
@@ -848,13 +848,6 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.gvz_api.html#module-integreat_cms.gvz_api.utils">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzApiWrapper"><code class="docutils literal notranslate"><span class="pre">GvzApiWrapper</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzRegion"><code class="docutils literal notranslate"><span class="pre">GvzRegion</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="ref-ext/integreat_cms.linkcheck.html">Linkcheck</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.linkcheck.html#module-integreat_cms.linkcheck.apps">Apps</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.linkcheck.html#integreat_cms.linkcheck.apps.ModifiedLinkcheckConfig"><code class="docutils literal notranslate"><span class="pre">ModifiedLinkcheckConfig</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1392,7 +1385,7 @@
 <div class="admonition-general-advice admonition">
 <p class="admonition-title">General Advice</p>
 <p>If you are experiencing problems of any kind, make sure you have a clean working environment by executing:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/install.sh --clean
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./dev-tools/install.sh<span class="w"> </span>--clean
 ./dev-tools/prune_database.sh
 </pre></div>
 </div>
@@ -1421,13 +1414,13 @@ Fix this by appending <code class="docutils literal notranslate"><span class="pr
 <div class="two-columns docutils container">
 <div class="left-side docutils container">
 <p>Shortcut command for <a class="reference external" href="https://www.gnu.org/software/bash/">Bash</a>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;export PATH=\$PATH:~/.local/bin&quot;</span> &gt;&gt; ~/.bashrc
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export PATH=\$PATH:~/.local/bin&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
 </div>
 <div class="right-side docutils container">
 <p>Shortcut command for <a class="reference external" href="https://www.zsh.org/">Zsh</a>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;export PATH=\$PATH:~/.local/bin&quot;</span> &gt;&gt; ~/.zshrc
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;export PATH=\$PATH:~/.local/bin&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.zshrc
 </pre></div>
 </div>
 </div>
@@ -1445,7 +1438,7 @@ Fix this by appending <code class="docutils literal notranslate"><span class="pr
 <p>You have installed an old version of pipenv.
 Probably you used a packaged version of your linux distribution.
 To fix this error, remove the version you have installed with your package manager and use:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3 install pipenv --user
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip3<span class="w"> </span>install<span class="w"> </span>pipenv<span class="w"> </span>--user
 </pre></div>
 </div>
 <p>instead.</p>
@@ -1468,12 +1461,12 @@ To fix this error, remove the version you have installed with your package manag
 <p>If you encounter this problem during a rebase, you probably have installed an old version of git (this bug was fixed
 in <a class="reference external" href="https://github.com/git/git/blob/b3d7a52fac39193503a0b6728771d1bf6a161464/Documentation/RelNotes/2.27.0.txt#L83">git 2.27.0</a>).</p>
 <p>Check your installed version of git by running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git --version
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>--version
 </pre></div>
 </div>
 <p>If your distribution does not package a recent version of git, you might have to add a ppa repository:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo add-apt-repository ppa:git-core/ppa
-sudo apt-get update
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>add-apt-repository<span class="w"> </span>ppa:git-core/ppa
+sudo<span class="w"> </span>apt-get<span class="w"> </span>update
 </pre></div>
 </div>
 </div>
@@ -1505,7 +1498,7 @@ sudo apt-get update
 <div class="hint admonition">
 <p class="admonition-title">Solution</p>
 <p>Until a compatible version of Python 3.7 was released (the patch has already been merged: <a class="reference external" href="https://github.com/python/cpython/pull/22855">python/cpython#22855</a>). Until then you can use Python 3.8 instead. Just use homebrew and install it by running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew install python@3.8
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>python@3.8
 </pre></div>
 </div>
 <p>Also change <cite>python_version</cite> in <cite>Pipfile</cite> to <cite>3.8</cite>.</p>
@@ -1521,13 +1514,13 @@ sudo apt-get update
 <div class="hint admonition">
 <p class="admonition-title">Solution</p>
 <p>There are some issues with the psycopg2 binary package right now. It needs to be compiled locally which requires postgres and libpq:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew install libpq postgres --build-from-source
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>libpq<span class="w"> </span>postgres<span class="w"> </span>--build-from-source
 </pre></div>
 </div>
 <p>The packages need to be built from source as the binary version of postgres is still x86. Building it from source works absolutely fine.
 Afterwards psycopg2 needs to be reinstalled without using your local cache:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pipenv run pip uninstall psycopg2-binary
-pipenv run pip install psycopg2-binary --no-cache-dir
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pipenv<span class="w"> </span>run<span class="w"> </span>pip<span class="w"> </span>uninstall<span class="w"> </span>psycopg2-binary
+pipenv<span class="w"> </span>run<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>psycopg2-binary<span class="w"> </span>--no-cache-dir
 </pre></div>
 </div>
 </div>
@@ -1561,7 +1554,7 @@ TSXXXX: ...
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022 Tür an Tür – Digitalfabrik gGmbH.
+    <p>&#169; Copyright 2023 Tür an Tür – Digitalfabrik gGmbH.
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>

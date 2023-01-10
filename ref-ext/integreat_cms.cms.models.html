@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-12-23T19:48:55+00:00" />
+    <meta property="article:modified_time" content="2023-01-09T14:32:10+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Models &mdash; integreat-cms 2022.12.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -311,10 +311,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/integreat_cms.gvz_api.html">Gvz API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.gvz_api.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.gvz_api.html#utils">Utils</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="../ref/integreat_cms.linkcheck.html">Linkcheck</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.linkcheck.html#apps">Apps</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/integreat_cms.matomo_api.html">Matomo API</a><ul>
@@ -700,7 +696,11 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEBUG"><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEBUG_TOOLBAR_PANELS"><code class="docutils literal notranslate"><span class="pre">DEBUG_TOOLBAR_PANELS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEEPL_AUTH_KEY"><code class="docutils literal notranslate"><span class="pre">DEEPL_AUTH_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEEPL_CREDITS_ADDON"><code class="docutils literal notranslate"><span class="pre">DEEPL_CREDITS_ADDON</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEEPL_CREDITS_FREE"><code class="docutils literal notranslate"><span class="pre">DEEPL_CREDITS_FREE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEEPL_ENABLED"><code class="docutils literal notranslate"><span class="pre">DEEPL_ENABLED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEEPL_SOFT_MARGIN"><code class="docutils literal notranslate"><span class="pre">DEEPL_SOFT_MARGIN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEEPL_SOFT_MARGIN_FRACTION"><code class="docutils literal notranslate"><span class="pre">DEEPL_SOFT_MARGIN_FRACTION</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_AUTO_FIELD"><code class="docutils literal notranslate"><span class="pre">DEFAULT_AUTO_FIELD</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_BLOG_URL"><code class="docutils literal notranslate"><span class="pre">DEFAULT_BLOG_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEFAULT_BOUNDING_BOX"><code class="docutils literal notranslate"><span class="pre">DEFAULT_BOUNDING_BOX</span></code></a></li>
@@ -848,13 +848,6 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.gvz_api.html#module-integreat_cms.gvz_api.utils">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzApiWrapper"><code class="docutils literal notranslate"><span class="pre">GvzApiWrapper</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzRegion"><code class="docutils literal notranslate"><span class="pre">GvzRegion</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="integreat_cms.linkcheck.html">Linkcheck</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.linkcheck.html#module-integreat_cms.linkcheck.apps">Apps</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.linkcheck.html#integreat_cms.linkcheck.apps.ModifiedLinkcheckConfig"><code class="docutils literal notranslate"><span class="pre">ModifiedLinkcheckConfig</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -3916,6 +3909,12 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.created_date"><code class="docutils literal notranslate"><span class="pre">Region.created_date</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.custom_prefix"><code class="docutils literal notranslate"><span class="pre">Region.custom_prefix</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.date_error_message"><code class="docutils literal notranslate"><span class="pre">Region.date_error_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.deepl_addon_booked"><code class="docutils literal notranslate"><span class="pre">Region.deepl_addon_booked</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.deepl_budget"><code class="docutils literal notranslate"><span class="pre">Region.deepl_budget</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.deepl_budget_remaining"><code class="docutils literal notranslate"><span class="pre">Region.deepl_budget_remaining</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.deepl_budget_used"><code class="docutils literal notranslate"><span class="pre">Region.deepl_budget_used</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.deepl_midyear_start_month"><code class="docutils literal notranslate"><span class="pre">Region.deepl_midyear_start_month</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.deepl_renewal_month"><code class="docutils literal notranslate"><span class="pre">Region.deepl_renewal_month</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.default_language"><code class="docutils literal notranslate"><span class="pre">Region.default_language</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.delete"><code class="docutils literal notranslate"><span class="pre">Region.delete()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.events"><code class="docutils literal notranslate"><span class="pre">Region.events</span></code></a></li>
@@ -3927,6 +3926,8 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.full_clean"><code class="docutils literal notranslate"><span class="pre">Region.full_clean()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.full_name"><code class="docutils literal notranslate"><span class="pre">Region.full_name</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.get_administrative_division_display"><code class="docutils literal notranslate"><span class="pre">Region.get_administrative_division_display()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.get_deepl_midyear_start_month_display"><code class="docutils literal notranslate"><span class="pre">Region.get_deepl_midyear_start_month_display()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.get_deepl_renewal_month_display"><code class="docutils literal notranslate"><span class="pre">Region.get_deepl_renewal_month_display()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.get_deferred_fields"><code class="docutils literal notranslate"><span class="pre">Region.get_deferred_fields()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.get_language_or_404"><code class="docutils literal notranslate"><span class="pre">Region.get_language_or_404()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.get_model_name_plural"><code class="docutils literal notranslate"><span class="pre">Region.get_model_name_plural()</span></code></a></li>
@@ -4054,6 +4055,7 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.RegionManager.values_list"><code class="docutils literal notranslate"><span class="pre">RegionManager.values_list()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.format_deepl_help_text"><code class="docutils literal notranslate"><span class="pre">format_deepl_help_text()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -6183,7 +6185,7 @@ failed.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.add_root">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L120"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.add_root" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add_root</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.add_root" title="Permalink to this definition"></a></dt>
 <dd><p>Adds a root node to the tree.</p>
 </dd></dl>
 
@@ -6264,7 +6266,7 @@ of all validation errors if any occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.delete">
-<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L502"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.delete" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L502"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.delete" title="Permalink to this definition"></a></dt>
 <dd><p>Removes a node and all it’s descendants.</p>
 </dd></dl>
 
@@ -6277,7 +6279,7 @@ of all validation errors if any occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.dump_bulk">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dump_bulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L555"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.dump_bulk" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">dump_bulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L576"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.dump_bulk" title="Permalink to this definition"></a></dt>
 <dd><p>Dumps a tree branch to a python data structure.</p>
 </dd></dl>
 
@@ -6312,7 +6314,7 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_ancestors">
-<span class="sig-name descname"><span class="pre">get_ancestors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L623"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_ancestors" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_ancestors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L644"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_ancestors" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A queryset containing the current node object’s ancestors,
@@ -6323,7 +6325,7 @@ starting by the root node and descending to the parent.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_annotated_list">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_annotated_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L588"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_annotated_list" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_annotated_list</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_depth</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L593"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_annotated_list" title="Permalink to this definition"></a></dt>
 <dd><p>Gets an annotated list from a tree branch.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -6339,7 +6341,7 @@ will be annotated.</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_annotated_list_qs">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_annotated_list_qs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L567"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_annotated_list_qs" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_annotated_list_qs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">qs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L572"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_annotated_list_qs" title="Permalink to this definition"></a></dt>
 <dd><p>Gets an annotated list from a queryset.</p>
 </dd></dl>
 
@@ -6381,7 +6383,7 @@ the root node and descending to the parent.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_children">
-<span class="sig-name descname"><span class="pre">get_children</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L523"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_children" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_children</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L544"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_children" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A queryset of all the node’s children</p>
@@ -6401,7 +6403,7 @@ the root node and descending to the parent.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_database_vendor">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_database_vendor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L632"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_database_vendor" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_database_vendor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">action</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L637"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_database_vendor" title="Permalink to this definition"></a></dt>
 <dd><p>returns the supported database vendor used by a treebeard model when
 performing read (select) or write (update, insert, delete) operations.</p>
 <dl class="field-list simple">
@@ -6422,7 +6424,7 @@ performing read (select) or write (update, insert, delete) operations.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_depth">
-<span class="sig-name descname"><span class="pre">get_depth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L527"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_depth" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_depth</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L548"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_depth" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the depth (level) of the node</p>
@@ -6432,7 +6434,7 @@ performing read (select) or write (update, insert, delete) operations.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_descendant_count">
-<span class="sig-name descname"><span class="pre">get_descendant_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L619"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_descendant_count" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_descendant_count</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L640"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_descendant_count" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the number of descendants of a node.</p>
@@ -6442,7 +6444,7 @@ performing read (select) or write (update, insert, delete) operations.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_descendants">
-<span class="sig-name descname"><span class="pre">get_descendants</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L610"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_descendants" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_descendants</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L631"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_descendants" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A queryset of all the node’s descendants as DFS, doesn’t
@@ -6564,7 +6566,7 @@ sibling.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_parent">
-<span class="sig-name descname"><span class="pre">get_parent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L646"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_parent" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_parent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">update</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L667"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_parent" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the parent node of the current node object.
@@ -6635,7 +6637,7 @@ It is used for logging.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_root">
-<span class="sig-name descname"><span class="pre">get_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L535"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_root" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L556"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_root" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the root node for the current node object.</p>
@@ -6645,7 +6647,7 @@ It is used for logging.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_root_nodes">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_root_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L664"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_root_nodes" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_root_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L685"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_root_nodes" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A queryset containing the root nodes in the tree.</p>
@@ -6655,7 +6657,7 @@ It is used for logging.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_siblings">
-<span class="sig-name descname"><span class="pre">get_siblings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L546"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_siblings" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_siblings</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L567"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_siblings" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A queryset of all the node’s siblings, including the node
@@ -6666,7 +6668,7 @@ itself.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_sorted_pos_queryset">
-<span class="sig-name descname"><span class="pre">get_sorted_pos_queryset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">siblings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newobj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L545"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_sorted_pos_queryset" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_sorted_pos_queryset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">siblings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newobj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L548"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_sorted_pos_queryset" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>A queryset of the nodes that must be moved to the right.
@@ -6729,7 +6731,7 @@ argument, else, returns <code class="docutils literal notranslate"><span class="
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.is_descendant_of">
-<span class="sig-name descname"><span class="pre">is_descendant_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L635"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.is_descendant_of" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_descendant_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L656"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.is_descendant_of" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">True</span></code> if the node if a descendant of another node given
@@ -6740,7 +6742,7 @@ as an argument, else, returns <code class="docutils literal notranslate"><span c
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.is_leaf">
-<span class="sig-name descname"><span class="pre">is_leaf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L531"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.is_leaf" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_leaf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L552"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.is_leaf" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>True if the node is a leaf node (else, returns False)</p>
@@ -6750,7 +6752,7 @@ as an argument, else, returns <code class="docutils literal notranslate"><span c
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.is_root">
-<span class="sig-name descname"><span class="pre">is_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L542"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.is_root" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">is_root</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L563"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.is_root" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>True if the node is a root node (else, returns False)</p>
@@ -6781,7 +6783,7 @@ argument, else, returns <code class="docutils literal notranslate"><span class="
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.load_bulk">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_bulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bulk_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L485"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.load_bulk" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_bulk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bulk_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/ns_tree.py#L506"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.load_bulk" title="Permalink to this definition"></a></dt>
 <dd><p>Loads a list/dictionary structure to the tree.</p>
 </dd></dl>
 
@@ -7002,11 +7004,11 @@ failed.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022 Tür an Tür – Digitalfabrik gGmbH.
+    <p>&#169; Copyright 2023 Tür an Tür – Digitalfabrik gGmbH.
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Dec 23, 2022.
+      <span class="lastupdated">Last updated on Jan 09, 2023.
       </span></p>
   </div>
 
