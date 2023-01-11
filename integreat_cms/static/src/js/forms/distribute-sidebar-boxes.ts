@@ -38,3 +38,20 @@ const findPartition = (boxes: Array<HTMLElement>) => {
     console.debug("Sidebar boxes in smaller column:", column);
     return [largerColumn, column];
 };
+
+window.addEventListener("load", () => {
+    const leftColumn = document.getElementById("left-sidebar-column");
+    const rightColumn = document.getElementById("right-sidebar-column");
+    // Check if there are multiple columns in the document
+    if (leftColumn && rightColumn) {
+        // Get the initial distribution of boxes
+        const leftColumnBoxes = Array.from(leftColumn.children) as Array<HTMLElement>;
+        const rightColumnBoxes = Array.from(rightColumn.children) as Array<HTMLElement>;
+        const boxes: Array<HTMLElement> = leftColumnBoxes.concat(rightColumnBoxes);
+        // Calculate the new distribution
+        const [leftPartition, rightPartition] = findPartition(boxes);
+        // Apply the changes
+        leftColumn.append(...leftPartition);
+        rightColumn.append(...rightPartition);
+    }
+});
