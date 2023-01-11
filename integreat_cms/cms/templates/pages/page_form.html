@@ -119,7 +119,7 @@
                                     <a href="#"
                                        data-copy-to-clipboard="{{ page_translation_form.instance.short_url }}"
                                        title="{% translate "Copy to clipboard" %}"
-                                       class="mx-2 text-gray-800 hover:text-blue-500">
+                                       class="ml-2 text-gray-800 hover:text-blue-500">
                                         <i icon-name="copy"></i>
                                         <i icon-name="check" class="hidden text-green-500"></i>
                                     </a>
@@ -134,15 +134,17 @@
                             <a id="slug-link"
                                href="{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}"
                                class="text-blue-500 hover:underline">{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}</a>
-                            <a id="edit-slug-btn"
-                               title="{% translate "Edit" %}"
-                               class="mx-2 btn-icon">
-                                <i icon-name="edit-3"></i>
-                            </a>
+                            {% if can_publish_page or can_edit_page %}
+                                <a id="edit-slug-btn"
+                                   title="{% translate "Edit" %}"
+                                   class="ml-2 btn-icon">
+                                    <i icon-name="edit-3"></i>
+                                </a>
+                            {% endif %}
                             <a id="copy-slug-btn"
                                data-copy-to-clipboard="{{ page_translation_form.instance.base_link }}{{ page_translation_form.instance.slug }}"
                                title="{% translate "Copy to clipboard" %}"
-                               class="btn-icon">
+                               class="ml-2 btn-icon">
                                 <i icon-name="copy"></i>
                                 <i icon-name="check" class="hidden text-green-500"></i>
                             </a>
@@ -150,10 +152,10 @@
                                 <label for="{{ page_translation_form.slug.id_for_label }}">{{ page_translation_form.instance.base_link }}</label>
                                 {% render_field page_translation_form.slug|add_error_class:"slug-error" %}
                             </div>
-                            <a id="save-slug-btn" class="mx-2 btn-icon hidden">
+                            <a id="save-slug-btn" class="ml-2 btn-icon hidden">
                                 <i icon-name="save"></i>
                             </a>
-                            <a id="restore-slug-btn" class="btn-icon hidden">
+                            <a id="restore-slug-btn" class="ml-2 btn-icon hidden">
                                 <i icon-name="x-circle"></i>
                             </a>
                         </div>
