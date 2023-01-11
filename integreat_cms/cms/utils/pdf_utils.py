@@ -169,7 +169,7 @@ def link_callback(uri, rel):
         # make sure that file exists
         if not os.path.isfile(path):
             logger.exception(
-                "The file %r was not found in the media directories.", path
+                "The file %r was not found in the media directories.", path[:1024]
             )
             return None
         return path
@@ -182,7 +182,7 @@ def link_callback(uri, rel):
     elif not uri.startswith("assets/"):
         logger.warning(
             "The file %r is not inside the static directories %r and %r.",
-            uri,
+            uri[:1024],
             settings.STATIC_URL,
             settings.MEDIA_URL,
         )
@@ -191,7 +191,7 @@ def link_callback(uri, rel):
     if not result:
         logger.exception(
             "The file %r was not found in the static directories %r.",
-            uri,
+            uri[:1024],
             finders.searched_locations,
         )
     return result
