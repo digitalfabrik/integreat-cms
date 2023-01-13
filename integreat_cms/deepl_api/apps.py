@@ -51,9 +51,15 @@ class DeepLApiConfig(AppConfig):
                         self.supported_target_languages,
                     )
                     assert self.supported_target_languages
+                    usage = deepl.translator.get_usage()
+                    if usage.any_limit_reached:
+                        logger.warning("DeepL API translation limit reached")
                     # pylint: disable=protected-access
                     logger.info(
-                        "DeepL API is available at: %r", deepl.translator._server_url
+                        "DeepL API is available at: %r (character usage: %s of %s)",
+                        deepl.translator._server_url,
+                        usage.character.count,
+                        usage.character.limit,
                     )
                 except (DeepLException, AssertionError) as e:
                     logger.error(e)
