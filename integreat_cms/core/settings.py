@@ -234,21 +234,22 @@ INSTALLED_APPS = [
     "integreat_cms.nominatim_api",
     "integreat_cms.summ_ai_api",
     "integreat_cms.textlab_api",
-    "integreat_cms.linkcheck.apps.ModifiedLinkcheckConfig",
     # Installed Django apps
     "django.contrib.auth",
     "django.contrib.contenttypes",
+    "django.contrib.humanize",
     "django.contrib.messages",
     "django.contrib.sessions",
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
     # Installed third-party-apps
     "corsheaders",
+    "linkcheck",
+    "polymorphic",
     "rules.apps.AutodiscoverRulesConfig",
     "treebeard",
     "webpack_loader",
     "widget_tweaks",
-    "polymorphic",
 ]
 
 # Install cacheops only if redis cache is available
@@ -701,6 +702,20 @@ DEEPL_AUTH_KEY = os.environ.get("INTEGREAT_CMS_DEEPL_AUTH_KEY")
 #: Whether automatic translations via DeepL are enabled.
 #: This is ``True`` if :attr:`~integreat_cms.core.settings.DEEPL_AUTH_KEY` is set, ``False`` otherwise.
 DEEPL_ENABLED = bool(DEEPL_AUTH_KEY)
+
+#: An integer specifying the number of translation credits available two regions for free
+DEEPL_CREDITS_FREE = int(os.environ.get("DEEPL_CREDITS_FREE", 50_000))
+
+#: An integer specifying the number of translation credits that can be bought as an add-on
+DEEPL_CREDITS_ADDON = int(os.environ.get("DEEPL_CREDITS_ADDON", 1_000_000))
+
+#: A floating point that specifies the percentage of DEEPL_CREDITS_FREE used as a soft margin
+DEEPL_SOFT_MARGIN_FRACTION = float(
+    os.environ.get("INTEGREAT_CMS_DEEPL_SOFT_MARGIN", 0.01)
+)
+
+#: The actual number of words which are used as soft margin
+DEEPL_SOFT_MARGIN = int(DEEPL_SOFT_MARGIN_FRACTION * DEEPL_CREDITS_FREE)
 
 
 #########################

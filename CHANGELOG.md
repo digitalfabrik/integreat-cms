@@ -1,6 +1,11 @@
 UNRELEASED
 ----------
 
+* [ [#1876](https://github.com/digitalfabrik/integreat-cms/issues/1876) ] Make sidebar boxes on page form collapsible and save status as cookie
+* [ [#1345](https://github.com/digitalfabrik/integreat-cms/issues/1345) ] Track DeepL API usage by regions
+* [ [#1695](https://github.com/digitalfabrik/integreat-cms/issues/1695) ] Treat URLs with broken hash anchors as valid in link checker
+* [ [#1969](https://github.com/digitalfabrik/integreat-cms/issues/1969) ] Hide edit link button in content forms for users without edit permission
+
 
 2022.12.3
 ---------

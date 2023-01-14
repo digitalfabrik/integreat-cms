@@ -1,0 +1,131 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load rules %}
+{% block collapsible_box_icon %}
+    wrench
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% translate "Actions" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    {% if page_form.instance.id and can_edit_page and not page.archived %}
+        <label class="mt-0">{% translate "Refresh date" %}</label>
+        <button title="{% translate "Mark this page as up-to-date" %}"
+                form="refresh_date_form"
+                name="refresh_page"
+                class="btn text-center w-full">
+            <i icon-name="check-circle" class="mr-2"></i>
+            {% translate "Mark this page as up-to-date" %}
+        </button>
+    {% endif %}
+    {% if page.explicitly_archived %}
+        <label>{% translate "Restore page" %}</label>
+        <button title="{% translate "Restore page" %}"
+                class="btn confirmation-button w-full"
+                data-confirmation-title="{{ restore_dialog_title }}"
+                data-confirmation-text="{{ restore_dialog_text }}"
+                data-confirmation-subject="{{ page_translation_form.instance.title }}"
+                data-action="{% url 'restore_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+            <i icon-name="refresh-ccw" class="mr-2"></i> {% translate "Restore this page" %}
+        </button>
+    {% elif page.implicitly_archived %}
+        <label>{% translate "Restore page" %}</label>
+        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
+             role="alert">
+            <p>
+                {% blocktrans count counter=page.explicitly_archived_ancestors|length trimmed %}
+        To restore this page, you have to restore its parent page:
+    {% plural %}
+        To restore this page, you have to restore all its archived parent pages:
+    {% endblocktrans %}
+            </p>
+        </div>
+        {% for ancestor in page.explicitly_archived_ancestors %}
+            <a href="{% url 'edit_page' page_id=ancestor.id region_slug=request.region.slug language_slug=language.slug %}"
+               class="block pt-2 hover:underline">
+                <i icon-name="edit" class="mr-2"></i> {{ ancestor.best_translation.title }}
+            </a>
+        {% endfor %}
+    {% else %}
+        <label>{% translate "Archive page" %}</label>
+        <button title="{% translate "Archive page" %}"
+                class="btn confirmation-button w-full"
+                data-confirmation-title="{{ archive_dialog_title }}"
+                data-confirmation-text="{{ archive_dialog_text }}"
+                data-confirmation-subject="{{ page_translation_form.instance.title }}"
+                data-action="{% url 'archive_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+            <i icon-name="archive" class="mr-2"></i>
+            {% translate "Archive this page" %}
+        </button>
+    {% endif %}
+    {% if perms.cms.delete_page %}
+        <label>{% translate "Delete page" %}</label>
+        {% if not page.is_leaf %}
+            {% with page.get_descendants.prefetch_translations as descendants %}
+                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
+                     role="alert">
+                    <p>
+                        {% translate "You cannot delete a page which has subpages." %}
+                        <br />
+                        {% blocktrans count counter=descendants|length trimmed %}
+                To delete this page, you have to delete or move its subpage first:
+            {% plural %}
+                To delete this page, you have to delete or move its subpages first:
+            {% endblocktrans %}
+                    </p>
+                </div>
+                {% for descendant in descendants %}
+                    <a href="{% url 'edit_page' page_id=descendant.id region_slug=request.region.slug language_slug=language.slug %}"
+                       class="block pt-2 hover:underline">
+                        <i icon-name="edit" class="mr-2"></i> {{ descendant.best_translation.title }}
+                    </a>
+                {% endfor %}
+            {% endwith %}
+        {% elif page.mirroring_pages.exists %}
+            {% with page.mirroring_pages.all.prefetch_translations as mirroring_pages %}
+                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-2"
+                     role="alert">
+                    <p>{% translate "This page cannot be deleted because it was embedded as live content from another page." %}</p>
+                </div>
+                <p>
+                    {% blocktrans count counter=mirroring_pages|length trimmed %}
+                To delete this page, you have to remove the embedded live content from this page first:
+                {% plural %}
+                To delete this page, you have to remove the embedded live content from these pages first:
+                {% endblocktrans %}
+                </p>
+                {% for mirroring_page in mirroring_pages %}
+                    {% has_perm 'cms.change_page_object' request.user mirroring_page as can_change_page_object %}
+                    {% if can_change_page_object %}
+                        <a href="{% url 'edit_page' page_id=mirroring_page.id region_slug=mirroring_page.region.slug language_slug=language.slug %}"
+                           class="block pt-2 hover:underline">
+                            <i icon-name="edit" class="mr-2"></i>
+                            {{ mirroring_page.best_translation.title }}
+                            {% if mirroring_page.region != request.region %}({{ mirroring_page.region }}){% endif %}
+                        </a>
+                    {% else %}
+                        <a href="{{ WEBAPP_URL }}{{ mirroring_page.best_translation.get_absolute_url }}"
+                           class="block pt-2 hover:underline"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            <i icon-name="external-link" class="mr-2"></i>
+                            {{ mirroring_page.best_translation.title }}
+                            {% if mirroring_page.region != request.region %}({{ mirroring_page.region }}){% endif %}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            {% endwith %}
+        {% else %}
+            <button title="{% translate "Delete page" %}"
+                    class="btn confirmation-button btn-red w-full"
+                    data-confirmation-title="{{ delete_dialog_title }}"
+                    data-confirmation-text="{{ delete_dialog_text }}"
+                    data-confirmation-subject="{{ page_translation_form.instance.title }}"
+                    data-action="{% url 'delete_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                <i icon-name="trash-2" class="mr-2"></i>
+                {% translate "Delete this page" %}
+            </button>
+        {% endif %}
+    {% endif %}
+{% endblock collapsible_box_content %}

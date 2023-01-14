@@ -11,10 +11,11 @@ from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import override, gettext, gettext_lazy as _
 from django.conf import settings
-
+from django.template.defaultfilters import floatformat
+from django.utils.functional import keep_lazy_text
 
 from ....nominatim_api.utils import BoundingBox
-from ...constants import region_status, administrative_division
+from ...constants import region_status, administrative_division, months
 from ...utils.translation_utils import gettext_many_lazy as __
 from ....matomo_api.matomo_api_client import MatomoApiClient
 from ..abstract_base_model import AbstractBaseModel
@@ -22,6 +23,23 @@ from ..offers.offer_template import OfferTemplate
 
 
 logger = logging.getLogger(__name__)
+
+
+@keep_lazy_text
+def format_deepl_help_text(help_text):
+    """
+    Helper function to lazily format help text with number separators
+
+    :param help_text: DeepL field help text to format
+    :type help_text: django.utils.functional.Promise
+
+    :return: formatted help text
+    :rtype: django.utils.functional.Promise
+    """
+    return help_text.format(
+        floatformat(settings.DEEPL_CREDITS_ADDON, "g"),
+        floatformat(settings.DEEPL_CREDITS_FREE, "g"),
+    )
 
 
 # pylint: disable=too-few-public-methods
@@ -319,6 +337,37 @@ class Region(AbstractBaseModel):
         help_text=_(
             "Whether automatic translations into Easy German with SUMM.AI are enabled"
         ),
+    )
+
+    deepl_renewal_month = models.PositiveIntegerField(
+        choices=months.CHOICES,
+        default=months.JANUARY,
+        verbose_name=_("DeepL credits renewal date"),
+        help_text=_("Budget usage will be reset on the 1st of the month"),
+    )
+
+    deepl_addon_booked = models.BooleanField(
+        default=False,
+        verbose_name=_("DeepL add-on package booked"),
+        help_text=format_deepl_help_text(
+            _(
+                "This makes {} translation credits available to the region instead of the {} free ones."
+            )
+        ),
+    )
+
+    deepl_midyear_start_month = models.PositiveIntegerField(
+        default=None,
+        blank=True,
+        null=True,
+        choices=months.CHOICES,
+        verbose_name=_("DeepL budget year start date"),
+        help_text=_("Month from which the add-on package was booked"),
+    )
+
+    deepl_budget_used = models.PositiveIntegerField(
+        default=0,
+        verbose_name=_("used DeepL budget"),
     )
 
     #: Custom model manager :class:`~integreat_cms.cms.models.regions.region.RegionManager` for region objects
@@ -697,6 +746,37 @@ class Region(AbstractBaseModel):
         :rtype: ~integreat_cms.cms.models.pages.imprint_page.ImprintPage
         """
         return self.imprints.first()
+
+    @property
+    def deepl_budget(self):
+        """
+        Calculate the maximum translation credit budget (number of words)
+
+        :return: The region's total DeepL budget
+        :rtype: int
+        """
+        # All regions which did not book the add-on get the free credits
+        if not self.deepl_addon_booked:
+            return settings.DEEPL_CREDITS_FREE
+        # All regions which did book the add-on, but not mid-year, get the add-on credits
+        if not self.deepl_midyear_start_month:
+            return settings.DEEPL_CREDITS_ADDON
+        # All regions which booked the add-on in mid-year get a fraction of the add-on credits
+        # Calculate how many months lie between the renewal month and the start month of the add-on
+        months_difference = self.deepl_renewal_month - self.deepl_midyear_start_month
+        # Calculate the available fraction of the add-on
+        multiplier = (months_difference % 12) / 12
+        return int(multiplier * settings.DEEPL_CREDITS_ADDON)
+
+    @property
+    def deepl_budget_remaining(self):
+        """
+        Calculate the remaining translation credit budget (number of words)
+
+        :return: The region's remaining DeepL budget
+        :rtype: int
+        """
+        return max(0, self.deepl_budget - self.deepl_budget_used)
 
     def __str__(self):
         """

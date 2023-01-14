@@ -1,0 +1,83 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+{% load base_filters %}
+{% block collapsible_box_icon %}
+    settings
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% translate "Settings of the page" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <div>
+        <label for="{{ page_form.icon.id_for_label }}" class="mt-0">{{ page_form.icon.label }}</label>
+        {% render_field page_form.icon label=page_form.icon.label %}
+    </div>
+    <div>
+        <label>{% translate "Positioning" %}</label>
+        <label for="{{ page_form.parent.id_for_label }}" class="secondary">{{ page_form.parent.label }}</label>
+        {% render_field page_form|get_private_member:"ref_node_id" %}
+        {% render_field page_form|get_private_member:"position" %}
+        {% render_field page_form.parent id="parent" %}
+        <label class="btn-gray">{% translate "Order" %}</label>
+        <div id="page_order_table" class="mb-4">{% include "pages/_page_order_table.html" %}</div>
+    </div>
+    <div {% if not request.user.expert_mode %}hidden{% endif %}>
+        <label for="mirrored_page_region">{% translate "Embed live content" %}</label>
+        {% render_field page_form.mirrored_page_region id="mirrored_page_region" %}
+        <div class="relative my-2 {% if not page.mirrored_page %} hidden{% endif %}"
+             id="mirrored_page_div"
+             data-url="{% url 'render_mirrored_page_field' region_slug=request.region.slug language_slug=language.slug %}?{% if page_form.instance.id %}page_id={{ page_form.instance.id }}&{% endif %}region_id=">
+            {% include "pages/_mirrored_page_field.html" %}
+        </div>
+        <div class="my-2 pb-2 {% if not page.mirrored_page %} hidden{% endif %}"
+             id="mirrored_page_first_div">
+            {% render_field page_form.mirrored_page_first id="mirrored_page_first" %}
+        </div>
+    </div>
+    {% if request.user.expert_mode %}
+        <div>
+            <label>{{ page_form.api_token.label }}</label>
+            {% render_field page_form.enable_api_token %}
+            <label for="{{ page_form.enable_api_token.id_for_label }}"
+                   class="secondary !inline">
+                {{ page_form.enable_api_token.label }}
+            </label>
+            <div id="api-token-container"
+                 class="{% if not page_form.instance.api_token %} hidden{% endif %}">
+                <div class="flex my-2">
+                    {% render_field page_form.api_token|add_error_class:"border-red-500" class+="flex-grow text-ellipsis pointer-events-none !rounded-none !rounded-l" %}
+                    <button id="copy-api-token"
+                            title="{% translate "Copy to clipboard" %}"
+                            class="bg-blue-500 hover:bg-blue-600 text-white px-3 rounded-r">
+                        <i icon-name="copy" class="w-5 align-bottom"></i>
+                    </button>
+                    <button id="copy-api-token-success"
+                            title="{% translate "Access token was successfully copied to clipboard" %}"
+                            class="bg-green-500 text-white px-3 rounded-r hidden"
+                            disabled>
+                        <i icon-name="check-circle" class="w-5 align-middle"></i>
+                    </button>
+                </div>
+                <div class="help-text">{{ page_form.api_token.help_text }}</div>
+            </div>
+        </div>
+        {% if perms.cms.grant_page_permissions and request.region.page_permissions_enabled %}
+            <div>
+                <label>{% translate "Additional permissions for this page" %}</label>
+                <p class="italic">
+                    {% translate "This affects only users, who don't have the permission to change arbitrary pages anyway." %}
+                </p>
+                <div id="page_permission_table">{% include "pages/_page_permission_table.html" %}</div>
+            </div>
+        {% endif %}
+    {% endif %}
+    {% if page_form.organization.field.queryset.exists %}
+        <div {% if not request.user.expert_mode %}hidden{% endif %}>
+            <label for="{{ page_form.organization.id_for_label }}">{{ page_form.organization.label }}</label>
+            <div class="help-text">{{ page_form.organization.help_text }}</div>
+            {% render_field page_form.organization|add_error_class:"border-red-500" %}
+        </div>
+    {% endif %}
+{% endblock collapsible_box_content %}

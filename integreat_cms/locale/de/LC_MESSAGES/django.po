@@ -1873,6 +1873,20 @@ msgid "Timezone area"
 msgstr "Region der Zeitzone"
 
 #: cms/forms/regions/region_form.py
+msgid "DeepL budget year start differs from renewal date"
+msgstr "Unterjähriger Start des DeepL Abrechnungszeitraums"
+
+#: cms/forms/regions/region_form.py
+msgid "Enable to set an add-on starting date differing from the renewal date."
+msgstr ""
+"Aktivieren, um ein Startdatum für das Add-On Paket anzugeben, welches sich "
+"vom Zurücksetzungsdatum unterscheidet."
+
+#: cms/forms/regions/region_form.py
+msgid "Budget will be set as a monthly fraction of {} credits"
+msgstr "Das Budget wird monatsanteilig von {} Credits berechnet."
+
+#: cms/forms/regions/region_form.py
 msgid "Statistics can only be enabled when a valid access token is supplied."
 msgstr ""
 "Statistiken können nur aktiviert werden, wenn ein gültiges Zugangstoken "
@@ -1881,6 +1895,11 @@ msgstr ""
 #: cms/forms/regions/region_form.py
 msgid "The provided access token is invalid."
 msgstr "Das eingegebene Zugangstoken ist ungültig."
+
+#: cms/forms/regions/region_form.py
+msgid "Please provide a valid DeepL budget year start date."
+msgstr ""
+"Bitte geben Sie ein gültiges Startdatum für den DeepL Abrechnungszeitraum an."
 
 #: cms/forms/regions/region_form.py
 msgid ""
@@ -3349,6 +3368,38 @@ msgid ""
 msgstr ""
 "Ob automatische Übersetzungen in Leichte Sprache mit SUMM.AI aktiviert sind"
 
+#: cms/models/regions/region.py
+msgid "DeepL credits renewal date"
+msgstr "DeepL Credits Zurücksetzungsdatum"
+
+#: cms/models/regions/region.py
+msgid "Budget usage will be reset on the 1st of the month"
+msgstr "Das Budget wird zum 1. des angegebenen Monats zurückgesetzt"
+
+#: cms/models/regions/region.py
+msgid "DeepL add-on package booked"
+msgstr "DeepL Add-On Paket gebucht"
+
+#: cms/models/regions/region.py
+msgid ""
+"This makes {} translation credits available to the region instead of the {} "
+"free ones."
+msgstr ""
+"Damit stehen der Region {} Übersetzungs-Credits zur Verfügung anstatt der {} "
+"kostenlosen."
+
+#: cms/models/regions/region.py
+msgid "DeepL budget year start date"
+msgstr "Startdatum des DeepL Add-On Pakets"
+
+#: cms/models/regions/region.py
+msgid "Month from which the add-on package was booked"
+msgstr "Monat ab welchem das Add-On Paket gebucht wurde"
+
+#: cms/models/regions/region.py
+msgid "used DeepL budget"
+msgstr "verbrauchtes DeepL budget"
+
 #: cms/models/regions/region.py cms/models/users/user.py
 msgid "regions"
 msgstr "Regionen"
@@ -4219,13 +4270,14 @@ msgstr "Bearbeiten"
 #: cms/templates/feedback/region_feedback_list.html
 #: cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/settings_box.html
 #: cms/templates/pois/poi_form.html
 msgid "Copy to clipboard"
 msgstr "In die Zwischenablage kopieren"
 
 #: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
-#: cms/templates/pages/page_form.html cms/templates/pages/page_revisions.html
-#: cms/templates/pois/poi_form.html
+#: cms/templates/pages/page_form_sidebar/minor_edit_box.html
+#: cms/templates/pages/page_revisions.html cms/templates/pois/poi_form.html
 msgid "Minor edit"
 msgstr "Geringfügige Änderung"
 
@@ -4261,7 +4313,8 @@ msgid "Open on Google Maps"
 msgstr "Auf Google Maps öffnen"
 
 #: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
+#: cms/templates/imprint/imprint_sbs.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 #: cms/templates/pages/page_sbs.html
 #: cms/templates/poicategories/poicategory_list.html
 #: cms/templates/pois/poi_form.html cms/templates/regions/region_list.html
@@ -4673,7 +4726,8 @@ msgstr "Das Impressum löschen"
 msgid "Side-by-Side view"
 msgstr "Side-by-Side-Ansicht"
 
-#: cms/templates/imprint/imprint_form.html cms/templates/pages/page_form.html
+#: cms/templates/imprint/imprint_form.html
+#: cms/templates/pages/page_form_sidebar/translator_view_box.html
 msgid "Direction of translation"
 msgstr "Übersetzungsrichtung"
 
@@ -5243,56 +5297,25 @@ msgstr "Übersetzungsprozess abbrechen"
 msgid "Archived, because a parent page is archived"
 msgstr "Archiviert, weil eine übergeordnete Seite archiviert ist"
 
-#: cms/templates/pages/page_form.html
-msgid "Settings of the page"
-msgstr "Einstellungen der Seite"
-
-#: cms/templates/pages/page_form.html
-msgid "Positioning"
-msgstr "Anordnung"
-
-#: cms/templates/pages/page_form.html
-msgid "Order"
-msgstr "Reihenfolge"
-
-#: cms/templates/pages/page_form.html
-msgid "Embed live content"
-msgstr "Live-Inhalte einbinden"
-
-#: cms/templates/pages/page_form.html
-msgid "Access token was successfully copied to clipboard"
-msgstr "Zugangs-Token wurde erfolgreich in die Zwischenablage kopiert."
-
-#: cms/templates/pages/page_form.html
-msgid "Additional permissions for this page"
-msgstr "Zusätzliche Berechtigungen für diese Seite"
-
-#: cms/templates/pages/page_form.html
-msgid ""
-"This affects only users, who don't have the permission to change arbitrary "
-"pages anyway."
-msgstr ""
-"Dies betrifft nur Benutzer:innen, die nicht ohnehin die Berechtigung haben, "
-"beliebige Seiten zu ändern."
-
-#: cms/templates/pages/page_form.html cms/templates/pages/page_revisions.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
+#: cms/templates/pages/page_revisions.html
 msgid "Refresh date"
 msgstr "Datum aktualisieren"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "Mark this page as up-to-date"
 msgstr "Seite als aktuell markieren"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 #: cms/templates/pages/page_tree_archived_node.html
 msgid "Restore page"
 msgstr "Seite wiederherstellen"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "Restore this page"
 msgstr "Diese Seite wiederherstellen"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "To restore this page, you have to restore its parent page:"
 msgid_plural ""
 "To restore this page, you have to restore all its archived parent pages:"
@@ -5303,27 +5326,28 @@ msgstr[1] ""
 "Um diese Seite wiederherzustellen, müssen Sie alle ihre archivierten "
 "übergeordneten Seiten wiederherstellen:"
 
-#: cms/templates/pages/page_form.html cms/templates/pages/page_tree_node.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
+#: cms/templates/pages/page_tree_node.html
 msgid "Archive page"
 msgstr "Seite archivieren"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "Archive this page"
 msgstr "Diese Seite archivieren"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 #: cms/templates/pages/page_tree_archived_node.html
 #: cms/templates/pages/page_tree_node.html
 msgid "Delete page"
 msgstr "Seite löschen"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 #: cms/templates/pages/page_tree_archived_node.html
 #: cms/templates/pages/page_tree_node.html cms/views/pages/page_actions.py
 msgid "You cannot delete a page which has subpages."
 msgstr "Sie können keine Seite löschen, die Unterseiten besitzt."
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "To delete this page, you have to delete or move its subpage first:"
 msgid_plural ""
 "To delete this page, you have to delete or move its subpages first:"
@@ -5334,7 +5358,7 @@ msgstr[1] ""
 "Um diese Seite zu löschen, müssen Sie zuerst ihre Unterseiten löschen oder "
 "verschieben:"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 #: cms/templates/pages/page_tree_archived_node.html
 #: cms/templates/pages/page_tree_node.html cms/views/pages/page_actions.py
 msgid ""
@@ -5344,7 +5368,7 @@ msgstr ""
 "Diese Seite kann nicht gelöscht werden, da sie von einer anderen Seite als "
 "Live-Inhalt eingebunden wurde."
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid ""
 "To delete this page, you have to remove the embedded live content from this "
 "page first:"
@@ -5358,15 +5382,47 @@ msgstr[1] ""
 "Um diese Seite zu löschen, müssen Sie den eingebetteten Live-Inhalt von "
 "dieser Seiten entfernen:"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "Delete this page"
 msgstr "Diese Seite löschen"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/settings_box.html
+msgid "Settings of the page"
+msgstr "Einstellungen der Seite"
+
+#: cms/templates/pages/page_form_sidebar/settings_box.html
+msgid "Positioning"
+msgstr "Anordnung"
+
+#: cms/templates/pages/page_form_sidebar/settings_box.html
+msgid "Order"
+msgstr "Reihenfolge"
+
+#: cms/templates/pages/page_form_sidebar/settings_box.html
+msgid "Embed live content"
+msgstr "Live-Inhalte einbinden"
+
+#: cms/templates/pages/page_form_sidebar/settings_box.html
+msgid "Access token was successfully copied to clipboard"
+msgstr "Zugangs-Token wurde erfolgreich in die Zwischenablage kopiert."
+
+#: cms/templates/pages/page_form_sidebar/settings_box.html
+msgid "Additional permissions for this page"
+msgstr "Zusätzliche Berechtigungen für diese Seite"
+
+#: cms/templates/pages/page_form_sidebar/settings_box.html
+msgid ""
+"This affects only users, who don't have the permission to change arbitrary "
+"pages anyway."
+msgstr ""
+"Dies betrifft nur Benutzer:innen, die nicht ohnehin die Berechtigung haben, "
+"beliebige Seiten zu ändern."
+
+#: cms/templates/pages/page_form_sidebar/translator_view_box.html
 msgid "Translator view"
 msgstr "Übersetzungs-Ansicht"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form_sidebar/translator_view_box.html
 msgid "Show translator view"
 msgstr "Übersetzungs-Ansicht anzeigen"
 
@@ -5994,6 +6050,22 @@ msgstr "Funktionen"
 #: cms/templates/regions/region_form.html
 msgid "Currently HIX is globally deactivated"
 msgstr "Derzeit ist HIX global deaktiviert"
+
+#: cms/templates/regions/region_form.html
+msgid "DeepL machine translation"
+msgstr "DeepL Übersetzungen"
+
+#: cms/templates/regions/region_form.html
+msgid "Current total budget"
+msgstr "Aktuelles Gesamtbudget"
+
+#: cms/templates/regions/region_form.html
+msgid "Already consumed"
+msgstr "Bereits verbraucht"
+
+#: cms/templates/regions/region_form.html
+msgid "Remaining words"
+msgstr "Verbleibende Wörter"
 
 #: cms/templates/regions/region_form.html
 msgid "Duplicate content of another region"
@@ -7843,11 +7915,19 @@ msgid "No source translation could be found for {} \"{}\"."
 msgstr "Es konnte kein Quelltext für {} \"{}\" gefunden werden."
 
 #: deepl_api/utils.py
-msgid "{} \"{}\" has been successfully translated."
+msgid ""
+"Translation from {} to {} not possible: translation of {} words would exceed "
+"the remaining budget of {} words."
+msgstr ""
+"Übersetzung von {} nach {} nicht möglich: die Übersetzung von {} Wörtern "
+"übersteigt das verbleibende Übersetzungsbudget von {} Wörtern."
+
+#: deepl_api/utils.py
+msgid "{} \"{}\" has successfully been translated."
 msgstr "{} \"{}\" wurde erfolgreich übersetzt"
 
 #: deepl_api/utils.py
-msgid "{} \"{}\" could not be automatically translated."
+msgid "{} \"{}\" could not be translated automatically."
 msgstr "{} \"{}\" konnte nicht automatisch übersetzt werden."
 
 #: matomo_api/matomo_api_client.py
@@ -7963,6 +8043,32 @@ msgstr ""
 
 #~ msgid "Login failed. Please try again."
 #~ msgstr "Login fehlgeschlagen. Bitte versuchen Sie es erneut."
+
+#~ msgid "Month of the year on which the budget usage is reset"
+#~ msgstr "Monat des Jahres zu welchem das Budget zurückgesetzt wird"
+
+#~ msgid "booked fraction of the DeepL add-on budget"
+#~ msgstr "gebuchter Anteil des DeepL add-on Budgets"
+
+#~ msgid ""
+#~ "The remaining number of words can not be larger than the total number of "
+#~ "allowed words."
+#~ msgstr ""
+#~ "Die Anzahl verbleibender Worte darf nicht größer als die Anzahl maximal "
+#~ "erlaubter Worte sein."
+
+#~ msgid "Number of words that can be machine translated by DeepL per year"
+#~ msgstr ""
+#~ "Anzahl der Worte, die pro Jahr maschinell von DeepL übersetzt werden "
+#~ "können"
+
+#~ msgid "Remaining DeepL machine translation budget"
+#~ msgstr "Verbleibendes DeepL Übersetzungsbudget"
+
+#~ msgid "Remaining number of words that can be translated by DeepL this year"
+#~ msgstr ""
+#~ "Verbleibende Anzahl an Worten, die dieses Jahr noch maschinell von DeepL "
+#~ "übersetzt werden können"
 
 #~ msgid "restored"
 #~ msgstr "wiederhergestellt"
@@ -8985,9 +9091,6 @@ msgstr ""
 
 #~ msgid "Year view"
 #~ msgstr "Jahresansicht"
-
-#~ msgid "Please enter a correct start date."
-#~ msgstr "Bitte fügen sie ein gültiges Startdatum ein"
 
 #~ msgid "Select start time"
 #~ msgstr "Startzeitpunkt auswählen"
