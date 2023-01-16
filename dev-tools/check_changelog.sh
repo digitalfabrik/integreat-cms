@@ -30,7 +30,8 @@ fi
 VERSION_NUM=$(pipenv run python -c "import integreat_cms; print(integreat_cms.__version__)")
 
 # How the according headline should look like
-VERSION="${VERSION_NUM}\n---------\n\n"
+UNDERLINE=$(echo "${VERSION_NUM}" | tr "[:print:]" "-")
+VERSION="${VERSION_NUM}\n${UNDERLINE}\n\n"
 
 # Check whether the version heading can still be found to avoid misleading error messages
 if [[ "${CHANGELOG}" != *"${VERSION}"* ]]; then
