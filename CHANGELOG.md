@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2023.1.1
+--------
+
 * [ [#2003](https://github.com/digitalfabrik/integreat-cms/issues/2003) ] Fix HIX widget
 
 
