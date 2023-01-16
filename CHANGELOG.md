@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1968](https://github.com/digitalfabrik/integreat-cms/issues/1968) ] Fix media library permissions for observer
+
 
 2023.1.1
 --------

@@ -13,9 +13,21 @@ type Props = {
     selectMedia: (file: File) => any;
     apiEndpoints: MediaApiPaths;
     mediaTranslations: any;
+    canDeleteFile: boolean;
+    canReplaceFile: boolean;
+    canDeleteDirectory: boolean;
 };
 
-const SelectMedia = ({ cancel, onlyImage, selectMedia, apiEndpoints, mediaTranslations }: Props) => (
+const SelectMedia = ({
+    cancel,
+    onlyImage,
+    selectMedia,
+    apiEndpoints,
+    mediaTranslations,
+    canDeleteFile,
+    canReplaceFile,
+    canDeleteDirectory,
+}: Props) => (
     <div
         className="flex flex-col items-center justify-center w-full h-full fixed inset-0 z-50 m-auto"
         style="z-index: 2000;">
@@ -27,6 +39,9 @@ const SelectMedia = ({ cancel, onlyImage, selectMedia, apiEndpoints, mediaTransl
                     selectMedia={selectMedia}
                     apiEndpoints={apiEndpoints}
                     mediaTranslations={mediaTranslations}
+                    canDeleteFile={canDeleteFile}
+                    canReplaceFile={canReplaceFile}
+                    canDeleteDirectory={canDeleteDirectory}
                 />
             </div>
             <button

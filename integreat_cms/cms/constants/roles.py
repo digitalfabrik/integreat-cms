@@ -66,7 +66,6 @@ OBSERVER_PERMISSIONS = [
     "change_directory",
     "view_directory",
     "change_mediafile",
-    "replace_mediafile",
     "upload_mediafile",
     "view_mediafile",
     "view_page",
