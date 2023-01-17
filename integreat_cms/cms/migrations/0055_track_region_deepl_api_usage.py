@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ("cms", "0055_add_machine_translated_flag"),
+        ("cms", "0054_user_totp_key"),
     ]
 
     operations = [
