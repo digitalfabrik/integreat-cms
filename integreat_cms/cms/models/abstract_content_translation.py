@@ -48,6 +48,11 @@ class AbstractContentTranslation(AbstractBaseModel):
             "Flag to indicate a translation is being updated by an external translator"
         ),
     )
+    machine_translated = models.BooleanField(
+        default=False,
+        verbose_name=_("machine translated"),
+        help_text=_("Flag to indicate whether a translations is machine translated"),
+    )
     version = models.PositiveIntegerField(default=0, verbose_name=_("revision"))
     minor_edit = models.BooleanField(
         default=False,
@@ -431,8 +436,9 @@ class AbstractContentTranslation(AbstractBaseModel):
             # If the page does not have a major public version, it is considered "missing" (keep in mind that it might
             # have draft versions or public versions that are marked as "minor edit")
             return translation_status.MISSING
-        # For "currently in translation", we consider the latest version instead of the latest major version
-        if self.currently_in_translation:
+        if translation.machine_translated:
+            return translation_status.MACHINE_TRANSLATED
+        if translation.currently_in_translation:
             return translation_status.IN_TRANSLATION
         if not self.source_language:
             # If the language of this translation is the root of this region's language tree, it is always "up to date"

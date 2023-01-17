@@ -117,7 +117,8 @@ class PageXliffImportView(TemplateView, PageContextMixin):
             self.xliff_dir,
             request.user,
         )
-        if xliff_import_confirm(request, self.xliff_dir):
+        machine_translated = request.POST.get("machine_translated") == "on"
+        if xliff_import_confirm(request, self.xliff_dir, machine_translated):
             return redirect(
                 "pages",
                 **{

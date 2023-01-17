@@ -42,7 +42,12 @@
                 <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=other_language.slug %}"
                    class="{{ other_language.slug }}">
                     <div id="translation-icon">
-                        {% if other_status == translation_status.IN_TRANSLATION %}
+                        {% if other_status == translation_status.MACHINE_TRANSLATED %}
+                            <span title="{% translate "Machine translated" %}">
+                                <i icon-name="bot"
+                                   class="{% if other_language.slug == language.slug %}text-violet-500{% else %}text-gray-800{% endif %}"></i>
+                            </span>
+                        {% elif other_status == translation_status.IN_TRANSLATION %}
                             <span title="{% translate "Currently in translation" %}">
                                 <i icon-name="clock"
                                    class="{% if other_language.slug == language.slug %}text-blue-500{% else %}text-gray-800{% endif %}"></i>

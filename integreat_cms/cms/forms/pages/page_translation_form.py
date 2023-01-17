@@ -21,4 +21,4 @@ class PageTranslationForm(CustomContentModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = PageTranslation
         #: The fields of the model which should be handled by this form
-        fields = ["title", "slug", "status", "content", "minor_edit"]
+        fields = CustomContentModelForm.Meta.fields + ["slug"]
