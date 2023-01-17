@@ -81,6 +81,7 @@ class SummAiApiClient:
                     "user": user,
                     "separator": settings.SUMM_AI_SEPARATOR,
                     "is_test": settings.SUMM_AI_TEST_MODE,
+                    "is_initial": settings.SUMM_AI_IS_INITIAL,
                 },
             ) as response:
                 # Wait for the response
