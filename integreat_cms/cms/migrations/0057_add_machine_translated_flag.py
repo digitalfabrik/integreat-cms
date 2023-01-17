@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ("cms", "0054_user_totp_key"),
+        ("cms", "0056_update_observer_permissions"),
     ]
 
     operations = [

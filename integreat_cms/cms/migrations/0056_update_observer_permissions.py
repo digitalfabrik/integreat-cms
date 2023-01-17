@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ("cms", "0056_track_region_deepl_api_usage"),
+        ("cms", "0055_track_region_deepl_api_usage"),
     ]
 
     operations = [

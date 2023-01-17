@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#1968](https://github.com/digitalfabrik/integreat-cms/issues/1968) ] Fix media library permissions for observer
+* [ [#1883](https://github.com/digitalfabrik/integreat-cms/issues/1883) ] Introduce new status for automatic translations
 
 
 2023.1.1
@@ -64,7 +65,6 @@ UNRELEASED
 * [ [#1885](https://github.com/digitalfabrik/integreat-cms/issues/1885) ] Fix ongoing translation cancel button
 * [ [#1942](https://github.com/digitalfabrik/integreat-cms/issues/1942) ] Fix auto save functionality
 * [ [#1922](https://github.com/digitalfabrik/integreat-cms/issues/1922) ] Fix html escape in xliff import error message
-* [ [#1883](https://github.com/digitalfabrik/integreat-cms/issues/1883) ] Introduce new status for automatic translations
 
 
 2022.11.4
