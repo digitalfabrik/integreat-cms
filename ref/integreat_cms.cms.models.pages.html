@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-01-13T20:21:35+00:00" />
+    <meta property="article:modified_time" content="2023-01-17T07:01:16+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pages &mdash; integreat-cms 2023.1.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1452,6 +1452,7 @@ explicitly and implicitly archived pages (see <a class="reference internal" href
 <li><p><strong>status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Status</p></li>
 <li><p><strong>content</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.TextField" title="(in Django v3.2)"><em>TextField</em></a>) – Content</p></li>
 <li><p><strong>currently_in_translation</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Currently in translation. Flag to indicate a translation is being updated by an external translator</p></li>
+<li><p><strong>machine_translated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Machine translated. Flag to indicate whether a translations is machine translated</p></li>
 <li><p><strong>version</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><em>PositiveIntegerField</em></a>) – Revision</p></li>
 <li><p><strong>minor_edit</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Minor edit. Tick if this change does not require an update of translations in other languages.</p></li>
 <li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Modification date</p></li>
@@ -1619,6 +1620,7 @@ This overwrites <a class="reference internal" href="../ref-ext/integreat_cms.cms
 <li><p><strong>status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Status</p></li>
 <li><p><strong>content</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.TextField" title="(in Django v3.2)"><em>TextField</em></a>) – Content</p></li>
 <li><p><strong>currently_in_translation</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Currently in translation. Flag to indicate a translation is being updated by an external translator</p></li>
+<li><p><strong>machine_translated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Machine translated. Flag to indicate whether a translations is machine translated</p></li>
 <li><p><strong>version</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><em>PositiveIntegerField</em></a>) – Revision</p></li>
 <li><p><strong>minor_edit</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Minor edit. Tick if this change does not require an update of translations in other languages.</p></li>
 <li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Modification date</p></li>
@@ -2013,6 +2015,7 @@ If not passed or <code class="docutils literal notranslate"><span class="pre">No
 <li><p><strong>status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Status</p></li>
 <li><p><strong>content</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.TextField" title="(in Django v3.2)"><em>TextField</em></a>) – Content of the page</p></li>
 <li><p><strong>currently_in_translation</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Currently in translation. Flag to indicate a translation is being updated by an external translator</p></li>
+<li><p><strong>machine_translated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Machine translated. Flag to indicate whether a translations is machine translated</p></li>
 <li><p><strong>version</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><em>PositiveIntegerField</em></a>) – Revision</p></li>
 <li><p><strong>minor_edit</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Minor edit. Tick if this change does not require an update of translations in other languages.</p></li>
 <li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Modification date</p></li>
@@ -2322,7 +2325,7 @@ see <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jan 13, 2023.
+      <span class="lastupdated">Last updated on Jan 17, 2023.
       </span></p>
   </div>
 

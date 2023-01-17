@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-12-16T12:55:19+00:00" />
+    <meta property="article:modified_time" content="2023-01-17T07:01:16+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Events &mdash; integreat-cms 2023.1.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -2745,6 +2745,7 @@ specifying whether an object was created.</p>
 <li><p><strong>status</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Status</p></li>
 <li><p><strong>content</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.TextField" title="(in Django v3.2)"><em>TextField</em></a>) – Description</p></li>
 <li><p><strong>currently_in_translation</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Currently in translation. Flag to indicate a translation is being updated by an external translator</p></li>
+<li><p><strong>machine_translated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Machine translated. Flag to indicate whether a translations is machine translated</p></li>
 <li><p><strong>version</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><em>PositiveIntegerField</em></a>) – Revision</p></li>
 <li><p><strong>minor_edit</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Minor edit. Tick if this change does not require an update of translations in other languages.</p></li>
 <li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Modification date</p></li>
@@ -3016,7 +3017,7 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.events.event_translation.EventTranslation.get_absolute_url">
-<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_translation.py#L143"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event_translation.EventTranslation.get_absolute_url" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_absolute_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_translation.py#L148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event_translation.EventTranslation.get_absolute_url" title="Permalink to this definition"></a></dt>
 <dd><p>Generates the absolute url of the content translation object</p>
 <p>Here is an example for demonstrating the components of a page url:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">integreat</span><span class="o">.</span><span class="n">app</span><span class="o">/</span><span class="n">augsburg</span><span class="o">/</span><span class="n">en</span><span class="o">/</span><span class="n">welcome</span><span class="o">/</span><span class="n">city</span><span class="o">-</span><span class="nb">map</span><span class="o">/</span><span class="n">attractions</span><span class="o">/</span>
@@ -3082,7 +3083,7 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.events.event_translation.EventTranslation.get_repr">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_translation.py#L486"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event_translation.EventTranslation.get_repr" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_translation.py#L492"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event_translation.EventTranslation.get_repr" title="Permalink to this definition"></a></dt>
 <dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method.
 It is used for logging.</p>
 <dl class="field-list simple">
@@ -3188,6 +3189,13 @@ A translation is considered up to date when it is not outdated and not being tra
 <span class="sig-name descname"><span class="pre">links</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event_translation.EventTranslation.links" title="Permalink to this definition"></a></dt>
 <dd><p>Type: Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/contenttypes/#django.contrib.contenttypes.fields.GenericRelation" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericRelation</span></code></a> from <a class="reference internal" href="#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">EventTranslation</span></code></a></p>
 <p>All event translation of this link (related name of <a class="reference internal" href="#integreat_cms.cms.models.events.event_translation.EventTranslation.links" title="integreat_cms.cms.models.events.event_translation.EventTranslation.links"><code class="xref py py-attr docutils literal notranslate"><span class="pre">links</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.events.event_translation.EventTranslation.machine_translated">
+<span class="sig-name descname"><span class="pre">machine_translated</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/events/event_translation.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event_translation.EventTranslation.machine_translated" title="Permalink to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a></p>
+<p>Machine translated. Flag to indicate whether a translations is machine translated</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -3343,7 +3351,7 @@ of the field will call this method.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.events.event_translation.EventTranslation.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_translation.py#L502"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event_translation.EventTranslation.save" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_translation.py#L508"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event_translation.EventTranslation.save" title="Permalink to this definition"></a></dt>
 <dd><p>This overwrites the default Django <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/instances/#django.db.models.Model.save" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save()</span></code></a> method,
 to update the last_updated field on changes.</p>
 <dl class="field-list simple">
@@ -3369,7 +3377,7 @@ is used by fixture loading.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.events.event_translation.EventTranslation.search">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_translation.py#L454"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event_translation.EventTranslation.search" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_content_translation.py#L460"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.events.event_translation.EventTranslation.search" title="Permalink to this definition"></a></dt>
 <dd><p>Searches for all content translations which match the given <cite>query</cite> in their title or slug.
 :param region: The current region
 :type region: ~integreat_cms.cms.models.regions.region.Region
@@ -3916,7 +3924,7 @@ failed.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Dec 16, 2022.
+      <span class="lastupdated">Last updated on Jan 17, 2023.
       </span></p>
   </div>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-01-13T20:21:35+00:00" />
+    <meta property="article:modified_time" content="2023-01-17T07:01:16+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>XLIFF &mdash; integreat-cms 2023.1.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -2250,7 +2250,7 @@ Adds an XLIFF <code class="docutils literal notranslate"><span class="pre">&lt;f
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.xliff.utils.get_xliff_import_errors">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">get_xliff_import_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_message_if_unchanged</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L445"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.get_xliff_import_errors" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">get_xliff_import_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_message_if_unchanged</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L449"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.get_xliff_import_errors" title="Permalink to this definition"></a></dt>
 <dd><p>Validate an imported page translation and return all errors
 As a side effect, a unique slug is generated for the translation if it does not yet have one.</p>
 <dl class="field-list simple">
@@ -2323,13 +2323,14 @@ XLIFF file if only one page is converted)</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.xliff.utils.xliff_import_confirm">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">xliff_import_confirm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_dir</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L357"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.xliff_import_confirm" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">xliff_import_confirm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xliff_dir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">machine_translated</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L357"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.xliff_import_confirm" title="Permalink to this definition"></a></dt>
 <dd><p>Confirm the XLIFF import and write changes to database</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request (used for error messages)</p></li>
 <li><p><strong>xliff_dir</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The directory containing the xliff files</p></li>
+<li><p><strong>machine_translated</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – A flag indicating the import was marked as machine translated</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -2958,7 +2959,7 @@ Adds an XLIFF <code class="docutils literal notranslate"><span class="pre">&lt;f
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jan 13, 2023.
+      <span class="lastupdated">Last updated on Jan 17, 2023.
       </span></p>
   </div>
 

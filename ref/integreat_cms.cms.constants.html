@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-01-16T16:38:47+00:00" />
+    <meta property="article:modified_time" content="2023-01-17T07:01:16+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Constants &mdash; integreat-cms 2023.1.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -3334,13 +3334,14 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
 <p>This module contains the states a translation can have</p>
 <dl class="py data">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.translation_status.</span></span><span class="sig-name descname"><span class="pre">CHOICES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(('UP_TO_DATE',</span> <span class="pre">'Translation</span> <span class="pre">up-to-date'),</span> <span class="pre">('IN_TRANSLATION',</span> <span class="pre">'Currently</span> <span class="pre">in</span> <span class="pre">translation'),</span> <span class="pre">('OUTDATED',</span> <span class="pre">'Translation</span> <span class="pre">outdated'),</span> <span class="pre">('MISSING',</span> <span class="pre">'Translation</span> <span class="pre">missing'))</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/translation_status.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.translation_status.</span></span><span class="sig-name descname"><span class="pre">CHOICES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">(('UP_TO_DATE',</span> <span class="pre">'Translation</span> <span class="pre">up-to-date'),</span> <span class="pre">('IN_TRANSLATION',</span> <span class="pre">'Currently</span> <span class="pre">in</span> <span class="pre">translation'),</span> <span class="pre">('OUTDATED',</span> <span class="pre">'Translation</span> <span class="pre">outdated'),</span> <span class="pre">('MISSING',</span> <span class="pre">'Translation</span> <span class="pre">missing'),</span> <span class="pre">('MACHINE_TRANSLATED',</span> <span class="pre">'Machine</span> <span class="pre">translated'))</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/translation_status.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Choices to use these constants in a database field</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
 <span class="w">    </span><span class="p">(</span><span class="s1">&#39;UP_TO_DATE&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Translation up-to-date&#39;</span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span><span class="s1">&#39;IN_TRANSLATION&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Currently in translation&#39;</span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span><span class="s1">&#39;OUTDATED&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Translation outdated&#39;</span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span><span class="s1">&#39;MISSING&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Translation missing&#39;</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;MACHINE_TRANSLATED&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Machine translated&#39;</span><span class="p">),</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -3348,10 +3349,11 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
 
 <dl class="py data">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.translation_status.</span></span><span class="sig-name descname"><span class="pre">COLORS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'IN_TRANSLATION':</span> <span class="pre">'#60a5fa',</span> <span class="pre">'MISSING':</span> <span class="pre">'#f87171',</span> <span class="pre">'OUTDATED':</span> <span class="pre">'#facc15',</span> <span class="pre">'UP_TO_DATE':</span> <span class="pre">'#4ade80'}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/translation_status.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.translation_status.</span></span><span class="sig-name descname"><span class="pre">COLORS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'IN_TRANSLATION':</span> <span class="pre">'#60a5fa',</span> <span class="pre">'MACHINE_TRANSLATED':</span> <span class="pre">'#9933ff',</span> <span class="pre">'MISSING':</span> <span class="pre">'#f87171',</span> <span class="pre">'OUTDATED':</span> <span class="pre">'#facc15',</span> <span class="pre">'UP_TO_DATE':</span> <span class="pre">'#4ade80'}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/translation_status.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Maps from the translation state to the color used to render this state in the translation coverage view</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">    </span><span class="s1">&#39;IN_TRANSLATION&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#60a5fa&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;MACHINE_TRANSLATED&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#9933ff&#39;</span><span class="p">,</span>
 <span class="w">    </span><span class="s1">&#39;MISSING&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#f87171&#39;</span><span class="p">,</span>
 <span class="w">    </span><span class="s1">&#39;OUTDATED&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#facc15&#39;</span><span class="p">,</span>
 <span class="w">    </span><span class="s1">&#39;UP_TO_DATE&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;#4ade80&#39;</span><span class="p">,</span>
@@ -3370,6 +3372,12 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.translation_status.</span></span><span class="sig-name descname"><span class="pre">IN_TRANSLATION</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'IN_TRANSLATION'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/translation_status.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>In translation</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.constants.translation_status.</span></span><span class="sig-name descname"><span class="pre">MACHINE_TRANSLATED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'MACHINE_TRANSLATED'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/constants/translation_status.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Machine translated</p>
 </dd></dl>
 
 <dl class="py data">
@@ -3538,7 +3546,7 @@ instantiating <a class="reference external" href="https://docs.djangoproject.com
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jan 16, 2023.
+      <span class="lastupdated">Last updated on Jan 17, 2023.
       </span></p>
   </div>
 
