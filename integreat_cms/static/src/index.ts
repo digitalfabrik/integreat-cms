@@ -93,6 +93,8 @@ import "./js/pois/opening-hours/index.tsx";
 
 import "./js/menu.ts";
 
+import "./js/poi-categories/poicategory-colors-icons.ts";
+
 // IE11: fetch
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 require("element-closest").default(window);

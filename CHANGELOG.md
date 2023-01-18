@@ -10,6 +10,7 @@ UNRELEASED
 * [ [#1552](https://github.com/digitalfabrik/integreat-cms/issues/1552) ] Make slugfield scrollable
 * [ [#2008](https://github.com/digitalfabrik/integreat-cms/issues/2008) ] Fix end date of recurring events in API
 * [ [#1954](https://github.com/digitalfabrik/integreat-cms/issues/1954) ] Fix RTL text direction in PDF export
+* [ [#1883](https://github.com/digitalfabrik/integreat-cms/issues/1883) ] Add icon and color to POI Category
 
 
 2023.1.1

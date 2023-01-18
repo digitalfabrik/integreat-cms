@@ -9,7 +9,7 @@ from django.views.generic.base import ContextMixin
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import ModelFormMixin
 
-from ...forms import poi_category_translation_formset_factory
+from ...forms import poi_category_translation_formset_factory, POICategoryForm
 from ...models import POICategory, Language
 from ..mixins import ModelTemplateResponseMixin
 
@@ -36,16 +36,15 @@ class POICategoryMixin(
     #: (see :meth:`~django.views.generic.detail.SingleObjectMixin.get_object`)
     object = None
 
-    #: The fields of this :class:`~django.views.generic.edit.ModelFormMixin`
-    #: (see :attr:`~django.views.generic.edit.ModelFormMixin.fields`)
-    fields = ["id"]
-
     #: The context dict passed to the template
     #: (see :attr:`~django.views.generic.base.ContextMixin.extra_context`)
     extra_context = {"current_menu_item": "poicategories"}
 
-    #: The formset of this mixin
+    #: The formset of this mixin for POICategoryTranslation
     formset = None
+
+    #: The form class to instantiate
+    form_class = POICategoryForm
 
     def get_permission_required(self):
         """
@@ -120,7 +119,8 @@ class POICategoryMixin(
         """
         form = self.get_form()
         self.formset = self.get_formset()
-        if self.formset.is_valid():
+
+        if self.formset.is_valid() and form.is_valid():
             return self.form_valid(form)
         return self.form_invalid(form)
 
@@ -234,7 +234,7 @@ class POICategoryUpdateView(POICategoryMixin, UpdateView):
         :return: A redirection to the success url
         :rtype: ~django.http.HttpResponseRedirect
         """
-        if not self.formset.has_changed():
+        if not self.formset.has_changed() and not form.has_changed():
             messages.info(self.request, _("No changes made"))
         else:
             self.formset.save()

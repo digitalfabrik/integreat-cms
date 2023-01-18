@@ -28,6 +28,8 @@ def transform_location_category(location_category, language_slug):
         "name": category_translation.name
         if category_translation
         else location_category.name,
+        "color": location_category.color,
+        "icon": location_category.icon,
     }
 
 
