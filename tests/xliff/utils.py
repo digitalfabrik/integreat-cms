@@ -5,6 +5,8 @@ from django.urls import reverse
 
 from integreat_cms.cms.models import Page
 
+from ..utils import assert_message_in_response
+
 
 def get_open_kwargs(file_name):
     """
@@ -99,7 +101,7 @@ def validate_xliff_import_response(client, response, import_1, import_2):
         expected_file = import_n.get("expected_file") or import_n["file"]
         assert expected_file in response.content.decode("utf-8")
         if "confirmation_message" in import_n:
-            assert import_n["confirmation_message"] in response.content.decode("utf-8")
+            assert_message_in_response(import_n["confirmation_message"], response)
     # Check if XLIFF import is correctly confirmed
     response = client.post(redirect_location)
     print(response.headers)
@@ -114,7 +116,7 @@ def validate_xliff_import_response(client, response, import_1, import_2):
         assert translation.title == import_n["title"]
         assert translation.content == import_n["content"]
         assert not translation.currently_in_translation
-        assert import_n["message"] in response.content.decode("utf-8")
+        assert_message_in_response(import_n["message"], response)
         if translation.version > 1:
             # If a translation already exists for this version, assert that the status is inherited
             previous_translation = page.translations.get(
