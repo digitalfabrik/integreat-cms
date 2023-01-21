@@ -397,10 +397,13 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/tests.xliff.dummy_django_app.html#static-urls">Static Urls</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="ref/tests.xliff.html#utils">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/tests.xliff.html#xliff-config">XLIFF Config</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.xliff.html#xliff-test">XLIFF Test</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/tests.html#conftest">Conftest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ref/tests.html#utils">Utils</a></li>
 </ul>
 </li>
 </ul>
@@ -952,6 +955,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.xliff.html#module-integreat_cms.xliff.utils">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.utils.get_translation_key"><code class="docutils literal notranslate"><span class="pre">get_translation_key()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.utils.get_xliff_import_diff"><code class="docutils literal notranslate"><span class="pre">get_xliff_import_diff()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.utils.get_xliff_import_errors"><code class="docutils literal notranslate"><span class="pre">get_xliff_import_errors()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.utils.page_to_xliff"><code class="docutils literal notranslate"><span class="pre">page_to_xliff()</span></code></a></li>
@@ -1059,6 +1063,17 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.xliff.dummy_django_app.html#module-tests.xliff.dummy_django_app.static_urls">Static Urls</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.xliff.html#module-tests.xliff.utils">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.xliff.html#tests.xliff.utils.get_and_assert_200"><code class="docutils literal notranslate"><span class="pre">get_and_assert_200()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.xliff.html#tests.xliff.utils.get_open_kwargs"><code class="docutils literal notranslate"><span class="pre">get_open_kwargs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.xliff.html#tests.xliff.utils.upload_files"><code class="docutils literal notranslate"><span class="pre">upload_files()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.xliff.html#tests.xliff.utils.validate_xliff_import_response"><code class="docutils literal notranslate"><span class="pre">validate_xliff_import_response()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.xliff.html#module-tests.xliff.xliff_config">XLIFF Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.xliff.html#tests.xliff.xliff_config.XLIFF_IMPORTS"><code class="docutils literal notranslate"><span class="pre">XLIFF_IMPORTS</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.xliff.html#module-tests.xliff.xliff_test">XLIFF Test</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.xliff.html#tests.xliff.xliff_test.test_xliff_export"><code class="docutils literal notranslate"><span class="pre">test_xliff_export()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.xliff.html#tests.xliff.xliff_test.test_xliff_import"><code class="docutils literal notranslate"><span class="pre">test_xliff_import()</span></code></a></li>
@@ -1080,6 +1095,10 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.login_role_user"><code class="docutils literal notranslate"><span class="pre">login_role_user()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.login_role_user_async"><code class="docutils literal notranslate"><span class="pre">login_role_user_async()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.pytest_plugins"><code class="docutils literal notranslate"><span class="pre">pytest_plugins</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ref-ext/tests.html#module-tests.utils">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.utils.assert_message_in_response"><code class="docutils literal notranslate"><span class="pre">assert_message_in_response()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -2816,8 +2835,6 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.administrative_division.AREA_STATE">AREA_STATE (in module integreat_cms.cms.constants.administrative_division)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist.args">args (integreat_cms.cms.models.chat.chat_message.ChatMessage.DoesNotExist attribute)</a>
 
       <ul>
@@ -2964,6 +2981,8 @@
         <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException.args">(integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzRegion.as_dict">as_dict() (integreat_cms.gvz_api.utils.GvzRegion method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet.as_manager">as_manager() (integreat_cms.cms.models.abstract_content_model.ContentQuerySet class method)</a>
@@ -3402,6 +3421,8 @@
         <li><a href="ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.views.SitemapView.as_view">(integreat_cms.sitemap.views.SitemapView class method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/tests.html#tests.utils.assert_message_in_response">assert_message_in_response() (in module tests.utils)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.months.AUGUST">AUGUST (in module integreat_cms.cms.constants.months)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.urls.html#integreat_cms.cms.urls.public.auth_context">auth_context (in module integreat_cms.cms.urls.public)</a>
@@ -7549,6 +7570,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.get_ancestors">(integreat_cms.cms.models.pages.page.Page method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/tests.xliff.html#tests.xliff.utils.get_and_assert_200">get_and_assert_200() (in module tests.xliff.utils)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_annotated_list">get_annotated_list() (integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode class method)</a>
 
       <ul>
@@ -8815,6 +8838,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_sbs_view.get_old_source_content">(in module integreat_cms.cms.views.pages.page_sbs_view)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/tests.xliff.html#tests.xliff.utils.get_open_kwargs">get_open_kwargs() (in module tests.xliff.utils)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet.get_or_create">get_or_create() (integreat_cms.cms.models.abstract_content_model.ContentQuerySet method)</a>
 
       <ul>
@@ -10017,6 +10042,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI.get_translation">(integreat_cms.cms.models.pois.poi.POI method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.utils.get_translation_key">get_translation_key() (in module integreat_cms.xliff.utils)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.get_translation_model">get_translation_model() (integreat_cms.cms.models.events.event.Event static method)</a>
 
       <ul>
@@ -16273,11 +16300,17 @@
 </li>
         <li><a href="ref-ext/tests.summ_ai_api.html#module-tests.summ_ai_api.summ_ai_test">tests.summ_ai_api.summ_ai_test</a>
 </li>
+        <li><a href="ref-ext/tests.html#module-tests.utils">tests.utils</a>
+</li>
         <li><a href="ref-ext/tests.xliff.html#module-tests.xliff">tests.xliff</a>
 </li>
         <li><a href="ref-ext/tests.xliff.dummy_django_app.html#module-tests.xliff.dummy_django_app">tests.xliff.dummy_django_app</a>
 </li>
         <li><a href="ref-ext/tests.xliff.dummy_django_app.html#module-tests.xliff.dummy_django_app.static_urls">tests.xliff.dummy_django_app.static_urls</a>
+</li>
+        <li><a href="ref-ext/tests.xliff.html#module-tests.xliff.utils">tests.xliff.utils</a>
+</li>
+        <li><a href="ref-ext/tests.xliff.html#module-tests.xliff.xliff_config">tests.xliff.xliff_config</a>
 </li>
         <li><a href="ref-ext/tests.xliff.html#module-tests.xliff.xliff_test">tests.xliff.xliff_test</a>
 </li>
@@ -21754,8 +21787,6 @@
         <li><a href="ref-ext/tests.api.html#module-tests.api">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     tests.api.api_config
 
@@ -21763,6 +21794,8 @@
         <li><a href="ref-ext/tests.api.html#module-tests.api.api_config">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     tests.api.test_api_feedback
 
@@ -22044,6 +22077,13 @@
 </li>
       </ul></li>
       <li>
+    tests.utils
+
+      <ul>
+        <li><a href="ref-ext/tests.html#module-tests.utils">module</a>
+</li>
+      </ul></li>
+      <li>
     tests.xliff
 
       <ul>
@@ -22062,6 +22102,20 @@
 
       <ul>
         <li><a href="ref-ext/tests.xliff.dummy_django_app.html#module-tests.xliff.dummy_django_app.static_urls">module</a>
+</li>
+      </ul></li>
+      <li>
+    tests.xliff.utils
+
+      <ul>
+        <li><a href="ref-ext/tests.xliff.html#module-tests.xliff.utils">module</a>
+</li>
+      </ul></li>
+      <li>
+    tests.xliff.xliff_config
+
+      <ul>
+        <li><a href="ref-ext/tests.xliff.html#module-tests.xliff.xliff_config">module</a>
 </li>
       </ul></li>
       <li>
@@ -22494,6 +22548,8 @@
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.allowed_media.UPLOAD_CHOICES">UPLOAD_CHOICES (in module integreat_cms.cms.constants.allowed_media)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_actions.upload_file_ajax">upload_file_ajax() (in module integreat_cms.cms.views.media.media_actions)</a>
+</li>
+      <li><a href="ref-ext/tests.xliff.html#tests.xliff.utils.upload_files">upload_files() (in module tests.xliff.utils)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.upload_path">upload_path() (in module integreat_cms.cms.models.media.media_file)</a>
 </li>
@@ -22973,6 +23029,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_mfa_key.UserMfaKey.validate_unique">(integreat_cms.cms.models.users.user_mfa_key.UserMfaKey method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/tests.xliff.html#tests.xliff.utils.validate_xliff_import_response">validate_xliff_import_response() (in module tests.xliff.utils)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView.value">value (integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView attribute)</a>
 
       <ul>
@@ -23388,6 +23446,8 @@
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.XLIFF_EXPORT_VERSION">XLIFF_EXPORT_VERSION (in module integreat_cms.core.settings)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.utils.xliff_import_confirm">xliff_import_confirm() (in module integreat_cms.xliff.utils)</a>
+</li>
+      <li><a href="ref-ext/tests.xliff.html#tests.xliff.xliff_config.XLIFF_IMPORTS">XLIFF_IMPORTS (in module tests.xliff.xliff_config)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.XLIFF_LEGACY_FIELDS">XLIFF_LEGACY_FIELDS (in module integreat_cms.core.settings)</a>
 </li>
