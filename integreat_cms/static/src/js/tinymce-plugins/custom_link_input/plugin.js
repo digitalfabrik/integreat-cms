@@ -78,6 +78,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
             let ajaxRequestId = 0;
             const defaultCompletionItem = {
                 text: tinymceConfig.getAttribute("data-link-no-results-text"),
+                title: "",
                 value: "",
             };
             const completionItems = [defaultCompletionItem];
@@ -96,7 +97,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
                         );
                         // Don't set the completion text to `- no results -`
                         if (currentCompletion.value !== "") {
-                            currentCompletionText = currentCompletion.text;
+                            currentCompletionText = currentCompletion.title;
                         } else {
                             currentCompletionText = "";
                         }
@@ -156,7 +157,8 @@ import { getCsrfToken } from "../../utils/csrf-token";
                         completionItems.length = 0;
                         for (const completion of newCompletions) {
                             completionItems.push({
-                                text: completion.title,
+                                text: completion.path,
+                                title: completion.title,
                                 value: completion.url,
                             });
                         }

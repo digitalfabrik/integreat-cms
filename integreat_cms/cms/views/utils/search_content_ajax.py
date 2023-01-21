@@ -31,11 +31,12 @@ def format_object_translation(object_translation, typ):
     :type object_translation: ~integreat_cms.cms.models.events.event.Event or ~integreat_cms.cms.models.pages.page.Page or ~integreat_cms.cms.models.pois.poi.POI
     :param typ: The type of this object
     :type typ: str
-    :return: A dictionary with the title, url and type of the translation object
+    :return: A dictionary with the title, path, url and type of the translation object
     :rtype: dict
     """
     return {
         "title": object_translation.title,
+        "path": object_translation.path(),
         "url": f"{settings.WEBAPP_URL}{object_translation.get_absolute_url()}",
         "type": typ,
     }
