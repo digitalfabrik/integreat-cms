@@ -14,6 +14,7 @@ from ..conftest import (
     EDITOR,
     AUTHOR,
 )
+from ..utils import assert_message_in_response
 
 
 async def fake_summ_ai_server(request):
@@ -131,9 +132,9 @@ async def test_auto_translate_easy_german(
         changed_pages = await get_changed_pages(settings, selected_ids)
         for page in changed_pages:
             # Check that the success message are present
-            assert (
-                f"Page &quot;{page[settings.SUMM_AI_GERMAN_LANGUAGE_SLUG]}&quot; has been successfully translated into Easy German."
-                in response.content.decode("utf-8")
+            assert_message_in_response(
+                f'Page "{page[settings.SUMM_AI_GERMAN_LANGUAGE_SLUG]}" has been successfully translated into Easy German.',
+                response,
             )
             # Check that the page translation exists and really has the correct content
             assert (
@@ -218,7 +219,8 @@ async def test_summ_ai_error_handling(
         response = await client.get(page_tree)
         print(response.headers)
         # Check that the error message is present
-        assert (
-            "could not be automatically translated into Easy German."
-            in response.content.decode("utf-8")
+        assert_message_in_response(
+            'Page "Willkommen" could not be automatically translated into Easy German. '
+            "Please try again later or contact an administrator",
+            response,
         )

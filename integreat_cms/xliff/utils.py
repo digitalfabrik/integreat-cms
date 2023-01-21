@@ -14,6 +14,7 @@ from django.core import serializers
 from django.core.cache import cache
 from django.core.files.storage import FileSystemStorage
 from django.core.files.base import ContentFile
+from django.db import IntegrityError, transaction
 from django.forms.models import model_to_dict
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext as _
@@ -233,15 +234,14 @@ def xliffs_to_pages(request, xliff_dir):
     :rtype: dict
     """
     # Check if result is cached
-    cached_result = cache.get(f"xliff-{xliff_dir}")
-    if cached_result:
+    if cached_result := cache.get(f"xliff-{xliff_dir}"):
         logger.debug(
             "Returning cached result for deserializing all XLIFF files of %r",
             xliff_dir,
         )
         return cached_result
-    # Get all xliff files in the given directory
-    xliff_file_paths = glob.glob(xliff_dir + "/**/*.xliff", recursive=True)
+    # Get all xliff files in the given directory (sort for deterministic order)
+    xliff_file_paths = sorted(glob.glob(f"{xliff_dir}/**/*.xliff", recursive=True))
     page_translations = {}
     for xliff_file_path in xliff_file_paths:
         with open(xliff_file_path, "r", encoding="utf-8") as xliff_file:
@@ -305,7 +305,7 @@ def get_xliff_import_diff(request, xliff_dir):
     :return: A dict containing data about the imported xliff files
     :rtype: dict
     """
-    diff = []
+    diff = {}
     for xliff_file, deserialized_objects in xliffs_to_pages(request, xliff_dir).items():
         for deserialized in deserialized_objects:
             page_translation = deserialized.object
@@ -319,39 +319,74 @@ def get_xliff_import_diff(request, xliff_dir):
                 page=page_translation.page,
                 language=page_translation.language,
             )
-            diff.append(
-                {
-                    "file": xliff_file,
-                    "existing": existing_translation,
-                    "import": page_translation,
-                    "source_diff": {
-                        "title": "\n".join(
-                            list(
-                                difflib.unified_diff(
-                                    [existing_translation.title],
-                                    [page_translation.title],
-                                    lineterm="",
-                                )
-                            )[2:]
+            translation_key = get_translation_key(existing_translation)
+            if translation_key in diff:
+                # Show global error to indicate duplicate translation
+                messages.error(
+                    request,
+                    format_html(
+                        __(
+                            _(
+                                "Page <b>{}</b> from file <b>{}</b> was also translated in file <b>{}</b>."
+                            ),
+                            _(
+                                "Please check which of the files contains the most recent version and upload only this file."
+                            ),
+                            _(
+                                "If you confirm this import, only the first file will be imported and the latter will be ignored."
+                            ),
                         ),
-                        "content": "\n".join(
-                            list(
-                                difflib.unified_diff(
-                                    existing_translation.content.splitlines(),
-                                    page_translation.content.splitlines(),
-                                    lineterm="",
-                                )
-                            )[2:]
+                        existing_translation.readable_title,
+                        diff[translation_key]["file"],
+                        xliff_file,
+                    ),
+                )
+                # Show warning in the section of the first occurrence of this duplicate
+                diff[translation_key]["errors"].append(
+                    {
+                        "level_tag": "warning",
+                        "message": format_html(
+                            _(
+                                "This page was also translated in file <b>{}</b>, which will be ignored."
+                            ),
+                            xliff_file,
                         ),
-                    },
-                    "right_to_left": page_translation.language.text_direction
-                    == text_directions.RIGHT_TO_LEFT,
-                    "errors": get_xliff_import_errors(
-                        request, page_translation, add_message_if_unchanged=True
-                    )[0],
-                }
-            )
-    return diff
+                    }
+                )
+                # Skip this duplicated translation
+                continue
+            diff[translation_key] = {
+                "file": xliff_file,
+                "existing": existing_translation,
+                "import": page_translation,
+                "source_diff": {
+                    "title": "\n".join(
+                        list(
+                            difflib.unified_diff(
+                                [existing_translation.title],
+                                [page_translation.title],
+                                lineterm="",
+                            )
+                        )[2:]
+                    ),
+                    "content": "\n".join(
+                        list(
+                            difflib.unified_diff(
+                                existing_translation.content.splitlines(),
+                                page_translation.content.splitlines(),
+                                lineterm="",
+                            )
+                        )[2:]
+                    ),
+                },
+                "right_to_left": page_translation.language.text_direction
+                == text_directions.RIGHT_TO_LEFT,
+                "errors": get_xliff_import_errors(
+                    request, page_translation, add_message_if_unchanged=True
+                )[0],
+            }
+    # Throw away the translation keys, only take the value dictionaries
+    return list(diff.values())
 
 
 def xliff_import_confirm(request, xliff_dir, machine_translated):
@@ -414,34 +449,64 @@ def xliff_import_confirm(request, xliff_dir, machine_translated):
                         existing_translation.links.all().delete()
                     page_translation.machine_translated = machine_translated
                     # Confirm import and write changes to the database
-                    page_translation.save()
-
-                    if has_changed:
-                        logger.info(
-                            "%r of XLIFF file %r was imported successfully by %r",
-                            page_translation,
-                            xliff_file,
-                            request.user,
-                        )
-                        messages.success(
-                            request,
-                            _("Page {} was imported successfully.").format(
-                                page_translation.readable_title
-                            ),
-                        )
-                    else:
-                        logger.info(
-                            "%r of XLIFF file %r was imported without changes by %r",
+                    try:
+                        # Use encapsulated transaction to allow rollback in case of IntegrityError
+                        with transaction.atomic():
+                            page_translation.save()
+                    except IntegrityError as e:
+                        logger.error(
+                            "%s when importing new version for %r from %r by %r: %s",
+                            type(e).__name__,
                             existing_translation,
                             xliff_file,
                             request.user,
+                            e,
                         )
-                        messages.info(
+                        messages.error(
                             request,
-                            _("Page {} was imported without changes.").format(
-                                page_translation.readable_title
+                            format_html(
+                                __(
+                                    _(
+                                        "Page {} from the file <b>{}</b> could not be imported."
+                                    ),
+                                    _(
+                                        "Check if you have uploaded any other conflicting files for this page."
+                                    ),
+                                    _(
+                                        "If the problem persists, contact an administrator."
+                                    ),
+                                ),
+                                page_translation.readable_title,
+                                xliff_file,
                             ),
                         )
+                    else:
+                        if has_changed:
+                            logger.info(
+                                "%r of XLIFF file %r was imported successfully by %r",
+                                page_translation,
+                                xliff_file,
+                                request.user,
+                            )
+                            messages.success(
+                                request,
+                                _("Page {} was imported successfully.").format(
+                                    page_translation.readable_title
+                                ),
+                            )
+                        else:
+                            logger.info(
+                                "%r of XLIFF file %r was imported without changes by %r",
+                                existing_translation,
+                                xliff_file,
+                                request.user,
+                            )
+                            messages.info(
+                                request,
+                                _("Page {} was imported without changes.").format(
+                                    page_translation.readable_title
+                                ),
+                            )
 
     return success
 
@@ -527,3 +592,17 @@ def get_xliff_import_errors(request, page_translation, add_message_if_unchanged=
                 }
             )
     return error_messages, page_translation_form.has_changed()
+
+
+def get_translation_key(translation):
+    """
+    Return a unique key for each translation to be able to find duplicates.
+    We cannot use the translation id here because the objects have not been written to the database.
+
+    :param translation: The translation
+    :type translation: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
+
+    :return: A unique key for this ``Page``/``Language``/``version`` combination
+    :rtype: str
+    """
+    return f"{translation.page.id}-{translation.language.id}-{translation.version}"
