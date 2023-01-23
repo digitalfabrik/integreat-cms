@@ -1,0 +1,135 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    map-pin
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% translate "Position" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <div>
+        <label class="mt-0">{% translate "Address" %}</label>
+        <div id="nominatim-error"
+             class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-2 hidden"
+             role="alert">
+        </div>
+        <label for="{{ poi_form.address.id_for_label }}" class="secondary">{{ poi_form.address.label }}</label>
+        {% render_field poi_form.address|add_error_class:"border-red-500" %}
+        <label for="{{ poi_form.postcode.id_for_label }}" class="secondary">{{ poi_form.postcode.label }}</label>
+        {% render_field poi_form.postcode|add_error_class:"border-red-500" %}
+        <label for="{{ poi_form.city.id_for_label }}" class="secondary">{{ poi_form.city.label }}</label>
+        {% render_field poi_form.city|add_error_class:"border-red-500" %}
+        <label for="{{ poi_form.country.id_for_label }}" class="secondary">{{ poi_form.country.label }}</label>
+        {% render_field poi_form.country|add_error_class:"border-red-500" %}
+    </div>
+    <div>
+        {% render_field poi_form.location_on_map %}
+        <label for="{{ poi_form.location_on_map.id_for_label }}">{{ poi_form.location_on_map.label }}</label>
+        <div class="help-text">{{ poi_form.location_on_map.help_text }}</div>
+    </div>
+    <div>
+        <label>{% translate "Position" %}</label>
+        <div>
+            <input type="checkbox"
+                   id="auto-fill-coordinates"
+                   data-url="{% url "auto_complete_poi_address" region_slug=request.region.slug %}"
+                   checked/>
+            <label for="auto-fill-coordinates" class="secondary !inline">
+                {% translate "Derive coordinates automatically from address" %}
+            </label>
+        </div>
+        <label for="{{ poi_form.latitude.id_for_label }}" class="secondary">{{ poi_form.latitude.label }}</label>
+        {% render_field poi_form.latitude|add_error_class:"border-red-500" %}
+        <div class="help-text">{{ poi_form.latitude.help_text }}</div>
+        <label for="{{ poi_form.longitude.id_for_label }}" class="secondary">{{ poi_form.longitude.label }}</label>
+        {% render_field poi_form.longitude|add_error_class:"border-red-500" %}
+        <div class="help-text">{{ poi_form.longitude.help_text }}</div>
+    </div>
+    <div>
+        <label>{% translate "Map" %}</label>
+        <div id="map"
+             class="aspect-video"
+             data-url="{% url "get_address_from_coordinates" region_slug=request.region.slug %}"
+             data-bounding-box="{{ request.region.bounding_box.api_representation }}">
+        </div>
+        <div id="set_map_position_text" class="help-text hidden">
+            {% translate "You can set the position by clicking on the map" %}
+        </div>
+        <div id="change_map_position_text" class="help-text hidden">
+            {% translate "You can change the position via drag & drop" %}
+        </div>
+        <div id="update_position_from_map_marker" class="hidden">
+            <p class="mb-3">
+                <b>{{ poi_form.latitude.label }}:</b> <span id="updated_latitude"></span>
+                <br/>
+                <b>{{ poi_form.longitude.label }}:</b> <span id="updated_longitude"></span>
+            </p>
+            <div id="no_address_found"
+                 class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 my-2 hidden"
+                 role="alert">
+                {% translate "No address found at this position" %}
+            </div>
+            <div id="address_loading" class="text-center hidden">
+                <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
+            </div>
+            <div id="update_address_from_map_marker" class="mb-2 hidden">
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-500 px-4 py-3 my-2">
+                    {% translate "New address found" %}
+                </div>
+                <p id="updated_street" class="hidden"></p>
+                <p>
+                    <span id="updated_postcode"></span> <span id="updated_city"></span>
+                </p>
+                <p id="updated_country"></p>
+            </div>
+            <input type="radio"
+                   id="update_address_and_coordinates"
+                   name="update_position"
+                   class="depends-on-address cursor-not-allowed"
+                   required
+                   disabled/>
+            <label for="update_address_and_coordinates"
+                   form="update_position_form"
+                   class="secondary !inline text-gray-500 depends-on-address cursor-not-allowed">
+                {% translate "Update address and coordinates" %}
+            </label>
+            <br/>
+            <input type="radio"
+                   id="update_address"
+                   name="update_position"
+                   class="depends-on-address cursor-not-allowed"
+                   required
+                   disabled/>
+            <label for="update_address"
+                   class="secondary !inline text-gray-500 depends-on-address cursor-not-allowed">
+                {% translate "Update only address" %}
+            </label>
+            <br/>
+            <input type="radio"
+                   id="update_coordinates"
+                   name="update_position"
+                   required
+                   checked/>
+            <label for="update_coordinates" class="secondary !inline">
+                {% translate "Update only coordinates" %}
+            </label>
+            <br/>
+            <div id="update_address_error"
+                 class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-2 hidden"
+                 role="alert">
+                {% translate "Please choose one option or cancel" %}
+            </div>
+            <button id="confirm_map_input" type="button" class="btn btn-blue w-full mt-2">
+                <i icon-name="check" class="h-5"></i>
+                {% translate "Confirm" %}
+            </button>
+            <button id="discard_map_input" type="button" class="btn btn-red w-full mt-2">
+                <i icon-name="x" class="h-5"></i>
+                {% translate "Cancel" %}
+            </button>
+        </div>
+    </div>
+{% endblock collapsible_box_content %}

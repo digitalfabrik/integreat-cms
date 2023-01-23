@@ -1,0 +1,49 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    wrench
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% translate "Actions" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <div>
+        {% if event_form.instance.archived %}
+            <label class="mt-0">{% translate "Restore event" %}</label>
+            <button class="btn confirmation-button w-full"
+                    data-confirmation-title="{{ restore_dialog_title }}"
+                    data-confirmation-text="{{ restore_dialog_text }}"
+                    data-confirmation-subject="{{ event_translation_form.instance.title }}"
+                    data-action="{% url 'restore_event' event_id=event_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                <i icon-name="refresh-ccw" class="mr-2"></i>
+                {% translate "Restore this event" %}
+            </button>
+        {% else %}
+            <label class="mt-0">{% translate "Archive event" %}</label>
+            <button class="btn confirmation-button w-full"
+                    data-confirmation-title="{{ archive_dialog_title }}"
+                    data-confirmation-text="{{ archive_dialog_text }}"
+                    data-confirmation-subject="{{ event_translation_form.instance.title }}"
+                    data-action="{% url 'archive_event' event_id=event_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                <i icon-name="archive" class="mr-2"></i>
+                {% translate "Archive this event" %}
+            </button>
+        {% endif %}
+    </div>
+    {% if perms.cms.delete_event %}
+        <div>
+            <label>{% translate "Delete event" %}</label>
+            <button class="btn btn-red confirmation-button w-full"
+                    data-confirmation-title="{{ delete_dialog_title }}"
+                    data-confirmation-text="{{ delete_dialog_text }}"
+                    data-confirmation-subject="{{ event_translation_form.instance.title }}"
+                    data-action="{% url 'delete_event' event_id=event_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                <i icon-name="trash-2" class="mr-2"></i>
+                {% translate "Delete this event" %}
+            </button>
+        </div>
+    {% endif %}
+{% endblock collapsible_box_content %}

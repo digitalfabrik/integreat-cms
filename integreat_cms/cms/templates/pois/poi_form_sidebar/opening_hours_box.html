@@ -1,0 +1,28 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    calendar-clock
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {{ poi_form.opening_hours.label }}
+    <br />
+    ({% translate "Currently not visible in apps" %})
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <opening-hours-widget></opening-hours-widget>
+    {{ opening_hour_config_data|json_script:"openingHourConfigData" }}
+    {{ poi_form.opening_hours.value|json_script:"openingHourInitialData" }}
+    {# This hidden input is required for the change detection of the opening hours field #}
+    <input type="hidden"
+           id="initial-id_opening_hours"
+           name="initial-opening_hours"
+           value="{{ poi_form.opening_hours.value }}"/>
+    <div class="py-2 px-4">
+        {% render_field poi_form.temporarily_closed %}
+        <label for="{{ poi_form.temporarily_closed.id_for_label }}">{{ poi_form.temporarily_closed.label }}</label>
+        <div class="help-text">{{ poi_form.temporarily_closed.help_text }}</div>
+    </div>
+{% endblock collapsible_box_content %}

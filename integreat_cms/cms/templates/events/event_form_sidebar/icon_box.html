@@ -1,0 +1,15 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    image
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {{ event_form.icon.label }}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <label class="mt-0" for="{{ event_form.icon.id_for_label }}">{{ event_form.icon.label }}</label>
+    {% render_field event_form.icon label=event_form.icon.label %}
+{% endblock collapsible_box_content %}
