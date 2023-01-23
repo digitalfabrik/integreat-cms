@@ -4,6 +4,7 @@ UNRELEASED
 * [ [#1968](https://github.com/digitalfabrik/integreat-cms/issues/1968) ] Fix media library permissions for observer
 * [ [#1883](https://github.com/digitalfabrik/integreat-cms/issues/1883) ] Introduce new status for automatic translations
 * [ [#1993](https://github.com/digitalfabrik/integreat-cms/issues/1993) ] Skip duplicate page translations in XLIFF file
+* [ [#1769](https://github.com/digitalfabrik/integreat-cms/issues/1769) ] Evenly distribute page form sidebar boxes
 
 
 2023.1.1

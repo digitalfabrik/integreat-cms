@@ -291,7 +291,6 @@ const OpeningHoursInputFields = ({ openingHoursState, selectedDaysState, transla
                                             )}
                                             onClick={() => toggleDay(day)}
                                             onKeyDown={() => toggleDay(day)}>
-                                            {/* eslint-disable-next-line no-magic-numbers */}
                                             <p>{translations.weekdays[day].slice(0, 2)}</p>
                                         </div>
                                     ))}

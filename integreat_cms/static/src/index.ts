@@ -31,6 +31,7 @@ import "./js/search-query.ts";
 
 import "./js/forms/slug-error.ts";
 import "./js/forms/update-permalink.ts";
+import "./js/forms/distribute-sidebar-boxes.ts";
 
 import "./js/languages/country-flag-fields.ts";
 
