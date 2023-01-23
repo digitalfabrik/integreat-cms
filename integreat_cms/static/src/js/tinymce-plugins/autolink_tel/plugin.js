@@ -100,7 +100,6 @@
                 }
             }
             if (rng.endOffset === 1) {
-                /* eslint-disable-next-line no-magic-numbers */
                 end = 2;
             } else {
                 end = rng.endOffset - 1 - endOffset;
@@ -108,7 +107,6 @@
         }
         const start = end;
         do {
-            /* eslint-disable-next-line no-magic-numbers */
             setStart(rng, endContainer, end >= 2 ? end - 2 : 0);
             setEnd(rng, endContainer, end >= 1 ? end - 1 : 0);
             end -= 1;
@@ -117,7 +115,6 @@
             rngText !== " " &&
             rngText !== "" &&
             rngText.charCodeAt(0) !== CHAR_CODE_SPACE &&
-            /* eslint-disable-next-line no-magic-numbers */
             end - 2 >= 0 &&
             rngText !== delimiter
         );

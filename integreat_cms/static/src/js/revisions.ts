@@ -22,7 +22,6 @@ const handleRevisionSliderInput = ({ target }: Event) => {
     document.getElementById("revision-date").textContent = revisionElement.dataset.date;
     // Calculate position of revision info box to make sure it stays within the area of the slider position
     revisionInfo.style.left = `calc(${position}% + (${
-        /* eslint-disable-next-line no-magic-numbers */
         revisionInfo.offsetWidth / 2 - (position * revisionInfo.offsetWidth) / 100
     }px))`;
     // Hide all other revisions
