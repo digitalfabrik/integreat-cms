@@ -6,6 +6,7 @@ UNRELEASED
 * [ [#1993](https://github.com/digitalfabrik/integreat-cms/issues/1993) ] Skip duplicate page translations in XLIFF file
 * [ [#1769](https://github.com/digitalfabrik/integreat-cms/issues/1769) ] Evenly distribute page form sidebar boxes
 * [ [#1876](https://github.com/digitalfabrik/integreat-cms/issues/1876) ] Make items in the sidebar of poi and event form toggleable
+* [ [#2023](https://github.com/digitalfabrik/integreat-cms/issues/2023) ] Rephrase texts in text understandability-box
 
 
 2023.1.1
