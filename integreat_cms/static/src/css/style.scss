@@ -203,17 +203,20 @@ select,
 
 .slug-field {
     @apply flex px-3 py-2 whitespace-nowrap;
+    overflow: auto;
     &:focus-within {
         @apply bg-white border-blue-500 ring-1 ring-blue-500 outline-none;
     }
     > [type="text"] {
         @apply flex-grow p-0 border-none;
+        width: fit-content;
         &:focus {
             box-shadow: none;
         }
     }
     > label {
         @apply font-normal cursor-auto m-0;
+        opacity: 0.66;
     }
     &.hidden {
         display: none;
