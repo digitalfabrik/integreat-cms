@@ -7,6 +7,7 @@ UNRELEASED
 * [ [#1769](https://github.com/digitalfabrik/integreat-cms/issues/1769) ] Evenly distribute page, event and poi form sidebar boxes
 * [ [#1876](https://github.com/digitalfabrik/integreat-cms/issues/1876) ] Make items in the sidebar of poi and event form toggleable
 * [ [#2023](https://github.com/digitalfabrik/integreat-cms/issues/2023) ] Rephrase texts in text understandability-box
+* [ [#1552](https://github.com/digitalfabrik/integreat-cms/issues/1552) ] Make slugfield scrollable
 
 
 2023.1.1
