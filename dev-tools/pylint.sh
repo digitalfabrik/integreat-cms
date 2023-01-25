@@ -10,5 +10,5 @@ require_installed
 
 # Run pylint
 echo "Starting code linting with pylint..." | print_info
-pipenv run pylint_runner
+pylint_runner
 echo "✔ Linting finished" | print_success

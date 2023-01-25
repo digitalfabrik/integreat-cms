@@ -70,7 +70,7 @@ elif [[ -n "${TEST_PATH}" ]]; then
 fi
 
 echo -e "Running all tests${TEST_MESSAGE}${CHANGED_MESSAGE}..." | print_info
-deescalate_privileges pipenv run pytest "${PYTEST_ARGS[@]}"
+deescalate_privileges pytest "${PYTEST_ARGS[@]}"
 echo "✔ Tests successfully completed " | print_success
 
 if [[ -d "${CODE_COVERAGE_DIR}" ]]; then

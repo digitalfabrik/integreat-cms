@@ -47,4 +47,4 @@ done
 listen_for_devserver &
 
 # Start Integreat CMS development webserver
-deescalate_privileges pipenv run integreat-cms-cli runserver "localhost:${INTEGREAT_CMS_PORT}"
+deescalate_privileges integreat-cms-cli runserver "localhost:${INTEGREAT_CMS_PORT}"

@@ -17,7 +17,7 @@ TRANSLATION_FILE="locale/de/LC_MESSAGES/django.po"
 
 # Re-generating translation file
 echo "Scanning Python and HTML source code and extracting translatable strings from it..." | print_info
-pipenv run integreat-cms-cli makemessages -l de --add-location file --verbosity "${SCRIPT_VERBOSITY}"
+integreat-cms-cli makemessages -l de --add-location file --verbosity "${SCRIPT_VERBOSITY}"
 
 # Reset POT-Creation-Date to avoid git conflicts
 sed --in-place --regexp-extended 's/^"POT-Creation-Date: [0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}\+[0-9]{4}\\n"$/"POT-Creation-Date: YEAR-MO-DA HO:MI+ZONE\\n"/' "${TRANSLATION_FILE}"
@@ -26,7 +26,7 @@ sed --in-place --regexp-extended 's/^"POT-Creation-Date: [0-9]{4}-[0-9]{2}-[0-9]
 if [[ "$*" != *"--skip-compile"* ]]; then
     # Compile translation file
     echo "Compiling translation file..." | print_info
-    pipenv run integreat-cms-cli compilemessages --verbosity "${SCRIPT_VERBOSITY}"
+    integreat-cms-cli compilemessages --verbosity "${SCRIPT_VERBOSITY}"
 fi
 
 echo "✔ Translation process finished" | print_success

@@ -12,5 +12,5 @@ require_database
 # Initialize the Redis cache to make sure the cache is invalidated
 configure_redis_cache
 
-deescalate_privileges pipenv run integreat-cms-cli shell --verbosity "${SCRIPT_VERBOSITY}" < "${DEV_TOOL_DIR}/_duplicate_pages.py"
+deescalate_privileges integreat-cms-cli shell --verbosity "${SCRIPT_VERBOSITY}" < "${DEV_TOOL_DIR}/_duplicate_pages.py"
 echo "✔ Duplicated pages" | print_success

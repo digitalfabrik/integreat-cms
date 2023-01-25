@@ -17,14 +17,13 @@ This content management system helps local integration experts to provide multil
 
 Following packages are required before installing the project (install them with your package manager):
 
-* npm version 7 or higher
-* nodejs version 12 or higher
-* python3.9 (Debian-based distributions) / python39 (Arch-based distributions)
-* python3.7-dev (only on Ubuntu)
-* python3-pip (Debian-based distributions) / python-pip (Arch-based distributions)
-* pipenv for python3 (if no recent version is packaged for your distro, use `pip3 install pipenv --user`)
-* gettext to use the translation features
-* Either postgresql **or** docker to run a local database server
+* `npm` version 7 or later
+* `nodejs` version 12 or later
+* `python3` version 3.9 or later
+* `python3-pip` (Debian-based distributions) / `python-pip` (Arch-based distributions)
+* `python3-venv` (only on Debian-based distributions)
+* `gettext` to use the translation features
+* Either `postgresql` **or** `docker` to run a local database server
 
 ### Installation
 

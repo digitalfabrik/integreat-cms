@@ -17,6 +17,20 @@ npm update
 echo "Running security audit of JavaScript dependencies..." | print_info
 npm audit fix || true
 
-# Check if pip dependencies are up to date
+# Update pip dependencies
 echo "Updating Python dependencies..." | print_info
-pipenv update --dev
+# Create temporary venv to make sure dev dependencies are not included
+python3 -m venv .venv.tmp
+source .venv.tmp/bin/activate
+# Install package locally (without the pinned extra, so the newest available versions are installed)
+pip install -e .
+# Parse the newly installed versions
+NEW_VERSIONS=$(pip freeze --exclude-editable --local | sort | sed  --regexp-extended 's/^(.*)$/    "\1",\\n/g' | tr -d '\n')
+# Write the new versions to pyproject.toml
+sed --in-place --regexp-extended "/^pinned = \[$/,/^\]$/c\pinned = [\n${NEW_VERSIONS}]" pyproject.toml
+# Remove the temporary venv
+deactivate
+rm -rf .venv.tmp
+
+# Install updated versions in the real venv
+bash "${DEV_TOOL_DIR}/install.sh"

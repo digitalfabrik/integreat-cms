@@ -10,7 +10,7 @@ require_installed
 
 # Run djlint
 echo "Starting code formatting with djlint..." | print_info
-pipenv run djlint --reformat --quiet --profile django --lint "${PACKAGE_DIR}"
+djlint --reformat --quiet --profile django --lint "${PACKAGE_DIR}"
 echo "✔ Code formatting finished" | print_success
 
 # Update translations (because changed formatting affects line numbers)
