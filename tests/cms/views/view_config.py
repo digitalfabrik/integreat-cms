@@ -108,6 +108,16 @@ VIEWS = [
             ("new_organization", STAFF_ROLES + [MANAGEMENT]),
             ("user_settings", ROLES),
             ("authenticate_modify_mfa", ROLES),
+            ("translations_management", HIGH_PRIV_STAFF_ROLES + [MANAGEMENT]),
+            (
+                "translations_management",
+                HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
+                {
+                    "machine_translate_pages": 0,
+                    "machine_translate_events": 1,
+                    "machine_translate_pois": 1,
+                },
+            ),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg"},

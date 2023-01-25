@@ -50,6 +50,7 @@ from ..views import (
     utils,
     feedback,
     poi_categories,
+    translations,
 )
 
 #: The media library ajax url patterns are reused twice (for the admin media library and the region media library)
@@ -719,6 +720,18 @@ urlpatterns = [
                                 ),
                             ),
                         ]
+                    ),
+                ),
+                path(
+                    "translations/",
+                    include(
+                        [
+                            path(
+                                "manage/",
+                                translations.TranslationsManagementView.as_view(),
+                                name="translations_management",
+                            ),
+                        ],
                     ),
                 ),
                 path(
