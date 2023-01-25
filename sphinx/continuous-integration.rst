@@ -27,12 +27,12 @@ This workflow gets triggered everytime a commit is pushed to the ``develop`` bra
 .. image:: images/circleci-main-workflow.png
     :alt: CircleCI main workflow
 
-.. _circleci-pipenv-install:
+.. _circleci-pip-install:
 
-pipenv-install
+pip-install
 --------------
 
-This job executes ``pipenv install --dev`` and makes use of the `CircleCI Dependency Cache <https://circleci.com/docs/2.0/caching/>`__.
+This job executes ``pip install -e .[dev,pinned]`` and makes use of the `CircleCI Dependency Cache <https://circleci.com/docs/2.0/caching/>`__.
 It passes the virtual environment ``.venv`` to the subsequent jobs.
 
 .. _circleci-webpack:
@@ -47,12 +47,12 @@ After that, it compiles all static files with webpack (``npm run prod``) and pas
 pylint
 ------
 
-This job executes ``pipenv run pylint_runner``, which checks whether the :ref:`pylint` throws any errors or warnings.
+This job executes ``pylint_runner``, which checks whether the :ref:`pylint` throws any errors or warnings.
 
 black
 -----
 
-This job executes ``pipenv run black --check .``, which checks whether the code matches the :ref:`black-code-style` code style.
+This job executes ``black --check .``, which checks whether the code matches the :ref:`black-code-style` code style.
 
 check-migrations
 ----------------
@@ -118,7 +118,7 @@ build-documentation
 -------------------
 
 This job checks whether the documentation can be generated without any errors by running
-``pipenv run ./dev-tools/generate_documentation.sh``.
+``./dev-tools/generate_documentation.sh``.
 It passes the html documentation in ``docs`` to the :ref:`circleci-deploy-documentation` job.
 
 .. _circleci-deploy-documentation:
@@ -145,15 +145,15 @@ Workflow ``main``
 
 This workflow gets executed when a commit is pushed to the ``main`` branch. Typically, this is a release PR from ``develop``.
 
-pipenv-install
+pip-install
 --------------
 
-See :ref:`circleci-pipenv-install`.
+See :ref:`circleci-pip-install`.
 
 bump-version
 ------------
 
-This job authenticates as the deliverino app and runs ``pipenv run bumpver update`` to bump the version and commit the
+This job authenticates as the deliverino app and runs ``bumpver update`` to bump the version and commit the
 changes to the main branch. Additionally, it merges the version bump commit into the ``develop`` branch.
 
 
@@ -162,10 +162,10 @@ Workflow ``deploy``
 
 This workflow gets executed when a commit is tagged.
 
-pipenv-install
+pip-install
 --------------
 
-See :ref:`circleci-pipenv-install`.
+See :ref:`circleci-pip-install`.
 
 webpack
 -------

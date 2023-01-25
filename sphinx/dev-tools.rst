@@ -11,14 +11,17 @@ Installation
 
 Install all project dependencies and the local python package with :github-source:`dev-tools/install.sh`::
 
-    ./dev-tools/install.sh [--clean] [--pre-commit]
+    ./dev-tools/install.sh [--clean] [--pre-commit] [--python=PYTHON_COMMAND]
 
 **Options:**
 
 * ``--clean``: Remove all installed dependencies in the ``.venv/`` and ``node_modules/`` directories as well as compiled
   static files in ``integreat_cms/static/dist/``. Existing outdated JavaScript files in these directories can cause compilation
   failures for the :doc:`frontend-bundling`.
-* ``--pre-commit``: Install all :ref:`pre-commit-hooks` (can also be manually performed via ``pipenv run pre-commit install``)
+
+* ``--pre-commit``: Install all :ref:`pre-commit-hooks` (can also be manually performed via ``pre-commit install``)
+
+* ``--python``: Use the ``PYTHON_COMMAND`` (e.g. ``python3.9``) to create the virtual environment instead of the default ``python3``
 
 Update all project dependencies and fix security issues with :github-source:`dev-tools/update_dependencies.sh`::
 

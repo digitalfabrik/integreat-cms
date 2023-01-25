@@ -74,7 +74,6 @@ intersphinx_mapping = {
         f"https://docs.python.org/{sys.version_info.major}.{sys.version_info.minor}/",
         None,
     ),
-    "pipenv": ("https://pipenv.pypa.io/en/latest/", None),
     "pytest": ("https://docs.pytest.org/en/latest/", None),
     "pytest-cov": ("https://pytest-cov.readthedocs.io/en/latest/", None),
     "pytest-django": ("https://pytest-django.readthedocs.io/en/latest/", None),
