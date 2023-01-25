@@ -235,3 +235,51 @@ push = false
 
 [tool.djlint]
 profile="django"
+
+[tool.pylint.main]
+jobs = 0
+load-plugins = [
+    "pylint_django",
+    # TODO: Remove comparisons to empty string
+    # "pylint.extensions.emptystring",
+    # TODO: Remove comparisons to zero
+    # "pylint.extensions.comparetozero",
+    "pylint.extensions.comparison_placement",
+    "pylint.extensions.docparams",
+    "pylint.extensions.for_any_all",
+    # TODO: Use ternary expressions
+    # "pylint.extensions.consider_ternary_expression",
+]
+ignore-paths = [
+  ".venv",
+  "node_modules",
+  "build",
+]
+extension-pkg-whitelist = ["lxml"]
+django-settings-module="integreat_cms.core.settings"
+
+[tool.pylint.design]
+max-args = 7
+max-attributes = 7
+max-branches = 12
+max-locals = 15
+max-parents = 7
+
+[tool.pylint.messages_control]
+# TODO: Revisit which of them can be fixed & unignored
+disable = [
+    "attribute-defined-outside-init",
+    "fixme",
+    "invalid-name",
+    "line-too-long",
+    "too-many-lines",
+    "missing-module-docstring",
+    "no-member",
+    "superfluous-parens",
+    "unsupported-binary-operation"
+]
+# TODO: Remove all useless suppressions
+# enable = ["useless-suppression"]
+
+[tool.pylint.reports]
+output-format = "colorized"
