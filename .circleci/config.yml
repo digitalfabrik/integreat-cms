@@ -59,7 +59,7 @@ jobs:
           command: echo "source .venv/bin/activate" >> $BASH_ENV
       - run:
           name: Check formatting of Django templates
-          command: djlint --check --profile django --lint integreat_cms
+          command: djlint --check --lint integreat_cms
   pylint:
     docker:
       - image: cimg/python:3.9.16
