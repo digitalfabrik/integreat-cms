@@ -28,13 +28,13 @@ def transform_event(event, custom_date=None):
     start_local = event.start_local
     end_local = event.end_local
     if custom_date:
-        start_local = datetime.combine(
-            custom_date, start_local.time(), tzinfo=start_local.tzinfo
-        )
         end_local = datetime.combine(
             custom_date + (end_local.date() - start_local.date()),
             end_local.time(),
             tzinfo=end_local.tzinfo,
+        )
+        start_local = datetime.combine(
+            custom_date, start_local.time(), tzinfo=start_local.tzinfo
         )
 
     return {
