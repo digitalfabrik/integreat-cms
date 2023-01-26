@@ -34,9 +34,35 @@
                     </div>
                 </div>
             </div>
+            <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                <div class="p-4 rounded bg-water-500">
+                    <h3 class="heading font-bold text-black">
+                        <i icon-name="pie-chart" class="mr-2"></i> {% translate "Translation Budget" %}
+                    </h3>
+                </div>
+                <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
+                    <div>
+                        <div id="budget-graph-container">
+                            <canvas id="budget-graph"
+                                    data-budget-used="{{ request.region.deepl_budget_used }}"
+                                    data-budget-total="{{ request.region.deepl_budget }}"></canvas>
+                        </div>
+                        <div class="text-center font-bold">
+                            <p>{% translate "Available credits" %}</p>
+                            <p>{{ request.region.deepl_budget_remaining|intcomma }} {% translate "words" %}</p>
+                        </div>
+                        <p>
+                            {% blocktranslate trimmed with used=request.region.deepl_budget_used|intcomma total=request.region.deepl_budget|intcomma %}
+                                {{ used }} of {{ total }} words used so far
+                            {% endblocktranslate %}
+                        </p>
+                        <p id="deepl-renewal-date"
+                           data-renewal-month="{{ request.region.deepl_renewal_month }}">
+                            {% translate "Next reset date:" %}
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-</form>
-{% include "../generic_confirmation_dialog.html" %}
+    </form>
 {% endblock content %}
