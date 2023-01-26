@@ -1,9 +1,13 @@
-from datetime import date, timedelta
+import datetime
+from datetime import date, datetime, time, timedelta
+from dateutil import rrule
+
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
+from django.utils.timezone import make_aware
 
 from ..abstract_base_model import AbstractBaseModel
 from ...constants import frequency, weekdays, weeks
@@ -200,6 +204,44 @@ class RecurrenceRule(AbstractBaseModel):
         :rtype: str
         """
         return f"<RecurrenceRule (id: {self.id}, event: {self.event.best_translation.slug})>"
+
+    def to_ical_rrule(self):
+        """
+        Calculates the ical standardized rrule for a recurring rule. See details of the rrule here:
+        https://icalendar.org/iCalendar-RFC-5545/3-8-5-3-recurrence-rule.html
+
+        :return: The ical rrule for the recurrence rule
+        :rtype: dateutil.rrule.rrule
+        """
+        kwargs = {}
+        if self.frequency == frequency.WEEKLY:
+            kwargs["byweekday"] = self.weekdays_for_weekly
+        elif self.frequency == frequency.MONTHLY:
+            kwargs["byweekday"] = rrule.weekday(
+                self.weekday_for_monthly, self.week_for_monthly
+            )
+        if self.recurrence_end_date:
+            kwargs["until"] = make_aware(
+                datetime.combine(self.recurrence_end_date, time.max),
+                self.event.start.tzinfo,
+            )
+
+        ical_rrule = rrule.rrule(
+            getattr(rrule, self.frequency),
+            dtstart=self.event.start,
+            interval=self.interval,
+            **kwargs,
+        )
+        return ical_rrule
+
+    def to_ical_rrule_string(self):
+        """
+        Gets the iCal rrule as a string
+
+        :return: The ical rrule for the recurrence rule as a string
+        :rtype: str
+        """
+        return str(self.to_ical_rrule())
 
     class Meta:
         #: The verbose name of the model

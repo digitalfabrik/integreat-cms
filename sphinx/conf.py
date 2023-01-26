@@ -67,6 +67,7 @@ extensions = [
 #: Enable cross-references to other documentations
 intersphinx_mapping = {
     "aiohttp": ("https://docs.aiohttp.org/en/stable/", None),
+    "dateutil": ("https://dateutil.readthedocs.io/en/stable/", None),
     "geopy": ("https://geopy.readthedocs.io/en/stable/", None),
     "lxml": ("https://lxml.de/apidoc/", None),
     "python": (

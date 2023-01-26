@@ -38,10 +38,12 @@ def test_api_result(
     response = client.get(endpoint, format="json")
     print(response.headers)
     assert response.status_code == expected_code
-    response_wp = client.get(wp_endpoint, format="json")
-    print(response_wp.headers)
-    assert response_wp.status_code == expected_code
+    if wp_endpoint:
+        response_wp = client.get(wp_endpoint, format="json")
+        print(response_wp.headers)
+        assert response_wp.status_code == expected_code
     with open(expected_result, encoding="utf-8") as f:
         result = json.load(f)
         assert result == response.json()
-        assert result == response_wp.json()
+        if wp_endpoint:
+            assert result == response_wp.json()

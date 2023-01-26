@@ -1,5 +1,4 @@
-from datetime import datetime, time, date
-from dateutil.rrule import weekday, rrule
+from datetime import time
 
 from django.db import models
 from django.db.models import Q
@@ -9,7 +8,7 @@ from django.utils import timezone
 
 from linkcheck.models import Link
 
-from ...constants import frequency, status
+from ...constants import status
 from ...utils.slug_utils import generate_unique_slug
 from ..abstract_content_model import AbstractContentModel, ContentQuerySet
 from ..media.media_file import MediaFile
@@ -142,6 +141,22 @@ class Event(AbstractContentModel):
         return bool(self.recurrence_rule)
 
     @cached_property
+    def is_past(self):
+        """
+        This property checks whether an event lies in the past, including potential future recurrences.
+
+        :return: Whether event lies in the past
+        :rtype: bool
+        """
+        now = timezone.now()
+        duration = self.end_local - self.start_local
+        future_recurrence = (
+            self.is_recurring
+            and self.recurrence_rule.to_ical_rrule().after(now - duration, True)
+        )
+        return self.end_local.date() < now.date() and not future_recurrence
+
+    @cached_property
     def is_all_day(self):
         """
         This property checks whether an event takes place the whole day by checking if start time is minimal and end
@@ -214,48 +229,8 @@ class Event(AbstractContentModel):
         """
         event_start = self.start
         event_end = self.end
-        event_span = event_end - event_start
-        recurrence = self.recurrence_rule
-        if recurrence is not None:
-            until = min(
-                end,
-                datetime.combine(
-                    recurrence.recurrence_end_date
-                    if recurrence.recurrence_end_date
-                    else date.max,
-                    time.max,
-                ),
-            )
-            if recurrence.frequency in (frequency.DAILY, frequency.YEARLY):
-                occurrences = rrule(
-                    recurrence.frequency,
-                    dtstart=event_start,
-                    interval=recurrence.interval,
-                    until=until,
-                )
-            elif recurrence.frequency == frequency.WEEKLY:
-                occurrences = rrule(
-                    recurrence.frequency,
-                    dtstart=event_start,
-                    interval=recurrence.interval,
-                    byweekday=recurrence.weekdays_for_weekly,
-                    until=until,
-                )
-            else:
-                occurrences = rrule(
-                    recurrence.frequency,
-                    dtstart=event_start,
-                    interval=recurrence.interval,
-                    byweekday=weekday(
-                        recurrence.weekday_for_monthly, recurrence.week_for_monthly
-                    ),
-                    until=until,
-                )
-            return [
-                x
-                for x in occurrences
-                if start <= x <= end or start <= x + event_span <= end
-            ]
+        if self.is_recurring is not None:
+            return self.recurrence_rule.to_ical_rrule().between(start, end)
         return (
             [event_start]
             if start <= event_start <= end or start <= event_end <= end
