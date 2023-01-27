@@ -41,7 +41,7 @@
                 <div class="px-4 pb-4">
                     <form method="post">
                         {% csrf_token %}
-                        <label for="{{ user_email_form.email.label }}">{{ user_email_form.email.label }}</label>
+                        <label for="{{ user_email_form.email.id_for_label }}">{{ user_email_form.email.label }}</label>
                         {% render_field user_email_form.email|add_error_class:"border-red-500" %}
                         <button name="submit_form" value="email_form" class="btn mt-4">{% translate "Change e-mail-address" %}</button>
                     </form>
