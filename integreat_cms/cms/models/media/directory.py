@@ -36,6 +36,11 @@ class Directory(AbstractBaseModel):
         verbose_name=_("creation date"),
         help_text=_("The date and time when the directory was created"),
     )
+    is_hidden = models.BooleanField(
+        default=False,
+        verbose_name=_("hidden"),
+        help_text=_("Whether the directory is hidden in the regional media library"),
+    )
 
     def serialize(self):
         """
@@ -53,6 +58,7 @@ class Directory(AbstractBaseModel):
             "CreatedDate": localize(timezone.localtime(self.created_date)),
             "isGlobal": not self.region,
             "numberOfEntries": self.subdirectories.count() + self.files.count(),
+            "isHidden": self.is_hidden,
         }
 
     @classmethod
@@ -70,7 +76,8 @@ class Directory(AbstractBaseModel):
         :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.media.directory.Directory ]
         """
         return cls.objects.filter(
-            Q(region=region) | Q(region__isnull=True), Q(name__icontains=query)
+            Q(region=region) | Q(region__isnull=True, is_hidden=False),
+            Q(name__icontains=query),
         )
 
     def __str__(self):

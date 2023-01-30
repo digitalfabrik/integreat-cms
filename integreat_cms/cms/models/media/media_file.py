@@ -169,6 +169,11 @@ class MediaFile(AbstractBaseModel):
         verbose_name=_("last modified"),
         help_text=_("The date and time when the physical media file was last modified"),
     )
+    is_hidden = models.BooleanField(
+        default=False,
+        verbose_name=_("hidden"),
+        help_text=_("Whether the media file is hidden in the regional media library"),
+    )
 
     @property
     def url(self):
@@ -217,6 +222,7 @@ class MediaFile(AbstractBaseModel):
             "uploadedDate": localize(timezone.localtime(self.uploaded_date)),
             "lastModified": localize(timezone.localtime(self.last_modified)),
             "isGlobal": not self.region,
+            "isHidden": self.is_hidden,
         }
 
     @classmethod
@@ -234,7 +240,7 @@ class MediaFile(AbstractBaseModel):
         :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.media.media_file.MediaFile ]
         """
         return cls.objects.filter(
-            Q(region=region) | Q(region__isnull=True),
+            Q(region=region) | Q(region__isnull=True, is_hidden=False),
             Q(name__icontains=query)
             | Q(alt_text__icontains=query)
             | Q(file__icontains=query),
