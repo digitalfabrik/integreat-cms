@@ -64,3 +64,4 @@ from .poi_categories.poi_category_translation_form import (
 )
 
 from .translations.translations_management_form import TranslationsManagementForm
+from .poi_categories.poi_category_form import POICategoryForm
