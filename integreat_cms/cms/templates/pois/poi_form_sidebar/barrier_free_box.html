@@ -1,0 +1,15 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    accessibility
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {{ poi_form.barrier_free.label }}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <div>
+        <div class="help-text">{{ poi_form.barrier_free.help_text }}</div>
+        {% render_field poi_form.barrier_free|add_error_class:"border-red-500" %}
+    </div>
+{% endblock collapsible_box_content %}
