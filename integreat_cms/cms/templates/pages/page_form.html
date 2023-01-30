@@ -165,7 +165,7 @@
                 </div>
             </div>
             <div id="left-sidebar-column"
-                 class="flex flex-wrap flex-col gap-2"
+                 class="mt-3 md:mt-0 flex flex-wrap flex-col md:gap-2"
                  {% if request.user.distribute_sidebar_boxes %} data-enable-automatic-sidebar-distribution{% endif %}>
                 {% if language.slug in TEXTLAB_API_LANGUAGES and request.region.hix_enabled and TEXTLAB_API_ENABLED %}
                     {% include "../hix_widget.html" with box_id="hix-widget" %}
@@ -177,7 +177,7 @@
             </div>
             {% if page %}
                 <div id="right-sidebar-column"
-                     class="3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col gap-2">
+                     class="3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col md:gap-2">
                     {% if can_edit_page %}
                         {% include "./page_form_sidebar/actions_box.html" with box_id="page-actions" %}
                     {% endif %}
