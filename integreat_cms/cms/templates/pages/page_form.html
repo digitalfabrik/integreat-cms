@@ -164,7 +164,9 @@
                     </div>
                 </div>
             </div>
-            <div id="left-sidebar-column" class="flex flex-wrap flex-col gap-2">
+            <div id="left-sidebar-column"
+                 class="flex flex-wrap flex-col gap-2"
+                 {% if request.user.distribute_sidebar_boxes %} data-enable-automatic-sidebar-distribution{% endif %}>
                 {% if language.slug in TEXTLAB_API_LANGUAGES and request.region.hix_enabled and TEXTLAB_API_ENABLED %}
                     {% include "../hix_widget.html" with box_id="hix-widget" %}
                 {% endif %}

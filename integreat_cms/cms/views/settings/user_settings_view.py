@@ -6,7 +6,7 @@ from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 
-from ...forms import UserEmailForm, UserPasswordForm
+from ...forms import UserEmailForm, UserPasswordForm, UserPreferencesForm
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +36,9 @@ class UserSettingsView(TemplateView):
                 "keys": self.request.user.mfa_keys.all(),
                 "user_email_form": UserEmailForm(instance=self.request.user),
                 "user_password_form": UserPasswordForm(instance=self.request.user),
+                "user_preferences_form": UserPreferencesForm(
+                    instance=self.request.user
+                ),
             }
         )
         return context
@@ -100,6 +103,26 @@ class UserSettingsView(TemplateView):
                 # Prevent user from being logged out after password has changed
                 update_session_auth_hash(request, user)
                 messages.success(request, _("Password was successfully saved"))
+
+        elif request.POST.get("submit_form") == "preferences_form":
+            user_preferences_form = UserPreferencesForm(
+                data=request.POST, instance=user
+            )
+            if not user_preferences_form.is_valid():
+                user_preferences_form.add_error_messages(request)
+                return render(
+                    request,
+                    self.template_name,
+                    {
+                        **self.get_context_data(**kwargs),
+                        "user_preferences_form": user_preferences_form,
+                    },
+                )
+            if not user_preferences_form.has_changed():
+                messages.info(request, _("No changes made"))
+            else:
+                user_preferences_form.save()
+                messages.success(request, _("Preferences were successfully saved"))
 
         kwargs = {"region_slug": region.slug} if region else {}
         return redirect("user_settings", **kwargs)

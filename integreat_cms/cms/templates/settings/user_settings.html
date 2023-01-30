@@ -35,6 +35,27 @@
             <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="w-full p-4 rounded bg-water-500">
                     <h3 class="font-bold text-black">
+                        <i icon-name="monitor" class="mr-2"></i> {% translate "Display preferences" %}
+                    </h3>
+                </div>
+                <div class="p-4">
+                    <form method="post">
+                        {% csrf_token %}
+                        {% render_field user_preferences_form.distribute_sidebar_boxes|add_error_class:"border-red-500" %}
+                        <label class="inline"
+                               for="{{ user_preferences_form.distribute_sidebar_boxes.id_for_label }}">
+                            {{ user_preferences_form.distribute_sidebar_boxes.label }}
+                        </label>
+                        <div class="help-text">{{ user_preferences_form.distribute_sidebar_boxes.help_text }}</div>
+                        <button name="submit_form" value="preferences_form" class="btn mt-4">{% translate "Save preferences" %}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="w-full xl:w-1/2">
+            <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                <div class="w-full p-4 rounded bg-water-500">
+                    <h3 class="font-bold text-black">
                         <i icon-name="mail" class="mr-2"></i> {% translate "My E-mail-address" %}
                     </h3>
                 </div>
@@ -47,8 +68,6 @@
                     </form>
                 </div>
             </div>
-        </div>
-        <div class="w-full xl:w-1/2">
             <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="w-full p-4 rounded bg-water-500">
                     <h3 class="heading font-bold text-black">
@@ -78,7 +97,7 @@
                 </div>
             </div>
         </div>
-        <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-xl bg-white flex flex-wrap">
+        <div class="mb-4 rounded border border-solid border-blue-500 shadow-xl bg-white flex flex-wrap">
             <div class="w-full p-4 rounded bg-water-500">
                 <h3 class="heading font-bold text-black">
                     <i icon-name="shield" class="mr-2"></i> {% translate "My 2-Factor-Authentication methods" %}

@@ -136,7 +136,9 @@
                     {% endif %}
                 </div>
             </div>
-            <div id="left-sidebar-column" class="flex flex-col flex-auto gap-2">
+            <div id="left-sidebar-column"
+                 class="flex flex-col flex-auto gap-2"
+                 {% if request.user.distribute_sidebar_boxes %} data-enable-automatic-sidebar-distribution{% endif %}>
                 {% if poi_form.instance.id and perms.cms.change_poi %}
                     {% include "./poi_form_sidebar/minor_edit_box.html" with box_id="poi-minor-edit" %}
                 {% endif %}

@@ -12,11 +12,12 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractUser, UserManager
 
-from .organization import Organization
+from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_base_model import AbstractBaseModel
 from ..chat.chat_message import ChatMessage
 from ..decorators import modify_fields
 from ..regions.region import Region
+from .organization import Organization
 
 logger = logging.getLogger(__name__)
 
@@ -101,6 +102,19 @@ class User(AbstractUser, AbstractBaseModel):
         verbose_name=_("Page tree tutorial seen"),
         help_text=_(
             "Will be set to true once the user dismissed the page tree tutorial"
+        ),
+    )
+    distribute_sidebar_boxes = models.BooleanField(
+        default=False,
+        verbose_name=_("automatically distribute sidebar boxes"),
+        help_text=__(
+            _(
+                "Enable this option to automatically distribute the boxes in "
+                "the sidebar of forms to make the best use of screen space."
+            ),
+            _(
+                "This only affects screen resolutions where the boxes are displayed in two columns."
+            ),
         ),
     )
     totp_key = models.CharField(
