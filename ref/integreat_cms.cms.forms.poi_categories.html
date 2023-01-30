@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-12-16T12:55:19+00:00" />
+    <meta property="article:modified_time" content="2023-01-30T12:06:27+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>POI Categories &mdash; integreat-cms 2023.1.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -141,6 +141,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#mirrored-page-first">Mirrored Page First</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#months">Months</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#opening-hours">Opening Hours</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#poicategory">POIcategory</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#position">Position</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#postal-code">Postal Code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#push-notifications">Push Notifications</a></li>
@@ -471,6 +472,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.mirrored_page_first">Mirrored Page First</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.months">Months</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.opening_hours">Opening Hours</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.poicategory">POIcategory</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.position">Position</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.postal_code">Postal Code</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.push_notifications">Push Notifications</a></li>
@@ -1417,6 +1419,27 @@
   <section id="poi-categories">
 <h1>POI Categories<a class="headerlink" href="#poi-categories" title="Permalink to this heading"></a></h1>
 <p>Forms for creating and modifying POI Category and POI Category Translation objects</p>
+<section id="poi-category-form">
+<h2>POI Category Form<a class="headerlink" href="#poi-category-form" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.poi_categories.poi_category_form.</span></span><span class="sig-name descname"><span class="pre">POICategoryForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/poi_categories/poi_category_form.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_model_form.CustomModelForm" title="integreat_cms.cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomModelForm</span></code></a></p>
+<p>Form for creating and modifying POICategory objects</p>
+<p><strong>Form fields:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">icon</span></code>: Icon (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">color</span></code>: Color (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedChoiceField</span></code></a>)</p></li>
+</ul>
+<dl class="py property">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/poi_categories/poi_category_form.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Return all media required to render the widgets on this form.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="poi-category-translation-form">
 <h2>POI Category Translation Form<a class="headerlink" href="#poi-category-translation-form" title="Permalink to this heading"></a></h2>
 <dl class="py class">
@@ -1533,7 +1556,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Dec 16, 2022.
+      <span class="lastupdated">Last updated on Jan 30, 2023.
       </span></p>
   </div>
 
