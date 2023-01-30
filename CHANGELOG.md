@@ -9,6 +9,7 @@ UNRELEASED
 * [ [#2023](https://github.com/digitalfabrik/integreat-cms/issues/2023) ] Rephrase texts in text understandability-box
 * [ [#1552](https://github.com/digitalfabrik/integreat-cms/issues/1552) ] Make slugfield scrollable
 * [ [#2008](https://github.com/digitalfabrik/integreat-cms/issues/2008) ] Fix end date of recurring events in API
+* [ [#1954](https://github.com/digitalfabrik/integreat-cms/issues/1954) ] Fix RTL text direction in PDF export
 
 
 2023.1.1
