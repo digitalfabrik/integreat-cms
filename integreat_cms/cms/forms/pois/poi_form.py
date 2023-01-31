@@ -54,6 +54,7 @@ class POIForm(CustomModelForm):
             "temporarily_closed",
             "stops",
             "spoken_languages",
+            "target_group",
         ]
         #: The widgets which are used in this form
         widgets = {

@@ -94,16 +94,26 @@ class POI(AbstractContentModel):
         verbose_name=_("opening hours"),
     )
     stops = models.CharField(
-        max_length=250, 
-        blank=True, 
+        max_length=250,
+        blank=True,
         verbose_name=_("Stops in the vicinity"),
-        help_text=_("List here the stops for public transport in the vicinity. Please separate them by comma")
+        help_text=_(
+            "List here the stops for public transport in the vicinity. Please separate them by comma"
+        ),
     )
     spoken_languages = models.CharField(
         max_length=50,
         blank=True,
         verbose_name=_("Spoken languages"),
-        help_text=_("List here all languages, that are spoken at the location. Please separate them by comma")
+        help_text=_(
+            "List here all languages, that are spoken at the location. Please separate them by comma"
+        ),
+    )
+    target_group = models.CharField(
+        max_length=50,
+        blank=True,
+        verbose_name=_("Target group"),
+        help_text=_("Write down here the target group for this location"),
     )
 
     @property

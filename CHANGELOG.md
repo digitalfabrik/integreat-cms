@@ -1,7 +1,7 @@
 UNRELEASED
 ----------
 
-* [ [#959](https://github.com/digitalfabrik/integreat-cms/issues/959) ] Add stops in the vicinities and spoken languages to POI
+* [ [#959](https://github.com/digitalfabrik/integreat-cms/issues/959) ] Add stops in the vicinities, spoken languages and target groups to POI form
 
 
 2023.1.2
