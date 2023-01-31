@@ -1,0 +1,18 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    languages
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% translate "Spoken languages" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <div>
+        <label for="{{ poi_form.spoken_languages.id_for_label }}" class="mt-0">{{ poi_form.spoken_languages.label }}</label>
+        {% render_field poi_form.spoken_languages|add_error_class:"border-red-500" %}
+        <div class="help-text">{{ poi_form.spoken_languages.help_text }}</div>
+    </div>
+{% endblock collapsible_box_content %}

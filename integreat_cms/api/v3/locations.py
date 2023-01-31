@@ -91,6 +91,7 @@ def transform_poi_translation(poi_translation):
         "location": transform_poi(poi),
         "hash": None,
         "stops": poi.stops or None,
+        "spoken_languages": poi.spoken_languages or None, 
     }
 
 
