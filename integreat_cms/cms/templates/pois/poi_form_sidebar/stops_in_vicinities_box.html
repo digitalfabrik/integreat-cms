@@ -1,0 +1,18 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    train
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% translate "Stops in the vicinity" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <div>
+        <label for="{{ poi_form.stops.id_for_label }}" class="mt-0">{{ poi_form.stops.label }}</label>
+        {% render_field poi_form.stops|add_error_class:"border-red-500" %}
+        <div class="help-text">{{ poi_form.stops.help_text }}</div>
+    </div>
+{% endblock collapsible_box_content %}

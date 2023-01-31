@@ -52,6 +52,7 @@ class POIForm(CustomModelForm):
             "category",
             "opening_hours",
             "temporarily_closed",
+            "stops",
         ]
         #: The widgets which are used in this form
         widgets = {

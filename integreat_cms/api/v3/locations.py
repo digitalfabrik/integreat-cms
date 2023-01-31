@@ -90,6 +90,7 @@ def transform_poi_translation(poi_translation):
         "opening_hours": opening_hours,
         "location": transform_poi(poi),
         "hash": None,
+        "stops": poi.stops or None,
     }
 
 

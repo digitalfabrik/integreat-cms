@@ -93,6 +93,12 @@ class POI(AbstractContentModel):
         default=get_default_opening_hours,
         verbose_name=_("opening hours"),
     )
+    stops = models.CharField(
+        max_length=250, 
+        blank=True, 
+        verbose_name=_("Stops in the vicinity"),
+        help_text=_("List here the stops for public transport in the vicinity. Please separate them by comma")
+    )
 
     @property
     def fallback_translations_enabled(self):
