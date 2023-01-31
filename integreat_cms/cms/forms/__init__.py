@@ -55,6 +55,7 @@ from .users.user_form import UserForm
 from .users.user_filter_form import UserFilterForm
 from .users.user_password_form import UserPasswordForm
 from .users.password_reset_form import CustomPasswordResetForm
+from .users.user_preferences_form import UserPreferencesForm
 
 from .object_search_form import ObjectSearchForm
 

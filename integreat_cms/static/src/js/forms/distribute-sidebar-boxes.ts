@@ -40,6 +40,9 @@ const findPartition = (boxes: Array<HTMLElement>) => {
 };
 
 window.addEventListener("load", () => {
+    if (!document.querySelector("[data-enable-automatic-sidebar-distribution]")) {
+        return;
+    }
     const leftColumn = document.getElementById("left-sidebar-column");
     const rightColumn = document.getElementById("right-sidebar-column");
     // Check if there are multiple columns in the document

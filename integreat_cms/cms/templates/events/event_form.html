@@ -120,7 +120,8 @@
                 </div>
             </div>
             <div id="left-sidebar-column"
-                 class="3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col gap-2">
+                 class="3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col gap-2"
+                 {% if request.user.distribute_sidebar_boxes %} data-enable-automatic-sidebar-distribution{% endif %}>
                 {% if event_form.instance.id and perms.cms.change_event %}
                     {% include "./event_form_sidebar/minor_edit_box.html" with box_id="event-minor-edit" %}
                 {% endif %}
