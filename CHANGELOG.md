@@ -2,6 +2,7 @@ UNRELEASED
 ----------
 
 * [ [#2056](https://github.com/digitalfabrik/integreat-cms/issues/2056) ] Change restriction of event duration to 28 days
+* [ [#2032](https://github.com/digitalfabrik/integreat-cms/issues/2032) ] Remove gap between sidebar boxes in location form
 
 
 2023.2.0
