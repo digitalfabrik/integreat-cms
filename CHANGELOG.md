@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1498](https://github.com/digitalfabrik/integreat-cms/issues/1498) ] Fix PDF errors on specific pages in Arabic & Farsi
+
 
 2023.2.2
 --------
