@@ -49,6 +49,22 @@ VIEWS = [
             ("regions", STAFF_ROLES),
             ("roles", [ROOT]),
             ("user_settings", STAFF_ROLES),
+            (
+                "user_settings",
+                STAFF_ROLES,
+                {
+                    "email": "new@email.address",
+                    "submit_form": "email_form",
+                },
+            ),
+            (
+                "user_settings",
+                STAFF_ROLES,
+                {
+                    "distribute_sidebar_boxes": True,
+                    "submit_form": "preferences_form",
+                },
+            ),
             ("authenticate_modify_mfa", STAFF_ROLES),
             ("users", STAFF_ROLES),
         ],
@@ -107,7 +123,33 @@ VIEWS = [
             ("organizations", STAFF_ROLES + [MANAGEMENT]),
             ("new_organization", STAFF_ROLES + [MANAGEMENT]),
             ("user_settings", ROLES),
+            (
+                "user_settings",
+                ROLES,
+                {
+                    "email": "new@email.address",
+                    "submit_form": "email_form",
+                },
+            ),
+            (
+                "user_settings",
+                ROLES,
+                {
+                    "distribute_sidebar_boxes": True,
+                    "submit_form": "preferences_form",
+                },
+            ),
             ("authenticate_modify_mfa", ROLES),
+            ("translations_management", HIGH_PRIV_STAFF_ROLES + [MANAGEMENT]),
+            (
+                "translations_management",
+                HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
+                {
+                    "machine_translate_pages": 0,
+                    "machine_translate_events": 1,
+                    "machine_translate_pois": 1,
+                },
+            ),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg"},

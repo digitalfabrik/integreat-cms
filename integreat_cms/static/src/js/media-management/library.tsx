@@ -44,6 +44,9 @@ export type LibraryProps = {
         successCallback: (data: any) => void,
         errorCallback?: (data: any) => void
     ) => void;
+    canDeleteFile: boolean;
+    canReplaceFile: boolean;
+    canDeleteDirectory: boolean;
 };
 
 const Library = ({
@@ -64,6 +67,9 @@ const Library = ({
     onlyImage,
     showMessage,
     selectMedia,
+    canDeleteFile,
+    canReplaceFile,
+    canDeleteDirectory,
 }: LibraryProps) => {
     // The directory path contains the current directory and all its parents
     const [directoryPath, _setDirectoryPath] = directoryPathState;
@@ -318,6 +324,8 @@ const Library = ({
                             globalEdit={globalEdit}
                             expertMode={expertMode}
                             isLoading={isLoading}
+                            canDeleteFile={canDeleteFile}
+                            canReplaceFile={canReplaceFile}
                         />
                     </div>
                 ) : (
@@ -330,6 +338,7 @@ const Library = ({
                                 submitForm={submitForm}
                                 globalEdit={globalEdit}
                                 isLoading={isLoading}
+                                canDeleteDirectory={canDeleteDirectory}
                             />
                         </div>
                     )

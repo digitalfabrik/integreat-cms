@@ -1,56 +1,53 @@
+{% extends "_collapsible_box.html" %}
 {% load i18n %}
-<!--HIX widget-->
-<div data-content-changed
-     class="rounded border border-blue-500 shadow-2xl bg-white">
-    <div class="rounded p-4 bg-water-500">
-        <h3 class="heading font-bold text-black">
-            <i icon-name="gauge" class="pb-1"></i>
-            {% translate "HIX Value" %}
-        </h3>
-    </div>
-    <div class="w-full px-4 pb-4 rounded shadow bg-white">
-        <div class="relative h-full">
-            <div id="hix-loading"
-                 class="hidden absolute w-full h-full bg-white bg-opacity-75">
-                <div class="relative top-1/3 m-auto w-1/3">
-                    <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
-                </div>
-            </div>
-            <label>{% translate "Improve the understandability of the page content." %}</label>
-            <div id="hix-container">
-                <canvas id="hix-chart"></canvas>
-            </div>
-            <div class="mb-2">
-                <div data-hix-state="updated" class="bg-green-400 rounded p-2 hidden">
-                    <i icon-name="check-circle"></i>
-                    {% translate "HIX value is up to date." %}
-                </div>
-                <div data-hix-state="outdated" class="bg-yellow-400 rounded p-2 hidden">
-                    <i icon-name="alert-circle"></i>
-                    {% translate "HIX value is outdated." %}
-                </div>
-                <div data-hix-state="error" class="bg-red-400 rounded p-2 hidden">
-                    <i icon-name="alert-triangle"></i>
-                    {% translate "Some error occurred. Please try again later." %}
-                </div>
-                <div data-hix-state="no-content" class="bg-blue-400 rounded p-2 hidden">
-                    <i icon-name="info"></i>
-                    {% translate "There is no page content." %}
-                </div>
-            </div>
-            <button id="btn-update-hix-value"
-                    class="btn w-full"
-                    data-url="{% url "get_hix_score" region_slug=request.region.slug %}">
-                <i icon-name="refresh-ccw"></i>
-                {% translate "Update" %}
-            </button>
-            <div class="help-text mt-2">
-                {% translate "Simple words, short and meaningful sentences and as less enumerations as possible can help a lot to improve the understandability of a text. Find more information:" %}
-                <a href="{% translate "https://wiki.tuerantuer.org/write-texts" %}"
-                   rel="nooperner noreferrer"
-                   target="_blank"
-                   class="text-blue-500 underline">{% translate "https://wiki.tuerantuer.org/write-texts" %}</a>
-            </div>
+{% block collapsible_box_icon %}
+    gauge
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% translate "Text understandability" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <div id="hix-loading"
+         class="hidden absolute w-full h-full bg-white bg-opacity-75">
+        <div class="relative top-1/3 m-auto w-1/3">
+            <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
         </div>
     </div>
-</div>
+    <label>{% translate "Improve the understandability of the page content." %}</label>
+    <div id="hix-container" data-content-changed>
+        <canvas id="hix-chart"></canvas>
+    </div>
+    <div class="mb-2">
+        <div data-hix-state="updated" class="bg-green-400 rounded p-2 hidden">
+            <i icon-name="check-circle"></i>
+            {% translate "HIX value is up to date." %}
+        </div>
+        <div data-hix-state="outdated" class="bg-yellow-400 rounded p-2 hidden">
+            <i icon-name="alert-circle"></i>
+            {% translate "HIX value is outdated." %}
+        </div>
+        <div data-hix-state="error" class="bg-red-400 rounded p-2 hidden">
+            <i icon-name="alert-triangle"></i>
+            {% translate "Some error occurred. Please try again later." %}
+        </div>
+        <div data-hix-state="no-content" class="bg-blue-400 rounded p-2 hidden">
+            <i icon-name="info"></i>
+            {% translate "There is no page content." %}
+        </div>
+    </div>
+    <button id="btn-update-hix-value"
+            class="btn w-full"
+            data-url="{% url "get_hix_score" region_slug=request.region.slug %}">
+        <i icon-name="refresh-ccw"></i>
+        {% translate "Update" %}
+    </button>
+    <div class="help-text mt-2">
+        {% translate "Easy words and short sentences can increase the text understandability." %}
+        <br />
+        {% translate "Find more information about this" %}
+        <a href="{% translate "https://wiki.tuerantuer.org/write-texts" %}"
+           rel="nooperner noreferrer"
+           target="_blank"
+           class="text-blue-500 underline">{% translate "here" %}</a>.
+    </div>
+{% endblock collapsible_box_content %}

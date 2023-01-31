@@ -21,10 +21,4 @@ class EventTranslationForm(CustomContentModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = EventTranslation
         #: The fields of the model which should be handled by this form
-        fields = [
-            "title",
-            "slug",
-            "content",
-            "status",
-            "minor_edit",
-        ]
+        fields = CustomContentModelForm.Meta.fields + ["slug"]

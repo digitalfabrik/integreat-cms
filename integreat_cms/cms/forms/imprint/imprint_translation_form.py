@@ -12,6 +12,5 @@ class ImprintTranslationForm(CustomContentModelForm):
     Form for creating and modifying imprint translation objects
     """
 
-    class Meta:
+    class Meta(CustomContentModelForm.Meta):
         model = ImprintPageTranslation
-        fields = ["title", "status", "content", "minor_edit"]

@@ -21,6 +21,8 @@ SUMM_AI_API_KEY = "dummy"
 SUMM_AI_ENABLED = True
 #: Use debug logging on CircleCI
 LOG_LEVEL = "DEBUG"
+#: Disable linkcheck listeners on CircleCI
+LINKCHECK_DISABLE_LISTENERS = True
 
 # Use simple non-colored logging in circleci
 for logger in LOGGING["loggers"].values():

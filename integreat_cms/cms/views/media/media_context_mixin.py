@@ -92,6 +92,9 @@ class MediaContextMixin(ContextMixin):
             },
             "expertMode": self.request.user.expert_mode,
             "allowedMediaTypes": ", ".join(dict(allowed_media.UPLOAD_CHOICES)),
+            "canDeleteFile": self.request.user.has_perm("cms.delete_mediafile"),
+            "canReplaceFile": self.request.user.has_perm("cms.replace_mediafile"),
+            "canDeleteDirectory": self.request.user.has_perm("cms.delete_directory"),
         }
         kwargs = (
             {"region_slug": self.request.region.slug} if self.request.region else {}

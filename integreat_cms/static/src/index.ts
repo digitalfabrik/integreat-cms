@@ -31,6 +31,7 @@ import "./js/search-query.ts";
 
 import "./js/forms/slug-error.ts";
 import "./js/forms/update-permalink.ts";
+import "./js/forms/distribute-sidebar-boxes.ts";
 
 import "./js/languages/country-flag-fields.ts";
 
@@ -67,6 +68,8 @@ import "./js/analytics/statistics-charts.ts";
 import "./js/analytics/translation_coverage.ts";
 import "./js/analytics/linkcheck-widget.ts";
 
+import "./js/translations/budget-graph.ts";
+
 import "./js/user/user-creation-workflow.ts";
 import "./js/user/user-roles.ts";
 import "./js/user/organization.ts";
@@ -89,6 +92,8 @@ import "./js/pois/poi-actions.ts";
 import "./js/pois/opening-hours/index.tsx";
 
 import "./js/menu.ts";
+
+import "./js/poi-categories/poicategory-colors-icons.ts";
 
 // IE11: fetch
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */

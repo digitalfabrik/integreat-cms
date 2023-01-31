@@ -14,7 +14,11 @@
                                 <a class="block py-[calc(0.75rem+2px)] px-4 bg-water-500 border-l border-t border-r border-blue-500 rounded-t text-black hover:bg-white hover:text-blue-500"
                                    href="{% build_url target=target region_slug=request.region.slug language_slug=other_language.slug content_field=content_field content_id=instance.id %}">
                                 {% endif %}
-                                {% if other_status == translation_status.IN_TRANSLATION %}
+                                {% if other_status == translation_status.MACHINE_TRANSLATED %}
+                                    <span title="{% translate "Machine translated" %}">
+                                        <i icon-name="bot"></i>
+                                    </span>
+                                {% elif other_status == translation_status.IN_TRANSLATION %}
                                     <span {% if other_language == language %} id="currently-in-translation-state"{% endif %}
                                           title="{% translate "Currently in translation" %}">
                                         <i icon-name="clock"></i>

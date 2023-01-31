@@ -261,7 +261,7 @@ class MatomoApiClient:
                     self.fetch(
                         session,
                         **query_params,
-                        segment="pageUrl=@/wp-json/extensions/v3/pages/",
+                        segment="pageUrl=@/wp-json/extensions/v3/pages",
                     ),
                 )
             )
@@ -271,7 +271,7 @@ class MatomoApiClient:
                     self.fetch(
                         session,
                         **query_params,
-                        segment="pageUrl=@/wp-json/extensions/v3/children/",
+                        segment="pageUrl=@/wp-json/extensions/v3/children",
                     ),
                 )
             )

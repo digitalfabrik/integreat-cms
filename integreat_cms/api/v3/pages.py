@@ -178,7 +178,6 @@ def get_single_page(request, language_slug):
     return page
 
 
-@matomo_tracking
 @json_response
 # pylint: disable=unused-argument
 def single_page(request, region_slug, language_slug):

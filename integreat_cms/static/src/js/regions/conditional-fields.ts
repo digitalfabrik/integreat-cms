@@ -44,7 +44,7 @@ window.addEventListener("load", () => {
         const toBeToggled = document.getElementById(it[1]);
 
         // remove "hidden" if toggleControl is already checked on page load
-        if ((toggleControl as HTMLInputElement).checked) {
+        if ((toggleControl as HTMLInputElement)?.checked) {
             toBeToggled.classList.remove("hidden");
         }
         if (toggleControl && toBeToggled) {

@@ -25,6 +25,7 @@ class AccessControlMiddleware:
         "media_files",
         "pdf_files",
         "xliff_files",
+        "djdt",
     ]
 
     def __init__(self, get_response):

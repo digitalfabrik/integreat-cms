@@ -2,6 +2,7 @@
 This is a collection of tags and filters for page content used in PDFs (:class:`~integreat_cms.cms.models.pages.page.Page`).
 """
 import re
+from html import unescape
 from django import template
 from lxml.html import fromstring, tostring
 from lxml.etree import ParserError
@@ -28,4 +29,4 @@ def pdf_strip_fontstyles(instance):
         style = element.attrib.pop("style", None)
         if style:
             element.attrib["style"] = re.sub(r"font-[a-zA-Z]+:[^;]+", "", style)
-    return tostring(content, with_tail=False).decode("utf-8")
+    return unescape(tostring(content, with_tail=False).decode("utf-8"))

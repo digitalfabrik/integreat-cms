@@ -67,7 +67,10 @@ class AbstractBasePageTranslation(AbstractContentTranslation):
             # Start with translation title if exists
             # pylint: disable=no-member
             readable_title = f'"{self.title}"'
-            if best_translation.title != self.title:
+            if (
+                best_translation.title != self.title
+                and best_translation.language != self.language
+            ):
                 readable_title += " (" + _("Title in") + best_translation_title + ")"
         else:
             # Start directly with the title of the best translation

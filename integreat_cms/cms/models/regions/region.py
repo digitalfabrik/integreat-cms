@@ -15,7 +15,12 @@ from django.template.defaultfilters import floatformat
 from django.utils.functional import keep_lazy_text
 
 from ....nominatim_api.utils import BoundingBox
-from ...constants import region_status, administrative_division, months
+from ...constants import (
+    region_status,
+    administrative_division,
+    months,
+    machine_translation_permissions,
+)
 from ...utils.translation_utils import gettext_many_lazy as __
 from ....matomo_api.matomo_api_client import MatomoApiClient
 from ..abstract_base_model import AbstractBaseModel
@@ -368,6 +373,24 @@ class Region(AbstractBaseModel):
     deepl_budget_used = models.PositiveIntegerField(
         default=0,
         verbose_name=_("used DeepL budget"),
+    )
+
+    machine_translate_pages = models.PositiveIntegerField(
+        choices=machine_translation_permissions.CHOICES,
+        default=machine_translation_permissions.EVERYONE,
+        verbose_name=_("Pages"),
+    )
+
+    machine_translate_events = models.PositiveIntegerField(
+        choices=machine_translation_permissions.CHOICES,
+        default=machine_translation_permissions.EVERYONE,
+        verbose_name=_("Events"),
+    )
+
+    machine_translate_pois = models.PositiveIntegerField(
+        choices=machine_translation_permissions.CHOICES,
+        default=machine_translation_permissions.EVERYONE,
+        verbose_name=_("Locations"),
     )
 
     #: Custom model manager :class:`~integreat_cms.cms.models.regions.region.RegionManager` for region objects

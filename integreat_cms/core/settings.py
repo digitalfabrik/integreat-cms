@@ -768,6 +768,11 @@ SUMM_AI_INHERITED_FIELDS = ["title"]
 #: Translate all <p> and <li> tags
 SUMM_AI_HTML_TAGS = ["p", "li"]
 
+#: Value of the ``is_initial`` flag
+SUMM_AI_IS_INITIAL = bool(
+    strtobool(os.environ.get("INTEGREAT_CMS_SUMM_AI_IS_INITIAL", "True"))
+)
+
 
 ################
 # STATIC FILES #

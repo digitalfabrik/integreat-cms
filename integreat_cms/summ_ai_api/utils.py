@@ -343,6 +343,7 @@ class TranslationHelper:
                 **{field.name: field.translated_text for field in self.fields},
                 # Always set automatic translations into pending review state
                 "status": status.REVIEW,
+                "machine_translated": True,
             },
             instance=self.object_instance.get_translation(
                 settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG

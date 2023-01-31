@@ -156,6 +156,7 @@ class DeepLApi:
                     "status": existing_target_translation.status
                     if existing_target_translation
                     else source_translation.status,
+                    "machine_translated": True,
                 }
 
                 for attr in self.translatable_attributes:

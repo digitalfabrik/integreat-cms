@@ -1,0 +1,71 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% load widget_tweaks %}
+{% load poi_filters %}
+{% block collapsible_box_icon %}
+    wrench
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% translate "Actions" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <div>
+        {% if poi_form.instance.archived %}
+            <label class="mt-0">{% translate "Restore location" %}</label>
+            <button title="{% translate "Restore location" %}"
+                    class="btn confirmation-button w-full"
+                    data-confirmation-title="{{ restore_dialog_title }}"
+                    data-confirmation-text="{{ restore_dialog_text }}"
+                    data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
+                    data-action="{% url 'restore_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                <i icon-name="refresh-ccw" class="mr-2"></i> {% translate "Restore this location" %}
+            </button>
+        {% else %}
+            <label class="mt-0">{% translate "Archive location" %}</label>
+            <button title="{% translate "Archive location" %}"
+                    class="btn confirmation-button w-full"
+                    data-confirmation-title="{{ archive_dialog_title }}"
+                    data-confirmation-text="{{ archive_dialog_text }}"
+                    data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
+                    data-action="{% url 'archive_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                <i icon-name="archive" class="mr-2"></i> {% translate "Archive this location" %}
+            </button>
+        {% endif %}
+    </div>
+    {% if perms.cms.delete_poi %}
+        <div>
+            <label>{% translate "Delete location" %}</label>
+            {% if poi_form.instance.events.exists %}
+                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
+                     role="alert">
+                    <p>
+                        {% translate "You cannot delete a location which is referenced by an event." %}
+                        <br />
+                        {% blocktrans count counter=poi_form.instance.events.count trimmed %}
+                To delete this location, you have to delete this event first:
+                {% plural %}
+                To delete this location, you have to delete these events first:
+                {% endblocktrans %}
+                    </p>
+                </div>
+                {% for event in poi_form.instance.events.all %}
+                    <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
+                       class="block pt-2 hover:underline">
+                        <i icon-name="edit" class="mr-2"></i> {{ event.best_translation.title }}
+                    </a>
+                {% endfor %}
+            {% else %}
+                <button title="{% translate "Delete location" %}"
+                        class="btn confirmation-button w-full btn-red"
+                        data-confirmation-title="{{ delete_dialog_title }}"
+                        data-confirmation-text="{{ delete_dialog_text }}"
+                        data-confirmation-subject="{{ poi_form.instance|poi_translation_title:language }}"
+                        data-action="{% url 'delete_poi' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                    <i icon-name="trash-2" class="mr-2"></i> {% translate "Delete this location" %}
+                </button>
+            {% endif %}
+        </div>
+    {% endif %}
+{% endblock collapsible_box_content %}

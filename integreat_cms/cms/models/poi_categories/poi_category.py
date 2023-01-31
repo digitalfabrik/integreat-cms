@@ -1,13 +1,33 @@
+from django.db import models
 from django.utils.functional import cached_property
 from django.utils.translation import get_language, gettext_lazy as _
 
 from ..abstract_base_model import AbstractBaseModel
+from ...constants import poicategory
 
 
 class POICategory(AbstractBaseModel):
     """
     Data model representing a POI category.
     """
+
+    icon = models.CharField(
+        choices=poicategory.ICONS,
+        max_length=256,
+        verbose_name=_("icon"),
+        blank=True,
+        null=True,
+        help_text=_("Select an icon for this category"),
+    )
+
+    color = models.CharField(
+        choices=poicategory.COLORS,
+        max_length=7,
+        verbose_name=_("color"),
+        blank=True,
+        null=True,
+        help_text=_("Select a color for map pins with this category"),
+    )
 
     @cached_property
     def name(self):

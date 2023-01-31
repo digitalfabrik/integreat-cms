@@ -16,6 +16,9 @@ require_database
 # Set dummy key to enable SUMM.AI during testing
 export INTEGREAT_CMS_SUMM_AI_API_KEY="dummy"
 
+# Disable linkcheck listeners during testing
+export INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS=1
+
 # Parse given command line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
