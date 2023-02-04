@@ -15,6 +15,7 @@ import cn from "classnames";
 import MessageComponent, { Message } from "./component/message";
 import DirectoryContentLibrary from "./directory-content-library";
 import SearchResultLibrary from "./search-result-library";
+import FilterResultLibrary from "./filter-result-library";
 
 export type MediaApiPaths = {
     getDirectoryPath: string;
@@ -29,6 +30,7 @@ export type MediaApiPaths = {
     moveFile: string;
     deleteFile: string;
     replaceFile: string;
+    filterUnusedMediaFiles: string;
 };
 
 export type File = {
@@ -126,6 +128,18 @@ const MediaManagement = (props: Props) => {
             <Router history={createHashHistory() as any}>
                 <SearchResultLibrary
                     path="/search/:searchQuery+"
+                    showMessage={showMessage}
+                    loadingState={[isLoading, setLoading]}
+                    refreshState={[refresh, setRefresh]}
+                    directoryPathState={[directoryPath, setDirectoryPath]}
+                    mediaLibraryContentState={[mediaLibraryContent, setMediaLibraryContent]}
+                    fileIndexState={[fileIndex, setFileIndex]}
+                    sidebarFileState={[sidebarFile, setSidebarFile]}
+                    ajaxRequest={ajaxRequest}
+                    {...props}
+                />
+                <FilterResultLibrary
+                    path="/filter/:mediaFilter+/"
                     showMessage={showMessage}
                     loadingState={[isLoading, setLoading]}
                     refreshState={[refresh, setRefresh]}

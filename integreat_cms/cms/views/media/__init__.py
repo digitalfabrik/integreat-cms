@@ -13,6 +13,7 @@ from .media_actions import (
     edit_directory_ajax,
     delete_directory_ajax,
     replace_file_ajax,
+    get_unused_media_files_ajax,
 )
 from .media_list_view import MediaListView, AdminMediaListView
 from .media_context_mixin import MediaContextMixin

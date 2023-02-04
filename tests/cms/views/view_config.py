@@ -38,6 +38,7 @@ VIEWS = [
             ("media_admin", STAFF_ROLES),
             ("mediacenter_directory_path", STAFF_ROLES),
             ("mediacenter_get_directory_content", STAFF_ROLES),
+            ("mediacenter_filter_unused_media_files", STAFF_ROLES),
             ("new_language", STAFF_ROLES),
             ("new_offertemplate", STAFF_ROLES),
             ("new_region", STAFF_ROLES),
@@ -77,6 +78,7 @@ VIEWS = [
             ("media", ROLES),
             ("mediacenter_directory_path", ROLES),
             ("mediacenter_get_directory_content", ROLES),
+            ("mediacenter_filter_unused_media_files", ROLES),
             ("new_languagetreenode", STAFF_ROLES),
             (
                 "new_languagetreenode",

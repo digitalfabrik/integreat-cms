@@ -35,6 +35,7 @@ class MediaContextMixin(ContextMixin):
                 "heading_directory_properties": _("Directory Properties"),
                 "heading_file_properties": _("File Properties"),
                 "heading_search_results": _("Search results for"),
+                "heading_show_unused_files": _("Unused media files"),
                 "btn_upload": _("Upload"),
                 "btn_upload_file": _("Upload file"),
                 "btn_save_file": _("Save file"),
@@ -55,6 +56,8 @@ class MediaContextMixin(ContextMixin):
                 "btn_select_file": _("Select file"),
                 "btn_replace_file": _("Replace file"),
                 "btn_search": _("Search"),
+                "btn_filter_unused": _("Show only unused"),
+                "btn_reset_filter": _("Reset filter"),
                 "label_file_name": _("File name:"),
                 "label_url": _("URL") + ":",
                 "label_directory_name": _("Directory name:"),
@@ -124,6 +127,9 @@ class MediaContextMixin(ContextMixin):
             "moveFile": reverse("mediacenter_move_file", kwargs=kwargs),
             "deleteFile": reverse("mediacenter_delete_file", kwargs=kwargs),
             "replaceFile": reverse("mediacenter_replace_file", kwargs=kwargs),
+            "filterUnusedMediaFiles": reverse(
+                "mediacenter_filter_unused_media_files", kwargs=kwargs
+            ),
         }
 
         context["media_config_data"] = media_config_data

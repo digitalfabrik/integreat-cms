@@ -128,6 +128,11 @@ media_ajax_urlpatterns = [
                     media.get_query_search_results_ajax,
                     name="mediacenter_get_search_result",
                 ),
+                path(
+                    "filter/unused/",
+                    media.get_unused_media_files_ajax,
+                    name="mediacenter_filter_unused_media_files",
+                ),
             ]
         ),
     ),

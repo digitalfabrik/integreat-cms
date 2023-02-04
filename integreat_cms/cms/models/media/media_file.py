@@ -9,12 +9,15 @@ from time import strftime
 
 from django.conf import settings
 from django.db import models
-from django.db.models import Q
+from django.db.models import Exists, Q, OuterRef, Value
+from django.db.models.functions import Concat
 from django.utils import timezone
 from django.utils.formats import localize
 from django.utils.translation import gettext_lazy as _
 from django.template.defaultfilters import filesizeformat
 from django.core.exceptions import ValidationError
+
+from linkcheck.models import Link, Url
 
 from ...constants import allowed_media
 from ..abstract_base_model import AbstractBaseModel
@@ -115,6 +118,33 @@ def file_size_limit(value):
         )
 
 
+class MediaFileQuerySet(models.QuerySet):
+    """
+    Custom queryset for media files
+    """
+
+    def filter_unused(self):
+        r"""
+        Filter for unused media files
+
+        :return: The queryset of unused media files
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.media.media_file.MediaFile ]
+        """
+        urls = Url.objects.filter(
+            url=Concat(
+                Value(settings.BASE_URL), Value(settings.MEDIA_URL), OuterRef("file")
+            )
+        )
+        return self.annotate(is_embedded=Exists(urls)).filter(
+            icon_organizations__isnull=True,
+            icon_regions__isnull=True,
+            events__isnull=True,
+            pages__isnull=True,
+            pois__isnull=True,
+            is_embedded=False,
+        )
+
+
 class MediaFile(AbstractBaseModel):
     """
     The MediaFile model is used to store basic information about files which are uploaded to the CMS. This is only a
@@ -174,6 +204,9 @@ class MediaFile(AbstractBaseModel):
         verbose_name=_("hidden"),
         help_text=_("Whether the media file is hidden in the regional media library"),
     )
+
+    #: Custom model manager for media file objects
+    objects = MediaFileQuerySet.as_manager()
 
     @property
     def url(self):

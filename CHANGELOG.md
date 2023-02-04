@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#1005](https://github.com/digitalfabrik/integreat-cms/issues/1005) ] Add possibility to filter for unused media files
+
 
 2023.3.0
 --------
