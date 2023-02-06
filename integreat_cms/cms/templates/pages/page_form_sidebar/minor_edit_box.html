@@ -7,14 +7,41 @@
     feather
 {% endblock collapsible_box_icon %}
 {% block collapsible_box_title %}
-    {% translate "Minor edit" %}
+    {% minor_edit_label request.region language %}
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
-    <label class="mt-0">{% minor_edit_label request.region language %}</label>
-    {% render_field page_translation_form.minor_edit %}
-    <label for="{{ page_translation_form.minor_edit.id_for_label }}"
-           class="secondary">
-        {{ page_translation_form.minor_edit.label }}
-    </label>
-    <div class="help-text">{% minor_edit_help_text request.region language page_translation_form %}</div>
+    <div>
+        {% render_field page_translation_form.minor_edit class+="mutually-exclusive-checkbox" %}
+        <label for="{{ page_translation_form.minor_edit.id_for_label }}"
+               class="secondary">
+            {{ page_translation_form.minor_edit.label }}
+        </label>
+        <div class="help-text">{% minor_edit_help_text request.region language page_translation_form %}</div>
+    </div>
+    {% if MT_ENABLED %}
+        <div>
+            {% render_field machine_translation_form.automatic_translation class+="mutually-exclusive-checkbox" %}
+            <label for="{{ machine_translation_form.automatic_translation.id_for_label }}"
+                   class="secondary">
+                {{ machine_translation_form.automatic_translation.label }}
+            </label>
+            <div class="help-text">{{ machine_translation_form.automatic_translation.help_text }}</div>
+            <div id="language-options" class="pl-2 hidden">
+                {% if machine_translation_form.translations_to_update.field.queryset.exists %}
+                    <label for="{{ machine_translation_form.translations_to_update.id_for_label }}"
+                           class="secondary">
+                        {{ machine_translation_form.translations_to_update.label }}
+                    </label>
+                    {% render_field machine_translation_form.translations_to_update %}
+                {% endif %}
+                {% if machine_translation_form.translations_to_create.field.queryset.exists %}
+                    <label for="{{ machine_translation_form.translations_to_create.id_for_label }}"
+                           class="secondary">
+                        {{ machine_translation_form.translations_to_create.label }}
+                    </label>
+                    {% render_field machine_translation_form.translations_to_create %}
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
 {% endblock collapsible_box_content %}
