@@ -131,9 +131,6 @@ class SummAiContextMixin(ContextMixin):
             settings.SUMM_AI_ENABLED
             and self.request.region.summ_ai_enabled
             and kwargs.get("language_slug")
-            in [
-                settings.SUMM_AI_GERMAN_LANGUAGE_SLUG,
-                settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG,
-            ]
+            == settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG
         )
         return context

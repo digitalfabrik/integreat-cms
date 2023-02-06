@@ -14,6 +14,7 @@ from ...forms import PageFilterForm
 from ..mixins import SummAiContextMixin
 from .page_context_mixin import PageContextMixin
 from ...models import Page
+from ...utils.translation_utils import mt_is_permitted
 
 logger = logging.getLogger(__name__)
 
@@ -139,6 +140,11 @@ class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
         # Filter pages according to given filters, if any
         pages = filter_form.apply(pages, language_slug)
 
+        # Determine if MT is permitted
+        MT_PERMITTED = mt_is_permitted(
+            region, request.user, Page._meta.default_related_name, language_slug
+        )
+
         return render(
             request,
             self.template_name,
@@ -149,5 +155,6 @@ class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
                 "languages": region.active_languages,
                 "filter_form": filter_form,
                 "XLIFF_EXPORT_VERSION": settings.XLIFF_EXPORT_VERSION,
+                "MT_PERMITTED": MT_PERMITTED,
             },
         )

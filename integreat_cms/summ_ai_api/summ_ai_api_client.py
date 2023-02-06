@@ -8,8 +8,11 @@ import itertools
 import aiohttp
 
 from django.conf import settings
+from django.contrib import messages
+from django.utils.translation import gettext as _
 
 from .utils import TranslationHelper
+from ..cms.utils.translation_utils import mt_is_permitted
 
 logger = logging.getLogger(__name__)
 
@@ -153,6 +156,23 @@ class SummAiApiClient:
         easy_german = self.request.region.get_language_or_404(
             settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG
         )
+
+        if queryset and not mt_is_permitted(
+            self.request.region,
+            self.request.user,
+            type(queryset[0])._meta.default_related_name,
+            settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG,
+        ):
+            messages.error(
+                self.request,
+                _(
+                    'Machine translations are disabled for content type "{}", language "{}" or the current user.'
+                ).format(
+                    type(queryset[0])._meta.verbose_name.title(),
+                    easy_german,
+                ),
+            )
+            return
 
         # Initialize translation helpers for each object instance
         translation_helpers = [

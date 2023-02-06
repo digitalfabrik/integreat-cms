@@ -158,7 +158,7 @@
                         {% translate "Archive pages" %}
                     </option>
                 {% endif %}
-                {% if SUMM_AI_ENABLED and request.user.is_staff %}
+                {% if MT_PERMITTED and SUMM_AI_ENABLED and request.user.is_staff %}
                     <option data-bulk-action="{% url 'auto_translate_easy_german_pages' region_slug=request.region.slug language_slug=language.slug %}">
                         {% translate "Automatically translate this page into Easy German" %}
                     </option>
