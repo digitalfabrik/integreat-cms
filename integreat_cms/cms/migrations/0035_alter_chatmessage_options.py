@@ -5,6 +5,7 @@ from django.db import migrations
 
 from ..constants import roles
 
+
 # pylint: disable=unused-argument
 def update_roles(apps, schema_editor):
     """

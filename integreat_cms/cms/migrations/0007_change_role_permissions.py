@@ -26,6 +26,7 @@ ROLES = [
     },
 ]
 
+
 # pylint: disable=unused-argument
 def update_roles(apps, schema_editor):
     """

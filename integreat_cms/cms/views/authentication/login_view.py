@@ -38,7 +38,6 @@ class LoginView(auth_views.LoginView):
         user = form.get_user()
 
         if not user.passwordless_authentication_enabled:
-
             if user.mfa_keys.exists():
                 self.request.session["mfa_user_id"] = user.id
                 return redirect("public:login_mfa")
