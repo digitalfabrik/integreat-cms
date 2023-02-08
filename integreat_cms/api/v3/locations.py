@@ -90,6 +90,15 @@ def transform_poi_translation(poi_translation):
         "opening_hours": opening_hours,
         "location": transform_poi(poi),
         "hash": None,
+        "organization": {
+            "id": poi.organization.id,
+            "slug": poi.organization.slug,
+            "name": poi.organization.name,
+            "logo": poi.organization.icon.url if poi.organization.icon else None,
+        }
+        if poi.organization
+        else None,
+        "barrier_free": poi.barrier_free,
     }
 
 
