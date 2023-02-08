@@ -7,7 +7,7 @@
     data-drop-id="{{ page.id }}"
     data-drop-position="left"
     class="drop {% if not parent_id %} drop-between{% endif %} h-3 -m-3 hidden level-{{ page.relative_depth }}">
-    <td colspan="8">
+    <td colspan="7">
         <div>
             {# djlint:off H020 #}
             <span></span>
@@ -122,11 +122,8 @@
             {% for language in languages %}
                 <option value="{{ language }}">{{ language.translated_name }}</option>
             {% endfor %}
+                <option value="all_languages">{% translate "Translate to all languages"%}</option>
             </select>
-        </div>
-    </td>
-    <td>
-        <div class="block py-1.5 px-1.5 whitespace-nowrap text-gray-800"><!-- @TODO --><input type="checkbox" id="translate_to_all_languages" name="translate_to_all_languages" value="1">{% translate "Translate to all languages" %}
         </div>
     </td>
     <td> 
@@ -137,10 +134,13 @@
     <td>
         <div class="pl-2 pr-4 py-1.5 text-right flex flex-nowrap gap-2" >
             <!-- @TODO - check value / variable setting -->
-        {% if page_translation.hix_value > MIN_HIX_TO_TRANSLATE  %}
+        <!-- { if page_translation.hix_value > MIN_HIX_TO_TRANSLATE  } -->
+        {% if page_translation.title == "Willkommen"  %}
             <button id="@TODO" class="btn">{% translate "Translate" %}</button>
-        {% endif  %}
+        {% else  %}
             <button id="@TODO" class="btn" disabled="">{% translate "Adjust HIX-value" %}</button><br />
+        {% endif %}
         </div>
     </td>
 </tr>
+ 
