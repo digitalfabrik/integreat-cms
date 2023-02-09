@@ -43,6 +43,20 @@ class POICategory(AbstractBaseModel):
             else str(_("POI category"))
         )
 
+    @cached_property
+    def prefetched_translations_by_language_slug(self):
+        """
+        This method returns a mapping from language slugs to their public translations of this object
+
+        :return: The object translation in the requested :class:`~integreat_cms.cms.models.languages.language.Language` or
+                 :obj:`None` if no translation exists
+        :rtype: dict
+        """
+        return {
+            translation.language.slug: translation
+            for translation in self.translations.all()
+        }
+
     def get_translation(self, language_slug):
         """
         Get the translation of this category in a given language
@@ -54,7 +68,7 @@ class POICategory(AbstractBaseModel):
                  if no translation is saved for the language, the category name of the POICategory
         :rtype: ~integreat_cms.cms.models.poi_categories.poi_category_translation.POICategoryTranslation
         """
-        return self.translations.filter(language__slug=language_slug).first()
+        return self.prefetched_translations_by_language_slug.get(language_slug)
 
     @cached_property
     def backend_translation(self):
