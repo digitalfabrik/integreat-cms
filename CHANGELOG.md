@@ -1,6 +1,8 @@
 UNRELEASED
 ----------
 
+* [ [#2056](https://github.com/digitalfabrik/integreat-cms/issues/2056) ] Change restriction of event duration to 28 days
+
 
 2023.2.0
 --------
