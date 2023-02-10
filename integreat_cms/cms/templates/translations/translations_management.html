@@ -37,6 +37,28 @@
             <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="p-4 rounded bg-water-500">
                     <h3 class="heading font-bold text-black">
+                        <i icon-name="flag" class="mr-2"></i> {{ form.machine_translatable_languages.label }}
+                    </h3>
+                </div>
+                <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
+                    <!-- Select which languages can be machine translated -->
+                    {% if form.machine_translatable_languages.field.queryset.exists %}
+                        <div>
+                            <div class="help-text mt-4">{{ form.machine_translatable_languages.help_text }}</div>
+                            {% render_field form.machine_translatable_languages %}
+                        </div>
+                    {% endif %}
+                    {% if form.unavailable_languages %}
+                        <div>
+                            <div class="help-text mt-4">{% translate "These languages are currently unavailable for machine translations" %}:</div>
+                            <p>{{ form.unavailable_languages|join:", " }}</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                <div class="p-4 rounded bg-water-500">
+                    <h3 class="heading font-bold text-black">
                         <i icon-name="pie-chart" class="mr-2"></i> {% translate "Translation Budget" %}
                     </h3>
                 </div>

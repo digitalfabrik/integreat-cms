@@ -28,7 +28,13 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = LanguageTreeNode
         #: The fields of the model which should be handled by this form
-        fields = ["language", "visible", "active", "parent"]
+        fields = [
+            "language",
+            "visible",
+            "active",
+            "parent",
+            "machine_translation_enabled",
+        ]
 
     def __init__(self, **kwargs):
         r"""
