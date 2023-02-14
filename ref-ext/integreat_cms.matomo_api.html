@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <meta property="article:modified_time" content="2023-01-31T12:33:36+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,10 +14,8 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/sphinx_highlight.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -33,8 +31,6 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
     
-        <a href="../index.html"><img src="../_static/integreat-logo-white.svg" class="logo" alt="Logo"/></a>
-    
     
         <a href="../index.html" class="icon icon-home"> integreat-cms</a>
     
@@ -45,7 +41,7 @@
     
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -1402,7 +1398,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="integreat_cms.html">Integreat CMS</a></li>
       <li class="breadcrumb-item active">Matomo API</li>
       <li class="wy-breadcrumbs-aside">
@@ -1497,7 +1493,7 @@ There are three functions which can be used publicly:</p>
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/matomo_api/matomo_api_client.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Constructor initializes the class variables</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>region</strong> (<a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region this Matomo API Manager connects to</p>
 </dd>
 </dl>
@@ -1508,20 +1504,20 @@ There are three functions which can be used publicly:</p>
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fetch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/matomo_api/matomo_api_client.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch" title="Permalink to this definition"></a></dt>
 <dd><p>Uses <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientSession.get" title="(in aiohttp v3.8)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">aiohttp.ClientSession.get()</span></code></a> to perform an asynchronous GET request to the Matomo API.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>session</strong> (<a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientSession" title="(in aiohttp v3.8)"><em>aiohttp.ClientSession</em></a>) – The session object which is used for the request</p></li>
 <li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The parameters which are passed to the Matomo API</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#integreat_cms.matomo_api.matomo_api_client.MatomoException" title="integreat_cms.matomo_api.matomo_api_client.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
 Matomo API request</p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The parsed <a class="reference external" href="https://docs.python.org/3.9/library/json.html#module-json" title="(in Python v3.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">json</span></code></a> result</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
@@ -1532,17 +1528,17 @@ Matomo API request</p>
 <span class="sig-name descname"><span class="pre">get_matomo_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">token_auth</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/matomo_api/matomo_api_client.py#L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_matomo_id" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the matomo website id based on the provided authentication key.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>token_auth</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The Matomo authentication token which should be used</p>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#integreat_cms.matomo_api.matomo_api_client.MatomoException" title="integreat_cms.matomo_api.matomo_api_client.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
 Matomo API request or the access token is not correct</p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>ID of the connected Matomo instance</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)">int</a></p>
 </dd>
 </dl>
@@ -1555,17 +1551,17 @@ Matomo API request or the access token is not correct</p>
 Opens a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientSession" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientSession</span></code></a> and calls <a class="reference internal" href="#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch" title="integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch()</span></code></a>.
 Called from <a class="reference internal" href="#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_matomo_id" title="integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_matomo_id"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_matomo_id()</span></code></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>**query_params</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The parameters which are passed to the Matomo API</p>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#integreat_cms.matomo_api.matomo_api_client.MatomoException" title="integreat_cms.matomo_api.matomo_api_client.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
 Matomo API request</p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The parsed <a class="reference external" href="https://docs.python.org/3.9/library/json.html#module-json" title="(in Python v3.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">json</span></code></a> result</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
 </dd>
 </dl>
@@ -1576,7 +1572,7 @@ Matomo API request</p>
 <span class="sig-name descname"><span class="pre">get_total_visits</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'day'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/matomo_api/matomo_api_client.py#L171"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_total_visits" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the total calls within a time range for all languages.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>start_date</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/datetime.html#datetime.date" title="(in Python v3.9)"><em>date</em></a>) – Start date</p></li>
 <li><p><strong>end_date</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/datetime.html#datetime.date" title="(in Python v3.9)"><em>date</em></a>) – End date</p></li>
@@ -1584,14 +1580,14 @@ Matomo API request</p>
 defaults to <a class="reference internal" href="integreat_cms.cms.constants.html#integreat_cms.cms.constants.matomo_periods.DAY" title="integreat_cms.cms.constants.matomo_periods.DAY"><code class="xref py py-attr docutils literal notranslate"><span class="pre">DAY</span></code></a>)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#integreat_cms.matomo_api.matomo_api_client.MatomoException" title="integreat_cms.matomo_api.matomo_api_client.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
 Matomo API request</p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The total visits in the ChartData format expected by ChartJs</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
@@ -1604,17 +1600,17 @@ Matomo API request</p>
 Opens a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientSession" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientSession</span></code></a> and calls <a class="reference internal" href="#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch" title="integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch"><code class="xref py py-func docutils literal notranslate"><span class="pre">fetch()</span></code></a>.
 Called from <a class="reference internal" href="#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_total_visits" title="integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_total_visits"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_total_visits()</span></code></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>query_params</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The parameters which are passed to the Matomo API</p>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#integreat_cms.matomo_api.matomo_api_client.MatomoException" title="integreat_cms.matomo_api.matomo_api_client.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
 Matomo API request</p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The parsed <a class="reference external" href="https://docs.python.org/3.9/library/json.html#module-json" title="(in Python v3.9)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">json</span></code></a> result</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
@@ -1625,21 +1621,21 @@ Matomo API request</p>
 <span class="sig-name descname"><span class="pre">get_visits_per_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/matomo_api/matomo_api_client.py#L291"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_visits_per_language" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the total unique visitors in a timerange as defined in period</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>start_date</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/datetime.html#datetime.date" title="(in Python v3.9)"><em>date</em></a>) – Start date</p></li>
 <li><p><strong>end_date</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/datetime.html#datetime.date" title="(in Python v3.9)"><em>date</em></a>) – End date</p></li>
 <li><p><strong>period</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The period (one of <a class="reference internal" href="integreat_cms.cms.constants.html#integreat_cms.cms.constants.matomo_periods.CHOICES" title="integreat_cms.cms.constants.matomo_periods.CHOICES"><code class="xref py py-attr docutils literal notranslate"><span class="pre">CHOICES</span></code></a>)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#integreat_cms.matomo_api.matomo_api_client.MatomoException" title="integreat_cms.matomo_api.matomo_api_client.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
 Matomo API request</p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The visits per language in the ChartData format expected by ChartJs</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
@@ -1656,21 +1652,21 @@ The returned list of gathered results has the correct order in which the tasks w
 ordered list of languages and the last element is the task for the total visits).
 Called from <a class="reference internal" href="#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_visits_per_language" title="integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_visits_per_language"><code class="xref py py-func docutils literal notranslate"><span class="pre">get_visits_per_language()</span></code></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>loop</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/asyncio-eventloop.html#asyncio.AbstractEventLoop" title="(in Python v3.9)"><em>asyncio.AbstractEventLoop</em></a>) – The asyncio event loop</p></li>
 <li><p><strong>query_params</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The parameters which are passed to the Matomo API</p></li>
 <li><p><strong>languages</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> [ </em><a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a><em> ]</em>) – The list of languages which should be retrieved</p></li>
 </ul>
 </dd>
-<dt class="field-even">Raises</dt>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference internal" href="#integreat_cms.matomo_api.matomo_api_client.MatomoException" title="integreat_cms.matomo_api.matomo_api_client.MatomoException"><strong>MatomoException</strong></a> – When a <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientError" title="(in aiohttp v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ClientError</span></code></a> was raised during a
 Matomo API request</p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The list of gathered results</p>
 </dd>
-<dt class="field-even">Return type</dt>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a></p>
 </dd>
 </dl>
@@ -1699,16 +1695,16 @@ Matomo API request</p>
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">simplify_date_labels</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">date_labels</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/matomo_api/matomo_api_client.py#L391"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.simplify_date_labels" title="Permalink to this definition"></a></dt>
 <dd><p>Convert the dates returned by Matomo to more readable labels</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>date_labels</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> [ </em><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> ]</em>) – The date labels returned by Matomo</p></li>
 <li><p><strong>period</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The period of the labels (determines the format)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The readable labels</p>
 </dd>
-<dt class="field-odd">Return type</dt>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a> [ <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a> ]</p>
 </dd>
 </dl>
