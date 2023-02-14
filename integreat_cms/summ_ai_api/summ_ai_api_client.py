@@ -53,6 +53,10 @@ class SummAiApiClient:
         self.request = request
         self.region = request.region
         self.form_class = form_class
+        if not settings.SUMM_AI_ENABLED:
+            raise RuntimeError("SUMM.AI is disabled globally.")
+        if not self.region.summ_ai_enabled:
+            raise RuntimeError(f"SUMM.AI is disabled in {self.region!r}.")
 
     async def translate_text_field(self, session, text_field):
         """

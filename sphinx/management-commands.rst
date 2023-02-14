@@ -76,6 +76,24 @@ Duplicate all currently existing pages to make it easier to create production-li
     This command inherits from :class:`~integreat_cms.core.management.debug_command.DebugCommand`, so it is only available in debug mode.
 
 
+
+``summ_ai_bulk``
+~~~~~~~~~~~~~~~~
+
+Translate an entire region into Easy German via SUMM.AI::
+
+    integreat-cms-cli summ_ai_bulk REGION_SLUG USERNAME [--initial]
+
+**Arguments:**
+
+* ``REGION_SLUG``: Translate all pages of the region with slug ``REGION_SLUG``
+* ``USERNAME``: Associate any new created translations with ``USERNAME``
+
+**Options:**
+
+* ``--initial``: Whether existing translations should not be updated
+
+
 Create new commands
 -------------------
 
