@@ -59,7 +59,7 @@ class CustomModelForm(forms.ModelForm):
             "%s initialized"
             + (" with " + ": %r, ".join(attributes) + ": %r" if attributes else ""),
             type(self).__name__,
-            *[getattr(self, attribute) for attribute in attributes]
+            *[getattr(self, attribute) for attribute in attributes],
         )
 
         for field_name, field in self.fields.items():

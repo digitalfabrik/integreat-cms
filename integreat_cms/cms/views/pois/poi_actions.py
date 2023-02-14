@@ -53,7 +53,7 @@ def archive_poi(request, poi_id, region_slug, language_slug):
         **{
             "region_slug": region_slug,
             "language_slug": language_slug,
-        }
+        },
     )
 
 
@@ -90,7 +90,7 @@ def restore_poi(request, poi_id, region_slug, language_slug):
         **{
             "region_slug": region_slug,
             "language_slug": language_slug,
-        }
+        },
     )
 
 
@@ -126,7 +126,7 @@ def delete_poi(request, poi_id, region_slug, language_slug):
         **{
             "region_slug": region_slug,
             "language_slug": language_slug,
-        }
+        },
     )
 
 
