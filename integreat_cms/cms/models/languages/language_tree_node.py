@@ -1,4 +1,6 @@
+from django.apps import apps
 from django.db import models
+from django.conf import settings
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
@@ -41,6 +43,11 @@ class LanguageTreeNode(AbstractTreeNode):
     last_updated = models.DateTimeField(
         auto_now=True,
         verbose_name=_("modification date"),
+    )
+    machine_translation_enabled = models.BooleanField(
+        default=True,
+        verbose_name=_("machine translatable"),
+        help_text=_("Enable or disable machine translations into this language"),
     )
 
     @cached_property
@@ -92,6 +99,26 @@ class LanguageTreeNode(AbstractTreeNode):
         :rtype: str
         """
         return self.language.text_direction
+
+    @cached_property
+    def mt_provider(self):
+        """
+        Return the name of the machine translation provider if it exists,
+        or empty string otherwise
+
+        :return: Name of the MT provider for the language
+        :rtype: str
+        """
+        deepl_config = apps.get_app_config("deepl_api")
+        if (
+            self.slug == settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG
+            and settings.SUMM_AI_ENABLED
+            and self.region.summ_ai_enabled
+        ):
+            return "SUMM.AI"
+        if self.slug in deepl_config.supported_target_languages:
+            return "DeepL"
+        return ""
 
     def __str__(self):
         """

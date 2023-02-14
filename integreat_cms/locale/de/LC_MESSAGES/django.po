@@ -2073,6 +2073,14 @@ msgstr "Das Start-Datum kann nicht nach dem End-Datum liegen"
 msgid "The end date can't be before the start date"
 msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
 
+#: cms/forms/translations/translations_management_form.py
+msgid "Language Selection"
+msgstr "Sprachauswahl"
+
+#: cms/forms/translations/translations_management_form.py
+msgid "Allow machine translations into the following languages:"
+msgstr "Folgende Sprachen maschinell übersetzen:"
+
 #: cms/forms/users/authentication_form.py cms/forms/users/user_form.py
 #: cms/templates/authentication/password_reset_confirm.html
 msgid "Password"
@@ -2734,6 +2742,14 @@ msgstr ""
 "Definiert ob Inhalte in der Sprache bearbeitet oder erstellt werden können"
 
 #: cms/models/languages/language_tree_node.py
+msgid "machine translatable"
+msgstr "maschinell übersetzbar"
+
+#: cms/models/languages/language_tree_node.py
+msgid "Enable or disable machine translations into this language"
+msgstr "Maschinelle Übersetzungen in diese Sprache erlauben oder verbieten"
+
+#: cms/models/languages/language_tree_node.py
 msgid "language tree node"
 msgstr "Sprach-Knoten"
 
@@ -3139,6 +3155,23 @@ msgstr "Die Öffnungszeiten bleiben erhalten und werden nur ausgeblendet."
 #: cms/models/pois/poi.py
 msgid "opening hours"
 msgstr "Öffnungszeiten"
+
+#: cms/models/pois/poi.py cms/models/users/organization.py
+#: cms/models/users/user.py
+msgid "organization"
+msgstr "Organisation"
+
+#: cms/models/pois/poi.py
+msgid "Specify which organization operates this location."
+msgstr "Geben Sie an, welche Organisation diesen Ort verwaltet."
+
+#: cms/models/pois/poi.py
+msgid "barrier free"
+msgstr "barrierefrei"
+
+#: cms/models/pois/poi.py
+msgid "Indicate if the location is barrier free."
+msgstr "Geben Sie an, ob dieser Ort barrierefrei ist."
 
 #: cms/models/pois/poi.py
 msgid "locations"
@@ -3550,10 +3583,6 @@ msgstr "Veranstaltungen"
 #: cms/models/regions/region.py cms/models/users/user.py
 msgid "regions"
 msgstr "Regionen"
-
-#: cms/models/users/organization.py cms/models/users/user.py
-msgid "organization"
-msgstr "Organisation"
 
 #: cms/models/users/organization.py
 msgid "organizations"
@@ -6641,6 +6670,11 @@ msgid "Automatically machine translate the following types of content:"
 msgstr "Folgende Inhalte automatisch maschinell übersetzen:"
 
 #: cms/templates/translations/translations_management.html
+msgid "These languages are currently unavailable for machine translations"
+msgstr ""
+"Für folgende Sprachen sind maschinelle Übersetzungen momentan nicht verfügbar"
+
+#: cms/templates/translations/translations_management.html
 msgid "Translation Budget"
 msgstr "Übersetzungsbudget"
 
@@ -8295,6 +8329,18 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Edit language tree node"
+#~ msgstr "Sprach-Knoten bearbeiten"
+
+#~ msgid "Add language"
+#~ msgstr "Sprache hinzufügen"
+
+#~ msgid "Barrier free"
+#~ msgstr "Barrierefrei"
+
+#~ msgid "Organization"
+#~ msgstr "Organisation"
+
 #~ msgid "of"
 #~ msgstr "von"
 
@@ -8515,12 +8561,6 @@ msgstr ""
 #~ msgid "Currently no users belong to this organization"
 #~ msgstr "Aktuell gehören dieser Organisation keine Benutzer:innen an"
 
-#~ msgid "Edit language tree node"
-#~ msgstr "Sprach-Knoten bearbeiten"
-
-#~ msgid "Add language"
-#~ msgstr "Sprache hinzufügen"
-
 #~ msgid "Publish changes"
 #~ msgstr "Änderungen veröffentlichen"
 
@@ -8583,9 +8623,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Ausgewählte Seiten für die %(language_translated_name)s-Übersetzung "
 #~ "exportieren"
-
-#~ msgid "Organization"
-#~ msgstr "Organisation"
 
 #~ msgid "Go back to imprint editor"
 #~ msgstr "Zurück zum Impressums-Editor"

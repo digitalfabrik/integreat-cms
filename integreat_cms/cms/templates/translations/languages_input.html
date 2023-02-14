@@ -1,0 +1,12 @@
+<ul id="{{ widget.attrs.id }}" class="divide-y divide-gray-200">
+    {% for group, options, index in widget.optgroups %}
+        <li>
+            <label class="text-lg">{{ group }}</label>
+            <ul id="{{ widget.attrs.id }}_{{ index }}">
+                {% for option in options %}
+                    <li>{% include option.template_name with widget=option %}</li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>

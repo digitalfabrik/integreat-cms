@@ -2,6 +2,7 @@
 
 from django.db import migrations, models
 
+
 # pylint: disable=unused-argument
 def update_flags(apps, schema_editor):
     """

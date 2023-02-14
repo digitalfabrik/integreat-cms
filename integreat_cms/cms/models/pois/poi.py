@@ -8,6 +8,7 @@ from ..abstract_content_model import AbstractContentModel
 from ..media.media_file import MediaFile
 from ..pois.poi_translation import POITranslation
 from ..poi_categories.poi_category import POICategory
+from ..users.organization import Organization
 from ...utils.translation_utils import gettext_many_lazy as __
 
 
@@ -92,6 +93,21 @@ class POI(AbstractContentModel):
     opening_hours = models.JSONField(
         default=get_default_opening_hours,
         verbose_name=_("opening hours"),
+    )
+    organization = models.ForeignKey(
+        Organization,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="pois",
+        verbose_name=_("organization"),
+        help_text=_("Specify which organization operates this location."),
+    )
+    barrier_free = models.BooleanField(
+        null=True,
+        default=None,
+        verbose_name=_("barrier free"),
+        help_text=_("Indicate if the location is barrier free."),
     )
 
     @property

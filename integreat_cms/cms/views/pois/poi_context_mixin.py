@@ -8,6 +8,7 @@ from ...models import POI
 
 logger = logging.getLogger(__name__)
 
+
 # pylint: disable=too-few-public-methods
 class POIContextMixin(ContextMixin):
     """

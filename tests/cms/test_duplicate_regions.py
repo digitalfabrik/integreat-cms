@@ -6,6 +6,7 @@ from django.urls import reverse
 from integreat_cms.cms.constants import status
 from integreat_cms.cms.models import Region, LanguageTreeNode, Page
 
+
 # pylint: disable=unused-argument,too-many-locals
 @pytest.mark.django_db
 def test_duplicate_regions(load_test_data, admin_client):

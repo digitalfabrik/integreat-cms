@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 from ..abstract_base_model import AbstractBaseModel
 
+
 # pylint: disable=too-few-public-methods
 class ChatHistoryManager(models.Manager):
     """

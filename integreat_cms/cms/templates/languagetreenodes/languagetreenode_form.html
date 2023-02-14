@@ -65,6 +65,11 @@
                     <label for="{{ form.active.id_for_label }}">{{ form.active.label }}</label>
                     <div class="help-text">{{ form.active.help_text }}</div>
                 </div>
+                <div>
+                    {% render_field form.machine_translation_enabled|add_error_class:"border-red-500" %}
+                    <label for="{{ form.machine_translation_enabled.id_for_label }}">{{ form.machine_translation_enabled.label }}</label>
+                    <div class="help-text">{{ form.machine_translation_enabled.help_text }}</div>
+                </div>
             </div>
         </div>
     </form>

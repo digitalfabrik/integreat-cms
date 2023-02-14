@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+* [ [#2037](https://github.com/digitalfabrik/integreat-cms/issues/2037) ] Add organization and barrier-free fields to POI
+* [ [#2064](https://github.com/digitalfabrik/integreat-cms/issues/2064) ] Show Linkcheck status codes to all users
+* [ [#2052](https://github.com/digitalfabrik/integreat-cms/issues/2052) ] Fix false positive SSL error in link checker
+
 
 2023.1.2
 --------
