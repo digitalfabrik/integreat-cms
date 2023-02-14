@@ -43,6 +43,7 @@ ALL_ROLES = ROLES + [ANONYMOUS]
 #: Enable the aiohttp pytest plugin to make use of the test server
 pytest_plugins = "aiohttp.pytest_plugin"
 
+
 # pylint: disable=unused-argument
 @pytest.fixture(scope="session")
 def load_test_data(django_db_setup, django_db_blocker):

@@ -24,6 +24,7 @@ from ..conftest import (
 from .xliff_config import XLIFF_IMPORTS
 from .utils import upload_files, validate_xliff_import_response
 
+
 # pylint: disable=too-many-locals
 @pytest.mark.django_db
 # Override urls to serve XLIFF files

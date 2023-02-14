@@ -5,6 +5,7 @@ from django.urls import reverse
 
 from ...constants import allowed_media
 
+
 # pylint: disable=too-few-public-methods
 class MediaContextMixin(ContextMixin):
     """

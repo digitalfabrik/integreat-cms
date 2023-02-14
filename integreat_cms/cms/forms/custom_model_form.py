@@ -63,7 +63,6 @@ class CustomModelForm(forms.ModelForm):
         )
 
         for field_name, field in self.fields.items():
-
             # If form is disabled, disable all form fields
             if disabled:
                 field.disabled = True
