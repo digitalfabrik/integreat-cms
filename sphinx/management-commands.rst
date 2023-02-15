@@ -76,6 +76,18 @@ Duplicate all currently existing pages to make it easier to create production-li
     This command inherits from :class:`~integreat_cms.core.management.debug_command.DebugCommand`, so it is only available in debug mode.
 
 
+``find_large_files``
+~~~~~~~~~~~~~~~~~~~~
+
+Find large media files in the CMS::
+
+    integreat-cms-cli find_large_files [--limit LIMIT] [--threshold THRESHOLD]
+
+**Options:**
+
+* ``--limit LIMIT``: Only show the largest ``LIMIT`` files (max 100, defaults to 10)
+* ``--threshold THRESHOLD``: Only show files larger than this ``THRESHOLD`` (in MiB, defaults to 3.0)
+
 
 ``summ_ai_bulk``
 ~~~~~~~~~~~~~~~~
