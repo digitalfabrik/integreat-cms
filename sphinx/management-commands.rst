@@ -89,6 +89,18 @@ Find large media files in the CMS::
 * ``--threshold THRESHOLD``: Only show files larger than this ``THRESHOLD`` (in MiB, defaults to 3.0)
 
 
+``find_missing_versions``
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Find version inconsistencies in the CMS::
+
+    integreat-cms-cli find_missing_versions MODEL
+
+**Arguments:**
+
+* ``MODEL``: The model to check (one of ``page``, ``event``, ``poi``)
+
+
 ``summ_ai_bulk``
 ~~~~~~~~~~~~~~~~
 
