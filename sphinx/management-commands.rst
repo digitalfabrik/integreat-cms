@@ -57,6 +57,25 @@ Print raw SQL queries, see :doc:`django-debug-toolbar:commands`.
 Custom Commands
 ===============
 
+integreat-cms
+-------------
+
+``duplicate_pages``
+~~~~~~~~~~~~~~~~~~~
+
+Duplicate all currently existing pages to make it easier to create production-like data sets::
+
+    integreat-cms-cli duplicate_pages REGION_SLUG
+
+**Arguments:**
+
+* ``REGION_SLUG``: Duplicate all pages of the region with slug ``REGION_SLUG``
+
+.. Note::
+
+    This command inherits from :class:`~integreat_cms.core.management.debug_command.DebugCommand`, so it is only available in debug mode.
+
+
 Create new commands
 -------------------
 

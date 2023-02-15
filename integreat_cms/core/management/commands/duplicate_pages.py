@@ -1,23 +1,15 @@
-"""
-Please run this script via the dev tool duplicate_pages.sh to make sure all environment
-variables are passed correctly and Django can be set up.
-"""
 import copy
 import logging
 import random
 import string
-import sys
 
+from django.core.management.base import CommandError
 from django.utils.text import slugify
 
+from ....cms.models import Region, Page
+from ..debug_command import DebugCommand
+
 logger = logging.getLogger(__name__)
-
-if __name__ != "django.core.management.commands.shell":
-    logger.error("Please run this script via the dev tool duplicate_pages.sh")
-    sys.exit()
-
-# pylint: disable=wrong-import-position
-from integreat_cms.cms.models import Region, Page
 
 
 def duplicate_page(old_page, new_parent=None):
@@ -86,6 +78,45 @@ def duplicate_pages(region, old_parent=None, new_parent=None):
         duplicate_pages(region, old_parent=old_page, new_parent=new_page)
 
 
-selected_region = Region.objects.first()
-logger.info("Duplicating pages for region %r", selected_region)
-duplicate_pages(selected_region)
+class Command(DebugCommand):
+    """
+    Management command to duplicate all pages of a region
+    """
+
+    help = "Duplicate all pages of a specific region"
+
+    def add_arguments(self, parser):
+        """
+        Define the arguments of this command
+
+        :param parser: The argument parser
+        :type parser: ~django.core.management.base.CommandParser
+        """
+        parser.add_argument("region_slug", help="The slug of the region")
+
+    # pylint: disable=arguments-differ
+    def handle(self, *args, region_slug, **options):
+        r"""
+        Try to run the command
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param region_slug: The slug of the given region
+        :type region_slug: str
+
+        :param \**options: The supplied keyword options
+        :type \**options: dict
+
+        :raises ~django.core.management.base.CommandError: When the input is invalid
+        """
+        try:
+            region = Region.objects.get(slug=region_slug)
+        except Region.DoesNotExist as e:
+            raise CommandError(
+                f'Region with slug "{region_slug}" does not exist.'
+            ) from e
+
+        logger.info("Duplicating pages for region %s", region)
+        duplicate_pages(region)
+        self.print_success(f'✔ Successfully duplicated pages for region "{region}".')
