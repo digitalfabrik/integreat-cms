@@ -102,6 +102,21 @@ Run tests and generate coverage report with :github-source:`tools/test.sh`::
   and run tests on multiple CPUs using xdist, resulting in much shorter wait times.
 
 
+.. _management-command-tool:
+
+Management Commands
+===================
+
+Set the environment variables to execute ``django-admin`` management commands
+with :github-source:`tools/integreat-cms-cli`::
+
+    ./tools/integreat-cms-cli COMMAND
+
+**Arguments:**
+
+* ``COMMAND``: Invoke the management command ``COMMAND``. List all available commands with ``help``.
+
+
 Code Quality
 ============
 

@@ -18,6 +18,9 @@ so all management commands can be invoked via::
 
 Run ``integreat-cms-cli help`` to get an overview over all available commands.
 
+When developing, you can use the dev tool :github-source:`tools/integreat-cms-cli`
+(see :ref:`management-command-tool`) to set all environment variables.
+
 
 Default Commands
 ================

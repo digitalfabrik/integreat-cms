@@ -107,10 +107,12 @@ function colorize_number {
 }
 
 # Check if the --help option is given
-if [[ "$*" == *"--help"* ]] || [[ "$*" == *"-h"* ]]; then
-    echo -e "For usage details, see documentation:\n" | print_info
-    echo -e "\thttps://digitalfabrik.github.io/integreat-cms/tools.html\n" | print_bold
-    exit
+if [[ -z ${SKIP_HELP_COMMAND} ]]; then
+    if [[ "$*" == *"--help"* ]] || [[ "$*" == *"-h"* ]]; then
+        echo -e "For usage details, see documentation:\n" | print_info
+        echo -e "\thttps://digitalfabrik.github.io/integreat-cms/tools.html\n" | print_bold
+        exit
+    fi
 fi
 
 # This function checks if the integreat cms is installed
