@@ -472,6 +472,11 @@ LOGGING = {
             "datefmt": "%b %d %H:%M:%S",
             "style": "{",
         },
+        "management-command": {
+            "()": ColorFormatter,
+            "format": "{message}",
+            "style": "{",
+        },
         "logfile": {
             "()": RequestFormatter,
             "format": "{asctime} {levelname:7} {name} - {message}",
@@ -507,6 +512,11 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "console-colored",
         },
+        "management-command": {
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+            "formatter": "management-command",
+        },
         "logfile": {
             "class": "logging.FileHandler",
             "filename": LOGFILE,
@@ -537,6 +547,11 @@ LOGGING = {
         "integreat_cms": {
             "handlers": ["console-colored", "logfile"],
             "level": LOG_LEVEL,
+        },
+        "integreat_cms.core.management.commands": {
+            "handlers": ["management-command", "logfile"],
+            "level": LOG_LEVEL,
+            "propagate": False,
         },
         # Syslog for authentication
         "auth": {

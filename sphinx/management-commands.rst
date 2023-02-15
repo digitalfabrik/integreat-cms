@@ -17,8 +17,6 @@ so all management commands can be invoked via::
     integreat-cms-cli COMMAND
 
 Run ``integreat-cms-cli help`` to get an overview over all available commands.
-When developing, you can use the dev tool :github-source:`tools/integreat-cms-cli`
-(see :ref:`management-command-tool`) to set all environment variables.
 
 
 Default Commands
@@ -52,3 +50,22 @@ django-debug-toolbar
 ~~~~~~~~~~~~~~~~~
 
 Print raw SQL queries, see :doc:`django-debug-toolbar:commands`.
+
+Custom Commands
+===============
+
+Create new commands
+-------------------
+
+When adding new custom commands, you can use the base classes:
+
+:class:`~integreat_cms.core.management.log_command.LogCommand`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A base class to improve the logging output of management commands
+
+
+:class:`~integreat_cms.core.management.debug_command.DebugCommand`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+A base class for management commands which can only be executed in debug mode
