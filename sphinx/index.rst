@@ -75,6 +75,7 @@ Basic Concepts
     testing
     documentation
     continuous-integration
+    debugging
 
 * :doc:`virtualenv`: Virtual Python environment and Pipenv
 * :doc:`internationalization`: Multi-language support for the backend UI
@@ -82,6 +83,7 @@ Basic Concepts
 * :doc:`testing`: How to test this application
 * :doc:`documentation`: This Sphinx documentation
 * :doc:`continuous-integration`: Continuous Integration and Delivery with CircleCI
+* :doc:`debugging`: Debug the application
 
 
 Deployment
