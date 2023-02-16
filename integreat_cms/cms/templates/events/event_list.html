@@ -111,39 +111,41 @@
             </div>
         </div>
     {% endif %}
-    <div class="flex flex-wrap gap-2 mt-4">
-        <select id="bulk-action" class="w-auto max-w-full">
-            <option>
-                {% translate "Select bulk action" %}
-            </option>
-            <option data-bulk-action="{% url 'bulk_archive_events' region_slug=request.region.slug language_slug=language.slug %}">
-                {% translate "Archive events" %}
-            </option>
-            {% if DEEPL_ENABLED %}
-                {% if language == request.region.default_language %}
-                    <option disabled
-                            title="{% translate "You cannot translate into the default language" %}">
-                        {% translate "Create missing translations automatically" %}
-                    </option>
-                {% elif DEEPL_AVAILABLE %}
-                    <option data-bulk-action="{% url 'automatic_translation_events' region_slug=request.region.slug language_slug=language.slug %}">
-                        {% translate "Create missing translations automatically" %}
-                    </option>
-                {% else %}
-                    <option disabled
-                            title="{% translate "This language is not supported by DeepL" %}">
-                        {% translate "Create missing translations automatically" %}
+    {% if perms.cms.change_event %}
+        <div class="flex flex-wrap gap-2 mt-4">
+            <select id="bulk-action" class="w-auto max-w-full">
+                <option>
+                    {% translate "Select bulk action" %}
+                </option>
+                <option data-bulk-action="{% url 'bulk_archive_events' region_slug=request.region.slug language_slug=language.slug %}">
+                    {% translate "Archive events" %}
+                </option>
+                {% if DEEPL_ENABLED %}
+                    {% if language == request.region.default_language %}
+                        <option disabled
+                                title="{% translate "You cannot translate into the default language" %}">
+                            {% translate "Create missing translations automatically" %}
+                        </option>
+                    {% elif DEEPL_AVAILABLE %}
+                        <option data-bulk-action="{% url 'automatic_translation_events' region_slug=request.region.slug language_slug=language.slug %}">
+                            {% translate "Create missing translations automatically" %}
+                        </option>
+                    {% else %}
+                        <option disabled
+                                title="{% translate "This language is not supported by DeepL" %}">
+                            {% translate "Create missing translations automatically" %}
+                        </option>
+                    {% endif %}
+                {% endif %}
+                {% if SUMM_AI_ENABLED %}
+                    <option data-bulk-action="{% url 'auto_translate_easy_german_events' region_slug=request.region.slug language_slug=language.slug %}">
+                        {% translate "Automatically translate this event into Easy German" %}
                     </option>
                 {% endif %}
-            {% endif %}
-            {% if SUMM_AI_ENABLED %}
-                <option data-bulk-action="{% url 'auto_translate_easy_german_events' region_slug=request.region.slug language_slug=language.slug %}">
-                    {% translate "Automatically translate this event into Easy German" %}
-                </option>
-            {% endif %}
-        </select>
-        <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
-    </div>
+            </select>
+            <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
+        </div>
+    {% endif %}
     {% include "../generic_confirmation_dialog.html" %}
     {% url "events" as url %}
     {% include "pagination.html" with chunk=events %}

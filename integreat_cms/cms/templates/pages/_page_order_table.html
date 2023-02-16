@@ -2,7 +2,7 @@
 {% load content_filters %}
 {% load page_filters %}
 <div class="table-listing">
-    <table data-activate-page-order
+    <table {% if can_edit_page %}data-activate-page-order{% endif %}
            class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white table-auto cursor-default break-all">
         <tbody>
             {# djlint:off H020 #}
@@ -12,8 +12,9 @@
                         <td class="single_icon min">
                             <span data-contained-in-siblings="true"
                                   class="drag text-gray-800 block py-3 px-2 cursor-move"
-                                  {% if not page.archived %} draggable="true" title="{% translate "Change the position of the page with drag & drop." %}" {% endif %}>
-                                <i icon-name="move"></i>
+                                  draggable="{% if not page.archived and can_edit_page %}true{% else %}false{% endif %}"
+                                  title="{% translate "Change the position of the page with drag & drop." %}">
+                                {% if can_edit_page %}<i icon-name="move"></i>{% endif %}
                             </span>
                         </td>
                         <td id="page_title"
@@ -77,8 +78,8 @@
                     <tr class="border-2 border-blue-500 hover:bg-gray-100">
                         <td class="single_icon min">
                             <span class="drag text-gray-800 block py-3 px-2 cursor-move"
-                                  draggable="true">
-                                <i icon-name="move"></i>
+                                  draggable="{% if can_edit_page %}true{% else %}false{% endif %}">
+                                {% if can_edit_page %}<i icon-name="move"></i>{% endif %}
                             </span>
                         </td>
                         <td id="page_title" data-default-title="{% translate "New Page" %}">{% translate "New Page" %}</td>
@@ -87,8 +88,8 @@
                     <tr class="border-2 border-blue-500 hover:bg-gray-100">
                         <td class="single_icon min">
                             <span class="drag text-gray-800 block py-3 px-2 cursor-move"
-                                  draggable="true">
-                                <i icon-name="move"></i>
+                                  draggable="{% if can_edit_page %}true{% else %}false{% endif %}">
+                                {% if can_edit_page %}<i icon-name="move"></i>{% endif %}
                             </span>
                         </td>
                         <td id="page_title"

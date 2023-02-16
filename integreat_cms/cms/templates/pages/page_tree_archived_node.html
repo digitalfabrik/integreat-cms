@@ -120,21 +120,23 @@
                 <i icon-name="eye"></i>
             </button>
         {% endif %}
-        {% if page.explicitly_archived %}
-            <button title="{% translate "Restore page" %}"
-                    class="confirmation-button btn-icon"
-                    data-confirmation-title="{{ restore_dialog_title }}"
-                    data-confirmation-text="{{ restore_dialog_text }}"
-                    data-confirmation-subject="{{ page.best_translation.title }}"
-                    data-action="{% url 'restore_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
-                <i icon-name="refresh-ccw"></i>
-            </button>
-        {% else %}
-            <a title="{% translate "To restore this page, you have to restore its archived parent page." %}"
-               class="btn-icon"
-               disabled>
-                <i icon-name="refresh-ccw"></i>
-            </a>
+        {% if can_edit_pages %}
+            {% if page.explicitly_archived %}
+                <button title="{% translate "Restore page" %}"
+                        class="confirmation-button btn-icon"
+                        data-confirmation-title="{{ restore_dialog_title }}"
+                        data-confirmation-text="{{ restore_dialog_text }}"
+                        data-confirmation-subject="{{ page.best_translation.title }}"
+                        data-action="{% url 'restore_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
+                    <i icon-name="refresh-ccw"></i>
+                </button>
+            {% else %}
+                <a title="{% translate "To restore this page, you have to restore its archived parent page." %}"
+                   class="btn-icon"
+                   disabled>
+                    <i icon-name="refresh-ccw"></i>
+                </a>
+            {% endif %}
         {% endif %}
         {% if perms.cms.delete_page %}
             {% if not page.is_leaf %}

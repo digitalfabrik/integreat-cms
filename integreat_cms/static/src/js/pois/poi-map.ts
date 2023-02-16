@@ -139,7 +139,7 @@ const renderMap = () => {
     // Initialize map and marker
     const map = new Map(options);
     const marker = new Marker();
-    marker.setDraggable(true);
+    marker.setDraggable(container.dataset.changePermission === "True");
 
     // If initial coordinates are given, set the marker to this position
     if (coordinates) {

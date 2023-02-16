@@ -71,14 +71,16 @@
         </a>
     </td>
     <td class="pl-2 pr-4 py-3 text-right min flex flex-nowrap gap-2">
-        <button title="{% translate "Restore location" %}"
-                class="confirmation-button btn-icon"
-                data-confirmation-title="{{ restore_dialog_title }}"
-                data-confirmation-text="{{ restore_dialog_text }}"
-                data-confirmation-subject="{{ poi_translation.title }}"
-                data-action="{% url 'restore_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}">
-            <i icon-name="refresh-ccw"></i>
-        </button>
+        {% if perms.cms.change_poi %}
+            <button title="{% translate "Restore location" %}"
+                    class="confirmation-button btn-icon"
+                    data-confirmation-title="{{ restore_dialog_title }}"
+                    data-confirmation-text="{{ restore_dialog_text }}"
+                    data-confirmation-subject="{{ poi_translation.title }}"
+                    data-action="{% url 'restore_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}">
+                <i icon-name="refresh-ccw"></i>
+            </button>
+        {% endif %}
         {% if perms.cms.delete_poi %}
             {% if poi.events.exists %}
                 {# djlint:off H023 #}

@@ -50,17 +50,19 @@
             </tbody>
         </table>
     </div>
-    <div class="flex flex-wrap gap-2 mt-4">
-        <select id="bulk-action" class="w-auto max-w-full">
-            <option>
-                {% translate "Select bulk action" %}
-            </option>
-            <option data-bulk-action="{% url 'bulk_restore_pois' region_slug=request.region.slug language_slug=language.slug %}">
-                {% translate "Restore locations" %}
-            </option>
-        </select>
-        <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
-    </div>
+    {% if perms.cms.change_poi %}
+        <div class="flex flex-wrap gap-2 mt-4">
+            <select id="bulk-action" class="w-auto max-w-full">
+                <option>
+                    {% translate "Select bulk action" %}
+                </option>
+                <option data-bulk-action="{% url 'bulk_restore_pois' region_slug=request.region.slug language_slug=language.slug %}">
+                    {% translate "Restore locations" %}
+                </option>
+            </select>
+            <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
+        </div>
+    {% endif %}
     {% include "../generic_confirmation_dialog.html" %}
     {% url "pois" as url %}
     {% include "pagination.html" with chunk=pois %}

@@ -72,6 +72,7 @@ class POIContextMixin(ContextMixin):
                     "Opening time is identical with the closing time of the previous slot"
                 ),
             },
+            "canChangeLocation": self.request.user.has_perm("cms.change_poi"),
         }
         context.update(
             {
