@@ -43,10 +43,10 @@
                 </div>
             {% endif %}
         </div>
-        <div class="pt-4 lg:pt-0 md:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_400px_400px] gap-4">
+        <div class="pt-4 lg:pt-0 3xl:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_816px] gap-4">
             <div class="col-span-2 3xl:col-span-1 flex flex-wrap flex-col">
                 {% include "_form_language_tabs.html" with target="edit_poi" instance=poi_form.instance content_field="poi_id" %}
-                <div class="flex flex-wrap flex-col flex-auto gap-4">
+                <div class="flex flex-wrap flex-col gap-4">
                     <div class="flex flex-col flex-auto w-full rounded border border-blue-500 bg-white shadow-2xl">
                         <div class="flex flex-col w-full p-4 flex-auto">
                             <div class="flex justify-between">
@@ -136,25 +136,25 @@
                     {% endif %}
                 </div>
             </div>
-            <div id="left-sidebar-column"
-                 class="flex flex-col flex-auto mt-3 md:mt-0 md:gap-2"
-                 {% if request.user.distribute_sidebar_boxes %} data-enable-automatic-sidebar-distribution{% endif %}>
-                {% if poi_form.instance.id and perms.cms.change_poi %}
-                    {% include "./poi_form_sidebar/minor_edit_box.html" with box_id="poi-minor-edit" %}
-                {% endif %}
-                {% include "./poi_form_sidebar/position_box.html" with box_id="poi-position" %}
-            </div>
-            <div id="right-sidebar-column"
-                 class="3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col md:gap-2">
-                {% include "./poi_form_sidebar/contact_box.html" with box_id="poi-contact" %}
-                {% include "./poi_form_sidebar/opening_hours_box.html" with box_id="poi-opening-hours" no_padding=True %}
-                {% include "./poi_form_sidebar/category_box.html" with box_id="poi-category" %}
-                {% include "./poi_form_sidebar/icon_box.html" with box_id="poi-icon" %}
-                {% include "./poi_form_sidebar/organization_box.html" with box_id="poi-organization" %}
-                {% include "./poi_form_sidebar/barrier_free_box.html" with box_id="poi-barrier-free" %}
-                {% if poi_form.instance.id and perms.cms.change_poi %}
-                    {% include "./poi_form_sidebar/action_box.html" with box_id="poi-action" %}
-                {% endif %}
+            <div class="sm:block md:flex sm:mt-4 3xl:mt-0 3xl:block 4xl:flex">
+                <div id="left-sidebar-column"
+                     class="flex flex-col flex-auto mt-4 md:mt-0 md:mr-4 3xl:mr-0 md:w-full 4xl:mr-4"
+                     {% if request.user.distribute_sidebar_boxes %} data-enable-automatic-sidebar-distribution{% endif %}>
+                    {% if poi_form.instance.id and perms.cms.change_poi %}
+                        {% include "./poi_form_sidebar/minor_edit_box.html" with box_id="poi-minor-edit" %}
+                    {% endif %}
+                    {% include "./poi_form_sidebar/position_box.html" with box_id="poi-position" %}
+                </div>
+                <div id="right-sidebar-column"
+                     class="3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col md:w-full">
+                    {% include "./poi_form_sidebar/contact_box.html" with box_id="poi-contact" %}
+                    {% include "./poi_form_sidebar/opening_hours_box.html" with box_id="poi-opening-hours" no_padding=True %}
+                    {% include "./poi_form_sidebar/category_box.html" with box_id="poi-category" %}
+                    {% include "./poi_form_sidebar/icon_box.html" with box_id="poi-icon" %}
+                    {% if poi_form.instance.id and perms.cms.change_poi %}
+                        {% include "./poi_form_sidebar/action_box.html" with box_id="poi-action" %}
+                    {% endif %}
+                </div>
             </div>
         </div>
     </form>
