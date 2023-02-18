@@ -479,6 +479,16 @@ class AbstractContentTranslation(AbstractBaseModel):
             .distinct(cls.foreign_field())
         )
 
+    def path(self):
+        """
+        This method returns a human-readable path that should uniquely identify this object within a given region
+        If this content object does not have a hierarchy, just `str(obj)` should suffice
+
+        :return: The path
+        :rtype: str
+        """
+        return str(self)
+
     def __str__(self):
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method.

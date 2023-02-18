@@ -1,10 +1,13 @@
 import logging
 
+from html import escape
+
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from django.template.loader import render_to_string
 
@@ -346,6 +349,33 @@ class PageTranslation(AbstractBasePageTranslation):
             ).distinct("page")
             if t.is_outdated
         ]
+
+    def path(self):
+        """
+        This method returns a human-readable path that should uniquely identify this page translation within a given region
+
+        :return: The path
+        :rtype: str
+        """
+        label = " &rarr; ".join(
+            [
+                # escape page title because string is marked as safe afterwards
+                escape(
+                    (
+                        ancestor.prefetched_public_translations_by_language_slug.get(
+                            self.language.slug
+                        )
+                        or ancestor.best_translation
+                    ).title
+                )
+                for ancestor in self.page.get_cached_ancestors(include_self=True)
+            ]
+        )
+        # Add warning if page is archived
+        if self.page.archived:
+            label += " (&#9888; " + _("Archived") + ")"
+        # mark as safe so that the arrow and the warning triangle are not escaped
+        return mark_safe(label)
 
     class Meta:
         #: The verbose name of the model

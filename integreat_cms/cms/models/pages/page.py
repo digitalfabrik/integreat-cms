@@ -1,11 +1,8 @@
 import logging
 
-from html import escape
-
 from django.conf import settings
 from django.db import models
 from django.utils.functional import cached_property
-from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 
 from cacheops import invalidate_model
@@ -360,18 +357,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         :return: A readable string representation of the page
         :rtype: str
         """
-        label = " &rarr; ".join(
-            [
-                # escape page title because string is marked as safe afterwards
-                escape(ancestor.best_translation.title)
-                for ancestor in self.get_cached_ancestors(include_self=True)
-            ]
-        )
-        # Add warning if page is archived
-        if self.archived:
-            label += " (&#9888; " + _("Archived") + ")"
-        # mark as safe so that the arrow and the warning triangle are not escaped
-        return mark_safe(label)
+        return self.best_translation.path()
 
     def get_repr(self):
         """
