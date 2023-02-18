@@ -32,12 +32,13 @@ const insertIcon = (editor: Editor, tinymceConfig: HTMLElement, name: string): v
     editor.insertContent(`<img src="${icon}" style="width:15px; height:15px">`);
 };
 /* This function adds an icon which can be inserted in the content */
-const addIcon = (editor: Editor, tinymceConfig: HTMLElement, name: string): void => {
+const addIcon = (editor: Editor, tinymceConfig: HTMLElement, name: string, shortcut: string): void => {
     /* eslint-disable-next-line @typescript-eslint/no-var-requires, global-require, import/no-dynamic-require */
     editor.ui.registry.addIcon(name, parseSvg(require(`../../svg/${name}.svg`)));
     editor.ui.registry.addMenuItem(name, {
         text: tinymceConfig.getAttribute(`data-${name}-icon-text`),
         icon: name,
+        shortcut: shortcut,
         onAction: () => {
             insertIcon(editor, tinymceConfig, name);
         },
@@ -165,13 +166,13 @@ window.addEventListener("load", () => {
             directionality: tinymceConfig.getAttribute("data-directionality") as "ltr" | "rtl",
             element_format: "html",
             setup: (editor: Editor) => {
-                addIcon(editor, tinymceConfig, "pin");
-                addIcon(editor, tinymceConfig, "www");
-                addIcon(editor, tinymceConfig, "email");
-                addIcon(editor, tinymceConfig, "call");
-                addIcon(editor, tinymceConfig, "clock");
-                addIcon(editor, tinymceConfig, "idea");
-                addIcon(editor, tinymceConfig, "group");
+                addIcon(editor, tinymceConfig, "pin", "meta+alt+1");
+                addIcon(editor, tinymceConfig, "www", "meta+alt+2");
+                addIcon(editor, tinymceConfig, "email", "meta+alt+3");
+                addIcon(editor, tinymceConfig, "call", "meta+alt+4");
+                addIcon(editor, tinymceConfig, "clock", "meta+alt+5");
+                addIcon(editor, tinymceConfig, "idea", "meta+alt+6");
+                addIcon(editor, tinymceConfig, "group", "meta+alt+7");
                 /* eslint-disable-next-line @typescript-eslint/no-var-requires, global-require */
                 editor.ui.registry.addIcon("no-translate", parseSvg(require(`../../svg/no-translate.svg`)));
                 editor.ui.registry.addButton("notranslate", {
@@ -187,25 +188,25 @@ window.addEventListener("load", () => {
             },
             readonly: !!tinymceConfig.getAttribute("data-readonly"),
             init_instance_callback: (editor: Editor) => {
-                editor.shortcuts.add("alt+|+1", "Add pin icon", () => {
+                editor.shortcuts.add("meta+alt+1", "Add pin icon", () => {
                     insertIcon(editor, tinymceConfig, "pin");
                 });
-                editor.shortcuts.add("alt+|+2", "Add www icon", () => {
+                editor.shortcuts.add("meta+alt+2", "Add www icon", () => {
                     insertIcon(editor, tinymceConfig, "www");
                 });
-                editor.shortcuts.add("alt+|+3", "Add email icon", () => {
+                editor.shortcuts.add("meta+alt+3", "Add email icon", () => {
                     insertIcon(editor, tinymceConfig, "email");
                 });
-                editor.shortcuts.add("alt+|+4", "Add call icon", () => {
+                editor.shortcuts.add("meta+alt+4", "Add call icon", () => {
                     insertIcon(editor, tinymceConfig, "call");
                 });
-                editor.shortcuts.add("alt+|+5", "Add clock icon", () => {
+                editor.shortcuts.add("meta+alt+5", "Add clock icon", () => {
                     insertIcon(editor, tinymceConfig, "clock");
                 });
-                editor.shortcuts.add("alt+|+6", "Add idea icon", () => {
+                editor.shortcuts.add("meta+alt+6", "Add idea icon", () => {
                     insertIcon(editor, tinymceConfig, "idea");
                 });
-                editor.shortcuts.add("alt+|+7", "Add group icon", () => {
+                editor.shortcuts.add("meta+alt+7", "Add group icon", () => {
                     insertIcon(editor, tinymceConfig, "group");
                 });
 
