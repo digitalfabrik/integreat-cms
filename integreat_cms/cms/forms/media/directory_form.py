@@ -16,4 +16,4 @@ class DirectoryForm(CustomModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = Directory
         #: The fields of the model which should be handled by this form
-        fields = ("name",)
+        fields = ("name", "is_hidden")

@@ -45,6 +45,7 @@ const DirectoryContentLibrary = (props: LibraryProps) => {
         }
         // Load the new directory content
         ajaxRequest(getDirectoryContent, urlParams, setMediaLibraryContent);
+
         // Close the file sidebar
         setFileIndex(null);
         /* eslint-disable-next-line react-hooks/exhaustive-deps */

@@ -90,6 +90,14 @@ const EditSidebar = ({
         };
     }, [file]);
 
+    const onIsHiddenCheckboxClick = () => {
+        setChangedFile({
+            ...changedFile,
+            isHidden: !changedFile.isHidden,
+        });
+        console.log(changedFile);
+    };
+
     return (
         <div className="absolute w-full h-full flex flex-col rounded border border-blue-500 shadow-2xl bg-white">
             <div class="rounded w-full p-4 bg-water-500 font-bold">
@@ -221,6 +229,23 @@ const EditSidebar = ({
                         <label className="secondary my-0">{mediaTranslations.label_file_modified}</label>
                         <p>{file.lastModified}</p>
                     </div>
+                    {file.isGlobal && globalEdit && (
+                        <div className="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
+                            <label className="secondary my-0" for="file-hide-input">
+                                {mediaTranslations.label_file_is_hidden}
+                            </label>
+                            <input
+                                id="file-hide-input"
+                                name="is_hidden"
+                                type="checkbox"
+                                value={String(changedFile.isHidden)}
+                                checked={changedFile.isHidden}
+                                onClick={() => {
+                                    onIsHiddenCheckboxClick();
+                                }}
+                            />
+                        </div>
+                    )}
                     {expertMode && (
                         <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
                             <label class="secondary my-0">{mediaTranslations.label_url}</label>
@@ -238,7 +263,9 @@ const EditSidebar = ({
                     <div className="flex flex-col p-4 gap-4">
                         {isEditingAllowed ? (
                             <>
-                                {(isFileNameEditable || isAltTextEditable) && (
+                                {(isFileNameEditable ||
+                                    isAltTextEditable ||
+                                    changedFile.isHidden !== file.isHidden) && (
                                     <button title={mediaTranslations.btn_save_file} class="btn" disabled={isLoading}>
                                         <Save class="inline-block" />
                                         {mediaTranslations.btn_save_file}

@@ -81,15 +81,18 @@ def get_directory_content_ajax(request, region_slug=None):
     directory = None
     if request.GET.get("directory"):
         directory = get_object_or_404(
-            Directory.objects.filter(Q(region=region) | Q(region__isnull=True)),
+            Directory.objects.filter(
+                Q(region=region) | Q(region__isnull=True, is_hidden=False),
+            ),
             id=request.GET.get("directory"),
         )
 
     media_files = MediaFile.objects.filter(
-        Q(region=region) | Q(region__isnull=True), Q(parent_directory=directory)
+        Q(region=region) | Q(region__isnull=True, is_hidden=False),
+        Q(parent_directory=directory),
     )
     directories = Directory.objects.filter(
-        Q(region=region) | Q(region__isnull=True), parent=directory
+        Q(region=region) | Q(region__isnull=True, is_hidden=False), parent=directory
     )
 
     result = list(map(lambda d: d.serialize(), list(directories) + list(media_files)))

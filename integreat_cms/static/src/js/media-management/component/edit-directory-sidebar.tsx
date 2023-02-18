@@ -44,6 +44,13 @@ const EditDirectorySidebar = ({
         setDirectoryNameEditable(false);
     }, [directory]);
 
+    const onIsHiddenCheckboxClick = () => {
+        setChangedDirectory({
+            ...changedDirectory,
+            isHidden: !changedDirectory.isHidden,
+        });
+    };
+
     return (
         <div className="absolute w-full h-full flex flex-col rounded border border-blue-500 bg-white border-solid shadow-2xl">
             <div class="rounded w-full p-4 bg-water-500 font-bold">
@@ -105,17 +112,34 @@ const EditDirectorySidebar = ({
                         <label class="secondary my-0">{mediaTranslations.label_directory_created}</label>
                         <p>{directory.CreatedDate}</p>
                     </div>
+                    {directory.isGlobal && globalEdit && (
+                        <div class="flex flex-wrap justify-between gap-2 p-4 border-b">
+                            <label class="secondary my-0" for="directory-hide-input">
+                                {mediaTranslations.label_directory_is_hidden}
+                            </label>
+                            <input
+                                id="directory-hide-input"
+                                name="is_hidden"
+                                type="checkbox"
+                                value={String(changedDirectory.isHidden)}
+                                checked={changedDirectory.isHidden}
+                                onClick={() => {
+                                    onIsHiddenCheckboxClick();
+                                }}
+                            />
+                        </div>
+                    )}
                     <div class="p-4">
                         {isEditingAllowed ? (
                             <div class="flex flex-col gap-4">
-                                {isDirectoryNameEditable && (
+                                {(isDirectoryNameEditable || changedDirectory.isHidden !== directory.isHidden) && (
                                     <button
-                                        title={mediaTranslations.btn_rename_directory}
+                                        title={mediaTranslations.btn_change_directory}
                                         class="btn"
                                         type="submit"
                                         disabled={isLoading}>
                                         <Save class="mr-1 inline-block h-5" />
-                                        {mediaTranslations.btn_rename_directory}
+                                        {mediaTranslations.btn_change_directory}
                                     </button>
                                 )}
                                 {canDeleteDirectory && (

@@ -43,7 +43,7 @@ class MediaContextMixin(ContextMixin):
                 "btn_create": _("Create"),
                 "btn_enter_directory": _("Enter directory"),
                 "btn_create_directory": _("Create directory"),
-                "btn_rename_directory": _("Rename directory"),
+                "btn_change_directory": _("Save changes"),
                 "btn_delete_directory": _("Delete directory"),
                 "btn_delete_empty_directory": _(
                     "You can only delete empty directories"
@@ -63,6 +63,8 @@ class MediaContextMixin(ContextMixin):
                 "label_file_uploaded": _("File uploaded on:"),
                 "label_file_modified": _("File modified on:"),
                 "label_directory_created": _("Directory created on:"),
+                "label_directory_is_hidden": _("Hide this directory:"),
+                "label_file_is_hidden": _("Hide this file:"),
                 "label_alt_text": _("Alternative text:"),
                 "text_enter_directory_name": _("Enter directory name here"),
                 "text_file_readonly": _("This file is read-only and cannot be edited."),
