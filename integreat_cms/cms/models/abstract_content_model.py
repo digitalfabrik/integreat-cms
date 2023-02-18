@@ -1,6 +1,5 @@
 import logging
-
-from copy import deepcopy
+from copy import copy
 
 from django.db import models
 from django.utils.functional import cached_property
@@ -256,8 +255,8 @@ class AbstractContentModel(AbstractBaseModel):
                 )
             )
             if public_translation:
-                # Create copy in memory to make sure original translation is not affected by changes
-                public_translation = deepcopy(public_translation)
+                public_translation = copy(public_translation)
+                public_translation.read_only = True
                 # Reset id to make sure id does not conflict with existing translation
                 public_translation.id = None
                 # Fake the requested language
@@ -380,6 +379,16 @@ class AbstractContentModel(AbstractBaseModel):
         :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
         return self.get_translation(self.region.default_language.slug)
+
+    @cached_property
+    def default_public_translation(self):
+        """
+        This function returns the public translation of this content object in the region's default language.
+
+        :return: The default translation of a content object
+        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
+        """
+        return self.get_public_translation(self.region.default_language.slug)
 
     @cached_property
     def best_translation(self):
