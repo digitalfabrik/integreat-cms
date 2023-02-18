@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-11-08T15:52:56+00:00" />
+    <meta property="article:modified_time" content="2023-02-18T12:03:40+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Code Style Guidelines &mdash; integreat-cms 2023.2.0 documentation</title>
+  <title>Debugging (Django Debug Toolbar) &mdash; integreat-cms 2023.2.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/integreat-icon.svg"/>
-    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/code-style.html" />
+    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/debugging.html" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -21,8 +21,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="GitHub Workflow" href="git-flow.html" />
-    <link rel="prev" title="Pull Request Review Guidelines" href="pull-request-review-guide.html" /> 
+    <link rel="next" title="Packaging" href="packaging.html" />
+    <link rel="prev" title="Continuous Integration (CircleCI)" href="continuous-integration.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -1115,7 +1115,7 @@
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Basic Concepts</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="virtualenv.html">Virtual Environment (Pipenv)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#install-dependencies">Install dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#add-dependencies">Add dependencies</a></li>
@@ -1229,7 +1229,7 @@
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#unauthorized-circleci">⚠ Unauthorized (CircleCI)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging (Django Debug Toolbar)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Debugging (Django Debug Toolbar)</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Deployment</span></p>
 <ul>
@@ -1307,7 +1307,7 @@
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Contributing</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="issue-reporting.html">Issue Reporting Guidelines</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="issue-reporting.html#issue-templates">Issue Templates</a></li>
 <li class="toctree-l2"><a class="reference internal" href="issue-reporting.html#bug-report">Bug Report</a><ul>
@@ -1338,13 +1338,13 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Code Style Guidelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#black">Black</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#djlint">DjLint</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#prettier">Prettier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#linting">Linting</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#docstrings">Docstrings</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#shellcheck">Shellcheck</a></li>
+<li class="toctree-l1"><a class="reference internal" href="code-style.html">Code Style Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="code-style.html#black">Black</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-style.html#djlint">DjLint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-style.html#prettier">Prettier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-style.html#linting">Linting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="git-flow.html">GitHub Workflow</a><ul>
@@ -1402,7 +1402,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Code Style Guidelines</li>
+      <li class="breadcrumb-item active">Debugging (Django Debug Toolbar)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -1411,122 +1411,26 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="code-style-guidelines">
-<h1>Code Style Guidelines<a class="headerlink" href="#code-style-guidelines" title="Permalink to this heading"></a></h1>
-<section id="black">
-<span id="black-code-style"></span><h2>Black<a class="headerlink" href="#black" title="Permalink to this heading"></a></h2>
-<p>We use the <a class="reference external" href="https://github.com/psf/black">black</a> coding style, a flavour of <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP-8</a> for Python.</p>
-<p>We use a <a class="reference external" href="https://pre-commit.com/">pre-commit-hook</a> to apply this style before committing, so you don’t have to bother about formatting.
-Just code how you feel comfortable and let the tool do the work for you (see <a class="reference internal" href="git-flow.html#pre-commit-hooks"><span class="std std-ref">Pre-commit Hooks</span></a>).</p>
-<p>If you want to apply the formatting without committing, use our developer tool <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/black.sh">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/black.sh</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">black</span><span class="o">.</span><span class="n">sh</span>
+  <section id="debugging-django-debug-toolbar">
+<h1>Debugging (Django Debug Toolbar)<a class="headerlink" href="#debugging-django-debug-toolbar" title="Permalink to this heading"></a></h1>
+<p>We use the <a class="reference external" href="https://django-debug-toolbar.readthedocs.io/en/latest/index.html" title="(in Django Debug Toolbar)"><span>Django Debug Toolbar</span></a> to debug the CMS.
+When <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std-setting-DEBUG" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></a> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, on every HTML page a sidebar is rendered which contains
+additional information about the current request, e.g. code execution times, database queries and profiling info.</p>
+<p>When the sidebar is collapsed, you can show it by clicking on the “DJDT” button somewhere along the right edge of the screen:</p>
+<img alt="DJDT sidebar" src="_images/django-debug-toolbar.png" />
+<p>In order to use this for JSON views, you have to append <code class="docutils literal notranslate"><span class="pre">?debug</span></code> to the URL, e.g.:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>http://localhost:8000/api/augsburg/de/pages?debug
 </pre></div>
 </div>
-</section>
-<section id="djlint">
-<span id="id2"></span><h2>DjLint<a class="headerlink" href="#djlint" title="Permalink to this heading"></a></h2>
-<p>We use <a class="reference external" href="https://www.djlint.com/">djlint</a> to format our Django HTML templates.</p>
-<p>We use a <a class="reference external" href="https://pre-commit.com/">pre-commit-hook</a> to apply this style before committing, so you don’t have to bother about formatting.
-Just code how you feel comfortable and let the tool do the work for you (see <a class="reference internal" href="git-flow.html#pre-commit-hooks"><span class="std std-ref">Pre-commit Hooks</span></a>).</p>
-<p>If you want to apply the formatting without committing, use our developer tool <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/djlint.sh">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/djlint.sh</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">djlint</span><span class="o">.</span><span class="n">sh</span>
-</pre></div>
-</div>
-</section>
-<section id="prettier">
-<span id="prettier-code-style"></span><h2>Prettier<a class="headerlink" href="#prettier" title="Permalink to this heading"></a></h2>
-<p>We use <a class="reference external" href="https://prettier.io/">prettier</a> to format our static JS and CSS files.</p>
-<p>We use a <a class="reference external" href="https://pre-commit.com/">pre-commit-hook</a> to apply this style before committing, so you don’t have to bother about formatting.
-Just code how you feel comfortable and let the tool do the work for you (see <a class="reference internal" href="git-flow.html#pre-commit-hooks"><span class="std std-ref">Pre-commit Hooks</span></a>).</p>
-<p>If you want to apply the formatting without committing, use our developer tool <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/prettier.sh">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/prettier.sh</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">prettier</span><span class="o">.</span><span class="n">sh</span>
-</pre></div>
-</div>
-</section>
-<section id="linting">
-<span id="pylint"></span><h2>Linting<a class="headerlink" href="#linting" title="Permalink to this heading"></a></h2>
-<p>In addition to black, we use pylint to check the code for semantic correctness.
-Run pylint with our developer tool <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/pylint.sh">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/pylint.sh</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">pylint</span><span class="o">.</span><span class="n">sh</span>
-</pre></div>
-</div>
-<p>When you think a warning is a false positive, add a comment before the specific line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=unused-argument</span>
-<span class="k">def</span> <span class="nf">some_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Please use the string identifiers (<code class="docutils literal notranslate"><span class="pre">unused-argument</span></code>) instead of the alphanumeric code (<code class="docutils literal notranslate"><span class="pre">W0613</span></code>) when disabling warnings.</p>
-</div>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<p>If you want to run both tools at once, use our developer tool <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/code_style.sh">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/code_style.sh</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">code_style</span><span class="o">.</span><span class="n">sh</span>
-</pre></div>
-</div>
-</div>
-</section>
-<section id="docstrings">
-<h2>Docstrings<a class="headerlink" href="#docstrings" title="Permalink to this heading"></a></h2>
-<p>Please add docstrings in the sphinx format (see <a class="reference external" href="https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html" title="(in Sphinx-RTD-Tutorial)"><span>Writing docstrings</span></a>):</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">[Summary]</span>
-
-<span class="sd">:param [ParamName]: [ParamDescription], defaults to [DefaultParamVal]</span>
-<span class="sd">:type [ParamName]: [ParamType](, optional)</span>
-<span class="sd">...</span>
-
-<span class="sd">:raises [ErrorType]: [ErrorDescription]</span>
-<span class="sd">...</span>
-
-<span class="sd">:return: [ReturnDescription]</span>
-<span class="sd">:rtype: [ReturnType]</span>
-<span class="sd">&quot;&quot;&quot;</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Please use the correct Python <a class="reference external" href="https://docs.python.org/3.9/library/datatypes.html" title="(in Python v3.9)"><span>Data Types</span></a> (e.g. <code class="docutils literal notranslate"><span class="pre">str</span></code> instead of <code class="docutils literal notranslate"><span class="pre">string</span></code>, <code class="docutils literal notranslate"><span class="pre">int</span></code> instead
-of <code class="docutils literal notranslate"><span class="pre">integer</span></code>) and provide absolute paths to any referenced classes (e.g. <code class="docutils literal notranslate"><span class="pre">~integreat_cms.cms.models.regions.region.Region</span></code>).
-If the module path is very long or doesn’t add much information, consider using a tilde <code class="docutils literal notranslate"><span class="pre">~</span></code> as prefix to show only
-the class name.</p>
-</div>
-<div class="admonition hint">
-<p class="admonition-title">Hint</p>
-<p>In the model documentation, the parameters are not required, because they are automatically derived from the
-model field type.</p>
-</div>
-<p>Whenever you want to document module/class attributes which are not parameters (i.e. because they are not passed to the
-<code class="docutils literal notranslate"><span class="pre">__init__()</span></code>-function or contain static values), use inline comments:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#: Description of attribute</span>
-<span class="n">attribute</span> <span class="o">=</span> <span class="s2">&quot;value of this attribute&quot;</span>
-</pre></div>
-</div>
-<p>See the configuration files <a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.settings" title="integreat_cms.core.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">settings</span></code></a> and <a class="reference internal" href="documentation.html#module-conf" title="conf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">conf</span></code></a> or <a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants" title="integreat_cms.cms.constants"><code class="xref py py-mod docutils literal notranslate"><span class="pre">constants</span></code></a> for examples.</p>
-</section>
-<section id="shellcheck">
-<span id="id6"></span><h2>Shellcheck<a class="headerlink" href="#shellcheck" title="Permalink to this heading"></a></h2>
-<p>All developer tools in the <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools</a> directory have to comply to the standards of shellcheck (see
-<a class="reference external" href="https://github.com/koalaman/shellcheck/wiki">ShellCheck wiki</a>).
-Shellcheck is run both in the CI-pipeline of CircleCI (see <a class="reference internal" href="continuous-integration.html#circleci-shellcheck"><span class="std std-ref">shellcheck/check</span></a>) and as pre-commit hook (see
-<a class="reference internal" href="git-flow.html#pre-commit-hooks"><span class="std std-ref">Pre-commit Hooks</span></a>) and can be run locally with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shellcheck</span> <span class="o">-</span><span class="n">x</span> <span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/*</span>
-</pre></div>
-</div>
-<p>False positives can be <a class="reference external" href="https://github.com/koalaman/shellcheck/wiki/Ignore">ignored</a> with the syntax:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># shellcheck disable=SC2059</span>
-</pre></div>
-</div>
-</section>
+<p>(See <a class="reference internal" href="ref-ext/integreat_cms.api.middleware.html#integreat_cms.api.middleware.json_debug_toolbar_middleware.JsonDebugToolbarMiddleware" title="integreat_cms.api.middleware.json_debug_toolbar_middleware.JsonDebugToolbarMiddleware"><code class="xref py py-class docutils literal notranslate"><span class="pre">JsonDebugToolbarMiddleware</span></code></a> for reference.)</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pull-request-review-guide.html" class="btn btn-neutral float-left" title="Pull Request Review Guidelines" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="git-flow.html" class="btn btn-neutral float-right" title="GitHub Workflow" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="continuous-integration.html" class="btn btn-neutral float-left" title="Continuous Integration (CircleCI)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="packaging.html" class="btn btn-neutral float-right" title="Packaging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -1536,7 +1440,7 @@ Shellcheck is run both in the CI-pipeline of CircleCI (see <a class="reference i
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 08, 2022.
+      <span class="lastupdated">Last updated on Feb 18, 2023.
       </span></p>
   </div>
 
