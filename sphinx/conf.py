@@ -94,6 +94,7 @@ intersphinx_mapping = {
         "https://sphinx-rtd-tutorial.readthedocs.io/en/latest/",
         None,
     ),
+    "db_mutex": ("https://django-db-mutex.readthedocs.io/en/latest/", None),
     "django": (
         f"https://docs.djangoproject.com/en/{django_version}/",
         f"https://docs.djangoproject.com/en/{django_version}/_objects/",
