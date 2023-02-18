@@ -5,6 +5,7 @@ UNRELEASED
 * [ [#2032](https://github.com/digitalfabrik/integreat-cms/issues/2032) ] Remove gap between sidebar boxes in location form
 * [ [#1989](https://github.com/digitalfabrik/integreat-cms/issues/1989) ] Improve load time of locations endpoint
 * [ [#1578](https://github.com/digitalfabrik/integreat-cms/issues/1578) ] Add option to hide files in global media library
+* [ [#1752](https://github.com/digitalfabrik/integreat-cms/issues/1752) ] Show chapter for internal link suggestions
 
 
 2023.2.0
@@ -29,7 +30,6 @@ UNRELEASED
 * [ [#2008](https://github.com/digitalfabrik/integreat-cms/issues/2008) ] Fix end date of recurring events in API
 * [ [#1954](https://github.com/digitalfabrik/integreat-cms/issues/1954) ] Fix RTL text direction in PDF export
 * [ [#1883](https://github.com/digitalfabrik/integreat-cms/issues/1883) ] Add icon and color to POI Category
-* [ [#1752](https://github.com/digitalfabrik/integreat-cms/issues/1752) ] Show chapter for internal link suggestions
 
 
 2023.1.1
