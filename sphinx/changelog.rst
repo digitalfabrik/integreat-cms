@@ -4,9 +4,21 @@ Changelog
 UNRELEASED
 ----------
 
+
+2023.1.2
+--------
+
 * [ :github:`#1968 <issues/1968>` ] Fix media library permissions for observer
 * [ :github:`#1883 <issues/1883>` ] Introduce new status for automatic translations
 * [ :github:`#1993 <issues/1993>` ] Skip duplicate page translations in XLIFF file
+* [ :github:`#1769 <issues/1769>` ] Evenly distribute page, event and poi form sidebar boxes
+* [ :github:`#2033 <issues/2033>` ] Add user setting to optionally enable the automatic distribution of sidebar boxes
+* [ :github:`#1876 <issues/1876>` ] Make items in the sidebar of poi and event form toggleable
+* [ :github:`#2023 <issues/2023>` ] Rephrase texts in text understandability-box
+* [ :github:`#1552 <issues/1552>` ] Make slugfield scrollable
+* [ :github:`#2008 <issues/2008>` ] Fix end date of recurring events in API
+* [ :github:`#1954 <issues/1954>` ] Fix RTL text direction in PDF export
+* [ :github:`#1883 <issues/1883>` ] Add icon and color to POI Category
 
 
 2023.1.1
@@ -22,7 +34,6 @@ UNRELEASED
 * [ :github:`#1345 <issues/1345>` ] Track DeepL API usage by regions
 * [ :github:`#1695 <issues/1695>` ] Treat URLs with broken hash anchors as valid in link checker
 * [ :github:`#1969 <issues/1969>` ] Hide edit link button in content forms for users without edit permission
-* [ :github:`#1739 <issues/1739>` ] Fix handling of running into rate limit when translating via SUMM.AI
 
 
 2022.12.3

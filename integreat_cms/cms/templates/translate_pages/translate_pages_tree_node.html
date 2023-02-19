@@ -3,6 +3,7 @@
 {% load page_filters %}
 {% load tree_filters %}
 {% get_translation page language.slug as page_translation %}
+
 <tr id="page-{{ page.id }}-drop-left"
     data-drop-id="{{ page.id }}"
     data-drop-position="left"
@@ -19,7 +20,9 @@
     data-drop-id="{{ page.id }}"
     data-drop-position="last-child"
     class="page-row drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 level-{{ page.relative_depth }} {% if parent_id %} hidden parent-page-{{ parent_id }}{% endif %}">
-    {% if not filter_form.is_enabled %}
+<form id="translate-pages-form" method="post">
+   {% csrf_token %}
+   {% if not filter_form.is_enabled %}
         <td class="hierarchy single_icon whitespace-nowrap">
             <span data-drag-id="{{ page.id }}"
                   data-node-descendants="{{ page|get_descendant_ids }}"
@@ -113,22 +116,36 @@
                     {% endfor %}
                 {% endspaceless %}
             </div>
-        </div>
+        </div> 
     </td>
     <td>
-        <div class="block py-1.5 px-1.5 text-gray-800">
-            <select name="language" id="language">
-                <option value="">{% translate "Select language" %}</option>
-            {% for language in languages %}
-                <option value="{{ language }}">{{ language.translated_name }}</option>
-            {% endfor %}
-                <option value="all_languages">{% translate "Translate to all languages"%}</option>
-            </select>
+        <div id="translate-language-selector-{{ page.id }}" class="select-container flex-col text-lg w-full relative inline-block">
+            <span class="relative inline-block hover:bg-gray-200 cursor-pointer flex justify-between bg-white py-2 px-4 rounded shadow hover:bg-gray-200 border-2 border-white whitespace-nowrap">
+                {% translate "Select language" %}
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="chevron-down" class="lucide lucide-chevron-down -mr-2 h-5 inline-block" id="translate-language-selector-chevron-{{ page.id }}"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </span>
+            </span>
+            
+            <div class="select-list bg-white w-full absolute z-10 flex-col hover:visible hidden">
+                <ul id="translate-language-selector-ul-{{ page.id }}">
+                    <label class="font-normal shadow whitespace-nowrap {% if forloop.last %} rounded-b{% endif %} px-4 py-2 m-0 text-gray-800 hover:bg-gray-200 bg-white">
+                        <input type="checkbox" id="select-all" value="all">
+                        {% translate "Select all" %}
+                    </label>
+                    {% for language in languages_to_translate %}
+                    <label class="font-normal shadow whitespace-nowrap {% if forloop.last %} rounded-b{% endif %} px-4 py-2 m-0 text-gray-800 hover:bg-gray-200 bg-white">
+                        <input type="checkbox" value="{{ language.id }}">
+                        {{ language }}
+                    </label>
+                    {% endfor %}
+                </ul>
+            </div>
         </div>
-    </td>
+     </td>
     <td> 
         <div class="pl-2 pr-4 py-1.5 text-right flex flex-nowrap gap-2">
-        <!-- @TODO: --> 9 {{ page_translation.hix_value }}
+        <!-- @TODO:  9 {{ page_translation.hix_value }} --> 
         </div>
     </td>
     <td>
@@ -136,11 +153,12 @@
             <!-- @TODO - check value / variable setting -->
         <!-- { if page_translation.hix_value > MIN_HIX_TO_TRANSLATE  } -->
         {% if page_translation.title == "Willkommen"  %}
-            <button id="@TODO" class="btn">{% translate "Translate" %}</button>
+            <button id="translate-page-submit-{{ page.id }}" class="btn" disabled="">{% translate "Translate" %}</button>
         {% else  %}
-            <button id="@TODO" class="btn" disabled="">{% translate "Adjust HIX-value" %}</button><br />
+            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=page_translation.language.slug %}" class="btn disabled">                    {% translate "Adjust HIX-value" %}
+            </a><br />
         {% endif %}
         </div>
     </td>
+</form>
 </tr>
- 

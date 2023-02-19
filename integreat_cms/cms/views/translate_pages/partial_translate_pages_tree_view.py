@@ -2,13 +2,12 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from integreat_cms.cms.views.translate_pages.translate_pages_context_mixin import TranslatePagesContextMixin
-
 from ...decorators import permission_required
 
-# @TODO: perm for machine translation
+
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
-class PartialTranslatePagesTreeView(TemplateView, TranslatePagesContextMixin):
+@method_decorator(permission_required("cms.manage_translations"), name="dispatch")
+class PartialTranslatePagesTreeView(TemplateView):
     """
     View for rendering a partial page tree
     """

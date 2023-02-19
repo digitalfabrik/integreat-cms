@@ -152,13 +152,11 @@
                         <div class="min-h-3 pl-2">
                             <p class="font-bold">{% translate "Translations" %}</p>
                         </div>
-                        {% if perms.cms.manage_translations %}
                             <a href="{% url 'translations_management' region_slug=request.region.slug %}"
                                class="{% if current_menu_item == 'translations_management' %} active{% endif %}">
                                 <i icon-name='sliders'></i>
                                 {% translate "Manage Translations" %}
                             </a>
-                        {% endif %}
                             <a href="{% url 'translate_pages' region_slug=request.region.slug %}"
                                 class="{% if current_menu_item == 'translate_pages' %} active{% endif %}">
                                 <i icon-name='check-circle'></i>

@@ -729,22 +729,26 @@ urlpatterns = [
                     ),
                 ),
                 path(
-                "translations/",
-                include(
-                    [
-                        path(
-                            "manage/",
-                            translations.TranslationsManagementView.as_view(),
-                            name="translations_management",
-                        ),
-                    ],
+                    "translations/",
+                    include(
+                        [
+                            path(
+                                "manage/",
+                                translations.TranslationsManagementView.as_view(),
+                                name="translations_management",
+                            ),
+                        ],
                     ),
                 ),
                 path(
-                "translate_pages/", 
+                    "translate_pages/",
                     include(
                         [
-                            path("", translate_pages.TranslatePagesView.as_view(), name="translate_pages"),
+                            path(
+                                "",
+                                translate_pages.TranslatePagesView.as_view(),
+                                name="translate_pages",
+                            ),
                             path(
                                 "<slug:language_slug>/",
                                 include(
@@ -755,11 +759,10 @@ urlpatterns = [
                                             name="translate_pages",
                                         ),
                                     ]
-                                )
-                            )
-
+                                ),
+                            ),
                         ]
-                    )
+                    ),
                 ),
                 path(
                     "pages/",

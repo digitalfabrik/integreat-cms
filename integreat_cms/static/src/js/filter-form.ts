@@ -1,3 +1,6 @@
+import { AlignLeft } from "lucide";
+import { FormattedSection } from "maplibre-gl";
+
 /*
  * Scripts for filter forms
  */

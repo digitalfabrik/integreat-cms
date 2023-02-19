@@ -69,6 +69,7 @@ import "./js/analytics/translation_coverage.ts";
 import "./js/analytics/linkcheck-widget.ts";
 
 import "./js/translations/budget-graph.ts";
+import "./js/translations/translate-pages-forms.ts";
 
 import "./js/user/user-creation-workflow.ts";
 import "./js/user/user-roles.ts";
