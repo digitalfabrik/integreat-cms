@@ -42,7 +42,7 @@ def test_duplicate_regions(load_test_data, admin_client):
     target_region = Region.objects.get(slug="cloned")
 
     # Check if all cloned pages exist and are identical
-    source_pages = source_region.pages.all()
+    source_pages = source_region.non_archived_pages
     target_pages = target_region.pages.all()
     assert len(source_pages) == len(target_pages)
     for source_page, target_page in zip(source_pages, target_pages):
