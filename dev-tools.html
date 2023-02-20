@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-12-07T11:10:27+00:00" />
+    <meta property="article:modified_time" content="2023-02-20T13:29:38+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Developer Tools &mdash; integreat-cms 2023.2.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -78,6 +78,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#code-quality">Code Quality</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#github-review-checker">GitHub Review Checker</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#included-functions">Included Functions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#debugging">Debugging</a></li>
 </ul>
@@ -1533,6 +1534,17 @@ directories as well as the compiled html output in <code class="docutils literal
 generation script to fail if e.g. source files were added or deleted.</p></li>
 </ul>
 </section>
+<section id="github-review-checker">
+<h2>GitHub Review Checker<a class="headerlink" href="#github-review-checker" title="Permalink to this heading"></a></h2>
+<p>Check your current review score with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/have_i_reviewed_enough.sh">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/have_i_reviewed_enough.sh</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">have_i_reviewed_enough</span><span class="o">.</span><span class="n">sh</span> <span class="p">[</span><span class="o">--</span><span class="n">since</span><span class="o">=</span><span class="n">DATE</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--since=DATE</span></code>: Only take PRs into account which were updated after <code class="docutils literal notranslate"><span class="pre">DATE</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">2023-01-01</span></code>, <code class="docutils literal notranslate"><span class="pre">-2</span> <span class="pre">months</span></code> or <code class="docutils literal notranslate"><span class="pre">last</span> <span class="pre">week</span></code>)</p></li>
+</ul>
+</section>
 <section id="included-functions">
 <h2>Included Functions<a class="headerlink" href="#included-functions" title="Permalink to this heading"></a></h2>
 <p>All scripts <code class="docutils literal notranslate"><span class="pre">source</span></code> the file <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/_functions.sh">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/_functions.sh</a> which defines re-usable functions and variables.</p>
@@ -1559,7 +1571,7 @@ This will activate both the bash options <code class="docutils literal notransla
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Dec 07, 2022.
+      <span class="lastupdated">Last updated on Feb 20, 2023.
       </span></p>
   </div>
 
