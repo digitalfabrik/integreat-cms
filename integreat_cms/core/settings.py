@@ -247,6 +247,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Installed third-party-apps
     "corsheaders",
+    "db_mutex",
     "linkcheck",
     "polymorphic",
     "rules.apps.AutodiscoverRulesConfig",
@@ -1012,3 +1013,11 @@ XLIFF_DOWNLOAD_DIR = os.path.join(XLIFF_ROOT, "download")
 
 #: The URL path where XLIFF files are served for download
 XLIFF_URL = "/xliff/"
+
+
+############
+# DB Mutex #
+############
+
+# Our database operations should never exceed 60 seconds
+DB_MUTEX_TTL_SECONDS = 60

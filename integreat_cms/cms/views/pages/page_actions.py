@@ -16,6 +16,7 @@ from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 from django.db import transaction
 
+from db_mutex import DBMutexError, DBMutexTimeoutError
 from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
 
 from ....api.decorators import json_response
@@ -491,7 +492,13 @@ def move_page(request, region_slug, language_slug, page_id, target_id, position)
                 page=page.best_translation.title
             ),
         )
-    except (ValueError, InvalidPosition, InvalidMoveToDescendant) as e:
+    except (
+        ValueError,
+        InvalidPosition,
+        InvalidMoveToDescendant,
+        DBMutexTimeoutError,
+        DBMutexError,
+    ) as e:
         messages.error(request, e)
         logger.exception(e)
 
