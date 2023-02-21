@@ -34,7 +34,6 @@ const DirectoryContent = ({
 }: Props) => {
     // The file index contains the index of the file which is currently opened in the sidebar
     const [fileIndex, setFileIndex] = fileIndexState;
-
     return (
         <div className="grid grid-cols-gallery max-h-full gap-1">
             {mediaLibraryContent.map((entry: MediaLibraryEntry, index: number) =>

@@ -1,6 +1,14 @@
 UNRELEASED
 ----------
 
+* [ [#2056](https://github.com/digitalfabrik/integreat-cms/issues/2056) ] Change restriction of event duration to 28 days
+* [ [#2032](https://github.com/digitalfabrik/integreat-cms/issues/2032) ] Remove gap between sidebar boxes in location form
+* [ [#1989](https://github.com/digitalfabrik/integreat-cms/issues/1989) ] Improve load time of locations endpoint
+* [ [#1578](https://github.com/digitalfabrik/integreat-cms/issues/1578) ] Add option to hide files in global media library
+* [ [#1752](https://github.com/digitalfabrik/integreat-cms/issues/1752) ] Show chapter for internal link suggestions
+* [ [#1965](https://github.com/digitalfabrik/integreat-cms/issues/1965) ] Add ical rrule for recurring events
+* [ [#1518](https://github.com/digitalfabrik/integreat-cms/issues/1518) ] Prevent database corruption when moving 2 pages at the same time
+
 
 2023.2.0
 --------

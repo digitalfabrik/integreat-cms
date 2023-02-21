@@ -44,6 +44,7 @@ export type File = {
     uploadedDate: Date;
     lastModified: Date;
     isGlobal: boolean;
+    isHidden: boolean;
 };
 
 export type Directory = {
@@ -53,6 +54,7 @@ export type Directory = {
     numberOfEntries: number;
     CreatedDate: Date;
     isGlobal: boolean;
+    isHidden: boolean;
     type: "directory";
 };
 

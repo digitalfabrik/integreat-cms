@@ -4,6 +4,7 @@ from datetime import time, timedelta, datetime
 
 from django import forms
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 from ...models import Event
 from ..custom_model_form import CustomModelForm
@@ -171,13 +172,15 @@ class EventForm(CustomModelForm):
                                 code="invalid",
                             ),
                         )
-            elif cleaned_data["end_date"] - cleaned_data["start_date"] > timedelta(6):
+            elif cleaned_data["end_date"] - cleaned_data["start_date"] > timedelta(
+                settings.MAX_EVENT_DURATION - 1
+            ):
                 self.add_error(
                     "end_date",
                     forms.ValidationError(
                         _(
-                            "The maximum duration for events is 7 days. Consider using recurring events if the event is not continuous."
-                        ),
+                            "The maximum duration for events is {} days. Consider using recurring events if the event is not continuous."
+                        ).format(settings.MAX_EVENT_DURATION),
                         code="invalid",
                     ),
                 )

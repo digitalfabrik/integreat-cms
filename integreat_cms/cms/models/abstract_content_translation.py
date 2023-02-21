@@ -72,6 +72,8 @@ class AbstractContentTranslation(AbstractBaseModel):
         on_delete=models.SET_NULL,
         verbose_name=_("creator"),
     )
+    #: Whether this object is read-only and not meant to be stored to the database
+    read_only = False
 
     @staticmethod
     def foreign_field():
@@ -479,6 +481,16 @@ class AbstractContentTranslation(AbstractBaseModel):
             .distinct(cls.foreign_field())
         )
 
+    def path(self):
+        """
+        This method returns a human-readable path that should uniquely identify this object within a given region
+        If this content object does not have a hierarchy, just `str(obj)` should suffice
+
+        :return: The path
+        :rtype: str
+        """
+        return str(self)
+
     def __str__(self):
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method.
@@ -515,7 +527,13 @@ class AbstractContentTranslation(AbstractBaseModel):
 
         :param \**kwargs: The supplied kwargs
         :type \**kwargs: dict
+
+        :raises RuntimeError: When the object was locked for database writes
         """
+        if self.read_only:
+            raise RuntimeError(
+                "This object is read-only - changes cannot be saved to the database."
+            )
         if kwargs.pop("update_timestamp", True):
             self.last_updated = timezone.now()
         super().save(*args, **kwargs)

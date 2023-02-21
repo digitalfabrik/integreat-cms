@@ -89,6 +89,9 @@ def transform_event_translation(event_translation, recurrence_date=None):
         "location": transform_poi(event.location),
         "event": transform_event(event, recurrence_date),
         "hash": None,
+        "recurrence_rule": event.recurrence_rule.to_ical_rrule_string()
+        if event.recurrence_rule
+        else None,
     }
 
 
@@ -136,17 +139,17 @@ def transform_event_recurrences(event_translation, today):
     :return: An iterator over all future recurrences up to ``settings.API_EVENTS_MAX_TIME_SPAN_DAYS``
     :rtype: Iterator[:class:`~datetime.date`]
     """
+
     event = event_translation.event
     recurrence_rule = event.recurrence_rule
     if not recurrence_rule:
         return
 
-    # In order to avoid unnecessary computations, check if any future event
-    # may be valid and return early if that is not the case
-    if (
+    event_is_invalid = (
         recurrence_rule.recurrence_end_date
         and recurrence_rule.recurrence_end_date < today
-    ):
+    )
+    if event_is_invalid:
         return
 
     start_date = event.start_local.date()
@@ -185,16 +188,17 @@ def events(request, region_slug, language_slug):
     region = request.region
     # Throw a 404 error when the language does not exist or is disabled
     region.get_language_or_404(language_slug, only_active=True)
+
     result = []
     now = timezone.now().date()
     for event in region.events.prefetch_public_translations().filter(archived=False):
-        event_translation = event.get_public_translation(language_slug)
-        if event_translation:
-            if event.end_local.date() >= now:
+        if event_translation := event.get_public_translation(language_slug):
+            # Either it's in the future or it's recurring and the last recurrence is >= now
+            if not event.is_past:
                 result.append(transform_event_translation(event_translation))
-
-            for future_event in transform_event_recurrences(event_translation, now):
-                result.append(future_event)
+            if "combine_recurring" not in request.GET:
+                for future_event in transform_event_recurrences(event_translation, now):
+                    result.append(future_event)
 
     return JsonResponse(
         result, safe=False

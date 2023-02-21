@@ -23,4 +23,5 @@ class MediaFileForm(CustomModelForm):
         fields = (
             "name",
             "alt_text",
+            "is_hidden",
         )

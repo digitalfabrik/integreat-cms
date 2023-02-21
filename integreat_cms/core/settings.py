@@ -83,6 +83,9 @@ AUTHOR_CHAT_HISTORY_DAYS = 30
 #: The time span up to which recurrent events should be returned by the api
 API_EVENTS_MAX_TIME_SPAN_DAYS = 31
 
+#: The maximum duration of an event
+MAX_EVENT_DURATION = int(os.environ.get("INTEGREAT_CMS_MAX_EVENT_DURATION", 28))
+
 #: The company operating this CMS
 COMPANY = os.environ.get("INTEGREAT_CMS_COMPANY", "Tür an Tür – Digitalfabrik gGmbH")
 
@@ -244,6 +247,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Installed third-party-apps
     "corsheaders",
+    "db_mutex",
     "linkcheck",
     "polymorphic",
     "rules.apps.AutodiscoverRulesConfig",
@@ -1009,3 +1013,11 @@ XLIFF_DOWNLOAD_DIR = os.path.join(XLIFF_ROOT, "download")
 
 #: The URL path where XLIFF files are served for download
 XLIFF_URL = "/xliff/"
+
+
+############
+# DB Mutex #
+############
+
+# Our database operations should never exceed 60 seconds
+DB_MUTEX_TTL_SECONDS = 60

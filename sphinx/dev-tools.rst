@@ -133,6 +133,18 @@ Generate this documentation with :github-source:`dev-tools/generate_documentatio
   generation script to fail if e.g. source files were added or deleted.
 
 
+GitHub Review Checker
+=====================
+
+Check your current review score with :github-source:`dev-tools/have_i_reviewed_enough.sh`::
+
+    ./dev-tools/have_i_reviewed_enough.sh [--since=DATE]
+
+**Options:**
+
+* ``--since=DATE``: Only take PRs into account which were updated after ``DATE`` (e.g. ``2023-01-01``, ``-2 months`` or ``last week``)
+
+
 Included Functions
 ==================
 

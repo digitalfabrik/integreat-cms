@@ -95,6 +95,22 @@ function print_with_borders {
     echo -e "└──────────────────────────────────────\n"
 }
 
+# This function colorizes a number based on its value
+function colorize_number {
+    if [[ "$1" -eq "0" ]]; then
+        echo -e "\x1b[1m$1\x1b[0m"
+    elif [[ "$1" -ge "0" ]]; then
+        if [[ -n "$2" ]]; then
+            NUM="+$1"
+        else
+            NUM="$1"
+        fi
+        echo -e "\x1b[1;32m$NUM\x1b[0;39m"
+    else
+        echo -e "\x1b[1;31m$1\x1b[0;39m"
+    fi
+}
+
 # Check if the --help option is given
 if [[ "$*" == *"--help"* ]] || [[ "$*" == *"-h"* ]]; then
     echo -e "For usage details, see documentation:\n" | print_info
