@@ -107,6 +107,12 @@ API_ENDPOINTS = [
         200,
     ),
     (
+        "/api/augsburg/de/events/?combine_recurring=True",
+        None,
+        "tests/api/expected-outputs/augsburg_de_events_combine_recurring.json",
+        200,
+    ),
+    (
         "/api/augsburg/en/events/",
         "/augsburg/en/wp-json/extensions/v3/events/",
         "tests/api/expected-outputs/augsburg_en_events.json",
