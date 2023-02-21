@@ -589,7 +589,7 @@ def duplicate_pages(
     logging_prefix="",
 ):
     """
-    Function to duplicate all pages of one region to another.
+    Function to duplicate all non-archived pages from one region to another
 
     Usage: duplicate_pages(source_region, target_region)
 
@@ -618,9 +618,11 @@ def duplicate_pages(
     )
     logging_prefix += "  "
 
-    # At first, get all pages from the source region with a specific parent page
+    # At first, get all pages from the source region with a specific parent page, except archived ones
     # As the parent will be None for the initial call, this returns all pages from the root level
-    source_pages = source_region.pages.filter(parent=source_parent)
+    source_pages = source_region.pages.filter(
+        parent=source_parent, explicitly_archived=False
+    )
     num_source_pages = len(source_pages)
     for i, source_page in enumerate(source_pages):
         logger.debug(
