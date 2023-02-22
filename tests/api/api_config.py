@@ -268,7 +268,11 @@ API_FEEDBACK_VIEWS = [
     ),
     (
         "api:region_feedback",
-        {"comment": "Cool region!", "rating": "up", "category": "Inhalte"},
+        {"rating": "up", "category": "Inhalte"},
+    ),
+    (
+        "api:region_feedback",
+        {"comment": "Feedback ohne Bewertung", "category": "Inhalte"},
     ),
     (
         "api:region_feedback",
@@ -326,7 +330,7 @@ API_FEEDBACK_VIEWS = [
     (
         "api:event_feedback",
         {
-            "slug": "test-veranstaltung",
+            "slug": "test-veranstaltung$2030-01-01",
             "comment": "Strange bug!",
             "rating": "down",
             "category": "Technisches Feedback",
@@ -415,5 +419,59 @@ API_FEEDBACK_VIEWS = [
             "rating": "down",
             "category": "Technisches Feedback",
         },
+    ),
+]
+
+API_FEEDBACK_ERRORS = [
+    (
+        "api:region_feedback",
+        {"region_slug": "augsburg", "language_slug": "ch"},
+        {"rating": "up"},
+        {"code": 404, "error": 'No language found with slug "ch"'},
+    ),
+    (
+        "api:region_feedback",
+        {"region_slug": "augsburg", "language_slug": "de"},
+        {"rating": "neutral"},
+        {"code": 400, "error": "Invalid rating."},
+    ),
+    (
+        "api:region_feedback",
+        {"region_slug": "augsburg", "language_slug": "de"},
+        {"category": "Inhalte"},
+        {"code": 400, "error": "Either comment or rating is required."},
+    ),
+    (
+        "api:event_feedback",
+        {"region_slug": "augsburg", "language_slug": "de"},
+        {"slug": "not-exist", "rating": "down"},
+        {"code": 404, "error": "No matching event found for slug."},
+    ),
+    (
+        "api:page_feedback",
+        {"region_slug": "augsburg", "language_slug": "de"},
+        {"slug": "not-exist", "rating": "down"},
+        {"code": 404, "error": "No matching page found for slug."},
+    ),
+    (
+        "api:poi_feedback",
+        {"region_slug": "augsburg", "language_slug": "de"},
+        {"slug": "not-exist", "rating": "down"},
+        {"code": 404, "error": "No matching location found for slug."},
+    ),
+    (
+        "api:imprint_page_feedbacks",
+        {"region_slug": "nurnberg", "language_slug": "de"},
+        {"rating": "down"},
+        {
+            "code": 404,
+            "error": "The imprint does not exist in this region for the selected language.",
+        },
+    ),
+    (
+        "api:search_result_feedback",
+        {"region_slug": "augsburg", "language_slug": "de"},
+        {"rating": "down"},
+        {"code": 400, "error": "Search query is required."},
     ),
 ]
