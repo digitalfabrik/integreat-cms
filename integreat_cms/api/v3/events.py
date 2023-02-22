@@ -193,8 +193,12 @@ def events(request, region_slug, language_slug):
     now = timezone.now().date()
     for event in region.events.prefetch_public_translations().filter(archived=False):
         if event_translation := event.get_public_translation(language_slug):
+            event_is_not_recurring = not event.recurrence_rule
+            recurring_event_should_be_appended_once = "combine_recurring" in request.GET
             # Either it's in the future or it's recurring and the last recurrence is >= now
-            if not event.is_past:
+            if not event.is_past and (
+                event_is_not_recurring or recurring_event_should_be_appended_once
+            ):
                 result.append(transform_event_translation(event_translation))
             if "combine_recurring" not in request.GET:
                 for future_event in transform_event_recurrences(event_translation, now):
