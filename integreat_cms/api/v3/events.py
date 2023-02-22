@@ -161,7 +161,7 @@ def transform_event_recurrences(event_translation, today):
             days=settings.API_EVENTS_MAX_TIME_SPAN_DAYS
         ):
             break
-        if recurrence_date < today or recurrence_date == start_date:
+        if recurrence_date < today:
             continue
 
         yield transform_event_translation(event_translation, recurrence_date)
@@ -191,14 +191,15 @@ def events(request, region_slug, language_slug):
 
     result = []
     now = timezone.now().date()
+    combine_recurring_events = "combine_recurring" in request.GET
     for event in region.events.prefetch_public_translations().filter(archived=False):
-        if event_translation := event.get_public_translation(language_slug):
-            # Either it's in the future or it's recurring and the last recurrence is >= now
-            if not event.is_past:
+        if not event.is_past and (
+            event_translation := event.get_public_translation(language_slug)
+        ):
+            if event.is_recurring and not combine_recurring_events:
+                result.extend(iter(transform_event_recurrences(event_translation, now)))
+            else:
                 result.append(transform_event_translation(event_translation))
-            if "combine_recurring" not in request.GET:
-                for future_event in transform_event_recurrences(event_translation, now):
-                    result.append(future_event)
 
     return JsonResponse(
         result, safe=False
