@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2023.2.2
+--------
+
 * [ [#2012](https://github.com/digitalfabrik/integreat-cms/issues/2012) ] Exclude archived pages when cloning a region
 * [ [#2093](https://github.com/digitalfabrik/integreat-cms/issues/2093) ] Fix recurring events endpoint
 
