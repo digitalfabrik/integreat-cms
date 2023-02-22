@@ -277,6 +277,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.gzip.GZipMiddleware",
     "integreat_cms.core.middleware.RegionMiddleware",
     "integreat_cms.core.middleware.AccessControlMiddleware",
     "integreat_cms.core.middleware.TimezoneMiddleware",
