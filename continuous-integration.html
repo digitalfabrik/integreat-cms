@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-07-20T14:09:56+00:00" />
+    <meta property="article:modified_time" content="2023-02-23T16:49:11+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Continuous Integration (CircleCI) &mdash; integreat-cms 2023.2.1 documentation</title>
+  <title>Continuous Integration (CircleCI) &mdash; integreat-cms 2023.2.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/integreat-icon.svg"/>
@@ -84,8 +84,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#pipenv-not-found">Pipenv not found</a></li>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#integreat-cms-cli-not-found">Integreat-cms-cli not found</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#not-a-git-repository">Not a git repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#unauthorized-circleci">⚠ Unauthorized (CircleCI)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#macos-on-m1">MacOS on M1</a></li>
@@ -1119,9 +1117,13 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Basic Concepts</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="virtualenv.html">Virtual Environment (Pipenv)</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="virtualenv.html">Virtual Environment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#install-dependencies">Install dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="virtualenv.html#add-dependencies">Add dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtualenv.html#add-dependencies">Add dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="virtualenv.html#development-dependencies">Development dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualenv.html#production-dependencies">Production dependencies</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#update-dependencies">Update dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#remove-virtual-environment">Remove virtual environment</a></li>
 </ul>
@@ -1195,7 +1197,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Continuous Integration (CircleCI)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#workflow-develop">Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#pipenv-install">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pip-install">pip-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#webpack">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pylint">pylint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#black">black</a></li>
@@ -1214,12 +1216,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#workflow-main">Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id1">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">pip-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#bump-version">bump-version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#workflow-deploy">Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#id2">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">pip-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id3">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">compile-translations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id5">build-package</a></li>
@@ -1253,60 +1255,61 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#unreleased">UNRELEASED</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">2023.2.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">2023.2.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">2023.1.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">2023.1.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">2023.1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">2022.12.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">2022.12.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">2022.12.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">2022.12.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id10">2022.11.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id11">2022.11.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id12">2022.11.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id13">2022.11.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id14">2022.11.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id15">2022.10.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id16">2022.10.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id17">2022.10.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id18">2022.9.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id19">2022.9.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id20">2022.9.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id21">2022.9.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id22">2022.9.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id23">2022.9.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id24">2022.8.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id25">2022.8.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id26">2022.8.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id27">2022.8.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id28">2022.7.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id29">2022.6.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id30">2022.6.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id31">2022.6.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id32">2022.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id33">2022.5.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id34">2022.5.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id35">2022.5.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id36">2022.5.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id37">2022.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id38">2022.4.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id39">2022.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id40">2022.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id41">2022.3.6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id42">2022.3.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id43">2022.3.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id44">2022.3.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id45">2022.3.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id46">2022.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id47">2022.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id48">2022.2.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id49">2022.2.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id50">2022.2.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id51">2022.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">2023.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">2023.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">2023.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">2023.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">2023.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">2023.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">2022.12.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">2022.12.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">2022.12.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id10">2022.12.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id11">2022.11.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id12">2022.11.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id13">2022.11.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id14">2022.11.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id15">2022.11.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id16">2022.10.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id17">2022.10.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id18">2022.10.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id19">2022.9.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id20">2022.9.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id21">2022.9.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id22">2022.9.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id23">2022.9.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id24">2022.9.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id25">2022.8.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id26">2022.8.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id27">2022.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id28">2022.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id29">2022.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id30">2022.6.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id31">2022.6.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id32">2022.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id33">2022.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id34">2022.5.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id35">2022.5.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id36">2022.5.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id37">2022.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id38">2022.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id39">2022.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id40">2022.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id41">2022.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id42">2022.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id43">2022.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id44">2022.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id45">2022.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id46">2022.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id47">2022.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id48">2022.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id49">2022.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id50">2022.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id51">2022.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id52">2022.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#beta">2022.2.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id52">2021.12.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id53">2021.11.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id53">2021.12.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id54">2021.11.0-beta</a></li>
 </ul>
 </li>
 </ul>
@@ -1434,9 +1437,9 @@ See <a class="reference external" href="https://circleci.com/docs/2.0/configurat
 <h2>Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code><a class="headerlink" href="#workflow-develop" title="Permalink to this heading"></a></h2>
 <p>This workflow gets triggered everytime a commit is pushed to the <code class="docutils literal notranslate"><span class="pre">develop</span></code> branch or a PR is opened.</p>
 <img alt="CircleCI main workflow" src="_images/circleci-main-workflow.png" />
-<section id="pipenv-install">
-<span id="circleci-pipenv-install"></span><h3>pipenv-install<a class="headerlink" href="#pipenv-install" title="Permalink to this heading"></a></h3>
-<p>This job executes <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">install</span> <span class="pre">--dev</span></code> and makes use of the <a class="reference external" href="https://circleci.com/docs/2.0/caching/">CircleCI Dependency Cache</a>.
+<section id="pip-install">
+<span id="circleci-pip-install"></span><h3>pip-install<a class="headerlink" href="#pip-install" title="Permalink to this heading"></a></h3>
+<p>This job executes <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[dev,pinned]</span></code> and makes use of the <a class="reference external" href="https://circleci.com/docs/2.0/caching/">CircleCI Dependency Cache</a>.
 It passes the virtual environment <code class="docutils literal notranslate"><span class="pre">.venv</span></code> to the subsequent jobs.</p>
 </section>
 <section id="webpack">
@@ -1447,11 +1450,11 @@ After that, it compiles all static files with webpack (<code class="docutils lit
 </section>
 <section id="pylint">
 <h3>pylint<a class="headerlink" href="#pylint" title="Permalink to this heading"></a></h3>
-<p>This job executes <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span> <span class="pre">pylint_runner</span></code>, which checks whether the <a class="reference internal" href="code-style.html#pylint"><span class="std std-ref">Linting</span></a> throws any errors or warnings.</p>
+<p>This job executes <code class="docutils literal notranslate"><span class="pre">pylint_runner</span></code>, which checks whether the <a class="reference internal" href="code-style.html#pylint"><span class="std std-ref">Linting</span></a> throws any errors or warnings.</p>
 </section>
 <section id="black">
 <h3>black<a class="headerlink" href="#black" title="Permalink to this heading"></a></h3>
-<p>This job executes <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span> <span class="pre">black</span> <span class="pre">--check</span> <span class="pre">.</span></code>, which checks whether the code matches the <a class="reference internal" href="code-style.html#black-code-style"><span class="std std-ref">Black</span></a> code style.</p>
+<p>This job executes <code class="docutils literal notranslate"><span class="pre">black</span> <span class="pre">--check</span> <span class="pre">.</span></code>, which checks whether the code matches the <a class="reference internal" href="code-style.html#black-code-style"><span class="std std-ref">Black</span></a> code style.</p>
 </section>
 <section id="check-migrations">
 <h3>check-migrations<a class="headerlink" href="#check-migrations" title="Permalink to this heading"></a></h3>
@@ -1499,7 +1502,7 @@ This is only executed on develop (usually after PRs have been merged) or on bran
 <section id="build-documentation">
 <h3>build-documentation<a class="headerlink" href="#build-documentation" title="Permalink to this heading"></a></h3>
 <p>This job checks whether the documentation can be generated without any errors by running
-<code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span> <span class="pre">./dev-tools/generate_documentation.sh</span></code>.
+<code class="docutils literal notranslate"><span class="pre">./dev-tools/generate_documentation.sh</span></code>.
 It passes the html documentation in <code class="docutils literal notranslate"><span class="pre">docs</span></code> to the <a class="reference internal" href="#circleci-deploy-documentation"><span class="std std-ref">deploy-documentation</span></a> job.</p>
 </section>
 <section id="deploy-documentation">
@@ -1519,12 +1522,12 @@ and to allow external sources because all dev tools source one common function s
 <h2>Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code><a class="headerlink" href="#workflow-main" title="Permalink to this heading"></a></h2>
 <p>This workflow gets executed when a commit is pushed to the <code class="docutils literal notranslate"><span class="pre">main</span></code> branch. Typically, this is a release PR from <code class="docutils literal notranslate"><span class="pre">develop</span></code>.</p>
 <section id="id1">
-<h3>pipenv-install<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
-<p>See <a class="reference internal" href="#circleci-pipenv-install"><span class="std std-ref">pipenv-install</span></a>.</p>
+<h3>pip-install<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<p>See <a class="reference internal" href="#circleci-pip-install"><span class="std std-ref">pip-install</span></a>.</p>
 </section>
 <section id="bump-version">
 <h3>bump-version<a class="headerlink" href="#bump-version" title="Permalink to this heading"></a></h3>
-<p>This job authenticates as the deliverino app and runs <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">run</span> <span class="pre">bumpver</span> <span class="pre">update</span></code> to bump the version and commit the
+<p>This job authenticates as the deliverino app and runs <code class="docutils literal notranslate"><span class="pre">bumpver</span> <span class="pre">update</span></code> to bump the version and commit the
 changes to the main branch. Additionally, it merges the version bump commit into the <code class="docutils literal notranslate"><span class="pre">develop</span></code> branch.</p>
 </section>
 </section>
@@ -1532,8 +1535,8 @@ changes to the main branch. Additionally, it merges the version bump commit into
 <h2>Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code><a class="headerlink" href="#workflow-deploy" title="Permalink to this heading"></a></h2>
 <p>This workflow gets executed when a commit is tagged.</p>
 <section id="id2">
-<h3>pipenv-install<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
-<p>See <a class="reference internal" href="#circleci-pipenv-install"><span class="std std-ref">pipenv-install</span></a>.</p>
+<h3>pip-install<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<p>See <a class="reference internal" href="#circleci-pip-install"><span class="std std-ref">pip-install</span></a>.</p>
 </section>
 <section id="id3">
 <h3>webpack<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
@@ -1593,7 +1596,7 @@ See <a class="reference internal" href="troubleshooting.html#troubleshooting-una
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 20, 2022.
+      <span class="lastupdated">Last updated on Feb 23, 2023.
       </span></p>
   </div>
 

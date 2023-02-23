@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-03-09T12:24:13+00:00" />
+    <meta property="article:modified_time" content="2023-02-23T16:49:11+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation &mdash; integreat-cms 2023.2.1 documentation</title>
+  <title>Installation &mdash; integreat-cms 2023.2.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/integreat-icon.svg"/>
@@ -84,8 +84,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#pipenv-not-found">Pipenv not found</a></li>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#integreat-cms-cli-not-found">Integreat-cms-cli not found</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#not-a-git-repository">Not a git repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#unauthorized-circleci">⚠ Unauthorized (CircleCI)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#macos-on-m1">MacOS on M1</a></li>
@@ -1119,9 +1117,13 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Basic Concepts</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="virtualenv.html">Virtual Environment (Pipenv)</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="virtualenv.html">Virtual Environment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#install-dependencies">Install dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="virtualenv.html#add-dependencies">Add dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtualenv.html#add-dependencies">Add dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="virtualenv.html#development-dependencies">Development dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="virtualenv.html#production-dependencies">Production dependencies</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#update-dependencies">Update dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#remove-virtual-environment">Remove virtual environment</a></li>
 </ul>
@@ -1195,7 +1197,7 @@
 <li class="toctree-l1"><a class="reference internal" href="continuous-integration.html">Continuous Integration (CircleCI)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-develop">Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#pipenv-install">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#pip-install">pip-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#webpack">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#pylint">pylint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#black">black</a></li>
@@ -1214,12 +1216,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-main">Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id1">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id1">pip-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#bump-version">bump-version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-deploy">Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id2">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id2">pip-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id3">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id4">compile-translations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id5">build-package</a></li>
@@ -1253,60 +1255,61 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#unreleased">UNRELEASED</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">2023.2.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">2023.2.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">2023.1.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">2023.1.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">2023.1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">2022.12.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">2022.12.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">2022.12.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">2022.12.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id10">2022.11.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id11">2022.11.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id12">2022.11.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id13">2022.11.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id14">2022.11.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id15">2022.10.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id16">2022.10.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id17">2022.10.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id18">2022.9.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id19">2022.9.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id20">2022.9.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id21">2022.9.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id22">2022.9.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id23">2022.9.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id24">2022.8.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id25">2022.8.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id26">2022.8.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id27">2022.8.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id28">2022.7.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id29">2022.6.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id30">2022.6.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id31">2022.6.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id32">2022.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id33">2022.5.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id34">2022.5.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id35">2022.5.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id36">2022.5.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id37">2022.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id38">2022.4.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id39">2022.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id40">2022.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id41">2022.3.6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id42">2022.3.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id43">2022.3.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id44">2022.3.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id45">2022.3.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id46">2022.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id47">2022.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id48">2022.2.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id49">2022.2.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id50">2022.2.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id51">2022.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">2023.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">2023.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">2023.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">2023.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">2023.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">2023.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">2022.12.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">2022.12.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">2022.12.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id10">2022.12.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id11">2022.11.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id12">2022.11.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id13">2022.11.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id14">2022.11.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id15">2022.11.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id16">2022.10.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id17">2022.10.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id18">2022.10.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id19">2022.9.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id20">2022.9.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id21">2022.9.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id22">2022.9.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id23">2022.9.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id24">2022.9.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id25">2022.8.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id26">2022.8.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id27">2022.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id28">2022.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id29">2022.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id30">2022.6.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id31">2022.6.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id32">2022.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id33">2022.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id34">2022.5.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id35">2022.5.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id36">2022.5.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id37">2022.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id38">2022.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id39">2022.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id40">2022.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id41">2022.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id42">2022.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id43">2022.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id44">2022.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id45">2022.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id46">2022.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id47">2022.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id48">2022.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id49">2022.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id50">2022.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id51">2022.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id52">2022.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#beta">2022.2.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id52">2021.12.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id53">2021.11.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id53">2021.12.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id54">2021.11.0-beta</a></li>
 </ul>
 </li>
 </ul>
@@ -1426,72 +1429,49 @@
 <p>Following packages are required before installing the project (install them with your package manager):</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://git-scm.com/">git</a></p></li>
-<li><p><a class="reference external" href="https://www.npmjs.com/">npm</a> version 7 or higher</p></li>
-<li><p><a class="reference external" href="https://nodejs.org/">nodejs</a> version 12 or higher</p></li>
-<li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3.9">python3.9</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>, e.g. <a class="reference external" href="https://ubuntu.com">Ubuntu</a> <a class="footnote-reference brackets" href="#ppa" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>) / <a class="reference external" href="https://aur.archlinux.org/packages/python39/">python39</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions">Arch-based distributions</a>)</p></li>
+<li><p><a class="reference external" href="https://www.npmjs.com/">npm</a> version 7 or later</p></li>
+<li><p><a class="reference external" href="https://nodejs.org/">nodejs</a> version 12 or later</p></li>
+<li><p><a class="reference external" href="https://www.python.org/">python3</a> version 3.9 or later</p></li>
 <li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3-pip">python3-pip</a> (<a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>, e.g. <a class="reference external" href="https://ubuntu.com">Ubuntu</a>) / <a class="reference external" href="https://www.archlinux.de/packages/extra/x86_64/python-pip">python-pip</a> (<a class="reference external" href="https://wiki.archlinux.org/index.php/Arch-based_distributions">Arch-based distributions</a>)</p></li>
-<li><p><a class="reference external" href="https://pipenv.pypa.io/en/latest/">pipenv</a> for python3 <a class="footnote-reference brackets" href="#pip" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p></li>
+<li><p><a class="reference external" href="https://packages.ubuntu.com/search?keywords=python3+venv">python3-venv</a> (Only <a class="reference external" href="https://en.wikipedia.org/wiki/Category:Debian-based_distributions">Debian-based distributions</a>, e.g. <a class="reference external" href="https://ubuntu.com">Ubuntu</a>)</p></li>
 <li><p>Either <a class="reference external" href="https://www.postgresql.org/">postgresql</a> <strong>or</strong> <a class="reference external" href="https://www.docker.com/">docker</a> to run a local database server</p></li>
 <li><p><a class="reference external" href="https://www.gnu.org/software/gettext/">gettext</a> and <a class="reference external" href="https://pcre.org/original/doc/html/pcregrep.html">pcregrep</a> to use the translation features</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<aside class="footnote-list brackets">
-<aside class="footnote brackets" id="ppa" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
-<p>If your distro does not contain python3.9, you first have to add a ppa repository, e.g. <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">add-apt-repository</span> <span class="pre">ppa:deadsnakes/ppa</span></code>.</p>
-</aside>
-<aside class="footnote brackets" id="pip" role="note">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">2</a><span class="fn-bracket">]</span></span>
-<p>If no recent version of pipenv is packaged for your distro, use <code class="docutils literal notranslate"><span class="pre">pip3</span> <span class="pre">install</span> <span class="pre">pipenv</span> <span class="pre">--user</span></code>.</p>
-</aside>
-</aside>
+<p>If your distro does not contain python3.9 or later, you first have to add a ppa repository, e.g. <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">add-apt-repository</span> <span class="pre">ppa:deadsnakes/ppa</span></code>.</p>
 </div>
 <section id="prerequisites-on-common-distributions">
 <h3>Prerequisites on common distributions<a class="headerlink" href="#prerequisites-on-common-distributions" title="Permalink to this heading"></a></h3>
 <p>In the following, we provide the commands to install all these prerequisites on popular distributions.</p>
 <details>
-<summary><a>Ubuntu 20.04 LTS (Focal Fossa)</a></summary>
-<br><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add PPA repository for Python3.9</span>
-<span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="o">-</span><span class="n">y</span> <span class="n">ppa</span><span class="p">:</span><span class="n">deadsnakes</span><span class="o">/</span><span class="n">ppa</span>
-<span class="c1"># Install basic requirements</span>
-<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">apt</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">https</span> <span class="n">curl</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">pcregrep</span> <span class="n">python3</span><span class="mf">.9</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
+<summary><a>Ubuntu 22.04 LTS (Jammy Jellyfish) / Debian 11 ("Bullseye")</a></summary>
+<br><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install basic requirements</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">apt</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">https</span> <span class="n">curl</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">pcregrep</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span> <span class="n">python3</span><span class="o">-</span><span class="n">venv</span>
 <span class="c1"># Add PPA repository for NodeJS</span>
-<span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">deb</span><span class="o">.</span><span class="n">nodesource</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">setup_15</span><span class="o">.</span><span class="n">x</span> <span class="o">|</span> <span class="n">sudo</span> <span class="o">-</span><span class="n">E</span> <span class="n">bash</span> <span class="o">-</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">deb</span><span class="o">.</span><span class="n">nodesource</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">setup_18</span><span class="o">.</span><span class="n">x</span> <span class="o">|</span> <span class="n">sudo</span> <span class="o">-</span><span class="n">E</span> <span class="n">bash</span> <span class="o">-</span>
 <span class="c1"># Add PPA repository for Docker</span>
 <span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">/</span><span class="n">gpg</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">gpg</span> <span class="o">--</span><span class="n">dearmor</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">keyrings</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">archive</span><span class="o">-</span><span class="n">keyring</span><span class="o">.</span><span class="n">gpg</span>
 <span class="n">echo</span> <span class="s2">&quot;deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot;</span> \
     <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">list</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
 <span class="c1"># Install Docker and NodeJS</span>
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span> <span class="o">&amp;&amp;</span> <span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">containerd</span><span class="o">.</span><span class="n">io</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">-</span><span class="n">cli</span> <span class="n">nodejs</span>
-<span class="c1"># Install Pipenv</span>
-<span class="n">pip3</span> <span class="n">install</span> <span class="n">pipenv</span> <span class="o">--</span><span class="n">user</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span> <span class="o">&amp;&amp;</span> <span class="n">apt</span><span class="o">-</span><span class="n">cache</span> <span class="n">policy</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span> <span class="o">&amp;&amp;</span> <span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">containerd</span><span class="o">.</span><span class="n">io</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">-</span><span class="n">cli</span> <span class="n">nodejs</span>
 </pre></div>
 </div>
-</details><br>
 <details>
-<summary><a>Debian 10 (Buster)</a></summary><br><div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you’re on a completely fresh installation, you need to add your user to the sudoers with:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>su
-/sbin/adduser $USER sudo
-exit
-</pre></div>
-</div>
-<p>And then log off and log on again.</p>
-</div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install basic requirements</span>
-<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">apt</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">https</span> <span class="n">curl</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">netcat</span> <span class="n">pcregrep</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span>
+<summary><a>Ubuntu 20.04 LTS (Focal Fossa) / Debian 10 (Buster)</a></summary>
+<br><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add PPA repository for Python3.9 and above</span>
+<span class="n">sudo</span> <span class="n">add</span><span class="o">-</span><span class="n">apt</span><span class="o">-</span><span class="n">repository</span> <span class="o">-</span><span class="n">y</span> <span class="n">ppa</span><span class="p">:</span><span class="n">deadsnakes</span><span class="o">/</span><span class="n">ppa</span>
+<span class="c1"># Install basic requirements</span>
+<span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">apt</span><span class="o">-</span><span class="n">transport</span><span class="o">-</span><span class="n">https</span> <span class="n">curl</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">pcregrep</span> <span class="n">python3</span><span class="o">-</span><span class="n">pip</span> <span class="n">python3</span><span class="mf">.11</span> <span class="n">python3</span><span class="mf">.11</span><span class="o">-</span><span class="n">venv</span>
 <span class="c1"># Add PPA repository for NodeJS</span>
-<span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">deb</span><span class="o">.</span><span class="n">nodesource</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">setup_15</span><span class="o">.</span><span class="n">x</span> <span class="o">|</span> <span class="n">sudo</span> <span class="o">-</span><span class="n">E</span> <span class="n">bash</span> <span class="o">-</span>
+<span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">deb</span><span class="o">.</span><span class="n">nodesource</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">setup_18</span><span class="o">.</span><span class="n">x</span> <span class="o">|</span> <span class="n">sudo</span> <span class="o">-</span><span class="n">E</span> <span class="n">bash</span> <span class="o">-</span>
 <span class="c1"># Add PPA repository for Docker</span>
-<span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">debian</span><span class="o">/</span><span class="n">gpg</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">gpg</span> <span class="o">--</span><span class="n">dearmor</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">keyrings</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">archive</span><span class="o">-</span><span class="n">keyring</span><span class="o">.</span><span class="n">gpg</span>
-<span class="n">echo</span> <span class="s2">&quot;deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable&quot;</span> \
+<span class="n">curl</span> <span class="o">-</span><span class="n">fsSL</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">download</span><span class="o">.</span><span class="n">docker</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">linux</span><span class="o">/</span><span class="n">ubuntu</span><span class="o">/</span><span class="n">gpg</span> <span class="o">|</span> <span class="n">sudo</span> <span class="n">gpg</span> <span class="o">--</span><span class="n">dearmor</span> <span class="o">-</span><span class="n">o</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">keyrings</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">archive</span><span class="o">-</span><span class="n">keyring</span><span class="o">.</span><span class="n">gpg</span>
+<span class="n">echo</span> <span class="s2">&quot;deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable&quot;</span> \
     <span class="o">|</span> <span class="n">sudo</span> <span class="n">tee</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">apt</span><span class="o">/</span><span class="n">sources</span><span class="o">.</span><span class="n">list</span><span class="o">.</span><span class="n">d</span><span class="o">/</span><span class="n">docker</span><span class="o">.</span><span class="n">list</span> <span class="o">&gt;</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
 <span class="c1"># Install Docker and NodeJS</span>
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span> <span class="o">&amp;&amp;</span> <span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">containerd</span><span class="o">.</span><span class="n">io</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">-</span><span class="n">cli</span> <span class="n">nodejs</span>
-<span class="c1"># Install Pipenv</span>
-<span class="n">pip3</span> <span class="n">install</span> <span class="n">pipenv</span> <span class="o">--</span><span class="n">user</span>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">update</span> <span class="o">&amp;&amp;</span> <span class="n">apt</span><span class="o">-</span><span class="n">cache</span> <span class="n">policy</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span> <span class="o">&amp;&amp;</span> <span class="n">sudo</span> <span class="n">apt</span> <span class="n">install</span> <span class="o">-</span><span class="n">y</span> <span class="n">containerd</span><span class="o">.</span><span class="n">io</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span> <span class="n">docker</span><span class="o">-</span><span class="n">ce</span><span class="o">-</span><span class="n">cli</span> <span class="n">nodejs</span>
 </pre></div>
 </div>
 </details><br>
@@ -1501,7 +1481,7 @@ exit
 <p>This assumes you have completed a basic system installation including a web browser etc. and a helper for the <a class="reference external" href="https://aur.archlinux.org/">AUR</a>, e.g. <a class="reference external" href="https://github.com/Jguer/yay">yay</a>.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Install requirements</span>
-<span class="n">yay</span> <span class="o">-</span><span class="n">S</span> <span class="n">docker</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">netcat</span> <span class="n">nodejs</span><span class="o">-</span><span class="n">lts</span><span class="o">-</span><span class="n">fermium</span> <span class="n">npm</span> <span class="n">pcre</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">python</span><span class="o">-</span><span class="n">pipenv</span> <span class="n">python39</span>
+<span class="n">yay</span> <span class="o">-</span><span class="n">S</span> <span class="n">docker</span> <span class="n">gettext</span> <span class="n">git</span> <span class="n">netcat</span> <span class="n">nodejs</span><span class="o">-</span><span class="n">lts</span><span class="o">-</span><span class="n">hydrogen</span> <span class="n">npm</span> <span class="n">pcre</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span>
 </pre></div>
 </div>
 </details><br></section>
@@ -1530,8 +1510,8 @@ cd integreat-cms</pre>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This script checks whether the required system-dependencies are installed and installs the project-dependencies via npm and pipenv.
-If only one of both dependency-managers should be invoked, run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">ci</span></code> or <code class="docutils literal notranslate"><span class="pre">pipenv</span> <span class="pre">install</span> <span class="pre">--dev</span></code> directly.</p>
+<p>This script checks whether the required system-dependencies are installed and installs the project-dependencies via npm and pip.
+If only one of both dependency-managers should be invoked, run <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">ci</span></code> or <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.[dev,pinned]</span></code> directly.</p>
 </div>
 </section>
 </section>
@@ -1551,7 +1531,7 @@ If only one of both dependency-managers should be invoked, run <code class="docu
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 09, 2022.
+      <span class="lastupdated">Last updated on Feb 23, 2023.
       </span></p>
   </div>
 

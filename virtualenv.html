@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2022-07-20T14:09:56+00:00" />
+    <meta property="article:modified_time" content="2023-02-23T16:49:11+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Virtual Environment (Pipenv) &mdash; integreat-cms 2023.2.1 documentation</title>
+  <title>Virtual Environment &mdash; integreat-cms 2023.2.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/integreat-icon.svg"/>
@@ -84,8 +84,6 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#pipenv-not-found">Pipenv not found</a></li>
-<li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#integreat-cms-cli-not-found">Integreat-cms-cli not found</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#not-a-git-repository">Not a git repository</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#unauthorized-circleci">⚠ Unauthorized (CircleCI)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="troubleshooting.html#macos-on-m1">MacOS on M1</a></li>
@@ -1119,9 +1117,13 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Basic Concepts</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Virtual Environment (Pipenv)</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Virtual Environment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#install-dependencies">Install dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#add-dependencies">Add dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#add-dependencies">Add dependencies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#development-dependencies">Development dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#production-dependencies">Production dependencies</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#update-dependencies">Update dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#remove-virtual-environment">Remove virtual environment</a></li>
 </ul>
@@ -1195,7 +1197,7 @@
 <li class="toctree-l1"><a class="reference internal" href="continuous-integration.html">Continuous Integration (CircleCI)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#configuration">Configuration</a></li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-develop">Workflow <code class="docutils literal notranslate"><span class="pre">develop</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#pipenv-install">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#pip-install">pip-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#webpack">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#pylint">pylint</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#black">black</a></li>
@@ -1214,12 +1216,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-main">Workflow <code class="docutils literal notranslate"><span class="pre">main</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id1">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id1">pip-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#bump-version">bump-version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#workflow-deploy">Workflow <code class="docutils literal notranslate"><span class="pre">deploy</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id2">pipenv-install</a></li>
+<li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id2">pip-install</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id3">webpack</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id4">compile-translations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="continuous-integration.html#id5">build-package</a></li>
@@ -1253,60 +1255,61 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#unreleased">UNRELEASED</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">2023.2.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">2023.2.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">2023.1.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">2023.1.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">2023.1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">2022.12.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">2022.12.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">2022.12.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">2022.12.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id10">2022.11.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id11">2022.11.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id12">2022.11.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id13">2022.11.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id14">2022.11.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id15">2022.10.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id16">2022.10.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id17">2022.10.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id18">2022.9.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id19">2022.9.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id20">2022.9.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id21">2022.9.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id22">2022.9.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id23">2022.9.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id24">2022.8.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id25">2022.8.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id26">2022.8.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id27">2022.8.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id28">2022.7.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id29">2022.6.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id30">2022.6.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id31">2022.6.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id32">2022.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id33">2022.5.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id34">2022.5.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id35">2022.5.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id36">2022.5.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id37">2022.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id38">2022.4.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id39">2022.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id40">2022.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id41">2022.3.6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id42">2022.3.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id43">2022.3.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id44">2022.3.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id45">2022.3.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id46">2022.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id47">2022.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id48">2022.2.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id49">2022.2.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id50">2022.2.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id51">2022.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">2023.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">2023.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">2023.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">2023.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">2023.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">2023.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">2022.12.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">2022.12.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">2022.12.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id10">2022.12.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id11">2022.11.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id12">2022.11.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id13">2022.11.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id14">2022.11.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id15">2022.11.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id16">2022.10.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id17">2022.10.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id18">2022.10.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id19">2022.9.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id20">2022.9.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id21">2022.9.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id22">2022.9.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id23">2022.9.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id24">2022.9.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id25">2022.8.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id26">2022.8.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id27">2022.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id28">2022.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id29">2022.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id30">2022.6.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id31">2022.6.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id32">2022.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id33">2022.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id34">2022.5.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id35">2022.5.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id36">2022.5.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id37">2022.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id38">2022.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id39">2022.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id40">2022.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id41">2022.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id42">2022.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id43">2022.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id44">2022.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id45">2022.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id46">2022.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id47">2022.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id48">2022.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id49">2022.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id50">2022.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id51">2022.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id52">2022.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="changelog.html#beta">2022.2.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id52">2021.12.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id53">2021.11.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id53">2021.12.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id54">2021.11.0-beta</a></li>
 </ul>
 </li>
 </ul>
@@ -1406,7 +1409,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Virtual Environment (Pipenv)</li>
+      <li class="breadcrumb-item active">Virtual Environment</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -1415,15 +1418,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="virtual-environment-pipenv">
-<h1>Virtual Environment (Pipenv)<a class="headerlink" href="#virtual-environment-pipenv" title="Permalink to this heading"></a></h1>
+  <section id="virtual-environment">
+<h1>Virtual Environment<a class="headerlink" href="#virtual-environment" title="Permalink to this heading"></a></h1>
 <p>All python dependencies are installed in a virtual Python environment (see <a class="reference external" href="https://docs.python.org/3.9/tutorial/venv.html" title="(in Python v3.9)"><span>Virtual Environments and Packages</span></a>).</p>
-<p>As package manager for the virtual environment we use Pipenv</p>
-<p>For portability and reproducibility, we use specific version of our dependencies locked in <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/Pipfile.lock">https://github.com/digitalfabrik/integreat-cms/blob/develop/Pipfile.lock</a>.</p>
+<p>For portability and reproducibility, we use specific version of our dependencies locked in <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/pyproject.toml">https://github.com/digitalfabrik/integreat-cms/blob/develop/pyproject.toml</a>.</p>
 <section id="install-dependencies">
 <h2>Install dependencies<a class="headerlink" href="#install-dependencies" title="Permalink to this heading"></a></h2>
 <p>To install exactly the specified versions of the dependencies, execute:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipenv</span> <span class="n">install</span> <span class="o">--</span><span class="n">dev</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">e</span> <span class="o">.</span><span class="p">[</span><span class="n">dev</span><span class="p">,</span><span class="n">pinned</span><span class="p">]</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -1433,30 +1435,35 @@
 </section>
 <section id="add-dependencies">
 <h2>Add dependencies<a class="headerlink" href="#add-dependencies" title="Permalink to this heading"></a></h2>
-<p>When adding new functional dependencies, please add them to <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/setup.cfg">https://github.com/digitalfabrik/integreat-cms/blob/develop/setup.cfg</a> and execute:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipenv</span> <span class="n">update</span> <span class="n">integreat</span><span class="o">-</span><span class="n">cms</span>
-</pre></div>
-</div>
-<p>When adding a new dev dependency <code class="docutils literal notranslate"><span class="pre">package</span></code>, just use:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipenv</span> <span class="n">install</span> <span class="o">--</span><span class="n">dev</span> <span class="n">package</span>
-</pre></div>
-</div>
+<p>Adding dependencies differs based on whether they are functional or only needed in development.</p>
+<section id="development-dependencies">
+<h3>Development dependencies<a class="headerlink" href="#development-dependencies" title="Permalink to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Add the new package to the <code class="docutils literal notranslate"><span class="pre">[project.optional-dependencies].dev</span></code> section in <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/pyproject.toml">https://github.com/digitalfabrik/integreat-cms/blob/develop/pyproject.toml</a></p></li>
+<li><p>Execute <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/install.sh">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/install.sh</a> to install it in the venv</p></li>
+</ol>
+</section>
+<section id="production-dependencies">
+<h3>Production dependencies<a class="headerlink" href="#production-dependencies" title="Permalink to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Add the new package to the <code class="docutils literal notranslate"><span class="pre">[project].dependencies</span></code> section in <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/pyproject.toml">https://github.com/digitalfabrik/integreat-cms/blob/develop/pyproject.toml</a></p></li>
+<li><p>Execute <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/update_dependencies.sh">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/update_dependencies.sh</a>, which should update the pinned versions
+in <code class="docutils literal notranslate"><span class="pre">[project.optional-dependencies].pinned</span></code> of <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/pyproject.toml">https://github.com/digitalfabrik/integreat-cms/blob/develop/pyproject.toml</a>.</p></li>
+</ol>
+</section>
 </section>
 <section id="update-dependencies">
 <h2>Update dependencies<a class="headerlink" href="#update-dependencies" title="Permalink to this heading"></a></h2>
-<p>When you want to update the locked versions of the dependencies, execute:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipenv</span> <span class="n">update</span>
+<p>When you want to update the locked versions of the production dependencies,
+use the developer tool <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/update_dependencies.sh">https://github.com/digitalfabrik/integreat-cms/blob/develop/dev-tools/update_dependencies.sh</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">dev</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">update_dependencies</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This is also part of the <code class="docutils literal notranslate"><span class="pre">update_dependencies.sh</span></code> dev-tool.</p>
 </div>
 </section>
 <section id="remove-virtual-environment">
 <h2>Remove virtual environment<a class="headerlink" href="#remove-virtual-environment" title="Permalink to this heading"></a></h2>
 <p>When you want to remove the virtual environment together with all installed dependencies, execute:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pipenv</span> <span class="o">--</span><span class="n">rm</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rm</span> <span class="o">-</span><span class="n">rf</span> <span class="o">.</span><span class="n">venv</span>
 </pre></div>
 </div>
 </section>
@@ -1477,7 +1484,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 20, 2022.
+      <span class="lastupdated">Last updated on Feb 23, 2023.
       </span></p>
   </div>
 
