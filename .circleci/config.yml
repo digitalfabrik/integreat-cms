@@ -1,38 +1,32 @@
 version: 2.1
 
 orbs:
-  shellcheck: circleci/shellcheck@2.2.4
+  shellcheck: circleci/shellcheck@3.1.2
 jobs:
-  pipenv-install:
+  pip-install:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9.16
     resource_class: small
-    environment:
-      PIPENV_VENV_IN_PROJECT: true
     steps:
       - checkout
       - restore_cache:
-          key: pipenv-{{ checksum "Pipfile.lock" }}-v1
+          key: pip-{{ checksum "pyproject.toml" }}-v1
       - run:
           name: Install pip dependencies
           command: |
             if [[ -d ".venv" ]]; then
-              echo "Virtual environment restored from cache, skipping pipenv install"
+              echo "Virtual environment restored from cache, skipping pip install"
             else
-              pipenv install --dev
-              if [[ -n $(git diff --shortstat Pipfile.lock) ]]; then
-                echo "Pipfile.lock is out of date:"
-                git --no-pager diff Pipfile.lock
-                exit 1
-              fi
+              python3 -m venv .venv
+              source .venv/bin/activate
+              pip install -e .[dev,pinned]
             fi
       - save_cache:
-          key: pipenv-{{ checksum "Pipfile.lock" }}-v1
+          key: pip-{{ checksum "pyproject.toml" }}-v1
           paths:
             - .venv
             - integreat_cms.egg-info
             - /home/circleci/.cache/pip
-            - /home/circleci/.cache/pipenv
       - persist_to_workspace:
           root: .
           paths:
@@ -40,29 +34,35 @@ jobs:
             - integreat_cms.egg-info
   black:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9.16
     resource_class: small
     steps:
       - checkout
       - attach_workspace:
           at: .
+      - run:
+          name: Enable virtual environment
+          command: echo "source .venv/bin/activate" >> $BASH_ENV
       - run:
           name: Check black code style
-          command: pipenv run black --check .
+          command: black --check .
   djlint:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9.16
     resource_class: small
     steps:
       - checkout
       - attach_workspace:
           at: .
       - run:
+          name: Enable virtual environment
+          command: echo "source .venv/bin/activate" >> $BASH_ENV
+      - run:
           name: Check formatting of Django templates
-          command: pipenv run djlint --check --profile django --lint integreat_cms
+          command: djlint --check --lint integreat_cms
   pylint:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9.16
     resource_class: small
     steps:
       - checkout
@@ -70,10 +70,10 @@ jobs:
           at: .
       - run:
           name: Run pylint
-          command: pipenv run pylint_runner
+          command: ./dev-tools/pylint.sh
   check-changelog:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9.16
     resource_class: small
     steps:
       - checkout
@@ -84,7 +84,7 @@ jobs:
           command: ./dev-tools/check_changelog.sh
   check-translations:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9.16
     resource_class: small
     steps:
       - checkout
@@ -98,7 +98,7 @@ jobs:
           command: ./dev-tools/check_translations.sh
   compile-translations:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9.16
     resource_class: small
     steps:
       - checkout
@@ -108,10 +108,13 @@ jobs:
           name: Install gettext
           command: sudo apt-get update && sudo apt-get install gettext
       - run:
+          name: Enable virtual environment
+          command: echo "source .venv/bin/activate" >> $BASH_ENV
+      - run:
           name: Compile translation file
           command: |
             cd integreat_cms
-            pipenv run integreat-cms-cli compilemessages --settings=integreat_cms.core.circleci_settings
+            integreat-cms-cli compilemessages --settings=integreat_cms.core.circleci_settings
       - persist_to_workspace:
           root: .
           paths:
@@ -185,7 +188,7 @@ jobs:
             - integreat_cms/webpack-stats.json
   check-migrations:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9.16
       - image: cimg/postgres:14.1
         environment:
           POSTGRES_USER: integreat
@@ -197,8 +200,11 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Enable virtual environment
+          command: echo "source .venv/bin/activate" >> $BASH_ENV
+      - run:
           name: Check for missing migrations
-          command: pipenv run integreat-cms-cli makemigrations cms --check --settings=integreat_cms.core.circleci_settings
+          command: integreat-cms-cli makemigrations cms --check --settings=integreat_cms.core.circleci_settings
   setup-test-reporter:
     docker:
       - image: cimg/base:stable
@@ -220,7 +226,7 @@ jobs:
             - cc-test-reporter
   test:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9.16
       - image: cimg/postgres:14.1
         environment:
           POSTGRES_USER: integreat
@@ -233,11 +239,14 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Enable virtual environment
+          command: echo "source .venv/bin/activate" >> $BASH_ENV
+      - run:
           name: Migrate database
-          command: pipenv run integreat-cms-cli migrate --settings=integreat_cms.core.circleci_settings
+          command: integreat-cms-cli migrate --settings=integreat_cms.core.circleci_settings
       - run:
           name: Run tests
-          command: pipenv run pytest --circleci-parallelize --disable-warnings --cov=integreat_cms --cov-report xml --junitxml=test-results/junit.xml  --ds=integreat_cms.core.circleci_settings
+          command: pytest --circleci-parallelize --disable-warnings --cov=integreat_cms --cov-report xml --junitxml=test-results/junit.xml  --ds=integreat_cms.core.circleci_settings
       - run:
           name: Format test coverage
           command: ./cc-test-reporter format-coverage -t coverage.py -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
@@ -268,39 +277,42 @@ jobs:
             ./cc-test-reporter sum-coverage -o - coverage/codeclimate.*.json | ./cc-test-reporter upload-coverage --debug --input -
   build-package:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9.16
     resource_class: small
     steps:
       - checkout
       - attach_workspace:
           at: .
       - run:
-          name: Fix dependency versions
-          command: ./dev-tools/fix_dependencies.sh
+          name: Enable virtual environment
+          command: echo "source .venv/bin/activate" >> $BASH_ENV
       - run:
           name: Use alternative README.md file
           command: mv integreat_cms/README.md .
       - run:
           name: Build integreat-cms package
-          command: python setup.py sdist bdist_wheel
+          command: python3 -m build
       - persist_to_workspace:
           root: .
           paths:
             - dist
   publish-package:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9.16
     resource_class: small
     steps:
       - checkout
       - attach_workspace:
           at: .
       - run:
+          name: Enable virtual environment
+          command: echo "source .venv/bin/activate" >> $BASH_ENV
+      - run:
           name: Publish integreat-cms package to (Test-)PyPI
-          command: pipenv run twine upload --non-interactive ./dist/integreat-cms-*.tar.gz
+          command: twine upload --non-interactive ./dist/integreat-cms-*.tar.gz
   build-documentation:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9.16
     resource_class: large
     steps:
       - checkout
@@ -315,7 +327,7 @@ jobs:
             - docs
   deploy-documentation:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9.16
     resource_class: small
     environment:
       BRANCH: gh-pages
@@ -359,12 +371,15 @@ jobs:
             git push origin $BRANCH
   bump-dev-version:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9.16
     resource_class: small
     steps:
       - checkout
       - attach_workspace:
           at: .
+      - run:
+          name: Enable virtual environment
+          command: echo "source .venv/bin/activate" >> $BASH_ENV
       - run:
           name: Bump version
           command: |
@@ -380,26 +395,29 @@ jobs:
             echo "Version converted to alternative format: ${CURRENT_ALPHA_VERSION}"
             # Bump version to current alpha version
             echo "Bump to the currently existing version"
-            pipenv run bumpver update -n --set-version="${CURRENT_ALPHA_VERSION}" --no-commit
+            bumpver update -n --set-version="${CURRENT_ALPHA_VERSION}" --no-commit
             # Bump version to next alpha version
             echo "Bump to the next version"
-            pipenv run bumpver update -n -t alpha --no-commit
+            bumpver update -n -t alpha --no-commit
       - persist_to_workspace:
           root: .
           paths:
-            - setup.cfg
+            - pyproject.toml
             - integreat_cms/__init__.py
   bump-version:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9.16
     resource_class: small
     steps:
       - checkout
       - attach_workspace:
           at: .
       - run:
+          name: Enable virtual environment
+          command: echo "source .venv/bin/activate" >> $BASH_ENV
+      - run:
           name: Request installation access token to authorize as Deliverino app
-          command: echo "export DELIVERINO_ACCESS_TOKEN=$(pipenv run ./.circleci/scripts/get_access_token.py)" >> $BASH_ENV
+          command: echo "export DELIVERINO_ACCESS_TOKEN=$(./.circleci/scripts/get_access_token.py)" >> $BASH_ENV
       - run:
           name: Config git repository to commit & push as Deliverino app
           command: |
@@ -408,11 +426,11 @@ jobs:
             git remote set-url origin "https://x-access-token:$DELIVERINO_ACCESS_TOKEN@github.com/digitalfabrik/integreat-cms.git"
       - run:
           name: Bump version
-          command: pipenv run bumpver update --tag=final
+          command: bumpver update --tag=final
       - run:
           name: Get tag of newly created version
           command: |
-            eval $(pipenv run bumpver show --env -n)
+            eval $(bumpver show --env -n)
             echo "export CURRENT_VERSION=$CURRENT_VERSION" >> $BASH_ENV
       - run:
           name: Update changelog
@@ -439,15 +457,18 @@ jobs:
           command: git checkout develop && git merge main --commit --no-edit && git push
   create-release:
     docker:
-      - image: cimg/python:3.9.14
+      - image: cimg/python:3.9.16
     resource_class: small
     steps:
       - checkout
       - attach_workspace:
           at: .
       - run:
+          name: Enable virtual environment
+          command: echo "source .venv/bin/activate" >> $BASH_ENV
+      - run:
           name: Request installation access token to authorize as Deliverino app
-          command: echo "export DELIVERINO_ACCESS_TOKEN=$(pipenv run ./.circleci/scripts/get_access_token.py)" >> $BASH_ENV
+          command: echo "export DELIVERINO_ACCESS_TOKEN=$(./.circleci/scripts/get_access_token.py)" >> $BASH_ENV
       - run:
           name: Get previous version tag
           command: |
@@ -461,11 +482,11 @@ jobs:
       - run:
           name: Get contributors
           command: |
-            CONTRIBUTORS=$(pipenv run ./.circleci/scripts/get_contributors.py "${DELIVERINO_ACCESS_TOKEN}" "${PREV_TAG}" "${CIRCLE_TAG}" -v)
+            CONTRIBUTORS=$(./.circleci/scripts/get_contributors.py "${DELIVERINO_ACCESS_TOKEN}" "${PREV_TAG}" "${CIRCLE_TAG}" -v)
             echo "export CONTRIBUTORS=\"${CONTRIBUTORS}\"" >> $BASH_ENV
       - run:
           name: Create release as Deliverino app
-          command: pipenv run ./.circleci/scripts/create_release.py "${DELIVERINO_ACCESS_TOKEN}" "${CIRCLE_TAG}" "${PREV_TAG}" "${CHANGELOG}" "${CONTRIBUTORS}" ./dist/integreat-cms-*.tar.gz
+          command: ./.circleci/scripts/create_release.py "${DELIVERINO_ACCESS_TOKEN}" "${CIRCLE_TAG}" "${PREV_TAG}" "${CHANGELOG}" "${CONTRIBUTORS}" ./dist/integreat-cms-*.tar.gz
   notify-mattermost:
     docker:
       - image: cimg/base:stable
@@ -497,7 +518,7 @@ jobs:
 workflows:
   develop:
     jobs:
-      - pipenv-install:
+      - pip-install:
           filters:
             branches:
               ignore: main
@@ -513,7 +534,7 @@ workflows:
             - npm-install
       - check-migrations:
           requires:
-            - pipenv-install
+            - pip-install
       - setup-test-reporter:
           context: codeclimate
           filters:
@@ -521,7 +542,7 @@ workflows:
               ignore: main
       - test:
           requires:
-            - pipenv-install
+            - pip-install
             - webpack
             - compile-translations
             - setup-test-reporter
@@ -534,13 +555,13 @@ workflows:
               only: /^(?!pull\/).*$/
       - check-changelog:
           requires:
-            - pipenv-install
+            - pip-install
       - check-translations:
           requires:
-            - pipenv-install
+            - pip-install
       - compile-translations:
           requires:
-            - pipenv-install
+            - pip-install
       - bump-dev-version:
           filters:
             branches:
@@ -548,7 +569,7 @@ workflows:
                 - develop
                 - /.*-publish-dev-package/
           requires:
-            - pipenv-install
+            - pip-install
       - build-package:
           name: build-dev-package
           requires:
@@ -567,13 +588,13 @@ workflows:
             - build-dev-package
       - black:
           requires:
-            - pipenv-install
+            - pip-install
       - djlint:
           requires:
-            - pipenv-install
+            - pip-install
       - pylint:
           requires:
-            - pipenv-install
+            - pip-install
       - eslint:
           requires:
             - npm-install
@@ -585,7 +606,7 @@ workflows:
               ignore: main
       - build-documentation:
           requires:
-            - pipenv-install
+            - pip-install
       - deploy-documentation:
           requires:
             - build-documentation
@@ -594,19 +615,19 @@ workflows:
               only: develop
   main:
     jobs:
-      - pipenv-install:
-          name: pipenv-install-main
+      - pip-install:
+          name: pip-install-main
           filters:
             branches:
               only: main
       - bump-version:
           context: deliverino
           requires:
-            - pipenv-install-main
+            - pip-install-main
   deploy:
     jobs:
-      - pipenv-install:
-          name: pipenv-install-deploy
+      - pip-install:
+          name: pip-install-deploy
           filters:
             tags:
               only: /.*/
@@ -629,7 +650,7 @@ workflows:
       - compile-translations:
           name: compile-translations-deploy
           requires:
-            - pipenv-install-deploy
+            - pip-install-deploy
           filters:
             tags:
               only: /.*/

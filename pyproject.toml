@@ -1,0 +1,285 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "integreat-cms"
+description = "Content Management System for the Integreat App"
+version = "2023.2.2"
+authors = [{name = "Tür an Tür – Digitalfabrik gGmbH", email = "tech@integreat-app.de"}]
+readme = "README.md"
+requires-python = ">=3.9"
+keywords = [
+    "integreat",
+    "cms",
+    "django",
+    "e-government",
+    "newcomers",
+    "refugees",
+    "multilingual",
+]
+license = {text = "Apache2 2.0 License"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django :: 3.2",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: Apache Software License",
+    "Natural Language :: English",
+    "Natural Language :: German",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content :: Content Management System",
+    "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+]
+dependencies = [
+    "aiohttp",
+    "argon2-cffi",
+    "bcrypt",
+    "cffi",
+    "deepl",
+    "Django==3.2.18",
+    "django-cacheops",
+    "django-cors-headers",
+    "django-db-mutex",
+    "django-debug-toolbar",
+    "django-linkcheck",
+    "django-polymorphic",
+    "django-redis",
+    "django-treebeard",
+    "django-webpack-loader",
+    "django-widget-tweaks",
+    "feedparser",
+    "geopy",
+    "idna",
+    "ipython",
+    "jsonschema",
+    "lxml",
+    "Pillow",
+    "psycopg2-binary",
+    "pyotp",
+    "python-dateutil",
+    "python-magic",
+    "qrcode",
+    "requests",
+    "rules",
+    "six",
+    "webauthn",
+    "xhtml2pdf==0.2.8",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "build",
+    "bumpver",
+    "djlint",
+    "pre-commit",
+    "pyjwt",
+    "pylint",
+    "pylint-django",
+    "pylint-runner",
+    "pytest-circleci-parallelized",
+    "pytest-cov",
+    "pytest-django",
+    "pytest-testmon",
+    "pytest-xdist",
+    "requests-mock",
+    "shellcheck-py",
+    "sphinx",
+    "sphinxcontrib-django2",
+    "sphinx-last-updated-by-git",
+    "sphinx-rtd-theme",
+    "twine",
+]
+pinned = [
+    "aiohttp==3.8.4",
+    "aiosignal==1.3.1",
+    "arabic-reshaper==3.0.0",
+    "argon2-cffi==21.3.0",
+    "argon2-cffi-bindings==21.2.0",
+    "asgiref==3.6.0",
+    "asn1crypto==1.5.1",
+    "asttokens==2.2.1",
+    "async-timeout==4.0.2",
+    "attrs==22.2.0",
+    "backcall==0.2.0",
+    "bcrypt==4.0.1",
+    "cbor2==5.4.6",
+    "certifi==2022.12.7",
+    "cffi==1.15.1",
+    "charset-normalizer==3.0.1",
+    "click==8.1.3",
+    "cryptography==39.0.1",
+    "cssselect2==0.7.0",
+    "decorator==5.1.1",
+    "deepl==1.13.0",
+    "Django==3.2.18",
+    "django-cacheops==6.1",
+    "django-cors-headers==3.13.0",
+    "django-db-mutex==3.0.0",
+    "django_debug_toolbar==3.8.1",
+    "django-linkcheck==2.1.0",
+    "django-polymorphic==3.1.0",
+    "django-redis==5.2.0",
+    "django-treebeard==4.6.1",
+    "django-webpack-loader==1.8.1",
+    "django-widget-tweaks==1.4.12",
+    "executing==1.2.0",
+    "feedparser==6.0.10",
+    "frozenlist==1.3.3",
+    "funcy==1.18",
+    "geographiclib==2.0",
+    "geopy==2.3.0",
+    "html5lib==1.1",
+    "idna==3.4",
+    "ipython==8.10.0",
+    "jedi==0.18.2",
+    "jsonschema==4.17.3",
+    "lxml==4.9.2",
+    "matplotlib-inline==0.1.6",
+    "multidict==6.0.4",
+    "oscrypto==1.3.0",
+    "parso==0.8.3",
+    "pexpect==4.8.0",
+    "pickleshare==0.7.5",
+    "Pillow==9.4.0",
+    "prompt-toolkit==3.0.36",
+    "psycopg2-binary==2.9.5",
+    "ptyprocess==0.7.0",
+    "pure-eval==0.2.2",
+    "pycparser==2.21",
+    "pydantic==1.10.5",
+    "Pygments==2.14.0",
+    "pyHanko==0.17.0",
+    "pyhanko-certvalidator==0.20.0",
+    "pyOpenSSL==23.0.0",
+    "pyotp==2.8.0",
+    "PyPDF3==1.0.6",
+    "pypng==0.20220715.0",
+    "pyrsistent==0.19.3",
+    "python-bidi==0.4.2",
+    "python-dateutil==2.8.2",
+    "python-magic==0.4.27",
+    "pytz==2022.7.1",
+    "pytz-deprecation-shim==0.1.0.post0",
+    "PyYAML==6.0",
+    "qrcode==7.4.2",
+    "redis==4.5.1",
+    "reportlab==3.6.12",
+    "requests==2.28.2",
+    "rules==3.3",
+    "sgmllib3k==1.0.0",
+    "six==1.16.0",
+    "sqlparse==0.4.3",
+    "stack-data==0.6.2",
+    "svglib==1.5.1",
+    "tinycss2==1.2.1",
+    "tqdm==4.64.1",
+    "traitlets==5.9.0",
+    "typing_extensions==4.5.0",
+    "tzdata==2022.7",
+    "tzlocal==4.2",
+    "uritools==4.0.1",
+    "urllib3==1.26.14",
+    "wcwidth==0.2.6",
+    "webauthn==1.7.2",
+    "webencodings==0.5.1",
+    "xhtml2pdf==0.2.8",
+    "yarl==1.8.2",
+]
+
+[project.urls]
+"Homepage" = "https://integreat-app.de/en/"
+"Source Code" = "https://github.com/digitalfabrik/integreat-cms"
+"Issues" = "https://github.com/digitalfabrik/integreat-cms/issues"
+"Release Notes" = "https://digitalfabrik.github.io/integreat-cms/changelog.html"
+"Documentation" = "https://digitalfabrik.github.io/integreat-cms/"
+"Funding" = "https://integreat-app.de/en/donation/"
+
+[tool.setuptools]
+script-files = ["integreat_cms/integreat-cms-cli"]
+license-files = ["LICENSE.txt"]
+
+[tool.setuptools.packages.find]
+include = ["integreat_cms*"]
+
+[tool.bumpver]
+current_version = "2023.2.2"
+version_pattern = "YYYY.MM.INC0[-TAG]"
+commit_message = """
+Bump version to {new_version}
+
+[skip ci]
+"""
+commit = true
+tag = false
+push = false
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+    'version = "{version}"',
+]
+"integreat_cms/__init__.py" = [
+    '__version__ = "{version}"',
+]
+"sphinx/conf.py" = [
+    'release = "{version}"',
+]
+
+[tool.djlint]
+profile="django"
+
+[tool.pylint.main]
+jobs = 0
+load-plugins = [
+    "pylint_django",
+    # TODO: Remove comparisons to empty string
+    # "pylint.extensions.emptystring",
+    # TODO: Remove comparisons to zero
+    # "pylint.extensions.comparetozero",
+    "pylint.extensions.comparison_placement",
+    "pylint.extensions.docparams",
+    "pylint.extensions.for_any_all",
+    # TODO: Use ternary expressions
+    # "pylint.extensions.consider_ternary_expression",
+]
+ignore-paths = [
+  ".venv",
+  "node_modules",
+  "build",
+]
+extension-pkg-whitelist = ["lxml"]
+django-settings-module="integreat_cms.core.settings"
+
+[tool.pylint.design]
+max-args = 7
+max-attributes = 7
+max-branches = 12
+max-locals = 15
+max-parents = 7
+
+[tool.pylint.messages_control]
+# TODO: Revisit which of them can be fixed & unignored
+disable = [
+    "attribute-defined-outside-init",
+    "fixme",
+    "invalid-name",
+    "line-too-long",
+    "too-many-lines",
+    "missing-module-docstring",
+    "no-member",
+    "superfluous-parens",
+    "unsupported-binary-operation"
+]
+# TODO: Remove all useless suppressions
+# enable = ["useless-suppression"]
+
+[tool.pylint.reports]
+output-format = "colorized"

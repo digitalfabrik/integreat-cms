@@ -33,7 +33,7 @@ fi
 echo -e "Patching Sphinx templates..." | print_info
 
 # Copy original footer file
-cp "$(pipenv --venv)/lib/python3.9/site-packages/sphinx_rtd_theme/footer.html" ${SPHINX_DIR}/templates
+cp "${VIRTUAL_ENV}/lib/python3.9/site-packages/sphinx_rtd_theme/footer.html" ${SPHINX_DIR}/templates
 # Patch footer to add hyperlinks to copyright information
 if ! patch ${SPHINX_DIR}/templates/footer.html ${SPHINX_DIR}/patches/footer.diff; then
     echo -e "\nThe patch for the footer template could not be applied correctly." | print_error
@@ -43,7 +43,7 @@ if ! patch ${SPHINX_DIR}/templates/footer.html ${SPHINX_DIR}/patches/footer.diff
 fi
 
 # Copy original breadcrumbs file
-cp "$(pipenv --venv)/lib/python3.9/site-packages/sphinx_rtd_theme/breadcrumbs.html" ${SPHINX_DIR}/templates
+cp "${VIRTUAL_ENV}/lib/python3.9/site-packages/sphinx_rtd_theme/breadcrumbs.html" ${SPHINX_DIR}/templates
 # Patch footer to add hyperlinks to copyright information
 if ! patch ${SPHINX_DIR}/templates/breadcrumbs.html ${SPHINX_DIR}/patches/breadcrumbs.diff; then
     echo -e "\nThe patch for the breadcrumbs template could not be applied correctly." | print_error
@@ -56,10 +56,10 @@ echo -e "Scanning Python source code and generating reStructuredText files from 
 
 # Generate new .rst files from source code for maximum verbosity
 export SPHINX_APIDOC_OPTIONS="members,undoc-members,inherited-members,show-inheritance"
-pipenv run sphinx-apidoc --no-toc --module-first -o "${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}" "${PACKAGE_DIR}" "${PACKAGE_DIR}/cms/migrations"
+sphinx-apidoc --no-toc --module-first -o "${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}" "${PACKAGE_DIR}" "${PACKAGE_DIR}/cms/migrations"
 
 # Generate rst files for tests module
-pipenv run sphinx-apidoc --no-toc --module-first -o "${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}" "tests"
+sphinx-apidoc --no-toc --module-first -o "${SPHINX_DIR}/${SPHINX_APIDOC_EXT_DIR}" "tests"
 
 echo -e "Patching reStructuredText files..." | print_info
 
@@ -118,7 +118,7 @@ sed --in-place --regexp-extended 's|\[#([0-9]+)\]\(https://github\.com/digitalfa
 echo -e "Compiling reStructuredText files to HTML documentation..." | print_info
 
 # Compile .rst files to html documentation
-pipenv run sphinx-build -j auto -W --keep-going ${SPHINX_DIR} ${DOC_DIR}
+sphinx-build -j auto -W --keep-going ${SPHINX_DIR} ${DOC_DIR}
 
 # Remove temporary changelog file
 rm ${SPHINX_DIR}/changelog.rst

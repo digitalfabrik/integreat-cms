@@ -37,11 +37,6 @@ SCRIPT_ARGS=("$@")
 # The verbosity of the output (can be one of {0,1,2,3})
 SCRIPT_VERBOSITY="1"
 
-# Set the pipenv verbosity based on whether pipenv is running inside a virtual environment or not.
-if [[ -n "$VIRTUAL_ENV" ]]; then
-    export PIPENV_VERBOSITY=-1
-fi
-
 # This function prints the given input lines in red color
 function print_error {
     while IFS= read -r line; do
@@ -127,19 +122,18 @@ function require_installed {
             # overwrite $HOME directory in case script was called with sudo but without the -E flag
             HOME="$(bash -c "cd ~${SUDO_USER} && pwd")"
         fi
-        # Check if pipenv is installed
-        if [[ ! -x "$(command -v pipenv)" ]]; then
-            # Check if pipenv is installed in the pip user directory
-            if [[ -x $HOME/.local/bin/pipenv ]]; then
-                # Enable the execution of a user-installed pipenv by adding the user's pip directory to the $PATH variable
-                PATH="${PATH}:${HOME}/.local/bin"
-            else
-                echo "Pipenv for Python3 is not installed. Please install it manually (e.g. with 'pip3 install pipenv --user') and run this script again."  | print_error
-                exit 1
-            fi
+        # Check if virtual environment exists
+        if [[ -f ".venv/bin/activate" ]]; then
+            # Activate virtual environment
+            # shellcheck disable=SC1091
+            source .venv/bin/activate
+        else
+            echo -e "The virtual environment for this project is missing. Please install it with:\n"  | print_error
+            echo -e "\t$(dirname "${BASH_SOURCE[0]}")/install.sh\n" | print_bold
+            exit 1
         fi
         # Check if integreat-cms-cli is available in virtual environment
-        if [[ ! -x "$(env pipenv run bash -c "command -v integreat-cms-cli")" ]]; then
+        if [[ ! -x "$(env bash -c "command -v integreat-cms-cli")" ]]; then
             echo -e "The Integreat CMS is not installed. Please install it with:\n"  | print_error
             echo -e "\t$(dirname "${BASH_SOURCE[0]}")/install.sh\n" | print_bold
             exit 1
@@ -256,9 +250,9 @@ function migrate_database {
         deescalate_privileges mkdir -pv "${PACKAGE_DIR}/cms/migrations"
         deescalate_privileges touch "${PACKAGE_DIR}/cms/migrations/__init__.py"
         # Generate migration files
-        deescalate_privileges pipenv run integreat-cms-cli makemigrations --verbosity "${SCRIPT_VERBOSITY}"
+        deescalate_privileges integreat-cms-cli makemigrations --verbosity "${SCRIPT_VERBOSITY}"
         # Execute migrations
-        deescalate_privileges pipenv run integreat-cms-cli migrate --verbosity "${SCRIPT_VERBOSITY}"
+        deescalate_privileges integreat-cms-cli migrate --verbosity "${SCRIPT_VERBOSITY}"
         echo "✔ Finished database migrations" | print_success
         DATABASE_MIGRATED=1
     fi

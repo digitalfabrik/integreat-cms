@@ -1,12 +1,10 @@
-****************************
-Virtual Environment (Pipenv)
-****************************
+*******************
+Virtual Environment
+*******************
 
 All python dependencies are installed in a virtual Python environment (see :doc:`python:tutorial/venv`).
 
-As package manager for the virtual environment we use Pipenv
-
-For portability and reproducibility, we use specific version of our dependencies locked in :github-source:`Pipfile.lock`.
+For portability and reproducibility, we use specific version of our dependencies locked in :github-source:`pyproject.toml`.
 
 
 Install dependencies
@@ -14,7 +12,7 @@ Install dependencies
 
 To install exactly the specified versions of the dependencies, execute::
 
-    pipenv install --dev
+    pip install -e .[dev,pinned]
 
 .. Note::
 
@@ -24,24 +22,29 @@ To install exactly the specified versions of the dependencies, execute::
 Add dependencies
 ================
 
-When adding new functional dependencies, please add them to :github-source:`setup.cfg` and execute::
+Adding dependencies differs based on whether they are functional or only needed in development.
 
-    pipenv update integreat-cms
+Development dependencies
+------------------------
 
-When adding a new dev dependency ``package``, just use::
+1. Add the new package to the ``[project.optional-dependencies].dev`` section in :github-source:`pyproject.toml`
+2. Execute :github-source:`dev-tools/install.sh` to install it in the venv
 
-    pipenv install --dev package
+Production dependencies
+-----------------------
+
+1. Add the new package to the ``[project].dependencies`` section in :github-source:`pyproject.toml`
+2. Execute :github-source:`dev-tools/update_dependencies.sh`, which should update the pinned versions
+   in ``[project.optional-dependencies].pinned`` of :github-source:`pyproject.toml`.
 
 
 Update dependencies
 ===================
 
-When you want to update the locked versions of the dependencies, execute::
+When you want to update the locked versions of the production dependencies,
+use the developer tool :github-source:`dev-tools/update_dependencies.sh`::
 
-    pipenv update
-
-.. Note::
-    This is also part of the ``update_dependencies.sh`` dev-tool.
+    ./dev-tools/update_dependencies.sh
 
 
 Remove virtual environment
@@ -49,4 +52,4 @@ Remove virtual environment
 
 When you want to remove the virtual environment together with all installed dependencies, execute::
 
-    pipenv --rm
+    rm -rf .venv

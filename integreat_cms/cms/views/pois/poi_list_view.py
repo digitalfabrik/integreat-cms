@@ -76,7 +76,7 @@ class POIListView(TemplateView, POIContextMixin, SummAiContextMixin):
                 **{
                     "region_slug": region.slug,
                     "language_slug": region.default_language.slug,
-                }
+                },
             )
         else:
             messages.error(
@@ -89,7 +89,7 @@ class POIListView(TemplateView, POIContextMixin, SummAiContextMixin):
                 "language_tree",
                 **{
                     "region_slug": region.slug,
-                }
+                },
             )
 
         if not request.user.has_perm("cms.change_poi"):

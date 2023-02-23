@@ -54,11 +54,11 @@ If you want to speed up this process and don't need the extra functionality, you
 
 or directly::
 
-    pipenv run integreat-cms-cli runserver localhost:8000 --settings=integreat_cms.core.docker_settings
+    integreat-cms-cli runserver localhost:8000 --settings=integreat_cms.core.docker_settings
 
 or::
 
-    pipenv run integreat-cms-cli runserver localhost:8000
+    integreat-cms-cli runserver localhost:8000
 
 Depending on your local database server.
 

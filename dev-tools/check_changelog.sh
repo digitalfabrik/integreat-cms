@@ -27,7 +27,7 @@ if [[ "${CHANGELOG}" != "${UNRELEASED}"* ]]; then
 fi
 
 # Get latest release version
-VERSION_NUM=$(pipenv run python -c "import integreat_cms; print(integreat_cms.__version__)")
+VERSION_NUM=$(python -c "import integreat_cms; print(integreat_cms.__version__)")
 
 # How the according headline should look like
 UNDERLINE=$(echo "${VERSION_NUM}" | tr "[:print:]" "-")

@@ -77,7 +77,7 @@ Basic Concepts
     continuous-integration
     debugging
 
-* :doc:`virtualenv`: Virtual Python environment and Pipenv
+* :doc:`virtualenv`: Virtual Python environment
 * :doc:`internationalization`: Multi-language support for the backend UI
 * :doc:`frontend-bundling`: Work on frontend assets
 * :doc:`testing`: How to test this application

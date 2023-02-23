@@ -59,7 +59,7 @@ if [[ -n "${TRANSLATION_DIFF}" ]] || [ $EMPTY_ENTRIES -eq 0 ] || [ $FUZZY_ENTRIE
         echo -e "\nIf you only want to disable the translations hook for this commit, use:\n" | print_info
         echo -e "\tSKIP=translations git commit" | print_bold
         echo -e "\nIf you want to disable all pre-commit hooks for this repository entirely, use:\n" | print_info
-        echo -e "\tpipenv run pre-commit uninstall" | print_bold
+        echo -e "\tpre-commit uninstall" | print_bold
     fi
     exit 1
 fi

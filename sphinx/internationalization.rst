@@ -44,7 +44,7 @@ Translation File
 After you finished your changes to the code base, run the following command::
 
     cd integreat_cms
-    pipenv run integreat-cms-cli makemessages -l de --add-location file
+    integreat-cms-cli makemessages -l de --add-location file
 
 Then, open the file :github-source:`integreat_cms/locale/de/LC_MESSAGES/django.po` and fill in the german translations::
 
@@ -59,7 +59,7 @@ Since not all of our developers are fluent in those languages, they are not requ
 However, if you are, feel free to update these additional translation files from time to time be executing::
 
     cd integreat_cms
-    pipenv run integreat-cms-cli makemessages --all --add-location file
+    integreat-cms-cli makemessages --all --add-location file
 
 And fill in all translations you can.
 
@@ -70,7 +70,7 @@ Compilation
 To actually see the translated strings in the backend UI, compile the django.po file as follows::
 
     cd integreat_cms
-    pipenv run integreat-cms-cli compilemessages
+    integreat-cms-cli compilemessages
 
 
 Developer Tools

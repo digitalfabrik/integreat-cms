@@ -109,7 +109,7 @@ To activate the pre-commit hooks, either install the CMS with the command::
 
 or execute::
 
-    pipenv run pre-commit install
+    pre-commit install
 
 manually after installing.
 
@@ -127,4 +127,4 @@ To deactivate all pre-commit hooks for a specific commit, use::
 
 If you want to deactivate pre-commit hooks for this repository entirely, use::
 
-    pipenv run pre-commit uninstall
+    pre-commit uninstall

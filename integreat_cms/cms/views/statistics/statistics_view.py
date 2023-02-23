@@ -49,7 +49,7 @@ class AnalyticsView(TemplateView):
                 "dashboard",
                 **{
                     "region_slug": region.slug,
-                }
+                },
             )
 
         form = StatisticsFilterForm()

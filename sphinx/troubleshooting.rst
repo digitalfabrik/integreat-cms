@@ -13,44 +13,6 @@ Troubleshooting
 
     before trying anything else.
 
-Pipenv not found
-================
-
-.. container:: two-columns
-
-    .. container:: left-side
-
-        .. Error:: bash: pipenv: No such file or directory
-
-    .. container:: right-side
-
-        .. Error:: zsh: command not found: pipenv
-
-.. admonition:: Solution
-    :class: hint
-
-    Probably you have installed pipenv via pip into ``~/.local/bin``, which is not in your ``PATH`` environment variable.
-    Fix this by appending ``export PATH=$PATH:~/.local/bin`` to your default shell config (e.g. ``~/.bashrc`` or ``~/.zshrc``).
-
-    .. include:: include/pipenv-path-environment-variable.rst
-
-
-Integreat-cms-cli not found
-===========================
-
-.. Error:: Error: the command integreat-cms-cli could not be found within PATH or Pipfile's [scripts].
-
-.. admonition:: Solution
-    :class: hint
-
-    You have installed an old version of pipenv.
-    Probably you used a packaged version of your linux distribution.
-    To fix this error, remove the version you have installed with your package manager and use::
-
-        pip3 install pipenv --user
-
-    instead.
-
 
 Not a git repository
 ====================
@@ -114,27 +76,25 @@ MacOS on M1
     Until a compatible version of Python 3.7 was released (the patch has already been merged: `python/cpython#22855 <https://github.com/python/cpython/pull/22855>`_). Until then you can use Python 3.8 instead. Just use homebrew and install it by running::
 
         brew install python@3.8
-    
-    Also change `python_version` in `Pipfile` to `3.8`.
 
 .. Error::
 
     | Error: pg_config executable not found.
     | or
     | ImportError: dlopen(/Users/xyz/Documents/Dev/integreat-cms/.venv/lib/python3.8/site-packages/psycopg2/_psycopg.cpython-38-darwin.so, 2): Symbol not found: _PQbackendPID
-    
+
 .. admonition:: Solution
     :class: hint
 
     There are some issues with the psycopg2 binary package right now. It needs to be compiled locally which requires postgres and libpq::
 
-        brew install libpq postgres --build-from-source 
+        brew install libpq postgres --build-from-source
 
     The packages need to be built from source as the binary version of postgres is still x86. Building it from source works absolutely fine.
     Afterwards psycopg2 needs to be reinstalled without using your local cache::
 
-        pipenv run pip uninstall psycopg2-binary
-        pipenv run pip install psycopg2-binary --no-cache-dir
+        pip uninstall psycopg2-binary
+        pip install psycopg2-binary --no-cache-dir
 
 
 Webpack Compilation Errors
