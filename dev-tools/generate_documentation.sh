@@ -32,8 +32,10 @@ fi
 
 echo -e "Patching Sphinx templates..." | print_info
 
+THEME_DIR=$(python -c "import os, sphinx_rtd_theme; print(os.path.dirname(sphinx_rtd_theme.__file__))")
+
 # Copy original footer file
-cp "${VIRTUAL_ENV}/lib/python3.9/site-packages/sphinx_rtd_theme/footer.html" ${SPHINX_DIR}/templates
+cp "${THEME_DIR}/footer.html" ${SPHINX_DIR}/templates
 # Patch footer to add hyperlinks to copyright information
 if ! patch ${SPHINX_DIR}/templates/footer.html ${SPHINX_DIR}/patches/footer.diff; then
     echo -e "\nThe patch for the footer template could not be applied correctly." | print_error
@@ -43,7 +45,7 @@ if ! patch ${SPHINX_DIR}/templates/footer.html ${SPHINX_DIR}/patches/footer.diff
 fi
 
 # Copy original breadcrumbs file
-cp "${VIRTUAL_ENV}/lib/python3.9/site-packages/sphinx_rtd_theme/breadcrumbs.html" ${SPHINX_DIR}/templates
+cp "${THEME_DIR}/breadcrumbs.html" ${SPHINX_DIR}/templates
 # Patch footer to add hyperlinks to copyright information
 if ! patch ${SPHINX_DIR}/templates/breadcrumbs.html ${SPHINX_DIR}/patches/breadcrumbs.diff; then
     echo -e "\nThe patch for the breadcrumbs template could not be applied correctly." | print_error
