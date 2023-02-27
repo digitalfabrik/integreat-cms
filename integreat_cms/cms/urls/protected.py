@@ -541,8 +541,8 @@ urlpatterns = [
                                                         name="render_mirrored_page_field",
                                                     ),
                                                     path(
-                                                        "partial-page-tree/tree-<int:tree_id>/",
-                                                        pages.PartialPageTreeView.as_view(),
+                                                        "partial-page-tree/",
+                                                        pages.render_partial_page_tree_views,
                                                         name="get_page_tree_ajax",
                                                     ),
                                                 ]

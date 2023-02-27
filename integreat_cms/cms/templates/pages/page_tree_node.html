@@ -40,7 +40,7 @@
                       data-collapse-title="{% translate "Collapse all subpages" %}"
                       data-page-id="{{ page.id }}"
                       data-page-children="{{ page|get_children_ids }}"
-                      data-page-descendants-url="{% url 'get_page_tree_ajax' region_slug=request.region.slug language_slug=language.slug tree_id=page.tree_id %}">
+                      data-page-tree-id="{{ page.tree_id }}">
                     <i icon-name="chevron-right"></i>
                 </span>
             {% endif %}
@@ -59,7 +59,7 @@
     </td>
     {% if backend_language and backend_language != language %}
         <td>
-            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}"
+            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=backend_language.slug %}"
                class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
                title="{% if page.backend_translation %} {{ page.backend_translation.title }}{% endif %}">
                 <div class="translation-title">

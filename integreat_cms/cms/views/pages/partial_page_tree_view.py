@@ -1,62 +1,77 @@
-from django.shortcuts import render
-from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
+from collections import defaultdict
+import json
 
-from integreat_cms.cms.views.pages.page_context_mixin import PageContextMixin
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+from django.utils.translation import get_language
+from django.views.decorators.http import require_POST
 
+from ..pages.page_context_mixin import PageContextMixin
+from ...models.languages.language import Language
 from ...decorators import permission_required
 
 
-@method_decorator(permission_required("cms.view_page"), name="dispatch")
-class PartialPageTreeView(TemplateView, PageContextMixin):
+@permission_required("cms.view_page")
+@require_POST
+# pylint: disable=unused-argument
+def render_partial_page_tree_views(request, region_slug, language_slug):
+    r"""
+    Retrieve the rendered subtree of a given root page
+
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :param language_slug: The slug of the current language
+    :type language_slug: str
+
+    :return: The rendered template responses
+    :rtype: ~django.http.JsonResponse
     """
-    View for rendering a partial page tree
-    """
+    requested_tree_ids = [int(i) for i in json.loads(request.body.decode("utf-8"))]
 
-    #: Template for a partial page tree
-    template = "pages/_page_tree_children.html"
+    region = request.region
+    language = region.get_language_or_404(language_slug, only_active=True)
 
-    # pylint: disable=unused-argument
-    def get(self, request, *args, **kwargs):
-        r"""
-        Retrieve the rendered subtree of a given root page
+    backend_language = Language.objects.filter(slug=get_language()).first()
 
-        :param request: The current request
-        :type request: ~django.http.HttpRequest
+    all_pages = (
+        region.pages.filter(tree_id__in=requested_tree_ids)
+        .prefetch_major_translations()
+        .prefetch_related("mirroring_pages")
+        .cache_tree(archived=False)
+    )
 
-        :param \*args: The supplied arguments
-        :type \*args: list
+    pages_by_id = defaultdict(list)
+    for page in all_pages:
+        pages_by_id[page.tree_id].append(page)
 
-        :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
-        :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
-        """
-        tree_id = int(kwargs.get("tree_id"))
-        region = request.region
-        language = region.get_language_or_404(
-            kwargs.get("language_slug"), only_active=True
-        )
+    sub_trees = []
+    for tree_id in requested_tree_ids:
+        # Skip page trees which do not exist
+        if tree_id not in pages_by_id:
+            continue
         # Get the tree of the given id
-        pages = (
-            region.pages.filter(tree_id=tree_id)
-            .prefetch_major_translations()
-            .prefetch_related("mirroring_pages")
-            .cache_tree(archived=False)
-        )
+        pages = pages_by_id[tree_id]
         # The first element must be the root node
         parent = pages[0]
         # The remaining pages are the descendants
         children = pages[1:]
-        return render(
-            request,
-            self.template,
-            {
-                **self.get_context_data(**kwargs),
-                "pages": children,
-                "language": language,
-                "languages": region.active_languages,
-                "parent_id": parent.id,
-            },
+        sub_trees.append(
+            render_to_string(
+                "pages/_page_tree_children.html",
+                {
+                    **PageContextMixin().get_context_data(),
+                    "backend_language": backend_language,
+                    "pages": children,
+                    "language": language,
+                    "languages": region.active_languages,
+                    "parent_id": parent.id,
+                },
+                request,
+            )
         )
+
+    return JsonResponse({"data": sub_trees})
