@@ -195,6 +195,11 @@ class Page(AbstractTreeNode, AbstractBasePage):
         verbose_name=_("API access token"),
         help_text=_("API token to allow writing content to translations."),
     )
+    hix_ignore = models.BooleanField(
+        default=False,
+        verbose_name=_("Ignore HIX value"),
+        help_text=_("This allows to ignore HIX value for this specific page."),
+    )
 
     #: Custom model manager to inherit methods from tree manager as well as the custom content queryset
     objects = PageManager()
