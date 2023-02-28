@@ -270,9 +270,11 @@ if DEBUG:
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "django.middleware.cache.UpdateCacheMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
+    "django.middleware.cache.FetchFromCacheMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
@@ -281,6 +283,8 @@ MIDDLEWARE = [
     "integreat_cms.core.middleware.AccessControlMiddleware",
     "integreat_cms.core.middleware.TimezoneMiddleware",
 ]
+
+CACHE_MIDDLEWARE_SECONDS = 3600
 
 # The Django debug toolbar middleware will only be activated if the debug_toolbar app is installed
 if "debug_toolbar" in INSTALLED_APPS:
@@ -382,6 +386,7 @@ CORS_ALLOW_HEADERS = [
     "accept-encoding",
     "authorization",
     "content-type",
+    "cache-control",
     "dnt",
     "origin",
     "user-agent",
