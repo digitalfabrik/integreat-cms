@@ -38,7 +38,7 @@ const DirectoryContent = ({
         <div className="grid grid-cols-gallery max-h-full gap-1">
             {mediaLibraryContent.map((entry: MediaLibraryEntry, index: number) =>
                 entry.type === "directory" ? (
-                    <Link key={entry.id} href={`/${entry.id}/`} media-library-link>
+                    <Link key={`dir-${entry.id}`} href={`/${entry.id}/`} media-library-link>
                         <DirectoryEntry
                             directory={entry as Directory}
                             mediaTranslations={mediaTranslations}
@@ -51,7 +51,7 @@ const DirectoryContent = ({
                     </Link>
                 ) : (
                     <FileEntry
-                        key={entry.id}
+                        key={`file-${entry.id}`}
                         file={entry as File}
                         active={index === fileIndex}
                         onClick={(e) => {
