@@ -2,7 +2,9 @@
 
 {% block sidebartitle %}
     {% if logo %}
-        <a href="{{ pathto(master_doc) }}"><img src="{{ pathto('_static/' + logo, 1) }}" class="logo" alt="Logo"/></a>
+        {# djlint:off H006 #}
+            <a href="{{ pathto(master_doc) }}"><img src="{{ pathto('_static/' + logo, 1) }}" class="logo" alt="Logo"/></a>
+        {# djlint:on #}
     {% endif %}
     {% if not logo or not theme_logo_only %}
         <a href="{{ pathto(master_doc) }}" class="icon icon-home"> {{ project }}</a>
@@ -19,14 +21,14 @@
         {% endif %}
     {% endif %}
     {% include "searchbox.html" %}
-{% endblock %}
+{% endblock sidebartitle %}
 
 {% block menu %}
     {{ super() }}
     <a href="{{ pathto('genindex.html', 1) }}">Full Index</a>
     <a href="{{ pathto('py-modindex.html', 1) }}">Module Index</a>
     <a href="{{ pathto('search.html', 1) }}">Search Page</a>
-{% endblock %}
+{% endblock menu %}
 
 {% block footer %}
     {{ super() }}
@@ -79,4 +81,4 @@
             }
         });
     </script>
-{% endblock %}
+{% endblock footer %}

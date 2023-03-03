@@ -146,13 +146,14 @@ Documentation
 
 Generate this documentation with :github-source:`tools/generate_documentation.sh`::
 
-    ./tools/generate_documentation.sh [--clean]
+    ./tools/generate_documentation.sh [--clean] [--make-clean]
 
 **Options:**
 
-* ``--clean``: Remove all temporary documentation files in the ``sphinx/ref/`` and ``sphinx/ref-ext/``
-  directories as well as the compiled html output in ``docs``. Existing outdated documentation files can cause the
+* ``--clean``: Remove all temporary documentation files in the ``docs/src/ref/`` and ``docs/src/ref-ext/``
+  directories as well as the compiled html output in ``docs/dist``. Existing outdated documentation files can cause the
   generation script to fail if e.g. source files were added or deleted.
+* ``--make-clean``: Identical to ``--clean``, but don't proceed after cleaning the environment.
 
 
 GitHub Review Checker

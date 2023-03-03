@@ -324,14 +324,14 @@ jobs:
       - persist_to_workspace:
           root: .
           paths:
-            - docs
+            - docs/dist
   deploy-documentation:
     docker:
       - image: cimg/python:3.9.16
     resource_class: small
     environment:
       BRANCH: gh-pages
-      DOC_DIR: docs
+      DOC_DIR: docs/dist
       TMP_DIR: .gh-pages
     steps:
       - attach_workspace:
