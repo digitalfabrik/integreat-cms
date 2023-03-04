@@ -11,7 +11,7 @@
     See https://github.com/xhtml2pdf/xhtml2pdf/issues/498 for more information.
     Once this issue is fixed, we can use tailwind in the pdf context.
 {% endcomment %}
-{# djlint:off H016,H030,H031 #}
+{# djlint:off H006,H016,H025,H030,H031 #}
 <html>
     <head>
         <!-- these style settings are only set to pdf exported pages
@@ -19,6 +19,9 @@
         the documentation of xhtml2pdf -->
         {% render_bundle 'pdf' 'css' %}
         <style>
+            .content {
+                padding-bottom: 30px;
+            }
             {% if language.slug == "zh-CN" %}
                 html, body {
                     font-family: "Noto Sans SC", sans-serif;
@@ -64,7 +67,8 @@
                     <td id="second-footer">{{ region.full_name }}</td>
                     <td id="third-footer">
                         <img src="{% static 'logos/'|add:BRANDING|add:'/'|add:BRANDING|add:'-logo.png' %}"
-                             height="40"/>
+                             height="40"
+                             alt="{{ BRANDING }}"/>
                     </td>
                 </tr>
             </table>
@@ -88,24 +92,28 @@
                 </div>
             {% endif %}
             {% for page, info in annotated_pages %}
+                {# djlint:off #}
                 {% if info.open %}
                     <ul>
                         <li>{% else %}</li>
-                        <li>
-                        {% endif %}
-                        {% get_public_translation page language.slug as page_translation %}
-                        <h1 class="level-{{ page.depth|add:"-1" }}">{{ page_translation.title }}</h1>
-                        <div class="content" style="padding-bottom: 30px;">
-                            {% if page.mirrored_page_first %}{{ page_translation.mirrored_translation_text|pdf_strip_fontstyles|safe }}{% endif %}
-                            {{ page_translation.content|pdf_strip_fontstyles|safe }}
-                            {% if not page.mirrored_page_first %}
-                                {{ page_translation.mirrored_translation_text|pdf_strip_fontstyles|safe }}
-                            {% endif %}
-                        </div>
-                        {% for close in info.close %}
+                    <li>
+                {% endif %}
+                {% get_public_translation page language.slug as page_translation %}
+                <h1 class="level-{{ page.depth|add:"-1" }}">{{ page_translation.title }}</h1>
+                <div class="content">
+                    {% if page.mirrored_page_first %}
+                        {{ page_translation.mirrored_translation_text|pdf_strip_fontstyles|safe }}
+                    {% endif %}
+                    {{ page_translation.content|pdf_strip_fontstyles|safe }}
+                    {% if not page.mirrored_page_first %}
+                        {{ page_translation.mirrored_translation_text|pdf_strip_fontstyles|safe }}
+                    {% endif %}
+                </div>
+                {% for close in info.close %}
                         </li>
                     </ul>
                 {% endfor %}
+                {# djlint:on #}
             {% endfor %}
         </div>
     </body>
