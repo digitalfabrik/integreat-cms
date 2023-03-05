@@ -5,6 +5,7 @@ UNRELEASED
 * [ [#2032](https://github.com/digitalfabrik/integreat-cms/issues/2032) ] Remove gap between sidebar boxes in event and page form
 * [ [#1322](https://github.com/digitalfabrik/integreat-cms/issues/1322) ] Add organization name & logo to the page API response
 * [ [#2105](https://github.com/digitalfabrik/integreat-cms/issues/2105) ] Indicate that categories are now shown in the apps
+* [ [#2065](https://github.com/digitalfabrik/integreat-cms/issues/2065) ] Only allow staff members to use SUMM.AI bulk action
 
 
 2023.2.2

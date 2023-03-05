@@ -156,7 +156,7 @@
                 <option data-bulk-action="{% url 'bulk_archive_pages' region_slug=request.region.slug language_slug=language.slug %}">
                     {% translate "Archive pages" %}
                 </option>
-                {% if SUMM_AI_ENABLED %}
+                {% if SUMM_AI_ENABLED and request.user.is_staff %}
                     <option data-bulk-action="{% url 'auto_translate_easy_german_pages' region_slug=request.region.slug language_slug=language.slug %}">
                         {% translate "Automatically translate this page into Easy German" %}
                     </option>
