@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.html import strip_tags
 from django.utils.text import slugify
 from django.utils import timezone
+from django.db.models import prefetch_related_objects
 from ...cms.models import Page
 from ...cms.forms import PageTranslationForm
 from ..decorators import json_response, matomo_tracking
@@ -63,6 +64,7 @@ def transform_page(page_translation):
         # use tree id of mptt model for ordering of root pages
         order = page_translation.page.tree_id
 
+    organization = page_translation.page.organization
     absolute_url = page_translation.get_absolute_url()
     return {
         "id": page_translation.id,
@@ -78,6 +80,14 @@ def transform_page(page_translation):
         "available_languages": page_translation.available_languages_dict,
         "thumbnail": page_translation.page.icon.url
         if page_translation.page.icon
+        else None,
+        "organization": {
+            "id": organization.id,
+            "slug": organization.slug,
+            "name": organization.name,
+            "logo": organization.icon.url if organization.icon else None,
+        }
+        if organization
         else None,
         "hash": None,
     }
@@ -106,8 +116,10 @@ def pages(request, region_slug, language_slug):
     result = []
     # The preliminary filter for explicitly_archived=False is not strictly required, but reduces the number of entries
     # requested from the database
-    for page in region.pages.filter(explicitly_archived=False).cache_tree(
-        archived=False, language_slug=language_slug
+    for page in (
+        region.pages.select_related("organization")
+        .filter(explicitly_archived=False)
+        .cache_tree(archived=False, language_slug=language_slug)
     ):
         page_translation = page.get_public_translation(language_slug)
         if page_translation:
@@ -148,10 +160,14 @@ def get_single_page(request, language_slug):
         # The last path component of the url is the page translation slug
         page_translation_slug = slugify(url.split("/")[-1], allow_unicode=True)
         # Get page by filtering for translation slug and translation language slug
-        filtered_pages = region.pages.filter(
-            translations__slug=page_translation_slug,
-            translations__language__slug=language_slug,
-        ).distinct()
+        filtered_pages = (
+            region.pages.select_related("organization")
+            .filter(
+                translations__slug=page_translation_slug,
+                translations__language__slug=language_slug,
+            )
+            .distinct()
+        )
 
         if len(filtered_pages) > 1:
             logger.error(
@@ -245,9 +261,13 @@ def children(request, region_slug, language_slug):
         # like in wordpress depth = 0 will return no results in this case
         depth = depth - 1
     result = []
-    public_region_pages = request.region.pages.filter(
-        explicitly_archived=False, tree_id__in=[page.tree_id for page in root_pages]
-    ).cache_tree(archived=False, language_slug=language_slug)
+    public_region_pages = (
+        request.region.pages.select_related("organization")
+        .filter(
+            explicitly_archived=False, tree_id__in=[page.tree_id for page in root_pages]
+        )
+        .cache_tree(archived=False, language_slug=language_slug)
+    )
     for root in root_pages:
         descendants = root.get_tree_max_depth(max_depth=depth)
         for descendant in descendants:
@@ -306,7 +326,9 @@ def get_public_ancestor_translations(current_page, language_slug):
     :rtype: ~django.http.JsonResponse
     """
     result = []
-    for ancestor in current_page.get_cached_ancestors():
+    cached_ancestors = current_page.get_cached_ancestors()
+    prefetch_related_objects(cached_ancestors, "organization")
+    for ancestor in cached_ancestors:
         public_translation = ancestor.get_public_translation(language_slug)
         if not public_translation or ancestor.explicitly_archived:
             raise Http404("No Page matches the given url or id.")
