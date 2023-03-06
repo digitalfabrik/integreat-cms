@@ -23,7 +23,7 @@ from integreat_cms.core import settings
 sys.path.append(os.path.abspath(".."))
 # Append sphinx source directory to path environment variable to allow documentation for this file
 sys.path.append(os.path.abspath("."))
-#: The path to the django settings module (see :doc:`sphinxcontrib-django2:readme`)
+#: The path to the django settings module (see :doc:`sphinxcontrib-django:readme`)
 django_settings = "integreat_cms.core.sphinx_settings"
 #: The "major.minor" version of Django
 django_version = f"{django_version[0]}.{django_version[1]}"
@@ -60,7 +60,7 @@ extensions = [
     "sphinx.ext.githubpages",
     "sphinx.ext.intersphinx",
     "sphinx.ext.linkcode",
-    "sphinxcontrib_django2",
+    "sphinxcontrib_django",
     "sphinx_rtd_theme",
     "sphinx_last_updated_by_git",
 ]
@@ -85,8 +85,8 @@ intersphinx_mapping = {
         "https://sphinx-rtd-theme.readthedocs.io/en/latest/",
         None,
     ),
-    "sphinxcontrib-django2": (
-        "https://sphinxcontrib-django2.readthedocs.io/en/latest/",
+    "sphinxcontrib-django": (
+        "https://sphinxcontrib-django.readthedocs.io/en/latest/",
         None,
     ),
     "sphinx-rtd-tutorial": (
@@ -280,7 +280,7 @@ def patch_django_for_autodoc(app):
 
 def setup(app):
     """
-    Connect to the ``django-configured`` event of :mod:`sphinxcontrib_django2` to monkeypatch application.
+    Connect to the ``django-configured`` event of :mod:`sphinxcontrib_django` to monkeypatch application.
 
     :param app: The Sphinx application object
     :type app: ~sphinx.application.Sphinx
