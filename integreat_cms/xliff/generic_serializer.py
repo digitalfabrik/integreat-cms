@@ -9,7 +9,6 @@ class Serializer(xliff2_serializer.Serializer):
     """
 
 
-# pylint: disable=too-few-public-methods
 class Deserializer(base_serializer.Deserializer):
     """
     For deserialization, inspect the data and choose the correct version

@@ -25,7 +25,6 @@ class TranslationCoverageView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "analytics/translation_coverage.html"
 
-    # pylint: disable=too-many-locals
     def get_context_data(self, **kwargs):
         r"""
         Extend context by translation coverage data

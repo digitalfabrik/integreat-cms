@@ -151,7 +151,6 @@ class ImprintSideBySideView(TemplateView, MediaContextMixin):
             },
         )
 
-    # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
         r"""
         Submit :class:`~integreat_cms.cms.forms.imprint.imprint_translation_form.ImprintTranslationForm` and save

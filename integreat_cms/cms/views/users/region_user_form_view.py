@@ -61,7 +61,6 @@ class RegionUserFormView(TemplateView):
             },
         )
 
-    # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
         r"""
         Submit :class:`~integreat_cms.cms.forms.users.user_form.UserForm` and  save :class:`~django.contrib.auth.models.User`

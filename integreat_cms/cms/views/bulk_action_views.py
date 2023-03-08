@@ -261,7 +261,6 @@ class BulkUpdateBooleanFieldView(BulkActionView):
         return super().post(request, *args, **kwargs)
 
 
-# pylint: disable=too-many-ancestors
 class BulkArchiveView(BulkActionView):
     """
     Bulk action for restoring multiple objects at once
@@ -303,7 +302,6 @@ class BulkArchiveView(BulkActionView):
         return super().post(request, *args, **kwargs)
 
 
-# pylint: disable=too-many-ancestors
 class BulkRestoreView(BulkActionView):
     """
     Bulk action for restoring multiple objects at once

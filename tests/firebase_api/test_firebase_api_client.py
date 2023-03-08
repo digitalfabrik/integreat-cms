@@ -204,7 +204,6 @@ class TestFirebaseApiClient:
             assert "Received invalid response from FCM for" in record.message
         assert not status
 
-    # pylint: disable=unused-argument
     @pytest.mark.django_db
     def send_all_with_mocked_response(self, settings, requests_mock, mocked_response):
         """

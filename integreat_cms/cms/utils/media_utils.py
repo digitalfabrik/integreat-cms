@@ -11,7 +11,6 @@ from PIL import Image, ImageOps
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-many-locals
 def generate_thumbnail(
     original_image,
     size=settings.MEDIA_THUMBNAIL_SIZE,

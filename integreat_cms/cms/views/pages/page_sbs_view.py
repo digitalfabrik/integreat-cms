@@ -123,7 +123,6 @@ class PageSideBySideView(
             },
         )
 
-    # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
         r"""
         Submit :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm` and save

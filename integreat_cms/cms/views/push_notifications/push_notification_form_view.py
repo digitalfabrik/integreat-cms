@@ -122,7 +122,7 @@ class PushNotificationFormView(TemplateView):
             },
         )
 
-    # pylint: disable=too-many-branches,too-many-statements
+    # pylint: disable=too-many-branches
     def post(self, request, *args, **kwargs):
         r"""
         Save and show form for creating or editing a push notification. Send push notification

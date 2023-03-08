@@ -170,7 +170,6 @@ class Serializer(base_serializer.Serializer):
         self.xml.endElement("file")
 
 
-# pylint: disable=too-few-public-methods
 class Deserializer(base_serializer.Deserializer):
     """
     XLIFF deserializer class for XLIFF version 2.0

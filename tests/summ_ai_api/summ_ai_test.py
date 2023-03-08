@@ -71,7 +71,6 @@ def get_changed_pages(settings, ids):
 
 
 @pytest.mark.django_db
-# pylint: disable=too-many-locals
 async def test_auto_translate_easy_german(
     login_role_user_async, settings, aiohttp_raw_server
 ):
@@ -163,7 +162,6 @@ async def broken_fake_summ_ai_server(request):
     )
 
 
-# pylint: disable=unused-argument,too-many-locals
 @pytest.mark.django_db
 async def test_summ_ai_error_handling(
     login_role_user_async, settings, aiohttp_raw_server

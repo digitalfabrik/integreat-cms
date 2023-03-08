@@ -9,7 +9,6 @@ from ...decorators import feedback_handler, json_response
 
 @feedback_handler
 @json_response
-# pylint: disable=unused-argument
 def search_result_feedback(data, region, language, comment, rating, is_technical):
     """
     Store feedback on app search results in database

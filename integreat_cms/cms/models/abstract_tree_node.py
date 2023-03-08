@@ -176,7 +176,6 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         :rtype: ~treebeard.ns_tree.NS_NodeQuerySet
         """
         if not hasattr(self, "_cached_ancestors"):
-            # pylint: disable=attribute-defined-outside-init
             self._cached_ancestors = list(self.get_ancestors())
         if include_self:
             return [*self._cached_ancestors, self]
@@ -207,7 +206,6 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         :rtype: ~treebeard.ns_tree.NS_NodeQuerySet
         """
         if not hasattr(self, "_cached_descendants"):
-            # pylint: disable=attribute-defined-outside-init
             self._cached_descendants = list(self.get_descendants())
         if include_self:
             return [self, *self._cached_descendants]
@@ -222,7 +220,6 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         :rtype: list
         """
         if not hasattr(self, "_cached_children"):
-            # pylint: disable=attribute-defined-outside-init
             if hasattr(self, "_cached_descendants"):
                 self._cached_children = [
                     descendant

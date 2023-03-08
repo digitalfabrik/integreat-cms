@@ -242,8 +242,8 @@ class PageFormView(
             },
         )
 
+    # pylint: disable=too-many-statements
     @transaction.atomic
-    # pylint: disable=too-many-branches,unused-argument,too-many-statements
     def post(self, request, *args, **kwargs):
         r"""
         Submit :class:`~integreat_cms.cms.forms.pages.page_form.PageForm` and

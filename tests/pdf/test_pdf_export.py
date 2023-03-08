@@ -126,7 +126,6 @@ def test_pdf_export(
             assert result_page.getContents() == expected_page.getContents()
 
 
-# pylint: disable=unused-argument,too-many-locals
 @pytest.mark.django_db
 # Override urls to serve PDF files
 @pytest.mark.urls("tests.pdf.dummy_django_app.static_urls")

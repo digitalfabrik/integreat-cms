@@ -45,7 +45,6 @@ class EventFormView(
     #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`
     back_url_name = "events"
 
-    # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
         r"""
         Render event form for HTTP GET requests

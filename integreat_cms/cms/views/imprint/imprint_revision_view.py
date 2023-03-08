@@ -101,7 +101,6 @@ class ImprintRevisionView(TemplateView):
             },
         )
 
-    # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
         r"""
         Restore a previous revision of an imprint page translation

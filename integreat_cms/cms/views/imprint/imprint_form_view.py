@@ -162,7 +162,6 @@ class ImprintFormView(TemplateView, MediaContextMixin):
             },
         )
 
-    # pylint: disable=too-many-branches,unused-argument
     def post(self, request, *args, **kwargs):
         r"""
         Binds the user input data to the imprint form and validates the input.

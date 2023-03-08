@@ -104,7 +104,6 @@ class PageRevisionView(PageContextMixin, TemplateView):
             },
         )
 
-    # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
         r"""
         Restore a previous revision of a page translation

@@ -59,7 +59,6 @@ class UserFormView(TemplateView):
             },
         )
 
-    # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
         r"""
         Submit :class:`~integreat_cms.cms.forms.users.user_form.UserForm` and save :class:`~integreat_cms.cms.models.users.user.User`

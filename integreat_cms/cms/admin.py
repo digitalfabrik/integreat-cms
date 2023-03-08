@@ -17,7 +17,6 @@ if settings.DEBUG:
                 A custom model class to allow drag & drop in Django admin
                 """
 
-                # pylint: disable=undefined-loop-variable
                 #: The form is dynamically generated via :func:`treebeard.forms.movenodeform_factory`
                 form = movenodeform_factory(model)
                 # Filters in the right sidebar of the lists

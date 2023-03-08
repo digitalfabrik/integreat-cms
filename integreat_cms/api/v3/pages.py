@@ -231,7 +231,6 @@ def single_page(request, region_slug, language_slug):
 
 @matomo_tracking
 @json_response
-# pylint: disable=unused-argument
 def children(request, region_slug, language_slug):
     """
     Retrieves all children for a single page

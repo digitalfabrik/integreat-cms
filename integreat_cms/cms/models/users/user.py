@@ -21,7 +21,6 @@ from .organization import Organization
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-few-public-methods
 class CustomUserManager(UserManager):
     """
     This manager prefetches the regions of each user because they are needed for permissions checks and the region selection anyway

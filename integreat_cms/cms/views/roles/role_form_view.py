@@ -58,7 +58,6 @@ class RoleFormView(TemplateView):
             },
         )
 
-    # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
         r"""
         Submit :class:`~integreat_cms.cms.forms.roles.role_form.RoleForm` and save :class:`~django.contrib.auth.models.Group` object

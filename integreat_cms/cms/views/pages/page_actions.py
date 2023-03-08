@@ -267,7 +267,6 @@ def delete_page(request, page_id, region_slug, language_slug):
     )
 
 
-# pylint: disable=unused-argument
 def expand_page_translation_id(request, short_url_id):
     """
     Searches for a page translation with corresponding ID and redirects browser to web app
@@ -441,7 +440,6 @@ def upload_xliff(request, region_slug, language_slug):
 @require_POST
 @permission_required("cms.change_page")
 @transaction.atomic
-# pylint: disable=too-many-arguments
 def move_page(request, region_slug, language_slug, page_id, target_id, position):
     """
     Move a page object in the page tree

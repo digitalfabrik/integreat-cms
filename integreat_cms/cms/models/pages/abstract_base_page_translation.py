@@ -62,10 +62,8 @@ class AbstractBasePageTranslation(AbstractContentTranslation):
             f' {best_translation.language}: "{best_translation.title}"'
         )
         # Check whether page translation has title
-        # pylint: disable=no-member
         if self.title:
             # Start with translation title if exists
-            # pylint: disable=no-member
             readable_title = f'"{self.title}"'
             if (
                 best_translation.title != self.title
