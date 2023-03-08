@@ -6,6 +6,7 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -169,6 +170,10 @@ class BulkActionEasyGermanView(BulkActionView):
         :return: The redirect
         :rtype: ~django.http.HttpResponseRedirect
         """
+        if not request.user.is_staff:
+            raise PermissionDenied(
+                "Only staff users have the permission to bulk translate pages via SUMM.AI"
+            )
         if not settings.SUMM_AI_ENABLED or not request.region.summ_ai_enabled:
             if not settings.SUMM_AI_ENABLED:
                 logger.warning("SUMM.AI globally disabled")
@@ -178,7 +183,9 @@ class BulkActionEasyGermanView(BulkActionView):
             return super().post(request, *args, **kwargs)
         # Collect the corresponding objects
         logger.info(
-            "%r started SUMM.AI translation for: %r", request.user, self.get_queryset()
+            "%r started SUMM.AI translation for: %r",
+            request.user,
+            self.get_queryset(),
         )
         api_client = SummAiApiClient(request, self.form)
         api_client.translate_queryset(self.get_queryset())
