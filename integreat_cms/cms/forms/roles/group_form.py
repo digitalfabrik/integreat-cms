@@ -22,5 +22,4 @@ class GroupForm(CustomModelForm):
     def __init__(self, **kwargs):
         # Instantiate CustomModelForm
         super().__init__(**kwargs)
-        # TODO: Derive size from view height (fill complete available space with select field)
         self.fields["permissions"].widget.attrs["size"] = "20"

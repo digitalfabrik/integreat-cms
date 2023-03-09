@@ -55,7 +55,7 @@ def test_summ_ai_bulk_non_existing_region():
     assert str(exc_info.value) == 'Region with slug "non-existing" does not exist.'
 
 
-# pylint: disable=unused-argument
+# pylint: disable=unused-argument,fixme
 @pytest.mark.django_db
 def test_summ_ai_bulk_disabled_region(load_test_data):
     """

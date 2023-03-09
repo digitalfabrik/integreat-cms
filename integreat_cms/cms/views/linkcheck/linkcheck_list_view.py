@@ -122,7 +122,7 @@ class LinkcheckListView(ListView):
         except Http404 as e:
             # If already the last page was requested, raise the error
             if request.GET.get("page") == "last":
-                raise (e)
+                raise e
             # If the page does not exist, use the last page as fallback
             logger.debug("Redirecting to last page because response was 404")
             params = {"page": "last"}

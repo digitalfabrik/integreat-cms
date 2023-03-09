@@ -1002,7 +1002,6 @@ urlpatterns = [
                         ]
                     ),
                 ),
-                # TODO: Change destination for delete_event, add view_event
                 path(
                     "events/",
                     include(

@@ -15,6 +15,7 @@ from .abstract_base_model import AbstractBaseModel
 logger = logging.getLogger(__name__)
 
 
+# pylint: disable=attribute-defined-outside-init
 class AbstractTreeNode(NS_Node, AbstractBaseModel):
     """
     Abstract data model representing a tree node within a region.
