@@ -5,6 +5,7 @@
 import { FilePlus, FolderPlus, Search, Loader, Filter, FilterX } from "lucide-preact";
 import { StateUpdater, useEffect, useState } from "preact/hooks";
 import { route } from "preact-router";
+import cn from "classnames";
 
 import { Directory, MediaApiPaths, MediaLibraryEntry, File } from ".";
 import Breadcrumbs from "./component/breadcrumbs";
@@ -213,7 +214,9 @@ const Library = ({
                                 type="search"
                                 autocomplete="off"
                                 placeholder={mediaTranslations.btn_search}
-                                class="rounded-r-none"
+                                className={cn("rounded-r-none", {
+                                    "!bg-gray-100 !border-gray-100": selectionMode,
+                                })}
                                 data-url={apiEndpoints.getSearchSuggestions}
                                 data-object-type="media"
                                 data-archived="false"
