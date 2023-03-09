@@ -38,7 +38,7 @@ const addIcon = (editor: Editor, tinymceConfig: HTMLElement, name: string, short
     editor.ui.registry.addMenuItem(name, {
         text: tinymceConfig.getAttribute(`data-${name}-icon-text`),
         icon: name,
-        shortcut: shortcut,
+        shortcut,
         onAction: () => {
             insertIcon(editor, tinymceConfig, name);
         },
