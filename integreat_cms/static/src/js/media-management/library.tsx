@@ -2,7 +2,7 @@
  * This component renders the media library in edit mode,
  * so new directories and files can be added and the existing entries can be modified
  */
-import { FilePlus, FolderPlus, Search, Loader, Filter, FilterX } from "lucide-preact";
+import { FilePlus, FolderPlus, Search, Loader, Filter, FilterX, X } from "lucide-preact";
 import { StateUpdater, useEffect, useState } from "preact/hooks";
 import { route } from "preact-router";
 import cn from "classnames";
@@ -204,6 +204,10 @@ const Library = ({
                                     console.debug(`Search query empty, returning to the home directory...`);
                                     route("/");
                                 } else {
+                                    // Clear focus
+                                    if (document.activeElement instanceof HTMLElement) {
+                                        document.activeElement.blur();
+                                    }
                                     setDirectoryPath([]);
                                     route(`/search/${encodeURIComponent(searchInput.value)}`);
                                 }
@@ -227,6 +231,18 @@ const Library = ({
                                 class="absolute hidden shadow rounded-b top-full bg-graz-200 w-full z-10 max-h-60 overflow-y-auto cursor-pointer"
                             />
                         </form>
+                        {searchQuery && (
+                            <button
+                                id="search-reset-btn"
+                                title={mediaTranslations.btn_reset_search}
+                                className={cn("hover:bg-gray-300 text-gray-800 py-2 px-3", {
+                                    "bg-gray-100 border-gray-100": selectionMode,
+                                    "bg-gray-200 border-gray-200": !selectionMode,
+                                })}
+                                type="button">
+                                <X className="w-5" />
+                            </button>
+                        )}
                         <button
                             id="search-submit-btn"
                             title={mediaTranslations.btn_search}

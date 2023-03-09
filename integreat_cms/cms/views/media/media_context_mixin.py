@@ -56,6 +56,7 @@ class MediaContextMixin(ContextMixin):
                 "btn_select_file": _("Select file"),
                 "btn_replace_file": _("Replace file"),
                 "btn_search": _("Search"),
+                "btn_reset_search": _("Reset search"),
                 "btn_filter_unused": _("Show only unused"),
                 "btn_reset_filter": _("Reset filter"),
                 "label_file_name": _("File name:"),
