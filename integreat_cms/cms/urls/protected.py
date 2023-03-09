@@ -120,6 +120,11 @@ media_ajax_urlpatterns = [
                                 media.replace_file_ajax,
                                 name="mediacenter_replace_file",
                             ),
+                            path(
+                                "get-usages/",
+                                media.get_file_usages_ajax,
+                                name="mediacenter_get_file_usages",
+                            ),
                         ]
                     ),
                 ),

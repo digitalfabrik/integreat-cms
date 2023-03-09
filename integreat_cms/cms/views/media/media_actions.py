@@ -130,6 +130,33 @@ def get_query_search_results_ajax(request, region_slug=None):
 
 
 @json_response
+@permission_required("cms.view_mediafile")
+# pylint: disable=unused-argument
+def get_file_usages_ajax(request, region_slug=None):
+    """
+    View to search unused media files
+
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :return: JSON response with the search result
+    :rtype: ~django.http.JsonResponse
+    """
+
+    file = get_object_or_404(
+        MediaFile.objects.filter(
+            Q(region=request.region) | Q(region__isnull=True, is_hidden=False),
+        ),
+        id=request.GET.get("file"),
+    )
+
+    return JsonResponse({"data": file.serialize_usages()})
+
+
+@json_response
 @permission_required("cms.view_directory")
 @permission_required("cms.view_mediafile")
 # pylint: disable=unused-argument

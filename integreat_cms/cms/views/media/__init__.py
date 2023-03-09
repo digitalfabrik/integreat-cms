@@ -5,6 +5,7 @@ from .media_actions import (
     get_directory_path_ajax,
     get_directory_content_ajax,
     get_query_search_results_ajax,
+    get_file_usages_ajax,
     upload_file_ajax,
     edit_file_ajax,
     move_file_ajax,

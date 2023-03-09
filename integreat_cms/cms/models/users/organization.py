@@ -1,5 +1,7 @@
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from ..abstract_base_model import AbstractBaseModel
@@ -77,6 +79,22 @@ class Organization(AbstractBaseModel):
         :rtype: int
         """
         return self.members.count()
+
+    @cached_property
+    def backend_edit_link(self):
+        """
+        This function returns the absolute url to the edit form of this region
+
+        :return: The url
+        :rtype: str
+        """
+        return reverse(
+            "edit_organization",
+            kwargs={
+                "region_slug": self.region.slug,
+                "slug": self.slug,
+            },
+        )
 
     class Meta:
         #: The verbose name of the model

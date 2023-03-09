@@ -38,12 +38,11 @@ export type LibraryProps = {
     selectionMode?: boolean;
     onlyImage?: boolean;
     selectMedia?: (file: File) => any;
-    /* eslint-disable-next-line react/no-unused-prop-types */
     ajaxRequest: (
         url: string,
         urlParams: URLSearchParams,
         successCallback: (data: any) => void,
-        errorCallback?: (data: any) => void
+        loadingSetter?: StateUpdater<boolean>
     ) => void;
     canDeleteFile: boolean;
     canReplaceFile: boolean;
@@ -72,6 +71,7 @@ const Library = ({
     canDeleteFile,
     canReplaceFile,
     canDeleteDirectory,
+    ajaxRequest,
 }: LibraryProps) => {
     // The directory path contains the current directory and all its parents
     const [directoryPath, setDirectoryPath] = directoryPathState;
@@ -351,6 +351,7 @@ const Library = ({
                             apiEndpoints={apiEndpoints}
                             mediaTranslations={mediaTranslations}
                             submitForm={submitForm}
+                            ajaxRequest={ajaxRequest}
                             selectionMode={selectionMode}
                             selectMedia={selectMedia}
                             onlyImage={onlyImage}

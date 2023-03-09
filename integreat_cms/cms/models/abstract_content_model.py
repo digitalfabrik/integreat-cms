@@ -459,6 +459,16 @@ class AbstractContentModel(AbstractBaseModel):
         """
         return get_locking_user(*self.edit_lock_key)
 
+    @cached_property
+    def backend_edit_link(self):
+        """
+        This function returns the absolute url to the edit form of this region
+
+        :return: The url
+        :rtype: str
+        """
+        return self.best_translation.backend_edit_link
+
     def __str__(self):
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``AbstractContentModel object (id)``.

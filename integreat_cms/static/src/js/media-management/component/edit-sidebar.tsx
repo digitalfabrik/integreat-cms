@@ -15,8 +15,12 @@
  */
 import { StateUpdater, useEffect, useState } from "preact/hooks";
 import {
+    AlertTriangle,
     CheckCircle,
+    ChevronDown,
+    ChevronUp,
     FileText,
+    Loader,
     Lock,
     Image,
     Save,
@@ -31,7 +35,7 @@ import {
 import cn from "classnames";
 
 import { showConfirmationPopupAjax } from "../../confirmation-popups";
-import { MediaApiPaths, File, MediaLibraryEntry, Directory } from "../index";
+import { MediaApiPaths, File, MediaLibraryEntry, Directory, FileUsages } from "../index";
 
 type Props = {
     directory: Directory;
@@ -45,6 +49,12 @@ type Props = {
     onlyImage?: boolean;
     selectMedia?: (file: File) => any;
     submitForm: (event: Event) => void;
+    ajaxRequest: (
+        url: string,
+        urlParams: URLSearchParams,
+        successCallback: (data: any) => void,
+        loadingSetter?: StateUpdater<boolean>
+    ) => void;
     isLoading: boolean;
     canDeleteFile: boolean;
     canReplaceFile: boolean;
@@ -61,9 +71,11 @@ const EditSidebar = ({
     expertMode,
     onlyImage,
     submitForm,
+    ajaxRequest,
     isLoading,
     canDeleteFile,
     canReplaceFile,
+    apiEndpoints: { getFileUsages },
 }: Props) => {
     // The file index contains the index of the file which is currently opened in the sidebar
     const [fileIndex, setFileIndex] = fileIndexState;
@@ -71,6 +83,10 @@ const EditSidebar = ({
     const file = mediaLibraryContent[fileIndex] as File;
     // This state is a buffer for the currently changed file
     const [changedFile, setChangedFile] = useState<File>(file);
+    // This state is a semaphore to block actions while an ajax call is running
+    const [isFileUsagesLoading, setFileUsagesLoading] = useState<boolean>(false);
+    // This state is a buffer for the usages of the current file
+    const [fileUsages, setFileUsages] = useState<FileUsages | null>(null);
     // This state determines whether the file name is currently being edited
     const [isFileNameEditable, setFileNameEditable] = useState<boolean>(false);
     // This state determines whether the alternative text of the file is currently being edited
@@ -78,10 +94,28 @@ const EditSidebar = ({
     // Editing is allowed if either global edit is enabled or the file is not global
     const isEditingAllowed = globalEdit || !file.isGlobal;
 
+    const toggleFileUsages = () => {
+        if (isFileUsagesLoading) {
+            return;
+        }
+        if (fileUsages) {
+            setFileUsages(null);
+        } else {
+            const urlParams = new URLSearchParams({
+                file: file.id.toString(),
+            });
+            console.debug(`Loading usages for file "${file.id}"...`);
+            // Load the search result
+            ajaxRequest(getFileUsages, urlParams, setFileUsages, setFileUsagesLoading);
+        }
+    };
+
     useEffect(() => {
         console.debug("Opening sidebar for file:", file);
         // Reset temporary file buffer
         setChangedFile(file);
+        // Reset usage buffer
+        setFileUsages(null);
         // Hide input fields
         setFileNameEditable(false);
         setAltTextEditable(false);
@@ -246,6 +280,79 @@ const EditSidebar = ({
                             />
                         </div>
                     )}
+                    <div class="border-b">
+                        <div
+                            class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 hover:text-blue-500 p-4 cursor-pointer"
+                            onClick={toggleFileUsages}
+                            onKeyPress={toggleFileUsages}>
+                            <label class="secondary my-0 !cursor-pointer">{mediaTranslations.label_file_usages}:</label>
+                            {isFileUsagesLoading ? (
+                                <Loader class="inline-block text-gray-600 animate-spin" />
+                            ) : (
+                                <button
+                                    class="ml-1 h-5"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        toggleFileUsages();
+                                    }}
+                                    disabled={isFileUsagesLoading}>
+                                    {fileUsages ? (
+                                        <ChevronUp class="inline-block" />
+                                    ) : (
+                                        <ChevronDown class="inline-block" />
+                                    )}
+                                </button>
+                            )}
+                        </div>
+                        {fileUsages && (
+                            <>
+                                {!fileUsages.isUsed && (
+                                    <p class="italic px-4 py-2">
+                                        <AlertTriangle class="mr-1 inline-block h-5" />
+                                        {mediaTranslations.label_file_unused}
+                                    </p>
+                                )}
+                                {fileUsages.iconUsages && (
+                                    <div class="flex flex-wrap justify-between gap-2 p-4">
+                                        <label class="secondary my-0 !font-normal">
+                                            {mediaTranslations.label_file_icon_usages}:
+                                        </label>
+                                        <div class="text-right grow">
+                                            {fileUsages.iconUsages.map((usage) => (
+                                                <p key={usage.url}>
+                                                    <a
+                                                        href={usage.url}
+                                                        title={usage.title}
+                                                        class="hover:text-blue-500 break-all">
+                                                        {usage.name}
+                                                    </a>
+                                                </p>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                                {fileUsages.contentUsages && (
+                                    <div class="flex flex-wrap justify-between gap-2 p-4">
+                                        <label class="secondary my-0 !font-normal">
+                                            {mediaTranslations.label_file_content_usages}:
+                                        </label>
+                                        <div class="text-right grow">
+                                            {fileUsages.contentUsages.map((usage) => (
+                                                <p key={usage.url}>
+                                                    <a
+                                                        href={usage.url}
+                                                        title={usage.title}
+                                                        class="hover:text-blue-500 break-all">
+                                                        {usage.name}
+                                                    </a>
+                                                </p>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </>
+                        )}
+                    </div>
                     {expertMode && (
                         <div class="flex flex-wrap justify-between gap-2 hover:bg-gray-50 p-4 border-b">
                             <label class="secondary my-0">{mediaTranslations.label_url}</label>

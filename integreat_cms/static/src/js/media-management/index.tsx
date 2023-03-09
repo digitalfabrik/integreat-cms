@@ -22,6 +22,7 @@ export type MediaApiPaths = {
     getDirectoryContent: string;
     getSearchResult: string;
     getSearchSuggestions: string;
+    getFileUsages: string;
     createDirectory: string;
     editDirectory: string;
     deleteDirectory: string;
@@ -47,6 +48,18 @@ export type File = {
     lastModified: Date;
     isGlobal: boolean;
     isHidden: boolean;
+};
+
+export type FileUsage = {
+    url: string;
+    name: string;
+    title: string;
+};
+
+export type FileUsages = {
+    isUsed: boolean;
+    iconUsages: FileUsage[] | null;
+    contentUsages: FileUsage[] | null;
 };
 
 export type Directory = {
@@ -97,8 +110,13 @@ const MediaManagement = (props: Props) => {
     } = props;
 
     // This function is used to get information about a directory (either the path or the content)
-    const ajaxRequest = async (url: string, urlParams: URLSearchParams, successCallback: (data: any) => void) => {
-        setLoading(true);
+    const ajaxRequest = async (
+        url: string,
+        urlParams: URLSearchParams,
+        successCallback: (data: any) => void,
+        loadingSetter = setLoading
+    ) => {
+        loadingSetter(true);
         try {
             const response = await fetch(`${url}?${urlParams}`);
             const HTTP_STATUS_OK = 200;
@@ -119,7 +137,7 @@ const MediaManagement = (props: Props) => {
                 text: textNetworkError,
             });
         }
-        setLoading(false);
+        loadingSetter(false);
     };
 
     return (

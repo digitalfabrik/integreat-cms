@@ -69,6 +69,10 @@ class MediaContextMixin(ContextMixin):
                 "label_directory_is_hidden": _("Hide this directory:"),
                 "label_file_is_hidden": _("Hide this file:"),
                 "label_alt_text": _("Alternative text:"),
+                "label_file_usages": _("Usages"),
+                "label_file_icon_usages": _("As icon"),
+                "label_file_content_usages": _("In content"),
+                "label_file_unused": _("This file is unused."),
                 "text_enter_directory_name": _("Enter directory name here"),
                 "text_file_readonly": _("This file is read-only and cannot be edited."),
                 "text_dir_readonly": _(
@@ -117,6 +121,10 @@ class MediaContextMixin(ContextMixin):
             ),
             "getSearchSuggestions": reverse(
                 "search_content_ajax",
+                kwargs=kwargs,
+            ),
+            "getFileUsages": reverse(
+                "mediacenter_get_file_usages",
                 kwargs=kwargs,
             ),
             "createDirectory": reverse("mediacenter_create_directory", kwargs=kwargs),
