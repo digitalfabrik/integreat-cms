@@ -134,14 +134,16 @@
                 <i icon-name="external-link"></i>
             </button>
         {% endif %}
-        <button title="{% translate "Archive location" %}"
-                class="confirmation-button btn-icon"
-                data-confirmation-title="{{ archive_dialog_title }}"
-                data-confirmation-text="{{ archive_dialog_text }}"
-                data-confirmation-subject="{{ poi_translation.title }}"
-                data-action="{% url 'archive_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}">
-            <i icon-name="archive"></i>
-        </button>
+        {% if perms.cms.change_poi %}
+            <button title="{% translate "Archive location" %}"
+                    class="confirmation-button btn-icon"
+                    data-confirmation-title="{{ archive_dialog_title }}"
+                    data-confirmation-text="{{ archive_dialog_text }}"
+                    data-confirmation-subject="{{ poi_translation.title }}"
+                    data-action="{% url 'archive_poi' poi_id=poi.id region_slug=request.region.slug language_slug=language.slug %}">
+                <i icon-name="archive"></i>
+            </button>
+        {% endif %}
         {% if perms.cms.delete_poi %}
             {% if poi.events.exists %}
                 {# djlint:off H023 #}

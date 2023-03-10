@@ -14,6 +14,7 @@ type Props = {
     translations: any;
     days: any;
     initial: OpeningHours[];
+    canChangeLocation: boolean;
 };
 
 type TimeSlot = {
@@ -27,7 +28,7 @@ export type OpeningHours = {
     closed: boolean;
 };
 
-const OpeningHoursWidget = ({ translations, days, initial }: Props) => {
+const OpeningHoursWidget = ({ translations, days, initial, canChangeLocation }: Props) => {
     // The state contains the current opening hours of the location
     const [openingHours, setOpeningHours] = useState<OpeningHours[]>(initial);
     // This state contains the days which are currently selected for being edited
@@ -55,6 +56,7 @@ const OpeningHoursWidget = ({ translations, days, initial }: Props) => {
                         setSelectedDays={setSelectedDays}
                         translations={translations}
                         days={days}
+                        canChangeLocation={canChangeLocation}
                     />
                     {selectedDays.length > 0 && (
                         <OpeningHoursInputFields
