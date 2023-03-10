@@ -88,7 +88,7 @@ class EventFilterForm(CustomFilterForm):
 
         # Filter events by time range
         cleaned_time_range = self.cleaned_data["events_time_range"]
-        if len(cleaned_time_range) == 0 or set(cleaned_time_range) == set(
+        if not cleaned_time_range or set(cleaned_time_range) == set(
             events_time_range.ALL_EVENTS
         ):
             # Either post & upcoming or no checkboxes are checked => skip filtering
@@ -116,7 +116,7 @@ class EventFilterForm(CustomFilterForm):
         # Filter events for their all-day property
         if (
             len(self.cleaned_data["all_day"]) == len(all_day.CHOICES)
-            or len(self.cleaned_data["all_day"]) == 0
+            or not self.cleaned_data["all_day"]
         ):
             # Either all or no checkboxes are checked => skip filtering
             pass
@@ -135,7 +135,7 @@ class EventFilterForm(CustomFilterForm):
         # Filter events for recurrence
         if (
             len(self.cleaned_data["recurring"]) == len(recurrence.CHOICES)
-            or len(self.cleaned_data["recurring"]) == 0
+            or not self.cleaned_data["recurring"]
         ):
             # Either all or no checkboxes are checked => skip filtering
             pass

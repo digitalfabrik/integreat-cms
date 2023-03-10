@@ -64,7 +64,7 @@ def generate_pdf(region, language_slug, pages):
     # compute the hash value based on the hash key
     pdf_hash = hashlib.sha256(bytes(pdf_key_string, "utf-8")).hexdigest()[:10]
     amount_pages = pages.count()
-    if amount_pages == 0:
+    if not amount_pages:
         return HttpResponse(
             _("No valid pages selected for PDF generation."), status=400
         )

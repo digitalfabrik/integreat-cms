@@ -75,7 +75,7 @@ def pages_to_xliff_file(request, pages, target_languages, only_public=False):
             except RuntimeWarning as e:
                 messages.warning(request, e)
     # Check how many XLIFF files were created
-    if len(xliff_paths) == 0:
+    if not xliff_paths:
         return None
     if len(xliff_paths) == 1:
         # If only one xliff file was created, return it directly instead of creating zip file

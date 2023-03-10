@@ -115,7 +115,7 @@ class POIForm(CustomModelForm):
                 )
                 self.add_error("opening_hours", generic_error)
                 return cleaned_opening_hours
-            if not (day["allDay"] or day["closed"]) and len(day["timeSlots"]) == 0:
+            if not (day["allDay"] or day["closed"]) and not day["timeSlots"]:
                 logger.warning(
                     "Opening hours of %r: Day %s is neither open all day nor closed, but has no time slots",
                     self.instance,

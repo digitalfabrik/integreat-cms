@@ -180,7 +180,7 @@ def get_single_page(request, language_slug):
             raise MultipleObjectsReturned(
                 "This page translation slug is not unique, please contact your server administrator."
             )
-        if len(filtered_pages) == 0:
+        if not filtered_pages:
             raise Http404("No matching page translation found for url.")
         page = filtered_pages[0]
 

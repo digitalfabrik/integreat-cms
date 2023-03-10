@@ -106,7 +106,7 @@ class RegionFeedbackFilterForm(CustomFilterForm):
         # Filter feedback for ratings (skip filtering if either all or no checkboxes are checked)
         if (
             len(self.cleaned_data["rating"]) != len(feedback_ratings.FILTER_CHOICES)
-            and len(self.cleaned_data["rating"]) != 0
+            and self.cleaned_data["rating"]
         ):
             if "" in self.cleaned_data["rating"]:
                 feedback_without_rating = feedback.filter(rating__isnull=True)

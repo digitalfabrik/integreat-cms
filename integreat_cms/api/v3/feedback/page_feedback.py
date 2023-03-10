@@ -82,7 +82,7 @@ def page_feedback_internal(data, region, language, comment, rating, is_technical
             pages,
         )
         return JsonResponse({"error": "Internal Server Error"}, status=500)
-    if len(pages) == 0:
+    if not pages:
         raise Http404("No matching page found for slug.")
     page = pages[0]
     page_translation = page.get_translation(language.slug)
