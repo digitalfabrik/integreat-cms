@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-03-01T09:11:25+00:00" />
+    <meta property="article:modified_time" content="2023-03-10T13:13:12+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pages &mdash; integreat-cms 2023.2.2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1766,6 +1766,7 @@ see <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html
 <li><p><strong>explicitly_archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Explicitly archived. Whether or not the page is explicitly archived</p></li>
 <li><p><strong>mirrored_page_first</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Position of mirrored page. If a mirrored page is set, this field determines whether the live content is embedded before the content of this page or after.</p></li>
 <li><p><strong>api_token</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – API access token. API token to allow writing content to translations.</p></li>
+<li><p><strong>hix_ignore</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Ignore HIX value. This allows to ignore HIX value for this specific page.</p></li>
 </ul>
 </dd>
 </dl>
@@ -1807,7 +1808,7 @@ see <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">archive</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L325"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">archive</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L330"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Archives the page and removes all links of this page and all its subpages from the linkchecker</p>
 </dd></dl>
 
@@ -1842,7 +1843,7 @@ ancestors is explicitly archived.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_mirrored_page_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L280"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_mirrored_page_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L285"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Mirrored content always includes the live content from another page. This content needs to be added when
 delivering content to end users.</p>
 <dl class="field-list simple">
@@ -1860,7 +1861,7 @@ delivering content to end users.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_non_archived_children</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L247"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_non_archived_children</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L252"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This method returns all children of this page that are neither explicitly archived nor implicitly archived</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1874,7 +1875,7 @@ delivering content to end users.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L362"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L367"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method which would return <code class="docutils literal notranslate"><span class="pre">&lt;Page:</span> <span class="pre">Page</span> <span class="pre">object</span> <span class="pre">(id)&gt;</span></code>.
 It is used for logging.</p>
 <dl class="field-list simple">
@@ -1889,7 +1890,7 @@ It is used for logging.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_root_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L267"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_root_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L272"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Gets all root pages</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1906,7 +1907,7 @@ It is used for logging.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_translation_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L202"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_translation_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L207"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns the translation model of this content model</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1934,7 +1935,7 @@ It is used for logging.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L308"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">move</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pos</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L313"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Moving tree nodes potentially causes changes to the fields tree_id, lft and rgt in <a class="reference external" href="https://django-treebeard.readthedocs.io/en/latest/ns_tree.html#treebeard.ns_tree.NS_Node" title="(in django-treebeard v4)"><code class="xref py py-class docutils literal notranslate"><span class="pre">NS_Node</span></code></a>
 so the cache of page translations has to be cleared, because of it’s relation to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a></p>
 <dl class="field-list simple">
@@ -1976,7 +1977,7 @@ should be displayed as root-pages if their parents are not archived.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">restore</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L336"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">restore</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L341"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Restores the page and adds all links of this page and its now non-archived subpages back</p>
 </dd></dl>
 
@@ -2375,7 +2376,7 @@ see <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 01, 2023.
+      <span class="lastupdated">Last updated on Mar 10, 2023.
       </span></p>
   </div>
 
