@@ -154,9 +154,7 @@ window.addEventListener("load", async () => {
         });
     });
 
-    // Delay the first request, so that tinyMCE can be initialized first
-    const initialDelyLength = 1000;
-    setTimeout(async () => {
+    const initHixValue = async () => {
         const updateButton = document.getElementById("btn-update-hix-value") as HTMLSelectElement;
         if (!getContent().trim()) {
             updateButton.disabled = true;
@@ -165,5 +163,24 @@ window.addEventListener("load", async () => {
         } else {
             updateChart(chart, await getHixValue(updateButton.dataset.url));
         }
-    }, initialDelyLength);
+    };
+
+    // Set listener to show/hide HIX widget when hix_ignore checkbox is clicked
+    document.getElementById("id_hix_ignore")?.addEventListener("change", async () => {
+        document.getElementById("hix-block").classList.toggle("hidden");
+        const hixIgnore = document.getElementById("id_hix_ignore") as HTMLInputElement;
+        if (!hixIgnore.checked) {
+            initHixValue();
+        }
+    });
+
+    if (!document.getElementById("hix-block")?.classList.contains("hidden")) {
+        // Delay the first request, so that tinyMCE can be initialized first
+        const initialDelayLength = 1000;
+        setTimeout(async () => {
+            initHixValue();
+        }, initialDelayLength);
+    } else {
+        document.getElementById("hix-loading")?.classList.add("hidden");
+    }
 });

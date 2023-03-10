@@ -1,5 +1,6 @@
 {% extends "_collapsible_box.html" %}
 {% load i18n %}
+{% load widget_tweaks %}
 {% block collapsible_box_icon %}
     gauge
 {% endblock collapsible_box_icon %}
@@ -13,41 +14,51 @@
             <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
         </div>
     </div>
-    <label>{% translate "Improve the understandability of the page content." %}</label>
-    <div id="hix-container" data-content-changed>
-        <canvas id="hix-chart"></canvas>
-    </div>
-    <div class="mb-2">
-        <div data-hix-state="updated" class="bg-green-400 rounded p-2 hidden">
-            <i icon-name="check-circle"></i>
-            {% translate "HIX value is up to date." %}
+    <label>{% translate "Improve the understandability of the page content" %}</label>
+    {% if request.user.expert_mode %}
+        {% render_field page_form.hix_ignore %}
+        <label for="{{ page_form.hix_ignore.id_for_label }}" class="secondary">{{ page_form.hix_ignore.label }}</label>
+        <div class="help-text">{{ page_form.hix_ignore.help_text }}</div>
+    {% elif page_form.instance.hix_ignore %}
+        <div class="help-text">{% translate "HIX value calulation is disabled for this page." %}</div>
+    {% endif %}
+    <div id="hix-block"
+         class="{% if page_form.instance.hix_ignore %}hidden{% endif %}">
+        <div id="hix-container" data-content-changed>
+            <canvas id="hix-chart"></canvas>
         </div>
-        <div data-hix-state="outdated" class="bg-yellow-400 rounded p-2 hidden">
-            <i icon-name="alert-circle"></i>
-            {% translate "HIX value is outdated." %}
+        <div class="mb-2">
+            <div data-hix-state="updated" class="bg-green-400 rounded p-2 hidden">
+                <i icon-name="check-circle"></i>
+                {% translate "HIX value is up to date." %}
+            </div>
+            <div data-hix-state="outdated" class="bg-yellow-400 rounded p-2 hidden">
+                <i icon-name="alert-circle"></i>
+                {% translate "HIX value is outdated." %}
+            </div>
+            <div data-hix-state="error" class="bg-red-400 rounded p-2 hidden">
+                <i icon-name="alert-triangle"></i>
+                {% translate "Some error occurred. Please try again later." %}
+            </div>
+            <div data-hix-state="no-content" class="bg-blue-400 rounded p-2 hidden">
+                <i icon-name="info"></i>
+                {% translate "There is no page content." %}
+            </div>
         </div>
-        <div data-hix-state="error" class="bg-red-400 rounded p-2 hidden">
-            <i icon-name="alert-triangle"></i>
-            {% translate "Some error occurred. Please try again later." %}
+        <button id="btn-update-hix-value"
+                class="btn w-full"
+                data-url="{% url "get_hix_score" region_slug=request.region.slug %}">
+            <i icon-name="refresh-ccw"></i>
+            {% translate "Update" %}
+        </button>
+        <div class="help-text mt-2">
+            {% translate "Easy words and short sentences can increase the text understandability." %}
+            <br />
+            {% translate "Find more information about this" %}
+            <a href="{% translate "https://wiki.tuerantuer.org/write-texts" %}"
+               rel="nooperner noreferrer"
+               target="_blank"
+               class="text-blue-500 underline">{% translate "here" %}</a>.
         </div>
-        <div data-hix-state="no-content" class="bg-blue-400 rounded p-2 hidden">
-            <i icon-name="info"></i>
-            {% translate "There is no page content." %}
-        </div>
-    </div>
-    <button id="btn-update-hix-value"
-            class="btn w-full"
-            data-url="{% url "get_hix_score" region_slug=request.region.slug %}">
-        <i icon-name="refresh-ccw"></i>
-        {% translate "Update" %}
-    </button>
-    <div class="help-text mt-2">
-        {% translate "Easy words and short sentences can increase the text understandability." %}
-        <br />
-        {% translate "Find more information about this" %}
-        <a href="{% translate "https://wiki.tuerantuer.org/write-texts" %}"
-           rel="nooperner noreferrer"
-           target="_blank"
-           class="text-blue-500 underline">{% translate "here" %}</a>.
     </div>
 {% endblock collapsible_box_content %}

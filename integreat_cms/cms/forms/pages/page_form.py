@@ -61,6 +61,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             "organization",
             "parent",
             "api_token",
+            "hix_ignore",
         ]
         #: The widgets for the fields if they differ from the standard widgets
         widgets = {
