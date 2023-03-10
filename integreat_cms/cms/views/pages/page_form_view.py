@@ -199,19 +199,20 @@ class PageFormView(
         )
 
         # Pass siblings to template to enable rendering of page order table
-        if page:
-            siblings = (
+        siblings = (
+            (
                 page.region_siblings.prefetch_translations()
                 .prefetch_public_translations()
                 .filter(explicitly_archived=page.explicitly_archived)
             )
-        else:
-            siblings = (
+            if page
+            else (
                 region.get_root_pages()
                 .prefetch_translations()
                 .prefetch_public_translations()
                 .filter(explicitly_archived=False)
             )
+        )
 
         # Check for MT availability for automatic translation
         MT_ENABLED = (

@@ -123,12 +123,13 @@ class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
         # Initialize page filter form
         filter_form = PageFilterForm(data=request.GET)
 
-        if filter_form.is_enabled or self.archived:
+        page_queryset = (
             # If filters are applied or only archived pages are requested, fetch all elements from the database
-            page_queryset = region.pages.all()
-        else:
+            region.pages.all()
+            if filter_form.is_enabled or self.archived
             # Else, only fetch the root pages and load the subpages dynamically via ajax
-            page_queryset = region.pages.filter(lft=1)
+            else region.pages.filter(lft=1)
+        )
 
         # Cache tree structure to reduce database queries
         pages = (

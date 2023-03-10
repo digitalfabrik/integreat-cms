@@ -43,11 +43,7 @@ def content_edit_lock_heartbeat(request, region_slug=None):
             unlock_content(id_, type_, locking_user)
 
     success = lock_content(id_, type_, request.user)
-    if not success:
-        # If another user has locked the content before and a takeover was not forced, return the new locking user
-        locking_user = get_locking_user(id_, type_)
-    else:
-        locking_user = request.user
+    locking_user = request.user if success else get_locking_user(id_, type_)
     return JsonResponse(
         {"success": success, "lockingUser": locking_user.full_user_name}
     )

@@ -141,10 +141,11 @@ class UserForm(CustomModelForm):
             user.set_password(self.cleaned_data["password"])
             user.save()
 
-        if user.is_staff:
-            role = self.cleaned_data["staff_role"]
-        else:
-            role = self.cleaned_data["role"]
+        role = (
+            self.cleaned_data["staff_role"]
+            if user.is_staff
+            else self.cleaned_data["role"]
+        )
 
         for removed_group in user.groups.exclude(id=role.id):
             # Remove unselected roles

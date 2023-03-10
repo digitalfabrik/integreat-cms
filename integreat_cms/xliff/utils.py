@@ -136,12 +136,11 @@ def page_to_xliff(page, target_language, dir_name, only_public=False):
     :return: The path of the generated XLIFF file
     :rtype: str
     """
-    if only_public:
-        target_page_translation = page.get_public_translation(target_language.slug)
-    else:
-        target_page_translation = page.get_public_or_draft_translation(
-            target_language.slug
-        )
+    target_page_translation = (
+        page.get_public_translation(target_language.slug)
+        if only_public
+        else page.get_public_or_draft_translation(target_language.slug)
+    )
     if not target_page_translation:
         # Create temporary target translation
         target_page_translation = PageTranslation(

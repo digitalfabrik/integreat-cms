@@ -606,11 +606,12 @@ LOGGING = {
 # EMAILS #
 ##########
 
-if DEBUG:
-    #: The backend to use for sending emails (see :setting:`django:EMAIL_BACKEND` and :doc:`django:topics/email`)
-    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-else:
-    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+#: The backend to use for sending emails (see :setting:`django:EMAIL_BACKEND` and :doc:`django:topics/email`)
+EMAIL_BACKEND = (
+    "django.core.mail.backends.console.EmailBackend"
+    if DEBUG
+    else "django.core.mail.backends.smtp.EmailBackend"
+)
 
 #: Default email address to use for various automated correspondence from the site manager(s)
 #: (see :setting:`django:DEFAULT_FROM_EMAIL`)

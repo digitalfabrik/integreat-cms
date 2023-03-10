@@ -139,10 +139,11 @@ class AbstractContentModel(AbstractBaseModel):
         :rtype: Iterator[:class:`~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation`]
         """
         # Check if fallback translation should be used
-        if self.fallback_translations_enabled:
-            all_languages = self.region.visible_languages
-        else:
-            all_languages = self.public_languages
+        all_languages = (
+            self.region.visible_languages
+            if self.fallback_translations_enabled
+            else self.public_languages
+        )
 
         for language in all_languages:
             public_translation = self.get_public_translation(language.slug)
