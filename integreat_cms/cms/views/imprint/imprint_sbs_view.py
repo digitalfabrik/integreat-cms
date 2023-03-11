@@ -3,17 +3,16 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.http import Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
-from django.urls import reverse
 from django.views.generic import TemplateView
-
-from ..media.media_context_mixin import MediaContextMixin
 
 from ...decorators import permission_required
 from ...forms import ImprintTranslationForm
-from ...models import Language, ImprintPage
+from ...models import ImprintPage, Language
+from ..media.media_context_mixin import MediaContextMixin
 
 logger = logging.getLogger(__name__)
 

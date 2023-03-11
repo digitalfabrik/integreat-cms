@@ -1,8 +1,8 @@
 from django.contrib import messages
 from django.utils.translation import gettext as _
 
-from ..form_views import CustomUpdateView
 from ...forms import RegionForm
+from ..form_views import CustomUpdateView
 
 
 class RegionUpdateView(CustomUpdateView):

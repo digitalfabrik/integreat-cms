@@ -3,8 +3,8 @@ Configuration of SUMM.AI API app
 """
 import logging
 
+from django.apps import AppConfig, apps
 from django.conf import settings
-from django.apps import apps, AppConfig
 from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger(__name__)

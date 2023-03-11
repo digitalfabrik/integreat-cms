@@ -9,6 +9,7 @@ For more information on this file, see :doc:`django:howto/deployment/wsgi/index`
 """
 import configparser
 import os
+
 from django.core.wsgi import get_wsgi_application
 
 

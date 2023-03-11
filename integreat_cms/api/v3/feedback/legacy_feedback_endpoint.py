@@ -4,11 +4,10 @@ APIv3 legacy feedback endpoint for pages, events and imprint
 from django.conf import settings
 from django.http import JsonResponse
 
+from ...decorators import feedback_handler, json_response
 from .event_feedback import event_feedback_internal
 from .imprint_page_feedback import imprint_page_feedback_internal
 from .page_feedback import page_feedback_internal
-
-from ...decorators import json_response, feedback_handler
 
 
 @feedback_handler

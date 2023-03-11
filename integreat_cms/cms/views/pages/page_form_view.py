@@ -3,23 +3,20 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect
+from django.db import transaction
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
-from django.db import transaction
 
 from ....deepl_api.utils import DeepLApi
 from ...constants import status, text_directions
 from ...decorators import permission_required
-from ...forms import PageForm, PageTranslationForm, MachineTranslationForm
+from ...forms import MachineTranslationForm, PageForm, PageTranslationForm
 from ...models import Page, PageTranslation
-from ...utils.translation_utils import (
-    mt_is_permitted,
-    translate_link,
-    gettext_many_lazy as __,
-)
+from ...utils.translation_utils import gettext_many_lazy as __
+from ...utils.translation_utils import mt_is_permitted, translate_link
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
 from .page_context_mixin import PageContextMixin

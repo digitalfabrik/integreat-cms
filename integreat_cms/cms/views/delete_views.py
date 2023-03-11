@@ -2,10 +2,9 @@
 This module contains deletion views for our models that don't need custom handling.
 """
 import logging
+
 from django.contrib import messages
-from django.contrib.auth.mixins import (
-    PermissionRequiredMixin,
-)
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
 from django.urls import reverse

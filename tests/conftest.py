@@ -2,22 +2,20 @@
 This module contains shared fixtures for pytest
 """
 import pytest
-
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
-from django.test.client import Client, AsyncClient
-
+from django.test.client import AsyncClient, Client
 
 from integreat_cms.cms.constants.roles import (
-    MANAGEMENT,
-    EDITOR,
+    APP_TEAM,
     AUTHOR,
+    CMS_TEAM,
+    EDITOR,
     EVENT_MANAGER,
+    MANAGEMENT,
+    MARKETING_TEAM,
     OBSERVER,
     SERVICE_TEAM,
-    CMS_TEAM,
-    APP_TEAM,
-    MARKETING_TEAM,
 )
 
 #: A role identifier for superusers

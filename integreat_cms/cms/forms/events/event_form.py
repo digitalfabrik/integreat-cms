@@ -1,10 +1,10 @@
 import logging
 import zoneinfo
-from datetime import time, timedelta, datetime
+from datetime import datetime, time, timedelta
 
 from django import forms
-from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 from ...models import Event
 from ..custom_model_form import CustomModelForm

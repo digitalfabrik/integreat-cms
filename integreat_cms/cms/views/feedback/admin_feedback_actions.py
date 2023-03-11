@@ -3,12 +3,11 @@ This module contains action methods for feedback items (archive, restore, ...)
 """
 import logging
 
+from cacheops import invalidate_obj
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
-
-from cacheops import invalidate_obj
 
 from ...decorators import permission_required
 from ...models import Feedback

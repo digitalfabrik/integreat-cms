@@ -1,21 +1,19 @@
-import logging
 import json
+import logging
 
 from django import forms
 from django.conf import settings
 from django.utils.translation import gettext as _
-
 from geopy.distance import distance
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
 
-from ...constants import opening_hours
 from ....nominatim_api.nominatim_api_client import NominatimApiClient
+from ...constants import opening_hours
 from ...models import POI
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..custom_model_form import CustomModelForm
 from ..icon_widget import IconWidget
-
 
 logger = logging.getLogger(__name__)
 

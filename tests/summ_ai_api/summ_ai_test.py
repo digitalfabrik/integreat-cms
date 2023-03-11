@@ -1,16 +1,11 @@
 import pytest
-
-from asgiref.sync import sync_to_async
 from aiohttp import web
-
+from asgiref.sync import sync_to_async
 from django.urls import reverse
 
 from integreat_cms.cms.models import Page, Region
 
-from ..conftest import (
-    ANONYMOUS,
-    PRIV_STAFF_ROLES,
-)
+from ..conftest import ANONYMOUS, PRIV_STAFF_ROLES
 from ..utils import assert_message_in_response
 
 

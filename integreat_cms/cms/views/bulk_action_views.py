@@ -3,6 +3,7 @@ This module contains the base view for bulk actions
 """
 import logging
 
+from cacheops import invalidate_model
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -13,7 +14,6 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 from django.views.generic.list import MultipleObjectMixin
 
-from cacheops import invalidate_model
 from ...deepl_api.utils import DeepLApi
 from ...summ_ai_api.summ_ai_api_client import SummAiApiClient
 

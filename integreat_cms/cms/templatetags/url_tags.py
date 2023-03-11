@@ -2,10 +2,9 @@
 Contains a collection of tags for working with urls.
 """
 
-from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
+from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 from django import template
-
 
 register = template.Library()
 

@@ -5,7 +5,6 @@ from django.contrib.auth import get_user_model
 from ...models import Organization
 from .user_form import UserForm
 
-
 logger = logging.getLogger(__name__)
 
 

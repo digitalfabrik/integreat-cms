@@ -1,10 +1,8 @@
 import logging
 
+from debug_toolbar.panels.sql.tracking import SQLQueryTriggered
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
-
-from debug_toolbar.panels.sql.tracking import SQLQueryTriggered
-
 
 logger = logging.getLogger(__name__)
 

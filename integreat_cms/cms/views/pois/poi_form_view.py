@@ -5,7 +5,7 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
@@ -13,13 +13,10 @@ from django.views.generic import TemplateView
 from ....deepl_api.utils import DeepLApi
 from ...constants import status
 from ...decorators import permission_required
-from ...forms import POIForm, POITranslationForm, MachineTranslationForm
-from ...models import POI, POITranslation, Language
-from ...utils.translation_utils import (
-    mt_is_permitted,
-    translate_link,
-    gettext_many_lazy as __,
-)
+from ...forms import MachineTranslationForm, POIForm, POITranslationForm
+from ...models import Language, POI, POITranslation
+from ...utils.translation_utils import gettext_many_lazy as __
+from ...utils.translation_utils import mt_is_permitted, translate_link
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
 from .poi_context_mixin import POIContextMixin

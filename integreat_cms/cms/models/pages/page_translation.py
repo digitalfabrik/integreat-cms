@@ -1,21 +1,18 @@
 import logging
-
 from html import escape
 
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from django.template.loader import render_to_string
-
 from linkcheck.models import Link
 
 from ..decorators import modify_fields
 from .abstract_base_page_translation import AbstractBasePageTranslation
-
 
 logger = logging.getLogger(__name__)
 

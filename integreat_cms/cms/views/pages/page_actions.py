@@ -6,24 +6,23 @@ import logging
 import os
 import uuid
 
+from db_mutex import DBMutexError, DBMutexTimeoutError
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
+from django.db import transaction
 from django.http import Http404, HttpResponseNotFound, JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
-from django.db import transaction
-
-from db_mutex import DBMutexError, DBMutexTimeoutError
-from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
+from treebeard.exceptions import InvalidMoveToDescendant, InvalidPosition
 
 from ....api.decorators import json_response
 from ...constants import text_directions
 from ...decorators import permission_required
 from ...forms import PageForm
-from ...models import Page, Region, PageTranslation
+from ...models import Page, PageTranslation, Region
 from ...utils.file_utils import extract_zip_archive
 
 logger = logging.getLogger(__name__)

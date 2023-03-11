@@ -3,7 +3,6 @@ This module contains the possible status of regions.
 """
 from django.utils.translation import gettext_lazy as _
 
-
 #: Active
 ACTIVE = "ACTIVE"
 #: Hidden

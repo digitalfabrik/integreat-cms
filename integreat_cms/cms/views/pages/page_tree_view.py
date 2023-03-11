@@ -3,7 +3,7 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.db.models import Q
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext as _
@@ -11,10 +11,10 @@ from django.views.generic import TemplateView
 
 from ...decorators import permission_required
 from ...forms import PageFilterForm
-from ..mixins import SummAiContextMixin
-from .page_context_mixin import PageContextMixin
 from ...models import Page
 from ...utils.translation_utils import mt_is_permitted
+from ..mixins import SummAiContextMixin
+from .page_context_mixin import PageContextMixin
 
 logger = logging.getLogger(__name__)
 

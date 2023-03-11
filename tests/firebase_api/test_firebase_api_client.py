@@ -1,10 +1,10 @@
 import pytest
 from django.core.exceptions import ImproperlyConfigured
 
-from integreat_cms.firebase_api.firebase_api_client import FirebaseApiClient
 from integreat_cms.cms.models.push_notifications.push_notification import (
     PushNotification,
 )
+from integreat_cms.firebase_api.firebase_api_client import FirebaseApiClient
 
 
 class TestFirebaseApiClient:

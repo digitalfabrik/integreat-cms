@@ -4,7 +4,7 @@ APIv3 endpoint for feedback about full region (main level of content)
 from django.http import JsonResponse
 
 from ....cms.models import RegionFeedback
-from ...decorators import json_response, feedback_handler
+from ...decorators import feedback_handler, json_response
 
 
 @feedback_handler

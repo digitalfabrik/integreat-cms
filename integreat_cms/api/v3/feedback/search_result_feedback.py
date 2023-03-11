@@ -4,7 +4,7 @@ APIv3 app search result feedback endpoint
 from django.http import JsonResponse
 
 from ....cms.models import SearchResultFeedback
-from ...decorators import json_response, feedback_handler
+from ...decorators import feedback_handler, json_response
 
 
 @feedback_handler

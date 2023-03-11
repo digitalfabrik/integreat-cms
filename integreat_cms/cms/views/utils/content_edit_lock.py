@@ -4,7 +4,7 @@ import logging
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
-from ...utils.content_edit_lock import lock_content, unlock_content, get_locking_user
+from ...utils.content_edit_lock import get_locking_user, lock_content, unlock_content
 
 logger = logging.getLogger(__name__)
 

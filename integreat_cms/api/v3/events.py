@@ -8,6 +8,7 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
 from django.utils.html import strip_tags
+
 from ..decorators import json_response
 from .locations import transform_poi
 

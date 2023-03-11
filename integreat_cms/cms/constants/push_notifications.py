@@ -3,7 +3,6 @@ This module contains the possible modes for push notifications.
 """
 from django.utils.translation import gettext_lazy as _
 
-
 #: Send only available translations
 ONLY_AVAILABLE = "ONLY_AVAILABLE"
 #: Use main language if no translation is available

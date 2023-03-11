@@ -1,11 +1,10 @@
 from django.conf import settings
 from django.db import models
-from django.utils.text import capfirst
 from django.utils.functional import cached_property
+from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
-
+from polymorphic.managers import PolymorphicManager, PolymorphicQuerySet
 from polymorphic.models import PolymorphicModel
-from polymorphic.managers import PolymorphicQuerySet, PolymorphicManager
 
 from ...constants import feedback_ratings
 from ...utils.translation_utils import gettext_many_lazy as __

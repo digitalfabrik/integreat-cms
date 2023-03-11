@@ -1,15 +1,13 @@
 import logging
 
+from cacheops import invalidate_obj
 from django import forms
 from django.utils.translation import gettext_lazy as _
-
-from cacheops import invalidate_obj
 
 from ...constants import position
 from ...models import Language, LanguageTreeNode
 from ..custom_model_form import CustomModelForm
 from ..custom_tree_node_form import CustomTreeNodeForm
-
 
 logger = logging.getLogger(__name__)
 

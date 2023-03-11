@@ -2,9 +2,9 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
+from django.shortcuts import redirect, render
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
-from django.shortcuts import render, redirect
 
 from ...forms import UserEmailForm, UserPasswordForm, UserPreferencesForm
 

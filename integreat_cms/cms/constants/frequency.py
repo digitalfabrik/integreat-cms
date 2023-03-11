@@ -4,7 +4,6 @@ This module contains all constants representing the frequency of an :class:`~int
 """
 from django.utils.translation import gettext_lazy as _
 
-
 #: Daily
 DAILY = "DAILY"
 #: Weekly

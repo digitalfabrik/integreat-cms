@@ -2,8 +2,8 @@
 Helper classes for Gemeindeverzeichnis API
 """
 import logging
-import requests
 
+import requests
 from django.conf import settings
 
 from ..cms.constants import administrative_division as ad

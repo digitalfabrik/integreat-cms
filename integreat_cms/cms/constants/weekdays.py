@@ -3,7 +3,6 @@ This module contains all string representations of weekdays, used by :class:`~in
 """
 from django.utils.translation import gettext_lazy as _
 
-
 #: Monday
 MONDAY = 0
 #: Tuesday

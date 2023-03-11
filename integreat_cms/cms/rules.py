@@ -19,7 +19,6 @@ See the project's `README <https://github.com/dfunckt/django-rules/blob/master/R
 """
 from rules import add_perm, predicate
 
-
 # Predicates
 
 

@@ -3,7 +3,6 @@ import mimetypes
 from os.path import splitext
 
 import magic
-
 from django import forms
 from django.conf import settings
 from django.utils import timezone

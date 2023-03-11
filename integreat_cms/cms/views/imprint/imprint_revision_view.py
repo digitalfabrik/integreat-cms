@@ -3,14 +3,14 @@ import logging
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
 from ...constants import status
 from ...decorators import permission_required
-from ...models import Language, ImprintPage
+from ...models import ImprintPage, Language
 
 logger = logging.getLogger(__name__)
 

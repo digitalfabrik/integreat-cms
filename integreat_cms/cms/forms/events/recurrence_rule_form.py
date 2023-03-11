@@ -3,7 +3,7 @@ import logging
 from django import forms
 from django.utils.translation import gettext as _
 
-from ...constants import weekdays, frequency
+from ...constants import frequency, weekdays
 from ...models import RecurrenceRule
 from ..custom_model_form import CustomModelForm
 

@@ -2,19 +2,14 @@
 This module contains form views for our models that don't need custom handling.
 """
 from django.contrib import messages
-from django.contrib.auth.mixins import (
-    PermissionRequiredMixin,
-)
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import FieldDoesNotExist
 from django.urls import reverse
 from django.utils.translation import gettext as _
-from django.views.generic.edit import ModelFormMixin, BaseCreateView, BaseUpdateView
+from django.views.generic.edit import BaseCreateView, BaseUpdateView, ModelFormMixin
 
 from .media import MediaContextMixin
-from .mixins import (
-    ModelTemplateResponseMixin,
-    ModelConfirmationContextMixin,
-)
+from .mixins import ModelConfirmationContextMixin, ModelTemplateResponseMixin
 
 
 # pylint: disable=too-many-ancestors

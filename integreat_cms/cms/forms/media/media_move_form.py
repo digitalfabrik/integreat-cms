@@ -3,8 +3,8 @@ import logging
 from django import forms
 from django.utils.translation import gettext as _
 
-from ..custom_model_form import CustomModelForm
 from ...models import MediaFile
+from ..custom_model_form import CustomModelForm
 
 logger = logging.getLogger(__name__)
 

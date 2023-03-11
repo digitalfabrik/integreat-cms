@@ -3,7 +3,6 @@ import logging
 from ...models import EventTranslation
 from ..custom_content_model_form import CustomContentModelForm
 
-
 logger = logging.getLogger(__name__)
 
 

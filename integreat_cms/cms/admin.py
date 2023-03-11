@@ -4,11 +4,9 @@ Debug lists and forms for all models
 from django.apps import apps
 from django.conf import settings
 from django.contrib import admin
-
 from treebeard.admin import TreeAdmin
-from treebeard.ns_tree import NS_Node
 from treebeard.forms import movenodeform_factory
-
+from treebeard.ns_tree import NS_Node
 
 if settings.DEBUG:
     for model in apps.get_app_config("cms").get_models():

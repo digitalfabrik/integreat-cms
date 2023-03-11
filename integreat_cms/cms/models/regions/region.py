@@ -2,31 +2,31 @@ import logging
 from html import escape
 
 from django.apps import apps
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.http import Http404
+from django.template.defaultfilters import floatformat
 from django.urls import reverse
 from django.utils import timezone as django_timezone
-from django.utils.functional import cached_property
+from django.utils.functional import cached_property, keep_lazy_text
 from django.utils.safestring import mark_safe
-from django.utils.translation import override, gettext, gettext_lazy as _
-from django.conf import settings
-from django.template.defaultfilters import floatformat
-from django.utils.functional import keep_lazy_text
+from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import override
 
+from ....matomo_api.matomo_api_client import MatomoApiClient
 from ....nominatim_api.utils import BoundingBox
 from ...constants import (
-    region_status,
     administrative_division,
-    months,
     machine_translation_permissions,
+    months,
+    region_status,
 )
 from ...utils.translation_utils import gettext_many_lazy as __
-from ....matomo_api.matomo_api_client import MatomoApiClient
 from ..abstract_base_model import AbstractBaseModel
 from ..offers.offer_template import OfferTemplate
-
 
 logger = logging.getLogger(__name__)
 

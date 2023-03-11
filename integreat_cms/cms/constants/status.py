@@ -3,7 +3,6 @@ This module contains the possible status of translations.
 """
 from django.utils.translation import gettext_lazy as _
 
-
 #: Draft
 DRAFT = "DRAFT"
 #: Pending Review

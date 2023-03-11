@@ -3,7 +3,6 @@ This module contains labels for the choices regarding the position of embedding 
 """
 from django.utils.translation import gettext_lazy as _
 
-
 CHOICES = (
     (True, _("Embed mirrored page before this page")),
     (False, _("Embed mirrored page after this page")),

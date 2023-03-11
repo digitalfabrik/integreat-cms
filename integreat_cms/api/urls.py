@@ -5,34 +5,33 @@ from django.urls import include, path, re_path
 
 from .v3.events import events
 from .v3.feedback import (
-    page_feedback,
-    search_result_feedback,
-    region_feedback,
-    offer_feedback,
-    offer_list_feedback,
-    event_list_feedback,
     event_feedback,
-    poi_feedback,
-    map_feedback,
+    event_list_feedback,
     imprint_page_feedback,
     legacy_feedback_endpoint,
+    map_feedback,
+    offer_feedback,
+    offer_list_feedback,
+    page_feedback,
+    poi_feedback,
+    region_feedback,
+    search_result_feedback,
 )
 from .v3.imprint import imprint
 from .v3.languages import languages
+from .v3.location_categories import location_categories
 from .v3.locations import locations
+from .v3.offers import offers
 from .v3.pages import (
-    pages,
     children,
+    pages,
     parents,
-    single_page,
     push_page_translation_content,
+    single_page,
 )
 from .v3.pdf_export import pdf_export
-from .v3.location_categories import location_categories
 from .v3.push_notifications import sent_push_notifications
-from .v3.regions import regions, liveregions, hiddenregions
-from .v3.offers import offers
-
+from .v3.regions import hiddenregions, liveregions, regions
 
 #: The namespace for this URL config (see :attr:`django.urls.ResolverMatch.app_name`)
 app_name = "api"

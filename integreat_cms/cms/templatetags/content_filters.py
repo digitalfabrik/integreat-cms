@@ -4,13 +4,12 @@ This is a collection of tags and filters which are useful for all content types 
 """
 import logging
 
-from django.urls import reverse
-
 from django import template
+from django.urls import reverse
 from django.utils.translation import gettext as _
 
 from ..constants import translation_status
-from ..models import Language, PageTranslation, EventTranslation, POITranslation
+from ..models import EventTranslation, Language, PageTranslation, POITranslation
 
 logger = logging.getLogger(__name__)
 register = template.Library()

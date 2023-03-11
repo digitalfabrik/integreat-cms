@@ -5,8 +5,9 @@ import logging
 
 from django.conf import settings
 from django.http import JsonResponse
-from django.utils.html import strip_tags
 from django.utils import timezone
+from django.utils.html import strip_tags
+
 from ..decorators import json_response
 
 logger = logging.getLogger(__name__)

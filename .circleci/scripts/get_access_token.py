@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 
+import os
 from base64 import b64decode
 from datetime import datetime, timedelta
 
-import os
-import requests
 import jwt
+import requests
 
 
 def main():

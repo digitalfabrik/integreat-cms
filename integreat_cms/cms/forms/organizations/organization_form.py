@@ -1,12 +1,12 @@
 import logging
+
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from ...models import Organization
-from ..icon_widget import IconWidget
-from ..custom_model_form import CustomModelForm
 from ...utils.slug_utils import generate_unique_slug_helper
-
+from ..custom_model_form import CustomModelForm
+from ..icon_widget import IconWidget
 
 logger = logging.getLogger(__name__)
 

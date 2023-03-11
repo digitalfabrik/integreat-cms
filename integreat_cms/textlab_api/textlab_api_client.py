@@ -1,13 +1,11 @@
 import json
 import logging
+from html import unescape
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
-from html import unescape
-
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-
 
 logger = logging.getLogger(__name__)
 

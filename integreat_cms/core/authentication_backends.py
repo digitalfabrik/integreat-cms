@@ -5,7 +5,6 @@ This file contains custom authentication backends, see :ref:`ref/contrib/auth:au
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import BaseBackend
 
-
 UserModel = get_user_model()
 
 

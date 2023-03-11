@@ -2,21 +2,20 @@
 This module contains signal handlers related to feedback objects.
 """
 
+from cacheops import invalidate_obj
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 
-from cacheops import invalidate_obj
-
 from ...cms.models import (
-    Feedback,
     EventFeedback,
     EventListFeedback,
-    PageFeedback,
-    POIFeedback,
+    Feedback,
     ImprintPageFeedback,
     MapFeedback,
     OfferFeedback,
     OfferListFeedback,
+    PageFeedback,
+    POIFeedback,
     RegionFeedback,
     SearchResultFeedback,
 )

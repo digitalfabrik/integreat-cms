@@ -15,14 +15,7 @@ from django.conf import settings
 from django.urls import include, path
 from django.views.generic import RedirectView
 
-from ..views import (
-    authentication,
-    dashboard,
-    error_handler,
-    imprint,
-    pages,
-)
-
+from ..views import authentication, dashboard, error_handler, imprint, pages
 
 #: The namespace for this URL config (see :attr:`django.urls.ResolverMatch.app_name`)
 app_name = "public"

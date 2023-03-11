@@ -4,14 +4,13 @@ Typically, they do not render a whole page, but only parts of it or they redirec
 """
 import logging
 
+from cacheops import invalidate_obj
 from django.contrib import messages
-from django.shortcuts import redirect, get_object_or_404
+from django.db import transaction
+from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
-from django.db import transaction
-
-from treebeard.exceptions import InvalidPosition, InvalidMoveToDescendant
-from cacheops import invalidate_obj
+from treebeard.exceptions import InvalidMoveToDescendant, InvalidPosition
 
 from ...constants import position
 from ...decorators import permission_required

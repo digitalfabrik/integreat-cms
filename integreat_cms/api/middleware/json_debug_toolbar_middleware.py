@@ -2,6 +2,7 @@
 This module includes functions that extend the functionality of the Django Debug Toolbar to non HTML responses.
 """
 import json
+
 from django.http import HttpResponse
 
 

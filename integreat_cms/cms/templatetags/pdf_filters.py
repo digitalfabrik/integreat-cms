@@ -3,9 +3,10 @@ This is a collection of tags and filters for page content used in PDFs (:class:`
 """
 import re
 from html import unescape
+
 from django import template
-from lxml.html import fromstring, tostring
 from lxml.etree import ParserError
+from lxml.html import fromstring, tostring
 
 register = template.Library()
 

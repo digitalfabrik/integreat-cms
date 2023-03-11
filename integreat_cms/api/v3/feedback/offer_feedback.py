@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 
 from ....cms.models import OfferFeedback
-from ...decorators import json_response, feedback_handler
+from ...decorators import feedback_handler, json_response
 
 
 @feedback_handler

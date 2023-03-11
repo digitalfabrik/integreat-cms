@@ -1,7 +1,7 @@
 import logging
 from urllib.error import URLError
 
-from django.apps import apps, AppConfig
+from django.apps import AppConfig, apps
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 

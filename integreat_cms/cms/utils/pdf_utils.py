@@ -1,14 +1,13 @@
 import hashlib
 import logging
 import os
-
-from urllib.parse import urlparse, unquote
+from urllib.parse import unquote, urlparse
 
 from django.conf import settings
 from django.contrib.staticfiles import finders
-from django.db.models import Min
 from django.core.files.base import ContentFile
 from django.core.files.storage import FileSystemStorage
+from django.db.models import Min
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template.loader import get_template
@@ -18,10 +17,9 @@ from django.views.decorators.cache import never_cache
 from xhtml2pdf import pisa
 from xhtml2pdf.default import DEFAULT_CSS
 
-
-from .text_utils import truncate_bytewise
 from ..constants import text_directions
 from ..models import Language, Page
+from .text_utils import truncate_bytewise
 
 logger = logging.getLogger(__name__)
 

@@ -1,14 +1,12 @@
 """
 Utility functions for the media management. Most of the functions are used to transform media data to other data types.
 """
-from io import BytesIO
-
 import logging
-
-from PIL import Image, ImageOps
+from io import BytesIO
 
 from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from PIL import Image, ImageOps
 
 logger = logging.getLogger(__name__)
 

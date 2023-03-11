@@ -1,9 +1,9 @@
-from django.shortcuts import redirect, render
-from django.views.generic import TemplateView
-from django.contrib.auth import get_user_model, login as auth_login
 from django.contrib import messages
+from django.contrib.auth import get_user_model
+from django.contrib.auth import login as auth_login
+from django.shortcuts import redirect, render
 from django.utils.translation import gettext_lazy as _
-
+from django.views.generic import TemplateView
 
 from ...utils.totp_utils import check_totp_code
 from ...utils.translation_utils import gettext_many_lazy as __

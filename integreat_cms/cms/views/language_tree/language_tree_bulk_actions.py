@@ -1,8 +1,7 @@
 import logging
 
-from django.utils.translation import gettext_lazy as _
-
 from cacheops import invalidate_obj
+from django.utils.translation import gettext_lazy as _
 
 from ...models import LanguageTreeNode
 from ..bulk_action_views import BulkUpdateBooleanFieldView

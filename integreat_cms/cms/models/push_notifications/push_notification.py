@@ -4,7 +4,8 @@ The model for the push notificatiion
 from django.conf import settings
 from django.db import models
 from django.utils.functional import cached_property
-from django.utils.translation import get_language, gettext_lazy as _
+from django.utils.translation import get_language
+from django.utils.translation import gettext_lazy as _
 
 from ...constants.push_notifications import PN_MODES
 from ..abstract_base_model import AbstractBaseModel

@@ -1,7 +1,5 @@
-import logging
 import json
-from webauthn import verify_registration_response, base64url_to_bytes
-from webauthn.helpers.structs import RegistrationCredential
+import logging
 
 from django.conf import settings
 from django.contrib import messages
@@ -10,9 +8,11 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import CreateView
+from webauthn import base64url_to_bytes, verify_registration_response
+from webauthn.helpers.structs import RegistrationCredential
 
-from ....models import UserMfaKey
 from ....decorators import modify_mfa_authenticated
+from ....models import UserMfaKey
 
 logger = logging.getLogger(__name__)
 

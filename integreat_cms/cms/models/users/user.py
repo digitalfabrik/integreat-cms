@@ -5,12 +5,11 @@ Custom user model that is used instead of the default Django user model
 import logging
 
 from debug_toolbar.panels.sql.tracking import SQLQueryTriggered
-
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractUser, UserManager
 
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_base_model import AbstractBaseModel

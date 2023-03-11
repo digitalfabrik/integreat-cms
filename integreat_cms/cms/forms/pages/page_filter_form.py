@@ -3,8 +3,8 @@ import logging
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
+from ...constants import status, translation_status
 from ..custom_filter_form import CustomFilterForm
-from ...constants import translation_status, status
 
 logger = logging.getLogger(__name__)
 

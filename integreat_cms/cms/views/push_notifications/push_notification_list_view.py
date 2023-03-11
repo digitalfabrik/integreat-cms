@@ -3,13 +3,13 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
-from ...forms import ObjectSearchForm
 from ...decorators import permission_required
+from ...forms import ObjectSearchForm
 from ...models import PushNotificationTranslation
 
 logger = logging.getLogger(__name__)
