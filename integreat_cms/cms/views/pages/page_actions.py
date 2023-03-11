@@ -634,7 +634,7 @@ def grant_page_permission_ajax(request, region_slug):
 @require_POST
 @permission_required("cms.change_page")
 @permission_required("cms.grant_page_permissions")
-# pylint: disable=too-many-branches,unused-argument
+# pylint: disable=unused-argument
 def revoke_page_permission_ajax(request, region_slug):
     """
     Remove a page permission for a given user and page
@@ -671,16 +671,18 @@ def revoke_page_permission_ajax(request, region_slug):
                 f"Page permissions are not activated for {page.region!r}"
             )
 
-        if not (request.user.is_superuser or request.user.is_staff):
-            # additional checks if requesting user is no superuser or staff
-            if page.region not in request.user.regions:
-                # requesting user can only revoke permissions for pages of his region
-                logger.warning(
-                    "Error: %r cannot revoke permissions for %r",
-                    request.user,
-                    page.region,
-                )
-                raise PermissionDenied
+        if (
+            not request.user.is_superuser
+            and not request.user.is_staff
+            and page.region not in request.user.regions
+        ):
+            # requesting user can only revoke permissions for pages of his region
+            logger.warning(
+                "Error: %r cannot revoke permissions for %r",
+                request.user,
+                page.region,
+            )
+            raise PermissionDenied
 
         if permission == "edit":
             if user in page.editors.all():

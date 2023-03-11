@@ -109,17 +109,17 @@ class UploadMediaFileForm(CustomModelForm):
             if extension not in valid_extensions and valid_extensions:
                 file.name = name + valid_extensions[0]
 
-        if cleaned_data.get("parent_directory"):
-            if cleaned_data.get("parent_directory").region != self.instance.region:
-                self.add_error(
-                    "parent_directory",
-                    forms.ValidationError(
-                        _(
-                            "The file cannot be uploaded to a directory of another region."
-                        ),
-                        code="invalid",
-                    ),
-                )
+        if (
+            cleaned_data.get("parent_directory")
+            and cleaned_data.get("parent_directory").region != self.instance.region
+        ):
+            self.add_error(
+                "parent_directory",
+                forms.ValidationError(
+                    _("The file cannot be uploaded to a directory of another region."),
+                    code="invalid",
+                ),
+            )
 
         # If everything looks good until now, generate a thumbnail and an optimized image
         if not self.errors and cleaned_data.get("type").startswith("image"):

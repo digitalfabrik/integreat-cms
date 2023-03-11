@@ -45,6 +45,7 @@ class EventFormView(
     #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`
     back_url_name = "events"
 
+    # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
         r"""
         Render event form for HTTP GET requests
@@ -219,11 +220,13 @@ class EventFormView(
             messages.info(request, _("No changes detected, autosave skipped"))
         else:
             # Check publish permissions
-            if event_translation_form.instance.status in [status.DRAFT, status.PUBLIC]:
-                if not request.user.has_perm("cms.publish_event"):
-                    raise PermissionDenied(
-                        f"{request.user!r} does not have the permission 'cms.publish_event'"
-                    )
+            if event_translation_form.instance.status in [
+                status.DRAFT,
+                status.PUBLIC,
+            ] and not request.user.has_perm("cms.publish_event"):
+                raise PermissionDenied(
+                    f"{request.user!r} does not have the permission 'cms.publish_event'"
+                )
             # Save forms
             if event_form.cleaned_data.get("is_recurring"):
                 # If event is recurring, save recurrence rule

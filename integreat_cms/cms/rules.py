@@ -74,9 +74,14 @@ def can_edit_all_pages(user, page):
     :return: Whether or not ``user`` can edit all pages
     :rtype: bool
     """
-    if not (user.is_superuser or user.is_staff):
-        if page and page.id and page.region not in user.regions.all():
-            return False
+    if (
+        not user.is_superuser
+        and not user.is_staff
+        and page
+        and page.id
+        and page.region not in user.regions.all()
+    ):
+        return False
     return user.has_perm("cms.change_page")
 
 

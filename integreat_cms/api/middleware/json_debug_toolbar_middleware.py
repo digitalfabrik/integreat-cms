@@ -34,13 +34,10 @@ class JsonDebugToolbarMiddleware:
         :rtype: ~django.http.HttpResponse
         """
         response = self.get_response(request)
-        if "debug" in request.GET:
-            if response["Content-Type"] == "application/json":
-                content = json.dumps(
-                    json.loads(response.content), sort_keys=True, indent=2
-                )
-                response = HttpResponse(
-                    f"<!DOCTYPE html><html><body><pre>{content}</pre></body></html>"
-                )
+        if "debug" in request.GET and response["Content-Type"] == "application/json":
+            content = json.dumps(json.loads(response.content), sort_keys=True, indent=2)
+            response = HttpResponse(
+                f"<!DOCTYPE html><html><body><pre>{content}</pre></body></html>"
+            )
 
         return response
