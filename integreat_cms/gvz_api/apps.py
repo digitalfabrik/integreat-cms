@@ -7,6 +7,7 @@ import requests
 
 from django.apps import apps, AppConfig
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +17,11 @@ class GvzApiConfig(AppConfig):
     GVZ API config inheriting the django AppConfig
     """
 
+    #: Full Python path to the application
     name = "integreat_cms.gvz_api"
+    #: Human-readable name for the application
+    verbose_name = _("GVZ API")
+    #: Whether the API is available
     api_available = False
 
     def ready(self):
@@ -24,7 +29,7 @@ class GvzApiConfig(AppConfig):
         Checking if API is available
         """
         # Only check availability if running a server
-        if apps.get_app_config("cms").test_external_apis:
+        if apps.get_app_config("core").test_external_apis:
             if settings.GVZ_API_ENABLED:
                 try:
                     response = requests.get(f"{settings.GVZ_API_URL}/api/", timeout=3)
