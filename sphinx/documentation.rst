@@ -109,7 +109,9 @@ Whenever you use multiple external links to the same website, consider defining 
 Currently, the following shortcuts exists:
 
 * ``:github:``, e.g. ``:github:`issues``` is rendered to :github:`issues`
+* ``:github-issue:``, e.g. ``:github-issue:`1928``` is rendered to :github-issue:`1928`
 * ``:github-source:``, e.g. ``:github-source:`setup.py``` is rendered to :github-source:`setup.py`
+* ``:django-source:``, e.g. ``:django-source:`django/shortcuts.py``` is rendered to :django-source:`django/shortcuts.py`
 
 .. _sphinx-extensions:
 
