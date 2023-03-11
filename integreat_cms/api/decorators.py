@@ -72,7 +72,7 @@ def feedback_handler(func):
 
         if rating not in [None, "up", "down"]:
             return JsonResponse({"error": "Invalid rating."}, status=400)
-        if comment == "" and not rating:
+        if not comment and not rating:
             return JsonResponse(
                 {"error": "Either comment or rating is required."}, status=400
             )

@@ -189,7 +189,7 @@ class GvzRegion:
 
         api = GvzApiWrapper()
         self.ags = region_ags
-        if region_name is not None and region_ags == "":
+        if region_name is not None and not region_ags:
             best_match = api.best_match(region_name, region_type)
             if best_match is not None:
                 self.ags = best_match["ags"]
@@ -199,7 +199,7 @@ class GvzRegion:
         self.latitude = None
         self.child_coordinates = {}
 
-        if self.ags is None or self.ags == "":
+        if not self.ags:
             return
 
         details = api.get_details(self.ags)

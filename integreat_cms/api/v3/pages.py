@@ -369,7 +369,7 @@ def push_page_translation_content(request, region_slug, language_slug):
         return JsonResponse({"status": "error"}, status=405)
 
     page = request.region.pages.filter(api_token=data["token"]).first()
-    if not page or data["token"] == "":
+    if not page or not data["token"]:
         return JsonResponse(data={"status": "denied"}, status=403)
 
     translation = page.get_translation(language_slug)

@@ -72,7 +72,7 @@ def test_api_feedback_success(load_test_data, view_name, post_data):
     if "comment" in post_data:
         assert feedback.comment == post_data["comment"]
     else:
-        assert feedback.comment == ""
+        assert not feedback.comment
 
     is_technical = post_data["category"] == "Technisches Feedback"
     assert feedback.is_technical == is_technical

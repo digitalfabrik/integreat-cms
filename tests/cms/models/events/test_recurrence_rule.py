@@ -7,6 +7,7 @@ import pytz
 
 from integreat_cms.cms.models import Event, RecurrenceRule
 
+
 # pylint: disable=missing-function-docstring
 class TestCreatingIcalRule:
     """

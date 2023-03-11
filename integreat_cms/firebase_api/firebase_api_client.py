@@ -70,7 +70,7 @@ class FirebaseApiClient:
         ).exclude(id=self.primary_pnt.id)
         for secondary_pnt in secondary_pnts:
             if (
-                secondary_pnt.title == ""
+                not secondary_pnt.title
                 and pnt_const.USE_MAIN_LANGUAGE == self.push_notification.mode
             ):
                 secondary_pnt.title = self.primary_pnt.title

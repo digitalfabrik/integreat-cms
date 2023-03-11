@@ -64,7 +64,7 @@ class PushNotificationTranslation(AbstractBaseModel):
         """
         if (
             self.push_notification.mode == pnt_const.USE_MAIN_LANGUAGE
-            and self.title == ""
+            and not self.title
             and self.push_notification.default_translation
         ):
             return self.push_notification.default_translation.title
@@ -77,10 +77,7 @@ class PushNotificationTranslation(AbstractBaseModel):
         :return: A text for the push notification
         :rtype: str
         """
-        if (
-            self.push_notification.mode == pnt_const.USE_MAIN_LANGUAGE
-            and self.text == ""
-        ):
+        if self.push_notification.mode == pnt_const.USE_MAIN_LANGUAGE and not self.text:
             translations = "\n".join(
                 [
                     f"{translation.language.native_name}: {settings.WEBAPP_URL}{translation.get_absolute_url()}"
