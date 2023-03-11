@@ -77,8 +77,7 @@ class RegionFeedbackFilterForm(CustomFilterForm):
         if not self.is_enabled:
             return feedback, None
 
-        query = self.cleaned_data["query"]
-        if query:
+        if query := self.cleaned_data["query"]:
             feedback = Feedback.search(region=region, query=query)
 
         # Filter feedback for region

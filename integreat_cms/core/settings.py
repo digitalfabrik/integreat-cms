@@ -8,6 +8,7 @@ For production use, some of the settings can be set with environment variables
 (use the prefix ``INTEGREAT_CMS_``) or via the config file `/etc/integreat-cms.ini`.
 See :doc:`/prod-server` for details.
 """
+
 import os
 from distutils.util import strtobool
 from urllib.parse import urlparse
@@ -99,6 +100,7 @@ AVAILABLE_BRANDINGS = ["integreat", "malte", "aschaffenburg"]
 #: The branding of the CMS
 BRANDING = os.environ.get("INTEGREAT_CMS_BRANDING", "integreat")
 
+# pylint: disable=consider-using-assignment-expr
 if BRANDING not in AVAILABLE_BRANDINGS:
     raise ImproperlyConfigured(
         f"The branding {BRANDING!r} is not supported, must be one of {AVAILABLE_BRANDINGS}."
@@ -864,8 +866,7 @@ CACHES = {
 
 # Use RedisCache when activated
 if bool(strtobool(os.environ.get("INTEGREAT_CMS_REDIS_CACHE", "False"))):
-    unix_socket = os.environ.get("INTEGREAT_CMS_REDIS_UNIX_SOCKET")
-    if unix_socket:
+    if unix_socket := os.environ.get("INTEGREAT_CMS_REDIS_UNIX_SOCKET"):
         # Use unix socket if available (and also tell cacheops about it)
         redis_location = f"unix://{unix_socket}?db=0"
         CACHEOPS_REDIS = f"unix://{unix_socket}?db=1"

@@ -78,10 +78,8 @@ class UploadMediaFileForm(CustomModelForm):
         """
         cleaned_data = super().clean()
 
-        file = cleaned_data.get("file")
-
         # Only validate type if a file is uploaded - otherwise, the form throws an error anyways
-        if file:
+        if file := cleaned_data.get("file"):
             # Check magic bytes for actual file type - the content_type of the file can easily be forged
             cleaned_data["type"] = magic.from_buffer(file.read(), mime=True)
             if cleaned_data.get("type") not in dict(allowed_media.UPLOAD_CHOICES):
@@ -123,20 +121,19 @@ class UploadMediaFileForm(CustomModelForm):
 
         # If everything looks good until now, generate a thumbnail and an optimized image
         if not self.errors and cleaned_data.get("type").startswith("image"):
-            optimized_image = generate_thumbnail(
+            if optimized_image := generate_thumbnail(
                 file, settings.MEDIA_OPTIMIZED_SIZE, False
-            )
-            if not optimized_image:
+            ):
+                cleaned_data["file"] = optimized_image
+                cleaned_data["thumbnail"] = generate_thumbnail(file)
+
+            else:
                 self.add_error(
                     "file",
                     forms.ValidationError(
                         _("This image file is corrupt."), code="invalid"
                     ),
                 )
-            else:
-                cleaned_data["file"] = optimized_image
-                cleaned_data["thumbnail"] = generate_thumbnail(file)
-
         # Add the calculated file_size and the modification date to the form data
         if cleaned_data.get("file"):
             cleaned_data["file_size"] = cleaned_data.get("file").size

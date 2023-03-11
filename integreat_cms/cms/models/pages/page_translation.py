@@ -46,12 +46,12 @@ class PageTranslation(AbstractBasePageTranslation):
         """
         slugs = []
         for ancestor in self.page.get_cached_ancestors():
-            public_translation = ancestor.get_public_translation(self.language.slug)
-            if public_translation:
+            if public_translation := ancestor.get_public_translation(
+                self.language.slug
+            ):
                 slugs.append(public_translation.slug)
                 continue
-            translation = ancestor.get_translation(self.language.slug)
-            if translation:
+            if translation := ancestor.get_translation(self.language.slug):
                 slugs.append(translation.slug)
                 continue
             slugs.append(ancestor.best_translation.slug)

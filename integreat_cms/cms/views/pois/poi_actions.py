@@ -152,16 +152,13 @@ def view_poi(request, poi_id, region_slug, language_slug):
     :return: A redirection to the :class:`~integreat_cms.cms.views.pois.poi_list_view.POIListView`
     :rtype: ~django.http.HttpResponseRedirect
     """
-    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "pois/poi_view.html"
     poi = POI.objects.get(id=poi_id)
 
-    poi_translation = poi.get_translation(language_slug)
-
-    if not poi_translation:
-        raise Http404
-
-    return render(request, template_name, {"poi_translation": poi_translation})
+    if poi_translation := poi.get_translation(language_slug):
+        # The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
+        template_name = "pois/poi_view.html"
+        return render(request, template_name, {"poi_translation": poi_translation})
+    raise Http404
 
 
 @json_response

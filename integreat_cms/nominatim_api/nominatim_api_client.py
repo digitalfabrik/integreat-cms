@@ -131,8 +131,7 @@ class NominatimApiClient:
         :return: The coordinates of the requested address
         :rtype: tuple ( float, float )
         """
-        result = self.search(street=street, postalcode=postalcode, city=city)
-        if result:
+        if result := self.search(street=street, postalcode=postalcode, city=city):
             return result.latitude, result.longitude
         return None, None
 
@@ -256,8 +255,7 @@ class NominatimApiClient:
         """
         coordinates = Point(latitude, longitude)
         try:
-            result = self.geolocator.reverse(coordinates)
-            if result:
+            if result := self.geolocator.reverse(coordinates):
                 logger.debug("Nominatim API reverse search result: %r", result.raw)
             else:
                 logger.debug(

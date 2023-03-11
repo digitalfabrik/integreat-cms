@@ -169,8 +169,7 @@ class UserForm(CustomModelForm):
         :return: The email in lower case
         :rtype: str
         """
-        email = self.cleaned_data.get("email")
-        if email:
+        if email := self.cleaned_data.get("email"):
             email = email.lower()
         return email
 

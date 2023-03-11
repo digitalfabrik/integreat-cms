@@ -110,8 +110,7 @@ class EventFilterForm(CustomFilterForm):
             # Only past events
             events = events.filter_completed()
         # Filter events for their location
-        poi = region.pois.filter(id=self.cleaned_data["poi_id"]).first()
-        if poi is not None:
+        if poi := region.pois.filter(id=self.cleaned_data["poi_id"]).first():
             events = events.filter(location=poi)
         # Filter events for their all-day property
         if (
@@ -146,8 +145,7 @@ class EventFilterForm(CustomFilterForm):
             # Only non-recurring events
             events = events.filter(recurrence_rule__isnull=True)
         # Filter events by the search query
-        query = self.cleaned_data["query"]
-        if query:
+        if query := self.cleaned_data["query"]:
             event_ids = EventTranslation.search(region, language_slug, query).values(
                 "event__pk"
             )

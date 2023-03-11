@@ -52,11 +52,9 @@ class PageSideBySideView(
         page = region.pages.get(id=kwargs.get("page_id"))
 
         target_language = Language.objects.get(slug=kwargs.get("language_slug"))
-        source_language_node = region.language_tree_nodes.get(
+        if source_language_node := region.language_tree_nodes.get(
             language=target_language
-        ).parent
-
-        if source_language_node:
+        ).parent:
             source_language = source_language_node.language
         else:
             messages.error(
@@ -259,21 +257,16 @@ def get_old_source_content(page, source_language, target_language):
     :return: The content of the translation
     :rtype: str
     """
-    # For the text diff, use the latest source translation that was created before the latest no minor edit target translation
-    major_target_page_translation = page.translations.filter(
+    if major_target_page_translation := page.translations.filter(
         language__slug=target_language.slug, minor_edit=False
-    ).first()
-
-    if major_target_page_translation:
-        source_previous_translation = (
+    ).first():
+        if source_previous_translation := (
             page.translations.filter(
                 language=source_language,
                 last_updated__lte=major_target_page_translation.last_updated,
             )
             .order_by("-last_updated")
             .first()
-        )
-        if source_previous_translation:
+        ):
             return source_previous_translation.content
-
     return ""

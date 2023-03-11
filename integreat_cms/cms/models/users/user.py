@@ -144,8 +144,7 @@ class User(AbstractUser, AbstractBaseModel):
         """
         # Many-to-many relationships can only be used for objects that are already saved to the database
         if self.id:
-            groups = self.groups.all()
-            if groups:
+            if groups := self.groups.all():
                 # Assume users only have one group/role
                 return groups[0].role
         return None

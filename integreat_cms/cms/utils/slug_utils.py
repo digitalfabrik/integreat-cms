@@ -96,6 +96,7 @@ def generate_unique_slug(**kwargs):
         # slugify to make sure slug doesn't contain special chars etc.
         slug = slugify(cleaned_data[fallback], allow_unicode=allow_unicode)
         # If the title/name field didn't contain valid characters for a slug, we use a hardcoded fallback slug
+        # pylint: disable=consider-using-assignment-expr
         if not slug:
             slug = foreign_model
 

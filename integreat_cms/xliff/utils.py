@@ -316,8 +316,7 @@ def get_xliff_import_diff(request, xliff_dir):
                 page=page_translation.page,
                 language=page_translation.language,
             )
-            translation_key = get_translation_key(existing_translation)
-            if translation_key in diff:
+            if (translation_key := get_translation_key(existing_translation)) in diff:
                 # Show global error to indicate duplicate translation
                 messages.error(
                     request,
@@ -440,8 +439,7 @@ def xliff_import_confirm(request, xliff_dir, machine_translated):
                     success = False
                 else:
                     # Check if previous version already exists
-                    existing_translation = page_translation.latest_version
-                    if existing_translation:
+                    if existing_translation := page_translation.latest_version:
                         # Delete link objects of existing translation
                         existing_translation.links.all().delete()
                     page_translation.machine_translated = machine_translated

@@ -165,25 +165,23 @@ def preview_page_ajax(request, page_id, region_slug, language_slug):
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
 
-    page_translation = page.get_translation(language_slug)
-    if not page_translation:
-        raise Http404("Translation of the given page could not be found")
-    mirrored_translation = page.get_mirrored_page_translation(language_slug)
-
-    return JsonResponse(
-        data={
-            "title": page_translation.title,
-            "page_translation": page_translation.content,
-            "mirrored_translation": mirrored_translation.content
-            if mirrored_translation
-            else "",
-            "mirrored_page_first": page.mirrored_page_first,
-            "right_to_left": page_translation.language.text_direction
-            == text_directions.RIGHT_TO_LEFT
-            if page_translation
-            else False,
-        }
-    )
+    if page_translation := page.get_translation(language_slug):
+        mirrored_translation = page.get_mirrored_page_translation(language_slug)
+        return JsonResponse(
+            data={
+                "title": page_translation.title,
+                "page_translation": page_translation.content,
+                "mirrored_translation": mirrored_translation.content
+                if mirrored_translation
+                else "",
+                "mirrored_page_first": page.mirrored_page_first,
+                "right_to_left": page_translation.language.text_direction
+                == text_directions.RIGHT_TO_LEFT
+                if page_translation
+                else False,
+            }
+        )
+    raise Http404("Translation of the given page could not be found")
 
 
 @permission_required("cms.view_page")
@@ -212,10 +210,9 @@ def get_page_content_ajax(request, region_slug, language_slug, page_id):
     """
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
-    page_translation = page.get_translation(language_slug)
-    if not page_translation:
-        raise Http404("Translation of the given page could not be found")
-    return JsonResponse(data={"content": page_translation.content})
+    if page_translation := page.get_translation(language_slug):
+        return JsonResponse(data={"content": page_translation.content})
+    raise Http404("Translation of the given page could not be found")
 
 
 @require_POST
@@ -313,8 +310,7 @@ def cancel_translation_process_ajax(request, region_slug, language_slug, page_id
     """
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
-    page_translation = page.get_translation(language_slug)
-    if not page_translation:
+    if not (page_translation := page.get_translation(language_slug)):
         return JsonResponse(
             {
                 "error": f"Page {page} does not have a translation for language '{language_slug}'"

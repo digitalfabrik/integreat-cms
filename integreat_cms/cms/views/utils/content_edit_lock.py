@@ -28,19 +28,16 @@ def content_edit_lock_heartbeat(request, region_slug=None):
     """
     body = json.loads(request.body.decode("utf-8"))
     id_, type_ = json.loads(body["key"])
-    force_take_over = body["force"]
 
-    if force_take_over:
-        locking_user = get_locking_user(id_, type_)
-        if locking_user:
-            logger.debug(
-                "User %r took control over %s with id %s from %r",
-                request.user,
-                type_,
-                id_,
-                locking_user,
-            )
-            unlock_content(id_, type_, locking_user)
+    if body["force"] and (locking_user := get_locking_user(id_, type_)):
+        logger.debug(
+            "User %r took control over %s with id %s from %r",
+            request.user,
+            type_,
+            id_,
+            locking_user,
+        )
+        unlock_content(id_, type_, locking_user)
 
     success = lock_content(id_, type_, request.user)
     locking_user = request.user if success else get_locking_user(id_, type_)

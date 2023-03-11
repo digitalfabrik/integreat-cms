@@ -63,8 +63,7 @@ def generate_pdf(region, language_slug, pages):
     pdf_key_string = "_".join(map(str, pdf_key_list))
     # compute the hash value based on the hash key
     pdf_hash = hashlib.sha256(bytes(pdf_key_string, "utf-8")).hexdigest()[:10]
-    amount_pages = pages.count()
-    if not amount_pages:
+    if not (amount_pages := pages.count()):
         return HttpResponse(
             _("No valid pages selected for PDF generation."), status=400
         )
@@ -156,8 +155,7 @@ def link_callback(uri, rel):
     if parsed_uri.hostname in settings.ALLOWED_HOSTS:
         uri = parsed_uri.path
         # When the url contains the legacy media url, replace it with the new pattern
-        LEGACY_MEDIA_URL = "/wp-content/uploads/sites/"
-        if LEGACY_MEDIA_URL in uri:
+        if (LEGACY_MEDIA_URL := "/wp-content/uploads/sites/") in uri:
             uri = f"/media/regions/{uri.partition(LEGACY_MEDIA_URL)[2]}"
     if uri.startswith(settings.MEDIA_URL):
         # Get absolute path for media files
@@ -185,8 +183,7 @@ def link_callback(uri, rel):
             settings.MEDIA_URL,
         )
         return uri
-    result = finders.find(uri)
-    if not result:
+    if not (result := finders.find(uri)):
         logger.exception(
             "The file %r was not found in the static directories %r.",
             uri[:1024],

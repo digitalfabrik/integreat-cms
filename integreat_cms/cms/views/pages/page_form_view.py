@@ -126,8 +126,7 @@ class PageFormView(
                         )
                     messages.warning(request, status_message)
                 # Show information if a public translation exists even if the latest version is not public
-                public_translation = page.get_public_translation(language.slug)
-                if public_translation:
+                if public_translation := page.get_public_translation(language.slug):
                     if page_translation.status == status.DRAFT:
                         messages.warning(
                             request,

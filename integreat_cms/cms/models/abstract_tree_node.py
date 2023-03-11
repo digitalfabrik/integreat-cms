@@ -143,10 +143,8 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         """
         siblings = self.region_siblings
         ids = [obj.pk for obj in siblings]
-        if self.pk in ids:
-            idx = ids.index(self.pk)
-            if idx > 0:
-                return siblings[idx - 1]
+        if self.pk in ids and (idx := ids.index(self.pk)) > 0:
+            return siblings[idx - 1]
         return None
 
     @cached_property
@@ -159,10 +157,8 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         """
         siblings = self.region_siblings
         ids = [obj.pk for obj in siblings]
-        if self.pk in ids:
-            idx = ids.index(self.pk)
-            if idx < len(siblings) - 1:
-                return siblings[idx + 1]
+        if self.pk in ids and (idx := ids.index(self.pk)) < len(siblings) - 1:
+            return siblings[idx + 1]
         return None
 
     def get_cached_ancestors(self, include_self=False):

@@ -189,29 +189,25 @@ class GvzRegion:
 
         api = GvzApiWrapper()
         self.ags = region_ags
-        if region_name is not None and not region_ags:
-            best_match = api.best_match(region_name, region_type)
-            if best_match is not None:
-                self.ags = best_match["ags"]
+        if (
+            not region_name
+            and not region_ags
+            and (best_match := api.best_match(region_name, region_type))
+        ):
+            self.ags = best_match["ags"]
 
         self.name = None
         self.longitude = None
         self.latitude = None
         self.child_coordinates = {}
 
-        if not self.ags:
-            return
-
-        details = api.get_details(self.ags)
-        if details is None:
-            return
-        self.id = details["id"]
-        self.ags = details["ags"]
-        self.name = details["name"]
-        self.longitude = details["longitude"]
-        self.latitude = details["latitude"]
-
-        self.child_coordinates = api.get_child_coordinates(details["children"])
+        if self.ags and (details := api.get_details(self.ags)):
+            self.id = details["id"]
+            self.ags = details["ags"]
+            self.name = details["name"]
+            self.longitude = details["longitude"]
+            self.latitude = details["latitude"]
+            self.child_coordinates = api.get_child_coordinates(details["children"])
 
     def as_dict(self):
         """

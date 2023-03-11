@@ -246,12 +246,17 @@ order_by_type = false
 jobs = 0
 load-plugins = [
     "pylint_django",
+    "pylint.extensions.code_style",
     "pylint.extensions.comparetozero",
     "pylint.extensions.comparison_placement",
     "pylint.extensions.consider_ternary_expression",
     "pylint.extensions.docparams",
     "pylint.extensions.emptystring",
     "pylint.extensions.for_any_all",
+]
+disable = [
+    "consider-using-namedtuple-or-dataclass",
+    "consider-using-tuple",
 ]
 ignore-paths = [
   ".venv",

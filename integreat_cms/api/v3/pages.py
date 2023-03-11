@@ -41,10 +41,9 @@ def transform_page(page_translation):
 
     parent_page = page_translation.page.cached_parent
     if parent_page and not parent_page.explicitly_archived:
-        parent_public_translation = parent_page.get_public_translation(
+        if parent_public_translation := parent_page.get_public_translation(
             page_translation.language.slug
-        )
-        if parent_public_translation:
+        ):
             parent_absolute_url = parent_public_translation.get_absolute_url()
             parent = {
                 "id": parent_page.id,
@@ -123,8 +122,7 @@ def pages(request, region_slug, language_slug):
         .filter(explicitly_archived=False)
         .cache_tree(archived=False, language_slug=language_slug)
     ):
-        page_translation = page.get_public_translation(language_slug)
-        if page_translation:
+        if page_translation := page.get_public_translation(language_slug):
             result.append(transform_page(page_translation))
     return JsonResponse(
         result, safe=False
@@ -221,9 +219,7 @@ def single_page(request, region_slug, language_slug):
         page = get_single_page(request, language_slug)
     except RuntimeError as e:
         return JsonResponse({"error": str(e)}, status=400)
-    # Get most recent public revision of the page
-    page_translation = page.get_public_translation(language_slug)
-    if page_translation:
+    if page_translation := page.get_public_translation(language_slug):
         return JsonResponse(transform_page(page_translation), safe=False)
 
     raise Http404("No Page matches the given url or id.")

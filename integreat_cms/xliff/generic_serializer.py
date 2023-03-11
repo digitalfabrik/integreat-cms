@@ -20,8 +20,7 @@ class Deserializer(base_serializer.Deserializer):
         # Get XLIFF version and initialize deserializer of correct version
         for event, node in self.event_stream:
             if event == "START_ELEMENT" and node.nodeName == "xliff":
-                version = node.getAttribute("version")
-                if not version:
+                if not (version := node.getAttribute("version")):
                     raise DeserializationError(
                         "The <xliff>-block does not contain a version attribute."
                     )

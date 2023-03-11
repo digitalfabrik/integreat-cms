@@ -254,9 +254,7 @@ class Event(AbstractContentModel):
         # If the own recurrence rule would not be cleared, django would throw an
         # error that the recurrence rule is not unique (because it would belong to both
         # the cloned and the new object)
-        recurrence_rule = self.recurrence_rule
-
-        if recurrence_rule:
+        if recurrence_rule := self.recurrence_rule:
             # copy the recurrence rule, if it exists
             recurrence_rule.pk = None
             recurrence_rule.save()

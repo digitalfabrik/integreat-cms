@@ -124,10 +124,8 @@ class SitemapView(TemplateResponseMixin, View):
             only_visible=True,
         )
 
-        sitemaps = get_sitemaps(region, language)
-
         # Only return a sitemap if it contains any elements
-        if not sitemaps:
+        if not (sitemaps := get_sitemaps(region, language)):
             raise Http404
 
         # Join the lists of all urls of all sitemaps

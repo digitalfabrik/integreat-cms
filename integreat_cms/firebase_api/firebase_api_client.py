@@ -53,12 +53,12 @@ class FirebaseApiClient:
 
         if settings.DEBUG:
             # Prevent sending PNs to actual users in development
-            test_region = Region.objects.filter(slug=settings.TEST_REGION_SLUG).first()
-            if not test_region:
+            try:
+                self.region = Region.objects.get(slug=settings.TEST_REGION_SLUG)
+            except Region.DoesNotExist as e:
                 raise ImproperlyConfigured(
                     f"The system runs with DEBUG=True but the region with TEST_REGION_SLUG={settings.TEST_REGION_SLUG} does not exist."
-                )
-            self.region = test_region
+                ) from e
         self.region = push_notification.region
 
     def load_secondary_pnts(self):

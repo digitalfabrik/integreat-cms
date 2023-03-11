@@ -57,8 +57,7 @@ class ImprintFormView(TemplateView, MediaContextMixin):
         region = request.region
 
         # current language
-        language_slug = kwargs.get("language_slug")
-        if language_slug:
+        if language_slug := kwargs.get("language_slug"):
             language = region.get_language_or_404(language_slug, only_active=True)
         elif region.default_language:
             return redirect(

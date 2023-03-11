@@ -471,12 +471,11 @@ class RegionForm(CustomModelForm):
         # When the Nominatim API is enabled, auto fill the bounding box coordinates
         if settings.NOMINATIM_API_ENABLED:
             nominatim_api_client = NominatimApiClient()
-            bounding_box = nominatim_api_client.get_bounding_box(
+            if bounding_box := nominatim_api_client.get_bounding_box(
                 administrative_division=cleaned_data.get("administrative_division"),
                 name=cleaned_data.get("name"),
                 aliases=cleaned_data.get("aliases"),
-            )
-            if bounding_box:
+            ):
                 # Update bounding box values if not set manually
                 if not cleaned_data.get("latitude_min"):
                     cleaned_data["latitude_min"] = bounding_box.latitude_min

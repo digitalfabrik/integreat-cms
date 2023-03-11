@@ -252,18 +252,17 @@ class Deserializer(xml_serializer.Deserializer):
                     raise e
 
             # Now get the actual target value of the field
-            target = field_node.getElementsByTagName("target")
-            if not target:
+            if target := field_node.getElementsByTagName("target"):
+                # Set the field attribute of the page translation to the new target value
+                setattr(
+                    page_translation,
+                    field_name,
+                    field.to_python(xml_serializer.getInnerText(target[0]).strip()),
+                )
+            else:
                 raise DeserializationError(
                     f"Field {field_name} does not contain a <target> node."
                 )
-            # Set the field attribute of the page translation to the new target value
-            setattr(
-                page_translation,
-                field_name,
-                field.to_python(xml_serializer.getInnerText(target[0]).strip()),
-            )
-
         logger.debug("Deserialized page translation: %r", page_translation)
         # Return a DeserializedObject
         return DeserializedObject(page_translation)
@@ -350,9 +349,8 @@ class Deserializer(xml_serializer.Deserializer):
         :return: The value name of the requested attribute
         :rtype: str
         """
-        value = node.getAttribute(attribute)
-        if not value:
-            raise DeserializationError(
-                f"<{node.nodeName}> node is missing the {attribute} attribute"
-            )
-        return value
+        if value := node.getAttribute(attribute):
+            return value
+        raise DeserializationError(
+            f"<{node.nodeName}> node is missing the {attribute} attribute"
+        )
