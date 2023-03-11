@@ -256,7 +256,7 @@ def children(request, region_slug, language_slug):
         # simulate a virtual root node for WP compatibility
         # so that depth = 1 returns only those pages without parents (immediate children of this virtual root page)
         # like in wordpress depth = 0 will return no results in this case
-        depth = depth - 1
+        depth -= 1
     result = []
     public_region_pages = (
         request.region.pages.select_related("organization")
