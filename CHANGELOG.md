@@ -1,6 +1,10 @@
 UNRELEASED
 ----------
 
+
+2023.3.0
+--------
+
 * [ [#1245](https://github.com/digitalfabrik/integreat-cms/issues/1245) ] Restore expanded state of page tree
 * [ [#2032](https://github.com/digitalfabrik/integreat-cms/issues/2032) ] Remove gap between sidebar boxes in event and page form
 * [ [#1322](https://github.com/digitalfabrik/integreat-cms/issues/1322) ] Add organization name & logo to the page API response
