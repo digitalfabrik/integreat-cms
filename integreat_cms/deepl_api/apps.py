@@ -9,6 +9,7 @@ from deepl.exceptions import DeepLException
 
 from django.apps import AppConfig
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 from .utils import DeepLApi
 
@@ -20,8 +21,13 @@ class DeepLApiConfig(AppConfig):
     DeepL API config inheriting the django AppConfig
     """
 
+    #: Full Python path to the application
     name = "integreat_cms.deepl_api"
+    #: Human-readable name for the application
+    verbose_name = _("DeepL API")
+    #: The supported source languages
     supported_source_languages = []
+    #: The supported target languages
     supported_target_languages = []
 
     def ready(self):

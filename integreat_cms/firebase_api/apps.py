@@ -6,6 +6,7 @@ import logging
 
 from django.apps import apps, AppConfig
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger(__name__)
 
@@ -15,14 +16,17 @@ class FirebaseApiConfig(AppConfig):
     Firebase API config inheriting the django AppConfig
     """
 
+    #: Full Python path to the application
     name = "integreat_cms.firebase_api"
+    #: Human-readable name for the application
+    verbose_name = _("Firebase API")
 
     def ready(self):
         """
         Checking if API is available
         """
         # Only check if running a server
-        if apps.get_app_config("cms").test_external_apis:
+        if apps.get_app_config("core").test_external_apis:
             if not settings.FCM_ENABLED:
                 logger.info("Firebase Cloud Messaging is disabled")
             elif settings.DEBUG:

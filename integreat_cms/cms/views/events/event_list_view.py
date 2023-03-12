@@ -76,7 +76,7 @@ class EventListView(TemplateView, EventContextMixin, SummAiContextMixin):
                 **{
                     "region_slug": region.slug,
                     "language_slug": region.default_language.slug,
-                }
+                },
             )
         else:
             messages.error(

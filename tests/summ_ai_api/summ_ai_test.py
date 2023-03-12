@@ -10,9 +10,6 @@ from integreat_cms.cms.models import Page, Region
 from ..conftest import (
     ANONYMOUS,
     PRIV_STAFF_ROLES,
-    MANAGEMENT,
-    EDITOR,
-    AUTHOR,
 )
 from ..utils import assert_message_in_response
 
@@ -119,7 +116,7 @@ async def test_auto_translate_easy_german(
         translate_easy_german, data={"selected_ids[]": selected_ids}
     )
     print(response.headers)
-    if role in PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]:
+    if role in PRIV_STAFF_ROLES:
         # If the role should be allowed to access the view, we expect a successful result
         assert response.status_code == 302
         page_tree = reverse(
@@ -209,7 +206,7 @@ async def test_summ_ai_error_handling(
     )
     response = await client.post(translate_easy_german, data={"selected_ids[]": [1]})
     print(response.headers)
-    if role in PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]:
+    if role in PRIV_STAFF_ROLES:
         # If the role should be allowed to access the view, we expect a redirect to the page tree
         assert response.status_code == 302
         page_tree = reverse(

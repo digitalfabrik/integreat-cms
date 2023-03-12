@@ -1,6 +1,6 @@
 """
 Django settings for different database configuration.
-The docker container started in :github-source:`dev-tools/run.sh` exposes the alternative port ``5433``.
+The docker container started in :github-source:`tools/run.sh` exposes the alternative port ``5433``.
 
 All other settings are imported from :mod:`~integreat_cms.core.settings`.
 

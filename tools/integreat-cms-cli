@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# This script executes a python file withing the context of the Django shell
+
+# Let the command handle the help instead of the dev tools
+export SKIP_HELP_COMMAND=1
+
+# Import utility functions
+# shellcheck source=./tools/_functions.sh
+source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
+
+require_installed
+require_database
+
+deescalate_privileges integreat-cms-cli "$@"

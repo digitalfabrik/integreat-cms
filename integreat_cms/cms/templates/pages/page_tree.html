@@ -5,6 +5,7 @@
 {% load page_filters %}
 {% load rules %}
 {% block content %}
+    {% has_perm 'cms.change_page_object' request.user as can_edit_pages %}
     {% with filter_form.filters_visible as filters_visible %}
         <div class="table-header">
             <div class="flex flex-wrap justify-between gap-4">
@@ -31,7 +32,6 @@
                             <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% translate "Hide filters" %}</span>
                         </button>
                     {% endif %}
-                    {% has_perm 'cms.change_page_object' request.user as can_edit_pages %}
                     {% if can_edit_pages %}
                         {% if request.region.default_language == language %}
                             <a href="{% url 'new_page' region_slug=request.region.slug language_slug=language.slug %}"
@@ -56,7 +56,7 @@
     <form method="post" id="bulk-action-form" class="table-listing">
         {% csrf_token %}
         <div class="overflow-x-auto">
-            <table {% if not filter_form.is_enabled %} data-delay-event-handlers data-activate-tree-drag-drop{% endif %}
+            <table {% if not filter_form.is_enabled %} data-delay-event-handlers data-activate-tree-drag-drop data-descendants-url={% url 'get_page_tree_ajax' region_slug=request.region.slug language_slug=language.slug %}{% endif %}
                    class="w-full mt-4 rounded border-2 border-solid border-gray-200 shadow bg-white table-auto">
                 <thead>
                     <tr class="border-b border-solid border-gray-200">
@@ -153,10 +153,12 @@
                 <option>
                     {% translate "Select bulk action" %}
                 </option>
-                <option data-bulk-action="{% url 'bulk_archive_pages' region_slug=request.region.slug language_slug=language.slug %}">
-                    {% translate "Archive pages" %}
-                </option>
-                {% if SUMM_AI_ENABLED %}
+                {% if can_edit_pages %}
+                    <option data-bulk-action="{% url 'bulk_archive_pages' region_slug=request.region.slug language_slug=language.slug %}">
+                        {% translate "Archive pages" %}
+                    </option>
+                {% endif %}
+                {% if SUMM_AI_ENABLED and request.user.is_staff %}
                     <option data-bulk-action="{% url 'auto_translate_easy_german_pages' region_slug=request.region.slug language_slug=language.slug %}">
                         {% translate "Automatically translate this page into Easy German" %}
                     </option>
@@ -200,7 +202,7 @@
             <button id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
         </div>
     </form>
-    {% if request.user.expert_mode %}
+    {% if request.user.expert_mode and can_edit_pages %}
         <div class="flex-wrap relative w-auto mt-12">
             <h3 class="font-bold text-xl">{% translate "Import XLIFF files" %}</h3>
             <div class="my-2 text-s text-gray-600">{% translate "Supported file extensions" %}: .zip, .xlf, .xliff</div>

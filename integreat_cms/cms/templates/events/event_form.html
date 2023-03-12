@@ -53,10 +53,10 @@
                 {% endif %}
             {% endif %}
         </div>
-        <div class="md:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_400px_400px] gap-4">
+        <div class="3xl:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_816px] gap-4">
             <div class="col-span-2 3xl:col-span-1 flex flex-wrap flex-col">
                 {% include "_form_language_tabs.html" with target="edit_event" instance=event_form.instance content_field="event_id" %}
-                <div class="w-full rounded border border-blue-500 bg-white shadow-2xl flex flex-col flex-auto">
+                <div class="w-full rounded border border-blue-500 bg-white shadow-2xl flex flex-col">
                     <div class="w-full p-4 flex flex-col flex-auto">
                         <div class="flex justify-between">
                             <label for="{{ event_translation_form.title.id_for_label }}"
@@ -119,21 +119,23 @@
                     </div>
                 </div>
             </div>
-            <div id="left-sidebar-column"
-                 class="mt-3 md:mt-0 3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col md:gap-2"
-                 {% if request.user.distribute_sidebar_boxes %} data-enable-automatic-sidebar-distribution{% endif %}>
-                {% if event_form.instance.id and perms.cms.change_event %}
-                    {% include "./event_form_sidebar/minor_edit_box.html" with box_id="event-minor-edit" %}
-                {% endif %}
-                {% include "./event_form_sidebar/date_and_time_box.html" with box_id="event-date-time" %}
-            </div>
-            <div id="right-sidebar-column"
-                 class="3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col md:gap-2">
-                {% include "./event_form_sidebar/venue_box.html" with box_id="event-venue" %}
-                {% include "./event_form_sidebar/icon_box.html" with box_id="event-icon" %}
-                {% if event_form.instance.id and perms.cms.change_event %}
-                    {% include "./event_form_sidebar/actions_box.html" with box_id="event-actions" %}
-                {% endif %}
+            <div class="md:flex mt-4 3xl:mt-0 block 3xl:block 4xl:flex">
+                <div id="left-sidebar-column"
+                     class="md:mr-4 md:w-full 3xl:mr-0 md:mt-0 sm:block md:flex sm:mt-4 flex-wrap flex-col 4xl:mr-4"
+                     {% if request.user.distribute_sidebar_boxes %} data-enable-automatic-sidebar-distribution{% endif %}>
+                    {% if event_form.instance.id and perms.cms.change_event %}
+                        {% include "./event_form_sidebar/minor_edit_box.html" with box_id="event-minor-edit" %}
+                    {% endif %}
+                    {% include "./event_form_sidebar/date_and_time_box.html" with box_id="event-date-time" %}
+                </div>
+                <div id="right-sidebar-column"
+                     class="md:w-full 3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col">
+                    {% include "./event_form_sidebar/venue_box.html" with box_id="event-venue" %}
+                    {% include "./event_form_sidebar/icon_box.html" with box_id="event-icon" %}
+                    {% if event_form.instance.id and perms.cms.change_event %}
+                        {% include "./event_form_sidebar/actions_box.html" with box_id="event-actions" %}
+                    {% endif %}
+                </div>
             </div>
         </div>
     </form>

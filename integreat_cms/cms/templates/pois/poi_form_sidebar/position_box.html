@@ -53,13 +53,16 @@
         <div id="map"
              class="aspect-video"
              data-url="{% url "get_address_from_coordinates" region_slug=request.region.slug %}"
-             data-bounding-box="{{ request.region.bounding_box.api_representation }}">
+             data-bounding-box="{{ request.region.bounding_box.api_representation }}"
+             data-change-permission="{{ perms.cms.change_poi }}">
         </div>
         <div id="set_map_position_text" class="help-text hidden">
             {% translate "You can set the position by clicking on the map" %}
         </div>
         <div id="change_map_position_text" class="help-text hidden">
-            {% translate "You can change the position via drag & drop" %}
+            {% if perms.cms.change_poi %}
+                {% translate "You can change the position via drag & drop" %}
+            {% endif %}
         </div>
         <div id="update_position_from_map_marker" class="hidden">
             <p class="mb-3">

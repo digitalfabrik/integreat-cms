@@ -2,7 +2,6 @@
 This modules contains the config for the view tests
 """
 import json
-
 from django.conf import settings
 from django.urls import reverse
 
@@ -699,14 +698,20 @@ VIEWS = [
         {"region_slug": "nurnberg", "page_id": 8},
     ),
     (
-        [("get_page_tree_ajax", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER])],
+        [
+            (
+                "get_page_tree_ajax",
+                STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
+                json.dumps([2]),
+            )
+        ],
         # The kwargs for these views
-        {"region_slug": "augsburg", "language_slug": "de", "tree_id": 2},
+        {"region_slug": "augsburg", "language_slug": "de"},
     ),
     (
-        [("get_page_tree_ajax", STAFF_ROLES)],
+        [("get_page_tree_ajax", STAFF_ROLES, json.dumps([1]))],
         # The kwargs for these views
-        {"region_slug": "nurnberg", "language_slug": "de", "tree_id": 1},
+        {"region_slug": "nurnberg", "language_slug": "de"},
     ),
     (
         [

@@ -51,7 +51,7 @@ def archive(request, event_id, region_slug, language_slug):
         **{
             "region_slug": region_slug,
             "language_slug": language_slug,
-        }
+        },
     )
 
 
@@ -123,7 +123,7 @@ def restore(request, event_id, region_slug, language_slug):
         **{
             "region_slug": region_slug,
             "language_slug": language_slug,
-        }
+        },
     )
 
 
@@ -163,7 +163,7 @@ def delete(request, event_id, region_slug, language_slug):
         **{
             "region_slug": region_slug,
             "language_slug": language_slug,
-        }
+        },
     )
 
 

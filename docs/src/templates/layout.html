@@ -1,0 +1,84 @@
+{% extends "!layout.html" %}
+
+{% block sidebartitle %}
+    {% if logo %}
+        {# djlint:off H006 #}
+            <a href="{{ pathto(master_doc) }}"><img src="{{ pathto('_static/' + logo, 1) }}" class="logo" alt="Logo"/></a>
+        {# djlint:on #}
+    {% endif %}
+    {% if not logo or not theme_logo_only %}
+        <a href="{{ pathto(master_doc) }}" class="icon icon-home"> {{ project }}</a>
+    {% endif %}
+    {% if theme_display_version %}
+        {%- set nav_version = version %}
+        {% if READTHEDOCS and current_version %}
+            {%- set nav_version = current_version %}
+        {% endif %}
+        {% if nav_version %}
+        <div class="version">
+            {{ nav_version }}
+        </div>
+        {% endif %}
+    {% endif %}
+    {% include "searchbox.html" %}
+{% endblock sidebartitle %}
+
+{% block menu %}
+    {{ super() }}
+    <a href="{{ pathto('genindex.html', 1) }}">Full Index</a>
+    <a href="{{ pathto('py-modindex.html', 1) }}">Module Index</a>
+    <a href="{{ pathto('search.html', 1) }}">Search Page</a>
+{% endblock menu %}
+
+{% block footer %}
+    {{ super() }}
+    <style>
+        div.wy-nav-content {
+            max-width: 1200px;
+        }
+        span.lastupdated {
+            float: right;
+        }
+        div.two-columns div.admonition {
+            clear: none;
+        }
+        div.left-side {
+            width: 48%;
+            float: left;
+        }
+        div.right-side {
+            margin-left: 52%;
+        }
+        div.iframe-container {
+            position: relative;
+            width: 100%;
+            height: 0;
+            padding-bottom: 56%;
+            margin-bottom: 20px;
+        }
+        div.iframe-container iframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            left: 0; top: 0;
+        }
+    </style>
+    <script type="text/javascript">
+        <!-- Adds target=_blank to external links -->
+        $(document).ready(function () {
+            $('a[href^="http://"], a[href^="https://"]').not('a[class*=internal]').attr('target', '_blank');
+        });
+        <!-- Hide the extended reference unless it's currently open -->
+        $(document).ready(function () {
+            if (window.location.pathname.includes("/ref-ext/")) {
+                let ref = $('p.caption:contains("Reference"):not(:contains("Extended Reference"))');
+                ref.hide();
+                ref.next().hide();
+            } else {
+                let simple_ref = $('p.caption:contains("Extended Reference")');
+                simple_ref.hide();
+                simple_ref.next().hide();
+            }
+        });
+    </script>
+{% endblock footer %}

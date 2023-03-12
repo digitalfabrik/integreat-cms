@@ -5,6 +5,7 @@
 {% load page_filters %}
 {% load rules %}
 {% block content %}
+    {% has_perm 'cms.change_page_object' request.user as can_edit_pages %}
     {% with filter_form.filters_visible as filters_visible %}
         <div class="table-header">
             <div class="flex flex-wrap justify-between gap-4">
@@ -89,17 +90,19 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <div class="flex flex-wrap gap-2 mt-4">
-                <select id="bulk-action" class="w-auto max-w-full">
-                    <option>
-                        {% translate "Select bulk action" %}
-                    </option>
-                    <option data-bulk-action="{% url 'bulk_restore_pages' region_slug=request.region.slug language_slug=language.slug %}">
-                        {% translate "Restore pages" %}
-                    </option>
-                </select>
-                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
-            </div>
+            {% if can_edit_pages %}
+                <div class="flex flex-wrap gap-2 mt-4">
+                    <select id="bulk-action" class="w-auto max-w-full">
+                        <option>
+                            {% translate "Select bulk action" %}
+                        </option>
+                        <option data-bulk-action="{% url 'bulk_restore_pages' region_slug=request.region.slug language_slug=language.slug %}">
+                            {% translate "Restore pages" %}
+                        </option>
+                    </select>
+                    <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
+                </div>
+            {% endif %}
         </div>
     </div>
     {% include "../generic_confirmation_dialog.html" %}

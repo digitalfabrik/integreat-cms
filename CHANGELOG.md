@@ -1,6 +1,15 @@
 UNRELEASED
 ----------
 
+* [ [#1245](https://github.com/digitalfabrik/integreat-cms/issues/1245) ] Restore expanded state of page tree
+* [ [#2032](https://github.com/digitalfabrik/integreat-cms/issues/2032) ] Remove gap between sidebar boxes in event and page form
+* [ [#1322](https://github.com/digitalfabrik/integreat-cms/issues/1322) ] Add organization name & logo to the page API response
+* [ [#2105](https://github.com/digitalfabrik/integreat-cms/issues/2105) ] Indicate that categories are now shown in the apps
+* [ [#2065](https://github.com/digitalfabrik/integreat-cms/issues/2065) ] Only allow staff members to use SUMM.AI bulk action
+* [ [#1970](https://github.com/digitalfabrik/integreat-cms/issues/1970) ] Disable drag & drop in page order for users without editing permission
+* [ [#2112](https://github.com/digitalfabrik/integreat-cms/issues/2112) ] Hide form buttons and bulk actions for users without editing permissions
+* [ [#2075](https://github.com/digitalfabrik/integreat-cms/issues/2075) ] Add ability to ignore calculation of HIX value for certain pages
+
 
 2023.2.2
 --------

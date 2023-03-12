@@ -2,6 +2,7 @@
  * The functionality to toggle subpages
  */
 import { createIconsAt } from "../utils/create-icons";
+import { restorePageTreeLayout, storeExpandedState } from "./persistent_page_tree";
 
 /**
  * This function iterates over all direct children of a page and
@@ -35,27 +36,68 @@ const toggleSubpagesRecursive = (childrenIds: Array<number>) => {
 };
 
 /**
- * This function toggles all subpages of the clicked page and changes the icon
+ * Sets the collapsed state for the given span element and
+ * updates the icon.
+ * Updates the stored collapse state, too.
  *
- * @param event Collapse/Expand button clicked
+ * @param element The element to update
+ * @param expanded whether the element should be collapsed or expanded
  */
-export const toggleSubpages = async (event: Event) => {
-    event.preventDefault();
-    // Get span with all data options
-    const collapseSpan = (event.target as HTMLElement).closest("span");
+const setExpandedState = (element: HTMLElement, expanded: boolean) => {
+    const id: number = JSON.parse(element.getAttribute("data-page-id"));
+    if (expanded) {
+        /* eslint-disable-next-line no-param-reassign */
+        element.innerHTML = '<i icon-name="chevron-down"></i>';
+        /* eslint-disable-next-line no-param-reassign */
+        element.title = element.getAttribute("data-collapse-title");
+        storeExpandedState(id, true);
+    } else {
+        /* eslint-disable-next-line no-param-reassign */
+        element.innerHTML = '<i icon-name="chevron-right"></i>';
+        /* eslint-disable-next-line no-param-reassign */
+        element.title = element.getAttribute("data-expand-title");
+        storeExpandedState(id, false);
+    }
+    createIconsAt(element);
+};
+
+/**
+ * This function toggles all subpages of the given element and changes the icon
+ *
+ * @param collapseSpan The page which should be toggled
+ */
+export const toggleSubpagesForElement = (collapseSpan: HTMLSpanElement) => {
     const children: number[] = JSON.parse(collapseSpan.getAttribute("data-page-children"));
     // Toggle subpages
     toggleSubpagesRecursive(children);
     // Change icon and title
     const icon = collapseSpan.querySelector("svg");
     if (icon.classList.contains("lucide-chevron-down")) {
-        collapseSpan.innerHTML = '<i icon-name="chevron-right"></i>';
-        collapseSpan.title = collapseSpan.getAttribute("data-expand-title");
+        setExpandedState(collapseSpan, false);
     } else {
-        collapseSpan.innerHTML = '<i icon-name="chevron-down"></i>';
-        collapseSpan.title = collapseSpan.getAttribute("data-collapse-title");
+        setExpandedState(collapseSpan, true);
     }
-    createIconsAt(collapseSpan);
+};
+
+/**
+ * This function toggles all subpages of the clicked page and changes the icon
+ *
+ * @param event Collapse/Expand button clicked
+ */
+const collapseAllPages = async () => {
+    (<HTMLElement[]>Array.from(document.querySelectorAll(".page-row"))).forEach((page: HTMLElement) => {
+        // Hide table row of it's not a root page
+        if (!page.classList.contains("level-1")) {
+            page.classList.add("hidden");
+        }
+        // Remove the left sibling from possible drop targets
+        document.getElementById(`${page.id}-drop-left`)?.classList.remove("drop-between");
+        // Find out whether this page has children itself
+        const span = page.querySelector(".toggle-subpages") as HTMLElement;
+        if (span) {
+            setExpandedState(span, false);
+        }
+    });
 };
 
 /**
@@ -70,36 +112,19 @@ const expandAllPages = async () => {
         // Find out whether this page has children itself
         const span = page.querySelector(".toggle-subpages") as HTMLElement;
         if (span) {
-            // Change icon
-            span.innerHTML = '<i icon-name="chevron-down"></i>';
-            // Toggle title
-            span.title = span.getAttribute("data-collapse-title");
-            createIconsAt(span);
+            setExpandedState(span, true);
         }
     });
 };
 
 /**
- * Collapse all pages
+ * This function toggles all subpages of the clicked page and changes the icon
+ *
+ * @param event Collapse/Expand button clicked
  */
-const collapseAllPages = async () => {
-    (<HTMLElement[]>Array.from(document.querySelectorAll(".page-row"))).forEach((page: HTMLElement) => {
-        // Hide table row of it's not a root page
-        if (!page.classList.contains("level-1")) {
-            page.classList.add("hidden");
-        }
-        // Remove the left sibling from possible drop targets
-        document.getElementById(`${page.id}-drop-left`)?.classList.remove("drop-between");
-        // Find out whether this page has children itself
-        const span = page.querySelector(".toggle-subpages") as HTMLElement;
-        if (span) {
-            // Change icon
-            span.innerHTML = '<i icon-name="chevron-right"></i>';
-            // Toggle title
-            span.title = span.getAttribute("data-expand-title");
-            createIconsAt(span);
-        }
-    });
+export const toggleSubpages = (event: Event) => {
+    event.preventDefault();
+    toggleSubpagesForElement((event.target as HTMLElement).closest("span"));
 };
 
 /**
@@ -130,9 +155,10 @@ export const setToggleSubpagesEventListeners = () => {
     collapseAllPagesButton?.classList.add("hover:underline", "group");
 };
 
-window.addEventListener("load", () => {
+window.addEventListener("icon-load", () => {
     // On the page tree, the event listeners are set after all subpages have been loaded
     if (!document.querySelector("[data-delay-event-handlers]")) {
         setToggleSubpagesEventListeners();
+        restorePageTreeLayout();
     }
 });
