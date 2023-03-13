@@ -15,12 +15,14 @@ import cn from "classnames";
 import MessageComponent, { Message } from "./component/message";
 import DirectoryContentLibrary from "./directory-content-library";
 import SearchResultLibrary from "./search-result-library";
+import FilterResultLibrary from "./filter-result-library";
 
 export type MediaApiPaths = {
     getDirectoryPath: string;
     getDirectoryContent: string;
     getSearchResult: string;
     getSearchSuggestions: string;
+    getFileUsages: string;
     createDirectory: string;
     editDirectory: string;
     deleteDirectory: string;
@@ -29,6 +31,7 @@ export type MediaApiPaths = {
     moveFile: string;
     deleteFile: string;
     replaceFile: string;
+    filterUnusedMediaFiles: string;
 };
 
 export type File = {
@@ -45,6 +48,18 @@ export type File = {
     lastModified: Date;
     isGlobal: boolean;
     isHidden: boolean;
+};
+
+export type FileUsage = {
+    url: string;
+    name: string;
+    title: string;
+};
+
+export type FileUsages = {
+    isUsed: boolean;
+    iconUsages: FileUsage[] | null;
+    contentUsages: FileUsage[] | null;
 };
 
 export type Directory = {
@@ -95,8 +110,13 @@ const MediaManagement = (props: Props) => {
     } = props;
 
     // This function is used to get information about a directory (either the path or the content)
-    const ajaxRequest = async (url: string, urlParams: URLSearchParams, successCallback: (data: any) => void) => {
-        setLoading(true);
+    const ajaxRequest = async (
+        url: string,
+        urlParams: URLSearchParams,
+        successCallback: (data: any) => void,
+        loadingSetter = setLoading
+    ) => {
+        loadingSetter(true);
         try {
             const response = await fetch(`${url}?${urlParams}`);
             const HTTP_STATUS_OK = 200;
@@ -117,7 +137,7 @@ const MediaManagement = (props: Props) => {
                 text: textNetworkError,
             });
         }
-        setLoading(false);
+        loadingSetter(false);
     };
 
     return (
@@ -126,6 +146,18 @@ const MediaManagement = (props: Props) => {
             <Router history={createHashHistory() as any}>
                 <SearchResultLibrary
                     path="/search/:searchQuery+"
+                    showMessage={showMessage}
+                    loadingState={[isLoading, setLoading]}
+                    refreshState={[refresh, setRefresh]}
+                    directoryPathState={[directoryPath, setDirectoryPath]}
+                    mediaLibraryContentState={[mediaLibraryContent, setMediaLibraryContent]}
+                    fileIndexState={[fileIndex, setFileIndex]}
+                    sidebarFileState={[sidebarFile, setSidebarFile]}
+                    ajaxRequest={ajaxRequest}
+                    {...props}
+                />
+                <FilterResultLibrary
+                    path="/filter/:mediaFilter+/"
                     showMessage={showMessage}
                     loadingState={[isLoading, setLoading]}
                     refreshState={[refresh, setRefresh]}

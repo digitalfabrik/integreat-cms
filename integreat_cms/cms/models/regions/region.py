@@ -6,6 +6,7 @@ from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.http import Http404
+from django.urls import reverse
 from django.utils import timezone as django_timezone
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
@@ -800,6 +801,21 @@ class Region(AbstractBaseModel):
         :rtype: int
         """
         return max(0, self.deepl_budget - self.deepl_budget_used)
+
+    @cached_property
+    def backend_edit_link(self):
+        """
+        This function returns the absolute url to the edit form of this region
+
+        :return: The url
+        :rtype: str
+        """
+        return reverse(
+            "edit_region",
+            kwargs={
+                "slug": self.slug,
+            },
+        )
 
     def __str__(self):
         """

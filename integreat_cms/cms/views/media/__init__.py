@@ -5,6 +5,7 @@ from .media_actions import (
     get_directory_path_ajax,
     get_directory_content_ajax,
     get_query_search_results_ajax,
+    get_file_usages_ajax,
     upload_file_ajax,
     edit_file_ajax,
     move_file_ajax,
@@ -13,6 +14,7 @@ from .media_actions import (
     edit_directory_ajax,
     delete_directory_ajax,
     replace_file_ajax,
+    get_unused_media_files_ajax,
 )
 from .media_list_view import MediaListView, AdminMediaListView
 from .media_context_mixin import MediaContextMixin

@@ -35,6 +35,7 @@ class MediaContextMixin(ContextMixin):
                 "heading_directory_properties": _("Directory Properties"),
                 "heading_file_properties": _("File Properties"),
                 "heading_search_results": _("Search results for"),
+                "heading_show_unused_files": _("Unused media files"),
                 "btn_upload": _("Upload"),
                 "btn_upload_file": _("Upload file"),
                 "btn_save_file": _("Save file"),
@@ -55,6 +56,9 @@ class MediaContextMixin(ContextMixin):
                 "btn_select_file": _("Select file"),
                 "btn_replace_file": _("Replace file"),
                 "btn_search": _("Search"),
+                "btn_reset_search": _("Reset search"),
+                "btn_filter_unused": _("Show only unused"),
+                "btn_reset_filter": _("Reset filter"),
                 "label_file_name": _("File name:"),
                 "label_url": _("URL") + ":",
                 "label_directory_name": _("Directory name:"),
@@ -66,6 +70,10 @@ class MediaContextMixin(ContextMixin):
                 "label_directory_is_hidden": _("Hide this directory:"),
                 "label_file_is_hidden": _("Hide this file:"),
                 "label_alt_text": _("Alternative text:"),
+                "label_file_usages": _("Usages"),
+                "label_file_icon_usages": _("As icon"),
+                "label_file_content_usages": _("In content"),
+                "label_file_unused": _("This file is unused."),
                 "text_enter_directory_name": _("Enter directory name here"),
                 "text_file_readonly": _("This file is read-only and cannot be edited."),
                 "text_dir_readonly": _(
@@ -116,6 +124,10 @@ class MediaContextMixin(ContextMixin):
                 "search_content_ajax",
                 kwargs=kwargs,
             ),
+            "getFileUsages": reverse(
+                "mediacenter_get_file_usages",
+                kwargs=kwargs,
+            ),
             "createDirectory": reverse("mediacenter_create_directory", kwargs=kwargs),
             "editDirectory": reverse("mediacenter_edit_directory", kwargs=kwargs),
             "deleteDirectory": reverse("mediacenter_delete_directory", kwargs=kwargs),
@@ -124,6 +136,9 @@ class MediaContextMixin(ContextMixin):
             "moveFile": reverse("mediacenter_move_file", kwargs=kwargs),
             "deleteFile": reverse("mediacenter_delete_file", kwargs=kwargs),
             "replaceFile": reverse("mediacenter_replace_file", kwargs=kwargs),
+            "filterUnusedMediaFiles": reverse(
+                "mediacenter_filter_unused_media_files", kwargs=kwargs
+            ),
         }
 
         context["media_config_data"] = media_config_data
