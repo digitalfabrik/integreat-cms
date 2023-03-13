@@ -9,6 +9,8 @@ from django.utils.html import strip_tags
 from django.apps import apps
 from django.db import transaction
 
+from ..cms.utils.translation_utils import mt_is_permitted
+
 logger = logging.getLogger(__name__)
 
 
@@ -110,6 +112,24 @@ class DeepLApi:
             # Get target language
             target_language = region.get_language_or_404(language_slug)
             source_language = region.get_source_language(language_slug)
+
+            if content_objects and not mt_is_permitted(
+                region,
+                request.user,
+                type(content_objects[0])._meta.default_related_name,
+                language_slug,
+            ):
+                messages.error(
+                    request,
+                    _(
+                        'Machine translations are disabled for content type "{}", language "{}" or the current user.'
+                    ).format(
+                        type(content_objects[0])._meta.verbose_name.title(),
+                        target_language,
+                    ),
+                )
+                return
+
             for content_object in content_objects:
                 source_translation = content_object.get_translation(
                     source_language.slug

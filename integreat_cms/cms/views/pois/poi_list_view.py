@@ -15,6 +15,8 @@ from ..mixins import SummAiContextMixin
 from .poi_context_mixin import POIContextMixin
 
 from ....deepl_api.utils import DeepLApi
+from ...utils.translation_utils import mt_is_permitted
+from ...models.pois.poi import POI
 
 logger = logging.getLogger(__name__)
 
@@ -123,6 +125,9 @@ class POIListView(TemplateView, POIContextMixin, SummAiContextMixin):
             DEEPL_AVAILABLE = deepl.check_availability(request, language_slug)
         else:
             DEEPL_AVAILABLE = False
+        MT_PERMITTED = mt_is_permitted(
+            region, request.user, POI._meta.default_related_name, language_slug
+        )
 
         return render(
             request,
@@ -135,6 +140,7 @@ class POIListView(TemplateView, POIContextMixin, SummAiContextMixin):
                 "languages": region.active_languages,
                 "search_query": query,
                 "DEEPL_AVAILABLE": DEEPL_AVAILABLE,
+                "MT_PERMITTED": MT_PERMITTED,
             },
         )
 
