@@ -25,6 +25,7 @@ import "./js/push-notifications.ts";
 import "./js/filter-form.ts";
 import "./js/copy-clipboard.ts";
 import "./js/bulk-actions.ts";
+import "./js/conditional-fields.ts";
 import "./js/confirmation-popups.ts";
 import "./js/revisions.ts";
 import "./js/search-query.ts";

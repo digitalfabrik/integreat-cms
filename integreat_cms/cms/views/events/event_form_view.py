@@ -9,11 +9,17 @@ from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
 
+from ....deepl_api.utils import DeepLApi
 from ...constants import status, translation_status
 from ...decorators import permission_required
-from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
+from ...forms import (
+    EventForm,
+    EventTranslationForm,
+    RecurrenceRuleForm,
+    MachineTranslationForm,
+)
 from ...models import Language, Event, EventTranslation, RecurrenceRule, POI
-from ...utils.translation_utils import translate_link
+from ...utils.translation_utils import mt_is_permitted, translate_link
 from .event_context_mixin import EventContextMixin
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
@@ -103,6 +109,18 @@ class EventFormView(
         recurrence_rule_form = RecurrenceRuleForm(
             instance=recurrence_rule_instance, disabled=disabled
         )
+
+        machine_translation_form = MachineTranslationForm(
+            instance=event_instance, region=region, language=language
+        )
+
+        # Check for MT availability for automatic translation
+        MT_ENABLED = (
+            settings.DEEPL_ENABLED
+            and region.language_node_by_slug.get(language.slug).get_descendants()
+            and mt_is_permitted(region, request.user, Event._meta.default_related_name)
+        )
+
         url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/{event_translation_form.instance.url_infix}/"
         return render(
             request,
@@ -112,6 +130,7 @@ class EventFormView(
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
                 "recurrence_rule_form": recurrence_rule_form,
+                "machine_translation_form": machine_translation_form,
                 "poi": event_instance.location if event_instance else None,
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],
@@ -119,10 +138,11 @@ class EventFormView(
                 "translation_states": event_instance.translation_states
                 if event_instance
                 else [],
+                "MT_ENABLED": MT_ENABLED,
             },
         )
 
-    # pylint: disable=too-many-locals,too-many-branches
+    # pylint: disable=too-many-locals,too-many-branches,too-many-statements
     def post(self, request, **kwargs):
         r"""
         Save event and ender event form for HTTP POST requests
@@ -175,6 +195,10 @@ class EventFormView(
         )
         user_slug = event_translation_form.data.get("slug")
 
+        machine_translation_form = MachineTranslationForm(
+            data=request.POST, instance=event_instance, region=region, language=language
+        )
+
         if (
             not event_form_valid
             or not event_translation_form.is_valid()
@@ -220,6 +244,23 @@ class EventFormView(
                     event_form.has_changed() or recurrence_rule_form.has_changed()
                 )
             )
+            # If automatic translations where requested, pass on to MT API
+            if (
+                event_translation_instance
+                and settings.DEEPL_ENABLED
+                and machine_translation_form.is_valid()
+                and machine_translation_form.data.get("automatic_translation")
+                and not event_translation_form.data.get("minor_edit")
+            ):
+                event_translation_instance.refresh_from_db()
+                deepl = DeepLApi()
+                deepl.deepl_translate_to_languages(
+                    request,
+                    event_translation_instance.event,
+                    machine_translation_form.get_target_language_slugs(),
+                    EventTranslationForm,
+                )
+
             # If any source translation changes to draft, set all depending translations/versions to draft
             if event_translation_form.instance.status == status.DRAFT:
                 language_tree_node = region.language_node_by_slug.get(language.slug)
@@ -296,6 +337,7 @@ class EventFormView(
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
                 "recurrence_rule_form": recurrence_rule_form,
+                "machine_translation_form": machine_translation_form,
                 "poi": poi,
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],

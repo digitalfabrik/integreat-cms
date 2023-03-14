@@ -1,5 +1,6 @@
 import logging
 
+from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render, redirect
@@ -9,11 +10,16 @@ from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 from django.db import transaction
 
+from ....deepl_api.utils import DeepLApi
 from ...constants import status, text_directions
 from ...decorators import permission_required
-from ...forms import PageForm, PageTranslationForm
-from ...models import PageTranslation
-from ...utils.translation_utils import translate_link, gettext_many_lazy as __
+from ...forms import PageForm, PageTranslationForm, MachineTranslationForm
+from ...models import Page, PageTranslation
+from ...utils.translation_utils import (
+    mt_is_permitted,
+    translate_link,
+    gettext_many_lazy as __,
+)
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
 from .page_context_mixin import PageContextMixin
@@ -186,6 +192,10 @@ class PageFormView(
             instance=page_translation, disabled=disabled
         )
 
+        machine_translation_form = MachineTranslationForm(
+            instance=page, region=region, language=language
+        )
+
         # Pass side by side language options
         side_by_side_language_options = self.get_side_by_side_language_options(
             region, language, page
@@ -206,6 +216,13 @@ class PageFormView(
                 .filter(explicitly_archived=False)
             )
 
+        # Check for MT availability for automatic translation
+        MT_ENABLED = (
+            settings.DEEPL_ENABLED
+            and region.language_node_by_slug.get(language.slug).get_descendants()
+            and mt_is_permitted(region, request.user, Page._meta.default_related_name)
+        )
+
         return render(
             request,
             self.template_name,
@@ -213,6 +230,7 @@ class PageFormView(
                 **self.get_context_data(**kwargs),
                 "page_form": page_form,
                 "page_translation_form": page_translation_form,
+                "machine_translation_form": machine_translation_form,
                 "page": page,
                 "siblings": siblings,
                 "language": language,
@@ -223,6 +241,7 @@ class PageFormView(
                     language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
                 "translation_states": page.translation_states if page else [],
+                "MT_ENABLED": MT_ENABLED,
             },
         )
 
@@ -294,6 +313,10 @@ class PageFormView(
         )
         user_slug = page_translation_form.data.get("slug")
 
+        machine_translation_form = MachineTranslationForm(
+            data=request.POST, instance=page_instance, region=region, language=language
+        )
+
         if not page_form.is_valid() or not page_translation_form.is_valid():
             # Add error messages
             page_form.add_error_messages(request)
@@ -324,6 +347,23 @@ class PageFormView(
                 page_translation_form.instance.page = page_form.save()
             # Save page translation form
             page_translation_form.save(foreign_form_changed=page_form.has_changed())
+
+            # If automatic translations where requested, pass on to MT API
+            if (
+                page_translation_instance
+                and settings.DEEPL_ENABLED
+                and machine_translation_form.is_valid()
+                and machine_translation_form.data.get("automatic_translation")
+                and not page_translation_form.data.get("minor_edit")
+            ):
+                page_translation_instance.refresh_from_db()
+                deepl = DeepLApi()
+                deepl.deepl_translate_to_languages(
+                    request,
+                    page_translation_instance.page,
+                    machine_translation_form.get_target_language_slugs(),
+                    PageTranslationForm,
+                )
 
             # Show a message that the slug was changed if it was not unique
             if user_slug and user_slug != page_translation_form.cleaned_data["slug"]:
@@ -432,6 +472,7 @@ class PageFormView(
                 **self.get_context_data(**kwargs),
                 "page_form": page_form,
                 "page_translation_form": page_translation_form,
+                "machine_translation_form": machine_translation_form,
                 "page": page_instance,
                 "siblings": siblings,
                 "language": language,

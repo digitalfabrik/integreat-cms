@@ -53,7 +53,39 @@ def translate_link(message, attributes):
     )
 
 
-def mt_is_permitted(region, user, content_type, target_lang_slug):
+def mt_to_lang_is_permitted(region, target_lang_slug):
+    """
+    Checks if translation into a given language is allowed
+
+    :param region: the region attempting to machine translate
+    :type region: ~integreat_cms.cms.models.regions.region.Region
+
+    :param target_lang_slug: slug of the MT target language
+    :type target_lang_slug: str
+
+    :return: if the translation is permitted
+    :rtype: bool
+    """
+    target_lang = region.language_node_by_slug[target_lang_slug]
+
+    if target_lang.is_root():
+        logger.debug(
+            "Machine translations are disabled for the default language %r in %r.",
+            target_lang,
+            region,
+        )
+        return False
+
+    if not target_lang.machine_translation_enabled:
+        logger.debug(
+            "Machine translations are disabled for %r in %r.", target_lang, region
+        )
+        return False
+
+    return True
+
+
+def mt_is_permitted(region, user, content_type, target_lang_slug=None):
     """
     Checks if a machine translation is permitted, i.e. if for the
     given region, MT of the given content type is allowed and
@@ -109,20 +141,6 @@ def mt_is_permitted(region, user, content_type, target_lang_slug):
         )
         return False
 
-    target_lang = region.language_node_by_slug[target_lang_slug]
-
-    if target_lang.is_root():
-        logger.debug(
-            "Machine translations are disabled for the default language %r in %r.",
-            target_lang,
-            region,
-        )
-        return False
-
-    if not target_lang.machine_translation_enabled:
-        logger.debug(
-            "Machine translations are disabled for %r in %r.", target_lang, region
-        )
-        return False
-
-    return True
+    return (
+        mt_to_lang_is_permitted(region, target_lang_slug) if target_lang_slug else True
+    )
