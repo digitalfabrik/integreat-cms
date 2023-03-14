@@ -54,7 +54,20 @@
                         </div>
                         <label for="{{ form.bcp47_tag.id_for_label }}" class="block mb-2">{{ form.bcp47_tag.label }}</label>
                         {% render_field form.bcp47_tag|add_error_class:"border-red-500" %}
-                        <div class="mb-2 text-s text-gray-600">{{ form.bcp47_tag.help_text }}</div>
+                        <div class="mb-2 text-s text-gray-600">
+                            {{ form.bcp47_tag.help_text }}
+                            {% if DEEPL_ENABLED %}
+                                <br />
+                                <br />
+                                <i class="h-5" icon-name="alert-triangle"></i>
+                                {# djlint:off #}
+                                {% blocktranslate trimmed with link="href='https://www.deepl.com/de/docs-api/translate-text/translate-text/' target='_blank' class='underline'" %}
+                                    For some languages, DeepL needs a correct BCP47 tag (for example English or Portuguese).
+                                    For more information, please checkout the <a {{ link }}>DeepL documentation</a>.
+                                {% endblocktranslate %}
+                                {# djlint:on #}
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>

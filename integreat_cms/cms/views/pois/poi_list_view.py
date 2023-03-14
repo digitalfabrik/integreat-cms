@@ -120,7 +120,7 @@ class POIListView(TemplateView, POIContextMixin, SummAiContextMixin):
         # DeepL available
         if settings.DEEPL_ENABLED:
             deepl = DeepLApi()
-            DEEPL_AVAILABLE = deepl.check_availability(request, language_slug)
+            DEEPL_AVAILABLE = deepl.check_availability(request, language)
         else:
             DEEPL_AVAILABLE = False
         MT_PERMITTED = mt_is_permitted(
