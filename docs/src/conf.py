@@ -190,6 +190,7 @@ nitpick_ignore = [
     ("py:class", "requests_mock.mocker.Mocker"),
     ("py:class", "webauthn.WebAuthnUser"),
     ("py:class", "xml.dom.minidom.Element"),
+    ("py:class", "django.contrib.auth.context_processors.PermWrapper"),
 ]
 #: A list of prefixes that are ignored for sorting the Python module index
 modindex_common_prefix = ["integreat_cms"]

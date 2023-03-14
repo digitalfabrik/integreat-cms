@@ -98,10 +98,10 @@
         </div>
     </header>
     <nav id="primary-navigation"
-         class="w-56 h-full fixed left-0 inset-y-0 text-gray-200 bg-gray-700 z-50 transform -translate-x-full lg:translate-x-0 motion-safe:transition-transform">
+         class="w-72 h-full fixed left-0 inset-y-0 text-gray-200 bg-gray-700 z-50 transform -translate-x-full lg:translate-x-0 motion-safe:transition-transform">
         <div class="w-full p-1 h-14 bg-gray-800">
             <a href="{% url 'public:region_selection' %}">
-                <div class="h-full w-full bg-{{ BRANDING }}-logo-white hover:bg-{{ BRANDING }}-logo-hover bg-contain bg-center bg-no-repeat">
+                <div class="h-full w-full bg-{{ BRANDING }}-logo-white hover:bg-{{ BRANDING }}-logo-hover bg-contain ml-2 bg-no-repeat">
                 </div>
             </a>
         </div>
@@ -144,21 +144,6 @@
                             <i icon-name="link"></i>
                             {% translate "Broken Links" %}
                         </a>
-                    {% endif %}
-                {% endif %}
-                <!-- Machine Translation Section -->
-                {% if debug %}
-                    {% if perms.cms.manage_translations %}
-                        <div class="min-h-3 pl-2">
-                            <p class="font-bold">{% translate "Translations" %}</p>
-                        </div>
-                        {% if perms.cms.manage_translations %}
-                            <a href="{% url 'translations_management' region_slug=request.region.slug %}"
-                               class="{% if current_menu_item == 'translations_management' %} active{% endif %}">
-                                <i icon-name='sliders'></i>
-                                {% translate "Manage Translations" %}
-                            </a>
-                        {% endif %}
                     {% endif %}
                 {% endif %}
                 <!-- Content Section -->
@@ -211,11 +196,19 @@
                         {% translate "Imprint" %}
                     </a>
                 {% endif %}
-                {% if perms.cms.view_user or perms.cms.view_languagetreenode %}
+                {% get_mt_visibility request.region perms as show_mt_section %}
+                {% if show_mt_section or perms.cms.view_user or perms.cms.view_languagetreenode %}
                     <!-- Settings Section-->
                     <div class="min-h-3 pl-2">
                         <p class="font-bold">{% translate "Settings" %}</p>
                     </div>
+                {% endif %}
+                {% if show_mt_section %}
+                    <a href="{% url 'translations_management' region_slug=request.region.slug %}"
+                       class="{% if current_menu_item == 'translations_management' %} active{% endif %}">
+                        <i icon-name='bot'></i>
+                        {% translate "Machine Translations" %}
+                    </a>
                 {% endif %}
                 {% if perms.cms.view_organization %}
                     <a href="{% url 'organizations' region_slug=request.region.slug %}"
@@ -306,7 +299,7 @@
         </div>
         <div class="p-2 text-center absolute inset-x-0 bottom-0 bg-gray-600">{% translate "Version" %}: {{ version }}</div>
     </nav>
-    <main class="relative min-h-screen flex lg:pl-56 pt-14 bg-gray-100">
+    <main class="relative min-h-screen flex lg:pl-72 pt-14 bg-gray-100">
         <div class="flex-1 min-w-0 p-6">
             {% include "messages.html" %}
             {% block content %}

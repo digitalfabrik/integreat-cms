@@ -4,6 +4,7 @@ UNRELEASED
 * [ [#1005](https://github.com/digitalfabrik/integreat-cms/issues/1005) ] Add possibility to filter for unused media files
 * [ [#2048](https://github.com/digitalfabrik/integreat-cms/issues/2048) ] Add possibility to show media file usages in sidebar
 * [ [#1875](https://github.com/digitalfabrik/integreat-cms/issues/1875) ] Add automatic translation options to Pages, Events and Locations
+* [ [#2118](https://github.com/digitalfabrik/integreat-cms/issues/2118) ] Move and rename menu button for automatic translation management
 
 
 2023.3.0
