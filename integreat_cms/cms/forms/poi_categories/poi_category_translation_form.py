@@ -2,8 +2,8 @@ import logging
 
 from django.core.exceptions import ValidationError
 from django.forms import inlineformset_factory
-from django.forms.models import BaseInlineFormSet
 from django.forms.formsets import DELETION_FIELD_NAME
+from django.forms.models import BaseInlineFormSet
 from django.utils.translation import gettext_lazy as _
 
 from ...models import Language, POICategory, POICategoryTranslation

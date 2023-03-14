@@ -1,7 +1,7 @@
 import logging
 from argparse import ArgumentTypeError
 
-from ....cms.models import PageTranslation, EventTranslation, POITranslation
+from ....cms.models import EventTranslation, PageTranslation, POITranslation
 from ..log_command import LogCommand
 
 logger = logging.getLogger(__name__)

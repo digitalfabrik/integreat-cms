@@ -9,7 +9,6 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
 from .account_activation_token_generator import account_activation_token_generator
-
 from .email_utils import send_mail
 
 logger = logging.getLogger(__name__)

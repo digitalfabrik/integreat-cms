@@ -1,13 +1,13 @@
 """
 This package contains all views related to POIs (points of interest)
 """
-from .poi_form_view import POIFormView
 from .poi_actions import (
-    view_poi,
     archive_poi,
-    restore_poi,
-    delete_poi,
     auto_complete_address,
+    delete_poi,
     get_address_from_coordinates,
+    restore_poi,
+    view_poi,
 )
+from .poi_form_view import POIFormView
 from .poi_list_view import POIListView

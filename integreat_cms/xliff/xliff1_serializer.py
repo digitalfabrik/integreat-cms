@@ -5,9 +5,7 @@ from django.conf import settings
 from django.core.serializers import base
 
 from ..cms.models import Page, PageTranslation
-
 from . import base_serializer
-
 
 logger = logging.getLogger(__name__)
 

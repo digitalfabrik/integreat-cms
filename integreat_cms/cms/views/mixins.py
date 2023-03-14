@@ -3,9 +3,9 @@ This module contains mixins for our views
 """
 from django.conf import settings
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.views.generic.base import ContextMixin, TemplateResponseMixin
-from django.utils.translation import gettext as _
 from django.urls import reverse
+from django.utils.translation import gettext as _
+from django.views.generic.base import ContextMixin, TemplateResponseMixin
 
 
 class RegionPermissionRequiredMixing(UserPassesTestMixin):

@@ -1,7 +1,6 @@
+from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.generic.base import ContextMixin
-
-from django.urls import reverse
 
 from ...constants import allowed_media
 

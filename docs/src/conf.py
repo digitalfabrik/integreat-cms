@@ -7,17 +7,15 @@ For a full list see the documentation: :doc:`sphinx:usage/configuration`
 
 # -- Path setup --------------------------------------------------------------
 
+import importlib
+import inspect
 import os
 import sys
-import inspect
-import importlib
-
 from datetime import date
 
 from django import VERSION as django_version
 
 from integreat_cms.core import settings
-
 
 # Append project source directory to path environment variable
 sys.path.append(os.path.abspath("../.."))

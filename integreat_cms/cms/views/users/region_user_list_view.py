@@ -6,8 +6,8 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
-from ...forms import ObjectSearchForm
 from ...decorators import permission_required
+from ...forms import ObjectSearchForm
 from ...utils.user_utils import search_users
 
 logger = logging.getLogger(__name__)

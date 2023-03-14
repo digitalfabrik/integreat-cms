@@ -3,24 +3,23 @@ This module contains view actions for media related objects.
 """
 import logging
 
-from django.db.models import Q, ProtectedError
-from django.http import JsonResponse, HttpResponse
+from django.db.models import ProtectedError, Q
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
 
 from ....api.decorators import json_response
 from ...decorators import permission_required
-
 from ...forms import (
-    UploadMediaFileForm,
-    ReplaceMediaFileForm,
-    MediaFileForm,
-    MediaMoveForm,
     CreateDirectoryForm,
     DirectoryForm,
+    MediaFileForm,
+    MediaMoveForm,
+    ReplaceMediaFileForm,
+    UploadMediaFileForm,
 )
-from ...models import MediaFile, Directory
+from ...models import Directory, MediaFile
 
 logger = logging.getLogger(__name__)
 

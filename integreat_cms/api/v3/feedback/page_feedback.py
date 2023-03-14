@@ -3,10 +3,10 @@ APIv3 endpoint for feedback bout single pages
 """
 import logging
 
-from django.http import JsonResponse, Http404
+from django.http import Http404, JsonResponse
 
 from ....cms.models import PageFeedback
-from ...decorators import json_response, feedback_handler
+from ...decorators import feedback_handler, json_response
 
 logger = logging.getLogger(__name__)
 

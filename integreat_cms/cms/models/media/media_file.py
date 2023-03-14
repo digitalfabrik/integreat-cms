@@ -8,16 +8,15 @@ from os.path import splitext
 from time import strftime
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import Exists, Q, OuterRef, Value
+from django.db.models import Exists, OuterRef, Q, Value
 from django.db.models.functions import Concat
+from django.template.defaultfilters import filesizeformat
 from django.utils import timezone
 from django.utils.formats import localize
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-from django.template.defaultfilters import filesizeformat
-from django.core.exceptions import ValidationError
-
 from linkcheck.models import Link, Url
 
 from ...constants import allowed_media

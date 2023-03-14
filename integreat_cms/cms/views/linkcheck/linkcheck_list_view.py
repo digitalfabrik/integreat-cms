@@ -1,26 +1,24 @@
 import logging
 import time
-
 from copy import deepcopy
 from functools import partial
 from urllib.parse import urlencode
 
+from cacheops import invalidate_model
 from django.conf import settings
 from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, reverse
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import ListView
-from django.utils.decorators import method_decorator
-from lxml.html import rewrite_links
-
 from linkcheck import update_lock
 from linkcheck.models import Link, Url
-from cacheops import invalidate_model
+from lxml.html import rewrite_links
 
 from ...decorators import permission_required
-from ...utils.linkcheck_utils import filter_urls, get_urls
 from ...forms.linkcheck.edit_url_form import EditUrlForm
+from ...utils.linkcheck_utils import filter_urls, get_urls
 
 logger = logging.getLogger(__name__)
 

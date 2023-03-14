@@ -4,7 +4,6 @@ It is used to determine the relative position of nodes in relation to another no
 """
 from django.utils.translation import gettext_lazy as _
 
-
 #: First child of node
 FIRST_CHILD = "first-child"
 #: Last child of node

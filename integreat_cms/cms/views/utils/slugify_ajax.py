@@ -4,7 +4,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.utils.text import slugify
 
-from ...models import PageTranslation, EventTranslation, POITranslation
+from ...models import EventTranslation, PageTranslation, POITranslation
 from ...utils.slug_utils import generate_unique_slug
 
 

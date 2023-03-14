@@ -7,15 +7,14 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.http import Http404, HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
 from ....api.decorators import json_response
+from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ...decorators import permission_required
 from ...models import POI
-
-from ....nominatim_api.nominatim_api_client import NominatimApiClient
 
 logger = logging.getLogger(__name__)
 

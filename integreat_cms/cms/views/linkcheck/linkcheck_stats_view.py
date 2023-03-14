@@ -1,10 +1,10 @@
 import logging
 
-from django.views.generic import View
 from django.http import JsonResponse
 from django.utils.decorators import method_decorator
-from ...decorators import permission_required
+from django.views.generic import View
 
+from ...decorators import permission_required
 from ...utils.linkcheck_utils import get_url_count
 
 logger = logging.getLogger(__name__)

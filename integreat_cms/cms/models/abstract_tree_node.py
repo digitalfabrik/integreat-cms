@@ -1,18 +1,16 @@
 import logging
+
+from cacheops import invalidate_model
+from db_mutex import DBMutexError, DBMutexTimeoutError
+from db_mutex.db_mutex import db_mutex
 from django.db import models
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-
-from cacheops import invalidate_model
-
 from treebeard.exceptions import InvalidPosition
 from treebeard.ns_tree import NS_Node
 
-from db_mutex import DBMutexError, DBMutexTimeoutError
-from db_mutex.db_mutex import db_mutex
-
-from .abstract_base_model import AbstractBaseModel
 from ..constants import position
+from .abstract_base_model import AbstractBaseModel
 
 logger = logging.getLogger(__name__)
 

@@ -4,9 +4,9 @@ from django import forms
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 
-from ..custom_filter_form import CustomFilterForm
 from ...constants import feedback_ratings, feedback_read_status
 from ...models import Feedback, Language
+from ..custom_filter_form import CustomFilterForm
 
 
 class RegionFeedbackFilterForm(CustomFilterForm):

@@ -8,7 +8,8 @@ from django.views.generic.list import MultipleObjectMixin
 from ....xliff.utils import pages_to_xliff_file
 from ...models import Page
 from ...utils.pdf_utils import generate_pdf
-from ...utils.translation_utils import translate_link, gettext_many_lazy as __
+from ...utils.translation_utils import gettext_many_lazy as __
+from ...utils.translation_utils import translate_link
 from ..bulk_action_views import BulkActionView
 
 logger = logging.getLogger(__name__)

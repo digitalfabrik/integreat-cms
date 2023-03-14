@@ -1,6 +1,6 @@
 import json
-import pytest
 
+import pytest
 from django.test.client import Client
 
 from .api_config import API_ENDPOINTS

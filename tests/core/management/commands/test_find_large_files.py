@@ -1,5 +1,4 @@
 import pytest
-
 from django.core.management.base import CommandError
 
 from ..utils import get_command_output

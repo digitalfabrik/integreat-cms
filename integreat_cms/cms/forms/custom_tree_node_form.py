@@ -1,7 +1,6 @@
 import logging
 
 from django import forms
-
 from treebeard.forms import MoveNodeForm
 
 logger = logging.getLogger(__name__)

@@ -1,5 +1,4 @@
 import pytest
-
 from django.core.management.base import CommandError
 
 from integreat_cms.cms.models import Page, PageTranslation

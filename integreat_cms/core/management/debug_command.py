@@ -1,7 +1,7 @@
 import logging
 
-from django.core.management.base import CommandError
 from django.conf import settings
+from django.core.management.base import CommandError
 
 from .log_command import LogCommand
 

@@ -13,10 +13,8 @@ from django.urls import reverse
 from django.utils.http import http_date
 from django.views.generic.base import TemplateResponseMixin, View
 
-
 from ..cms.constants import region_status
 from ..cms.models import Region
-
 from .utils import get_sitemaps
 
 logger = logging.getLogger(__name__)

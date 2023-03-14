@@ -1,3 +1,4 @@
+from cacheops import invalidate_obj
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils import timezone
@@ -5,11 +6,9 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
-from cacheops import invalidate_obj
-
-from ..abstract_base_model import AbstractBaseModel
 from ...constants import countries, text_directions
 from ...utils.translation_utils import gettext_many_lazy as __
+from ..abstract_base_model import AbstractBaseModel
 
 
 class Language(AbstractBaseModel):

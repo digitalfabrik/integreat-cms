@@ -1,21 +1,21 @@
-import logging
 import json
+import logging
 
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
 from ...constants import status
-from ...utils.user_utils import search_users
 from ...models import (
-    Region,
-    EventTranslation,
-    POITranslation,
-    Feedback,
-    PushNotificationTranslation,
-    MediaFile,
     Directory,
+    EventTranslation,
+    Feedback,
+    MediaFile,
+    POITranslation,
+    PushNotificationTranslation,
+    Region,
 )
+from ...utils.user_utils import search_users
 
 logger = logging.getLogger(__name__)
 

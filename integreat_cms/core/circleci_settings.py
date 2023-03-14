@@ -8,7 +8,6 @@ For the full list of settings and their values, see :doc:`django:ref/settings`.
 # pylint: disable=unused-wildcard-import
 from .settings import *
 
-
 #: Set a dummy secret key for CircleCI build even if it's not in debug mode
 SECRET_KEY = "dummy"
 #: Set dummy key to test push notifications

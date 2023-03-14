@@ -1,9 +1,10 @@
 from django.db import models
 from django.utils.functional import cached_property
-from django.utils.translation import get_language, gettext_lazy as _
+from django.utils.translation import get_language
+from django.utils.translation import gettext_lazy as _
 
-from ..abstract_base_model import AbstractBaseModel
 from ...constants import poicategory
+from ..abstract_base_model import AbstractBaseModel
 
 
 class POICategory(AbstractBaseModel):

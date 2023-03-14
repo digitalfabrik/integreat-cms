@@ -3,8 +3,8 @@ Helper functions for the XLIFF serializer
 """
 import datetime
 import difflib
-import logging
 import glob
+import logging
 import os
 import uuid
 
@@ -12,13 +12,12 @@ from django.conf import settings
 from django.contrib import messages
 from django.core import serializers
 from django.core.cache import cache
-from django.core.files.storage import FileSystemStorage
 from django.core.files.base import ContentFile
+from django.core.files.storage import FileSystemStorage
 from django.db import IntegrityError, transaction
 from django.forms.models import model_to_dict
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext as _
-
 from linkcheck import update_lock
 
 from ..cms.constants import text_directions
@@ -26,7 +25,6 @@ from ..cms.forms import PageTranslationForm
 from ..cms.models import Page, PageTranslation
 from ..cms.utils.file_utils import create_zip_archive
 from ..cms.utils.translation_utils import gettext_many_lazy as __
-
 
 upload_storage = FileSystemStorage(location=settings.XLIFF_UPLOAD_DIR)
 download_storage = FileSystemStorage(

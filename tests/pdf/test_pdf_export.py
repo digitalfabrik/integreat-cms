@@ -1,10 +1,8 @@
 import io
+from urllib.parse import quote, urlencode
 
-from urllib.parse import urlencode, quote
-
-import pytest
 import PyPDF3
-
+import pytest
 from django.urls import reverse
 
 

@@ -12,11 +12,10 @@ import xml.dom.minidom
 from django.conf import settings
 from django.core.exceptions import FieldDoesNotExist
 from django.core.serializers import xml_serializer
-from django.core.serializers.base import DeserializedObject, DeserializationError
+from django.core.serializers.base import DeserializationError, DeserializedObject
 from django.utils.xmlutils import SimplerXMLGenerator
 
 from ..cms.models import Language
-
 
 logger = logging.getLogger(__name__)
 

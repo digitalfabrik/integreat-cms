@@ -6,11 +6,9 @@ from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-
 from linkcheck.models import Link
 
 from .abstract_base_page_translation import AbstractBasePageTranslation
-
 
 logger = logging.getLogger(__name__)
 

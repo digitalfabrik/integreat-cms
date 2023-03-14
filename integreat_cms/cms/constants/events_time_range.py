@@ -5,7 +5,6 @@ This module contains all string representations of event time range filter optio
 """
 from django.utils.translation import gettext_lazy as _
 
-
 #: Events in the future
 UPCOMING = "UPCOMING"
 #: Events in the past

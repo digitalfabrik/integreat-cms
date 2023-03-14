@@ -1,14 +1,11 @@
 import logging
 
+from cacheops import invalidate_model
 from django.conf import settings
 from django.db import models
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-
-from cacheops import invalidate_model
-
 from linkcheck.models import Link
-
 from treebeard.ns_tree import NS_NodeQuerySet
 
 from ...utils.translation_utils import gettext_many_lazy as __

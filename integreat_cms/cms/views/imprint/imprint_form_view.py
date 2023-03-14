@@ -2,20 +2,20 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
-from ...constants import translation_status
-from ..media.media_context_mixin import MediaContextMixin
+from ...constants import status, translation_status
 from ...decorators import permission_required
 from ...forms import ImprintTranslationForm
-from ...models import ImprintPageTranslation, ImprintPage
-from ...constants import status
+from ...models import ImprintPage, ImprintPageTranslation
 from ...utils.content_edit_lock import get_locking_user
-from ...utils.translation_utils import gettext_many_lazy as __, translate_link
+from ...utils.translation_utils import gettext_many_lazy as __
+from ...utils.translation_utils import translate_link
+from ..media.media_context_mixin import MediaContextMixin
 
 logger = logging.getLogger(__name__)
 

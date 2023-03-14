@@ -10,8 +10,8 @@ from ...models import Page, Region
 from ..custom_model_form import CustomModelForm
 from ..custom_tree_node_form import CustomTreeNodeForm
 from ..icon_widget import IconWidget
-from .parent_field_widget import ParentFieldWidget
 from .mirrored_page_field_widget import MirroredPageFieldWidget
+from .parent_field_widget import ParentFieldWidget
 
 logger = logging.getLogger(__name__)
 

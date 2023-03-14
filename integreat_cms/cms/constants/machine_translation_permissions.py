@@ -4,7 +4,6 @@ translations, used by :class:`~integreat_cms.cms.models.regions.region.Region`.
 """
 from django.utils.translation import gettext_lazy as _
 
-
 #: Machine Translations are disabled
 NO_ONE = 0
 #: Everyone can use Machine Translation

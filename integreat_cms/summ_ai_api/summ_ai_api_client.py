@@ -2,17 +2,16 @@
 This module contains the API client to interact with the SUMM.AI API
 """
 import asyncio
-import logging
 import itertools
+import logging
 
 import aiohttp
-
 from django.conf import settings
 from django.contrib import messages
 from django.utils.translation import gettext as _
 
-from .utils import TranslationHelper
 from ..cms.utils.translation_utils import mt_is_permitted
+from .utils import TranslationHelper
 
 logger = logging.getLogger(__name__)
 

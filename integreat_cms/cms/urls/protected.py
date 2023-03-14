@@ -6,14 +6,14 @@ Views which should not have login protection go into :mod:`~integreat_cms.cms.ur
 from django.urls import include, path
 
 from ..forms import (
+    EventTranslationForm,
     LanguageForm,
     LanguageTreeNodeForm,
     OfferTemplateForm,
     OrganizationForm,
-    RegionForm,
-    EventTranslationForm,
-    POITranslationForm,
     PageTranslationForm,
+    POITranslationForm,
+    RegionForm,
 )
 from ..models import (
     Event,
@@ -25,7 +25,6 @@ from ..models import (
     POICategory,
     Role,
 )
-
 from ..views import (
     analytics,
     bulk_action_views,
@@ -33,24 +32,24 @@ from ..views import (
     dashboard,
     delete_views,
     events,
+    feedback,
     form_views,
-    language_tree,
-    list_views,
-    linkcheck,
-    media,
     imprint,
+    language_tree,
+    linkcheck,
+    list_views,
+    media,
     pages,
+    poi_categories,
     pois,
     push_notifications,
     regions,
     roles,
     settings,
     statistics,
+    translations,
     users,
     utils,
-    feedback,
-    poi_categories,
-    translations,
 )
 
 #: The media library ajax url patterns are reused twice (for the admin media library and the region media library)

@@ -3,8 +3,8 @@ This module includes functions related to the regions API endpoint.
 """
 from django.http import JsonResponse
 
-from ...cms.models import Region
 from ...cms.constants import region_status
+from ...cms.models import Region
 from ..decorators import json_response
 
 

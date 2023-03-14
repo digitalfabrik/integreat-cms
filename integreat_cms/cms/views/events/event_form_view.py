@@ -3,11 +3,10 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
-
 
 from ....deepl_api.utils import DeepLApi
 from ...constants import status, translation_status
@@ -15,15 +14,14 @@ from ...decorators import permission_required
 from ...forms import (
     EventForm,
     EventTranslationForm,
-    RecurrenceRuleForm,
     MachineTranslationForm,
+    RecurrenceRuleForm,
 )
-from ...models import Language, Event, EventTranslation, RecurrenceRule, POI
+from ...models import Event, EventTranslation, Language, POI, RecurrenceRule
 from ...utils.translation_utils import mt_is_permitted, translate_link
-from .event_context_mixin import EventContextMixin
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
-
+from .event_context_mixin import EventContextMixin
 
 logger = logging.getLogger(__name__)
 

@@ -1,14 +1,15 @@
 """
 Form for submitting filter requests
 """
-from datetime import date, time, datetime
 import logging
 import zoneinfo
+from datetime import date, datetime, time
+
 from django import forms
 
-from ..custom_filter_form import CustomFilterForm
-from ...constants import all_day, recurrence, events_time_range
+from ...constants import all_day, events_time_range, recurrence
 from ...models import EventTranslation
+from ..custom_filter_form import CustomFilterForm
 
 logger = logging.getLogger(__name__)
 

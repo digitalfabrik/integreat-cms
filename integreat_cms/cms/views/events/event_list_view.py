@@ -3,20 +3,19 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
+from ....deepl_api.utils import DeepLApi
 from ...constants import translation_status
 from ...decorators import permission_required
 from ...forms import EventFilterForm
+from ...models.events.event import Event
+from ...utils.translation_utils import mt_is_permitted
 from ..mixins import SummAiContextMixin
 from .event_context_mixin import EventContextMixin
-
-from ....deepl_api.utils import DeepLApi
-from ...utils.translation_utils import mt_is_permitted
-from ...models.events.event import Event
 
 logger = logging.getLogger(__name__)
 

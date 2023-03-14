@@ -1,11 +1,10 @@
 import logging
-from django.shortcuts import redirect, render
 
-from django.utils.translation import gettext_lazy as _
-from django.utils.decorators import method_decorator
 from django.contrib import messages
+from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
-
 
 from ...decorators import modify_mfa_authenticated
 

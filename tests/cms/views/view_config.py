@@ -2,6 +2,7 @@
 This modules contains the config for the view tests
 """
 import json
+
 from django.conf import settings
 from django.urls import reverse
 
@@ -12,14 +13,14 @@ from ...conftest import (
     ALL_ROLES,
     AUTHOR,
     EDITOR,
-    OBSERVER,
     HIGH_PRIV_STAFF_ROLES,
     MANAGEMENT,
+    OBSERVER,
     PRIV_STAFF_ROLES,
-    WRITE_ROLES,
     ROLES,
     ROOT,
     STAFF_ROLES,
+    WRITE_ROLES,
 )
 
 #: This list contains the config for all views

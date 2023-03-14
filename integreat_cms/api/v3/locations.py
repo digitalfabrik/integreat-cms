@@ -9,10 +9,10 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.utils.html import strip_tags
 
-from .location_categories import transform_location_category
-from ..decorators import json_response
 from ...cms.models import POICategoryTranslation
 from ...cms.models.pois.poi import get_default_opening_hours
+from ..decorators import json_response
+from .location_categories import transform_location_category
 
 
 def transform_poi(poi):

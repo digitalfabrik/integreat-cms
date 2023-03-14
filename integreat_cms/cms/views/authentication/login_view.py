@@ -1,9 +1,8 @@
 import logging
 
-from django.contrib.auth import views as auth_views
 from django.contrib.auth import login as auth_login
+from django.contrib.auth import views as auth_views
 from django.shortcuts import redirect
-
 
 logger = logging.getLogger(__name__)
 

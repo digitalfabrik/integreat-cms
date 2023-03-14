@@ -7,7 +7,6 @@ from django.utils.translation import gettext_lazy as _
 from ...models import Region
 from ..custom_model_form import CustomModelForm
 
-
 logger = logging.getLogger(__name__)
 
 

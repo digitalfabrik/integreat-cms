@@ -79,6 +79,7 @@ dev = [
     "build",
     "bumpver",
     "djlint",
+    "isort",
     "pre-commit",
     "pyjwt",
     "pylint<=2.16.4",
@@ -236,6 +237,10 @@ push = false
 
 [tool.djlint]
 profile="django"
+
+[tool.isort]
+profile = "black"
+order_by_type = false
 
 [tool.pylint.main]
 jobs = 0

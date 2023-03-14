@@ -2,9 +2,9 @@
 This contains tags for accessing settings
 """
 import re
-from django.conf import settings
-from django import template
 
+from django import template
+from django.conf import settings
 
 register = template.Library()
 

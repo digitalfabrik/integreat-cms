@@ -1,14 +1,12 @@
 import logging
 import re
-
 from urllib.parse import urlparse
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import override
-
-from geopy.geocoders import Nominatim
 from geopy.exc import GeopyError
+from geopy.geocoders import Nominatim
 from geopy.point import Point
 
 from integreat_cms import __version__

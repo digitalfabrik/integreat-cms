@@ -1,9 +1,8 @@
 import logging
 from collections import Counter
 
-from django.views.generic import TemplateView
 from django.utils.decorators import method_decorator
-from ...decorators import permission_required
+from django.views.generic import TemplateView
 
 from ...constants.translation_status import (
     CHOICES,
@@ -12,7 +11,7 @@ from ...constants.translation_status import (
     OUTDATED,
     UP_TO_DATE,
 )
-
+from ...decorators import permission_required
 
 logger = logging.getLogger(__name__)
 

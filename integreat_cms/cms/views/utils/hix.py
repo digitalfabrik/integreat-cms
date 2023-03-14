@@ -2,18 +2,17 @@
 This file contains functionality to communicate with the textlab api to get the hix-value
 for a given text.
 """
-from functools import lru_cache
 import json
 import logging
+from functools import lru_cache
 from urllib.error import URLError
 
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
-from ....textlab_api.textlab_api_client import TextlabClient
 from ....api.decorators import json_response
-
+from ....textlab_api.textlab_api_client import TextlabClient
 
 logger = logging.getLogger(__name__)
 

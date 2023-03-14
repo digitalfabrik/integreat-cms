@@ -2,10 +2,10 @@
 Test module for RecurrenceRule class
 """
 import datetime
+
 import pytz
 
-from integreat_cms.cms.models import RecurrenceRule, Event
-
+from integreat_cms.cms.models import Event, RecurrenceRule
 
 # pylint: disable=missing-docstring
 

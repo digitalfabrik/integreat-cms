@@ -3,8 +3,7 @@ This module contains utils for the sitemap app.
 """
 import logging
 
-from .sitemaps import PageSitemap, EventSitemap, POISitemap, OfferSitemap
-
+from .sitemaps import EventSitemap, OfferSitemap, PageSitemap, POISitemap
 
 logger = logging.getLogger(__name__)
 

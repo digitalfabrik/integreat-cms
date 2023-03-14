@@ -1,16 +1,14 @@
 import logging
 
-from webauthn import generate_authentication_options, options_to_json
-from webauthn.helpers import bytes_to_base64url
-from webauthn.helpers.structs import PublicKeyCredentialDescriptor
-
-
-from django.http.response import HttpResponse
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.http import JsonResponse
+from django.http.response import HttpResponse
 from django.utils.translation import gettext as _
 from django.views.generic import View
+from webauthn import generate_authentication_options, options_to_json
+from webauthn.helpers import bytes_to_base64url
+from webauthn.helpers.structs import PublicKeyCredentialDescriptor
 
 logger = logging.getLogger(__name__)
 

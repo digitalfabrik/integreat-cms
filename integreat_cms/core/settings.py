@@ -18,7 +18,6 @@ from django.utils.translation import gettext_lazy as _
 from ..nominatim_api.utils import BoundingBox
 from .logging_formatter import ColorFormatter, RequestFormatter
 
-
 ###################
 # CUSTOM SETTINGS #
 ###################

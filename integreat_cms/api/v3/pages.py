@@ -1,19 +1,21 @@
 """
 This module includes functions related to the pages API endpoint.
 """
-import logging
 import json
+import logging
+
 from django.conf import settings
 from django.core.exceptions import MultipleObjectsReturned
-from django.http import JsonResponse, Http404
+from django.db.models import prefetch_related_objects
+from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404
-from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
 from django.utils.html import strip_tags
 from django.utils.text import slugify
-from django.utils import timezone
-from django.db.models import prefetch_related_objects
-from ...cms.models import Page
+from django.views.decorators.csrf import csrf_exempt
+
 from ...cms.forms import PageTranslationForm
+from ...cms.models import Page
 from ..decorators import json_response, matomo_tracking
 
 logger = logging.getLogger(__name__)

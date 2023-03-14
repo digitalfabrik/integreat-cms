@@ -1,14 +1,14 @@
 import logging
+
 import pyotp
-from django.views.generic import TemplateView
-from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.utils.translation import gettext_lazy as _
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import TemplateView
 
 from ...decorators import modify_mfa_authenticated
-from ...utils.totp_utils import generate_totp_qrcode, check_totp_code
-
+from ...utils.totp_utils import check_totp_code, generate_totp_qrcode
 
 logger = logging.getLogger(__name__)
 

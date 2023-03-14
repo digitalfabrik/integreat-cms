@@ -1,26 +1,24 @@
 from datetime import datetime
 
 import pytest
-
 from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.models import (
-    Feedback,
-    RegionFeedback,
-    PageFeedback,
-    POIFeedback,
     EventFeedback,
     EventListFeedback,
+    Feedback,
     ImprintPageFeedback,
     MapFeedback,
-    SearchResultFeedback,
-    OfferListFeedback,
     OfferFeedback,
+    OfferListFeedback,
+    PageFeedback,
+    POIFeedback,
+    RegionFeedback,
+    SearchResultFeedback,
 )
 
-from .api_config import API_FEEDBACK_VIEWS, API_FEEDBACK_ERRORS
-
+from .api_config import API_FEEDBACK_ERRORS, API_FEEDBACK_VIEWS
 
 feedback_type_dict = {
     "api:region_feedback": RegionFeedback,

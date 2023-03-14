@@ -2,21 +2,19 @@
 This module includes functions that are used as decorators in the API endpoints.
 """
 import json
-import threading
 import logging
 import random
 import re
-
+import threading
 from functools import wraps
+from urllib import error, parse, request
 
-from urllib import request, parse, error
-
-from django.http import JsonResponse, Http404
-from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
+from django.http import Http404, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
-from ..cms.models import Region, Language
 from ..cms.constants import feedback_ratings
+from ..cms.models import Language, Region
 
 logger = logging.getLogger(__name__)
 

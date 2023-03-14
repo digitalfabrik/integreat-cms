@@ -6,7 +6,7 @@ import string
 from django.core.management.base import CommandError
 from django.utils.text import slugify
 
-from ....cms.models import Region, Page
+from ....cms.models import Page, Region
 from ..debug_command import DebugCommand
 
 logger = logging.getLogger(__name__)

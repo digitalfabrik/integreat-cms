@@ -1,29 +1,27 @@
 import json
 import logging
-
 from copy import deepcopy
-
 from zoneinfo import available_timezones
+
 from django import forms
+from django.apps import apps
 from django.conf import settings
 from django.db.models import Q
-from django.utils.translation import override, gettext_lazy as _
-from django.apps import apps
-
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import override
 from linkcheck.listeners import disable_listeners
 from linkcheck.models import Link
 
-from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ....gvz_api.utils import GvzRegion
-from ...constants import status
-from ...models import Region, Page, PageTranslation, LanguageTreeNode
 from ....matomo_api.matomo_api_client import MatomoException
+from ....nominatim_api.nominatim_api_client import NominatimApiClient
+from ...constants import status
+from ...models import LanguageTreeNode, Page, PageTranslation, Region
 from ...models.regions.region import format_deepl_help_text
 from ...utils.slug_utils import generate_unique_slug_helper
 from ...utils.translation_utils import gettext_many_lazy as __
-from ..icon_widget import IconWidget
 from ..custom_model_form import CustomModelForm
-
+from ..icon_widget import IconWidget
 
 logger = logging.getLogger(__name__)
 

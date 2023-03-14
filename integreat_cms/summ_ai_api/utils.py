@@ -1,17 +1,15 @@
 """
 This module contains helpers for the SUMM.AI API client
 """
-import logging
 import itertools
-
+import logging
 from html import unescape
-
-from lxml.etree import SubElement, strip_tags
-from lxml.html import fromstring, tostring
 
 from django.conf import settings
 from django.contrib import messages
 from django.utils.translation import gettext as _
+from lxml.etree import strip_tags, SubElement
+from lxml.html import fromstring, tostring
 
 from ..cms.constants import status
 from ..cms.utils.translation_utils import gettext_many_lazy as __

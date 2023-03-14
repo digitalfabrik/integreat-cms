@@ -1,30 +1,30 @@
 """
 This package contains all views related to pages
 """
-from .page_tree_view import PageTreeView
-from .page_form_view import PageFormView
 from .page_actions import (
     archive_page,
-    restore_page,
+    cancel_translation_process_ajax,
     delete_page,
     expand_page_translation_id,
-    upload_xliff,
-    move_page,
-    grant_page_permission_ajax,
-    revoke_page_permission_ajax,
-    get_page_order_table_ajax,
-    render_mirrored_page_field,
-    cancel_translation_process_ajax,
-    preview_page_ajax,
     get_page_content_ajax,
+    get_page_order_table_ajax,
+    grant_page_permission_ajax,
+    move_page,
+    preview_page_ajax,
     refresh_date,
+    render_mirrored_page_field,
+    restore_page,
+    revoke_page_permission_ajax,
+    upload_xliff,
 )
 from .page_bulk_actions import (
-    GeneratePdfView,
-    ExportXliffView,
     ExportMultiLanguageXliffView,
+    ExportXliffView,
+    GeneratePdfView,
 )
-from .page_sbs_view import PageSideBySideView
+from .page_form_view import PageFormView
 from .page_revision_view import PageRevisionView
+from .page_sbs_view import PageSideBySideView
+from .page_tree_view import PageTreeView
 from .page_xliff_import_view import PageXliffImportView
 from .partial_page_tree_view import render_partial_page_tree_views

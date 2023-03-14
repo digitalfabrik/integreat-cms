@@ -2,10 +2,9 @@ import logging
 
 from django import forms
 from django.conf import settings
+from django.contrib.auth.forms import PasswordResetForm
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
-
-from django.contrib.auth.forms import PasswordResetForm
 
 from ...utils.email_utils import send_mail
 

@@ -7,7 +7,6 @@ from integreat_cms.cms.forms.users.passwordless_authentication_form import (
     PasswordlessAuthenticationForm,
 )
 
-
 logger = logging.getLogger(__name__)
 authlog = logging.getLogger("auth")
 

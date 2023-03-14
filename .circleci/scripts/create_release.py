@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
-import os
 import argparse
 import mimetypes
+import os
+
 import requests
 
 

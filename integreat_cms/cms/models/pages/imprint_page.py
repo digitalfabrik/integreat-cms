@@ -2,8 +2,8 @@ import logging
 
 from django.utils.translation import gettext_lazy as _
 
-from .imprint_page_translation import ImprintPageTranslation
 from ..abstract_content_model import AbstractContentModel
+from .imprint_page_translation import ImprintPageTranslation
 
 logger = logging.getLogger(__name__)
 

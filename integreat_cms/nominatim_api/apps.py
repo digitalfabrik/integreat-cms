@@ -3,7 +3,7 @@ Configuration of Nominatim API app
 """
 import logging
 
-from django.apps import apps, AppConfig
+from django.apps import AppConfig, apps
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 

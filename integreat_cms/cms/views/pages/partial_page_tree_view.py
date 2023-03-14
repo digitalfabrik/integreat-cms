@@ -1,14 +1,14 @@
-from collections import defaultdict
 import json
+from collections import defaultdict
 
 from django.http import JsonResponse
 from django.template.loader import render_to_string
 from django.utils.translation import get_language
 from django.views.decorators.http import require_POST
 
-from ..pages.page_context_mixin import PageContextMixin
-from ...models.languages.language import Language
 from ...decorators import permission_required
+from ...models.languages.language import Language
+from ..pages.page_context_mixin import PageContextMixin
 
 
 @permission_required("cms.view_page")

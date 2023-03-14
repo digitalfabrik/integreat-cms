@@ -3,14 +3,14 @@ import logging
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import (
-    validate_password,
     password_validators_help_texts,
+    validate_password,
 )
 from django.utils.translation import gettext_lazy as _
 
-from ..custom_model_form import CustomModelForm
 from ...models import Role
 from ...utils.translation_utils import gettext_many_lazy as __
+from ..custom_model_form import CustomModelForm
 from .organization_field import OrganizationField
 
 logger = logging.getLogger(__name__)

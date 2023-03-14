@@ -2,14 +2,15 @@ import logging
 from copy import copy
 
 from django.db import models
-from django.utils.functional import cached_property
-from django.utils.translation import get_language, gettext_lazy as _
 from django.utils import timezone
+from django.utils.functional import cached_property
+from django.utils.translation import get_language
+from django.utils.translation import gettext_lazy as _
 
 from ..constants import status, translation_status
 from ..utils.content_edit_lock import get_locking_user
-from .regions.region import Region
 from .abstract_base_model import AbstractBaseModel
+from .regions.region import Region
 
 logger = logging.getLogger(__name__)
 

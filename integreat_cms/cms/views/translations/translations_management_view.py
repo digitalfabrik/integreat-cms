@@ -1,15 +1,14 @@
 import logging
 
-from django.shortcuts import redirect, render
 from django.contrib import messages
-from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView
 from django.db import transaction
+from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
-
-from ...forms import TranslationsManagementForm
+from django.views.generic import TemplateView
 
 from ...decorators import permission_required
+from ...forms import TranslationsManagementForm
 
 logger = logging.getLogger(__name__)
 
