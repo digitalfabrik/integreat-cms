@@ -116,7 +116,7 @@ class POIFormView(
             },
         )
 
-    # pylint: disable=too-many-branches,too-many-locals,unused-argument
+    # pylint: disable=too-many-locals
     def post(self, request, *args, **kwargs):
         r"""
         Submit :class:`~integreat_cms.cms.forms.pois.poi_form.POIForm` and

@@ -151,7 +151,6 @@ class ImprintSideBySideView(TemplateView, MediaContextMixin):
             },
         )
 
-    # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
         r"""
         Submit :class:`~integreat_cms.cms.forms.imprint.imprint_translation_form.ImprintTranslationForm` and save
@@ -284,20 +283,17 @@ def get_old_source_content(imprint, source_language, target_language):
     :rtype: str
     """
     # For the text diff, use the latest source translation that was created before the latest no minor edit target translation
-    major_target_imprint_translation = imprint.translations.filter(
-        language__slug=target_language.slug, minor_edit=False
-    ).first()
 
-    if major_target_imprint_translation:
-        source_previous_translation = (
+    if major_target_imprint_translation := imprint.translations.filter(
+        language__slug=target_language.slug, minor_edit=False
+    ).first():
+        if source_previous_translation := (
             imprint.translations.filter(
                 language=source_language,
                 last_updated__lte=major_target_imprint_translation.last_updated,
             )
             .order_by("-last_updated")
             .first()
-        )
-        if source_previous_translation:
+        ):
             return source_previous_translation.content
-
     return ""

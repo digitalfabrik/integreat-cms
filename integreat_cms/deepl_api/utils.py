@@ -148,10 +148,11 @@ class DeepLApi:
                     target_language.slug
                 )
                 # For some languages, the DeepL client expects the BCP tag instead of the short language code
-                if target_language.slug in ("en", "pt"):
-                    target_language_key = target_language.bcp47_tag
-                else:
-                    target_language_key = target_language.slug
+                target_language_key = (
+                    target_language.bcp47_tag
+                    if target_language.slug in ("en", "pt")
+                    else target_language.slug
+                )
 
                 # Before translating, check if translation would exceed usage limit
                 (

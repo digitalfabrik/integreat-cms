@@ -719,10 +719,7 @@ class Region(AbstractBaseModel):
         :return: Either the archived or the non-archived pages of this region
         :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
-        if archived:
-            pages = self.archived_pages
-        else:
-            pages = self.non_archived_pages
+        pages = self.archived_pages if archived else self.non_archived_pages
         if (
             return_unrestricted_queryset
             or prefetch_translations

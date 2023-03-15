@@ -35,14 +35,16 @@ class MediaMoveForm(CustomModelForm):
         """
         cleaned_data = super().clean()
 
-        if cleaned_data.get("parent_directory"):
-            if cleaned_data.get("parent_directory").region != self.instance.region:
-                self.add_error(
-                    "parent_directory",
-                    forms.ValidationError(
-                        _("The file cannot be moved to a directory of another region."),
-                        code="invalid",
-                    ),
-                )
+        if (
+            cleaned_data.get("parent_directory")
+            and cleaned_data.get("parent_directory").region != self.instance.region
+        ):
+            self.add_error(
+                "parent_directory",
+                forms.ValidationError(
+                    _("The file cannot be moved to a directory of another region."),
+                    code="invalid",
+                ),
+            )
 
         return cleaned_data

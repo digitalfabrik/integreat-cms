@@ -179,7 +179,7 @@ class RecurrenceRule(AbstractBaseModel):
             for _ in advance():
                 if next_recurrence > end_date:
                     return
-                if i % self.interval == 0:
+                if not i % self.interval:
                     yield next_recurrence
             i += 1
 

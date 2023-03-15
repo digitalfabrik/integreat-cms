@@ -17,15 +17,13 @@ def update_flags(apps, schema_editor):
     Language = apps.get_model("cms", "Language")
 
     # Update flag of Arabic
-    arabic = Language.objects.filter(slug="ar").first()
-    if arabic:
+    if arabic := Language.objects.filter(slug="ar").first():
         arabic.primary_country_code = "ab"
         arabic.secondary_country_code = ""
         arabic.save()
 
     # Update flag of Farsi
-    farsi = Language.objects.filter(slug="fa").first()
-    if farsi:
+    if farsi := Language.objects.filter(slug="fa").first():
         farsi.primary_country_code = "fa"
         farsi.secondary_country_code = ""
         farsi.save()
@@ -45,15 +43,13 @@ def reverse_flags(apps, schema_editor):
     Language = apps.get_model("cms", "Language")
 
     # Update flag of Arabic
-    arabic = Language.objects.filter(slug="ar").first()
-    if arabic:
+    if arabic := Language.objects.filter(slug="ar").first():
         arabic.primary_country_code = "dz"
         arabic.secondary_country_code = "sa"
         arabic.save()
 
     # Update flag of Farsi
-    farsi = Language.objects.filter(slug="fa").first()
-    if farsi:
+    if farsi := Language.objects.filter(slug="fa").first():
         farsi.primary_country_code = "ir"
         farsi.secondary_country_code = "af"
         farsi.save()

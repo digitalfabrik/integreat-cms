@@ -106,8 +106,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             # If form is bound (submitted with data) limit the queryset to the selected region to validate the selected
             # mirrored page and to render the options for the mirrored page.
             # If no region was selected, allow no mirrored page
-            mirrored_page_region = self.data["mirrored_page_region"]
-            if mirrored_page_region:
+            if mirrored_page_region := self.data["mirrored_page_region"]:
                 mirrored_page_queryset = Region.objects.get(
                     id=mirrored_page_region
                 ).pages.all()
@@ -134,8 +133,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             mirrored_page_queryset = mirrored_page_queryset.exclude(id=self.instance.id)
         else:
             # Set the default position to the right of the last root page
-            last_root_page = self.instance.region.get_root_pages().last()
-            if last_root_page:
+            if last_root_page := self.instance.region.get_root_pages().last():
                 self.fields["_ref_node_id"].initial = last_root_page.id
                 self.fields["_position"].initial = position.RIGHT
             else:

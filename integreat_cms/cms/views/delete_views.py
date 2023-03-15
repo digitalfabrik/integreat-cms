@@ -14,7 +14,6 @@ from django.views.generic import DeleteView
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-many-ancestors
 class CustomModelDeleteMixin(
     PermissionRequiredMixin,
 ):

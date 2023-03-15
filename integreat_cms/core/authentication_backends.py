@@ -26,19 +26,17 @@ class EmailAuthenticationBackend(BaseBackend):
         :return: Either the authenticated user or ``None`` is the credentials were not valid
         :rtype: ~integreat_cms.cms.models.users.user.User
         """
-        email = kwargs.get(UserModel.USERNAME_FIELD)
-        if not email:
-            return None
-        password = kwargs.get("password")
-        try:
-            user = UserModel.objects.get(**{UserModel.EMAIL_FIELD: email.lower()})
-        except UserModel.DoesNotExist:
-            # Run the default password hasher once to reduce the timing
-            # difference between an existing and a nonexistent user (#20760).
-            UserModel().set_password(password)
-        else:
-            if user.check_password(password) and user.is_active:
-                return user
+        if email := kwargs.get(UserModel.USERNAME_FIELD):
+            password = kwargs.get("password")
+            try:
+                user = UserModel.objects.get(**{UserModel.EMAIL_FIELD: email.lower()})
+            except UserModel.DoesNotExist:
+                # Run the default password hasher once to reduce the timing
+                # difference between an existing and a nonexistent user (#20760).
+                UserModel().set_password(password)
+            else:
+                if user.check_password(password) and user.is_active:
+                    return user
         return None
 
     def get_user(self, user_id):

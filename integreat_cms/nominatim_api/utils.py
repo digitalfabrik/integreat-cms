@@ -6,7 +6,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-few-public-methods
 class BoundingBox:
     """
     Class for bounding boxes
@@ -85,18 +84,17 @@ class BoundingBox:
         :rtype: ~integreat_cms.nominatim_api.utils.BoundingBox
         """
         # Filter out empty boxes
-        bounding_boxes = list(filter(None, bounding_boxes))
+        if bounding_boxes := list(filter(None, bounding_boxes)):
+            logger.debug("Merging bounding boxes: %r", bounding_boxes)
+            # Return a new bounding box with the minimum/maximum values over all given bounding boxes
+            return cls(
+                min(box.latitude_min for box in bounding_boxes),
+                max(box.latitude_max for box in bounding_boxes),
+                min(box.longitude_min for box in bounding_boxes),
+                max(box.longitude_max for box in bounding_boxes),
+            )
         # If an empty list was given, return None
-        if not bounding_boxes:
-            return None
-        logger.debug("Merging bounding boxes: %r", bounding_boxes)
-        # Return a new bounding box with the minimum/maximum values over all given bounding boxes
-        return cls(
-            min(box.latitude_min for box in bounding_boxes),
-            max(box.latitude_max for box in bounding_boxes),
-            min(box.longitude_min for box in bounding_boxes),
-            max(box.longitude_max for box in bounding_boxes),
-        )
+        return None
 
     def __repr__(self):
         """

@@ -64,7 +64,6 @@ def get_hix_score(request, region_slug):
         logger.warning("Received invalid text: %r", text)
         return JsonResponse({"error": f"Invalid text: '{text}'"})
 
-    score = lookup_hix_score(text)
-    if score is not None:
+    if score := lookup_hix_score(text):
         return JsonResponse({"score": score})
     return JsonResponse({"error": "Could not retrieve hix score"})

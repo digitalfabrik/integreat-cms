@@ -20,9 +20,5 @@ def search_users(region, query):
         | Q(last_name__icontains=query)
     )
 
-    if region:
-        objects = region.region_users
-    else:
-        objects = get_user_model().objects
-
+    objects = region.region_users if region else get_user_model().objects
     return objects.filter(filter_query)

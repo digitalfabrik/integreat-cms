@@ -20,8 +20,7 @@ def delete_organizations(apps, schema_editor):
     :type schema_editor: ~django.db.backends.base.schema.BaseDatabaseSchemaEditor
     """
     Organization = apps.get_model("cms", "Organization")
-    organizations = Organization.objects.all()
-    if organizations:
+    if organizations := Organization.objects.all():
         print(
             f"\n    ↳ {WARN}Warning:{RESET} Deleting organizations {organizations!r}",
             end="",

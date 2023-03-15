@@ -15,6 +15,7 @@ from .abstract_base_model import AbstractBaseModel
 logger = logging.getLogger(__name__)
 
 
+# pylint: disable=attribute-defined-outside-init
 class AbstractTreeNode(NS_Node, AbstractBaseModel):
     """
     Abstract data model representing a tree node within a region.
@@ -142,10 +143,8 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         """
         siblings = self.region_siblings
         ids = [obj.pk for obj in siblings]
-        if self.pk in ids:
-            idx = ids.index(self.pk)
-            if idx > 0:
-                return siblings[idx - 1]
+        if self.pk in ids and (idx := ids.index(self.pk)) > 0:
+            return siblings[idx - 1]
         return None
 
     @cached_property
@@ -158,10 +157,8 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         """
         siblings = self.region_siblings
         ids = [obj.pk for obj in siblings]
-        if self.pk in ids:
-            idx = ids.index(self.pk)
-            if idx < len(siblings) - 1:
-                return siblings[idx + 1]
+        if self.pk in ids and (idx := ids.index(self.pk)) < len(siblings) - 1:
+            return siblings[idx + 1]
         return None
 
     def get_cached_ancestors(self, include_self=False):
@@ -176,7 +173,6 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         :rtype: ~treebeard.ns_tree.NS_NodeQuerySet
         """
         if not hasattr(self, "_cached_ancestors"):
-            # pylint: disable=attribute-defined-outside-init
             self._cached_ancestors = list(self.get_ancestors())
         if include_self:
             return [*self._cached_ancestors, self]
@@ -207,7 +203,6 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         :rtype: ~treebeard.ns_tree.NS_NodeQuerySet
         """
         if not hasattr(self, "_cached_descendants"):
-            # pylint: disable=attribute-defined-outside-init
             self._cached_descendants = list(self.get_descendants())
         if include_self:
             return [self, *self._cached_descendants]
@@ -222,7 +217,6 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         :rtype: list
         """
         if not hasattr(self, "_cached_children"):
-            # pylint: disable=attribute-defined-outside-init
             if hasattr(self, "_cached_descendants"):
                 self._cached_children = [
                     descendant
@@ -266,24 +260,23 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         logger.debug("Moving %r to position %r of %r", self, pos, target)
         try:
             with db_mutex(self.__class__.__name__):
-                # Do not allow to move a node outside its region
-                if self.region != target.region:
-                    # Allow moving as siblings of root nodes (because it's a separate tree)
-                    if not (
-                        target.is_root()
-                        and pos
-                        in [
-                            position.LEFT,
-                            position.RIGHT,
-                            position.FIRST_SIBLING,
-                            position.LAST_SIBLING,
-                        ]
-                    ):
-                        raise InvalidPosition(
-                            _(
-                                'The node "{}" in region "{}" cannot be moved to "{}".'
-                            ).format(self, self.region, target.region)
-                        )
+                # Do not allow to move a node outside its region, but allow
+                # moving as siblings of root nodes (because it's a separate tree)
+                if self.region != target.region and not (
+                    target.is_root()
+                    and pos
+                    in [
+                        position.LEFT,
+                        position.RIGHT,
+                        position.FIRST_SIBLING,
+                        position.LAST_SIBLING,
+                    ]
+                ):
+                    raise InvalidPosition(
+                        _(
+                            'The node "{}" in region "{}" cannot be moved to "{}".'
+                        ).format(self, self.region, target.region)
+                    )
                 # Moving a node can modify all other nodes via raw sql queries (which are not recognized by cachalot),
                 # so we have to invalidate the whole model manually.
                 invalidate_model(self.__class__)

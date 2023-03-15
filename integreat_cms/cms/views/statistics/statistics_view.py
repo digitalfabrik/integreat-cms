@@ -24,7 +24,6 @@ class AnalyticsView(TemplateView):
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "statistics"}
 
-    # pylint: disable=unused-variable
     def get(self, request, *args, **kwargs):
         r"""
         Render statistics of access numbers tracked by Matomo

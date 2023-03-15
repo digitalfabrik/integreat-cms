@@ -122,12 +122,11 @@ class LinkcheckListView(ListView):
         except Http404 as e:
             # If already the last page was requested, raise the error
             if request.GET.get("page") == "last":
-                raise (e)
+                raise e
             # If the page does not exist, use the last page as fallback
             logger.debug("Redirecting to last page because response was 404")
             params = {"page": "last"}
-            size = request.GET.get("size")
-            if size:
+            if size := request.GET.get("size"):
                 params["size"] = size
             return redirect(f"{request.path}?{urlencode(params)}")
 
@@ -150,8 +149,7 @@ class LinkcheckListView(ListView):
         :return: Redirect to current linkcheck tab
         :rtype: ~django.http.HttpResponseRedirect
         """
-        edit_url_id = kwargs.pop("url_id", None)
-        if edit_url_id:
+        if edit_url_id := kwargs.pop("url_id", None):
             try:
                 old_url = get_urls(
                     region_slug=request.region.slug, url_ids=[edit_url_id]

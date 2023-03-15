@@ -9,7 +9,6 @@ from ...decorators import feedback_handler, json_response
 
 @feedback_handler
 @json_response
-# pylint: disable=unused-argument
 def search_result_feedback(data, region, language, comment, rating, is_technical):
     """
     Store feedback on app search results in database
@@ -35,15 +34,14 @@ def search_result_feedback(data, region, language, comment, rating, is_technical
     :return: JSON object according to APIv3 search result feedback endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    query = data.get("query")
-    if not query:
-        return JsonResponse({"error": "Search query is required."}, status=400)
-    SearchResultFeedback.objects.create(
-        search_query=query,
-        region=region,
-        language=language,
-        rating=rating,
-        comment=comment,
-        is_technical=is_technical,
-    )
-    return JsonResponse({"success": "Feedback successfully submitted"}, status=201)
+    if query := data.get("query"):
+        SearchResultFeedback.objects.create(
+            search_query=query,
+            region=region,
+            language=language,
+            rating=rating,
+            comment=comment,
+            is_technical=is_technical,
+        )
+        return JsonResponse({"success": "Feedback successfully submitted"}, status=201)
+    return JsonResponse({"error": "Search query is required."}, status=400)

@@ -43,7 +43,6 @@ class UserSettingsView(TemplateView):
         )
         return context
 
-    # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
         r"""
         Submit :class:`~integreat_cms.cms.forms.users.user_email_form.UserEmailForm` and

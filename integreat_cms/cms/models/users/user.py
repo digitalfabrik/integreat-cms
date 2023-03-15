@@ -21,7 +21,6 @@ from .organization import Organization
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-few-public-methods
 class CustomUserManager(UserManager):
     """
     This manager prefetches the regions of each user because they are needed for permissions checks and the region selection anyway
@@ -145,8 +144,7 @@ class User(AbstractUser, AbstractBaseModel):
         """
         # Many-to-many relationships can only be used for objects that are already saved to the database
         if self.id:
-            groups = self.groups.all()
-            if groups:
+            if groups := self.groups.all():
                 # Assume users only have one group/role
                 return groups[0].role
         return None

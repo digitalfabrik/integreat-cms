@@ -126,8 +126,7 @@ class PageFormView(
                         )
                     messages.warning(request, status_message)
                 # Show information if a public translation exists even if the latest version is not public
-                public_translation = page.get_public_translation(language.slug)
-                if public_translation:
+                if public_translation := page.get_public_translation(language.slug):
                     if page_translation.status == status.DRAFT:
                         messages.warning(
                             request,
@@ -199,19 +198,20 @@ class PageFormView(
         )
 
         # Pass siblings to template to enable rendering of page order table
-        if page:
-            siblings = (
+        siblings = (
+            (
                 page.region_siblings.prefetch_translations()
                 .prefetch_public_translations()
                 .filter(explicitly_archived=page.explicitly_archived)
             )
-        else:
-            siblings = (
+            if page
+            else (
                 region.get_root_pages()
                 .prefetch_translations()
                 .prefetch_public_translations()
                 .filter(explicitly_archived=False)
             )
+        )
 
         # Check for MT availability for automatic translation
         MT_ENABLED = (
@@ -242,8 +242,8 @@ class PageFormView(
             },
         )
 
+    # pylint: disable=too-many-statements
     @transaction.atomic
-    # pylint: disable=too-many-branches,unused-argument,too-many-statements
     def post(self, request, *args, **kwargs):
         r"""
         Submit :class:`~integreat_cms.cms.forms.pages.page_form.PageForm` and

@@ -248,10 +248,11 @@ def linkcode_resolve(domain, info):
     module = importlib.import_module(module_str)
     module_path = module_str.replace(".", "/")
     filename = module.__file__.partition(module_path)[2]
-    if module_str.startswith("django."):
-        url = django_github_url
-    else:
-        url = f"{github_url}/blob/develop"
+    url = (
+        django_github_url
+        if module_str.startswith("django.")
+        else f"{github_url}/blob/develop"
+    )
     return f"{url}/{module_path}{filename}{line_number_reference}"
 
 

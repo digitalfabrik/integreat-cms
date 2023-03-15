@@ -61,17 +61,18 @@ def feedback_handler(func):
             return JsonResponse(
                 {"error": f'No language found with slug "{language_slug}"'}, status=404
             )
-        if request.content_type == "application/json":
-            data = json.loads(request.body.decode())
-        else:
-            data = request.POST.dict()
+        data = (
+            json.loads(request.body.decode())
+            if request.content_type == "application/json"
+            else request.POST.dict()
+        )
         comment = data.pop("comment", "")
         rating = data.pop("rating", None)
         category = data.pop("category", None)
 
         if rating not in [None, "up", "down"]:
             return JsonResponse({"error": "Invalid rating."}, status=400)
-        if comment == "" and not rating:
+        if not comment and not rating:
             return JsonResponse(
                 {"error": "Either comment or rating is required."}, status=400
             )

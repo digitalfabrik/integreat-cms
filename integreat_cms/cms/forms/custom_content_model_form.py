@@ -153,7 +153,6 @@ class CustomContentModelForm(CustomModelForm):
         self.data["slug"] = unique_slug
         return unique_slug
 
-    # pylint: disable=arguments-differ
     def save(self, commit=True, foreign_form_changed=False):
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes

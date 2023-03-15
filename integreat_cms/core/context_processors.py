@@ -7,7 +7,6 @@ from .. import __version__
 from ..cms.constants import status
 
 
-# pylint: disable=unused-variable
 def version_processor(request):
     """
     This context processor injects the current package version into the template context.
@@ -21,7 +20,6 @@ def version_processor(request):
     return {"version": __version__}
 
 
-# pylint: disable=unused-variable
 def settings_processor(request):
     """
     This context processor injects a few settings into the template context.
@@ -42,7 +40,6 @@ def settings_processor(request):
     }
 
 
-# pylint: disable=unused-variable
 def constants_processor(request):
     """
     This context processor injects some of our constants into the template context.

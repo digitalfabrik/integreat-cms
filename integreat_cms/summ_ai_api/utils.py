@@ -17,7 +17,6 @@ from ..cms.utils.translation_utils import gettext_many_lazy as __
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-few-public-methods
 class TextField:
     """
     A class for simple text fields
@@ -118,7 +117,6 @@ class HTMLSegment(TextField):
                 SubElement(self.segment, "br").tail = line
 
 
-# pylint: disable=too-few-public-methods
 class HTMLField:
     """
     A class for more complex HTML fields which are splitted into segments
@@ -189,7 +187,6 @@ class HTMLField:
         )
 
 
-# pylint: disable=too-many-instance-attributes
 class TranslationHelper:
     """
     Custom helper class for interaction with SUMM.AI

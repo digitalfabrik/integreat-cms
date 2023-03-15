@@ -4,7 +4,7 @@ import pytest
 from django.urls import reverse
 
 
-# pylint: disable=unused-argument,too-many-locals
+# pylint: disable=unused-argument
 @pytest.mark.django_db
 def test_page_filters(load_test_data, admin_client):
     """

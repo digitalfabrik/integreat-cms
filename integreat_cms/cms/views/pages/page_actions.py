@@ -165,25 +165,23 @@ def preview_page_ajax(request, page_id, region_slug, language_slug):
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
 
-    page_translation = page.get_translation(language_slug)
-    if not page_translation:
-        raise Http404("Translation of the given page could not be found")
-    mirrored_translation = page.get_mirrored_page_translation(language_slug)
-
-    return JsonResponse(
-        data={
-            "title": page_translation.title,
-            "page_translation": page_translation.content,
-            "mirrored_translation": mirrored_translation.content
-            if mirrored_translation
-            else "",
-            "mirrored_page_first": page.mirrored_page_first,
-            "right_to_left": page_translation.language.text_direction
-            == text_directions.RIGHT_TO_LEFT
-            if page_translation
-            else False,
-        }
-    )
+    if page_translation := page.get_translation(language_slug):
+        mirrored_translation = page.get_mirrored_page_translation(language_slug)
+        return JsonResponse(
+            data={
+                "title": page_translation.title,
+                "page_translation": page_translation.content,
+                "mirrored_translation": mirrored_translation.content
+                if mirrored_translation
+                else "",
+                "mirrored_page_first": page.mirrored_page_first,
+                "right_to_left": page_translation.language.text_direction
+                == text_directions.RIGHT_TO_LEFT
+                if page_translation
+                else False,
+            }
+        )
+    raise Http404("Translation of the given page could not be found")
 
 
 @permission_required("cms.view_page")
@@ -212,10 +210,9 @@ def get_page_content_ajax(request, region_slug, language_slug, page_id):
     """
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
-    page_translation = page.get_translation(language_slug)
-    if not page_translation:
-        raise Http404("Translation of the given page could not be found")
-    return JsonResponse(data={"content": page_translation.content})
+    if page_translation := page.get_translation(language_slug):
+        return JsonResponse(data={"content": page_translation.content})
+    raise Http404("Translation of the given page could not be found")
 
 
 @require_POST
@@ -267,7 +264,6 @@ def delete_page(request, page_id, region_slug, language_slug):
     )
 
 
-# pylint: disable=unused-argument
 def expand_page_translation_id(request, short_url_id):
     """
     Searches for a page translation with corresponding ID and redirects browser to web app
@@ -314,8 +310,7 @@ def cancel_translation_process_ajax(request, region_slug, language_slug, page_id
     """
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
-    page_translation = page.get_translation(language_slug)
-    if not page_translation:
+    if not (page_translation := page.get_translation(language_slug)):
         return JsonResponse(
             {
                 "error": f"Page {page} does not have a translation for language '{language_slug}'"
@@ -441,7 +436,6 @@ def upload_xliff(request, region_slug, language_slug):
 @require_POST
 @permission_required("cms.change_page")
 @transaction.atomic
-# pylint: disable=too-many-arguments
 def move_page(request, region_slug, language_slug, page_id, target_id, position):
     """
     Move a page object in the page tree
@@ -636,7 +630,7 @@ def grant_page_permission_ajax(request, region_slug):
 @require_POST
 @permission_required("cms.change_page")
 @permission_required("cms.grant_page_permissions")
-# pylint: disable=too-many-branches,unused-argument
+# pylint: disable=unused-argument
 def revoke_page_permission_ajax(request, region_slug):
     """
     Remove a page permission for a given user and page
@@ -673,16 +667,18 @@ def revoke_page_permission_ajax(request, region_slug):
                 f"Page permissions are not activated for {page.region!r}"
             )
 
-        if not (request.user.is_superuser or request.user.is_staff):
-            # additional checks if requesting user is no superuser or staff
-            if page.region not in request.user.regions:
-                # requesting user can only revoke permissions for pages of his region
-                logger.warning(
-                    "Error: %r cannot revoke permissions for %r",
-                    request.user,
-                    page.region,
-                )
-                raise PermissionDenied
+        if (
+            not request.user.is_superuser
+            and not request.user.is_staff
+            and page.region not in request.user.regions
+        ):
+            # requesting user can only revoke permissions for pages of his region
+            logger.warning(
+                "Error: %r cannot revoke permissions for %r",
+                request.user,
+                page.region,
+            )
+            raise PermissionDenied
 
         if permission == "edit":
             if user in page.editors.all():

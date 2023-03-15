@@ -119,7 +119,6 @@ def test_xliff_export(
         assert response.status_code == 403
 
 
-# pylint: disable=too-many-locals
 @pytest.mark.django_db
 @pytest.mark.parametrize(
     "import_1,import_2",

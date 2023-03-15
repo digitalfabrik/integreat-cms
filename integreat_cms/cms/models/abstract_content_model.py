@@ -139,14 +139,14 @@ class AbstractContentModel(AbstractBaseModel):
         :rtype: Iterator[:class:`~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation`]
         """
         # Check if fallback translation should be used
-        if self.fallback_translations_enabled:
-            all_languages = self.region.visible_languages
-        else:
-            all_languages = self.public_languages
+        all_languages = (
+            self.region.visible_languages
+            if self.fallback_translations_enabled
+            else self.public_languages
+        )
 
         for language in all_languages:
-            public_translation = self.get_public_translation(language.slug)
-            if public_translation:
+            if public_translation := self.get_public_translation(language.slug):
                 yield public_translation
 
     @cached_property
@@ -416,16 +416,13 @@ class AbstractContentModel(AbstractBaseModel):
         :return: A string describing the state of the translation, one of :data:`~integreat_cms.cms.constants.translation_status.CHOICES`
         :rtype: str
         """
-        translation = self.get_translation(language_slug)
-        if not translation:
-            if self.fallback_translations_enabled:
-                fallback_translation = self.get_translation(
-                    self.region.default_language.slug
-                )
-                if fallback_translation:
-                    return translation_status.FALLBACK
-            return translation_status.MISSING
-        return translation.translation_state
+        if translation := self.get_translation(language_slug):
+            return translation.translation_state
+        if self.fallback_translations_enabled and self.get_translation(
+            self.region.default_language.slug
+        ):
+            return translation_status.FALLBACK
+        return translation_status.MISSING
 
     @cached_property
     def translation_states(self):

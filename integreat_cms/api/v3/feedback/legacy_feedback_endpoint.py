@@ -38,8 +38,7 @@ def legacy_feedback_endpoint(data, region, language, comment, rating, is_technic
     :return: decorated function that saves feedback in database
     :rtype: ~collections.abc.Callable
     """
-    link = data.get("permalink")
-    if not link:
+    if not (link := data.get("permalink")):
         return JsonResponse({"error": "Link is required."}, status=400)
     link_components = list(filter(None, link.split("/")))
     if link_components[-1] == settings.IMPRINT_SLUG:

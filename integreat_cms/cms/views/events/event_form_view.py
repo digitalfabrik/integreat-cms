@@ -220,11 +220,13 @@ class EventFormView(
             messages.info(request, _("No changes detected, autosave skipped"))
         else:
             # Check publish permissions
-            if event_translation_form.instance.status in [status.DRAFT, status.PUBLIC]:
-                if not request.user.has_perm("cms.publish_event"):
-                    raise PermissionDenied(
-                        f"{request.user!r} does not have the permission 'cms.publish_event'"
-                    )
+            if event_translation_form.instance.status in [
+                status.DRAFT,
+                status.PUBLIC,
+            ] and not request.user.has_perm("cms.publish_event"):
+                raise PermissionDenied(
+                    f"{request.user!r} does not have the permission 'cms.publish_event'"
+                )
             # Save forms
             if event_form.cleaned_data.get("is_recurring"):
                 # If event is recurring, save recurrence rule

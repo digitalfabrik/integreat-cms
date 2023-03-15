@@ -57,8 +57,7 @@ class ImprintFormView(TemplateView, MediaContextMixin):
         region = request.region
 
         # current language
-        language_slug = kwargs.get("language_slug")
-        if language_slug:
+        if language_slug := kwargs.get("language_slug"):
             language = region.get_language_or_404(language_slug, only_active=True)
         elif region.default_language:
             return redirect(
@@ -162,7 +161,6 @@ class ImprintFormView(TemplateView, MediaContextMixin):
             },
         )
 
-    # pylint: disable=too-many-branches,unused-argument
     def post(self, request, *args, **kwargs):
         r"""
         Binds the user input data to the imprint form and validates the input.

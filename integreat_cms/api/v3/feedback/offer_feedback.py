@@ -10,7 +10,6 @@ from ...decorators import feedback_handler, json_response
 
 @feedback_handler
 @json_response
-# pylint: disable=unused-argument
 def offer_feedback(data, region, language, comment, rating, is_technical):
     """
     Store feedback about single offer in database

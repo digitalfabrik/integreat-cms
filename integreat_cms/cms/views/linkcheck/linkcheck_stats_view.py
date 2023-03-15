@@ -16,7 +16,6 @@ class LinkcheckStatsView(View):
     Return the linkcheck counter stats
     """
 
-    # pylint: disable=unused-argument
     def get(self, request, *args, **kwargs):
         r"""
         Retrieve the stats about valid/invalid/unchecked/ignored links

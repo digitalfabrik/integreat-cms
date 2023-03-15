@@ -22,11 +22,7 @@ class AbstractBaseModel(models.Model):
         """
         model_name = cls._meta.model_name
         # Build correct plural of models ending with "y"
-        if model_name.endswith("y"):
-            model_name_plural = f"{model_name[:-1]}ies"
-        else:
-            model_name_plural = f"{model_name}s"
-        return model_name_plural
+        return f"{model_name[:-1]}ies" if model_name.endswith("y") else f"{model_name}s"
 
     def get_repr(self):
         """

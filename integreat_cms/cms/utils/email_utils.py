@@ -57,8 +57,9 @@ def send_mail(
     html_message = render_to_string(html_email_template_name, context)
     email.attach_alternative(html_message, "text/html")
     # Attach logo
-    image_path = finders.find(f"logos/{settings.BRANDING}/{settings.BRANDING}-logo.png")
-    if image_path:
+    if image_path := finders.find(
+        f"logos/{settings.BRANDING}/{settings.BRANDING}-logo.png"
+    ):
         with open(image_path, mode="rb") as f:
             image = MIMEImage(f.read())
             email.attach(image)
