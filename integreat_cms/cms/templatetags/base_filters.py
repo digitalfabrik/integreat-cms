@@ -1,4 +1,5 @@
 from django import template
+from django.conf import settings
 
 register = template.Library()
 
@@ -35,3 +36,22 @@ def get_private_member(element, key):
     :rtype: object
     """
     return element[f"_{key}"]
+
+
+@register.simple_tag
+def get_mt_visibility(region, perms):
+    """
+    This tag checks whether either DEEPL or SUMM.AI is activated in the region and the user has permission to manage automatic translations.
+
+    :param region: The rcurrent region
+    :type region: ~integreat_cms.cms.models.regions.region.Region
+
+    :param perms: Permission of the user
+    :type perms: ~django.contrib.auth.context_processors.PermWrapper
+
+    :return: Whether the MT section should be shown
+    :rtype: bool
+    """
+    return "cms.manage_translations" in perms and (
+        settings.DEEPL_ENABLED or settings.SUMM_AI_ENABLED and region.summ_ai_enabled
+    )
