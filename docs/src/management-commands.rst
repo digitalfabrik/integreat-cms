@@ -101,6 +101,25 @@ Find version inconsistencies in the CMS::
 * ``MODEL``: The model to check (one of ``page``, ``event``, ``poi``)
 
 
+``replace_links``
+~~~~~~~~~~~~~~~~~
+
+Search & replace links in the content::
+
+    integreat-cms-cli replace_links SEARCH REPLACE [--region-slug REGION_SLUG] [--username USERNAME] [--commit]
+
+**Arguments:**
+
+* ``SEARCH``: The (partial) URL to search
+* ``REPLACE``: The (partial) URL to replace
+
+**Options:**
+
+* ``--region-slug REGION_SLUG``: Only replace links in the region with slug ``REGION_SLUG``
+* ``--username USERNAME``: Associate any new created translations with ``USERNAME``
+* ``--commit``: Whether changes should be written to the database
+
+
 ``summ_ai_bulk``
 ~~~~~~~~~~~~~~~~
 
