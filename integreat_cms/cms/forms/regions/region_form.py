@@ -1,5 +1,6 @@
 import json
 import logging
+import time
 from copy import deepcopy
 from zoneinfo import available_timezones
 
@@ -9,7 +10,7 @@ from django.conf import settings
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import override
-from linkcheck.listeners import disable_listeners
+from linkcheck.listeners import disable_listeners, tasks_queue
 from linkcheck.models import Link
 
 from ....gvz_api.utils import GvzRegion
@@ -18,6 +19,7 @@ from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ...constants import status
 from ...models import LanguageTreeNode, Page, PageTranslation, Region
 from ...models.regions.region import format_deepl_help_text
+from ...utils.linkcheck_utils import replace_links
 from ...utils.slug_utils import generate_unique_slug_helper
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..custom_model_form import CustomModelForm
@@ -213,6 +215,10 @@ class RegionForm(CustomModelForm):
             duplicate_media(source_region, region)
             # Create links for the most recent versions of all translations manually
             find_links(region)
+            # Replace links
+            old_link = f"{settings.WEBAPP_URL}/{source_region.slug}/"
+            new_link = f"{settings.WEBAPP_URL}/{region.slug}/"
+            replace_links(search=old_link, replace=new_link, region=region)
 
         return region
 
@@ -784,6 +790,9 @@ def find_links(region):
     # Trigger post-save signal to create link objects
     for translation in translations:
         translation.save(update_timestamp=False)
+    # Wait until all post-save signals have been processed
+    time.sleep(0.1)
+    tasks_queue.join()
     # Check whether finding links succeeded
     logger.debug(
         "Found links: %r", Link.objects.filter(Q(page_translation__page__region=region))
