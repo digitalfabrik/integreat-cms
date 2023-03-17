@@ -1,42 +1,42 @@
 repos:
-    - repo: https://github.com/shellcheck-py/shellcheck-py
-      rev: v0.8.0.4
-      hooks:
-          - id: shellcheck
-            args: [--external-sources]
-    - repo: https://github.com/pycqa/isort
-      rev: 5.12.0
-      hooks:
-          - id: isort
-    - repo: https://github.com/psf/black
-      rev: 23.1.0
-      hooks:
-          - id: black
-    - repo: https://github.com/Riverside-Healthcare/djLint
-      rev: v1.19.4
-      hooks:
-          - id: djlint-django
-    - repo: https://github.com/pre-commit/mirrors-eslint
-      rev: v8.27.0
-      hooks:
-          - id: eslint
-            files: \.[jt]sx?$
-            args: [--fix]
-            types: [file]
-            additional_dependencies:
-                - eslint@8.27.0
-                - "@typescript-eslint/eslint-plugin@5.42.1"
-                - "eslint-plugin-prefer-arrow@1.2.3"
-    - repo: https://github.com/pre-commit/mirrors-prettier
-      rev: v2.7.1
-      hooks:
-          - id: prettier
-    - repo: local
-      hooks:
-          - id: translations
-            name: translations
-            description: Check if the translation file is up-to-date
-            entry: tools/check_translations.sh
-            types_or: [python, html]
-            language: script
-            pass_filenames: false
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.8.0.4
+    hooks:
+      - id: shellcheck
+        args: [--external-sources]
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+  - repo: https://github.com/psf/black
+    rev: 23.1.0
+    hooks:
+      - id: black
+  - repo: https://github.com/Riverside-Healthcare/djLint
+    rev: v1.19.4
+    hooks:
+      - id: djlint-django
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v8.27.0
+    hooks:
+      - id: eslint
+        files: \.[jt]sx?$
+        args: [--fix]
+        types: [file]
+        additional_dependencies:
+          - eslint@8.27.0
+          - "@typescript-eslint/eslint-plugin@5.42.1"
+          - "eslint-plugin-prefer-arrow@1.2.3"
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.7.1
+    hooks:
+      - id: prettier
+  - repo: local
+    hooks:
+      - id: translations
+        name: translations
+        description: Check if the translation file is up-to-date
+        entry: tools/check_translations.sh
+        types_or: [python, html]
+        language: script
+        pass_filenames: false
