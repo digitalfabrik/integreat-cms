@@ -44,6 +44,7 @@ msgstr "Landkreis"
 #: cms/forms/users/user_filter_form.py
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/languages/region_list_section/region_list.html
 #: cms/templates/users/user_list.html
 msgid "Region"
 msgstr "Region"
@@ -1497,6 +1498,8 @@ msgid "Non-recurring events"
 msgstr "Einmalig stattfindende Veranstaltungen"
 
 #: cms/constants/region_status.py
+#: cms/templates/languages/region_list_section/region_list.html
+#: cms/templates/languages/region_list_section/region_list_row.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/settings/user_settings.html
 #: cms/templates/users/region_user_list.html
@@ -1506,6 +1509,7 @@ msgid "Active"
 msgstr "Aktiv"
 
 #: cms/constants/region_status.py cms/models/regions/region.py
+#: cms/templates/languages/region_list_section/region_list_row.html
 msgid "Hidden"
 msgstr "Versteckt"
 
@@ -5139,6 +5143,18 @@ msgstr ""
 "die <a %(link)s>DeepL Dokumentation</a>."
 
 #: cms/templates/languages/language_form.html
+msgid "Regions using this language"
+msgstr "Regionen, die diese Sprache benutzen"
+
+#: cms/templates/languages/language_form.html
+msgid "Total number of regions using this language: "
+msgstr "Die Anzahl der Regionen, die diese Sprache benutzen: "
+
+#: cms/templates/languages/language_form.html
+msgid "The language is not used in any region."
+msgstr "Die Sprache wird in keiner Region benutzt."
+
+#: cms/templates/languages/language_form.html
 msgid "Translations"
 msgstr "Übersetzungen"
 
@@ -5228,6 +5244,23 @@ msgstr "Anzahl an Regionen"
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
 
+#: cms/templates/languages/region_list_section/region_list.html
+#: cms/templates/languages/region_list_section/region_list_row.html
+#: cms/templates/languagetreenodes/languagetreenode_list.html
+msgid "Visible"
+msgstr "Sichtbar"
+
+#: cms/templates/languages/region_list_section/region_list.html
+msgid "The language is used in no region."
+msgstr "Die Sprache wird in keiner Region benutzt."
+
+#: cms/templates/languages/region_list_section/region_list_row.html
+#: cms/templates/settings/user_settings.html
+#: cms/templates/users/region_user_list_row.html
+#: cms/templates/users/user_list_row.html
+msgid "Inactive"
+msgstr "Inaktiv"
+
 #: cms/templates/languagetreenodes/languagetreenode_form.html
 #, python-format
 msgid "Edit language tree node \"%(translated_language_name)s\""
@@ -5264,10 +5297,6 @@ msgstr "Sprach-Knoten hinzufügen"
 #: cms/templates/pages/page_tree_archived.html
 msgid "Hierarchy"
 msgstr "Hierarchie"
-
-#: cms/templates/languagetreenodes/languagetreenode_list.html
-msgid "Visible"
-msgstr "sichtbar"
 
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 msgid "No language tree available yet."
@@ -6660,12 +6689,6 @@ msgstr ""
 #: cms/templates/settings/user_settings.html
 msgid "Disconnect"
 msgstr "Trennen"
-
-#: cms/templates/settings/user_settings.html
-#: cms/templates/users/region_user_list_row.html
-#: cms/templates/users/user_list_row.html
-msgid "Inactive"
-msgstr "Inaktiv"
 
 #: cms/templates/settings/user_settings.html
 msgid "Register authenticator app"
@@ -8466,6 +8489,21 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Both"
+#~ msgstr "Beide"
+
+#~ msgid "Of which the language is active: "
+#~ msgstr "Davon die Sprache activ ist: "
+
+#~ msgid "Of which the language is visible: "
+#~ msgstr "Davon die Sprache sichtbar ist: "
+
+#~ msgid "Of which the language is active and visible: "
+#~ msgstr "Davon die Sprache aktiv und sichtbar ist: "
+
+#~ msgid "Activ"
+#~ msgstr "Aktiv"
+
 #~ msgid "No icon is set"
 #~ msgstr "Kein Icon ist ausgewählt"
 
@@ -9909,9 +9947,6 @@ msgstr ""
 #~ msgid "Enter the language's name in english here"
 #~ msgstr "Name der Sprache auf Englisch hier eingeben"
 
-#~ msgid "Enter the language's native name here"
-#~ msgstr "Nativen Name der Sprache hier eingeben"
-
 #~ msgid "Enter the language's code here"
 #~ msgstr "Sprach-Code hier eingeben"
 
@@ -10242,9 +10277,6 @@ msgstr ""
 
 #~ msgid "Side by Side View"
 #~ msgstr "Übersetzungen nebeneinander anzeigen"
-
-#~ msgid "Settings for this language"
-#~ msgstr "Einstellungen für diese Sprache"
 
 #~ msgid "Deleted page"
 #~ msgstr "Gelöschte Seite"

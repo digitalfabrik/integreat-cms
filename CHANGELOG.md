@@ -6,6 +6,7 @@ UNRELEASED
 * [ [#1875](https://github.com/digitalfabrik/integreat-cms/issues/1875) ] Add automatic translation options to Pages, Events and Locations
 * [ [#2118](https://github.com/digitalfabrik/integreat-cms/issues/2118) ] Move and rename menu button for automatic translation management
 * [ [#2124](https://github.com/digitalfabrik/integreat-cms/issues/2124) ] Fixes MT for languages with faulty BCP code
+* [ [#2055](https://github.com/digitalfabrik/integreat-cms/issues/2055) ] Show specific regions that use a language
 
 
 2023.3.0

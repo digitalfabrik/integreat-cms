@@ -1,0 +1,29 @@
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% block content %}
+    <div class="table-listing">
+        <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white text-center">
+            <thead>
+                <tr class="border-b border-solid border-gray-200">
+                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% translate "Region" %}</th>
+                    <th class="text-sm text-left uppercase py-3 px-2">
+                        {% translate "Active" %} ({{ language.active_in_regions|length }})
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 px-2">
+                        {% translate "Visible" %} ({{ language.visible_in_regions|length }})
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for node in language.language_tree_nodes.all %}
+                    {% include "languages/region_list_section/region_list_row.html" %}
+                {% empty %}
+                    <tr>
+                        <td colspan="3" class="px-4 py-3">{% translate "The language is used in no region." %}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock content %}
