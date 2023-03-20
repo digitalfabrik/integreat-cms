@@ -135,7 +135,7 @@ jobs:
             - integreat_cms/locale/*/LC_MESSAGES/django.mo
   npm-install:
     docker:
-      - image: 'cimg/node:lts'
+      - image: "cimg/node:lts"
     resource_class: small
     steps:
       - checkout
@@ -165,7 +165,7 @@ jobs:
             - node_modules
   prettier:
     docker:
-      - image: 'cimg/node:lts'
+      - image: "cimg/node:lts"
     resource_class: small
     steps:
       - checkout
@@ -176,7 +176,7 @@ jobs:
           command: npx prettier --check .
   eslint:
     docker:
-      - image: 'cimg/node:lts'
+      - image: "cimg/node:lts"
     resource_class: small
     steps:
       - checkout
@@ -187,7 +187,7 @@ jobs:
           command: npx eslint .
   webpack:
     docker:
-      - image: 'cimg/node:lts'
+      - image: "cimg/node:lts"
     steps:
       - checkout
       - attach_workspace:

@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [develop]
   schedule:
-    - cron: '0 0 * * *'
+    - cron: "0 0 * * *"
 
 jobs:
   analyze:
@@ -17,30 +17,30 @@ jobs:
       fail-fast: false
       matrix:
         # Override automatic language detection by changing the below list
-        language: ['python', 'typescript']
+        language: ["python", "typescript"]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    # Install python dependencies
-    - if: matrix.language == 'python'
-      name: Setup python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.9'
-    - if: matrix.language == 'python'
-      name: Install dependencies with pip
-      run: pip install -e .[dev,pinned]
+      # Install python dependencies
+      - if: matrix.language == 'python'
+        name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+      - if: matrix.language == 'python'
+        name: Install dependencies with pip
+        run: pip install -e .[dev,pinned]
 
-    # Initializes the CodeQL tools for scanning.
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
-      with:
-         languages: ${{ matrix.language }}
-         # Override the default behavior so that the action doesn't attempt
-         # to auto-install Python dependencies
-         setup-python-dependencies: false
+      # Initializes the CodeQL tools for scanning.
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ matrix.language }}
+          # Override the default behavior so that the action doesn't attempt
+          # to auto-install Python dependencies
+          setup-python-dependencies: false
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
