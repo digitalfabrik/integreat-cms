@@ -145,6 +145,24 @@ Execute all tools at once with :github-source:`tools/code_style.sh`::
     ./tools/code_style.sh
 
 
+Release Notes
+=============
+
+Generate the release notes with :github-source:`tools/make_release_notes.sh`::
+
+    ./tools/make_release_notes.sh [--format FORMAT] [--language LANGUAGE] [--output OUTPUT] [--version VERSION] [--all] [--no-heading] [--no-subheading]
+
+**Options:**
+
+* ``--format FORMAT``: The target format of the release notes (must be one of ``md``, ``rst``, ``raw``, defaults to ``md``)
+* ``--language LANGUAGE``: The language of the release notes (must be one of ``en``, ``de``, defaults to ``en``)
+* ``--output OUTPUT``: Write the release notes to ``OUTPUT`` (defaults to ``/dev/stdout``)
+* ``--version VERSION``: Only return the entries of ``VERSION``
+* ``--all``: Whether to include all versions (only the latest per default)
+* ``--no-heading``: Whether to omit the "Release notes" heading in the document
+* ``--no-subheading``: Whether to omit the version subheading in the document (only takes effect when ``--version`` is given)
+
+
 Documentation
 =============
 

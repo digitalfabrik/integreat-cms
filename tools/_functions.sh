@@ -72,6 +72,21 @@ function print_bold {
     done
 }
 
+# This function underlines the first paramter with the second
+function print_underline {
+    echo -e "$1\n$(echo "$1" | tr '[:print:]' "$2")"
+}
+
+# This function underlines the first paramter with "="
+function print_heading {
+    echo -e "$(print_underline "$1" =)\n"
+}
+
+# This function underlines the first paramter with "-"
+function print_subheading {
+    echo -e "$(print_underline "$1" -)\n"
+}
+
 # This function prints the given prefix in the given color in front of the stdin lines. If no color is given, white (37) is used.
 # This is useful for commands which run in the background to separate its output from other commands.
 function print_prefix {
@@ -108,7 +123,7 @@ function colorize_number {
 
 # Check if the --help option is given
 if [[ -z ${SKIP_HELP_COMMAND} ]]; then
-    if [[ "$*" == *"--help"* ]] || [[ "$*" == *"-h"* ]]; then
+    if [[ "$*" == *" --help "* ]] || [[ "$*" == *" -h "* ]]; then
         echo -e "For usage details, see documentation:\n" | print_info
         echo -e "\thttps://digitalfabrik.github.io/integreat-cms/tools.html\n" | print_bold
         exit
