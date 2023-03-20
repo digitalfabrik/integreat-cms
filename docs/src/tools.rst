@@ -162,6 +162,20 @@ Generate the release notes with :github-source:`tools/make_release_notes.sh`::
 * ``--no-heading``: Whether to omit the "Release notes" heading in the document
 * ``--no-subheading``: Whether to omit the version subheading in the document (only takes effect when ``--version`` is given)
 
+Create a new release note with :github-source:`tools/new_release_note.sh`::
+
+    ./tools/new_release_note.sh ISSUE LANGUAGE TEXT [--overwrite]
+
+**Arguments:**
+
+* ``ISSUE``: The issue or PR number on GitHub
+* ``LANGUAGE``: The language of the following text (must be one of "de", "en")
+* ``TEXT``: The release note itself
+
+**Options:**
+
+* ``--overwrite``: Whether to overwrite existing release notes
+
 
 Documentation
 =============
