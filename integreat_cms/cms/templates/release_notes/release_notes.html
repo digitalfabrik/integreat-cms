@@ -1,0 +1,27 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% block content %}
+    <div>
+        <h1 class="heading !mb-3">
+            <i icon-name="scroll"></i> {% translate "Release notes" %}
+        </h1>
+        {% for year, versions in release_notes.items %}
+            {% for version, notes in versions.items %}
+                {% if version == "unreleased" %}
+                    <h2 class="text-xl mb-2">
+                        <span class="italic">{% translate "Unreleased" %}</span>
+                    </h2>
+                {% else %}
+                    <h2 class="text-2xl mb-2">
+                        <a href="https://github.com/digitalfabrik/integreat-cms/releases/tag/{{ version }}"
+                           class="hover:underline"
+                           target="_blank"
+                           rel="noopener noreferrer">{{ version }}</a>
+                    </h2>
+                {% endif %}
+                {% include "release_notes/version.html" %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endblock content %}

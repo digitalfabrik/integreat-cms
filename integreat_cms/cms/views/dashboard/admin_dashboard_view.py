@@ -4,11 +4,12 @@ from django.views.generic import TemplateView
 
 from ...models import Feedback
 from ..chat.chat_context_mixin import ChatContextMixin
+from ..release_notes.release_notes_context_mixin import ReleaseNotesContextMixin
 
 logger = logging.getLogger(__name__)
 
 
-class AdminDashboardView(TemplateView, ChatContextMixin):
+class AdminDashboardView(TemplateView, ChatContextMixin, ReleaseNotesContextMixin):
     """
     View for the admin dashboard
     """
@@ -17,6 +18,8 @@ class AdminDashboardView(TemplateView, ChatContextMixin):
     template_name = "dashboard/admin_dashboard.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "admin_dashboard"}
+    #: Whether only the latest release notes should be included
+    only_latest_release = True
 
     def get_context_data(self, **kwargs):
         r"""
