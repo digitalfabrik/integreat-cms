@@ -2,6 +2,7 @@
 [![Pylint](https://img.shields.io/badge/pylint-10.00-brightgreen)](https://www.pylint.org/)
 ![Coverage](https://img.shields.io/codeclimate/coverage/digitalfabrik/integreat-cms)
 [![PyPi](https://img.shields.io/pypi/v/integreat-cms.svg)](https://pypi.org/project/integreat-cms/)
+[![Release Notes](https://img.shields.io/badge/%F0%9F%93%9C-release%20notes-blue)](https://digitalfabrik.github.io/integreat-cms/release-notes.html)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 

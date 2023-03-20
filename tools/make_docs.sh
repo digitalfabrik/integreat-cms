@@ -112,23 +112,17 @@ sed --in-place '/\.\. autofunction:: /a \ \ \ \ \ \ :noindex:' "${APIDOC_SRC_DIR
 # shellcheck disable=SC2251
 ! grep --recursive --files-without-match ":orphan:" "${APIDOC_EXT_SRC_DIR}"/*.rst --null | xargs --null --no-run-if-empty sed --in-place '1s/^/:orphan:\n\n/'
 
-# Copy changelog to documentation files
-cp CHANGELOG.md "${DOCS_SRC_DIR}/changelog.rst"
-
-# Add changelog heading
-sed --in-place '1s/^/Changelog\n=========\n\n/' "${DOCS_SRC_DIR}/changelog.rst"
-
-# Convert markdown-links to ReStructuredText-links
-# shellcheck disable=SC2016
-sed --in-place --regexp-extended 's|\[#([0-9]+)\]\(https://github\.com/digitalfabrik/integreat-cms/issues/([0-9]+)\)|:github:`#\1 <issues/\1>`|' "${DOCS_SRC_DIR}/changelog.rst"
+# Add release notes to documentation files
+RELEASE_NOTES="${DOCS_SRC_DIR}/release-notes.rst"
+"${DEV_TOOL_DIR}/make_release_notes.sh" --format=rst --all --output="${RELEASE_NOTES}"
 
 echo -e "Compiling reStructuredText files to HTML documentation..." | print_info
 
 # Compile .rst files to html documentation
 sphinx-build -j auto -W --keep-going "${DOCS_SRC_DIR}" "${DOCS_DIST_DIR}"
 
-# Remove temporary changelog file
-rm "${DOCS_SRC_DIR}/changelog.rst"
+# Remove temporary release notes file
+rm "${RELEASE_NOTES}"
 
 # Check if script is running in CircleCI context
 if [[ -n "$CIRCLECI" ]]; then
