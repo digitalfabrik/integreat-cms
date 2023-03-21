@@ -27,26 +27,46 @@ class DeepLApi:
         self.translatable_attributes = ["title", "content", "meta_description"]
 
     @staticmethod
-    def check_availability(request, language_slug):
+    def check_availability(request, target_language):
         """
         This function checks, if the selected language is supported by DeepL
 
         :param request: request that was sent to the server
         :type request: ~django.http.HttpRequest
 
-        :param language_slug: current language slug
-        :type language_slug: str
+        :param target_language: transmitted target language
+        :type target_language: ~integreat_cms.cms.models.languages.language.Language
 
         :return: true or false
         :rtype: bool
         """
         deepl_config = apps.get_app_config("deepl_api")
-        source_language = request.region.get_source_language(language_slug)
+        source_language = request.region.get_source_language(target_language.slug)
         return (
             source_language
             and source_language.slug in deepl_config.supported_source_languages
-            and language_slug in deepl_config.supported_target_languages
+            and (
+                target_language.slug in deepl_config.supported_target_languages
+                or target_language.bcp47_tag.lower()
+                in deepl_config.supported_target_languages
+            )
         )
+
+    def get_target_language_key(self, target_language):
+        """
+        This function decides the correct target language key
+
+        :param target_language: the target language
+        :type target_language: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
+
+        :return: target_language_key which is 2 characters long for all languages except English and Portugese where the BCP tag is transmitted
+        :rtype: str
+        """
+        deepl_config = apps.get_app_config("deepl_api")
+        for code in [target_language.slug, target_language.bcp47_tag]:
+            if code.lower() in deepl_config.supported_target_languages:
+                return code
+        return None
 
     def check_usage(self, region, source_translation):
         """
@@ -130,6 +150,8 @@ class DeepLApi:
                 )
                 return
 
+            target_language_key = self.get_target_language_key(target_language)
+
             for content_object in content_objects:
                 source_translation = content_object.get_translation(
                     source_language.slug
@@ -146,12 +168,6 @@ class DeepLApi:
 
                 existing_target_translation = content_object.get_translation(
                     target_language.slug
-                )
-                # For some languages, the DeepL client expects the BCP tag instead of the short language code
-                target_language_key = (
-                    target_language.bcp47_tag
-                    if target_language.slug in ("en", "pt")
-                    else target_language.slug
                 )
 
                 # Before translating, check if translation would exceed usage limit

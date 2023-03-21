@@ -48,7 +48,7 @@ class DeepLApiConfig(AppConfig):
                     )
                     assert self.supported_source_languages
                     self.supported_target_languages = [
-                        target_languages.code.lower()[:2]
+                        target_languages.code.lower()
                         for target_languages in deepl.translator.get_target_languages()
                     ]
                     logger.debug(
