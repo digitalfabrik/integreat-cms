@@ -180,9 +180,9 @@ Create a new release note with :github-source:`tools/new_release_note.sh`::
 Documentation
 =============
 
-Generate this documentation with :github-source:`tools/generate_documentation.sh`::
+Generate this documentation with :github-source:`tools/make_docs.sh`::
 
-    ./tools/generate_documentation.sh [--clean] [--make-clean]
+    ./tools/make_docs.sh [--clean] [--make-clean]
 
 **Options:**
 

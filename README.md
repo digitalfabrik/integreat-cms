@@ -48,7 +48,7 @@ For detailed instructions, tutorials and the source code reference have a look a
 
 <p align="center">:notebook: https://digitalfabrik.github.io/integreat-cms/</p>
 
-Alternatively, you can generate it yourself using the `tools/generate_documentation.sh` script.
+Alternatively, you can generate it yourself using the `tools/make_docs.sh` script.
 
 
 ## Project Architecture / Reference
