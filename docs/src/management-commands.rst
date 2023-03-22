@@ -101,6 +101,18 @@ Find version inconsistencies in the CMS::
 * ``MODEL``: The model to check (one of ``page``, ``event``, ``poi``)
 
 
+``hix_bulk``
+~~~~~~~~~~~~
+
+Set the hix value for all pages for which it is missing::
+
+    integreat-cms-cli hix_bulk [REGION_SLUGS ...]
+
+**Arguments:**
+
+* ``REGION_SLUGS``: The slugs of the regions to process, separated by a space. If none are given, every region will be processed
+
+
 ``replace_links``
 ~~~~~~~~~~~~~~~~~
 
