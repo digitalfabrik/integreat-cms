@@ -1,0 +1,32 @@
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% block content %}
+    <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
+        <td class="pl-4 pr-2 text-left">
+            <a href="{% url 'edit_languagetreenode' region_slug=node.region.slug pk=node.pk %}">{{ node.region }}</a>
+        </td>
+        <td class="pl-2">
+            {% if node.active %}
+                <span title="{% translate "Active" %}">
+                    <i icon-name="check" class="text-green-500"></i>
+                </span>
+            {% else %}
+                <span title="{% translate "Inactive" %}">
+                    <i icon-name="x" class="text-red-500 align-text-top"></i>
+                </span>
+            {% endif %}
+        </td>
+        <td class="pl-2">
+            {% if node.active and node.visible %}
+                <span title="{% translate "Visible" %}">
+                    <i icon-name="check" class="text-green-500"></i>
+                </span>
+            {% else %}
+                <span title="{% translate "Hidden" %}">
+                    <i icon-name="x" class="text-red-500 align-text-top"></i>
+                </span>
+            {% endif %}
+        </td>
+    </tr>
+{% endblock content %}

@@ -1,5 +1,6 @@
 {% extends "_base.html" %}
 {% load i18n %}
+{% load content_filters %}
 {% block content %}
     {% load static %}
     {% load widget_tweaks %}
@@ -70,6 +71,23 @@
                         </div>
                     </div>
                 </div>
+                {% if form.instance.id %}
+                    <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                        <div class="w-full p-4 rounded bg-water-500">
+                            <h3 class="font-bold text-black">
+                                <i icon-name="map" class="mr-2"></i> {% translate "Regions using this language" %}
+                            </h3>
+                        </div>
+                        <div class="w-full p-4">
+                            {% if form.instance.language_tree_nodes.exists %}
+                                <p>{% translate "Total number of regions using this language: " %} {{ form.instance.language_tree_nodes.count }}</p>
+                                {% include "languages/region_list_section/region_list.html" %}
+                            {% else %}
+                                {% translate "The language is not used in any region." %}
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endif %}
             </div>
             <div class="w-full xl:w-1/2 xl:pl-4">
                 <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
