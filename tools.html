@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-03-14T14:20:15+00:00" />
+    <meta property="article:modified_time" content="2023-03-22T16:31:51+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Developer Tools &mdash; integreat-cms 2023.3.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -14,7 +14,8 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/sphinx_highlight.js"></script>
@@ -78,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#testing">Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#management-commands">Management Commands</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#code-quality">Code Quality</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#release-notes">Release Notes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#github-review-checker">GitHub Review Checker</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#included-functions">Included Functions</a></li>
@@ -255,6 +257,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.pois.html">POIs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.push_notifications.html">Push Notifications</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.release_notes.html">Release Notes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.roles.html">Roles</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.settings.html">Settings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.statistics.html">Statistics</a></li>
@@ -603,6 +606,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.pois.html">POIs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.push_notifications.html">Push Notifications</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.regions.html">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.release_notes.html">Release Notes</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.roles.html">Roles</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.settings.html">Settings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.statistics.html">Statistics</a></li>
@@ -789,6 +793,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.PDF_ROOT"><code class="docutils literal notranslate"><span class="pre">PDF_ROOT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.PDF_URL"><code class="docutils literal notranslate"><span class="pre">PDF_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.PER_PAGE"><code class="docutils literal notranslate"><span class="pre">PER_PAGE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.RELEASE_NOTES_DIRS"><code class="docutils literal notranslate"><span class="pre">RELEASE_NOTES_DIRS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.ROOT_URLCONF"><code class="docutils literal notranslate"><span class="pre">ROOT_URLCONF</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.RSS_FEED_URLS"><code class="docutils literal notranslate"><span class="pre">RSS_FEED_URLS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SECRET_KEY"><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a></li>
@@ -1318,64 +1323,64 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#unreleased">UNRELEASED</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">2023.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">2023.2.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">2023.2.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">2023.2.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">2023.1.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">2023.1.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">2023.1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">2022.12.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">2022.12.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id10">2022.12.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id11">2022.12.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id12">2022.11.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id13">2022.11.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id14">2022.11.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id15">2022.11.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id16">2022.11.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id17">2022.10.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id18">2022.10.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id19">2022.10.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id20">2022.9.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id21">2022.9.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id22">2022.9.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id23">2022.9.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id24">2022.9.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id25">2022.9.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id26">2022.8.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id27">2022.8.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id28">2022.8.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id29">2022.8.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id30">2022.7.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id31">2022.6.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id32">2022.6.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id33">2022.6.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id34">2022.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id35">2022.5.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id36">2022.5.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id37">2022.5.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id38">2022.5.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id39">2022.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id40">2022.4.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id41">2022.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id42">2022.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id43">2022.3.6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id44">2022.3.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id45">2022.3.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id46">2022.3.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id47">2022.3.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id48">2022.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id49">2022.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id50">2022.2.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id51">2022.2.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id52">2022.2.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id53">2022.2.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#beta">2022.2.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id54">2021.12.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="changelog.html#id55">2021.11.0-beta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release-notes.html">Release notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#unreleased">unreleased</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id1">2023.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id2">2023.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id3">2023.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id4">2023.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id5">2023.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id6">2023.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id7">2023.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id8">2022.12.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id9">2022.12.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id10">2022.12.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id11">2022.12.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id12">2022.11.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id13">2022.11.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id14">2022.11.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id15">2022.11.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id16">2022.11.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id17">2022.10.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id18">2022.10.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id19">2022.10.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id20">2022.9.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id21">2022.9.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id22">2022.9.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id23">2022.9.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id24">2022.9.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id25">2022.9.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id26">2022.8.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id27">2022.8.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id28">2022.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id29">2022.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id30">2022.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id31">2022.6.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id32">2022.6.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id33">2022.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id34">2022.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id35">2022.5.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id36">2022.5.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id37">2022.5.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id38">2022.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id39">2022.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id40">2022.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id41">2022.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id42">2022.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id43">2022.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id44">2022.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id45">2022.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id46">2022.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id47">2022.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id48">2022.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id49">2022.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id50">2022.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id51">2022.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id52">2022.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id53">2022.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#beta">2022.2.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id54">2021.12.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id55">2021.11.0-beta</a></li>
 </ul>
 </li>
 </ul>
@@ -1613,10 +1618,41 @@ with <a class="reference external" href="https://github.com/digitalfabrik/integr
 </pre></div>
 </div>
 </section>
+<section id="release-notes">
+<h2>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this heading"></a></h2>
+<p>Generate the release notes with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/make_release_notes.sh">tools/make_release_notes.sh</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">make_release_notes</span><span class="o">.</span><span class="n">sh</span> <span class="p">[</span><span class="o">--</span><span class="nb">format</span> <span class="n">FORMAT</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">language</span> <span class="n">LANGUAGE</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">output</span> <span class="n">OUTPUT</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">version</span> <span class="n">VERSION</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="nb">all</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">heading</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">subheading</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--format</span> <span class="pre">FORMAT</span></code>: The target format of the release notes (must be one of <code class="docutils literal notranslate"><span class="pre">md</span></code>, <code class="docutils literal notranslate"><span class="pre">rst</span></code>, <code class="docutils literal notranslate"><span class="pre">raw</span></code>, defaults to <code class="docutils literal notranslate"><span class="pre">md</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--language</span> <span class="pre">LANGUAGE</span></code>: The language of the release notes (must be one of <code class="docutils literal notranslate"><span class="pre">en</span></code>, <code class="docutils literal notranslate"><span class="pre">de</span></code>, defaults to <code class="docutils literal notranslate"><span class="pre">en</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--output</span> <span class="pre">OUTPUT</span></code>: Write the release notes to <code class="docutils literal notranslate"><span class="pre">OUTPUT</span></code> (defaults to <code class="docutils literal notranslate"><span class="pre">/dev/stdout</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--version</span> <span class="pre">VERSION</span></code>: Only return the entries of <code class="docutils literal notranslate"><span class="pre">VERSION</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--all</span></code>: Whether to include all versions (only the latest per default)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--no-heading</span></code>: Whether to omit the “Release notes” heading in the document</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--no-subheading</span></code>: Whether to omit the version subheading in the document (only takes effect when <code class="docutils literal notranslate"><span class="pre">--version</span></code> is given)</p></li>
+</ul>
+<p>Create a new release note with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/new_release_note.sh">tools/new_release_note.sh</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">new_release_note</span><span class="o">.</span><span class="n">sh</span> <span class="n">ISSUE</span> <span class="n">LANGUAGE</span> <span class="n">TEXT</span> <span class="p">[</span><span class="o">--</span><span class="n">overwrite</span><span class="p">]</span>
+</pre></div>
+</div>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ISSUE</span></code>: The issue or PR number on GitHub</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LANGUAGE</span></code>: The language of the following text (must be one of “de”, “en”)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TEXT</span></code>: The release note itself</p></li>
+</ul>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--overwrite</span></code>: Whether to overwrite existing release notes</p></li>
+</ul>
+</section>
 <section id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this heading"></a></h2>
-<p>Generate this documentation with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/generate_documentation.sh">tools/generate_documentation.sh</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">generate_documentation</span><span class="o">.</span><span class="n">sh</span> <span class="p">[</span><span class="o">--</span><span class="n">clean</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">make</span><span class="o">-</span><span class="n">clean</span><span class="p">]</span>
+<p>Generate this documentation with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/make_docs.sh">tools/make_docs.sh</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">make_docs</span><span class="o">.</span><span class="n">sh</span> <span class="p">[</span><span class="o">--</span><span class="n">clean</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">make</span><span class="o">-</span><span class="n">clean</span><span class="p">]</span>
 </pre></div>
 </div>
 <p><strong>Options:</strong></p>
@@ -1664,7 +1700,7 @@ This will activate both the bash options <code class="docutils literal notransla
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 14, 2023.
+      <span class="lastupdated">Last updated on Mar 22, 2023.
       </span></p>
   </div>
 
