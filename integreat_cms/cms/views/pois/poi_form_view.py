@@ -207,7 +207,7 @@ class POIFormView(
                 deepl.deepl_translate_to_languages(
                     request,
                     poi_translation_instance.poi,
-                    machine_translation_form.get_target_language_slugs(),
+                    machine_translation_form.get_target_languages(),
                     POITranslationForm,
                 )
 

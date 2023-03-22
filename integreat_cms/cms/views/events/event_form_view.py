@@ -257,7 +257,7 @@ class EventFormView(
                 deepl.deepl_translate_to_languages(
                     request,
                     event_translation_instance.event,
-                    machine_translation_form.get_target_language_slugs(),
+                    machine_translation_form.get_target_languages(),
                     EventTranslationForm,
                 )
 

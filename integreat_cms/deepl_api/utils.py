@@ -253,7 +253,7 @@ class DeepLApi:
                 region.save()
 
     def deepl_translate_to_languages(
-        self, request, source_object, target_language_slugs, form_class
+        self, request, source_object, target_languages, form_class
     ):
         """
         This function iterates over all descendants of a source language
@@ -266,17 +266,17 @@ class DeepLApi:
         :param source_object: passed content object
         :type source_object: ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel
 
-        :param target_language_slugs: slugs of the target languages into which to translate
-        :type target_language_slugs: list
+        :param target_languages: The target languages into which to translate
+        :type target_languages: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
 
         :param form_class: passed Form class of content type
         :type form_class: ~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm
         """
-        for language_slug in target_language_slugs:
-            if self.check_availability(request, language_slug):
+        for language in target_languages:
+            if self.check_availability(request, language):
                 self.deepl_translation(
                     request,
                     [source_object],
-                    language_slug,
+                    language.slug,
                     form_class,
                 )
