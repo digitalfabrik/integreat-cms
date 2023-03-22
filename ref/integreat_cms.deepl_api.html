@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-03-21T20:16:05+00:00" />
+    <meta property="article:modified_time" content="2023-03-22T14:38:43+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Deepl API &mdash; integreat-cms 2023.3.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1585,7 +1585,7 @@
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">deepl_translate_to_languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_language_slugs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/deepl_api/utils.py#L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">deepl_translate_to_languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_languages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/deepl_api/utils.py#L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function iterates over all descendants of a source language
 and invokes a translation of a single source object into each of
 those languages.</p>
@@ -1594,7 +1594,7 @@ those languages.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – passed request</p></li>
 <li><p><strong>source_object</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel" title="integreat_cms.cms.models.abstract_content_model.AbstractContentModel"><em>AbstractContentModel</em></a>) – passed content object</p></li>
-<li><p><strong>target_language_slugs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – slugs of the target languages into which to translate</p></li>
+<li><p><strong>target_languages</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a><em> [ </em><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a><em> ]</em>) – The target languages into which to translate</p></li>
 <li><p><strong>form_class</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm" title="integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm"><em>CustomContentModelForm</em></a>) – passed Form class of content type</p></li>
 </ul>
 </dd>
@@ -1654,7 +1654,7 @@ those languages.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 21, 2023.
+      <span class="lastupdated">Last updated on Mar 22, 2023.
       </span></p>
   </div>
 
