@@ -119,6 +119,9 @@ DEFAULT_REQUEST_TIMEOUT = int(
     os.environ.get("INTEGREAT_CMS_DEFAULT_REQUEST_TIMEOUT", 10)
 )
 
+#: Where release notes are stored
+RELEASE_NOTES_DIRS = os.path.join(BASE_DIR, "release_notes")
+
 
 ##############################################################
 # Firebase Push Notifications (Firebase Cloud Messaging FCM) #

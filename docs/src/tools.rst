@@ -145,12 +145,44 @@ Execute all tools at once with :github-source:`tools/code_style.sh`::
     ./tools/code_style.sh
 
 
+Release Notes
+=============
+
+Generate the release notes with :github-source:`tools/make_release_notes.sh`::
+
+    ./tools/make_release_notes.sh [--format FORMAT] [--language LANGUAGE] [--output OUTPUT] [--version VERSION] [--all] [--no-heading] [--no-subheading]
+
+**Options:**
+
+* ``--format FORMAT``: The target format of the release notes (must be one of ``md``, ``rst``, ``raw``, defaults to ``md``)
+* ``--language LANGUAGE``: The language of the release notes (must be one of ``en``, ``de``, defaults to ``en``)
+* ``--output OUTPUT``: Write the release notes to ``OUTPUT`` (defaults to ``/dev/stdout``)
+* ``--version VERSION``: Only return the entries of ``VERSION``
+* ``--all``: Whether to include all versions (only the latest per default)
+* ``--no-heading``: Whether to omit the "Release notes" heading in the document
+* ``--no-subheading``: Whether to omit the version subheading in the document (only takes effect when ``--version`` is given)
+
+Create a new release note with :github-source:`tools/new_release_note.sh`::
+
+    ./tools/new_release_note.sh ISSUE LANGUAGE TEXT [--overwrite]
+
+**Arguments:**
+
+* ``ISSUE``: The issue or PR number on GitHub
+* ``LANGUAGE``: The language of the following text (must be one of "de", "en")
+* ``TEXT``: The release note itself
+
+**Options:**
+
+* ``--overwrite``: Whether to overwrite existing release notes
+
+
 Documentation
 =============
 
-Generate this documentation with :github-source:`tools/generate_documentation.sh`::
+Generate this documentation with :github-source:`tools/make_docs.sh`::
 
-    ./tools/generate_documentation.sh [--clean] [--make-clean]
+    ./tools/make_docs.sh [--clean] [--make-clean]
 
 **Options:**
 

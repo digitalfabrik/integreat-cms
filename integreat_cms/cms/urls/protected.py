@@ -44,6 +44,7 @@ from ..views import (
     pois,
     push_notifications,
     regions,
+    release_notes,
     roles,
     settings,
     statistics,
@@ -486,6 +487,11 @@ urlpatterns = [
                 ),
             ]
         ),
+    ),
+    path(
+        "release-notes/",
+        release_notes.ReleaseNotesView.as_view(),
+        name="release_notes",
     ),
     path(
         "<region_slug>/",
@@ -1355,6 +1361,11 @@ urlpatterns = [
                     ),
                 ),
                 path("", include(user_settings_urlpatterns)),
+                path(
+                    "release-notes/",
+                    release_notes.ReleaseNotesView.as_view(),
+                    name="release_notes",
+                ),
             ]
         ),
     ),

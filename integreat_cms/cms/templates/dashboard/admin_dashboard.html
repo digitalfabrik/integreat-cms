@@ -10,6 +10,11 @@
                 {% if chat_form %}
                     {% include "chat/_chat_widget.html" with box_id="dashboard-chat" %}
                 {% endif %}
+                {% for year, versions in release_notes.items %}
+                    {% for version, notes in versions.items %}
+                        {% include "release_notes/latest_release_widget.html" with box_id="latest-release" %}
+                    {% endfor %}
+                {% endfor %}
             </div>
             <div class="xl:w-1/2">
                 <!-- Feedback Widget -->

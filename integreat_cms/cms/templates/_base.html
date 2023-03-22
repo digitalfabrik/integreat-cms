@@ -297,7 +297,10 @@
                 {% endif %}
             {% endif %}
         </div>
-        <div class="p-2 text-center absolute inset-x-0 bottom-0 bg-gray-600">{% translate "Version" %}: {{ version }}</div>
+        <div class="p-2 text-center absolute inset-x-0 bottom-0 bg-gray-600">
+            <a href="{% if request.region %}{% url "release_notes" region_slug=request.region.slug %}{% else %}{% url "release_notes" %}{% endif %}"
+               class="hover:underline">{% translate "Version" %}: {{ version }}</a>
+        </div>
     </nav>
     <main class="relative min-h-screen flex lg:pl-72 pt-14 bg-gray-100">
         <div class="flex-1 min-w-0 p-6">

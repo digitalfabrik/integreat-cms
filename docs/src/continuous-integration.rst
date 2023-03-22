@@ -118,7 +118,7 @@ build-documentation
 -------------------
 
 This job checks whether the documentation can be generated without any errors by running
-``./tools/generate_documentation.sh``.
+``./tools/make_docs.sh``.
 It passes the html documentation in ``docs`` to the :ref:`circleci-deploy-documentation` job.
 
 .. _circleci-deploy-documentation:
