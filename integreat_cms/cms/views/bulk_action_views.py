@@ -127,12 +127,15 @@ class BulkAutoTranslateView(BulkActionView):
         if not settings.DEEPL_ENABLED:
             messages.error(request, _("Automatic translations are disabled"))
             return super().post(request, *args, **kwargs)
+        language = request.region.get_language_or_404(
+            kwargs.get("language_slug"), only_active=True
+        )
         # Collect the corresponding objects
         logger.debug("Automatic translation for: %r", self.get_queryset())
         deepl = DeepLApi()
-        if deepl.check_availability(request, kwargs.get("language_slug")):
+        if deepl.check_availability(request, language):
             deepl.deepl_translation(
-                request, self.get_queryset(), kwargs.get("language_slug"), self.form
+                request, self.get_queryset(), language.slug, self.form
             )
         else:
             messages.warning(

@@ -358,7 +358,7 @@ class PageFormView(
                 deepl.deepl_translate_to_languages(
                     request,
                     page_translation_instance.page,
-                    machine_translation_form.get_target_language_slugs(),
+                    machine_translation_form.get_target_languages(),
                     PageTranslationForm,
                 )
 

@@ -1,8 +1,10 @@
 import logging
 
 from django import forms
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
+from ...models import Language, LanguageTreeNode
 from ...utils.translation_utils import mt_to_lang_is_permitted
 
 logger = logging.getLogger(__name__)
@@ -88,21 +90,20 @@ class MachineTranslationForm(forms.Form):
         cleaned_data = super().clean()
 
         if not cleaned_data["automatic_translation"]:
-            cleaned_data["translations_to_update"] = []
-            cleaned_data["translations_to_create"] = []
+            cleaned_data["translations_to_update"] = LanguageTreeNode.objects.none()
+            cleaned_data["translations_to_create"] = LanguageTreeNode.objects.none()
         return cleaned_data
 
-    def get_target_language_slugs(self):
+    def get_target_languages(self):
         """
-        Return the slugs of all selected target languages
+        Return all selected target languages
 
         :return: The target language slugs
-        :rtype: list [ str ]
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
         """
-        return (
-            self.cleaned_data["translations_to_update"]
-            .union(self.cleaned_data["translations_to_create"])
-            .values_list("language__slug", flat=True)
-            if self.is_valid()
-            else []
+        return Language.objects.filter(
+            Q(language_tree_nodes__in=self.cleaned_data.get("translations_to_update"))
+            | Q(
+                language_tree_nodes__in=self.cleaned_data.get("translations_to_create")
+            ),
         )

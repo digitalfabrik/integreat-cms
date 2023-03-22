@@ -116,7 +116,11 @@ class LanguageTreeNode(AbstractTreeNode):
             and self.region.summ_ai_enabled
         ):
             return "SUMM.AI"
-        if self.slug in deepl_config.supported_target_languages:
+        if (
+            self.slug in deepl_config.supported_target_languages
+            or self.language.bcp47_tag.lower()
+            in deepl_config.supported_target_languages
+        ):
             return "DeepL"
         return ""
 
