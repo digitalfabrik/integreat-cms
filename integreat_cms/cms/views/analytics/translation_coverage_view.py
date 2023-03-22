@@ -43,7 +43,7 @@ class TranslationCoverageView(TemplateView):
         # Cache the page tree to avoid database overhead
         pages = (
             region.pages.filter(explicitly_archived=False)
-            .prefetch_major_public_translations()
+            .prefetch_major_translations()
             .cache_tree(archived=False)
         )
         # Ignore all pages which do not have a published translation in the default language
