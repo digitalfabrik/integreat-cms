@@ -36,6 +36,12 @@ class PageTranslation(AbstractBasePageTranslation):
         verbose_name=_("page"),
     )
 
+    hix_score = models.FloatField(
+        null=True,
+        blank=True,
+        verbose_name=_("HIX score"),
+    )
+
     @cached_property
     def ancestor_path(self):
         """

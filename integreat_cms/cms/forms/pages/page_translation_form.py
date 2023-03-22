@@ -20,4 +20,4 @@ class PageTranslationForm(CustomContentModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = PageTranslation
         #: The fields of the model which should be handled by this form
-        fields = CustomContentModelForm.Meta.fields + ["slug"]
+        fields = CustomContentModelForm.Meta.fields + ["slug", "hix_score"]
