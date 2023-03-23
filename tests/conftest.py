@@ -58,6 +58,23 @@ def load_test_data(django_db_setup, django_db_blocker):
         call_command("loaddata", "integreat_cms/cms/fixtures/test_data.json")
 
 
+# pylint: disable=unused-argument
+@pytest.fixture(scope="function")
+def load_test_data_transactional(transactional_db, django_db_blocker):
+    """
+    Load the test data initially for all transactional test cases
+
+    :param transactional_db: The fixture providing transaction support for the database
+    :type transactional_db: :fixture:`transactional_db`
+
+    :param django_db_blocker: The fixture providing the database blocker
+    :type django_db_blocker: :fixture:`django_db_blocker`
+    """
+    with django_db_blocker.unblock():
+        call_command("loaddata", "integreat_cms/cms/fixtures/test_roles.json")
+        call_command("loaddata", "integreat_cms/cms/fixtures/test_data.json")
+
+
 # pylint: disable=unused-argument,redefined-outer-name
 @pytest.fixture(scope="session", params=ALL_ROLES)
 def login_role_user(request, load_test_data, django_db_blocker):

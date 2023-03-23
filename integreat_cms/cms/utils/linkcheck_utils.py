@@ -1,6 +1,18 @@
+import logging
+import time
+from copy import deepcopy
+from functools import partial
+
 from django.conf import settings
 from django.db.models import Prefetch, Q
+from linkcheck import update_lock
+from linkcheck.listeners import tasks_queue
 from linkcheck.models import Link, Url
+from lxml.html import rewrite_links
+
+from integreat_cms.cms.models import EventTranslation, PageTranslation, POITranslation
+
+logger = logging.getLogger(__name__)
 
 
 def get_urls(region_slug=None, url_ids=None, prefetch_content_objects=True):
@@ -117,3 +129,100 @@ def filter_urls(region_slug=None, url_filter=None, prefetch_content_objects=True
         urls = invalid_urls
 
     return urls, count_dict
+
+
+def replace_link_helper(old_url, new_url, link):
+    """
+    A small helper function which can be passed to :meth:`lxml.html.HtmlMixin.rewrite_links`
+
+    :param old_url: The url which should be replaced
+    :type old_url: str
+
+    :param new_url: The url which should be inserted instead of the old url
+    :type new_url: str
+
+    :param link: The current link
+    :type link: str
+
+    :return: The replaced link
+    :rtype: str
+    """
+    return new_url if link == old_url else link
+
+
+def save_new_version(translation, new_translation, user):
+    """
+    Save a new translation version
+
+    :param translation: The old translation
+    :type translation: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
+
+    :param new_translation: The new translation
+    :type new_translation: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
+
+    :param user: The creator of the new version
+    :type user: ~integreat_cms.cms.models.users.user.User
+    """
+    translation.links.all().delete()
+    new_translation.pk = None
+    new_translation.version += 1
+    new_translation.minor_edit = True
+    new_translation.creator = user
+    new_translation.save()
+    logger.debug("Created new translation version %r", new_translation)
+
+
+def replace_links(search, replace, region=None, user=None, commit=True):
+    """
+    Perform search & replace in the content links
+
+    :param search: The (partial) URL to search
+    :type search: str
+
+    :param replace: The (partial) URL to replace
+    :type replace: str
+
+    :param region: Optionally limit the replacement to one region (``None`` means a global replacement)
+    :type region: ~integreat_cms.cms.models.regions.region.Region
+
+    :param user: The creator of the replaced translations
+    :type user: ~integreat_cms.cms.models.users.user.User
+
+    :param commit: Whether changes should be written to the database
+    :type commit: bool
+    """
+    region_msg = f' of "{region!r}"' if region else ""
+    user_msg = f' by "{user!r}"' if user else ""
+    logger.info(
+        "Replacing %r with %r in content links%s%s",
+        search,
+        replace,
+        region_msg,
+        user_msg,
+    )
+    models = [PageTranslation, EventTranslation, POITranslation]
+    with update_lock:
+        for model in models:
+            filters = {f"{model.foreign_field()}__region": region} if region else {}
+            for translation in model.objects.filter(**filters).distinct(
+                model.foreign_field(), "language"
+            ):
+                new_translation = deepcopy(translation)
+                for link in translation.links.select_related("url"):
+                    url = link.url.url
+                    if search in url:
+                        fixed_url = url.replace(search, replace)
+                        new_translation.content = rewrite_links(
+                            new_translation.content,
+                            partial(replace_link_helper, url, fixed_url),
+                        )
+                        logger.debug(
+                            "Replacing %r with %r in %r", url, fixed_url, translation
+                        )
+                if new_translation.content != translation.content and commit:
+                    save_new_version(translation, new_translation, user)
+    # Wait until all post-save signals have been processed
+    logger.debug("Waiting for linkcheck listeners to update link database...")
+    time.sleep(0.1)
+    tasks_queue.join()
+    logger.info("Finished replacing %r with %r in content links", search, replace)

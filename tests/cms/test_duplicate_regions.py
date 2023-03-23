@@ -1,23 +1,44 @@
 import pytest
 from django.forms.models import model_to_dict
 from django.urls import reverse
+from django.utils import timezone
+from linkcheck.models import Link
 
 from integreat_cms.cms.constants import status
 from integreat_cms.cms.models import LanguageTreeNode, Page, Region
+from integreat_cms.cms.utils.linkcheck_utils import get_url_count
 
 
 # pylint: disable=unused-argument,too-many-locals
-@pytest.mark.django_db
-def test_duplicate_regions(load_test_data, admin_client):
+@pytest.mark.order("last")
+@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+def test_duplicate_regions(load_test_data_transactional, admin_client):
     """
     Test whether duplicating regions works as expected
 
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: tuple
+    :param load_test_data_transactional: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data_transactional`)
+    :type load_test_data_transactional: tuple
 
     :param admin_client: The fixture providing the logged in admin
     :type admin_client: :fixture:`admin_client`
     """
+    source_region = Region.objects.get(id=1)
+    target_region_slug = "cloned"
+    assert not Region.objects.filter(
+        slug=target_region_slug
+    ).exists(), "The target region should not exist before cloning"
+
+    # Assert correct preconditions for link replacement test
+    test_url = "https://integreat.app/augsburg/de/willkommen/"
+    assert Link.objects.filter(
+        url__url=test_url, page_translation__page__region=source_region
+    ).exists(), "The internal test URL should exist in the source region"
+    replaced_url = test_url.replace(source_region.slug, target_region_slug)
+    assert not Link.objects.filter(
+        url__url=replaced_url, page_translation__page__region=source_region
+    ).exists(), "The replaced internal URL not should exist in the source region"
+
+    before_cloning = timezone.now()
     url = reverse("new_region")
     response = admin_client.post(
         url,
@@ -37,7 +58,6 @@ def test_duplicate_regions(load_test_data, admin_client):
     print(response.headers)
     assert response.status_code == 302
 
-    source_region = Region.objects.get(id=1)
     target_region = Region.objects.get(slug="cloned")
 
     # Check if all cloned pages exist and are identical
@@ -73,7 +93,10 @@ def test_duplicate_regions(load_test_data, admin_client):
 
         # Check if all cloned page translations exist and are identical
         source_page_translations = source_page.translations.all()
-        target_pages_translations = target_page.translations.all()
+        # Limit target page translations to all that existed before the links might have been replaced
+        target_pages_translations = target_page.translations.filter(
+            last_updated__lt=before_cloning
+        )
         assert len(source_page_translations) == len(target_pages_translations)
         for source_page_translation, target_page_translation in zip(
             source_page_translations, target_pages_translations
@@ -86,6 +109,35 @@ def test_duplicate_regions(load_test_data, admin_client):
             )
             assert source_page_translation_dict == target_page_translation_dict
             assert target_page_translation.status == status.DRAFT
+
+    # Check if links have been cloned
+    assert (
+        get_url_count(source_region.slug)
+        == get_url_count(target_region.slug)
+        == {
+            "number_all_urls": 7,
+            "number_ignored_urls": 0,
+            "number_invalid_urls": 2,
+            "number_unchecked_urls": 0,
+            "number_valid_urls": 5,
+        }
+    ), "Links should be cloned into the new region"
+
+    # Check if internal links have been replaced
+    test_url = "https://integreat.app/augsburg/de/willkommen/"
+    assert Link.objects.filter(
+        url__url=test_url, page_translation__page__region=source_region
+    ).exists(), "The internal test URL should exist in the source region"
+    assert not Link.objects.filter(
+        url__url=test_url, page_translation__page__region=target_region
+    ).exists(), "The internal test URL should not exist in the target region"
+    replaced_url = test_url.replace(source_region.slug, target_region.slug)
+    assert not Link.objects.filter(
+        url__url=replaced_url, page_translation__page__region=source_region
+    ).exists(), "The replaced internal URL not should exist in the source region"
+    assert Link.objects.filter(
+        url__url=replaced_url, page_translation__page__region=target_region
+    ).exists(), "The replaced internal URL should exist in the target region"
 
     # Check if all cloned language tree nodes exist and are identical
     source_language_tree = source_region.language_tree_nodes.all()
