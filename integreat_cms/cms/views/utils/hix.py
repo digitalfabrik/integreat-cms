@@ -16,6 +16,8 @@ from ....textlab_api.textlab_api_client import TextlabClient
 
 logger = logging.getLogger(__name__)
 
+MAX_TEXT_LENGTH = 100_000
+
 
 @lru_cache(maxsize=512)
 def lookup_hix_score(text):
@@ -29,6 +31,9 @@ def lookup_hix_score(text):
     :return: The score for the given text
     :rtype: float
     """
+    if len(text) > MAX_TEXT_LENGTH:
+        return None
+
     try:
         return TextlabClient(
             settings.TEXTLAB_API_USERNAME, settings.TEXTLAB_API_KEY
@@ -55,7 +60,7 @@ def get_hix_score(request, region_slug):
     :rtype: ~django.http.JsonResponse
     """
     # Don't pass texts larger than 100kb to the api in order to avoid being vulnerable to dos attacks
-    if len(request.body) > 100_000:
+    if len(request.body) > MAX_TEXT_LENGTH:
         return JsonResponse({"error": "Request too large"})
     body = json.loads(request.body.decode("utf-8"))
     text = body["text"]
