@@ -2,9 +2,10 @@
  * This component renders the media library in edit mode,
  * so new directories and files can be added and the existing entries can be modified
  */
-import { FilePlus, FolderPlus, Search, Loader } from "lucide-preact";
+import { FilePlus, FolderPlus, Search, Loader, Filter, FilterX, X } from "lucide-preact";
 import { StateUpdater, useEffect, useState } from "preact/hooks";
 import { route } from "preact-router";
+import cn from "classnames";
 
 import { Directory, MediaApiPaths, MediaLibraryEntry, File } from ".";
 import Breadcrumbs from "./component/breadcrumbs";
@@ -22,6 +23,7 @@ export type LibraryProps = {
     path?: string;
     directoryId?: string;
     searchQuery?: string;
+    mediaFilter?: string;
     loadingState: [boolean, StateUpdater<boolean>];
     refreshState: [boolean, StateUpdater<boolean>];
     mediaLibraryContentState: [MediaLibraryEntry[], StateUpdater<MediaLibraryEntry[]>];
@@ -37,12 +39,11 @@ export type LibraryProps = {
     selectionMode?: boolean;
     onlyImage?: boolean;
     selectMedia?: (file: File) => any;
-    /* eslint-disable-next-line react/no-unused-prop-types */
     ajaxRequest: (
         url: string,
         urlParams: URLSearchParams,
         successCallback: (data: any) => void,
-        errorCallback?: (data: any) => void
+        loadingSetter?: StateUpdater<boolean>
     ) => void;
     canDeleteFile: boolean;
     canReplaceFile: boolean;
@@ -52,6 +53,7 @@ export type LibraryProps = {
 const Library = ({
     directoryId,
     searchQuery,
+    mediaFilter,
     loadingState,
     refreshState,
     mediaLibraryContentState,
@@ -70,9 +72,10 @@ const Library = ({
     canDeleteFile,
     canReplaceFile,
     canDeleteDirectory,
+    ajaxRequest,
 }: LibraryProps) => {
     // The directory path contains the current directory and all its parents
-    const [directoryPath, _setDirectoryPath] = directoryPathState;
+    const [directoryPath, setDirectoryPath] = directoryPathState;
     // The current directory is the last element of the directory path
     const directory = directoryPath[directoryPath.length - 1];
     // The directory content contains all subdirectories and files of the current directory
@@ -177,59 +180,107 @@ const Library = ({
         <div className="flex flex-col flex-grow h-full overflow-hidden">
             <h1 className="w-full heading p-2">{mediaTranslations.heading_media_library}</h1>
             <div className="flex flex-wrap justify-between gap-x-2 gap-y-4">
-                <div id="table-search" class="flex">
-                    <form
-                        id="media-move-form"
-                        class="hidden"
-                        method="POST"
-                        encType="multipart/form-data"
-                        onSubmit={submitForm}
-                        action={apiEndpoints.moveFile}>
-                        <input name="mediafile_id" value={draggedItem?.id} />
-                        <input name="parent_directory" id="parent_directory" />
-                        <input id="media-move-btn" type="submit" />
-                    </form>
-                    <form
-                        id="media-search-form"
-                        class="relative"
-                        onSubmit={(event) => {
-                            event.preventDefault();
-                            const searchInput = document.getElementById("table-search-input") as HTMLInputElement;
-                            console.debug(`Search form submitted with query "${searchInput.value}"...`);
-                            if (!searchInput.value) {
-                                console.debug(`Search query empty, returning to the home directory...`);
-                                route("/");
-                            } else {
-                                route(`/search/${encodeURIComponent(searchInput.value)}`);
-                            }
-                        }}>
-                        <input
-                            id="table-search-input"
-                            form="media-search-form"
-                            type="search"
-                            autocomplete="off"
-                            placeholder={mediaTranslations.btn_search}
-                            class="rounded-r-none"
-                            data-url={apiEndpoints.getSearchSuggestions}
-                            data-object-type="media"
-                            data-archived="false"
-                            value={searchQuery}
-                        />
-                        <div
-                            id="table-search-suggestions"
-                            class="absolute hidden shadow rounded-b top-full bg-graz-200 w-full z-10 max-h-60 overflow-y-auto cursor-pointer"
-                        />
-                    </form>
-                    <button
-                        id="search-submit-btn"
-                        title={mediaTranslations.btn_search}
-                        class="bg-blue-500 hover:bg-blue-600 text-white rounded-r py-2 px-3"
-                        type="submit"
-                        form="media-search-form">
-                        <Search className="w-5" />
-                    </button>
+                <div className="flex flex-wrap justify-start gap-2">
+                    <div id="table-search" class="flex">
+                        <form
+                            id="media-move-form"
+                            class="hidden"
+                            method="POST"
+                            encType="multipart/form-data"
+                            onSubmit={submitForm}
+                            action={apiEndpoints.moveFile}>
+                            <input name="mediafile_id" value={draggedItem?.id} />
+                            <input name="parent_directory" id="parent_directory" />
+                            <input id="media-move-btn" type="submit" />
+                        </form>
+                        <form
+                            id="media-search-form"
+                            class="relative"
+                            onSubmit={(event) => {
+                                event.preventDefault();
+                                const searchInput = document.getElementById("table-search-input") as HTMLInputElement;
+                                console.debug(`Search form submitted with query "${searchInput.value}"...`);
+                                if (!searchInput.value) {
+                                    console.debug(`Search query empty, returning to the home directory...`);
+                                    route("/");
+                                } else {
+                                    // Clear focus
+                                    if (document.activeElement instanceof HTMLElement) {
+                                        document.activeElement.blur();
+                                    }
+                                    setDirectoryPath([]);
+                                    route(`/search/${encodeURIComponent(searchInput.value)}`);
+                                }
+                            }}>
+                            <input
+                                id="table-search-input"
+                                form="media-search-form"
+                                type="search"
+                                autocomplete="off"
+                                placeholder={mediaTranslations.btn_search}
+                                className={cn("rounded-r-none", {
+                                    "!bg-gray-100 !border-gray-100": selectionMode,
+                                })}
+                                data-url={apiEndpoints.getSearchSuggestions}
+                                data-object-type="media"
+                                data-archived="false"
+                                value={searchQuery}
+                            />
+                            <div
+                                id="table-search-suggestions"
+                                class="absolute hidden shadow rounded-b top-full bg-graz-200 w-full z-10 max-h-60 overflow-y-auto cursor-pointer"
+                            />
+                        </form>
+                        {searchQuery && (
+                            <button
+                                id="search-reset-btn"
+                                title={mediaTranslations.btn_reset_search}
+                                className={cn("hover:bg-gray-300 text-gray-800 py-2 px-3", {
+                                    "bg-gray-100 border-gray-100": selectionMode,
+                                    "bg-gray-200 border-gray-200": !selectionMode,
+                                })}
+                                type="button">
+                                <X className="w-5" />
+                            </button>
+                        )}
+                        <button
+                            id="search-submit-btn"
+                            title={mediaTranslations.btn_search}
+                            class="bg-blue-500 hover:bg-blue-600 text-white rounded-r py-2 px-3"
+                            type="submit"
+                            form="media-search-form">
+                            <Search className="w-5" />
+                        </button>
+                    </div>
+                    <div>
+                        {mediaFilter ? (
+                            <button
+                                id="show-all-files-btn"
+                                title={mediaTranslations.btn_reset_filter}
+                                className="btn"
+                                type="submit"
+                                onClick={() => route("/")}>
+                                <FilterX className="inline-block mr-2 h-5" />
+                                {mediaTranslations.btn_reset_filter}
+                            </button>
+                        ) : (
+                            <button
+                                id="unused-media-filter-btn"
+                                title={mediaTranslations.btn_filter_unused}
+                                className="btn"
+                                type="submit"
+                                action={apiEndpoints.filterUnusedMediaFiles}
+                                onClick={() => {
+                                    setDirectoryPath([]);
+                                    route("/filter/unused/");
+                                }}>
+                                <Filter className="inline-block mr-2 h-5" />
+                                {mediaTranslations.btn_filter_unused}
+                            </button>
+                        )}
+                    </div>
                 </div>
-                {(globalEdit || !directory?.isGlobal) && !searchQuery && (
+                {(globalEdit || !directory?.isGlobal) && !searchQuery && !mediaFilter && (
                     <div className="flex flex-wrap justify-start gap-2">
                         <button
                             title={mediaTranslations.btn_create_directory}
@@ -289,6 +340,7 @@ const Library = ({
                                 mediaTranslations={mediaTranslations}
                                 allowDrop={draggedItem !== null}
                                 dropItem={moveIntoDirectory}
+                                mediaFilter={mediaFilter}
                             />
                         </div>
                         {isLoading ? (
@@ -318,6 +370,7 @@ const Library = ({
                             apiEndpoints={apiEndpoints}
                             mediaTranslations={mediaTranslations}
                             submitForm={submitForm}
+                            ajaxRequest={ajaxRequest}
                             selectionMode={selectionMode}
                             selectMedia={selectMedia}
                             onlyImage={onlyImage}

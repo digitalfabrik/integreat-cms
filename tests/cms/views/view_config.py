@@ -2,6 +2,7 @@
 This modules contains the config for the view tests
 """
 import json
+
 from django.conf import settings
 from django.urls import reverse
 
@@ -12,14 +13,14 @@ from ...conftest import (
     ALL_ROLES,
     AUTHOR,
     EDITOR,
-    OBSERVER,
     HIGH_PRIV_STAFF_ROLES,
     MANAGEMENT,
+    OBSERVER,
     PRIV_STAFF_ROLES,
-    WRITE_ROLES,
     ROLES,
     ROOT,
     STAFF_ROLES,
+    WRITE_ROLES,
 )
 
 #: This list contains the config for all views
@@ -38,6 +39,7 @@ VIEWS = [
             ("media_admin", STAFF_ROLES),
             ("mediacenter_directory_path", STAFF_ROLES),
             ("mediacenter_get_directory_content", STAFF_ROLES),
+            ("mediacenter_filter_unused_media_files", STAFF_ROLES),
             ("new_language", STAFF_ROLES),
             ("new_offertemplate", STAFF_ROLES),
             ("new_region", STAFF_ROLES),
@@ -45,6 +47,7 @@ VIEWS = [
             ("new_user", STAFF_ROLES),
             ("offertemplates", STAFF_ROLES),
             ("poicategories", STAFF_ROLES),
+            ("release_notes", STAFF_ROLES),
             ("regions", STAFF_ROLES),
             ("roles", [ROOT]),
             ("user_settings", STAFF_ROLES),
@@ -77,6 +80,7 @@ VIEWS = [
             ("media", ROLES),
             ("mediacenter_directory_path", ROLES),
             ("mediacenter_get_directory_content", ROLES),
+            ("mediacenter_filter_unused_media_files", ROLES),
             ("new_languagetreenode", STAFF_ROLES),
             (
                 "new_languagetreenode",
@@ -116,6 +120,7 @@ VIEWS = [
                 HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
                 {"username": "new_username", "email": "new@email.address", "role": 1},
             ),
+            ("release_notes", ROLES),
             ("region_feedback", STAFF_ROLES + [MANAGEMENT]),
             ("region_users", STAFF_ROLES + [MANAGEMENT]),
             ("translation_coverage", STAFF_ROLES + [MANAGEMENT, EDITOR]),

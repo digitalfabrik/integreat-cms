@@ -3,7 +3,7 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.db.models import Q
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext as _
@@ -11,9 +11,10 @@ from django.views.generic import TemplateView
 
 from ...decorators import permission_required
 from ...forms import PageFilterForm
+from ...models import Page
+from ...utils.translation_utils import mt_is_permitted
 from ..mixins import SummAiContextMixin
 from .page_context_mixin import PageContextMixin
-from ...models import Page
 
 logger = logging.getLogger(__name__)
 
@@ -64,8 +65,7 @@ class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
         region = request.region
 
         # current language
-        language_slug = kwargs.get("language_slug")
-        if language_slug:
+        if language_slug := kwargs.get("language_slug"):
             language = region.get_language_or_404(language_slug, only_active=True)
         elif region.default_language:
             return redirect(
@@ -122,12 +122,13 @@ class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
         # Initialize page filter form
         filter_form = PageFilterForm(data=request.GET)
 
-        if filter_form.is_enabled or self.archived:
+        page_queryset = (
             # If filters are applied or only archived pages are requested, fetch all elements from the database
-            page_queryset = region.pages.all()
-        else:
+            region.pages.all()
+            if filter_form.is_enabled or self.archived
             # Else, only fetch the root pages and load the subpages dynamically via ajax
-            page_queryset = region.pages.filter(lft=1)
+            else region.pages.filter(lft=1)
+        )
 
         # Cache tree structure to reduce database queries
         pages = (
@@ -139,6 +140,11 @@ class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
         # Filter pages according to given filters, if any
         pages = filter_form.apply(pages, language_slug)
 
+        # Determine if MT is permitted
+        MT_PERMITTED = mt_is_permitted(
+            region, request.user, Page._meta.default_related_name, language_slug
+        )
+
         return render(
             request,
             self.template_name,
@@ -149,5 +155,6 @@ class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
                 "languages": region.active_languages,
                 "filter_form": filter_form,
                 "XLIFF_EXPORT_VERSION": settings.XLIFF_EXPORT_VERSION,
+                "MT_PERMITTED": MT_PERMITTED,
             },
         )

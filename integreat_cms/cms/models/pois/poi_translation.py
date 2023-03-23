@@ -1,9 +1,8 @@
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
-
 from linkcheck.models import Link
 
 from ...utils.translation_utils import gettext_many_lazy as __

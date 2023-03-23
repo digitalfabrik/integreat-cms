@@ -2,20 +2,19 @@
 This module contains all sitemap classes which are all based on :class:`django.contrib.sitemaps.Sitemap`.
 """
 import logging
-
 from abc import ABC, abstractmethod
 from urllib.parse import urlsplit
 
 from django.conf import settings
 from django.contrib.sitemaps import Sitemap
 
-from ..cms.models import (
-    PageTranslation,
-    EventTranslation,
-    POITranslation,
-    OfferTemplate,
-)
 from ..cms.constants import status
+from ..cms.models import (
+    EventTranslation,
+    OfferTemplate,
+    PageTranslation,
+    POITranslation,
+)
 
 logger = logging.getLogger(__name__)
 

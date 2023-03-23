@@ -1,5 +1,4 @@
 import pytest
-
 from django.core.management.base import CommandError
 
 from ..utils import get_command_output
@@ -10,8 +9,7 @@ def test_find_large_files_invalid_limit():
     Ensure that a negative limit throws an error
     """
     with pytest.raises(CommandError) as exc_info:
-        out, err = get_command_output("find_large_files", limit=-10)
-        assert out == err == ""
+        assert not any(get_command_output("find_large_files", limit=-10))
     assert str(exc_info.value) == "The limit cannot be negative."
 
 
@@ -20,8 +18,7 @@ def test_find_large_files_exceeding_limit():
     Ensure that a too high limit throws an error
     """
     with pytest.raises(CommandError) as exc_info:
-        out, err = get_command_output("find_large_files", limit=999)
-        assert out == err == ""
+        assert not any(get_command_output("find_large_files", limit=999))
     assert str(exc_info.value) == "Please select a limit smaller than 100."
 
 
@@ -30,8 +27,7 @@ def test_find_large_files_invalid_threshold():
     Ensure that a negative threshold throws an error
     """
     with pytest.raises(CommandError) as exc_info:
-        out, err = get_command_output("find_large_files", threshold=-10)
-        assert out == err == ""
+        assert not any(get_command_output("find_large_files", threshold=-10))
     assert str(exc_info.value) == "The threshold cannot be negative."
 
 
@@ -42,7 +38,7 @@ def test_find_large_files_valid_limit():
     """
     out, err = get_command_output("find_large_files", limit=5)
     assert "Searching the largest 5 media with more than 3MiB..." in out
-    assert err == ""
+    assert not err
 
 
 @pytest.mark.django_db
@@ -52,7 +48,7 @@ def test_find_large_files_valid_threshold():
     """
     out, err = get_command_output("find_large_files", threshold=5)
     assert "Searching the largest 10 media with more than 5MiB..." in out
-    assert err == ""
+    assert not err
 
 
 @pytest.mark.django_db
@@ -62,4 +58,4 @@ def test_find_large_files():
     """
     out, err = get_command_output("find_large_files")
     assert "No files found with these filters." in out
-    assert err == ""
+    assert not err

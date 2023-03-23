@@ -3,14 +3,14 @@ import logging
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import (
-    validate_password,
     password_validators_help_texts,
+    validate_password,
 )
 from django.utils.translation import gettext_lazy as _
 
-from ..custom_model_form import CustomModelForm
 from ...models import Role
 from ...utils.translation_utils import gettext_many_lazy as __
+from ..custom_model_form import CustomModelForm
 from .organization_field import OrganizationField
 
 logger = logging.getLogger(__name__)
@@ -141,10 +141,11 @@ class UserForm(CustomModelForm):
             user.set_password(self.cleaned_data["password"])
             user.save()
 
-        if user.is_staff:
-            role = self.cleaned_data["staff_role"]
-        else:
-            role = self.cleaned_data["role"]
+        role = (
+            self.cleaned_data["staff_role"]
+            if user.is_staff
+            else self.cleaned_data["role"]
+        )
 
         for removed_group in user.groups.exclude(id=role.id):
             # Remove unselected roles
@@ -168,8 +169,7 @@ class UserForm(CustomModelForm):
         :return: The email in lower case
         :rtype: str
         """
-        email = self.cleaned_data.get("email")
-        if email:
+        if email := self.cleaned_data.get("email"):
             email = email.lower()
         return email
 

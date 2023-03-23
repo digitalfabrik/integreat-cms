@@ -6,7 +6,6 @@ from django.utils.translation import gettext_lazy as _
 
 from ..abstract_content_model import AbstractContentModel
 
-
 logger = logging.getLogger(__name__)
 
 

@@ -7,7 +7,6 @@ For more information on this file, see :doc:`django:topics/http/urls`.
 
 from django.urls import include, path
 
-
 #: The url patterns of this module (see :doc:`django:topics/http/urls`)
 urlpatterns = [
     path("", include("integreat_cms.cms.urls.public")),

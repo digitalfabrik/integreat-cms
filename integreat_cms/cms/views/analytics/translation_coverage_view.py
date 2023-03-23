@@ -1,9 +1,8 @@
 import logging
 from collections import Counter
 
-from django.views.generic import TemplateView
 from django.utils.decorators import method_decorator
-from ...decorators import permission_required
+from django.views.generic import TemplateView
 
 from ...constants.translation_status import (
     CHOICES,
@@ -12,7 +11,7 @@ from ...constants.translation_status import (
     OUTDATED,
     UP_TO_DATE,
 )
-
+from ...decorators import permission_required
 
 logger = logging.getLogger(__name__)
 
@@ -26,7 +25,6 @@ class TranslationCoverageView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "analytics/translation_coverage.html"
 
-    # pylint: disable=too-many-locals
     def get_context_data(self, **kwargs):
         r"""
         Extend context by translation coverage data
@@ -45,7 +43,7 @@ class TranslationCoverageView(TemplateView):
         # Cache the page tree to avoid database overhead
         pages = (
             region.pages.filter(explicitly_archived=False)
-            .prefetch_major_public_translations()
+            .prefetch_major_translations()
             .cache_tree(archived=False)
         )
         # Ignore all pages which do not have a published translation in the default language

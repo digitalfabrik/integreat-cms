@@ -2,30 +2,31 @@ import logging
 from html import escape
 
 from django.apps import apps
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.http import Http404
-from django.utils import timezone as django_timezone
-from django.utils.functional import cached_property
-from django.utils.safestring import mark_safe
-from django.utils.translation import override, gettext, gettext_lazy as _
-from django.conf import settings
 from django.template.defaultfilters import floatformat
-from django.utils.functional import keep_lazy_text
+from django.urls import reverse
+from django.utils import timezone as django_timezone
+from django.utils.functional import cached_property, keep_lazy_text
+from django.utils.safestring import mark_safe
+from django.utils.translation import gettext
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import override
 
+from ....matomo_api.matomo_api_client import MatomoApiClient
 from ....nominatim_api.utils import BoundingBox
 from ...constants import (
-    region_status,
     administrative_division,
-    months,
     machine_translation_permissions,
+    months,
+    region_status,
 )
 from ...utils.translation_utils import gettext_many_lazy as __
-from ....matomo_api.matomo_api_client import MatomoApiClient
 from ..abstract_base_model import AbstractBaseModel
 from ..offers.offer_template import OfferTemplate
-
 
 logger = logging.getLogger(__name__)
 
@@ -718,10 +719,7 @@ class Region(AbstractBaseModel):
         :return: Either the archived or the non-archived pages of this region
         :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
-        if archived:
-            pages = self.archived_pages
-        else:
-            pages = self.non_archived_pages
+        pages = self.archived_pages if archived else self.non_archived_pages
         if (
             return_unrestricted_queryset
             or prefetch_translations
@@ -800,6 +798,21 @@ class Region(AbstractBaseModel):
         :rtype: int
         """
         return max(0, self.deepl_budget - self.deepl_budget_used)
+
+    @cached_property
+    def backend_edit_link(self):
+        """
+        This function returns the absolute url to the edit form of this region
+
+        :return: The url
+        :rtype: str
+        """
+        return reverse(
+            "edit_region",
+            kwargs={
+                "slug": self.slug,
+            },
+        )
 
     def __str__(self):
         """

@@ -17,10 +17,9 @@ Additionally, the error handlers in :mod:`~integreat_cms.cms.views.error_handler
 For more information on this file, see :doc:`django:topics/http/urls`.
 """
 from django.conf import settings
-from django.urls import include, path
 from django.conf.urls.static import static
 from django.contrib import admin
-
+from django.urls import include, path
 
 #: The url patterns of this module (see :doc:`django:topics/http/urls`)
 urlpatterns = [

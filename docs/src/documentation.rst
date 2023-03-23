@@ -16,9 +16,9 @@ The generation process is divided into two stages:
 Developer Tools
 ===============
 
-Generate this documentation with :github-source:`tools/generate_documentation.sh`::
+Generate this documentation with :github-source:`tools/make_docs.sh`::
 
-    ./tools/generate_documentation.sh [--clean]
+    ./tools/make_docs.sh [--clean]
 
 Apart from the two steps above, this tool also performs the additional tasks:
 

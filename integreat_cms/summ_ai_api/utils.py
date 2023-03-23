@@ -1,17 +1,15 @@
 """
 This module contains helpers for the SUMM.AI API client
 """
-import logging
 import itertools
-
+import logging
 from html import unescape
-
-from lxml.etree import SubElement, strip_tags
-from lxml.html import fromstring, tostring
 
 from django.conf import settings
 from django.contrib import messages
 from django.utils.translation import gettext as _
+from lxml.etree import strip_tags, SubElement
+from lxml.html import fromstring, tostring
 
 from ..cms.constants import status
 from ..cms.utils.translation_utils import gettext_many_lazy as __
@@ -19,7 +17,6 @@ from ..cms.utils.translation_utils import gettext_many_lazy as __
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-few-public-methods
 class TextField:
     """
     A class for simple text fields
@@ -120,7 +117,6 @@ class HTMLSegment(TextField):
                 SubElement(self.segment, "br").tail = line
 
 
-# pylint: disable=too-few-public-methods
 class HTMLField:
     """
     A class for more complex HTML fields which are splitted into segments
@@ -191,7 +187,6 @@ class HTMLField:
         )
 
 
-# pylint: disable=too-many-instance-attributes
 class TranslationHelper:
     """
     Custom helper class for interaction with SUMM.AI

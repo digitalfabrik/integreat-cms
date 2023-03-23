@@ -1,13 +1,13 @@
 import logging
 
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
 from ...decorators import permission_required
-from ...forms import RoleForm, GroupForm
+from ...forms import GroupForm, RoleForm
 from ...models import Role
 
 logger = logging.getLogger(__name__)
@@ -58,7 +58,6 @@ class RoleFormView(TemplateView):
             },
         )
 
-    # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
         r"""
         Submit :class:`~integreat_cms.cms.forms.roles.role_form.RoleForm` and save :class:`~django.contrib.auth.models.Group` object

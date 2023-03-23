@@ -8,13 +8,16 @@ from os.path import splitext
 from time import strftime
 
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import Q
+from django.db.models import Exists, OuterRef, Q, Value
+from django.db.models.functions import Concat
+from django.template.defaultfilters import filesizeformat
 from django.utils import timezone
 from django.utils.formats import localize
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-from django.template.defaultfilters import filesizeformat
-from django.core.exceptions import ValidationError
+from linkcheck.models import Link, Url
 
 from ...constants import allowed_media
 from ..abstract_base_model import AbstractBaseModel
@@ -115,6 +118,33 @@ def file_size_limit(value):
         )
 
 
+class MediaFileQuerySet(models.QuerySet):
+    """
+    Custom queryset for media files
+    """
+
+    def filter_unused(self):
+        r"""
+        Filter for unused media files
+
+        :return: The queryset of unused media files
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.media.media_file.MediaFile ]
+        """
+        urls = Url.objects.filter(
+            url=Concat(
+                Value(settings.BASE_URL), Value(settings.MEDIA_URL), OuterRef("file")
+            )
+        )
+        return self.annotate(is_embedded=Exists(urls)).filter(
+            icon_organizations__isnull=True,
+            icon_regions__isnull=True,
+            events__isnull=True,
+            pages__isnull=True,
+            pois__isnull=True,
+            is_embedded=False,
+        )
+
+
 class MediaFile(AbstractBaseModel):
     """
     The MediaFile model is used to store basic information about files which are uploaded to the CMS. This is only a
@@ -175,6 +205,9 @@ class MediaFile(AbstractBaseModel):
         help_text=_("Whether the media file is hidden in the regional media library"),
     )
 
+    #: Custom model manager for media file objects
+    objects = MediaFileQuerySet.as_manager()
+
     @property
     def url(self):
         """
@@ -194,20 +227,114 @@ class MediaFile(AbstractBaseModel):
         :rtype: str
         """
         if not self.thumbnail:
-            if self.type.startswith("image"):
-                #: Returns the path to the file itself
-                return self.url
-            return None
+            return self.url if self.type.startswith("image") else None
         return (
             f"{settings.BASE_URL}{self.thumbnail.url}?{self.last_modified.timestamp()}"
         )
+
+    @cached_property
+    def icon_usages(self):
+        """
+        Check where a media file is used as icon
+
+        :return: List of all objects that use this file as icon
+        :rtype: list
+        """
+        return (
+            list(self.icon_organizations.all())
+            + list(self.icon_regions.all())
+            + list(self.events.all())
+            + list(self.pages.all())
+            + list(self.pois.all())
+        )
+
+    @cached_property
+    def is_icon(self):
+        """
+        Check if a media file is used as icon
+
+        :return: Whether a file is an icon
+        :rtype: bool
+        """
+        return bool(self.icon_usages)
+
+    @cached_property
+    def content_usages(self):
+        """
+        Check where this media file is embedded in the content
+
+        :return: list with the search result
+        :rtype: list
+        """
+        return Link.objects.filter(url__url=self.url).distinct("object_id")
+
+    @cached_property
+    def is_embedded(self):
+        """
+        Check if a media file is embedded in the content
+
+        :return: Whether a file is embedded
+        :rtype: bool
+        """
+        return bool(self.content_usages)
+
+    @cached_property
+    def is_used(self):
+        """
+        Check if a media file is used
+
+        :return: Whether a file is used
+        :rtype: bool
+        """
+        return self.is_icon or self.is_embedded
+
+    def serialize_usages(self):
+        """
+        This methods creates a serialized dict of the file's usages. This can later be used in the AJAX calls.
+
+        :return: A serialized dictionary representation of the file's usages
+        :rtype: dict
+        """
+
+        return {
+            "isUsed": self.is_used,
+            "iconUsages": [
+                {
+                    "url": settings.BASE_URL + icon_usage.backend_edit_link,
+                    "name": f"{icon_usage}",
+                    "title": f"{icon_usage._meta.verbose_name.title()}"
+                    + (
+                        f" ({icon_usage.region})"
+                        if hasattr(icon_usage, "region")
+                        and icon_usage.region != self.region
+                        else ""
+                    ),
+                }
+                for icon_usage in self.icon_usages
+            ]
+            or None,
+            "contentUsages": [
+                {
+                    "url": settings.BASE_URL + link.content_object.backend_edit_link,
+                    "name": f"{link.content_object}",
+                    "title": f"{link.content_object.foreign_object._meta.verbose_name.title()}"
+                    + (
+                        f" ({link.content_object.foreign_object.region})"
+                        if link.content_object.foreign_object.region != self.region
+                        else ""
+                    ),
+                }
+                for link in self.content_usages
+            ]
+            or None,
+        }
 
     def serialize(self):
         """
         This methods creates a serialized string of that document. This can later be used in the AJAX calls.
 
-        :return: A serialized string representation of the document for JSON concatenation
-        :rtype: str
+        :return: A serialized dictionary representation of the document for JSON concatenation
+        :rtype: dict
         """
 
         return {

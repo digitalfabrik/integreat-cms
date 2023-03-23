@@ -1,5 +1,4 @@
 import pytest
-
 from django.urls import reverse
 
 from .view_config import PARAMETRIZED_REDIRECT_VIEWS

@@ -4,7 +4,6 @@ This is needed when the postal code is placed inside the offer's url or api requ
 """
 from django.utils.translation import gettext_lazy as _
 
-
 #: No postal code needed for this offer
 NONE = "NONE"
 #: Append postal code to offer URL

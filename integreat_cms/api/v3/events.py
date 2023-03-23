@@ -8,6 +8,7 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
 from django.utils.html import strip_tags
+
 from ..decorators import json_response
 from .locations import transform_poi
 
@@ -141,22 +142,18 @@ def transform_event_recurrences(event_translation, today):
     """
 
     event = event_translation.event
-    recurrence_rule = event.recurrence_rule
-    if not recurrence_rule:
-        return
 
-    event_is_invalid = (
-        recurrence_rule.recurrence_end_date
-        and recurrence_rule.recurrence_end_date < today
-    )
-    if event_is_invalid:
+    if not event.recurrence_rule or (
+        event.recurrence_rule.recurrence_end_date
+        and event.recurrence_rule.recurrence_end_date < today
+    ):
         return
 
     start_date = event.start_local.date()
     event_translation.id = None
 
     # Calculate all recurrences of this event
-    for recurrence_date in recurrence_rule.iter_after(start_date):
+    for recurrence_date in event.recurrence_rule.iter_after(start_date):
         if recurrence_date - max(start_date, today) > timedelta(
             days=settings.API_EVENTS_MAX_TIME_SPAN_DAYS
         ):

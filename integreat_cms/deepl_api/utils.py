@@ -1,13 +1,15 @@
-from html import unescape
 import logging
-import deepl
+from html import unescape
 
+import deepl
+from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
-from django.utils.translation import gettext as _
-from django.utils.html import strip_tags
-from django.apps import apps
 from django.db import transaction
+from django.utils.html import strip_tags
+from django.utils.translation import gettext as _
+
+from ..cms.utils.translation_utils import mt_is_permitted
 
 logger = logging.getLogger(__name__)
 
@@ -25,26 +27,46 @@ class DeepLApi:
         self.translatable_attributes = ["title", "content", "meta_description"]
 
     @staticmethod
-    def check_availability(request, language_slug):
+    def check_availability(request, target_language):
         """
         This function checks, if the selected language is supported by DeepL
 
         :param request: request that was sent to the server
         :type request: ~django.http.HttpRequest
 
-        :param language_slug: current language slug
-        :type language_slug: str
+        :param target_language: transmitted target language
+        :type target_language: ~integreat_cms.cms.models.languages.language.Language
 
         :return: true or false
         :rtype: bool
         """
         deepl_config = apps.get_app_config("deepl_api")
-        source_language = request.region.get_source_language(language_slug)
+        source_language = request.region.get_source_language(target_language.slug)
         return (
             source_language
             and source_language.slug in deepl_config.supported_source_languages
-            and language_slug in deepl_config.supported_target_languages
+            and (
+                target_language.slug in deepl_config.supported_target_languages
+                or target_language.bcp47_tag.lower()
+                in deepl_config.supported_target_languages
+            )
         )
+
+    def get_target_language_key(self, target_language):
+        """
+        This function decides the correct target language key
+
+        :param target_language: the target language
+        :type target_language: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
+
+        :return: target_language_key which is 2 characters long for all languages except English and Portugese where the BCP tag is transmitted
+        :rtype: str
+        """
+        deepl_config = apps.get_app_config("deepl_api")
+        for code in [target_language.slug, target_language.bcp47_tag]:
+            if code.lower() in deepl_config.supported_target_languages:
+                return code
+        return None
 
     def check_usage(self, region, source_translation):
         """
@@ -110,6 +132,26 @@ class DeepLApi:
             # Get target language
             target_language = region.get_language_or_404(language_slug)
             source_language = region.get_source_language(language_slug)
+
+            if content_objects and not mt_is_permitted(
+                region,
+                request.user,
+                type(content_objects[0])._meta.default_related_name,
+                language_slug,
+            ):
+                messages.error(
+                    request,
+                    _(
+                        'Machine translations are disabled for content type "{}", language "{}" or the current user.'
+                    ).format(
+                        type(content_objects[0])._meta.verbose_name.title(),
+                        target_language,
+                    ),
+                )
+                return
+
+            target_language_key = self.get_target_language_key(target_language)
+
             for content_object in content_objects:
                 source_translation = content_object.get_translation(
                     source_language.slug
@@ -127,11 +169,6 @@ class DeepLApi:
                 existing_target_translation = content_object.get_translation(
                     target_language.slug
                 )
-                # For some languages, the DeepL client expects the BCP tag instead of the short language code
-                if target_language.slug in ("en", "pt"):
-                    target_language_key = target_language.bcp47_tag
-                else:
-                    target_language_key = target_language.slug
 
                 # Before translating, check if translation would exceed usage limit
                 (
@@ -190,9 +227,11 @@ class DeepLApi:
                     )
                     messages.success(
                         request,
-                        _('{} "{}" has successfully been translated.').format(
+                        _('{} "{}" has successfully been translated ({} ➜ {}).').format(
                             type(content_object)._meta.verbose_name.title(),
                             source_translation.title,
+                            source_language,
+                            target_language,
                         ),
                     )
                 else:
@@ -212,3 +251,32 @@ class DeepLApi:
                 # Update remaining DeepL usage for the region
                 region.deepl_budget_used += word_count
                 region.save()
+
+    def deepl_translate_to_languages(
+        self, request, source_object, target_languages, form_class
+    ):
+        """
+        This function iterates over all descendants of a source language
+        and invokes a translation of a single source object into each of
+        those languages.
+
+        :param request: passed request
+        :type request: ~django.http.HttpRequest
+
+        :param source_object: passed content object
+        :type source_object: ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel
+
+        :param target_languages: The target languages into which to translate
+        :type target_languages: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
+
+        :param form_class: passed Form class of content type
+        :type form_class: ~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm
+        """
+        for language in target_languages:
+            if self.check_availability(request, language):
+                self.deepl_translation(
+                    request,
+                    [source_object],
+                    language.slug,
+                    form_class,
+                )

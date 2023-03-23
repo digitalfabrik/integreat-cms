@@ -29,8 +29,7 @@ class DismissTutorial(View):
         :rtype: ~django.http.HttpResponseRedirect
         """
 
-        tutorial_slug = kwargs.get("slug")
-        if tutorial_slug == "page-tree":
+        if (tutorial_slug := kwargs.get("slug")) == "page-tree":
             request.user.page_tree_tutorial_seen = True
         else:
             return JsonResponse(

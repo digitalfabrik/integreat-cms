@@ -1,8 +1,9 @@
 import logging
 
 from django.shortcuts import reverse
-from django.views.generic.base import RedirectView
 from django.utils.decorators import method_decorator
+from django.views.generic.base import RedirectView
+
 from ...decorators import permission_required
 
 logger = logging.getLogger(__name__)

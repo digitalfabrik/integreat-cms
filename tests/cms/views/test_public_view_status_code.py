@@ -1,5 +1,4 @@
 import pytest
-
 from django.test.client import Client
 from django.urls import reverse
 
@@ -24,10 +23,7 @@ def test_public_view_status_code(load_test_data, view_name, post_data):
     """
     client = Client()
     url = reverse(view_name)
-    if post_data:
-        response = client.post(url, data=post_data)
-    else:
-        response = client.get(url)
+    response = client.post(url, data=post_data) if post_data else client.get(url)
     print(response.headers)
     if post_data:
         # Post-views should redirect after a successful operation

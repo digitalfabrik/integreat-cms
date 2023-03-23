@@ -1,8 +1,7 @@
 from django.conf import settings
-
 from linkcheck import Linklist
 
-from .models import Page, PageTranslation, EventTranslation, POITranslation
+from .models import EventTranslation, Page, PageTranslation, POITranslation
 
 
 class ContentTranslationLinklist(Linklist):

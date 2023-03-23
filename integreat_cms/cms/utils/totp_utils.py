@@ -4,9 +4,9 @@ This module contains helper functions that are used within the TOTP registration
 
 import base64
 import io
+
 import pyotp
 import qrcode
-
 from django.conf import settings
 
 

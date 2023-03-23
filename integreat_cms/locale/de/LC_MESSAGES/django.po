@@ -44,6 +44,7 @@ msgstr "Landkreis"
 #: cms/forms/users/user_filter_form.py
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/languages/region_list_section/region_list.html
 #: cms/templates/users/user_list.html
 msgid "Region"
 msgstr "Region"
@@ -1497,6 +1498,8 @@ msgid "Non-recurring events"
 msgstr "Einmalig stattfindende Veranstaltungen"
 
 #: cms/constants/region_status.py
+#: cms/templates/languages/region_list_section/region_list.html
+#: cms/templates/languages/region_list_section/region_list_row.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/settings/user_settings.html
 #: cms/templates/users/region_user_list.html
@@ -1506,6 +1509,7 @@ msgid "Active"
 msgstr "Aktiv"
 
 #: cms/constants/region_status.py cms/models/regions/region.py
+#: cms/templates/languages/region_list_section/region_list_row.html
 msgid "Hidden"
 msgstr "Versteckt"
 
@@ -2080,6 +2084,26 @@ msgstr "Das Start-Datum kann nicht nach dem End-Datum liegen"
 #: cms/forms/statistics/statistics_filter_form.py
 msgid "The end date can't be before the start date"
 msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
+
+#: cms/forms/translations/machine_translation_form.py
+msgid "Automatic translation"
+msgstr "Automatische Übersetzungen"
+
+#: cms/forms/translations/machine_translation_form.py
+msgid ""
+"Tick if updating this content should automatically refresh or create its "
+"translations."
+msgstr ""
+"Kreuzen Sie an, um beim Aktualisieren andere Übersetzungen dieses Inhalts "
+"maschinell zu erneuern oder zu erstellen."
+
+#: cms/forms/translations/machine_translation_form.py
+msgid "Update existing translations:"
+msgstr "Bestehende Übersetzungen aktualisieren:"
+
+#: cms/forms/translations/machine_translation_form.py
+msgid "Create new translations:"
+msgstr "Neue Übersetzungen erstellen:"
 
 #: cms/forms/translations/translations_management_form.py
 msgid "Language Selection"
@@ -3062,6 +3086,10 @@ msgid "content of the page"
 msgstr "Inhalt der Seite"
 
 #: cms/models/pages/page_translation.py
+msgid "HIX score"
+msgstr "HIX-Wert"
+
+#: cms/models/pages/page_translation.py
 msgid "Live content"
 msgstr "Live-Inhalt"
 
@@ -3834,15 +3862,6 @@ msgstr "Feedback"
 msgid "Broken Links"
 msgstr "Fehlerhafte Links"
 
-#: cms/templates/_base.html cms/templates/languages/language_form.html
-msgid "Translations"
-msgstr "Übersetzungen"
-
-#: cms/templates/_base.html
-#: cms/templates/translations/translations_management.html
-msgid "Manage Translations"
-msgstr "Verwaltung"
-
 #: cms/templates/_base.html cms/templates/imprint/imprint_revisions.html
 #: cms/templates/pages/_page_xliff_import_diff.html
 #: cms/templates/pages/page_revisions.html
@@ -3864,6 +3883,10 @@ msgstr "Nachrichten"
 #: cms/templates/push_notifications/push_notification_form.html
 msgid "Settings"
 msgstr "Einstellungen"
+
+#: cms/templates/_base.html
+msgid "Machine Translations"
+msgstr "Maschinelle Übersetzungen"
 
 #: cms/templates/_base.html
 msgid "Organizations"
@@ -3949,7 +3972,7 @@ msgstr "Redaktionssystem"
 msgid "Search"
 msgstr "Suchen"
 
-#: cms/templates/_search_input.html
+#: cms/templates/_search_input.html cms/views/media/media_context_mixin.py
 msgid "Reset search"
 msgstr "Suche zurücksetzen"
 
@@ -4442,6 +4465,7 @@ msgstr "Ganztägige Veranstaltungen"
 #: cms/templates/feedback/_region_feedback_filter_form.html
 #: cms/templates/pages/_page_filter_form.html
 #: cms/templates/users/_user_filter_form.html
+#: cms/views/media/media_context_mixin.py
 msgid "Reset filter"
 msgstr "Filter zurücksetzen"
 
@@ -4551,14 +4575,6 @@ msgstr "Diese Veranstaltung löschen"
 #: cms/templates/events/event_form_sidebar/date_and_time_box.html
 msgid "Date and time"
 msgstr "Datum und Uhrzeit"
-
-#: cms/templates/events/event_form_sidebar/minor_edit_box.html
-#: cms/templates/imprint/imprint_form.html
-#: cms/templates/pages/page_form_sidebar/minor_edit_box.html
-#: cms/templates/pages/page_revisions.html
-#: cms/templates/pois/poi_form_sidebar/minor_edit_box.html
-msgid "Minor edit"
-msgstr "Geringfügige Änderung"
 
 #: cms/templates/events/event_form_sidebar/venue_box.html
 msgid "Venue"
@@ -4680,21 +4696,20 @@ msgstr "Mehrfachaktion auswählen"
 msgid "Archive events"
 msgstr "Veranstaltungen archivieren"
 
-#: cms/templates/events/event_list.html cms/templates/pois/poi_list.html
-msgid "You cannot translate into the default language"
-msgstr "Sie können nicht in die Standard-Sprache übersetzen"
+#: cms/templates/events/event_list.html
+msgid "Automatically translate this event into Easy German"
+msgstr "Diese Veranstaltung automatisch in Leichte Sprache übersetzen"
 
 #: cms/templates/events/event_list.html cms/templates/pois/poi_list.html
 msgid "Create missing translations automatically"
 msgstr "Fehlende Übersetzungen automatisch erstellen"
 
 #: cms/templates/events/event_list.html cms/templates/pois/poi_list.html
-msgid "This language is not supported by DeepL"
-msgstr "Diese Sprache wird von DeepL nicht unterstützt"
-
-#: cms/templates/events/event_list.html
-msgid "Automatically translate this event into Easy German"
-msgstr "Diese Veranstaltung automatisch in Leichte Sprache übersetzen"
+msgid ""
+"This language is not supported by any available machine translation provider."
+msgstr ""
+"Diese Sprache wird von keinem verfügbaren Anbieter maschineller "
+"Übersetzungen unterstützt."
 
 #: cms/templates/events/event_list.html
 #: cms/templates/events/event_list_archived.html
@@ -4952,6 +4967,11 @@ msgid "Link to the imprint"
 msgstr "Link zum Impressum"
 
 #: cms/templates/imprint/imprint_form.html
+#: cms/templates/pages/page_revisions.html
+msgid "Minor edit"
+msgstr "Geringfügige Änderung"
+
+#: cms/templates/imprint/imprint_form.html
 msgid "Delete imprint"
 msgstr "Impressum löschen"
 
@@ -5116,6 +5136,33 @@ msgid "or"
 msgstr "oder"
 
 #: cms/templates/languages/language_form.html
+#, python-format
+msgid ""
+"For some languages, DeepL needs a correct BCP47 tag (for example English or "
+"Portuguese). For more information, please checkout the <a %(link)s>DeepL "
+"documentation</a>."
+msgstr ""
+"Für einige Sprachen benötigt DeepL den korrekten BCP47-Tag (zum Beispiel für "
+"Englisch oder Portugiesisch). Für weitere Informationen lesen Sie bitte   "
+"die <a %(link)s>DeepL Dokumentation</a>."
+
+#: cms/templates/languages/language_form.html
+msgid "Regions using this language"
+msgstr "Regionen, die diese Sprache benutzen"
+
+#: cms/templates/languages/language_form.html
+msgid "Total number of regions using this language: "
+msgstr "Die Anzahl der Regionen, die diese Sprache benutzen: "
+
+#: cms/templates/languages/language_form.html
+msgid "The language is not used in any region."
+msgstr "Die Sprache wird in keiner Region benutzt."
+
+#: cms/templates/languages/language_form.html
+msgid "Translations"
+msgstr "Übersetzungen"
+
+#: cms/templates/languages/language_form.html
 #: cms/templates/offertemplates/offertemplate_form.html
 #: cms/templates/organizations/organization_form.html
 #: cms/templates/regions/region_form.html
@@ -5201,6 +5248,23 @@ msgstr "Anzahl an Regionen"
 msgid "No languages available yet."
 msgstr "Noch keine Sprachen vorhanden."
 
+#: cms/templates/languages/region_list_section/region_list.html
+#: cms/templates/languages/region_list_section/region_list_row.html
+#: cms/templates/languagetreenodes/languagetreenode_list.html
+msgid "Visible"
+msgstr "Sichtbar"
+
+#: cms/templates/languages/region_list_section/region_list.html
+msgid "The language is used in no region."
+msgstr "Die Sprache wird in keiner Region benutzt."
+
+#: cms/templates/languages/region_list_section/region_list_row.html
+#: cms/templates/settings/user_settings.html
+#: cms/templates/users/region_user_list_row.html
+#: cms/templates/users/user_list_row.html
+msgid "Inactive"
+msgstr "Inaktiv"
+
 #: cms/templates/languagetreenodes/languagetreenode_form.html
 #, python-format
 msgid "Edit language tree node \"%(translated_language_name)s\""
@@ -5237,10 +5301,6 @@ msgstr "Sprach-Knoten hinzufügen"
 #: cms/templates/pages/page_tree_archived.html
 msgid "Hierarchy"
 msgstr "Hierarchie"
-
-#: cms/templates/languagetreenodes/languagetreenode_list.html
-msgid "Visible"
-msgstr "sichtbar"
 
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 msgid "No language tree available yet."
@@ -5307,6 +5367,7 @@ msgid "Source"
 msgstr "Quelle"
 
 #: cms/templates/linkcheck/links_by_filter.html
+#: cms/views/media/media_context_mixin.py
 msgid "Usages"
 msgstr "Verwendungen"
 
@@ -6366,6 +6427,27 @@ msgstr "Noch keine Regionen vorhanden."
 msgid "Open Dashboard"
 msgstr "Dashboard öffnen"
 
+#: cms/templates/release_notes/latest_release_widget.html
+msgid "Changes that will be released soon"
+msgstr "Änderungen, die demnächst veröffentlicht werden"
+
+#: cms/templates/release_notes/latest_release_widget.html
+#, python-format
+msgid "What's new in version %(version)s?"
+msgstr "Was gibt es Neues in Version %(version)s?"
+
+#: cms/templates/release_notes/latest_release_widget.html
+msgid "Display all release notes"
+msgstr "Änderungsprotokoll öffnen"
+
+#: cms/templates/release_notes/release_notes.html
+msgid "Release notes"
+msgstr "Änderungsprotokoll"
+
+#: cms/templates/release_notes/release_notes.html
+msgid "Unreleased"
+msgstr "Unveröffentlicht"
+
 #: cms/templates/roles/role_form.html
 #, python-format
 msgid "Edit role \"%(role_name)s\""
@@ -6634,12 +6716,6 @@ msgid "Disconnect"
 msgstr "Trennen"
 
 #: cms/templates/settings/user_settings.html
-#: cms/templates/users/region_user_list_row.html
-#: cms/templates/users/user_list_row.html
-msgid "Inactive"
-msgstr "Inaktiv"
-
-#: cms/templates/settings/user_settings.html
 msgid "Register authenticator app"
 msgstr "Authenticator-App registrieren"
 
@@ -6689,6 +6765,10 @@ msgstr "Bild/PNG"
 #: cms/templates/statistics/statistics_overview.html
 msgid "Table Document/CSV"
 msgstr "Tabellendokument/CSV"
+
+#: cms/templates/translations/translations_management.html
+msgid "Manage machine translations"
+msgstr "Maschinelle Übersetzungen verwalten"
 
 #: cms/templates/translations/translations_management.html
 msgid "Machine Translation"
@@ -7407,6 +7487,10 @@ msgid "Search results for"
 msgstr "Suchergebnisse für"
 
 #: cms/views/media/media_context_mixin.py
+msgid "Unused media files"
+msgstr "Ungenutzte Mediendateien"
+
+#: cms/views/media/media_context_mixin.py
 msgid "Upload"
 msgstr "Hochladen"
 
@@ -7467,6 +7551,10 @@ msgid "Replace file"
 msgstr "Datei ersetzen"
 
 #: cms/views/media/media_context_mixin.py
+msgid "Show only unused"
+msgstr "Nur ungenutzte anzeigen"
+
+#: cms/views/media/media_context_mixin.py
 msgid "File name:"
 msgstr "Dateiname:"
 
@@ -7505,6 +7593,18 @@ msgstr "Diese Datei verbergen:"
 #: cms/views/media/media_context_mixin.py
 msgid "Alternative text:"
 msgstr "Alternativer Text:"
+
+#: cms/views/media/media_context_mixin.py
+msgid "As icon"
+msgstr "Als Icon"
+
+#: cms/views/media/media_context_mixin.py
+msgid "In content"
+msgstr "Im Inhalt"
+
+#: cms/views/media/media_context_mixin.py
+msgid "This file is unused."
+msgstr "Diese Datei wird nicht verwendet."
 
 #: cms/views/media/media_context_mixin.py
 msgid "Enter directory name here"
@@ -8221,6 +8321,14 @@ msgstr "Niederländisch"
 msgid "DeepL API"
 msgstr "DeepL API"
 
+#: deepl_api/utils.py summ_ai_api/summ_ai_api_client.py
+msgid ""
+"Machine translations are disabled for content type \"{}\", language \"{}\" "
+"or the current user."
+msgstr ""
+"Machinelle Übersetzungen sind für Inhaltsart \"{}\", Sprache \"{}\" oder den "
+"aktuellen Benutzer deaktiviert."
+
 #: deepl_api/utils.py
 msgid "No source translation could be found for {} \"{}\"."
 msgstr "Es konnte kein Quelltext für {} \"{}\" gefunden werden."
@@ -8234,8 +8342,8 @@ msgstr ""
 "übersteigt das verbleibende Übersetzungsbudget von {} Wörtern."
 
 #: deepl_api/utils.py
-msgid "{} \"{}\" has successfully been translated."
-msgstr "{} \"{}\" wurde erfolgreich übersetzt"
+msgid "{} \"{}\" has successfully been translated ({} ➜ {})."
+msgstr "{} \"{}\" wurde erfolgreich übersetzt ({} ➜ {})"
 
 #: deepl_api/utils.py
 msgid "{} \"{}\" could not be translated automatically."
@@ -8406,14 +8514,58 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Both"
+#~ msgstr "Beide"
+
+#~ msgid "Of which the language is active: "
+#~ msgstr "Davon die Sprache activ ist: "
+
+#~ msgid "Of which the language is visible: "
+#~ msgstr "Davon die Sprache sichtbar ist: "
+
+#~ msgid "Of which the language is active and visible: "
+#~ msgstr "Davon die Sprache aktiv und sichtbar ist: "
+
+#~ msgid "Activ"
+#~ msgstr "Aktiv"
+
 #~ msgid "No icon is set"
 #~ msgstr "Kein Icon ist ausgewählt"
+
+#~ msgid "This language is not supported by DeepL"
+#~ msgstr "Diese Sprache wird von DeepL nicht unterstützt"
+
+#~ msgid "Show all"
+#~ msgstr "Datei anzeigen"
+
+#~ msgid "Show unused media files"
+#~ msgstr "Ungenutzte Mediendateien zeigen"
+
+#~ msgid "Show all media files"
+#~ msgstr "Alle Mediendateien zeigen"
 
 #~ msgid "Currently not visible in apps"
 #~ msgstr "Wird noch nicht in den Apps angezeigt"
 
 #~ msgid "Integreat CMS core"
 #~ msgstr "Integreat CMS core"
+
+#~ msgid ""
+#~ "Machine translations have been disabled for this content type or for this "
+#~ "language"
+#~ msgstr ""
+#~ "Machinelle Übersetzungen sind für diese Inhaltsart oder diese Sprache "
+#~ "deaktiviert"
+
+#~ msgid ""
+#~ "Tick to automatically translate changes into languages that would "
+#~ "otherwise be outdated."
+#~ msgstr ""
+#~ "Kreuzen Sie an, wenn Änderungen automatisch in alle Sprachen übersetzt "
+#~ "werden sollen, die ansonsten veraltet wären."
+
+#~ msgid "Minor edit and automatic translations"
+#~ msgstr "Geringfügige Änderungen und automatische Übersetzungen"
 
 #~ msgid "Edit language tree node"
 #~ msgstr "Sprach-Knoten bearbeiten"
@@ -8423,6 +8575,9 @@ msgstr ""
 
 #~ msgid "File is hidden:"
 #~ msgstr "Datei ist verborgen:"
+
+#~ msgid "You cannot translate into the default language"
+#~ msgstr "Sie können nicht in die Standard-Sprache übersetzen"
 
 #~ msgid "Barrier free"
 #~ msgstr "Barrierefrei"
@@ -9079,9 +9234,6 @@ msgstr ""
 #~ "Die Neuigkeiten konnten nicht geladen werden. Sie können versuchen, diese "
 #~ "Seite erneut zu laden."
 
-#~ msgid "user profiles"
-#~ msgstr "Profile"
-
 #~ msgid "Read more"
 #~ msgstr "Weiterlesen"
 
@@ -9267,9 +9419,6 @@ msgstr ""
 
 #~ msgid "Enter multiple channels separated by commas."
 #~ msgstr "Mehrere Kanäle mit Kommata getrennt eingeben."
-
-#~ msgid "Upload new media file"
-#~ msgstr "Neue Mediendatei hochladen"
 
 #~ msgid "All push notifications"
 #~ msgstr "Alle Push-Benachrichtigungen"
@@ -9805,9 +9954,6 @@ msgstr ""
 #~ msgid "Insert title"
 #~ msgstr "Titel eingeben"
 
-#~ msgid "Insert content"
-#~ msgstr "Inhalt eingeben"
-
 #~ msgid "Mode"
 #~ msgstr "Modus"
 
@@ -9825,9 +9971,6 @@ msgstr ""
 
 #~ msgid "Enter the language's name in english here"
 #~ msgstr "Name der Sprache auf Englisch hier eingeben"
-
-#~ msgid "Enter the language's native name here"
-#~ msgstr "Nativen Name der Sprache hier eingeben"
 
 #~ msgid "Enter the language's code here"
 #~ msgstr "Sprach-Code hier eingeben"
@@ -10159,9 +10302,6 @@ msgstr ""
 
 #~ msgid "Side by Side View"
 #~ msgstr "Übersetzungen nebeneinander anzeigen"
-
-#~ msgid "Settings for this language"
-#~ msgstr "Einstellungen für diese Sprache"
 
 #~ msgid "Deleted page"
 #~ msgstr "Gelöschte Seite"

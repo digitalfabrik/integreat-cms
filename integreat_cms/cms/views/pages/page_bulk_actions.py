@@ -8,7 +8,8 @@ from django.views.generic.list import MultipleObjectMixin
 from ....xliff.utils import pages_to_xliff_file
 from ...models import Page
 from ...utils.pdf_utils import generate_pdf
-from ...utils.translation_utils import translate_link, gettext_many_lazy as __
+from ...utils.translation_utils import gettext_many_lazy as __
+from ...utils.translation_utils import translate_link
 from ..bulk_action_views import BulkActionView
 
 logger = logging.getLogger(__name__)
@@ -92,13 +93,12 @@ class ExportXliffView(PageBulkActionMixin, BulkActionView):
             parent__isnull=False,
         ).language
 
-        xliff_file_url = pages_to_xliff_file(
+        if xliff_file_url := pages_to_xliff_file(
             request,
             self.get_queryset(),
             [target_language],
             only_public=self.only_public,
-        )
-        if xliff_file_url:
+        ):
             # Insert link with automatic download into success message
             message = __(
                 (
@@ -163,10 +163,9 @@ class ExportMultiLanguageXliffView(PageBulkActionMixin, BulkActionView):
             if language.slug in self.request.POST.getlist("selected_language_slugs[]")
         ]
 
-        xliff_file_url = pages_to_xliff_file(
+        if xliff_file_url := pages_to_xliff_file(
             request, self.get_queryset(), target_languages, only_public=False
-        )
-        if xliff_file_url:
+        ):
             # Insert link with automatic download into success message
             message = __(
                 _(

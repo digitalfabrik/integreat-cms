@@ -3,7 +3,6 @@ This module contains all constants representing the rating of the :class:`~integ
 """
 from django.utils.translation import gettext_lazy as _
 
-
 #: Positive
 POSITIVE = True
 #: Negative

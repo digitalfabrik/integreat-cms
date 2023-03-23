@@ -1,11 +1,11 @@
 from django.contrib.auth.models import Group
 from django.db import models
-from django.utils.functional import cached_property
 from django.utils import translation
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
-from ..abstract_base_model import AbstractBaseModel
 from ...constants import roles
+from ..abstract_base_model import AbstractBaseModel
 
 
 class Role(AbstractBaseModel):

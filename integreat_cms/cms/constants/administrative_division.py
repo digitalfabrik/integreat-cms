@@ -3,7 +3,6 @@ This module contains constants which represent all possible administrative divis
 """
 from django.utils.translation import gettext_lazy as _
 
-
 #: Federal state (German: "Bundesland")
 FEDERAL_STATE = "FEDERAL_STATE"
 #: Area state (German: "Flächenland")

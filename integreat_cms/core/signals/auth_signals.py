@@ -11,7 +11,6 @@ from django.contrib.auth.signals import (
 )
 from django.dispatch import receiver
 
-
 authlog = logging.getLogger("auth")
 
 

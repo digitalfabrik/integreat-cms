@@ -1,19 +1,21 @@
 """
 This module includes functions related to the pages API endpoint.
 """
-import logging
 import json
+import logging
+
 from django.conf import settings
 from django.core.exceptions import MultipleObjectsReturned
-from django.http import JsonResponse, Http404
+from django.db.models import prefetch_related_objects
+from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404
-from django.views.decorators.csrf import csrf_exempt
+from django.utils import timezone
 from django.utils.html import strip_tags
 from django.utils.text import slugify
-from django.utils import timezone
-from django.db.models import prefetch_related_objects
-from ...cms.models import Page
+from django.views.decorators.csrf import csrf_exempt
+
 from ...cms.forms import PageTranslationForm
+from ...cms.models import Page
 from ..decorators import json_response, matomo_tracking
 
 logger = logging.getLogger(__name__)
@@ -39,10 +41,9 @@ def transform_page(page_translation):
 
     parent_page = page_translation.page.cached_parent
     if parent_page and not parent_page.explicitly_archived:
-        parent_public_translation = parent_page.get_public_translation(
+        if parent_public_translation := parent_page.get_public_translation(
             page_translation.language.slug
-        )
-        if parent_public_translation:
+        ):
             parent_absolute_url = parent_public_translation.get_absolute_url()
             parent = {
                 "id": parent_page.id,
@@ -121,8 +122,7 @@ def pages(request, region_slug, language_slug):
         .filter(explicitly_archived=False)
         .cache_tree(archived=False, language_slug=language_slug)
     ):
-        page_translation = page.get_public_translation(language_slug)
-        if page_translation:
+        if page_translation := page.get_public_translation(language_slug):
             result.append(transform_page(page_translation))
     return JsonResponse(
         result, safe=False
@@ -178,7 +178,7 @@ def get_single_page(request, language_slug):
             raise MultipleObjectsReturned(
                 "This page translation slug is not unique, please contact your server administrator."
             )
-        if len(filtered_pages) == 0:
+        if not filtered_pages:
             raise Http404("No matching page translation found for url.")
         page = filtered_pages[0]
 
@@ -219,9 +219,7 @@ def single_page(request, region_slug, language_slug):
         page = get_single_page(request, language_slug)
     except RuntimeError as e:
         return JsonResponse({"error": str(e)}, status=400)
-    # Get most recent public revision of the page
-    page_translation = page.get_public_translation(language_slug)
-    if page_translation:
+    if page_translation := page.get_public_translation(language_slug):
         return JsonResponse(transform_page(page_translation), safe=False)
 
     raise Http404("No Page matches the given url or id.")
@@ -229,7 +227,6 @@ def single_page(request, region_slug, language_slug):
 
 @matomo_tracking
 @json_response
-# pylint: disable=unused-argument
 def children(request, region_slug, language_slug):
     """
     Retrieves all children for a single page
@@ -259,7 +256,7 @@ def children(request, region_slug, language_slug):
         # simulate a virtual root node for WP compatibility
         # so that depth = 1 returns only those pages without parents (immediate children of this virtual root page)
         # like in wordpress depth = 0 will return no results in this case
-        depth = depth - 1
+        depth -= 1
     result = []
     public_region_pages = (
         request.region.pages.select_related("organization")
@@ -368,7 +365,7 @@ def push_page_translation_content(request, region_slug, language_slug):
         return JsonResponse({"status": "error"}, status=405)
 
     page = request.region.pages.filter(api_token=data["token"]).first()
-    if not page or data["token"] == "":
+    if not page or not data["token"]:
         return JsonResponse(data={"status": "denied"}, status=403)
 
     translation = page.get_translation(language_slug)

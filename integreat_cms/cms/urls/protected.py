@@ -6,14 +6,14 @@ Views which should not have login protection go into :mod:`~integreat_cms.cms.ur
 from django.urls import include, path
 
 from ..forms import (
+    EventTranslationForm,
     LanguageForm,
     LanguageTreeNodeForm,
     OfferTemplateForm,
     OrganizationForm,
-    RegionForm,
-    EventTranslationForm,
-    POITranslationForm,
     PageTranslationForm,
+    POITranslationForm,
+    RegionForm,
 )
 from ..models import (
     Event,
@@ -25,7 +25,6 @@ from ..models import (
     POICategory,
     Role,
 )
-
 from ..views import (
     analytics,
     bulk_action_views,
@@ -33,24 +32,25 @@ from ..views import (
     dashboard,
     delete_views,
     events,
+    feedback,
     form_views,
-    language_tree,
-    list_views,
-    linkcheck,
-    media,
     imprint,
+    language_tree,
+    linkcheck,
+    list_views,
+    media,
     pages,
+    poi_categories,
     pois,
     push_notifications,
     regions,
+    release_notes,
     roles,
     settings,
     statistics,
+    translations,
     users,
     utils,
-    feedback,
-    poi_categories,
-    translations,
 )
 
 #: The media library ajax url patterns are reused twice (for the admin media library and the region media library)
@@ -120,6 +120,11 @@ media_ajax_urlpatterns = [
                                 media.replace_file_ajax,
                                 name="mediacenter_replace_file",
                             ),
+                            path(
+                                "get-usages/",
+                                media.get_file_usages_ajax,
+                                name="mediacenter_get_file_usages",
+                            ),
                         ]
                     ),
                 ),
@@ -127,6 +132,11 @@ media_ajax_urlpatterns = [
                     "search/",
                     media.get_query_search_results_ajax,
                     name="mediacenter_get_search_result",
+                ),
+                path(
+                    "filter/unused/",
+                    media.get_unused_media_files_ajax,
+                    name="mediacenter_filter_unused_media_files",
                 ),
             ]
         ),
@@ -477,6 +487,11 @@ urlpatterns = [
                 ),
             ]
         ),
+    ),
+    path(
+        "release-notes/",
+        release_notes.ReleaseNotesView.as_view(),
+        name="release_notes",
     ),
     path(
         "<region_slug>/",
@@ -993,7 +1008,6 @@ urlpatterns = [
                         ]
                     ),
                 ),
-                # TODO: Change destination for delete_event, add view_event
                 path(
                     "events/",
                     include(
@@ -1347,6 +1361,11 @@ urlpatterns = [
                     ),
                 ),
                 path("", include(user_settings_urlpatterns)),
+                path(
+                    "release-notes/",
+                    release_notes.ReleaseNotesView.as_view(),
+                    name="release_notes",
+                ),
             ]
         ),
     ),

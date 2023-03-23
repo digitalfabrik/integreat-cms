@@ -5,7 +5,6 @@ from django.core.serializers import base
 from ..cms.models import Page, PageTranslation
 from . import base_serializer
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -63,8 +62,7 @@ class Serializer(base_serializer.Serializer):
             )
 
         region = next(iter(region_set))
-        target_language = next(iter(language_set))
-        if target_language == region.default_language:
+        if (target_language := next(iter(language_set))) == region.default_language:
             raise base.SerializationError(
                 "The page translation is in the region's default language."
             )
@@ -171,7 +169,6 @@ class Serializer(base_serializer.Serializer):
         self.xml.endElement("file")
 
 
-# pylint: disable=too-few-public-methods
 class Deserializer(base_serializer.Deserializer):
     """
     XLIFF deserializer class for XLIFF version 2.0
@@ -237,16 +234,13 @@ class Deserializer(base_serializer.Deserializer):
         )
 
         # Retrieve a existing target translation or create a new one
-        page_translation = page.get_translation(self.target_language.slug)
-        if not page_translation:
-            # Initial attributes passed to model constructor
-            attrs = {
-                "page": page,
-                "language": self.target_language,
-            }
-            # Get source translation to inherit status field
-            source_translation = page.get_translation(self.source_language.slug)
-            if source_translation:
-                attrs["status"] = source_translation.status
-            page_translation = PageTranslation(**attrs)
-        return page_translation
+        if page_translation := page.get_translation(self.target_language.slug):
+            return page_translation
+        # Initial attributes passed to model constructor
+        attrs = {
+            "page": page,
+            "language": self.target_language,
+        }
+        if source_translation := page.get_translation(self.source_language.slug):
+            attrs["status"] = source_translation.status
+        return PageTranslation(**attrs)

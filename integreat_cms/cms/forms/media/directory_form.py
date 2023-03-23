@@ -1,5 +1,5 @@
-from ..custom_model_form import CustomModelForm
 from ...models import Directory
+from ..custom_model_form import CustomModelForm
 
 
 class DirectoryForm(CustomModelForm):

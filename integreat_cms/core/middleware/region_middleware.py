@@ -1,4 +1,5 @@
 import logging
+
 from django.shortcuts import get_object_or_404
 from django.urls import resolve
 
@@ -51,10 +52,9 @@ class RegionMiddleware:
         """
         # Resolve current url
         resolver_match = resolve(request.path)
-        region_slug = resolver_match.kwargs.get("region_slug")
-        if not region_slug:
-            return None
-        return get_object_or_404(Region, slug=region_slug)
+        if region_slug := resolver_match.kwargs.get("region_slug"):
+            return get_object_or_404(Region, slug=region_slug)
+        return None
 
     @staticmethod
     def get_region_selection(request):

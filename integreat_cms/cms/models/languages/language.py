@@ -1,3 +1,4 @@
+from cacheops import invalidate_obj
 from django.core.validators import MinLengthValidator
 from django.db import models
 from django.utils import timezone
@@ -5,11 +6,10 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
-from cacheops import invalidate_obj
-
-from ..abstract_base_model import AbstractBaseModel
 from ...constants import countries, text_directions
 from ...utils.translation_utils import gettext_many_lazy as __
+from ..abstract_base_model import AbstractBaseModel
+from ..regions.region import Region
 
 
 class Language(AbstractBaseModel):
@@ -131,6 +131,32 @@ class Language(AbstractBaseModel):
         :rtype: str
         """
         return gettext(self.english_name)
+
+    @cached_property
+    def active_in_regions(self):
+        """
+        Returns regions in which the language is active
+
+        :return: regions in which the language is active
+        :rtype: ~django.db.models.query.QuerySet [~integreat_cms.cms.models.regions.region.Region]
+        """
+        return Region.objects.filter(
+            language_tree_nodes__language=self, language_tree_nodes__active=True
+        )
+
+    @cached_property
+    def visible_in_regions(self):
+        """
+        Returns regions in which the language is visible
+
+        :return: regions in which the language is visible
+        :rtype: ~django.db.models.query.QuerySet [~integreat_cms.cms.models.regions.region.Region]
+        """
+        return Region.objects.filter(
+            language_tree_nodes__language=self,
+            language_tree_nodes__active=True,
+            language_tree_nodes__visible=True,
+        )
 
     def save(self, *args, **kwargs):
         r"""

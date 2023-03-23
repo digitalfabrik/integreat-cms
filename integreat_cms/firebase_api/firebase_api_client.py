@@ -1,14 +1,13 @@
 import logging
-import requests
 
+import requests
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
+from ..cms.constants import push_notifications as pnt_const
 from ..cms.forms.push_notifications.push_notification_translation_form import (
     PushNotificationTranslation,
 )
-
-from ..cms.constants import push_notifications as pnt_const
 from ..cms.models import Region
 
 logger = logging.getLogger(__name__)
@@ -54,12 +53,12 @@ class FirebaseApiClient:
 
         if settings.DEBUG:
             # Prevent sending PNs to actual users in development
-            test_region = Region.objects.filter(slug=settings.TEST_REGION_SLUG).first()
-            if not test_region:
+            try:
+                self.region = Region.objects.get(slug=settings.TEST_REGION_SLUG)
+            except Region.DoesNotExist as e:
                 raise ImproperlyConfigured(
                     f"The system runs with DEBUG=True but the region with TEST_REGION_SLUG={settings.TEST_REGION_SLUG} does not exist."
-                )
-            self.region = test_region
+                ) from e
         self.region = push_notification.region
 
     def load_secondary_pnts(self):
@@ -71,7 +70,7 @@ class FirebaseApiClient:
         ).exclude(id=self.primary_pnt.id)
         for secondary_pnt in secondary_pnts:
             if (
-                secondary_pnt.title == ""
+                not secondary_pnt.title
                 and pnt_const.USE_MAIN_LANGUAGE == self.push_notification.mode
             ):
                 secondary_pnt.title = self.primary_pnt.title

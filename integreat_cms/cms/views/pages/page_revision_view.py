@@ -2,7 +2,7 @@ import logging
 
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
@@ -104,7 +104,6 @@ class PageRevisionView(PageContextMixin, TemplateView):
             },
         )
 
-    # pylint: disable=unused-argument, too-many-branches
     def post(self, request, *args, **kwargs):
         r"""
         Restore a previous revision of a page translation
@@ -153,9 +152,7 @@ class PageRevisionView(PageContextMixin, TemplateView):
 
         current_revision = page.get_translation(language.slug)
 
-        desired_status = request.POST.get("status")
-
-        if not desired_status:
+        if not (desired_status := request.POST.get("status")):
             # If the current version should be rejected, return to the latest version that is neither an auto save nor in review
             revision = page.translations.filter(
                 language=language, status__in=[status.DRAFT, status.PUBLIC]

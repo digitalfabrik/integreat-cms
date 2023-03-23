@@ -6,7 +6,7 @@ import string
 from django.core.management.base import CommandError
 from django.utils.text import slugify
 
-from ....cms.models import Region, Page
+from ....cms.models import Page, Region
 from ..debug_command import DebugCommand
 
 logger = logging.getLogger(__name__)
@@ -35,10 +35,11 @@ def duplicate_page(old_page, new_parent=None):
     new_page.id = None
     # pylint: disable=protected-access
     new_page._state.adding = True
-    if new_parent:
-        new_page = new_parent.add_child(instance=new_page)
-    else:
-        new_page = Page.add_root(instance=new_page)
+    new_page = (
+        new_parent.add_child(instance=new_page)
+        if new_parent
+        else Page.add_root(instance=new_page)
+    )
     # Fix parent field
     new_page = Page.objects.get(id=new_page.id)
     new_page.parent = new_page.get_parent(update=True)

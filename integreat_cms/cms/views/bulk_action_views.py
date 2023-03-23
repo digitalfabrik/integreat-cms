@@ -3,6 +3,7 @@ This module contains the base view for bulk actions
 """
 import logging
 
+from cacheops import invalidate_model
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -13,7 +14,6 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 from django.views.generic.list import MultipleObjectMixin
 
-from cacheops import invalidate_model
 from ...deepl_api.utils import DeepLApi
 from ...summ_ai_api.summ_ai_api_client import SummAiApiClient
 
@@ -127,12 +127,15 @@ class BulkAutoTranslateView(BulkActionView):
         if not settings.DEEPL_ENABLED:
             messages.error(request, _("Automatic translations are disabled"))
             return super().post(request, *args, **kwargs)
+        language = request.region.get_language_or_404(
+            kwargs.get("language_slug"), only_active=True
+        )
         # Collect the corresponding objects
         logger.debug("Automatic translation for: %r", self.get_queryset())
         deepl = DeepLApi()
-        if deepl.check_availability(request, kwargs.get("language_slug")):
+        if deepl.check_availability(request, language):
             deepl.deepl_translation(
-                request, self.get_queryset(), kwargs.get("language_slug"), self.form
+                request, self.get_queryset(), language.slug, self.form
             )
         else:
             messages.warning(
@@ -261,7 +264,6 @@ class BulkUpdateBooleanFieldView(BulkActionView):
         return super().post(request, *args, **kwargs)
 
 
-# pylint: disable=too-many-ancestors
 class BulkArchiveView(BulkActionView):
     """
     Bulk action for restoring multiple objects at once
@@ -303,7 +305,6 @@ class BulkArchiveView(BulkActionView):
         return super().post(request, *args, **kwargs)
 
 
-# pylint: disable=too-many-ancestors
 class BulkRestoreView(BulkActionView):
     """
     Bulk action for restoring multiple objects at once

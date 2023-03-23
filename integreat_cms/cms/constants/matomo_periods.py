@@ -4,7 +4,6 @@ This module contains all constants representing the period choices for the Matom
 """
 from django.utils.translation import gettext_lazy as _
 
-
 #: Daily
 DAY = "day"
 #: Weekly

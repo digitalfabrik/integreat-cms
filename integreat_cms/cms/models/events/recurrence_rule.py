@@ -1,16 +1,16 @@
 import datetime
 from datetime import date, datetime, time, timedelta
-from dateutil import rrule
 
+from dateutil import rrule
 from django.contrib.postgres.fields import ArrayField
 from django.core.validators import MinValueValidator
 from django.db import models
+from django.utils.timezone import make_aware
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
-from django.utils.timezone import make_aware
 
-from ..abstract_base_model import AbstractBaseModel
 from ...constants import frequency, weekdays, weeks
+from ..abstract_base_model import AbstractBaseModel
 
 
 class RecurrenceRule(AbstractBaseModel):
@@ -179,7 +179,7 @@ class RecurrenceRule(AbstractBaseModel):
             for _ in advance():
                 if next_recurrence > end_date:
                     return
-                if i % self.interval == 0:
+                if not i % self.interval:
                     yield next_recurrence
             i += 1
 

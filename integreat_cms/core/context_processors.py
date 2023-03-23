@@ -7,7 +7,6 @@ from .. import __version__
 from ..cms.constants import status
 
 
-# pylint: disable=unused-variable
 def version_processor(request):
     """
     This context processor injects the current package version into the template context.
@@ -21,7 +20,6 @@ def version_processor(request):
     return {"version": __version__}
 
 
-# pylint: disable=unused-variable
 def settings_processor(request):
     """
     This context processor injects a few settings into the template context.
@@ -37,12 +35,12 @@ def settings_processor(request):
         "BRANDING": settings.BRANDING,
         "WEBAPP_URL": settings.WEBAPP_URL,
         "DEEPL_ENABLED": settings.DEEPL_ENABLED,
+        "SUMM_AI_ENABLED": settings.SUMM_AI_ENABLED,
         "TEXTLAB_API_LANGUAGES": settings.TEXTLAB_API_LANGUAGES,
         "TEXTLAB_API_ENABLED": settings.TEXTLAB_API_ENABLED,
     }
 
 
-# pylint: disable=unused-variable
 def constants_processor(request):
     """
     This context processor injects some of our constants into the template context.

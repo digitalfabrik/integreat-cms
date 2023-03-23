@@ -3,14 +3,14 @@ import logging
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.http import Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
 from ...constants import status
 from ...decorators import permission_required
-from ...models import Language, ImprintPage
+from ...models import ImprintPage, Language
 
 logger = logging.getLogger(__name__)
 
@@ -46,8 +46,7 @@ class ImprintRevisionView(TemplateView):
         """
 
         region = request.region
-        imprint = region.imprint
-        if not imprint:
+        if not (imprint := region.imprint):
             raise Http404("No imprint found for this region")
 
         language = region.get_language_or_404(
@@ -101,7 +100,6 @@ class ImprintRevisionView(TemplateView):
             },
         )
 
-    # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
         r"""
         Restore a previous revision of an imprint page translation
@@ -170,9 +168,7 @@ class ImprintRevisionView(TemplateView):
         # Reset author to current user
         revision.creator = request.user
 
-        desired_status = request.POST.get("status")
-
-        if desired_status not in dict(status.CHOICES):
+        if (desired_status := request.POST.get("status")) not in dict(status.CHOICES):
             raise PermissionDenied(
                 f"{request.user!r} tried to restore {revision!r} of {imprint!r} with invalid status {desired_status!r}"
             )

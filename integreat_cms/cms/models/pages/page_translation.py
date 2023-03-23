@@ -1,21 +1,18 @@
 import logging
-
 from html import escape
 
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from django.template.loader import render_to_string
-
 from linkcheck.models import Link
 
 from ..decorators import modify_fields
 from .abstract_base_page_translation import AbstractBasePageTranslation
-
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +36,12 @@ class PageTranslation(AbstractBasePageTranslation):
         verbose_name=_("page"),
     )
 
+    hix_score = models.FloatField(
+        null=True,
+        blank=True,
+        verbose_name=_("HIX score"),
+    )
+
     @cached_property
     def ancestor_path(self):
         """
@@ -49,12 +52,12 @@ class PageTranslation(AbstractBasePageTranslation):
         """
         slugs = []
         for ancestor in self.page.get_cached_ancestors():
-            public_translation = ancestor.get_public_translation(self.language.slug)
-            if public_translation:
+            if public_translation := ancestor.get_public_translation(
+                self.language.slug
+            ):
                 slugs.append(public_translation.slug)
                 continue
-            translation = ancestor.get_translation(self.language.slug)
-            if translation:
+            if translation := ancestor.get_translation(self.language.slug):
                 slugs.append(translation.slug)
                 continue
             slugs.append(ancestor.best_translation.slug)

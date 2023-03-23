@@ -1,26 +1,24 @@
 import logging
 import time
-
 from copy import deepcopy
 from functools import partial
 from urllib.parse import urlencode
 
+from cacheops import invalidate_model
 from django.conf import settings
 from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, reverse
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import ListView
-from django.utils.decorators import method_decorator
-from lxml.html import rewrite_links
-
 from linkcheck import update_lock
 from linkcheck.models import Link, Url
-from cacheops import invalidate_model
+from lxml.html import rewrite_links
 
 from ...decorators import permission_required
-from ...utils.linkcheck_utils import filter_urls, get_urls
 from ...forms.linkcheck.edit_url_form import EditUrlForm
+from ...utils.linkcheck_utils import filter_urls, get_urls
 
 logger = logging.getLogger(__name__)
 
@@ -124,12 +122,11 @@ class LinkcheckListView(ListView):
         except Http404 as e:
             # If already the last page was requested, raise the error
             if request.GET.get("page") == "last":
-                raise (e)
+                raise e
             # If the page does not exist, use the last page as fallback
             logger.debug("Redirecting to last page because response was 404")
             params = {"page": "last"}
-            size = request.GET.get("size")
-            if size:
+            if size := request.GET.get("size"):
                 params["size"] = size
             return redirect(f"{request.path}?{urlencode(params)}")
 
@@ -152,8 +149,7 @@ class LinkcheckListView(ListView):
         :return: Redirect to current linkcheck tab
         :rtype: ~django.http.HttpResponseRedirect
         """
-        edit_url_id = kwargs.pop("url_id", None)
-        if edit_url_id:
+        if edit_url_id := kwargs.pop("url_id", None):
             try:
                 old_url = get_urls(
                     region_slug=request.region.slug, url_ids=[edit_url_id]

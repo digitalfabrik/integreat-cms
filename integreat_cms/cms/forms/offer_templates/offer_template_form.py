@@ -1,6 +1,6 @@
-from ..custom_model_form import CustomModelForm
 from ...models import OfferTemplate
 from ...utils.slug_utils import generate_unique_slug_helper
+from ..custom_model_form import CustomModelForm
 
 
 class OfferTemplateForm(CustomModelForm):
@@ -49,7 +49,6 @@ class OfferTemplateForm(CustomModelForm):
         :return: The valid post data
         :rtype: str
         """
-        cleaned_post_data = self.cleaned_data["post_data"]
-        if not cleaned_post_data:
-            cleaned_post_data = {}
-        return cleaned_post_data
+        if cleaned_post_data := self.cleaned_data["post_data"]:
+            return cleaned_post_data
+        return {}

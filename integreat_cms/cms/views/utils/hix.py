@@ -2,20 +2,21 @@
 This file contains functionality to communicate with the textlab api to get the hix-value
 for a given text.
 """
-from functools import lru_cache
 import json
 import logging
+from functools import lru_cache
 from urllib.error import URLError
 
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
-from ....textlab_api.textlab_api_client import TextlabClient
 from ....api.decorators import json_response
-
+from ....textlab_api.textlab_api_client import TextlabClient
 
 logger = logging.getLogger(__name__)
+
+MAX_TEXT_LENGTH = 100_000
 
 
 @lru_cache(maxsize=512)
@@ -30,6 +31,9 @@ def lookup_hix_score(text):
     :return: The score for the given text
     :rtype: float
     """
+    if len(text) > MAX_TEXT_LENGTH:
+        return None
+
     try:
         return TextlabClient(
             settings.TEXTLAB_API_USERNAME, settings.TEXTLAB_API_KEY
@@ -56,7 +60,7 @@ def get_hix_score(request, region_slug):
     :rtype: ~django.http.JsonResponse
     """
     # Don't pass texts larger than 100kb to the api in order to avoid being vulnerable to dos attacks
-    if len(request.body) > 100_000:
+    if len(request.body) > MAX_TEXT_LENGTH:
         return JsonResponse({"error": "Request too large"})
     body = json.loads(request.body.decode("utf-8"))
     text = body["text"]
@@ -65,7 +69,6 @@ def get_hix_score(request, region_slug):
         logger.warning("Received invalid text: %r", text)
         return JsonResponse({"error": f"Invalid text: '{text}'"})
 
-    score = lookup_hix_score(text)
-    if score is not None:
+    if score := lookup_hix_score(text):
         return JsonResponse({"score": score})
     return JsonResponse({"error": "Could not retrieve hix score"})

@@ -1,18 +1,15 @@
 import asyncio
 import logging
 import re
-
 from datetime import date, datetime
 from itertools import cycle
 from urllib.parse import urlencode
 
 import aiohttp
-
 from django.conf import settings
 from django.utils.translation import gettext as _
 
 from ..cms.constants import colors, matomo_periods
-
 
 logger = logging.getLogger(__name__)
 

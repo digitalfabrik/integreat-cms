@@ -4,8 +4,8 @@ from django import forms
 from django.contrib import messages
 from django.core.exceptions import FieldDoesNotExist
 from django.utils import translation
-from django.utils.translation import gettext_lazy as _
 from django.utils.text import capfirst
+from django.utils.translation import gettext_lazy as _
 
 from ..utils.text_utils import lowfirst
 

@@ -11,14 +11,13 @@ from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
 from ...decorators import permission_required
-from ...models import Region, Page
+from ...models import Page, Region
 
 logger = logging.getLogger(__name__)
 
 
 @require_POST
 @permission_required("cms.delete_region")
-# pylint: disable=unused-argument
 def delete_region(request, *args, **kwargs):
     r"""
     This view deletes a region. All content is cascade deleted. Region users, who are not assigned to any other region,

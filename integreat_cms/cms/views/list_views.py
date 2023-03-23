@@ -2,14 +2,12 @@
 This module contains list views for our models that don't need custom handling.
 """
 import logging
-from django.contrib.auth.mixins import PermissionRequiredMixin
+
 from django.conf import settings
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic.list import ListView
 
-from .mixins import (
-    ModelTemplateResponseMixin,
-    ModelConfirmationContextMixin,
-)
+from .mixins import ModelConfirmationContextMixin, ModelTemplateResponseMixin
 
 logger = logging.getLogger(__name__)
 

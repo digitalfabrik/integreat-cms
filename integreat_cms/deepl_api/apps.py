@@ -1,12 +1,11 @@
 """
 Configuration of DeepL API app
 """
+import logging
 import os
 import sys
-import logging
 
 from deepl.exceptions import DeepLException
-
 from django.apps import AppConfig
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
@@ -49,7 +48,7 @@ class DeepLApiConfig(AppConfig):
                     )
                     assert self.supported_source_languages
                     self.supported_target_languages = [
-                        target_languages.code.lower()[:2]
+                        target_languages.code.lower()
                         for target_languages in deepl.translator.get_target_languages()
                     ]
                     logger.debug(

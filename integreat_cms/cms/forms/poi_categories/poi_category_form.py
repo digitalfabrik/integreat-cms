@@ -3,7 +3,6 @@ import logging
 from ...models import POICategory
 from ..custom_model_form import CustomModelForm
 
-
 logger = logging.getLogger(__name__)
 
 

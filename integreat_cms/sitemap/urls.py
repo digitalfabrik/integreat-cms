@@ -10,10 +10,9 @@ See :mod:`~integreat_cms.core.urls` for the other namespaces of this application
 
 For more information on this file, see :doc:`django:topics/http/urls`.
 """
-from django.urls import path, include
+from django.urls import include, path
 
 from .views import SitemapIndexView, SitemapView
-
 
 #: The namespace for this URL config (see :attr:`django.urls.ResolverMatch.app_name`)
 app_name = "sitemap"

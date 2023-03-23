@@ -1,11 +1,12 @@
 import logging
 
 from django.contrib import messages
-from django.utils.translation import override, gettext_lazy as _
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import override
 
-from ..custom_model_form import CustomModelForm
 from ...constants import push_notifications
 from ...models import PushNotificationTranslation
+from ..custom_model_form import CustomModelForm
 
 logger = logging.getLogger(__name__)
 

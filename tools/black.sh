@@ -12,6 +12,3 @@ require_installed
 echo "Starting code formatting with black..." | print_info
 black "${BASE_DIR}"
 echo "✔ Code formatting finished" | print_success
-
-# Update translations (because changed formatting affects line numbers)
-bash "${DEV_TOOL_DIR}/translate.sh"

@@ -1,14 +1,15 @@
 """
 Form for submitting filter requests
 """
-from datetime import date, time, datetime
 import logging
 import zoneinfo
+from datetime import date, datetime, time
+
 from django import forms
 
-from ..custom_filter_form import CustomFilterForm
-from ...constants import all_day, recurrence, events_time_range
+from ...constants import all_day, events_time_range, recurrence
 from ...models import EventTranslation
+from ..custom_filter_form import CustomFilterForm
 
 logger = logging.getLogger(__name__)
 
@@ -87,7 +88,7 @@ class EventFilterForm(CustomFilterForm):
 
         # Filter events by time range
         cleaned_time_range = self.cleaned_data["events_time_range"]
-        if len(cleaned_time_range) == 0 or set(cleaned_time_range) == set(
+        if not cleaned_time_range or set(cleaned_time_range) == set(
             events_time_range.ALL_EVENTS
         ):
             # Either post & upcoming or no checkboxes are checked => skip filtering
@@ -109,13 +110,12 @@ class EventFilterForm(CustomFilterForm):
             # Only past events
             events = events.filter_completed()
         # Filter events for their location
-        poi = region.pois.filter(id=self.cleaned_data["poi_id"]).first()
-        if poi is not None:
+        if poi := region.pois.filter(id=self.cleaned_data["poi_id"]).first():
             events = events.filter(location=poi)
         # Filter events for their all-day property
         if (
             len(self.cleaned_data["all_day"]) == len(all_day.CHOICES)
-            or len(self.cleaned_data["all_day"]) == 0
+            or not self.cleaned_data["all_day"]
         ):
             # Either all or no checkboxes are checked => skip filtering
             pass
@@ -134,7 +134,7 @@ class EventFilterForm(CustomFilterForm):
         # Filter events for recurrence
         if (
             len(self.cleaned_data["recurring"]) == len(recurrence.CHOICES)
-            or len(self.cleaned_data["recurring"]) == 0
+            or not self.cleaned_data["recurring"]
         ):
             # Either all or no checkboxes are checked => skip filtering
             pass
@@ -145,8 +145,7 @@ class EventFilterForm(CustomFilterForm):
             # Only non-recurring events
             events = events.filter(recurrence_rule__isnull=True)
         # Filter events by the search query
-        query = self.cleaned_data["query"]
-        if query:
+        if query := self.cleaned_data["query"]:
             event_ids = EventTranslation.search(region, language_slug, query).values(
                 "event__pk"
             )

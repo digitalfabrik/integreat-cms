@@ -1,10 +1,9 @@
 import pytest
-
 from django.forms.models import model_to_dict
 from django.urls import reverse
 
 from integreat_cms.cms.constants import status
-from integreat_cms.cms.models import Region, LanguageTreeNode, Page
+from integreat_cms.cms.models import LanguageTreeNode, Page, Region
 
 
 # pylint: disable=unused-argument,too-many-locals

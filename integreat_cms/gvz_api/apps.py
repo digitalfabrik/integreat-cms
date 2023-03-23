@@ -1,11 +1,11 @@
 """
 Configuration of GVZ API app
 """
-import logging
 import json
-import requests
+import logging
 
-from django.apps import apps, AppConfig
+import requests
+from django.apps import AppConfig, apps
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 

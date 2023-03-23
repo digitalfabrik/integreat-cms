@@ -1,9 +1,7 @@
 import logging
 import os
 
-
 import magic
-
 from django import forms
 from django.conf import settings
 from django.utils import timezone
@@ -72,13 +70,12 @@ class ReplaceMediaFileForm(CustomModelForm):
         """
         cleaned_data = super().clean()
 
-        file = cleaned_data.get("file")
-
         # Only validate type if a file is uploaded - otherwise, the form throws an error anyways
-        if file:
+        if file := cleaned_data.get("file"):
             # Check magic bytes for actual file type - the content_type of the file can easily be forged
-            new_type = magic.from_buffer(file.read(), mime=True)
-            if new_type != self.instance.type:
+            if (
+                new_type := magic.from_buffer(file.read(), mime=True)
+            ) != self.instance.type:
                 # Check whether we have a more readable version of the mime type
                 new_type_display = dict(allowed_media.CHOICES).get(new_type, new_type)
                 self.add_error(
@@ -95,20 +92,18 @@ class ReplaceMediaFileForm(CustomModelForm):
 
         # If everything looks good until now, generate a thumbnail and an optimized image
         if not self.errors and self.instance.type.startswith("image"):
-            optimized_image = generate_thumbnail(
+            if optimized_image := generate_thumbnail(
                 file, settings.MEDIA_OPTIMIZED_SIZE, False
-            )
-            if not optimized_image:
+            ):
+                cleaned_data["file"] = optimized_image
+                cleaned_data["thumbnail"] = generate_thumbnail(file)
+            else:
                 self.add_error(
                     "file",
                     forms.ValidationError(
                         _("This image file is corrupt."), code="invalid"
                     ),
                 )
-            else:
-                cleaned_data["file"] = optimized_image
-                cleaned_data["thumbnail"] = generate_thumbnail(file)
-
         # Add the calculated file_size to the form data
         if cleaned_data.get("file"):
             cleaned_data["file_size"] = cleaned_data.get("file").size

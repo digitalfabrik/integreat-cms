@@ -1,10 +1,10 @@
 import pytest
 from django.core.exceptions import ImproperlyConfigured
 
-from integreat_cms.firebase_api.firebase_api_client import FirebaseApiClient
 from integreat_cms.cms.models.push_notifications.push_notification import (
     PushNotification,
 )
+from integreat_cms.firebase_api.firebase_api_client import FirebaseApiClient
 
 
 class TestFirebaseApiClient:
@@ -204,7 +204,6 @@ class TestFirebaseApiClient:
             assert "Received invalid response from FCM for" in record.message
         assert not status
 
-    # pylint: disable=unused-argument
     @pytest.mark.django_db
     def send_all_with_mocked_response(self, settings, requests_mock, mocked_response):
         """

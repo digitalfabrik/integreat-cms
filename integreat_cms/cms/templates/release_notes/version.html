@@ -1,0 +1,12 @@
+<ul class="ml-6 mb-3 list-disc">
+    {% for issue, note in notes.items %}
+        <li>
+            <span class="inline-block w-20">[
+                <a href="https://github.com/digitalfabrik/integreat-cms/issues/{{ issue }}"
+                   class="text-blue-500 hover:underline"
+                   target="_blank"
+                   rel="noopener noreferrer">#{{ issue }}</a>
+                ]</span> {{ note }}
+            </li>
+        {% endfor %}
+    </ul>

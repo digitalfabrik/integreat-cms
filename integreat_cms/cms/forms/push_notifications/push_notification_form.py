@@ -1,5 +1,5 @@
-from ..custom_model_form import CustomModelForm
 from ...models import PushNotification
+from ..custom_model_form import CustomModelForm
 
 
 class PushNotificationForm(CustomModelForm):

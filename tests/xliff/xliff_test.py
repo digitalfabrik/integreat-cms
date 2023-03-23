@@ -1,28 +1,26 @@
 import filecmp
 import io
 import zipfile
-
 from os import listdir
 from os.path import isfile, join
 
 import pytest
-
-from lxml.html import fromstring
 from django.urls import reverse
+from lxml.html import fromstring
 
 from integreat_cms.cms.models import Page
 
 from ..conftest import (
     ANONYMOUS,
-    STAFF_ROLES,
-    PRIV_STAFF_ROLES,
-    MANAGEMENT,
-    EDITOR,
     AUTHOR,
+    EDITOR,
+    MANAGEMENT,
     OBSERVER,
+    PRIV_STAFF_ROLES,
+    STAFF_ROLES,
 )
-from .xliff_config import XLIFF_IMPORTS
 from .utils import upload_files, validate_xliff_import_response
+from .xliff_config import XLIFF_IMPORTS
 
 
 # pylint: disable=too-many-locals
@@ -121,7 +119,6 @@ def test_xliff_export(
         assert response.status_code == 403
 
 
-# pylint: disable=too-many-locals
 @pytest.mark.django_db
 @pytest.mark.parametrize(
     "import_1,import_2",

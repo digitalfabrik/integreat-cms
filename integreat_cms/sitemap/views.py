@@ -13,10 +13,8 @@ from django.urls import reverse
 from django.utils.http import http_date
 from django.views.generic.base import TemplateResponseMixin, View
 
-
 from ..cms.constants import region_status
 from ..cms.models import Region
-
 from .utils import get_sitemaps
 
 logger = logging.getLogger(__name__)
@@ -126,10 +124,8 @@ class SitemapView(TemplateResponseMixin, View):
             only_visible=True,
         )
 
-        sitemaps = get_sitemaps(region, language)
-
         # Only return a sitemap if it contains any elements
-        if not sitemaps:
+        if not (sitemaps := get_sitemaps(region, language)):
             raise Http404
 
         # Join the lists of all urls of all sitemaps

@@ -3,24 +3,23 @@ This module contains view actions for media related objects.
 """
 import logging
 
-from django.db.models import Q, ProtectedError
-from django.http import JsonResponse, HttpResponse
+from django.db.models import ProtectedError, Q
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
 
 from ....api.decorators import json_response
 from ...decorators import permission_required
-
 from ...forms import (
-    UploadMediaFileForm,
-    ReplaceMediaFileForm,
-    MediaFileForm,
-    MediaMoveForm,
     CreateDirectoryForm,
     DirectoryForm,
+    MediaFileForm,
+    MediaMoveForm,
+    ReplaceMediaFileForm,
+    UploadMediaFileForm,
 )
-from ...models import MediaFile, Directory
+from ...models import Directory, MediaFile
 
 logger = logging.getLogger(__name__)
 
@@ -126,6 +125,60 @@ def get_query_search_results_ajax(request, region_slug=None):
     result = list(map(lambda d: d.serialize(), list(directories) + list(media_files)))
 
     logger.debug("Media library search results: %r", result)
+    return JsonResponse({"data": result})
+
+
+@json_response
+@permission_required("cms.view_mediafile")
+# pylint: disable=unused-argument
+def get_file_usages_ajax(request, region_slug=None):
+    """
+    View to search unused media files
+
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :return: JSON response with the search result
+    :rtype: ~django.http.JsonResponse
+    """
+
+    file = get_object_or_404(
+        MediaFile.objects.filter(
+            Q(region=request.region) | Q(region__isnull=True, is_hidden=False),
+        ),
+        id=request.GET.get("file"),
+    )
+
+    return JsonResponse({"data": file.serialize_usages()})
+
+
+@json_response
+@permission_required("cms.view_directory")
+@permission_required("cms.view_mediafile")
+# pylint: disable=unused-argument
+def get_unused_media_files_ajax(request, region_slug=None):
+    """
+    View to search unused media files
+
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :return: JSON response with the search result
+    :rtype: ~django.http.JsonResponse
+    """
+
+    unused_media_files = MediaFile.objects.filter(
+        Q(region=request.region) | Q(region__isnull=True, is_hidden=False)
+    ).filter_unused()
+
+    result = list(map(lambda d: d.serialize(), unused_media_files))
+
     return JsonResponse({"data": result})
 
 

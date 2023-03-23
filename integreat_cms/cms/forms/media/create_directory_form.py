@@ -38,17 +38,19 @@ class CreateDirectoryForm(CustomModelForm):
         """
         cleaned_data = super().clean()
 
-        if cleaned_data.get("parent"):
-            if cleaned_data.get("parent").region != self.instance.region:
-                self.add_error(
-                    "parent",
-                    forms.ValidationError(
-                        _(
-                            "The directory cannot be created in a directory of another region."
-                        ),
-                        code="invalid",
+        if (
+            cleaned_data.get("parent")
+            and cleaned_data.get("parent").region != self.instance.region
+        ):
+            self.add_error(
+                "parent",
+                forms.ValidationError(
+                    _(
+                        "The directory cannot be created in a directory of another region."
                     ),
-                )
+                    code="invalid",
+                ),
+            )
 
         queryset = Directory.objects
         if self.instance.region:

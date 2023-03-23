@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.db.models import Prefetch, Q
-
-from linkcheck.models import Url, Link
+from linkcheck.models import Link, Url
 
 
 def get_urls(region_slug=None, url_ids=None, prefetch_content_objects=True):

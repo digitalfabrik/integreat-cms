@@ -2,21 +2,19 @@
 This module includes functions that are used as decorators in the API endpoints.
 """
 import json
-import threading
 import logging
 import random
 import re
-
+import threading
 from functools import wraps
+from urllib import error, parse, request
 
-from urllib import request, parse, error
-
-from django.http import JsonResponse, Http404
-from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
+from django.http import Http404, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
-from ..cms.models import Region, Language
 from ..cms.constants import feedback_ratings
+from ..cms.models import Language, Region
 
 logger = logging.getLogger(__name__)
 
@@ -63,17 +61,18 @@ def feedback_handler(func):
             return JsonResponse(
                 {"error": f'No language found with slug "{language_slug}"'}, status=404
             )
-        if request.content_type == "application/json":
-            data = json.loads(request.body.decode())
-        else:
-            data = request.POST.dict()
+        data = (
+            json.loads(request.body.decode())
+            if request.content_type == "application/json"
+            else request.POST.dict()
+        )
         comment = data.pop("comment", "")
         rating = data.pop("rating", None)
         category = data.pop("category", None)
 
         if rating not in [None, "up", "down"]:
             return JsonResponse({"error": "Invalid rating."}, status=400)
-        if comment == "" and not rating:
+        if not comment and not rating:
             return JsonResponse(
                 {"error": "Either comment or rating is required."}, status=400
             )

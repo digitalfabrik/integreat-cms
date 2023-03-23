@@ -6,11 +6,8 @@ Especially, the root file, the use of the file defined in the Document and the d
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
+from ...decorators import permission_required
 from .media_context_mixin import MediaContextMixin
-
-from ...decorators import (
-    permission_required,
-)
 
 
 @method_decorator(permission_required("cms.view_directory"), name="dispatch")

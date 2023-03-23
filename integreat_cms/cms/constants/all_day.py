@@ -8,7 +8,6 @@ instances in :class:`~integreat_cms.cms.forms.events.event_filter_form.EventFilt
 """
 from django.utils.translation import gettext_lazy as _
 
-
 #: This docstring is overridden by "alias of builtins.int"
 DATATYPE = int
 

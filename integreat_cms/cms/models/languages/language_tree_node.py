@@ -1,13 +1,13 @@
 from django.apps import apps
-from django.db import models
 from django.conf import settings
+from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
-from .language import Language
 from ..abstract_tree_node import AbstractTreeNode
 from ..decorators import modify_fields
+from .language import Language
 
 
 @modify_fields(parent={"verbose_name": _("source language")})
@@ -116,7 +116,11 @@ class LanguageTreeNode(AbstractTreeNode):
             and self.region.summ_ai_enabled
         ):
             return "SUMM.AI"
-        if self.slug in deepl_config.supported_target_languages:
+        if (
+            self.slug in deepl_config.supported_target_languages
+            or self.language.bcp47_tag.lower()
+            in deepl_config.supported_target_languages
+        ):
             return "DeepL"
         return ""
 

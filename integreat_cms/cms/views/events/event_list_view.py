@@ -3,18 +3,19 @@ import logging
 from django.conf import settings
 from django.contrib import messages
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
+from ....deepl_api.utils import DeepLApi
 from ...constants import translation_status
 from ...decorators import permission_required
 from ...forms import EventFilterForm
+from ...models.events.event import Event
+from ...utils.translation_utils import mt_is_permitted
 from ..mixins import SummAiContextMixin
 from .event_context_mixin import EventContextMixin
-
-from ....deepl_api.utils import DeepLApi
 
 logger = logging.getLogger(__name__)
 
@@ -67,8 +68,7 @@ class EventListView(TemplateView, EventContextMixin, SummAiContextMixin):
         region = request.region
 
         # current language
-        language_slug = kwargs.get("language_slug")
-        if language_slug:
+        if language_slug := kwargs.get("language_slug"):
             language = region.get_language_or_404(language_slug, only_active=True)
         elif region.default_language is not None:
             return redirect(
@@ -109,9 +109,12 @@ class EventListView(TemplateView, EventContextMixin, SummAiContextMixin):
 
         if settings.DEEPL_ENABLED:
             deepl = DeepLApi()
-            DEEPL_AVAILABLE = deepl.check_availability(request, language_slug)
+            DEEPL_AVAILABLE = deepl.check_availability(request, language)
         else:
             DEEPL_AVAILABLE = False
+        MT_PERMITTED = mt_is_permitted(
+            region, request.user, Event._meta.default_related_name, language_slug
+        )
 
         return render(
             request,
@@ -127,5 +130,6 @@ class EventListView(TemplateView, EventContextMixin, SummAiContextMixin):
                 "translation_status": translation_status,
                 "search_query": query,
                 "DEEPL_AVAILABLE": DEEPL_AVAILABLE,
+                "MT_PERMITTED": MT_PERMITTED,
             },
         )

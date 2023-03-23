@@ -1,12 +1,11 @@
 import logging
-
 from datetime import datetime
 
 from django.conf import settings
 from django.contrib import messages
-from django.core.exceptions import PermissionDenied, ImproperlyConfigured
+from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.forms import inlineformset_factory
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
@@ -123,7 +122,7 @@ class PushNotificationFormView(TemplateView):
             },
         )
 
-    # pylint: disable=too-many-branches,too-many-statements
+    # pylint: disable=too-many-branches
     def post(self, request, *args, **kwargs):
         r"""
         Save and show form for creating or editing a push notification. Send push notification
@@ -247,15 +246,14 @@ class PushNotificationFormView(TemplateView):
                                 "News message cannot be sent because required texts are missing"
                             ),
                         )
+                    elif push_sender.send_all():
+                        messages.success(
+                            request, _("News message was successfully sent")
+                        )
+                        pn_form.instance.sent_date = datetime.now()
+                        pn_form.instance.save()
                     else:
-                        if push_sender.send_all():
-                            messages.success(
-                                request, _("News message was successfully sent")
-                            )
-                            pn_form.instance.sent_date = datetime.now()
-                            pn_form.instance.save()
-                        else:
-                            messages.error(request, _("News message could not be sent"))
+                        messages.error(request, _("News message could not be sent"))
                 except ImproperlyConfigured as e:
                     logger.error(
                         "News message could not be sent due to a configuration error: %s",

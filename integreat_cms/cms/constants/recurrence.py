@@ -7,7 +7,6 @@ instantiating :class:`django.forms.TypedMultipleChoiceField` instances in :class
 """
 from django.utils.translation import gettext_lazy as _
 
-
 #: This docstring is overridden by "alias of builtins.int"
 DATATYPE = int
 

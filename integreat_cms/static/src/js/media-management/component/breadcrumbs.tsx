@@ -11,13 +11,16 @@ import { Directory } from "../index";
 type Props = {
     breadCrumbs: Directory[];
     searchQuery: string;
+    mediaFilter: string;
     mediaTranslations: any;
     allowDrop: boolean;
     dropItem: (targetDirectory: number) => unknown;
 };
 
-const Breadcrumbs = ({ breadCrumbs, searchQuery, mediaTranslations, allowDrop, dropItem }: Props) => {
+const Breadcrumbs = ({ breadCrumbs, searchQuery, mediaTranslations, allowDrop, dropItem, mediaFilter }: Props) => {
     const [currentDragTarget, setCurrentDragTarget] = useState<null | number>(null);
+    const showFullPath = !(searchQuery || mediaFilter);
+
     return (
         <nav className="p-2">
             <ul class="flex flex-wrap">
@@ -48,7 +51,7 @@ const Breadcrumbs = ({ breadCrumbs, searchQuery, mediaTranslations, allowDrop, d
                         {mediaTranslations.heading_media_root}
                     </Link>
                 </li>
-                {searchQuery ? (
+                {searchQuery && (
                     <>
                         <li class="py-2">
                             <ChevronRight />
@@ -57,7 +60,16 @@ const Breadcrumbs = ({ breadCrumbs, searchQuery, mediaTranslations, allowDrop, d
                             {mediaTranslations.heading_search_results} &ldquo;{searchQuery}&rdquo;
                         </li>
                     </>
-                ) : (
+                )}
+                {mediaFilter && (
+                    <>
+                        <li class="py-2">
+                            <ChevronRight />
+                        </li>
+                        <li class="px-3 py-2">{mediaTranslations.heading_show_unused_files}</li>
+                    </>
+                )}
+                {showFullPath && (
                     <>
                         {breadCrumbs.map((directory: Directory) => (
                             <>

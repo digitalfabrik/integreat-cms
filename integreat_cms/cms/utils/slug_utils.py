@@ -8,7 +8,6 @@ from django.core.exceptions import ValidationError
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -93,11 +92,11 @@ def generate_unique_slug(**kwargs):
                 params={"fallback": _(fallback)},
             )
         # Check whether slug field supports unicode
-        # pylint: disable=protected-access
         allow_unicode = object_instance._meta.get_field("slug").allow_unicode
         # slugify to make sure slug doesn't contain special chars etc.
         slug = slugify(cleaned_data[fallback], allow_unicode=allow_unicode)
         # If the title/name field didn't contain valid characters for a slug, we use a hardcoded fallback slug
+        # pylint: disable=consider-using-assignment-expr
         if not slug:
             slug = foreign_model
 

@@ -2,12 +2,12 @@
 import logging
 
 from django.contrib import messages
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
-from django.utils.decorators import method_decorator
-from ...decorators import permission_required
 
+from ...decorators import permission_required
 from ...forms import StatisticsFilterForm
 
 logger = logging.getLogger(__name__)
@@ -24,7 +24,6 @@ class AnalyticsView(TemplateView):
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "statistics"}
 
-    # pylint: disable=unused-variable
     def get(self, request, *args, **kwargs):
         r"""
         Render statistics of access numbers tracked by Matomo

@@ -5,8 +5,9 @@ import logging
 
 from django.conf import settings
 from django.http import JsonResponse
-from django.utils.html import strip_tags
 from django.utils import timezone
+from django.utils.html import strip_tags
+
 from ..decorators import json_response
 
 logger = logging.getLogger(__name__)
@@ -62,8 +63,7 @@ def imprint(request, region_slug, language_slug):
     region.get_language_or_404(language_slug, only_active=True)
     # Check if an imprint is available for that region
     if region.imprint:
-        imprint_translation = region.imprint.get_public_translation(language_slug)
-        if imprint_translation:
+        if imprint_translation := region.imprint.get_public_translation(language_slug):
             return JsonResponse(transform_imprint(imprint_translation))
     # If imprint does not exist, return an empty response. Turn off Safe-Mode to allow serializing arrays
     logger.warning("The imprint for region %r does not exist", region)

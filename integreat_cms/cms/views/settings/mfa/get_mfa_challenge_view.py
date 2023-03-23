@@ -3,13 +3,12 @@ This module contains all views related to multi-factor authentication
 """
 import logging
 
-from webauthn import generate_registration_options, options_to_json
-from webauthn.helpers import bytes_to_base64url
-
 from django.conf import settings
 from django.http import HttpResponse
 from django.utils.decorators import method_decorator
 from django.views.generic import View
+from webauthn import generate_registration_options, options_to_json
+from webauthn.helpers import bytes_to_base64url
 
 from ....decorators import modify_mfa_authenticated
 

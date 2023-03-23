@@ -2,10 +2,9 @@ from datetime import time
 
 from django.db import models
 from django.db.models import Q
+from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
-
 from linkcheck.models import Link
 
 from ...constants import status
@@ -255,9 +254,7 @@ class Event(AbstractContentModel):
         # If the own recurrence rule would not be cleared, django would throw an
         # error that the recurrence rule is not unique (because it would belong to both
         # the cloned and the new object)
-        recurrence_rule = self.recurrence_rule
-
-        if recurrence_rule:
+        if recurrence_rule := self.recurrence_rule:
             # copy the recurrence rule, if it exists
             recurrence_rule.pk = None
             recurrence_rule.save()

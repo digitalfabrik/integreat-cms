@@ -1,5 +1,5 @@
-from ..custom_model_form import CustomModelForm
 from ...models import Language
+from ..custom_model_form import CustomModelForm
 
 
 class LanguageForm(CustomModelForm):

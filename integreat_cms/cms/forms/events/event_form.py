@@ -1,10 +1,10 @@
 import logging
 import zoneinfo
-from datetime import time, timedelta, datetime
+from datetime import datetime, time, timedelta
 
 from django import forms
-from django.utils.translation import gettext_lazy as _
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 from ...models import Event
 from ..custom_model_form import CustomModelForm
@@ -160,18 +160,20 @@ class EventForm(CustomModelForm):
                 )
             elif cleaned_data.get("end_date") == cleaned_data.get("start_date"):
                 # If both dates are identical, check the times
-                if cleaned_data.get("end_time") and cleaned_data.get("start_time"):
-                    # If both times are given, check if they are valid
-                    if cleaned_data.get("end_time") < cleaned_data.get("start_time"):
-                        self.add_error(
-                            "end_time",
-                            forms.ValidationError(
-                                _(
-                                    "The end of the event can't be before the start of the event"
-                                ),
-                                code="invalid",
+                if (
+                    cleaned_data.get("end_time")
+                    and cleaned_data.get("start_time")
+                    and cleaned_data.get("end_time") < cleaned_data.get("start_time")
+                ):
+                    self.add_error(
+                        "end_time",
+                        forms.ValidationError(
+                            _(
+                                "The end of the event can't be before the start of the event"
                             ),
-                        )
+                            code="invalid",
+                        ),
+                    )
             elif cleaned_data["end_date"] - cleaned_data["start_date"] > timedelta(
                 settings.MAX_EVENT_DURATION - 1
             ):

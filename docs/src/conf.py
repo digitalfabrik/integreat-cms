@@ -7,17 +7,15 @@ For a full list see the documentation: :doc:`sphinx:usage/configuration`
 
 # -- Path setup --------------------------------------------------------------
 
+import importlib
+import inspect
 import os
 import sys
-import inspect
-import importlib
-
 from datetime import date
 
 from django import VERSION as django_version
 
 from integreat_cms.core import settings
-
 
 # Append project source directory to path environment variable
 sys.path.append(os.path.abspath("../.."))
@@ -192,6 +190,7 @@ nitpick_ignore = [
     ("py:class", "requests_mock.mocker.Mocker"),
     ("py:class", "webauthn.WebAuthnUser"),
     ("py:class", "xml.dom.minidom.Element"),
+    ("py:class", "django.contrib.auth.context_processors.PermWrapper"),
 ]
 #: A list of prefixes that are ignored for sorting the Python module index
 modindex_common_prefix = ["integreat_cms"]
@@ -250,10 +249,11 @@ def linkcode_resolve(domain, info):
     module = importlib.import_module(module_str)
     module_path = module_str.replace(".", "/")
     filename = module.__file__.partition(module_path)[2]
-    if module_str.startswith("django."):
-        url = django_github_url
-    else:
-        url = f"{github_url}/blob/develop"
+    url = (
+        django_github_url
+        if module_str.startswith("django.")
+        else f"{github_url}/blob/develop"
+    )
     return f"{url}/{module_path}{filename}{line_number_reference}"
 
 

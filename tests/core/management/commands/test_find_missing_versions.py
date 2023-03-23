@@ -1,5 +1,4 @@
 import pytest
-
 from django.core.management.base import CommandError
 
 from integreat_cms.cms.models import Page
@@ -12,8 +11,7 @@ def test_find_missing_versions_missing_model():
     Ensure that missing model cause an error
     """
     with pytest.raises(CommandError) as exc_info:
-        out, err = get_command_output("find_missing_versions")
-        assert out == err == ""
+        assert not any(get_command_output("find_missing_versions"))
     assert str(exc_info.value) == "Error: the following arguments are required: model"
 
 
@@ -22,8 +20,7 @@ def test_find_missing_versions_invalid_model():
     Ensure that an invalid model throws an error
     """
     with pytest.raises(CommandError) as exc_info:
-        out, err = get_command_output("find_missing_versions", "invalid")
-        assert out == err == ""
+        assert not any(get_command_output("find_missing_versions", "invalid"))
     assert (
         str(exc_info.value)
         == "Error: argument model: Invalid model (must be either page, event or poi)"
@@ -39,7 +36,7 @@ def test_find_missing_versions_success(load_test_data, model):
     """
     out, err = get_command_output("find_missing_versions", model)
     assert "✔ All versions are consistent." in out
-    assert err == ""
+    assert not err
 
 
 # pylint: disable=unused-argument

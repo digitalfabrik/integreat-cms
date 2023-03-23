@@ -1,0 +1,22 @@
+{% extends "_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% block collapsible_box_icon %}
+    scroll
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% if version == "unreleased" %}
+        {% translate "Changes that will be released soon" %}
+    {% else %}
+        {% blocktranslate trimmed %}
+            What's new in version {{ version}}?
+        {% endblocktranslate %}
+    {% endif %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    {% include "release_notes/version.html" %}
+    <a href="{% url "release_notes" %}" class="btn">
+        <i icon-name="scroll"></i>
+        {% translate "Display all release notes" %}
+    </a>
+{% endblock collapsible_box_content %}

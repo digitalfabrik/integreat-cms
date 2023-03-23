@@ -1,26 +1,24 @@
 from datetime import datetime
 
 import pytest
-
 from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.models import (
-    Feedback,
-    RegionFeedback,
-    PageFeedback,
-    POIFeedback,
     EventFeedback,
     EventListFeedback,
+    Feedback,
     ImprintPageFeedback,
     MapFeedback,
-    SearchResultFeedback,
-    OfferListFeedback,
     OfferFeedback,
+    OfferListFeedback,
+    PageFeedback,
+    POIFeedback,
+    RegionFeedback,
+    SearchResultFeedback,
 )
 
-from .api_config import API_FEEDBACK_VIEWS, API_FEEDBACK_ERRORS
-
+from .api_config import API_FEEDBACK_ERRORS, API_FEEDBACK_VIEWS
 
 feedback_type_dict = {
     "api:region_feedback": RegionFeedback,
@@ -74,7 +72,7 @@ def test_api_feedback_success(load_test_data, view_name, post_data):
     if "comment" in post_data:
         assert feedback.comment == post_data["comment"]
     else:
-        assert feedback.comment == ""
+        assert not feedback.comment
 
     is_technical = post_data["category"] == "Technisches Feedback"
     assert feedback.is_technical == is_technical

@@ -60,6 +60,20 @@ jobs:
       - run:
           name: Check formatting of Django templates
           command: djlint --check --lint integreat_cms
+  isort:
+    docker:
+      - image: cimg/python:3.9.16
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Enable virtual environment
+          command: echo "source .venv/bin/activate" >> $BASH_ENV
+      - run:
+          name: Check isort code style
+          command: isort --check .
   pylint:
     docker:
       - image: cimg/python:3.9.16
@@ -71,7 +85,7 @@ jobs:
       - run:
           name: Run pylint
           command: ./tools/pylint.sh
-  check-changelog:
+  check-release-notes:
     docker:
       - image: cimg/python:3.9.16
     resource_class: small
@@ -80,8 +94,17 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: Check changelog format
-          command: ./tools/check_changelog.sh
+          name: Install requirements
+          command: sudo apt-get update && sudo apt-get install pcregrep
+      - run:
+          name: Check release notes in Markdown
+          command: ./tools/make_release_notes.sh --format=md --all
+      - run:
+          name: Check release notes in reStructuredText
+          command: ./tools/make_release_notes.sh --format=rst --all
+      - run:
+          name: Check release notes in raw format
+          command: ./tools/make_release_notes.sh --format=raw --all
   check-translations:
     docker:
       - image: cimg/python:3.9.16
@@ -121,7 +144,7 @@ jobs:
             - integreat_cms/locale/*/LC_MESSAGES/django.mo
   npm-install:
     docker:
-      - image: 'cimg/node:lts'
+      - image: "cimg/node:lts"
     resource_class: small
     steps:
       - checkout
@@ -151,7 +174,7 @@ jobs:
             - node_modules
   prettier:
     docker:
-      - image: 'cimg/node:lts'
+      - image: "cimg/node:lts"
     resource_class: small
     steps:
       - checkout
@@ -162,7 +185,7 @@ jobs:
           command: npx prettier --check .
   eslint:
     docker:
-      - image: 'cimg/node:lts'
+      - image: "cimg/node:lts"
     resource_class: small
     steps:
       - checkout
@@ -173,7 +196,7 @@ jobs:
           command: npx eslint .
   webpack:
     docker:
-      - image: 'cimg/node:lts'
+      - image: "cimg/node:lts"
     steps:
       - checkout
       - attach_workspace:
@@ -319,8 +342,11 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Install requirements
+          command: sudo apt-get update && sudo apt-get install pcregrep
+      - run:
           name: Generate documentation
-          command: ./tools/generate_documentation.sh
+          command: ./tools/make_docs.sh
       - persist_to_workspace:
           root: .
           paths:
@@ -433,24 +459,20 @@ jobs:
             eval $(bumpver show --env -n)
             echo "export CURRENT_VERSION=$CURRENT_VERSION" >> $BASH_ENV
       - run:
-          name: Update changelog
+          name: Update release notes
           command: |
-            # Insert version number in "unreleased" section of changelog
-            UNRELEASED="UNRELEASED\n----------"
-            # Build a string of dashes of same length as the version
-            UNDERLINE=$(echo "$CURRENT_VERSION" | tr "[:print:]" "-")
-            sed --null-data --in-place \
-              "s/${UNRELEASED}/${UNRELEASED}\n\n\n${CURRENT_VERSION}\n${UNDERLINE}/g" \
-              CHANGELOG.md
-            # Amend to bump version commit
-            git add CHANGELOG.md
+            # Move "unreleased" entries to new version directory
+            OLD_DIR="integreat_cms/release_notes/current/unreleased"
+            NEW_DIR="integreat_cms/release_notes/$(echo "${CURRENT_VERSION}" | cut -c1-4)"
+            mkdir -p "${NEW_DIR}"
+            git mv "${OLD_DIR}" "${NEW_DIR}/${CURRENT_VERSION}"
             git commit --amend --no-edit
       - run:
           name: Tag and push commit
           command: |
-            # Get most recent changelog (split by 3 sequential new lines and print the second record except the first three lines)
-            CHANGELOG=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4 | sed --regexp-extended 's|\[#([0-9]+)\]\(https://github\.com/digitalfabrik/integreat-cms/issues/([0-9]+)\)|#\1|')
-            git tag --annotate "${CURRENT_VERSION}" --message "Changelog:" --message "${CHANGELOG}"
+            # Get most recent release notes
+            RELEASE_NOTES=$(./tools/make_release_notes.sh --format=raw --no-subheading)
+            git tag --annotate "${CURRENT_VERSION}" --message "${RELEASE_NOTES}"
             git push origin --follow-tags "${CURRENT_VERSION}" HEAD
       - run:
           name: Merge version bump into develop
@@ -475,10 +497,10 @@ jobs:
             PREV_TAG=$(git describe --abbrev=0 --tags "${CIRCLE_TAG}^") || true
             echo "export PREV_TAG=\"${PREV_TAG}\"" >> $BASH_ENV
       - run:
-          name: Get changelog
+          name: Get release notes
           command: |
-            CHANGELOG=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4)
-            echo "export CHANGELOG=\"${CHANGELOG}\"" >> $BASH_ENV
+            RELEASE_NOTES=$(./tools/make_release_notes.sh --format=raw --no-heading --no-subheading)
+            echo "export RELEASE_NOTES=\"${RELEASE_NOTES}\"" >> $BASH_ENV
       - run:
           name: Get contributors
           command: |
@@ -486,7 +508,7 @@ jobs:
             echo "export CONTRIBUTORS=\"${CONTRIBUTORS}\"" >> $BASH_ENV
       - run:
           name: Create release as Deliverino app
-          command: ./.circleci/scripts/create_release.py "${DELIVERINO_ACCESS_TOKEN}" "${CIRCLE_TAG}" "${PREV_TAG}" "${CHANGELOG}" "${CONTRIBUTORS}" ./dist/integreat-cms-*.tar.gz
+          command: ./.circleci/scripts/create_release.py "${DELIVERINO_ACCESS_TOKEN}" "${CIRCLE_TAG}" "${PREV_TAG}" "${RELEASE_NOTES}" "${CONTRIBUTORS}" ./dist/integreat-cms-*.tar.gz
   notify-mattermost:
     docker:
       - image: cimg/base:stable
@@ -496,10 +518,10 @@ jobs:
       - run:
           name: Notify mattermost about release
           command: |
-            # Get most recent changelog (split by 3 sequential new lines and print the second record except the first three lines)
-            CHANGELOG=$(awk -v RS='\n\n\n' 'NR==2 {print $0}' CHANGELOG.md | tail -n +4)
+            # Get most recent release notes
+            RELEASE_NOTES=$(./tools/make_release_notes.sh --format=md --no-heading --no-subheading")
             # Build notification message
-            MM_MESSAGE="##### Integreat CMS version [${CIRCLE_TAG}](https://github.com/digitalfabrik/integreat-cms/releases/tag/${CIRCLE_TAG}) has been released successfully :tada:\n\n###### **Release Notes:**\n\n${CHANGELOG}"
+            MM_MESSAGE="##### Integreat CMS version [${CIRCLE_TAG}](https://github.com/digitalfabrik/integreat-cms/releases/tag/${CIRCLE_TAG}) has been released successfully :tada:\n\n###### **Release Notes:**\n\n${RELEASE_NOTES}"
             # Send message to mattermost
             STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" -X POST -H 'Content-type: application/json' \
               --data \
@@ -553,9 +575,10 @@ workflows:
           filters:
             branches:
               only: /^(?!pull\/).*$/
-      - check-changelog:
-          requires:
-            - pip-install
+      - check-release-notes:
+          filters:
+            branches:
+              ignore: main
       - check-translations:
           requires:
             - pip-install
@@ -590,6 +613,9 @@ workflows:
           requires:
             - pip-install
       - djlint:
+          requires:
+            - pip-install
+      - isort:
           requires:
             - pip-install
       - pylint:

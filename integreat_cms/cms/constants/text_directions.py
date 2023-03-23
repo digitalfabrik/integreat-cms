@@ -3,7 +3,6 @@ This module contains all constants representing the text directions of a :class:
 """
 from django.utils.translation import gettext_lazy as _
 
-
 #: Text is left to right, e.g. in English
 LEFT_TO_RIGHT = "LEFT_TO_RIGHT"
 #: Text is right to left, e.g. in Arabic

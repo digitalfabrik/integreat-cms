@@ -3,15 +3,14 @@ This module contains view actions related to pages.
 """
 import asyncio
 import logging
-
 from datetime import date, timedelta
 
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from ...decorators import permission_required
 
-from ...forms import StatisticsFilterForm
 from ....matomo_api.matomo_api_client import MatomoException
+from ...decorators import permission_required
+from ...forms import StatisticsFilterForm
 
 logger = logging.getLogger(__name__)
 

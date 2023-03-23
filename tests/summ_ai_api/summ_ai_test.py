@@ -1,16 +1,11 @@
 import pytest
-
-from asgiref.sync import sync_to_async
 from aiohttp import web
-
+from asgiref.sync import sync_to_async
 from django.urls import reverse
 
 from integreat_cms.cms.models import Page, Region
 
-from ..conftest import (
-    ANONYMOUS,
-    PRIV_STAFF_ROLES,
-)
+from ..conftest import ANONYMOUS, PRIV_STAFF_ROLES
 from ..utils import assert_message_in_response
 
 
@@ -76,7 +71,6 @@ def get_changed_pages(settings, ids):
 
 
 @pytest.mark.django_db
-# pylint: disable=too-many-locals
 async def test_auto_translate_easy_german(
     login_role_user_async, settings, aiohttp_raw_server
 ):
@@ -168,7 +162,6 @@ async def broken_fake_summ_ai_server(request):
     )
 
 
-# pylint: disable=unused-argument,too-many-locals
 @pytest.mark.django_db
 async def test_summ_ai_error_handling(
     login_role_user_async, settings, aiohttp_raw_server

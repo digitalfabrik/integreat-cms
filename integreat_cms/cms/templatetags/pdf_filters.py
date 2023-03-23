@@ -3,9 +3,10 @@ This is a collection of tags and filters for page content used in PDFs (:class:`
 """
 import re
 from html import unescape
+
 from django import template
-from lxml.html import fromstring, tostring
 from lxml.etree import ParserError
+from lxml.html import fromstring, tostring
 
 register = template.Library()
 
@@ -26,7 +27,6 @@ def pdf_strip_fontstyles(instance):
     except ParserError:
         return instance
     for element in content.iter():
-        style = element.attrib.pop("style", None)
-        if style:
+        if style := element.attrib.pop("style", None):
             element.attrib["style"] = re.sub(r"font-[a-zA-Z]+:[^;]+", "", style)
     return unescape(tostring(content, with_tail=False).decode("utf-8"))

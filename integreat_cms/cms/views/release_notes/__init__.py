@@ -1,0 +1,1 @@
+from .release_notes_view import ReleaseNotesView
