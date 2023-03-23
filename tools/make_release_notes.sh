@@ -135,7 +135,7 @@ elif [[ -n ${ALL} ]]; then
     done
 else
     # Only return the latest version by default
-    format_release_notes_version "$(find "${RELEASE_NOTES_DIR}"/* -mindepth 1 -maxdepth 1 -type d | tail -n1)" | sed '$ d' | sed '$ d' >> "${OUTPUT}"
+    format_release_notes_version "$(find "${RELEASE_NOTES_DIR}"/* -mindepth 1 -maxdepth 1 -type d | sort --version-sort | tail -n1)" | sed '$ d' | sed '$ d' >> "${OUTPUT}"
 fi
 
 if [[ "${OUTPUT}" != "/dev/stdout" ]]; then
