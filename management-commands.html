@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-03-12T11:31:59+00:00" />
+    <meta property="article:modified_time" content="2023-03-23T22:41:35+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Management Commands &mdash; integreat-cms 2023.3.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -1143,6 +1143,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.STAFF_ROLES"><code class="docutils literal notranslate"><span class="pre">STAFF_ROLES</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.WRITE_ROLES"><code class="docutils literal notranslate"><span class="pre">WRITE_ROLES</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.load_test_data"><code class="docutils literal notranslate"><span class="pre">load_test_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.load_test_data_transactional"><code class="docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.login_role_user"><code class="docutils literal notranslate"><span class="pre">login_role_user()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.login_role_user_async"><code class="docutils literal notranslate"><span class="pre">login_role_user_async()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.pytest_plugins"><code class="docutils literal notranslate"><span class="pre">pytest_plugins</span></code></a></li>
@@ -1313,6 +1314,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#duplicate-pages"><code class="docutils literal notranslate"><span class="pre">duplicate_pages</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#find-large-files"><code class="docutils literal notranslate"><span class="pre">find_large_files</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#find-missing-versions"><code class="docutils literal notranslate"><span class="pre">find_missing_versions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#replace-links"><code class="docutils literal notranslate"><span class="pre">replace_links</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#summ-ai-bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code></a></li>
 </ul>
 </li>
@@ -1326,6 +1328,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release-notes.html">Release notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#unreleased">unreleased</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release-notes.html#id1">2023.3.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release-notes.html#id2">2023.3.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release-notes.html#id3">2023.2.2</a></li>
@@ -1575,6 +1578,24 @@ when you use this command in production to make sure links in archived pages are
 <li><p><code class="docutils literal notranslate"><span class="pre">MODEL</span></code>: The model to check (one of <code class="docutils literal notranslate"><span class="pre">page</span></code>, <code class="docutils literal notranslate"><span class="pre">event</span></code>, <code class="docutils literal notranslate"><span class="pre">poi</span></code>)</p></li>
 </ul>
 </section>
+<section id="replace-links">
+<h4><code class="docutils literal notranslate"><span class="pre">replace_links</span></code><a class="headerlink" href="#replace-links" title="Permalink to this heading"></a></h4>
+<p>Search &amp; replace links in the content:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>integreat-cms-cli<span class="w"> </span>replace_links<span class="w"> </span>SEARCH<span class="w"> </span>REPLACE<span class="w"> </span><span class="o">[</span>--region-slug<span class="w"> </span>REGION_SLUG<span class="o">]</span><span class="w"> </span><span class="o">[</span>--username<span class="w"> </span>USERNAME<span class="o">]</span><span class="w"> </span><span class="o">[</span>--commit<span class="o">]</span>
+</pre></div>
+</div>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SEARCH</span></code>: The (partial) URL to search</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">REPLACE</span></code>: The (partial) URL to replace</p></li>
+</ul>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--region-slug</span> <span class="pre">REGION_SLUG</span></code>: Only replace links in the region with slug <code class="docutils literal notranslate"><span class="pre">REGION_SLUG</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--username</span> <span class="pre">USERNAME</span></code>: Associate any new created translations with <code class="docutils literal notranslate"><span class="pre">USERNAME</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--commit</span></code>: Whether changes should be written to the database</p></li>
+</ul>
+</section>
 <section id="summ-ai-bulk">
 <h4><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code><a class="headerlink" href="#summ-ai-bulk" title="Permalink to this heading"></a></h4>
 <p>Translate an entire region into Easy German via SUMM.AI:</p>
@@ -1622,7 +1643,7 @@ when you use this command in production to make sure links in archived pages are
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 12, 2023.
+      <span class="lastupdated">Last updated on Mar 23, 2023.
       </span></p>
   </div>
 

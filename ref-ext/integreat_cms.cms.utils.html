@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-03-23T18:25:32+00:00" />
+    <meta property="article:modified_time" content="2023-03-23T22:41:35+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2023.3.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1143,6 +1143,7 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.STAFF_ROLES"><code class="docutils literal notranslate"><span class="pre">STAFF_ROLES</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.WRITE_ROLES"><code class="docutils literal notranslate"><span class="pre">WRITE_ROLES</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.load_test_data"><code class="docutils literal notranslate"><span class="pre">load_test_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.load_test_data_transactional"><code class="docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.login_role_user"><code class="docutils literal notranslate"><span class="pre">login_role_user()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.login_role_user_async"><code class="docutils literal notranslate"><span class="pre">login_role_user_async()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.pytest_plugins"><code class="docutils literal notranslate"><span class="pre">pytest_plugins</span></code></a></li>
@@ -1313,6 +1314,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#duplicate-pages"><code class="docutils literal notranslate"><span class="pre">duplicate_pages</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#find-large-files"><code class="docutils literal notranslate"><span class="pre">find_large_files</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#find-missing-versions"><code class="docutils literal notranslate"><span class="pre">find_missing_versions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#replace-links"><code class="docutils literal notranslate"><span class="pre">replace_links</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#summ-ai-bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code></a></li>
 </ul>
 </li>
@@ -1326,6 +1328,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release-notes.html">Release notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#unreleased">unreleased</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id1">2023.3.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id2">2023.3.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id3">2023.2.2</a></li>
@@ -1716,7 +1719,7 @@ version and also attach the branding logo.</p>
 <span id="linkcheck-utils"></span><h2>Linkcheck Utils<a class="headerlink" href="#module-integreat_cms.cms.utils.linkcheck_utils" title="Permalink to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.linkcheck_utils.filter_urls">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.linkcheck_utils.</span></span><span class="sig-name descname"><span class="pre">filter_urls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_content_objects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/linkcheck_utils.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.linkcheck_utils.filter_urls" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.linkcheck_utils.</span></span><span class="sig-name descname"><span class="pre">filter_urls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url_filter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_content_objects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/linkcheck_utils.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.linkcheck_utils.filter_urls" title="Permalink to this definition"></a></dt>
 <dd><p>Filter all urls of one region by the given category</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1738,7 +1741,7 @@ If parameter is not in these choices or omitted, all urls are returned by defaul
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.linkcheck_utils.get_url_count">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.linkcheck_utils.</span></span><span class="sig-name descname"><span class="pre">get_url_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/linkcheck_utils.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.linkcheck_utils.get_url_count" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.linkcheck_utils.</span></span><span class="sig-name descname"><span class="pre">get_url_count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/linkcheck_utils.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.linkcheck_utils.get_url_count" title="Permalink to this definition"></a></dt>
 <dd><p>Count all urls by status. The content objects are not prefetched because they are not needed for the counter.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1755,7 +1758,7 @@ If parameter is not in these choices or omitted, all urls are returned by defaul
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.linkcheck_utils.get_urls">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.linkcheck_utils.</span></span><span class="sig-name descname"><span class="pre">get_urls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_content_objects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/linkcheck_utils.py#L6"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.linkcheck_utils.get_urls" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.linkcheck_utils.</span></span><span class="sig-name descname"><span class="pre">get_urls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_content_objects</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/linkcheck_utils.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.linkcheck_utils.get_urls" title="Permalink to this definition"></a></dt>
 <dd><p>Count all urls by status, either of a specific region or globally</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1770,6 +1773,59 @@ If parameter is not in these choices or omitted, all urls are returned by defaul
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a> or <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.linkcheck_utils.replace_link_helper">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.linkcheck_utils.</span></span><span class="sig-name descname"><span class="pre">replace_link_helper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">old_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">link</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/linkcheck_utils.py#L134"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.linkcheck_utils.replace_link_helper" title="Permalink to this definition"></a></dt>
+<dd><p>A small helper function which can be passed to <a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlMixin.rewrite_links" title="(in lxml v4.9.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">lxml.html.HtmlMixin.rewrite_links()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>old_url</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The url which should be replaced</p></li>
+<li><p><strong>new_url</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The url which should be inserted instead of the old url</p></li>
+<li><p><strong>link</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The current link</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The replaced link</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.linkcheck_utils.replace_links">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.linkcheck_utils.</span></span><span class="sig-name descname"><span class="pre">replace_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">search</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">replace</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/linkcheck_utils.py#L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.linkcheck_utils.replace_links" title="Permalink to this definition"></a></dt>
+<dd><p>Perform search &amp; replace in the content links</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>search</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The (partial) URL to search</p></li>
+<li><p><strong>replace</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The (partial) URL to replace</p></li>
+<li><p><strong>region</strong> (<a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – Optionally limit the replacement to one region (<code class="docutils literal notranslate"><span class="pre">None</span></code> means a global replacement)</p></li>
+<li><p><strong>user</strong> (<a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><em>User</em></a>) – The creator of the replaced translations</p></li>
+<li><p><strong>commit</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether changes should be written to the database</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.linkcheck_utils.save_new_version">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.linkcheck_utils.</span></span><span class="sig-name descname"><span class="pre">save_new_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/linkcheck_utils.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.linkcheck_utils.save_new_version" title="Permalink to this definition"></a></dt>
+<dd><p>Save a new translation version</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>translation</strong> (<a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><em>AbstractContentTranslation</em></a>) – The old translation</p></li>
+<li><p><strong>new_translation</strong> (<a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><em>AbstractContentTranslation</em></a>) – The new translation</p></li>
+<li><p><strong>user</strong> (<a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><em>User</em></a>) – The creator of the new version</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>

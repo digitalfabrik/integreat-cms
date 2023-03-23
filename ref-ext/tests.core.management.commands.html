@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-03-23T18:25:32+00:00" />
+    <meta property="article:modified_time" content="2023-03-23T22:41:35+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commands &mdash; integreat-cms 2023.3.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1143,6 +1143,7 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.STAFF_ROLES"><code class="docutils literal notranslate"><span class="pre">STAFF_ROLES</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.WRITE_ROLES"><code class="docutils literal notranslate"><span class="pre">WRITE_ROLES</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.load_test_data"><code class="docutils literal notranslate"><span class="pre">load_test_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.load_test_data_transactional"><code class="docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.login_role_user"><code class="docutils literal notranslate"><span class="pre">login_role_user()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.login_role_user_async"><code class="docutils literal notranslate"><span class="pre">login_role_user_async()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.pytest_plugins"><code class="docutils literal notranslate"><span class="pre">pytest_plugins</span></code></a></li>
@@ -1313,6 +1314,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#duplicate-pages"><code class="docutils literal notranslate"><span class="pre">duplicate_pages</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#find-large-files"><code class="docutils literal notranslate"><span class="pre">find_large_files</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#find-missing-versions"><code class="docutils literal notranslate"><span class="pre">find_missing_versions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#replace-links"><code class="docutils literal notranslate"><span class="pre">replace_links</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#summ-ai-bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code></a></li>
 </ul>
 </li>
@@ -1326,6 +1328,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release-notes.html">Release notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#unreleased">unreleased</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id1">2023.3.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id2">2023.3.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id3">2023.2.2</a></li>
@@ -1588,6 +1591,65 @@
 <dt class="sig sig-object py" id="tests.core.management.commands.test_find_missing_versions.test_find_missing_versions_success">
 <span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_missing_versions.</span></span><span class="sig-name descname"><span class="pre">test_find_missing_versions_success</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_missing_versions.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_missing_versions.test_find_missing_versions_success" title="Permalink to this definition"></a></dt>
 <dd><p>Ensure no errors are found in default test data</p>
+</dd></dl>
+
+</section>
+<section id="module-tests.core.management.commands.test_replace_links">
+<span id="test-replace-links"></span><h2>Test Replace Links<a class="headerlink" href="#module-tests.core.management.commands.test_replace_links" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.core.management.commands.test_replace_links.test_replace_links_commit">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_commit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L115"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_commit" title="Permalink to this definition"></a></dt>
+<dd><p>Ensure that committing changes to the database works as expected</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data_transactional</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data_transactional" title="tests.conftest.load_test_data_transactional"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.core.management.commands.test_replace_links.test_replace_links_dry_run">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_dry_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L67"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_dry_run" title="Permalink to this definition"></a></dt>
+<dd><p>Ensure that dry run works as expected</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data_transactional</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data_transactional" title="tests.conftest.load_test_data_transactional"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.core.management.commands.test_replace_links.test_replace_links_missing_args">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_missing_args</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_missing_args" title="Permalink to this definition"></a></dt>
+<dd><p>Ensure that missing args cause an error</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.core.management.commands.test_replace_links.test_replace_links_missing_replace">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_missing_replace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_missing_replace" title="Permalink to this definition"></a></dt>
+<dd><p>Ensure that a missing replace throws an error</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.core.management.commands.test_replace_links.test_replace_links_non_existing_region">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_non_existing_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_non_existing_region" title="Permalink to this definition"></a></dt>
+<dd><p>Ensure that a non existing region slug throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.core.management.commands.test_replace_links.test_replace_links_non_existing_username">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_non_existing_username</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_non_existing_username" title="Permalink to this definition"></a></dt>
+<dd><p>Ensure that a non existing username throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
