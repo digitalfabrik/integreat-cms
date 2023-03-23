@@ -86,7 +86,7 @@ class POIListView(TemplateView, POIContextMixin, SummAiContextMixin):
                 ),
             )
             return redirect(
-                "language_tree",
+                "languagetreenodes",
                 **{
                     "region_slug": region.slug,
                 },

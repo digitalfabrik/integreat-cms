@@ -83,7 +83,7 @@ class EventListView(TemplateView, EventContextMixin, SummAiContextMixin):
                 request,
                 _("Please create at least one language node before creating events."),
             )
-            return redirect("language_tree", **{"region_slug": region.slug})
+            return redirect("languagetreenodes", **{"region_slug": region.slug})
 
         if not request.user.has_perm("cms.change_event"):
             messages.warning(
