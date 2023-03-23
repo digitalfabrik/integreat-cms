@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-03-14T14:20:15+00:00" />
+    <meta property="article:modified_time" content="2023-03-23T15:50:37+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Signals &mdash; integreat-cms 2023.3.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -295,6 +295,7 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Signals</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#auth-signals">Auth Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#feedback-signals">Feedback Signals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hix-signals">Hix Signals</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#apps">Apps</a></li>
@@ -669,6 +670,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.signals.html">Signals</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.auth_signals">Auth Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.feedback_signals">Feedback Signals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.hix_signals">Hix Signals</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.apps">Apps</a><ul>
@@ -1582,6 +1584,40 @@
 </dd></dl>
 
 </section>
+<section id="hix-signals">
+<h2>Hix Signals<a class="headerlink" href="#hix-signals" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.signals.hix_signals.</span></span><span class="sig-name descname"><span class="pre">hix_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/signals/hix_signals.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This function returns whether the hix api is enabled for this instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><em>PageTranslation</em></a>) – The page translation to check for</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Whether hix is enabled</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.signals.hix_signals.</span></span><span class="sig-name descname"><span class="pre">page_translation_save_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/signals/hix_signals.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Calculates a hix store for a page translation after saving</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instance</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><em>PageTranslation</em></a>) – The page translation that gets saved</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 
 
@@ -1599,7 +1635,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 14, 2023.
+      <span class="lastupdated">Last updated on Mar 23, 2023.
       </span></p>
   </div>
 
