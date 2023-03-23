@@ -439,6 +439,9 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Install requirements
+          command: sudo apt-get update && sudo apt-get install pcregrep
+      - run:
           name: Enable virtual environment
           command: echo "source .venv/bin/activate" >> $BASH_ENV
       - run:
@@ -486,6 +489,9 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Install requirements
+          command: sudo apt-get update && sudo apt-get install pcregrep
+      - run:
           name: Enable virtual environment
           command: echo "source .venv/bin/activate" >> $BASH_ENV
       - run:
@@ -515,6 +521,9 @@ jobs:
     resource_class: small
     steps:
       - checkout
+      - run:
+          name: Install requirements
+          command: sudo apt-get update && sudo apt-get install pcregrep
       - run:
           name: Notify mattermost about release
           command: |
