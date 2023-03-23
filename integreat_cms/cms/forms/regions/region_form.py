@@ -207,8 +207,11 @@ class RegionForm(CustomModelForm):
                 logger.info("Duplicating page tree of %r to %r", source_region, region)
                 duplicate_pages(source_region, region)
                 # Duplicate Imprint
-                logger.info("Duplicating imprint of %r to %r", source_region, region)
-                duplicate_imprint(source_region, region)
+                if source_region.imprint:
+                    logger.info(
+                        "Duplicating imprint of %r to %r", source_region, region
+                    )
+                    duplicate_imprint(source_region, region)
             # Duplicate media content
             duplicate_media(source_region, region)
             # Create links for the most recent versions of all translations manually
