@@ -436,25 +436,26 @@ class AbstractContentTranslation(AbstractBaseModel):
             # If the page does not have a major public version, it is considered "missing" (keep in mind that it might
             # have draft versions or public versions that are marked as "minor edit")
             return translation_status.MISSING
-        if translation.machine_translated:
-            return translation_status.MACHINE_TRANSLATED
         if translation.currently_in_translation:
             return translation_status.IN_TRANSLATION
         if not self.source_language:
             # If the language of this translation is the root of this region's language tree, it is always "up to date"
             return translation_status.UP_TO_DATE
-        if not (source_translation := self.major_source_translation):
+        if (
             # If the source language does not have a major public version, the translation is considered "outdated",
             # because the content is not in sync with its source translation
-            return translation_status.OUTDATED
-        if source_translation.translation_state == translation_status.OUTDATED:
+            not (source_translation := self.major_source_translation)
             # If the source translation is already outdated, this translation is as well
+            or source_translation.translation_state == translation_status.OUTDATED
+            # If the translation was edited before the last major change in the source language, it is outdated
+            or translation.last_updated <= source_translation.last_updated
+        ):
             return translation_status.OUTDATED
-        if translation.last_updated > source_translation.last_updated:
-            # If the translation was edited after the source translation, we consider it up to date
-            return translation_status.UP_TO_DATE
-        # If the translation was edited before the last major change in the source language, it is outdated
-        return translation_status.OUTDATED
+        if translation.machine_translated:
+            # If the translation has been made by machine translation and is up to date, show the bot icon
+            return translation_status.MACHINE_TRANSLATED
+        # If the translation was edited after the source translation, we consider it up to date
+        return translation_status.UP_TO_DATE
 
     @classmethod
     def search(cls, region, language_slug, query):
