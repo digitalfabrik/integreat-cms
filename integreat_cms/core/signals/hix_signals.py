@@ -21,7 +21,12 @@ def page_translation_save_handler(instance, **kwargs):
     :param \**kwargs: The supplied keyword arguments
     :type \**kwargs: dict
     """
-    if kwargs.get("raw") or instance.hix_score or not hix_enabled(instance):
+    if (
+        kwargs.get("raw")
+        or instance.hix_score
+        or not hix_enabled(instance)
+        or not instance.content.strip()
+    ):
         return
 
     if score := lookup_hix_score(instance.content):

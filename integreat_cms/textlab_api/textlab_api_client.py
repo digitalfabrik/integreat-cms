@@ -1,7 +1,7 @@
 import json
 import logging
 from html import unescape
-from urllib.error import HTTPError
+from urllib.error import URLError
 from urllib.request import Request, urlopen
 
 from django.conf import settings
@@ -45,14 +45,13 @@ class TextlabClient:
 
         :return: The score, or None if an error occurred
         :rtype: float
-
-        :raises urllib.error.HTTPError: if an http error occurred
         """
         data = {"text": unescape(text), "locale_name": "de_DE"}
         path = "/benchmark/5"
         try:
             response = self.post_request(path, data, self.token)
-        except HTTPError:
+        except URLError as e:
+            logger.warning("HIX benchmark API call failed: %r", e)
             return None
         return response.get("formulaHix", None)
 
