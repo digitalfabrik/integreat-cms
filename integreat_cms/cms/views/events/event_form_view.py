@@ -246,17 +246,17 @@ class EventFormView(
             )
             # If automatic translations where requested, pass on to MT API
             if (
-                event_translation_instance
-                and settings.DEEPL_ENABLED
+                settings.DEEPL_ENABLED
                 and machine_translation_form.is_valid()
                 and machine_translation_form.data.get("automatic_translation")
                 and not event_translation_form.data.get("minor_edit")
             ):
-                event_translation_instance.refresh_from_db()
+                # Invalidate cached property to take new version into account
+                event_form.instance.invalidate_cached_translations()
                 deepl = DeepLApi()
                 deepl.deepl_translate_to_languages(
                     request,
-                    event_translation_instance.event,
+                    event_translation_form.instance,
                     machine_translation_form.get_target_languages(),
                     EventTranslationForm,
                 )

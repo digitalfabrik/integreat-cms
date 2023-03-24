@@ -196,17 +196,17 @@ class POIFormView(
 
             # If automatic translations where requested, pass on to MT API
             if (
-                poi_translation_instance
-                and settings.DEEPL_ENABLED
+                settings.DEEPL_ENABLED
                 and machine_translation_form.is_valid()
                 and machine_translation_form.data.get("automatic_translation")
                 and not poi_translation_form.data.get("minor_edit")
             ):
-                poi_translation_instance.refresh_from_db()
+                # Invalidate cached property to take new version into account
+                poi_form.instance.invalidate_cached_translations()
                 deepl = DeepLApi()
                 deepl.deepl_translate_to_languages(
                     request,
-                    poi_translation_instance.poi,
+                    poi_translation_form.instance,
                     machine_translation_form.get_target_languages(),
                     POITranslationForm,
                 )

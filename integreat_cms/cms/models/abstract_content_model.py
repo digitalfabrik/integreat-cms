@@ -119,6 +119,9 @@ class AbstractContentModel(AbstractBaseModel):
     #: Whether translations should be returned in the default language if they do not exist
     fallback_translations_enabled = False
 
+    #: Whether the HIX value is ignored (this is ``False`` by default if not overwritten by a submodel)
+    hix_ignore = False
+
     @cached_property
     def languages(self):
         """
@@ -357,6 +360,31 @@ class AbstractContentModel(AbstractBaseModel):
         :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
         return self.prefetched_major_translations_by_language_slug.get(language_slug)
+
+    def invalidate_cached_translations(self):
+        """
+        Delete all cached translations and query them from the
+        database again when they are accessed next time.
+
+        This is helpful when new translations have been created
+        and the content model should be reused.
+        """
+        for prefetched_attr in [
+            "backend_translation",
+            "best_translation",
+            "default_translation",
+            "default_public_translation",
+            "prefetched_translations_by_language_slug",
+            "prefetched_major_public_translations_by_language_slug",
+            "prefetched_major_translations_by_language_slug",
+            "prefetched_public_or_draft_translations_by_language_slug",
+            "prefetched_public_translations_by_language_slug",
+            "translation_states",
+        ]:
+            try:
+                delattr(self, prefetched_attr)
+            except AttributeError:
+                pass
 
     @cached_property
     def backend_translation(self):

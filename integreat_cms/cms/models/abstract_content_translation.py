@@ -72,6 +72,8 @@ class AbstractContentTranslation(AbstractBaseModel):
         on_delete=models.SET_NULL,
         verbose_name=_("creator"),
     )
+    #: The HIX score is ``None`` if not overwritten by a submodel
+    hix_score = None
     #: Whether this object is read-only and not meant to be stored to the database
     read_only = False
 
@@ -487,6 +489,42 @@ class AbstractContentTranslation(AbstractBaseModel):
         :rtype: str
         """
         return str(self)
+
+    @cached_property
+    def hix_enabled(self):
+        """
+        This function returns whether the HIX API is enabled for this instance
+
+        :returns: Whether HIX is enabled
+        :rtype: bool
+        """
+        return (
+            settings.TEXTLAB_API_ENABLED
+            and self._meta.model_name in settings.TEXTLAB_API_CONTENT_TYPES
+            and self.language.slug in settings.TEXTLAB_API_LANGUAGES
+            and self.foreign_object.region.hix_enabled
+        )
+
+    @cached_property
+    def hix_ignore(self):
+        """
+        Whether this translation is ignored for HIX calculation
+
+        :return: Wether the HIX value is ignored
+        :rtype: bool
+        """
+        return self.foreign_object.hix_ignore
+
+    @cached_property
+    def hix_sufficient_for_mt(self):
+        """
+        Whether this translation has a sufficient HIX value for machine translations.
+        If it is ``None``, machine translations are allowed by default.
+
+        :return: Wether the HIX value is sufficient for MT
+        :rtype: bool
+        """
+        return self.hix_score is None or self.hix_score >= settings.HIX_REQUIRED_FOR_MT
 
     def __str__(self):
         """
