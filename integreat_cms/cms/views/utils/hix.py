@@ -5,7 +5,6 @@ for a given text.
 import json
 import logging
 from functools import lru_cache
-from urllib.error import URLError
 
 from django.conf import settings
 from django.http import JsonResponse
@@ -31,16 +30,9 @@ def lookup_hix_score(text):
     :return: The score for the given text
     :rtype: float
     """
-    if len(text) > MAX_TEXT_LENGTH:
-        return None
-
-    try:
-        return TextlabClient(
-            settings.TEXTLAB_API_USERNAME, settings.TEXTLAB_API_KEY
-        ).benchmark(text)
-    except URLError as e:
-        logger.warning("Hix benchmark api call failed: %r", e)
-        return None
+    return TextlabClient(
+        settings.TEXTLAB_API_USERNAME, settings.TEXTLAB_API_KEY
+    ).benchmark(text)
 
 
 @require_POST
