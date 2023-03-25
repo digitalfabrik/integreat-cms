@@ -26,14 +26,14 @@ class MachineTranslationForm(forms.Form):
 
     translations_to_update = forms.ModelMultipleChoiceField(
         widget=forms.CheckboxSelectMultiple(),
-        queryset=None,
+        queryset=LanguageTreeNode.objects.none(),
         required=False,
         label=_("Update existing translations:"),
     )
 
     translations_to_create = forms.ModelMultipleChoiceField(
         widget=forms.CheckboxSelectMultiple(),
-        queryset=None,
+        queryset=LanguageTreeNode.objects.none(),
         required=False,
         label=_("Create new translations:"),
     )
@@ -89,7 +89,7 @@ class MachineTranslationForm(forms.Form):
         """
         cleaned_data = super().clean()
 
-        if not cleaned_data["automatic_translation"]:
+        if not cleaned_data.get("automatic_translation"):
             cleaned_data["translations_to_update"] = LanguageTreeNode.objects.none()
             cleaned_data["translations_to_create"] = LanguageTreeNode.objects.none()
         return cleaned_data
