@@ -7,6 +7,7 @@
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 require_installed
+require_gh_cli_installed
 
 ISSUE=$1
 LANGUAGE=$2
@@ -39,7 +40,10 @@ RELEASE_NOTES_DIR="integreat_cms/release_notes"
 UNRELEASED_DIR="${RELEASE_NOTES_DIR}/current/unreleased"
 OUTPUT="${UNRELEASED_DIR}/${ISSUE}.yml"
 
-echo "Creating new release note..." | print_info
+TITLE=$(gh issue view "${ISSUE}" --json title --jq ".title")
+
+echo -e "Creating new release note for issue #${ISSUE} with title:\n" | print_info
+echo -e "\t${TITLE}\n" | print_bold
 
 DEEPL_AUTH_KEY=$(integreat-cms-cli shell -c 'from django.conf import settings; print(settings.DEEPL_AUTH_KEY or "")')
 
