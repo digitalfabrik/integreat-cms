@@ -180,6 +180,14 @@ function require_gh_cli_installed {
     fi
 }
 
+# This function checks if jq is installed
+function require_jq_installed {
+    if [[ ! -x "$(command -v jq)" ]]; then
+        echo "The json parser jq is not installed. Please install jq manually and run this script again."  | print_error
+        exit 1
+    fi
+}
+
 # This function executes the given command with the user who invoked sudo
 function deescalate_privileges {
     # Check if command is running as root

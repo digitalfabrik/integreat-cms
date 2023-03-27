@@ -8,6 +8,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 require_installed
 require_gh_cli_installed
+require_jq_installed
 
 ISSUE=$1
 LANGUAGE=$2
