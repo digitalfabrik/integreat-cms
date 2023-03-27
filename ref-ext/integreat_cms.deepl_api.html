@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-03-23T18:25:32+00:00" />
+    <meta property="article:modified_time" content="2023-03-27T11:30:38+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Deepl API &mdash; integreat-cms 2023.3.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -761,6 +761,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.FCM_URL"><code class="docutils literal notranslate"><span class="pre">FCM_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.GVZ_API_ENABLED"><code class="docutils literal notranslate"><span class="pre">GVZ_API_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.GVZ_API_URL"><code class="docutils literal notranslate"><span class="pre">GVZ_API_URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.HIX_REQUIRED_FOR_MT"><code class="docutils literal notranslate"><span class="pre">HIX_REQUIRED_FOR_MT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.HOSTNAME"><code class="docutils literal notranslate"><span class="pre">HOSTNAME</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.IMPRINT_SLUG"><code class="docutils literal notranslate"><span class="pre">IMPRINT_SLUG</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.INSTALLED_APPS"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a></li>
@@ -821,6 +822,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_TIMEOUT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SYS_LOG_LEVEL"><code class="docutils literal notranslate"><span class="pre">SYS_LOG_LEVEL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEMPLATES"><code class="docutils literal notranslate"><span class="pre">TEMPLATES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_CONTENT_TYPES"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_CONTENT_TYPES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_ENABLED"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_KEY"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_LANGUAGES"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_LANGUAGES</span></code></a></li>
@@ -1615,6 +1617,26 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.deepl_api.utils.DeepLApi.check_hix_score">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_hix_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/deepl_api/utils.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.deepl_api.utils.DeepLApi.check_hix_score" title="Permalink to this definition"></a></dt>
+<dd><p>Check whether the required HIX score is met and it is not ignored</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>source_translation</strong> (<a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><em>AbstractContentTranslation</em></a>) – The source translation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Whether the HIX constraints are valid</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.deepl_api.utils.DeepLApi.check_usage">
 <span class="sig-name descname"><span class="pre">check_usage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/deepl_api/utils.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.deepl_api.utils.DeepLApi.check_usage" title="Permalink to this definition"></a></dt>
 <dd><p>This function checks if the attempted translation would exceed the region’s word limit</p>
@@ -1636,7 +1658,7 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.deepl_api.utils.DeepLApi.deepl_translate_to_languages">
-<span class="sig-name descname"><span class="pre">deepl_translate_to_languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_languages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/deepl_api/utils.py#L255"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.deepl_api.utils.DeepLApi.deepl_translate_to_languages" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">deepl_translate_to_languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_languages</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/deepl_api/utils.py#L313"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.deepl_api.utils.DeepLApi.deepl_translate_to_languages" title="Permalink to this definition"></a></dt>
 <dd><p>This function iterates over all descendants of a source language
 and invokes a translation of a single source object into each of
 those languages.</p>
@@ -1644,7 +1666,7 @@ those languages.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – passed request</p></li>
-<li><p><strong>source_object</strong> (<a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel" title="integreat_cms.cms.models.abstract_content_model.AbstractContentModel"><em>AbstractContentModel</em></a>) – passed content object</p></li>
+<li><p><strong>source_translation</strong> (<a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><em>AbstractContentTranslation</em></a>) – passed content object</p></li>
 <li><p><strong>target_languages</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a><em> [ </em><a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a><em> ]</em>) – The target languages into which to translate</p></li>
 <li><p><strong>form_class</strong> (<a class="reference internal" href="integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm" title="integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm"><em>CustomContentModelForm</em></a>) – passed Form class of content type</p></li>
 </ul>
@@ -1654,7 +1676,7 @@ those languages.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.deepl_api.utils.DeepLApi.deepl_translation">
-<span class="sig-name descname"><span class="pre">deepl_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_objects</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/deepl_api/utils.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.deepl_api.utils.DeepLApi.deepl_translation" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">deepl_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content_objects</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/deepl_api/utils.py#L162"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.deepl_api.utils.DeepLApi.deepl_translation" title="Permalink to this definition"></a></dt>
 <dd><p>This functions gets the translation from DeepL</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1705,7 +1727,7 @@ those languages.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 23, 2023.
+      <span class="lastupdated">Last updated on Mar 27, 2023.
       </span></p>
   </div>
 

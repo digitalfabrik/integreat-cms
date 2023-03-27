@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-03-26T18:24:55+00:00" />
+    <meta property="article:modified_time" content="2023-03-27T11:30:38+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Signals &mdash; integreat-cms 2023.3.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -761,6 +761,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.FCM_URL"><code class="docutils literal notranslate"><span class="pre">FCM_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.GVZ_API_ENABLED"><code class="docutils literal notranslate"><span class="pre">GVZ_API_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.GVZ_API_URL"><code class="docutils literal notranslate"><span class="pre">GVZ_API_URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.HIX_REQUIRED_FOR_MT"><code class="docutils literal notranslate"><span class="pre">HIX_REQUIRED_FOR_MT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.HOSTNAME"><code class="docutils literal notranslate"><span class="pre">HOSTNAME</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.IMPRINT_SLUG"><code class="docutils literal notranslate"><span class="pre">IMPRINT_SLUG</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.INSTALLED_APPS"><code class="docutils literal notranslate"><span class="pre">INSTALLED_APPS</span></code></a></li>
@@ -821,6 +822,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_TIMEOUT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SYS_LOG_LEVEL"><code class="docutils literal notranslate"><span class="pre">SYS_LOG_LEVEL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEMPLATES"><code class="docutils literal notranslate"><span class="pre">TEMPLATES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_CONTENT_TYPES"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_CONTENT_TYPES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_ENABLED"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_KEY"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_LANGUAGES"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_LANGUAGES</span></code></a></li>
@@ -1589,26 +1591,9 @@
 <section id="module-integreat_cms.core.signals.hix_signals">
 <span id="hix-signals"></span><h2>Hix Signals<a class="headerlink" href="#module-integreat_cms.core.signals.hix_signals" title="Permalink to this heading"></a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="integreat_cms.core.signals.hix_signals.hix_enabled">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.signals.hix_signals.</span></span><span class="sig-name descname"><span class="pre">hix_enabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/signals/hix_signals.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.signals.hix_signals.hix_enabled" title="Permalink to this definition"></a></dt>
-<dd><p>This function returns whether the hix api is enabled for this instance</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instance</strong> (<a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><em>PageTranslation</em></a>) – The page translation to check for</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Whether hix is enabled</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.core.signals.hix_signals.page_translation_save_handler">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.signals.hix_signals.</span></span><span class="sig-name descname"><span class="pre">page_translation_save_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/signals/hix_signals.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.signals.hix_signals.page_translation_save_handler" title="Permalink to this definition"></a></dt>
-<dd><p>Calculates a hix store for a page translation after saving</p>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.signals.hix_signals.</span></span><span class="sig-name descname"><span class="pre">page_translation_save_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/signals/hix_signals.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.signals.hix_signals.page_translation_save_handler" title="Permalink to this definition"></a></dt>
+<dd><p>Calculates a hix store for a page translation before saving</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1637,7 +1622,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 26, 2023.
+      <span class="lastupdated">Last updated on Mar 27, 2023.
       </span></p>
   </div>
 
