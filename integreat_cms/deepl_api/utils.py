@@ -103,6 +103,61 @@ class DeepLApi:
 
         return (translation_exceeds_limit, word_count)
 
+    @staticmethod
+    def check_hix_score(request, source_translation):
+        """
+        Check whether the required HIX score is met and it is not ignored
+
+        :param request: The current request
+        :type request: ~django.http.HttpRequest
+
+        :param source_translation: The source translation
+        :type source_translation: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
+
+        :return: Whether the HIX constraints are valid
+        :rtype: bool
+        """
+        if not source_translation.hix_enabled:
+            return True
+        if not source_translation.hix_sufficient_for_mt:
+            logger.debug(
+                "HIX score %.2f of %r is too low for machine translation (minimum required: %.1f)",
+                source_translation.hix_score,
+                source_translation,
+                settings.HIX_REQUIRED_FOR_MT,
+            )
+            messages.error(
+                request,
+                _(
+                    'HIX score {:.2f} of "{}" is too low for machine translation (minimum required: {})'
+                ).format(
+                    source_translation.hix_score,
+                    source_translation,
+                    settings.HIX_REQUIRED_FOR_MT,
+                ),
+            )
+            return False
+        if source_translation.hix_ignore:
+            logger.debug(
+                "Machine translations are disabled for %r, because its HIX value is ignored",
+                source_translation,
+            )
+            messages.error(
+                request,
+                _(
+                    'Machine translations are disabled for "{}", because its HIX value is ignored'
+                ).format(
+                    source_translation.title,
+                ),
+            )
+            return False
+        logger.debug(
+            "HIX score %.2f of %r is sufficient for machine translation",
+            source_translation.hix_score,
+            source_translation,
+        )
+        return True
+
     # pylint: disable=too-many-locals
     def deepl_translation(self, request, content_objects, language_slug, form_class):
         """
@@ -164,6 +219,9 @@ class DeepLApi:
                             content_object.best_translation.title,
                         ),
                     )
+                    continue
+
+                if not self.check_hix_score(request, source_translation):
                     continue
 
                 existing_target_translation = content_object.get_translation(
@@ -253,7 +311,7 @@ class DeepLApi:
                 region.save()
 
     def deepl_translate_to_languages(
-        self, request, source_object, target_languages, form_class
+        self, request, source_translation, target_languages, form_class
     ):
         """
         This function iterates over all descendants of a source language
@@ -263,8 +321,8 @@ class DeepLApi:
         :param request: passed request
         :type request: ~django.http.HttpRequest
 
-        :param source_object: passed content object
-        :type source_object: ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel
+        :param source_translation: passed content object
+        :type source_translation: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
 
         :param target_languages: The target languages into which to translate
         :type target_languages: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
@@ -272,11 +330,12 @@ class DeepLApi:
         :param form_class: passed Form class of content type
         :type form_class: ~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm
         """
-        for language in target_languages:
-            if self.check_availability(request, language):
-                self.deepl_translation(
-                    request,
-                    [source_object],
-                    language.slug,
-                    form_class,
-                )
+        if self.check_hix_score(request, source_translation):
+            for language in target_languages:
+                if self.check_availability(request, language):
+                    self.deepl_translation(
+                        request,
+                        [source_translation.foreign_object],
+                        language.slug,
+                        form_class,
+                    )

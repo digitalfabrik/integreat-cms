@@ -196,6 +196,12 @@ TEXTLAB_API_USERNAME = os.environ.get("INTEGREAT_CMS_TEXTLAB_API_USERNAME", "Int
 #: Which language slugs are allowed for the Textlab API
 TEXTLAB_API_LANGUAGES = ["de"]
 
+#: Which content types are enabled for the Textlab API
+TEXTLAB_API_CONTENT_TYPES = ["pagetranslation"]
+
+#: The minimum HIX score required for machine translation
+HIX_REQUIRED_FOR_MT = float(os.environ.get("INTEGREAT_CMS_HIX_REQUIRED_FOR_MT", 15.0))
+
 
 ############
 # WEBAUTHN #
