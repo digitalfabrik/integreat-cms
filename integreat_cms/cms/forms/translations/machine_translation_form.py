@@ -63,6 +63,14 @@ class MachineTranslationForm(forms.Form):
             del self.fields["automatic_translation"]
             return
 
+        # if this translation exists, use its saved automatic_translation setting
+        try:
+            self.initial["automatic_translation"] = instance.get_translation(
+                language.slug
+            ).automatic_translation
+        except AttributeError:
+            pass
+
         to_update, to_create = [], []
         for target in translation_targets:
             target_type = (
