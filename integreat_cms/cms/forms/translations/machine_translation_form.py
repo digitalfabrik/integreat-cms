@@ -51,7 +51,8 @@ class MachineTranslationForm(forms.Form):
         translation_targets = [
             language_node
             for language_node in region.language_tree
-            if language_node.parent_id
+            if language_node.active
+            and language_node.parent_id
             and language_node.parent_id == parent_node.id
             and language_node.mt_provider
             and mt_to_lang_is_permitted(region, language_node.slug)
