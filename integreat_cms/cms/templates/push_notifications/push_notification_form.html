@@ -30,7 +30,8 @@
                     {% for other_language in languages %}
                         <li id="li-{{ other_language.id }}"
                             class="language-tab-header mr-2 -mb-[2px] {% if other_language.id == language.id %} z-10 text-blue-500 bg-white cursor-default {% else %} bg-water-500 {% endif %} hover:text-blue-500 hover:bg-white border-l border-t border-r border-blue-500 font-bold rounded-t-lg"
-                            data-switch-language="{{ other_language.id }}">
+                            data-switch-language="{{ other_language.id }}"
+                            data-text-direction="{{ other_language.text_direction }}">
                             <div class="border-b-2 border-white">
                                 <div class="p-4">
                                     {{ other_language.translated_name }}
