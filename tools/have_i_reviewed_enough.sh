@@ -6,11 +6,7 @@
 # shellcheck source=./tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
-# Check if requirements are satisfied
-if [[ ! -x "$(command -v gh)" ]]; then
-    echo "The GitHub cli is not installed. Please install github-cli manually and run this script again."  | print_error
-    exit 1
-fi
+require_gh_cli_installed
 
 # Parse command line arguments
 while [ "$#" -gt 0 ]; do
