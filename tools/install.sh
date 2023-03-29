@@ -149,7 +149,7 @@ source .venv/bin/activate
 
 # Install pip dependencies
 # shellcheck disable=SC2102
-pip install -e .[dev,pinned]
+pip install -e .[dev-pinned,pinned]
 echo "✔ Installed Python dependencies" | print_success
 
 # Install pre-commit-hooks if --pre-commit option is given

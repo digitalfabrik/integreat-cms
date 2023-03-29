@@ -32,7 +32,7 @@ This workflow gets triggered everytime a commit is pushed to the ``develop`` bra
 pip-install
 --------------
 
-This job executes ``pip install -e .[dev,pinned]`` and makes use of the `CircleCI Dependency Cache <https://circleci.com/docs/2.0/caching/>`__.
+This job executes ``pip install -e .[dev-pinned,pinned]`` and makes use of the `CircleCI Dependency Cache <https://circleci.com/docs/2.0/caching/>`__.
 It passes the virtual environment ``.venv`` to the subsequent jobs.
 
 .. _circleci-webpack:

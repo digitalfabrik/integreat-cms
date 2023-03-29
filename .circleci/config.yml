@@ -19,7 +19,7 @@ jobs:
             else
               python3 -m venv .venv
               source .venv/bin/activate
-              pip install -e .[dev,pinned]
+              pip install -e .[dev-pinned,pinned]
             fi
       - save_cache:
           key: pip-{{ checksum "pyproject.toml" }}-v1
