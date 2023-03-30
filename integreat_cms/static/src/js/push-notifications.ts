@@ -10,10 +10,19 @@ const switchLanguage = (language: string) => {
     document.getElementById(`li-${language}`).classList.add("z-10", "text-blue-500", "bg-white", "cursor-default");
 };
 
+const adjustTextDirection = (textDirection: string, language: string) => {
+    if (textDirection === "RIGHT_TO_LEFT") {
+        (document.querySelector(`#tab-${language} input`) as HTMLElement).dir = "rtl";
+        (document.querySelector(`#tab-${language} textarea`) as HTMLElement).dir = "rtl";
+    }
+};
+
 window.addEventListener("load", () => {
     document.querySelectorAll("[data-switch-language]").forEach((node) => {
-        (node as HTMLElement).addEventListener("click", () => {
-            switchLanguage(node.getAttribute("data-switch-language"));
+        const nodeElement = node as HTMLElement;
+        nodeElement.addEventListener("click", () => {
+            switchLanguage(nodeElement.dataset.switchLanguage);
+            adjustTextDirection(nodeElement.dataset.textDirection, nodeElement.dataset.switchLanguage);
         });
     });
 });
