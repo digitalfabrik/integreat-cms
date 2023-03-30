@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.utils.html import strip_tags
 
+from ...cms.constants import status
 from ...cms.models import POICategoryTranslation
 from ...cms.models.pois.poi import get_default_opening_hours
 from ..decorators import json_response
@@ -128,7 +129,13 @@ def locations(request, region_slug, language_slug):
     result = []
     pois = (
         region.pois.prefetch_public_translations()
-        .filter(archived=False)
+        .filter(
+            archived=False,
+            # Exclude locations without public translation in the default language
+            translations__language=region.default_language,
+            translations__status=status.PUBLIC,
+        )
+        .distinct()
         .select_related("category", "organization")
         .prefetch_related(
             Prefetch(
@@ -144,6 +151,7 @@ def locations(request, region_slug, language_slug):
         except ValueError as e:
             return JsonResponse({"error": str(e)}, status=400)
         pois = pois.filter(location_on_map=location_on_map)
+
     for poi in pois:
         if translation := poi.get_public_translation(language_slug):
             result.append(transform_poi_translation(translation))
