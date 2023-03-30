@@ -12,7 +12,7 @@ Install dependencies
 
 To install exactly the specified versions of the dependencies, execute::
 
-    pip install -e .[dev,pinned]
+    pip install -e .[dev-pinned,pinned]
 
 .. Note::
 
