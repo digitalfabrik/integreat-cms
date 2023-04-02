@@ -746,6 +746,11 @@ urlpatterns = [
                                                 ]
                                             ),
                                         ),
+                                        path(
+                                            "search_and_replace_link",
+                                            linkcheck.LinkReplaceView.as_view(),
+                                            name="search_and_replace_link",
+                                        ),
                                     ]
                                 ),
                             ),

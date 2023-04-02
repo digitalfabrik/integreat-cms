@@ -13,6 +13,7 @@ from .feedback.region_feedback_filter_form import RegionFeedbackFilterForm
 from .imprint.imprint_translation_form import ImprintTranslationForm
 from .language_tree.language_tree_node_form import LanguageTreeNodeForm
 from .languages.language_form import LanguageForm
+from .linkcheck.link_replace_form import LinkReplaceForm
 from .media.create_directory_form import CreateDirectoryForm
 from .media.directory_form import DirectoryForm
 from .media.media_file_form import MediaFileForm

@@ -12,3 +12,11 @@ LINKCHECK_STATUS_TRANSLATIONS = [
         "ConnectionResetError(104, 'Connection reset by peer'))"
     ),
 ]
+
+LINK_TYPES = [
+    ("internal", _("Internal links")),
+    ("external", _("External links")),
+    ("mailto", _("Email links")),
+    ("phone", _("Phone links")),
+    ("invalid", _("Invalid links")),
+]

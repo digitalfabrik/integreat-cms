@@ -191,7 +191,10 @@ def save_new_version(translation, new_translation, user):
     logger.debug("Created new translation version %r", new_translation)
 
 
-def replace_links(search, replace, region=None, user=None, commit=True):
+# pylint: disable=too-many-locals
+def replace_links(
+    search, replace, region=None, user=None, commit=True, link_types=None
+):
     """
     Perform search & replace in the content links
 
@@ -209,6 +212,10 @@ def replace_links(search, replace, region=None, user=None, commit=True):
 
     :param commit: Whether changes should be written to the database
     :type commit: bool
+
+    :param link_types: Which kind of links should be replaced
+    :type link_types: list
+
     """
     region_msg = f' of "{region!r}"' if region else ""
     user_msg = f' by "{user!r}"' if user else ""
@@ -229,7 +236,9 @@ def replace_links(search, replace, region=None, user=None, commit=True):
                 new_translation = deepcopy(translation)
                 for link in translation.links.select_related("url"):
                     url = link.url.url
-                    if search in url:
+                    if search in url and (
+                        not link_types or link.url.type in link_types
+                    ):
                         fixed_url = url.replace(search, replace)
                         new_translation.content = rewrite_links(
                             new_translation.content,
