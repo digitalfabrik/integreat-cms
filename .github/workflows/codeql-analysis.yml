@@ -31,7 +31,7 @@ jobs:
           python-version: "3.9"
       - if: matrix.language == 'python'
         name: Install dependencies with pip
-        run: pip install -e .[dev,pinned]
+        run: pip install -e .[dev-pinned,pinned]
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL

@@ -132,11 +132,40 @@ window.addEventListener("load", async () => {
         },
     } as ChartConfiguration);
 
+    const enableMT = () => {
+        const mtCheckBox = document.getElementById("id_automatic_translation") as HTMLInputElement;
+        mtCheckBox.disabled = false;
+    };
+
+    const disableMT = () => {
+        const mtCheckBox = document.getElementById("id_automatic_translation") as HTMLInputElement;
+        mtCheckBox.checked = false;
+        mtCheckBox.dispatchEvent(new Event("change"));
+        mtCheckBox.disabled = true;
+    };
+
+    // Show or hide the checkboxes for automatic translation depending on the HIX score
+    const toggleMTAvailability = (hixValue: number) => {
+        const mtForm = document.getElementById("machine-translation-form");
+        const hixScoreWarning = document.getElementById("hix-score-warning");
+        const minimumHix = parseFloat(mtForm.dataset.minimumHix);
+
+        if (hixValue && hixValue < minimumHix) {
+            hixScoreWarning.classList.remove("hidden");
+            disableMT();
+        } else {
+            hixScoreWarning.classList.add("hidden");
+            enableMT();
+        }
+    };
+
     // Set listener for update button
     document.getElementById("btn-update-hix-value").addEventListener("click", async (event) => {
         document.getElementById("hix-loading")?.classList.remove("hidden");
         event.preventDefault();
-        updateChart(chart, await getHixValue((event.target as HTMLElement).dataset.url));
+        const newHixValue = await getHixValue((event.target as HTMLElement).dataset.url);
+        updateChart(chart, newHixValue);
+        toggleMTAvailability(newHixValue);
     });
 
     // Set listener, that checks, if tinyMCE content has changed to update the
@@ -161,18 +190,31 @@ window.addEventListener("load", async () => {
             setHixLabelState("no-content");
             document.getElementById("hix-loading")?.classList.add("hidden");
         } else {
-            updateChart(chart, await getHixValue(updateButton.dataset.url));
+            const initialHixValue = await getHixValue(updateButton.dataset.url);
+            updateChart(chart, initialHixValue);
+            toggleMTAvailability(initialHixValue);
+        }
+    };
+
+    const toggleHixIgnore = async () => {
+        const hixIgnore = document.getElementById("id_hix_ignore") as HTMLInputElement;
+        const hixBlock = document.getElementById("hix-block");
+        const mtForm = document.getElementById("machine-translation-form");
+        if (hixIgnore.checked) {
+            hixBlock.classList.add("hidden");
+            disableMT();
+            mtForm.classList.add("hidden");
+        } else {
+            enableMT();
+            mtForm.classList.remove("hidden");
+            hixBlock.classList.remove("hidden");
+            initHixValue();
         }
     };
 
     // Set listener to show/hide HIX widget when hix_ignore checkbox is clicked
-    document.getElementById("id_hix_ignore")?.addEventListener("change", async () => {
-        document.getElementById("hix-block").classList.toggle("hidden");
-        const hixIgnore = document.getElementById("id_hix_ignore") as HTMLInputElement;
-        if (!hixIgnore.checked) {
-            initHixValue();
-        }
-    });
+    document.getElementById("id_hix_ignore")?.addEventListener("change", toggleHixIgnore);
+    toggleHixIgnore();
 
     if (!document.getElementById("hix-block")?.classList.contains("hidden")) {
         // Delay the first request, so that tinyMCE can be initialized first

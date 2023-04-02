@@ -4083,7 +4083,7 @@ msgid "A network error has occurred."
 msgstr "Ein Netzwerkfehler ist aufgetreten."
 
 #: cms/templates/analytics/_broken_links_widget.html
-#: cms/templates/chat/_chat_widget.html
+#: cms/templates/chat/_chat_widget.html cms/templates/hix_widget.html
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_overview.html
 #: cms/views/media/media_context_mixin.py
@@ -4897,8 +4897,8 @@ msgid "HIX value is outdated."
 msgstr "Der HIX-Wert ist veraltet."
 
 #: cms/templates/hix_widget.html
-msgid "Some error occurred. Please try again later."
-msgstr "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
+msgid "HIX value could not be calculated."
+msgstr "Der HIX-Wert konnte nicht berechnet werden."
 
 #: cms/templates/hix_widget.html
 msgid "There is no page content."
@@ -5689,6 +5689,15 @@ msgstr[1] ""
 msgid "Delete this page"
 msgstr "Diese Seite löschen"
 
+#: cms/templates/pages/page_form_sidebar/minor_edit_box.html
+#, python-format
+msgid ""
+"Increase the HIX score to at least %(minimum_hix)s to enable automatic "
+"translations."
+msgstr ""
+"Um automatische Übersetzungen nutzen zu können, muss der HIX-Wert mindestens "
+"%(minimum_hix)s betragen."
+
 #: cms/templates/pages/page_form_sidebar/settings_box.html
 msgid "Settings of the page"
 msgstr "Einstellungen der Seite"
@@ -6086,6 +6095,10 @@ msgstr "Neue Übersetzung des Ortes erstellen"
 #: cms/templates/pois/poi_form.html
 msgid "Create new location"
 msgstr "Neuen Ort erstellen"
+
+#: cms/templates/pois/poi_form.html
+msgid "The default translation is not yet published"
+msgstr "Die Standardübersetzung ist noch nicht veröffentlicht"
 
 #: cms/templates/pois/poi_form.html
 msgid "The name is currently displayed to users only in the default language"
@@ -8321,6 +8334,22 @@ msgstr "Niederländisch"
 msgid "DeepL API"
 msgstr "DeepL API"
 
+#: deepl_api/utils.py
+msgid ""
+"HIX score {:.2f} of \"{}\" is too low for machine translation (minimum "
+"required: {})"
+msgstr ""
+"HIX Wert {:.2f} für \"{}\" ist zu niedrig für maschinelle Übersetzung "
+"(erforderlicher Mindestwert: {})"
+
+#: deepl_api/utils.py
+msgid ""
+"Machine translations are disabled for \"{}\", because its HIX value is "
+"ignored"
+msgstr ""
+"Machinelle Übersetzungen sind für \"{}\" deaktiviert, da die Option \"HIX-"
+"Wert ignorieren\" aktiviert ist."
+
 #: deepl_api/utils.py summ_ai_api/summ_ai_api_client.py
 msgid ""
 "Machine translations are disabled for content type \"{}\", language \"{}\" "
@@ -8513,6 +8542,12 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Current machine translation"
+#~ msgstr "Die Übersetzung ist aktuell und wurde maschinell erzeugt"
+
+#~ msgid "An error occurred. Please try again later."
+#~ msgstr "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
 
 #~ msgid "Both"
 #~ msgstr "Beide"

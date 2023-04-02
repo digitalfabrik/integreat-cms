@@ -81,7 +81,7 @@ class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
                 _("Please create at least one language node before creating pages."),
             )
             return redirect(
-                "language_tree",
+                "languagetreenodes",
                 **{
                     "region_slug": region.slug,
                 },

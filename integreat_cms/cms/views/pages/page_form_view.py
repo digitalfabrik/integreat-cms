@@ -239,6 +239,7 @@ class PageFormView(
                 ),
                 "translation_states": page.translation_states if page else [],
                 "MT_ENABLED": MT_ENABLED,
+                "minimum_hix": settings.HIX_REQUIRED_FOR_MT,
             },
         )
 
@@ -347,17 +348,17 @@ class PageFormView(
 
             # If automatic translations where requested, pass on to MT API
             if (
-                page_translation_instance
-                and settings.DEEPL_ENABLED
+                settings.DEEPL_ENABLED
                 and machine_translation_form.is_valid()
                 and machine_translation_form.data.get("automatic_translation")
                 and not page_translation_form.data.get("minor_edit")
             ):
-                page_translation_instance.refresh_from_db()
+                # Invalidate cached property to take new version into account
+                page_form.instance.invalidate_cached_translations()
                 deepl = DeepLApi()
                 deepl.deepl_translate_to_languages(
                     request,
-                    page_translation_instance.page,
+                    page_translation_form.instance,
                     machine_translation_form.get_target_languages(),
                     PageTranslationForm,
                 )

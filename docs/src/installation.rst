@@ -129,4 +129,4 @@ And install it using our developer tool :github-source:`tools/install.sh`::
 .. Note::
 
     This script checks whether the required system-dependencies are installed and installs the project-dependencies via npm and pip.
-    If only one of both dependency-managers should be invoked, run ``npm ci`` or ``pip install -e .[dev,pinned]`` directly.
+    If only one of both dependency-managers should be invoked, run ``npm ci`` or ``pip install -e .[dev-pinned,pinned]`` directly.

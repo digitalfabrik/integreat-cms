@@ -72,6 +72,8 @@ class AbstractContentTranslation(AbstractBaseModel):
         on_delete=models.SET_NULL,
         verbose_name=_("creator"),
     )
+    #: The HIX score is ``None`` if not overwritten by a submodel
+    hix_score = None
     #: Whether this object is read-only and not meant to be stored to the database
     read_only = False
 
@@ -436,25 +438,26 @@ class AbstractContentTranslation(AbstractBaseModel):
             # If the page does not have a major public version, it is considered "missing" (keep in mind that it might
             # have draft versions or public versions that are marked as "minor edit")
             return translation_status.MISSING
-        if translation.machine_translated:
-            return translation_status.MACHINE_TRANSLATED
         if translation.currently_in_translation:
             return translation_status.IN_TRANSLATION
         if not self.source_language:
             # If the language of this translation is the root of this region's language tree, it is always "up to date"
             return translation_status.UP_TO_DATE
-        if not (source_translation := self.major_source_translation):
+        if (
             # If the source language does not have a major public version, the translation is considered "outdated",
             # because the content is not in sync with its source translation
-            return translation_status.OUTDATED
-        if source_translation.translation_state == translation_status.OUTDATED:
+            not (source_translation := self.major_source_translation)
             # If the source translation is already outdated, this translation is as well
+            or source_translation.translation_state == translation_status.OUTDATED
+            # If the translation was edited before the last major change in the source language, it is outdated
+            or translation.last_updated <= source_translation.last_updated
+        ):
             return translation_status.OUTDATED
-        if translation.last_updated > source_translation.last_updated:
-            # If the translation was edited after the source translation, we consider it up to date
-            return translation_status.UP_TO_DATE
-        # If the translation was edited before the last major change in the source language, it is outdated
-        return translation_status.OUTDATED
+        if translation.machine_translated:
+            # If the translation has been made by machine translation and is up to date, show the bot icon
+            return translation_status.MACHINE_TRANSLATED
+        # If the translation was edited after the source translation, we consider it up to date
+        return translation_status.UP_TO_DATE
 
     @classmethod
     def search(cls, region, language_slug, query):
@@ -487,6 +490,42 @@ class AbstractContentTranslation(AbstractBaseModel):
         :rtype: str
         """
         return str(self)
+
+    @cached_property
+    def hix_enabled(self):
+        """
+        This function returns whether the HIX API is enabled for this instance
+
+        :returns: Whether HIX is enabled
+        :rtype: bool
+        """
+        return (
+            settings.TEXTLAB_API_ENABLED
+            and self._meta.model_name in settings.TEXTLAB_API_CONTENT_TYPES
+            and self.language.slug in settings.TEXTLAB_API_LANGUAGES
+            and self.foreign_object.region.hix_enabled
+        )
+
+    @cached_property
+    def hix_ignore(self):
+        """
+        Whether this translation is ignored for HIX calculation
+
+        :return: Wether the HIX value is ignored
+        :rtype: bool
+        """
+        return self.foreign_object.hix_ignore
+
+    @cached_property
+    def hix_sufficient_for_mt(self):
+        """
+        Whether this translation has a sufficient HIX value for machine translations.
+        If it is ``None``, machine translations are allowed by default.
+
+        :return: Wether the HIX value is sufficient for MT
+        :rtype: bool
+        """
+        return self.hix_score is None or self.hix_score >= settings.HIX_REQUIRED_FOR_MT
 
     def __str__(self):
         """

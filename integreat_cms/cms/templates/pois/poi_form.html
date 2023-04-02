@@ -33,7 +33,10 @@
             {% if not poi_form.instance.archived and perms.cms.change_poi %}
                 <div class="flex flex-wrap gap-4 ml-auto mr-0">
                     <button name="status" value="{{ DRAFT }}" class="btn btn-gray">{% translate "Save as draft" %}</button>
-                    <button name="status" value="{{ PUBLIC }}" class="btn">
+                    <button name="status"
+                            value="{{ PUBLIC }}"
+                            class="btn"
+                            {% if language != request.region.default_language and not poi_form.instance.default_public_translation %} title="{% translate "The default translation is not yet published" %}" disabled {% endif %}>
                         {% if poi_translation_form.instance.status == PUBLIC %}
                             {% translate "Update" %}
                         {% else %}

@@ -96,6 +96,10 @@
                                         <span title="{% translate "Translation missing" %}" class="no-trans">
                                             <i icon-name="x"></i>
                                         </span>
+                                    {% elif other_status == translation_status.MACHINE_TRANSLATED %}
+                                        <span title="{% translate "Machine translated" %}">
+                                            <i icon-name="bot"></i>
+                                        </span>
                                     {% endif %}
                                     <span class="px-2 max-w-max truncate">{{ other_language.translated_name }}</span>
                                 </div>
