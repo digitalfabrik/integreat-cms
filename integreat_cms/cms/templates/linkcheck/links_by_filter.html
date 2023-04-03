@@ -60,11 +60,22 @@
                         <input type="checkbox" id="bulk-select-all"/>
                     </th>
                     <th class="text-sm text-left uppercase py-3 pr-2">{% translate "URL" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2 min">{% translate "SSL" %}</th>
+                    {% if request.user.expert_mode %}
+                        <th class="text-sm text-left uppercase py-3 pr-2 min"
+                            title="{% translate "An anchor denotes a link to a fragement within an HTML document" %}">
+                            {% translate "Anchor" %}
+                        </th>
+                    {% endif %}
+                    <th class="text-sm text-left uppercase py-3 pr-2 min">{% translate "Code" %}</th>
                     <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Status" %}</th>
                     <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Link text" %}</th>
                     <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Source" %}</th>
-                    <th class="text-sm text-right uppercase py-3 pr-2">{% translate "Usages" %}</th>
-                    <th class="text-sm text-right uppercase py-3 pr-4">{% translate "Options" %}</th>
+                    <th class="text-sm text-right uppercase py-3 pr-2 lg:max-w-[50px] xl:max-w-[100px] 2xl:max-w-full truncate min"
+                        title="{% translate "Usages" %}">
+                        {% translate "Usages" %}
+                    </th>
+                    <th class="text-sm text-right uppercase py-3 pr-4 min">{% translate "Options" %}</th>
                 </tr>
             </thead>
             <tbody>
