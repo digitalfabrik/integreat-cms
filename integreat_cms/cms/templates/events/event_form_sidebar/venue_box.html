@@ -39,7 +39,7 @@
             </div>
         </div>
         <p class="text-sm italic block mt-2 mb-2">
-            {% translate "Create an event location or start typing the name of an existing location" %}.
+            {% translate "Create an event location or start typing the name of an existing location. Only published locations can be set as event venues" %}.
         </p>
         <div class="relative" id="poi-query-result">{% include "events/_poi_query_result.html" %}</div>
         <div id="poi-address-container" class="{% if not poi %} hidden{% endif %}">
@@ -65,5 +65,14 @@
                 {% translate "Open on Google Maps" %}
             </a>
         </div>
+        <div id="poi-ajax-success-message"
+             class="bg-green-100 border-l-4 border-green-500 text-green-500 px-4 py-3 hidden">
+            {% trans "The new location was successfully created." %}
+        </div>
+        <div id="poi-ajax-error-message"
+             class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 hidden">
+            {% trans "An error occured." %}
+        </div>
+        <div id="poi-form-widget"></div>
     </div>
 {% endblock collapsible_box_content %}

@@ -23,9 +23,10 @@
         </select>
     {% endif %}
     {% if create_poi_option %}
-        <button class="btn w-full option-new-poi mb-2"
-                data-url="{% url 'new_poi' region_slug=request.region.slug language_slug=request.region.default_language.slug %}"
-                data-poi-title="{{ poi_query }}">
+        <button id="show-poi-form-button"
+                class="btn w-full option-new-poi mb-2"
+                data-poi-title="{{ poi_query }}"
+                data-url="{% url 'show_poi_form_ajax' region_slug=request.region.slug language_slug=request.region.default_language.slug poi_title=poi_query %}">
             <i icon-name="map-pin"></i>
             {% blocktrans %}Create location "{{ poi_query }}"{% endblocktrans %}
         </button>

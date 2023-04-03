@@ -9,5 +9,6 @@ from .poi_actions import (
     restore_poi,
     view_poi,
 )
+from .poi_form_ajax_view import POIFormAjaxView
 from .poi_form_view import POIFormView
 from .poi_list_view import POIListView
