@@ -137,6 +137,18 @@ Translate an entire region into Easy German via SUMM.AI::
 * ``--initial``: Whether existing translations should not be updated
 
 
+``reset_deepl_budget``
+~~~~~~~~~~~~~~~~~~~~~~
+
+Reset DeepL budget of regions whose renewal month is the current month::
+
+    integreat-cms-cli reset_deepl_budget [--force]
+
+**Options:**
+
+* ``--force``: Allow to reset the budget even if it's not the first day of the month
+
+
 Create new commands
 -------------------
 
