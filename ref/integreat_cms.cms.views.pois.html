@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-04-03T09:19:07+00:00" />
+    <meta property="article:modified_time" content="2023-04-03T20:39:14+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>POIs &mdash; integreat-cms 2023.4.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1332,6 +1332,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release-notes.html">Release notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#unreleased">unreleased</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id1">2023.4.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id2">2023.3.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id3">2023.3.0</a></li>
@@ -1670,6 +1671,67 @@
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="poi-form-ajax-view">
+<h2>POI Form Ajax View<a class="headerlink" href="#poi-form-ajax-view" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.pois.poi_form_ajax_view.</span></span><span class="sig-name descname"><span class="pre">POIFormAjaxView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pois/poi_form_ajax_view.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_context_mixin.POIContextMixin" title="integreat_cms.cms.views.pois.poi_context_mixin.POIContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">POIContextMixin</span></code></a></p>
+<p>View for the ajax POI widget</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pois/poi_form_ajax_view.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Render a POI form widget template</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The html template of a POI form</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponse" title="(in Django v3.2)"><em>HttpResponse</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pois/poi_form_ajax_view.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Add a new POI to the database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – If no language for the given language slug was found</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A status message, either a success or an error message</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.JsonResponse" title="(in Django v3.2)"><em>JsonResponse</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">template</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'events/_poi_form_widget.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pois/poi_form_ajax_view.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Template for ajax POI widget</p>
 </dd></dl>
 
 </dd></dl>
