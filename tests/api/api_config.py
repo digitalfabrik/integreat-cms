@@ -93,14 +93,14 @@ API_ENDPOINTS = [
         "/augsburg/de/wp-json/extensions/v3/children/",
         "tests/api/expected-outputs/augsburg_de_children.json",
         200,
-        26,
+        11,
     ),
     (
         "/api/augsburg/de/children/?depth=3&url=/augsburg/de/behörden-und-beratung/behörden/",
         "/augsburg/de/wp-json/extensions/v3/children/?depth=3&url=/augsburg/de/behörden-und-beratung/behörden/",
         "tests/api/expected-outputs/augsburg_de_children_archived_descendants.json",
         200,
-        35,
+        11,
     ),
     (
         "/augsburg/de/wp-json/extensions/v3/page/?url=/augsburg/de/behörden-und-beratung/behörden/archiviertes-amt/",
@@ -114,7 +114,7 @@ API_ENDPOINTS = [
         "/augsburg/de/wp-json/extensions/v3/children/?depth=2",
         "tests/api/expected-outputs/api_augsburg_de_children_depth_2.json",
         200,
-        88,
+        11,
     ),
     (
         "/api/augsburg/de/events/",
