@@ -400,6 +400,11 @@ urlpatterns = [
                     name="admin_feedback",
                 ),
                 path(
+                    "archived/",
+                    feedback.AdminFeedbackListView.as_view(archived=True),
+                    name="admin_feedback_archived",
+                ),
+                path(
                     "mark-read/",
                     feedback.mark_admin_feedback_as_read,
                     name="mark_admin_feedback_as_read",
@@ -408,6 +413,16 @@ urlpatterns = [
                     "mark-unread/",
                     feedback.mark_admin_feedback_as_unread,
                     name="mark_admin_feedback_as_unread",
+                ),
+                path(
+                    "archive/",
+                    feedback.archive_admin_feedback,
+                    name="archive_admin_feedback",
+                ),
+                path(
+                    "restore/",
+                    feedback.restore_admin_feedback,
+                    name="restore_admin_feedback",
                 ),
                 path(
                     "delete/",
@@ -1194,6 +1209,11 @@ urlpatterns = [
                                 name="region_feedback",
                             ),
                             path(
+                                "archived/",
+                                feedback.RegionFeedbackListView.as_view(archived=True),
+                                name="region_feedback_archived",
+                            ),
+                            path(
                                 "mark-read/",
                                 feedback.mark_region_feedback_as_read,
                                 name="mark_region_feedback_as_read",
@@ -1202,6 +1222,16 @@ urlpatterns = [
                                 "mark-unread/",
                                 feedback.mark_region_feedback_as_unread,
                                 name="mark_region_feedback_as_unread",
+                            ),
+                            path(
+                                "archive/",
+                                feedback.archive_region_feedback,
+                                name="archive_region_feedback",
+                            ),
+                            path(
+                                "restore/",
+                                feedback.restore_region_feedback,
+                                name="restore_region_feedback",
                             ),
                             path(
                                 "delete/",

@@ -44,6 +44,7 @@ msgstr "Landkreis"
 #: cms/forms/users/user_filter_form.py
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/languages/region_list_section/region_list.html
 #: cms/templates/users/user_list.html
 msgid "Region"
@@ -1812,7 +1813,9 @@ msgstr "Alle Regionen"
 #: cms/forms/feedback/region_feedback_filter_form.py
 #: cms/templates/analytics/translation_coverage.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/_page_xliff_import_diff.html
 #: cms/templates/statistics/statistics_overview.html
@@ -1829,7 +1832,9 @@ msgstr "Alle Kategorien"
 
 #: cms/forms/feedback/region_feedback_filter_form.py
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
 msgid "Category"
 msgstr "Kategorie"
@@ -1851,7 +1856,9 @@ msgstr "Status"
 #: cms/forms/feedback/region_feedback_filter_form.py
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Rating"
 msgstr "Bewertung"
 
@@ -2423,7 +2430,8 @@ msgstr "Wiederholungs-Regel"
 msgid "icon"
 msgstr "Icon"
 
-#: cms/models/events/event.py cms/models/pois/poi.py
+#: cms/models/events/event.py cms/models/feedback/feedback.py
+#: cms/models/pois/poi.py
 msgid "archived"
 msgstr "archiviert"
 
@@ -2563,6 +2571,10 @@ msgstr "technisch"
 #: cms/models/feedback/feedback.py
 msgid "Whether or not the feedback is targeted at the developers"
 msgstr "Ob das Feedback an die Entwickler:innen gerichtet ist oder nicht"
+
+#: cms/models/feedback/feedback.py
+msgid "Whether or not the feedback is archived"
+msgstr "Ob das Feedback archiviert ist oder nicht"
 
 #: cms/models/feedback/feedback.py
 msgid "marked as read by"
@@ -3862,7 +3874,10 @@ msgstr "Statistiken"
 msgid "Translation Report"
 msgstr "Übersetzungsbericht"
 
-#: cms/templates/_base.html cms/templates/feedback/region_feedback_list.html
+#: cms/templates/_base.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -4583,7 +4598,9 @@ msgstr "Bearbeiten"
 #: cms/templates/events/event_form.html
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
 #: cms/templates/pages/page_form_sidebar/settings_box.html
@@ -4681,7 +4698,9 @@ msgstr "Archivierte Veranstaltungen"
 #: cms/templates/events/event_list.html
 #: cms/templates/events/event_list_archived.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/pages/page_tree.html
 #: cms/templates/pages/page_tree_archived.html
 #: cms/templates/users/user_list.html
@@ -4691,7 +4710,9 @@ msgstr "Filter einblenden"
 #: cms/templates/events/event_list.html
 #: cms/templates/events/event_list_archived.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/pages/page_tree.html
 #: cms/templates/pages/page_tree_archived.html
 #: cms/templates/users/user_list.html
@@ -4752,7 +4773,9 @@ msgstr "Veranstaltungen ausgewählt"
 #: cms/templates/events/event_list.html
 #: cms/templates/events/event_list_archived.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/pages/page_tree.html
@@ -4789,7 +4812,9 @@ msgstr "%(content_type)s maschinell auf %(language)s übersetzen"
 #: cms/templates/events/event_list.html
 #: cms/templates/events/event_list_archived.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/pages/_page_xliff_export_overlay.html
@@ -4855,19 +4880,25 @@ msgstr "Die fünf aktuellsten Einträge werden aufgeführt."
 
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Feedback on"
 msgstr "Feedback zu"
 
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Comment"
 msgstr "Kommentar"
 
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/imprint/imprint_revisions.html
 #: cms/templates/pages/page_revisions.html
 msgid "Date"
@@ -4886,17 +4917,30 @@ msgid "Technical Feedback"
 msgstr "Technisches Feedback"
 
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
+msgid "Archived Feedback"
+msgstr "Archivierte Feedback"
+
+#: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Select all"
 msgstr "Alle auswählen"
 
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "overall"
 msgstr "insgesamt"
 
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Marked as read by"
 msgstr "Als gelesen markiert von"
 
@@ -4909,26 +4953,52 @@ msgid "No technical feedback available yet."
 msgstr "Noch kein technisches Feedback vorhanden."
 
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Feedback entries selected"
 msgstr "Feedback Einträge ausgewählt"
 
 #: cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Mark as read"
 msgstr "Als gelesen markieren"
 
 #: cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Mark as unread"
 msgstr "Als ungelesen markieren"
 
 #: cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/region_feedback_list.html
+msgid "Archive"
+msgstr "Archivieren"
+
+#: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/organizations/organization_form.html
 msgid "Delete"
 msgstr "Löschen"
+
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list_archived.html
+msgid "No archived feedback found with these filters."
+msgstr "Keine archivierten Feedback mit diesen Filtern gefunden."
+
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list_archived.html
+msgid "No archived feedback available yet."
+msgstr "Noch kein archivierten Feedback vorhanden."
+
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list_archived.html
+msgid "Restore"
+msgstr "Wiederherstellen"
 
 #: cms/templates/feedback/region_feedback_list.html
 msgid "No feedback found with these filters."
@@ -7363,6 +7433,16 @@ msgstr "Feedback wurde als gelesen markiert"
 #: cms/views/feedback/region_feedback_actions.py
 msgid "Feedback was successfully marked as unread"
 msgstr "Feedback wurde als ungelesen markiert"
+
+#: cms/views/feedback/admin_feedback_actions.py
+#: cms/views/feedback/region_feedback_actions.py
+msgid "Feedback was successfully archived"
+msgstr "Feedback wurde erfolgreich archiviert"
+
+#: cms/views/feedback/admin_feedback_actions.py
+#: cms/views/feedback/region_feedback_actions.py
+msgid "Feedback was successfully restored"
+msgstr "Feedback wurde erfolgreich wiederhergestellt"
 
 #: cms/views/feedback/admin_feedback_actions.py
 #: cms/views/feedback/region_feedback_actions.py
@@ -10364,9 +10444,6 @@ msgstr ""
 
 #~ msgid "Registered 2FA key"
 #~ msgstr "Hinterlegte 2-Faktor-Schlüssel"
-
-#~ msgid "Restore"
-#~ msgstr "Wiederherstellen"
 
 #~ msgid "You don't have the permission to edit or create POIs."
 #~ msgstr ""

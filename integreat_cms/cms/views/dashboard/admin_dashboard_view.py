@@ -34,6 +34,8 @@ class AdminDashboardView(TemplateView, ChatContextMixin, ReleaseNotesContextMixi
         """
         context = super().get_context_data(**kwargs)
         context["admin_feedback"] = Feedback.objects.filter(
-            is_technical=True, read_by=None
+            is_technical=True,
+            read_by=None,
+            archived=False,
         )[:5]
         return context

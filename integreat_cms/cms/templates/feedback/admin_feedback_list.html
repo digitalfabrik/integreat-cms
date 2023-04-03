@@ -6,7 +6,17 @@
 {% block content %}
     {% with filter_form.filters_visible as filters_visible %}
         <div class="table-header">
-            <h1 class="heading">{% translate "Technical Feedback" %}</h1>
+            <div class="flex flex-wrap justify-between">
+                <h1 class="heading">{% translate "Technical Feedback" %}</h1>
+                <a href="{% url 'admin_feedback_archived' %}"
+                   class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
+                    <span>
+                        <i icon-name="archive" class="align-top h-5"></i>
+                        {% translate "Archived Feedback" %}
+                        ({{ archived_count }})
+                    </span>
+                </a>
+            </div>
             <div class="flex justify-between">
                 {% include "search_input_form.html" with object_type="feedback" related_form="admin-feedback-filter-form" %}
                 <button id="filter-toggle" class="btn btn-light-blue">
@@ -136,25 +146,30 @@
         {% endif %}
         <div class="flex flex-col">
             {% include "pagination.html" with chunk=admin_feedback %}
-            <div class="flex self-start gap-2 mt-2">
-                <select id="bulk-action">
-                    <option>
-                        {% translate "Select bulk action" %}
-                    </option>
-                    <option data-bulk-action="{% url 'mark_admin_feedback_as_read' %}">
-                        {% translate "Mark as read" %}
-                    </option>
-                    <option data-bulk-action="{% url 'mark_admin_feedback_as_unread' %}">
-                        {% translate "Mark as unread" %}
-                    </option>
-                    {% if perms.cms.delete_feedback %}
-                        <option data-bulk-action="{% url 'delete_admin_feedback' %}">
-                            {% translate "Delete" %}
+            {% if perms.cms.change_feedback %}
+                <div class="flex self-start gap-2 mt-2">
+                    <select id="bulk-action">
+                        <option>
+                            {% translate "Select bulk action" %}
                         </option>
-                    {% endif %}
-                </select>
-                <button id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
-            </div>
+                        <option data-bulk-action="{% url 'mark_admin_feedback_as_read' %}">
+                            {% translate "Mark as read" %}
+                        </option>
+                        <option data-bulk-action="{% url 'mark_admin_feedback_as_unread' %}">
+                            {% translate "Mark as unread" %}
+                        </option>
+                        <option data-bulk-action="{% url 'archive_admin_feedback' %}">
+                            {% translate "Archive" %}
+                        </option>
+                        {% if perms.cms.delete_feedback %}
+                            <option data-bulk-action="{% url 'delete_admin_feedback' %}">
+                                {% translate "Delete" %}
+                            </option>
+                        {% endif %}
+                    </select>
+                    <button id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
+                </div>
+            {% endif %}
         </div>
     </form>
 {% endblock content %}

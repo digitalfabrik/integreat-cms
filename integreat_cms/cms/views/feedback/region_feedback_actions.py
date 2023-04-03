@@ -92,6 +92,64 @@ def mark_region_feedback_as_unread(request, region_slug):
 
 
 @require_POST
+@permission_required("cms.change_feedback")
+def archive_region_feedback(request, region_slug):
+    """
+    Archive a list of feedback items
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :return: A redirection to the region feedback list
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
+    region = request.region
+
+    selected_ids = request.POST.getlist("selected_ids[]")
+    Feedback.objects.filter(
+        id__in=selected_ids, region=region, is_technical=False
+    ).update(archived=True)
+
+    logger.info("Feedback objects %r archived by %r", selected_ids, request.user)
+    messages.success(request, _("Feedback was successfully archived"))
+
+    return redirect("region_feedback", region_slug=region_slug)
+
+
+@require_POST
+@permission_required("cms.change_feedback")
+def restore_region_feedback(request, region_slug):
+    """
+    Restore a list of feedback items
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :return: A redirection to the region feedback list
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
+    region = request.region
+
+    selected_ids = request.POST.getlist("selected_ids[]")
+    Feedback.objects.filter(
+        id__in=selected_ids, region=region, is_technical=False
+    ).update(archived=False)
+
+    logger.info("Feedback objects %r restored by %r", selected_ids, request.user)
+    messages.success(request, _("Feedback was successfully restored"))
+
+    return redirect("region_feedback_archived", region_slug=region_slug)
+
+
+@require_POST
 @permission_required("cms.delete_feedback")
 def delete_region_feedback(request, region_slug):
     """
