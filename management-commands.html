@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-04-03T06:50:21+00:00" />
+    <meta property="article:modified_time" content="2023-04-03T09:19:07+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Management Commands &mdash; integreat-cms 2023.4.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -1316,6 +1316,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#duplicate-pages"><code class="docutils literal notranslate"><span class="pre">duplicate_pages</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#find-large-files"><code class="docutils literal notranslate"><span class="pre">find_large_files</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#find-missing-versions"><code class="docutils literal notranslate"><span class="pre">find_missing_versions</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hix-bulk"><code class="docutils literal notranslate"><span class="pre">hix_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#replace-links"><code class="docutils literal notranslate"><span class="pre">replace_links</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#summ-ai-bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#reset-deepl-budget"><code class="docutils literal notranslate"><span class="pre">reset_deepl_budget</span></code></a></li>
@@ -1579,6 +1580,17 @@ when you use this command in production to make sure links in archived pages are
 <p><strong>Arguments:</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">MODEL</span></code>: The model to check (one of <code class="docutils literal notranslate"><span class="pre">page</span></code>, <code class="docutils literal notranslate"><span class="pre">event</span></code>, <code class="docutils literal notranslate"><span class="pre">poi</span></code>)</p></li>
+</ul>
+</section>
+<section id="hix-bulk">
+<h4><code class="docutils literal notranslate"><span class="pre">hix_bulk</span></code><a class="headerlink" href="#hix-bulk" title="Permalink to this heading"></a></h4>
+<p>Set the hix value for all pages for which it is missing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>integreat-cms-cli<span class="w"> </span>hix_bulk<span class="w"> </span><span class="o">[</span>REGION_SLUGS<span class="w"> </span>...<span class="o">]</span>
+</pre></div>
+</div>
+<p><strong>Arguments:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">REGION_SLUGS</span></code>: The slugs of the regions to process, separated by a space. If none are given, every region will be processed</p></li>
 </ul>
 </section>
 <section id="replace-links">
