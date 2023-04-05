@@ -41,7 +41,7 @@ MATOMO_TRACKING = bool(
 )
 
 #: The slug for the legal notice (see e.g. :class:`~integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation`)
-IMPRINT_SLUG = "imprint"
+IMPRINT_SLUG = os.environ.get("INTEGREAT_CMS_IMPRINT_SLUG", "disclaimer")
 
 #: The slug of the region "Testumgebung" - prevent sending PNs to actual users in development in
 #: :func:`~integreat_cms.firebase_api.firebase_api_client.FirebaseApiClient.send_pn`
