@@ -1,7 +1,6 @@
 import json
 import logging
 from html import unescape
-from urllib.error import URLError
 from urllib.request import Request, urlopen
 
 from django.conf import settings
@@ -14,6 +13,8 @@ class TextlabClient:
     """
     Client for the textlab api.
     Supports login and hix-score retrieval.
+
+    A detailed API documentation can be found at https://comlab-ulm.github.io/swagger-V8/
     """
 
     def __init__(self, username, password):
@@ -48,11 +49,7 @@ class TextlabClient:
         """
         data = {"text": unescape(text), "locale_name": "de_DE"}
         path = "/benchmark/5"
-        try:
-            response = self.post_request(path, data, self.token)
-        except URLError as e:
-            logger.warning("HIX benchmark API call failed: %r", e)
-            return None
+        response = self.post_request(path, data, self.token)
         return response.get("formulaHix", None)
 
     @staticmethod
