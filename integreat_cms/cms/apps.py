@@ -20,3 +20,14 @@ class CmsConfig(AppConfig):
     name = "integreat_cms.cms"
     #: Human-readable name for the application
     verbose_name = _("CMS")
+
+    # pylint: disable=import-outside-toplevel
+    def ready(self):
+        """
+        Monkeypatch the checking of internal URLs
+        """
+        from linkcheck.models import Url
+
+        from .utils.internal_link_checker import check_internal
+
+        Url.check_internal = check_internal

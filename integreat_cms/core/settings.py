@@ -923,6 +923,10 @@ PER_PAGE = 16
 # DJANGO LINKCHECK #
 ####################
 
+#: Used by `django-linkcheck <https://github.com/DjangoAdminHackers/django-linkcheck#site_domain-and-linkcheck_site_domains>`_
+#: to determine whether a link is internal.
+LINKCHECK_SITE_DOMAINS = [WEBAPP_URL]
+
 #: Disable linkcheck listeners e.g. when the fixtures are loaded
 LINKCHECK_DISABLE_LISTENERS = bool(
     strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS", "False"))
