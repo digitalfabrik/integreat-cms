@@ -8,7 +8,6 @@ window.addEventListener("load", () => {
     ];
     toggleables.forEach((it) => {
         const toggleControl = document.getElementById(it[0]);
-        console.log(toggleControl);
         const toBeToggled = document.getElementById(it[1]);
 
         // remove "hidden" if toggleControl is already checked on page load
