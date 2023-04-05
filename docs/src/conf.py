@@ -185,6 +185,7 @@ nitpick_ignore = [
     ("py:attr", "linkcheck.models.Link.page_translation"),
     ("py:attr", "linkcheck.models.Link.poi_translations"),
     ("py:attr", "linkcheck.models.Link.poi_translation"),
+    ("py:class", "linkcheck.models.Url"),
     ("py:class", "polymorphic.query.PolymorphicQuerySet"),
     ("py:class", "PolymorphicQuerySet"),
     ("py:class", "requests_mock.mocker.Mocker"),

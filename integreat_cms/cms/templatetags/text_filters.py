@@ -4,7 +4,6 @@ This is a collection of tags and filters for strings.
 import json
 
 from django import template
-from django.utils.translation import gettext as _
 
 register = template.Library()
 
@@ -21,27 +20,6 @@ def words(text):
     :rtype: list
     """
     return text.split()
-
-
-@register.filter(name="linkcheck_status_filter")
-def linkcheck_status_filter(status_message):
-    """
-    Due to a long status entry for a single kind of faulty link,
-    this filter reduced the output when display in list view
-
-    :param status_message: error description
-    :type status_message: str
-    :return: a concise message
-    :rtype: str
-    """
-    if not status_message:
-        return _("Unknown")
-    if status_message.startswith("Other Error:"):
-        return _("Error")
-    # Sometimes 404 errors are malformed
-    if status_message in ["404 ", "404 404"]:
-        return "404 Not Found"
-    return _(status_message)
 
 
 @register.filter(name="to_json")
