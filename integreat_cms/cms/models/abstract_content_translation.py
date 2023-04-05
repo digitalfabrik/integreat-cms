@@ -425,7 +425,6 @@ class AbstractContentTranslation(AbstractBaseModel):
         """
         return self.translation_state == translation_status.UP_TO_DATE
 
-    # pylint: disable=too-many-return-statements
     @cached_property
     def translation_state(self):
         """
