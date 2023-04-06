@@ -3,6 +3,7 @@ This file contains helper functions for XLIFF tests.
 """
 from django.urls import reverse
 
+from integreat_cms.cms.constants import translation_status
 from integreat_cms.cms.models import Page
 
 from ..utils import assert_message_in_response
@@ -116,6 +117,7 @@ def validate_xliff_import_response(client, response, import_1, import_2):
         assert translation.title == import_n["title"]
         assert translation.content == import_n["content"]
         assert not translation.currently_in_translation
+        assert translation.translation_state == translation_status.UP_TO_DATE
         assert_message_in_response(import_n["message"], response)
         if translation.version > 1:
             # If a translation already exists for this version, assert that the status is inherited

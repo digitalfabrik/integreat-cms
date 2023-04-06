@@ -204,15 +204,8 @@ def page_to_xliff(page, target_language, dir_name, only_public=False):
     )
     logger.debug("Created XLIFF file %r", actual_filename)
 
-    # Set "currently in translation" status for existing target translation
-    if latest_version := page.get_translation(target_language.slug):
-        latest_version.currently_in_translation = True
-        latest_version.save(update_timestamp=False)
-        logger.debug(
-            "Updated translation status of %r to %r",
-            latest_version,
-            latest_version.translation_state,
-        )
+    # Set "currently in translation" status for existing target translations
+    target_page_translation.all_versions.update(currently_in_translation=True)
 
     return download_storage.path(actual_filename)
 
