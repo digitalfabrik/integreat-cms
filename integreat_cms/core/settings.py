@@ -959,6 +959,20 @@ SUMM_AI_TEST_MODE: Final[bool] = strtobool(
 #: The timeout in minutes for requests to the SUMM.AI API
 SUMM_AI_TIMEOUT: Final[int] = 10
 
+#: The limit for "Too many requests".
+SUMM_AI_MAX_CONCURRENT_REQUESTS = int(
+    os.environ.get("INTEGREAT_CMS_SUMM_AI_MAX_CONCURRENT_REQUESTS", 20)
+)
+
+#: Waiting time after "Too many requests" response was sent
+SUMM_AI_RATE_LIMIT_COOLDOWN = float(
+    os.environ.get("INTEGREAT_CMS_SUMM_AI_RATE_LIMIT_COOLDOWN", 30)
+)
+
+#: Maximum amount of retries before giving up
+#: Retries are reset if translation requests are successful after completing the cooldown
+SUMM_AI_MAX_RETRIES = int(os.environ.get("INTEGREAT_CMS_SUMM_AI_MAX_RETRIES", 5))
+
 #: The language slugs for German
 SUMM_AI_GERMAN_LANGUAGE_SLUG: Final[str] = os.environ.get(
     "INTEGREAT_CMS_SUMM_AI_GERMAN_LANGUAGE_SLUG", "de"
