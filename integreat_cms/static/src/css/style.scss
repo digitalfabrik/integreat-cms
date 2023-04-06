@@ -227,8 +227,9 @@ select,
 [type="radio"] {
     @apply rounded text-blue-500 mr-2 align-text-top;
 
-    &:disabled {
-        @apply bg-gray-200 border-gray-200;
+    &:disabled,
+    &.fake-disable {
+        @apply bg-gray-200 border-gray-200 pointer-events-none;
         &:checked {
             @apply bg-gray-400 border-gray-400;
         }

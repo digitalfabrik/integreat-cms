@@ -72,6 +72,13 @@ class AbstractContentTranslation(AbstractBaseModel):
         on_delete=models.SET_NULL,
         verbose_name=_("creator"),
     )
+    automatic_translation = models.BooleanField(
+        default=False,
+        verbose_name=_("Automatic translation"),
+        help_text=_(
+            "Tick if updating this content should automatically refresh or create its translations."
+        ),
+    )
     #: The HIX score is ``None`` if not overwritten by a submodel
     hix_score = None
     #: Whether this object is read-only and not meant to be stored to the database

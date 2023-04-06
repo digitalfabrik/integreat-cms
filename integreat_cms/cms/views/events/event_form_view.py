@@ -239,11 +239,18 @@ class EventFormView(
             # Save event from event form
             event = event_form.save()
             event_translation_form.instance.event = event
-            event_translation_form.save(
+            event_translation_instance = event_translation_form.save(
+                commit=False,
                 foreign_form_changed=(
                     event_form.has_changed() or recurrence_rule_form.has_changed()
-                )
+                ),
             )
+            if machine_translation_form.is_valid():
+                event_translation_instance.automatic_translation = bool(
+                    machine_translation_form.data.get("automatic_translation")
+                )
+            event_translation_instance.save()
+
             # If automatic translations where requested, pass on to MT API
             if (
                 settings.DEEPL_ENABLED

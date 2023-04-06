@@ -132,16 +132,20 @@ window.addEventListener("load", async () => {
         },
     } as ChartConfiguration);
 
-    const enableMT = () => {
-        const mtCheckBox = document.getElementById("id_automatic_translation") as HTMLInputElement;
-        mtCheckBox.disabled = false;
-    };
-
-    const disableMT = () => {
-        const mtCheckBox = document.getElementById("id_automatic_translation") as HTMLInputElement;
-        mtCheckBox.checked = false;
-        mtCheckBox.dispatchEvent(new Event("change"));
-        mtCheckBox.disabled = true;
+    const toggleMTCheckboxes = (disabled: boolean) => {
+        const checkboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll(
+            "#machine-translation-form input[type='checkbox']"
+        );
+        checkboxes.forEach((checkbox) => {
+            const label = document.querySelector(`label[for='${checkbox.id}']`);
+            if (disabled) {
+                label.classList.add("pointer-events-none");
+                checkbox.classList.add("fake-disable");
+            } else {
+                label.classList.remove("pointer-events-none");
+                checkbox.classList.remove("fake-disable");
+            }
+        });
     };
 
     // Show or hide the checkboxes for automatic translation depending on the HIX score
@@ -152,10 +156,10 @@ window.addEventListener("load", async () => {
 
         if (hixValue && hixValue < minimumHix) {
             hixScoreWarning.classList.remove("hidden");
-            disableMT();
+            toggleMTCheckboxes(true);
         } else {
             hixScoreWarning.classList.add("hidden");
-            enableMT();
+            toggleMTCheckboxes(false);
         }
     };
 
@@ -202,10 +206,10 @@ window.addEventListener("load", async () => {
         const mtForm = document.getElementById("machine-translation-form");
         if (hixIgnore.checked) {
             hixBlock.classList.add("hidden");
-            disableMT();
+            toggleMTCheckboxes(true);
             mtForm.classList.add("hidden");
         } else {
-            enableMT();
+            toggleMTCheckboxes(false);
             mtForm.classList.remove("hidden");
             hixBlock.classList.remove("hidden");
             initHixValue();
