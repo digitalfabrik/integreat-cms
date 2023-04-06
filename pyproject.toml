@@ -84,9 +84,8 @@ dev = [
     "isort",
     "pre-commit",
     "pyjwt",
-    "pylint<=2.16.4",
+    "pylint",
     "pylint-django",
-    "pylint-runner",
     "pytest-circleci-parallelized",
     "pytest-cov",
     "pytest-django",
@@ -250,10 +249,9 @@ dev-pinned = [
     "pprintpp==0.4.0",
     "pre-commit==3.2.1",
     "PyJWT==2.6.0",
-    "pylint==2.16.4",
+    "pylint==2.17.2",
     "pylint-django==2.5.3",
     "pylint-plugin-utils==0.7",
-    "pylint-runner==0.6.0",
     "pyproject_hooks==1.0.0",
     "pytest==7.2.2",
     "pytest-circleci-parallelized==0.1.0",
@@ -357,11 +355,13 @@ disable = [
     "consider-using-namedtuple-or-dataclass",
     "consider-using-tuple",
 ]
+recursive = true
 ignore-paths = [
   ".venv",
   "node_modules",
   "build",
 ]
+fail-on = "I"
 extension-pkg-whitelist = ["lxml"]
 django-settings-module="integreat_cms.core.settings"
 

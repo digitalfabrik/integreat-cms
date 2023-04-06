@@ -45,7 +45,6 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
             },
         )
 
-    # pylint: disable=unused-argument
     def post(self, request, *args, **kwargs):
         r"""Add a new POI to the database
 
