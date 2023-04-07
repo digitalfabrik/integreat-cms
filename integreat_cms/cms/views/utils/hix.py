@@ -1,10 +1,11 @@
 """
-This file contains functionality to communicate with the textlab api to get the hix-value
+This file contains functionality to communicate with the Textlab api to get the hix-value
 for a given text.
 """
 import json
 import logging
 from functools import lru_cache
+from urllib.error import URLError
 
 from django.conf import settings
 from django.http import JsonResponse
@@ -30,9 +31,13 @@ def lookup_hix_score(text):
     :return: The score for the given text
     :rtype: float
     """
-    return TextlabClient(
-        settings.TEXTLAB_API_USERNAME, settings.TEXTLAB_API_KEY
-    ).benchmark(text)
+    try:
+        return TextlabClient(
+            settings.TEXTLAB_API_USERNAME, settings.TEXTLAB_API_KEY
+        ).benchmark(text)
+    except (URLError, OSError) as e:
+        logger.warning("HIX benchmark API call failed: %r", e)
+        return None
 
 
 @require_POST
