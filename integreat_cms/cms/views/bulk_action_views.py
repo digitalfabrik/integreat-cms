@@ -14,7 +14,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 from django.views.generic.list import MultipleObjectMixin
 
-from ...deepl_api.utils import DeepLApi
+from ...deepl_api.deepl_api_client import DeepLApiClient
 from ...summ_ai_api.summ_ai_api_client import SummAiApiClient
 
 logger = logging.getLogger(__name__)
@@ -132,7 +132,7 @@ class BulkAutoTranslateView(BulkActionView):
         )
         # Collect the corresponding objects
         logger.debug("Automatic translation for: %r", self.get_queryset())
-        deepl = DeepLApi()
+        deepl = DeepLApiClient()
         if deepl.check_availability(request, language):
             deepl.deepl_translation(
                 request, self.get_queryset(), language.slug, self.form

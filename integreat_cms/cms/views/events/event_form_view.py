@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
-from ....deepl_api.utils import DeepLApi
+from ....deepl_api.deepl_api_client import DeepLApiClient
 from ...constants import status, translation_status
 from ...decorators import permission_required
 from ...forms import (
@@ -264,7 +264,7 @@ class EventFormView(
             ):
                 # Invalidate cached property to take new version into account
                 event_form.instance.invalidate_cached_translations()
-                deepl = DeepLApi()
+                deepl = DeepLApiClient()
                 deepl.deepl_translate_to_languages(
                     request,
                     event_translation_form.instance,

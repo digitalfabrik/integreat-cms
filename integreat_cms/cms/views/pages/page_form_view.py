@@ -10,7 +10,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
-from ....deepl_api.utils import DeepLApi
+from ....deepl_api.deepl_api_client import DeepLApiClient
 from ...constants import status, text_directions
 from ...decorators import permission_required
 from ...forms import MachineTranslationForm, PageForm, PageTranslationForm
@@ -362,7 +362,7 @@ class PageFormView(
             ):
                 # Invalidate cached property to take new version into account
                 page_form.instance.invalidate_cached_translations()
-                deepl = DeepLApi()
+                deepl = DeepLApiClient()
                 deepl.deepl_translate_to_languages(
                     request,
                     page_translation_form.instance,

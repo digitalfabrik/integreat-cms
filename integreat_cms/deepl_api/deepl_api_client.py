@@ -14,7 +14,7 @@ from ..cms.utils.translation_utils import mt_is_permitted
 logger = logging.getLogger(__name__)
 
 
-class DeepLApi:
+class DeepLApiClient:
     """
     DeepL API to auto translate selected posts.
     """

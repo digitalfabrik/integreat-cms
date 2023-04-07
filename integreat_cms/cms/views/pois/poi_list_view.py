@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
-from ....deepl_api.utils import DeepLApi
+from ....deepl_api.deepl_api_client import DeepLApiClient
 from ...decorators import permission_required
 from ...forms import ObjectSearchForm
 from ...models import POITranslation
@@ -119,7 +119,7 @@ class POIListView(TemplateView, POIContextMixin, SummAiContextMixin):
 
         # DeepL available
         if settings.DEEPL_ENABLED:
-            deepl = DeepLApi()
+            deepl = DeepLApiClient()
             DEEPL_AVAILABLE = deepl.check_availability(request, language)
         else:
             DEEPL_AVAILABLE = False

@@ -10,12 +10,12 @@ from django.apps import AppConfig
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
-from .utils import DeepLApi
+from .deepl_api_client import DeepLApiClient
 
 logger = logging.getLogger(__name__)
 
 
-class DeepLApiConfig(AppConfig):
+class DeepLApiClientConfig(AppConfig):
     """
     DeepL API config inheriting the django AppConfig
     """
@@ -37,7 +37,7 @@ class DeepLApiConfig(AppConfig):
         if "runserver" in sys.argv or "APACHE_PID_FILE" in os.environ:
             if settings.DEEPL_ENABLED:
                 try:
-                    deepl = DeepLApi()
+                    deepl = DeepLApiClient()
                     self.supported_source_languages = [
                         source_language.code.lower()
                         for source_language in deepl.translator.get_source_languages()
