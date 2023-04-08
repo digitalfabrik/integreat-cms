@@ -344,7 +344,14 @@ class PageFormView(
             ):
                 page_translation_form.instance.page = page_form.save()
             # Save page translation form
-            page_translation_form.save(foreign_form_changed=page_form.has_changed())
+            page_translation_instance = page_translation_form.save(
+                commit=False, foreign_form_changed=page_form.has_changed()
+            )
+            if machine_translation_form.is_valid():
+                page_translation_instance.automatic_translation = bool(
+                    machine_translation_form.data.get("automatic_translation")
+                )
+            page_translation_instance.save()
 
             # If automatic translations where requested, pass on to MT API
             if (

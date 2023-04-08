@@ -1,0 +1,22 @@
+{% load i18n %}
+{% load widget_tweaks %}
+<div>
+    <label for="{{ poi_translation_form.title.id_for_label }}">{{ poi_translation_form.title.label }}</label>
+    {% render_field poi_translation_form.title|append_attr:"form:ajax_poi_form" %}
+    <label for="{{ poi_form.address.id_for_label }}">{{ poi_form.address.label }}</label>
+    {% render_field poi_form.address|append_attr:"form:ajax_poi_form" %}
+    <label for="{{ poi_form.postcode.id_for_label }}">{{ poi_form.postcode.label }}</label>
+    {% render_field poi_form.postcode|append_attr:"form:ajax_poi_form" %}
+    <label for="{{ poi_form.city.id_for_label }}">{{ poi_form.city.label }}</label>
+    {% render_field poi_form.city|append_attr:"form:ajax_poi_form" %}
+    <label for="{{ poi_form.country.id_for_label }}">{{ poi_form.country.label }}</label>
+    {% render_field poi_form.country|append_attr:"form:ajax_poi_form" %}
+    <button name="status"
+            value="{{ PUBLIC }}"
+            form="ajax_poi_form"
+            data-btn-save-poi-form
+            class="btn w-full mt-4 mb-2"
+            data-url="{% url 'create_poi_ajax' region_slug=request.region.slug language_slug=request.region.default_language.slug %}">
+        {% translate "Publish" %}
+    </button>
+</div>

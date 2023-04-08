@@ -116,7 +116,7 @@ class POIFormView(
             },
         )
 
-    # pylint: disable=too-many-locals
+    # pylint: disable=too-many-locals,too-many-branches
     def post(self, request, *args, **kwargs):
         r"""
         Submit :class:`~integreat_cms.cms.forms.pois.poi_form.POIForm` and
@@ -192,7 +192,14 @@ class POIFormView(
         else:
             # Save forms
             poi_translation_form.instance.poi = poi_form.save()
-            poi_translation_form.save(foreign_form_changed=poi_form.has_changed())
+            poi_translation_instance = poi_translation_form.save(
+                commit=False, foreign_form_changed=poi_form.has_changed()
+            )
+            if machine_translation_form.is_valid():
+                poi_translation_instance.automatic_translation = bool(
+                    machine_translation_form.data.get("automatic_translation")
+                )
+            poi_translation_instance.save()
 
             # If automatic translations where requested, pass on to MT API
             if (

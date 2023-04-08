@@ -54,15 +54,15 @@
                         {% if feedback.object_url %}
                             <a href="{{ feedback.object_url }}" class="hover:underline">{{ feedback.object_name }}</a>
                         {% else %}
-                            <div class="feedback-entry">
-                                <span class="feedback-entry-content">{{ feedback.object_name }}</span>
+                            <div class="table-cell-truncate">
+                                <span class="table-cell-content">{{ feedback.object_name }}</span>
                                 <a class="copy-search-btn btn-icon inline"
                                    data-copy-to-clipboard="{{ feedback.object_name }}"
                                    title="{% translate "Copy to clipboard" %}">
                                     <i icon-name="copy"></i>
                                     <i icon-name="check" class="hidden text-green-500"></i>
                                 </a>
-                                <a class="toggle-feedback-entry">
+                                <a class="toggle-table-cell">
                                     <i icon-name="chevron-down" class="more"></i>
                                     <i icon-name="chevron-up" class="less"></i>
                                 </a>
@@ -75,9 +75,9 @@
                         {% if not feedback.comment %}
                             <i icon-name="minus" class="pr-1"></i>
                         {% else %}
-                            <div class="feedback-entry">
-                                <span class="feedback-entry-content">{{ feedback.comment }}</span>
-                                <a class="toggle-feedback-entry">
+                            <div class="table-cell-truncate">
+                                <span class="table-cell-content">{{ feedback.comment }}</span>
+                                <a class="toggle-table-cell">
                                     <i icon-name="chevron-down" class="more"></i>
                                     <i icon-name="chevron-up" class="less"></i>
                                 </a>

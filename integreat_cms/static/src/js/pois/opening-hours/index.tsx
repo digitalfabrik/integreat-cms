@@ -73,7 +73,7 @@ const OpeningHoursWidget = ({ translations, days, initial, canChangeLocation }: 
 };
 export default OpeningHoursWidget;
 
-document.addEventListener("DOMContentLoaded", () => {
+export const addOpeningHoursListener = () => {
     document.querySelectorAll("opening-hours-widget").forEach((el) => {
         const openingHourConfigData = JSON.parse(document.getElementById("openingHourConfigData").textContent);
         const openingHourInitialData = JSON.parse(
@@ -88,7 +88,9 @@ document.addEventListener("DOMContentLoaded", () => {
             el
         );
     });
-});
+};
+
+document.addEventListener("DOMContentLoaded", addOpeningHoursListener);
 
 (window as any).IntegreatOpeningHoursWidget = OpeningHoursWidget;
 (window as any).preactRender = render;

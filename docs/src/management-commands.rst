@@ -101,6 +101,18 @@ Find version inconsistencies in the CMS::
 * ``MODEL``: The model to check (one of ``page``, ``event``, ``poi``)
 
 
+``hix_bulk``
+~~~~~~~~~~~~
+
+Set the hix value for all pages for which it is missing::
+
+    integreat-cms-cli hix_bulk [REGION_SLUGS ...]
+
+**Arguments:**
+
+* ``REGION_SLUGS``: The slugs of the regions to process, separated by a space. If none are given, every region will be processed
+
+
 ``replace_links``
 ~~~~~~~~~~~~~~~~~
 
@@ -135,6 +147,18 @@ Translate an entire region into Easy German via SUMM.AI::
 **Options:**
 
 * ``--initial``: Whether existing translations should not be updated
+
+
+``reset_deepl_budget``
+~~~~~~~~~~~~~~~~~~~~~~
+
+Reset DeepL budget of regions whose renewal month is the current month::
+
+    integreat-cms-cli reset_deepl_budget [--force]
+
+**Options:**
+
+* ``--force``: Allow to reset the budget even if it's not the first day of the month
 
 
 Create new commands

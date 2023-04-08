@@ -35,7 +35,7 @@ class TextlabApiConfig(AppConfig):
                     logger.info(
                         "Textlab API is available at: %r", settings.TEXTLAB_API_URL
                     )
-                except URLError:
-                    logger.info("Textlab API is unavailable")
+                except (URLError, OSError) as e:
+                    logger.info("Textlab API is unavailable: %r", e)
             else:
                 logger.info("Textlab API is disabled")

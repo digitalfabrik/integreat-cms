@@ -1153,6 +1153,16 @@ urlpatterns = [
                                             name="bulk_restore_pois",
                                         ),
                                         path(
+                                            "show-poi-form-ajax/<str:poi_title>/",
+                                            pois.POIFormAjaxView.as_view(),
+                                            name="show_poi_form_ajax",
+                                        ),
+                                        path(
+                                            "create-poi-ajax/",
+                                            pois.POIFormAjaxView.as_view(),
+                                            name="create_poi_ajax",
+                                        ),
+                                        path(
                                             "<int:poi_id>/",
                                             include(
                                                 [

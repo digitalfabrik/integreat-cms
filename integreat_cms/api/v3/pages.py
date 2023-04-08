@@ -267,8 +267,8 @@ def children(request, region_slug, language_slug):
     )
     for root in root_pages:
         descendants = root.get_tree_max_depth(max_depth=depth)
-        for descendant in descendants:
-            if descendant in public_region_pages:
+        for descendant in public_region_pages:
+            if descendant in descendants:
                 result.append(
                     transform_page(descendant.get_public_translation(language_slug))
                 )

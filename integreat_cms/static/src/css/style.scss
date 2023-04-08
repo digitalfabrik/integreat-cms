@@ -227,8 +227,9 @@ select,
 [type="radio"] {
     @apply rounded text-blue-500 mr-2 align-text-top;
 
-    &:disabled {
-        @apply bg-gray-200 border-gray-200;
+    &:disabled,
+    &.fake-disable {
+        @apply bg-gray-200 border-gray-200 pointer-events-none;
         &:checked {
             @apply bg-gray-400 border-gray-400;
         }
@@ -572,15 +573,15 @@ datalist option {
     }
 }
 
-/* Special word break for feedback list */
-.feedback-entry {
+/* Special class for truncated table cells that can be expanded */
+.table-cell-truncate {
     @apply flex flex-nowrap items-center;
 
     span {
         @apply overflow-hidden overflow-ellipsis whitespace-nowrap;
     }
 
-    .toggle-feedback-entry {
+    .toggle-table-cell {
         @apply hover:scale-125 cursor-pointer inline-flex;
     }
 
