@@ -830,12 +830,12 @@ urlpatterns = [
                                             name="bulk_restore_pages",
                                         ),
                                         path(
-                                            "auto-translate-easy-german/",
-                                            bulk_action_views.BulkActionEasyGermanView.as_view(
+                                            "machine-translate/",
+                                            bulk_action_views.BulkMachineTranslationView.as_view(
                                                 model=Page,
                                                 form=PageTranslationForm,
                                             ),
-                                            name="auto_translate_easy_german_pages",
+                                            name="machine_translation_pages",
                                         ),
                                         path(
                                             "<int:page_id>/",
@@ -1033,19 +1033,11 @@ urlpatterns = [
                                             name="new_event",
                                         ),
                                         path(
-                                            "auto-translate/",
-                                            bulk_action_views.BulkAutoTranslateView.as_view(
+                                            "machine-translate/",
+                                            bulk_action_views.BulkMachineTranslationView.as_view(
                                                 model=Event, form=EventTranslationForm
                                             ),
-                                            name="automatic_translation_events",
-                                        ),
-                                        path(
-                                            "auto-translate-easy-german/",
-                                            bulk_action_views.BulkActionEasyGermanView.as_view(
-                                                model=Event,
-                                                form=EventTranslationForm,
-                                            ),
-                                            name="auto_translate_easy_german_events",
+                                            name="machine_translation_events",
                                         ),
                                         path(
                                             "bulk-archive/",
@@ -1124,19 +1116,11 @@ urlpatterns = [
                                             name="new_poi",
                                         ),
                                         path(
-                                            "auto-translate/",
-                                            bulk_action_views.BulkAutoTranslateView.as_view(
+                                            "machine-translate/",
+                                            bulk_action_views.BulkMachineTranslationView.as_view(
                                                 model=POI, form=POITranslationForm
                                             ),
-                                            name="automatic_translation_pois",
-                                        ),
-                                        path(
-                                            "auto-translate-easy-german/",
-                                            bulk_action_views.BulkActionEasyGermanView.as_view(
-                                                model=POI,
-                                                form=POITranslationForm,
-                                            ),
-                                            name="auto_translate_easy_german_pois",
+                                            name="machine_translation_pois",
                                         ),
                                         path(
                                             "bulk-archive/",

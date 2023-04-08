@@ -1,11 +1,12 @@
 """
 This module contains mixins for our views
 """
-from django.conf import settings
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
+
+from ...core.utils.machine_translation_provider import MachineTranslationProvider
 
 
 class RegionPermissionRequiredMixing(UserPassesTestMixin):
@@ -110,9 +111,9 @@ class ContentEditLockMixin(ContextMixin):
 
 
 # pylint: disable=too-few-public-methods
-class SummAiContextMixin(ContextMixin):
+class MachineTranslationContextMixin(ContextMixin):
     """
-    This mixin provides extra context for SUMM.AI bulk action views
+    This mixin provides extra context for machine translation options
     """
 
     def get_context_data(self, **kwargs):
@@ -127,10 +128,18 @@ class SummAiContextMixin(ContextMixin):
         :rtype: dict
         """
         context = super().get_context_data(**kwargs)
-        context["SUMM_AI_ENABLED"] = (
-            settings.SUMM_AI_ENABLED
-            and self.request.region.summ_ai_enabled
-            and kwargs.get("language_slug")
-            == settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG
+        language_slug = kwargs["language_slug"]
+        language_node = self.request.region.language_node_by_slug[language_slug]
+        context["MT_PROVIDER"] = language_node.mt_provider
+        context["MT_PERMITTED"] = (
+            MachineTranslationProvider.is_permitted(
+                self.request.region, self.request.user, self.translation_model
+            )
+            and not language_node.is_root()
+            and not (
+                language_node.mt_provider
+                and language_node.mt_provider.bulk_only_for_staff
+                and not self.request.user.is_staff
+            )
         )
         return context

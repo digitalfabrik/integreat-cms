@@ -121,21 +121,20 @@
                     {% translate "Archive events" %}
                 </option>
                 {% if MT_PERMITTED %}
-                    {% if SUMM_AI_ENABLED %}
-                        <option data-bulk-action="{% url 'auto_translate_easy_german_events' region_slug=request.region.slug language_slug=language.slug %}">
-                            {% translate "Automatically translate this event into Easy German" %}
+                    {% translate "events" as content_type %}
+                    {% if MT_PROVIDER %}
+                        <option data-bulk-action="{% url 'machine_translation_events' region_slug=request.region.slug language_slug=language.slug %}">
+                            {% blocktranslate trimmed with provider=MT_PROVIDER.name %}
+                                Machine translate {{ content_type }} via {{ provider }} to {{ language }}
+                            {% endblocktranslate %}
                         </option>
-                    {% elif DEEPL_ENABLED %}
-                        {% if DEEPL_AVAILABLE %}
-                            <option data-bulk-action="{% url 'automatic_translation_events' region_slug=request.region.slug language_slug=language.slug %}">
-                                {% translate "Create missing translations automatically" %}
-                            </option>
-                        {% else %}
-                            <option disabled
-                                    title="{% translate "This language is not supported by any available machine translation provider." %}">
-                                {% translate "Create missing translations automatically" %}
-                            </option>
-                        {% endif %}
+                    {% else %}
+                        <option disabled
+                                title="{% translate "This language is not supported by any available machine translation provider." %}">
+                            {% blocktranslate trimmed %}
+                                Machine translate {{ content_type }} to {{ language }}
+                            {% endblocktranslate %}
+                        </option>
                     {% endif %}
                 {% endif %}
             </select>

@@ -11,16 +11,15 @@ from django.views.generic import TemplateView
 
 from ...decorators import permission_required
 from ...forms import PageFilterForm
-from ...models import Page
-from ...utils.translation_utils import mt_is_permitted
-from ..mixins import SummAiContextMixin
+from ...models import Page, PageTranslation
+from ..mixins import MachineTranslationContextMixin
 from .page_context_mixin import PageContextMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
-class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
+class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixin):
     """
     View for showing the page tree
     """
@@ -31,6 +30,8 @@ class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
     template_archived = "pages/page_tree_archived.html"
     #: Whether or not to show archived pages
     archived = False
+    #: The translation model of this list view (used to determine whether machine translations are permitted)
+    translation_model = PageTranslation
 
     @property
     def template_name(self):
@@ -140,11 +141,6 @@ class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
         # Filter pages according to given filters, if any
         pages = filter_form.apply(pages, language_slug)
 
-        # Determine if MT is permitted
-        MT_PERMITTED = mt_is_permitted(
-            region, request.user, Page._meta.default_related_name, language_slug
-        )
-
         return render(
             request,
             self.template_name,
@@ -155,6 +151,5 @@ class PageTreeView(TemplateView, PageContextMixin, SummAiContextMixin):
                 "languages": region.active_languages,
                 "filter_form": filter_form,
                 "XLIFF_EXPORT_VERSION": settings.XLIFF_EXPORT_VERSION,
-                "MT_PERMITTED": MT_PERMITTED,
             },
         )
