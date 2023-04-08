@@ -1,10 +1,9 @@
-from django.apps import apps
-from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
+from ...constants import machine_translation_providers
 from ..abstract_tree_node import AbstractTreeNode
 from ..decorators import modify_fields
 from .language import Language
@@ -101,28 +100,28 @@ class LanguageTreeNode(AbstractTreeNode):
         return self.language.text_direction
 
     @cached_property
+    def mt_providers(self):
+        """
+        Return the list of supported machine translation providers
+
+        :return: The MT provider for this target language
+        :rtype: list [ ~integreat_cms.core.utils.machine_translation_provider.MachineTranslationProviderType ]
+        """
+        return [
+            provider
+            for provider in machine_translation_providers.CHOICES
+            if provider.is_enabled(self.region, self.language)
+        ]
+
+    @cached_property
     def mt_provider(self):
         """
-        Return the name of the machine translation provider if it exists,
-        or empty string otherwise
+        Return the machine translation provider if it exists, or ``None`` otherwise
 
-        :return: Name of the MT provider for the language
-        :rtype: str
+        :return: The MT provider for this target language
+        :rtype: ~integreat_cms.core.utils.machine_translation_provider.MachineTranslationProviderType
         """
-        deepl_config = apps.get_app_config("deepl_api")
-        if (
-            self.slug == settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG
-            and settings.SUMM_AI_ENABLED
-            and self.region.summ_ai_enabled
-        ):
-            return "SUMM.AI"
-        if (
-            self.slug in deepl_config.supported_target_languages
-            or self.language.bcp47_tag.lower()
-            in deepl_config.supported_target_languages
-        ):
-            return "DeepL"
-        return ""
+        return next(iter(self.mt_providers), None)
 
     def __str__(self):
         """

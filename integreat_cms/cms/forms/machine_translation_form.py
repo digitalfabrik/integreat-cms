@@ -143,7 +143,9 @@ class MachineTranslationForm(CustomContentModelForm):
                 )
                 # Invalidate cached property to take new version into account
                 self.instance.foreign_object.invalidate_cached_translations()
-                api_client.translate([self.instance.foreign_object], language_node.slug)
+                api_client.translate_object(
+                    self.instance.foreign_object, language_node.slug
+                )
         return self.instance
 
     class Meta(CustomContentModelForm.Meta):

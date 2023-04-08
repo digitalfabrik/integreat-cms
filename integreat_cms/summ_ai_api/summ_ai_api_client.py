@@ -7,10 +7,9 @@ import logging
 
 import aiohttp
 from django.conf import settings
-from django.contrib import messages
-from django.utils.translation import gettext as _
 
-from ..cms.utils.translation_utils import mt_is_permitted
+from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
+from ..core.utils.machine_translation_provider import MachineTranslationProvider
 from .utils import TranslationHelper
 
 logger = logging.getLogger(__name__)
@@ -22,24 +21,10 @@ class SummAiException(Exception):
     """
 
 
-class SummAiApiClient:
+class SummAiApiClient(MachineTranslationApiClient):
     """
     SUMM.AI API client to get German pages in Easy German language.
     """
-
-    #: The current request
-    #:
-    #: :type: ~django.http.HttpRequest
-    request = None
-    #: The current region
-    #:
-    #: :type: ~integreat_cms.cms.models.regions.region.Region
-    region = None
-    #: The :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
-    #: subclass of the current content type
-    #:
-    #: :type: ~django.forms.models.ModelFormMetaclass
-    form_class = None
 
     def __init__(self, request, form_class):
         """
@@ -52,9 +37,13 @@ class SummAiApiClient:
                            subclass of the current content type
         :type form_class: ~django.forms.models.ModelFormMetaclass
         """
-        self.request = request
-        self.region = request.region
-        self.form_class = form_class
+        super().__init__(request, form_class)
+        if not MachineTranslationProvider.is_permitted(
+            request.region, request.user, form_class._meta.model
+        ):
+            raise RuntimeError(
+                f'Machine translations are disabled for content type "{form_class._meta.model}" and {request.user!r}.'
+            )
         if not settings.SUMM_AI_ENABLED:
             raise RuntimeError("SUMM.AI is disabled globally.")
         if not self.region.summ_ai_enabled:
@@ -141,7 +130,7 @@ class SummAiApiClient:
             # (the results are sorted in the order the tasks were created)
             return await asyncio.gather(*tasks)
 
-    def translate_queryset(self, queryset):
+    def translate_queryset(self, queryset, language_slug):
         """
         Translate a queryset of content objects from German into Easy German.
 
@@ -149,29 +138,15 @@ class SummAiApiClient:
 
         :param queryset: The queryset which should be translated
         :type queryset: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel ]
+
+        :param language_slug: The target language slug to translate into
+        :type language_slug: str
         """
         # Make sure both languages exist
         self.request.region.get_language_or_404(settings.SUMM_AI_GERMAN_LANGUAGE_SLUG)
         easy_german = self.request.region.get_language_or_404(
             settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG
         )
-
-        if queryset and not mt_is_permitted(
-            self.request.region,
-            self.request.user,
-            type(queryset[0])._meta.default_related_name,
-            settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG,
-        ):
-            messages.error(
-                self.request,
-                _(
-                    'Machine translations are disabled for content type "{}", language "{}" or the current user.'
-                ).format(
-                    type(queryset[0])._meta.verbose_name.title(),
-                    easy_german,
-                ),
-            )
-            return
 
         # Initialize translation helpers for each object instance
         translation_helpers = [

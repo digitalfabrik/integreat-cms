@@ -153,7 +153,7 @@ class BulkMachineTranslationView(BulkActionView):
             self.get_queryset(),
         )
         api_client = language_node.mt_provider.api_client(request, self.form)
-        api_client.translate(self.get_queryset(), language_node.slug)
+        api_client.translate_queryset(self.get_queryset(), language_node.slug)
 
         # Let the base view handle the redirect
         return super().post(request, *args, **kwargs)
