@@ -8,6 +8,7 @@ import pytest
 from django.urls import reverse
 from lxml.html import fromstring
 
+from integreat_cms.cms.constants import translation_status
 from integreat_cms.cms.models import Page
 
 from ..conftest import (
@@ -107,6 +108,9 @@ def test_xliff_export(
         for page in Page.objects.filter(id__in=[1, 2]):
             if translation := page.get_translation("en"):
                 assert translation.currently_in_translation
+                assert (
+                    translation.translation_state == translation_status.IN_TRANSLATION
+                )
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error
         assert response.status_code == 302

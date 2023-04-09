@@ -400,6 +400,16 @@ class AbstractContentTranslation(AbstractBaseModel):
         return self.foreign_object.get_major_translation(self.language.slug)
 
     @cached_property
+    def all_versions(self):
+        """
+        This property returns all versions of this translation's page in its language
+
+        :return: All versions of this translation
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation ]
+        """
+        return self.foreign_object.translations.filter(language=self.language)
+
+    @cached_property
     def is_outdated(self):
         """
         This property checks whether a translation is outdated and thus needs a new revision of the content.
