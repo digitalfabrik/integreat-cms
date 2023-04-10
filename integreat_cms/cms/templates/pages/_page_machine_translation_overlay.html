@@ -6,7 +6,10 @@
         <!-- if necessary increase width: increased from 400 to 600px -->
         <div class="bg-white opacity-100 content rounded shadow-md w-full">
             <div class="flex items-center w-full rounded p-4 bg-water-500">
-                <h2 class="font-bold font-default">{% translate "Overview machine translation" %}</h2>
+                <h2 class="font-bold font-default">
+                    <i icon-name="bot" class="pb-1"></i>
+                    {% translate "Machine translation" %}
+                </h2>
             </div>
             <div class="w-full p-4 rounded shadow overflow-scroll max-h-[80vh]">
                 <span class="block">{% translate "This report shows a summary of your attempted machine translation. Please confirm if everything is correct" %}</span>
@@ -75,7 +78,9 @@
                     </div>
                     <ul class="hidden mb-2" id="machine-translation-overlay-warning-optional">
                     </ul>
-                    <a id="machine-translation-overlay-warning-more" data-default-text="{% translate "Show pages" %}" data-alternative-text="{% translate "Don't show pages" %}"  class="text-blue-500">{% translate "Show pages" %}</a>
+                    <a id="machine-translation-overlay-warning-more" data-default-text="{% translate "Show pages" %}" data-alternative-text="{% translate "Don't show pages" %}"  class="text-blue-500">
+                        {% translate "Show pages" %}
+                    </a>
                 </div>
                 <div class="flex justify-between mt-4">
                     <button type="button" id="btn-close-machine-translation-overlay" class="btn">{% translate "Cancel" %}</button>
