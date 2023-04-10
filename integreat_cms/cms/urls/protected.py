@@ -865,6 +865,13 @@ urlpatterns = [
                                             name="automatic_translation_pages",
                                         ),
                                         path(
+                                            "auto-translate/",
+                                            bulk_action_views.BulkAutoTranslateView.as_view(
+                                                model=Page, form=PageTranslationForm
+                                            ),
+                                            name="automatic_translation_pages",
+                                        ),
+                                        path(
                                             "<int:page_id>/",
                                             include(
                                                 [
