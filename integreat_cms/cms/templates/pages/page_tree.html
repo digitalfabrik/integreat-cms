@@ -173,6 +173,13 @@
                         </option>
                     {% endif %}
                 {% endif %}
+                {% if MT_PERMITTED and DEEPL_ENABLED and DEEPL_AVAILABLE %}
+                    <option id="machine-translation-option"
+                            data-url="{% url 'post_hix_and_word_number_per_page' region_slug=request.region.slug %}"
+                            data-bulk-action="{% url 'automatic_translation_pages' region_slug=request.region.slug language_slug=language.slug %}">
+                        {% translate "Create missing translations automatically" %}
+                    </option>
+                {% endif %}
                 <option id="pdf-export-option"
                         data-bulk-action="{% url 'export_pdf' region_slug=request.region.slug language_slug=language.slug %}"
                         data-target="_blank"
@@ -246,4 +253,5 @@
     {% include "../tutorials/page_tree.html" with tutorial_id="page-tree" hidden=request.user.page_tree_tutorial_seen %}
     {% include "pages/_page_preview_overlay.html" %}
     {% include "pages/_page_xliff_export_overlay.html" %}
+    {% include "pages/_page_machine_translation_overlay.html" %}
 {% endblock content %}

@@ -623,6 +623,11 @@ urlpatterns = [
                                 name="get_hix_score",
                             ),
                             path(
+                                "auto-translate-hix-and-words-per-page/",
+                                pages.post_hix_and_word_number_per_page,
+                                name="post_hix_and_word_number_per_page",
+                            ),
+                            path(
                                 "statistics/",
                                 include(
                                     [
@@ -851,6 +856,13 @@ urlpatterns = [
                                                 form=PageTranslationForm,
                                             ),
                                             name="machine_translation_pages",
+                                        ),
+                                        path(
+                                            "auto-translate/",
+                                            bulk_action_views.BulkAutoTranslateView.as_view(
+                                                model=Page, form=PageTranslationForm
+                                            ),
+                                            name="automatic_translation_pages",
                                         ),
                                         path(
                                             "<int:page_id>/",

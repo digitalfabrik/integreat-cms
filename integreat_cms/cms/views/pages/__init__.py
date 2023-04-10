@@ -10,6 +10,7 @@ from .page_actions import (
     get_page_order_table_ajax,
     grant_page_permission_ajax,
     move_page,
+    post_hix_and_word_number_per_page,
     preview_page_ajax,
     refresh_date,
     render_mirrored_page_field,

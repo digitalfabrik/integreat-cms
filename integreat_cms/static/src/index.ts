@@ -60,6 +60,7 @@ import "./js/pages/unset-translation-state.ts";
 import "./js/pages/xliff-file-upload.ts";
 import "./js/pages/xliff-import.ts";
 import "./js/pages/xliff-export-overlay.ts";
+import "./js/pages/machine-translation-overlay.ts";
 import "./js/pages/page-preview.ts";
 
 import "./js/mfa/add-key.ts";

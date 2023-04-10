@@ -896,3 +896,54 @@ def refresh_date(
             "region_slug": request.region.slug,
         },
     )
+
+
+@require_POST
+@json_response
+# pylint: disable=unused-argument
+def post_hix_and_word_number_per_page(request, region_slug):
+    """
+    This function collects the hix score and the amount of words per page from the source
+
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
+    :param region_slug: The slug of the current region
+    :type region_slug: str
+
+    :return: A json response, of {{"id": id, "title": title, "amount_of_words": amount of words, "hix_score": value}} in case of success
+    :rtype: ~django.http.JsonResponse
+    """
+    pages = request.region.get_pages()
+    pages = (
+        request.region.pages.filter(explicitly_archived=False)
+        .prefetch_major_translations()
+        .cache_tree(archived=False)
+    )
+    # Ignore all pages which do not have a published translation in the default language
+    pages = list(
+        filter(
+            lambda page: page.get_translation_state(
+                request.region.default_language.slug
+            )
+            == "UP_TO_DATE",
+            pages,
+        )
+    )
+    all_pages = {}
+    for language in request.region.active_languages:
+        default_language = request.region.default_language
+        if language == default_language:
+            for page in pages:
+                translation = page.get_translation(default_language.slug)
+                single_page = {}
+                single_page["id"] = page.id
+                single_page["title"] = translation.title
+                single_page["amount_of_words"] = len(translation.content.split()) + len(
+                    translation.title.split()
+                )
+                single_page["hix_score"] = translation.hix_score
+                all_pages[translation.title] = single_page
+    if all_pages:
+        return JsonResponse(all_pages)
+    return JsonResponse({"error": "Could not retrieve data"})

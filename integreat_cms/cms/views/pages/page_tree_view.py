@@ -9,6 +9,7 @@ from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
+from ....deepl_api.utils import DeepLApi
 from ...decorators import permission_required
 from ...forms import PageFilterForm
 from ...models import Page, PageTranslation
@@ -141,6 +142,13 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
         # Filter pages according to given filters, if any
         pages = filter_form.apply(pages, language_slug)
 
+        # DeepL available
+        if settings.DEEPL_ENABLED:
+            deepl = DeepLApi()
+            DEEPL_AVAILABLE = deepl.check_availability(request, language)
+        else:
+            DEEPL_AVAILABLE = False
+
         return render(
             request,
             self.template_name,
@@ -148,8 +156,10 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
                 **self.get_context_data(**kwargs),
                 "pages": pages,
                 "language": language,
+                "source_language": region.get_source_language(language.slug),
                 "languages": region.active_languages,
                 "filter_form": filter_form,
                 "XLIFF_EXPORT_VERSION": settings.XLIFF_EXPORT_VERSION,
+                "deepl_budget": region.deepl_budget_remaining,
             },
         )
