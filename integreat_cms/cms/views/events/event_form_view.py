@@ -1,5 +1,6 @@
 import logging
 
+from cacheops import invalidate_model
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
@@ -250,6 +251,9 @@ class EventFormView(
                     machine_translation_form.data.get("automatic_translation")
                 )
             event_translation_instance.save()
+
+            # Invalidate event translation cache to refresh API result
+            invalidate_model(EventTranslation)
 
             # If automatic translations where requested, pass on to MT API
             if (
