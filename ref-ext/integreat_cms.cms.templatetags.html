@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-04-08T18:11:38+00:00" />
+    <meta property="article:modified_time" content="2023-04-12T10:36:27+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Templatetags &mdash; integreat-cms 2023.4.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1989,7 +1989,7 @@ whether this account has the permission to view this object</p>
 <p>This is a collection of tags and filters for page content used in PDFs (<a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>).</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.templatetags.pdf_filters.pdf_strip_fontstyles">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.pdf_filters.</span></span><span class="sig-name descname"><span class="pre">pdf_strip_fontstyles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/pdf_filters.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.templatetags.pdf_filters.pdf_strip_fontstyles" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.pdf_filters.</span></span><span class="sig-name descname"><span class="pre">pdf_strip_fontstyles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/pdf_filters.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.templatetags.pdf_filters.pdf_strip_fontstyles" title="Permalink to this definition"></a></dt>
 <dd><p>This tag returns the instance, stripped of inline styling affecting fonts.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2000,6 +2000,26 @@ whether this account has the permission to view this object</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><em>Page</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.templatetags.pdf_filters.pdf_truncate_links">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.pdf_filters.</span></span><span class="sig-name descname"><span class="pre">pdf_truncate_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_chars</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/pdf_filters.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.templatetags.pdf_filters.pdf_truncate_links" title="Permalink to this definition"></a></dt>
+<dd><p>This tag returns the page content with truncated link texts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>page_content</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The content of the page</p></li>
+<li><p><strong>max_chars</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a>) – The maximal length of a link before it will be truncated</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The content with truncated links</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2245,7 +2265,7 @@ which should be treated as internal</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Apr 08, 2023.
+      <span class="lastupdated">Last updated on Apr 12, 2023.
       </span></p>
   </div>
 
