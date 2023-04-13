@@ -22,21 +22,31 @@ def page_translation_save_handler(instance, **kwargs):
     """
     if kwargs.get("raw"):
         return
+
+    content_unchanged = (
+        instance.latest_version
+        and instance.latest_version.content == instance.content
+        and instance.latest_version.hix_score is not None
+    )
     if (
         instance.hix_score
         or instance.hix_ignore
         or not instance.hix_enabled
         or not instance.content.strip()
+        or content_unchanged
     ):
         logger.debug(
-            "HIX calculation pre save signal skipped for %r (score=%s, ignored=%s, enabled=%s, empty=%s)",
+            "HIX calculation pre save signal skipped for %r (score=%s, ignored=%s, enabled=%s, empty=%s, unchanged=%s)",
             instance,
             instance.hix_score,
             instance.hix_ignore,
             instance.hix_enabled,
-            bool(instance.content.strip()),
+            not bool(instance.content.strip()),
+            content_unchanged,
         )
-        instance.hix_score = None
+        instance.hix_score = (
+            instance.latest_version.hix_score if content_unchanged else None
+        )
         return
 
     if score := lookup_hix_score(instance.content):

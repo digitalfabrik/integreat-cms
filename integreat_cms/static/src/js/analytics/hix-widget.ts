@@ -194,7 +194,13 @@ window.addEventListener("load", async () => {
             setHixLabelState("no-content");
             document.getElementById("hix-loading")?.classList.add("hidden");
         } else {
-            const initialHixValue = await getHixValue(updateButton.dataset.url);
+            let initialHixValue = parseFloat(document.getElementById("hix-container").dataset.initialHixScore);
+            if (initialHixValue) {
+                setHixLabelState("updated");
+                document.getElementById("hix-loading")?.classList.add("hidden");
+            } else {
+                initialHixValue = await getHixValue(updateButton.dataset.url);
+            }
             updateChart(chart, initialHixValue);
             toggleMTAvailability(initialHixValue);
         }
