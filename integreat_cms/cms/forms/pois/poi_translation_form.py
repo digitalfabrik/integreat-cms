@@ -1,12 +1,12 @@
 import logging
 
 from ...models import POITranslation
-from ..custom_content_model_form import CustomContentModelForm
+from ..machine_translation_form import MachineTranslationForm
 
 logger = logging.getLogger(__name__)
 
 
-class POITranslationForm(CustomContentModelForm):
+class POITranslationForm(MachineTranslationForm):
     """
     Form for creating and modifying POI translation objects
     """
@@ -20,7 +20,7 @@ class POITranslationForm(CustomContentModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = POITranslation
         #: The fields of the model which should be handled by this form
-        fields = CustomContentModelForm.Meta.fields + ["meta_description", "slug"]
+        fields = MachineTranslationForm.Meta.fields + ["meta_description", "slug"]
 
     def __init__(self, **kwargs):
         r"""
@@ -33,7 +33,7 @@ class POITranslationForm(CustomContentModelForm):
         # Pop kwarg to make sure the super class does not get this param
         default_language_title = kwargs.pop("default_language_title", None)
 
-        # Instantiate CustomContentModelForm
+        # Instantiate MachineTranslationForm
         super().__init__(**kwargs)
 
         if default_language_title:

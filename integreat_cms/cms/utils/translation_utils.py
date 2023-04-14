@@ -1,13 +1,11 @@
 """
-This module contains helpers for the translation process.
+This module contains helpers for the gettext translation process of UI languages.
 """
 import logging
 import re
 
 from django.utils.html import format_html, format_html_join
 from django.utils.text import format_lazy
-
-from ..constants import machine_translation_permissions as mt_perms
 
 logger = logging.getLogger(__name__)
 
@@ -50,97 +48,4 @@ def translate_link(message, attributes):
         format_html_join(" ", "{}='{}'", attributes.items()),
         link_text,
         after,
-    )
-
-
-def mt_to_lang_is_permitted(region, target_lang_slug):
-    """
-    Checks if translation into a given language is allowed
-
-    :param region: the region attempting to machine translate
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
-    :param target_lang_slug: slug of the MT target language
-    :type target_lang_slug: str
-
-    :return: if the translation is permitted
-    :rtype: bool
-    """
-    target_lang = region.language_node_by_slug[target_lang_slug]
-
-    if target_lang.is_root():
-        logger.debug(
-            "Machine translations are disabled for the default language %r in %r.",
-            target_lang,
-            region,
-        )
-        return False
-
-    if not target_lang.machine_translation_enabled:
-        logger.debug(
-            "Machine translations are disabled for %r in %r.", target_lang, region
-        )
-        return False
-
-    return True
-
-
-def mt_is_permitted(region, user, content_type, target_lang_slug=None):
-    """
-    Checks if a machine translation is permitted, i.e. if for the
-    given region, MT of the given content type is allowed and
-    MT into the target language is enabled for the requesting user.
-
-    :param region: the region attempting to machine translate
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
-    :param user: the user requesting the translation
-    :type user: ~django.contrib.auth.models.User
-
-    :param content_type: type of content which would be translated
-    :type content_type: ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel
-
-    :param target_lang_slug: slug of the MT target language
-    :type target_lang_slug: str
-
-    :return: if the translation is permitted
-    :rtype: bool
-    """
-    permission_settings = {
-        "events": (region.machine_translate_events, "cms.change_event"),
-        "pages": (region.machine_translate_pages, "cms.change_page"),
-        "pois": (region.machine_translate_pois, "cms.change_poi"),
-    }
-
-    mt_perms_setting, required_perm = permission_settings[content_type]
-
-    if mt_perms_setting == mt_perms.NO_ONE:
-        logger.debug(
-            "Machine translations are disabled for content type %r in %r.",
-            content_type,
-            region,
-        )
-        return False
-
-    mt_perm = "cms.manage_translations"
-    if mt_perms_setting == mt_perms.MANAGERS and not user.has_perm(mt_perm):
-        logger.debug(
-            "Machine translations are only enabled for content type %r in %r for users with the permission %r.",
-            content_type,
-            region,
-            mt_perm,
-        )
-        return False
-
-    if not user.has_perm(required_perm):
-        logger.debug(
-            "Machine translations are only enabled for content type %r in %r for users with the permission %r.",
-            content_type,
-            region,
-            required_perm,
-        )
-        return False
-
-    return (
-        mt_to_lang_is_permitted(region, target_lang_slug) if target_lang_slug else True
     )

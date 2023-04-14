@@ -9,50 +9,43 @@ from django.db import transaction
 from django.utils.html import strip_tags
 from django.utils.translation import gettext as _
 
-from ..cms.utils.translation_utils import mt_is_permitted
+from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
+from ..core.utils.machine_translation_provider import MachineTranslationProvider
+from ..textlab_api.utils import check_hix_score
 
 logger = logging.getLogger(__name__)
 
 
-class DeepLApi:
+class DeepLApiClient(MachineTranslationApiClient):
     """
-    DeepL API to auto translate selected posts.
+    DeepL API client to automatically translate selected objects.
     """
 
-    def __init__(self):
+    def __init__(self, request, form_class):
         """
         Initialize the DeepL client
+
+        :param region: The current region
+        :type region: ~integreat_cms.cms.models.regions.region.Region
+
+        :param form_class: The :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
+                           subclass of the current content type
+        :type form_class: ~django.forms.models.ModelFormMetaclass
         """
+        super().__init__(request, form_class)
+        if not MachineTranslationProvider.is_permitted(
+            request.region, request.user, form_class._meta.model
+        ):
+            raise RuntimeError(
+                f'Machine translations are disabled for content type "{form_class._meta.model}" and {request.user!r}.'
+            )
+        if not settings.DEEPL_ENABLED:
+            raise RuntimeError("DeepL is disabled globally.")
         self.translator = deepl.Translator(settings.DEEPL_AUTH_KEY)
         self.translatable_attributes = ["title", "content", "meta_description"]
 
     @staticmethod
-    def check_availability(request, target_language):
-        """
-        This function checks, if the selected language is supported by DeepL
-
-        :param request: request that was sent to the server
-        :type request: ~django.http.HttpRequest
-
-        :param target_language: transmitted target language
-        :type target_language: ~integreat_cms.cms.models.languages.language.Language
-
-        :return: true or false
-        :rtype: bool
-        """
-        deepl_config = apps.get_app_config("deepl_api")
-        source_language = request.region.get_source_language(target_language.slug)
-        return (
-            source_language
-            and source_language.slug in deepl_config.supported_source_languages
-            and (
-                target_language.slug in deepl_config.supported_target_languages
-                or target_language.bcp47_tag.lower()
-                in deepl_config.supported_target_languages
-            )
-        )
-
-    def get_target_language_key(self, target_language):
+    def get_target_language_key(target_language):
         """
         This function decides the correct target language key
 
@@ -103,117 +96,37 @@ class DeepLApi:
 
         return (translation_exceeds_limit, word_count)
 
-    @staticmethod
-    def check_hix_score(request, source_translation):
+    def translate_queryset(self, queryset, language_slug):
         """
-        Check whether the required HIX score is met and it is not ignored
+        This function translates a content queryset via DeepL
 
-        :param request: The current request
-        :type request: ~django.http.HttpRequest
+        :param queryset: The content QuerySet
+        :type queryset: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel ]
 
-        :param source_translation: The source translation
-        :type source_translation: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
-
-        :return: Whether the HIX constraints are valid
-        :rtype: bool
-        """
-        if not source_translation.hix_enabled:
-            return True
-        if not source_translation.hix_sufficient_for_mt:
-            logger.debug(
-                "HIX score %.2f of %r is too low for machine translation (minimum required: %.1f)",
-                source_translation.hix_score,
-                source_translation,
-                settings.HIX_REQUIRED_FOR_MT,
-            )
-            messages.error(
-                request,
-                _(
-                    'HIX score {:.2f} of "{}" is too low for machine translation (minimum required: {})'
-                ).format(
-                    source_translation.hix_score,
-                    source_translation,
-                    settings.HIX_REQUIRED_FOR_MT,
-                ),
-            )
-            return False
-        if source_translation.hix_ignore:
-            logger.debug(
-                "Machine translations are disabled for %r, because its HIX value is ignored",
-                source_translation,
-            )
-            messages.error(
-                request,
-                _(
-                    'Machine translations are disabled for "{}", because its HIX value is ignored'
-                ).format(
-                    source_translation.title,
-                ),
-            )
-            return False
-        logger.debug(
-            "HIX score %.2f of %r is sufficient for machine translation",
-            source_translation.hix_score,
-            source_translation,
-        )
-        return True
-
-    # pylint: disable=too-many-locals
-    def deepl_translation(self, request, content_objects, language_slug, form_class):
-        """
-        This functions gets the translation from DeepL
-
-        :param request: passed request
-        :type request: ~django.http.HttpRequest
-
-        :param content_objects: passed content objects
-        :type content_objects: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel ]
-
-        :param language_slug: current GUI language slug
+        :param language_slug: The target language slug
         :type language_slug: str
-
-        :param form_class: passed Form class of content type
-        :type form_class: ~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm
         """
-        # Re-select the region from db to prevent simultaneous
-        # requests exceeding the DeepL usage limit
-
         with transaction.atomic():
+            # Re-select the region from db to prevent simultaneous
+            # requests exceeding the DeepL usage limit
             region = (
                 apps.get_model("cms", "Region")
                 .objects.select_for_update()
-                .get(id=request.region.id)
+                .get(id=self.request.region.id)
             )
             # Get target language
             target_language = region.get_language_or_404(language_slug)
             source_language = region.get_source_language(language_slug)
 
-            if content_objects and not mt_is_permitted(
-                region,
-                request.user,
-                type(content_objects[0])._meta.default_related_name,
-                language_slug,
-            ):
-                messages.error(
-                    request,
-                    _(
-                        'Machine translations are disabled for content type "{}", language "{}" or the current user.'
-                    ).format(
-                        type(content_objects[0])._meta.verbose_name.title(),
-                        target_language,
-                    ),
-                )
-                return
-
             target_language_key = self.get_target_language_key(target_language)
 
-            for content_object in content_objects:
+            for content_object in queryset:
                 source_translation = content_object.get_translation(
                     source_language.slug
                 )
                 if not source_translation:
                     messages.error(
-                        request,
+                        self.request,
                         _('No source translation could be found for {} "{}".').format(
                             type(content_object)._meta.verbose_name.title(),
                             content_object.best_translation.title,
@@ -221,7 +134,7 @@ class DeepLApi:
                     )
                     continue
 
-                if not self.check_hix_score(request, source_translation):
+                if not check_hix_score(self.request, source_translation):
                     continue
 
                 existing_target_translation = content_object.get_translation(
@@ -235,7 +148,7 @@ class DeepLApi:
                 ) = self.check_usage(region, source_translation)
                 if translation_exceeds_limit:
                     messages.error(
-                        request,
+                        self.request,
                         _(
                             "Translation from {} to {} not possible: translation of {} words would exceed the remaining budget of {} words."
                         ).format(
@@ -267,11 +180,11 @@ class DeepLApi:
                             tag_handling="html",
                         )
 
-                content_translation_form = form_class(
+                content_translation_form = self.form_class(
                     data=data,
                     instance=existing_target_translation,
                     additional_instance_attributes={
-                        "creator": request.user,
+                        "creator": self.request.user,
                         "language": target_language,
                         source_translation.foreign_field(): content_object,
                     },
@@ -284,7 +197,7 @@ class DeepLApi:
                         content_translation_form.instance,
                     )
                     messages.success(
-                        request,
+                        self.request,
                         _('{} "{}" has successfully been translated ({} ➜ {}).').format(
                             type(content_object)._meta.verbose_name.title(),
                             source_translation.title,
@@ -299,7 +212,7 @@ class DeepLApi:
                         content_translation_form.errors,
                     )
                     messages.error(
-                        request,
+                        self.request,
                         _('{} "{}" could not be translated automatically.').format(
                             type(content_object)._meta.verbose_name.title(),
                             source_translation.title,
@@ -309,33 +222,3 @@ class DeepLApi:
                 # Update remaining DeepL usage for the region
                 region.deepl_budget_used += word_count
                 region.save()
-
-    def deepl_translate_to_languages(
-        self, request, source_translation, target_languages, form_class
-    ):
-        """
-        This function iterates over all descendants of a source language
-        and invokes a translation of a single source object into each of
-        those languages.
-
-        :param request: passed request
-        :type request: ~django.http.HttpRequest
-
-        :param source_translation: passed content object
-        :type source_translation: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
-
-        :param target_languages: The target languages into which to translate
-        :type target_languages: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
-
-        :param form_class: passed Form class of content type
-        :type form_class: ~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm
-        """
-        if self.check_hix_score(request, source_translation):
-            for language in target_languages:
-                if self.check_availability(request, language):
-                    self.deepl_translation(
-                        request,
-                        [source_translation.foreign_object],
-                        language.slug,
-                        form_class,
-                    )

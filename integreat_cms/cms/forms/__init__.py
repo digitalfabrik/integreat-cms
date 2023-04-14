@@ -40,7 +40,6 @@ from .regions.region_form import RegionForm
 from .roles.group_form import GroupForm
 from .roles.role_form import RoleForm
 from .statistics.statistics_filter_form import StatisticsFilterForm
-from .translations.machine_translation_form import MachineTranslationForm
 from .translations.translations_management_form import TranslationsManagementForm
 from .users.authentication_form import AuthenticationForm
 from .users.password_reset_form import CustomPasswordResetForm

@@ -1684,6 +1684,14 @@ msgstr ""
 "anderem bearbeitet wird."
 
 #: cms/forms/custom_content_model_form.py
+msgid ""
+"The options \"automatic translation\" and \"minor edit\" are mutually "
+"exclusive."
+msgstr ""
+"Die Optionen \"automatische Übersetzung\" und \"geringfügige Änderung\" "
+"schließen sich gegenseitig aus."
+
+#: cms/forms/custom_content_model_form.py
 msgid "{} \"{}\" was successfully saved as draft"
 msgstr "{} \"{}\" wurde erfolgreich als Entwurf gespeichert"
 
@@ -1868,6 +1876,14 @@ msgid ""
 msgstr ""
 "Diese Region besitzt bereits eine Standard-Sprache. Bitte geben Sie eine "
 "Quell-Sprache für diese Sprache ein."
+
+#: cms/forms/machine_translation_form.py
+msgid "Create new translations:"
+msgstr "Neue Übersetzungen erstellen:"
+
+#: cms/forms/machine_translation_form.py
+msgid "Update existing translations:"
+msgstr "Bestehende Übersetzungen aktualisieren:"
 
 #: cms/forms/media/create_directory_form.py
 msgid "The directory cannot be created in a directory of another region."
@@ -2084,28 +2100,6 @@ msgstr "Das Start-Datum kann nicht nach dem End-Datum liegen"
 #: cms/forms/statistics/statistics_filter_form.py
 msgid "The end date can't be before the start date"
 msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
-
-#: cms/forms/translations/machine_translation_form.py
-#: cms/models/abstract_content_translation.py
-msgid "Automatic translation"
-msgstr "Automatische Übersetzungen"
-
-#: cms/forms/translations/machine_translation_form.py
-#: cms/models/abstract_content_translation.py
-msgid ""
-"Tick if updating this content should automatically refresh or create its "
-"translations."
-msgstr ""
-"Kreuzen Sie an, um beim Aktualisieren andere Übersetzungen dieses Inhalts "
-"maschinell zu erneuern oder zu erstellen."
-
-#: cms/forms/translations/machine_translation_form.py
-msgid "Update existing translations:"
-msgstr "Bestehende Übersetzungen aktualisieren:"
-
-#: cms/forms/translations/machine_translation_form.py
-msgid "Create new translations:"
-msgstr "Neue Übersetzungen erstellen:"
 
 #: cms/forms/translations/translations_management_form.py
 msgid "Language Selection"
@@ -2365,6 +2359,18 @@ msgstr "Änderungsdatum"
 msgid "creator"
 msgstr "Ersteller:in"
 
+#: cms/models/abstract_content_translation.py
+msgid "Automatic translation"
+msgstr "Automatische Übersetzungen"
+
+#: cms/models/abstract_content_translation.py
+msgid ""
+"Tick if updating this content should automatically refresh or create its "
+"translations."
+msgstr ""
+"Kreuzen Sie an, um beim Aktualisieren andere Übersetzungen dieses Inhalts "
+"maschinell zu aktualisieren oder zu erstellen."
+
 #: cms/models/abstract_tree_node.py
 msgid "parent"
 msgstr "übergeordneter Knoten"
@@ -2429,7 +2435,7 @@ msgstr "Kopie"
 msgid "event"
 msgstr "Veranstaltung"
 
-#: cms/models/events/event.py
+#: cms/models/events/event.py cms/templates/events/event_list.html
 msgid "events"
 msgstr "Veranstaltungen"
 
@@ -3071,7 +3077,7 @@ msgstr ""
 msgid "page"
 msgstr "Seite"
 
-#: cms/models/pages/page.py
+#: cms/models/pages/page.py cms/templates/pages/page_tree.html
 msgid "pages"
 msgstr "Seiten"
 
@@ -3237,7 +3243,7 @@ msgstr "barrierefrei"
 msgid "Indicate if the location is barrier free."
 msgstr "Geben Sie an, ob dieser Ort barrierefrei ist."
 
-#: cms/models/pois/poi.py
+#: cms/models/pois/poi.py cms/templates/pois/poi_list.html
 msgid "locations"
 msgstr "Orte"
 
@@ -4709,20 +4715,26 @@ msgstr "Mehrfachaktion auswählen"
 msgid "Archive events"
 msgstr "Veranstaltungen archivieren"
 
-#: cms/templates/events/event_list.html
-msgid "Automatically translate this event into Easy German"
-msgstr "Diese Veranstaltung automatisch in Leichte Sprache übersetzen"
+#: cms/templates/events/event_list.html cms/templates/pages/page_tree.html
+#: cms/templates/pois/poi_list.html
+#, python-format
+msgid "Machine translate %(content_type)s via %(provider)s to %(language)s"
+msgstr ""
+"%(content_type)s maschinell via %(provider)s auf %(language)s übersetzen"
 
-#: cms/templates/events/event_list.html cms/templates/pois/poi_list.html
-msgid "Create missing translations automatically"
-msgstr "Fehlende Übersetzungen automatisch erstellen"
-
-#: cms/templates/events/event_list.html cms/templates/pois/poi_list.html
+#: cms/templates/events/event_list.html cms/templates/pages/page_tree.html
+#: cms/templates/pois/poi_list.html
 msgid ""
 "This language is not supported by any available machine translation provider."
 msgstr ""
 "Diese Sprache wird von keinem verfügbaren Anbieter maschineller "
 "Übersetzungen unterstützt."
+
+#: cms/templates/events/event_list.html cms/templates/pages/page_tree.html
+#: cms/templates/pois/poi_list.html
+#, python-format
+msgid "Machine translate %(content_type)s to %(language)s"
+msgstr "%(content_type)s maschinell auf %(language)s übersetzen"
 
 #: cms/templates/events/event_list.html
 #: cms/templates/events/event_list_archived.html
@@ -5905,10 +5917,6 @@ msgid "Archive pages"
 msgstr "Seiten archivieren"
 
 #: cms/templates/pages/page_tree.html
-msgid "Automatically translate this page into Easy German"
-msgstr "Diese Seite automatisch in Leichte Sprache übersetzen"
-
-#: cms/templates/pages/page_tree.html
 msgid "Export published pages as PDF"
 msgstr "Veröffentlichte Seiten als PDF exportieren"
 
@@ -6268,10 +6276,6 @@ msgstr "Orte ausgewählt"
 #: cms/templates/pois/poi_list.html
 msgid "Archive locations"
 msgstr "Orte archivieren"
-
-#: cms/templates/pois/poi_list.html
-msgid "Automatically translate this location into Easy German"
-msgstr "Diesen Ort automatisch in Leichte Sprache übersetzen"
 
 #: cms/templates/pois/poi_list_archived.html
 msgid "No locations archived yet."
@@ -7138,18 +7142,15 @@ msgid "Login failed."
 msgstr "Login fehlgeschlagen."
 
 #: cms/views/bulk_action_views.py
-msgid "Automatic translations are disabled"
-msgstr "Automatische Übersetzungen sind deaktiviert"
+msgid "Machine translations are disabled for language \"{}\""
+msgstr "Maschinelle Übersetzungen sind deaktiviert für die Sprache \"{}\""
 
 #: cms/views/bulk_action_views.py
-msgid "This language is not supported by DeepL. Please try another language"
+msgid ""
+"Machine translations are not allowed for the current user or content type"
 msgstr ""
-"Diese Sprache wird von DeepL nicht unterstützt. Bitte versuchen Sie eine "
-"andere Sprache"
-
-#: cms/views/bulk_action_views.py
-msgid "Translations to Easy German are disabled"
-msgstr "Übersetzung in Leichte Sprache nicht aktiviert"
+"Maschinelle Übersetzungen sind nicht erlaubt für diese:n Benutzer:in oder "
+"Inhaltstyp"
 
 #: cms/views/bulk_action_views.py
 msgid "The selected {} were successfully {}"
@@ -8359,35 +8360,11 @@ msgstr "Niederländisch"
 msgid "DeepL API"
 msgstr "DeepL API"
 
-#: deepl_api/utils.py
-msgid ""
-"HIX score {:.2f} of \"{}\" is too low for machine translation (minimum "
-"required: {})"
-msgstr ""
-"HIX Wert {:.2f} für \"{}\" ist zu niedrig für maschinelle Übersetzung "
-"(erforderlicher Mindestwert: {})"
-
-#: deepl_api/utils.py
-msgid ""
-"Machine translations are disabled for \"{}\", because its HIX value is "
-"ignored"
-msgstr ""
-"Machinelle Übersetzungen sind für \"{}\" deaktiviert, da die Option \"HIX-"
-"Wert ignorieren\" aktiviert ist."
-
-#: deepl_api/utils.py summ_ai_api/summ_ai_api_client.py
-msgid ""
-"Machine translations are disabled for content type \"{}\", language \"{}\" "
-"or the current user."
-msgstr ""
-"Machinelle Übersetzungen sind für Inhaltsart \"{}\", Sprache \"{}\" oder den "
-"aktuellen Benutzer deaktiviert."
-
-#: deepl_api/utils.py
+#: deepl_api/deepl_api_client.py
 msgid "No source translation could be found for {} \"{}\"."
 msgstr "Es konnte kein Quelltext für {} \"{}\" gefunden werden."
 
-#: deepl_api/utils.py
+#: deepl_api/deepl_api_client.py
 msgid ""
 "Translation from {} to {} not possible: translation of {} words would exceed "
 "the remaining budget of {} words."
@@ -8395,11 +8372,11 @@ msgstr ""
 "Übersetzung von {} nach {} nicht möglich: die Übersetzung von {} Wörtern "
 "übersteigt das verbleibende Übersetzungsbudget von {} Wörtern."
 
-#: deepl_api/utils.py
+#: deepl_api/deepl_api_client.py
 msgid "{} \"{}\" has successfully been translated ({} ➜ {})."
 msgstr "{} \"{}\" wurde erfolgreich übersetzt ({} ➜ {})"
 
-#: deepl_api/utils.py
+#: deepl_api/deepl_api_client.py
 msgid "{} \"{}\" could not be translated automatically."
 msgstr "{} \"{}\" konnte nicht automatisch übersetzt werden."
 
@@ -8464,6 +8441,22 @@ msgstr "{} \"{}\" wurde erfolgreich in Leichte Sprache übersetzt."
 #: textlab_api/apps.py
 msgid "TextLab API"
 msgstr "TextLab API"
+
+#: textlab_api/utils.py
+msgid ""
+"HIX score {:.2f} of \"{}\" is too low for machine translation (minimum "
+"required: {})"
+msgstr ""
+"HIX Wert {:.2f} für \"{}\" ist zu niedrig für maschinelle Übersetzung "
+"(erforderlicher Mindestwert: {})"
+
+#: textlab_api/utils.py
+msgid ""
+"Machine translations are disabled for \"{}\", because its HIX value is "
+"ignored"
+msgstr ""
+"Machinelle Übersetzungen sind für \"{}\" deaktiviert, da die Option \"HIX-"
+"Wert ignorieren\" aktiviert ist."
 
 #: xliff/apps.py
 msgid "XLIFF"
@@ -9044,10 +9037,6 @@ msgstr ""
 
 #~ msgid "Your team of"
 #~ msgstr "Ihr Team von der"
-
-#~ msgid "Automatic translations are not fully implemented yet"
-#~ msgstr ""
-#~ "Automatische Übersetzungen sind noch nicht vollständig implementiert"
 
 #~ msgid "Filetype:"
 #~ msgstr "Dateityp:"

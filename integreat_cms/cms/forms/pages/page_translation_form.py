@@ -1,12 +1,12 @@
 import logging
 
 from ...models import PageTranslation
-from ..custom_content_model_form import CustomContentModelForm
+from ..machine_translation_form import MachineTranslationForm
 
 logger = logging.getLogger(__name__)
 
 
-class PageTranslationForm(CustomContentModelForm):
+class PageTranslationForm(MachineTranslationForm):
     """
     Form for creating and modifying page translation objects
     """
@@ -20,4 +20,4 @@ class PageTranslationForm(CustomContentModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = PageTranslation
         #: The fields of the model which should be handled by this form
-        fields = CustomContentModelForm.Meta.fields + ["slug", "hix_score"]
+        fields = MachineTranslationForm.Meta.fields + ["slug", "hix_score"]

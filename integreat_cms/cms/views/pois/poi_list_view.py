@@ -8,20 +8,17 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
-from ....deepl_api.utils import DeepLApi
 from ...decorators import permission_required
 from ...forms import ObjectSearchForm
 from ...models import POITranslation
-from ...models.pois.poi import POI
-from ...utils.translation_utils import mt_is_permitted
-from ..mixins import SummAiContextMixin
+from ..mixins import MachineTranslationContextMixin
 from .poi_context_mixin import POIContextMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_poi"), name="dispatch")
-class POIListView(TemplateView, POIContextMixin, SummAiContextMixin):
+class POIListView(TemplateView, POIContextMixin, MachineTranslationContextMixin):
     """
     View for listing POIs (points of interests)
     """
@@ -34,6 +31,8 @@ class POIListView(TemplateView, POIContextMixin, SummAiContextMixin):
     extra_context = {"current_menu_item": "pois"}
     #: Whether or not to show archived POIs
     archived = False
+    #: The translation model of this list view (used to determine whether machine translations are permitted)
+    translation_model = POITranslation
 
     @property
     def template_name(self):
@@ -117,16 +116,6 @@ class POIListView(TemplateView, POIContextMixin, SummAiContextMixin):
         chunk = request.GET.get("page")
         poi_chunk = paginator.get_page(chunk)
 
-        # DeepL available
-        if settings.DEEPL_ENABLED:
-            deepl = DeepLApi()
-            DEEPL_AVAILABLE = deepl.check_availability(request, language)
-        else:
-            DEEPL_AVAILABLE = False
-        MT_PERMITTED = mt_is_permitted(
-            region, request.user, POI._meta.default_related_name, language_slug
-        )
-
         return render(
             request,
             self.template_name,
@@ -137,8 +126,6 @@ class POIListView(TemplateView, POIContextMixin, SummAiContextMixin):
                 "language": language,
                 "languages": region.active_languages,
                 "search_query": query,
-                "DEEPL_AVAILABLE": DEEPL_AVAILABLE,
-                "MT_PERMITTED": MT_PERMITTED,
             },
         )
 

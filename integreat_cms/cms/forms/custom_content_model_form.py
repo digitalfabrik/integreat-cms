@@ -27,10 +27,6 @@ class CustomContentModelForm(CustomModelForm):
         :param \**kwargs: The supplied keyword arguments
         :type \**kwargs: dict
         """
-        # Pop kwarg to make sure the super class does not get this param
-        self.region = kwargs.pop("region", None)
-        self.language = kwargs.pop("language", None)
-
         # Handle content edit lock
         self.changed_by_user = kwargs.pop("changed_by_user", None)
         self.locked_by_user = kwargs.pop("locked_by_user", None)
@@ -75,6 +71,17 @@ class CustomContentModelForm(CustomModelForm):
                 forms.ValidationError(
                     _(
                         "Could not update because this content because it is already being edited by another user"
+                    ),
+                    code="invalid",
+                ),
+            )
+
+        if cleaned_data.get("automatic_translation") and cleaned_data.get("minor_edit"):
+            self.add_error(
+                None,
+                forms.ValidationError(
+                    _(
+                        'The options "automatic translation" and "minor edit" are mutually exclusive.'
                     ),
                     code="invalid",
                 ),
@@ -164,12 +171,13 @@ class CustomContentModelForm(CustomModelForm):
         :param foreign_form_changed: Whether or not the foreign form of this translation form was changed
         :type foreign_form_changed: bool
 
-        :return: The saved page translation object
-        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
+        :return: The saved content translation object
+        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
 
-        # Delete now outdated link objects
-        self.instance.links.all().delete()
+        if commit:
+            # Delete now outdated link objects
+            self.instance.links.all().delete()
 
         # If none of the text content fields were changed, but the foreign form was, treat as minor edit (even if checkbox isn't clicked)
         if {"title", "content"}.isdisjoint(self.changed_data) and foreign_form_changed:
@@ -215,4 +223,11 @@ class CustomContentModelForm(CustomModelForm):
             )
 
     class Meta:
-        fields = ["title", "status", "content", "minor_edit", "machine_translated"]
+        fields = [
+            "title",
+            "status",
+            "content",
+            "minor_edit",
+            "automatic_translation",
+            "machine_translated",
+        ]
