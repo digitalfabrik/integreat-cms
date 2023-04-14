@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-03-23T18:25:32+00:00" />
+    <meta property="article:modified_time" content="2023-04-14T11:42:01+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Languages &mdash; integreat-cms 2023.4.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -135,6 +135,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#frequency">Frequency</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#linkcheck">Linkcheck</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#machine-translation-permissions">Machine Translation Permissions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#machine-translation-providers">Machine Translation Providers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#matomo-periods">Matomo Periods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#mirrored-page-first">Mirrored Page First</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#months">Months</a></li>
@@ -177,6 +178,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#custom-model-form">Custom Model Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#custom-tree-node-form">Custom Tree Node Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#icon-widget">Icon Widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#machine-translation-form">Machine Translation Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.forms.html#object-search-form">Object Search Form</a></li>
 </ul>
 </li>
@@ -299,6 +301,11 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.signals.html#hix-signals">Hix Signals</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#machine-translation-api-client">Machine Translation API Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#machine-translation-provider">Machine Translation Provider</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#authentication-backends">Authentication Backends</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#circleci-settings">Circleci Settings</a></li>
@@ -313,7 +320,8 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.deepl_api.html">Deepl API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.deepl_api.html#apps">Apps</a></li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.deepl_api.html#utils">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.deepl_api.html#deepl-api-client">Deepl API Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.deepl_api.html#deepl-provider">Deepl Provider</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.firebase_api.html">Firebase API</a><ul>
@@ -348,12 +356,14 @@
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.summ_ai_api.html">SUMM.AI API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#summ-ai-api-client">SUMM.AI API Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#summ-ai-provider">SUMM.AI Provider</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#utils">Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.textlab_api.html">Textlab API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.textlab_api.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.textlab_api.html#textlab-api-client">Textlab API Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.textlab_api.html#utils">Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.xliff.html">XLIFF</a><ul>
@@ -485,6 +495,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.frequency">Frequency</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.linkcheck">Linkcheck</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.machine_translation_permissions">Machine Translation Permissions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.machine_translation_providers">Machine Translation Providers</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.matomo_periods">Matomo Periods</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.mirrored_page_first">Mirrored Page First</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.months">Months</a></li>
@@ -527,6 +538,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_model_form">Custom Model Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.custom_tree_node_form">Custom Tree Node Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.icon_widget">Icon Widget</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.machine_translation_form">Machine Translation Form</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#module-integreat_cms.cms.forms.object_search_form">Object Search Form</a></li>
 </ul>
 </li>
@@ -673,6 +685,11 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.auth_signals">Auth Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.feedback_signals">Feedback Signals</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.signals.html#module-integreat_cms.core.signals.hix_signals">Hix Signals</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_api_client">Machine Translation API Client</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_provider">Machine Translation Provider</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.apps">Apps</a><ul>
@@ -865,11 +882,15 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/integreat_cms.deepl_api.html">Deepl API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.deepl_api.html#module-integreat_cms.deepl_api.apps">Apps</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.apps.DeepLApiConfig"><code class="docutils literal notranslate"><span class="pre">DeepLApiConfig</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.apps.DeepLApiClientConfig"><code class="docutils literal notranslate"><span class="pre">DeepLApiClientConfig</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.deepl_api.html#module-integreat_cms.deepl_api.utils">Utils</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.utils.DeepLApi"><code class="docutils literal notranslate"><span class="pre">DeepLApi</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.deepl_api.html#module-integreat_cms.deepl_api.deepl_api_client">Deepl API Client</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.deepl_api_client.DeepLApiClient"><code class="docutils literal notranslate"><span class="pre">DeepLApiClient</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.deepl_api.html#module-integreat_cms.deepl_api.deepl_provider">Deepl Provider</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.deepl_provider.DeepLProvider"><code class="docutils literal notranslate"><span class="pre">DeepLProvider</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -963,6 +984,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException"><code class="docutils literal notranslate"><span class="pre">SummAiException</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.summ_ai_provider">SUMM.AI Provider</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_provider.SummAiProvider"><code class="docutils literal notranslate"><span class="pre">SummAiProvider</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.utils">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLField"><code class="docutils literal notranslate"><span class="pre">HTMLField</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLSegment"><code class="docutils literal notranslate"><span class="pre">HTMLSegment</span></code></a></li>
@@ -979,6 +1004,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.textlab_api.html#module-integreat_cms.textlab_api.textlab_api_client">Textlab API Client</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.textlab_api.html#integreat_cms.textlab_api.textlab_api_client.TextlabClient"><code class="docutils literal notranslate"><span class="pre">TextlabClient</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.textlab_api.html#module-integreat_cms.textlab_api.utils">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.textlab_api.html#integreat_cms.textlab_api.utils.check_hix_score"><code class="docutils literal notranslate"><span class="pre">check_hix_score()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1722,7 +1751,7 @@ to invalidate the cache of the related objects.</p>
 <h2>Language Tree Node<a class="headerlink" href="#language-tree-node" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.languages.language_tree_node.</span></span><span class="sig-name descname"><span class="pre">LanguageTreeNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.languages.language_tree_node.</span></span><span class="sig-name descname"><span class="pre">LanguageTreeNode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode" title="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractTreeNode</span></code></a></p>
 <p>Data model representing a region’s language tree. Each tree node is a single object instance and the whole tree is
 identified by the root node. The base functionality inherits from the package <a class="reference external" href="https://django-mptt.readthedocs.io/en/latest/index.html">django-mptt</a> (Modified Preorder Tree Traversal).</p>
@@ -1760,19 +1789,19 @@ identified by the root node. The base functionality inherits from the package <a
 </dl>
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">english_name</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">english_name</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns the name of this node’s language in English</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1786,7 +1815,7 @@ identified by the root node. The base functionality inherits from the package <a
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L137"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method which would return <code class="docutils literal notranslate"><span class="pre">&lt;LanguageTreeNode:</span> <span class="pre">LanguageTreeNode</span> <span class="pre">object</span> <span class="pre">(id)&gt;</span></code>.
 It is used for logging.</p>
 <dl class="field-list simple">
@@ -1801,22 +1830,35 @@ It is used for logging.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">mt_provider</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Return the name of the machine translation provider if it exists,
-or empty string otherwise</p>
+<span class="sig-name descname"><span class="pre">mt_provider</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Return the machine translation provider if it exists, or <code class="docutils literal notranslate"><span class="pre">None</span></code> otherwise</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Name of the MT provider for the language</p>
+<dd class="field-odd"><p>The MT provider for this target language</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_provider.MachineTranslationProviderType" title="integreat_cms.core.utils.machine_translation_provider.MachineTranslationProviderType"><em>MachineTranslationProviderType</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">native_name</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">mt_providers</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Return the list of supported machine translation providers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The MT provider for this target language</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a> [ <a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_provider.MachineTranslationProviderType" title="integreat_cms.core.utils.machine_translation_provider.MachineTranslationProviderType"><em>MachineTranslationProviderType</em></a> ]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">native_name</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns the native name of this node’s language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1830,7 +1872,7 @@ or empty string otherwise</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">slug</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">slug</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns the slug of this node’s language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1844,7 +1886,7 @@ or empty string otherwise</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">text_direction</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">text_direction</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns the text direction (e.g. left-to-right) of this node’s language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1858,7 +1900,7 @@ or empty string otherwise</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">translated_name</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">translated_name</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns the name of this node’s language in the current backend language</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -1890,7 +1932,7 @@ or empty string otherwise</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 23, 2023.
+      <span class="lastupdated">Last updated on Apr 14, 2023.
       </span></p>
   </div>
 
