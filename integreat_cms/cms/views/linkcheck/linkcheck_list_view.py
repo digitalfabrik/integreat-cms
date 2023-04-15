@@ -84,7 +84,9 @@ class LinkcheckListView(ListView):
         edit_url_id = self.kwargs.get("url_id")
         if edit_url_id and not self.form:
             url = get_object_or_404(Url, id=edit_url_id)
-            self.form = EditUrlForm(initial={"url": url})
+            self.form = EditUrlForm(
+                initial={"url": url, "text": url.links.first().text}
+            )
         context["edit_url_form"] = self.form
         context["pagination_params"] = self.get_pagination_params()
         return context

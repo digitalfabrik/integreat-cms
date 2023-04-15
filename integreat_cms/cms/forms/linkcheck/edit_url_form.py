@@ -2,6 +2,7 @@ import logging
 
 from django import forms
 from django.core.validators import EmailValidator, URLValidator
+from django.utils.translation import gettext as _
 
 logger = logging.getLogger(__name__)
 
@@ -73,3 +74,4 @@ class EditUrlForm(forms.Form):
     """
 
     url = LinkField()
+    text = forms.CharField(widget=forms.TextInput(attrs={"readonly": "readonly"}))
