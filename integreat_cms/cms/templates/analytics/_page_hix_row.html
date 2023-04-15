@@ -1,0 +1,14 @@
+{% load i18n %}
+{% with page_translation.page.id as page_id %}
+    {% with page_translation.hix_score as hix %}
+        <tr class="{% if hix < hix_threshold %} bg-red-100 hover:bg-red-200 text-red-500 hover:text-red-600 border-l-4 border-red-500 {% else %} hover:bg-gray-100 border-l-4 border-white hover:border-gray-400 {% endif %}">
+            <td>
+                <a class="block p-1"
+                   href="{% url 'edit_page' region_slug=request.region.slug language_slug="de" page_id=page_id %}">
+                    {{ page_translation.title }}
+                </a>
+            </td>
+            <td>{{ hix|floatformat:2 }}</td>
+        </tr>
+    {% endwith %}
+{% endwith %}

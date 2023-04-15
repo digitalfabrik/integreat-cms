@@ -1,9 +1,11 @@
 import logging
+import math
 
 from django.conf import settings
 from django.utils import translation
 from django.views.generic import TemplateView
 
+from ...models import PageTranslation
 from ..chat.chat_context_mixin import ChatContextMixin
 
 logger = logging.getLogger(__name__)
@@ -41,4 +43,50 @@ class DashboardView(TemplateView, ChatContextMixin):
                 ),
             }
         )
+        context.update(self.get_hix_context())
         return context
+
+    def get_hix_context(self):
+        """
+        Extend context by HIX info
+
+        :return: The HIX context dictionary
+        :rtype: dict
+        """
+        if not settings.TEXTLAB_API_ENABLED:
+            return {}
+
+        # Get the current region
+        region = self.request.region
+        if not region.hix_enabled:
+            return {}
+
+        # Get all pages of this region which are considered for the HIX value
+        hix_pages = region.get_pages(return_unrestricted_queryset=True).filter(
+            hix_ignore=False
+        )
+        # Get the latest versions of the page translations for these pages
+        hix_translations = PageTranslation.objects.filter(
+            language__slug__in=settings.TEXTLAB_API_LANGUAGES, page__in=hix_pages
+        ).distinct("page_id", "language_id")
+
+        # Get all hix translations where the score is set
+        hix_translations_with_score = [pt for pt in hix_translations if pt.hix_score]
+
+        # Get the worst n pages
+        worst_his_translations = sorted(
+            hix_translations_with_score, key=lambda pt: pt.hix_score
+        )[:10]
+
+        # Get the number of translations which are ready for MT
+        ready_for_mt_count = sum(
+            pt.hix_score >= settings.HIX_REQUIRED_FOR_MT
+            for pt in hix_translations_with_score
+        )
+        ready_for_mt = math.trunc(100 * ready_for_mt_count / len(hix_translations))
+
+        return {
+            "page_translations": worst_his_translations,
+            "hix_threshold": settings.HIX_REQUIRED_FOR_MT,
+            "ready_for_mt": ready_for_mt,
+        }
