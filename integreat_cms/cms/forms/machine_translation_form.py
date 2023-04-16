@@ -68,7 +68,7 @@ class MachineTranslationForm(CustomContentModelForm):
         for target in translation_targets:
             target_type = (
                 to_update
-                if self.instance
+                if self.instance.id
                 and target.language in self.instance.foreign_object.languages
                 else to_create
             )
