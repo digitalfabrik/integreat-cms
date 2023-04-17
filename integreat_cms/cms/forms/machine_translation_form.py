@@ -82,9 +82,10 @@ class MachineTranslationForm(CustomContentModelForm):
         ].queryset = self.request.region.language_tree_nodes.filter(id__in=to_update)
         self.initial["mt_translations_to_update"] = to_update
 
-    def mt_is_enabled(self):
+    def mt_form_is_enabled(self):
         """
-        Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
+        Helper method to decide if this form should be shown, or if it should be hidden for
+        the current language due to a lack of MT-compatible child language nodes
 
         :return: Whether this form is enabled
         :rtype: bool
@@ -123,14 +124,10 @@ class MachineTranslationForm(CustomContentModelForm):
         """
         self.instance = super().save(commit, foreign_form_changed)
 
-        if (
-            commit
-            and self.mt_is_enabled
-            and check_hix_score(self.request, self.instance)
-        ):
-            language_nodes = self.cleaned_data["mt_translations_to_create"].union(
-                self.cleaned_data["mt_translations_to_update"]
-            )
+        language_nodes = self.cleaned_data["mt_translations_to_create"].union(
+            self.cleaned_data["mt_translations_to_update"]
+        )
+        if commit and language_nodes and check_hix_score(self.request, self.instance):
             for language_node in language_nodes:
                 logger.debug(
                     "Machine translation via %r into %r for: %r",

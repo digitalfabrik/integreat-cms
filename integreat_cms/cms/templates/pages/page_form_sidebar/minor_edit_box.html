@@ -18,7 +18,7 @@
         </label>
         <div class="help-text">{% minor_edit_help_text request.region language page_translation_form %}</div>
     </div>
-    {% if page_translation_form.mt_is_enabled %}
+    {% if page_translation_form.mt_form_is_enabled %}
         <div id="machine-translation-form" data-minimum-hix="{{ minimum_hix }}">
             {% render_field page_translation_form.automatic_translation class+="mutually-exclusive-checkbox" %}
             <label for="{{ page_translation_form.automatic_translation.id_for_label }}"
