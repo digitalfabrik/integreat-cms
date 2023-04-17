@@ -68,6 +68,7 @@ import "./js/mfa/login.ts";
 import "./js/analytics/statistics-charts.ts";
 import "./js/analytics/translation_coverage.ts";
 import "./js/analytics/linkcheck-widget.ts";
+import "./js/analytics/hix-list";
 
 import "./js/translations/budget-graph.ts";
 
