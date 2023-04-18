@@ -77,6 +77,7 @@ def get_url_count(region_slug=None):
     return count_dict
 
 
+# pylint: disable=too-many-branches
 def filter_urls(region_slug=None, url_filter=None, prefetch_content_objects=True):
     """
     Filter all urls of one region by the given category
@@ -98,7 +99,9 @@ def filter_urls(region_slug=None, url_filter=None, prefetch_content_objects=True
         region_slug=region_slug, prefetch_content_objects=prefetch_content_objects
     )
     # Split url lists into their respective categories
-    ignored_urls, valid_urls, invalid_urls, unchecked_urls = [], [], [], []
+    ignored_urls, valid_urls, invalid_urls, email_links, phone_links, unchecked_urls = (
+        [] for i in range(6)
+    )
     for url in urls:
         links = url.region_links if region_slug else url.links.all()
         if all(link.ignore for link in links):
@@ -108,8 +111,16 @@ def filter_urls(region_slug=None, url_filter=None, prefetch_content_objects=True
         elif url.status is False:
             # Explicitly check for False, because status is None means unchecked
             invalid_urls.append(url)
-        else:
+        elif url.type == "mailto":
+            email_links.append(url)
+        elif url.type == "phone":
+            phone_links.append(url)
+        elif not url.last_checked:
             unchecked_urls.append(url)
+        else:
+            raise NotImplementedError(
+                f"Url {url!r} does not fit into any of the defined categories"
+            )
     # Pass the number of urls to a dict which can be used as extra template context
     count_dict = {
         "number_all_urls": len(urls),
@@ -118,6 +129,10 @@ def filter_urls(region_slug=None, url_filter=None, prefetch_content_objects=True
         "number_ignored_urls": len(ignored_urls),
         "number_invalid_urls": len(invalid_urls),
     }
+    if settings.LINKCHECK_EMAIL_ENABLED:
+        count_dict["number_email_urls"] = len(email_links)
+    if settings.LINKCHECK_PHONE_ENABLED:
+        count_dict["number_phone_urls"] = len(phone_links)
     # Return the requested urls
     if url_filter == "valid":
         urls = valid_urls
@@ -127,6 +142,10 @@ def filter_urls(region_slug=None, url_filter=None, prefetch_content_objects=True
         urls = ignored_urls
     elif url_filter == "invalid":
         urls = invalid_urls
+    elif url_filter == "email":
+        urls = email_links
+    elif url_filter == "phone":
+        urls = phone_links
 
     return urls, count_dict
 

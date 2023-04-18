@@ -35,7 +35,11 @@ class LinkcheckListView(ListView):
     #: (see :class:`~django.views.generic.list.MultipleObjectMixin`)
     context_object_name = "filtered_urls"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    extra_context = {"current_menu_item": "linkcheck"}
+    extra_context = {
+        "current_menu_item": "linkcheck",
+        "LINKCHECK_EMAIL_ENABLED": settings.LINKCHECK_EMAIL_ENABLED,
+        "LINKCHECK_PHONE_ENABLED": settings.LINKCHECK_PHONE_ENABLED,
+    }
     #: The link edit form
     form = None
 
@@ -80,7 +84,9 @@ class LinkcheckListView(ListView):
         edit_url_id = self.kwargs.get("url_id")
         if edit_url_id and not self.form:
             url = get_object_or_404(Url, id=edit_url_id)
-            self.form = EditUrlForm(initial={"url": url})
+            self.form = EditUrlForm(
+                initial={"url": url, "text": url.links.first().text}
+            )
         context["edit_url_form"] = self.form
         context["pagination_params"] = self.get_pagination_params()
         return context
@@ -175,7 +181,14 @@ class LinkcheckListView(ListView):
                     new_translation.version += 1
                     new_translation.minor_edit = True
                     new_translation.save()
-                messages.success(request, _("URL was successfully replaced"))
+                if new_url.startswith("mailto:"):
+                    messages.success(request, _("Email link was successfully replaced"))
+                elif new_url.startswith("tel:"):
+                    messages.success(
+                        request, _("Phone number link was successfully replaced")
+                    )
+                else:
+                    messages.success(request, _("URL was successfully replaced"))
                 # Add short delay to allow post_save signals to finish (to keep existing URL objects when deleting the old links)
                 time.sleep(0.5)
                 # Acquire linkcheck lock to avoid race conditions between post_save signal and links.delete()

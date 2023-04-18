@@ -9,8 +9,14 @@
             {% translate "Broken links" %}
         {% elif view.kwargs.url_filter == 'unchecked' %}
             {% translate "Unchecked links" %}
-        {% else %}
+        {% elif view.kwargs.url_filter == 'ignored' %}
             {% translate "Ignored links" %}
+        {% elif LINKCHECK_EMAIL_ENABLED and view.kwargs.url_filter == 'email' %}
+            {% translate "Email links" %}
+        {% elif LINKCHECK_PHONE_ENABLED and view.kwargs.url_filter == 'phone' %}
+            {% translate "Phone links" %}
+        {% else %}
+            {% translate "All links" %}
         {% endif %}
     </h1>
     <a href="{% if view.kwargs.url_filter == 'valid' %}#{% else %}{% url 'linkcheck' region_slug=request.region.slug url_filter='valid' %}{% if request.GET.size %}?size={{ request.GET.size }}{% endif %}{% endif %}"
@@ -19,28 +25,48 @@
         <span class="{% if view.kwargs.url_filter == 'valid' %}text-gray-500 font-normal{% endif %}">
             ({{ number_valid_urls }})
         </span>
-    </a> |
+    </a>
     <a href="{% if view.kwargs.url_filter == 'invalid' %}#{% else %}{% url 'linkcheck' region_slug=request.region.slug url_filter='invalid' %}{% if request.GET.size %}?size={{ request.GET.size }}{% endif %}{% endif %}"
-       class="pr-2 border-r-1 {% if view.kwargs.url_filter == 'invalid' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
+       class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'invalid' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
         {% translate "Invalid" %}
         <span class="{% if view.kwargs.url_filter == 'invalid' %}text-gray-500 font-normal{% endif %}">
             ({{ number_invalid_urls }})
         </span>
-    </a> |
+    </a>
     <a href="{% if view.kwargs.url_filter == 'unchecked' %}#{% else %}{% url 'linkcheck' region_slug=request.region.slug url_filter='unchecked' %}{% if request.GET.size %}?size={{ request.GET.size }}{% endif %}{% endif %}"
-       class="pr-2 border-r-1 {% if view.kwargs.url_filter == 'unchecked' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
+       class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'unchecked' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
         {% translate "Unchecked" %}
         <span class="{% if view.kwargs.url_filter == 'unchecked' %}text-gray-500 font-normal{% endif %}">
             ({{ number_unchecked_urls }})
         </span>
-    </a> |
+    </a>
     <a href="{% if view.kwargs.url_filter == 'ignored' %}#{% else %}{% url 'linkcheck' region_slug=request.region.slug url_filter='ignored' %}{% if request.GET.size %}?size={{ request.GET.size }}{% endif %}{% endif %}"
-       class="{% if view.kwargs.url_filter == 'ignored' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
+       class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'ignored' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
         {% translate "Ignored" %}
         <span class="{% if view.kwargs.url_filter == 'ignored' %}text-gray-500 font-normal{% endif %}">
             ({{ number_ignored_urls }})
         </span>
     </a>
+    {% if request.user.expert_mode %}
+        {% if LINKCHECK_EMAIL_ENABLED %}
+            <a href="{% if view.kwargs.url_filter == 'email' %}#{% else %}{% url 'linkcheck' region_slug=request.region.slug url_filter='email' %}{% if request.GET.size %}?size={{ request.GET.size }}{% endif %}{% endif %}"
+               class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'email' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
+                {% translate "Email links" %}
+                <span class="{% if view.kwargs.url_filter == 'email' %}text-gray-500 font-normal{% endif %}">
+                    ({{ number_email_urls }})
+                </span>
+            </a>
+        {% endif %}
+        {% if LINKCHECK_PHONE_ENABLED %}
+            <a href="{% if view.kwargs.url_filter == 'phone' %}#{% else %}{% url 'linkcheck' region_slug=request.region.slug url_filter='phone' %}{% if request.GET.size %}?size={{ request.GET.size }}{% endif %}{% endif %}"
+               class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'phone' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
+                {% translate "Phone links" %}
+                <span class="{% if view.kwargs.url_filter == 'phone' %}text-gray-500 font-normal{% endif %}">
+                    ({{ number_phone_urls }})
+                </span>
+            </a>
+        {% endif %}
+    {% endif %}
     {% if view.kwargs.url_id %}
         <form action="{{ request.path }}{{ pagination_params }}"
               method="post"
@@ -90,6 +116,10 @@
                                 {% translate "No invalid links could be found." %}
                             {% elif view.kwargs.url_filter == 'unchecked' %}
                                 {% translate "No unchecked links could be found." %}
+                            {% elif LINKCHECK_EMAIL_ENABLED and view.kwargs.url_filter == 'email' %}
+                                {% translate "No email links could be found." %}
+                            {% elif LINKCHECK_PHONE_ENABLED and view.kwargs.url_filter == 'phone' %}
+                                {% translate "No phone links could be found." %}
                             {% else %}
                                 {% translate "No ignored links could be found." %}
                             {% endif %}
