@@ -7,18 +7,18 @@
     {% translate "Overview of the text understandability of the pages" %}
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
-    <div class="flex flex-wrap justify-between gap-2">
+    <div class="flex flex-wrap gap-2">
         <p>
-            {% blocktranslate trimmed with n=page_translations|length %}
-                The list shows the first {{ n }} pages with the lowest HIX value in ascending order.
+            {% blocktranslate trimmed %}
+                The list shows the pages with the lowest HIX value in ascending order.
             {% endblocktranslate %}
         </p>
         <p>
             <b>{{ ready_for_mt }}%</b> {% translate " of all pages are ready for automatic translation." %}
         </p>
     </div>
-    <div class="mt-4">
-        <table id="page_hix_list" class="w-full max-w-xl mb-4">
+    <div class="mt-4 overflow-y-scroll max-h-160">
+        <table id="page_hix_list" class="w-full max-w-xl mb-4 show-n-rows">
             <thead>
                 <tr class="border-b border-gray-400">
                     <th class="text-sm text-left uppercase p-1">{% translate "Page name" %}</th>
@@ -26,14 +26,15 @@
                 </tr>
             </thead>
             <tbody>
-                {% for page_translation in page_translations %}
+                {% for page_translation in worst_hix_translations %}
                     {% include "analytics/_page_hix_row.html" %}
-                {% empty %}
-                    {% translate "There is no page." %}
                 {% endfor %}
             </tbody>
         </table>
     </div>
+    <a id="toggle-hix-score-list-trigger"
+       data-alternative-text="{% translate "Show less pages" %}"
+       class="text-blue-500 hover:underline mb-2 block">{% translate "Show all pages" %}</a>
     <p>
         {# djlint:off #}
         {% blocktranslate trimmed with threshold=hix_threshold|floatformat:0 %}

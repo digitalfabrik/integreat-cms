@@ -74,10 +74,9 @@ class DashboardView(TemplateView, ChatContextMixin):
         hix_translations_with_score = [pt for pt in hix_translations if pt.hix_score]
 
         # Get the worst n pages
-        worst_his_translations = sorted(
+        worst_hix_translations = sorted(
             hix_translations_with_score, key=lambda pt: pt.hix_score
-        )[:10]
-
+        )
         # Get the number of translations which are ready for MT
         ready_for_mt_count = sum(
             pt.hix_score >= settings.HIX_REQUIRED_FOR_MT
@@ -86,7 +85,7 @@ class DashboardView(TemplateView, ChatContextMixin):
         ready_for_mt = math.trunc(100 * ready_for_mt_count / len(hix_translations))
 
         return {
-            "page_translations": worst_his_translations,
+            "worst_hix_translations": worst_hix_translations,
             "hix_threshold": settings.HIX_REQUIRED_FOR_MT,
             "ready_for_mt": ready_for_mt,
         }
