@@ -20,33 +20,31 @@ def page_translation_save_handler(instance, **kwargs):
     :param \**kwargs: The supplied keyword arguments
     :type \**kwargs: dict
     """
+
     if kwargs.get("raw"):
         return
 
-    content_unchanged = (
-        instance.latest_version
-        and instance.latest_version.content == instance.content
-        and instance.latest_version.hix_score is not None
-    )
-    if (
-        instance.hix_score
-        or instance.hix_ignore
-        or not instance.hix_enabled
-        or not instance.content.strip()
-        or content_unchanged
-    ):
+    if instance.hix_ignore or not instance.hix_enabled or not instance.content.strip():
         logger.debug(
-            "HIX calculation pre save signal skipped for %r (score=%s, ignored=%s, enabled=%s, empty=%s, unchanged=%s)",
+            "HIX calculation pre save signal skipped for %r (ignored=%s, enabled=%s, empty=%s)",
             instance,
-            instance.hix_score,
             instance.hix_ignore,
             instance.hix_enabled,
             not bool(instance.content.strip()),
-            content_unchanged,
         )
-        instance.hix_score = (
-            instance.latest_version.hix_score if content_unchanged else None
+        instance.hix_score = None
+        return
+
+    if identical_version := instance.all_versions.filter(
+        content=instance.content, hix_score__isnull=False
+    ).first():
+        logger.debug(
+            "Content of %r is identical to %r, copying HIX score %r",
+            instance,
+            identical_version,
+            identical_version.hix_score,
         )
+        instance.hix_score = identical_version.hix_score
         return
 
     if score := lookup_hix_score(instance.content):

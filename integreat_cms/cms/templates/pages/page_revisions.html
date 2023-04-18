@@ -33,6 +33,10 @@
                 <b>{% translate "Author" %}:</b> <span id="revision-editor"></span>
                 <br />
                 <b>{% translate "Date" %}:</b> <span id="revision-date"></span>
+                {% if page_translations.first.hix_enabled and not page_translations.first.hix_ignore %}
+                    <br />
+                    <b>{% translate "HIX" %}:</b> <span id="revision-hix"></span>
+                {% endif %}
             </output>
             <datalist id="steplist" class="w-full flex font-mono">
                 {% for page_translation in page_translations reversed %}
@@ -53,27 +57,38 @@
                  id="revision-{{ page_translation.version }}"
                  data-date="{{ page_translation.last_updated }}"
                  data-editor="{% firstof page_translation.creator deleted_user_text %}"
-                 data-status="{{ page_translation.status }}">
-                <label class="inline-block">{% translate "Publication status" %}:</label>
-                {{ page_translation.get_status_display }}
-                {% if page_translation == api_revision %}
-                    ({% translate "This is the version shown in the apps." %})
-                {% elif forloop.first %}
-                    {% if api_revision %}
-                        {% with api_revision.version as version %}
-                            ({% blocktrans %}This version is <b>not</b> displayed in the apps - but version {{ version }} instead{% endblocktrans %})
-                        {% endwith %}
-                    {% else %}
-                        ({% translate "This translation is <b>not</b> shown in the apps" %})
-                    {% endif %}
-                {% endif %}
-                {% if page_translation.minor_edit %}
-                    - <i>{% translate "Minor edit" %}</i>
-                {% endif %}
-                <span class="float-right">
-                    <label class="inline-block">{% translate "Author" %}:</label>
-                    {% firstof page_translation.creator deleted_user_text %}
-                </span>
+                 data-status="{{ page_translation.status }}"
+                 data-hix="{{ page_translation.hix_score|floatformat:2 }}">
+                <div class="flex justify-between">
+                    <span>
+                        <label class="inline-block">{% translate "Publication status" %}:</label>
+                        {{ page_translation.get_status_display }}
+                        {% if page_translation == api_revision %}
+                            ({% translate "This is the version shown in the apps." %})
+                        {% elif forloop.first %}
+                            {% if api_revision %}
+                                {% with api_revision.version as version %}
+                                    ({% blocktrans %}This version is <b>not</b> displayed in the apps - but version {{ version }} instead{% endblocktrans %})
+                                {% endwith %}
+                            {% else %}
+                                ({% translate "This translation is <b>not</b> shown in the apps" %})
+                            {% endif %}
+                        {% endif %}
+                        {% if page_translation.minor_edit %}
+                            - <i>{% translate "Minor edit" %}</i>
+                        {% endif %}
+                    </span>
+                    <span>
+                        {% if page_translation.hix_enabled and not page_translation.hix_ignore and page_translation.hix_score %}
+                            <span class="pr-4">
+                                <label class="inline-block">{% translate "HIX score" %}:</label>
+                                {{ page_translation.hix_score|floatformat:2 }}
+                            </span>
+                        {% endif %}
+                        <label class="inline-block">{% translate "Author" %}:</label>
+                        {% firstof page_translation.creator deleted_user_text %}
+                    </span>
+                </div>
                 <div class="revision-plain hidden">
                     <label>{% translate "Permalink" %}:</label>
                     {{ page_translation.get_absolute_url }}
