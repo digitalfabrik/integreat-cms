@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-03-23T22:41:35+00:00" />
+    <meta property="article:modified_time" content="2023-04-18T09:56:51+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CMS &mdash; integreat-cms 2023.4.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -658,8 +658,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#module-integreat_cms.cms.rules">Rules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#integreat_cms.cms.rules.is_page_author"><code class="docutils literal notranslate"><span class="pre">is_page_author()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.cms.rules.is_page_editor"><code class="docutils literal notranslate"><span class="pre">is_page_editor()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#integreat_cms.cms.rules.is_page_publisher"><code class="docutils literal notranslate"><span class="pre">is_page_publisher()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.cms.rules.can_edit_all_pages"><code class="docutils literal notranslate"><span class="pre">can_edit_all_pages()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.cms.rules.can_publish_all_pages"><code class="docutils literal notranslate"><span class="pre">can_publish_all_pages()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.cms.rules.is_in_responsible_organization"><code class="docutils literal notranslate"><span class="pre">is_in_responsible_organization()</span></code></a></li>
@@ -4670,9 +4670,9 @@ If not, the PermissionDenied exception is raised.</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><a class="reference internal" href="#integreat_cms.cms.rules.can_edit_all_pages" title="integreat_cms.cms.rules.can_edit_all_pages"><code class="xref py py-func docutils literal notranslate"><span class="pre">can_edit_all_pages()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#integreat_cms.cms.rules.is_page_editor" title="integreat_cms.cms.rules.is_page_editor"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_editor()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#integreat_cms.cms.rules.is_page_author" title="integreat_cms.cms.rules.is_page_author"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_author()</span></code></a></p></li>
 <li><p><a class="reference internal" href="#integreat_cms.cms.rules.can_publish_all_pages" title="integreat_cms.cms.rules.can_publish_all_pages"><code class="xref py py-func docutils literal notranslate"><span class="pre">can_publish_all_pages()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#integreat_cms.cms.rules.is_page_publisher" title="integreat_cms.cms.rules.is_page_publisher"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_publisher()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#integreat_cms.cms.rules.is_page_editor" title="integreat_cms.cms.rules.is_page_editor"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_editor()</span></code></a></p></li>
 </ul>
 </div></blockquote>
 </li>
@@ -4680,15 +4680,35 @@ If not, the PermissionDenied exception is raised.</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><a class="reference internal" href="#integreat_cms.cms.rules.can_publish_all_pages" title="integreat_cms.cms.rules.can_publish_all_pages"><code class="xref py py-func docutils literal notranslate"><span class="pre">can_publish_all_pages()</span></code></a></p></li>
-<li><p><a class="reference internal" href="#integreat_cms.cms.rules.is_page_publisher" title="integreat_cms.cms.rules.is_page_publisher"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_publisher()</span></code></a></p></li>
+<li><p><a class="reference internal" href="#integreat_cms.cms.rules.is_page_editor" title="integreat_cms.cms.rules.is_page_editor"><code class="xref py py-func docutils literal notranslate"><span class="pre">is_page_editor()</span></code></a></p></li>
 </ul>
 </div></blockquote>
 </li>
 </ul>
 <p>See the project’s <a class="reference external" href="https://github.com/dfunckt/django-rules/blob/master/README.rst">README</a> to learn more.</p>
 <dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.rules.is_page_author">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.rules.</span></span><span class="sig-name descname"><span class="pre">is_page_author</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/rules.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.rules.is_page_author" title="Permalink to this definition"></a></dt>
+<dd><p>This predicate checks whether the given user is one of the authors of the given page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
+<li><p><strong>page</strong> (<a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><em>Page</em></a>) – The requested page</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> is an author of <code class="docutils literal notranslate"><span class="pre">page</span></code></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.rules.is_page_editor">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.rules.</span></span><span class="sig-name descname"><span class="pre">is_page_editor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/rules.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.rules.is_page_editor" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.rules.</span></span><span class="sig-name descname"><span class="pre">is_page_editor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/rules.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.rules.is_page_editor" title="Permalink to this definition"></a></dt>
 <dd><p>This predicate checks whether the given user is one of the editors of the given page.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -4699,26 +4719,6 @@ If not, the PermissionDenied exception is raised.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> is an editor of <code class="docutils literal notranslate"><span class="pre">page</span></code></p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="integreat_cms.cms.rules.is_page_publisher">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.rules.</span></span><span class="sig-name descname"><span class="pre">is_page_publisher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/rules.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.rules.is_page_publisher" title="Permalink to this definition"></a></dt>
-<dd><p>This predicate checks whether the given user is one of the publishers of the given page.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><em>User</em></a>) – The user who’s permission should be checked</p></li>
-<li><p><strong>page</strong> (<a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><em>Page</em></a>) – The requested page</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Whether or not <code class="docutils literal notranslate"><span class="pre">user</span></code> is a publisher of <code class="docutils literal notranslate"><span class="pre">page</span></code></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
@@ -4824,7 +4824,7 @@ If not, the PermissionDenied exception is raised.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 23, 2023.
+      <span class="lastupdated">Last updated on Apr 18, 2023.
       </span></p>
   </div>
 

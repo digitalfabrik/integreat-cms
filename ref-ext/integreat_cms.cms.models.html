@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-04-15T08:59:23+00:00" />
+    <meta property="article:modified_time" content="2023-04-18T09:56:51+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Models &mdash; integreat-cms 2023.4.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -658,8 +658,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.html#module-integreat_cms.cms.rules">Rules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.rules.is_page_author"><code class="docutils literal notranslate"><span class="pre">is_page_author()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.rules.is_page_editor"><code class="docutils literal notranslate"><span class="pre">is_page_editor()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.rules.is_page_publisher"><code class="docutils literal notranslate"><span class="pre">is_page_publisher()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.rules.can_edit_all_pages"><code class="docutils literal notranslate"><span class="pre">can_edit_all_pages()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.rules.can_publish_all_pages"><code class="docutils literal notranslate"><span class="pre">can_publish_all_pages()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.rules.is_in_responsible_organization"><code class="docutils literal notranslate"><span class="pre">is_in_responsible_organization()</span></code></a></li>
@@ -3504,6 +3504,7 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.api_token"><code class="docutils literal notranslate"><span class="pre">Page.api_token</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.archive"><code class="docutils literal notranslate"><span class="pre">Page.archive()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.archived"><code class="docutils literal notranslate"><span class="pre">Page.archived</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.authors"><code class="docutils literal notranslate"><span class="pre">Page.authors</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.available_translations"><code class="docutils literal notranslate"><span class="pre">Page.available_translations()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.backend_edit_link"><code class="docutils literal notranslate"><span class="pre">Page.backend_edit_link</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.backend_translation"><code class="docutils literal notranslate"><span class="pre">Page.backend_translation</span></code></a></li>
@@ -3612,7 +3613,6 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.prepare_database_save"><code class="docutils literal notranslate"><span class="pre">Page.prepare_database_save()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.prev_region_sibling"><code class="docutils literal notranslate"><span class="pre">Page.prev_region_sibling</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.public_languages"><code class="docutils literal notranslate"><span class="pre">Page.public_languages</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.publishers"><code class="docutils literal notranslate"><span class="pre">Page.publishers</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.refresh_from_db"><code class="docutils literal notranslate"><span class="pre">Page.refresh_from_db()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.region"><code class="docutils literal notranslate"><span class="pre">Page.region</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.region_id"><code class="docutils literal notranslate"><span class="pre">Page.region_id</span></code></a></li>
@@ -7463,7 +7463,7 @@ failed.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Apr 15, 2023.
+      <span class="lastupdated">Last updated on Apr 18, 2023.
       </span></p>
   </div>
 

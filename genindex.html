@@ -654,8 +654,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.rules">Rules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.is_page_author"><code class="docutils literal notranslate"><span class="pre">is_page_author()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.is_page_editor"><code class="docutils literal notranslate"><span class="pre">is_page_editor()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.is_page_publisher"><code class="docutils literal notranslate"><span class="pre">is_page_publisher()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.can_edit_all_pages"><code class="docutils literal notranslate"><span class="pre">can_edit_all_pages()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.can_publish_all_pages"><code class="docutils literal notranslate"><span class="pre">can_publish_all_pages()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.is_in_responsible_organization"><code class="docutils literal notranslate"><span class="pre">is_in_responsible_organization()</span></code></a></li>
@@ -3078,10 +3078,10 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_actions.archive_poi">archive_poi() (in module integreat_cms.cms.views.pois.poi_actions)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.region_status.ARCHIVED">ARCHIVED (in module integreat_cms.cms.constants.region_status)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.archived">archived (integreat_cms.cms.models.events.event.Event attribute)</a>
 
       <ul>
@@ -3747,6 +3747,8 @@
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.AUTHOR_CHAT_HISTORY_DAYS">AUTHOR_CHAT_HISTORY_DAYS (in module integreat_cms.core.settings)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.roles.AUTHOR_PERMISSIONS">AUTHOR_PERMISSIONS (in module integreat_cms.cms.constants.roles)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.authors">authors (integreat_cms.cms.models.pages.page.Page attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_actions.auto_complete_address">auto_complete_address() (in module integreat_cms.cms.views.pois.poi_actions)</a>
 </li>
@@ -8253,6 +8255,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.get_annotated_list_qs">(integreat_cms.cms.models.pages.page.Page class method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_form.PageForm.get_author_queryset">get_author_queryset() (integreat_cms.cms.forms.pages.page_form.PageForm method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.settings_tags.get_base_url">get_base_url() (in module integreat_cms.cms.templatetags.settings_tags)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.organization_field.OrganizationField.get_bound_field">get_bound_field() (integreat_cms.cms.forms.users.organization_field.OrganizationField method)</a>
@@ -10045,8 +10049,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI.get_public_translation">(integreat_cms.cms.models.pois.poi.POI method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_form.PageForm.get_publisher_queryset">get_publisher_queryset() (integreat_cms.cms.forms.pages.page_form.PageForm method)</a>
-</li>
       <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_actions.get_query_search_results_ajax">get_query_search_results_ajax() (in module integreat_cms.cms.views.media.media_actions)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.poi_categories.html#integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet.get_queryset">get_queryset() (integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet method)</a>
@@ -15462,9 +15464,9 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation.is_outdated">(integreat_cms.cms.models.pois.poi_translation.POITranslation attribute)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.is_page_editor">is_page_editor() (in module integreat_cms.cms.rules)</a>
+      <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.is_page_author">is_page_author() (in module integreat_cms.cms.rules)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.is_page_publisher">is_page_publisher() (in module integreat_cms.cms.rules)</a>
+      <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.is_page_editor">is_page_editor() (in module integreat_cms.cms.rules)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.is_past">is_past (integreat_cms.cms.models.events.event.Event attribute)</a>
 </li>
@@ -20412,8 +20414,6 @@
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.publishable_pages">publishable_pages (integreat_cms.cms.models.users.user.User attribute)</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.publishers">publishers (integreat_cms.cms.models.pages.page.Page attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation.push_notification">push_notification (integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation attribute)</a>
 </li>
