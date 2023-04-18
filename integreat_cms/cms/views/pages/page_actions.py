@@ -577,8 +577,8 @@ def grant_page_permission_ajax(request, region_slug):
                 ).format(user.full_user_name)
                 level_tag = "info"
             else:
-                # else grant the permission by adding the user to the editors of the page
-                page.editors.add(user)
+                # else grant the permission by adding the user to the authors of the page
+                page.authors.add(user)
                 page.save()
                 message = _('Success: The user "{}" can now edit this page.').format(
                     user.full_user_name
@@ -592,8 +592,8 @@ def grant_page_permission_ajax(request, region_slug):
                 ).format(user.full_user_name)
                 level_tag = "info"
             else:
-                # else grant the permission by adding the user to the publishers of the page
-                page.publishers.add(user)
+                # else grant the permission by adding the user to the editors of the page
+                page.editors.add(user)
                 page.save()
                 message = _('Success: The user "{}" can now publish this page.').format(
                     user.full_user_name
@@ -680,14 +680,14 @@ def revoke_page_permission_ajax(request, region_slug):
             raise PermissionDenied
 
         if permission == "edit":
-            if user in page.editors.all():
-                # revoke the permission by removing the user to the editors of the page
-                page.editors.remove(user)
+            if user in page.authors.all():
+                # revoke the permission by removing the user to the authors of the page
+                page.authors.remove(user)
                 page.save()
             # check, if the user has this permission anyway
             if user.has_perm("cms.change_page_object", page):
                 message = _(
-                    'Information: The user "{}" has been removed from the editors of this page, '
+                    'Information: The user "{}" has been removed from the authors of this page, '
                     "but has the implicit permission to edit this page anyway."
                 ).format(user.full_user_name)
                 level_tag = "info"
@@ -697,14 +697,14 @@ def revoke_page_permission_ajax(request, region_slug):
                 ).format(user.full_user_name)
                 level_tag = "success"
         elif permission == "publish":
-            if user in page.publishers.all():
-                # revoke the permission by removing the user to the publishers of the page
-                page.publishers.remove(user)
+            if user in page.editors.all():
+                # revoke the permission by removing the user to the editors of the page
+                page.editors.remove(user)
                 page.save()
             # check, if the user already has this permission
             if user.has_perm("cms.publish_page_object", page):
                 message = _(
-                    'Information: The user "{}" has been removed from the publishers of this page, '
+                    'Information: The user "{}" has been removed from the editors of this page, '
                     "but has the implicit permission to publish this page anyway."
                 ).format(user.full_user_name)
                 level_tag = "info"
