@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ("cms", "0067_add_automatic_translation_field"),
+        ("cms", "0068_alter_author_and_editor_role_name"),
     ]
 
     operations = [
