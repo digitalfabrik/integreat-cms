@@ -7,13 +7,12 @@
     {% with filter_form.filters_visible as filters_visible %}
         <div class="table-header">
             <div class="flex flex-wrap justify-between">
-                <h1 class="heading">{% translate "Feedback" %}</h1>
-                <a href="{% url 'region_feedback_archived' region_slug=request.region.slug %}"
+                <h1 class="heading">{% translate "Archived Feedback" %}</h1>
+                <a href="{% url 'region_feedback' region_slug=request.region.slug %}"
                    class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
                     <span>
-                        <i icon-name="archive" class="align-top h-5"></i>
-                        {% translate "Archived Feedback" %}
-                        ({{ archived_count }})
+                        <i icon-name="thumbs-up" class="align-top h-5"></i>
+                        {% translate "Feedback" %}
                     </span>
                 </a>
             </div>
@@ -64,15 +63,15 @@
                         {% if feedback.object_url %}
                             <a href="{{ feedback.object_url }}" class="hover:underline">{{ feedback.object_name }}</a>
                         {% else %}
-                            <div class="table-cell-truncate">
-                                <span class="table-cell-content">{{ feedback.object_name }}</span>
+                            <div class="feedback-entry">
+                                <span class="feedback-entry-content">{{ feedback.object_name }}</span>
                                 <a class="copy-search-btn btn-icon inline"
                                    data-copy-to-clipboard="{{ feedback.object_name }}"
                                    title="{% translate "Copy to clipboard" %}">
                                     <i icon-name="copy"></i>
                                     <i icon-name="check" class="hidden text-green-500"></i>
                                 </a>
-                                <a class="toggle-table-cell">
+                                <a class="toggle-feedback-entry">
                                     <i icon-name="chevron-down" class="more"></i>
                                     <i icon-name="chevron-up" class="less"></i>
                                 </a>
@@ -85,9 +84,9 @@
                         {% if not feedback.comment %}
                             <i icon-name="minus" class="pr-1"></i>
                         {% else %}
-                            <div class="table-cell-truncate">
-                                <span class="table-cell-content">{{ feedback.comment }}</span>
-                                <a class="toggle-table-cell">
+                            <div class="feedback-entry">
+                                <span class="feedback-entry-content">{{ feedback.comment }}</span>
+                                <a class="toggle-feedback-entry">
                                     <i icon-name="chevron-down" class="more"></i>
                                     <i icon-name="chevron-up" class="less"></i>
                                 </a>
@@ -122,9 +121,9 @@
                 <tr>
                     <td colspan="9" class="px-2 py-3 text-center">
                         {% if filter_form.has_changed %}
-                            {% translate "No feedback found with these filters." %}
+                            {% translate "No archived feedback found with these filters." %}
                         {% else %}
-                            {% translate "No feedback available yet." %}
+                            {% translate "No archived feedback available yet." %}
                         {% endif %}
                     </td>
                 </tr>
@@ -150,8 +149,8 @@
                         <option data-bulk-action="{% url 'mark_region_feedback_as_unread' region_slug=request.region.slug %}">
                             {% translate "Mark as unread" %}
                         </option>
-                        <option data-bulk-action="{% url 'archive_region_feedback' region_slug=request.region.slug %}">
-                            {% translate "Archive" %}
+                        <option data-bulk-action="{% url 'restore_region_feedback' region_slug=request.region.slug %}">
+                            {% translate "Restore" %}
                         </option>
                         {% if perms.cms.delete_feedback %}
                             <option data-bulk-action="{% url 'delete_region_feedback' region_slug=request.region.slug %}">

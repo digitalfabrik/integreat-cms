@@ -78,6 +78,11 @@ class Feedback(PolymorphicModel, AbstractBaseModel):
         verbose_name=_("technical"),
         help_text=_("Whether or not the feedback is targeted at the developers"),
     )
+    archived = models.BooleanField(
+        default=False,
+        verbose_name=_("archived"),
+        help_text=_("Whether or not the feedback is archived"),
+    )
     read_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
