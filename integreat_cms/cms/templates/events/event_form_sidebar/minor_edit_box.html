@@ -18,7 +18,7 @@
         </label>
         <div class="help-text">{% minor_edit_help_text request.region language event_translation_form %}</div>
     </div>
-    {% if event_translation_form.mt_is_enabled %}
+    {% if event_translation_form.mt_form_is_enabled %}
         <div>
             {% render_field event_translation_form.automatic_translation class+="mutually-exclusive-checkbox" %}
             <label for="{{ event_translation_form.automatic_translation.id_for_label }}"
