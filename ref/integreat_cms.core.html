@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-04-19T08:56:42+00:00" />
+    <meta property="article:modified_time" content="2023-04-19T14:38:06+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core &mdash; integreat-cms 2023.4.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -749,6 +749,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CORS_ORIGIN_ALLOW_ALL"><code class="docutils literal notranslate"><span class="pre">CORS_ORIGIN_ALLOW_ALL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CSRF_FAILURE_VIEW"><code class="docutils literal notranslate"><span class="pre">CSRF_FAILURE_VIEW</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CURRENT_TIME_ZONE"><code class="docutils literal notranslate"><span class="pre">CURRENT_TIME_ZONE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CUSTOM_LOCALE_PATH"><code class="docutils literal notranslate"><span class="pre">CUSTOM_LOCALE_PATH</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DATABASES"><code class="docutils literal notranslate"><span class="pre">DATABASES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEBUG"><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.DEBUG_TOOLBAR_PANELS"><code class="docutils literal notranslate"><span class="pre">DEBUG_TOOLBAR_PANELS</span></code></a></li>
@@ -2081,6 +2082,12 @@ Use a <code class="docutils literal notranslate"><span class="pre">LocMemCache</
 
 <dl class="py data">
 <dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">CUSTOM_LOCALE_PATH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/etc/integreat-cms/locale'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Custom path for additional local translation files</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">DATABASES</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'default':</span> <span class="pre">{'ATOMIC_REQUESTS':</span> <span class="pre">False,</span> <span class="pre">'AUTOCOMMIT':</span> <span class="pre">True,</span> <span class="pre">'CONN_MAX_AGE':</span> <span class="pre">0,</span> <span class="pre">'ENGINE':</span> <span class="pre">'django.db.backends.postgresql_psycopg2',</span> <span class="pre">'HOST':</span> <span class="pre">'localhost',</span> <span class="pre">'NAME':</span> <span class="pre">'integreat',</span> <span class="pre">'OPTIONS':</span> <span class="pre">{},</span> <span class="pre">'PASSWORD':</span> <span class="pre">'',</span> <span class="pre">'PORT':</span> <span class="pre">'5432',</span> <span class="pre">'TEST':</span> <span class="pre">{'CHARSET':</span> <span class="pre">None,</span> <span class="pre">'COLLATION':</span> <span class="pre">None,</span> <span class="pre">'MIGRATE':</span> <span class="pre">True,</span> <span class="pre">'MIRROR':</span> <span class="pre">None,</span> <span class="pre">'NAME':</span> <span class="pre">None},</span> <span class="pre">'TIME_ZONE':</span> <span class="pre">None,</span> <span class="pre">'USER':</span> <span class="pre">'integreat'}}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A dictionary containing the settings for all databases to be used with this Django installation
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std-setting-DATABASES" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">DATABASES</span></code></a>)</p>
@@ -2485,10 +2492,10 @@ Since this causes a lot of overhead, only use this for the findlinks management 
 
 <dl class="py data">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">LOCALE_PATHS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('/home/circleci/project/integreat_cms/locale',)</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">LOCALE_PATHS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['/home/circleci/project/integreat_cms/locale',</span> <span class="pre">'/etc/integreat-cms/locale']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>A list of directories where Django looks for translation files
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std-setting-LOCALE_PATHS" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">LOCALE_PATHS</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>)</p>
-<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="s1">&#39;/home/circleci/project/integreat_cms/locale&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">)</span>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;/home/circleci/project/integreat_cms/locale&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;/etc/integreat-cms/locale&#39;</span><span class="p">]</span>
 </pre></div>
 </div>
 </dd></dl>
