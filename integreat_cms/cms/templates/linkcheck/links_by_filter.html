@@ -86,19 +86,33 @@
                         <input type="checkbox" id="bulk-select-all"/>
                     </th>
                     <th class="text-sm text-left uppercase py-3 pr-2">{% translate "URL" %}</th>
-                    <th class="text-sm text-left uppercase py-3 pr-2 min">{% translate "SSL" %}</th>
+                    {# djlint:off H023 #}
+                    <th class="text-sm text-left uppercase py-3 pr-2 min"
+                        title="{% translate "SSL is the standard technology for securing Internet connections and protecting sensitive data transferred between two systems." %}&#013;&#013;{% translate "When a website is secured by an SSL certificate, its URL starts with 'https', insecure links with 'http' should no longer be used." %}">
+                        {% translate "SSL" %}
+                    </th>
+                    {# djlint:on #}
                     {% if request.user.expert_mode %}
                         <th class="text-sm text-left uppercase py-3 pr-2 min"
                             title="{% translate "An anchor denotes a link to a fragement within an HTML document" %}">
                             {% translate "Anchor" %}
                         </th>
                     {% endif %}
-                    <th class="text-sm text-left uppercase py-3 pr-2 min">{% translate "Code" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2 min"
+                        title="{% translate "HTTP response status codes indicate whether a specific HTTP request has been successfully completed." %}">
+                        {% translate "Code" %}
+                    </th>
                     <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Status" %}</th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Link text" %}</th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Source" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2"
+                        title="{% translate "The link text of the first usage" %}">
+                        {% translate "Link text" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2"
+                        title="{% translate "The source translation of the first usage" %}">
+                        {% translate "Source" %}
+                    </th>
                     <th class="text-sm text-right uppercase py-3 pr-2 lg:max-w-[50px] xl:max-w-[100px] 2xl:max-w-full truncate min"
-                        title="{% translate "Usages" %}">
+                        title="{% translate "The number of times this URL is used in the content" %}">
                         {% translate "Usages" %}
                     </th>
                     <th class="text-sm text-right uppercase py-3 pr-4 min">{% translate "Options" %}</th>
