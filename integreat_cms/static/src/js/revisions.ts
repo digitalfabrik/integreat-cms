@@ -20,6 +20,10 @@ const handleRevisionSliderInput = ({ target }: Event) => {
     document.getElementById("revision-number").textContent = currentRevision.toString();
     document.getElementById("revision-editor").textContent = revisionElement.dataset.editor;
     document.getElementById("revision-date").textContent = revisionElement.dataset.date;
+    const revisionHix = document.getElementById("revision-hix");
+    if (revisionHix) {
+        revisionHix.textContent = revisionElement.dataset.hix || "-";
+    }
     // Calculate position of revision info box to make sure it stays within the area of the slider position
     revisionInfo.style.left = `calc(${position}% + (${
         revisionInfo.offsetWidth / 2 - (position * revisionInfo.offsetWidth) / 100
