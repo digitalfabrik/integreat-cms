@@ -3,7 +3,6 @@ from django.contrib import auth
 from django.urls import reverse
 
 
-# pylint: disable=unused-argument
 @pytest.mark.django_db
 @pytest.mark.parametrize(
     "username", ["root", "root@root.root", "management", "management@example.com"]
@@ -46,7 +45,6 @@ def test_login_success(load_test_data, client, settings, username):
         )
 
 
-# pylint: disable=unused-argument
 @pytest.mark.django_db
 @pytest.mark.parametrize(
     "username",

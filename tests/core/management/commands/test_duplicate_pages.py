@@ -39,7 +39,6 @@ def test_duplicate_pages_non_existing_region(settings):
     assert str(exc_info.value) == 'Region with slug "non-existing" does not exist.'
 
 
-# pylint: disable=unused-argument
 @pytest.mark.django_db
 def test_duplicate_pages(settings, load_test_data):
     """

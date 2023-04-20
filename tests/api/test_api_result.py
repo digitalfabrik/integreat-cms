@@ -6,7 +6,6 @@ from django.test.client import Client
 from .api_config import API_ENDPOINTS
 
 
-# pylint: disable=unused-argument
 @pytest.mark.django_db
 @pytest.mark.parametrize(
     "endpoint,wp_endpoint,expected_result,expected_code,expected_queries", API_ENDPOINTS
