@@ -18,7 +18,7 @@ labels: feature
 
 
 ### User Story
-<!-- A clear description of the User Stories that should be achieved by the new feature. The User Stories should follow this pattern: 
+<!-- A clear description of the User Stories that should be achieved by the new feature. The User Stories should follow this pattern:
 As a [type of user] I want [goals or objectives] so that [values or benefits]. -->
 
 
@@ -28,4 +28,3 @@ As a [type of user] I want [goals or objectives] so that [values or benefits]. -
 
 ### Design Requirements
 <!-- If the customization includes input from our design team, the detailed requirements will be collected here. Note: These will exist mainly in German to simplify internal communication. -->
-
