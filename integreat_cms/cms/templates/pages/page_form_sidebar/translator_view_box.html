@@ -11,7 +11,7 @@
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <label for="side-by-side-select" class="mt-0">{% translate "Direction of translation" %}</label>
-    <select id="side-by-side-select">
+    <select id="side-by-side-select" data-unsaved-warning-exclude>
         <option value="">---------</option>
         {% for side_by_side_language_option in side_by_side_language_options %}
             <option value="{% url 'sbs_edit_page' page_id=page.id region_slug=request.region.slug language_slug=side_by_side_language_option.value %}"
