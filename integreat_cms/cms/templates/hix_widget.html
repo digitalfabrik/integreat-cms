@@ -1,5 +1,6 @@
 {% extends "_collapsible_box.html" %}
 {% load i18n %}
+{% load l10n %}
 {% load widget_tweaks %}
 {% block collapsible_box_icon %}
     gauge
@@ -10,8 +11,8 @@
 {% block collapsible_box_content %}
     <div class="relative">
         <div id="hix-loading"
-             class="hidden absolute w-full h-full bg-white bg-opacity-75">
-            <div class="relative top-1/3 m-auto w-1/3">
+             class="{% if page_form.instance.hix_ignore %} hidden{% endif %} absolute w-full h-full bg-white bg-opacity-75">
+            <div class="relative top-1/3 text-center">
                 <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
             </div>
         </div>
@@ -26,7 +27,9 @@
         {% endif %}
         <div id="hix-block"
              class="{% if page_form.instance.hix_ignore %}hidden{% endif %}">
-            <div id="hix-container" data-content-changed>
+            <div id="hix-container"
+                 data-content-changed
+                 data-initial-hix-score="{{ page_translation_form.instance.hix_score|unlocalize }}">
                 <canvas id="hix-chart"></canvas>
             </div>
             <div class="mb-2">

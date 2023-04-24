@@ -17,6 +17,10 @@
                 {% endif %}
                 <!-- Translation Status Widget: TODO-->
                 <!-- App Size Widget: TODO -->
+                <!-- Page HIX Widget-->
+                {% if TEXTLAB_API_ENABLED and request.region.hix_enabled and worst_hix_translations %}
+                    {% include "analytics/_page_hix_widget.html" %}
+                {% endif %}
             </div>
             <div class="xl:w-1/2">
                 <!-- Broken Link Widget -->

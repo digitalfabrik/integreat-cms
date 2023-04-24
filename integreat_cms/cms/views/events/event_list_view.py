@@ -8,20 +8,18 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
-from ....deepl_api.utils import DeepLApi
 from ...constants import translation_status
 from ...decorators import permission_required
 from ...forms import EventFilterForm
-from ...models.events.event import Event
-from ...utils.translation_utils import mt_is_permitted
-from ..mixins import SummAiContextMixin
+from ...models import EventTranslation
+from ..mixins import MachineTranslationContextMixin
 from .event_context_mixin import EventContextMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_event"), name="dispatch")
-class EventListView(TemplateView, EventContextMixin, SummAiContextMixin):
+class EventListView(TemplateView, EventContextMixin, MachineTranslationContextMixin):
     """
     View for listing events (either non-archived or archived events depending on
     :attr:`~integreat_cms.cms.views.events.event_list_view.EventListView.archived`)
@@ -35,6 +33,8 @@ class EventListView(TemplateView, EventContextMixin, SummAiContextMixin):
     extra_context = {"current_menu_item": "events"}
     #: Whether or not to show archived events
     archived = False
+    #: The translation model of this list view (used to determine whether machine translations are permitted)
+    translation_model = EventTranslation
 
     @property
     def template_name(self):
@@ -47,7 +47,6 @@ class EventListView(TemplateView, EventContextMixin, SummAiContextMixin):
         """
         return self.template_archived if self.archived else self.template
 
-    # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
         r"""
         Render events list for HTTP GET requests
@@ -105,17 +104,6 @@ class EventListView(TemplateView, EventContextMixin, SummAiContextMixin):
         chunk = request.GET.get("page")
         event_chunk = paginator.get_page(chunk)
 
-        # DeepL available
-
-        if settings.DEEPL_ENABLED:
-            deepl = DeepLApi()
-            DEEPL_AVAILABLE = deepl.check_availability(request, language)
-        else:
-            DEEPL_AVAILABLE = False
-        MT_PERMITTED = mt_is_permitted(
-            region, request.user, Event._meta.default_related_name, language_slug
-        )
-
         return render(
             request,
             self.template_name,
@@ -129,7 +117,5 @@ class EventListView(TemplateView, EventContextMixin, SummAiContextMixin):
                 "filter_poi": poi,
                 "translation_status": translation_status,
                 "search_query": query,
-                "DEEPL_AVAILABLE": DEEPL_AVAILABLE,
-                "MT_PERMITTED": MT_PERMITTED,
             },
         )

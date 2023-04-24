@@ -62,11 +62,23 @@ const setHixLabelState = (state: string) => {
     } else if (state === "updated") {
         document.getElementById("hix-container").classList.remove("hidden");
     }
+
+    // Hide the button if there is no content or the value is up-to-date
+    const updateButton = document.getElementById("btn-update-hix-value");
+    if (state === "updated" || state === "no-content") {
+        updateButton.classList.add("hidden");
+    } else {
+        updateButton.classList.remove("hidden");
+    }
+
+    // Hide the loading spinner
+    document.getElementById("hix-loading")?.classList.add("hidden");
 };
 
-const getHixValue = async (url: string) => {
+const getHixValue = async () => {
+    const updateButton = document.getElementById("btn-update-hix-value");
     let result;
-    await fetch(url, {
+    await fetch(updateButton.dataset.url, {
         method: "POST",
         headers: {
             "X-CSRFToken": getCsrfToken(),
@@ -75,11 +87,7 @@ const getHixValue = async (url: string) => {
             text: getContent(),
         }),
     })
-        .then((response) => {
-            // Hide loading spinner
-            document.getElementById("hix-loading")?.classList.add("hidden");
-            return response.json();
-        })
+        .then((response) => response.json())
         .then((json) => {
             const labelState = json.error ? "error" : "updated";
             setHixLabelState(labelState);
@@ -93,8 +101,6 @@ window.addEventListener("load", async () => {
     if (!document.getElementById("hix-chart")) {
         return;
     }
-
-    document.getElementById("hix-loading")?.classList.remove("hidden");
 
     // Define dummy data for empty default chart.
     const dummyData = {
@@ -163,42 +169,38 @@ window.addEventListener("load", async () => {
         }
     };
 
-    // Set listener for update button
-    document.getElementById("btn-update-hix-value").addEventListener("click", async (event) => {
-        document.getElementById("hix-loading")?.classList.remove("hidden");
-        event.preventDefault();
-        const newHixValue = await getHixValue((event.target as HTMLElement).dataset.url);
-        updateChart(chart, newHixValue);
-        toggleMTAvailability(newHixValue);
-    });
+    const initHixValue = async () => {
+        if (!getContent().trim()) {
+            setHixLabelState("no-content");
+            return;
+        }
+
+        const initialHixValue =
+            parseFloat(document.getElementById("hix-container").dataset.initialHixScore) || (await getHixValue());
+
+        setHixLabelState("updated");
+        updateChart(chart, initialHixValue);
+        toggleMTAvailability(initialHixValue);
+    };
 
     // Set listener, that checks, if tinyMCE content has changed to update the
     // HIX value status
     document.querySelectorAll("[data-content-changed]").forEach((element) => {
-        element.addEventListener("contentChanged", () => {
-            const updateButton = document.getElementById("btn-update-hix-value") as HTMLSelectElement;
-            if (!getContent().trim()) {
-                updateButton.disabled = true;
-                setHixLabelState("no-content");
-            } else {
-                updateButton.disabled = false;
-                setHixLabelState("outdated");
-            }
-        });
+        // make sure initHixValue is called only after tinyMCE is initialized
+        element.addEventListener("tinyMCEInitialized", initHixValue);
+        element.addEventListener("contentChanged", () =>
+            setHixLabelState(getContent().trim() ? "outdated" : "no-content")
+        );
     });
 
-    const initHixValue = async () => {
-        const updateButton = document.getElementById("btn-update-hix-value") as HTMLSelectElement;
-        if (!getContent().trim()) {
-            updateButton.disabled = true;
-            setHixLabelState("no-content");
-            document.getElementById("hix-loading")?.classList.add("hidden");
-        } else {
-            const initialHixValue = await getHixValue(updateButton.dataset.url);
-            updateChart(chart, initialHixValue);
-            toggleMTAvailability(initialHixValue);
-        }
-    };
+    // Set listener for update button
+    document.getElementById("btn-update-hix-value").addEventListener("click", async (event) => {
+        document.getElementById("hix-loading")?.classList.remove("hidden");
+        event.preventDefault();
+        const newHixValue = await getHixValue();
+        updateChart(chart, newHixValue);
+        toggleMTAvailability(newHixValue);
+    });
 
     const toggleHixIgnore = async () => {
         const hixIgnore = document.getElementById("id_hix_ignore") as HTMLInputElement;
@@ -212,21 +214,10 @@ window.addEventListener("load", async () => {
             toggleMTCheckboxes(false);
             mtForm.classList.remove("hidden");
             hixBlock.classList.remove("hidden");
-            initHixValue();
         }
     };
 
     // Set listener to show/hide HIX widget when hix_ignore checkbox is clicked
     document.getElementById("id_hix_ignore")?.addEventListener("change", toggleHixIgnore);
     toggleHixIgnore();
-
-    if (!document.getElementById("hix-block")?.classList.contains("hidden")) {
-        // Delay the first request, so that tinyMCE can be initialized first
-        const initialDelayLength = 1000;
-        setTimeout(async () => {
-            initHixValue();
-        }, initialDelayLength);
-    } else {
-        document.getElementById("hix-loading")?.classList.add("hidden");
-    }
 });

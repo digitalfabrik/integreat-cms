@@ -1,12 +1,12 @@
 import logging
 
 from ...models import EventTranslation
-from ..custom_content_model_form import CustomContentModelForm
+from ..machine_translation_form import MachineTranslationForm
 
 logger = logging.getLogger(__name__)
 
 
-class EventTranslationForm(CustomContentModelForm):
+class EventTranslationForm(MachineTranslationForm):
     """
     Form for creating and modifying event translation objects
     """
@@ -20,4 +20,4 @@ class EventTranslationForm(CustomContentModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = EventTranslation
         #: The fields of the model which should be handled by this form
-        fields = CustomContentModelForm.Meta.fields + ["slug"]
+        fields = MachineTranslationForm.Meta.fields + ["slug"]

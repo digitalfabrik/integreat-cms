@@ -72,6 +72,54 @@ def mark_admin_feedback_as_unread(request):
 
 
 @require_POST
+@permission_required("cms.change_feedback")
+def archive_admin_feedback(request):
+    """
+    Archive a list of feedback items
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
+    :return: A redirection to the admin feedback list
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
+    selected_ids = request.POST.getlist("selected_ids[]")
+    Feedback.objects.filter(id__in=selected_ids, is_technical=True).update(
+        archived=True
+    )
+
+    logger.info("Feedback objects %r archived by %r", selected_ids, request.user)
+    messages.success(request, _("Feedback was successfully archived"))
+
+    return redirect("admin_feedback")
+
+
+@require_POST
+@permission_required("cms.change_feedback")
+def restore_admin_feedback(request):
+    """
+    Restore a list of feedback items
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
+    :return: A redirection to the admin feedback list
+    :rtype: ~django.http.HttpResponseRedirect
+    """
+
+    selected_ids = request.POST.getlist("selected_ids[]")
+    Feedback.objects.filter(id__in=selected_ids, is_technical=True).update(
+        archived=False
+    )
+
+    logger.info("Feedback objects %r restored by %r", selected_ids, request.user)
+    messages.success(request, _("Feedback was successfully restored"))
+
+    return redirect("admin_feedback_archived")
+
+
+@require_POST
 @permission_required("cms.delete_feedback")
 def delete_admin_feedback(request):
     """

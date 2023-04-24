@@ -103,8 +103,11 @@ async def test_auto_translate_easy_german(
     # Translate the pages
     selected_ids = [1, 2, 3]
     translate_easy_german = reverse(
-        "auto_translate_easy_german_pages",
-        kwargs={"region_slug": region_slug, "language_slug": "de"},
+        "machine_translation_pages",
+        kwargs={
+            "region_slug": region_slug,
+            "language_slug": settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG,
+        },
     )
     response = await client.post(
         translate_easy_german, data={"selected_ids[]": selected_ids}
@@ -114,7 +117,11 @@ async def test_auto_translate_easy_german(
         # If the role should be allowed to access the view, we expect a successful result
         assert response.status_code == 302
         page_tree = reverse(
-            "pages", kwargs={"region_slug": region_slug, "language_slug": "de"}
+            "pages",
+            kwargs={
+                "region_slug": region_slug,
+                "language_slug": settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG,
+            },
         )
         assert response.headers.get("Location") == page_tree
         response = await client.get(page_tree)
@@ -194,8 +201,11 @@ async def test_summ_ai_error_handling(
     client, role = login_role_user_async
     # Translate the pages
     translate_easy_german = reverse(
-        "auto_translate_easy_german_pages",
-        kwargs={"region_slug": region_slug, "language_slug": "de"},
+        "machine_translation_pages",
+        kwargs={
+            "region_slug": region_slug,
+            "language_slug": settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG,
+        },
     )
     response = await client.post(translate_easy_german, data={"selected_ids[]": [1]})
     print(response.headers)
@@ -203,7 +213,11 @@ async def test_summ_ai_error_handling(
         # If the role should be allowed to access the view, we expect a redirect to the page tree
         assert response.status_code == 302
         page_tree = reverse(
-            "pages", kwargs={"region_slug": region_slug, "language_slug": "de"}
+            "pages",
+            kwargs={
+                "region_slug": region_slug,
+                "language_slug": settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG,
+            },
         )
         assert response.headers.get("Location") == page_tree
         response = await client.get(page_tree)

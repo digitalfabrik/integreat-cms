@@ -102,11 +102,11 @@
                 <h1 class="level-{{ page.depth|add:"-1" }}">{{ page_translation.title }}</h1>
                 <div class="content">
                     {% if page.mirrored_page_first %}
-                        {{ page_translation.mirrored_translation_text|pdf_strip_fontstyles|safe }}
+                        {{ page_translation.mirrored_translation_text|pdf_strip_fontstyles|pdf_truncate_links:50|safe }}
                     {% endif %}
-                    {{ page_translation.content|pdf_strip_fontstyles|safe }}
+                    {{ page_translation.content|pdf_strip_fontstyles|pdf_truncate_links:50|safe }}
                     {% if not page.mirrored_page_first %}
-                        {{ page_translation.mirrored_translation_text|pdf_strip_fontstyles|safe }}
+                        {{ page_translation.mirrored_translation_text|pdf_strip_fontstyles|pdf_truncate_links:50|safe }}
                     {% endif %}
                 </div>
                 {% for close in info.close %}

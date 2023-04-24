@@ -158,10 +158,22 @@
                         {% translate "Archive pages" %}
                     </option>
                 {% endif %}
-                {% if MT_PERMITTED and SUMM_AI_ENABLED and request.user.is_staff %}
-                    <option data-bulk-action="{% url 'auto_translate_easy_german_pages' region_slug=request.region.slug language_slug=language.slug %}">
-                        {% translate "Automatically translate this page into Easy German" %}
-                    </option>
+                {% if MT_PERMITTED %}
+                    {% translate "pages" as content_type %}
+                    {% if MT_PROVIDER %}
+                        <option data-bulk-action="{% url 'machine_translation_pages' region_slug=request.region.slug language_slug=language.slug %}">
+                            {% blocktranslate trimmed with provider=MT_PROVIDER.name %}
+                                Machine translate {{ content_type }} via {{ provider }} to {{ language }}
+                            {% endblocktranslate %}
+                        </option>
+                    {% else %}
+                        <option disabled
+                                title="{% translate "This language is not supported by any available machine translation provider." %}">
+                            {% blocktranslate trimmed %}
+                                Machine translate {{ content_type }} to {{ language }}
+                            {% endblocktranslate %}
+                        </option>
+                    {% endif %}
                 {% endif %}
                 <option id="pdf-export-option"
                         data-bulk-action="{% url 'export_pdf' region_slug=request.region.slug language_slug=language.slug %}"

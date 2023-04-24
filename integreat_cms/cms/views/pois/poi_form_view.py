@@ -10,13 +10,12 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
-from ....deepl_api.utils import DeepLApi
 from ...constants import status
 from ...decorators import permission_required
-from ...forms import MachineTranslationForm, POIForm, POITranslationForm
+from ...forms import POIForm, POITranslationForm
 from ...models import Language, POI, POITranslation
 from ...utils.translation_utils import gettext_many_lazy as __
-from ...utils.translation_utils import mt_is_permitted, translate_link
+from ...utils.translation_utils import translate_link
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
 from .poi_context_mixin import POIContextMixin
@@ -82,22 +81,13 @@ class POIFormView(
 
         poi_form = POIForm(instance=poi, disabled=disabled)
         poi_translation_form = POITranslationForm(
+            request=request,
+            language=language,
             instance=poi_translation,
             disabled=disabled,
             default_language_title=poi.default_translation.title if poi else None,
         )
         url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/{poi_translation_form.instance.url_infix}/"
-
-        machine_translation_form = MachineTranslationForm(
-            instance=poi, region=region, language=language
-        )
-
-        # Check for MT availability for automatic translation
-        MT_ENABLED = (
-            settings.DEEPL_ENABLED
-            and region.language_node_by_slug.get(language.slug).get_descendants()
-            and mt_is_permitted(region, request.user, POI._meta.default_related_name)
-        )
 
         return render(
             request,
@@ -106,17 +96,15 @@ class POIFormView(
                 **self.get_context_data(**kwargs),
                 "poi_form": poi_form,
                 "poi_translation_form": poi_translation_form,
-                "machine_translation_form": machine_translation_form,
                 "language": language,
                 # Languages for tab view
                 "languages": region.active_languages if poi else [language],
                 "url_link": url_link,
                 "translation_states": poi.translation_states if poi else [],
-                "MT_ENABLED": MT_ENABLED,
             },
         )
 
-    # pylint: disable=too-many-locals,too-many-branches
+    # pylint: disable=too-many-locals
     def post(self, request, *args, **kwargs):
         r"""
         Submit :class:`~integreat_cms.cms.forms.pois.poi_form.POIForm` and
@@ -164,6 +152,8 @@ class POIFormView(
             },
         )
         poi_translation_form = POITranslationForm(
+            request=request,
+            language=language,
             data=request.POST,
             instance=poi_translation_instance,
             additional_instance_attributes={
@@ -174,10 +164,6 @@ class POIFormView(
             changed_by_user=request.user,
         )
         user_slug = poi_translation_form.data.get("slug")
-
-        machine_translation_form = MachineTranslationForm(
-            data=request.POST, instance=poi_instance, region=region, language=language
-        )
 
         if not poi_form.is_valid() or not poi_translation_form.is_valid():
             # Add error messages
@@ -193,30 +179,8 @@ class POIFormView(
             # Save forms
             poi_translation_form.instance.poi = poi_form.save()
             poi_translation_instance = poi_translation_form.save(
-                commit=False, foreign_form_changed=poi_form.has_changed()
+                foreign_form_changed=poi_form.has_changed()
             )
-            if machine_translation_form.is_valid():
-                poi_translation_instance.automatic_translation = bool(
-                    machine_translation_form.data.get("automatic_translation")
-                )
-            poi_translation_instance.save()
-
-            # If automatic translations where requested, pass on to MT API
-            if (
-                settings.DEEPL_ENABLED
-                and machine_translation_form.is_valid()
-                and machine_translation_form.data.get("automatic_translation")
-                and not poi_translation_form.data.get("minor_edit")
-            ):
-                # Invalidate cached property to take new version into account
-                poi_form.instance.invalidate_cached_translations()
-                deepl = DeepLApi()
-                deepl.deepl_translate_to_languages(
-                    request,
-                    poi_translation_form.instance,
-                    machine_translation_form.get_target_languages(),
-                    POITranslationForm,
-                )
 
             # If any source translation changes to draft, set all depending translations/versions to draft
             if poi_translation_form.instance.status == status.DRAFT:
@@ -284,6 +248,7 @@ class POIFormView(
                         _("Please make sure the entered values are correct."),
                     ),
                 )
+
             return redirect(
                 "edit_poi",
                 **{
@@ -300,7 +265,6 @@ class POIFormView(
                 **self.get_context_data(**kwargs),
                 "poi_form": poi_form,
                 "poi_translation_form": poi_translation_form,
-                "machine_translation_form": machine_translation_form,
                 "language": language,
                 # Languages for tab view
                 "languages": region.active_languages if poi_instance else [language],

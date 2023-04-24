@@ -6,7 +6,17 @@
 {% block content %}
     {% with filter_form.filters_visible as filters_visible %}
         <div class="table-header">
-            <h1 class="heading">{% translate "Feedback" %}</h1>
+            <div class="flex flex-wrap justify-between">
+                <h1 class="heading">{% translate "Feedback" %}</h1>
+                <a href="{% url 'region_feedback_archived' region_slug=request.region.slug %}"
+                   class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
+                    <span>
+                        <i icon-name="archive" class="align-top h-5"></i>
+                        {% translate "Archived Feedback" %}
+                        ({{ archived_count }})
+                    </span>
+                </a>
+            </div>
             <div class="flex justify-between">
                 {% include "_search_input.html" with object_type="feedback" region_slug=request.region.slug related_form="region-feedback-filter-form" %}
                 <button id="filter-toggle" class="btn btn-light-blue">
@@ -127,27 +137,32 @@
                 </div>
             </div>
         {% endif %}
-        <div class="flex flex-col">
-            <div class="flex self-start gap-2 mt-2">
-                <select id="bulk-action">
-                    <option>
-                        {% translate "Select bulk action" %}
-                    </option>
-                    <option data-bulk-action="{% url 'mark_region_feedback_as_read' region_slug=request.region.slug %}">
-                        {% translate "Mark as read" %}
-                    </option>
-                    <option data-bulk-action="{% url 'mark_region_feedback_as_unread' region_slug=request.region.slug %}">
-                        {% translate "Mark as unread" %}
-                    </option>
-                    {% if perms.cms.delete_feedback %}
-                        <option data-bulk-action="{% url 'delete_region_feedback' region_slug=request.region.slug %}">
-                            {% translate "Delete" %}
+        {% if perms.cms.change_feedback %}
+            <div class="flex flex-col">
+                <div class="flex self-start gap-2 mt-2">
+                    <select id="bulk-action">
+                        <option>
+                            {% translate "Select bulk action" %}
                         </option>
-                    {% endif %}
-                </select>
-                <button id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
+                        <option data-bulk-action="{% url 'mark_region_feedback_as_read' region_slug=request.region.slug %}">
+                            {% translate "Mark as read" %}
+                        </option>
+                        <option data-bulk-action="{% url 'mark_region_feedback_as_unread' region_slug=request.region.slug %}">
+                            {% translate "Mark as unread" %}
+                        </option>
+                        <option data-bulk-action="{% url 'archive_region_feedback' region_slug=request.region.slug %}">
+                            {% translate "Archive" %}
+                        </option>
+                        {% if perms.cms.delete_feedback %}
+                            <option data-bulk-action="{% url 'delete_region_feedback' region_slug=request.region.slug %}">
+                                {% translate "Delete" %}
+                            </option>
+                        {% endif %}
+                    </select>
+                    <button id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
+                </div>
             </div>
-        </div>
+        {% endif %}
         {% include "pagination.html" with chunk=region_feedback %}
     </form>
 {% endblock content %}

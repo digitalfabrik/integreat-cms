@@ -5,17 +5,16 @@ import logging
 import os
 import sys
 
+from deepl import Translator
 from deepl.exceptions import DeepLException
 from django.apps import AppConfig
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
-from .utils import DeepLApi
-
 logger = logging.getLogger(__name__)
 
 
-class DeepLApiConfig(AppConfig):
+class DeepLApiClientConfig(AppConfig):
     """
     DeepL API config inheriting the django AppConfig
     """
@@ -37,10 +36,10 @@ class DeepLApiConfig(AppConfig):
         if "runserver" in sys.argv or "APACHE_PID_FILE" in os.environ:
             if settings.DEEPL_ENABLED:
                 try:
-                    deepl = DeepLApi()
+                    deepl_translator = Translator(settings.DEEPL_AUTH_KEY)
                     self.supported_source_languages = [
                         source_language.code.lower()
-                        for source_language in deepl.translator.get_source_languages()
+                        for source_language in deepl_translator.get_source_languages()
                     ]
                     logger.debug(
                         "Supported source languages by DeepL: %r",
@@ -49,20 +48,20 @@ class DeepLApiConfig(AppConfig):
                     assert self.supported_source_languages
                     self.supported_target_languages = [
                         target_languages.code.lower()
-                        for target_languages in deepl.translator.get_target_languages()
+                        for target_languages in deepl_translator.get_target_languages()
                     ]
                     logger.debug(
                         "Supported target languages by DeepL: %r",
                         self.supported_target_languages,
                     )
                     assert self.supported_target_languages
-                    usage = deepl.translator.get_usage()
+                    usage = deepl_translator.get_usage()
                     if usage.any_limit_reached:
                         logger.warning("DeepL API translation limit reached")
                     # pylint: disable=protected-access
                     logger.info(
                         "DeepL API is available at: %r (character usage: %s of %s)",
-                        deepl.translator._server_url,
+                        deepl_translator._server_url,
                         usage.character.count,
                         usage.character.limit,
                     )
@@ -70,7 +69,7 @@ class DeepLApiConfig(AppConfig):
                     logger.error(e)
                     logger.error(
                         "DeepL API is unavailable. You won't be able to "
-                        "automatically translate events and locations."
+                        "create and update machine translations."
                     )
             else:
                 logger.info("DeepL API is disabled.")

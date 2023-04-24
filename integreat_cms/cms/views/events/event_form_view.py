@@ -1,5 +1,6 @@
 import logging
 
+from cacheops import invalidate_model
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
@@ -8,17 +9,11 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
-from ....deepl_api.utils import DeepLApi
 from ...constants import status, translation_status
 from ...decorators import permission_required
-from ...forms import (
-    EventForm,
-    EventTranslationForm,
-    MachineTranslationForm,
-    RecurrenceRuleForm,
-)
+from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Event, EventTranslation, Language, POI, RecurrenceRule
-from ...utils.translation_utils import mt_is_permitted, translate_link
+from ...utils.translation_utils import translate_link
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
 from .event_context_mixin import EventContextMixin
@@ -45,7 +40,6 @@ class EventFormView(
     #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`
     back_url_name = "events"
 
-    # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
         r"""
         Render event form for HTTP GET requests
@@ -102,21 +96,13 @@ class EventFormView(
             disabled=disabled,
         )
         event_translation_form = EventTranslationForm(
-            instance=event_translation_instance, disabled=disabled
+            request=request,
+            language=language,
+            instance=event_translation_instance,
+            disabled=disabled,
         )
         recurrence_rule_form = RecurrenceRuleForm(
             instance=recurrence_rule_instance, disabled=disabled
-        )
-
-        machine_translation_form = MachineTranslationForm(
-            instance=event_instance, region=region, language=language
-        )
-
-        # Check for MT availability for automatic translation
-        MT_ENABLED = (
-            settings.DEEPL_ENABLED
-            and region.language_node_by_slug.get(language.slug).get_descendants()
-            and mt_is_permitted(region, request.user, Event._meta.default_related_name)
         )
 
         url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/{event_translation_form.instance.url_infix}/"
@@ -128,7 +114,6 @@ class EventFormView(
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
                 "recurrence_rule_form": recurrence_rule_form,
-                "machine_translation_form": machine_translation_form,
                 "poi": event_instance.location if event_instance else None,
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],
@@ -136,11 +121,10 @@ class EventFormView(
                 "translation_states": event_instance.translation_states
                 if event_instance
                 else [],
-                "MT_ENABLED": MT_ENABLED,
             },
         )
 
-    # pylint: disable=too-many-locals,too-many-branches,too-many-statements
+    # pylint: disable=too-many-locals,too-many-branches
     def post(self, request, **kwargs):
         r"""
         Save event and ender event form for HTTP POST requests
@@ -182,6 +166,8 @@ class EventFormView(
             event_start_date=event_form.cleaned_data.get("start_date", None),
         )
         event_translation_form = EventTranslationForm(
+            request=request,
+            language=language,
             data=request.POST,
             instance=event_translation_instance,
             additional_instance_attributes={
@@ -192,10 +178,6 @@ class EventFormView(
             changed_by_user=request.user,
         )
         user_slug = event_translation_form.data.get("slug")
-
-        machine_translation_form = MachineTranslationForm(
-            data=request.POST, instance=event_instance, region=region, language=language
-        )
 
         if (
             not event_form_valid
@@ -240,33 +222,13 @@ class EventFormView(
             event = event_form.save()
             event_translation_form.instance.event = event
             event_translation_instance = event_translation_form.save(
-                commit=False,
                 foreign_form_changed=(
                     event_form.has_changed() or recurrence_rule_form.has_changed()
                 ),
             )
-            if machine_translation_form.is_valid():
-                event_translation_instance.automatic_translation = bool(
-                    machine_translation_form.data.get("automatic_translation")
-                )
-            event_translation_instance.save()
 
-            # If automatic translations where requested, pass on to MT API
-            if (
-                settings.DEEPL_ENABLED
-                and machine_translation_form.is_valid()
-                and machine_translation_form.data.get("automatic_translation")
-                and not event_translation_form.data.get("minor_edit")
-            ):
-                # Invalidate cached property to take new version into account
-                event_form.instance.invalidate_cached_translations()
-                deepl = DeepLApi()
-                deepl.deepl_translate_to_languages(
-                    request,
-                    event_translation_form.instance,
-                    machine_translation_form.get_target_languages(),
-                    EventTranslationForm,
-                )
+            # Invalidate event translation cache to refresh API result
+            invalidate_model(EventTranslation)
 
             # If any source translation changes to draft, set all depending translations/versions to draft
             if event_translation_form.instance.status == status.DRAFT:
@@ -327,6 +289,7 @@ class EventFormView(
             else:
                 # Add the success message
                 event_translation_form.add_success_message(request)
+
             return redirect(
                 "edit_event",
                 **{
@@ -344,7 +307,6 @@ class EventFormView(
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
                 "recurrence_rule_form": recurrence_rule_form,
-                "machine_translation_form": machine_translation_form,
                 "poi": poi,
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],

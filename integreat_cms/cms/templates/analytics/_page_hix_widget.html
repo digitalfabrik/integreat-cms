@@ -1,0 +1,47 @@
+{% extends "_collapsible_box.html" %}
+{% load i18n %}
+{% block collapsible_box_icon %}
+    gauge
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% translate "Overview of the text understandability of the pages" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <div class="flex flex-wrap gap-2">
+        <p>
+            {% blocktranslate trimmed %}
+                The list shows the pages with the lowest HIX value in ascending order.
+            {% endblocktranslate %}
+        </p>
+        <p>
+            <b>{{ ready_for_mt }}%</b> {% translate " of all pages are ready for automatic translation." %}
+        </p>
+    </div>
+    <div class="mt-4 overflow-y-scroll max-h-160">
+        <table id="page_hix_list" class="w-full max-w-xl mb-4 show-n-rows">
+            <thead>
+                <tr class="border-b border-gray-400">
+                    <th class="text-sm text-left uppercase p-1">{% translate "Page name" %}</th>
+                    <th class="text-sm text-left uppercase p-1">{% translate "HIX value" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for page_translation in worst_hix_translations %}
+                    {% include "analytics/_page_hix_row.html" %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <a id="toggle-hix-score-list-trigger"
+       data-alternative-text="{% translate "Show less pages" %}"
+       class="text-blue-500 hover:underline mb-2 block">{% translate "Show all pages" %}</a>
+    <p>
+        {# djlint:off #}
+        {% blocktranslate trimmed with threshold=hix_threshold|floatformat:0 %}
+            To be able to machine translate pages, the page must have a HIX score of at least {{ threshold }}.
+        {% endblocktranslate %}
+        {# djlint:on #}
+        {% translate "If the row is marked red, the HIX value of the corresponding page is not sufficient." %}
+        {% translate "Pages with disabled HIX or no HIX-value are excluded." %}
+    </p>
+{% endblock collapsible_box_content %}

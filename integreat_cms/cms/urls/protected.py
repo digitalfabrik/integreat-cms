@@ -400,6 +400,11 @@ urlpatterns = [
                     name="admin_feedback",
                 ),
                 path(
+                    "archived/",
+                    feedback.AdminFeedbackListView.as_view(archived=True),
+                    name="admin_feedback_archived",
+                ),
+                path(
                     "mark-read/",
                     feedback.mark_admin_feedback_as_read,
                     name="mark_admin_feedback_as_read",
@@ -408,6 +413,16 @@ urlpatterns = [
                     "mark-unread/",
                     feedback.mark_admin_feedback_as_unread,
                     name="mark_admin_feedback_as_unread",
+                ),
+                path(
+                    "archive/",
+                    feedback.archive_admin_feedback,
+                    name="archive_admin_feedback",
+                ),
+                path(
+                    "restore/",
+                    feedback.restore_admin_feedback,
+                    name="restore_admin_feedback",
                 ),
                 path(
                     "delete/",
@@ -830,12 +845,12 @@ urlpatterns = [
                                             name="bulk_restore_pages",
                                         ),
                                         path(
-                                            "auto-translate-easy-german/",
-                                            bulk_action_views.BulkActionEasyGermanView.as_view(
+                                            "machine-translate/",
+                                            bulk_action_views.BulkMachineTranslationView.as_view(
                                                 model=Page,
                                                 form=PageTranslationForm,
                                             ),
-                                            name="auto_translate_easy_german_pages",
+                                            name="machine_translation_pages",
                                         ),
                                         path(
                                             "<int:page_id>/",
@@ -1033,19 +1048,11 @@ urlpatterns = [
                                             name="new_event",
                                         ),
                                         path(
-                                            "auto-translate/",
-                                            bulk_action_views.BulkAutoTranslateView.as_view(
+                                            "machine-translate/",
+                                            bulk_action_views.BulkMachineTranslationView.as_view(
                                                 model=Event, form=EventTranslationForm
                                             ),
-                                            name="automatic_translation_events",
-                                        ),
-                                        path(
-                                            "auto-translate-easy-german/",
-                                            bulk_action_views.BulkActionEasyGermanView.as_view(
-                                                model=Event,
-                                                form=EventTranslationForm,
-                                            ),
-                                            name="auto_translate_easy_german_events",
+                                            name="machine_translation_events",
                                         ),
                                         path(
                                             "bulk-archive/",
@@ -1124,19 +1131,11 @@ urlpatterns = [
                                             name="new_poi",
                                         ),
                                         path(
-                                            "auto-translate/",
-                                            bulk_action_views.BulkAutoTranslateView.as_view(
+                                            "machine-translate/",
+                                            bulk_action_views.BulkMachineTranslationView.as_view(
                                                 model=POI, form=POITranslationForm
                                             ),
-                                            name="automatic_translation_pois",
-                                        ),
-                                        path(
-                                            "auto-translate-easy-german/",
-                                            bulk_action_views.BulkActionEasyGermanView.as_view(
-                                                model=POI,
-                                                form=POITranslationForm,
-                                            ),
-                                            name="auto_translate_easy_german_pois",
+                                            name="machine_translation_pois",
                                         ),
                                         path(
                                             "bulk-archive/",
@@ -1210,6 +1209,11 @@ urlpatterns = [
                                 name="region_feedback",
                             ),
                             path(
+                                "archived/",
+                                feedback.RegionFeedbackListView.as_view(archived=True),
+                                name="region_feedback_archived",
+                            ),
+                            path(
                                 "mark-read/",
                                 feedback.mark_region_feedback_as_read,
                                 name="mark_region_feedback_as_read",
@@ -1218,6 +1222,16 @@ urlpatterns = [
                                 "mark-unread/",
                                 feedback.mark_region_feedback_as_unread,
                                 name="mark_region_feedback_as_unread",
+                            ),
+                            path(
+                                "archive/",
+                                feedback.archive_region_feedback,
+                                name="archive_region_feedback",
+                            ),
+                            path(
+                                "restore/",
+                                feedback.restore_region_feedback,
+                                name="restore_region_feedback",
                             ),
                             path(
                                 "delete/",

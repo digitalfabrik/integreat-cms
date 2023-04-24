@@ -199,6 +199,29 @@ select,
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }
+    &:disabled {
+        @apply text-gray-500 pointer-events-none cursor-not-allowed;
+    }
+}
+
+// All of the above except "select" and "multiple" which are read-only even when they can be edited
+[type="text"],
+[type="email"],
+[type="url"],
+[type="password"],
+[type="number"],
+[type="date"],
+[type="datetime-local"],
+[type="month"],
+[type="search"],
+[type="tel"],
+[type="time"],
+[type="week"],
+textarea,
+.slug-field {
+    &:read-only {
+        @apply text-gray-500 pointer-events-none cursor-not-allowed;
+    }
 }
 
 .slug-field {
@@ -312,6 +335,10 @@ label:not([for]) {
             }
         }
     }
+}
+
+.show-n-rows tbody tr:nth-child(n + 11) {
+    display: none;
 }
 
 #page_order_table .table-listing {

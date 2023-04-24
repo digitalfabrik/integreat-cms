@@ -44,6 +44,7 @@ msgstr "Landkreis"
 #: cms/forms/users/user_filter_form.py
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/languages/region_list_section/region_list.html
 #: cms/templates/users/user_list.html
 msgid "Region"
@@ -1684,6 +1685,14 @@ msgstr ""
 "anderem bearbeitet wird."
 
 #: cms/forms/custom_content_model_form.py
+msgid ""
+"The options \"automatic translation\" and \"minor edit\" are mutually "
+"exclusive."
+msgstr ""
+"Die Optionen \"automatische Übersetzung\" und \"geringfügige Änderung\" "
+"schließen sich gegenseitig aus."
+
+#: cms/forms/custom_content_model_form.py
 msgid "{} \"{}\" was successfully saved as draft"
 msgstr "{} \"{}\" wurde erfolgreich als Entwurf gespeichert"
 
@@ -1804,7 +1813,9 @@ msgstr "Alle Regionen"
 #: cms/forms/feedback/region_feedback_filter_form.py
 #: cms/templates/analytics/translation_coverage.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/_page_xliff_import_diff.html
 #: cms/templates/statistics/statistics_overview.html
@@ -1821,7 +1832,9 @@ msgstr "Alle Kategorien"
 
 #: cms/forms/feedback/region_feedback_filter_form.py
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
 msgid "Category"
 msgstr "Kategorie"
@@ -1843,7 +1856,9 @@ msgstr "Status"
 #: cms/forms/feedback/region_feedback_filter_form.py
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Rating"
 msgstr "Bewertung"
 
@@ -1868,6 +1883,18 @@ msgid ""
 msgstr ""
 "Diese Region besitzt bereits eine Standard-Sprache. Bitte geben Sie eine "
 "Quell-Sprache für diese Sprache ein."
+
+#: cms/forms/linkcheck/edit_url_form.py
+msgid "Enter a valid email address."
+msgstr "Bitte gültige E-Mail-Adresse eingeben."
+
+#: cms/forms/machine_translation_form.py
+msgid "Create new translations:"
+msgstr "Neue Übersetzungen erstellen:"
+
+#: cms/forms/machine_translation_form.py
+msgid "Update existing translations:"
+msgstr "Bestehende Übersetzungen aktualisieren:"
 
 #: cms/forms/media/create_directory_form.py
 msgid "The directory cannot be created in a directory of another region."
@@ -2084,28 +2111,6 @@ msgstr "Das Start-Datum kann nicht nach dem End-Datum liegen"
 #: cms/forms/statistics/statistics_filter_form.py
 msgid "The end date can't be before the start date"
 msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
-
-#: cms/forms/translations/machine_translation_form.py
-#: cms/models/abstract_content_translation.py
-msgid "Automatic translation"
-msgstr "Automatische Übersetzungen"
-
-#: cms/forms/translations/machine_translation_form.py
-#: cms/models/abstract_content_translation.py
-msgid ""
-"Tick if updating this content should automatically refresh or create its "
-"translations."
-msgstr ""
-"Kreuzen Sie an, um beim Aktualisieren andere Übersetzungen dieses Inhalts "
-"maschinell zu erneuern oder zu erstellen."
-
-#: cms/forms/translations/machine_translation_form.py
-msgid "Update existing translations:"
-msgstr "Bestehende Übersetzungen aktualisieren:"
-
-#: cms/forms/translations/machine_translation_form.py
-msgid "Create new translations:"
-msgstr "Neue Übersetzungen erstellen:"
 
 #: cms/forms/translations/translations_management_form.py
 msgid "Language Selection"
@@ -2365,6 +2370,18 @@ msgstr "Änderungsdatum"
 msgid "creator"
 msgstr "Ersteller:in"
 
+#: cms/models/abstract_content_translation.py
+msgid "Automatic translation"
+msgstr "Automatische Übersetzungen"
+
+#: cms/models/abstract_content_translation.py
+msgid ""
+"Tick if updating this content should automatically refresh or create its "
+"translations."
+msgstr ""
+"Kreuzen Sie an, um beim Aktualisieren andere Übersetzungen dieses Inhalts "
+"maschinell zu aktualisieren oder zu erstellen."
+
 #: cms/models/abstract_tree_node.py
 msgid "parent"
 msgstr "übergeordneter Knoten"
@@ -2417,7 +2434,8 @@ msgstr "Wiederholungs-Regel"
 msgid "icon"
 msgstr "Icon"
 
-#: cms/models/events/event.py cms/models/pois/poi.py
+#: cms/models/events/event.py cms/models/feedback/feedback.py
+#: cms/models/pois/poi.py
 msgid "archived"
 msgstr "archiviert"
 
@@ -2429,7 +2447,7 @@ msgstr "Kopie"
 msgid "event"
 msgstr "Veranstaltung"
 
-#: cms/models/events/event.py
+#: cms/models/events/event.py cms/templates/events/event_list.html
 msgid "events"
 msgstr "Veranstaltungen"
 
@@ -2557,6 +2575,10 @@ msgstr "technisch"
 #: cms/models/feedback/feedback.py
 msgid "Whether or not the feedback is targeted at the developers"
 msgstr "Ob das Feedback an die Entwickler:innen gerichtet ist oder nicht"
+
+#: cms/models/feedback/feedback.py
+msgid "Whether or not the feedback is archived"
+msgstr "Ob das Feedback archiviert ist oder nicht"
 
 #: cms/models/feedback/feedback.py
 msgid "marked as read by"
@@ -3004,8 +3026,8 @@ msgstr ""
 "Live-Inhalt vor oder nach dem Inhalt dieser Seite eingebettet wird."
 
 #: cms/models/pages/page.py
-msgid "editors"
-msgstr "Redakteur:innen"
+msgid "authors"
+msgstr "Autor:innen"
 
 #: cms/models/pages/page.py
 msgid "A list of users who have the permission to edit this specific page."
@@ -3022,7 +3044,7 @@ msgstr ""
 "beliebige Seiten zu ändern."
 
 #: cms/models/pages/page.py
-msgid "publishers"
+msgid "editors"
 msgstr "Redakteur:innen"
 
 #: cms/models/pages/page.py
@@ -3071,7 +3093,7 @@ msgstr ""
 msgid "page"
 msgstr "Seite"
 
-#: cms/models/pages/page.py
+#: cms/models/pages/page.py cms/templates/pages/page_tree.html
 msgid "pages"
 msgstr "Seiten"
 
@@ -3087,7 +3109,7 @@ msgstr "Titel der Seite"
 msgid "content of the page"
 msgstr "Inhalt der Seite"
 
-#: cms/models/pages/page_translation.py
+#: cms/models/pages/page_translation.py cms/templates/pages/page_revisions.html
 msgid "HIX score"
 msgstr "HIX-Wert"
 
@@ -3237,7 +3259,7 @@ msgstr "barrierefrei"
 msgid "Indicate if the location is barrier free."
 msgstr "Geben Sie an, ob dieser Ort barrierefrei ist."
 
-#: cms/models/pois/poi.py
+#: cms/models/pois/poi.py cms/templates/pois/poi_list.html
 msgid "locations"
 msgstr "Orte"
 
@@ -3856,7 +3878,10 @@ msgstr "Statistiken"
 msgid "Translation Report"
 msgstr "Übersetzungsbericht"
 
-#: cms/templates/_base.html cms/templates/feedback/region_feedback_list.html
+#: cms/templates/_base.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Feedback"
 msgstr "Feedback"
 
@@ -4136,6 +4161,57 @@ msgstr "Nicht geprüfte Links"
 #: cms/templates/analytics/_broken_links_widget.html
 msgid "Total links"
 msgstr "Links insgesamt"
+
+#: cms/templates/analytics/_page_hix_widget.html
+msgid "Overview of the text understandability of the pages"
+msgstr "Übersicht der Textverständlichkeiten der Seiten"
+
+#: cms/templates/analytics/_page_hix_widget.html
+msgid "The list shows the pages with the lowest HIX value in ascending order."
+msgstr ""
+"Die Liste zeigt alle Seiten in aufsteigender Reihenfolge nach ihrem HIX-Wert "
+"sortiert."
+
+#: cms/templates/analytics/_page_hix_widget.html
+msgid " of all pages are ready for automatic translation."
+msgstr " der Seiten sind für maschinelle Übersetzung bereit."
+
+#: cms/templates/analytics/_page_hix_widget.html
+msgid "Page name"
+msgstr "Name der Seite"
+
+#: cms/templates/analytics/_page_hix_widget.html
+msgid "HIX value"
+msgstr "HIX-Wert"
+
+#: cms/templates/analytics/_page_hix_widget.html
+msgid "Show less pages"
+msgstr "Weniger Seiten anzeigen"
+
+#: cms/templates/analytics/_page_hix_widget.html
+msgid "Show all pages"
+msgstr "Alle Seiten anzeigen"
+
+#: cms/templates/analytics/_page_hix_widget.html
+#, python-format
+msgid ""
+"To be able to machine translate pages, the page must have a HIX score of at "
+"least %(threshold)s."
+msgstr ""
+"Um Seiten maschinell übersetzen zu können, muss die Seite einen HIX-Wert von "
+"mindestens %(threshold)s haben."
+
+#: cms/templates/analytics/_page_hix_widget.html
+msgid ""
+"If the row is marked red, the HIX value of the corresponding page is not "
+"sufficient."
+msgstr ""
+"Wenn die Zeile rot markiert ist, ist der HIX-Wert der entsprechenden Seite "
+"nicht ausreichend."
+
+#: cms/templates/analytics/_page_hix_widget.html
+msgid "Pages with disabled HIX or no HIX-value are excluded."
+msgstr "Seiten mit deaktiviertem HIX oder keinem HIX-Wert sind ausgeschlossen."
 
 #: cms/templates/analytics/_translation_overview_widget.html
 msgid "Translation Status"
@@ -4527,7 +4603,9 @@ msgstr "Bearbeiten"
 #: cms/templates/events/event_form.html
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
 #: cms/templates/pages/page_form_sidebar/settings_box.html
@@ -4625,7 +4703,9 @@ msgstr "Archivierte Veranstaltungen"
 #: cms/templates/events/event_list.html
 #: cms/templates/events/event_list_archived.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/pages/page_tree.html
 #: cms/templates/pages/page_tree_archived.html
 #: cms/templates/users/user_list.html
@@ -4635,7 +4715,9 @@ msgstr "Filter einblenden"
 #: cms/templates/events/event_list.html
 #: cms/templates/events/event_list_archived.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/pages/page_tree.html
 #: cms/templates/pages/page_tree_archived.html
 #: cms/templates/users/user_list.html
@@ -4696,7 +4778,9 @@ msgstr "Veranstaltungen ausgewählt"
 #: cms/templates/events/event_list.html
 #: cms/templates/events/event_list_archived.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/pages/page_tree.html
@@ -4709,25 +4793,33 @@ msgstr "Mehrfachaktion auswählen"
 msgid "Archive events"
 msgstr "Veranstaltungen archivieren"
 
-#: cms/templates/events/event_list.html
-msgid "Automatically translate this event into Easy German"
-msgstr "Diese Veranstaltung automatisch in Leichte Sprache übersetzen"
+#: cms/templates/events/event_list.html cms/templates/pages/page_tree.html
+#: cms/templates/pois/poi_list.html
+#, python-format
+msgid "Machine translate %(content_type)s via %(provider)s to %(language)s"
+msgstr ""
+"%(content_type)s maschinell via %(provider)s auf %(language)s übersetzen"
 
-#: cms/templates/events/event_list.html cms/templates/pois/poi_list.html
-msgid "Create missing translations automatically"
-msgstr "Fehlende Übersetzungen automatisch erstellen"
-
-#: cms/templates/events/event_list.html cms/templates/pois/poi_list.html
+#: cms/templates/events/event_list.html cms/templates/pages/page_tree.html
+#: cms/templates/pois/poi_list.html
 msgid ""
 "This language is not supported by any available machine translation provider."
 msgstr ""
 "Diese Sprache wird von keinem verfügbaren Anbieter maschineller "
 "Übersetzungen unterstützt."
 
+#: cms/templates/events/event_list.html cms/templates/pages/page_tree.html
+#: cms/templates/pois/poi_list.html
+#, python-format
+msgid "Machine translate %(content_type)s to %(language)s"
+msgstr "%(content_type)s maschinell auf %(language)s übersetzen"
+
 #: cms/templates/events/event_list.html
 #: cms/templates/events/event_list_archived.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/pages/_page_xliff_export_overlay.html
@@ -4793,19 +4885,25 @@ msgstr "Die fünf aktuellsten Einträge werden aufgeführt."
 
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Feedback on"
 msgstr "Feedback zu"
 
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Comment"
 msgstr "Kommentar"
 
 #: cms/templates/feedback/_feedback_widget.html
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/imprint/imprint_revisions.html
 #: cms/templates/pages/page_revisions.html
 msgid "Date"
@@ -4824,17 +4922,30 @@ msgid "Technical Feedback"
 msgstr "Technisches Feedback"
 
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
+msgid "Archived Feedback"
+msgstr "Archivierte Feedback"
+
+#: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Select all"
 msgstr "Alle auswählen"
 
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "overall"
 msgstr "insgesamt"
 
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Marked as read by"
 msgstr "Als gelesen markiert von"
 
@@ -4847,26 +4958,52 @@ msgid "No technical feedback available yet."
 msgstr "Noch kein technisches Feedback vorhanden."
 
 #: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Feedback entries selected"
 msgstr "Feedback Einträge ausgewählt"
 
 #: cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Mark as read"
 msgstr "Als gelesen markieren"
 
 #: cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Mark as unread"
 msgstr "Als ungelesen markieren"
 
 #: cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/region_feedback_list.html
+msgid "Archive"
+msgstr "Archivieren"
+
+#: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/organizations/organization_form.html
 msgid "Delete"
 msgstr "Löschen"
+
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list_archived.html
+msgid "No archived feedback found with these filters."
+msgstr "Keine archivierten Feedback mit diesen Filtern gefunden."
+
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list_archived.html
+msgid "No archived feedback available yet."
+msgstr "Noch kein archivierten Feedback vorhanden."
+
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list_archived.html
+msgid "Restore"
+msgstr "Wiederherstellen"
 
 #: cms/templates/feedback/region_feedback_list.html
 msgid "No feedback found with these filters."
@@ -5351,9 +5488,29 @@ msgstr "Inhalt aufrufen"
 msgid "Replace URL globally"
 msgstr "URL zentral ersetzen"
 
+#: cms/templates/linkcheck/link_list_row.html
+msgid ""
+"The link text cannot be replaced centrally, because it may differ in the "
+"other source content."
+msgstr ""
+"Der Link-Text kann nicht zentral ersetzt werden, da er sich eventuell in den "
+"anderen Quell-Inhalten unterscheidet"
+
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "Broken links"
 msgstr "Fehlerhafte Links"
+
+#: cms/templates/linkcheck/links_by_filter.html
+msgid "Email links"
+msgstr "Email-Links"
+
+#: cms/templates/linkcheck/links_by_filter.html
+msgid "Phone links"
+msgstr "Telefonnummern-Links"
+
+#: cms/templates/linkcheck/links_by_filter.html
+msgid "All links"
+msgstr "Alle Links"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "Valid"
@@ -5411,6 +5568,14 @@ msgstr "Es konnten keine ungültigen Links gefunden werden."
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "No unchecked links could be found."
 msgstr "Es konnten keine ungeprüften Links gefunden werden."
+
+#: cms/templates/linkcheck/links_by_filter.html
+msgid "No email links could be found."
+msgstr "Es konnten keine Email-Links gefunden werden."
+
+#: cms/templates/linkcheck/links_by_filter.html
+msgid "No phone links could be found."
+msgstr "Es konnten keine Telefonnummern-Links gefunden werden."
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "No ignored links could be found."
@@ -5777,6 +5942,10 @@ msgid "Back to the page form"
 msgstr "Zurück zum Seiten-Formular"
 
 #: cms/templates/pages/page_revisions.html
+msgid "HIX"
+msgstr "HIX"
+
+#: cms/templates/pages/page_revisions.html
 #, python-format
 msgid ""
 "This version is <b>not</b> displayed in the apps - but version %(version)s "
@@ -5903,10 +6072,6 @@ msgstr "Seiten ausgewählt"
 #: cms/templates/pages/page_tree.html
 msgid "Archive pages"
 msgstr "Seiten archivieren"
-
-#: cms/templates/pages/page_tree.html
-msgid "Automatically translate this page into Easy German"
-msgstr "Diese Seite automatisch in Leichte Sprache übersetzen"
 
 #: cms/templates/pages/page_tree.html
 msgid "Export published pages as PDF"
@@ -6268,10 +6433,6 @@ msgstr "Orte ausgewählt"
 #: cms/templates/pois/poi_list.html
 msgid "Archive locations"
 msgstr "Orte archivieren"
-
-#: cms/templates/pois/poi_list.html
-msgid "Automatically translate this location into Easy German"
-msgstr "Diesen Ort automatisch in Leichte Sprache übersetzen"
 
 #: cms/templates/pois/poi_list_archived.html
 msgid "No locations archived yet."
@@ -7138,18 +7299,15 @@ msgid "Login failed."
 msgstr "Login fehlgeschlagen."
 
 #: cms/views/bulk_action_views.py
-msgid "Automatic translations are disabled"
-msgstr "Automatische Übersetzungen sind deaktiviert"
+msgid "Machine translations are disabled for language \"{}\""
+msgstr "Maschinelle Übersetzungen sind deaktiviert für die Sprache \"{}\""
 
 #: cms/views/bulk_action_views.py
-msgid "This language is not supported by DeepL. Please try another language"
+msgid ""
+"Machine translations are not allowed for the current user or content type"
 msgstr ""
-"Diese Sprache wird von DeepL nicht unterstützt. Bitte versuchen Sie eine "
-"andere Sprache"
-
-#: cms/views/bulk_action_views.py
-msgid "Translations to Easy German are disabled"
-msgstr "Übersetzung in Leichte Sprache nicht aktiviert"
+"Maschinelle Übersetzungen sind nicht erlaubt für diese:n Benutzer:in oder "
+"Inhaltstyp"
 
 #: cms/views/bulk_action_views.py
 msgid "The selected {} were successfully {}"
@@ -7315,6 +7473,16 @@ msgstr "Feedback wurde als ungelesen markiert"
 
 #: cms/views/feedback/admin_feedback_actions.py
 #: cms/views/feedback/region_feedback_actions.py
+msgid "Feedback was successfully archived"
+msgstr "Feedback wurde erfolgreich archiviert"
+
+#: cms/views/feedback/admin_feedback_actions.py
+#: cms/views/feedback/region_feedback_actions.py
+msgid "Feedback was successfully restored"
+msgstr "Feedback wurde erfolgreich wiederhergestellt"
+
+#: cms/views/feedback/admin_feedback_actions.py
+#: cms/views/feedback/region_feedback_actions.py
 msgid "Feedback was successfully deleted"
 msgstr "Feedback wurde erfolgreich gelöscht"
 
@@ -7443,6 +7611,14 @@ msgid ""
 msgstr ""
 "Alle Übersetzungen zu Seiten, Orten, Veranstaltungen und Push-"
 "Benachrichtigungen zu dieser Sprache werden ebenfalls gelöscht."
+
+#: cms/views/linkcheck/linkcheck_list_view.py
+msgid "Email link was successfully replaced"
+msgstr "E-Mail-Link wurde erfolgreich ersetzt"
+
+#: cms/views/linkcheck/linkcheck_list_view.py
+msgid "Phone number link was successfully replaced"
+msgstr "Telefonnummern-Link wurde erfolgreich ersetzt"
 
 #: cms/views/linkcheck/linkcheck_list_view.py
 msgid "URL was successfully replaced"
@@ -7748,7 +7924,7 @@ msgstr ""
 
 #: cms/views/pages/page_actions.py
 msgid ""
-"Information: The user \"{}\" has been removed from the editors of this page, "
+"Information: The user \"{}\" has been removed from the authors of this page, "
 "but has the implicit permission to edit this page anyway."
 msgstr ""
 "Information: Die Berechtigung von \"{}\" um diese Seite zu bearbeiten wurde "
@@ -7761,12 +7937,12 @@ msgstr "Erfolg: \"{}\" kann diese Seite nun nicht mehr bearbeiten"
 
 #: cms/views/pages/page_actions.py
 msgid ""
-"Information: The user \"{}\" has been removed from the publishers of this "
-"page, but has the implicit permission to publish this page anyway."
+"Information: The user \"{}\" has been removed from the editors of this page, "
+"but has the implicit permission to publish this page anyway."
 msgstr ""
-"Information: Die Berechtigung von \"{}\" um diese Seite zu veröffentlichen "
-"wurde entfernt, aber es besteht weiterhin implizit die Berechtigung, die "
-"Seite zu veröffentlichen."
+"Information: Die Berechtigung von \"{}\" um diese Seite zu bearbeiten wurde "
+"entfernt, aber es besteht weiterhin die Berechtigung, die Seite zu "
+"bearbeiten."
 
 #: cms/views/pages/page_actions.py
 msgid "Success: The user \"{}\" cannot publish this page anymore."
@@ -8359,35 +8535,11 @@ msgstr "Niederländisch"
 msgid "DeepL API"
 msgstr "DeepL API"
 
-#: deepl_api/utils.py
-msgid ""
-"HIX score {:.2f} of \"{}\" is too low for machine translation (minimum "
-"required: {})"
-msgstr ""
-"HIX Wert {:.2f} für \"{}\" ist zu niedrig für maschinelle Übersetzung "
-"(erforderlicher Mindestwert: {})"
-
-#: deepl_api/utils.py
-msgid ""
-"Machine translations are disabled for \"{}\", because its HIX value is "
-"ignored"
-msgstr ""
-"Machinelle Übersetzungen sind für \"{}\" deaktiviert, da die Option \"HIX-"
-"Wert ignorieren\" aktiviert ist."
-
-#: deepl_api/utils.py summ_ai_api/summ_ai_api_client.py
-msgid ""
-"Machine translations are disabled for content type \"{}\", language \"{}\" "
-"or the current user."
-msgstr ""
-"Machinelle Übersetzungen sind für Inhaltsart \"{}\", Sprache \"{}\" oder den "
-"aktuellen Benutzer deaktiviert."
-
-#: deepl_api/utils.py
+#: deepl_api/deepl_api_client.py
 msgid "No source translation could be found for {} \"{}\"."
 msgstr "Es konnte kein Quelltext für {} \"{}\" gefunden werden."
 
-#: deepl_api/utils.py
+#: deepl_api/deepl_api_client.py
 msgid ""
 "Translation from {} to {} not possible: translation of {} words would exceed "
 "the remaining budget of {} words."
@@ -8395,11 +8547,11 @@ msgstr ""
 "Übersetzung von {} nach {} nicht möglich: die Übersetzung von {} Wörtern "
 "übersteigt das verbleibende Übersetzungsbudget von {} Wörtern."
 
-#: deepl_api/utils.py
+#: deepl_api/deepl_api_client.py
 msgid "{} \"{}\" has successfully been translated ({} ➜ {})."
 msgstr "{} \"{}\" wurde erfolgreich übersetzt ({} ➜ {})"
 
-#: deepl_api/utils.py
+#: deepl_api/deepl_api_client.py
 msgid "{} \"{}\" could not be translated automatically."
 msgstr "{} \"{}\" konnte nicht automatisch übersetzt werden."
 
@@ -8464,6 +8616,22 @@ msgstr "{} \"{}\" wurde erfolgreich in Leichte Sprache übersetzt."
 #: textlab_api/apps.py
 msgid "TextLab API"
 msgstr "TextLab API"
+
+#: textlab_api/utils.py
+msgid ""
+"HIX score {:.2f} of \"{}\" is too low for machine translation (minimum "
+"required: {})"
+msgstr ""
+"HIX Wert {:.2f} für \"{}\" ist zu niedrig für maschinelle Übersetzung "
+"(erforderlicher Mindestwert: {})"
+
+#: textlab_api/utils.py
+msgid ""
+"Machine translations are disabled for \"{}\", because its HIX value is "
+"ignored"
+msgstr ""
+"Machinelle Übersetzungen sind für \"{}\" deaktiviert, da die Option \"HIX-"
+"Wert ignorieren\" aktiviert ist."
 
 #: xliff/apps.py
 msgid "XLIFF"
@@ -8568,6 +8736,28 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "HIX widget is loading..."
+#~ msgstr "HIX Widget lädt..."
+
+#~ msgid ""
+#~ "Currently there is not yet a page for which the HIX value has been "
+#~ "calculated."
+#~ msgstr ""
+#~ "Es gibt aktuell noch keine Seite, für die der HIX Wert berechnet wurde."
+
+#~ msgid ""
+#~ "The list shows the first %(n)s pages with the lowest HIX value in "
+#~ "ascending order."
+#~ msgstr ""
+#~ "Die Liste zeigt die ersten %(n)s Seiten mit dem niedrigsten HIX-Wert "
+#~ "aufsteigend sortiert."
+
+#~ msgid "There is no page."
+#~ msgstr "Es gibt keine Seite."
+
+#~ msgid "This page has no HIX value"
+#~ msgstr "Diese Seite hat keinen HIX-Wert."
+
 #~ msgid "Unknown"
 #~ msgstr "Unbekannt"
 
@@ -8576,6 +8766,9 @@ msgstr ""
 
 #~ msgid "Status message"
 #~ msgstr "Status-Nachricht"
+
+#~ msgid "There is no page yet."
+#~ msgstr "Es gibt keinen Seiteninhalt."
 
 #~ msgid "Current machine translation"
 #~ msgstr "Die Übersetzung ist aktuell und wurde maschinell erzeugt"
@@ -8604,9 +8797,6 @@ msgstr ""
 #~ msgid "This language is not supported by DeepL"
 #~ msgstr "Diese Sprache wird von DeepL nicht unterstützt"
 
-#~ msgid "Show all"
-#~ msgstr "Datei anzeigen"
-
 #~ msgid "Show unused media files"
 #~ msgstr "Ungenutzte Mediendateien zeigen"
 
@@ -8632,9 +8822,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Kreuzen Sie an, wenn Änderungen automatisch in alle Sprachen übersetzt "
 #~ "werden sollen, die ansonsten veraltet wären."
-
-#~ msgid "Minor edit and automatic translations"
-#~ msgstr "Geringfügige Änderungen und automatische Übersetzungen"
 
 #~ msgid "Edit language tree node"
 #~ msgstr "Sprach-Knoten bearbeiten"
@@ -9045,10 +9232,6 @@ msgstr ""
 #~ msgid "Your team of"
 #~ msgstr "Ihr Team von der"
 
-#~ msgid "Automatic translations are not fully implemented yet"
-#~ msgstr ""
-#~ "Automatische Übersetzungen sind noch nicht vollständig implementiert"
-
 #~ msgid "Filetype:"
 #~ msgstr "Dateityp:"
 
@@ -9187,9 +9370,6 @@ msgstr ""
 
 #~ msgid "translation"
 #~ msgstr "Übersetzung"
-
-#~ msgid "All locations"
-#~ msgstr "Alle Orte"
 
 #~ msgid "All pages"
 #~ msgstr "Alle Seiten"
@@ -9510,9 +9690,6 @@ msgstr ""
 
 #~ msgid "key"
 #~ msgstr "Schlüssel"
-
-#~ msgid "value"
-#~ msgstr "Wert"
 
 #~ msgid "configurations"
 #~ msgstr "Einstellungen"
@@ -10325,9 +10502,6 @@ msgstr ""
 
 #~ msgid "Registered 2FA key"
 #~ msgstr "Hinterlegte 2-Faktor-Schlüssel"
-
-#~ msgid "Restore"
-#~ msgstr "Wiederherstellen"
 
 #~ msgid "You don't have the permission to edit or create POIs."
 #~ msgstr ""

@@ -72,7 +72,7 @@ class TranslationsManagementForm(CustomModelForm):
         self.unavailable_languages = []
         for language in languages:
             if language.mt_provider:
-                mt_providers[language.mt_provider].append(
+                mt_providers[language.mt_provider.name].append(
                     (language.id, language.translated_name)
                 )
             else:

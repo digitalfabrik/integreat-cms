@@ -58,7 +58,9 @@ def summ_ai_bulk(region, username, initial=True):
                 logger.debug("[bot] Translation %r already exists, skipping", target)
                 continue
             logger.info("[bot] Translating page %r", page)
-            api_client.translate_queryset([page])
+            api_client.translate_object(
+                page, settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG
+            )
             source = page.get_translation(settings.SUMM_AI_GERMAN_LANGUAGE_SLUG)
             if source and source.content.strip():
                 time.sleep(30)

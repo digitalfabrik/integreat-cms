@@ -18,28 +18,28 @@
         </label>
         <div class="help-text">{% minor_edit_help_text request.region language poi_translation_form %}</div>
     </div>
-    {% if MT_ENABLED %}
+    {% if poi_translation_form.mt_form_is_enabled %}
         <div>
-            {% render_field machine_translation_form.automatic_translation class+="mutually-exclusive-checkbox" %}
-            <label for="{{ machine_translation_form.automatic_translation.id_for_label }}"
+            {% render_field poi_translation_form.automatic_translation class+="mutually-exclusive-checkbox" %}
+            <label for="{{ poi_translation_form.automatic_translation.id_for_label }}"
                    class="secondary">
-                {{ machine_translation_form.automatic_translation.label }}
+                {{ poi_translation_form.automatic_translation.label }}
             </label>
-            <div class="help-text">{{ machine_translation_form.automatic_translation.help_text }}</div>
+            <div class="help-text">{{ poi_translation_form.automatic_translation.help_text }}</div>
             <div id="language-options" class="pl-2 hidden">
-                {% if machine_translation_form.translations_to_update.field.queryset.exists %}
-                    <label for="{{ machine_translation_form.translations_to_update.id_for_label }}"
+                {% if poi_translation_form.mt_translations_to_update.field.queryset.exists %}
+                    <label for="{{ poi_translation_form.mt_translations_to_update.id_for_label }}"
                            class="secondary">
-                        {{ machine_translation_form.translations_to_update.label }}
+                        {{ poi_translation_form.mt_translations_to_update.label }}
                     </label>
-                    {% render_field machine_translation_form.translations_to_update %}
+                    {% render_field poi_translation_form.mt_translations_to_update %}
                 {% endif %}
-                {% if machine_translation_form.translations_to_create.field.queryset.exists %}
-                    <label for="{{ machine_translation_form.translations_to_create.id_for_label }}"
+                {% if poi_translation_form.mt_translations_to_create.field.queryset.exists %}
+                    <label for="{{ poi_translation_form.mt_translations_to_create.id_for_label }}"
                            class="secondary">
-                        {{ machine_translation_form.translations_to_create.label }}
+                        {{ poi_translation_form.mt_translations_to_create.label }}
                     </label>
-                    {% render_field machine_translation_form.translations_to_create %}
+                    {% render_field poi_translation_form.mt_translations_to_create %}
                 {% endif %}
             </div>
         </div>

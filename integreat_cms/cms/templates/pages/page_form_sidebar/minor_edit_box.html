@@ -18,12 +18,12 @@
         </label>
         <div class="help-text">{% minor_edit_help_text request.region language page_translation_form %}</div>
     </div>
-    {% if MT_ENABLED %}
+    {% if page_translation_form.mt_form_is_enabled %}
         <div id="machine-translation-form" data-minimum-hix="{{ minimum_hix }}">
-            {% render_field machine_translation_form.automatic_translation class+="mutually-exclusive-checkbox" %}
-            <label for="{{ machine_translation_form.automatic_translation.id_for_label }}"
+            {% render_field page_translation_form.automatic_translation class+="mutually-exclusive-checkbox" %}
+            <label for="{{ page_translation_form.automatic_translation.id_for_label }}"
                    class="secondary">
-                {{ machine_translation_form.automatic_translation.label }}
+                {{ page_translation_form.automatic_translation.label }}
             </label>
             <div id="hix-score-warning"
                  class="hidden bg-yellow-100 border-l-4 border-yellow-500 text-yellow-600 px-4 py-3 mb-2">
@@ -31,21 +31,21 @@
                     {% blocktranslate %}Increase the HIX score to at least {{ minimum_hix }} to enable automatic translations.{% endblocktranslate %}
                 </p>
             </div>
-            <div class="help-text">{{ machine_translation_form.automatic_translation.help_text }}</div>
+            <div class="help-text">{{ page_translation_form.automatic_translation.help_text }}</div>
             <div id="language-options" class="pl-2 hidden">
-                {% if machine_translation_form.translations_to_update.field.queryset.exists %}
-                    <label for="{{ machine_translation_form.translations_to_update.id_for_label }}"
+                {% if page_translation_form.mt_translations_to_update.field.queryset.exists %}
+                    <label for="{{ page_translation_form.mt_translations_to_update.id_for_label }}"
                            class="secondary">
-                        {{ machine_translation_form.translations_to_update.label }}
+                        {{ page_translation_form.mt_translations_to_update.label }}
                     </label>
-                    {% render_field machine_translation_form.translations_to_update %}
+                    {% render_field page_translation_form.mt_translations_to_update %}
                 {% endif %}
-                {% if machine_translation_form.translations_to_create.field.queryset.exists %}
-                    <label for="{{ machine_translation_form.translations_to_create.id_for_label }}"
+                {% if page_translation_form.mt_translations_to_create.field.queryset.exists %}
+                    <label for="{{ page_translation_form.mt_translations_to_create.id_for_label }}"
                            class="secondary">
-                        {{ machine_translation_form.translations_to_create.label }}
+                        {{ page_translation_form.mt_translations_to_create.label }}
                     </label>
-                    {% render_field machine_translation_form.translations_to_create %}
+                    {% render_field page_translation_form.mt_translations_to_create %}
                 {% endif %}
             </div>
         </div>

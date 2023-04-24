@@ -209,6 +209,9 @@ window.addEventListener("load", () => {
                 editor.shortcuts.add("meta+alt+7", "Add group icon", () => {
                     insertIcon(editor, tinymceConfig, "group");
                 });
+                document.querySelectorAll("[data-content-changed]").forEach((element) => {
+                    element.dispatchEvent(new Event("tinyMCEInitialized"));
+                });
 
                 editor.on("StoreDraft", autosaveEditor);
                 // When the editor becomes dirty, send an input event, so that the unsaved warning can be shown

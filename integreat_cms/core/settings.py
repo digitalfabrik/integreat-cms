@@ -122,6 +122,10 @@ DEFAULT_REQUEST_TIMEOUT = int(
 #: Where release notes are stored
 RELEASE_NOTES_DIRS = os.path.join(BASE_DIR, "release_notes")
 
+#: Custom path for additional local translation files
+CUSTOM_LOCALE_PATH = os.environ.get(
+    "INTEGREAT_CMS_CUSTOM_LOCALE_PATH", "/etc/integreat-cms/locale"
+)
 
 ##############################################################
 # Firebase Push Notifications (Firebase Cloud Messaging FCM) #
@@ -697,7 +701,7 @@ LANGUAGES = [
 
 #: A list of directories where Django looks for translation files
 #: (see :setting:`django:LOCALE_PATHS` and :doc:`django:topics/i18n/index`)
-LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
+LOCALE_PATHS = [os.path.join(BASE_DIR, "locale"), CUSTOM_LOCALE_PATH]
 
 #: A string representing the language slug for this installation
 #: (see :setting:`django:LANGUAGE_CODE` and :doc:`django:topics/i18n/index`)
@@ -929,10 +933,18 @@ LINKCHECK_MAX_URL_LENGTH = 1024
 
 #: URL types that are not supposed to be shown in the link list (e.g. phone numbers and emails)
 LINKCHECK_IGNORED_URL_TYPES = [
-    "mailto",
-    "phone",
-    "anchor",
+    url_type.strip()
+    for url_type in os.environ.get(
+        "INTEGREAT_CMS_LINKCHECK_IGNORED_URL_TYPES", ""
+    ).splitlines()
+    if url_type
 ]
+
+#: Wheter email links are enabled
+LINKCHECK_EMAIL_ENABLED = "mailto" not in LINKCHECK_IGNORED_URL_TYPES
+
+#: Wheter phone links are enabled
+LINKCHECK_PHONE_ENABLED = "phone" not in LINKCHECK_IGNORED_URL_TYPES
 
 #: Whether archived pages should be ignored for linkcheck scan.
 #: Since this causes a lot of overhead, only use this for the findlinks management command::

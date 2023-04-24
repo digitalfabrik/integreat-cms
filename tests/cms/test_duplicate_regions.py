@@ -73,8 +73,8 @@ def test_duplicate_regions(load_test_data_transactional, admin_client):
                 "region",
                 "parent",
                 "api_token",
+                "authors",
                 "editors",
-                "publishers",
             ],
         )
         target_page_dict = model_to_dict(
@@ -85,8 +85,8 @@ def test_duplicate_regions(load_test_data_transactional, admin_client):
                 "region",
                 "parent",
                 "api_token",
+                "authors",
                 "editors",
-                "publishers",
             ],
         )
         assert source_page_dict == target_page_dict
@@ -113,16 +113,20 @@ def test_duplicate_regions(load_test_data_transactional, admin_client):
     # Check if links exist
     assert get_url_count(source_region.slug) == {
         "number_all_urls": 7,
+        "number_email_urls": 0,
         "number_ignored_urls": 1,
         "number_invalid_urls": 1,
+        "number_phone_urls": 0,
         "number_unchecked_urls": 0,
         "number_valid_urls": 5,
     }, "Links should exist in the source region"
     # Check if links have been cloned (except ignored ones)
     assert get_url_count(target_region.slug) == {
         "number_all_urls": 7,
+        "number_email_urls": 0,
         "number_ignored_urls": 0,
         "number_invalid_urls": 2,
+        "number_phone_urls": 0,
         "number_unchecked_urls": 0,
         "number_valid_urls": 5,
     }, "Links should be cloned into the new region"
