@@ -14,23 +14,25 @@
                    value="{{ url.id }}"
                    class="bulk-select-item"/>
         </td>
-        <td class="pr-2 whitespace-nowrap max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px] overflow-hidden text-ellipsis"
-            title="{{ url.url }}">
+        <td class="pr-2 whitespace-nowrap max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px] overflow-hidden text-ellipsis">
             <a href="{{ url.url }}"
                target="_blank"
                rel="noopener noreferrer"
-               class="text-blue-500 hover:underline">
+               class="text-blue-500 hover:underline"
+               title="{{ url.url }}">
                 {{ url.url }}
             </a>
             {% if url.redirect_to %}
                 <br />
-                <i icon-name="corner-down-right"></i>
-                <a href="{{ url.redirect_to }}"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="text-blue-500 hover:underline">
-                    {{ url.redirect_to }}
-                </a>
+                <span title="{% translate "Redirects to" %}: {{ url.redirect_to }}">
+                    <i icon-name="corner-down-right"></i>
+                    <a href="{{ url.redirect_to }}"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="text-blue-500 hover:underline">
+                        {{ url.redirect_to }}
+                    </a>
+                </span>
             {% endif %}
         </td>
         <td class="pr-2 whitespace-nowrap" title="{{ url.ssl_message }}">{% url_ssl_icon url %}</td>
