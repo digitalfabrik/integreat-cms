@@ -1,6 +1,7 @@
-#!/bin/bash
+# shellcheck shell=bash
 
 # This file contains utility functions which can be used in the tools.
+# Do not execute it directly, but include it with `source`.
 
 # Do not continue execution if one of the commands fail
 set -eo pipefail -o functrace
