@@ -8,5 +8,8 @@ from .language_tree_bulk_actions import (
     BulkHideView,
     BulkMakeVisibleView,
 )
-from .language_tree_node_form_view import LanguageTreeNodeCreateView
+from .language_tree_node_form_view import (
+    LanguageTreeNodeCreateView,
+    LanguageTreeNodeUpdateView,
+)
 from .language_tree_view import LanguageTreeView

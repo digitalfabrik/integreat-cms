@@ -37,7 +37,7 @@ django-linkcheck
 ~~~~~~~~~~~~~
 
 Scan the content and update the link database.
-Make sure to set the environment variable ``INTEGREAT_CMS_LINKCHECK_EXCLUDE_ARCHIVED_PAGES=1``
+Make sure to set the environment variable ``INTEGREAT_CMS_LINKCHECK_COMMAND_RUNNING=1``
 when you use this command in production to make sure links in archived pages are ignored.
 
 ``checklinks``

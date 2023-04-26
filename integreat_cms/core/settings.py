@@ -963,9 +963,9 @@ LINKCHECK_PHONE_ENABLED = "phone" not in LINKCHECK_IGNORED_URL_TYPES
 #: Whether archived pages should be ignored for linkcheck scan.
 #: Since this causes a lot of overhead, only use this for the findlinks management command::
 #:
-#:    $ INTEGREAT_CMS_LINKCHECK_EXCLUDE_ARCHIVED_PAGES=1 integreat-cms-cli findlinks
-LINKCHECK_EXCLUDE_ARCHIVED_PAGES = bool(
-    strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_EXCLUDE_ARCHIVED_PAGES", "False"))
+#:    $ INTEGREAT_CMS_LINKCHECK_COMMAND_RUNNING=1 integreat-cms-cli findlinks
+LINKCHECK_COMMAND_RUNNING = bool(
+    strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_COMMAND_RUNNING", "False"))
 )
 
 

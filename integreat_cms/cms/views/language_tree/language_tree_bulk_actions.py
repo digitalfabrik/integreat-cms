@@ -3,7 +3,12 @@ import logging
 from cacheops import invalidate_obj
 from django.utils.translation import gettext_lazy as _
 
-from ...models import LanguageTreeNode
+from ...models import (
+    EventTranslation,
+    LanguageTreeNode,
+    PageTranslation,
+    POITranslation,
+)
 from ..bulk_action_views import BulkUpdateBooleanFieldView
 
 logger = logging.getLogger(__name__)
@@ -109,6 +114,24 @@ class BulkActivateView(LanguageTreeBulkActionView):
 
     #: The name of the action
     action = _("activated")
+
+    def post(self, request, *args, **kwargs):
+        for language_tree_node in self.get_queryset():
+            models = [PageTranslation, EventTranslation, POITranslation]
+            for model in models:
+                filters = {
+                    f"{model.foreign_field()}__region": request.region,
+                    "language": language_tree_node.language,
+                }
+                distinct = [f"{model.foreign_field()}__pk", "language__pk"]
+                for translation in model.objects.filter(**filters).distinct(*distinct):
+                    if self.value:
+                        translation.save(update_timestamp=False)
+                    else:
+                        translation.links.all().delete()
+
+        # Execute bulk action
+        return super().post(request, *args, **kwargs)
 
 
 # pylint: disable=too-many-ancestors
