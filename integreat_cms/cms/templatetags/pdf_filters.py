@@ -53,8 +53,9 @@ def pdf_truncate_links(page_content, max_chars):
     except ParserError:
         return page_content
     for elem, attrib, link, pos in content.iterlinks():
-        elem.text = " ".join(
-            Truncator(word).chars(max_chars) for word in elem.text.split(" ")
-        )
+        if elem.text:
+            elem.text = " ".join(
+                Truncator(word).chars(max_chars) for word in elem.text.split(" ")
+            )
 
     return unescape(tostring(content, with_tail=False).decode("utf-8"))

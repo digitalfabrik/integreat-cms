@@ -8,7 +8,7 @@ from cacheops import invalidate_model
 from django.conf import settings
 from django.contrib import messages
 from django.http import Http404
-from django.shortcuts import get_object_or_404, redirect, reverse
+from django.shortcuts import redirect, reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import ListView
@@ -40,6 +40,8 @@ class LinkcheckListView(ListView):
         "LINKCHECK_EMAIL_ENABLED": settings.LINKCHECK_EMAIL_ENABLED,
         "LINKCHECK_PHONE_ENABLED": settings.LINKCHECK_PHONE_ENABLED,
     }
+    #: The currently edited instance
+    instance = None
     #: The link edit form
     form = None
 
@@ -65,10 +67,7 @@ class LinkcheckListView(ListView):
         params = {
             k: v for k, v in self.request.GET.items() if k in (self.page_kwarg, "size")
         }
-        print(params)
-        if params:
-            return f"?{urlencode(params)}"
-        return ""
+        return f"?{urlencode(params)}" if params else ""
 
     def get_context_data(self, **kwargs):
         r"""
@@ -81,12 +80,6 @@ class LinkcheckListView(ListView):
         :rtype: dict
         """
         context = super().get_context_data(**kwargs)
-        edit_url_id = self.kwargs.get("url_id")
-        if edit_url_id and not self.form:
-            url = get_object_or_404(Url, id=edit_url_id)
-            self.form = EditUrlForm(
-                initial={"url": url, "text": url.links.first().text}
-            )
         context["edit_url_form"] = self.form
         context["pagination_params"] = self.get_pagination_params()
         return context
@@ -104,6 +97,29 @@ class LinkcheckListView(ListView):
         )
         self.extra_context.update(count_dict)
         return urls
+
+    def dispatch(self, request, *args, **kwargs):
+        """
+        Dispatch the view to either get() or post()
+        """
+        if edit_url_id := kwargs.pop("url_id", None):
+            try:
+                self.instance = get_urls(
+                    region_slug=request.region.slug, url_ids=[edit_url_id]
+                )[0]
+            except IndexError as e:
+                raise Http404("This URL does not exist") from e
+            if request.POST:
+                form_kwargs = {"data": request.POST}
+            else:
+                form_kwargs = {
+                    "initial": {
+                        "url": self.instance,
+                        "text": self.instance.region_links[0].text,
+                    }
+                }
+            self.form = EditUrlForm(**form_kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
         r"""
@@ -136,7 +152,7 @@ class LinkcheckListView(ListView):
                 params["size"] = size
             return redirect(f"{request.path}?{urlencode(params)}")
 
-    # pylint: disable-msg=too-many-locals,too-many-branches
+    # pylint: disable-msg=too-many-branches
     def post(self, request, *args, **kwargs):
         r"""
         Applies selected action for selected urls
@@ -155,18 +171,13 @@ class LinkcheckListView(ListView):
         :return: Redirect to current linkcheck tab
         :rtype: ~django.http.HttpResponseRedirect
         """
-        if edit_url_id := kwargs.pop("url_id", None):
-            try:
-                old_url = get_urls(
-                    region_slug=request.region.slug, url_ids=[edit_url_id]
-                )[0]
-            except IndexError as e:
-                raise Http404("This URL does not exist") from e
-            self.form = EditUrlForm(data=request.POST)
+        if self.form:
             if self.form.is_valid():
                 new_url = self.form.cleaned_data["url"]
                 # Get all current translations with the same url
-                translations = {link.content_object for link in old_url.region_links}
+                translations = {
+                    link.content_object for link in self.instance.region_links
+                }
                 # Replace the old urls with the new urls in the content
                 for translation in translations:
                     new_translation = deepcopy(translation)
@@ -174,7 +185,7 @@ class LinkcheckListView(ListView):
                     logger.debug("Replacing links of %r", new_translation)
                     new_translation.content = rewrite_links(
                         new_translation.content,
-                        partial(self.replace_link, old_url.url, new_url),
+                        partial(self.replace_link, self.instance.url, new_url),
                     )
                     # Save translation with replaced content as new minor version
                     new_translation.id = None

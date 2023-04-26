@@ -42,7 +42,7 @@ def get_urls(region_slug=None, url_ids=None, prefetch_content_objects=True):
             | Q(imprint_translation__page__region__slug=region_slug)
             | Q(event_translation__event__region__slug=region_slug)
             | Q(poi_translation__poi__region__slug=region_slug)
-        )
+        ).order_by("id")
         if prefetch_content_objects:
             region_links = region_links.prefetch_related("content_object")
         # Prefetch all link objects of the requested region
