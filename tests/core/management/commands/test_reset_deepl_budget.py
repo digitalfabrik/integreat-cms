@@ -40,7 +40,6 @@ def test_not_first_day():
         )
 
 
-# pylint: disable=unused-argument
 @pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True, serialized_rollback=True)
 def test_reset_deepl_budget(load_test_data_transactional):

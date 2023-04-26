@@ -27,7 +27,6 @@ def test_find_missing_versions_invalid_model():
     )
 
 
-# pylint: disable=unused-argument
 @pytest.mark.django_db
 @pytest.mark.parametrize("model", ["page", "event", "poi"])
 def test_find_missing_versions_success(load_test_data, model):
@@ -39,7 +38,6 @@ def test_find_missing_versions_success(load_test_data, model):
     assert not err
 
 
-# pylint: disable=unused-argument
 @pytest.mark.django_db
 def test_find_missing_versions_failure(load_test_data):
     """

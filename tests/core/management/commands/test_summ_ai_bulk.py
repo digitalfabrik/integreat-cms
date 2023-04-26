@@ -29,7 +29,6 @@ def test_summ_ai_bulk_missing_username():
     )
 
 
-# pylint: disable=unused-argument
 @pytest.mark.django_db
 def test_summ_ai_bulk_disabled(settings, load_test_data):
     """
@@ -51,7 +50,7 @@ def test_summ_ai_bulk_non_existing_region():
     assert str(exc_info.value) == 'Region with slug "non-existing" does not exist.'
 
 
-# pylint: disable=unused-argument,fixme
+# pylint: disable=fixme
 @pytest.mark.django_db
 def test_summ_ai_bulk_disabled_region(load_test_data):
     """
@@ -64,7 +63,6 @@ def test_summ_ai_bulk_disabled_region(load_test_data):
     # assert str(exc_info.value) == 'SUMM.AI API is disabled in "Stadt Augsburg".'
 
 
-# pylint: disable=unused-argument
 @pytest.mark.django_db
 def test_summ_ai_bulk_non_existing_username(load_test_data):
     """
