@@ -419,9 +419,14 @@ jobs:
             echo "Most recent version on TestPyPI: ${CURRENT_ALPHA_VERSION}"
             CURRENT_ALPHA_VERSION=$(echo "${CURRENT_ALPHA_VERSION}" | sed "s/integreat-cms (\([^()]*\)a0)/\1-alpha/")
             echo "Version converted to alternative format: ${CURRENT_ALPHA_VERSION}"
-            # Bump version to current alpha version
-            echo "Bump to the currently existing version"
-            bumpver update -n --set-version="${CURRENT_ALPHA_VERSION}" --no-commit
+            # Get current prod version
+            CURRENT_VERSION=$(python -c "import integreat_cms; print(integreat_cms.__version__)")
+            echo "Current production version: ${CURRENT_VERSION}"
+            # Bump version to current alpha version if it is newer
+            if [[ "${CURRENT_VERSION}" < "${CURRENT_ALPHA_VERSION}" ]]; then
+              echo "Bump to the currently existing version"
+              bumpver update -n --set-version="${CURRENT_ALPHA_VERSION}" --no-commit
+            fi
             # Bump version to next alpha version
             echo "Bump to the next version"
             bumpver update -n -t alpha --no-commit
