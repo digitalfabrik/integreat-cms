@@ -44,12 +44,12 @@
             </h1>
             {% if not page_form.instance.id or not page_form.instance.archived %}
                 <div class="flex flex-wrap grow justify-end gap-2">
-                    <button name="preview_page" type="button" data-preview-page data-edit-page-mode data-right-to-left={{ right_to_left }} class="btn btn-gray">
+                    <button name="preview_page" type="button" data-preview-page data-edit-page-mode data-right-to-left={{ right_to_left }} class="btn btn-ghost">
                         {% translate "Preview" %}
                     </button>
                     {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
                     {% if can_publish_page %}
-                        <button name="status" value="{{ DRAFT }}" class="btn btn-gray">{% translate "Save as draft" %}</button>
+                        <button name="status" value="{{ DRAFT }}" class="btn btn-outline">{% translate "Save as draft" %}</button>
                         <button name="status" value="{{ PUBLIC }}" class="btn whitespace-nowrap">
                             {% if page_translation_form.instance.status == PUBLIC %}
                                 {% translate "Update" %}

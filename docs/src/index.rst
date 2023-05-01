@@ -76,6 +76,7 @@ Basic Concepts
     documentation
     continuous-integration
     debugging
+    design-guidelines
 
 * :doc:`virtualenv`: Virtual Python environment
 * :doc:`internationalization`: Multi-language support for the backend UI
@@ -84,6 +85,7 @@ Basic Concepts
 * :doc:`documentation`: This Sphinx documentation
 * :doc:`continuous-integration`: Continuous Integration and Delivery with CircleCI
 * :doc:`debugging`: Debug the application
+* :doc:`design-guidelines`: Styleguide for this application
 
 
 Deployment

@@ -11,7 +11,7 @@
             {% endwith %}
         </h1>
         <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
-           class="btn btn-gray">
+           class="btn btn-outline">
             <i icon-name="arrow-left-circle" class="align-top"></i> {% translate "Back to the page form" %}
         </a>
     </div>
@@ -128,32 +128,32 @@
                     <!-- Draft buttons -->
                     <button name="status"
                             value="{{ DRAFT }}"
-                            class="btn btn-gray hidden"
+                            class="btn btn-outline hidden"
                             data-status="{{ PUBLIC }}">
                         {% translate "Restore as draft" %}
                     </button>
                     <button name="status"
                             value="{{ DRAFT }}"
-                            class="btn btn-gray hidden"
+                            class="btn btn-outline hidden"
                             data-status="{{ DRAFT }}">
                         {% translate "Restore as draft" %}
                     </button>
                     <button name="status"
                             value="{{ DRAFT }}"
-                            class="btn btn-gray hidden"
+                            class="btn btn-outline hidden"
                             data-status="{{ AUTO_SAVE }}">
                         {% translate "Restore auto save as draft" %}
                     </button>
                     <button name="status"
                             value="{{ DRAFT }}"
-                            class="btn btn-gray hidden"
+                            class="btn btn-outline hidden"
                             data-status="{{ REVIEW }}">
                         {% translate "Accept and restore changes as draft" %}
                     </button>
                     <!-- Draft buttons for latest version -->
                     <button name="status"
                             value="{{ DRAFT }}"
-                            class="btn btn-gray hidden"
+                            class="btn btn-outline hidden"
                             data-status="{{ REVIEW }}"
                             data-max>
                         {% translate "Accept current changes as draft" %}
