@@ -148,14 +148,34 @@ class BulkMachineTranslationView(BulkActionView):
             raise PermissionDenied(
                 f"Only staff users have the permission to bulk translate {self.form._meta.model._meta.model_name} via {language_node.mt_provider}"
             )
+
+        to_translate = language_node.mt_provider.is_needed(
+            request.region, self.get_queryset(), language_node
+        )
+        if not to_translate:
+            messages.error(
+                request,
+                _("All the selected translations are already up-to-date."),
+            )
+            return super().post(request, *args, **kwargs)
+
+        for content_object in self.get_queryset():
+            if not content_object in to_translate:
+                messages.error(
+                    request,
+                    _("There already is an up-to-date translation for {}").format(
+                        content_object.best_translation.title,
+                    ),
+                )
+
         logger.debug(
             "Machine translation via %s into %r for: %r",
             language_node.mt_provider.name,
             language_node.language,
-            self.get_queryset(),
+            to_translate,
         )
         api_client = language_node.mt_provider.api_client(request, self.form)
-        api_client.translate_queryset(self.get_queryset(), language_node.slug)
+        api_client.translate_queryset(to_translate, language_node.slug)
 
         # Let the base view handle the redirect
         return super().post(request, *args, **kwargs)
