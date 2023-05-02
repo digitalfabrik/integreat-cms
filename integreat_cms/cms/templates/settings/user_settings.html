@@ -175,7 +175,7 @@
                                     </td>
                                     <td class="p-2 text-right">
                                         <a class="btn btn-red"
-                                           href="{% spaceless %} {% if request.region %} {% url 'delete_mfa_key' region_slug=request.region.slug key_id=key.id %} {% else %} {% url 'delete_mfa_key' key_id=key.id %} {% endif %} {% endspaceless %}">
+                                           href="{% spaceless %} {% if request.region %} {% url 'delete_fido_key' region_slug=request.region.slug key_id=key.id %} {% else %} {% url 'delete_fido_key' key_id=key.id %} {% endif %} {% endspaceless %}">
                                             <i icon-name="trash-2" class="text-white"></i>
                                         </a>
                                     </td>
@@ -191,7 +191,7 @@
                     </table>
                     <p>
                         <a class="btn"
-                           href="{% spaceless %} {% if request.region %} {% url 'register_new_mfa_key' region_slug=request.region.slug %} {% else %} {% url 'register_new_mfa_key' %} {% endif %} {% endspaceless %}">
+                           href="{% spaceless %} {% if request.region %} {% url 'register_new_fido_key' region_slug=request.region.slug %} {% else %} {% url 'register_new_fido_key' %} {% endif %} {% endspaceless %}">
                             {% translate "Add a new FIDO2 key" %}
                         </a>
                     </p>

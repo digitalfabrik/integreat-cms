@@ -3,7 +3,7 @@
 {% load static %}
 {% load widget_tweaks %}
 {% block heading %}
-    {% translate "Add 2FA key" %}
+    {% translate "Add FIDO key" %}
 {% endblock heading %}
 {% block content %}
     <form id="add-mfa-key"
@@ -11,7 +11,7 @@
         <div class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 mb-5 hidden add-mfa-error"
              role="alert">
             <p>
-                {% translate "Something went wrong during 2FA registration" %}:
+                {% translate "Something went wrong during FIDO registration" %}:
             </p>
             <p class="add-mfa-error-msg">
             </p>
@@ -31,13 +31,13 @@
         </div>
         <div class="flex items-center justify-between">
             <button class="btn w-full">
-                {% translate "Add 2FA key" %}
+                {% translate "Add FIDO key" %}
             </button>
         </div>
     </form>
     <div class="mfa-not-supported mb-6 hidden">
         <p>
-            {% translate "It seems like your browser does not support webauthn" %}
+            {% translate "It seems like your browser does not support Webauthn" %}
         </p>
     </div>
 {% endblock content %}

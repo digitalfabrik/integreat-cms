@@ -115,8 +115,7 @@ class UserForm(CustomModelForm):
         # Check if passwordless authentication is possible for the user
         if (
             "passwordless_authentication_enabled" in self.fields
-            and self.instance.totp_key is None
-            and not self.instance.mfa_keys.exists()
+            and not self.instance.fido_keys.exists()
         ):
             self.fields["passwordless_authentication_enabled"].disabled = True
 

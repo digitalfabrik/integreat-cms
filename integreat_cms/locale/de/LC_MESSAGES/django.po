@@ -4517,11 +4517,28 @@ msgstr "Anmelden"
 msgid "Forgot your password?"
 msgstr "Passwort vergessen?"
 
+#: cms/templates/authentication/login_mfa.html
 #: cms/templates/authentication/login_totp.html
 #: cms/templates/authentication/login_webauthn.html
 #: cms/templates/settings/mfa/authenticate.html
 msgid "Authentication"
 msgstr "Authentifizierung"
+
+#: cms/templates/authentication/login_mfa.html
+#: cms/templates/authentication/login_webauthn.html
+msgid "Unable to verify your FIDO key, please try again."
+msgstr ""
+"Die Authentifizierung mit Ihrem FIDO Schlüssel konnte nicht abgeschlossen "
+"werden, bitte versuchen Sie es erneut."
+
+#: cms/templates/authentication/login_mfa.html
+#: cms/templates/authentication/login_webauthn.html
+msgid ""
+"Please authenticate using your FIDO key by following your browser "
+"instructions"
+msgstr ""
+"Bitte authentifizieren Sie sich mit ihrem FIDO Schlüssel, folgen Sie dazu "
+"den Instruktionen die im Browser angezeigt werden"
 
 #: cms/templates/authentication/login_totp.html
 #, python-format
@@ -4543,23 +4560,10 @@ msgid "Use Security Key"
 msgstr "Sicherheitsschlüssel verwenden"
 
 #: cms/templates/authentication/login_webauthn.html
-msgid "Unable to verify your 2FA key, please try again."
-msgstr ""
-"Die 2-Faktor-Authentifizierung konnte nicht durchgeführt werden, bitte "
-"versuchen Sie es erneut."
-
-#: cms/templates/authentication/login_webauthn.html
 #: cms/templates/authentication/password_reset_confirm.html
 #: cms/templates/authentication/password_reset_form.html
 msgid "Back to log in"
 msgstr "Zurück zur Anmeldung"
-
-#: cms/templates/authentication/login_webauthn.html
-msgid ""
-"Please authenticate using your 2FA key by following your browser instructions"
-msgstr ""
-"Bitte authentifizieren Sie sich mit ihrem zweiten Faktor, folgen Sie dazu "
-"den Instruktionen die im Browser angezeigt werden"
 
 #: cms/templates/authentication/login_webauthn.html
 msgid "Use Authenticator app"
@@ -7039,13 +7043,14 @@ msgid "Back to the user settings"
 msgstr "Zurück zu den Kontoeinstellungen"
 
 #: cms/templates/settings/mfa/add_key.html
-msgid "Add 2FA key"
-msgstr "2FA Schlüssel hinzufügen"
+msgid "Add FIDO key"
+msgstr "FIDO Schlüssel hinzufügen"
 
 #: cms/templates/settings/mfa/add_key.html
-msgid "Something went wrong during 2FA registration"
+msgid "Something went wrong during FIDO registration"
 msgstr ""
-"Während der Registrierung eines neuen Schlüssels ist ein Fehler aufgetreten"
+"Während der Registrierung eines neuen FIDO Schlüssels ist ein Fehler "
+"aufgetreten"
 
 #: cms/templates/settings/mfa/add_key.html
 msgid ""
@@ -7061,8 +7066,7 @@ msgid "Enter key name here"
 msgstr "Schlüsselname hier eingeben"
 
 #: cms/templates/settings/mfa/add_key.html
-#: cms/templates/settings/mfa/delete.html
-msgid "It seems like your browser does not support webauthn"
+msgid "It seems like your browser does not support Webauthn"
 msgstr ""
 "Ihr Browser unterstützt leider kein Webauthn, es kann kein Schlüssel "
 "hinzugefügt werden"
@@ -7078,12 +7082,18 @@ msgstr ""
 "Einstellungen zu bearbeiten."
 
 #: cms/templates/settings/mfa/delete.html
-msgid "Delete 2FA key"
+msgid "Delete FIDO key"
 msgstr "Schlüssel entfernen"
 
 #: cms/templates/settings/mfa/delete.html
 msgid "Nickname"
 msgstr "Schlüsselname"
+
+#: cms/templates/settings/mfa/delete.html
+msgid "It seems like your browser does not support webauthn"
+msgstr ""
+"Ihr Browser unterstützt leider kein Webauthn, es kann kein Schlüssel "
+"hinzugefügt werden"
 
 #: cms/templates/settings/register_totp.html
 msgid "Add authenticator app"
@@ -8870,53 +8880,6 @@ msgstr "Rolle \"{}\" wurde erfolgreich erstellt"
 msgid "Role \"{}\" was successfully saved"
 msgstr "Rolle \"{}\" wurde erfolgreich gespeichert"
 
-#: cms/views/settings/mfa/authenticate_modify_mfa_view.py
-msgid "The provided password is not correct"
-msgstr "Das angegebene Passwort ist falsch"
-
-#: cms/views/settings/mfa/delete_user_mfa_key_view.py
-msgid ""
-"This is your last key, once removed you will be able to log in without a "
-"second factor."
-msgstr ""
-"Dies ist der letzte Schlüssel. Sobald dieser entfernt wurde, ist ein Login "
-"ohne zusätzliche Authentifizierung möglich."
-
-#: cms/views/settings/mfa/delete_user_mfa_key_view.py
-msgid ""
-"Once you remove the key you will need to use one of the other available keys "
-"to log into your account."
-msgstr ""
-"Sobald Sie diesen Schlüssel entfernt haben müssen Sie sich mit einem der "
-"übrigen Schlüssel anmelden."
-
-#: cms/views/settings/mfa/delete_user_mfa_key_view.py
-msgid ""
-"Please make sure that you have at least one extra key available to log in "
-"before removing this key."
-msgstr ""
-"Bitte stellen Sie sicher, dass ihnen mindestens einer der aktuell "
-"registrierten Schlüssel vorliegen bevor Sie diesen Schlüssel entfernen."
-
-#: cms/views/settings/mfa/delete_user_mfa_key_view.py
-msgid "The 2-factor authentication key \"{}\" was successfully deleted"
-msgstr ""
-"Der 2-Faktor-Authentifizierungsschlüssel \"{}\" wurde erfolgreich gelöscht."
-
-#: cms/views/settings/mfa/register_user_mfa_key_view.py
-msgid "This key name has already been used"
-msgstr "Dieser Schlüsselname wurde bereits genutzt"
-
-#: cms/views/settings/mfa/register_user_mfa_key_view.py
-msgid "You already registered this key"
-msgstr "Sie haben diesen Schlüssel bereits registriert"
-
-#: cms/views/settings/mfa/register_user_mfa_key_view.py
-msgid "The 2-factor authentication key \"{}\" was successfully registered."
-msgstr ""
-"Der 2-Faktor-Authentifizierungsschlüssel \"{}\" wurde erfolgreich "
-"registriert."
-
 #: cms/views/settings/totp_delete_view.py
 msgid ""
 "You have successfully disconnected your account from your authenticator app."
@@ -8951,6 +8914,53 @@ msgstr "Passwort wurde erfolgreich geändert"
 #: cms/views/settings/user_settings_view.py
 msgid "Preferences were successfully saved"
 msgstr "Einstellungen wurden erfolgreich gespeichert"
+
+#: cms/views/settings/webauthn/authenticate_modify_mfa_view.py
+msgid "The provided password is not correct"
+msgstr "Das angegebene Passwort ist falsch"
+
+#: cms/views/settings/webauthn/delete_user_fido_key_view.py
+msgid ""
+"This is your last key, once removed you will be able to log in without a "
+"second factor."
+msgstr ""
+"Dies ist der letzte Schlüssel. Sobald dieser entfernt wurde, ist ein Login "
+"ohne zusätzliche Authentifizierung möglich."
+
+#: cms/views/settings/webauthn/delete_user_fido_key_view.py
+msgid ""
+"Once you remove the key you will need to use one of the other available keys "
+"to log into your account."
+msgstr ""
+"Sobald Sie diesen Schlüssel entfernt haben müssen Sie sich mit einem der "
+"übrigen Schlüssel anmelden."
+
+#: cms/views/settings/webauthn/delete_user_fido_key_view.py
+msgid ""
+"Please make sure that you have at least one extra key available to log in "
+"before removing this key."
+msgstr ""
+"Bitte stellen Sie sicher, dass ihnen mindestens einer der aktuell "
+"registrierten Schlüssel vorliegen bevor Sie diesen Schlüssel entfernen."
+
+#: cms/views/settings/webauthn/delete_user_fido_key_view.py
+msgid "The 2-factor authentication key \"{}\" was successfully deleted"
+msgstr ""
+"Der 2-Faktor-Authentifizierungsschlüssel \"{}\" wurde erfolgreich gelöscht."
+
+#: cms/views/settings/webauthn/register_user_fido_key_view.py
+msgid "This key name has already been used"
+msgstr "Dieser Schlüsselname wurde bereits genutzt"
+
+#: cms/views/settings/webauthn/register_user_fido_key_view.py
+msgid "You already registered this key"
+msgstr "Sie haben diesen Schlüssel bereits registriert"
+
+#: cms/views/settings/webauthn/register_user_fido_key_view.py
+msgid "The 2-factor authentication key \"{}\" was successfully registered."
+msgstr ""
+"Der 2-Faktor-Authentifizierungsschlüssel \"{}\" wurde erfolgreich "
+"registriert."
 
 #: cms/views/statistics/statistics_view.py
 msgid "Statistics are not enabled for this region."

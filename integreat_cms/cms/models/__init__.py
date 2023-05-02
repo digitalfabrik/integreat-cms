@@ -38,4 +38,4 @@ from .regions.region import Region
 from .users.organization import Organization
 from .users.role import Role
 from .users.user import User
-from .users.user_fido_key import UserFidoKey
+from .users.user_fido_key import FidoKey

@@ -1182,7 +1182,7 @@ REDIRECT_VIEWS = [
             ("public:password_reset", ROLES, settings.LOGIN_REDIRECT_URL),
             ("public:wiki_redirect", ALL_ROLES, settings.WIKI_URL),
             ("get_mfa_challenge", STAFF_ROLES, reverse("authenticate_modify_mfa")),
-            ("register_new_mfa_key", STAFF_ROLES, reverse("authenticate_modify_mfa")),
+            ("register_new_fido_key", STAFF_ROLES, reverse("authenticate_modify_mfa")),
         ],
         # The kwargs for these views
         {},
@@ -1200,7 +1200,7 @@ REDIRECT_VIEWS = [
                 reverse("authenticate_modify_mfa", kwargs={"region_slug": "augsburg"}),
             ),
             (
-                "register_new_mfa_key",
+                "register_new_fido_key",
                 ROLES,
                 reverse("authenticate_modify_mfa", kwargs={"region_slug": "augsburg"}),
             ),

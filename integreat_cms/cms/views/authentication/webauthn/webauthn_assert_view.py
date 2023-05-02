@@ -1,7 +1,6 @@
 import logging
 
 from django.conf import settings
-from django.contrib.auth import get_user_model
 from django.http import JsonResponse
 from django.http.response import HttpResponse
 from django.utils.translation import gettext as _
@@ -10,7 +9,7 @@ from webauthn import generate_authentication_options, options_to_json
 from webauthn.helpers import bytes_to_base64url
 from webauthn.helpers.structs import PublicKeyCredentialDescriptor
 
-from integreat_cms.cms.utils.mfa_utils import get_passwordless_mfa_user_id
+from integreat_cms.cms.utils.mfa_utils import get_mfa_user
 
 logger = logging.getLogger(__name__)
 
@@ -32,7 +31,7 @@ class WebAuthnAssertView(View):
         :return: The mfa challenge as JSON
         :rtype: ~django.http.JsonResponse
         """
-        if not (user_id := get_passwordless_mfa_user_id(request)):
+        if not (user := get_mfa_user(request)):
             return JsonResponse(
                 {"success": False, "error": _("You need to log in first")}, status=403
             )
@@ -41,13 +40,12 @@ class WebAuthnAssertView(View):
             return JsonResponse(
                 {"success": False, "error": _("You are already logged in.")}
             )
-        user = get_user_model().objects.get(id=user_id)
 
         webauthn_challenge = generate_authentication_options(
             rp_id=settings.HOSTNAME,
             allow_credentials=[
                 PublicKeyCredentialDescriptor(id=key.key_id)
-                for key in user.mfa_keys.all()
+                for key in user.fido_keys.all()
             ],
         )
 

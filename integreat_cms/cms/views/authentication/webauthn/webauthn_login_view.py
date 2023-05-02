@@ -1,8 +1,9 @@
 import logging
 
-from django.contrib.auth import get_user_model
 from django.contrib.auth import views as auth_views
 from django.shortcuts import render
+
+from ....utils.mfa_utils import get_mfa_user
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +34,15 @@ class WebAuthnLoginView(auth_views.LoginView):
         :rtype: ~django.http.HttpResponse
         """
         has_totp = False
-        if "mfa_user_id" in request.session:
-            user = get_user_model().objects.get(id=request.session["mfa_user_id"])
+        passwordless_route = False
+        if user := get_mfa_user(request):
             has_totp = user.totp_key is not None
-        return render(request, self.template_name, {"has_totp": has_totp})
+            passwordless_route = (
+                user.passwordless_authentication_enabled
+                and "passwordless" in request.META["HTTP_REFERER"]
+            )
+        return render(
+            request,
+            self.template_name,
+            {"has_totp": has_totp, "passwordless_route": passwordless_route},
+        )

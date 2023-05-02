@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 
 
 @method_decorator(modify_mfa_authenticated, name="dispatch")
-class DeleteUserMfaKeyView(TemplateView):
+class DeleteUserFidoKeyView(TemplateView):
     """
     View to delete a multi-factor-authentication key
     """
@@ -40,9 +40,9 @@ class DeleteUserMfaKeyView(TemplateView):
         :rtype: ~django.template.response.TemplateResponse
         """
 
-        key = request.user.mfa_keys.get(id=kwargs["key_id"])
+        key = request.user.fido_keys.get(id=kwargs["key_id"])
 
-        if request.user.mfa_keys.count() == 1:
+        if request.user.fido_keys.count() == 1:
             messages.warning(
                 request,
                 _(
@@ -84,7 +84,7 @@ class DeleteUserMfaKeyView(TemplateView):
         :rtype: ~django.http.HttpResponseRedirect
         """
 
-        key = request.user.mfa_keys.get(id=kwargs["key_id"])
+        key = request.user.fido_keys.get(id=kwargs["key_id"])
         messages.success(
             request,
             _('The 2-factor authentication key "{}" was successfully deleted').format(

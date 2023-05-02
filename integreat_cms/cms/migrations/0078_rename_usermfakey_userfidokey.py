@@ -9,12 +9,12 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ("cms", "0069_feedback_archived"),
+        ("cms", "0077_adjust_region_deepl_addon_booked"),
     ]
 
     operations = [
         migrations.RenameModel(
             old_name="UserMfaKey",
-            new_name="UserFidoKey",
+            new_name="FidoKey",
         ),
     ]
