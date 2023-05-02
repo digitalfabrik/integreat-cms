@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-03-12T11:31:59+00:00" />
+    <meta property="article:modified_time" content="2023-05-02T12:47:35+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Development Server &mdash; integreat-cms 2023.4.3 documentation</title>
+  <title>Design Guidelines &mdash; integreat-cms 2023.4.3 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/integreat-icon.svg"/>
-    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/dev-server.html" />
+    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/design-guidelines.html" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -22,8 +22,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Tutorials" href="tutorials.html" />
-    <link rel="prev" title="Installation" href="installation.html" /> 
+    <link rel="next" title="Packaging" href="packaging.html" />
+    <link rel="prev" title="Debugging (Django Debug Toolbar)" href="debugging.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -51,7 +51,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
     
               <p class="caption" role="heading"><span class="caption-text">First Steps</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#prerequisites">Prerequisites</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="installation.html#prerequisites-on-common-distributions">Prerequisites on common distributions</a></li>
@@ -61,9 +61,9 @@
 <li class="toctree-l2"><a class="reference internal" href="installation.html#install-dependencies-and-local-package">Install dependencies and local package</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Development Server</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#database">Database</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#webserver">Webserver</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev-server.html">Development Server</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev-server.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dev-server.html#webserver">Webserver</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a><ul>
@@ -1193,7 +1193,7 @@
 </li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Basic Concepts</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="virtualenv.html">Virtual Environment</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#install-dependencies">Install dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualenv.html#add-dependencies">Add dependencies</a><ul>
@@ -1312,8 +1312,8 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="debugging.html">Debugging (Django Debug Toolbar)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="design-guidelines.html">Design Guidelines</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="design-guidelines.html#buttons">Buttons</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Design Guidelines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#buttons">Buttons</a></li>
 </ul>
 </li>
 </ul>
@@ -1531,7 +1531,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Development Server</li>
+      <li class="breadcrumb-item active">Design Guidelines</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -1540,76 +1540,19 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="development-server">
-<h1>Development Server<a class="headerlink" href="#development-server" title="Permalink to this heading"></a></h1>
-<section id="database">
-<h2>Database<a class="headerlink" href="#database" title="Permalink to this heading"></a></h2>
-<p>Two different types of local database servers are supported:</p>
+  <section id="design-guidelines">
+<h1>Design Guidelines<a class="headerlink" href="#design-guidelines" title="Permalink to this heading"></a></h1>
+<section id="buttons">
+<h2>Buttons<a class="headerlink" href="#buttons" title="Permalink to this heading"></a></h2>
+<p>In our project we use three types of buttons:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://www.docker.com/">Docker</a> container (recommended)</p>
-<ul>
-<li><p>Will be automatically created and started if you use the <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> script without a local server running on port 5432</p></li>
-<li><p>Uses the alternate port 5433 (configured at <a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.docker_settings" title="integreat_cms.core.docker_settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">docker_settings</span></code></a>)</p></li>
-<li><p>Requires permissions to connect to the docker daemon:</p>
-<ul>
-<li><p>If the user is in the <code class="docutils literal notranslate"><span class="pre">docker</span></code> group, no <code class="docutils literal notranslate"><span class="pre">sudo</span></code> is required</p></li>
-<li><p>Otherwise, the server will restart itself with elevated permissions for all docker commands
-(the dev server will still run as the user who invoked <code class="docutils literal notranslate"><span class="pre">sudo</span></code>)</p></li>
+<li><p>Primary buttons (css class <code class="docutils literal notranslate"><span class="pre">btn</span></code>):
+The main call to action on the page, e.g. submitting a form or opening another page</p></li>
+<li><p>Outline buttons (css classes <code class="docutils literal notranslate"><span class="pre">btn</span> <span class="pre">btn-outline</span></code>):
+The secondary call to action on the page, e.g. submitting a form as draft</p></li>
+<li><p>Ghost buttons (css classes <code class="docutils literal notranslate"><span class="pre">btn</span> <span class="pre">btn-ghost</span></code>):
+Buttons that don’t trigger an immediate action, but only hide/show additional components, e.g. filters or previews.</p></li>
 </ul>
-</li>
-</ul>
-</li>
-<li><p>Native <a class="reference external" href="https://www.postgresql.org/">PostgreSQL</a> installation on your system</p>
-<ul>
-<li><p>Install and run manually before starting the local webserver</p></li>
-<li><p>Installation process varies across different distros (e.g. on <a class="reference external" href="https://wiki.ubuntuusers.de/PostgreSQL/">Ubuntu</a>)</p></li>
-<li><p>Configuration: (see <a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.settings" title="integreat_cms.core.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">settings</span></code></a>)</p>
-<ul>
-<li><p>Port: <code class="docutils literal notranslate"><span class="pre">5432</span></code></p></li>
-<li><p>Database: <code class="docutils literal notranslate"><span class="pre">integreat</span></code></p></li>
-<li><p>Username: <code class="docutils literal notranslate"><span class="pre">integreat</span></code></p></li>
-<li><p>Password: <code class="docutils literal notranslate"><span class="pre">password</span></code></p></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you want to remove all contents of your database, use <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/prune_database.sh">tools/prune_database.sh</a>.</p>
-</div>
-</section>
-<section id="webserver">
-<h2>Webserver<a class="headerlink" href="#webserver" title="Permalink to this heading"></a></h2>
-<p>Run the inbuilt local webserver with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/run.sh">tools/run.sh</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">run</span><span class="o">.</span><span class="n">sh</span>
-</pre></div>
-</div>
-<p>This is a convenience script which also performs the following actions:</p>
-<ul class="simple">
-<li><p>Compile and minify CSS</p></li>
-<li><p>Starting a webpack dev server that compiles js and css code</p></li>
-<li><p>Regenerate and compile translation file</p></li>
-<li><p>Migrate database</p></li>
-</ul>
-<p>If you want to speed up this process and don’t need the extra functionality, you might also use:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">run</span><span class="o">.</span><span class="n">sh</span> <span class="o">--</span><span class="n">fast</span>
-</pre></div>
-</div>
-<p>or directly:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">integreat</span><span class="o">-</span><span class="n">cms</span><span class="o">-</span><span class="n">cli</span> <span class="n">runserver</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">8000</span> <span class="o">--</span><span class="n">settings</span><span class="o">=</span><span class="n">integreat_cms</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">docker_settings</span>
-</pre></div>
-</div>
-<p>or:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">integreat</span><span class="o">-</span><span class="n">cms</span><span class="o">-</span><span class="n">cli</span> <span class="n">runserver</span> <span class="n">localhost</span><span class="p">:</span><span class="mi">8000</span>
-</pre></div>
-</div>
-<p>Depending on your local database server.</p>
-<p>After that, open your browser and navigate to <a class="reference external" href="http://localhost:8000/">http://localhost:8000/</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you want to use another port than <code class="docutils literal notranslate"><span class="pre">8000</span></code>, start the server with <code class="docutils literal notranslate"><span class="pre">integreat-cms-cli</span></code> and choose another port, or edit <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/_functions.sh">tools/_functions.sh</a>.</p>
-</div>
 </section>
 </section>
 
@@ -1617,8 +1560,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="tutorials.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="debugging.html" class="btn btn-neutral float-left" title="Debugging (Django Debug Toolbar)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="packaging.html" class="btn btn-neutral float-right" title="Packaging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -1628,7 +1571,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 12, 2023.
+      <span class="lastupdated">Last updated on May 02, 2023.
       </span></p>
   </div>
 
