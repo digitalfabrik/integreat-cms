@@ -2343,7 +2343,7 @@ msgstr "Region"
 #: cms/models/media/directory.py cms/models/offers/offer_template.py
 #: cms/models/push_notifications/push_notification.py
 #: cms/models/regions/region.py cms/models/users/organization.py
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "creation date"
 msgstr "Erstellungsdatum"
 
@@ -3887,7 +3887,7 @@ msgstr ""
 "Aktiveren Sie diese Option, um den passwortlosen Login für dieses Konto "
 "freizuschalten"
 
-#: cms/models/users/user.py cms/models/users/user_mfa_key.py
+#: cms/models/users/user.py cms/models/users/user_fido_key.py
 msgid "user"
 msgstr "Benutzer:in"
 
@@ -3895,35 +3895,35 @@ msgstr "Benutzer:in"
 msgid "users"
 msgstr "Benutzer:innen"
 
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "key name"
 msgstr "Schlüsselname"
 
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "WebAuthn ID"
 msgstr "WebAuthn ID"
 
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "multi-factor-authentication public key"
 msgstr "öffentlicher Multi-Faktor-Authentifizierungsschlüssel"
 
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "sign count"
 msgstr "Anzahl an Signierungs-Vorgängen"
 
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "Token to prevent replay attacks."
 msgstr "Token zur Verhinderung von Replay-Attacken."
 
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "last date of use"
 msgstr "Letztes Datum der Verwendung"
 
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "multi-factor authentication key"
 msgstr "Multi-Faktor-Authentifizierungsschlüssel"
 
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "multi-factor authentication keys"
 msgstr "Multi-Faktor-Authentifizierungsschlüssel"
 
@@ -4186,7 +4186,7 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: cms/templates/_machine_translation_overlay.html
-#: cms/templates/authentication/totp_login.html
+#: cms/templates/authentication/login_totp.html
 #: cms/templates/generic_confirmation_dialog.html
 #: cms/templates/pages/page_xliff_import_view.html
 #: cms/templates/pois/poi_form_sidebar/position_box.html
@@ -4517,24 +4517,53 @@ msgstr "Anmelden"
 msgid "Forgot your password?"
 msgstr "Passwort vergessen?"
 
-#: cms/templates/authentication/login_mfa.html
-#: cms/templates/authentication/totp_login.html
+#: cms/templates/authentication/login_totp.html
+#: cms/templates/authentication/login_webauthn.html
 #: cms/templates/settings/mfa/authenticate.html
 msgid "Authentication"
 msgstr "Authentifizierung"
 
-#: cms/templates/authentication/login_mfa.html
+#: cms/templates/authentication/login_totp.html
+#, python-format
+msgid ""
+"Please open your authenticator app on your device and enter the 6-digit code "
+"for \"%(BRANDING)s\" to verify your identity:"
+msgstr ""
+"Bitte öffnen Sie Ihre Authenticator-App und geben Sie den 6-stelligen Code "
+"für \"%(BRANDING)s\" ein, um ihre Identität zu bestätigen:"
+
+#: cms/templates/authentication/login_totp.html
+#: cms/templates/authentication/login_webauthn.html
+#: cms/templates/languages/language_form.html
+msgid "or"
+msgstr "oder"
+
+#: cms/templates/authentication/login_totp.html
+msgid "Use Security Key"
+msgstr "Sicherheitsschlüssel verwenden"
+
+#: cms/templates/authentication/login_webauthn.html
 msgid "Unable to verify your 2FA key, please try again."
 msgstr ""
 "Die 2-Faktor-Authentifizierung konnte nicht durchgeführt werden, bitte "
 "versuchen Sie es erneut."
 
-#: cms/templates/authentication/login_mfa.html
+#: cms/templates/authentication/login_webauthn.html
+#: cms/templates/authentication/password_reset_confirm.html
+#: cms/templates/authentication/password_reset_form.html
+msgid "Back to log in"
+msgstr "Zurück zur Anmeldung"
+
+#: cms/templates/authentication/login_webauthn.html
 msgid ""
 "Please authenticate using your 2FA key by following your browser instructions"
 msgstr ""
 "Bitte authentifizieren Sie sich mit ihrem zweiten Faktor, folgen Sie dazu "
 "den Instruktionen die im Browser angezeigt werden"
+
+#: cms/templates/authentication/login_webauthn.html
+msgid "Use Authenticator app"
+msgstr "Authenticator-App verwenden"
 
 #: cms/templates/authentication/password_reset_confirm.html
 #: cms/templates/authentication/password_reset_form.html
@@ -4549,23 +4578,9 @@ msgstr "Passwort wiederholen"
 msgid "Set new password"
 msgstr "Neues Passwort setzen"
 
-#: cms/templates/authentication/password_reset_confirm.html
-#: cms/templates/authentication/password_reset_form.html
-msgid "Back to log in"
-msgstr "Zurück zur Anmeldung"
-
 #: cms/templates/authentication/password_reset_form.html
 msgid "Enter your e-mail address here"
 msgstr "Ihre E-Mail-Adresse hier eingeben"
-
-#: cms/templates/authentication/totp_login.html
-#, python-format
-msgid ""
-"Please open your authenticator app on your device and enter the 6-digit code "
-"for \"%(BRANDING)s\" to verify your identity:"
-msgstr ""
-"Bitte öffnen Sie Ihre Authenticator-App und geben Sie den 6-stelligen Code "
-"für \"%(BRANDING)s\" ein, um ihre Identität zu bestätigen:"
 
 #: cms/templates/chat/_chat_messages.html
 msgid "Delete chat message"
@@ -5525,10 +5540,6 @@ msgstr "Bezeichner"
 #: cms/templates/languages/language_form.html
 msgid "This is in many cases a single (macro-)language tag, according to the"
 msgstr "Das ist in vielen Fällen ein einzelner (Makro-)Sprachen-Tag aus der"
-
-#: cms/templates/languages/language_form.html
-msgid "or"
-msgstr "oder"
 
 #: cms/templates/languages/language_form.html
 #, python-format
@@ -7631,9 +7642,9 @@ msgid "An error occurred! Could not send {}."
 msgstr "Es ist ein Fehler aufgetreten! Die {} konnte nicht versendet werden."
 
 #: cms/views/authentication/account_activation_view.py
-#: cms/views/authentication/mfa/mfa_assert_view.py
 #: cms/views/authentication/password_reset_confirm_view.py
 #: cms/views/authentication/password_reset_view.py
+#: cms/views/authentication/webauthn/webauthn_assert_view.py
 msgid "You are already logged in."
 msgstr "Sie sind bereits eingeloggt."
 
@@ -7666,11 +7677,6 @@ msgstr "Sie können sich jetzt mit dem neuen Passwort einloggen."
 #: cms/views/authentication/logout_view.py
 msgid "You have been successfully logged off."
 msgstr "Sie wurden erfolgreich abgemeldet."
-
-#: cms/views/authentication/mfa/mfa_assert_view.py
-#: cms/views/authentication/mfa/mfa_verify_view.py
-msgid "You need to log in first"
-msgstr "Sie müssen sich zunächst einloggen"
 
 #: cms/views/authentication/password_reset_confirm_view.py
 msgid "This password reset link is invalid."
@@ -7713,6 +7719,11 @@ msgstr "E-Mail zum Zurücksetzen des Passworts"
 #: cms/views/authentication/totp_login_view.py
 msgid "Login failed."
 msgstr "Login fehlgeschlagen."
+
+#: cms/views/authentication/webauthn/webauthn_assert_view.py
+#: cms/views/authentication/webauthn/webauthn_verify_view.py
+msgid "You need to log in first"
+msgstr "Sie müssen sich zunächst einloggen"
 
 #: cms/views/bulk_action_views.py
 msgid "Machine translations are disabled for language \"{}\""

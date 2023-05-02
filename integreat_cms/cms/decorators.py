@@ -118,10 +118,10 @@ def modify_mfa_authenticated(function):
             "modify_mfa_authentication_time"
         ] < (time.time() - 5 * 60):
             request.session["mfa_redirect_url"] = request.path
-            region_kargs = (
+            region_kwargs = (
                 {"region_slug": request.region.slug} if request.region else {}
             )
-            return redirect("authenticate_modify_mfa", **region_kargs)
+            return redirect("authenticate_modify_mfa", **region_kwargs)
         return function(request, *args, **kwargs)
 
     return wrap

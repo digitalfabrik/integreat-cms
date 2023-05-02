@@ -31,7 +31,7 @@ from ...conftest import (
 VIEWS = [
     (
         [
-            ("public:login_mfa", ALL_ROLES),
+            ("public:login_webauthn", ALL_ROLES),
             ("sitemap:index", ALL_ROLES),
             ("admin_dashboard", STAFF_ROLES),
             ("admin_feedback", STAFF_ROLES),
@@ -1336,7 +1336,7 @@ PARAMETRIZED_REDIRECT_VIEWS = [
 #: Public views that only work for anonymous users
 PARAMETRIZED_PUBLIC_VIEWS = [
     ("public:login", {}),
-    ("public:login_mfa", {}),
+    ("public:login_webauthn", {}),
     ("public:password_reset", {}),
     ("public:password_reset", {"email": "root@root.root"}),
 ]

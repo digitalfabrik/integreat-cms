@@ -5,9 +5,9 @@ from django.utils.translation import gettext_lazy as _
 from ..abstract_base_model import AbstractBaseModel
 
 
-class UserMfaKey(AbstractBaseModel):
+class UserFidoKey(AbstractBaseModel):
     """
-    Data model representing a user's multi-factor-authentication (MFA) key
+    Data model representing a user's FIDO key
     """
 
     user = models.ForeignKey(

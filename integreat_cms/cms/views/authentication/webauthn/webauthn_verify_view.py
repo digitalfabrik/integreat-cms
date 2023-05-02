@@ -12,10 +12,12 @@ from webauthn import base64url_to_bytes, verify_authentication_response
 from webauthn.helpers.exceptions import InvalidAuthenticationResponse
 from webauthn.helpers.structs import AuthenticationCredential
 
+from integreat_cms.cms.utils.mfa_utils import get_passwordless_mfa_user_id
+
 logger = logging.getLogger(__name__)
 
 
-class MfaVerifyView(View):
+class WebAuthnVerifyView(View):
     """
     Verify the response to the challenge generated in :class:`~integreat_cms.cms.views.authentication.mfa.mfa_assert_view.MfaAssertView`.
     After a successful verification, the user is logged in.
@@ -30,13 +32,12 @@ class MfaVerifyView(View):
         :return: The mfa challenge as JSON
         :rtype: ~django.http.JsonResponse
         """
-
-        if "mfa_user_id" not in request.session:
+        if not (user_id := get_passwordless_mfa_user_id(request)):
             return JsonResponse(
                 {"success": False, "error": _("You need to log in first")}, status=403
             )
 
-        user = get_user_model().objects.get(id=request.session["mfa_user_id"])
+        user = get_user_model().objects.get(id=user_id)
 
         challenge = request.session["challenge"]
         assertion_response = json.loads(request.body)

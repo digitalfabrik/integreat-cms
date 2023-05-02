@@ -39,7 +39,7 @@ class LoginView(auth_views.LoginView):
         if not user.passwordless_authentication_enabled:
             if user.mfa_keys.exists():
                 self.request.session["mfa_user_id"] = user.id
-                return redirect("public:login_mfa")
+                return redirect("public:login_webauthn")
 
             if user.totp_key:
                 self.request.session["mfa_user_id"] = user.id

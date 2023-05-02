@@ -24,3 +24,20 @@ def generate_challenge(challenge_len):
             for i in range(challenge_len)
         ]
     )
+
+
+def get_passwordless_mfa_user_id(request):
+    """
+    Get the user id from the session. This method can be used for the passwordless login, as well as the usual login mode.
+
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
+    :return: The user id
+    :rtype: int
+    """
+    if "mfa_user_id" in request.session:
+        return request.session["mfa_user_id"]
+    if "mfa_passwordless_user_id" in request.session:
+        return request.session["mfa_passwordless_user_id"]
+    return None

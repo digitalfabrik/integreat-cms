@@ -16,7 +16,7 @@ class TOTPLoginView(TemplateView):
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "authentication/totp_login.html"
+    template_name = "authentication/login_totp.html"
     #: The user who tries to authenticate
     user = None
 
@@ -51,6 +51,29 @@ class TOTPLoginView(TemplateView):
         # Now process dispatch as it otherwise normally would
         return super().dispatch(request, *args, **kwargs)
 
+    def get(self, request, *args, **kwargs):
+        r"""
+        Renders the login form
+
+        :param request: The current request
+        :type request: ~django.http.HttpRequest
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied kwargs
+        :type \**kwargs: dict
+
+        :return: Rendered login form
+        :rtype: ~django.http.HttpResponse
+        """
+
+        return render(
+            request,
+            self.template_name,
+            {"can_use_webauthn": self.user.mfa_keys.exists()},
+        )
+
     def post(self, request, *args, **kwargs):
         r"""
         Retrieves the entered TOTP code of the user and validates it.
@@ -67,7 +90,6 @@ class TOTPLoginView(TemplateView):
         :return: Redirection to region selection or rendered login form
         :rtype: ~django.http.HttpResponseRedirect
         """
-
         user_totp = request.POST.get("totp_code")
 
         if check_totp_code(user_totp, self.user.totp_key):

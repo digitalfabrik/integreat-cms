@@ -39,14 +39,9 @@ class PasswordlessLoginView(auth_views.LoginView):
         :return: Redirect user to mfa login view or to :attr:`~integreat_cms.core.settings.LOGIN_REDIRECT_URL`
         :rtype: ~django.http.HttpResponseRedirect
         """
-        authlog.info("User %r started passwordless authentication", form.user)
 
         if form.user.mfa_keys.exists():
-            self.request.session["mfa_user_id"] = form.user.id
-            return redirect("public:login_mfa")
-
-        if form.user.totp_key:
-            self.request.session["mfa_user_id"] = form.user.id
-            return redirect("public:login_totp")
+            self.request.session["mfa_passwordless_user_id"] = form.user.id
+            return redirect("public:login_webauthn")
 
         return redirect("public:login")
