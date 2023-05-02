@@ -1073,6 +1073,23 @@ urlpatterns = [
                                             include(
                                                 [
                                                     path(
+                                                        "revisions/",
+                                                        include(
+                                                            [
+                                                                path(
+                                                                    "",
+                                                                    events.EventRevisionView.as_view(),
+                                                                    name="event_revisions",
+                                                                ),
+                                                                path(
+                                                                    "<int:selected_revision>",
+                                                                    events.EventRevisionView.as_view(),
+                                                                    name="event_revisions",
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ),
+                                                    path(
                                                         "edit/",
                                                         events.EventFormView.as_view(),
                                                         name="edit_event",

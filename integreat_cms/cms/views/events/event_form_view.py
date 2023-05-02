@@ -111,6 +111,7 @@ class EventFormView(
             self.template_name,
             {
                 **self.get_context_data(**kwargs),
+                "event": event_instance,
                 "event_form": event_form,
                 "event_translation_form": event_translation_form,
                 "recurrence_rule_form": recurrence_rule_form,

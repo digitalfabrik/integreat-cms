@@ -1530,7 +1530,8 @@ msgstr "Verwalter:in"
 msgid "Editor"
 msgstr "Redakteur:in"
 
-#: cms/constants/roles.py cms/templates/imprint/imprint_revisions.html
+#: cms/constants/roles.py cms/templates/events/event_revisions.html
+#: cms/templates/imprint/imprint_revisions.html
 #: cms/templates/pages/page_revisions.html
 msgid "Author"
 msgstr "Autor:in"
@@ -1947,7 +1948,8 @@ msgstr ""
 "wählen Sie einen anderen Namen."
 
 #: cms/forms/pages/page_filter_form.py cms/templates/events/event_form.html
-#: cms/templates/events/event_list.html cms/templates/pages/page_form.html
+#: cms/templates/events/event_list.html
+#: cms/templates/events/event_revisions.html cms/templates/pages/page_form.html
 #: cms/templates/pages/page_revisions.html cms/templates/pages/page_tree.html
 #: cms/templates/pois/poi_form.html cms/templates/pois/poi_list.html
 msgid "Publication status"
@@ -3889,7 +3891,8 @@ msgstr "Feedback"
 msgid "Broken Links"
 msgstr "Fehlerhafte Links"
 
-#: cms/templates/_base.html cms/templates/imprint/imprint_revisions.html
+#: cms/templates/_base.html cms/templates/events/event_revisions.html
+#: cms/templates/imprint/imprint_revisions.html
 #: cms/templates/pages/_page_xliff_import_diff.html
 #: cms/templates/pages/page_revisions.html
 msgid "Content"
@@ -3953,6 +3956,7 @@ msgid "Location Categories"
 msgstr "Ortskategorien"
 
 #: cms/templates/_base.html cms/templates/events/event_form.html
+#: cms/templates/events/event_revisions.html
 #: cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_revisions.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
@@ -4595,6 +4599,11 @@ msgstr "Als Entwurf speichern"
 msgid "Submit for review"
 msgstr "Zur Überprüfung vorlegen"
 
+#: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
+#: cms/templates/pages/page_form.html
+msgid "Show"
+msgstr "Anzeigen"
+
 #: cms/templates/events/event_form.html cms/templates/pages/page_form.html
 #: cms/templates/pois/poi_form.html
 msgid "Edit"
@@ -4875,6 +4884,133 @@ msgstr ""
 msgid "Copy event"
 msgstr "Veranstaltung kopieren"
 
+#: cms/templates/events/event_revisions.html
+#, python-format
+msgid "Page versions of \"%(event_title)s\""
+msgstr "Versionen der Seite \"%(event_title)s\""
+
+#: cms/templates/events/event_revisions.html
+msgid "Back to the event form"
+msgstr "Zurück zum Veranstaltungs-Formular"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/feedback/_feedback_widget.html
+#: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
+#: cms/templates/imprint/imprint_revisions.html
+#: cms/templates/pages/page_revisions.html
+msgid "Date"
+msgstr "Datum"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/imprint/imprint_revisions.html
+#: cms/templates/pages/page_revisions.html
+msgid "This is the version shown in the apps."
+msgstr "Diese Version wird in den Apps angezeigt."
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/pages/page_revisions.html
+#, python-format
+msgid ""
+"This version is <b>not</b> displayed in the apps - but version %(version)s "
+"instead"
+msgstr ""
+"Diese Version wird <b>nicht</b> in den Apps angezeigt - sondern stattdessen "
+"Version %(version)s"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/pages/page_revisions.html
+msgid "This translation is <b>not</b> shown in the apps"
+msgstr "Diese Übersetzung wird <b>nicht</b> in den Apps angezeigt"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/imprint/imprint_form.html
+#: cms/templates/pages/page_revisions.html
+msgid "Minor edit"
+msgstr "Geringfügige Änderung"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/imprint/imprint_revisions.html
+#: cms/templates/pages/page_revisions.html
+msgid "Permalink"
+msgstr "Permalink"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/imprint/imprint_revisions.html
+#: cms/templates/pages/_page_xliff_import_diff.html
+#: cms/templates/pages/page_revisions.html
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "Title"
+msgstr "Titel"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/pages/page_revisions.html
+msgid "Discard auto save"
+msgstr "Automatische Speicherung verwerfen"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/pages/page_revisions.html
+msgid "Reject changes"
+msgstr "Änderungen ablehnen"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/pages/page_revisions.html
+msgid "Restore as draft"
+msgstr "Als Entwurf wiederherstellen"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/pages/page_revisions.html
+msgid "Restore auto save as draft"
+msgstr "Automatische Speicherung als Entwurf wiederherstellen"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/pages/page_revisions.html
+msgid "Accept and restore changes as draft"
+msgstr "Änderungen akzeptieren und als Entwurf wiederherstellen"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/pages/page_revisions.html
+msgid "Restore and publish"
+msgstr "Wiederherstellen und veröffentlichen"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/pages/page_revisions.html
+msgid "Restore and publish auto save"
+msgstr "Automatische Speicherung wiederherstellen und veröffentlichen"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/pages/page_revisions.html
+msgid "Accept, restore and publish changes"
+msgstr "Änderungen akzeptieren, wiederherstellen und veröffentlichen"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
+#: cms/templates/pages/page_revisions.html
+msgid "Refresh date"
+msgstr "Datum aktualisieren"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/pages/page_revisions.html
+msgid "Publish the current draft"
+msgstr "Den aktuellen Entwurf veröffentlichen"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/pages/page_revisions.html
+msgid "Publish auto save"
+msgstr "Automatische Speicherung veröffentlichen"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/pages/page_revisions.html
+msgid "Accept and publish the current changes"
+msgstr "Aktuelle Änderungen akzeptieren und veröffentlichen"
+
+#: cms/templates/events/event_revisions.html
+#: cms/templates/pages/page_revisions.html
+msgid "Restore this version and submit for review"
+msgstr "Diese Revision wiederherstellen und zum Review vorlegen"
+
 #: cms/templates/feedback/_feedback_widget.html
 msgid "Unread technical feedback"
 msgstr "Ungelesenes technisches Feedback"
@@ -4898,16 +5034,6 @@ msgstr "Feedback zu"
 #: cms/templates/feedback/region_feedback_list_archived.html
 msgid "Comment"
 msgstr "Kommentar"
-
-#: cms/templates/feedback/_feedback_widget.html
-#: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
-#: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
-#: cms/templates/imprint/imprint_revisions.html
-#: cms/templates/pages/page_revisions.html
-msgid "Date"
-msgstr "Datum"
 
 #: cms/templates/feedback/_feedback_widget.html
 msgid "No Feedback available yet."
@@ -5104,10 +5230,6 @@ msgid "Create imprint"
 msgstr "Impressum erstellen"
 
 #: cms/templates/imprint/imprint_form.html cms/templates/pages/page_form.html
-msgid "Show"
-msgstr "Anzeigen"
-
-#: cms/templates/imprint/imprint_form.html cms/templates/pages/page_form.html
 msgid "Short URL"
 msgstr "Kurz-URL"
 
@@ -5115,11 +5237,6 @@ msgstr "Kurz-URL"
 #: cms/templates/imprint/imprint_sbs.html
 msgid "Link to the imprint"
 msgstr "Link zum Impressum"
-
-#: cms/templates/imprint/imprint_form.html
-#: cms/templates/pages/page_revisions.html
-msgid "Minor edit"
-msgstr "Geringfügige Änderung"
 
 #: cms/templates/imprint/imprint_form.html
 msgid "Delete imprint"
@@ -5166,25 +5283,8 @@ msgid "deleted account"
 msgstr "gelöschtes Konto"
 
 #: cms/templates/imprint/imprint_revisions.html
-#: cms/templates/pages/page_revisions.html
-msgid "This is the version shown in the apps."
-msgstr "Diese Version wird in den Apps angezeigt."
-
-#: cms/templates/imprint/imprint_revisions.html
 msgid "This is <b>not</b> the version shown in the apps."
 msgstr "Diese Version wird <b>nicht</b> in den Apps angezeigt."
-
-#: cms/templates/imprint/imprint_revisions.html
-#: cms/templates/pages/page_revisions.html
-msgid "Permalink"
-msgstr "Permalink"
-
-#: cms/templates/imprint/imprint_revisions.html
-#: cms/templates/pages/_page_xliff_import_diff.html
-#: cms/templates/pages/page_revisions.html
-#: cms/templates/push_notifications/push_notification_list.html
-msgid "Title"
-msgstr "Titel"
 
 #: cms/templates/imprint/imprint_revisions.html
 msgid "Restore this version as draft"
@@ -5835,11 +5935,6 @@ msgid "Archived, because a parent page is archived"
 msgstr "Archiviert, weil eine übergeordnete Seite archiviert ist"
 
 #: cms/templates/pages/page_form_sidebar/actions_box.html
-#: cms/templates/pages/page_revisions.html
-msgid "Refresh date"
-msgstr "Datum aktualisieren"
-
-#: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "Mark this page as up-to-date"
 msgstr "Seite als aktuell markieren"
 
@@ -5986,69 +6081,8 @@ msgid "HIX"
 msgstr "HIX"
 
 #: cms/templates/pages/page_revisions.html
-#, python-format
-msgid ""
-"This version is <b>not</b> displayed in the apps - but version %(version)s "
-"instead"
-msgstr ""
-"Diese Version wird <b>nicht</b> in den Apps angezeigt - sondern stattdessen "
-"Version %(version)s"
-
-#: cms/templates/pages/page_revisions.html
-msgid "This translation is <b>not</b> shown in the apps"
-msgstr "Diese Übersetzung wird <b>nicht</b> in den Apps angezeigt"
-
-#: cms/templates/pages/page_revisions.html
-msgid "Discard auto save"
-msgstr "Automatische Speicherung verwerfen"
-
-#: cms/templates/pages/page_revisions.html
-msgid "Reject changes"
-msgstr "Änderungen ablehnen"
-
-#: cms/templates/pages/page_revisions.html
-msgid "Restore as draft"
-msgstr "Als Entwurf wiederherstellen"
-
-#: cms/templates/pages/page_revisions.html
-msgid "Restore auto save as draft"
-msgstr "Automatische Speicherung als Entwurf wiederherstellen"
-
-#: cms/templates/pages/page_revisions.html
-msgid "Accept and restore changes as draft"
-msgstr "Änderungen akzeptieren und als Entwurf wiederherstellen"
-
-#: cms/templates/pages/page_revisions.html
 msgid "Accept current changes as draft"
 msgstr "Aktuelle Änderungen als Entwurf akzeptieren"
-
-#: cms/templates/pages/page_revisions.html
-msgid "Restore and publish"
-msgstr "Wiederherstellen und veröffentlichen"
-
-#: cms/templates/pages/page_revisions.html
-msgid "Restore and publish auto save"
-msgstr "Automatische Speicherung wiederherstellen und veröffentlichen"
-
-#: cms/templates/pages/page_revisions.html
-msgid "Accept, restore and publish changes"
-msgstr "Änderungen akzeptieren, wiederherstellen und veröffentlichen"
-
-#: cms/templates/pages/page_revisions.html
-msgid "Publish the current draft"
-msgstr "Den aktuellen Entwurf veröffentlichen"
-
-#: cms/templates/pages/page_revisions.html
-msgid "Publish auto save"
-msgstr "Automatische Speicherung veröffentlichen"
-
-#: cms/templates/pages/page_revisions.html
-msgid "Accept and publish the current changes"
-msgstr "Aktuelle Änderungen akzeptieren und veröffentlichen"
-
-#: cms/templates/pages/page_revisions.html
-msgid "Restore this version and submit for review"
-msgstr "Diese Revision wiederherstellen und zum Review vorlegen"
 
 #: cms/templates/pages/page_sbs.html
 #, python-format
@@ -7484,8 +7518,9 @@ msgstr ""
 msgid "Event \"{}\" was successfully created"
 msgstr "Veranstaltung \"{}\" wurde erfolgreich erstellt"
 
-#: cms/views/events/event_form_view.py cms/views/pages/page_form_view.py
-#: cms/views/pages/page_revision_view.py cms/views/pois/poi_form_view.py
+#: cms/views/events/event_form_view.py cms/views/events/event_revision_view.py
+#: cms/views/pages/page_form_view.py cms/views/pages/page_revision_view.py
+#: cms/views/pois/poi_form_view.py
 msgid "No changes detected, but date refreshed"
 msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
@@ -7500,6 +7535,47 @@ msgid "You don't have the permission to edit or create events."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu bearbeiten "
 "oder zu erstellen."
+
+#: cms/views/events/event_revision_view.py
+msgid "You don't have the permission to restore versions of this event."
+msgstr ""
+"Sie haben nicht die nötige Berechtigung, um Versionen dieser Veranstaltung "
+"wiederherzustellen."
+
+#: cms/views/events/event_revision_view.py
+#: cms/views/imprint/imprint_revision_view.py
+#: cms/views/pages/page_revision_view.py
+msgid "This revision does not exist."
+msgstr "Diese Revision existiert nicht."
+
+#: cms/views/events/event_revision_view.py
+msgid "You cannot restore versions of this event because it is archived."
+msgstr ""
+"Sie können Versionen dieser Veranstaltung nicht bearbeiten, weil sie "
+"archiviert ist."
+
+#: cms/views/events/event_revision_view.py
+#: cms/views/pages/page_revision_view.py
+msgid "You cannot reject changes if there is no version to return to."
+msgstr ""
+"Sie können keine Änderungen ablehnen, wenn es keine Version gibt, zu der Sie "
+"zurückkehren können."
+
+#: cms/views/events/event_revision_view.py
+#: cms/views/pages/page_revision_view.py
+msgid "No changes detected, but status changed to published"
+msgstr "Keine Änderungen vorgenommen, aber Status zu veröffentlicht geändert"
+
+#: cms/views/events/event_revision_view.py
+#: cms/views/pages/page_revision_view.py
+msgid "This version is identical to the current version of this translation."
+msgstr ""
+"Diese Version ist identisch mit der aktuellen Version dieser Übersetzung."
+
+#: cms/views/events/event_revision_view.py
+#: cms/views/pages/page_revision_view.py
+msgid "The version was successfully restored"
+msgstr "Die Version wurde erfolgreich wiederhergestellt"
 
 #: cms/views/feedback/admin_feedback_actions.py
 #: cms/views/feedback/region_feedback_actions.py
@@ -7573,11 +7649,6 @@ msgstr "Impressum wurde erfolgreich erstellt"
 #, python-brace-format
 msgid "{source_language} to {target_language}"
 msgstr "{source_language} nach {target_language}"
-
-#: cms/views/imprint/imprint_revision_view.py
-#: cms/views/pages/page_revision_view.py
-msgid "This revision does not exist."
-msgstr "Diese Revision existiert nicht."
 
 #: cms/views/imprint/imprint_revision_view.py
 msgid "You don't have the permission restore revisions of the imprint."
@@ -8140,25 +8211,6 @@ msgstr ""
 msgid "You cannot restore versions of this page because it is archived."
 msgstr ""
 "Sie können Versionen dieser Seite nicht bearbeiten, weil sie archiviert ist."
-
-#: cms/views/pages/page_revision_view.py
-msgid "You cannot reject changes if there is no version to return to."
-msgstr ""
-"Sie können keine Änderungen ablehnen, wenn es keine Version gibt, zu der Sie "
-"zurückkehren können."
-
-#: cms/views/pages/page_revision_view.py
-msgid "No changes detected, but status changed to published"
-msgstr "Keine Änderungen vorgenommen, aber Status zu veröffentlicht geändert"
-
-#: cms/views/pages/page_revision_view.py
-msgid "This version is identical to the current version of this translation."
-msgstr ""
-"Diese Version ist identisch mit der aktuellen Version dieser Übersetzung."
-
-#: cms/views/pages/page_revision_view.py
-msgid "The version was successfully restored"
-msgstr "Die Version wurde erfolgreich wiederhergestellt"
 
 #: cms/views/pages/page_tree_view.py
 msgid "You can edit only those pages: "
