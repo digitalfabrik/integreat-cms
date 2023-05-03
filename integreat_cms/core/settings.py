@@ -265,6 +265,7 @@ INSTALLED_APPS = [
     "db_mutex",
     "linkcheck",
     "polymorphic",
+    "rest_framework",
     "rules.apps.AutodiscoverRulesConfig",
     "treebeard",
     "webpack_loader",

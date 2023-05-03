@@ -24,6 +24,7 @@ from django.urls import include, path
 #: The url patterns of this module (see :doc:`django:topics/http/urls`)
 urlpatterns = [
     path("", include("integreat_cms.api.urls")),
+    path("", include("integreat_cms.apiv2.urls")),
     path(
         "i18n/",
         include(

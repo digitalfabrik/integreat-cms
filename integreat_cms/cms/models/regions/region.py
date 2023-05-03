@@ -814,6 +814,15 @@ class Region(AbstractBaseModel):
             },
         )
 
+    def is_live(self):
+        """
+        This function returns whether this region is currently live
+
+        :return: Whether the status is Active
+        :rtype: bool
+        """
+        return self.status == region_status.ACTIVE
+
     def __str__(self):
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Region object (id)``.
