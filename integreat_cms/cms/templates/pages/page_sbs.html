@@ -22,7 +22,7 @@
                     {% if not source_page_translation.page.archived %}
                         {% has_perm 'cms.publish_page_object' request.user source_page_translation.page as can_publish_page %}
                         {% if can_publish_page %}
-                            <button name="status" value="{{ DRAFT }}" class="btn btn-gray">{% translate "Save as draft" %}</button>
+                            <button name="status" value="{{ DRAFT }}" class="btn btn-outline">{% translate "Save as draft" %}</button>
                             <button name="status" value="{{ PUBLIC }}" class="btn">
                                 {% if page_translation_form.instance.status == PUBLIC %}
                                     {% translate "Update" %}

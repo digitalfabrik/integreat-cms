@@ -27,7 +27,6 @@ def test_replace_links_missing_replace():
     assert str(exc_info.value) == "Error: the following arguments are required: replace"
 
 
-# pylint: disable=unused-argument
 @pytest.mark.django_db
 def test_replace_links_non_existing_region(load_test_data):
     """
@@ -45,7 +44,6 @@ def test_replace_links_non_existing_region(load_test_data):
     assert str(exc_info.value) == 'Region with slug "non-existing" does not exist.'
 
 
-# pylint: disable=unused-argument
 @pytest.mark.django_db
 def test_replace_links_non_existing_username(load_test_data):
     """
@@ -63,7 +61,6 @@ def test_replace_links_non_existing_username(load_test_data):
     assert str(exc_info.value) == 'User with username "non-existing" does not exist.'
 
 
-# pylint: disable=unused-argument
 @pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True, serialized_rollback=True)
 def test_replace_links_dry_run(load_test_data_transactional):
@@ -111,7 +108,6 @@ def test_replace_links_dry_run(load_test_data_transactional):
     ).exists(), "Replaced link should not be created during dry run"
 
 
-# pylint: disable=unused-argument
 @pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True, serialized_rollback=True)
 def test_replace_links_commit(load_test_data_transactional):

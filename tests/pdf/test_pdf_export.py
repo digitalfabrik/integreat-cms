@@ -6,7 +6,7 @@ import pytest
 from django.urls import reverse
 
 
-# pylint: disable=unused-argument,too-many-locals
+# pylint: disable=too-many-locals
 @pytest.mark.django_db
 # Override urls to serve PDF files
 @pytest.mark.urls("tests.pdf.dummy_django_app.static_urls")

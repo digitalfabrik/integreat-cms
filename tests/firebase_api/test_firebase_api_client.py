@@ -24,7 +24,6 @@ class TestFirebaseApiClient:
         "404": {"reason": "", "status_code": 404},
     }
 
-    # pylint: disable=unused-argument
     @pytest.mark.django_db
     def test_client_throws_exception_when_fcm_disabled(self, settings, load_test_data):
         """
@@ -41,7 +40,6 @@ class TestFirebaseApiClient:
         with pytest.raises(ImproperlyConfigured):
             FirebaseApiClient(notification)
 
-    # pylint: disable=unused-argument
     @pytest.mark.django_db
     def test_is_valid(self, settings, load_test_data):
         """
@@ -58,7 +56,6 @@ class TestFirebaseApiClient:
         notification = PushNotification.objects.first()
         assert FirebaseApiClient(notification).is_valid()
 
-    # pylint: disable=unused-argument
     @pytest.mark.django_db
     def test_is_invalid_when_no_translation(self, settings, load_test_data):
         """
@@ -77,7 +74,6 @@ class TestFirebaseApiClient:
         pns.prepared_pnts = []
         assert not pns.is_valid()
 
-    # pylint: disable=unused-argument
     @pytest.mark.django_db
     def test_is_invalid_when_no_title(self, settings, load_test_data):
         """
@@ -96,7 +92,6 @@ class TestFirebaseApiClient:
         pns.prepared_pnts[0].title = ""
         assert not pns.is_valid()
 
-    # pylint: disable=unused-argument
     @pytest.mark.django_db
     def test_firebase_api_200_success(
         self, settings, load_test_data, requests_mock, caplog
@@ -123,7 +118,6 @@ class TestFirebaseApiClient:
             assert "sent, FCM id: 1" in record.message
         assert status
 
-    # pylint: disable=unused-argument
     @pytest.mark.django_db
     def test_firebase_api_200_unexpected_api_response(
         self, settings, load_test_data, requests_mock, caplog
@@ -151,7 +145,6 @@ class TestFirebaseApiClient:
             assert "sent, but unexpected API response" in record.message
         assert status
 
-    # pylint: disable=unused-argument
     @pytest.mark.django_db
     def test_firebase_api_403_wrong_token(
         self, settings, load_test_data, requests_mock, caplog
@@ -179,7 +172,6 @@ class TestFirebaseApiClient:
             assert "Received invalid response from FCM for" in record.message
         assert not status
 
-    # pylint: disable=unused-argument
     @pytest.mark.django_db
     def test_firebase_api_404(self, settings, load_test_data, requests_mock, caplog):
         """

@@ -5,7 +5,6 @@ from django.urls import reverse
 from .view_config import PARAMETRIZED_PUBLIC_VIEWS
 
 
-# pylint: disable=unused-argument
 @pytest.mark.django_db
 @pytest.mark.parametrize("view_name,post_data", PARAMETRIZED_PUBLIC_VIEWS)
 def test_public_view_status_code(load_test_data, view_name, post_data):

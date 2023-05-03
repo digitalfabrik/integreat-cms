@@ -5,7 +5,6 @@ from django.urls import resolve, reverse
 from integreat_cms.cms.models import Page
 
 
-# pylint: disable=unused-argument
 @pytest.mark.django_db
 def test_api_push_page_content(load_test_data):
     """

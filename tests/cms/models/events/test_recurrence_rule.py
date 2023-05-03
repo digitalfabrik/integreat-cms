@@ -8,7 +8,6 @@ import pytz
 from integreat_cms.cms.models import Event, RecurrenceRule
 
 
-# pylint: disable=missing-function-docstring
 class TestCreatingIcalRule:
     """
     Test whether to_ical_rrule_string function is calculating the rrule correctly

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script can be used to run the pylint_runner while ignoring migrations.
+# This script can be used to run pylint
 
 # Import utility functions
 # shellcheck source=./tools/_functions.sh
@@ -10,5 +10,6 @@ require_installed
 
 # Run pylint
 echo "Starting code linting with pylint..." | print_info
-pylint .
+# Explicitly include cli which does not have a .py ending
+pylint . integreat_cms/integreat-cms-cli
 echo "✔ Linting finished" | print_success

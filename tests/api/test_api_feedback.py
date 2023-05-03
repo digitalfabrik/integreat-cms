@@ -34,7 +34,6 @@ feedback_type_dict = {
 }
 
 
-# pylint: disable=unused-argument
 @pytest.mark.django_db
 @pytest.mark.parametrize("view_name,post_data", API_FEEDBACK_VIEWS)
 def test_api_feedback_success(load_test_data, view_name, post_data):
@@ -82,7 +81,6 @@ def test_api_feedback_success(load_test_data, view_name, post_data):
     assert feedback.region_id == 1
 
 
-# pylint: disable=unused-argument
 @pytest.mark.django_db
 @pytest.mark.parametrize(
     "view_name,kwargs,post_data,response_data", API_FEEDBACK_ERRORS
@@ -118,7 +116,6 @@ def test_api_feedback_errors(
     assert not Feedback.objects.exists()
 
 
-# pylint: disable=unused-argument
 @pytest.mark.django_db
 def test_api_feedback_invalid_method(load_test_data):
     """

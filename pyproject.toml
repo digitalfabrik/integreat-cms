@@ -86,6 +86,7 @@ dev = [
     "pyjwt",
     "pylint",
     "pylint-django",
+    "pylint-per-file-ignores",
     "pytest-circleci-parallelized",
     "pytest-cov",
     "pytest-django",
@@ -251,6 +252,7 @@ dev-pinned = [
     "PyJWT==2.6.0",
     "pylint==2.17.2",
     "pylint-django==2.5.3",
+    "pylint-per-file-ignores==1.2.0",
     "pylint-plugin-utils==0.7",
     "pyproject_hooks==1.0.0",
     "pytest==7.2.2",
@@ -340,6 +342,7 @@ order_by_type = false
 jobs = 0
 load-plugins = [
     "pylint_django",
+    "pylint_per_file_ignores",
     "pylint.extensions.code_style",
     "pylint.extensions.comparetozero",
     "pylint.extensions.comparison_placement",
@@ -387,3 +390,6 @@ enable = [
 
 [tool.pylint.reports]
 output-format = "colorized"
+
+[tool.pylint-per-file-ignores]
+"/tests/"="unused-argument,missing-function-docstring"

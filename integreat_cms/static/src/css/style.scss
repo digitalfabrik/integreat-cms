@@ -116,6 +116,18 @@ input[type="submit"] {
         svg {
             @apply pr-1;
         }
+        &.btn-ghost {
+            @apply bg-blue-100 text-blue-500;
+            &:hover {
+                @apply bg-blue-200;
+            }
+        }
+        &.btn-outline {
+            @apply border-2 border-blue-500 text-blue-500 bg-white;
+            &:hover {
+                @apply bg-blue-100;
+            }
+        }
         // Pseudo-classes
         &:hover {
             @apply bg-blue-600;
@@ -125,7 +137,7 @@ input[type="submit"] {
         }
         &:disabled,
         &[disabled] {
-            @apply bg-gray-500 cursor-not-allowed;
+            @apply bg-gray-400 cursor-not-allowed;
         }
         // Different types of buttons
         &.btn-small {
@@ -135,12 +147,6 @@ input[type="submit"] {
             @apply bg-gray-500;
             &:hover {
                 @apply bg-gray-600;
-            }
-        }
-        &.btn-light-blue {
-            @apply bg-blue-300;
-            &:hover {
-                @apply bg-blue-400;
             }
         }
         &.btn-red {
@@ -217,8 +223,7 @@ select,
 [type="tel"],
 [type="time"],
 [type="week"],
-textarea,
-.slug-field {
+textarea {
     &:read-only {
         @apply text-gray-500 pointer-events-none cursor-not-allowed;
     }

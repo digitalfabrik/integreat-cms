@@ -9,7 +9,7 @@ from integreat_cms.cms.models import LanguageTreeNode, Page, Region
 from integreat_cms.cms.utils.linkcheck_utils import get_url_count
 
 
-# pylint: disable=unused-argument,too-many-locals
+# pylint: disable=too-many-locals
 @pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True, serialized_rollback=True)
 def test_duplicate_regions(load_test_data_transactional, admin_client):

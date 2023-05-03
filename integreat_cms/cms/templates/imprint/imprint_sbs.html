@@ -19,7 +19,7 @@
                 </a>
                 {% if perms.cms.change_imprintpage %}
                     <div class="flex flex-wrap gap-2">
-                        <button name="status" value="{{ DRAFT }}" class="btn btn-gray">{% translate "Save as draft" %}</button>
+                        <button name="status" value="{{ DRAFT }}" class="btn btn-outline">{% translate "Save as draft" %}</button>
                         <button name="status" value="{{ PUBLIC }}" class="btn">
                             {% if imprint_translation_form.instance.status == PUBLIC %}
                                 {% translate "Update" %}

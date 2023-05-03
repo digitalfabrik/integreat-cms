@@ -372,7 +372,7 @@ const OpeningHoursInputFields = ({ openingHoursState, selectedDaysState, transla
                                     {translations.addMoreText}
                                 </button>
                                 <div class="flex flex-wrap justify-end gap-4">
-                                    <button class="btn btn-gray" onClick={closeInputFields} type="button">
+                                    <button class="btn btn-outline" onClick={closeInputFields} type="button">
                                         {translations.cancelText}
                                     </button>
                                     <button class="btn" onClick={save} type="button">
