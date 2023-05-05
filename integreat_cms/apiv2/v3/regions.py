@@ -13,7 +13,7 @@ class RegionSerializer(ReadOnlyModelSerializer):
 
     id = serializers.IntegerField()
     name = serializers.CharField(source="full_name")
-    path = serializers.CharField(source="slug")
+    path = serializers.SlugField(source="slug")
     live = serializers.BooleanField(source="is_live")
     prefix = serializers.CharField()
     name_without_prefix = serializers.CharField(source="name")
