@@ -605,22 +605,22 @@ VIEWS = [
     (
         [
             (
-                "page_revisions",
+                "page_versions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 1, "status": status.REVIEW},
             ),
             (
-                "page_revisions",
+                "page_versions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
                 {"revision": 1, "status": status.PUBLIC},
             ),
             (
-                "page_revisions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                "page_versions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 1, "status": status.DRAFT},
             ),
             (
-                "page_revisions",
+                "page_versions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
                 {"revision": 2, "status": status.PUBLIC},
             ),
@@ -631,22 +631,22 @@ VIEWS = [
     (
         [
             (
-                "page_revisions",
+                "page_versions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 1, "status": status.REVIEW},
             ),
             (
-                "page_revisions",
+                "page_versions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
                 {"revision": 1, "status": status.PUBLIC},
             ),
             (
-                "page_revisions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                "page_versions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 1, "status": status.DRAFT},
             ),
             (
-                "page_revisions",
+                "page_versions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
                 {"revision": 2, "status": status.PUBLIC},
             ),
@@ -657,28 +657,28 @@ VIEWS = [
     (
         [
             (
-                "page_revisions",
+                "page_versions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 1, "status": status.REVIEW},
             ),
             (
-                "page_revisions",
+                "page_versions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
                 {"revision": 1, "status": status.PUBLIC},
             ),
             (
-                "page_revisions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                "page_versions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 1, "status": status.DRAFT},
             ),
             (
-                "page_revisions",
+                "page_versions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
                 {"revision": 2, "status": status.PUBLIC},
             ),
             (
-                "page_revisions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                "page_versions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 2},
             ),
         ],
@@ -688,33 +688,138 @@ VIEWS = [
     (
         [
             (
-                "page_revisions",
+                "page_versions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 1, "status": status.REVIEW},
             ),
             (
-                "page_revisions",
+                "page_versions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
                 {"revision": 1, "status": status.PUBLIC},
             ),
             (
-                "page_revisions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                "page_versions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 1, "status": status.DRAFT},
             ),
             (
-                "page_revisions",
+                "page_versions",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
                 {"revision": 2, "status": status.PUBLIC},
             ),
             (
-                "page_revisions",
-                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
+                "page_versions",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {"revision": 2},
             ),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "de", "page_id": 15},
+    ),
+    (
+        [
+            (
+                "page_versions",
+                # Archived pages should raise PermissionDenied for all roles
+                [],
+                {"revision": 1, "status": status.PUBLIC},
+            )
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "de", "page_id": 25},
+    ),
+    (
+        [
+            (
+                "poi_versions",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"revision": 1, "status": status.REVIEW},
+            ),
+            (
+                "poi_versions",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"revision": 1, "status": status.PUBLIC},
+            ),
+            (
+                "poi_versions",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"revision": 1, "status": status.DRAFT},
+            ),
+            (
+                "poi_versions",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"revision": 1},
+            ),
+            (
+                "poi_versions",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"revision": 2, "status": status.PUBLIC},
+            ),
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "de", "poi_id": 4},
+    ),
+    (
+        [
+            (
+                "event_versions",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"revision": 1, "status": status.REVIEW},
+            ),
+            (
+                "event_versions",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"revision": 1, "status": status.PUBLIC},
+            ),
+            (
+                "event_versions",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"revision": 1, "status": status.DRAFT},
+            ),
+            (
+                "event_versions",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"revision": 1},
+            ),
+            (
+                "event_versions",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"revision": 2, "status": status.PUBLIC},
+            ),
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "de", "event_id": 1},
+    ),
+    (
+        [
+            (
+                "imprint_versions",
+                PRIV_STAFF_ROLES + [MANAGEMENT],
+                {"revision": 1, "status": status.REVIEW},
+            ),
+            (
+                "imprint_versions",
+                PRIV_STAFF_ROLES + [MANAGEMENT],
+                {"revision": 1, "status": status.PUBLIC},
+            ),
+            (
+                "imprint_versions",
+                PRIV_STAFF_ROLES + [MANAGEMENT],
+                {"revision": 1, "status": status.DRAFT},
+            ),
+            (
+                "imprint_versions",
+                PRIV_STAFF_ROLES + [MANAGEMENT],
+                {"revision": 1},
+            ),
+            (
+                "imprint_versions",
+                PRIV_STAFF_ROLES + [MANAGEMENT],
+                {"revision": 2, "status": status.PUBLIC},
+            ),
+        ],
+        # The kwargs for these views
+        {"region_slug": "augsburg", "language_slug": "de"},
     ),
     (
         [
@@ -811,7 +916,7 @@ VIEWS = [
                 },
             ),
             ("sbs_edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
-            ("page_revisions", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
+            ("page_versions", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             (
                 "archive_page",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
@@ -873,7 +978,7 @@ VIEWS = [
         [
             ("edit_page", STAFF_ROLES),
             ("sbs_edit_page", STAFF_ROLES),
-            ("page_revisions", STAFF_ROLES),
+            ("page_versions", STAFF_ROLES),
             ("archive_page", PRIV_STAFF_ROLES, {"post_data": True}),
             ("restore_page", PRIV_STAFF_ROLES, {"post_data": True}),
             ("delete_page", HIGH_PRIV_STAFF_ROLES, {"post_data": True}),
@@ -899,13 +1004,13 @@ VIEWS = [
         },
     ),
     (
-        [("page_revisions", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER])],
+        [("page_versions", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER])],
         # The kwargs for these views
         {
             "region_slug": "augsburg",
             "language_slug": "de",
             "page_id": 1,
-            "selected_revision": 1,
+            "selected_version": 1,
         },
     ),
     (
@@ -1138,6 +1243,85 @@ REDIRECT_VIEWS = [
         ],
         # The kwargs for these views
         {"short_url_id": 1},
+    ),
+    (
+        [
+            (
+                "page_versions",
+                ROLES,
+                "/augsburg/pages/de/1/versions/",
+            ),
+        ],
+        # The kwargs for these views
+        {
+            "region_slug": "augsburg",
+            "language_slug": "de",
+            "page_id": 1,
+            "selected_version": 999,
+        },
+    ),
+    (
+        [
+            (
+                "page_versions",
+                ROLES,
+                "/augsburg/pages/en/2/edit/",
+            ),
+        ],
+        # The kwargs for these views
+        {
+            "region_slug": "augsburg",
+            "language_slug": "en",
+            "page_id": 2,
+            "selected_version": 1,
+        },
+    ),
+    (
+        [
+            (
+                "event_versions",
+                ROLES,
+                "/augsburg/events/de/1/versions/",
+            ),
+        ],
+        # The kwargs for these views
+        {
+            "region_slug": "augsburg",
+            "language_slug": "de",
+            "event_id": 1,
+            "selected_version": 999,
+        },
+    ),
+    (
+        [
+            (
+                "poi_versions",
+                ROLES,
+                "/augsburg/pois/de/4/versions/",
+            ),
+        ],
+        # The kwargs for these views
+        {
+            "region_slug": "augsburg",
+            "language_slug": "de",
+            "poi_id": 4,
+            "selected_version": 999,
+        },
+    ),
+    (
+        [
+            (
+                "imprint_versions",
+                ROLES,
+                "/augsburg/imprint/de/versions/",
+            ),
+        ],
+        # The kwargs for these views
+        {
+            "region_slug": "augsburg",
+            "language_slug": "de",
+            "selected_version": 999,
+        },
     ),
 ]
 

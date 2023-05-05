@@ -12,3 +12,4 @@ from .poi_actions import (
 from .poi_form_ajax_view import POIFormAjaxView
 from .poi_form_view import POIFormView
 from .poi_list_view import POIListView
+from .poi_version_view import POIVersionView

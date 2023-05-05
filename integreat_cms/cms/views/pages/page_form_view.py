@@ -8,6 +8,7 @@ from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
 from ...constants import status, text_directions
@@ -95,7 +96,7 @@ class PageFormView(
                 # Indicate autosaves and changes pending review
                 if page_translation.status in [status.AUTO_SAVE, status.REVIEW]:
                     revision_url = reverse(
-                        "page_revisions",
+                        "page_versions",
                         kwargs={
                             "region_slug": region.slug,
                             "language_slug": language.slug,
@@ -132,12 +133,12 @@ class PageFormView(
                             _("The latest changes have only been saved as a draft."),
                         )
                     revision_url = reverse(
-                        "page_revisions",
+                        "page_versions",
                         kwargs={
                             "region_slug": region.slug,
                             "language_slug": language.slug,
                             "page_id": page.id,
-                            "selected_revision": public_translation.version,
+                            "selected_version": public_translation.version,
                         },
                     )
                     message = _(
@@ -341,12 +342,12 @@ class PageFormView(
                     page__region=region, slug=user_slug, language=language
                 ).first()
                 other_translation_link = reverse(
-                    "page_revisions",
+                    "page_versions",
                     kwargs={
                         "page_id": other_translation.page.id,
                         "language_slug": language.slug,
                         "region_slug": region.slug,
-                        "selected_revision": other_translation.version,
+                        "selected_version": other_translation.version,
                     },
                 )
                 message = _(

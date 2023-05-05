@@ -1,6 +1,5 @@
 import logging
 
-from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -16,13 +15,14 @@ from ...utils.content_edit_lock import get_locking_user
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
 from ..media.media_context_mixin import MediaContextMixin
+from .imprint_context_mixin import ImprintContextMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_imprintpage"), name="dispatch")
 @method_decorator(permission_required("cms.change_imprintpage"), name="post")
-class ImprintFormView(TemplateView, MediaContextMixin):
+class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
     """
     View for the imprint page form and imprint page translation form
     """
@@ -31,8 +31,6 @@ class ImprintFormView(TemplateView, MediaContextMixin):
     template_name = "imprint/imprint_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {
-        "current_menu_item": "imprint",
-        "IMPRINT_SLUG": settings.IMPRINT_SLUG,
         "translation_status": translation_status,
     }
 
@@ -100,11 +98,11 @@ class ImprintFormView(TemplateView, MediaContextMixin):
                 and public_translation.id  # checking that public translation is not a fallback translation
             ):
                 public_translation_url = reverse(
-                    "imprint_revisions",
+                    "imprint_versions",
                     kwargs={
                         "region_slug": region.slug,
                         "language_slug": language.slug,
-                        "selected_revision": public_translation.version,
+                        "selected_version": public_translation.version,
                     },
                 )
                 message = __(
