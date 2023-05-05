@@ -29,6 +29,7 @@ from ..views import (
     analytics,
     bulk_action_views,
     chat,
+    content_revision_view,
     dashboard,
     delete_views,
     events,
@@ -879,12 +880,12 @@ urlpatterns = [
                                                             [
                                                                 path(
                                                                     "",
-                                                                    pages.PageRevisionView.as_view(),
+                                                                    content_revision_view.PageRevisionView.as_view(),
                                                                     name="page_revisions",
                                                                 ),
                                                                 path(
                                                                     "<int:selected_revision>/",
-                                                                    pages.PageRevisionView.as_view(),
+                                                                    content_revision_view.PageRevisionView.as_view(),
                                                                     name="page_revisions",
                                                                 ),
                                                             ],
@@ -1189,6 +1190,23 @@ urlpatterns = [
                                                         "delete/",
                                                         pois.delete_poi,
                                                         name="delete_poi",
+                                                    ),
+                                                    path(
+                                                        "revisions/",
+                                                        include(
+                                                            [
+                                                                path(
+                                                                    "",
+                                                                    content_revision_view.POIRevisionView.as_view(),
+                                                                    name="poi_revisions",
+                                                                ),
+                                                                path(
+                                                                    "<int:selected_revision>/",
+                                                                    content_revision_view.POIRevisionView.as_view(),
+                                                                    name="poi_revisions",
+                                                                ),
+                                                            ],
+                                                        ),
                                                     ),
                                                 ]
                                             ),
