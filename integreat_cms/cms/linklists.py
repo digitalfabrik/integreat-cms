@@ -1,7 +1,7 @@
 from django.conf import settings
 from linkcheck import Linklist
 
-from .models import EventTranslation, Page, PageTranslation, POITranslation
+from .models import Event, EventTranslation, Page, PageTranslation, POITranslation
 
 
 class ContentTranslationLinklist(Linklist):
@@ -59,6 +59,20 @@ class EventTranslationLinklist(ContentTranslationLinklist):
     """
 
     model = EventTranslation
+
+    @classmethod
+    def filter_callable(cls, objects):
+        """
+        Get only translations of upcoming events
+
+        :param objects: Objects to be filtered
+        :type objects: ~django.db.models.query.QuerySet
+
+        :return: Objects that passed the filter
+        :rtype: ~django.db.models.query.QuerySet
+        """
+        upcoming_events = Event.objects.filter_upcoming()
+        return objects.filter(event__in=upcoming_events)
 
 
 class POITranslationLinklist(ContentTranslationLinklist):
