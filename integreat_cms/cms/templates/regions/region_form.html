@@ -448,9 +448,16 @@
                 </div>
                 <div class="px-4 pb-4">
                     <label for="{{ form.duplicated_region.id_for_label }}">
-                        {% translate "Copy languages, pages and media from another region" %}
+                        {{ form.duplicated_region.label }}
                     </label>
                     {% render_field form.duplicated_region %}
+                    {% render_field form.duplication_keep_status %}
+                    <label for="{{ form.duplication_keep_status.id_for_label }}">
+                        {{ form.duplication_keep_status.label }}
+                    </label>
+                    <div class="help-text">
+                        {{ form.duplication_keep_status.help_text }}
+                    </div>
                 </div>
             </div>
         {% endif %}
