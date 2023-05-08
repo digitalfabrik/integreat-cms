@@ -73,8 +73,17 @@ class RegionForm(CustomModelForm):
 
     duplicated_region = forms.ModelChoiceField(
         queryset=Region.objects.all(),
+        label=_("Copy languages, pages and media from another region"),
         empty_label=_("Do no import initial content"),
         required=False,
+    )
+
+    duplication_keep_status = forms.BooleanField(
+        required=False,
+        label=_("Keep publication status of pages"),
+        help_text=_(
+            "Enable it to keep the initial publication status of the pages and don't overwrite them to draft."
+        ),
     )
 
     timezone_area = forms.ChoiceField(
@@ -200,6 +209,7 @@ class RegionForm(CustomModelForm):
 
         if duplicate_region:
             source_region = self.cleaned_data["duplicated_region"]
+            keep_status = self.cleaned_data["duplication_keep_status"]
             # Duplicate language tree
             logger.info("Duplicating language tree of %r to %r", source_region, region)
             duplicate_language_tree(source_region, region)
@@ -207,7 +217,7 @@ class RegionForm(CustomModelForm):
             with disable_listeners():
                 # Duplicate pages
                 logger.info("Duplicating page tree of %r to %r", source_region, region)
-                duplicate_pages(source_region, region)
+                duplicate_pages(source_region, region, keep_status=keep_status)
                 # Duplicate Imprint
                 if source_region.imprint:
                     logger.info(
@@ -593,6 +603,7 @@ def duplicate_pages(
     source_parent=None,
     target_parent=None,
     logging_prefix="",
+    keep_status=False,
 ):
     """
     Function to duplicate all non-archived pages from one region to another
@@ -614,8 +625,11 @@ def duplicate_pages(
     :param target_parent: The page of the target region which is the duplicate of the source parent page
     :type target_parent: ~integreat_cms.cms.models.pages.page.Page
 
-    :param logging_prefix: recursion level to get a pretty log output
+    :param logging_prefix: Recursion level to get a pretty log output
     :type logging_prefix: str
+
+    :param keep_status: Parameter to indicate whether the status of the cloned pages should be kept
+    :type keep_status: bool
     """
 
     logger.debug(
@@ -672,7 +686,9 @@ def duplicate_pages(
             row_logging_prefix + "├─",
             target_page,
         )
-        duplicate_page_translations(source_page, target_page, row_logging_prefix)
+        duplicate_page_translations(
+            source_page, target_page, row_logging_prefix, keep_status
+        )
         if not source_page.is_leaf():
             # Recursively call this function with the current pages as new parents
             duplicate_pages(
@@ -681,10 +697,11 @@ def duplicate_pages(
                 source_page,
                 target_page,
                 row_logging_prefix,
+                keep_status,
             )
 
 
-def duplicate_page_translations(source_page, target_page, logging_prefix):
+def duplicate_page_translations(source_page, target_page, logging_prefix, keep_status):
     """
     Duplicate all translations of a given source page to a given target page
 
@@ -696,6 +713,9 @@ def duplicate_page_translations(source_page, target_page, logging_prefix):
 
     :param logging_prefix: The prefix to be used for logging
     :type logging_prefix: str
+
+    :param keep_status: Parameter to indicate whether the status of the cloned pages should be kept
+    :type keep_status: bool
     """
     logger.debug(
         "%s Duplicating page translations",
@@ -707,13 +727,15 @@ def duplicate_page_translations(source_page, target_page, logging_prefix):
     translation_row_logging_prefix = logging_prefix + (
         "  " if source_page.is_leaf() else "│  "
     )
+
     for i, page_translation in enumerate(source_page_translations):
         # Set the page of the source translation to the new page
         page_translation.page = target_page
         # Delete the primary key to duplicate the object instance instead of updating it
         page_translation.pk = None
-        # Set the translation to draft
-        page_translation.status = status.DRAFT
+        # Set the translation to draft if keep_status is false
+        if keep_status is False:
+            page_translation.status = status.DRAFT
         # Check if the page translation is valid
         page_translation.full_clean()
         # Save duplicated page translation
