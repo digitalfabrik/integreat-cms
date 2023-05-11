@@ -28,7 +28,9 @@
                 {% if page %}
                     {% if page_translation_form.instance.id %}
                         {% with page_translation_form.instance.title as page_title %}
-                            {% blocktrans %}Edit page "{{ page_title }}"{% endblocktrans %}
+                            {% blocktranslate trimmed %}
+                                Edit page "{{ page_title }}"
+                            {% endblocktranslate %}
                         {% endwith %}
                         {% if LANGUAGE_CODE != language.slug %}
                             {% if page.backend_translation %}
@@ -63,7 +65,7 @@
                 </div>
             {% endif %}
         </div>
-        <div class="3xl:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] {% if page %} 4xl:grid-cols-[minmax(0px,_1fr)_816px]{% endif %} gap-4">
+        <div class="3xl:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] {% if page %}4xl:grid-cols-[minmax(0px,_1fr)_816px]{% endif %} gap-4">
             <div class="col-span-2 3xl:col-span-1 flex flex-wrap flex-col flex-auto">
                 {% include "_form_language_tabs.html" with target="edit_page" instance=page_form.instance content_field="page_id" %}
                 <div class="w-full rounded border border-blue-500 bg-white shadow-2xl flex flex-col">
@@ -167,7 +169,7 @@
             <div class="md:flex mt-4 3xl:mt-0 block 3xl:block 4xl:flex">
                 <div id="left-sidebar-column"
                      class="md:mr-4 md:w-full 3xl:mr-0 md:mt-0 sm:block md:flex sm:mt-4 flex-wrap flex-col 4xl:mr-4"
-                     {% if request.user.distribute_sidebar_boxes %} data-enable-automatic-sidebar-distribution{% endif %}>
+                     {% if request.user.distribute_sidebar_boxes %}data-enable-automatic-sidebar-distribution{% endif %}>
                     {% if language.slug in TEXTLAB_API_LANGUAGES and request.region.hix_enabled and TEXTLAB_API_ENABLED %}
                         {% include "../hix_widget.html" with box_id="hix-widget" %}
                     {% endif %}

@@ -3,13 +3,13 @@
 {% load page_filters %}
 {% load tree_filters %}
 <tr id="page-{{ page.id }}"
-    class="border-t border-b border-solid border-gray-200 hover:bg-gray-100 {% if page.relative_depth > 1 %} level-{{ page.relative_depth }} {% if not filter_form.is_enabled and page.parent.archived %} hidden{% endif %} {% endif %}">
+    class="border-t border-b border-solid border-gray-200 hover:bg-gray-100 {% if page.relative_depth > 1 %} level-{{ page.relative_depth }} {% if not filter_form.is_enabled and page.parent.archived %}hidden{% endif %} {% endif %}">
     <td class="pl-4">
         <input form="bulk-action-form"
                type="checkbox"
                name="selected_ids[]"
                value="{{ page.id }}"
-               class="bulk-select-item"/>
+               class="bulk-select-item" />
     </td>
     {% if not filter_form.is_enabled %}
         <td class="hierarchy single_icon whitespace-nowrap">

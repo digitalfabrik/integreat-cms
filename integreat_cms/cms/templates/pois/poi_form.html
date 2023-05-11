@@ -17,7 +17,9 @@
                 {% if poi_form.instance.id %}
                     {% if poi_translation_form.instance.id %}
                         {% with poi_translation_form.instance.title as poi_title %}
-                            {% blocktrans %}Edit location "{{ poi_title }}"{% endblocktrans %}
+                            {% blocktranslate trimmed %}
+                                Edit location "{{ poi_title }}"
+                            {% endblocktranslate %}
                         {% endwith %}
                     {% else %}
                         {% translate "Create new translation of the location" %}
@@ -78,7 +80,9 @@
                             {% render_field poi_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
                             {% if language != request.region.default_language %}
                                 <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-600 px-4 py-1 mb-2">
-                                    {% blocktrans %}The name is currently displayed to users only in the default language{% endblocktrans %}
+                                    {% blocktranslate trimmed %}
+                                        The name is currently displayed to users only in the default language
+                                    {% endblocktranslate %}
                                 </div>
                             {% endif %}
                             <div id="link-container" class="flex items-center">
@@ -142,7 +146,7 @@
             <div class="sm:block md:flex sm:mt-4 3xl:mt-0 3xl:block 4xl:flex">
                 <div id="left-sidebar-column"
                      class="flex flex-col flex-auto mt-4 md:mt-0 md:mr-4 3xl:mr-0 md:w-full 4xl:mr-4"
-                     {% if request.user.distribute_sidebar_boxes %} data-enable-automatic-sidebar-distribution{% endif %}>
+                     {% if request.user.distribute_sidebar_boxes %}data-enable-automatic-sidebar-distribution{% endif %}>
                     {% if poi_form.instance.id and perms.cms.change_poi %}
                         {% include "./poi_form_sidebar/minor_edit_box.html" with box_id="poi-minor-edit" %}
                     {% endif %}

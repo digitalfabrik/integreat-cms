@@ -36,11 +36,9 @@
        data-alternative-text="{% translate "Show less pages" %}"
        class="text-blue-500 hover:underline mb-2 block">{% translate "Show all pages" %}</a>
     <p>
-        {# djlint:off #}
         {% blocktranslate trimmed with threshold=hix_threshold|floatformat:0 %}
             To be able to machine translate pages, the page must have a HIX score of at least {{ threshold }}.
         {% endblocktranslate %}
-        {# djlint:on #}
         {% translate "If the row is marked red, the HIX value of the corresponding page is not sufficient." %}
         {% translate "Pages with disabled HIX or no HIX-value are excluded." %}
     </p>

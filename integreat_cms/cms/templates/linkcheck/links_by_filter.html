@@ -83,7 +83,7 @@
             <thead>
                 <tr class="border-b border-solid border-gray-200">
                     <th class="text-sm text-left uppercase py-3 pl-4 min">
-                        <input type="checkbox" id="bulk-select-all"/>
+                        <input type="checkbox" id="bulk-select-all" />
                     </th>
                     <th class="text-sm text-left uppercase py-3 pr-2">{% translate "URL" %}</th>
                     {# djlint:off H023 #}
@@ -151,9 +151,7 @@
         {% endif %}
         <div class="flex flex-wrap relative w-1/2 mt-5 items-stretch gap-2">
             <select id="bulk-action" name="action" class="w-auto max-w-full">
-                <option>
-                    {% translate "Select bulk action" %}
-                </option>
+                <option>{% translate "Select bulk action" %}</option>
                 {% if view.kwargs.url_filter == 'ignored' %}
                     <option value="unignore"
                             data-bulk-action="{% url 'linkcheck' region_slug=request.region.slug url_filter=view.kwargs.url_filter %}{{ pagination_params }}">

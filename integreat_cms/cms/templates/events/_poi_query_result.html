@@ -7,7 +7,7 @@
     {% if poi_query_result|length > 0 %}
         <label class="secondary">{% translate "Select existing location" %}</label>
         <select size="{% if poi_query_result|length > 5 %}5{% elif poi_query_result|length == 1 %}2{% else %}{{ poi_query_result|length }}{% endif %}"
-                class="block w-full bg-none bg-white text-gray-800 border border-gray-500 mb-2 py-2 px-2 {% if poi_query_result|length == 1 %} h-12{% endif %}">
+                class="block w-full bg-none bg-white text-gray-800 border border-gray-500 mb-2 py-2 px-2 {% if poi_query_result|length == 1 %}h-12{% endif %}">
             {% for poi in poi_query_result %}
                 <option class="option-existing-poi hover:bg-gray-200 cursor-pointer"
                         title="{{ poi.address }}, {{ poi.postcode }} {{ poi.city }}"
@@ -28,7 +28,9 @@
                 data-poi-title="{{ poi_query }}"
                 data-url="{% url 'show_poi_form_ajax' region_slug=request.region.slug language_slug=request.region.default_language.slug poi_title=poi_query %}">
             <i icon-name="map-pin"></i>
-            {% blocktrans %}Create location "{{ poi_query }}"{% endblocktrans %}
+            {% blocktranslate trimmed %}
+                Create location "{{ poi_query }}"
+            {% endblocktranslate %}
         </button>
     {% endif %}
 {% endif %}

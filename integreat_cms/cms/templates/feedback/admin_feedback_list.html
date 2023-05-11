@@ -38,7 +38,7 @@
                 <th class="text-sm text-left uppercase py-3 pr-2"
                     style="padding-left: 10px"
                     title="{% translate "Select all" %}">
-                    <input type="checkbox" id="bulk-select-all"/>
+                    <input type="checkbox" id="bulk-select-all" />
                 </th>
                 <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Category" %}</th>
                 <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Feedback on" %}</th>
@@ -57,7 +57,7 @@
                         <input type="checkbox"
                                name="selected_ids[]"
                                value="{{ feedback.id }}"
-                               class="bulk-select-item"/>
+                               class="bulk-select-item" />
                     </td>
                     <td class="pr-2 whitespace-nowrap">{{ feedback.category }}</td>
                     <td class="pr-2 truncate max-w-[75px] 2xl:max-w-[200px]"
@@ -119,9 +119,11 @@
                         </a>
                     </td>
                     <td class="pr-2">
-                        {% if feedback.read_by.email %}<a href="mailto:{{ feedback.read_by.email }}" class="hover:underline">{% endif %}
-                        {{ feedback.read_by.full_user_name }}
-                        {% if feedback.read_by.email %}</a>{% endif %}
+                        {% if feedback.read_by.email %}
+                            <a href="mailto:{{ feedback.read_by.email }}" class="hover:underline">{{ feedback.read_by.full_user_name }}</a>
+                        {% else %}
+                            {{ feedback.read_by.full_user_name }}
+                        {% endif %}
                     </td>
                     <td class="pr-2 text-right whitespace-nowrap">{{ feedback.created_date }}</td>
                 </tr>
@@ -149,22 +151,12 @@
             {% if perms.cms.change_feedback %}
                 <div class="flex self-start gap-2 mt-2">
                     <select id="bulk-action">
-                        <option>
-                            {% translate "Select bulk action" %}
-                        </option>
-                        <option data-bulk-action="{% url 'mark_admin_feedback_as_read' %}">
-                            {% translate "Mark as read" %}
-                        </option>
-                        <option data-bulk-action="{% url 'mark_admin_feedback_as_unread' %}">
-                            {% translate "Mark as unread" %}
-                        </option>
-                        <option data-bulk-action="{% url 'archive_admin_feedback' %}">
-                            {% translate "Archive" %}
-                        </option>
+                        <option>{% translate "Select bulk action" %}</option>
+                        <option data-bulk-action="{% url 'mark_admin_feedback_as_read' %}">{% translate "Mark as read" %}</option>
+                        <option data-bulk-action="{% url 'mark_admin_feedback_as_unread' %}">{% translate "Mark as unread" %}</option>
+                        <option data-bulk-action="{% url 'archive_admin_feedback' %}">{% translate "Archive" %}</option>
                         {% if perms.cms.delete_feedback %}
-                            <option data-bulk-action="{% url 'delete_admin_feedback' %}">
-                                {% translate "Delete" %}
-                            </option>
+                            <option data-bulk-action="{% url 'delete_admin_feedback' %}">{% translate "Delete" %}</option>
                         {% endif %}
                     </select>
                     <button id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>

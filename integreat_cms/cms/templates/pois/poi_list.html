@@ -29,9 +29,9 @@
                     {% translate "Create location" %}
                 </a>
             {% elif perms.cms.change_poi %}
-                {% blocktrans trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
+                {% blocktranslate trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
                     You can only create locations in the default language ({{ default_language }}).
-                {% endblocktrans %}
+                {% endblocktranslate %}
                 <button title="{{ disabled_button_title }}" class="btn" disabled>{% translate "Create location" %}</button>
             {% endif %}
         </div>
@@ -44,7 +44,7 @@
             <thead>
                 <tr class="border-b border-gray-200">
                     <th class="py-3 pl-4 pr-2 min">
-                        <input form="bulk-action-form" type="checkbox" id="bulk-select-all"/>
+                        <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
                     </th>
                     <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Title in" %} {{ language.translated_name }}</th>
                     {% if backend_language and backend_language != language %}
@@ -101,9 +101,7 @@
     {% if perms.cms.change_poi %}
         <div class="flex flex-wrap gap-2 mt-4">
             <select id="bulk-action" class="w-auto max-w-full">
-                <option>
-                    {% translate "Select bulk action" %}
-                </option>
+                <option>{% translate "Select bulk action" %}</option>
                 <option data-bulk-action="{% url 'bulk_archive_pois' region_slug=request.region.slug language_slug=language.slug %}">
                     {% translate "Archive locations" %}
                 </option>

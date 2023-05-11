@@ -20,7 +20,9 @@
                 {% if event_form.instance.id %}
                     {% if event_translation_form.instance.id %}
                         {% with event_translation_form.instance.title as event_title %}
-                            {% blocktrans %}Edit event "{{ event_title }}"{% endblocktrans %}
+                            {% blocktranslate trimmed %}
+                                Edit event "{{ event_title }}"
+                            {% endblocktranslate %}
                         {% endwith %}
                         {% if LANGUAGE_CODE != language.slug %}
                             {% if event_form.instance.backend_translation %}
@@ -122,7 +124,7 @@
             <div class="md:flex mt-4 3xl:mt-0 block 3xl:block 4xl:flex">
                 <div id="left-sidebar-column"
                      class="md:mr-4 md:w-full 3xl:mr-0 md:mt-0 sm:block md:flex sm:mt-4 flex-wrap flex-col 4xl:mr-4"
-                     {% if request.user.distribute_sidebar_boxes %} data-enable-automatic-sidebar-distribution{% endif %}>
+                     {% if request.user.distribute_sidebar_boxes %}data-enable-automatic-sidebar-distribution{% endif %}>
                     {% if event_form.instance.id and perms.cms.change_event %}
                         {% include "./event_form_sidebar/minor_edit_box.html" with box_id="event-minor-edit" %}
                     {% endif %}

@@ -43,11 +43,11 @@
                     <p>
                         {% translate "You cannot delete a location which is referenced by an event." %}
                         <br />
-                        {% blocktrans count counter=poi_form.instance.events.count trimmed %}
-                To delete this location, you have to delete this event first:
-                {% plural %}
-                To delete this location, you have to delete these events first:
-                {% endblocktrans %}
+                        {% blocktranslate count counter=poi_form.instance.events.count trimmed %}
+                            To delete this location, you have to delete this event first:
+                        {% plural %}
+                            To delete this location, you have to delete these events first:
+                        {% endblocktranslate %}
                     </p>
                 </div>
                 {% for event in poi_form.instance.events.all %}

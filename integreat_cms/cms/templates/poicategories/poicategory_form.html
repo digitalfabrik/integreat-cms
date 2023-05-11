@@ -8,7 +8,9 @@
         <div class="flex justify-between mb-4">
             <h1 class="heading">
                 {% if form.instance.id %}
-                    {% blocktrans with poi_category_name=form.instance.name %}Edit location category "{{ poi_category_name }}"{% endblocktrans %}
+                    {% blocktranslate trimmed with poi_category_name=form.instance.name %}
+                        Edit location category "{{ poi_category_name }}"
+                    {% endblocktranslate %}
                 {% else %}
                     {% translate "Create new location category" %}
                 {% endif %}
@@ -34,7 +36,7 @@
                                      class="w-10 mr-2"
                                      data-base-path="{% get_static_prefix %}/svg/poi-category-icons/"
                                      src="{% if form.instance.icon %}{% get_static_prefix %}/svg/poi-category-icons/{{ form.instance.icon }}.svg{% endif %}"
-                                     alt=""/>
+                                     alt="" />
                                 {# djlint:on #}
                                 <div class="relative flex-grow">
                                     {% render_field form.icon|add_error_class:"border-red-500" id="poi-category-icon-field" %}

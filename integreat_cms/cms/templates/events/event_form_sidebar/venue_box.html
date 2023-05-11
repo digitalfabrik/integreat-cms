@@ -25,15 +25,15 @@
                    type="search"
                    autocomplete="off"
                    class="pr-8 appearance-none block w-full bg-white text-gray-800 placeholder-gray-800 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:placeholder-gray-600"
-                   {% if event_form.disabled %} disabled{% endif %}
+                   {% if event_form.disabled %}disabled{% endif %}
                    placeholder="{% if poi %}{{ poi|poi_translation_title:current_language }}{% else %}{{ poi_title_placeholder }}{% endif %}"
                    data-url="{% url 'search_poi_ajax' region_slug=request.region.slug %}"
                    data-region-slug="{{ request.region.slug }}"
-                   data-default-placeholder="{{ poi_title_placeholder }}"/>
+                   data-default-placeholder="{{ poi_title_placeholder }}" />
             <div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
                 <button id="poi-remove"
                         title="{% translate "Remove location from event" %}"
-                        {% if event_form.disabled %} disabled{% endif %}>
+                        {% if event_form.disabled %}disabled{% endif %}>
                     <i icon-name="trash-2" class="h-5 w-5"></i>
                 </button>
             </div>
@@ -49,7 +49,7 @@
                    class="hidden"
                    value="{% if poi %}{{ poi.id }}{% else %}-1{% endif %}"
                    readonly
-                   {% if event_form.has_not_location.value %} disabled{% endif %}/>
+                   {% if event_form.has_not_location.value %}disabled{% endif %} />
             <div id="poi-address" class="text-lg whitespace-pre-line">
                 {% if poi %}
                     {{ poi.address }}

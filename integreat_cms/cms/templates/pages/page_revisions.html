@@ -7,7 +7,9 @@
     <div class="mb-6">
         <h1 class="heading">
             {% with page_translations.first.title as page_title %}
-                {% blocktrans %}Page versions of "{{ page_title }}"{% endblocktrans %}
+                {% blocktranslate trimmed %}
+                    Page versions of "{{ page_title }}"
+                {% endblocktranslate %}
             {% endwith %}
         </h1>
         <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
@@ -26,7 +28,7 @@
                    max="{{ page_translations.count }}"
                    value="{{ selected_revision.version }}"
                    id="revision-slider"
-                   list="steplist"/>
+                   list="steplist" />
             <output id="revision-info" class="whitespace-nowrap">
                 <b>{% translate "Version" %}:</b> <span id="revision-number"></span>
                 <br />
@@ -68,7 +70,7 @@
                         {% elif forloop.first %}
                             {% if api_revision %}
                                 {% with api_revision.version as version %}
-                                    ({% blocktrans %}This version is <b>not</b> displayed in the apps - but version {{ version }} instead{% endblocktrans %})
+                                    ({% blocktranslate %}This version is <b>not</b> displayed in the apps - but version {{ version }} instead{% endblocktranslate %})
                                 {% endwith %}
                             {% else %}
                                 ({% translate "This translation is <b>not</b> shown in the apps" %})

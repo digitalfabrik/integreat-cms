@@ -74,15 +74,9 @@
                     <select id="export-format"
                             data-filename-prefix="{% translate "Statistics" %} {{ request.region.name }}"
                             data-language-column-title="{% translate "Language" %}">
-                        <option value="" selected>
-                            --- {% translate "please select" %} ---
-                        </option>
-                        <option value="image">
-                            {% translate "Image/PNG" %}
-                        </option>
-                        <option value="csv">
-                            {% translate "Table Document/CSV" %}
-                        </option>
+                        <option value="" selected>--- {% translate "please select" %} ---</option>
+                        <option value="image">{% translate "Image/PNG" %}</option>
+                        <option value="csv">{% translate "Table Document/CSV" %}</option>
                     </select>
                     <button id="export-button" class="btn" disabled>{% translate "Export" %}</button>
                     <a id="export-download-link" class="hidden"></a>

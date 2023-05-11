@@ -8,9 +8,9 @@
 {% endblock heading %}
 {% block content %}
     <div class="mb-3">
-        {% blocktrans trimmed with BRANDING=BRANDING|capfirst %}
+        {% blocktranslate trimmed with BRANDING=BRANDING|capfirst %}
             Please open your authenticator app on your device and enter the 6-digit code for "{{ BRANDING }}" to verify your identity:
-        {% endblocktrans %}
+        {% endblocktranslate %}
     </div>
     <form method="post"
           autocomplete="off"
@@ -24,7 +24,7 @@
                minlength="6"
                maxlength="6"
                pattern="\d{6}"
-               autofocus/>
+               autofocus />
         <button class="btn-blue btn">{% translate "Confirm" %}</button>
     </form>
 {% endblock content %}
