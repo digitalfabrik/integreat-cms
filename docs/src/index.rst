@@ -36,6 +36,7 @@ Project Architecture / Reference
 
     ref/integreat_cms
     ref/tests
+    api-docs
 
 * :doc:`ref/integreat_cms`: The main package of the integreat-cms with the following sub-packages:
 
@@ -50,6 +51,8 @@ Project Architecture / Reference
   - :doc:`ref/integreat_cms.xliff`: This app allows (de-)serialization of translations from/to XLIFF (XML Localization Interchange File Format) for standardised exchange with translation agencies.
 
 * :doc:`ref/tests`: This app contains all tests to verify integreat-cms works as intended
+
+* :doc:`api-docs`: Documentation for the integreat-cms api
 
 To better understand the overall intention it might also be helpful to look at the `wiki for municipalities (GER) <https://wiki.integreat-app.de/>`_ that teaches how to use our CMS.
 
