@@ -25,5 +25,6 @@ from .page_bulk_actions import (
 from .page_form_view import PageFormView
 from .page_sbs_view import PageSideBySideView
 from .page_tree_view import PageTreeView
+from .page_version_view import PageVersionView
 from .page_xliff_import_view import PageXliffImportView
 from .partial_page_tree_view import render_partial_page_tree_views

@@ -6,23 +6,23 @@
     {% load rules %}
     <div class="mb-6">
         <h1 class="heading">
-            {% with content_translations.first.title as content_title %}
+            {% with translations.first.title as content_title %}
                 {% blocktrans %}"Versions of {{ content_title }}"{% endblocktrans %}
             {% endwith %}
         </h1>
-        <a href={{ form }} class="btn btn-outline">
-            <i icon-name="arrow-left-circle" class="align-top"></i> {% translate "Back to the form" %}
+        <a href="{{ edit_url }}" class="btn btn-outline">
+            <i icon-name="arrow-left-circle" class="align-top"></i> {{ back_to_form_label }}
         </a>
     </div>
-    <form method="post" action={{ revision }}>
+    <form method="post" action="{{ versions_url }}">
         {% csrf_token %}
         <div class="w-3/5 m-auto mb-28 relative">
             <input class="relative z-10 pt-1"
                    type="range"
                    name="revision"
                    min="1"
-                   max="{{ content_translations.count }}"
-                   value="{{ selected_revision.version }}"
+                   max="{{ translations|length }}"
+                   value="{{ selected_version.version }}"
                    id="revision-slider"
                    list="steplist"/>
             <output id="revision-info" class="whitespace-nowrap">
@@ -31,84 +31,82 @@
                 <b>{% translate "Author" %}:</b> <span id="revision-editor"></span>
                 <br />
                 <b>{% translate "Date" %}:</b> <span id="revision-date"></span>
-                {% if content_translations.first.hix_enabled and not content_translations.first.hix_ignore %}
+                {% if translations.first.hix_enabled and not translations.first.hix_ignore %}
                     <br />
                     <b>{% translate "HIX" %}:</b> <span id="revision-hix"></span>
                 {% endif %}
             </output>
             <datalist id="steplist" class="w-full flex font-mono">
-                {% for content_translation in content_translations reversed %}
-                    <option style="{% if content_translation.version > 1 %} margin-left: -webkit-calc(((100% - 25.6px) / ({{ content_translations.count }} - 1)) - 25.6px);
-                                   margin-left: -moz-calc(((100% - 25.6px) / ({{ content_translations.count }} - 1)) - 25.6px);
-                                   margin-left: calc(((100% - 25.6px) / ({{ content_translations.count }} - 1)) - 25.6px);
-                                   {% endif %} {% if content_translation.version > 9 %} padding-left: 3.2px;
+                {% for translation in translations reversed %}
+                    <option style="{% if translation.version > 1 %} margin-left: -webkit-calc(((100% - 25.6px) / ({{ translations|length }} - 1)) - 25.6px);
+                                   margin-left: -moz-calc(((100% - 25.6px) / ({{ translations|length }} - 1)) - 25.6px);
+                                   margin-left: calc(((100% - 25.6px) / ({{ translations|length }} - 1)) - 25.6px);
+                                   {% endif %} {% if translation.version > 9 %} padding-left: 3.2px;
                                    padding-right: 3.2px;
                                    {% endif %}">
-                        {{ content_translation.version }}
+                        {{ translation.version }}
                     </option>
                 {% endfor %}
             </datalist>
         </div>
         {% translate "deleted account" as deleted_user_text %}
-        {% for content_translation in content_translations %}
+        {% for translation in translations %}
             <div class="w-full hidden revision-wrapper"
-                 id="revision-{{ content_translation.version }}"
-                 data-date="{{ content_translation.last_updated }}"
-                 data-editor="{% firstof content_translation.creator deleted_user_text %}"
-                 data-status="{{ content_translation.status }}"
-                 data-hix="{{ content_translation.hix_score|floatformat:2 }}">
+                 id="revision-{{ translation.version }}"
+                 data-date="{{ translation.last_updated }}"
+                 data-editor="{% firstof translation.creator deleted_user_text %}"
+                 data-status="{{ translation.status }}"
+                 data-hix="{{ translation.hix_score|floatformat:2 }}">
                 <div class="flex justify-between">
                     <span>
                         <label class="inline-block">{% translate "Publication status" %}:</label>
-                        {{ content_translation.get_status_display }}
-                        {% if content_translation == api_revision %}
+                        {{ translation.get_status_display }}
+                        {% if translation == api_version %}
                             ({% translate "This is the version shown in the apps." %})
                         {% elif forloop.first %}
-                            {% if api_revision %}
-                                {% with api_revision.version as version %}
+                            {% if api_version %}
+                                {% with api_version.version as version %}
                                     ({% blocktrans %}This version is <b>not</b> displayed in the apps - but version {{ version }} instead{% endblocktrans %})
                                 {% endwith %}
                             {% else %}
                                 ({% translate "This translation is <b>not</b> shown in the apps" %})
                             {% endif %}
                         {% endif %}
-                        {% if content_translation.minor_edit %}
+                        {% if translation.minor_edit %}
                             - <i>{% translate "Minor edit" %}</i>
                         {% endif %}
                     </span>
                     <span>
-                        {% if content_translation.hix_enabled and not content_translation.hix_ignore and content_translation.hix_score %}
+                        {% if translation.hix_enabled and not translation.hix_ignore and translation.hix_score %}
                             <span class="pr-4">
                                 <label class="inline-block">{% translate "HIX score" %}:</label>
-                                {{ content_translation.hix_score|floatformat:2 }}
+                                {{ translation.hix_score|floatformat:2 }}
                             </span>
                         {% endif %}
                         <label class="inline-block">{% translate "Author" %}:</label>
-                        {% firstof content_translation.creator deleted_user_text %}
+                        {% firstof translation.creator deleted_user_text %}
                     </span>
                 </div>
                 <div class="revision-plain hidden">
-                    <label>{% translate "Permalink" %}:</label>
-                    {{ content_translation.get_absolute_url }}
-                    <label>{% translate "Title" %}</label>
-                    <h1>{{ content_translation.title }}</h1>
-                    <label>{% translate "Content" %}</label>
-                    {{ content_translation.content|safe }}
+                    <label>{{ slug_label }}:</label>
+                    {{ translation.get_absolute_url }}
+                    <label>{{ title_label }}</label>
+                    <h1>{{ translation.title }}</h1>
+                    <label>{{ content_label }}</label>
+                    {{ translation.content|safe }}
                 </div>
                 <div class="revision-diff w-full p-4 mb-4 rounded border border-solid border-gray-200 shadow bg-white"></div>
             </div>
         {% endfor %}
         <div id="revision-0" class="hidden">
             <div class="revision-plain">
-                <label>{% translate "Permalink" %}:</label>
-                <label>{% translate "Title" %}</label>
-                <label>{% translate "Content" %}</label>
+                <label>{{ slug_label }}:</label>
+                <label>{{ title_label }}</label>
+                <label>{{ content_label }}</label>
             </div>
         </div>
         <div class="w-full p-4 flex justify-end gap-4 action-buttons">
-            {% if not content.archived %}
-                {% has_perm 'cms.change_{{ content_name }}_object' request.user content as can_edit %}
-                {% has_perm 'cms.publish_{{ content_name }}_object' request.user content as can_publish %}
+            {% if not object.archived %}
                 {% if can_publish %}
                     <!-- Reject buttons for latest version  -->
                     <button name="status"

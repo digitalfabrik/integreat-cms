@@ -29,8 +29,6 @@ class EventListView(TemplateView, EventContextMixin, MachineTranslationContextMi
     template = "events/event_list.html"
     #: Template for list of archived events
     template_archived = "events/event_list_archived.html"
-    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    extra_context = {"current_menu_item": "events"}
     #: Whether or not to show archived events
     archived = False
     #: The translation model of this list view (used to determine whether machine translations are permitted)

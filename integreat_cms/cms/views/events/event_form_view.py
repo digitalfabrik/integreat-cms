@@ -33,10 +33,7 @@ class EventFormView(
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "events/event_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    extra_context = {
-        "current_menu_item": "events_form",
-        "translation_status": translation_status,
-    }
+    extra_context = {"translation_status": translation_status}
     #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`
     back_url_name = "events"
 

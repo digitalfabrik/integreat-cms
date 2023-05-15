@@ -68,7 +68,8 @@
                                     <div class="font-bold pr-2">{% translate "Version" %}:</div>
                                     <div>
                                         {{ event_translation_form.instance.version }}
-                                        <!-- TODO: Events Revisions -->
+                                        (<a href="{% url 'event_versions' event_id=event_form.instance.id region_slug=request.region.slug language_slug=language.slug %}"
+   class="text-blue-500 hover:underline">{% translate "Show" %}</a>)
                                     </div>
                                     <div class="font-bold pr-2">{% translate "Publication status" %}:</div>
                                     <div>
