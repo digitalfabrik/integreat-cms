@@ -20,7 +20,7 @@
         {% render_field page_form|get_private_member:"ref_node_id" %}
         {% render_field page_form|get_private_member:"position" %}
         {% render_field page_form.parent id="parent" %}
-        <label class="btn-gray">{% translate "Order" %}</label>
+        <label>{% translate "Order" %}</label>
         <div id="page_order_table" class="mb-4">{% include "pages/_page_order_table.html" %}</div>
     </div>
     <div {% if not request.user.expert_mode %}hidden{% endif %}>

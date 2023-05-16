@@ -257,7 +257,7 @@ const Library = ({
                             <button
                                 id="show-all-files-btn"
                                 title={mediaTranslations.btn_reset_filter}
-                                className="btn"
+                                className="btn btn-ghost"
                                 type="submit"
                                 onClick={() => route("/")}>
                                 <FilterX className="inline-block mr-2 h-5" />
@@ -267,7 +267,7 @@ const Library = ({
                             <button
                                 id="unused-media-filter-btn"
                                 title={mediaTranslations.btn_filter_unused}
-                                className="btn"
+                                className="btn btn-ghost"
                                 type="submit"
                                 action={apiEndpoints.filterUnusedMediaFiles}
                                 onClick={() => {
