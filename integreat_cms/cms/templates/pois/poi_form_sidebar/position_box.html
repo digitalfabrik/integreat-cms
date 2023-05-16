@@ -36,7 +36,7 @@
             <input type="checkbox"
                    id="auto-fill-coordinates"
                    data-url="{% url "auto_complete_poi_address" region_slug=request.region.slug %}"
-                   checked/>
+                   checked />
             <label for="auto-fill-coordinates" class="secondary !inline">
                 {% translate "Derive coordinates automatically from address" %}
             </label>
@@ -67,7 +67,7 @@
         <div id="update_position_from_map_marker" class="hidden">
             <p class="mb-3">
                 <b>{{ poi_form.latitude.label }}:</b> <span id="updated_latitude"></span>
-                <br/>
+                <br />
                 <b>{{ poi_form.longitude.label }}:</b> <span id="updated_longitude"></span>
             </p>
             <div id="no_address_found"
@@ -93,33 +93,31 @@
                    name="update_position"
                    class="depends-on-address cursor-not-allowed"
                    required
-                   disabled/>
+                   disabled />
             <label for="update_address_and_coordinates"
                    form="update_position_form"
                    class="secondary !inline text-gray-500 depends-on-address cursor-not-allowed">
                 {% translate "Update address and coordinates" %}
             </label>
-            <br/>
+            <br />
             <input type="radio"
                    id="update_address"
                    name="update_position"
                    class="depends-on-address cursor-not-allowed"
                    required
-                   disabled/>
+                   disabled />
             <label for="update_address"
                    class="secondary !inline text-gray-500 depends-on-address cursor-not-allowed">
                 {% translate "Update only address" %}
             </label>
-            <br/>
+            <br />
             <input type="radio"
                    id="update_coordinates"
                    name="update_position"
                    required
-                   checked/>
-            <label for="update_coordinates" class="secondary !inline">
-                {% translate "Update only coordinates" %}
-            </label>
-            <br/>
+                   checked />
+            <label for="update_coordinates" class="secondary !inline">{% translate "Update only coordinates" %}</label>
+            <br />
             <div id="update_address_error"
                  class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-2 hidden"
                  role="alert">

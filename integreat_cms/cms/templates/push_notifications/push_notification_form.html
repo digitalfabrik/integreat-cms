@@ -10,7 +10,9 @@
                 <h1 class="heading overflow-hidden text-ellipsis">
                     {% if push_notification_form.instance.id %}
                         {% with push_notification_form.instance as push_notification_title %}
-                            {% blocktrans %}Edit news message "{{ push_notification_title }}"{% endblocktrans %}
+                            {% blocktranslate trimmed %}
+                                Edit news message "{{ push_notification_title }}"
+                            {% endblocktranslate %}
                         {% endwith %}
                     {% else %}
                         {% translate "Create news message" %}

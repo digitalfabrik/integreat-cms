@@ -10,7 +10,9 @@
             <h1 class="heading overflow-hidden text-ellipsis">
                 {% if form.instance.id %}
                     {% with form.instance.translated_name as translated_language_name %}
-                        {% blocktrans %}Edit language "{{ translated_language_name }}"{% endblocktrans %}
+                        {% blocktranslate trimmed %}
+                            Edit language "{{ translated_language_name }}"
+                        {% endblocktranslate %}
                     {% endwith %}
                 {% else %}
                     {% translate "Create new language" %}
@@ -61,12 +63,10 @@
                                 <br />
                                 <br />
                                 <i class="h-5" icon-name="alert-triangle"></i>
-                                {# djlint:off #}
                                 {% blocktranslate trimmed with link="href='https://www.deepl.com/de/docs-api/translate-text/translate-text/' target='_blank' class='underline'" %}
                                     For some languages, DeepL needs a correct BCP47 tag (for example English or Portuguese).
                                     For more information, please checkout the <a {{ link }}>DeepL documentation</a>.
                                 {% endblocktranslate %}
-                                {# djlint:on #}
                             {% endif %}
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                                 {{ form.primary_country_code.label }}
                             </label>
                             <div class="flex my-2">
-                                <span class="country-flag fp fp-{{ form.instance.primary_country_code }} w-16 rounded-l {% if not form.instance.primary_country_code %} hidden{% endif %}"
+                                <span class="country-flag fp fp-{{ form.instance.primary_country_code }} w-16 rounded-l {% if not form.instance.primary_country_code %}hidden{% endif %}"
                                       title="{{ form.instance.translated_name }}"></span>
                                 <div class="relative flex-grow">
                                     {% render_field form.primary_country_code|add_error_class:"border-red-500" class+="country-flag-field rounded-none rounded-r border-l-0" %}
@@ -144,7 +144,7 @@
                                 {{ form.secondary_country_code.label }}
                             </label>
                             <div class="flex my-2">
-                                <span class="country-flag fp fp-{{ form.instance.secondary_country_code }} w-16 rounded-l {% if not form.instance.secondary_country_code %} hidden{% endif %}"
+                                <span class="country-flag fp fp-{{ form.instance.secondary_country_code }} w-16 rounded-l {% if not form.instance.secondary_country_code %}hidden{% endif %}"
                                       title="{{ form.instance.translated_name }}"></span>
                                 <div class="flex-grow">
                                     {% render_field form.secondary_country_code|add_error_class:"border-red-500" class+="country-flag-field rounded-none rounded-r border-l-0" %}

@@ -7,7 +7,7 @@
             {# djlint:off H006 #}
             <img class="h-40 m-auto"
                  src="{{ widget.document.thumbnail_url }}"
-                 alt="Preview"/>
+                 alt="Preview" />
             {# djlint:on #}
             <div id="icon_filename"
                  class="block w-full break-all bg-gray-200 text-gray-800 border border-gray-200 rounded py-3 px-4 my-2">
@@ -19,29 +19,41 @@
                 <label for="{{ widget.attrs.id }}"
                        class="block w-full text-center font-bold bg-blue-500 hover:bg-blue-600 focus:bg-blue-500 text-white py-2 px-4 rounded cursor-pointer relative">
                     <i icon-name="image" class="mr-2"></i>
-                    <span id="set-icon-label" class="{% if icon %}hidden{% endif %}">{% blocktrans %}Set {{ label }}{% endblocktrans %}</span>
-                    <span id="change-icon-label" class="{% if not icon %}hidden{% endif %}">{% blocktrans %}Change {{ label }}{% endblocktrans %}</span>
+                    <span id="set-icon-label" class="{% if icon %}hidden{% endif %}">
+                        {% blocktranslate trimmed %}
+                            Set {{ label }}
+                        {% endblocktranslate %}
+                    </span>
+                    <span id="change-icon-label" class="{% if not icon %}hidden{% endif %}">
+                        {% blocktranslate trimmed %}
+                            Change {{ label }}
+                        {% endblocktranslate %}
+                    </span>
                 </label>
                 <input name="{{ widget.name }}"
                        id="{{ widget.attrs.id }}"
                        type="hidden"
-                       value="{{ widget.value|default_if_none:'' }}"/>
+                       value="{{ widget.value|default_if_none:'' }}" />
                 <input type="checkbox"
                        name="{{ widget.checkbox_name }}"
                        id="{{ widget.checkbox_id }}"
-                       class="hidden"/>
+                       class="hidden" />
             </div>
             <div id="remove-icon"
                  class="w-full mt-2 {% if not icon %}hidden{% endif %}">
                 <div class="block w-full text-center font-bold bg-gray-500 hover:bg-gray-600 focus:bg-gray-600 text-white py-2 px-4 rounded cursor-pointer relative">
                     <i icon-name="trash-2" class="mr-2"></i>
-                    {% blocktrans %}Remove {{ label }}{% endblocktrans %}
+                    {% blocktranslate trimmed %}
+                        Remove {{ label }}
+                    {% endblocktranslate %}
                 </div>
             </div>
             <div id="restore-icon" class="w-full mt-2 hidden">
                 <div class="block w-full text-center font-bold bg-gray-500 hover:bg-gray-600 focus:bg-gray-500 text-white py-2 px-4 rounded cursor-pointer relative">
                     <i icon-name="refresh-ccw" class="mr-2"></i>
-                    {% blocktrans %}Restore {{ label }}{% endblocktrans %}
+                    {% blocktranslate trimmed %}
+                        Restore {{ label }}
+                    {% endblocktranslate %}
                 </div>
             </div>
         {% endif %}

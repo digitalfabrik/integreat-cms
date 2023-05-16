@@ -9,7 +9,9 @@
             <div class="w-2/5 flex flex-wrap flex-col justify-center">
                 <h1 class="heading">
                     {% if role_form.instance.id %}
-                        {% blocktrans with role_name=role_form.instance.get_name_display %}Edit role "{{ role_name }}"{% endblocktrans %}
+                        {% blocktranslate trimmed with role_name=role_form.instance.get_name_display %}
+                            Edit role "{{ role_name }}"
+                        {% endblocktranslate %}
                     {% else %}
                         {% translate "Create new role" %}
                     {% endif %}

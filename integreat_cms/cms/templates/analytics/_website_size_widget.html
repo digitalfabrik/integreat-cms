@@ -10,9 +10,9 @@
 {% block collapsible_box_content %}
     <div class="flex flex-wrap justify-between gap-2">
         <p class="py-3">
-            {% blocktrans trimmed with BRANDING=BRANDING|title %}
-            The chart below shows the current size of the {{ BRANDING }} app.
-            {% endblocktrans %}
+            {% blocktranslate trimmed with BRANDING=BRANDING|title %}
+                The chart below shows the current size of the {{ BRANDING }} app.
+            {% endblocktranslate %}
             <a href="{% url 'app_size' region_slug=request.region.slug %}"
                class="btn">{% translate "Details" %}</a>
         </p>

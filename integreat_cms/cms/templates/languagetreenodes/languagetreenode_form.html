@@ -10,7 +10,9 @@
             <h1 class="heading overflow-hidden text-ellipsis">
                 {% if form.instance.id %}
                     {% with form.instance.translated_name as translated_language_name %}
-                        {% blocktrans %}Edit language tree node "{{ translated_language_name }}"{% endblocktrans %}
+                        {% blocktranslate trimmed %}
+                            Edit language tree node "{{ translated_language_name }}"
+                        {% endblocktranslate %}
                     {% endwith %}
                 {% else %}
                     {% translate "Add language to this region" %}

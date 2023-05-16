@@ -10,7 +10,9 @@
             <h1 class="heading">
                 {% if user_form.instance.id %}
                     {% with user_form.username.value as user_name %}
-                        {% blocktrans %}Edit account "{{ user_name }}"{% endblocktrans %}
+                        {% blocktranslate trimmed %}
+                            Edit account "{{ user_name }}"
+                        {% endblocktranslate %}
                     {% endwith %}
                 {% else %}
                     {% translate "Create new account" %}
@@ -117,9 +119,9 @@
                 </div>
             {% else %}
                 <div class="pt-2 pb-4">
-                    <button title="{% blocktrans %}Remove this user from region {{ request.region }}{% endblocktrans %}"
+                    <button title="{% blocktranslate %}Remove this user from region {{ request.region }}{% endblocktranslate %}"
                             class="btn confirmation-button btn-red"
-                            data-confirmation-title="{% blocktrans %}Please confirm that you really want to remove this account from region {{ request.region }}.{% endblocktrans %}"
+                            data-confirmation-title="{% blocktranslate %}Please confirm that you really want to remove this account from region {{ request.region }}.{% endblocktranslate %}"
                             data-confirmation-text="{% translate "The account will keep access to the following regions:" %} {{ user_form.instance|remaining_regions:request.region|join:', ' }}"
                             data-confirmation-subject="{{ user_form.username.value }}"
                             data-action="{% url 'delete_region_user' region_slug=request.region.slug user_id=user_form.instance.id %}">

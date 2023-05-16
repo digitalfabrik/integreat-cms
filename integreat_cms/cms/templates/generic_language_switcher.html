@@ -19,7 +19,7 @@
     <div id="language-switcher-list" class="h-0 hidden">
         {% for other_language in languages|remove:language %}
             <a href="{% url target region_slug=request.region.slug language_slug=other_language.slug %}"
-               class="flex justify-between whitespace-nowrap {% if forloop.last %} rounded-b{% endif %} shadow px-4 py-3 text-gray-800 hover:bg-gray-200 bg-white">
+               class="flex justify-between whitespace-nowrap {% if forloop.last %}rounded-b{% endif %} shadow px-4 py-3 text-gray-800 hover:bg-gray-200 bg-white">
                 {{ other_language.translated_name }}
                 <span>
                     <span class="fp fp-rounded fp-{{ other_language.primary_country_code }} ml-2"></span>

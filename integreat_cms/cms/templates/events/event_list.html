@@ -32,9 +32,9 @@
                             {% translate "Create event" %}
                         </a>
                     {% elif perms.cms.change_event %}
-                        {% blocktrans trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
+                        {% blocktranslate trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
                             You can only create events in the default language ({{ default_language }}).
-                        {% endblocktrans %}
+                        {% endblocktranslate %}
                         <button title="{{ disabled_button_title }}" class="btn" disabled>{% translate "Create event" %}</button>
                     {% endif %}
                 </div>
@@ -54,7 +54,7 @@
             <thead>
                 <tr class="border-b border-solid border-gray-200">
                     <th class="py-3 pl-4 min">
-                        <input form="bulk-action-form" type="checkbox" id="bulk-select-all"/>
+                        <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
                     </th>
                     <th class="text-sm text-left uppercase py-3 pl-2 pr-2">{% translate "Title in" %} {{ language.translated_name }}</th>
                     {% get_current_language as LANGUAGE_CODE %}
@@ -114,9 +114,7 @@
     {% if perms.cms.change_event %}
         <div class="flex flex-wrap gap-2 mt-4">
             <select id="bulk-action" class="w-auto max-w-full">
-                <option>
-                    {% translate "Select bulk action" %}
-                </option>
+                <option>{% translate "Select bulk action" %}</option>
                 <option data-bulk-action="{% url 'bulk_archive_events' region_slug=request.region.slug language_slug=language.slug %}">
                     {% translate "Archive events" %}
                 </option>

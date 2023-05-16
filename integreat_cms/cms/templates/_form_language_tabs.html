@@ -19,7 +19,7 @@
                                         <i icon-name="bot"></i>
                                     </span>
                                 {% elif other_status == translation_status.IN_TRANSLATION %}
-                                    <span {% if other_language == language %} id="currently-in-translation-state"{% endif %}
+                                    <span {% if other_language == language %}id="currently-in-translation-state"{% endif %}
                                           title="{% translate "Currently in translation" %}">
                                         <i icon-name="clock"></i>
                                     </span>
@@ -78,7 +78,7 @@
                     <div id="language-switcher-list" class="h-0 hidden z-10">
                         {% for other_language, other_status in sorted_translation_states|slice:"4:" %}
                             <a href="{% build_url target=target region_slug=request.region.slug language_slug=other_language.slug content_field=content_field content_id=instance.id %}"
-                               class="flex justify-between font-bold whitespace-nowrap {% if forloop.last %} rounded-b border-b{% endif %} py-2 px-3 border-l border-r border-t border-blue-500 hover:bg-water-500 bg-white">
+                               class="flex justify-between font-bold whitespace-nowrap {% if forloop.last %}rounded-b border-b{% endif %} py-2 px-3 border-l border-r border-t border-blue-500 hover:bg-water-500 bg-white">
                                 <div>
                                     {% if other_status == translation_status.IN_TRANSLATION %}
                                         <span title="{% translate "Currently in translation" %}">
