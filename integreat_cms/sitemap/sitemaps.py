@@ -147,7 +147,7 @@ class PageSitemap(WebappSitemap):
         self.queryset = self.queryset.filter(
             page__in=self.region.get_pages(return_unrestricted_queryset=True),
             language=self.language,
-        )
+        ).distinct("page__pk")
 
 
 class EventSitemap(WebappSitemap):
@@ -182,7 +182,7 @@ class EventSitemap(WebappSitemap):
         # Filter queryset based on region and language
         self.queryset = self.queryset.filter(
             event__in=self.region.events.all(), language=self.language
-        )
+        ).distinct("event__pk")
 
 
 class POISitemap(WebappSitemap):
@@ -213,7 +213,7 @@ class POISitemap(WebappSitemap):
         # Filter queryset based on region and language
         self.queryset = self.queryset.filter(
             poi__in=self.region.pois.all(), language=self.language
-        )
+        ).distinct("poi__pk")
 
 
 class OfferSitemap(WebappSitemap):
