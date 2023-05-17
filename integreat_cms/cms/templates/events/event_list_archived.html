@@ -84,9 +84,7 @@
     {% if perms.cms.change_event %}
         <div class="flex flex-wrap gap-2 mt-4">
             <select id="bulk-action" class="w-auto max-w-full">
-                <option>
-                    {% translate "Select bulk action" %}
-                </option>
+                <option>{% translate "Select bulk action" %}</option>
                 <option data-bulk-action="{% url 'bulk_restore_events' region_slug=request.region.slug language_slug=language.slug %}">
                     {% translate "Restore events" %}
                 </option>

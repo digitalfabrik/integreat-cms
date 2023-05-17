@@ -9,12 +9,14 @@
         <div>
             <h1 class="heading">
                 {% with source_language=source_imprint_translation.language.translated_name target_language_name=target_language.translated_name %}
-                    {% blocktrans %}Translate the imprint from {{ source_language }} to {{ target_language_name }}{% endblocktrans %}
+                    {% blocktranslate trimmed %}
+                        Translate the imprint from {{ source_language }} to {{ target_language_name }}
+                    {% endblocktranslate %}
                 {% endwith %}
             </h1>
             <div class="flex flex-wrap grow justify-between gap-2 mb-4">
                 <a href="{% url 'edit_imprint' region_slug=request.region.slug language_slug=target_language.slug %}"
-                   class="bg-gray-400 hover:bg-gray-500 text-center cursor-pointer text-white font-bold py-3 px-4 rounded">
+                   class="btn btn-outline">
                     <i icon-name="arrow-left-circle" class="align-top"></i> {% translate "Back to the imprint form" %}
                 </a>
                 {% if perms.cms.change_imprintpage %}
@@ -72,7 +74,7 @@
                         <input id="source_translation_title"
                                type="text"
                                value="{{ source_imprint_translation.title }}"
-                               disabled/>
+                               disabled />
                         <div class="mt-4">
                             <label class="block mt-4 font-bold">{{ imprint_translation_form.content.label }}</label>
                             <textarea id="source_translation_tinymce" cols="40" rows="10" class="tinymce_textarea" disabled data-old="{{ old_translation_content }}" data-new="{{ source_imprint_translation.content }}">
@@ -92,7 +94,9 @@
                                     title="{% translate "Copy content" %}"
                                     class="btn grow bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                                 {% with source_language=source_imprint_translation.language.translated_name target_language_name=target_language.translated_name %}
-                                    {% blocktrans %}Copy content of {{ source_language }} to {{ target_language_name }}{% endblocktrans %}
+                                    {% blocktranslate trimmed %}
+                                        Copy content of {{ source_language }} to {{ target_language_name }}
+                                    {% endblocktranslate %}
                                 {% endwith %}
                                 <i data-feather="arrow-right-circle" class="mr-2"></i>
                             </button>

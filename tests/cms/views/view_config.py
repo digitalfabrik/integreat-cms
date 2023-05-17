@@ -154,6 +154,50 @@ VIEWS = [
                     "machine_translate_pois": 1,
                 },
             ),
+            (
+                "grant_page_permission_ajax",
+                HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
+                json.dumps(
+                    {
+                        "page_id": 21,
+                        "permission": "edit",
+                        "user_id": 10,
+                    }
+                ),
+            ),
+            (
+                "grant_page_permission_ajax",
+                HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
+                json.dumps(
+                    {
+                        "page_id": 21,
+                        "permission": "publish",
+                        "user_id": 9,
+                    }
+                ),
+            ),
+            (
+                "revoke_page_permission_ajax",
+                HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
+                json.dumps(
+                    {
+                        "page_id": 5,
+                        "permission": "edit",
+                        "user_id": 10,
+                    }
+                ),
+            ),
+            (
+                "revoke_page_permission_ajax",
+                HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
+                json.dumps(
+                    {
+                        "page_id": 6,
+                        "permission": "publish",
+                        "user_id": 10,
+                    }
+                ),
+            ),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg"},

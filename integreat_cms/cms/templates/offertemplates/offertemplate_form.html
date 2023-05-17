@@ -9,7 +9,9 @@
             <h1 class="heading">
                 {% if form.initial %}
                     {% with form.name.value as offer_template_name %}
-                        {% blocktrans %}Edit offer template "{{ offer_template_name }}"{% endblocktrans %}
+                        {% blocktranslate trimmed %}
+                            Edit offer template "{{ offer_template_name }}"
+                        {% endblocktranslate %}
                     {% endwith %}
                 {% else %}
                     {% translate "Create new offer template" %}

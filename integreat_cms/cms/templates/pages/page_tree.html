@@ -39,9 +39,9 @@
                                 {% translate "Create page" %}
                             </a>
                         {% else %}
-                            {% blocktrans trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
-                        You can only create pages in the default language ({{ default_language }}).
-                    {% endblocktrans %}
+                            {% blocktranslate trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
+                                You can only create pages in the default language ({{ default_language }}).
+                            {% endblocktranslate %}
                             <button title="{{ disabled_button_title }}" class="btn" disabled>{% translate "Create page" %}</button>
                         {% endif %}
                     {% endif %}
@@ -61,7 +61,7 @@
                 <thead>
                     <tr class="border-b border-solid border-gray-200">
                         <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">
-                            <input type="checkbox" id="bulk-select-all" class="cursor-wait"/>
+                            <input type="checkbox" id="bulk-select-all" class="cursor-wait" />
                         </th>
                         {% if not filter_form.is_enabled %}
                             <th class="text-sm text-left uppercase py-3 pl-2 pr-2 min">{% translate "Hierarchy" %}</th>
@@ -150,9 +150,7 @@
         {% endif %}
         <div class="flex flex-wrap gap-2 mt-2">
             <select id="bulk-action" class="w-auto max-w-full">
-                <option>
-                    {% translate "Select bulk action" %}
-                </option>
+                <option>{% translate "Select bulk action" %}</option>
                 {% if can_edit_pages %}
                     <option data-bulk-action="{% url 'bulk_archive_pages' region_slug=request.region.slug language_slug=language.slug %}">
                         {% translate "Archive pages" %}
@@ -183,16 +181,20 @@
                 </option>
                 {% if request.user.expert_mode %}
                     {% with language_translated_name=language.translated_name %}
-                        {% blocktrans asvar xliff_export_public %}Export published pages for {{ language_translated_name }} translation{% endblocktrans %}
-                        {% blocktrans asvar xliff_export_all %}Export unpublished (⚠️) and published pages for {{ language_translated_name }} translation{% endblocktrans %}
+                        {% blocktranslate trimmed asvar xliff_export_public %}
+                            Export published pages for {{ language_translated_name }} translation
+                        {% endblocktranslate %}
+                        {% blocktranslate trimmed asvar xliff_export_all %}
+                            Export unpublished (⚠️) and published pages for {{ language_translated_name }} translation
+                        {% endblocktranslate %}
                         {% if language == request.region.default_language %}
-                            {% blocktrans asvar xliff_export_disabled %}You cannot export XLIFF files for the default language{% endblocktrans %}
+                            {% blocktranslate trimmed asvar xliff_export_disabled %}
+                                You cannot export XLIFF files for the default language
+                            {% endblocktranslate %}
                             <option disabled title="{{ xliff_export_disabled }}">
                                 {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
                             </option>
-                            <option disabled title="{{ xliff_export_disabled }}">
-                                {{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})
-                            </option>
+                            <option disabled title="{{ xliff_export_disabled }}">{{ xliff_export_all }} ({{ XLIFF_EXPORT_VERSION|upper }})</option>
                         {% else %}
                             <option data-bulk-action="{% url 'download_xliff_only_public' region_slug=request.region.slug language_slug=language.slug %}">
                                 {{ xliff_export_public }} ({{ XLIFF_EXPORT_VERSION|upper }})
@@ -234,7 +236,7 @@
                        name="xliff_file"
                        class="hidden"
                        accept=".zip, .xlf, .xliff"
-                       multiple/>
+                       multiple />
                 {% csrf_token %}
                 <button id="xliff_file_submit" class="btn" disabled>{% translate "Import" %}</button>
             </form>

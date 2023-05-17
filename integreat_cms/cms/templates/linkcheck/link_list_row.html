@@ -7,12 +7,12 @@
 {% object_translation_has_view_perm request.user url.region_links.0.content_object as show_source_link %}
 <tbody class="hover:bg-gray-100">
     <tr class="border-t border-gray-200 text-gray-800"
-        {% if url.id == view.kwargs.url_id %} id="replace-url"{% endif %}>
+        {% if url.id == view.kwargs.url_id %}id="replace-url"{% endif %}>
         <td class="py-3 pl-4">
             <input type="checkbox"
                    name="selected_ids[]"
                    value="{{ url.id }}"
-                   class="bulk-select-item"/>
+                   class="bulk-select-item" />
         </td>
         <td class="pr-2 whitespace-nowrap max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px] overflow-hidden text-ellipsis">
             <a href="{{ url.url }}"

@@ -12,7 +12,9 @@
             <h1 class="heading">
                 {% if form.initial %}
                     {% with form.name.value as organization_name %}
-                        {% blocktrans %}Edit organization "{{ organization_name }}"{% endblocktrans %}
+                        {% blocktranslate trimmed %}
+                            Edit organization "{{ organization_name }}"
+                        {% endblocktranslate %}
                     {% endwith %}
                 {% else %}
                     {% translate "Create new organization" %}
