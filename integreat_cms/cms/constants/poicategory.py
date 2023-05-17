@@ -32,6 +32,7 @@ COLORS = [
 ]
 
 CULTURE = "culture"
+EDUCATION = "education"
 GASTRONOMY = "gastronomy"
 HEALTH = "health"
 HOUSE = "house"
@@ -46,6 +47,7 @@ SHOPPING = "shopping"
 
 ICONS = [
     (CULTURE, _("Culture")),
+    (EDUCATION, _("Education")),
     (GASTRONOMY, _("Gastronomy")),
     (HEALTH, _("Health")),
     (HOUSE, _("House")),
