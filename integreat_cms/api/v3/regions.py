@@ -1,11 +1,12 @@
 """
 This module includes functions related to the regions API endpoint.
 """
-from django.http import JsonResponse
+from django.http import Http404, JsonResponse
 
 from ...cms.constants import region_status
 from ...cms.models import Region
 from ..decorators import json_response
+from .languages import transform_language
 
 
 def transform_region(region):
@@ -35,23 +36,8 @@ def transform_region(region):
         "bounding_box": region.bounding_box.api_representation,
         "aliases": region.aliases,
         "tunews": region.tunews_enabled,
+        "languages": list(map(transform_language, region.visible_languages)),
     }
-
-
-def transform_region_by_status(region):
-    """
-    Function to create a JSON from a single "active" region object.
-
-    :param region: The region object which should be converted
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
-    :return: data necessary for API
-    :rtype: dict
-    """
-    result = transform_region(region)
-    # Remove status
-    del result["live"]
-    return result
 
 
 @json_response
@@ -71,38 +57,17 @@ def regions(_):
 
 
 @json_response
-def liveregions(_):
+# pylint: disable=unused-argument
+def region_by_slug(request, region_slug):
     """
-    List all regions that are not archived and transform result into JSON
+    Retrieve a single region and transform result into JSON
 
     :return: JSON object according to APIv3 live regions endpoint definition
     :rtype: ~django.http.JsonResponse
     """
-    result = list(
-        map(
-            transform_region_by_status,
-            Region.objects.filter(status=region_status.ACTIVE),
-        )
-    )
+    if request.region.status == region_status.ARCHIVED:
+        raise Http404("This region is archived.")
+
     return JsonResponse(
-        result, safe=False
-    )  # Turn off Safe-Mode to allow serializing arrays
-
-
-@json_response
-def hiddenregions(_):
-    """
-    List all regions that are hidden and transform result into JSON
-
-    :return: JSON object according to APIv3 hidden regions endpoint definition
-    :rtype: ~django.http.JsonResponse
-    """
-    result = list(
-        map(
-            transform_region_by_status,
-            Region.objects.filter(status=region_status.HIDDEN),
-        )
-    )
-    return JsonResponse(
-        result, safe=False
+        transform_region(request.region), safe=False
     )  # Turn off Safe-Mode to allow serializing arrays
