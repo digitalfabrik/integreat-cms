@@ -1,0 +1,52 @@
+"""
+This modules contains the config for the sitemap tests
+"""
+
+#: The sitemaps
+SITEMAPS = [
+    (
+        "/sitemap.xml",
+        "tests/sitemap/expected-sitemaps/sitemap-index.xml",
+        58,
+    ),
+    (
+        "/augsburg/de/sitemap.xml",
+        "tests/sitemap/expected-sitemaps/sitemap-augsburg-de.xml",
+        139,
+    ),
+    (
+        "/augsburg/en/sitemap.xml",
+        "tests/sitemap/expected-sitemaps/sitemap-augsburg-en.xml",
+        125,
+    ),
+    (
+        "/augsburg/ar/sitemap.xml",
+        "tests/sitemap/expected-sitemaps/sitemap-augsburg-ar.xml",
+        106,
+    ),
+    (
+        "/augsburg/fa/sitemap.xml",
+        "tests/sitemap/expected-sitemaps/sitemap-augsburg-fa.xml",
+        85,
+    ),
+    (
+        "/nurnberg/de/sitemap.xml",
+        "tests/sitemap/expected-sitemaps/sitemap-nurnberg-de.xml",
+        75,
+    ),
+    (
+        "/nurnberg/en/sitemap.xml",
+        "tests/sitemap/expected-sitemaps/sitemap-nurnberg-en.xml",
+        54,
+    ),
+    (
+        "/nurnberg/ar/sitemap.xml",
+        "tests/sitemap/expected-sitemaps/sitemap-nurnberg-ar.xml",
+        33,
+    ),
+    (
+        "/nurnberg/fa/sitemap.xml",
+        "tests/sitemap/expected-sitemaps/sitemap-nurnberg-fa.xml",
+        26,
+    ),
+]
