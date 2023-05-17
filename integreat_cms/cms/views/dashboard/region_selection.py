@@ -38,7 +38,6 @@ class RegionSelection(TemplateView):
         """
 
         user = request.user
-        regions = user.regions
         if user.is_superuser or user.is_staff:
             return redirect("admin_dashboard")
 
@@ -46,7 +45,7 @@ class RegionSelection(TemplateView):
         if user.distinct_region:
             return redirect("dashboard", region_slug=user.distinct_region.slug)
 
-        if not regions.exists():
+        if not user.regions.exists():
             raise PermissionDenied(f"{user!r} is neither staff nor a region user")
 
         context = self.get_context_data(**kwargs)

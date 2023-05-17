@@ -545,7 +545,7 @@ def grant_page_permission_ajax(request, region_slug):
 
         if not (request.user.is_superuser or request.user.is_staff):
             # additional checks if requesting user is no superuser or staff
-            if page.region not in request.user.regions:
+            if page.region not in request.user.regions.all():
                 # requesting user can only grant permissions for pages of his region
                 logger.warning(
                     "Error: %r cannot grant permissions for %r",
@@ -553,7 +553,7 @@ def grant_page_permission_ajax(request, region_slug):
                     page.region,
                 )
                 raise PermissionDenied
-            if page.region not in user.regions:
+            if page.region not in user.regions.all():
                 # user can only receive permissions for pages of his region
                 logger.warning(
                     "Error: %r cannot receive permissions for %r",
@@ -669,7 +669,7 @@ def revoke_page_permission_ajax(request, region_slug):
         if (
             not request.user.is_superuser
             and not request.user.is_staff
-            and page.region not in request.user.regions
+            and page.region not in request.user.regions.all()
         ):
             # requesting user can only revoke permissions for pages of his region
             logger.warning(

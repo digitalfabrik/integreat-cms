@@ -37,7 +37,10 @@ def check_view_status_code(login_role_user, view_name, kwargs, post_data, roles)
     if role in roles:
         # If the role should be allowed to access the view, we expect a successful result
         if post_data:
-            if response.headers.get("Content-Type") == "application/json":
+            if (
+                response.headers.get("Content-Type") == "application/json"
+                or kwargs.get("content_type") == "application/json"
+            ):
                 # Json-views should return 200 or 201 CREATED (for feedback)
                 assert response.status_code in [
                     200,
