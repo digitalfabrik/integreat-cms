@@ -423,6 +423,11 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.pdf.html#test-pdf-export">Test PDF Export</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/tests.sitemap.html">Sitemap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.sitemap.html#sitemap-config">Sitemap Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.sitemap.html#test-sitemap">Test Sitemap</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.summ_ai_api.html">SUMM.AI API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.summ_ai_api.html#summ-ai-test">SUMM.AI Test</a></li>
 </ul>
@@ -1133,6 +1138,17 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="tests.sitemap.html">Sitemap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.sitemap.html#module-tests.sitemap.sitemap_config">Sitemap Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.sitemap.html#tests.sitemap.sitemap_config.SITEMAPS"><code class="docutils literal notranslate"><span class="pre">SITEMAPS</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests.sitemap.html#module-tests.sitemap.test_sitemap">Test Sitemap</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.sitemap.html#tests.sitemap.test_sitemap.test_sitemap"><code class="docutils literal notranslate"><span class="pre">test_sitemap()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="tests.summ_ai_api.html">SUMM.AI API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#module-tests.summ_ai_api.summ_ai_test">SUMM.AI Test</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.broken_fake_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">broken_fake_summ_ai_server()</span></code></a></li>
@@ -1547,7 +1563,7 @@
              
   <section id="module-tests">
 <span id="tests"></span><h1>Tests<a class="headerlink" href="#module-tests" title="Permalink to this heading"></a></h1>
-<p>We use <a class="reference external" href="https://docs.pytest.org/en/latest/index.html" title="(in pytest v7.4.0.dev68+g739408b95)"><span class="xref std std-doc">pytest</span></a> to validate that the functionality of the cms works as expected.</p>
+<p>We use <a class="reference external" href="https://docs.pytest.org/en/latest/index.html" title="(in pytest v7.4.0.dev71+gba32a3bd8)"><span class="xref std std-doc">pytest</span></a> to validate that the functionality of the cms works as expected.</p>
 <p>In addition, we use the following plugins:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/index.html" title="(in pytest-cov v4.0.0)"><span class="xref std std-doc">pytest-cov</span></a>: This plugin produces coverage reports.</p></li>
@@ -1693,6 +1709,17 @@
 <li class="toctree-l2"><a class="reference internal" href="tests.pdf.html#module-tests.pdf.test_pdf_export">Test PDF Export</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.pdf.html#tests.pdf.test_pdf_export.test_pdf_export"><code class="docutils literal notranslate"><span class="pre">test_pdf_export()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.pdf.html#tests.pdf.test_pdf_export.test_pdf_export_invalid"><code class="docutils literal notranslate"><span class="pre">test_pdf_export_invalid()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tests.sitemap.html">Sitemap</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tests.sitemap.html#module-tests.sitemap.sitemap_config">Sitemap Config</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.sitemap.html#tests.sitemap.sitemap_config.SITEMAPS"><code class="docutils literal notranslate"><span class="pre">SITEMAPS</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tests.sitemap.html#module-tests.sitemap.test_sitemap">Test Sitemap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.sitemap.html#tests.sitemap.test_sitemap.test_sitemap"><code class="docutils literal notranslate"><span class="pre">test_sitemap()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1870,7 +1897,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.FixtureRequest" title="(in pytest v7.4.0.dev68+g739408b95)"><em>pytest.FixtureRequest</em></a>) – The request object providing the parametrized role variable through <code class="docutils literal notranslate"><span class="pre">request.param</span></code></p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.FixtureRequest" title="(in pytest v7.4.0.dev71+gba32a3bd8)"><em>pytest.FixtureRequest</em></a>) – The request object providing the parametrized role variable through <code class="docutils literal notranslate"><span class="pre">request.param</span></code></p></li>
 <li><p><strong>load_test_data</strong> (<em>NoneType</em>) – The fixture providing the test data (see <a class="reference internal" href="#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
 <li><p><strong>django_db_blocker</strong> (<a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/database.html#std-fixture-django_db_blocker" title="(in pytest-django)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">django_db_blocker</span></code></a>) – The fixture providing the database blocker</p></li>
 </ul>
@@ -1893,7 +1920,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.FixtureRequest" title="(in pytest v7.4.0.dev68+g739408b95)"><em>pytest.FixtureRequest</em></a>) – The request object providing the parametrized role variable through <code class="docutils literal notranslate"><span class="pre">request.param</span></code></p></li>
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.FixtureRequest" title="(in pytest v7.4.0.dev71+gba32a3bd8)"><em>pytest.FixtureRequest</em></a>) – The request object providing the parametrized role variable through <code class="docutils literal notranslate"><span class="pre">request.param</span></code></p></li>
 <li><p><strong>load_test_data</strong> (<em>NoneType</em>) – The fixture providing the test data (see <a class="reference internal" href="#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
 <li><p><strong>django_db_blocker</strong> (<a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/database.html#std-fixture-django_db_blocker" title="(in pytest-django)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">django_db_blocker</span></code></a>) – The fixture providing the database blocker</p></li>
 </ul>

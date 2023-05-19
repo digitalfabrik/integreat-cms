@@ -423,6 +423,11 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.pdf.html#test-pdf-export">Test PDF Export</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/tests.sitemap.html">Sitemap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.sitemap.html#sitemap-config">Sitemap Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.sitemap.html#test-sitemap">Test Sitemap</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.summ_ai_api.html">SUMM.AI API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.summ_ai_api.html#summ-ai-test">SUMM.AI Test</a></li>
 </ul>
@@ -1133,6 +1138,17 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="tests.sitemap.html">Sitemap</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.sitemap.html#module-tests.sitemap.sitemap_config">Sitemap Config</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.sitemap.html#tests.sitemap.sitemap_config.SITEMAPS"><code class="docutils literal notranslate"><span class="pre">SITEMAPS</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests.sitemap.html#module-tests.sitemap.test_sitemap">Test Sitemap</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.sitemap.html#tests.sitemap.test_sitemap.test_sitemap"><code class="docutils literal notranslate"><span class="pre">test_sitemap()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="tests.summ_ai_api.html">SUMM.AI API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#module-tests.summ_ai_api.summ_ai_test">SUMM.AI Test</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.broken_fake_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">broken_fake_summ_ai_server()</span></code></a></li>
@@ -1579,7 +1595,7 @@ with mocked post</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>settings</strong> (<a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/helpers.html#std-fixture-settings" title="(in pytest-django)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">settings</span></code></a>) – The Django settings</p></li>
-<li><p><strong>requests_mock</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.LogCaptureFixture" title="(in pytest v7.4.0.dev68+g739408b95)"><em>LogCaptureFixture</em></a>) – Fixture for mocking requests, see <a class="reference external" href="https://requests-mock.readthedocs.io/en/latest/pytest.html" title="(in requests-mock v1.10.1)"><span>pytest</span></a></p></li>
+<li><p><strong>requests_mock</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.LogCaptureFixture" title="(in pytest v7.4.0.dev71+gba32a3bd8)"><em>LogCaptureFixture</em></a>) – Fixture for mocking requests, see <a class="reference external" href="https://requests-mock.readthedocs.io/en/latest/pytest.html" title="(in requests-mock v1.10.1)"><span>pytest</span></a></p></li>
 <li><p><strong>mocked_response</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – Data for the mocked response, depending on test-scenario (given by
 <a class="reference internal" href="#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.response_mock_data" title="tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.response_mock_data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">response_mock_data</span></code></a>)</p></li>
 </ul>
@@ -1617,7 +1633,7 @@ with mocked post</p>
 <li><p><strong>settings</strong> (<a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/helpers.html#std-fixture-settings" title="(in pytest-django)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">settings</span></code></a>) – The Django settings</p></li>
 <li><p><strong>load_test_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
 <li><p><strong>requests_mock</strong> (<em>Mocker</em>) – Fixture for mocking requests, see <a class="reference external" href="https://requests-mock.readthedocs.io/en/latest/pytest.html" title="(in requests-mock v1.10.1)"><span>pytest</span></a></p></li>
-<li><p><strong>caplog</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.LogCaptureFixture" title="(in pytest v7.4.0.dev68+g739408b95)"><em>LogCaptureFixture</em></a>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v7.4.0.dev68+g739408b95)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
+<li><p><strong>caplog</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.LogCaptureFixture" title="(in pytest v7.4.0.dev71+gba32a3bd8)"><em>LogCaptureFixture</em></a>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v7.4.0.dev71+gba32a3bd8)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -1634,7 +1650,7 @@ test a partial successful api call - HTTP 200 but no message_id in response</p>
 <li><p><strong>settings</strong> (<a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/helpers.html#std-fixture-settings" title="(in pytest-django)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">settings</span></code></a>) – The Django settings</p></li>
 <li><p><strong>load_test_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
 <li><p><strong>requests_mock</strong> (<em>Mocker</em>) – Fixture for mocking requests, see <a class="reference external" href="https://requests-mock.readthedocs.io/en/latest/pytest.html" title="(in requests-mock v1.10.1)"><span>pytest</span></a></p></li>
-<li><p><strong>caplog</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.LogCaptureFixture" title="(in pytest v7.4.0.dev68+g739408b95)"><em>LogCaptureFixture</em></a>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v7.4.0.dev68+g739408b95)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
+<li><p><strong>caplog</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.LogCaptureFixture" title="(in pytest v7.4.0.dev71+gba32a3bd8)"><em>LogCaptureFixture</em></a>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v7.4.0.dev71+gba32a3bd8)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -1651,7 +1667,7 @@ test a denied call - HTTP 403 because of wrong auth-token</p>
 <li><p><strong>settings</strong> (<a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/helpers.html#std-fixture-settings" title="(in pytest-django)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">settings</span></code></a>) – The Django settings</p></li>
 <li><p><strong>load_test_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
 <li><p><strong>requests_mock</strong> (<em>Mocker</em>) – Fixture for mocking requests, see <a class="reference external" href="https://requests-mock.readthedocs.io/en/latest/pytest.html" title="(in requests-mock v1.10.1)"><span>pytest</span></a></p></li>
-<li><p><strong>caplog</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.LogCaptureFixture" title="(in pytest v7.4.0.dev68+g739408b95)"><em>LogCaptureFixture</em></a>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v7.4.0.dev68+g739408b95)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
+<li><p><strong>caplog</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.LogCaptureFixture" title="(in pytest v7.4.0.dev71+gba32a3bd8)"><em>LogCaptureFixture</em></a>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v7.4.0.dev71+gba32a3bd8)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -1667,7 +1683,7 @@ test a denied call - HTTP 403 because of wrong auth-token</p>
 <li><p><strong>settings</strong> (<a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/helpers.html#std-fixture-settings" title="(in pytest-django)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">settings</span></code></a>) – The Django settings</p></li>
 <li><p><strong>load_test_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
 <li><p><strong>requests_mock</strong> (<em>Mocker</em>) – Fixture for mocking requests, see <a class="reference external" href="https://requests-mock.readthedocs.io/en/latest/pytest.html" title="(in requests-mock v1.10.1)"><span>pytest</span></a></p></li>
-<li><p><strong>caplog</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.LogCaptureFixture" title="(in pytest v7.4.0.dev68+g739408b95)"><em>LogCaptureFixture</em></a>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v7.4.0.dev68+g739408b95)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
+<li><p><strong>caplog</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.LogCaptureFixture" title="(in pytest v7.4.0.dev71+gba32a3bd8)"><em>LogCaptureFixture</em></a>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v7.4.0.dev71+gba32a3bd8)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
 </ul>
 </dd>
 </dl>
