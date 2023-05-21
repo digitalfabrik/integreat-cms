@@ -1,9 +1,8 @@
 {% load i18n %}
 <div id="machine_translation_overlay"
+     data-hix-threshold="{{ hix_threshold }}"
      class="hidden fixed items-center justify-center inset-0 bg-opacity-75 bg-gray-800 z-50 cursor-pointer">
-    <!-- Remove flex and add hidden class-->
     <div class="cursor-auto justify-center w-[500px] max-h-fit px-[10px] z-50 m-auto">
-        <!-- if necessary increase width: increased from 400 to 600px -->
         <div class="bg-white opacity-100 content rounded shadow-md w-full">
             <div class="flex items-center w-full rounded p-4 bg-water-500">
                 <h2 class="font-bold font-default">
@@ -31,21 +30,21 @@
                 </div>
                 <div class="mt-4">
                     <h3>
-                        <b>{% translate "Pages to be translated " %}(<span id="machine_translation_overlay_languages_number"></span>)</b>
+                        <b>{% translate "Pages to be translated" %}(<span id="machine_translation_overlay_pages_number"></span>/<span id="machine_translation_overlay_pages_total_number"></span>)</b>
                     </h3>
                     <div class="mt-2">
                         <div id="machine-translation-overlay-pages-no-pages-warning"
                              class="hidden bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 mb-5">
-                            {% translate "None of the selected pages fullfills the required HIX score of 15." %}
+                            {% translate "None of the selected pages fullfills the required HIX score of " %}  {{ hix_threshold }}.
                         </div>
                         <ul id="machine-translation-overlay-pages">
                         </ul>
                         <ul id="machine-translation-overlay-pages-optional" class="hidden">
                         </ul>
-                        <a id="machine-translation-overlay-more"
+                        <a id="machine-translation-overlay-expansion-trigger"
                            data-default-text="{% translate "Show all" %}"
                            data-alternative-text="{% translate "Show less" %}"
-                           class="text-blue-500">{% translate "Show all" %}</a>
+                           class="text-blue-500 hidden">{% translate "Show all" %}</a>
                     </div>
                 </div>
                 <div class="mt-4">
@@ -83,7 +82,11 @@
                     </a>
                 </div>
                 <div class="flex justify-between mt-4">
-                    <button type="button" id="btn-close-machine-translation-overlay" class="btn">{% translate "Cancel" %}</button>
+                    <button type="button"
+                            id="btn-close-machine-translation-overlay"
+                            class="btn !bg-red-500">
+                        {% translate "Cancel" %}
+                    </button>
                     <button id="machine-translation-overlay-bulk-action-execute"
                             class="btn"
                             form="bulk-action-form"
