@@ -434,3 +434,12 @@ function format_grep_output {
             -e "s/^([0-9]+)-(.*)/\1\2/"                     `# Remove dash of unmatched line`
     done
 }
+
+# Use (multi-char) delimiter to join strings
+# Taken from https://stackoverflow.com/a/17841619
+function join_by {
+    local d=${1-} f=${2-}
+    if shift 2; then
+        printf %s "$f" "${@/#/$d}"
+    fi
+}
