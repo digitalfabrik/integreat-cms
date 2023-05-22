@@ -19,6 +19,7 @@ from django.views.decorators.http import require_POST
 from treebeard.exceptions import InvalidMoveToDescendant, InvalidPosition
 
 from ....api.decorators import json_response
+from ....core.settings import TEXTLAB_API_ENABLED
 from ...constants import text_directions
 from ...decorators import permission_required
 from ...forms import PageForm
@@ -917,13 +918,18 @@ def post_hix_and_word_number_per_page(request, region_slug):
 
     hix_threshold = settings.HIX_REQUIRED_FOR_MT
     pages = request.region.get_pages()
+    # selected_pages = request.POST.getlist("selected_ids[]")
+    # print(selected_pages)
 
     all_pages = {}
     for page in pages:
         translation = page.get_translation(request.region.default_language.slug)
-        hix_evaluation = (
-            translation.hix_score and translation.hix_score >= hix_threshold
-        )
+
+        if TEXTLAB_API_ENABLED:
+            hix_evaluation = (
+                translation.hix_score and translation.hix_score >= hix_threshold
+            )
+
         single_page = {
             "id": page.id,
             "title": translation.title,

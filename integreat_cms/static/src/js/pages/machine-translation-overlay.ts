@@ -95,7 +95,7 @@ const filterAllPagesByHixValue = (
 
     let numberOfTranslatablePages = 0;
     let numberOfNotTranslatablePages = 0;
-    let numbrtOfWords = 0;
+    let numberOfWords = 0;
 
     selectedPages.forEach((page) => {
         const index = page.getAttribute("data-drop-id");
@@ -109,8 +109,8 @@ const filterAllPagesByHixValue = (
         if (pages[key].hix) {
             list.textContent = pages[key].title;
             numberOfTranslatablePages += 1;
-            numbrtOfWords += pages[key].words;
-            if (listOfFirstFivePages.children.length <= limitOfPreview) {
+            numberOfWords += pages[key].words;
+            if (listOfFirstFivePages.children.length < limitOfPreview) {
                 listOfFirstFivePages.appendChild(list);
             } else {
                 listOfOptionalPages.appendChild(list);
@@ -122,11 +122,11 @@ const filterAllPagesByHixValue = (
         }
     });
 
-    setRequiredBudget(numbrtOfWords);
+    setRequiredBudget(numberOfWords);
     document.getElementById("machine-translation-overlay-warning-number").textContent =
         numberOfNotTranslatablePages.toString();
 
-    if (listOfFirstFivePages.children.length > limitOfPreview) {
+    if (listOfFirstFivePages.children.length >= limitOfPreview) {
         expansionTrigger.classList.add("block");
         expansionTrigger.classList.remove("hidden");
     } else {
