@@ -554,6 +554,11 @@ urlpatterns = [
                                             utils.slugify_ajax,
                                             name="slugify_ajax",
                                         ),
+                                        path(
+                                            "auto-translate-hix-and-words-per-page/",
+                                            pages.post_hix_and_word_number_per_page,
+                                            name="post_hix_and_word_number_per_page",
+                                        ),
                                     ]
                                 ),
                             ),
@@ -621,11 +626,6 @@ urlpatterns = [
                                 "get_hix_score/",
                                 utils.get_hix_score,
                                 name="get_hix_score",
-                            ),
-                            path(
-                                "auto-translate-hix-and-words-per-page/",
-                                pages.post_hix_and_word_number_per_page,
-                                name="post_hix_and_word_number_per_page",
                             ),
                             path(
                                 "statistics/",

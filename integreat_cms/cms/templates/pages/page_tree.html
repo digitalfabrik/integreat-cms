@@ -160,7 +160,8 @@
                     {% translate "pages" as content_type %}
                     {% if MT_PROVIDER %}
                         <option id="machine-translation-option"
-                                data-url="{% url 'post_hix_and_word_number_per_page' region_slug=request.region.slug %}"
+                                data-mt-provider="{{ MT_PROVIDER.name }}"
+                                data-url="{% url 'post_hix_and_word_number_per_page' region_slug=request.region.slug language_slug=language.slug %}"
                                 data-bulk-action="{% url 'machine_translation_pages' region_slug=request.region.slug language_slug=language.slug %}">
                             {% blocktranslate trimmed with provider=MT_PROVIDER.name %}
                                 Machine translate {{ content_type }} via {{ provider }} to {{ language }}

@@ -19,7 +19,7 @@ from django.views.decorators.http import require_POST
 from treebeard.exceptions import InvalidMoveToDescendant, InvalidPosition
 
 from ....api.decorators import json_response
-from ....core.settings import TEXTLAB_API_ENABLED
+from ....textlab_api.utils import check_hix_score
 from ...constants import text_directions
 from ...decorators import permission_required
 from ...forms import PageForm
@@ -902,7 +902,7 @@ def refresh_date(
 @require_POST
 @json_response
 # pylint: disable=unused-argument
-def post_hix_and_word_number_per_page(request, region_slug):
+def post_hix_and_word_number_per_page(request, region_slug, language_slug):
     """
     This function collects the hix score and the amount of words per page from the source
 
@@ -912,41 +912,55 @@ def post_hix_and_word_number_per_page(request, region_slug):
     :param region_slug: The slug of the current region
     :type region_slug: str
 
+    :param language_slug: The slug of the current language
+    :type language_slug: str
+
     :return: A json response of {{"id": id, "title": title, "words": number of words, "hix": if HIX value is high enough}} in case of success
     :rtype: ~django.http.JsonResponse
     """
     selected_page_ids = json.loads(request.body.decode("utf-8"))
-    selected_pages = request.region.get_pages(return_unrestricted_queryset=True).filter(id__in=selected_page_ids)
-    hix_threshold = settings.HIX_REQUIRED_FOR_MT
+    selected_pages = request.region.get_pages(return_unrestricted_queryset=True).filter(
+        id__in=selected_page_ids
+    )
 
     filtered_pages = {}
     translatable = {}
     not_translatable = {}
 
-    for page in selected_pages:
-        translation = page.get_translation(request.region.default_language.slug)
-        words = len(translation.content.split()) + len(translation.title.split())
+    source_language = request.region.get_source_language(language_slug)
 
-        if not TEXTLAB_API_ENABLED or not request.region.hix_enabled or translation.hix_score and translation.hix_score >= hix_threshold:
+    for page in selected_pages:
+        source_translation = page.get_translation(source_language.slug)
+        words = (
+            len(source_translation.content.split())
+            + len(source_translation.title.split())
+            if source_translation
+            else 0
+        )
+
+        if source_translation and check_hix_score(
+            request, source_translation, show_message=False
+        ):
             page_data = {
                 "id": page.id,
-                "title": translation.title,
+                "title": source_translation.title,
                 "words": words,
-                "hix": True
+                "hix": True,
             }
             translatable.update({page.id: page_data})
         else:
             page_data = {
                 "id": page.id,
-                "title": translation.title,
+                "title": source_translation.title
+                if source_translation
+                else page.best_translation.title,
                 "words": words,
-                "hix": False
+                "hix": False,
             }
             not_translatable.update({page.id: page_data})
 
     filtered_pages = {
         "translatable": translatable,
-        "not_translatable": not_translatable
+        "not_translatable": not_translatable,
     }
     return JsonResponse(filtered_pages)
-

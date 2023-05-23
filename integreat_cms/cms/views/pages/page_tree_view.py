@@ -140,7 +140,6 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
 
         # Filter pages according to given filters, if any
         pages = filter_form.apply(pages, language_slug)
-
         return render(
             request,
             self.template_name,
@@ -152,6 +151,6 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
                 "languages": region.active_languages,
                 "filter_form": filter_form,
                 "XLIFF_EXPORT_VERSION": settings.XLIFF_EXPORT_VERSION,
-                "deepl_budget": region.deepl_budget_remaining,
+                "hix_threshold": settings.HIX_REQUIRED_FOR_MT,
             },
         )
