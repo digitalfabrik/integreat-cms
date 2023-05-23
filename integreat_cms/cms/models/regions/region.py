@@ -315,10 +315,12 @@ class Region(AbstractBaseModel):
         help_text=_("Please check the box if you want to use short urls."),
     )
 
-    tunews_enabled = models.BooleanField(
+    external_news_enabled = models.BooleanField(
         default=False,
-        verbose_name=_("Enable tunews"),
-        help_text=_("Enable to show a feed of tunews articles to users."),
+        verbose_name=_("Enable external news"),
+        help_text=_(
+            "Enable to display external articles in addition to local news managed by the CMS"
+        ),
     )
 
     fallback_translations_enabled = models.BooleanField(
