@@ -915,29 +915,38 @@ def post_hix_and_word_number_per_page(request, region_slug):
     :return: A json response of {{"id": id, "title": title, "words": number of words, "hix": if HIX value is high enough}} in case of success
     :rtype: ~django.http.JsonResponse
     """
-
+    selected_page_ids = json.loads(request.body.decode("utf-8"))
+    selected_pages = request.region.get_pages(return_unrestricted_queryset=True).filter(id__in=selected_page_ids)
     hix_threshold = settings.HIX_REQUIRED_FOR_MT
-    pages = request.region.get_pages()
-    # selected_pages = request.POST.getlist("selected_ids[]")
-    # print(selected_pages)
 
-    all_pages = {}
-    for page in pages:
+    filtered_pages = {}
+    translatable = {}
+    not_translatable = {}
+
+    for page in selected_pages:
         translation = page.get_translation(request.region.default_language.slug)
+        words = len(translation.content.split()) + len(translation.title.split())
 
-        if TEXTLAB_API_ENABLED:
-            hix_evaluation = (
-                translation.hix_score and translation.hix_score >= hix_threshold
-            )
+        if not TEXTLAB_API_ENABLED or not request.region.hix_enabled or translation.hix_score and translation.hix_score >= hix_threshold:
+            page_data = {
+                "id": page.id,
+                "title": translation.title,
+                "words": words,
+                "hix": True
+            }
+            translatable.update({page.id: page_data})
+        else:
+            page_data = {
+                "id": page.id,
+                "title": translation.title,
+                "words": words,
+                "hix": False
+            }
+            not_translatable.update({page.id: page_data})
 
-        single_page = {
-            "id": page.id,
-            "title": translation.title,
-            "words": len(translation.content.split()) + len(translation.title.split()),
-            "hix": hix_evaluation,
-        }
-        all_pages.update({str(page.id): single_page})
+    filtered_pages = {
+        "translatable": translatable,
+        "not_translatable": not_translatable
+    }
+    return JsonResponse(filtered_pages)
 
-    if all_pages:
-        return JsonResponse(all_pages)
-    return JsonResponse({"error": "Could not retrieve data"})

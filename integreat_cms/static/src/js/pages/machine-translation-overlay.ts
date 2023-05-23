@@ -29,9 +29,21 @@ const getSelectedItems = () => {
     return selectedPages;
 };
 
+const getSelectedIDs = () => {
+    // get the HTML tr element of the selected pages
+    const checkboxes = document.querySelectorAll(".bulk-select-item");
+    const selectedPages: Array<number> = [];
+    checkboxes.forEach((checkbox) => {
+        if ((checkbox as HTMLInputElement).checked) {
+            selectedPages.push(parseInt(checkbox.closest("tr").getAttribute("data-drop-id")));
+        }
+    });
+    return selectedPages;
+};
+
 const getAllPages = async (
-    url: string
-): Promise<{ [index: string]: { id: number; title: string; words: number; hix: boolean } }> => {
+    url: string, selectedPages: Array<number>
+): Promise<{[category: string]: {[id: number]: { id: number; title: string; words: number; hix: boolean }}}> => {
     // make AJAX call to get all pages and return them as Promise <object>
     let pages;
     await fetch(url, {
@@ -39,6 +51,7 @@ const getAllPages = async (
         headers: {
             "X-CSRFToken": getCsrfToken(),
         },
+        body: JSON.stringify(selectedPages),
     })
         .then((response) => response.json())
         .then((json) => {
@@ -77,55 +90,75 @@ const getPageTitles = (selectedPages: Array<Element>) => {
     return titles;
 };
 
-const filterAllPagesByHixValue = (
-    pages: { [index: string]: { id: number; title: string; words: number; hix: boolean } },
-    selectedPages: Array<Element>
-) => {
-    // Sets lists of pages that fullfill HIX threshold either to the preview or to the expandable list
-    const listOfFirstFivePages = document.getElementById("machine-translation-overlay-pages");
-    const listOfOptionalPages = document.getElementById("machine-translation-overlay-pages-optional");
-    const expansionTrigger = document.getElementById("machine-translation-overlay-expansion-trigger");
-
-    listOfFirstFivePages.innerHTML = "";
-    listOfOptionalPages.innerHTML = "";
-
-    const warningListElement = document.getElementById("machine-translation-overlay-warning");
-    const expandableWarningListElement = document.getElementById("machine-translation-overlay-warning-optional");
-    expandableWarningListElement.innerHTML = "";
+const buildTranslatableList = (
+    translatablePages: {[id: number]: { id: number; title: string; words: number; hix: boolean; };},
+    listOfFirstFivePages: HTMLElement,
+    listOfOptionalPages: HTMLElement) => {
+    
+    const pages = Object.values(translatablePages);
 
     let numberOfTranslatablePages = 0;
-    let numberOfNotTranslatablePages = 0;
     let numberOfWords = 0;
 
-    selectedPages.forEach((page) => {
-        const index = page.getAttribute("data-drop-id");
-        type ObjectKey = keyof typeof pages;
-        const key = index as ObjectKey;
-
+    pages.forEach((page) => {
         const list = document.createElement("li");
         list.classList.add("list-disc");
         list.classList.add("ml-4");
-
-        if (pages[key].hix) {
-            list.textContent = pages[key].title;
-            numberOfTranslatablePages += 1;
-            numberOfWords += pages[key].words;
-            if (listOfFirstFivePages.children.length < limitOfPreview) {
-                listOfFirstFivePages.appendChild(list);
-            } else {
-                listOfOptionalPages.appendChild(list);
-            }
+        list.textContent = page["title"];
+        
+        if (listOfFirstFivePages.children.length < limitOfPreview) {
+            listOfFirstFivePages.appendChild(list);
         } else {
-            list.textContent = pages[key].title;
-            expandableWarningListElement.appendChild(list);
-            numberOfNotTranslatablePages += 1;
+            listOfOptionalPages.appendChild(list);
         }
+
+        numberOfTranslatablePages += 1;
+        numberOfWords += page["words"];
     });
 
+    setAmount(numberOfTranslatablePages);
     setRequiredBudget(numberOfWords);
+}
+
+const buildNotTranslatableList = (
+    translatablePages: {[id: number]: { id: number; title: string; words: number; hix: boolean; };},
+    expandableWarningListElement: HTMLElement) => {
+    
+    const pages = Object.values(translatablePages);
+
+    let numberOfNotTranslatablePages = 0;
+
+    pages.forEach((page) => {
+        const list = document.createElement("li");
+        list.classList.add("list-disc");
+        list.classList.add("ml-4");
+        list.textContent = page["title"];
+        expandableWarningListElement.appendChild(list);
+
+        numberOfNotTranslatablePages += 1;
+    });
+
     document.getElementById("machine-translation-overlay-warning-number").textContent =
         numberOfNotTranslatablePages.toString();
+}
 
+const prepareOverlay = (filteredPages: 
+            {[category: string]: {[id: number]: { id: number; title: string; words: number; hix: boolean }}}) => {
+    
+    const translatablePages = filteredPages["translatable"];
+    const listOfFirstFivePages = document.getElementById("machine-translation-overlay-pages");
+    listOfFirstFivePages.innerHTML = "";
+    const listOfOptionalPages = document.getElementById("machine-translation-overlay-pages-optional");
+    listOfOptionalPages.innerHTML = "";
+    buildTranslatableList(translatablePages, listOfFirstFivePages, listOfOptionalPages);
+
+    const notTranslatablePages = filteredPages["not_translatable"];
+    const warningListElement = document.getElementById("machine-translation-overlay-warning");
+    const expandableWarningListElement = document.getElementById("machine-translation-overlay-warning-optional");
+    expandableWarningListElement.innerHTML = "";
+    buildNotTranslatableList(notTranslatablePages, expandableWarningListElement);
+    
+    const expansionTrigger = document.getElementById("machine-translation-overlay-expansion-trigger");
     if (listOfFirstFivePages.children.length >= limitOfPreview) {
         expansionTrigger.classList.add("block");
         expansionTrigger.classList.remove("hidden");
@@ -139,8 +172,6 @@ const filterAllPagesByHixValue = (
         warningListElement.classList.add("block");
         warningListElement.classList.remove("hidden");
     }
-
-    return numberOfTranslatablePages;
 };
 
 const setAmount = (amountOfValidPages: number) => {
@@ -189,19 +220,18 @@ const addMachineTranslationOverlayEventListeners = () => {
             const { selectedIndex } = document.getElementById("bulk-action") as HTMLSelectElement;
 
             if (machineTranslationOptionIndex === selectedIndex) {
-                const pages = getAllPages(
-                    (document.getElementById("machine-translation-option") as HTMLElement).dataset.url
-                );
-                const selectedPages = getSelectedItems();
+                const url = (document.getElementById("machine-translation-option") as HTMLElement).dataset.url;
+                const selectedIDs = getSelectedIDs();
+                const filteredPages = getAllPages(url, selectedIDs);
 
                 event.preventDefault();
                 overlay.classList.remove("hidden");
                 overlay.classList.add("flex");
 
-                pages.then((pages: { [index: string]: { id: number; title: string; words: number; hix: boolean } }) => {
-                    const numberOfTranslatablePages = filterAllPagesByHixValue(pages, selectedPages);
-                    setAmount(numberOfTranslatablePages);
+                filteredPages.then((filteredPages: {[category: string]: {[id: number]: { id: number; title: string; words: number; hix: boolean }}}) => {
+                    prepareOverlay(filteredPages);
                 });
+
                 toggleOptionalText(
                     document.getElementById("machine-translation-overlay-expansion-trigger"),
                     document.getElementById("machine-translation-overlay-pages-optional")
