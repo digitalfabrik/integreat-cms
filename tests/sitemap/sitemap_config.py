@@ -7,7 +7,7 @@ SITEMAPS = [
     (
         "/sitemap.xml",
         "tests/sitemap/expected-sitemaps/sitemap-index.xml",
-        58,
+        38,
     ),
     (
         "/augsburg/de/sitemap.xml",
