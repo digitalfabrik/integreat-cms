@@ -2,6 +2,7 @@ import logging
 
 from django.conf import settings
 from django.core.management.base import CommandError
+from linkcheck.listeners import disable_listeners
 
 from ....cms.models import Region
 from ..log_command import LogCommand
@@ -81,12 +82,14 @@ class Command(LogCommand):
                 diff = set(region_slugs) - set(region.slug for region in regions)
                 raise CommandError(f"The following regions do not exist: {diff}")
 
-        for region in regions:
-            if not region.hix_enabled:
-                logger.warning("HIX is disabled for %r", region)
-                continue
+        # Disable linkcheck listeners to prevent links to be created for outdated translations
+        with disable_listeners():
+            for region in regions:
+                if not region.hix_enabled:
+                    logger.warning("HIX is disabled for %r", region)
+                    continue
 
-            logger.info("Processing region %r", region)
-            calculate_hix_for_region(region)
+                logger.info("Processing region %r", region)
+                calculate_hix_for_region(region)
 
         self.print_success("Done")
