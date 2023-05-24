@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-05-19T09:33:40+00:00" />
+    <meta property="article:modified_time" content="2023-05-24T08:47:55+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pages &mdash; integreat-cms 2023.5.3 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -268,6 +268,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.views.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.views.utils.html">Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.views.html#bulk-action-views">Bulk Action Views</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.views.html#content-version-view">Content Version View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.views.html#delete-views">Delete Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.views.html#form-views">Form Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.views.html#list-views">List Views</a></li>
@@ -634,6 +635,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.users.html">Users</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.utils.html">Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#module-integreat_cms.cms.views.bulk_action_views">Bulk Action Views</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#module-integreat_cms.cms.views.content_version_view">Content Version View</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#module-integreat_cms.cms.views.delete_views">Delete Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#module-integreat_cms.cms.views.form_views">Form Views</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.html#module-integreat_cms.cms.views.list_views">List Views</a></li>
@@ -3133,7 +3135,7 @@ paginating.</p>
 <span id="page-form-view"></span><h2>Page Form View<a class="headerlink" href="#module-integreat_cms.cms.views.pages.page_form_view" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_form_view.PageFormView">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.pages.page_form_view.</span></span><span class="sig-name descname"><span class="pre">PageFormView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.pages.page_form_view.</span></span><span class="sig-name descname"><span class="pre">PageFormView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></a>, <a class="reference internal" href="#integreat_cms.cms.views.pages.page_context_mixin.PageContextMixin" title="integreat_cms.cms.views.pages.page_context_mixin.PageContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageContextMixin</span></code></a>, <a class="reference internal" href="integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin" title="integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">MediaContextMixin</span></code></a>, <a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.ContentEditLockMixin" title="integreat_cms.cms.views.mixins.ContentEditLockMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContentEditLockMixin</span></code></a></p>
 <p>View for the page form and page translation form</p>
 <dl class="py method">
@@ -3151,13 +3153,13 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_form_view.PageFormView.back_url_name">
-<span class="sig-name descname"><span class="pre">back_url_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pages'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.back_url_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">back_url_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pages'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.back_url_name" title="Permalink to this definition"></a></dt>
 <dd><p>The url name of the view to show if the user decides to go back (see <a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.ContentEditLockMixin" title="integreat_cms.cms.views.mixins.ContentEditLockMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContentEditLockMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_form_view.PageFormView.content_type">
-<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.content_type" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.content_type" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -3167,13 +3169,13 @@ keyword arguments, and other things.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_form_view.PageFormView.extra_context">
-<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'current_menu_item':</span> <span class="pre">'new_page'}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.extra_context" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'current_menu_item':</span> <span class="pre">'new_page'}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.extra_context" title="Permalink to this definition"></a></dt>
 <dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_form_view.PageFormView.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.get" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.get" title="Permalink to this definition"></a></dt>
 <dd><p>Render <a class="reference internal" href="integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_form.PageForm" title="integreat_cms.cms.forms.pages.page_form.PageForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageForm</span></code></a> and <a class="reference internal" href="integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm" title="integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslationForm</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3215,7 +3217,7 @@ keyword arguments, and other things.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_form_view.PageFormView.get_side_by_side_language_options">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_side_by_side_language_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L463"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.get_side_by_side_language_options" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_side_by_side_language_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L464"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.get_side_by_side_language_options" title="Permalink to this definition"></a></dt>
 <dd><p>This is a helper function to generate the side-by-side language options for both the get and post requests.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -3243,7 +3245,7 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_form_view.PageFormView.http_method_names">
-<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.http_method_names" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.http_method_names" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -3259,7 +3261,7 @@ a list. May not be called if render_to_response() is overridden.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_form_view.PageFormView.post">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L236"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.post" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L237"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.post" title="Permalink to this definition"></a></dt>
 <dd><p>Submit <a class="reference internal" href="integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_form.PageForm" title="integreat_cms.cms.forms.pages.page_form.PageForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageForm</span></code></a> and
 <a class="reference internal" href="integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm" title="integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslationForm</span></code></a> and save <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>
 and <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a> objects.
@@ -3307,171 +3309,12 @@ template rendered with the given context.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_form_view.PageFormView.template_engine">
-<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.template_engine" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.template_engine" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_form_view.PageFormView.template_name">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pages/page_form.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.template_name" title="Permalink to this definition"></a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="module-integreat_cms.cms.views.pages.page_revision_view">
-<span id="page-revision-view"></span><h2>Page Revision View<a class="headerlink" href="#module-integreat_cms.cms.views.pages.page_revision_view" title="Permalink to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.pages.page_revision_view.</span></span><span class="sig-name descname"><span class="pre">PageRevisionView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_revision_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.pages.page_context_mixin.PageContextMixin" title="integreat_cms.cms.views.pages.page_context_mixin.PageContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageContextMixin</span></code></a>, <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></a></p>
-<p>View for browsing the page revisions and restoring old page revisions</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.__init__" title="Permalink to this definition"></a></dt>
-<dd><p>Constructor. Called in the URLconf; can contain helpful extra
-keyword arguments, and other things.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.as_view">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">as_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.as_view" title="Permalink to this definition"></a></dt>
-<dd><p>Main entry point for a request-response process.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.content_type">
-<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_revision_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.content_type" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.dispatch">
-<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L90"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.dispatch" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.extra_context">
-<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'current_menu_item':</span> <span class="pre">'pages'}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_revision_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.extra_context" title="Permalink to this definition"></a></dt>
-<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.get">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_revision_view.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.get" title="Permalink to this definition"></a></dt>
-<dd><p>Render page revision slider</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
-<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to edit the specific page</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The rendered template response</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><em>TemplateResponse</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.get_context_data">
-<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_context_mixin.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.get_context_data" title="Permalink to this definition"></a></dt>
-<dd><p>Returns a dictionary representing the template context
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin.get_context_data" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_context_data()</span></code></a>).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The given keyword arguments</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The template context</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.get_template_names">
-<span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.get_template_names" title="Permalink to this definition"></a></dt>
-<dd><p>Return a list of template names to be used for the request. Must return
-a list. May not be called if render_to_response() is overridden.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.http_method_names">
-<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_revision_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.http_method_names" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.http_method_not_allowed">
-<span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.http_method_not_allowed" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.options">
-<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.options" title="Permalink to this definition"></a></dt>
-<dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.post">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_revision_view.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.post" title="Permalink to this definition"></a></dt>
-<dd><p>Restore a previous revision of a page translation</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
-<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
-<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to edit the specific page</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The rendered template response</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><em>TemplateResponse</em></a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.render_to_response">
-<span class="sig-name descname"><span class="pre">render_to_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.render_to_response" title="Permalink to this definition"></a></dt>
-<dd><p>Return a response, using the <cite>response_class</cite> for this view, with a
-template rendered with the given context.</p>
-<p>Pass response_kwargs to the constructor of the response class.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.response_class">
-<span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.response_class" title="Permalink to this definition"></a></dt>
-<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponse</span></code></a></p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.setup">
-<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.setup" title="Permalink to this definition"></a></dt>
-<dd><p>Initialize attributes shared by all view methods.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.template_engine">
-<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_revision_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.template_engine" title="Permalink to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.template_name">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pages/page_revisions.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_revision_view.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_revision_view.PageRevisionView.template_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pages/page_form.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_form_view.PageFormView.template_name" title="Permalink to this definition"></a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
@@ -3862,6 +3705,483 @@ template rendered with the given context.</p>
 </dd></dl>
 
 </section>
+<section id="module-integreat_cms.cms.views.pages.page_version_view">
+<span id="page-version-view"></span><h2>Page Version View<a class="headerlink" href="#module-integreat_cms.cms.views.pages.page_version_view" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.pages.page_version_view.</span></span><span class="sig-name descname"><span class="pre">PageVersionView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#integreat_cms.cms.views.pages.page_context_mixin.PageContextMixin" title="integreat_cms.cms.views.pages.page_context_mixin.PageContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageContextMixin</span></code></a>, <a class="reference internal" href="integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView" title="integreat_cms.cms.views.content_version_view.ContentVersionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContentVersionView</span></code></a></p>
+<p>View for browsing the page versions and restoring old page versions</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Constructor. Called in the URLconf; can contain helpful extra
+keyword arguments, and other things.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.as_view">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">as_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.as_view" title="Permalink to this definition"></a></dt>
+<dd><p>Main entry point for a request-response process.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.back_to_form_label">
+<span class="sig-name descname"><span class="pre">back_to_form_label</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Back</span> <span class="pre">to</span> <span class="pre">the</span> <span class="pre">page</span> <span class="pre">form'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.back_to_form_label" title="Permalink to this definition"></a></dt>
+<dd><p>The label of the “back to form” button</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.content_type">
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.content_type" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.context_object_name">
+<span class="sig-name descname"><span class="pre">context_object_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.context_object_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.dispatch">
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/content_version_view.py#L200"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.dispatch" title="Permalink to this definition"></a></dt>
+<dd><p>Validate the versions view</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to edit the specific page</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The rendered template response</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><em>TemplateResponse</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.edit_url">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">edit_url</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.edit_url" title="Permalink to this definition"></a></dt>
+<dd><p>The url to the form in the current language</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The edit url</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.extra_context">
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.extra_context" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L158"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.get" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_context_mixin.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_context_data" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a dictionary representing the template context
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin.get_context_data" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_context_data()</span></code></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The given keyword arguments</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The template context</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_context_object_name">
+<span class="sig-name descname"><span class="pre">get_context_object_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/detail.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_context_object_name" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name to use for the object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_login_url">
+<span class="sig-name descname"><span class="pre">get_login_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/mixins.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_login_url" title="Permalink to this definition"></a></dt>
+<dd><p>Override this method to override the login_url attribute.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_object">
+<span class="sig-name descname"><span class="pre">get_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/detail.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_object" title="Permalink to this definition"></a></dt>
+<dd><p>Return the object the view is displaying.</p>
+<p>Require <cite>self.queryset</cite> and a <cite>pk</cite> or <cite>slug</cite> argument in the URLconf.
+Subclasses can override this to return any object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_permission_denied_message">
+<span class="sig-name descname"><span class="pre">get_permission_denied_message</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/mixins.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_permission_denied_message" title="Permalink to this definition"></a></dt>
+<dd><p>Override this method to override the permission_denied_message attribute.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_permission_required">
+<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/mixins.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_permission_required" title="Permalink to this definition"></a></dt>
+<dd><p>Override this method to override the permission_required attribute.
+Must return an iterable.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_queryset">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/content_version_view.py#L148"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_queryset" title="Permalink to this definition"></a></dt>
+<dd><p>Filter the content objects by the current region</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – HTTP status 404 if the content is not found</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet" title="integreat_cms.cms.models.abstract_content_model.ContentQuerySet"><em>ContentQuerySet</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_redirect_field_name">
+<span class="sig-name descname"><span class="pre">get_redirect_field_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/mixins.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_redirect_field_name" title="Permalink to this definition"></a></dt>
+<dd><p>Override this method to override the redirect_field_name attribute.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_slug_field">
+<span class="sig-name descname"><span class="pre">get_slug_field</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/detail.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_slug_field" title="Permalink to this definition"></a></dt>
+<dd><p>Get the name of a slug field to be used to look up by slug.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_template_names">
+<span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.get_template_names" title="Permalink to this definition"></a></dt>
+<dd><p>Return a list of template names to be used for the request. Must return
+a list. May not be called if render_to_response() is overridden.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.handle_no_permission">
+<span class="sig-name descname"><span class="pre">handle_no_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/contrib/auth/mixins.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.handle_no_permission" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.has_change_permission">
+<span class="sig-name descname"><span class="pre">has_change_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.has_change_permission" title="Permalink to this definition"></a></dt>
+<dd><p>Whether the user has the permission to change objects</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether the user can change objects</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.has_permission">
+<span class="sig-name descname"><span class="pre">has_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/content_version_view.py#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.has_permission" title="Permalink to this definition"></a></dt>
+<dd><p>Override <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.mixins.PermissionRequiredMixin.has_permission" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.PermissionRequiredMixin.has_permission()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether the current user can access this view</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.has_publish_permission">
+<span class="sig-name descname"><span class="pre">has_publish_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.has_publish_permission" title="Permalink to this definition"></a></dt>
+<dd><p>Whether the user has the permission to publish objects</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether the user can publish objects</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.has_view_permission">
+<span class="sig-name descname"><span class="pre">has_view_permission</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/content_version_view.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.has_view_permission" title="Permalink to this definition"></a></dt>
+<dd><p>Whether the user has the permission to change objects</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether the user can change objects</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.http_method_names">
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.http_method_names" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.http_method_not_allowed">
+<span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L100"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.http_method_not_allowed" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.language">
+<span class="sig-name descname"><span class="pre">language</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.language" title="Permalink to this definition"></a></dt>
+<dd><p>The current language</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.login_url">
+<span class="sig-name descname"><span class="pre">login_url</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.login_url" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.model">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/page.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.model" title="Permalink to this definition"></a></dt>
+<dd><p>The current content model (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-single-object/#django.views.generic.detail.SingleObjectMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SingleObjectMixin</span></code></a>)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
+<li><p><strong>lft</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><em>PositiveIntegerField</em></a>) – Lft</p></li>
+<li><p><strong>rgt</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><em>PositiveIntegerField</em></a>) – Rgt</p></li>
+<li><p><strong>tree_id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><em>PositiveIntegerField</em></a>) – Tree id</p></li>
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.PositiveIntegerField" title="(in Django v3.2)"><em>PositiveIntegerField</em></a>) – Depth</p></li>
+<li><p><strong>explicitly_archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Explicitly archived. Whether or not the page is explicitly archived</p></li>
+<li><p><strong>mirrored_page_first</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Position of mirrored page. If a mirrored page is set, this field determines whether the live content is embedded before the content of this page or after.</p></li>
+<li><p><strong>api_token</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – API access token. API token to allow writing content to translations.</p></li>
+<li><p><strong>hix_ignore</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Ignore HIX value. This allows to ignore HIX value for this specific page.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Relationship fields:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – Parent page (related name: <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.children" title="integreat_cms.cms.models.pages.page.Page.children"><code class="xref py py-attr docutils literal notranslate"><span class="pre">children</span></code></a>)</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region (related name: <a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.pages" title="integreat_cms.cms.models.regions.region.Region.pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pages</span></code></a>)</p></li>
+<li><p><strong>icon</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile" title="integreat_cms.cms.models.media.media_file.MediaFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">MediaFile</span></code></a>) – Icon (related name: <a class="reference internal" href="integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.pages" title="integreat_cms.cms.models.media.media_file.MediaFile.pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pages</span></code></a>)</p></li>
+<li><p><strong>mirrored_page</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – Mirrored page. If the page embeds live content from another page, it is referenced here. (related name: <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.mirroring_pages" title="integreat_cms.cms.models.pages.page.Page.mirroring_pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mirroring_pages</span></code></a>)</p></li>
+<li><p><strong>organization</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization" title="integreat_cms.cms.models.users.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Organization</span></code></a>) – Responsible organization. This allows all members of the organization to edit and publish this page. (related name: <a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.pages" title="integreat_cms.cms.models.users.organization.Organization.pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pages</span></code></a>)</p></li>
+<li><p><strong>authors</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> to <a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – Authors. A list of users who have the permission to edit this specific page. Only has effect if these users do not have the permission to edit pages anyway. (related name: <a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.editable_pages" title="integreat_cms.cms.models.users.user.User.editable_pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">editable_pages</span></code></a>)</p></li>
+<li><p><strong>editors</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> to <a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – Editors. A list of users who have the permission to publish this specific page. Only has effect if these users do not have the permission to publish pages anyway. (related name: <a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.publishable_pages" title="integreat_cms.cms.models.users.user.User.publishable_pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">publishable_pages</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Reverse relationships:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a>) – All translations of this page (related name of <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation.page" title="integreat_cms.cms.models.pages.page_translation.PageTranslation.page"><code class="xref py py-attr docutils literal notranslate"><span class="pre">page</span></code></a>)</p></li>
+<li><p><strong>children</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – All children of this page (related name of <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.parent" title="integreat_cms.cms.models.pages.page.Page.parent"><code class="xref py py-attr docutils literal notranslate"><span class="pre">parent</span></code></a>)</p></li>
+<li><p><strong>mirroring_pages</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – All mirroring pages of this page (related name of <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.mirrored_page" title="integreat_cms.cms.models.pages.page.Page.mirrored_page"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mirrored_page</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<p>alias of <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a></p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.model_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">model_name</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.model_name" title="Permalink to this definition"></a></dt>
+<dd><p>The name of this model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The name of this model</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.object">
+<span class="sig-name descname"><span class="pre">object</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.object" title="Permalink to this definition"></a></dt>
+<dd><p>The current content object (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-single-object/#django.views.generic.detail.SingleObjectMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SingleObjectMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.options">
+<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.options" title="Permalink to this definition"></a></dt>
+<dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.permission_denied_message">
+<span class="sig-name descname"><span class="pre">permission_denied_message</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.permission_denied_message" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.permission_required">
+<span class="sig-name descname"><span class="pre">permission_required</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.permission_required" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.pk_url_kwarg">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pk_url_kwarg</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.pk_url_kwarg" title="Permalink to this definition"></a></dt>
+<dd><p>The name of the URLConf keyword argument that contains the primary key.
+By default, pk_url_kwarg is ‘pk’.
+See <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-single-object/#django.views.generic.detail.SingleObjectMixin.pk_url_kwarg" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">django.views.generic.detail.SingleObjectMixin.pk_url_kwarg</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The name of URL kwarg of the id</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/content_version_view.py#L247"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.post" title="Permalink to this definition"></a></dt>
+<dd><p>Restore a previous revision of a page translation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.PermissionDenied" title="(in Django v3.2)"><strong>PermissionDenied</strong></a> – If user does not have the permission to edit the specific page</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The rendered template response</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><em>TemplateResponse</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.query_pk_and_slug">
+<span class="sig-name descname"><span class="pre">query_pk_and_slug</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.query_pk_and_slug" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.queryset">
+<span class="sig-name descname"><span class="pre">queryset</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.queryset" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.raise_exception">
+<span class="sig-name descname"><span class="pre">raise_exception</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.raise_exception" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.redirect_field_name">
+<span class="sig-name descname"><span class="pre">redirect_field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'next'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.redirect_field_name" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.render_to_response">
+<span class="sig-name descname"><span class="pre">render_to_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.render_to_response" title="Permalink to this definition"></a></dt>
+<dd><p>Return a response, using the <cite>response_class</cite> for this view, with a
+template rendered with the given context.</p>
+<p>Pass response_kwargs to the constructor of the response class.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.response_class">
+<span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/template/response.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.response_class" title="Permalink to this definition"></a></dt>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponse</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.restore_version">
+<span class="sig-name descname"><span class="pre">restore_version</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">restored_version</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/content_version_view.py#L334"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.restore_version" title="Permalink to this definition"></a></dt>
+<dd><p>Restore the given version</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>restored_version</strong> (<a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><em>AbstractContentTranslation</em></a>) – The version which should be restored</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.selected_version">
+<span class="sig-name descname"><span class="pre">selected_version</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.selected_version" title="Permalink to this definition"></a></dt>
+<dd><p>The currently selected translation version</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/3.2.x/django/views/generic/base.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.setup" title="Permalink to this definition"></a></dt>
+<dd><p>Initialize attributes shared by all view methods.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.slug_field">
+<span class="sig-name descname"><span class="pre">slug_field</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'slug'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.slug_field" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.slug_url_kwarg">
+<span class="sig-name descname"><span class="pre">slug_url_kwarg</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'slug'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.slug_url_kwarg" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.template_engine">
+<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.template_engine" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'content_versions.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.template_name" title="Permalink to this definition"></a></dt>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.translations">
+<span class="sig-name descname"><span class="pre">translations</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.translations" title="Permalink to this definition"></a></dt>
+<dd><p>All translations of the content object in the current language</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.pages.page_version_view.PageVersionView.versions_url">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">versions_url</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_version_view.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.pages.page_version_view.PageVersionView.versions_url" title="Permalink to this definition"></a></dt>
+<dd><p>The url to the form in the current language</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The edit url</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-integreat_cms.cms.views.pages.page_xliff_import_view">
 <span id="page-xliff-import-view"></span><h2>Page XLIFF Import View<a class="headerlink" href="#module-integreat_cms.cms.views.pages.page_xliff_import_view" title="Permalink to this heading"></a></h2>
 <dl class="py class">
@@ -4073,7 +4393,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 19, 2023.
+      <span class="lastupdated">Last updated on May 24, 2023.
       </span></p>
   </div>
 
