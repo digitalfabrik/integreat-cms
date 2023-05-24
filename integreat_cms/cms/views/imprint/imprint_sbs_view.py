@@ -1,6 +1,5 @@
 import logging
 
-from django.conf import settings
 from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import redirect, render
@@ -13,25 +12,20 @@ from ...decorators import permission_required
 from ...forms import ImprintTranslationForm
 from ...models import ImprintPage, Language
 from ..media.media_context_mixin import MediaContextMixin
+from .imprint_context_mixin import ImprintContextMixin
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_imprintpage"), name="dispatch")
 @method_decorator(permission_required("cms.change_imprintpage"), name="post")
-class ImprintSideBySideView(TemplateView, MediaContextMixin):
+class ImprintSideBySideView(TemplateView, ImprintContextMixin, MediaContextMixin):
     """
     View for the imprint side by side form
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "imprint/imprint_sbs.html"
-
-    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    extra_context = {
-        "current_menu_item": "imprint",
-        "IMPRINT_SLUG": settings.IMPRINT_SLUG,
-    }
 
     def get_context_data(self, **kwargs):
         r"""

@@ -64,7 +64,8 @@
                                         <div class="font-bold pr-2">{% translate "Version" %}:</div>
                                         <div>
                                             {{ poi_translation_form.instance.version }}
-                                            <!-- TODO: POI Revisions -->
+                                            (<a href="{% url 'poi_versions' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}"
+   class="text-blue-500 hover:underline">{% translate "Show" %}</a>)
                                         </div>
                                         <div class="font-bold pr-2">{% translate "Publication status" %}:</div>
                                         <div>

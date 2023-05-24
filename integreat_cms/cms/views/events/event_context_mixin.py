@@ -26,6 +26,7 @@ class EventContextMixin(ContextMixin):
         context = super().get_context_data(**kwargs)
         context.update(
             {
+                "current_menu_item": "events_form",
                 "archive_dialog_title": _(
                     "Please confirm that you really want to archive this event"
                 ),

@@ -192,8 +192,8 @@ def search_poi_ajax(request, region_slug):
 
     region = get_object_or_404(Region, slug=data.get("region_slug"))
 
-    # All latest revisions of a POI (one for each language)
-    latest_public_poi_revisions = (
+    # All latest versions of a POI (one for each language)
+    latest_public_poi_versions = (
         POITranslation.objects.filter(poi=OuterRef("pk"), status=status.PUBLIC)
         .order_by("language__pk", "-version")
         .distinct("language")
@@ -204,7 +204,7 @@ def search_poi_ajax(request, region_slug):
         region.pois.prefetch_related("translations")
         .filter(
             archived=False,
-            translations__in=Subquery(latest_public_poi_revisions),
+            translations__in=Subquery(latest_public_poi_versions),
             translations__title__icontains=poi_query,
         )
         .distinct()

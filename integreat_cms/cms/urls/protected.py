@@ -874,18 +874,18 @@ urlpatterns = [
                                                         ),
                                                     ),
                                                     path(
-                                                        "revisions/",
+                                                        "versions/",
                                                         include(
                                                             [
                                                                 path(
                                                                     "",
-                                                                    pages.PageRevisionView.as_view(),
-                                                                    name="page_revisions",
+                                                                    pages.PageVersionView.as_view(),
+                                                                    name="page_versions",
                                                                 ),
                                                                 path(
-                                                                    "<int:selected_revision>/",
-                                                                    pages.PageRevisionView.as_view(),
-                                                                    name="page_revisions",
+                                                                    "<int:selected_version>/",
+                                                                    pages.PageVersionView.as_view(),
+                                                                    name="page_versions",
                                                                 ),
                                                             ],
                                                         ),
@@ -956,18 +956,18 @@ urlpatterns = [
                                             ),
                                         ),
                                         path(
-                                            "revisions/",
+                                            "versions/",
                                             include(
                                                 [
                                                     path(
                                                         "",
-                                                        imprint.ImprintRevisionView.as_view(),
-                                                        name="imprint_revisions",
+                                                        imprint.ImprintVersionView.as_view(),
+                                                        name="imprint_versions",
                                                     ),
                                                     path(
-                                                        "<int:selected_revision>",
-                                                        imprint.ImprintRevisionView.as_view(),
-                                                        name="imprint_revisions",
+                                                        "<int:selected_version>",
+                                                        imprint.ImprintVersionView.as_view(),
+                                                        name="imprint_versions",
                                                     ),
                                                 ],
                                             ),
@@ -1097,6 +1097,23 @@ urlpatterns = [
                                                         events.delete,
                                                         name="delete_event",
                                                     ),
+                                                    path(
+                                                        "versions/",
+                                                        include(
+                                                            [
+                                                                path(
+                                                                    "",
+                                                                    events.EventVersionView.as_view(),
+                                                                    name="event_versions",
+                                                                ),
+                                                                path(
+                                                                    "<int:selected_version>/",
+                                                                    events.EventVersionView.as_view(),
+                                                                    name="event_versions",
+                                                                ),
+                                                            ],
+                                                        ),
+                                                    ),
                                                 ]
                                             ),
                                         ),
@@ -1189,6 +1206,23 @@ urlpatterns = [
                                                         "delete/",
                                                         pois.delete_poi,
                                                         name="delete_poi",
+                                                    ),
+                                                    path(
+                                                        "versions/",
+                                                        include(
+                                                            [
+                                                                path(
+                                                                    "",
+                                                                    pois.POIVersionView.as_view(),
+                                                                    name="poi_versions",
+                                                                ),
+                                                                path(
+                                                                    "<int:selected_version>/",
+                                                                    pois.POIVersionView.as_view(),
+                                                                    name="poi_versions",
+                                                                ),
+                                                            ],
+                                                        ),
                                                     ),
                                                 ]
                                             ),
