@@ -1,4 +1,5 @@
 import logging
+import time
 
 from django.conf import settings
 from django.core.management.base import CommandError
@@ -35,6 +36,7 @@ def calculate_hix_for_region(region):
                 continue
 
             translation.save(update_timestamp=False)
+            time.sleep(settings.TEXTLAB_API_BULK_WAITING_TIME)
 
 
 class Command(LogCommand):
@@ -91,5 +93,9 @@ class Command(LogCommand):
 
                 logger.info("Processing region %r", region)
                 calculate_hix_for_region(region)
+                self.print_info(
+                    f"Waiting for {settings.TEXTLAB_API_BULK_COOL_DOWN_PERIOD}s to cool down"
+                )
+                time.sleep(settings.TEXTLAB_API_BULK_COOL_DOWN_PERIOD)
 
         self.print_success("Done")
