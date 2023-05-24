@@ -25,14 +25,14 @@ def calculate_hix_for_region(region):
     ):
         for translation in page.prefetched_textlab_translations:
             if translation.hix_score is not None:
-                logger.info(
+                logger.debug(
                     "skipping %r: Already has a hix score of %s",
                     translation,
                     translation.hix_score,
                 )
                 continue
             if not translation.content.strip():
-                logger.info("skipping %r: Empty content", translation)
+                logger.debug("skipping %r: Empty content", translation)
                 continue
 
             translation.save(update_timestamp=False)
