@@ -76,6 +76,7 @@ class POIContextMixin(ContextMixin):
         }
         context.update(
             {
+                "current_menu_item": "pois",
                 "translation_status": translation_status,
                 "archive_dialog_title": _(
                     "Please confirm that you really want to archive this location"

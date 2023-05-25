@@ -49,7 +49,7 @@
                                     <div class="font-bold pr-2">{% translate "Version" %}:</div>
                                     <div>
                                         {{ imprint_translation_form.instance.version }}
-                                        (<a href="{% url 'imprint_revisions' region_slug=request.region.slug language_slug=language.slug %}"
+                                        (<a href="{% url 'imprint_versions' region_slug=request.region.slug language_slug=language.slug %}"
    class="text-blue-500 hover:underline">{% translate "Show" %}</a>)
                                     </div>
                                     <div class="font-bold pr-2">{% translate "Status" %}:</div>
@@ -145,7 +145,7 @@
                         </div>
                         <div class="px-4 pb-4">
                             <label for="side-by-side-select">{% translate "Direction of translation" %}</label>
-                            <select id="side-by-side-select">
+                            <select id="side-by-side-select" data-unsaved-warning-exclude>
                                 <option value="">---------</option>
                                 {% for side_by_side_language_option in side_by_side_language_options %}
                                     <option value="{% url 'sbs_edit_imprint' region_slug=request.region.slug language_slug=side_by_side_language_option.value %}"

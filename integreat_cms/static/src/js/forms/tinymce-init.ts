@@ -215,11 +215,14 @@ window.addEventListener("load", () => {
 
                 editor.on("StoreDraft", autosaveEditor);
                 // When the editor becomes dirty, send an input event, so that the unsaved warning can be shown
-                editor.on("dirty", () =>
+                editor.on("dirty", () => {
+                    if ((editor.targetElm as HTMLElement).hasAttribute("data-unsaved-warning-exclude")) {
+                        return;
+                    }
                     document.querySelectorAll("[data-unsaved-warning]").forEach((element) => {
                         element.dispatchEvent(new Event("input"));
-                    })
-                );
+                    });
+                });
                 // Create an event every time the content changes
                 editor.on("keyup", () =>
                     document.querySelectorAll("[data-content-changed]").forEach((element) => {

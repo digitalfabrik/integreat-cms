@@ -27,8 +27,6 @@ class POIListView(TemplateView, POIContextMixin, MachineTranslationContextMixin)
     template = "pois/poi_list.html"
     #: Template for list of archived POIs
     template_archived = "pois/poi_list_archived.html"
-    #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    extra_context = {"current_menu_item": "pois"}
     #: Whether or not to show archived POIs
     archived = False
     #: The translation model of this list view (used to determine whether machine translations are permitted)

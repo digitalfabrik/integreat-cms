@@ -16,7 +16,12 @@ window.addEventListener("beforeunload", (event) => {
 window.addEventListener("load", () => {
     const form = document.querySelector("[data-unsaved-warning]");
     // checks whether the user typed something in the content
-    form?.addEventListener("input", () => {
+    form?.addEventListener("input", (event) => {
+        // does not set the dirty flag, if the event target is explicitly excluded
+        const target = event.target as HTMLElement;
+        if (target.hasAttribute("data-unsaved-warning-exclude")) {
+            return;
+        }
         if (!dirty) {
             console.debug("editing detected, enabled beforeunload warning");
         }
