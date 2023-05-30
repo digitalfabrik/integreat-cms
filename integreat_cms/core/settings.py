@@ -203,6 +203,16 @@ TEXTLAB_API_LANGUAGES = ["de"]
 #: Which content types are enabled for the Textlab API
 TEXTLAB_API_CONTENT_TYPES = ["pagetranslation"]
 
+#: How many seconds we should wait between the requests in the bulk management command
+TEXTLAB_API_BULK_WAITING_TIME = float(
+    os.environ.get("INTEGREAT_CMS_TEXTLAB_API_BULK_WAITING_TIME", 0.5)
+)
+
+#: How many seconds we should wait after finishing a region in the bulk management command
+TEXTLAB_API_BULK_COOL_DOWN_PERIOD = float(
+    os.environ.get("INTEGREAT_CMS_TEXTLAB_API_BULK_COOL_DOWN_PERIOD", 60)
+)
+
 #: The minimum HIX score required for machine translation
 HIX_REQUIRED_FOR_MT = float(os.environ.get("INTEGREAT_CMS_HIX_REQUIRED_FOR_MT", 15.0))
 

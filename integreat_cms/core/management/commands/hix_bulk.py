@@ -1,7 +1,9 @@
 import logging
+import time
 
 from django.conf import settings
 from django.core.management.base import CommandError
+from linkcheck.listeners import disable_listeners
 
 from ....cms.models import Region
 from ..log_command import LogCommand
@@ -23,17 +25,18 @@ def calculate_hix_for_region(region):
     ):
         for translation in page.prefetched_textlab_translations:
             if translation.hix_score is not None:
-                logger.info(
+                logger.debug(
                     "skipping %r: Already has a hix score of %s",
                     translation,
                     translation.hix_score,
                 )
                 continue
             if not translation.content.strip():
-                logger.info("skipping %r: Empty content", translation)
+                logger.debug("skipping %r: Empty content", translation)
                 continue
 
             translation.save(update_timestamp=False)
+            time.sleep(settings.TEXTLAB_API_BULK_WAITING_TIME)
 
 
 class Command(LogCommand):
@@ -81,12 +84,18 @@ class Command(LogCommand):
                 diff = set(region_slugs) - set(region.slug for region in regions)
                 raise CommandError(f"The following regions do not exist: {diff}")
 
-        for region in regions:
-            if not region.hix_enabled:
-                logger.warning("HIX is disabled for %r", region)
-                continue
+        # Disable linkcheck listeners to prevent links to be created for outdated translations
+        with disable_listeners():
+            for region in regions:
+                if not region.hix_enabled:
+                    logger.warning("HIX is disabled for %r", region)
+                    continue
 
-            logger.info("Processing region %r", region)
-            calculate_hix_for_region(region)
+                logger.info("Processing region %r", region)
+                calculate_hix_for_region(region)
+                self.print_info(
+                    f"Waiting for {settings.TEXTLAB_API_BULK_COOL_DOWN_PERIOD}s to cool down"
+                )
+                time.sleep(settings.TEXTLAB_API_BULK_COOL_DOWN_PERIOD)
 
         self.print_success("Done")
