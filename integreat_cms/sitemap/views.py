@@ -57,8 +57,8 @@ class SitemapIndexView(TemplateResponseMixin, View):
         sitemaps = []
         # Only add active regions to the sitemap index
         for region in Region.objects.filter(status=region_status.ACTIVE):
-            # Only add active languages to the sitemap index
-            for language in region.active_languages:
+            # Only add visible languages to the sitemap index
+            for language in region.visible_languages:
                 # Only add sitemaps with actual content (empty list evaluates to False)
                 if get_sitemaps(region, language):
                     sitemap_url = reverse(
