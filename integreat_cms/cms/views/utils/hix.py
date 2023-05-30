@@ -2,6 +2,7 @@
 This file contains functionality to communicate with the Textlab api to get the hix-value
 for a given text.
 """
+
 import json
 import logging
 from functools import lru_cache
@@ -10,6 +11,8 @@ from urllib.error import URLError
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from lxml.etree import LxmlError
+from lxml.html import fromstring, tostring
 
 from ....api.decorators import json_response
 from ....textlab_api.textlab_api_client import TextlabClient
@@ -59,12 +62,20 @@ def get_hix_score(request, region_slug):
     # Don't pass texts larger than 100kb to the api in order to avoid being vulnerable to dos attacks
     if len(request.body) > MAX_TEXT_LENGTH:
         return JsonResponse({"error": "Request too large"})
+
     body = json.loads(request.body.decode("utf-8"))
     text = body["text"]
 
     if not isinstance(text, str) or not text.strip():
         logger.warning("Received invalid text: %r", text)
         return JsonResponse({"error": f"Invalid text: '{text}'"})
+
+    # Normalize text to get same HIX result as with form submission
+    text = text.replace("\n", "\r\n")
+    try:
+        text = tostring(fromstring(text)).decode("utf-8")
+    except LxmlError:
+        pass
 
     if score := lookup_hix_score(text):
         return JsonResponse({"score": score})
