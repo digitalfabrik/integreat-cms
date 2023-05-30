@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-05-17T14:55:34+00:00" />
+    <meta property="article:modified_time" content="2023-05-30T10:36:44+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commands &mdash; integreat-cms 2023.5.4 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -851,6 +851,8 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_TIMEOUT"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_TIMEOUT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SYS_LOG_LEVEL"><code class="docutils literal notranslate"><span class="pre">SYS_LOG_LEVEL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEMPLATES"><code class="docutils literal notranslate"><span class="pre">TEMPLATES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_BULK_COOL_DOWN_PERIOD"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_BULK_COOL_DOWN_PERIOD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_BULK_WAITING_TIME"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_BULK_WAITING_TIME</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_CONTENT_TYPES"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_CONTENT_TYPES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_ENABLED"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_KEY"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_KEY</span></code></a></li>
@@ -2182,7 +2184,7 @@ to stderr. If the <code class="docutils literal notranslate"><span class="pre">-
 <span id="hix-bulk"></span><h2>Hix Bulk<a class="headerlink" href="#module-integreat_cms.core.management.commands.hix_bulk" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.core.management.commands.hix_bulk.Command">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.core.management.commands.hix_bulk.</span></span><span class="sig-name descname"><span class="pre">Command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.core.management.commands.hix_bulk.</span></span><span class="sig-name descname"><span class="pre">Command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="integreat_cms.core.management.html#integreat_cms.core.management.log_command.LogCommand" title="integreat_cms.core.management.log_command.LogCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogCommand</span></code></a></p>
 <p>Command to calculate the hix values for public page translations which do not currently have a score</p>
 <dl class="py method">
@@ -2192,7 +2194,7 @@ to stderr. If the <code class="docutils literal notranslate"><span class="pre">-
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.core.management.commands.hix_bulk.Command.add_arguments">
-<span class="sig-name descname"><span class="pre">add_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command.add_arguments" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">add_arguments</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parser</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command.add_arguments" title="Permalink to this definition"></a></dt>
 <dd><p>Define the arguments of this command</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2203,7 +2205,7 @@ to stderr. If the <code class="docutils literal notranslate"><span class="pre">-
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.core.management.commands.hix_bulk.Command.base_stealth_options">
-<span class="sig-name descname"><span class="pre">base_stealth_options</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('stderr',</span> <span class="pre">'stdout')</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command.base_stealth_options" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">base_stealth_options</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">('stderr',</span> <span class="pre">'stdout')</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command.base_stealth_options" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2262,7 +2264,7 @@ return their own version.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.core.management.commands.hix_bulk.Command.handle">
-<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slugs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command.handle" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slugs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command.handle" title="Permalink to this definition"></a></dt>
 <dd><p>Try to run the command</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2277,12 +2279,12 @@ return their own version.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.core.management.commands.hix_bulk.Command.help">
-<span class="sig-name descname"><span class="pre">help</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Calculates</span> <span class="pre">and</span> <span class="pre">stores</span> <span class="pre">the</span> <span class="pre">hix</span> <span class="pre">value</span> <span class="pre">for</span> <span class="pre">all</span> <span class="pre">public</span> <span class="pre">page</span> <span class="pre">translations</span> <span class="pre">for</span> <span class="pre">which</span> <span class="pre">it</span> <span class="pre">is</span> <span class="pre">missing'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command.help" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">help</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Calculates</span> <span class="pre">and</span> <span class="pre">stores</span> <span class="pre">the</span> <span class="pre">hix</span> <span class="pre">value</span> <span class="pre">for</span> <span class="pre">all</span> <span class="pre">public</span> <span class="pre">page</span> <span class="pre">translations</span> <span class="pre">for</span> <span class="pre">which</span> <span class="pre">it</span> <span class="pre">is</span> <span class="pre">missing'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command.help" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.core.management.commands.hix_bulk.Command.output_transaction">
-<span class="sig-name descname"><span class="pre">output_transaction</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command.output_transaction" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">output_transaction</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command.output_transaction" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2327,12 +2329,12 @@ return their own version.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.core.management.commands.hix_bulk.Command.requires_migrations_checks">
-<span class="sig-name descname"><span class="pre">requires_migrations_checks</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command.requires_migrations_checks" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">requires_migrations_checks</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command.requires_migrations_checks" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.core.management.commands.hix_bulk.Command.requires_system_checks">
-<span class="sig-name descname"><span class="pre">requires_system_checks</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'__all__'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command.requires_system_checks" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">requires_system_checks</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'__all__'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command.requires_system_checks" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -2347,14 +2349,14 @@ to stderr. If the <code class="docutils literal notranslate"><span class="pre">-
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.core.management.commands.hix_bulk.Command.stealth_options">
-<span class="sig-name descname"><span class="pre">stealth_options</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command.stealth_options" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">stealth_options</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">()</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.Command.stealth_options" title="Permalink to this definition"></a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.core.management.commands.hix_bulk.calculate_hix_for_region">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.management.commands.hix_bulk.</span></span><span class="sig-name descname"><span class="pre">calculate_hix_for_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.calculate_hix_for_region" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.management.commands.hix_bulk.</span></span><span class="sig-name descname"><span class="pre">calculate_hix_for_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/hix_bulk.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.management.commands.hix_bulk.calculate_hix_for_region" title="Permalink to this definition"></a></dt>
 <dd><p>Calculates the hix score for all missing pages in the region.
 Assumes that hix is globally enabled and enabled for the region</p>
 <dl class="field-list simple">
@@ -3160,7 +3162,7 @@ to stderr. If the <code class="docutils literal notranslate"><span class="pre">-
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 17, 2023.
+      <span class="lastupdated">Last updated on May 30, 2023.
       </span></p>
   </div>
 
