@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Release notes &mdash; integreat-cms 2023.5.4 documentation</title>
+  <title>Release notes &mdash; integreat-cms 2023.5.5 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="_static/integreat-icon.svg"/>
@@ -230,6 +230,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#content-edit-lock">Content Edit Lock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#email-utils">Email Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#file-utils">File Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#internal-link-checker">Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#linkcheck-utils">Linkcheck Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.utils.html#mfa-utils">MFA Utils</a></li>
@@ -387,6 +388,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.cms.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref/tests.cms.utils.html#test-internal-link-checker">Test Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/tests.cms.utils.html#test-translation-utils">Test Translation Utils</a></li>
 </ul>
 </li>
@@ -597,6 +599,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.content_edit_lock">Content Edit Lock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.email_utils">Email Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_checker">Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.linkcheck_utils">Linkcheck Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a></li>
@@ -802,6 +805,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LINKCHECK_IGNORED_URL_TYPES"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_IGNORED_URL_TYPES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LINKCHECK_MAX_URL_LENGTH"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_MAX_URL_LENGTH</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LINKCHECK_PHONE_ENABLED"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_PHONE_ENABLED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LINKCHECK_SITE_DOMAINS"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_SITE_DOMAINS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LOCALE_PATHS"><code class="docutils literal notranslate"><span class="pre">LOCALE_PATHS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LOGFILE"><code class="docutils literal notranslate"><span class="pre">LOGFILE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LOGGING"><code class="docutils literal notranslate"><span class="pre">LOGGING</span></code></a></li>
@@ -1088,6 +1092,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.cms.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_internal_link_checker">Test Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_translation_utils">Test Translation Utils</a></li>
 </ul>
 </li>
@@ -1390,72 +1395,73 @@
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Release notes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#unreleased">unreleased</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id1">2023.5.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id2">2023.5.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id3">2023.5.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id4">2023.5.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id5">2023.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id6">2023.4.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id7">2023.4.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id8">2023.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id9">2023.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id10">2023.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id11">2023.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id12">2023.2.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id13">2023.2.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id14">2023.2.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id15">2023.1.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id16">2023.1.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id17">2023.1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id18">2022.12.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id19">2022.12.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id20">2022.12.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id21">2022.12.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id22">2022.11.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id23">2022.11.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id24">2022.11.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id25">2022.11.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id26">2022.11.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id27">2022.10.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id28">2022.10.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id29">2022.10.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id30">2022.9.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id31">2022.9.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id32">2022.9.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id33">2022.9.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id34">2022.9.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id35">2022.9.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id36">2022.8.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id37">2022.8.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id38">2022.8.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id39">2022.8.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id40">2022.7.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id41">2022.6.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id42">2022.6.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id43">2022.6.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id44">2022.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id45">2022.5.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id46">2022.5.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id47">2022.5.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id48">2022.5.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id49">2022.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id50">2022.4.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id51">2022.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id52">2022.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id53">2022.3.6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id54">2022.3.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id55">2022.3.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id56">2022.3.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id57">2022.3.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id58">2022.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id59">2022.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id60">2022.2.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id61">2022.2.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id62">2022.2.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id63">2022.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">2023.5.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">2023.5.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">2023.5.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">2023.5.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">2023.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">2023.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">2023.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">2023.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">2023.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">2023.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id11">2023.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id12">2023.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">2023.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">2023.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id15">2023.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id16">2023.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id17">2023.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id18">2023.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id19">2022.12.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id20">2022.12.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id21">2022.12.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id22">2022.12.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id23">2022.11.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id24">2022.11.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id25">2022.11.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id26">2022.11.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id27">2022.11.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id28">2022.10.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id29">2022.10.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id30">2022.10.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id31">2022.9.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id32">2022.9.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id33">2022.9.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id34">2022.9.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id35">2022.9.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id36">2022.9.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id37">2022.8.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id38">2022.8.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id39">2022.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id40">2022.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id41">2022.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id42">2022.6.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id43">2022.6.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id44">2022.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id45">2022.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id46">2022.5.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id47">2022.5.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id48">2022.5.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id49">2022.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id50">2022.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id51">2022.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id52">2022.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id53">2022.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id54">2022.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id55">2022.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id56">2022.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id57">2022.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id58">2022.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id59">2022.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id60">2022.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id61">2022.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id62">2022.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id63">2022.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id64">2022.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#beta">2022.2.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id64">2021.12.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#id65">2021.11.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id65">2021.12.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id66">2021.11.0-beta</a></li>
 </ul>
 </li>
 </ul>
@@ -1569,14 +1575,20 @@
 <section id="unreleased">
 <h2>unreleased<a class="headerlink" href="#unreleased" title="Permalink to this heading"></a></h2>
 <ul class="simple">
+<li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2174">#2174</a> ] Check internal links in the link checker</p></li>
+</ul>
+</section>
+<section id="id1">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.5.5">2023.5.5</a><a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2224">#2224</a> ] Fix HIX value difference</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2293">#2293</a> ] Show only visible languages in the sitemap index</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2303">#2303</a> ] Prevent HIX analysis from finding links in archived pages</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2304">#2304</a> ] Reduce server load when querying the TextLab API</p></li>
 </ul>
 </section>
-<section id="id1">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.5.4">2023.5.4</a><a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<section id="id2">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.5.4">2023.5.4</a><a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1154">#1154</a> ] Add version view for events</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1155">#1155</a> ] Add version view for locations</p></li>
@@ -1585,40 +1597,40 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2262">#2262</a> ] Add education icon to selection for location categories</p></li>
 </ul>
 </section>
-<section id="id2">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.5.3">2023.5.3</a><a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
+<section id="id3">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.5.3">2023.5.3</a><a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2284">#2284</a> ] Fix error when granting additional page permissions</p></li>
 </ul>
 </section>
-<section id="id3">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.5.2">2023.5.2</a><a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
+<section id="id4">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.5.2">2023.5.2</a><a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2242">#2242</a> ] Add function to automatically repair broken tree structures</p></li>
 </ul>
 </section>
-<section id="id4">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.5.1">2023.5.1</a><a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
+<section id="id5">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.5.1">2023.5.1</a><a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2053">#2053</a> ] Do not check links in past events</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2245">#2245</a> ] Add option to duplicate regions with pages keeping their initial status</p></li>
 </ul>
 </section>
-<section id="id5">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.5.0">2023.5.0</a><a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
+<section id="id6">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.5.0">2023.5.0</a><a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2170">#2170</a> ] Change styling for secondary buttons</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2252">#2252</a> ] Fix the problem of the URL parameter field not being editable</p></li>
 </ul>
 </section>
-<section id="id6">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.4.3">2023.4.3</a><a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
+<section id="id7">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.4.3">2023.4.3</a><a class="headerlink" href="#id7" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2246">#2246</a> ] Fix error in PDF export</p></li>
 </ul>
 </section>
-<section id="id7">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.4.2">2023.4.2</a><a class="headerlink" href="#id7" title="Permalink to this heading"></a></h2>
+<section id="id8">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.4.2">2023.4.2</a><a class="headerlink" href="#id8" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1904">#1904</a> ] Truncate long links in PDF exports to a maximum of 50 chars</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2088">#2088</a> ] Add expandable list of pages with worst HIX value to dashboard</p></li>
@@ -1632,8 +1644,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2225">#2225</a> ] Show HIX score in page revision view</p></li>
 </ul>
 </section>
-<section id="id8">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.4.1">2023.4.1</a><a class="headerlink" href="#id8" title="Permalink to this heading"></a></h2>
+<section id="id9">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.4.1">2023.4.1</a><a class="headerlink" href="#id9" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1171">#1171</a> ] Allow dynamic POI creation within event form</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2077">#2077</a> ] Reduce number of working links that are marked as invalid</p></li>
@@ -1642,8 +1654,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2200">#2200</a> ] Catch network errors during Textlab interaction</p></li>
 </ul>
 </section>
-<section id="id9">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.4.0">2023.4.0</a><a class="headerlink" href="#id9" title="Permalink to this heading"></a></h2>
+<section id="id10">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.4.0">2023.4.0</a><a class="headerlink" href="#id10" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1383">#1383</a> ] Update internal links when cloning regions</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2097">#2097</a> ] Fix locations endpoint error when default translation is not public</p></li>
@@ -1659,8 +1671,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2178">#2178</a> ] Do not show inactive languages as targets for machine translation</p></li>
 </ul>
 </section>
-<section id="id10">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.3.1">2023.3.1</a><a class="headerlink" href="#id10" title="Permalink to this heading"></a></h2>
+<section id="id11">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.3.1">2023.3.1</a><a class="headerlink" href="#id11" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1005">#1005</a> ] Add possibility to filter for unused media files</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1831">#1831</a> ] Add management section for machine translation</p></li>
@@ -1672,8 +1684,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2139">#2139</a> ] Improve loading times in the translation coverage report</p></li>
 </ul>
 </section>
-<section id="id11">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.3.0">2023.3.0</a><a class="headerlink" href="#id11" title="Permalink to this heading"></a></h2>
+<section id="id12">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.3.0">2023.3.0</a><a class="headerlink" href="#id12" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1245">#1245</a> ] Restore expanded state of page tree</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1322">#1322</a> ] Add organization name &amp; logo to the page API response</p></li>
@@ -1685,15 +1697,15 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2112">#2112</a> ] Hide form buttons and bulk actions for users without editing permissions</p></li>
 </ul>
 </section>
-<section id="id12">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.2.2">2023.2.2</a><a class="headerlink" href="#id12" title="Permalink to this heading"></a></h2>
+<section id="id13">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.2.2">2023.2.2</a><a class="headerlink" href="#id13" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2012">#2012</a> ] Exclude archived pages when cloning a region</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2093">#2093</a> ] Fix recurring events API endpoint</p></li>
 </ul>
 </section>
-<section id="id13">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.2.1">2023.2.1</a><a class="headerlink" href="#id13" title="Permalink to this heading"></a></h2>
+<section id="id14">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.2.1">2023.2.1</a><a class="headerlink" href="#id14" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1518">#1518</a> ] Prevent database corruption when moving multiple pages at the same time</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1578">#1578</a> ] Add option to hide files in global media library</p></li>
@@ -1704,16 +1716,16 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2056">#2056</a> ] Change restriction of event duration to 28 days</p></li>
 </ul>
 </section>
-<section id="id14">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.2.0">2023.2.0</a><a class="headerlink" href="#id14" title="Permalink to this heading"></a></h2>
+<section id="id15">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.2.0">2023.2.0</a><a class="headerlink" href="#id15" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2037">#2037</a> ] Add organization and barrier-free fields to location</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2052">#2052</a> ] Fix false positive SSL error in link checker</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2064">#2064</a> ] Show Linkcheck status codes to all users</p></li>
 </ul>
 </section>
-<section id="id15">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.1.2">2023.1.2</a><a class="headerlink" href="#id15" title="Permalink to this heading"></a></h2>
+<section id="id16">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.1.2">2023.1.2</a><a class="headerlink" href="#id16" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1552">#1552</a> ] Make slugfield scrollable</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1769">#1769</a> ] Evenly distribute page, event and location form sidebar boxes</p></li>
@@ -1728,14 +1740,14 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2033">#2033</a> ] Add user setting to optionally enable the automatic distribution of sidebar boxes</p></li>
 </ul>
 </section>
-<section id="id16">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.1.1">2023.1.1</a><a class="headerlink" href="#id16" title="Permalink to this heading"></a></h2>
+<section id="id17">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.1.1">2023.1.1</a><a class="headerlink" href="#id17" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/2003">#2003</a> ] Fix HIX widget</p></li>
 </ul>
 </section>
-<section id="id17">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.1.0">2023.1.0</a><a class="headerlink" href="#id17" title="Permalink to this heading"></a></h2>
+<section id="id18">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2023.1.0">2023.1.0</a><a class="headerlink" href="#id18" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1345">#1345</a> ] Track DeepL API usage by regions</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1695">#1695</a> ] Treat URLs with broken hash anchors as valid in link checker</p></li>
@@ -1743,8 +1755,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1969">#1969</a> ] Hide edit link button in content forms for users without edit permission</p></li>
 </ul>
 </section>
-<section id="id18">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.12.3">2022.12.3</a><a class="headerlink" href="#id18" title="Permalink to this heading"></a></h2>
+<section id="id19">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.12.3">2022.12.3</a><a class="headerlink" href="#id19" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1772">#1772</a> ] No longer list hidden languages in the fallback translation text of the API endpoint</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1900">#1900</a> ] Exclude users without viewing permission from page-specific permissions</p></li>
@@ -1756,24 +1768,24 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1983">#1983</a> ] Fix broken page form ordering box</p></li>
 </ul>
 </section>
-<section id="id19">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.12.2">2022.12.2</a><a class="headerlink" href="#id19" title="Permalink to this heading"></a></h2>
+<section id="id20">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.12.2">2022.12.2</a><a class="headerlink" href="#id20" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/686">#686</a> ] Improve page filter</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1132">#1132</a> ] Add TOTP 2-factor authentication</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1884">#1884</a> ] Add support for passwordless authentication</p></li>
 </ul>
 </section>
-<section id="id20">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.12.1">2022.12.1</a><a class="headerlink" href="#id20" title="Permalink to this heading"></a></h2>
+<section id="id21">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.12.1">2022.12.1</a><a class="headerlink" href="#id21" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1756">#1756</a> ] Add media library, content edit lock and diff view to the imprint side-by-side view</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1870">#1870</a> ] Fix copy source content in imprint side-by-side view</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1950">#1950</a> ] Fix long loading time of page tree</p></li>
 </ul>
 </section>
-<section id="id21">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.12.0">2022.12.0</a><a class="headerlink" href="#id21" title="Permalink to this heading"></a></h2>
+<section id="id22">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.12.0">2022.12.0</a><a class="headerlink" href="#id22" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1494">#1494</a> ] Add a role without page editing permissions</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1701">#1701</a> ] Fix malformed CSV export on weekly statistics report</p></li>
@@ -1790,8 +1802,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1942">#1942</a> ] Fix auto save functionality</p></li>
 </ul>
 </section>
-<section id="id22">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.11.4">2022.11.4</a><a class="headerlink" href="#id22" title="Permalink to this heading"></a></h2>
+<section id="id23">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.11.4">2022.11.4</a><a class="headerlink" href="#id23" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1502">#1502</a> ] Hide links on archived pages in broken link checker</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1616">#1616</a> ] Add buttons to expand and copy truncated search feedback</p></li>
@@ -1803,8 +1815,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1869">#1869</a> ] Fix error in imprint side by side view</p></li>
 </ul>
 </section>
-<section id="id23">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.11.3">2022.11.3</a><a class="headerlink" href="#id23" title="Permalink to this heading"></a></h2>
+<section id="id24">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.11.3">2022.11.3</a><a class="headerlink" href="#id24" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/522">#522</a> ] Add region setting to activate SEO section, add SEO section to location form</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1521">#1521</a> ] Show warning when user entered slug got changed</p></li>
@@ -1815,20 +1827,20 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1865">#1865</a> ] Fix TextLab HIX widget for non-staff users</p></li>
 </ul>
 </section>
-<section id="id24">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.11.2">2022.11.2</a><a class="headerlink" href="#id24" title="Permalink to this heading"></a></h2>
+<section id="id25">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.11.2">2022.11.2</a><a class="headerlink" href="#id25" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1843">#1843</a> ] Fix region selection after login</p></li>
 </ul>
 </section>
-<section id="id25">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.11.1">2022.11.1</a><a class="headerlink" href="#id25" title="Permalink to this heading"></a></h2>
+<section id="id26">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.11.1">2022.11.1</a><a class="headerlink" href="#id26" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1840">#1840</a> ] Fix statistics widget on dashboard</p></li>
 </ul>
 </section>
-<section id="id26">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.11.0">2022.11.0</a><a class="headerlink" href="#id26" title="Permalink to this heading"></a></h2>
+<section id="id27">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.11.0">2022.11.0</a><a class="headerlink" href="#id27" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1035">#1035</a> ] Enable setting location position via drag &amp; drop on map</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1333">#1333</a> ] Mark external links with special CSS class</p></li>
@@ -1842,8 +1854,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1816">#1816</a> ] Make menu sidebar responsive</p></li>
 </ul>
 </section>
-<section id="id27">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.10.2">2022.10.2</a><a class="headerlink" href="#id27" title="Permalink to this heading"></a></h2>
+<section id="id28">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.10.2">2022.10.2</a><a class="headerlink" href="#id28" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1170">#1170</a> ] Add map preview on location form</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1350">#1350</a> ] Various small PDF export improvements</p></li>
@@ -1856,8 +1868,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1808">#1808</a> ] Improve calculation of HIX values via Textlab</p></li>
 </ul>
 </section>
-<section id="id28">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.10.1">2022.10.1</a><a class="headerlink" href="#id28" title="Permalink to this heading"></a></h2>
+<section id="id29">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.10.1">2022.10.1</a><a class="headerlink" href="#id29" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/951">#951</a> ] Add possibility to create categories for locations</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1000">#1000</a> ] Auto-complete address and coordinates of locations</p></li>
@@ -1874,48 +1886,48 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1770">#1770</a> ] Fix error in SUMM.AI translation if paragraph contains only special characters</p></li>
 </ul>
 </section>
-<section id="id29">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.10.0">2022.10.0</a><a class="headerlink" href="#id29" title="Permalink to this heading"></a></h2>
+<section id="id30">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.10.0">2022.10.0</a><a class="headerlink" href="#id30" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1734">#1734</a> ] Increase timeout for SUMM.AI API client</p></li>
 </ul>
 </section>
-<section id="id30">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.9.5">2022.9.5</a><a class="headerlink" href="#id30" title="Permalink to this heading"></a></h2>
+<section id="id31">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.9.5">2022.9.5</a><a class="headerlink" href="#id31" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1720">#1720</a> ] Fix translation of empty tags with SUMM.AI API for Easy German</p></li>
 </ul>
 </section>
-<section id="id31">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.9.4">2022.9.4</a><a class="headerlink" href="#id31" title="Permalink to this heading"></a></h2>
+<section id="id32">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.9.4">2022.9.4</a><a class="headerlink" href="#id32" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1450">#1450</a> ] Add API from SUMM.AI to create easy-understable German</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1532">#1532</a> ] Fix PDF table of contents in cyrillic alphabets</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1653">#1653</a> ] Create new versions even if content did not change to preserve translation status</p></li>
 </ul>
 </section>
-<section id="id32">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.9.3">2022.9.3</a><a class="headerlink" href="#id32" title="Permalink to this heading"></a></h2>
+<section id="id33">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.9.3">2022.9.3</a><a class="headerlink" href="#id33" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1705">#1705</a> ] Fix error messages in event validation</p></li>
 </ul>
 </section>
-<section id="id33">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.9.2">2022.9.2</a><a class="headerlink" href="#id33" title="Permalink to this heading"></a></h2>
+<section id="id34">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.9.2">2022.9.2</a><a class="headerlink" href="#id34" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1011">#1011</a> ] Use ISO format for datetime objects/fields</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1599">#1599</a> ] Exclude automatic saves and pending reviews from XLIFF export</p></li>
 </ul>
 </section>
-<section id="id34">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.9.1">2022.9.1</a><a class="headerlink" href="#id34" title="Permalink to this heading"></a></h2>
+<section id="id35">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.9.1">2022.9.1</a><a class="headerlink" href="#id35" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1470">#1470</a> ] Add non-political flags for Arabic and Farsi</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1678">#1678</a> ] Fix error when creating new page translations</p></li>
 </ul>
 </section>
-<section id="id35">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.9.0">2022.9.0</a><a class="headerlink" href="#id35" title="Permalink to this heading"></a></h2>
+<section id="id36">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.9.0">2022.9.0</a><a class="headerlink" href="#id36" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1440">#1440</a> ] Add missing word count to translation coverage report</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1566">#1566</a> ] Manage organizations per region</p></li>
@@ -1931,8 +1943,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1674">#1674</a> ] Improve language tree node creation</p></li>
 </ul>
 </section>
-<section id="id36">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.8.3">2022.8.3</a><a class="headerlink" href="#id36" title="Permalink to this heading"></a></h2>
+<section id="id37">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.8.3">2022.8.3</a><a class="headerlink" href="#id37" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1449">#1449</a> ] Show diff to last source version in side-by-side view</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1615">#1615</a> ] Streamline navbar structure and remove analytics dashboard</p></li>
@@ -1941,22 +1953,22 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1656">#1656</a> ] Only validate event duration if dates are valid</p></li>
 </ul>
 </section>
-<section id="id37">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.8.2">2022.8.2</a><a class="headerlink" href="#id37" title="Permalink to this heading"></a></h2>
+<section id="id38">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.8.2">2022.8.2</a><a class="headerlink" href="#id38" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1649">#1649</a> ] Make UI languages configurable</p></li>
 </ul>
 </section>
-<section id="id38">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.8.1">2022.8.1</a><a class="headerlink" href="#id38" title="Permalink to this heading"></a></h2>
+<section id="id39">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.8.1">2022.8.1</a><a class="headerlink" href="#id39" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1549">#1549</a> ] Add multilingual XLIFF export</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1628">#1628</a> ] Add Dutch UI language</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1636">#1636</a> ] Improve XLIFF export error messages</p></li>
 </ul>
 </section>
-<section id="id39">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.8.0">2022.8.0</a><a class="headerlink" href="#id39" title="Permalink to this heading"></a></h2>
+<section id="id40">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.8.0">2022.8.0</a><a class="headerlink" href="#id40" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1390">#1390</a> ] Move files via drag and drop</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1464">#1464</a> ] Fix status of translation with only minor public version</p></li>
@@ -1968,8 +1980,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1623">#1623</a> ] Fix imprint publish/update button</p></li>
 </ul>
 </section>
-<section id="id40">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.7.0">2022.7.0</a><a class="headerlink" href="#id40" title="Permalink to this heading"></a></h2>
+<section id="id41">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.7.0">2022.7.0</a><a class="headerlink" href="#id41" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1504">#1504</a> ] Keep filters on pagination</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1510">#1510</a> ] Limit event duration to 7 days</p></li>
@@ -1982,16 +1994,16 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1600">#1600</a> ] Improve XLIFF export bulk option description</p></li>
 </ul>
 </section>
-<section id="id41">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.6.3">2022.6.3</a><a class="headerlink" href="#id41" title="Permalink to this heading"></a></h2>
+<section id="id42">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.6.3">2022.6.3</a><a class="headerlink" href="#id42" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1561">#1561</a> ] Rename location contact labels</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1563">#1563</a> ] Fix permission checks in side-by-side view</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1567">#1567</a> ] Hide organization field in user form</p></li>
 </ul>
 </section>
-<section id="id42">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.6.2">2022.6.2</a><a class="headerlink" href="#id42" title="Permalink to this heading"></a></h2>
+<section id="id43">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.6.2">2022.6.2</a><a class="headerlink" href="#id43" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/742">#742</a> ] Automatically fetch region bounding boxes from Nominatim API</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1445">#1445</a> ] Allow only users with publish permission to unpublish page</p></li>
@@ -2001,8 +2013,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1550">#1550</a> ] Fix status change when restoring revisions</p></li>
 </ul>
 </section>
-<section id="id43">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.6.1">2022.6.1</a><a class="headerlink" href="#id43" title="Permalink to this heading"></a></h2>
+<section id="id44">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.6.1">2022.6.1</a><a class="headerlink" href="#id44" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1258">#1258</a> ] Add possibility to mark pages as up-to-date</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1502">#1502</a> ] Do not check links in archived pages</p></li>
@@ -2012,16 +2024,16 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1542">#1542</a> ] Fix short url copy button</p></li>
 </ul>
 </section>
-<section id="id44">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.6.0">2022.6.0</a><a class="headerlink" href="#id44" title="Permalink to this heading"></a></h2>
+<section id="id45">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.6.0">2022.6.0</a><a class="headerlink" href="#id45" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1501">#1501</a> ] Remove formatting when content is pasted into TinyMCE editor</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1503">#1503</a> ] Fix error when expanding feedback entries</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1514">#1514</a> ] Fix format of region aliases in API</p></li>
 </ul>
 </section>
-<section id="id45">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.5.4">2022.5.4</a><a class="headerlink" href="#id45" title="Permalink to this heading"></a></h2>
+<section id="id46">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.5.4">2022.5.4</a><a class="headerlink" href="#id46" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1001">#1001</a> ] Deliver missing translations in default language for events and locations</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1411">#1411</a> ] Indicate fallback translations for imprint</p></li>
@@ -2030,8 +2042,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1483">#1483</a> ] Add filters to admin user list</p></li>
 </ul>
 </section>
-<section id="id46">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.5.3">2022.5.3</a><a class="headerlink" href="#id46" title="Permalink to this heading"></a></h2>
+<section id="id47">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.5.3">2022.5.3</a><a class="headerlink" href="#id47" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/742">#742</a> ] Add default bounding box to region API</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1406">#1406</a> ] Hide sub-headings in PDF table of contents</p></li>
@@ -2042,8 +2054,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1487">#1487</a> ] Invalidate cache of related objects when languages are changed</p></li>
 </ul>
 </section>
-<section id="id47">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.5.2">2022.5.2</a><a class="headerlink" href="#id47" title="Permalink to this heading"></a></h2>
+<section id="id48">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.5.2">2022.5.2</a><a class="headerlink" href="#id48" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1462">#1462</a> ] Set default value of location visible on map to false</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1471">#1471</a> ] Add statistic settings to region form again</p></li>
@@ -2052,8 +2064,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1476">#1476</a> ] Fix error when importing legacy XLIFF files from WordPress</p></li>
 </ul>
 </section>
-<section id="id48">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.5.1">2022.5.1</a><a class="headerlink" href="#id48" title="Permalink to this heading"></a></h2>
+<section id="id49">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.5.1">2022.5.1</a><a class="headerlink" href="#id49" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1283">#1283</a> ] Remove archived pages from several settings/options</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1292">#1292</a> ] Add multi-file upload via drag and drop</p></li>
@@ -2074,8 +2086,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1461">#1461</a> ] Display warning on leaving page after editing a page description</p></li>
 </ul>
 </section>
-<section id="id49">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.5.0">2022.5.0</a><a class="headerlink" href="#id49" title="Permalink to this heading"></a></h2>
+<section id="id50">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.5.0">2022.5.0</a><a class="headerlink" href="#id50" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/726">#726</a> ] Add additional fields to location model</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1000">#1000</a> ] Automatically derive location coordinates from address</p></li>
@@ -2095,16 +2107,16 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1389">#1389</a> ] Change media library upload paths</p></li>
 </ul>
 </section>
-<section id="id50">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.4.2">2022.4.2</a><a class="headerlink" href="#id50" title="Permalink to this heading"></a></h2>
+<section id="id51">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.4.2">2022.4.2</a><a class="headerlink" href="#id51" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1093">#1093</a> ] Add Malte and Aschaffenburg brandings</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1365">#1365</a> ] Add timezone setting to region model</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1366">#1366</a> ] Fix monthly recurring events on mondays</p></li>
 </ul>
 </section>
-<section id="id51">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.4.1">2022.4.1</a><a class="headerlink" href="#id51" title="Permalink to this heading"></a></h2>
+<section id="id52">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.4.1">2022.4.1</a><a class="headerlink" href="#id52" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1289">#1289</a> ] Prevent submitting feedback for a non-existent imprint</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1328">#1328</a> ] Fix missing entries in broken link checker</p></li>
@@ -2115,8 +2127,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1359">#1359</a> ] Cascade delete imprint feedback when imprint is deleted</p></li>
 </ul>
 </section>
-<section id="id52">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.4.0">2022.4.0</a><a class="headerlink" href="#id52" title="Permalink to this heading"></a></h2>
+<section id="id53">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.4.0">2022.4.0</a><a class="headerlink" href="#id53" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1024">#1024</a> ] Add URL search-replace for linkchecker</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1054">#1054</a> ] Provide fallback translations for mirrored pages</p></li>
@@ -2131,14 +2143,14 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1327">#1327</a> ] Fix page PDF export</p></li>
 </ul>
 </section>
-<section id="id53">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.3.6">2022.3.6</a><a class="headerlink" href="#id53" title="Permalink to this heading"></a></h2>
+<section id="id54">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.3.6">2022.3.6</a><a class="headerlink" href="#id54" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1314">#1314</a> ] Fix layout of media library on small screens</p></li>
 </ul>
 </section>
-<section id="id54">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.3.5">2022.3.5</a><a class="headerlink" href="#id54" title="Permalink to this heading"></a></h2>
+<section id="id55">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.3.5">2022.3.5</a><a class="headerlink" href="#id55" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1055">#1055</a> ] Add bulk actions for archiving/restoring pages, events and locations</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1181">#1181</a> ] Scroll media library and sidebar independently of each other</p></li>
@@ -2150,8 +2162,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1305">#1305</a> ] Fix deletion of media files and directories</p></li>
 </ul>
 </section>
-<section id="id55">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.3.4">2022.3.4</a><a class="headerlink" href="#id55" title="Permalink to this heading"></a></h2>
+<section id="id56">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.3.4">2022.3.4</a><a class="headerlink" href="#id56" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/760">#760</a> ] Enable linking of push notifications to local news in native apps</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/973">#973</a> ] Support BCP tags for XLIFF import/export</p></li>
@@ -2164,8 +2176,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1284">#1284</a> ] Inherit status of new translations from source language on XLIFF import</p></li>
 </ul>
 </section>
-<section id="id56">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.3.3">2022.3.3</a><a class="headerlink" href="#id56" title="Permalink to this heading"></a></h2>
+<section id="id57">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.3.3">2022.3.3</a><a class="headerlink" href="#id57" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1099">#1099</a> ] Add push content API</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1271">#1271</a> ] Fix feedback API endpoint</p></li>
@@ -2173,20 +2185,20 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1277">#1277</a> ] Fix change detection for XLIFF import</p></li>
 </ul>
 </section>
-<section id="id57">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.3.2">2022.3.2</a><a class="headerlink" href="#id57" title="Permalink to this heading"></a></h2>
+<section id="id58">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.3.2">2022.3.2</a><a class="headerlink" href="#id58" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1269">#1269</a> ] Fix Firebase Cloud Messaging API endpoint JSON format</p></li>
 </ul>
 </section>
-<section id="id58">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.3.1">2022.3.1</a><a class="headerlink" href="#id58" title="Permalink to this heading"></a></h2>
+<section id="id59">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.3.1">2022.3.1</a><a class="headerlink" href="#id59" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1267">#1267</a> ] Fix push notifications attribute name in API</p></li>
 </ul>
 </section>
-<section id="id59">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.3.0">2022.3.0</a><a class="headerlink" href="#id59" title="Permalink to this heading"></a></h2>
+<section id="id60">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.3.0">2022.3.0</a><a class="headerlink" href="#id60" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1086">#1086</a> ] Provide correct URL for location</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1247">#1247</a> ] Update translation status on source status changes</p></li>
@@ -2195,8 +2207,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1260">#1260</a> ] Fix Firebase messaging</p></li>
 </ul>
 </section>
-<section id="id60">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.2.4">2022.2.4</a><a class="headerlink" href="#id60" title="Permalink to this heading"></a></h2>
+<section id="id61">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.2.4">2022.2.4</a><a class="headerlink" href="#id61" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1131">#1131</a> ] Flush Cache of related objects when changing a tree</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1197">#1197</a> ] Fix calculation of translation status</p></li>
@@ -2205,15 +2217,15 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1242">#1242</a> ] Add setting to activate Matomo tracking</p></li>
 </ul>
 </section>
-<section id="id61">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.2.3">2022.2.3</a><a class="headerlink" href="#id61" title="Permalink to this heading"></a></h2>
+<section id="id62">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.2.3">2022.2.3</a><a class="headerlink" href="#id62" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1223">#1223</a> ] Remove icon from imprint API</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1224">#1224</a> ] Fix PDF export API</p></li>
 </ul>
 </section>
-<section id="id62">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.2.2">2022.2.2</a><a class="headerlink" href="#id62" title="Permalink to this heading"></a></h2>
+<section id="id63">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.2.2">2022.2.2</a><a class="headerlink" href="#id63" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1214">#1214</a> ] Fix API return format of event location</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1215">#1215</a> ] Use canonical Enter / Shift+Enter behavior in TinyMCE</p></li>
@@ -2221,8 +2233,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1221">#1221</a> ] Disable pagination on language tree</p></li>
 </ul>
 </section>
-<section id="id63">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.2.1">2022.2.1</a><a class="headerlink" href="#id63" title="Permalink to this heading"></a></h2>
+<section id="id64">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2022.2.1">2022.2.1</a><a class="headerlink" href="#id64" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/765">#765</a> ] Add tests of form submissions</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/988">#988</a> ] Add browser warning when leaving unsaved forms</p></li>
@@ -2267,8 +2279,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1151">#1151</a> ] Add possibility to delete languages</p></li>
 </ul>
 </section>
-<section id="id64">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2021.12.0-beta">2021.12.0-beta</a><a class="headerlink" href="#id64" title="Permalink to this heading"></a></h2>
+<section id="id65">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2021.12.0-beta">2021.12.0-beta</a><a class="headerlink" href="#id65" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/931">#931</a> ] Add search function for media library</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/943">#943</a> ] Improve performance of region list</p></li>
@@ -2282,8 +2294,8 @@
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/1062">#1062</a> ] Fix error when replacing media files without thumbnail</p></li>
 </ul>
 </section>
-<section id="id65">
-<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2021.11.0-beta">2021.11.0-beta</a><a class="headerlink" href="#id65" title="Permalink to this heading"></a></h2>
+<section id="id66">
+<h2><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/releases/tag/2021.11.0-beta">2021.11.0-beta</a><a class="headerlink" href="#id66" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/8">#8</a> ] Statistics integration for Matomo</p></li>
 <li><p>[ <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/issues/11">#11</a> ] Content management for pages, events and locations</p></li>

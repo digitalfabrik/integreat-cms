@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-05-16T13:39:37+00:00" />
+    <meta property="article:modified_time" content="2023-05-31T16:41:29+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Utils &mdash; integreat-cms 2023.5.4 documentation</title>
+  <title>Utils &mdash; integreat-cms 2023.5.5 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../_static/integreat-icon.svg"/>
@@ -231,6 +231,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#content-edit-lock">Content Edit Lock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#email-utils">Email Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#file-utils">File Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#internal-link-checker">Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#linkcheck-utils">Linkcheck Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#media-utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#mfa-utils">MFA Utils</a></li>
@@ -388,6 +389,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.cms.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#test-internal-link-checker">Test Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#test-translation-utils">Test Translation Utils</a></li>
 </ul>
 </li>
@@ -598,6 +600,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.content_edit_lock">Content Edit Lock</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.email_utils">Email Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_checker">Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.linkcheck_utils">Linkcheck Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a></li>
@@ -803,6 +806,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LINKCHECK_IGNORED_URL_TYPES"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_IGNORED_URL_TYPES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LINKCHECK_MAX_URL_LENGTH"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_MAX_URL_LENGTH</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LINKCHECK_PHONE_ENABLED"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_PHONE_ENABLED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LINKCHECK_SITE_DOMAINS"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_SITE_DOMAINS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LOCALE_PATHS"><code class="docutils literal notranslate"><span class="pre">LOCALE_PATHS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LOGFILE"><code class="docutils literal notranslate"><span class="pre">LOGFILE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LOGGING"><code class="docutils literal notranslate"><span class="pre">LOGGING</span></code></a></li>
@@ -1089,6 +1093,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.cms.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_internal_link_checker">Test Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_translation_utils">Test Translation Utils</a></li>
 </ul>
 </li>
@@ -1391,72 +1396,73 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release-notes.html">Release notes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../release-notes.html#unreleased">unreleased</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id1">2023.5.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id2">2023.5.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id3">2023.5.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id4">2023.5.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id5">2023.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id6">2023.4.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id7">2023.4.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id8">2023.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id9">2023.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id10">2023.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id11">2023.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id12">2023.2.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id13">2023.2.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id14">2023.2.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id15">2023.1.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id16">2023.1.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id17">2023.1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id18">2022.12.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id19">2022.12.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id20">2022.12.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id21">2022.12.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id22">2022.11.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id23">2022.11.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id24">2022.11.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id25">2022.11.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id26">2022.11.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id27">2022.10.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id28">2022.10.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id29">2022.10.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id30">2022.9.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id31">2022.9.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id32">2022.9.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id33">2022.9.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id34">2022.9.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id35">2022.9.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id36">2022.8.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id37">2022.8.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id38">2022.8.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id39">2022.8.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id40">2022.7.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id41">2022.6.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id42">2022.6.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id43">2022.6.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id44">2022.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id45">2022.5.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id46">2022.5.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id47">2022.5.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id48">2022.5.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id49">2022.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id50">2022.4.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id51">2022.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id52">2022.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id53">2022.3.6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id54">2022.3.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id55">2022.3.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id56">2022.3.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id57">2022.3.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id58">2022.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id59">2022.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id60">2022.2.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id61">2022.2.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id62">2022.2.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id63">2022.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id1">2023.5.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id2">2023.5.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id3">2023.5.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id4">2023.5.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id5">2023.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id6">2023.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id7">2023.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id8">2023.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id9">2023.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id10">2023.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id11">2023.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id12">2023.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id13">2023.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id14">2023.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id15">2023.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id16">2023.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id17">2023.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id18">2023.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id19">2022.12.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id20">2022.12.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id21">2022.12.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id22">2022.12.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id23">2022.11.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id24">2022.11.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id25">2022.11.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id26">2022.11.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id27">2022.11.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id28">2022.10.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id29">2022.10.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id30">2022.10.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id31">2022.9.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id32">2022.9.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id33">2022.9.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id34">2022.9.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id35">2022.9.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id36">2022.9.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id37">2022.8.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id38">2022.8.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id39">2022.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id40">2022.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id41">2022.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id42">2022.6.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id43">2022.6.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id44">2022.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id45">2022.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id46">2022.5.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id47">2022.5.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id48">2022.5.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id49">2022.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id50">2022.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id51">2022.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id52">2022.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id53">2022.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id54">2022.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id55">2022.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id56">2022.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id57">2022.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id58">2022.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id59">2022.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id60">2022.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id61">2022.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id62">2022.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id63">2022.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id64">2022.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release-notes.html#beta">2022.2.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id64">2021.12.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id65">2021.11.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id65">2021.12.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id66">2021.11.0-beta</a></li>
 </ul>
 </li>
 </ul>
@@ -1754,6 +1760,171 @@ version and also attach the branding logo.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a> ( <a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a> )</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="internal-link-checker">
+<h2>Internal Link Checker<a class="headerlink" href="#internal-link-checker" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">check_event_or_location</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manager</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_checker.py#L281"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Check whether the event or location with that URL exists in the given region and language.
+Fallback translations are also checked when they are enabled in the specific region.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>content_type</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The content type (<code class="docutils literal notranslate"><span class="pre">Event</span></code> or <code class="docutils literal notranslate"><span class="pre">POI</span></code>)</p></li>
+<li><p><strong>manager</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/db/managers/#django.db.models.Manager" title="(in Django v3.2)"><em>Manager</em></a>) – The object manager</p></li>
+<li><p><strong>url</strong> (<em>linkcheck.models.Url</em>) – The internal URL to check</p></li>
+<li><p><strong>path_components</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> [ </em><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> ]</em>) – The path components</p></li>
+<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region</p></li>
+<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The validity status of the URL</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">check_imprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_checker.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Check whether the imprint exists in the given region and language</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>linkcheck.models.Url</em>) – The internal URL to check</p></li>
+<li><p><strong>path_components</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> [ </em><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> ]</em>) – The path components</p></li>
+<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region</p></li>
+<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The validity status of the URL</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">check_internal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_checker.py#L334"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>url</strong> (<em>linkcheck.models.Url</em>) – The internal URL to check</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The status of the URL</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">check_news_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_checker.py#L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Check whether the news exists in the given region</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>linkcheck.models.Url</em>) – The internal URL to check</p></li>
+<li><p><strong>path_components</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> [ </em><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> ]</em>) – The path components</p></li>
+<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region</p></li>
+<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The validity status of the URL</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">check_object_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manager</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_checker.py#L222"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Check whether the given content objects are valid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>content_type</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The content type (<code class="docutils literal notranslate"><span class="pre">Page</span></code>, <code class="docutils literal notranslate"><span class="pre">Event</span></code> or <code class="docutils literal notranslate"><span class="pre">POI</span></code>)</p></li>
+<li><p><strong>manager</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/db/managers/#django.db.models.Manager" title="(in Django v3.2)"><em>Manager</em></a>) – The object manager</p></li>
+<li><p><strong>url</strong> (<em>linkcheck.models.Url</em>) – The internal URL to check</p></li>
+<li><p><strong>slug</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The slug of the translation</p></li>
+<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region</p></li>
+<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">check_offer_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_checker.py#L142"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Check whether the offer exists in the given region</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>linkcheck.models.Url</em>) – The internal URL to check</p></li>
+<li><p><strong>path_components</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em> [ </em><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a><em> ]</em>) – The path components</p></li>
+<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The region</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The validity status of the URL</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">check_translation_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content_object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_checker.py#L183"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Check whether the link of the given content object is valid</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>content_object</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel" title="integreat_cms.cms.models.abstract_content_model.AbstractContentModel"><em>AbstractContentModel</em></a>) – The content object</p></li>
+<li><p><strong>url</strong> (<em>linkcheck.models.Url</em>) – The internal URL to check</p></li>
+<li><p><strong>language</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><em>Language</em></a>) – The language</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">mark_invalid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_checker.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>linkcheck.models.Url</em>) – The internal URL to mark as invalid</p></li>
+<li><p><strong>error_message</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The reason why this URL is invalid</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_checker.</span></span><span class="sig-name descname"><span class="pre">mark_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_checker.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>url</strong> (<em>linkcheck.models.Url</em>) – The internal URL to mark as valid</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2216,7 +2387,7 @@ version and also attach the integreat logo.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 16, 2023.
+      <span class="lastupdated">Last updated on May 31, 2023.
       </span></p>
   </div>
 
