@@ -52,7 +52,7 @@
         <td class="pr-2 {% if view.kwargs.url_filter == 'invalid' %} text-red-500 {% elif view.kwargs.url_filter == 'valid' %} text-green-500 {% endif %} max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
             title="{{ url.get_message }}">
             <div class="table-cell-truncate">
-                <span class="table-cell-content">{{ url.get_message }}</span>
+                <span class="table-cell-content">{% translate url.get_message %}</span>
                 <a class="toggle-table-cell text-black">
                     <i icon-name="chevron-down" class="more"></i>
                     <i icon-name="chevron-up" class="less"></i>
