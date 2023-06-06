@@ -1356,7 +1356,7 @@ urlpatterns = [
                                     [
                                         path(
                                             "edit/",
-                                            form_views.CustomUpdateView.as_view(
+                                            language_tree.LanguageTreeNodeUpdateView.as_view(
                                                 form_class=LanguageTreeNodeForm
                                             ),
                                             name="edit_languagetreenode",

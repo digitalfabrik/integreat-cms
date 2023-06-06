@@ -3,7 +3,8 @@ import logging
 from django.urls import reverse
 
 from ...forms import LanguageTreeNodeForm
-from ..form_views import CustomCreateView
+from ...models import EventTranslation, PageTranslation, POITranslation
+from ..form_views import CustomCreateView, CustomUpdateView
 
 logger = logging.getLogger(__name__)
 
@@ -42,3 +43,29 @@ class LanguageTreeNodeCreateView(CustomCreateView):
         kwargs = super().get_form_kwargs()
         kwargs["region"] = self.request.region
         return kwargs
+
+
+class LanguageTreeNodeUpdateView(CustomUpdateView):
+    """
+    Class that handles activating/deactivating of a language tree node
+    """
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        language_tree_node = self.get_object()
+
+        if "active" in form.changed_data:
+            models = [PageTranslation, EventTranslation, POITranslation]
+            for model in models:
+                filters = {
+                    f"{model.foreign_field()}__region": language_tree_node.region,
+                    "language": language_tree_node.language,
+                }
+                distinct = [f"{model.foreign_field()}__pk", "language__pk"]
+                for translation in model.objects.filter(**filters).distinct(*distinct):
+                    if language_tree_node.active:
+                        translation.save(update_timestamp=False)
+                    else:
+                        translation.links.all().delete()
+        return response
