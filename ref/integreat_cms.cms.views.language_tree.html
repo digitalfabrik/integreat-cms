@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-04-30T07:18:29+00:00" />
+    <meta property="article:modified_time" content="2023-06-06T12:00:34+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Language Tree &mdash; integreat-cms 2023.5.5 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -784,8 +784,9 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.linklists">Linklists</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.ContentTranslationLinklist"><code class="docutils literal notranslate"><span class="pre">ContentTranslationLinklist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.ActiveLanguageLinklist"><code class="docutils literal notranslate"><span class="pre">ActiveLanguageLinklist</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.EventTranslationLinklist"><code class="docutils literal notranslate"><span class="pre">EventTranslationLinklist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.NonArchivedLinkList"><code class="docutils literal notranslate"><span class="pre">NonArchivedLinkList</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.POITranslationLinklist"><code class="docutils literal notranslate"><span class="pre">POITranslationLinklist</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.PageTranslationLinklist"><code class="docutils literal notranslate"><span class="pre">PageTranslationLinklist</span></code></a></li>
 </ul>
@@ -923,9 +924,9 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LANGUAGES"><code class="docutils literal notranslate"><span class="pre">LANGUAGES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LANGUAGE_CODE"><code class="docutils literal notranslate"><span class="pre">LANGUAGE_CODE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LEGACY_FILE_UPLOAD"><code class="docutils literal notranslate"><span class="pre">LEGACY_FILE_UPLOAD</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LINKCHECK_COMMAND_RUNNING"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_COMMAND_RUNNING</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LINKCHECK_DISABLE_LISTENERS"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_DISABLE_LISTENERS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LINKCHECK_EMAIL_ENABLED"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_EMAIL_ENABLED</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LINKCHECK_EXCLUDE_ARCHIVED_PAGES"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_EXCLUDE_ARCHIVED_PAGES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LINKCHECK_IGNORED_URL_TYPES"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_IGNORED_URL_TYPES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LINKCHECK_MAX_URL_LENGTH"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_MAX_URL_LENGTH</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LINKCHECK_PHONE_ENABLED"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_PHONE_ENABLED</span></code></a></li>
@@ -1768,37 +1769,58 @@ This is necessary as the original cache invalidation of cacheops only triggers f
 <h2>Language Tree Bulk Actions<a class="headerlink" href="#language-tree-bulk-actions" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.language_tree.language_tree_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">BulkActivateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.language_tree.language_tree_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">BulkActivateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_bulk_actions.LanguageTreeBulkActionView" title="integreat_cms.cms.views.language_tree.language_tree_bulk_actions.LanguageTreeBulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeBulkActionView</span></code></a></p>
 <p>Bulk action for activating multiple language tree nodes at once</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">action</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'activated'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">action</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'activated'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The name of the action</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'active'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'active'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The name of the archived-field</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Execute bulk action for language tree node and flush the cache</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>*args</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><em>dict</em></a>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The redirect</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)"><em>HttpResponseRedirect</em></a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.language_tree.language_tree_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">BulkDisableView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L115"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.language_tree.language_tree_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">BulkDisableView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_bulk_actions.BulkActivateView" title="integreat_cms.cms.views.language_tree.language_tree_bulk_actions.BulkActivateView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkActivateView</span></code></a></p>
 <p>Bulk action for disabling multiple language tree nodes at once</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">action</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'disabled'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L115"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">action</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'disabled'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The name of the action</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L115"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The value of the field</p>
 </dd></dl>
 
@@ -1806,18 +1828,18 @@ This is necessary as the original cache invalidation of cacheops only triggers f
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.language_tree.language_tree_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">BulkHideView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L89"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.language_tree.language_tree_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">BulkHideView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_bulk_actions.BulkMakeVisibleView" title="integreat_cms.cms.views.language_tree.language_tree_bulk_actions.BulkMakeVisibleView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkMakeVisibleView</span></code></a></p>
 <p>Bulk action for hiding multiple language tree nodes at once</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">action</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'hidden'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L89"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">action</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'hidden'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The name of the action</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L89"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The value of the field</p>
 </dd></dl>
 
@@ -1825,18 +1847,18 @@ This is necessary as the original cache invalidation of cacheops only triggers f
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.language_tree.language_tree_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">BulkMakeVisibleView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L76"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.language_tree.language_tree_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">BulkMakeVisibleView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_bulk_actions.LanguageTreeBulkActionView" title="integreat_cms.cms.views.language_tree.language_tree_bulk_actions.LanguageTreeBulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">LanguageTreeBulkActionView</span></code></a></p>
 <p>Bulk action for making multiple language tree nodes visible at once</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">action</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'made</span> <span class="pre">visible'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L76"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">action</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'made</span> <span class="pre">visible'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The name of the action</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'visible'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L76"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">field_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'visible'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The name of the archived-field</p>
 </dd></dl>
 
@@ -1844,13 +1866,13 @@ This is necessary as the original cache invalidation of cacheops only triggers f
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.language_tree.language_tree_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">LanguageTreeBulkActionView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.language_tree.language_tree_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">LanguageTreeBulkActionView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView" title="integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkUpdateBooleanFieldView</span></code></a></p>
 <p>Bulk action view for language tree nodes which flushes
 the cache for all content models after each operation</p>
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">action</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">action</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Called when the bulk action is performed and the <code class="docutils literal notranslate"><span class="pre">action</span></code> attribute was not overwritten</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
@@ -1861,7 +1883,7 @@ the cache for all content models after each operation</p>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">field_name</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">field_name</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Called when the bulk action is performed and the <code class="docutils literal notranslate"><span class="pre">field_name</span></code> attribute was not overwritten</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
@@ -1911,7 +1933,7 @@ the cache for all content models after each operation</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_bulk_actions.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Execute bulk action for language tree node and flush the cache</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1965,7 +1987,7 @@ the cache for all content models after each operation</p>
 <h2>Language Tree Node Form View<a class="headerlink" href="#language-tree-node-form-view" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.language_tree.language_tree_node_form_view.</span></span><span class="sig-name descname"><span class="pre">LanguageTreeNodeCreateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_node_form_view.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.language_tree.language_tree_node_form_view.</span></span><span class="sig-name descname"><span class="pre">LanguageTreeNodeCreateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_node_form_view.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomCreateView" title="integreat_cms.cms.views.form_views.CustomCreateView"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomCreateView</span></code></a></p>
 <p>Class that handles creating language tree nodes.
 This view is available within regions.</p>
@@ -1988,7 +2010,7 @@ This view is available within regions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_form_kwargs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_node_form_view.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_form_kwargs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_node_form_view.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Return the keyword arguments for instantiating the form</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -2002,7 +2024,7 @@ This view is available within regions.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_success_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_node_form_view.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_success_url</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_node_form_view.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Determine the URL to redirect to when the form is successfully validated</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -2010,6 +2032,30 @@ This view is available within regions.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.language_tree.language_tree_node_form_view.</span></span><span class="sig-name descname"><span class="pre">LanguageTreeNodeUpdateView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_node_form_view.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.form_views.CustomUpdateView" title="integreat_cms.cms.views.form_views.CustomUpdateView"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomUpdateView</span></code></a></p>
+<p>Class that handles activating/deactivating of a language tree node</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/language_tree/language_tree_node_form_view.py#L53"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Saves the form instance, sets the current object for the view, and redirects to <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.language_tree.html#integreat_cms.cms.views.language_tree.language_tree_node_form_view.LanguageTreeNodeUpdateView.get_success_url" title="integreat_cms.cms.views.language_tree.language_tree_node_form_view.LanguageTreeNodeUpdateView.get_success_url"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_success_url()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>form</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><em>ModelForm</em></a>) – The valid form instance</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirection to the success url</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpResponseRedirect" title="(in Django v3.2)"><em>HttpResponseRedirect</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2104,7 +2150,7 @@ This view is available in regions.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Apr 30, 2023.
+      <span class="lastupdated">Last updated on Jun 06, 2023.
       </span></p>
   </div>
 
