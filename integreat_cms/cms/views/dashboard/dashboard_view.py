@@ -70,6 +70,11 @@ class DashboardView(TemplateView, ChatContextMixin):
             language__slug__in=settings.TEXTLAB_API_LANGUAGES, page__in=hix_pages
         ).distinct("page_id", "language_id")
 
+        # Get all translations with empty content
+        hix_translations_with_empty_content = [
+            pt for pt in hix_translations if not pt.content.strip()
+        ]
+
         # Get all hix translations where the score is set
         hix_translations_with_score = [pt for pt in hix_translations if pt.hix_score]
 
@@ -77,11 +82,13 @@ class DashboardView(TemplateView, ChatContextMixin):
         worst_hix_translations = sorted(
             hix_translations_with_score, key=lambda pt: pt.hix_score
         )
+
         # Get the number of translations which are ready for MT
         ready_for_mt_count = sum(
             pt.hix_score >= settings.HIX_REQUIRED_FOR_MT
             for pt in hix_translations_with_score
-        )
+        ) + len(hix_translations_with_empty_content)
+
         ready_for_mt = math.trunc(100 * ready_for_mt_count / len(hix_translations))
 
         return {
