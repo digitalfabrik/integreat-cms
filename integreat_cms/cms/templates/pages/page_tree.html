@@ -159,7 +159,10 @@
                 {% if MT_PERMITTED %}
                     {% translate "pages" as content_type %}
                     {% if MT_PROVIDER %}
-                        <option data-bulk-action="{% url 'machine_translation_pages' region_slug=request.region.slug language_slug=language.slug %}">
+                        <option id="machine-translation-option"
+                                data-mt-provider="{{ MT_PROVIDER.name }}"
+                                data-url="{% url 'post_hix_and_word_number_per_page' region_slug=request.region.slug language_slug=language.slug %}"
+                                data-bulk-action="{% url 'machine_translation_pages' region_slug=request.region.slug language_slug=language.slug %}">
                             {% blocktranslate trimmed with provider=MT_PROVIDER.name %}
                                 Machine translate {{ content_type }} via {{ provider }} to {{ language }}
                             {% endblocktranslate %}
@@ -246,4 +249,5 @@
     {% include "../tutorials/page_tree.html" with tutorial_id="page-tree" hidden=request.user.page_tree_tutorial_seen %}
     {% include "pages/_page_preview_overlay.html" %}
     {% include "pages/_page_xliff_export_overlay.html" %}
+    {% include "_machine_translation_overlay.html" %}
 {% endblock content %}
