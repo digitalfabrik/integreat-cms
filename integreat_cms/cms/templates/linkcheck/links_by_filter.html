@@ -2,23 +2,31 @@
 {% load i18n %}
 {% load static %}
 {% block content %}
-    <h1 class="heading">
-        {% if view.kwargs.url_filter == 'valid' %}
-            {% translate "Valid links" %}
-        {% elif view.kwargs.url_filter == 'invalid' %}
-            {% translate "Broken links" %}
-        {% elif view.kwargs.url_filter == 'unchecked' %}
-            {% translate "Unchecked links" %}
-        {% elif view.kwargs.url_filter == 'ignored' %}
-            {% translate "Ignored links" %}
-        {% elif LINKCHECK_EMAIL_ENABLED and view.kwargs.url_filter == 'email' %}
-            {% translate "Email links" %}
-        {% elif LINKCHECK_PHONE_ENABLED and view.kwargs.url_filter == 'phone' %}
-            {% translate "Phone links" %}
-        {% else %}
-            {% translate "All links" %}
+    <div class="flex flex-wrap justify-between gap-4">
+        <h1 class="heading">
+            {% if view.kwargs.url_filter == 'valid' %}
+                {% translate "Valid links" %}
+            {% elif view.kwargs.url_filter == 'invalid' %}
+                {% translate "Broken links" %}
+            {% elif view.kwargs.url_filter == 'unchecked' %}
+                {% translate "Unchecked links" %}
+            {% elif view.kwargs.url_filter == 'ignored' %}
+                {% translate "Ignored links" %}
+            {% elif LINKCHECK_EMAIL_ENABLED and view.kwargs.url_filter == 'email' %}
+                {% translate "Email links" %}
+            {% elif LINKCHECK_PHONE_ENABLED and view.kwargs.url_filter == 'phone' %}
+                {% translate "Phone links" %}
+            {% else %}
+                {% translate "All links" %}
+            {% endif %}
+        </h1>
+        {% if request.user.expert_mode %}
+            <a href="{% url 'search_and_replace_link' region_slug=request.region.slug %}"
+               class="font-bold text-sm text-gray-800 flex items-center gap-1 mb-2 hover:underline">
+                <span><i icon-name="replace" class="align-top h-5"></i> {% translate "Search & replace" %}</span>
+            </a>
         {% endif %}
-    </h1>
+    </div>
     <a href="{% if view.kwargs.url_filter == 'valid' %}#{% else %}{% url 'linkcheck' region_slug=request.region.slug url_filter='valid' %}{% if request.GET.size %}?size={{ request.GET.size }}{% endif %}{% endif %}"
        class="pr-2 {% if view.kwargs.url_filter == 'valid' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
         {% translate "Valid" %}

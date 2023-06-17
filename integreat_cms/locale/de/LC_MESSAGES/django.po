@@ -1238,6 +1238,26 @@ msgid ""
 "'Connection reset by peer'))"
 msgstr "Verbindung abgebrochen"
 
+#: cms/constants/linkcheck.py
+msgid "Internal links"
+msgstr "Interne Links"
+
+#: cms/constants/linkcheck.py
+msgid "External links"
+msgstr "Externe links"
+
+#: cms/constants/linkcheck.py cms/templates/linkcheck/links_by_filter.html
+msgid "Email links"
+msgstr "Email-Links"
+
+#: cms/constants/linkcheck.py cms/templates/linkcheck/links_by_filter.html
+msgid "Phone links"
+msgstr "Telefonnummern-Links"
+
+#: cms/constants/linkcheck.py cms/templates/analytics/_broken_links_widget.html
+msgid "Invalid links"
+msgstr "Ungültige Links"
+
 #: cms/constants/machine_translation_permissions.py
 msgid "No"
 msgstr "Nein"
@@ -1837,6 +1857,29 @@ msgstr ""
 #: cms/forms/linkcheck/edit_url_form.py
 msgid "Enter a valid email address."
 msgstr "Bitte gültige E-Mail-Adresse eingeben."
+
+#: cms/forms/linkcheck/link_replace_form.py cms/templates/_search_input.html
+#: cms/templates/events/_event_filter_form.html
+#: cms/views/media/media_context_mixin.py
+msgid "Search"
+msgstr "Suchen"
+
+#: cms/forms/linkcheck/link_replace_form.py
+msgid "Enter old link to be replaced"
+msgstr "Alter Link, der ersetzt werden soll"
+
+#: cms/forms/linkcheck/link_replace_form.py
+#: cms/templates/linkcheck/search_and_replace_link.html
+msgid "Replace"
+msgstr "Ersetzen"
+
+#: cms/forms/linkcheck/link_replace_form.py
+msgid "Enter new link to replace the old link with"
+msgstr "Neuer Link"
+
+#: cms/forms/linkcheck/link_replace_form.py
+msgid "Link type"
+msgstr "Linktyp"
 
 #: cms/forms/machine_translation_form.py
 msgid "Create new translations:"
@@ -4074,12 +4117,6 @@ msgstr "Bestätigen"
 msgid "Editorial System"
 msgstr "Redaktionssystem"
 
-#: cms/templates/_search_input.html
-#: cms/templates/events/_event_filter_form.html
-#: cms/views/media/media_context_mixin.py
-msgid "Search"
-msgstr "Suchen"
-
 #: cms/templates/_search_input.html cms/views/media/media_context_mixin.py
 msgid "Reset search"
 msgstr "Suche zurücksetzen"
@@ -4211,10 +4248,6 @@ msgstr "Bitte kontaktieren Sie eine:n Administrator:in."
 #: cms/templates/statistics/statistics_overview.html
 msgid "Loading..."
 msgstr "Laden..."
-
-#: cms/templates/analytics/_broken_links_widget.html
-msgid "Invalid links"
-msgstr "Ungültige Links"
 
 #: cms/templates/analytics/_broken_links_widget.html
 #: cms/templates/linkcheck/links_by_filter.html
@@ -5617,16 +5650,12 @@ msgid "Broken links"
 msgstr "Fehlerhafte Links"
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "Email links"
-msgstr "Email-Links"
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Phone links"
-msgstr "Telefonnummern-Links"
-
-#: cms/templates/linkcheck/links_by_filter.html
 msgid "All links"
 msgstr "Alle Links"
+
+#: cms/templates/linkcheck/links_by_filter.html
+msgid "Search & replace"
+msgstr "Suchen & Ersetzen"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "Valid"
@@ -5748,6 +5777,34 @@ msgstr "Erneut prüfen"
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "Ignore"
 msgstr "Ignorieren"
+
+#: cms/templates/linkcheck/search_and_replace_link.html
+msgid "Search & replace in links"
+msgstr "Suchen & Ersetzen in Links"
+
+#: cms/templates/linkcheck/search_and_replace_link.html
+msgid ""
+"Here you can replace internal links, e-mail addresses and phone numbers "
+"partially or completely."
+msgstr ""
+"Hier können Sie interne Links, E-Mail-Adressen und Telefonnummern teilweise "
+"oder komplett ersetzen."
+
+#: cms/templates/linkcheck/search_and_replace_link.html
+msgid "Example 1: "
+msgstr "Beispiel 1: "
+
+#: cms/templates/linkcheck/search_and_replace_link.html
+msgid "Example 2: "
+msgstr "Beispiel 2: "
+
+#: cms/templates/linkcheck/search_and_replace_link.html
+msgid "Example 3: "
+msgstr "Beispiel 3: "
+
+#: cms/templates/linkcheck/search_and_replace_link.html
+msgid "Search and replace"
+msgstr "Suchen und Ersetzen"
 
 #: cms/templates/offertemplates/offertemplate_form.html
 #, python-format
@@ -7777,6 +7834,10 @@ msgstr ""
 "Alle Übersetzungen zu Seiten, Orten, Veranstaltungen und Push-"
 "Benachrichtigungen zu dieser Sprache werden ebenfalls gelöscht."
 
+#: cms/views/linkcheck/link_replace_view.py
+msgid "Links were replaced successfully."
+msgstr "Links wurden erfolgreich ersetzt."
+
 #: cms/views/linkcheck/linkcheck_list_view.py
 msgid "Email link was successfully replaced"
 msgstr "E-Mail-Link wurde erfolgreich ersetzt"
@@ -8875,6 +8936,33 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Links could not be replaced."
+#~ msgstr "Links konnten nicht ersetzt werden"
+
+#~ msgid "External links will not be changed."
+#~ msgstr "Externe links werden nicht ersetzt."
+
+#~ msgid "Replace links"
+#~ msgstr "Links ersetzen"
+
+#~ msgid "An error has occured. Please try again."
+#~ msgstr "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
+
+#~ msgid "Ensure both old and new slug are given."
+#~ msgstr "Prüfen Sie, ob alter und neuer Slug gegeben sind."
+
+#~ msgid "Region links were successfully updated."
+#~ msgstr "Regionlinks wurden erfolgreich aktualisiert."
+
+#~ msgid "Replace region link"
+#~ msgstr "Regionlink ersetzen"
+
+#~ msgid "Old region slug"
+#~ msgstr "Alter Regionslug"
+
+#~ msgid "New region slug"
+#~ msgstr "Neuer Regionslug"
+
 #~ msgid "Back to imprint form"
 #~ msgstr "Zurück zum Impressums-Formular"
 
@@ -8913,9 +9001,6 @@ msgstr ""
 
 #~ msgid "Broken external hash anchor"
 #~ msgstr "Fehlerhafter externer Anker"
-
-#~ msgid "Broken internal link"
-#~ msgstr "Fehlerhafter interner Link"
 
 #~ msgid "Broken internal hash anchor"
 #~ msgstr "Fehlerhafter interner Anker"
@@ -8995,9 +9080,6 @@ msgstr ""
 
 #~ msgid "Current machine translation"
 #~ msgstr "Die Übersetzung ist aktuell und wurde maschinell erzeugt"
-
-#~ msgid "An error occurred. Please try again later."
-#~ msgstr "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
 
 #~ msgid "Both"
 #~ msgstr "Beide"
@@ -9473,9 +9555,6 @@ msgstr ""
 
 #~ msgid "Expand/collapse Pages"
 #~ msgstr "Seiten klappen"
-
-#~ msgid "URL could not be replaced"
-#~ msgstr "URL konnte nicht ersetzt werden"
 
 #~ msgid ""
 #~ "You cannot edit this page because it is already being edited by someone "
@@ -10677,9 +10756,6 @@ msgstr ""
 
 #~ msgid "Language saved successfully."
 #~ msgstr "Sprache wurde erfolgreich gespeichert."
-
-#~ msgid "Language created successfully"
-#~ msgstr "Sprache wurde erfolgreich erstellt."
 
 #~ msgid "Offer template created successfully"
 #~ msgstr "Angebots-Vorlage wurde erfolgreich erstellt."

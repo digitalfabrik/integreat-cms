@@ -231,7 +231,12 @@ class RegionForm(CustomModelForm):
             # Replace links
             old_link = f"{settings.WEBAPP_URL}/{source_region.slug}/"
             new_link = f"{settings.WEBAPP_URL}/{region.slug}/"
-            replace_links(search=old_link, replace=new_link, region=region)
+            replace_links(
+                search=old_link,
+                replace=new_link,
+                region=region,
+                link_types=["internal"],
+            )
 
         return region
 
