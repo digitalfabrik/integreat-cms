@@ -8,7 +8,7 @@ class PushNotificationForm(CustomModelForm):
     Form for creating and modifying push notification objects
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, selected=None, **kwargs):
         r"""
         Initialize push notification form
 
@@ -23,6 +23,9 @@ class PushNotificationForm(CustomModelForm):
             self.fields["channel"].disabled = True
             self.fields["regions"].disabled = True
             self.fields["mode"].disabled = True
+
+        if selected is not None:
+            self.fields["regions"].initial = selected
 
     class Meta:
         model = PushNotification
