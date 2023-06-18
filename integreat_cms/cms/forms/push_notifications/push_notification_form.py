@@ -1,6 +1,7 @@
 from ...models import PushNotification
 from ..custom_model_form import CustomModelForm
 from django.forms import CheckboxSelectMultiple
+from django.forms.models import ModelChoiceIteratorValue
 
 
 class PushNotificationForm(CustomModelForm):
@@ -8,7 +9,7 @@ class PushNotificationForm(CustomModelForm):
     Form for creating and modifying push notification objects
     """
 
-    def __init__(self, selected=None, **kwargs):
+    def __init__(self, regions=None, selected_regions=None, **kwargs):
         r"""
         Initialize push notification form
 
@@ -24,8 +25,18 @@ class PushNotificationForm(CustomModelForm):
             self.fields["regions"].disabled = True
             self.fields["mode"].disabled = True
 
-        if selected is not None:
-            self.fields["regions"].initial = selected
+        if regions is None:
+            regions = []
+        if selected_regions is None:
+            selected_regions = []
+
+        field = self.fields["regions"]
+        field.choices = map(lambda obj: (
+            ModelChoiceIteratorValue(field.prepare_value(obj), obj),
+            field.label_from_instance(obj),
+        ), regions)
+
+        self.fields["regions"].initial = selected_regions
 
     class Meta:
         model = PushNotification

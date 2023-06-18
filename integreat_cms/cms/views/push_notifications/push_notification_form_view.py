@@ -86,7 +86,7 @@ class PushNotificationFormView(TemplateView):
                 ),
             )
 
-        push_notification_form = PushNotificationForm(selected=[request.region], instance=push_notification)
+        push_notification_form = PushNotificationForm(regions=[request.region]+list(request.region_selection), selected=[request.region], instance=push_notification)
 
         num_languages = len(region.active_languages)
         PushNotificationTranslationFormSet = inlineformset_factory(
