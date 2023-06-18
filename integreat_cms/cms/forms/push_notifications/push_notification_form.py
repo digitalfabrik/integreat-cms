@@ -1,5 +1,6 @@
 from ...models import PushNotification
 from ..custom_model_form import CustomModelForm
+from django.forms import CheckboxSelectMultiple
 
 
 class PushNotificationForm(CustomModelForm):
@@ -20,8 +21,12 @@ class PushNotificationForm(CustomModelForm):
         # Make fields disabled when push notification was already sent
         if self.instance.sent_date:
             self.fields["channel"].disabled = True
+            self.fields["regions"].disabled = True
             self.fields["mode"].disabled = True
 
     class Meta:
         model = PushNotification
-        fields = ["channel", "mode"]
+        fields = ["channel", "regions", "mode"]
+        widgets = {
+            "regions": CheckboxSelectMultiple(),
+        }
