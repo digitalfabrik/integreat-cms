@@ -18,11 +18,11 @@ class PushNotification(AbstractBaseModel):
     Data model representing a push notification
     """
 
-    region = models.ForeignKey(
+    # TODO: Hook to delete PushNotification if regions becomes empty
+    regions = models.ManyToManyField(
         Region,
-        on_delete=models.CASCADE,
         related_name="push_notifications",
-        verbose_name=_("region"),
+        verbose_name=_("regions"),
     )
     channel = models.CharField(
         max_length=60,
@@ -92,7 +92,7 @@ class PushNotification(AbstractBaseModel):
         :return: The default translation of a push notification
         :rtype: ~integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
         """
-        return self.translations.filter(language=self.region.default_language).first()
+        return self.translations.filter(language=self.regions.first().default_language).first()
 
     @property
     def best_translation(self):
@@ -127,7 +127,7 @@ class PushNotification(AbstractBaseModel):
         :return: The canonical string representation of the push notification
         :rtype: str
         """
-        return f"<PushNotification (id: {self.id}, channel: {self.channel}, region: {self.region.slug})>"
+        return f"<PushNotification (id: {self.id}, channel: {self.channel}, regions: {self.regions.values_list('slug', flat=True)})>"
 
     class Meta:
         #: The verbose name of the model
