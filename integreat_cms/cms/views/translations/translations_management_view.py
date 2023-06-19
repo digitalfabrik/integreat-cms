@@ -1,4 +1,5 @@
 import logging
+from collections import Counter
 
 from django.contrib import messages
 from django.db import transaction
@@ -7,8 +8,10 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
+from ...constants.status import CHOICES
 from ...decorators import permission_required
 from ...forms import TranslationsManagementForm
+from ...models import Event, Page, POI
 
 logger = logging.getLogger(__name__)
 
@@ -24,6 +27,56 @@ class TranslationsManagementView(TemplateView):
 
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "translations_management"}
+
+    # pylint: disable=unused-variable
+    def get_context_data(self, **kwargs):
+        r"""
+        Extend context by word counts
+
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
+
+        :return: The context dictionary
+        :rtype: dict
+        """
+
+        region = self.request.region
+        content_types = [Event, POI, Page]
+
+        word_count = {}
+
+        for content_type in content_types:
+            content_name = content_type._meta.verbose_name_plural.title()
+            word_count[content_name] = Counter()
+            for status, name in CHOICES:
+                word_count[content_name][status] = 0
+
+            contents = (
+                content_type.objects.filter(region=region, archived=False)
+                if not content_type == Page
+                else region.get_pages()
+            )
+            for content in contents:
+                if latest_version := content.get_translation(
+                    region.default_language.slug
+                ):
+                    word_count[content_name][latest_version.status] += len(
+                        latest_version.content.split()
+                    )
+
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                "word_count": word_count,
+                "total_public_words": sum(c["PUBLIC"] for c in word_count.values()),
+                "total_draft_words": sum(c["DRAFT"] for c in word_count.values()),
+                "total_review_words": sum(c["REVIEW"] for c in word_count.values()),
+                "total_autosave_words": sum(
+                    c["AUTO_SAVE"] for c in word_count.values()
+                ),
+            }
+        )
+        return context
 
     def get(self, request, *args, **kwargs):
         r"""
