@@ -1,8 +1,12 @@
 import pytest
 from django.core.exceptions import ImproperlyConfigured
 
+from integreat_cms.cms.models.regions.region import Region
 from integreat_cms.cms.models.push_notifications.push_notification import (
     PushNotification,
+)
+from integreat_cms.cms.models.push_notifications.push_notification_translation import (
+    PushNotificationTranslation,
 )
 from integreat_cms.firebase_api.firebase_api_client import FirebaseApiClient
 
@@ -223,3 +227,58 @@ class TestFirebaseApiClient:
         notification = PushNotification.objects.first()
         pns = FirebaseApiClient(notification)
         return pns.send_all()
+
+    @pytest.mark.django_db
+    def test_region_notification_send(self, settings, load_test_data, requests_mock):
+        targets = set()
+
+        def evaluate_request(request, context):
+            targets.add(request.json()["to"])
+            return self.response_mock_data["200_success"]
+
+        requests_mock.post(
+            settings.FCM_URL,
+            json=evaluate_request,
+            status_code=200
+        )
+
+        settings.FCM_ENABLED = True
+
+        notification = PushNotification.objects.get(pk=1)
+
+        pns = FirebaseApiClient(notification)
+        pns.send_all()
+
+        assert targets == set([
+            "/topics/nurnberg-en-news",
+            "/topics/nurnberg-de-news",
+        ])
+
+    @pytest.mark.django_db
+    def test_multiple_regions_notification_send(self, settings, load_test_data, requests_mock):
+        targets = set()
+
+        def evaluate_request(request, context):
+            targets.add(request.json()["to"])
+            return self.response_mock_data["200_success"]
+
+        requests_mock.post(
+            settings.FCM_URL,
+            json=evaluate_request,
+            status_code=200
+        )
+
+        settings.FCM_ENABLED = True
+
+        notification = PushNotification.objects.get(pk=1)
+        notification.regions.add(Region.objects.get(slug="augsburg"))
+
+        pns = FirebaseApiClient(notification)
+        pns.send_all()
+
+        assert targets == set([
+            "/topics/nurnberg-en-news",
+            "/topics/nurnberg-de-news",
+            "/topics/augsburg-en-news",
+            "/topics/augsburg-de-news",
+        ])
