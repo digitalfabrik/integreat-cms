@@ -1,5 +1,4 @@
 import logging
-import math
 
 from django.conf import settings
 from django.utils import translation
@@ -65,15 +64,11 @@ class DashboardView(TemplateView, ChatContextMixin):
         hix_pages = region.get_pages(return_unrestricted_queryset=True).filter(
             hix_ignore=False
         )
+
         # Get the latest versions of the page translations for these pages
         hix_translations = PageTranslation.objects.filter(
             language__slug__in=settings.TEXTLAB_API_LANGUAGES, page__in=hix_pages
         ).distinct("page_id", "language_id")
-
-        # Get all translations with empty content
-        hix_translations_with_empty_content = [
-            pt for pt in hix_translations if not pt.content.strip()
-        ]
 
         # Get all hix translations where the score is set
         hix_translations_with_score = [pt for pt in hix_translations if pt.hix_score]
@@ -83,16 +78,15 @@ class DashboardView(TemplateView, ChatContextMixin):
             hix_translations_with_score, key=lambda pt: pt.hix_score
         )
 
-        # Get the number of translations which are ready for MT
-        ready_for_mt_count = sum(
-            pt.hix_score >= settings.HIX_REQUIRED_FOR_MT
+        # Get the number of translations which are not ready for MT
+        not_ready_for_mt_count = sum(
+            pt.hix_score < settings.HIX_REQUIRED_FOR_MT
             for pt in hix_translations_with_score
-        ) + len(hix_translations_with_empty_content)
-
-        ready_for_mt = math.trunc(100 * ready_for_mt_count / len(hix_translations))
+        )
 
         return {
             "worst_hix_translations": worst_hix_translations,
             "hix_threshold": settings.HIX_REQUIRED_FOR_MT,
-            "ready_for_mt": ready_for_mt,
+            "ready_for_mt_count": len(hix_translations) - not_ready_for_mt_count,
+            "total_count": len(hix_translations),
         }
