@@ -41,7 +41,7 @@ class FirebaseApiClient:
         self.prepared_pnts = []
         self.primary_pnt = PushNotificationTranslation.objects.get(
             push_notification=push_notification,
-            language=push_notification.region.default_language,
+            language=push_notification.regions.first().default_language,
         )
         if self.primary_pnt.title:
             self.prepared_pnts.append(self.primary_pnt)
@@ -59,7 +59,7 @@ class FirebaseApiClient:
                 raise ImproperlyConfigured(
                     f"The system runs with DEBUG=True but the region with TEST_REGION_SLUG={settings.TEST_REGION_SLUG} does not exist."
                 ) from e
-        self.region = push_notification.region
+        self.regions = push_notification.regions.all()
 
     def load_secondary_pnts(self):
         """
@@ -97,7 +97,7 @@ class FirebaseApiClient:
                 return False
         return True
 
-    def send_pn(self, pnt):
+    def send_pn(self, pnt, region):
         """
         Send single push notification translation
 
@@ -108,11 +108,11 @@ class FirebaseApiClient:
         :rtype: ~requests.Response
         """
         payload = {
-            "to": f"/topics/{self.region.slug}-{pnt.language.slug}-{self.push_notification.channel}",
+            "to": f"/topics/{region.slug}-{pnt.language.slug}-{self.push_notification.channel}",
             "notification": {"title": pnt.title, "body": pnt.text},
             "data": {
                 "news_id": str(pnt.id),
-                "city_code": self.region.slug,
+                "city_code": region.slug,
                 "language_code": pnt.language.slug,
                 "group": self.push_notification.channel,
             },
@@ -145,20 +145,21 @@ class FirebaseApiClient:
         """
         status = True
         for pnt in self.prepared_pnts:
-            res = self.send_pn(pnt)
-            if res.status_code == 200:
-                if "message_id" in res.json():
-                    logger.info("%r sent, FCM id: %r", pnt, res.json()["message_id"])
+            for region in self.regions:
+                res = self.send_pn(pnt, region)
+                if res.status_code == 200:
+                    if "message_id" in res.json():
+                        logger.info("%r sent, FCM id: %r", pnt, res.json()["message_id"])
+                    else:
+                        logger.warning(
+                            "%r sent, but unexpected API response: %r", pnt, res.json()
+                        )
                 else:
-                    logger.warning(
-                        "%r sent, but unexpected API response: %r", pnt, res.json()
+                    status = False
+                    logger.error(
+                        "Received invalid response from FCM for %r, status: %r, body: %r",
+                        pnt,
+                        res.status_code,
+                        res.text,
                     )
-            else:
-                status = False
-                logger.error(
-                    "Received invalid response from FCM for %r, status: %r, body: %r",
-                    pnt,
-                    res.status_code,
-                    res.text,
-                )
         return status
