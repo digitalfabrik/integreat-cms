@@ -112,12 +112,7 @@ class LinkcheckListView(ListView):
             if request.POST:
                 form_kwargs = {"data": request.POST}
             else:
-                form_kwargs = {
-                    "initial": {
-                        "url": self.instance,
-                        "text": self.instance.region_links[0].text,
-                    }
-                }
+                form_kwargs = {"initial": {"url": self.instance}}
             self.form = EditUrlForm(**form_kwargs)
         return super().dispatch(request, *args, **kwargs)
 

@@ -101,23 +101,11 @@
     </tr>
     {% if url.id == view.kwargs.url_id %}
         <tr>
-            <td colspan="{% if request.user.expert_mode %}6{% else %}5{% endif %}">
-                <div class="px-2 pb-2">
+            <td colspan="10">
+                <div class="flex gap-2 p-2">
                     {% render_field edit_url_form.url|add_error_class:"border-red-500" type="url" form="edit-url-form" %}
-                </div>
-            </td>
-            <td colspan="3"
-                title="{% translate "The link text cannot be replaced centrally, because it may differ in the other source content." %}">
-                <div class="pr-2 pb-2">
-                    {% render_field edit_url_form.text|add_error_class:"border-red-500" form="edit-url-form" %}
-                </div>
-            </td>
-            <td>
-                <div class="flex gap-2 pr-2 pb-2">
                     <a href="{% url 'linkcheck' url_filter=view.kwargs.url_filter region_slug=request.region.slug %}{{ pagination_params }}"
-                       class="btn btn-red">
-                        {% translate "Cancel" %}
-                    </a>
+                       class="btn btn-red">{% translate "Cancel" %}</a>
                     <button type="submit" form="edit-url-form" class="btn">{% translate "Save" %}</button>
                 </div>
             </td>

@@ -74,4 +74,3 @@ class EditUrlForm(forms.Form):
     """
 
     url = LinkField()
-    text = forms.CharField(widget=forms.TextInput(attrs={"readonly": "readonly"}))
