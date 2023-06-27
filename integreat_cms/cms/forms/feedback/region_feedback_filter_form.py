@@ -115,4 +115,9 @@ class RegionFeedbackFilterForm(CustomFilterForm):
             if "" in self.cleaned_data["rating"]:
                 feedback = feedback.union(feedback_without_rating)
 
+                # Generate a new unrestricted queryset containing the same feedback
+                # so that select_related can be used on it without error
+                feedback_ids = [each.id for each in feedback]
+                feedback = Feedback.objects.filter(id__in=feedback_ids)
+
         return feedback, query
