@@ -80,15 +80,14 @@
                     <div class="my-2 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-600 px-4 py-3 mb-5"
                          role="alert">
                         <i class="mr-2" icon-name="alert-triangle"></i>
-                        {% blocktranslate trimmed %}
-                            There are currently <span id="not-translatable"></span> page(s) that can't be translated.
-                        {% endblocktranslate %}
                         {% if source_language.slug in textlab_languages %}
                             {% blocktranslate trimmed with hix_threshold=hix_threshold|floatformat:0 %}
-                                These pages can't be translated because the text understandibility is too low or because their hix value has been ignored. Please improve it to a value of at least {{ hix_threshold }} to translate these pages. You can identify the pages that couldn't be translated in the page tree via the translation status.
+                                The HIX value is too low for <span id="not-translatable"></span> pages. Please improve it to a value of at least {{ hix_threshold }} to enable machine translations for them. Currently, the following pages cannot be machine translated:
                             {% endblocktranslate %}
                         {% else %}
-                            {% translate "These pages can't be translated because they have no translation in the source language." %}
+                            {% blocktranslate trimmed %}
+                                There are currently <span id="not-translatable"></span> page(s) that can't be translated. These pages can't be translated because they have no translation in the source language.
+                            {% endblocktranslate %}
                         {% endif %}
                     </div>
                     <ul class="hidden mb-2" id="machine-translation-overlay-warning-optional">
