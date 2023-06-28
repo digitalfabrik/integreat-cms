@@ -26,10 +26,8 @@ class Organization(AbstractBaseModel):
     icon = models.ForeignKey(
         MediaFile,
         verbose_name=_("logo"),
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,
         related_name="icon_organizations",
-        blank=True,
-        null=True,
     )
     last_updated = models.DateTimeField(
         auto_now=True,
@@ -42,6 +40,8 @@ class Organization(AbstractBaseModel):
     created_date = models.DateTimeField(
         default=timezone.now, verbose_name=_("creation date")
     )
+
+    website = models.URLField(max_length=250, verbose_name=_("website"))
 
     def __str__(self):
         """

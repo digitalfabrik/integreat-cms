@@ -97,7 +97,8 @@ def transform_poi_translation(poi_translation):
             "id": poi.organization.id,
             "slug": poi.organization.slug,
             "name": poi.organization.name,
-            "logo": poi.organization.icon.url if poi.organization.icon else None,
+            "logo": poi.organization.icon.url,
+            "website": poi.organization.website,
         }
         if poi.organization
         else None,
@@ -136,7 +137,7 @@ def locations(request, region_slug, language_slug):
             translations__status=status.PUBLIC,
         )
         .distinct()
-        .select_related("category", "organization")
+        .select_related("category", "organization__icon")
         .prefetch_related(
             Prefetch(
                 "category__translations",

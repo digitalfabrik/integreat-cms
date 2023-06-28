@@ -86,7 +86,8 @@ def transform_page(page_translation):
             "id": organization.id,
             "slug": organization.slug,
             "name": organization.name,
-            "logo": organization.icon.url if organization.icon else None,
+            "logo": organization.icon.url,
+            "website": organization.website,
         }
         if organization
         else None,
@@ -118,7 +119,7 @@ def pages(request, region_slug, language_slug):
     # The preliminary filter for explicitly_archived=False is not strictly required, but reduces the number of entries
     # requested from the database
     for page in (
-        region.pages.select_related("organization")
+        region.pages.select_related("organization__icon")
         .filter(explicitly_archived=False)
         .cache_tree(archived=False, language_slug=language_slug)
     ):
@@ -161,7 +162,7 @@ def get_single_page(request, language_slug):
         page_translation_slug = slugify(url.split("/")[-1], allow_unicode=True)
         # Get page by filtering for translation slug and translation language slug
         filtered_pages = (
-            region.pages.select_related("organization")
+            region.pages.select_related("organization__icon")
             .filter(
                 translations__slug=page_translation_slug,
                 translations__language__slug=language_slug,
@@ -259,7 +260,7 @@ def children(request, region_slug, language_slug):
         depth -= 1
     result = []
     public_region_pages = (
-        request.region.pages.select_related("organization")
+        request.region.pages.select_related("organization__icon")
         .filter(
             explicitly_archived=False, tree_id__in=[page.tree_id for page in root_pages]
         )

@@ -29,6 +29,7 @@ class OrganizationForm(CustomModelForm):
             "name",
             "slug",
             "icon",
+            "website",
         ]
         #: The widgets which are used in this form
         widgets = {
