@@ -173,14 +173,22 @@
             <i icon-name="edit"></i>
         </a>
         {% if can_edit_pages %}
-            <button title="{% translate "Archive page" %}"
-                    class="confirmation-button btn-icon"
-                    data-confirmation-title="{{ archive_dialog_title }}"
-                    data-confirmation-text="{{ archive_dialog_text }}"
-                    data-confirmation-subject="{{ page.best_translation.title }}"
-                    data-action="{% url 'archive_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
-                <i icon-name="archive"></i>
-            </button>
+            {% if page.mirroring_pages.exists %}
+                <button title="{% translate "This page cannot be archived because it was embedded as live content from another page." %}"
+                        class="btn-icon"
+                        disabled>
+                    <i icon-name="archive"></i>
+                </button>
+            {% else %}
+                <button title="{% translate "Archive page" %}"
+                        class="confirmation-button btn-icon"
+                        data-confirmation-title="{{ archive_dialog_title }}"
+                        data-confirmation-text="{{ archive_dialog_text }}"
+                        data-confirmation-subject="{{ page.best_translation.title }}"
+                        data-action="{% url 'archive_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
+                    <i icon-name="archive"></i>
+                </button>
+            {% endif %}
         {% endif %}
         {% if perms.cms.delete_page %}
             {# djlint:off H023 #}
@@ -191,7 +199,7 @@
                     <i icon-name="trash-2"></i>
                 </button>
             {% elif page.mirroring_pages.exists %}
-                <button title="{% translate "This page cannot be deleted because it was embedded as live content from another page." %}&#013;{% translate "You can however archive this page." %}"
+                <button title="{% translate "This page cannot be deleted because it was embedded as live content from another page." %}"
                         class="btn-icon"
                         disabled>
                     <i icon-name="trash-2"></i>

@@ -59,10 +59,18 @@ def archive_page(request, page_id, region_slug, language_slug):
             f"{request.user!r} does not have the permission to archive {page!r}"
         )
 
-    page.archive()
+    if page.mirroring_pages.exists():
+        messages.error(
+            request,
+            _(
+                "This page cannot be archived because it was embedded as live content from another page."
+            ),
+        )
+    else:
+        page.archive()
 
-    logger.debug("%r archived by %r", page, request.user)
-    messages.success(request, _("Page was successfully archived"))
+        logger.debug("%r archived by %r", page, request.user)
+        messages.success(request, _("Page was successfully archived"))
 
     return redirect(
         "pages",
