@@ -327,6 +327,9 @@ class TranslationHelper:
             )
             return
         # Initialize form to create new translation object
+        existing_target_translation = self.object_instance.get_translation(
+            settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG
+        )
         content_translation_form = self.form_class(
             data={
                 # Pass all inherited fields
@@ -339,10 +342,9 @@ class TranslationHelper:
                 # Always set automatic translations into pending review state
                 "status": status.REVIEW,
                 "machine_translated": True,
+                "currently_in_translation": False,
             },
-            instance=self.object_instance.get_translation(
-                settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG
-            ),
+            instance=existing_target_translation,
             additional_instance_attributes={
                 "creator": self.request.user,
                 "language": easy_german,
@@ -368,6 +370,11 @@ class TranslationHelper:
             return
         # Save new translation
         content_translation_form.save()
+        # Revert "currently in translation" value of all versions
+        if existing_target_translation:
+            existing_target_translation.all_versions.update(
+                currently_in_translation=False
+            )
         logger.debug(
             "Successfully translated %r into Easy German",
             content_translation_form.instance,

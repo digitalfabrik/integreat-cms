@@ -1,0 +1,116 @@
+{% load i18n %}
+<div id="machine-translation-overlay"
+     class="hidden fixed items-center justify-center inset-0 bg-opacity-75 bg-gray-800 z-50 cursor-pointer">
+    <div class="cursor-auto justify-center w-[500px] max-h-fit px-[10px] z-50 m-auto">
+        <div class="bg-white opacity-100 content rounded shadow-md w-full">
+            <div class="flex items-center w-full rounded p-4 bg-water-500">
+                <h2 class="font-bold font-default">
+                    <i icon-name="bot" class="pb-1"></i>
+                    {% translate "Machine translation" %}
+                </h2>
+            </div>
+            <div class="w-full p-4 rounded shadow overflow-scroll max-h-[80vh]">
+                <span class="block">{% translate "This report shows a summary of your attempted machine translation. Please confirm if everything is correct" %}</span>
+                <div class="mt-4">
+                    <h3>
+                        <b>{% translate "Language selection" %}</b>
+                    </h3>
+                    <div class="flex items-center mt-2">
+                        <div class="flex">
+                            <span class="fp fp-rounded fp-{{ source_language.primary_country_code }} w-7 mr-2"></span>
+                            <p>{{ source_language }}</p>
+                        </div>
+                        <i class="mx-4" icon-name="arrow-big-right"></i>
+                        <div class="flex">
+                            <span class="fp fp-rounded fp-{{ language.primary_country_code }} w-7 mr-2"></span>
+                            <p>{{ language }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <h3>
+                        <b>{% translate "Pages to be translated" %} (<span id="machine-translation-overlay-pages-number"></span>/<span id="machine-translation-overlay-pages-total-number"></span>)</b>
+                    </h3>
+                    <div class="mt-2">
+                        <div id="machine-translation-overlay-pages-no-pages-warning"
+                             class="hidden bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 mb-5">
+                            {% if source_language.slug in textlab_languages %}
+                                {% blocktranslate trimmed with hix_threshold=hix_threshold|floatformat:0 %}
+                                    None of the selected pages fullfills the required HIX score of {{ hix_threshold }}.
+                                {% endblocktranslate %}
+                            {% else %}
+                                {% translate "None of the selected pages has a source translation." %}
+                            {% endif %}
+                        </div>
+                        <ul id="machine-translation-overlay-pages">
+                        </ul>
+                        <ul id="machine-translation-overlay-pages-optional" class="hidden">
+                        </ul>
+                        <a id="machine-translation-overlay-expansion-trigger"
+                           data-default-text="{% translate "Show all" %}"
+                           data-alternative-text="{% translate "Show less" %}"
+                           class="text-blue-500 hidden">{% translate "Show all" %}</a>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <h3>
+                        <b>{% translate "Budget" %}</b>
+                    </h3>
+                    <table>
+                        <tr>
+                            <td id="machine-translation-overlay-current-budget-label">{% translate "Current budget" %}</td>
+                            <td class="pl-2" id="machine-translation-overlay-current-budget-result">
+                                {{ request.region.deepl_budget_remaining }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="machine-translation-overlay-budget-usage-label">{% translate "Number of words you would use" %}</td>
+                            <td class="pl-2" id="machine-translation-overlay-budget-usage-result"></td>
+                        </tr>
+                        <tr class="border-solid border-t-2">
+                            <td id="machine-translation-overlay-budget-remains-label">{% translate "Remaining budget: " %}</td>
+                            <td class="pl-2" id="machine-translation-overlay-budget-remains-result"></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="mt-4 hidden" id="machine-translation-overlay-warning">
+                    <h3>
+                        <b>{% translate "Pages that can't be translated" %}</b>
+                    </h3>
+                    <div class="my-2 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-600 px-4 py-3 mb-5"
+                         role="alert">
+                        <i class="mr-2" icon-name="alert-triangle"></i>
+                        {% if source_language.slug in textlab_languages %}
+                            {% blocktranslate trimmed with hix_threshold=hix_threshold|floatformat:0 %}
+                                The HIX value is too low for <span id="not-translatable"></span> pages. Please improve it to a value of at least {{ hix_threshold }} to enable machine translations for them. Currently, the following pages cannot be machine translated:
+                            {% endblocktranslate %}
+                        {% else %}
+                            {% blocktranslate trimmed %}
+                                There are currently <span id="not-translatable"></span> page(s) that can't be translated. These pages can't be translated because they have no translation in the source language.
+                            {% endblocktranslate %}
+                        {% endif %}
+                    </div>
+                    <ul class="hidden mb-2" id="machine-translation-overlay-warning-optional">
+                    </ul>
+                    <a id="machine-translation-overlay-warning-more" data-default-text="{% translate "Show pages" %}" data-alternative-text="{% translate "Don't show pages" %}"  class="text-blue-500">
+                        {% translate "Show pages" %}
+                    </a>
+                </div>
+                <div class="flex justify-between mt-4">
+                    <button type="button"
+                            id="btn-close-machine-translation-overlay"
+                            class="btn !bg-red-500">
+                        {% translate "Cancel" %}
+                    </button>
+                    <button id="machine-translation-overlay-bulk-action-execute"
+                            class="btn"
+                            form="bulk-action-form"
+                            type="submit"
+                            disabled>
+                        {% translate "Confirm" %}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

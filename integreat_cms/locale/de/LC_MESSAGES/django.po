@@ -1219,76 +1219,44 @@ msgid "Yearly"
 msgstr "Jährlich"
 
 #: cms/constants/linkcheck.py
-msgid "Broken external hash anchor"
-msgstr "Fehlerhafter externer Anker"
+msgid ""
+"New Connection Error: Failed to establish a new connection: [Errno -2] Name "
+"or service not known"
+msgstr "Verbindungsfehler: Domain nicht gefunden"
 
 #: cms/constants/linkcheck.py
-msgid "Broken internal link"
-msgstr "Fehlerhafter interner Link"
+msgid "SSL Error: wrong version number"
+msgstr "SSL-Fehler: falsche Versionsnummer"
 
 #: cms/constants/linkcheck.py
-msgid "Broken internal hash anchor"
-msgstr "Fehlerhafter interner Anker"
+msgid "The read operation timed out"
+msgstr "Zeitüberschreitung"
 
 #: cms/constants/linkcheck.py
-msgid "Broken redirect"
-msgstr "Fehlerhafte Weiterleitung"
+msgid ""
+"Connection Error: ('Connection aborted.', ConnectionResetError(104, "
+"'Connection reset by peer'))"
+msgstr "Verbindung abgebrochen"
 
 #: cms/constants/linkcheck.py
-msgid "Email link (not automatically checked)"
-msgstr "E-Mail-Link (nicht automatisch geprüft)"
+msgid "Internal links"
+msgstr "Interne Links"
 
 #: cms/constants/linkcheck.py
-msgid "Empty link"
-msgstr "Leerer Link"
+msgid "External links"
+msgstr "Externe links"
 
-#: cms/constants/linkcheck.py
-msgid "Failed to parse HTML for anchor"
-msgstr "HTML konnte nicht erzeugt werden"
+#: cms/constants/linkcheck.py cms/templates/linkcheck/links_by_filter.html
+msgid "Email links"
+msgstr "Email-Links"
 
-#: cms/constants/linkcheck.py
-msgid "Invalid URL"
-msgstr "Ungültige URL"
+#: cms/constants/linkcheck.py cms/templates/linkcheck/links_by_filter.html
+msgid "Phone links"
+msgstr "Telefonnummern-Links"
 
-#: cms/constants/linkcheck.py
-msgid "Link to within the same page (not automatically checked)"
-msgstr "Link innerhalb der gleichen Seite (nicht automatisch geprüft)"
-
-#: cms/constants/linkcheck.py
-msgid "Missing Document"
-msgstr "Fehlende Datei"
-
-#: cms/constants/linkcheck.py
-msgid "Other Error: The read operation timed out"
-msgstr "Fehler: Zeitüberschreitung bei der Leseoperation"
-
-#: cms/constants/linkcheck.py
-msgid "Page OK but anchor can't be checked"
-msgstr "Seite OK, aber Anker kann nicht überprüft werden"
-
-#: cms/constants/linkcheck.py
-msgid "Phone number (not automatically checked)"
-msgstr "Telefonnummern-Link (nicht automatisch geprüft)"
-
-#: cms/constants/linkcheck.py
-msgid "URL Not Yet Checked"
-msgstr "URL noch nicht geprüft"
-
-#: cms/constants/linkcheck.py
-msgid "Working file link"
-msgstr "Funktionierender Datei-Link"
-
-#: cms/constants/linkcheck.py
-msgid "Working internal hash anchor"
-msgstr "Funktionierender interner Anker"
-
-#: cms/constants/linkcheck.py
-msgid "Working internal link"
-msgstr "Funktionierender interner Link"
-
-#: cms/constants/linkcheck.py
-msgid "Working redirect"
-msgstr "Funktionierende Weiterleitung"
+#: cms/constants/linkcheck.py cms/templates/analytics/_broken_links_widget.html
+msgid "Invalid links"
+msgstr "Ungültige Links"
 
 #: cms/constants/machine_translation_permissions.py
 msgid "No"
@@ -1889,6 +1857,29 @@ msgstr ""
 #: cms/forms/linkcheck/edit_url_form.py
 msgid "Enter a valid email address."
 msgstr "Bitte gültige E-Mail-Adresse eingeben."
+
+#: cms/forms/linkcheck/link_replace_form.py cms/templates/_search_input.html
+#: cms/templates/events/_event_filter_form.html
+#: cms/views/media/media_context_mixin.py
+msgid "Search"
+msgstr "Suchen"
+
+#: cms/forms/linkcheck/link_replace_form.py
+msgid "Enter old link to be replaced"
+msgstr "Alter Link, der ersetzt werden soll"
+
+#: cms/forms/linkcheck/link_replace_form.py
+#: cms/templates/linkcheck/search_and_replace_link.html
+msgid "Replace"
+msgstr "Ersetzen"
+
+#: cms/forms/linkcheck/link_replace_form.py
+msgid "Enter new link to replace the old link with"
+msgstr "Neuer Link"
+
+#: cms/forms/linkcheck/link_replace_form.py
+msgid "Link type"
+msgstr "Linktyp"
 
 #: cms/forms/machine_translation_form.py
 msgid "Create new translations:"
@@ -4003,15 +3994,120 @@ msgstr "Standard-Sprache wird dupliziert"
 msgid "Other Languages"
 msgstr "Weitere Sprachen"
 
+#: cms/templates/_machine_translation_overlay.html
+msgid "Machine translation"
+msgstr "Maschinelle Übersetzung"
+
+#: cms/templates/_machine_translation_overlay.html
+msgid ""
+"This report shows a summary of your attempted machine translation. Please "
+"confirm if everything is correct"
+msgstr ""
+"Hier finden Sie eine Übersicht über die maschinelle Übersetzung. Bitte "
+"bestätigen Sie, dass alle Angaben korrekt sind."
+
+#: cms/templates/_machine_translation_overlay.html
+msgid "Language selection"
+msgstr "Sprachauswahl"
+
+#: cms/templates/_machine_translation_overlay.html
+msgid "Pages to be translated"
+msgstr "Zu übersetzende Seiten"
+
+#: cms/templates/_machine_translation_overlay.html
+#, python-format
+msgid ""
+"None of the selected pages fullfills the required HIX score of "
+"%(hix_threshold)s."
+msgstr ""
+"Keiner der ausgewählten Seiten erfüllt den benötigten HIX-Wert von "
+"%(hix_threshold)s."
+
+#: cms/templates/_machine_translation_overlay.html
+msgid "None of the selected pages has a source translation."
+msgstr "Keine der ausgewählten Seiten hat eine Quellübersetzung."
+
+#: cms/templates/_machine_translation_overlay.html
+msgid "Show all"
+msgstr "Alle anzeigen"
+
+#: cms/templates/_machine_translation_overlay.html
+msgid "Show less"
+msgstr "Weniger anzeigen"
+
+#: cms/templates/_machine_translation_overlay.html
+msgid "Budget"
+msgstr "Budget"
+
+#: cms/templates/_machine_translation_overlay.html
+msgid "Current budget"
+msgstr "Aktuelles Gesamtbudget"
+
+#: cms/templates/_machine_translation_overlay.html
+msgid "Number of words you would use"
+msgstr "Benötiges Budget"
+
+#: cms/templates/_machine_translation_overlay.html
+msgid "Remaining budget: "
+msgstr "Verbleibendes Budget:"
+
+#: cms/templates/_machine_translation_overlay.html
+msgid "Pages that can't be translated"
+msgstr "Seiten, die nicht übersetzt werden können"
+
+#: cms/templates/_machine_translation_overlay.html
+#, python-format
+msgid ""
+"The HIX value is too low for <span id=\"not-translatable\"></span> pages. "
+"Please improve it to a value of at least %(hix_threshold)s to enable machine "
+"translations for them. Currently, the following pages cannot be machine "
+"translated:"
+msgstr ""
+"Der Wert der Textverständlichkeit von <span id=\"not-translatable\"></span> "
+"Seiten ist zu gering. Bitte verbessern Sie den Wert auf mindestens "
+"%(hix_threshold)s. Dann können Sie die Seiten automatisiert übersetzen. "
+"Folgende Seiten werden aktuell nicht übersetzt:"
+
+#: cms/templates/_machine_translation_overlay.html
+msgid ""
+"There are currently <span id=\"not-translatable\"></span> page(s) that can't "
+"be translated. These pages can't be translated because they have no "
+"translation in the source language."
+msgstr ""
+"Es gibt aktuell <span id=\"not-translatable\"></span> Seiten, die nicht "
+"übersetzt werden können. Diese Seiten können nicht übersetzt werden, weil "
+"sie keine Übersetzung in der Quellsprache haben."
+
+#: cms/templates/_machine_translation_overlay.html
+msgid "Show pages"
+msgstr "Seiten anzeigen"
+
+#: cms/templates/_machine_translation_overlay.html
+msgid "Don't show pages"
+msgstr "Seiten nicht anzeigen"
+
+#: cms/templates/_machine_translation_overlay.html
+#: cms/templates/_tinymce_config.html
+#: cms/templates/generic_confirmation_dialog.html
+#: cms/templates/linkcheck/link_list_row.html
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+#: cms/views/pois/poi_context_mixin.py
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: cms/templates/_machine_translation_overlay.html
+#: cms/templates/authentication/totp_login.html
+#: cms/templates/generic_confirmation_dialog.html
+#: cms/templates/pages/page_xliff_import_view.html
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+#: cms/templates/settings/delete_totp.html
+#: cms/templates/settings/register_totp.html
+msgid "Confirm"
+msgstr "Bestätigen"
+
 #: cms/templates/_raw.html
 msgid "Editorial System"
 msgstr "Redaktionssystem"
-
-#: cms/templates/_search_input.html
-#: cms/templates/events/_event_filter_form.html
-#: cms/views/media/media_context_mixin.py
-msgid "Search"
-msgstr "Suchen"
 
 #: cms/templates/_search_input.html cms/views/media/media_context_mixin.py
 msgid "Reset search"
@@ -4063,14 +4159,6 @@ msgstr "Aktualisieren"
 #: cms/templates/_tinymce_config.html cms/views/media/media_context_mixin.py
 msgid "Submit"
 msgstr "Speichern"
-
-#: cms/templates/_tinymce_config.html
-#: cms/templates/generic_confirmation_dialog.html
-#: cms/templates/linkcheck/link_list_row.html
-#: cms/templates/pois/poi_form_sidebar/position_box.html
-#: cms/views/pois/poi_context_mixin.py
-msgid "Cancel"
-msgstr "Abbrechen"
 
 #: cms/templates/_tinymce_config.html
 msgid "- no results -"
@@ -4152,10 +4240,6 @@ msgstr "Bitte kontaktieren Sie eine:n Administrator:in."
 #: cms/templates/statistics/statistics_overview.html
 msgid "Loading..."
 msgstr "Laden..."
-
-#: cms/templates/analytics/_broken_links_widget.html
-msgid "Invalid links"
-msgstr "Ungültige Links"
 
 #: cms/templates/analytics/_broken_links_widget.html
 #: cms/templates/linkcheck/links_by_filter.html
@@ -4387,15 +4471,6 @@ msgid ""
 msgstr ""
 "Bitte öffnen Sie Ihre Authenticator-App und geben Sie den 6-stelligen Code "
 "für \"%(BRANDING)s\" ein, um ihre Identität zu bestätigen:"
-
-#: cms/templates/authentication/totp_login.html
-#: cms/templates/generic_confirmation_dialog.html
-#: cms/templates/pages/page_xliff_import_view.html
-#: cms/templates/pois/poi_form_sidebar/position_box.html
-#: cms/templates/settings/delete_totp.html
-#: cms/templates/settings/register_totp.html
-msgid "Confirm"
-msgstr "Bestätigen"
 
 #: cms/templates/chat/_chat_messages.html
 msgid "Delete chat message"
@@ -5554,29 +5629,17 @@ msgstr "Inhalt aufrufen"
 msgid "Replace URL globally"
 msgstr "URL zentral ersetzen"
 
-#: cms/templates/linkcheck/link_list_row.html
-msgid ""
-"The link text cannot be replaced centrally, because it may differ in the "
-"other source content."
-msgstr ""
-"Der Link-Text kann nicht zentral ersetzt werden, da er sich eventuell in den "
-"anderen Quell-Inhalten unterscheidet"
-
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "Broken links"
 msgstr "Fehlerhafte Links"
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "Email links"
-msgstr "Email-Links"
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Phone links"
-msgstr "Telefonnummern-Links"
-
-#: cms/templates/linkcheck/links_by_filter.html
 msgid "All links"
 msgstr "Alle Links"
+
+#: cms/templates/linkcheck/links_by_filter.html
+msgid "Search & replace"
+msgstr "Suchen & Ersetzen"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "Valid"
@@ -5698,6 +5761,34 @@ msgstr "Erneut prüfen"
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "Ignore"
 msgstr "Ignorieren"
+
+#: cms/templates/linkcheck/search_and_replace_link.html
+msgid "Search & replace in links"
+msgstr "Suchen & Ersetzen in Links"
+
+#: cms/templates/linkcheck/search_and_replace_link.html
+msgid ""
+"Here you can replace internal links, e-mail addresses and phone numbers "
+"partially or completely."
+msgstr ""
+"Hier können Sie interne Links, E-Mail-Adressen und Telefonnummern teilweise "
+"oder komplett ersetzen."
+
+#: cms/templates/linkcheck/search_and_replace_link.html
+msgid "Example 1: "
+msgstr "Beispiel 1: "
+
+#: cms/templates/linkcheck/search_and_replace_link.html
+msgid "Example 2: "
+msgstr "Beispiel 2: "
+
+#: cms/templates/linkcheck/search_and_replace_link.html
+msgid "Example 3: "
+msgstr "Beispiel 3: "
+
+#: cms/templates/linkcheck/search_and_replace_link.html
+msgid "Search and replace"
+msgstr "Suchen und Ersetzen"
 
 #: cms/templates/offertemplates/offertemplate_form.html
 #, python-format
@@ -7212,6 +7303,77 @@ msgstr ""
 "verändern soll und keine Aktualisierung der Übersetzungen in anderen "
 "Sprachen erfordert."
 
+#: cms/utils/internal_link_checker.py
+msgid "Imprint does not exist or is not public in this language"
+msgstr ""
+"Das Impressum existiert nicht oder ist in dieser Sprache nicht öffentlich."
+
+#: cms/utils/internal_link_checker.py
+msgid "News links require a subcategory (either 'local' or 'tu-news')"
+msgstr ""
+"Nachrichten-Links erfordern eine Unterkategorie (entweder 'local' oder 'tu-"
+"news')"
+
+#: cms/utils/internal_link_checker.py
+msgid "tü-news are disabled in this region."
+msgstr "tü-news sind in dieser Region deaktiviert."
+
+#: cms/utils/internal_link_checker.py
+msgid "This news entry does not exist or was not sent."
+msgstr "Diese Nachricht existiert nicht oder wurde nicht gesendet."
+
+#: cms/utils/internal_link_checker.py
+msgid "This news subcategory does not exist."
+msgstr "Diese Nachrichtenunterkategorie existiert nicht."
+
+#: cms/utils/internal_link_checker.py
+msgid "News URL is invalid."
+msgstr "Die Nachrichten-URL ist ungültig."
+
+#: cms/utils/internal_link_checker.py
+msgid "Offers are not enabled in this region."
+msgstr "Angebote sind in dieser Region nicht aktiviert."
+
+#: cms/utils/internal_link_checker.py
+msgid "This offer does not exist in this region."
+msgstr "Dieses Angebot gibt es in dieser Region nicht."
+
+#: cms/utils/internal_link_checker.py
+msgid "Offer URL is invalid"
+msgstr "Angebots-URL ist ungültig"
+
+#: cms/utils/internal_link_checker.py
+msgid "The link target is archived."
+msgstr "Das Linkziel ist archiviert."
+
+#: cms/utils/internal_link_checker.py
+msgid "The URL is not up-to-date."
+msgstr "Die URL ist nicht aktuell."
+
+#: cms/utils/internal_link_checker.py
+msgid "The link target is not public in this language."
+msgstr "Das Linkziel ist in dieser Sprache nicht öffentlich."
+
+#: cms/utils/internal_link_checker.py
+msgid "The link target does not exist in this region and language."
+msgstr "Das Linkziel existiert nicht in dieser Region und Sprache."
+
+#: cms/utils/internal_link_checker.py
+msgid "The link target is not unique in this region and language."
+msgstr "Das Linkziel ist in dieser Region und Sprache nicht eindeutig."
+
+#: cms/utils/internal_link_checker.py
+msgid "This link is invalid."
+msgstr "Dieser Link ist ungültig."
+
+#: cms/utils/internal_link_checker.py
+msgid "This region does not exist or is not active."
+msgstr "Diese Region existiert nicht oder ist nicht aktiv."
+
+#: cms/utils/internal_link_checker.py
+msgid "This language does not exist or is not active and visible."
+msgstr "Diese Sprache existiert nicht oder ist nicht aktiv und sichtbar."
+
 #: cms/utils/pdf_utils.py
 msgid "No valid pages selected for PDF generation."
 msgstr ""
@@ -7655,6 +7817,10 @@ msgid ""
 msgstr ""
 "Alle Übersetzungen zu Seiten, Orten, Veranstaltungen und Push-"
 "Benachrichtigungen zu dieser Sprache werden ebenfalls gelöscht."
+
+#: cms/views/linkcheck/link_replace_view.py
+msgid "Links were replaced successfully."
+msgstr "Links wurden erfolgreich ersetzt."
 
 #: cms/views/linkcheck/linkcheck_list_view.py
 msgid "Email link was successfully replaced"
@@ -8754,6 +8920,33 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Links could not be replaced."
+#~ msgstr "Links konnten nicht ersetzt werden"
+
+#~ msgid "External links will not be changed."
+#~ msgstr "Externe links werden nicht ersetzt."
+
+#~ msgid "Replace links"
+#~ msgstr "Links ersetzen"
+
+#~ msgid "An error has occured. Please try again."
+#~ msgstr "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
+
+#~ msgid "Ensure both old and new slug are given."
+#~ msgstr "Prüfen Sie, ob alter und neuer Slug gegeben sind."
+
+#~ msgid "Region links were successfully updated."
+#~ msgstr "Regionlinks wurden erfolgreich aktualisiert."
+
+#~ msgid "Replace region link"
+#~ msgstr "Regionlink ersetzen"
+
+#~ msgid "Old region slug"
+#~ msgstr "Alter Regionslug"
+
+#~ msgid "New region slug"
+#~ msgstr "Neuer Regionslug"
+
 #~ msgid "Back to imprint form"
 #~ msgstr "Zurück zum Impressums-Formular"
 
@@ -8790,6 +8983,54 @@ msgstr ""
 #~ msgid " \"Back to the %(content_name)s form\" "
 #~ msgstr "Zurück zum %(content_name)s-Formular"
 
+#~ msgid "Broken external hash anchor"
+#~ msgstr "Fehlerhafter externer Anker"
+
+#~ msgid "Broken internal hash anchor"
+#~ msgstr "Fehlerhafter interner Anker"
+
+#~ msgid "Broken redirect"
+#~ msgstr "Fehlerhafte Weiterleitung"
+
+#~ msgid "Email link (not automatically checked)"
+#~ msgstr "E-Mail-Link (nicht automatisch geprüft)"
+
+#~ msgid "Empty link"
+#~ msgstr "Leerer Link"
+
+#~ msgid "Failed to parse HTML for anchor"
+#~ msgstr "HTML konnte nicht erzeugt werden"
+
+#~ msgid "Invalid URL"
+#~ msgstr "Ungültige URL"
+
+#~ msgid "Link to within the same page (not automatically checked)"
+#~ msgstr "Link innerhalb der gleichen Seite (nicht automatisch geprüft)"
+
+#~ msgid "Missing Document"
+#~ msgstr "Fehlende Datei"
+
+#~ msgid "Page OK but anchor can't be checked"
+#~ msgstr "Seite OK, aber Anker kann nicht überprüft werden"
+
+#~ msgid "Phone number (not automatically checked)"
+#~ msgstr "Telefonnummern-Link (nicht automatisch geprüft)"
+
+#~ msgid "URL Not Yet Checked"
+#~ msgstr "URL noch nicht geprüft"
+
+#~ msgid "Working file link"
+#~ msgstr "Funktionierender Datei-Link"
+
+#~ msgid "Working internal hash anchor"
+#~ msgstr "Funktionierender interner Anker"
+
+#~ msgid "Working internal link"
+#~ msgstr "Funktionierender interner Link"
+
+#~ msgid "Working redirect"
+#~ msgstr "Funktionierende Weiterleitung"
+
 #~ msgid "HIX widget is loading..."
 #~ msgstr "HIX Widget lädt..."
 
@@ -8805,9 +9046,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Die Liste zeigt die ersten %(n)s Seiten mit dem niedrigsten HIX-Wert "
 #~ "aufsteigend sortiert."
-
-#~ msgid "There is no page."
-#~ msgstr "Es gibt keine Seite."
 
 #~ msgid "This page has no HIX value"
 #~ msgstr "Diese Seite hat keinen HIX-Wert."
@@ -8827,9 +9065,6 @@ msgstr ""
 #~ msgid "Current machine translation"
 #~ msgstr "Die Übersetzung ist aktuell und wurde maschinell erzeugt"
 
-#~ msgid "An error occurred. Please try again later."
-#~ msgstr "Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut."
-
 #~ msgid "Both"
 #~ msgstr "Beide"
 
@@ -8838,9 +9073,6 @@ msgstr ""
 
 #~ msgid "Of which the language is visible: "
 #~ msgstr "Davon die Sprache sichtbar ist: "
-
-#~ msgid "Of which the language is active and visible: "
-#~ msgstr "Davon die Sprache aktiv und sichtbar ist: "
 
 #~ msgid "Activ"
 #~ msgstr "Aktiv"
@@ -9307,9 +9539,6 @@ msgstr ""
 
 #~ msgid "Expand/collapse Pages"
 #~ msgstr "Seiten klappen"
-
-#~ msgid "URL could not be replaced"
-#~ msgstr "URL konnte nicht ersetzt werden"
 
 #~ msgid ""
 #~ "You cannot edit this page because it is already being edited by someone "
@@ -10511,9 +10740,6 @@ msgstr ""
 
 #~ msgid "Language saved successfully."
 #~ msgstr "Sprache wurde erfolgreich gespeichert."
-
-#~ msgid "Language created successfully"
-#~ msgstr "Sprache wurde erfolgreich erstellt."
 
 #~ msgid "Offer template created successfully"
 #~ msgstr "Angebots-Vorlage wurde erfolgreich erstellt."

@@ -554,6 +554,11 @@ urlpatterns = [
                                             utils.slugify_ajax,
                                             name="slugify_ajax",
                                         ),
+                                        path(
+                                            "auto-translate-hix-and-words-per-page/",
+                                            pages.post_hix_and_word_number_per_page,
+                                            name="post_hix_and_word_number_per_page",
+                                        ),
                                     ]
                                 ),
                             ),
@@ -745,6 +750,11 @@ urlpatterns = [
                                                     ),
                                                 ]
                                             ),
+                                        ),
+                                        path(
+                                            "search_and_replace_link",
+                                            linkcheck.LinkReplaceView.as_view(),
+                                            name="search_and_replace_link",
                                         ),
                                     ]
                                 ),
@@ -1356,7 +1366,7 @@ urlpatterns = [
                                     [
                                         path(
                                             "edit/",
-                                            form_views.CustomUpdateView.as_view(
+                                            language_tree.LanguageTreeNodeUpdateView.as_view(
                                                 form_class=LanguageTreeNodeForm
                                             ),
                                             name="edit_languagetreenode",

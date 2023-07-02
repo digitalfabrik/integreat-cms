@@ -52,7 +52,7 @@
         <td class="pr-2 {% if view.kwargs.url_filter == 'invalid' %} text-red-500 {% elif view.kwargs.url_filter == 'valid' %} text-green-500 {% endif %} max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
             title="{{ url.get_message }}">
             <div class="table-cell-truncate">
-                <span class="table-cell-content">{{ url.get_message }}</span>
+                <span class="table-cell-content">{% translate url.get_message %}</span>
                 <a class="toggle-table-cell text-black">
                     <i icon-name="chevron-down" class="more"></i>
                     <i icon-name="chevron-up" class="less"></i>
@@ -101,23 +101,11 @@
     </tr>
     {% if url.id == view.kwargs.url_id %}
         <tr>
-            <td colspan="{% if request.user.expert_mode %}6{% else %}5{% endif %}">
-                <div class="px-2 pb-2">
+            <td colspan="10">
+                <div class="flex gap-2 p-2">
                     {% render_field edit_url_form.url|add_error_class:"border-red-500" type="url" form="edit-url-form" %}
-                </div>
-            </td>
-            <td colspan="3"
-                title="{% translate "The link text cannot be replaced centrally, because it may differ in the other source content." %}">
-                <div class="pr-2 pb-2">
-                    {% render_field edit_url_form.text|add_error_class:"border-red-500" form="edit-url-form" %}
-                </div>
-            </td>
-            <td>
-                <div class="flex gap-2 pr-2 pb-2">
                     <a href="{% url 'linkcheck' url_filter=view.kwargs.url_filter region_slug=request.region.slug %}{{ pagination_params }}"
-                       class="btn btn-red">
-                        {% translate "Cancel" %}
-                    </a>
+                       class="btn btn-red">{% translate "Cancel" %}</a>
                     <button type="submit" form="edit-url-form" class="btn">{% translate "Save" %}</button>
                 </div>
             </td>

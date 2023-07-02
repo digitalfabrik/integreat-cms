@@ -165,6 +165,7 @@ class DeepLApiClient(MachineTranslationApiClient):
                     if existing_target_translation
                     else source_translation.status,
                     "machine_translated": True,
+                    "currently_in_translation": False,
                 }
 
                 for attr in self.translatable_attributes:
@@ -192,6 +193,11 @@ class DeepLApiClient(MachineTranslationApiClient):
                 # Validate event translation
                 if content_translation_form.is_valid():
                     content_translation_form.save()
+                    # Revert "currently in translation" value of all versions
+                    if existing_target_translation:
+                        existing_target_translation.all_versions.update(
+                            currently_in_translation=False
+                        )
                     logger.debug(
                         "Successfully translated for: %r",
                         content_translation_form.instance,

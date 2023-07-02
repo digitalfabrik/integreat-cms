@@ -125,10 +125,10 @@ def test_duplicate_regions(load_test_data_transactional, admin_client):
         "number_all_urls": 7,
         "number_email_urls": 0,
         "number_ignored_urls": 0,
-        "number_invalid_urls": 2,
+        "number_invalid_urls": 3,
         "number_phone_urls": 0,
         "number_unchecked_urls": 0,
-        "number_valid_urls": 5,
+        "number_valid_urls": 4,
     }, "Links should be cloned into the new region"
 
     # Check if internal links have been replaced

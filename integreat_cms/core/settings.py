@@ -41,7 +41,7 @@ MATOMO_TRACKING = bool(
 )
 
 #: The slug for the legal notice (see e.g. :class:`~integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation`)
-IMPRINT_SLUG = "imprint"
+IMPRINT_SLUG = os.environ.get("INTEGREAT_CMS_IMPRINT_SLUG", "disclaimer")
 
 #: The slug of the region "Testumgebung" - prevent sending PNs to actual users in development in
 #: :func:`~integreat_cms.firebase_api.firebase_api_client.FirebaseApiClient.send_pn`
@@ -933,6 +933,10 @@ PER_PAGE = 16
 # DJANGO LINKCHECK #
 ####################
 
+#: Used by `django-linkcheck <https://github.com/DjangoAdminHackers/django-linkcheck#site_domain-and-linkcheck_site_domains>`_
+#: to determine whether a link is internal.
+LINKCHECK_SITE_DOMAINS = [WEBAPP_URL]
+
 #: Disable linkcheck listeners e.g. when the fixtures are loaded
 LINKCHECK_DISABLE_LISTENERS = bool(
     strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS", "False"))
@@ -959,9 +963,9 @@ LINKCHECK_PHONE_ENABLED = "phone" not in LINKCHECK_IGNORED_URL_TYPES
 #: Whether archived pages should be ignored for linkcheck scan.
 #: Since this causes a lot of overhead, only use this for the findlinks management command::
 #:
-#:    $ INTEGREAT_CMS_LINKCHECK_EXCLUDE_ARCHIVED_PAGES=1 integreat-cms-cli findlinks
-LINKCHECK_EXCLUDE_ARCHIVED_PAGES = bool(
-    strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_EXCLUDE_ARCHIVED_PAGES", "False"))
+#:    $ INTEGREAT_CMS_LINKCHECK_COMMAND_RUNNING=1 integreat-cms-cli findlinks
+LINKCHECK_COMMAND_RUNNING = bool(
+    strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_COMMAND_RUNNING", "False"))
 )
 
 
