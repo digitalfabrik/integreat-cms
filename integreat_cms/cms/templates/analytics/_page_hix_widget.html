@@ -14,7 +14,9 @@
             {% endblocktranslate %}
         </p>
         <p>
-            <b>{{ ready_for_mt }}%</b> {% translate " of all pages are ready for automatic translation." %}
+            {% blocktranslate trimmed %}
+                <b>{{ ready_for_mt_count }}</b> out of <b>{{ total_count }}</b> pages are ready for automatic translation.
+            {% endblocktranslate %}
         </p>
     </div>
     <div class="mt-4 overflow-y-scroll max-h-160">
