@@ -99,7 +99,7 @@ def check_news_link(url, path_components, region, language):
         )
     elif len(path_components) <= 3:
         if path_components[1] == "tu-news":
-            if region.tunews_enabled:
+            if region.external_news_enabled:
                 if len(path_components) == 2:
                     logger.debug("Link to tü-news list in %r is valid", region)
                     mark_valid(url)
