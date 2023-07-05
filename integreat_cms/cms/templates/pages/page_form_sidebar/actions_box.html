@@ -49,15 +49,51 @@
         {% endfor %}
     {% else %}
         <label>{% translate "Archive page" %}</label>
-        <button title="{% translate "Archive page" %}"
-                class="btn confirmation-button w-full"
-                data-confirmation-title="{{ archive_dialog_title }}"
-                data-confirmation-text="{{ archive_dialog_text }}"
-                data-confirmation-subject="{{ page_translation_form.instance.title }}"
-                data-action="{% url 'archive_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
-            <i icon-name="archive" class="mr-2"></i>
-            {% translate "Archive this page" %}
-        </button>
+        {% if not page.mirroring_pages.exists %}
+            <button title="{% translate "Archive page" %}"
+                    class="btn confirmation-button w-full"
+                    data-confirmation-title="{{ archive_dialog_title }}"
+                    data-confirmation-text="{{ archive_dialog_text }}"
+                    data-confirmation-subject="{{ page_translation_form.instance.title }}"
+                    data-action="{% url 'archive_page' page_id=page_form.instance.id region_slug=request.region.slug language_slug=language.slug %}">
+                <i icon-name="archive" class="mr-2"></i>
+                {% translate "Archive this page" %}
+            </button>
+        {% else %}
+            {% with page.mirroring_pages.all.prefetch_translations as mirroring_pages %}
+                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
+                     role="alert">
+                    <p>{% translate "You cannot archive a page which is embedded as live content from another page." %}</p>
+                </div>
+                <p>
+                    {% blocktranslate count counter=mirroring_pages|length trimmed %}
+                        To archive this page, you have to remove the embedded live content from this page first:
+                    {% plural %}
+                        To archive this page, you have to remove the embedded live content from these pages first:
+                    {% endblocktranslate %}
+                </p>
+                {% for mirroring_page in mirroring_pages %}
+                    {% has_perm 'cms.change_page_object' request.user mirroring_page as can_change_page_object %}
+                    {% if can_change_page_object %}
+                        <a href="{% url 'edit_page' page_id=mirroring_page.id region_slug=mirroring_page.region.slug language_slug=language.slug %}"
+                           class="block pt-2 hover:underline">
+                            <i icon-name="edit" class="mr-2"></i>
+                            {{ mirroring_page.best_translation.title }}
+                            {% if mirroring_page.region != request.region %}({{ mirroring_page.region }}){% endif %}
+                        </a>
+                    {% else %}
+                        <a href="{{ WEBAPP_URL }}{{ mirroring_page.best_translation.get_absolute_url }}"
+                           class="block pt-2 hover:underline"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            <i icon-name="external-link" class="mr-2"></i>
+                            {{ mirroring_page.best_translation.title }}
+                            {% if mirroring_page.region != request.region %}({{ mirroring_page.region }}){% endif %}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+            {% endwith %}
+        {% endif %}
     {% endif %}
     {% if perms.cms.delete_page %}
         <label>{% translate "Delete page" %}</label>

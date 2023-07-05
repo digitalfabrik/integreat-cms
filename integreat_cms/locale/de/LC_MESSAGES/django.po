@@ -6059,6 +6059,28 @@ msgid "Archive this page"
 msgstr "Diese Seite archivieren"
 
 #: cms/templates/pages/page_form_sidebar/actions_box.html
+msgid ""
+"You cannot archive a page which is embedded as live content from another "
+"page."
+msgstr ""
+"Diese Seite kann nicht archiviert werden, da sie von einer anderen Seite als "
+"Live-Inhalt eingebunden wurde."
+
+#: cms/templates/pages/page_form_sidebar/actions_box.html
+msgid ""
+"To archive this page, you have to remove the embedded live content from this "
+"page first:"
+msgid_plural ""
+"To archive this page, you have to remove the embedded live content from "
+"these pages first:"
+msgstr[0] ""
+"Um diese Seite zu archivieren, müssen Sie den eingebetteten Live-Inhalt von "
+"dieser Seite entfernen:"
+msgstr[1] ""
+"Um diese Seite zu archivieren, müssen Sie den eingebetteten Live-Inhalt von "
+"diesen Seiten entfernen:"
+
+#: cms/templates/pages/page_form_sidebar/actions_box.html
 #: cms/templates/pages/page_tree_archived_node.html
 #: cms/templates/pages/page_tree_node.html
 msgid "Delete page"
@@ -6348,13 +6370,17 @@ msgstr ""
 msgid "Edit page"
 msgstr "Seite bearbeiten"
 
+#: cms/templates/pages/page_tree_node.html cms/views/pages/page_actions.py
+msgid ""
+"This page cannot be archived because it was embedded as live content from "
+"another page."
+msgstr ""
+"Diese Seite kann nicht archiviert werden, da sie von einer anderen Seite als "
+"Live-Inhalt eingebunden wurde."
+
 #: cms/templates/pages/page_tree_node.html
 msgid "This also involves archived subpages."
 msgstr "Dies betrifft auch archivierte Unterseiten."
-
-#: cms/templates/pages/page_tree_node.html
-msgid "You can however archive this page."
-msgstr "Sie können diese Seite jedoch archivieren."
 
 #: cms/templates/pages/page_tree_node.html
 msgid "Copy short link"
@@ -7531,6 +7557,18 @@ msgstr ""
 #: cms/views/bulk_action_views.py
 msgid "The selected {} were successfully {}"
 msgstr "Die ausgewählten {} wurden erfolgreich {}"
+
+#: cms/views/bulk_action_views.py
+msgid ""
+"{} cannot be archived because it was embedded as live content from another "
+"page."
+msgstr ""
+"{} kann nicht archiviert werden, da sie von einer anderen Seite als Live-"
+"Inhalt eingebunden wurde."
+
+#: cms/views/bulk_action_views.py
+msgid "{} was successfully archived"
+msgstr "{} wurde erfolgreich archiviert"
 
 #: cms/views/bulk_action_views.py
 msgid "The selected {} were successfully archived"
@@ -8952,6 +8990,9 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "You can however archive this page."
+#~ msgstr "Sie können diese Seite jedoch archivieren."
 
 #~ msgid "Links could not be replaced."
 #~ msgstr "Links konnten nicht ersetzt werden"
