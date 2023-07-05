@@ -141,7 +141,7 @@ class RegionForm(CustomModelForm):
             "short_urls_enabled",
             "seo_enabled",
             "custom_prefix",
-            "tunews_enabled",
+            "external_news_enabled",
             "timezone",
             "fallback_translations_enabled",
             "summ_ai_enabled",

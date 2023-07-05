@@ -66,6 +66,7 @@ RESPONSE
            ...
         }
        "tunews": Boolean,               // true if TüNews are enabled
+       "external_news": Boolean,       // true if external news provider are enabled
        "languages": [
          {
             "id": Number,

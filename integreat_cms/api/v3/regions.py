@@ -35,7 +35,8 @@ def transform_region(region):
         "latitude": region.latitude,
         "bounding_box": region.bounding_box.api_representation,
         "aliases": region.aliases,
-        "tunews": region.tunews_enabled,
+        "tunews": region.external_news_enabled,
+        "external_news": region.external_news_enabled,
         "languages": list(map(transform_language, region.visible_languages)),
     }
 
