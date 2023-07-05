@@ -33,22 +33,28 @@
                 </div>
                 <div class="mt-4">
                     <h3>
-                        <b>{% translate "Pages to be translated" %} (<span id="machine-translation-overlay-pages-number"></span>/<span id="machine-translation-overlay-pages-total-number"></span>)</b>
+                        <b>
+                            {% blocktranslate trimmed %}
+                                {{ content_type }} to be translated
+                            {% endblocktranslate %}
+                        (<span id="number-of-translatable-content"></span>/<span id="number-of-selected-content"></span>)</b>
                     </h3>
                     <div class="mt-2">
-                        <div id="machine-translation-overlay-pages-no-pages-warning"
+                        <div id="no-content-warning"
                              class="hidden bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 mb-5">
                             {% if source_language.slug in textlab_languages %}
                                 {% blocktranslate trimmed with hix_threshold=hix_threshold|floatformat:0 %}
-                                    None of the selected pages fullfills the required HIX score of {{ hix_threshold }}.
+                                    None of the selected {{ content_type }} fullfills the required HIX score of {{ hix_threshold }}.
                                 {% endblocktranslate %}
                             {% else %}
-                                {% translate "None of the selected pages has a source translation." %}
+                                {% blocktranslate trimmed %}
+                                    None of the selected {{ content_type }} has a source translation.
+                                {% endblocktranslate %}
                             {% endif %}
                         </div>
-                        <ul id="machine-translation-overlay-pages">
+                        <ul id="preview-list">
                         </ul>
-                        <ul id="machine-translation-overlay-pages-optional" class="hidden">
+                        <ul id="list-of-optional-content" class="hidden">
                         </ul>
                         <a id="machine-translation-overlay-expansion-trigger"
                            data-default-text="{% translate "Show all" %}"
@@ -87,25 +93,32 @@
                 </div>
                 <div class="mt-4 hidden" id="machine-translation-overlay-warning">
                     <h3>
-                        <b>{% translate "Pages that can't be translated" %}</b>
+                        <b>
+                            {% blocktranslate trimmed %}
+                                {{ content_type }} that can't be translated
+                            {% endblocktranslate %}
+                        </b>
                     </h3>
                     <div class="my-2 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-600 px-4 py-3 mb-5"
                          role="alert">
                         <i class="mr-2" icon-name="alert-triangle"></i>
                         {% if source_language.slug in textlab_languages %}
                             {% blocktranslate trimmed with hix_threshold=hix_threshold|floatformat:0 %}
-                                The HIX value is too low for <span id="not-translatable"></span> pages. Please improve it to a value of at least {{ hix_threshold }} to enable machine translations for them. Currently, the following pages cannot be machine translated:
+                                The HIX value is too low for <span id="not-translatable"></span> {{ content_type }}. Please improve it to a value of at least {{ hix_threshold }} to enable machine translations for them. Currently, the following {{ content_type }} cannot be machine translated:
                             {% endblocktranslate %}
                         {% else %}
                             {% blocktranslate trimmed %}
-                                There are currently <span id="not-translatable"></span> page(s) that can't be translated. These pages can't be translated because they have no translation in the source language.
+                                There are currently <span id="not-translatable"></span> {{ content_type }} that can't be translated. These {{ content_type }} can't be translated because they have no translation in the source language.
                             {% endblocktranslate %}
                         {% endif %}
                     </div>
                     <ul class="hidden mb-2" id="machine-translation-overlay-warning-optional">
                     </ul>
-                    <a id="machine-translation-overlay-warning-more" data-default-text="{% translate "Show pages" %}" data-alternative-text="{% translate "Don't show pages" %}"  class="text-blue-500">
-                        {% translate "Show pages" %}
+                    <a id="machine-translation-overlay-warning-more"
+                       data-default-text="{% translate "Show more" %}"
+                       data-alternative-text="{% translate "Show less" %}"
+                       class="text-blue-500">
+                        {% translate "Show more" %}
                     </a>
                 </div>
                 <div class="flex justify-between mt-4">

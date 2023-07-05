@@ -555,9 +555,9 @@ urlpatterns = [
                                             name="slugify_ajax",
                                         ),
                                         path(
-                                            "auto-translate-hix-and-words-per-page/",
-                                            pages.post_hix_and_word_number_per_page,
-                                            name="post_hix_and_word_number_per_page",
+                                            "<model_type>/word_count/",
+                                            utils.build_json_for_machine_translation,
+                                            name="word_count",
                                         ),
                                     ]
                                 ),

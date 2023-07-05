@@ -130,7 +130,10 @@
                 {% if MT_PERMITTED %}
                     {% translate "locations" as content_type %}
                     {% if MT_PROVIDER %}
-                        <option data-bulk-action="{% url 'machine_translation_pois' region_slug=request.region.slug language_slug=language.slug %}">
+                        <option id="machine-translation-option"
+                                data-mt-provider="{{ MT_PROVIDER.name }}"
+                                data-bulk-action="{% url 'machine_translation_pois' region_slug=request.region.slug language_slug=language.slug %}"
+                                data-url="{% url 'word_count' region_slug=request.region.slug language_slug=language.slug model_type="poi" %}">
                             {% blocktranslate trimmed with provider=MT_PROVIDER.name %}
                                 Machine translate {{ content_type }} via {{ provider }} to {{ language }}
                             {% endblocktranslate %}
@@ -151,6 +154,7 @@
         </div>
     {% endif %}
     {% include "../generic_confirmation_dialog.html" %}
+    {% include "../_machine_translation_overlay.html" %}
     {% url "pois" as url %}
     {% include "pagination.html" with chunk=pois %}
 {% endblock content %}
