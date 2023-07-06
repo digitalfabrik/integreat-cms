@@ -863,6 +863,20 @@ urlpatterns = [
                                             name="machine_translation_pages",
                                         ),
                                         path(
+                                            "bulk-publish/",
+                                            bulk_action_views.BulkPublishingView.as_view(
+                                                model=Page,
+                                            ),
+                                            name="publish_multiple_pages",
+                                        ),
+                                        path(
+                                            "bulk-draft/",
+                                            bulk_action_views.BulkDraftingView.as_view(
+                                                model=Page,
+                                            ),
+                                            name="draft_multiple_pages",
+                                        ),
+                                        path(
                                             "<int:page_id>/",
                                             include(
                                                 [
@@ -1079,6 +1093,20 @@ urlpatterns = [
                                             name="bulk_restore_events",
                                         ),
                                         path(
+                                            "bulk-publish/",
+                                            bulk_action_views.BulkPublishingView.as_view(
+                                                model=Event,
+                                            ),
+                                            name="publish_multiple_events",
+                                        ),
+                                        path(
+                                            "bulk-draft/",
+                                            bulk_action_views.BulkDraftingView.as_view(
+                                                model=Event,
+                                            ),
+                                            name="draft_multiple_events",
+                                        ),
+                                        path(
                                             "<int:event_id>/",
                                             include(
                                                 [
@@ -1177,6 +1205,20 @@ urlpatterns = [
                                                 model=POI
                                             ),
                                             name="bulk_restore_pois",
+                                        ),
+                                        path(
+                                            "bulk-publish/",
+                                            bulk_action_views.BulkPublishingView.as_view(
+                                                model=POI,
+                                            ),
+                                            name="publish_multiple_pois",
+                                        ),
+                                        path(
+                                            "bulk-draft/",
+                                            bulk_action_views.BulkDraftingView.as_view(
+                                                model=POI,
+                                            ),
+                                            name="draft_multiple_pois",
                                         ),
                                         path(
                                             "show-poi-form-ajax/<str:poi_title>/",

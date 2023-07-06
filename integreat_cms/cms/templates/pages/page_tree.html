@@ -233,6 +233,17 @@
                             data-bulk-action="{% url 'download_xliff_multiple_languages' region_slug=request.region.slug language_slug=language.slug %}">
                         {% translate "Export selected pages for multilingual translation" %} ({{ XLIFF_EXPORT_VERSION|upper }})
                     </option>
+                    {% translate "pages" as content_type %}
+                    <option data-bulk-action="{% url 'publish_multiple_pages' region_slug=request.region.slug language_slug=language.slug %}">
+                        {% blocktranslate trimmed %}
+                            Publish {{ content_type }}
+                        {% endblocktranslate %}
+                    </option>
+                    <option data-bulk-action="{% url 'draft_multiple_pages' region_slug=request.region.slug language_slug=language.slug %}">
+                        {% blocktranslate trimmed %}
+                            Draft {{ content_type }}
+                        {% endblocktranslate %}
+                    </option>
                 {% endif %}
             </select>
             <button id="bulk-action-execute" class="btn" disabled>

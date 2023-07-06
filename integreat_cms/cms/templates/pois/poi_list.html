@@ -127,6 +127,19 @@
                 <option data-bulk-action="{% url 'bulk_archive_pois' region_slug=request.region.slug language_slug=language.slug %}">
                     {% translate "Archive locations" %}
                 </option>
+                {% if request.user.is_superuser or request.user.is_staff %}
+                    {% translate "locations" as content_type %}
+                    <option data-bulk-action="{% url 'publish_multiple_pois' region_slug=request.region.slug language_slug=language.slug %}">
+                        {% blocktranslate trimmed %}
+                            Publish {{ content_type }}
+                        {% endblocktranslate %}
+                    </option>
+                    <option data-bulk-action="{% url 'draft_multiple_pois' region_slug=request.region.slug language_slug=language.slug %}">
+                        {% blocktranslate trimmed %}
+                            Draft {{ content_type }}
+                        {% endblocktranslate %}
+                    </option>
+                {% endif %}
                 {% if MT_PERMITTED %}
                     {% translate "locations" as content_type %}
                     {% if MT_PROVIDER %}
