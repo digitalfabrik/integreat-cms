@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-07-05T11:05:28+00:00" />
+    <meta property="article:modified_time" content="2023-07-07T19:44:52+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API &mdash; integreat-cms 2023.7.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -412,6 +412,10 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.core.management.html#utils">Utils</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref/tests.deepl_api.html">Deepl API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.deepl_api.html#deepl-api-test">Deepl API Test</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.firebase_api.html">Firebase API</a><ul>
@@ -835,6 +839,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#module-integreat_cms.core.circleci_settings">Circleci Settings</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.circleci_settings.DEEPL_AUTH_KEY"><code class="docutils literal notranslate"><span class="pre">DEEPL_AUTH_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.circleci_settings.DEEPL_ENABLED"><code class="docutils literal notranslate"><span class="pre">DEEPL_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.circleci_settings.FCM_ENABLED"><code class="docutils literal notranslate"><span class="pre">FCM_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.circleci_settings.FCM_KEY"><code class="docutils literal notranslate"><span class="pre">FCM_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.circleci_settings.LINKCHECK_DISABLE_LISTENERS"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_DISABLE_LISTENERS</span></code></a></li>
@@ -887,6 +893,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DATABASES"><code class="docutils literal notranslate"><span class="pre">DATABASES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEBUG"><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEBUG_TOOLBAR_PANELS"><code class="docutils literal notranslate"><span class="pre">DEBUG_TOOLBAR_PANELS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEEPL_API_URL"><code class="docutils literal notranslate"><span class="pre">DEEPL_API_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEEPL_AUTH_KEY"><code class="docutils literal notranslate"><span class="pre">DEEPL_AUTH_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEEPL_CREDITS_ADDON"><code class="docutils literal notranslate"><span class="pre">DEEPL_CREDITS_ADDON</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.DEEPL_CREDITS_FREE"><code class="docutils literal notranslate"><span class="pre">DEEPL_CREDITS_FREE</span></code></a></li>
@@ -1248,6 +1255,22 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.core.management.html">Management</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.core.management.commands.html">Commands</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.core.management.html#module-tests.core.management.utils">Utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tests.deepl_api.html">Deepl API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.deepl_api.html#module-tests.deepl_api.deepl_api_test">Deepl API Test</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.deepl_api.html#tests.deepl_api.deepl_api_test.get_content_translations"><code class="docutils literal notranslate"><span class="pre">get_content_translations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.deepl_api.html#tests.deepl_api.deepl_api_test.get_word_count"><code class="docutils literal notranslate"><span class="pre">get_word_count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.deepl_api.html#tests.deepl_api.deepl_api_test.setup_fake_deepl_api_server"><code class="docutils literal notranslate"><span class="pre">setup_fake_deepl_api_server()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_bulk_machine_translation_api_error"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_machine_translation_api_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_bulk_machine_translation_events"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_machine_translation_events()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_bulk_machine_translation_exceeds_limit"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_machine_translation_exceeds_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_bulk_machine_translation_no_source_language"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_machine_translation_no_source_language()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_bulk_machine_translation_no_target_language"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_machine_translation_no_target_language()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_bulk_machine_translation_pages"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_machine_translation_pages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_bulk_machine_translation_pois"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_machine_translation_pois()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -2001,7 +2024,7 @@ own thread to not block the Integreat CMS API request.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 05, 2023.
+      <span class="lastupdated">Last updated on Jul 07, 2023.
       </span></p>
   </div>
 
