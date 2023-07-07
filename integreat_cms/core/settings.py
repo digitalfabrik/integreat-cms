@@ -741,6 +741,9 @@ USE_TZ = True
 # AUTOMATIC TRANSLATIONS #
 ##########################
 
+#: The URL to DeepL API. If not set, the library selects the correct URL automatically
+DEEPL_API_URL = os.environ.get("INTEGREAT_CMS_DEEPL_API_URL")
+
 #: Authentication token for the DeepL API. If not set, automatic translations via DeepL are disabled
 DEEPL_AUTH_KEY = os.environ.get("INTEGREAT_CMS_DEEPL_AUTH_KEY")
 

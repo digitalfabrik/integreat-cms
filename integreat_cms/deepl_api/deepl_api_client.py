@@ -41,7 +41,9 @@ class DeepLApiClient(MachineTranslationApiClient):
             )
         if not settings.DEEPL_ENABLED:
             raise RuntimeError("DeepL is disabled globally.")
-        self.translator = deepl.Translator(settings.DEEPL_AUTH_KEY)
+        self.translator = deepl.Translator(
+            auth_key=settings.DEEPL_AUTH_KEY, server_url=settings.DEEPL_API_URL
+        )
         self.translatable_attributes = ["title", "content", "meta_description"]
 
     @staticmethod
