@@ -1696,7 +1696,7 @@
       "title": "Alltag",
       "slug": "alltag",
       "status": "PUBLIC",
-      "content": "<a href=\"https://integreat-app.de/\">G&uuml;ltiger Link</a><br><a href=\"https://integreat.app\">Ungepr&uuml;fter Link</a><br><a href=\"https://invalid.integreat.app/\">Ung&uuml;ltiger Link</a><br><a href=\"https://invalid2.integreat.app/\">Ignorierter Link</a><br><a href=\"https://integreat.app/augsburg/de/willkommen/\">Interner Link</a><br><a href=\"https://integreat-app.de/\">Ein langer Link zum Testen des Verhaltens von Links im PDF Export. Text mit Leerzeichen sollte gebrochen werden, W&#246;rter mit mehr als 50 Zeichen sollten hingegen gek&#252;rzt werden. www.dashieristeinsehrlangerlinkalszusammenh&#228;ngendezeichenkette.de</a>",
+      "content": "<a href=\"https://integreat-app.de/\">G&uuml;ltiger Link</a><br><a href=\"https://integreat.app\">Ungepr&uuml;fter Link</a><br><a href=\"https://invalid.integreat.app/\">Ung&uuml;ltiger Link</a><br><a href=\"https://invalid2.integreat.app/\">Ignorierter Link</a><br><a href=\"https://integreat.app/augsburg/de/willkommen/\">Interner Link</a><br><a href=\"https://integreat.app/augsburg/de/deutsche-sprache/sprachlernangebote/\">Fehlerhafter interner Link</a><br><a href=\"https://integreat-app.de/\">Ein langer Link zum Testen des Verhaltens von Links im PDF Export. Text mit Leerzeichen sollte gebrochen werden, W&#246;rter mit mehr als 50 Zeichen sollten hingegen gek&#252;rzt werden. www.dashieristeinsehrlangerlinkalszusammenh&#228;ngendezeichenkette.de</a>",
       "language": 1,
       "currently_in_translation": false,
       "version": 1,
@@ -1762,7 +1762,7 @@
     "pk": 65,
     "fields": {
       "title": "Sonstige Sprachlernangebote",
-      "slug": "sonstige-sprachlernangebote",
+      "slug": "sprachlernangebote",
       "status": "PUBLIC",
       "content": "",
       "language": 1,
@@ -3436,6 +3436,22 @@
     }
   },
   {
+    "model": "linkcheck.url",
+    "pk": 8,
+    "fields": {
+      "url": "https://integreat.app/augsburg/de/deutsche-sprache/sprachlernangebote/",
+      "last_checked": "2023-04-04T10:20:49.786Z",
+      "anchor_status": null,
+      "ssl_status": true,
+      "status": false,
+      "status_code": null,
+      "redirect_status_code": null,
+      "message": "",
+      "error_message": "The URL is not up-to-date.",
+      "redirect_to": ""
+    }
+  },
+  {
     "model": "linkcheck.link",
     "pk": 1,
     "fields": {
@@ -3570,6 +3586,18 @@
   {
     "model": "linkcheck.link",
     "pk": 12,
+    "fields": {
+      "content_type": 23,
+      "object_id": 61,
+      "field": "content",
+      "url": 8,
+      "text": "Fehlerhafter interner Link",
+      "ignore": false
+    }
+  },
+  {
+    "model": "linkcheck.link",
+    "pk": 13,
     "fields": {
       "content_type": 23,
       "object_id": 61,
