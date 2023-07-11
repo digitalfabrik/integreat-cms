@@ -19,7 +19,6 @@ from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ...constants import status
 from ...models import LanguageTreeNode, Page, PageTranslation, Region
 from ...models.regions.region import format_deepl_help_text
-from ...utils.linkcheck_utils import replace_links
 from ...utils.slug_utils import generate_unique_slug_helper
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..custom_model_form import CustomModelForm
@@ -228,15 +227,6 @@ class RegionForm(CustomModelForm):
             duplicate_media(source_region, region)
             # Create links for the most recent versions of all translations manually
             find_links(region)
-            # Replace links
-            old_link = f"{settings.WEBAPP_URL}/{source_region.slug}/"
-            new_link = f"{settings.WEBAPP_URL}/{region.slug}/"
-            replace_links(
-                search=old_link,
-                replace=new_link,
-                region=region,
-                link_types=["internal"],
-            )
 
         return region
 
