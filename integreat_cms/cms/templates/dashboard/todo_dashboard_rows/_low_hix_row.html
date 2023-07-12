@@ -1,0 +1,37 @@
+{% extends "../_todo_dashboard_row.html" %}
+{% load i18n %}
+{% block todo_dashboard_icon %}
+    check-circle
+{% endblock todo_dashboard_icon %}
+{% block todo_dashboard_title_link %}
+    {% url 'translation_coverage' region_slug=request.region.slug %}#hix-overview
+{% endblock todo_dashboard_title_link %}
+{% block todo_dashboard_title %}
+    {% translate "Pages with low hix score" %}
+{% endblock todo_dashboard_title %}
+{% block todo_dashboard_number %}
+    {% with total=pages_under_hix_threshold|length %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock todo_dashboard_number %}
+{% block todo_dashboard_description %}
+    {% if pages_under_hix_threshold %}
+        {% blocktranslate trimmed with worst_page=pages_under_hix_threshold.0 %}
+            The page <b>{{ worst_page }}</b> has a HIX score of {{ worst_page.hix_score|floatformat:2 }}. Please adjust the hix score of this page to be able to machine translate it
+        {% endblocktranslate %}
+    {% else %}
+        {% blocktranslate trimmed %}
+            At the moment all pages are ready for machine translation. Good job!
+        {% endblocktranslate %}
+    {% endif %}
+{% endblock todo_dashboard_description %}
+{% block todo_dashboard_button_link %}
+    {% if pages_under_hix_threshold %}
+        <a class="btn !rounded-full"
+           href="{% url 'edit_page' region_slug=request.region.slug language_slug=default_language_slug page_id=pages_under_hix_threshold.0.page_id %}">
+            {% translate "Go to page" %}
+        </a>
+    {% else %}
+        <i class="mr-12" icon-name="check-circle-2"></i>
+    {% endif %}
+{% endblock todo_dashboard_button_link %}

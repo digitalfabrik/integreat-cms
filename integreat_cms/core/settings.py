@@ -1125,3 +1125,10 @@ XLIFF_URL = "/xliff/"
 
 # Our database operations should never exceed 60 seconds
 DB_MUTEX_TTL_SECONDS = 60
+
+#############
+# Dashboard #
+#############
+
+#: Days after which a page is considered to be outdated in the todo dashboard
+OUTDATED_THRESHOLD_DAYS = 365

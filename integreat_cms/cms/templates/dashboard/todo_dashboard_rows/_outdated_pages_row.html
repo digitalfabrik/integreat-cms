@@ -1,0 +1,37 @@
+{% extends "../_todo_dashboard_row.html" %}
+{% load i18n %}
+{% block todo_dashboard_icon %}
+    file-search
+{% endblock todo_dashboard_icon %}
+{% block todo_dashboard_title_link %}
+    {% url 'pages' region_slug=request.region.slug language_slug=default_language_slug %}?date_to={{ outdated_threshold_date }}
+{% endblock todo_dashboard_title_link %}
+{% block todo_dashboard_title %}
+    {% translate "Outdated pages" %}
+{% endblock todo_dashboard_title %}
+{% block todo_dashboard_number %}
+    {% with total=outdated_pages|length %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock todo_dashboard_number %}
+{% block todo_dashboard_description %}
+    {% if outdated_pages %}
+        {% blocktranslate trimmed %}
+            The page <b>{{ most_outdated_page }}</b> hasn't been updated in {{ days_since_last_updated }} days. Please make sure that the content on this page is still relevant and up-to-date
+        {% endblocktranslate %}
+    {% else %}
+        {% blocktranslate trimmed %}
+            At the moment there is no page that hasn't been updated in the last 365 days. Good job!
+        {% endblocktranslate %}
+    {% endif %}
+{% endblock todo_dashboard_description %}
+{% block todo_dashboard_button_link %}
+    {% if outdated_pages %}
+        <a class="btn !rounded-full"
+           href="{% url 'edit_page' region_slug=request.region.slug language_slug=default_language_slug page_id=most_outdated_page.page_id %}">
+            {% translate "Go to page" %}
+        </a>
+    {% else %}
+        <i class="mr-12" icon-name="check-circle-2"></i>
+    {% endif %}
+{% endblock todo_dashboard_button_link %}
