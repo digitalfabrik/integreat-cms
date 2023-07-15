@@ -18,7 +18,9 @@
                 </h1>
             </div>
             <div class="w-3/5 flex justify-end">
-                <button class="btn">{% translate "Save" %}</button>
+                <button class="btn">
+                    {% translate "Save" %}
+                </button>
             </div>
         </div>
         <div class="flex flex-wrap">
@@ -30,12 +32,20 @@
                         </h3>
                     </div>
                     <div class="px-4 pb-4">
-                        <label for="{{ role_form.name.id_for_label }}">{{ role_form.name.label }}</label>
+                        <label for="{{ role_form.name.id_for_label }}">
+                            {{ role_form.name.label }}
+                        </label>
                         {% render_field role_form.name %}
                         {% render_field role_form.staff_role %}
-                        <label for="{{ role_form.staff_role.id_for_label }}">{{ role_form.staff_role.label }}</label>
-                        <div class="help-text">{{ role_form.staff_role.help_text }}</div>
-                        <label for="{{ group_form.permissions.id_for_label }}">{{ group_form.permissions.label }}</label>
+                        <label for="{{ role_form.staff_role.id_for_label }}">
+                            {{ role_form.staff_role.label }}
+                        </label>
+                        <div class="help-text">
+                            {{ role_form.staff_role.help_text }}
+                        </div>
+                        <label for="{{ group_form.permissions.id_for_label }}">
+                            {{ group_form.permissions.label }}
+                        </label>
                         {% render_field group_form.permissions %}
                     </div>
                 </div>

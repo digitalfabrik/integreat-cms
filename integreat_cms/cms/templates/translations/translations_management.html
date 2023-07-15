@@ -8,9 +8,13 @@
     <form enctype="multipart/form-data" method="post" data-unsaved-warning>
         {% csrf_token %}
         <div class="flex flex-wrap justify-between mb-4">
-            <h1 class="heading overflow-hidden text-ellipsis">{% translate "Manage machine translations" %}</h1>
+            <h1 class="heading overflow-hidden text-ellipsis">
+                {% translate "Manage machine translations" %}
+            </h1>
             {% if perms.cms.manage_translations %}
-                <button class="btn ml-auto mr-0">{% translate "Save" %}</button>
+                <button class="btn ml-auto mr-0">
+                    {% translate "Save" %}
+                </button>
             {% endif %}
         </div>
         <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
@@ -23,13 +27,23 @@
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                     <div>
                         <!-- Options related to the type of content which can be machine translated -->
-                        <label>{% trans "Automatic translations" %}</label>
-                        <div class="help-text">{% translate "Automatically machine translate the following types of content:" %}</div>
-                        <label for="{{ form.machine_translate_pages.id_for_label }}">{{ form.machine_translate_pages.label }}</label>
+                        <label>
+                            {% trans "Automatic translations" %}
+                        </label>
+                        <div class="help-text">
+                            {% translate "Automatically machine translate the following types of content:" %}
+                        </div>
+                        <label for="{{ form.machine_translate_pages.id_for_label }}">
+                            {{ form.machine_translate_pages.label }}
+                        </label>
                         {% render_field form.machine_translate_pages|add_error_class:"border-red-500" %}
-                        <label for="{{ form.machine_translate_events.id_for_label }}">{{ form.machine_translate_events.label }}</label>
+                        <label for="{{ form.machine_translate_events.id_for_label }}">
+                            {{ form.machine_translate_events.label }}
+                        </label>
                         {% render_field form.machine_translate_events|add_error_class:"border-red-500" %}
-                        <label for="{{ form.machine_translate_pois.id_for_label }}">{{ form.machine_translate_pois.label }}</label>
+                        <label for="{{ form.machine_translate_pois.id_for_label }}">
+                            {{ form.machine_translate_pois.label }}
+                        </label>
                         {% render_field form.machine_translate_pois|add_error_class:"border-red-500" %}
                     </div>
                 </div>
@@ -44,14 +58,20 @@
                     <!-- Select which languages can be machine translated -->
                     {% if form.machine_translatable_languages.field.queryset.exists %}
                         <div>
-                            <div class="help-text mt-4">{{ form.machine_translatable_languages.help_text }}</div>
+                            <div class="help-text mt-4">
+                                {{ form.machine_translatable_languages.help_text }}
+                            </div>
                             {% render_field form.machine_translatable_languages %}
                         </div>
                     {% endif %}
                     {% if form.unavailable_languages %}
                         <div>
-                            <div class="help-text mt-4">{% translate "These languages are currently unavailable for machine translations" %}:</div>
-                            <p>{{ form.unavailable_languages|join:", " }}</p>
+                            <div class="help-text mt-4">
+                                {% translate "These languages are currently unavailable for machine translations" %}:
+                            </div>
+                            <p>
+                                {{ form.unavailable_languages|join:", " }}
+                            </p>
                         </div>
                     {% endif %}
                 </div>
@@ -70,8 +90,12 @@
                                     data-budget-total="{{ request.region.deepl_budget }}"></canvas>
                         </div>
                         <div class="text-center font-bold">
-                            <p>{% translate "Available credits" %}</p>
-                            <p>{{ request.region.deepl_budget_remaining|intcomma }} {% translate "words" %}</p>
+                            <p>
+                                {% translate "Available credits" %}
+                            </p>
+                            <p>
+                                {{ request.region.deepl_budget_remaining|intcomma }} {% translate "words" %}
+                            </p>
                         </div>
                         <p>
                             {% blocktranslate trimmed with used=request.region.deepl_budget_used|intcomma total=request.region.deepl_budget|intcomma %}

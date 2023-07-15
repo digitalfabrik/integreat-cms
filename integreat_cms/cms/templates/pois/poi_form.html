@@ -34,7 +34,9 @@
             </h1>
             {% if not poi_form.instance.archived and perms.cms.change_poi %}
                 <div class="flex flex-wrap gap-4 ml-auto mr-0">
-                    <button name="status" value="{{ DRAFT }}" class="btn btn-outline">{% translate "Save as draft" %}</button>
+                    <button name="status" value="{{ DRAFT }}" class="btn btn-outline">
+                        {% translate "Save as draft" %}
+                    </button>
                     <button name="status"
                             value="{{ PUBLIC }}"
                             class="btn"
@@ -61,13 +63,17 @@
                                 </label>
                                 {% if poi_translation_form.instance.id %}
                                     <div class="grid grid-cols-2 text-left">
-                                        <div class="font-bold pr-2">{% translate "Version" %}:</div>
+                                        <div class="font-bold pr-2">
+                                            {% translate "Version" %}:
+                                        </div>
                                         <div>
                                             {{ poi_translation_form.instance.version }}
                                             (<a href="{% url 'poi_versions' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}"
    class="text-blue-500 hover:underline">{% translate "Show" %}</a>)
                                         </div>
-                                        <div class="font-bold pr-2">{% translate "Publication status" %}:</div>
+                                        <div class="font-bold pr-2">
+                                            {% translate "Publication status" %}:
+                                        </div>
                                         <div>
                                             {% if poi.archived %}
                                                 {% translate "Archived" %}
@@ -87,7 +93,9 @@
                                 </div>
                             {% endif %}
                             <div id="link-container" class="flex items-center">
-                                <label for="{{ poi_translation_form.slug.id_for_label }}" class="mr-2">{{ poi_translation_form.slug.label }}:</label>
+                                <label for="{{ poi_translation_form.slug.id_for_label }}" class="mr-2">
+                                    {{ poi_translation_form.slug.label }}:
+                                </label>
                                 <a id="slug-link"
                                    href="{{ url_link }}{{ poi_translation_form.instance.slug }}/"
                                    class="text-blue-500 hover:underline">{{ url_link }}{{ poi_translation_form.instance.slug }}</a>
@@ -106,7 +114,9 @@
                                     <i icon-name="check" class="hidden text-green-500"></i>
                                 </a>
                                 <div class="slug-field hidden">
-                                    <label for="{{ poi_translation_form.slug.id_for_label }}">{{ url_link }}</label>
+                                    <label for="{{ poi_translation_form.slug.id_for_label }}">
+                                        {{ url_link }}
+                                    </label>
                                     {% render_field poi_translation_form.slug|add_error_class:"slug-error" %}
                                 </div>
                                 <a id="save-slug-btn" class="ml-2 btn-icon hidden">
@@ -116,7 +126,9 @@
                                     <i icon-name="x-circle"></i>
                                 </a>
                             </div>
-                            <label for="{{ poi_translation_form.content.id_for_label }}">{{ poi_translation_form.content.label }}</label>
+                            <label for="{{ poi_translation_form.content.id_for_label }}">
+                                {{ poi_translation_form.content.label }}
+                            </label>
                             {% render_field poi_translation_form.content class+="tinymce_textarea flex-auto" %}
                         </div>
                     </div>
@@ -135,7 +147,9 @@
                                                class="secondary">
                                             {{ poi_translation_form.meta_description.label }}
                                         </label>
-                                        <div class="help-text">{{ poi_translation_form.meta_description.help_text }}</div>
+                                        <div class="help-text">
+                                            {{ poi_translation_form.meta_description.help_text }}
+                                        </div>
                                         {% render_field poi_translation_form.meta_description|add_error_class:"border-red-500" %}
                                     </div>
                                 </div>

@@ -35,7 +35,9 @@
                 </span>
             {% endif %}
         </td>
-        <td class="pr-2 whitespace-nowrap" title="{{ url.ssl_message }}">{% url_ssl_icon url %}</td>
+        <td class="pr-2 whitespace-nowrap" title="{{ url.ssl_message }}">
+            {% url_ssl_icon url %}
+        </td>
         {% if request.user.expert_mode %}
             <td class="whitespace-nowrap"
                 title="{{ url.anchor_message }}{% if url.anchor %}{% if url.last_checked %}:{% endif %} #{{ url.anchor }} {% endif %}">
@@ -44,9 +46,13 @@
         {% endif %}
         <td class="pr-2 whitespace-nowrap">
             {% if url.redirect_status_code %}
-                <div title="{{ url.get_redirect_status_code_display }}">{{ url.redirect_status_code }}</div>
+                <div title="{{ url.get_redirect_status_code_display }}">
+                    {{ url.redirect_status_code }}
+                </div>
             {% elif url.status_code %}
-                <div title="{{ url.get_status_code_display }}">{{ url.status_code }}</div>
+                <div title="{{ url.get_status_code_display }}">
+                    {{ url.status_code }}
+                </div>
             {% endif %}
         </td>
         <td class="pr-2 {% if view.kwargs.url_filter == 'invalid' %} text-red-500 {% elif view.kwargs.url_filter == 'valid' %} text-green-500 {% endif %} max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
@@ -90,7 +96,9 @@
                 </a>
             </div>
         </td>
-        <td class="text-right pr-2">{{ url.region_links|length }}</td>
+        <td class="text-right pr-2">
+            {{ url.region_links|length }}
+        </td>
         <td class="text-right pr-4">
             <a title="{% translate "Replace URL globally" %}"
                href="{% url 'edit_url' url_id=url.id url_filter=view.kwargs.url_filter region_slug=request.region.slug %}{{ pagination_params }}#replace-url"
@@ -106,7 +114,9 @@
                     {% render_field edit_url_form.url|add_error_class:"border-red-500" type="url" form="edit-url-form" %}
                     <a href="{% url 'linkcheck' url_filter=view.kwargs.url_filter region_slug=request.region.slug %}{{ pagination_params }}"
                        class="btn btn-red">{% translate "Cancel" %}</a>
-                    <button type="submit" form="edit-url-form" class="btn">{% translate "Save" %}</button>
+                    <button type="submit" form="edit-url-form" class="btn">
+                        {% translate "Save" %}
+                    </button>
                 </div>
             </td>
         </tr>

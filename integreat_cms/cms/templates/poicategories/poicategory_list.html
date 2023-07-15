@@ -3,7 +3,9 @@
 {% load static %}
 {% block content %}
     <div class="table-header flex justify-between">
-        <h1 class="heading">{% translate "Location Categories" %}</h1>
+        <h1 class="heading">
+            {% translate "Location Categories" %}
+        </h1>
         {% if perms.cms.change_poicategory %}
             <a href="{% url 'new_poicategory' %}" class="btn">{% translate "Create location category" %}</a>
         {% endif %}
@@ -12,7 +14,9 @@
         <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
                 <tr class="border-b border-solid border-gray-200">
-                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% translate "Name" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                        {% translate "Name" %}
+                    </th>
                     <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
                         <div class="lang-grid flags whitespace-nowrap">
                             {% for language in languages %}
@@ -21,12 +25,16 @@
                             {% endfor %}
                         </div>
                     </th>
-                    <th class="text-sm text-left uppercase py-3 px-2">{% translate "Map marker" %}</th>
+                    <th class="text-sm text-left uppercase py-3 px-2">
+                        {% translate "Map marker" %}
+                    </th>
                     <th class="text-sm text-right uppercase py-3 pr-2"
                         title="{% translate "Number of locations with this category" %}">
                         {% translate "Number of locations" %}
                     </th>
-                    <th class="text-sm text-left uppercase py-3 p2-4 pr-4 min">{% translate "Actions" %}</th>
+                    <th class="text-sm text-left uppercase py-3 p2-4 pr-4 min">
+                        {% translate "Actions" %}
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -34,7 +42,9 @@
                     {% include "poicategories/poicategory_list_row.html" %}
                 {% empty %}
                     <tr>
-                        <td colspan="3" class="px-4 py-3">{% translate "No POI categories available yet." %}</td>
+                        <td colspan="3" class="px-4 py-3">
+                            {% translate "No POI categories available yet." %}
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

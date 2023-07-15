@@ -12,14 +12,21 @@
             <span class="uppercase pl-2">{% translate "Warning" %}</span>
         </div>
         <div class="w-full p-4 rounded shadow">
-            <h2 id="confirmation-title"></h2>
-            <h3 id="confirmation-subject" class="text-center mt-4 mb-6 break-words"></h3>
-            <p id="confirmation-text" class="mt-4 mb-6 whitespace-pre-line"></p>
+            <h2 id="confirmation-title">
+            </h2>
+            <h3 id="confirmation-subject" class="text-center mt-4 mb-6 break-words">
+            </h3>
+            <p id="confirmation-text" class="mt-4 mb-6 whitespace-pre-line">
+            </p>
             <form method="post" action="#">
                 {% csrf_token %}
                 <div class="flex justify-end gap-2">
-                    <button id="close-confirmation-popup" class="btn btn-outline">{% translate "Cancel" %}</button>
-                    <button class="btn">{% translate "Confirm" %}</button>
+                    <button id="close-confirmation-popup" class="btn btn-outline">
+                        {% translate "Cancel" %}
+                    </button>
+                    <button class="btn">
+                        {% translate "Confirm" %}
+                    </button>
                 </div>
             </form>
         </div>

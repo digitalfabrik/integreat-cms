@@ -4,7 +4,8 @@
 {% load base_filters %}
 {% block raw_content %}
     <div id="popup-overlay"
-         class="fixed inset-0 opacity-75 bg-gray-800 hidden"></div>
+         class="fixed inset-0 opacity-75 bg-gray-800 hidden">
+    </div>
     <header class="fixed h-14 lg:pl-56 top-0 inset-x-0 flex flex-nowrap justify-end z-50 bg-gray-300 whitespace-nowrap">
         {% if debug and request.user.is_staff %}
             <a href="{% url 'admin:index' %}"
@@ -115,7 +116,9 @@
                 <!-- Analytics Section -->
                 {% if request.region.statistics_enabled and perms.cms.view_statistics or perms.cms.view_translation_report or perms.cms.view_feedback or perms.cms.view_broken_links %}
                     <div class="min-h-3 pl-2">
-                        <p class="font-bold">{% translate "Analytics" %}</p>
+                        <p class="font-bold">
+                            {% translate "Analytics" %}
+                        </p>
                     </div>
                     {% if request.region.statistics_enabled and perms.cms.view_statistics %}
                         <a href="{% url 'statistics' region_slug=request.region.slug %}"
@@ -148,7 +151,9 @@
                 {% endif %}
                 <!-- Content Section -->
                 <div class="min-h-3 pl-2">
-                    <p class="font-bold">{% translate "Content" %}</p>
+                    <p class="font-bold">
+                        {% translate "Content" %}
+                    </p>
                 </div>
                 {% if perms.cms.view_directory and perms.cms.view_mediafile %}
                     <a href="{% url 'media' region_slug=request.region.slug %}"
@@ -200,7 +205,9 @@
                 {% if show_mt_section or perms.cms.view_user or perms.cms.view_languagetreenode %}
                     <!-- Settings Section-->
                     <div class="min-h-3 pl-2">
-                        <p class="font-bold">{% translate "Settings" %}</p>
+                        <p class="font-bold">
+                            {% translate "Settings" %}
+                        </p>
                     </div>
                 {% endif %}
                 {% if show_mt_section %}

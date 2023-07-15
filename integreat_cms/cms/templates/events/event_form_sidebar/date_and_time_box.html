@@ -13,31 +13,45 @@
     <div>
         <div class="flex flex-wrap">
             <div class="w-1/2 pr-2">
-                <label class="mt-0" for="{{ event_form.start_date.id_for_label }}">{{ event_form.start_date.label }}</label>
+                <label class="mt-0" for="{{ event_form.start_date.id_for_label }}">
+                    {{ event_form.start_date.label }}
+                </label>
                 {% render_field event_form.start_date|add_error_class:"border-red-500" %}
             </div>
             <div class="w-1/2">
-                <label class="mt-0" for="{{ event_form.end_date.id_for_label }}">{{ event_form.end_date.label }}</label>
+                <label class="mt-0" for="{{ event_form.end_date.id_for_label }}">
+                    {{ event_form.end_date.label }}
+                </label>
                 {% render_field event_form.end_date|add_error_class:"border-red-500" %}
             </div>
         </div>
         <div class="flex flex-wrap my-3">
             <div class="time-field w-1/2 pr-2{% if event_form.is_all_day.value %} hidden{% endif %}">
-                <label for="{{ event_form.start_time.id_for_label }}">{{ event_form.start_time.label }}</label>
+                <label for="{{ event_form.start_time.id_for_label }}">
+                    {{ event_form.start_time.label }}
+                </label>
                 {% render_field event_form.start_time|add_error_class:"border-red-500" %}
             </div>
             <div class="time-field w-1/2{% if event_form.is_all_day.value %} hidden{% endif %}">
-                <label for="{{ event_form.end_time.id_for_label }}">{{ event_form.end_time.label }}</label>
+                <label for="{{ event_form.end_time.id_for_label }}">
+                    {{ event_form.end_time.label }}
+                </label>
                 {% render_field event_form.end_time|add_error_class:"border-red-500" %}
             </div>
         </div>
         {% render_field event_form.is_all_day %}
-        <label for="{{ event_form.is_all_day.id_for_label }}">{{ event_form.is_all_day.label }}</label>
+        <label for="{{ event_form.is_all_day.id_for_label }}">
+            {{ event_form.is_all_day.label }}
+        </label>
     </div>
     <div>
         {% render_field event_form.is_recurring id="recurrence-rule-checkbox" %}
-        <label for="recurrence-rule-checkbox">{{ event_form.is_recurring.label }}</label>
-        <div class="help-text">{{ event_form.is_recurring.help_text }}</div>
+        <label for="recurrence-rule-checkbox">
+            {{ event_form.is_recurring.label }}
+        </label>
+        <div class="help-text">
+            {{ event_form.is_recurring.help_text }}
+        </div>
         <div id="recurrence-rule"
              {% if not event_form.is_recurring.value %}class="hidden"{% endif %}>
             <label for="{{ recurrence_rule_form.frequency.id_for_label }}"

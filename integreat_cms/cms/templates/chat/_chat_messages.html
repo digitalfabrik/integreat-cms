@@ -7,7 +7,9 @@
             <span class="inline-block h-5 w-5 align-text-top bg-integreat-icon bg-contain bg-center bg-no-repeat"></span>
         {% endif %}
         <span class="font-bold">{{ message.sender.full_user_name }}</span>
-        {% if message.sender.email %}({{ message.sender.email|urlize }}){% endif %}
+        {% if message.sender.email %}
+            ({{ message.sender.email|urlize }})
+        {% endif %}
         {% has_perm 'cms.delete_chat_message_object' request.user message as can_delete_message %}
         <button title="{% translate "Delete chat message" %}"
                 class="{% if not can_delete_message %} invisible{% endif %} button-delete-chat-message btn-icon float-right ml-2"
@@ -18,6 +20,8 @@
             <i icon-name="trash-2"></i>
         </button>
         <span class="text-gray-600 float-right">{{ message.sent_datetime }}</span>
-        <p class="pt-2 whitespace-pre-line">{{ message.text|urlize }}</p>
+        <p class="pt-2 whitespace-pre-line">
+            {{ message.text|urlize }}
+        </p>
     </div>
 {% endfor %}

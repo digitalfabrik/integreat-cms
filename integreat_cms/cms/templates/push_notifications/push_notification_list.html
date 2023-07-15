@@ -4,7 +4,9 @@
 {% load push_notification_filters %}
 {% block content %}
     <div class="table-header">
-        <h1 class="heading">{% translate "News" %}</h1>
+        <h1 class="heading">
+            {% translate "News" %}
+        </h1>
         <div class="flex flex-wrap justify-between gap-4">
             <div class="flex flex-wrap gap-4">
                 {% include "generic_language_switcher.html" with target="push_notifications" %}
@@ -22,8 +24,12 @@
         <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
                 <tr class="border-b border-solid border-gray-200">
-                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% translate "Title" %}</th>
-                    <th class="text-sm text-left uppercase py-3 px-2">{% translate "Channel" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                        {% translate "Title" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 px-2">
+                        {% translate "Channel" %}
+                    </th>
                     <th class="text-sm text-left uppercase py-3 px-2">
                         <div class="lang-grid flags whitespace-nowrap">
                             {% spaceless %}
@@ -36,8 +42,12 @@
                             {% endspaceless %}
                         </div>
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Last updated" %}</th>
-                    <th class="text-sm text-left uppercase py-3 px-2 min">{% translate "Sent" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Last updated" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 px-2 min">
+                        {% translate "Sent" %}
+                    </th>
                 </tr>
             </thead>
             <tbody>

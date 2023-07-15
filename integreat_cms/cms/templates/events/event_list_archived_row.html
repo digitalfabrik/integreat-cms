@@ -68,7 +68,9 @@
             {% endfor %}
         {% endspaceless %}
     </td>
-    <td class="py-3 pr-2">{{ event_translation.get_status_display }}</td>
+    <td class="py-3 pr-2">
+        {{ event_translation.get_status_display }}
+    </td>
     <td class="py-3 pr-2">
         {% if event.location %}
             {% get_language LANGUAGE_CODE as current_language %}
@@ -79,11 +81,15 @@
     </td>
     <td class="py-3 pr-2">
         <i icon-name="calendar"></i> {{ event.start_date|date:'d.m.Y' }}
-        {% if not event.is_all_day %}<i icon-name="clock" class="ml-2"></i> {{ event.start_time|time:'H:i' }}{% endif %}
+        {% if not event.is_all_day %}
+            <i icon-name="clock" class="ml-2"></i> {{ event.start_time|time:'H:i' }}
+        {% endif %}
     </td>
     <td class="py-3 pr-2">
         <i icon-name="calendar"></i> {{ event.end_date|date:'d.m.Y' }}
-        {% if not event.is_all_day %}<i icon-name="clock" class="ml-2"></i> {{ event.end_time|time:'H:i' }}{% endif %}
+        {% if not event.is_all_day %}
+            <i icon-name="clock" class="ml-2"></i> {{ event.end_time|time:'H:i' }}
+        {% endif %}
     </td>
     <td class="py-3 pr-2">
         {% if event.recurrence_rule %}

@@ -51,7 +51,9 @@
                     </button>
                     {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
                     {% if can_publish_page %}
-                        <button name="status" value="{{ DRAFT }}" class="btn btn-outline">{% translate "Save as draft" %}</button>
+                        <button name="status" value="{{ DRAFT }}" class="btn btn-outline">
+                            {% translate "Save as draft" %}
+                        </button>
                         <button name="status" value="{{ PUBLIC }}" class="btn whitespace-nowrap">
                             {% if page_translation_form.instance.status == PUBLIC %}
                                 {% translate "Update" %}
@@ -60,7 +62,9 @@
                             {% endif %}
                         </button>
                     {% elif can_edit_page %}
-                        <button name="status" value="{{ REVIEW }}" class="btn">{% translate "Submit for review" %}</button>
+                        <button name="status" value="{{ REVIEW }}" class="btn">
+                            {% translate "Submit for review" %}
+                        </button>
                     {% endif %}
                 </div>
             {% endif %}
@@ -73,7 +77,9 @@
                         {% if page_translation_form.instance.translation_state == translation_status.IN_TRANSLATION %}
                             <div id="currently-in-translation-warning">
                                 <i icon-name="alert-triangle" class="text-red-500"></i>
-                                <label class="inline-block mb-2 font-bold">{% translate "Warning" %}:</label>
+                                <label class="inline-block mb-2 font-bold">
+                                    {% translate "Warning" %}:
+                                </label>
                                 {% translate "Translation in progress" %}
                                 (<a href="#"
    data-cancel-translation-process
@@ -90,13 +96,17 @@
                             </label>
                             {% if page_translation_form.instance.id %}
                                 <div class="grid grid-cols-2 text-right">
-                                    <div class="font-bold pr-2">{% translate "Version" %}:</div>
+                                    <div class="font-bold pr-2">
+                                        {% translate "Version" %}:
+                                    </div>
                                     <div>
                                         {{ page_translation_form.instance.version }}
                                         (<a href="{% url 'page_versions' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
    class="text-blue-500 hover:underline">{% translate "Show" %}</a>)
                                     </div>
-                                    <div class="font-bold pr-2">{% translate "Publication status" %}:</div>
+                                    <div class="font-bold pr-2">
+                                        {% translate "Publication status" %}:
+                                    </div>
                                     <div>
                                         {% if page.explicitly_archived %}
                                             {% translate "Archived" %}
@@ -113,7 +123,9 @@
                         {% if page_translation_form.instance.id %}
                             {% if request.region.short_urls_enabled and request.user.expert_mode %}
                                 <div class="flex items-center">
-                                    <label class="inline-block mr-2">{% translate "Short URL" %}:</label>
+                                    <label class="inline-block mr-2">
+                                        {% translate "Short URL" %}:
+                                    </label>
                                     <a href="{{ page_translation_form.instance.short_url }}"
                                        target="_blank"
                                        rel="noopener noreferrer"
@@ -151,7 +163,9 @@
                                 <i icon-name="check" class="hidden text-green-500"></i>
                             </a>
                             <div class="slug-field hidden">
-                                <label for="{{ page_translation_form.slug.id_for_label }}">{{ page_translation_form.instance.base_link }}</label>
+                                <label for="{{ page_translation_form.slug.id_for_label }}">
+                                    {{ page_translation_form.instance.base_link }}
+                                </label>
                                 {% render_field page_translation_form.slug|add_error_class:"slug-error" %}
                             </div>
                             <a id="save-slug-btn" class="ml-2 btn-icon hidden">
@@ -161,7 +175,9 @@
                                 <i icon-name="x-circle"></i>
                             </a>
                         </div>
-                        <label for="{{ page_translation_form.content.id_for_label }}">{{ page_translation_form.content.label }}</label>
+                        <label for="{{ page_translation_form.content.id_for_label }}">
+                            {{ page_translation_form.content.label }}
+                        </label>
                         {% render_field page_translation_form.content class+="tinymce_textarea flex-auto" %}
                     </div>
                 </div>

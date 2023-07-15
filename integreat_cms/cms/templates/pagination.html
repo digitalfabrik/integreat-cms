@@ -7,9 +7,12 @@
 {% with num_pages=chunk.paginator.num_pages chunk_size=request.GET.size url=request.get_full_path %}
     <div class="pagination">
         <div>
-            <label for="chunk-size"></label>
+            <label for="chunk-size">
+            </label>
             <select id="chunk-size">
-                <option value="">{% translate "Number of entries per page" %}</option>
+                <option value="">
+                    {% translate "Number of entries per page" %}
+                </option>
                 <option value="{% add_queries url 'size' 10 %}"
                         {% if chunk_size == "10" %}selected{% endif %}>
                     10

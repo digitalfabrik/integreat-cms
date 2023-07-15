@@ -16,7 +16,9 @@
                class="secondary">
             {{ poi_translation_form.minor_edit.label }}
         </label>
-        <div class="help-text">{% minor_edit_help_text request.region language poi_translation_form %}</div>
+        <div class="help-text">
+            {% minor_edit_help_text request.region language poi_translation_form %}
+        </div>
     </div>
     {% if poi_translation_form.mt_form_is_enabled %}
         <div>
@@ -25,7 +27,9 @@
                    class="secondary">
                 {{ poi_translation_form.automatic_translation.label }}
             </label>
-            <div class="help-text">{{ poi_translation_form.automatic_translation.help_text }}</div>
+            <div class="help-text">
+                {{ poi_translation_form.automatic_translation.help_text }}
+            </div>
             <div id="language-options" class="pl-2 hidden">
                 {% if poi_translation_form.mt_translations_to_update.field.queryset.exists %}
                     <label for="{{ poi_translation_form.mt_translations_to_update.id_for_label }}"

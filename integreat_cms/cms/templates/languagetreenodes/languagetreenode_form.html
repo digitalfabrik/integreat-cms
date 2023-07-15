@@ -20,11 +20,17 @@
             </h1>
             {% if perms.cms.change_languagetreenode %}
                 {% if form.instance.id %}
-                    <button class="btn ml-auto mr-0">{% translate "Update" %}</button>
+                    <button class="btn ml-auto mr-0">
+                        {% translate "Update" %}
+                    </button>
                 {% else %}
                     <div class="flex flex-wrap gap-2">
-                        <button class="btn ml-auto mr-0">{% translate "Create" %}</button>
-                        <button name="submit_add_new" class="btn ml-auto mr-0">{% translate "Create and add more" %}</button>
+                        <button class="btn ml-auto mr-0">
+                            {% translate "Create" %}
+                        </button>
+                        <button name="submit_add_new" class="btn ml-auto mr-0">
+                            {% translate "Create and add more" %}
+                        </button>
                     </div>
                 {% endif %}
             {% endif %}
@@ -41,36 +47,54 @@
                         <i icon-name="flag"></i>
                     {% endif %}
                     <span class="ml-2">{% translate "Language tree node" %}</span>
-                    {% if form.instance.id %}"{{ form.instance.translated_name }}"{% endif %}
+                    {% if form.instance.id %}
+                        "{{ form.instance.translated_name }}"
+                    {% endif %}
                 </h3>
             </div>
             <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                 {% if not form.instance.id %}
                     <div>
-                        <label for="{{ form.language.id_for_label }}">{{ form.language.label }}</label>
+                        <label for="{{ form.language.id_for_label }}">
+                            {{ form.language.label }}
+                        </label>
                         {% render_field form.language|add_error_class:"border-red-500" %}
                     </div>
                 {% endif %}
                 <div>
-                    <label for="{{ form.parent.id_for_label }}">{{ form.parent.label }}</label>
+                    <label for="{{ form.parent.id_for_label }}">
+                        {{ form.parent.label }}
+                    </label>
                     {% render_field form|get_private_member:"ref_node_id" %}
                     {% render_field form|get_private_member:"position" %}
                     {% render_field form.parent|add_error_class:"border-red-500" %}
                 </div>
                 <div>
                     {% render_field form.visible|add_error_class:"border-red-500" %}
-                    <label for="{{ form.visible.id_for_label }}">{{ form.visible.label }}</label>
-                    <div class="help-text">{{ form.visible.help_text }}</div>
+                    <label for="{{ form.visible.id_for_label }}">
+                        {{ form.visible.label }}
+                    </label>
+                    <div class="help-text">
+                        {{ form.visible.help_text }}
+                    </div>
                 </div>
                 <div>
                     {% render_field form.active|add_error_class:"border-red-500" %}
-                    <label for="{{ form.active.id_for_label }}">{{ form.active.label }}</label>
-                    <div class="help-text">{{ form.active.help_text }}</div>
+                    <label for="{{ form.active.id_for_label }}">
+                        {{ form.active.label }}
+                    </label>
+                    <div class="help-text">
+                        {{ form.active.help_text }}
+                    </div>
                 </div>
                 <div>
                     {% render_field form.machine_translation_enabled|add_error_class:"border-red-500" %}
-                    <label for="{{ form.machine_translation_enabled.id_for_label }}">{{ form.machine_translation_enabled.label }}</label>
-                    <div class="help-text">{{ form.machine_translation_enabled.help_text }}</div>
+                    <label for="{{ form.machine_translation_enabled.id_for_label }}">
+                        {{ form.machine_translation_enabled.label }}
+                    </label>
+                    <div class="help-text">
+                        {{ form.machine_translation_enabled.help_text }}
+                    </div>
                 </div>
             </div>
         </div>

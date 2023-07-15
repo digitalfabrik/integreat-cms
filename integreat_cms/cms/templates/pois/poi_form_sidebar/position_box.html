@@ -11,27 +11,43 @@
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <div>
-        <label class="mt-0">{% translate "Address" %}</label>
+        <label class="mt-0">
+            {% translate "Address" %}
+        </label>
         <div id="nominatim-error"
              class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-2 hidden"
              role="alert">
         </div>
-        <label for="{{ poi_form.address.id_for_label }}" class="secondary">{{ poi_form.address.label }}</label>
+        <label for="{{ poi_form.address.id_for_label }}" class="secondary">
+            {{ poi_form.address.label }}
+        </label>
         {% render_field poi_form.address|add_error_class:"border-red-500" %}
-        <label for="{{ poi_form.postcode.id_for_label }}" class="secondary">{{ poi_form.postcode.label }}</label>
+        <label for="{{ poi_form.postcode.id_for_label }}" class="secondary">
+            {{ poi_form.postcode.label }}
+        </label>
         {% render_field poi_form.postcode|add_error_class:"border-red-500" %}
-        <label for="{{ poi_form.city.id_for_label }}" class="secondary">{{ poi_form.city.label }}</label>
+        <label for="{{ poi_form.city.id_for_label }}" class="secondary">
+            {{ poi_form.city.label }}
+        </label>
         {% render_field poi_form.city|add_error_class:"border-red-500" %}
-        <label for="{{ poi_form.country.id_for_label }}" class="secondary">{{ poi_form.country.label }}</label>
+        <label for="{{ poi_form.country.id_for_label }}" class="secondary">
+            {{ poi_form.country.label }}
+        </label>
         {% render_field poi_form.country|add_error_class:"border-red-500" %}
     </div>
     <div>
         {% render_field poi_form.location_on_map %}
-        <label for="{{ poi_form.location_on_map.id_for_label }}">{{ poi_form.location_on_map.label }}</label>
-        <div class="help-text">{{ poi_form.location_on_map.help_text }}</div>
+        <label for="{{ poi_form.location_on_map.id_for_label }}">
+            {{ poi_form.location_on_map.label }}
+        </label>
+        <div class="help-text">
+            {{ poi_form.location_on_map.help_text }}
+        </div>
     </div>
     <div>
-        <label>{% translate "Position" %}</label>
+        <label>
+            {% translate "Position" %}
+        </label>
         <div>
             <input type="checkbox"
                    id="auto-fill-coordinates"
@@ -41,15 +57,25 @@
                 {% translate "Derive coordinates automatically from address" %}
             </label>
         </div>
-        <label for="{{ poi_form.latitude.id_for_label }}" class="secondary">{{ poi_form.latitude.label }}</label>
+        <label for="{{ poi_form.latitude.id_for_label }}" class="secondary">
+            {{ poi_form.latitude.label }}
+        </label>
         {% render_field poi_form.latitude|add_error_class:"border-red-500" %}
-        <div class="help-text">{{ poi_form.latitude.help_text }}</div>
-        <label for="{{ poi_form.longitude.id_for_label }}" class="secondary">{{ poi_form.longitude.label }}</label>
+        <div class="help-text">
+            {{ poi_form.latitude.help_text }}
+        </div>
+        <label for="{{ poi_form.longitude.id_for_label }}" class="secondary">
+            {{ poi_form.longitude.label }}
+        </label>
         {% render_field poi_form.longitude|add_error_class:"border-red-500" %}
-        <div class="help-text">{{ poi_form.longitude.help_text }}</div>
+        <div class="help-text">
+            {{ poi_form.longitude.help_text }}
+        </div>
     </div>
     <div>
-        <label>{% translate "Map" %}</label>
+        <label>
+            {% translate "Map" %}
+        </label>
         <div id="map"
              class="aspect-video"
              data-url="{% url "get_address_from_coordinates" region_slug=request.region.slug %}"
@@ -82,11 +108,13 @@
                 <div class="bg-green-100 border-l-4 border-green-500 text-green-500 px-4 py-3 my-2">
                     {% translate "New address found" %}
                 </div>
-                <p id="updated_street" class="hidden"></p>
+                <p id="updated_street" class="hidden">
+                </p>
                 <p>
                     <span id="updated_postcode"></span> <span id="updated_city"></span>
                 </p>
-                <p id="updated_country"></p>
+                <p id="updated_country">
+                </p>
             </div>
             <input type="radio"
                    id="update_address_and_coordinates"
@@ -116,7 +144,9 @@
                    name="update_position"
                    required
                    checked />
-            <label for="update_coordinates" class="secondary !inline">{% translate "Update only coordinates" %}</label>
+            <label for="update_coordinates" class="secondary !inline">
+                {% translate "Update only coordinates" %}
+            </label>
             <br />
             <div id="update_address_error"
                  class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-2 hidden"
