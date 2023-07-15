@@ -364,7 +364,6 @@ const Library = ({
                 {fileIndex !== null ? (
                     <div className="relative w-56 md:w-72 lg:w-96 2xl:w-120">
                         <EditSidebar
-                            directory={directory}
                             fileIndexState={[fileIndex, setFileIndex]}
                             mediaLibraryContent={mediaLibraryContent}
                             apiEndpoints={apiEndpoints}

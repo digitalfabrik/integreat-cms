@@ -144,11 +144,11 @@ const EditDirectorySidebar = ({
                                 )}
                                 {canDeleteDirectory && (
                                     <button
-                                        title={`${
+                                        title={
                                             directory.numberOfEntries === 0
                                                 ? mediaTranslations.btn_delete_directory
                                                 : mediaTranslations.btn_delete_empty_directory
-                                        }`}
+                                        }
                                         className={cn("btn", {
                                             "btn-red": !isLoading && directory.numberOfEntries === 0,
                                         })}

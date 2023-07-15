@@ -17,86 +17,86 @@ import "whatwg-fetch"; // IE11: Element.closest
 
 import "./css/style.scss";
 
-import "./js/auto-file-download.ts";
-import "./js/tree-drag-and-drop.ts";
-import "./js/rss-feed.ts";
-import "./js/collapsible-boxes.ts";
-import "./js/push-notifications.ts";
-import "./js/filter-form.ts";
-import "./js/copy-clipboard.ts";
-import "./js/bulk-actions.ts";
-import "./js/conditional-fields.ts";
-import "./js/confirmation-popups.ts";
+import "./js/auto-file-download";
+import "./js/tree-drag-and-drop";
+import "./js/rss-feed";
+import "./js/collapsible-boxes";
+import "./js/push-notifications";
+import "./js/filter-form";
+import "./js/copy-clipboard";
+import "./js/bulk-actions";
+import "./js/conditional-fields";
+import "./js/confirmation-popups";
 import "./js/machine-translation-overlay";
-import "./js/revisions.ts";
-import "./js/search-query.ts";
+import "./js/revisions";
+import "./js/search-query";
 
-import "./js/forms/slug-error.ts";
-import "./js/forms/update-permalink.ts";
-import "./js/forms/distribute-sidebar-boxes.ts";
+import "./js/forms/slug-error";
+import "./js/forms/update-permalink";
+import "./js/forms/distribute-sidebar-boxes";
 
-import "./js/languages/country-flag-fields.ts";
+import "./js/languages/country-flag-fields";
 
-import "./js/regions/conditional-fields.ts";
+import "./js/regions/conditional-fields";
 
-import "./js/feedback/toggle-feedback-entries.ts";
+import "./js/feedback/toggle-feedback-entries";
 
-import "./js/grids/toggle-grid-checkbox.ts";
+import "./js/grids/toggle-grid-checkbox";
 
-import "./js/chat/send-chat-message.ts";
-import "./js/chat/delete-chat-message.ts";
+import "./js/chat/send-chat-message";
+import "./js/chat/delete-chat-message";
 
-import "./js/events/event-query-pois.ts";
-import "./js/events/conditional-fields.ts";
-import "./js/events/auto-complete.ts";
+import "./js/events/event-query-pois";
+import "./js/events/conditional-fields";
+import "./js/events/auto-complete";
 
-import "./js/pages/fetch-subpages.ts";
-import "./js/pages/toggle-subpages.ts";
-import "./js/pages/page-api-token.ts";
-import "./js/pages/page-mirroring.ts";
-import "./js/pages/page-order.ts";
-import "./js/pages/page-permissions.ts";
-import "./js/pages/page-side-by-side.ts";
-import "./js/pages/unset-translation-state.ts";
-import "./js/pages/xliff-file-upload.ts";
-import "./js/pages/xliff-import.ts";
-import "./js/pages/xliff-export-overlay.ts";
-import "./js/pages/page-preview.ts";
+import "./js/pages/fetch-subpages";
+import "./js/pages/toggle-subpages";
+import "./js/pages/page-api-token";
+import "./js/pages/page-mirroring";
+import "./js/pages/page-order";
+import "./js/pages/page-permissions";
+import "./js/pages/page-side-by-side";
+import "./js/pages/unset-translation-state";
+import "./js/pages/xliff-file-upload";
+import "./js/pages/xliff-import";
+import "./js/pages/xliff-export-overlay";
+import "./js/pages/page-preview";
 
-import "./js/mfa/add-key.ts";
-import "./js/mfa/login.ts";
+import "./js/mfa/add-key";
+import "./js/mfa/login";
 
-import "./js/analytics/statistics-charts.ts";
-import "./js/analytics/translation_coverage.ts";
-import "./js/analytics/linkcheck-widget.ts";
+import "./js/analytics/statistics-charts";
+import "./js/analytics/translation_coverage";
+import "./js/analytics/linkcheck-widget";
 import "./js/analytics/hix-list";
 
-import "./js/translations/budget-graph.ts";
+import "./js/translations/budget-graph";
 
-import "./js/user/user-creation-workflow.ts";
-import "./js/user/user-roles.ts";
-import "./js/user/organization.ts";
+import "./js/user/user-creation-workflow";
+import "./js/user/user-roles";
+import "./js/user/organization";
 
 import { createIconsAt } from "./js/utils/create-icons";
 
-import "./js/charCounter.ts";
+import "./js/charCounter";
 
-import "./js/media-management/index.tsx";
-import "./js/media-management/select-media.tsx";
-import "./js/forms/icon-field.tsx";
+import "./js/media-management/index";
+import "./js/media-management/select-media";
+import "./js/forms/icon-field";
 
-import "./js/pagination/pagination.ts";
+import "./js/pagination/pagination";
 
-import "./js/tutorial-overlay.ts";
+import "./js/tutorial-overlay";
 
 import "./js/unsaved-warning";
 
-import "./js/pois/poi-actions.ts";
-import "./js/pois/opening-hours/index.tsx";
+import "./js/pois/poi-actions";
+import "./js/pois/opening-hours/index";
 
-import "./js/menu.ts";
+import "./js/menu";
 
-import "./js/poi-categories/poicategory-colors-icons.ts";
+import "./js/poi-categories/poicategory-colors-icons";
 
 // IE11: fetch
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
