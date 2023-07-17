@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
 
 from ...forms import CustomPasswordResetForm
+from ...utils.translation_utils import gettext_many_lazy as __
 
 logger = logging.getLogger(__name__)
 
@@ -61,10 +62,15 @@ class PasswordResetView(auth_views.PasswordResetView):
 
         If the form is valid, show a success message.
         """
-        messages.success(
-            self.request,
-            " ".join(
-                [
+        logger.debug(
+            "A password reset link for email %r was requested.",
+            form.cleaned_data["email"],
+        )
+        try:
+            response = super().form_valid(form)
+            messages.success(
+                self.request,
+                __(
                     _(
                         "We've emailed you instructions for setting your password, if an account exists with the email you entered."
                     ),
@@ -72,11 +78,17 @@ class PasswordResetView(auth_views.PasswordResetView):
                     _(
                         "If you don’t receive an email, please make sure you’ve entered the address you registered with, and check your spam folder."
                     ),
-                ]
-            ),
-        )
-        logger.debug(
-            "A password reset link for email %r was requested.",
-            form.cleaned_data["email"],
-        )
-        return super().form_valid(form)
+                ),
+            )
+            return response
+        except RuntimeError as e:
+            messages.error(
+                self.request,
+                __(
+                    _("An error occurred! Could not send {}.").format(
+                        _("password reset email")
+                    ),
+                    e,
+                ),
+            )
+            return redirect("public:password_reset")

@@ -2,12 +2,12 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
-from django.core.mail import BadHeaderError
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
+from ..utils.translation_utils import gettext_many_lazy as __
 from .account_activation_token_generator import account_activation_token_generator
 from .email_utils import send_mail
 
@@ -73,9 +73,11 @@ def send_welcome_mail(request, user, activation):
                 debug_mail_type, user.full_user_name
             ),
         )
-    except BadHeaderError as e:
-        logger.exception(e)
+    except RuntimeError as e:
         messages.error(
             request,
-            _("An error occurred! Could not send {}.").format(debug_mail_type),
+            __(
+                _("An error occurred! Could not send {}.").format(debug_mail_type),
+                e,
+            ),
         )
