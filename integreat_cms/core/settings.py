@@ -95,7 +95,7 @@ COMPANY_URL = os.environ.get(
 )
 
 #: The available inbuilt brandings of the CMS
-AVAILABLE_BRANDINGS = ["integreat", "malte", "aschaffenburg"]
+AVAILABLE_BRANDINGS = ["integreat", "malte", "aschaffenburg", "netzwerk-obdach"]
 
 #: The branding of the CMS
 BRANDING = os.environ.get("INTEGREAT_CMS_BRANDING", "integreat")
