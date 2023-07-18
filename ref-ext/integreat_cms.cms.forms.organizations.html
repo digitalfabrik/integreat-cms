@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-03-23T18:25:32+00:00" />
+    <meta property="article:modified_time" content="2023-07-18T11:29:58+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Organizations &mdash; integreat-cms 2023.7.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1739,10 +1739,11 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: Name (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">slug</span></code>: Slug (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.SlugField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SlugField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">icon</span></code>: Logo (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">website</span></code>: Website (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.URLField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">URLField</span></code></a>)</p></li>
 </ul>
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.organizations.organization_form.OrganizationForm.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/organizations/organization_form.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.organizations.organization_form.OrganizationForm.__init__" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/organizations/organization_form.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.organizations.organization_form.OrganizationForm.__init__" title="Permalink to this definition"></a></dt>
 <dd><p>Initialize organization form</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1834,7 +1835,7 @@ logging</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.organizations.organization_form.OrganizationForm.clean_name">
-<span class="sig-name descname"><span class="pre">clean_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/organizations/organization_form.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.organizations.organization_form.OrganizationForm.clean_name" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/organizations/organization_form.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.organizations.organization_form.OrganizationForm.clean_name" title="Permalink to this definition"></a></dt>
 <dd><p>Validate if form fields name is not already in use for another organization in the same region
 (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>)
 :return: The name which is unique per region
@@ -1843,7 +1844,7 @@ logging</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.organizations.organization_form.OrganizationForm.clean_slug">
-<span class="sig-name descname"><span class="pre">clean_slug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/organizations/organization_form.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.organizations.organization_form.OrganizationForm.clean_slug" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean_slug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/organizations/organization_form.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.organizations.organization_form.OrganizationForm.clean_slug" title="Permalink to this definition"></a></dt>
 <dd><p>Validate the slug field (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -2017,7 +2018,7 @@ The opposite of the hidden_fields() method.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 23, 2023.
+      <span class="lastupdated">Last updated on Jul 18, 2023.
       </span></p>
   </div>
 
