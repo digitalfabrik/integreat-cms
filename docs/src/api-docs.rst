@@ -230,7 +230,8 @@ RESPONSE
                "id": Number,           // The id of the organization
                "slug": String,         // The slug of the organization
                "name": String,         // The name of the organization
-               "logo": String | null,  // The icon url of the organization
+               "logo": String,         // The icon url of the organization
+               "website": String,      // The url of the organization website
          } | null
          "hash": null,                 // Currently always null
       },
@@ -325,7 +326,8 @@ RESPONSE
                "id": Number,             // The id of the organization
                "slug": String,           // The slug of the organization
                "name": String,           // The name of the organization
-               "logo": String | null,    // The icon url of the organization
+               "logo": String,           // The icon url of the organization
+               "website": String,        // The url of the organization website
          } | null,
          "barrier_free": Boolean,        // Whether this location is barrier free
       },
