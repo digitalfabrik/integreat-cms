@@ -1,7 +1,9 @@
 """
 This module includes the POI category API endpoint.
 """
+from django.conf import settings
 from django.http import JsonResponse
+from django.templatetags.static import static
 
 from ...cms.models import POICategory
 from ..decorators import json_response
@@ -30,6 +32,10 @@ def transform_location_category(location_category, language_slug):
         else location_category.name,
         "color": location_category.color,
         "icon": location_category.icon,
+        "icon_url": (
+            settings.BASE_URL
+            + static(f"/svg/poi-category-icons/{location_category.icon}.svg")
+        ),
     }
 
 
