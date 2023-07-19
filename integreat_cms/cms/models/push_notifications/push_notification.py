@@ -3,6 +3,7 @@ The model for the push notificatiion
 """
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
@@ -47,6 +48,12 @@ class PushNotification(AbstractBaseModel):
     created_date = models.DateTimeField(
         auto_now_add=True,
         verbose_name=_("creation date"),
+    )
+    scheduled_send_date = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name=_("scheduled send date"),
+        help_text=_("The scheduled date for this push notification to be sent"),
     )
     #: Manage choices in :mod:`~integreat_cms.cms.constants.push_notifications`
     mode = models.CharField(
@@ -108,6 +115,29 @@ class PushNotification(AbstractBaseModel):
             or self.default_translation
             or self.translations.first()
         )
+
+    @cached_property
+    def timezone(self):
+        """
+        The timezone of this push notifications's region
+
+        :return: The timezone of this push notification
+        :rtype: str
+        """
+        return self.region.timezone
+
+    @cached_property
+    def scheduled_send_date_local(self):
+        """
+        Convert the scheduled send date to local time
+
+        :return: The scheduled send date in local time
+        :rtype: Optional[datetime.datetime]
+        """
+        if not self.scheduled_send_date:
+            return None
+        timezone.activate(self.timezone)
+        return timezone.localtime(self.scheduled_send_date)
 
     def __str__(self):
         """

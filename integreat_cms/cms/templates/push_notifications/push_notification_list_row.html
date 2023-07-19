@@ -34,6 +34,13 @@
     <td class="pr-2">
         {{ push_notification_translation.last_updated }}
     </td>
+    <td class="pr-2">
+        {% if push_notification.scheduled_send_date_local %}
+            {{ push_notification.scheduled_send_date_local }}
+        {% else %}
+            {% translate "Manual" %}
+        {% endif %}
+    </td>
     <td class="px-2 whitespace-nowrap">
         {% if push_notification.sent_date %}
             <i icon-name="check" class="text-green-500 align-text-top"></i> {{ push_notification.sent_date }}

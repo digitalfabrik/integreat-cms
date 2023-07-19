@@ -147,6 +147,12 @@ FCM_CHANNELS = (("news", _("News")),)
 #: How many days push notifications are shown in the apps
 FCM_HISTORY_DAYS = 28
 
+#: The interval at which scheduled push notifications are sent out
+#: Must be <= 60 and a divisor of 60
+FCM_SCHEDULE_INTERVAL_MINUTES = 60
+assert (
+    not 60 % FCM_SCHEDULE_INTERVAL_MINUTES
+), "Interval must be <= 60 and a divisor of 60"
 
 ###########
 # GVZ API #

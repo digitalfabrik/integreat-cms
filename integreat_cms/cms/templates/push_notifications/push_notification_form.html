@@ -109,6 +109,26 @@
                             {{ push_notification_form.mode.label }}
                         </label>
                         {% render_field push_notification_form.mode|add_error_class:"border-red-500" %}
+                        <!-- Scheduled date and time -->
+                        {% render_field push_notification_form.schedule_send|add_error_class:"border-red-500" %}
+                        <label for="{{ push_notification_form.schedule_send.id_for_label }}">
+                            {{ push_notification_form.schedule_send.label }}
+                        </label>
+                        <div id="push_notification_schedule" class="hidden">
+                            <label for="{{ push_notification_form.scheduled_send_date_day.id_for_label }}">
+                                {{ push_notification_form.scheduled_send_date_day.label }}
+                            </label>
+                            {% render_field push_notification_form.scheduled_send_date_day|add_error_class:"border-red-500" %}
+                            <label for="{{ push_notification_form.scheduled_send_date_time.id_for_label }}">
+                                {{ push_notification_form.scheduled_send_date_time.label }}
+                            </label>
+                            {% render_field push_notification_form.scheduled_send_date_time|add_class:"invalid:border-red-500"|add_error_class:"border-red-500" %}
+                            {% if schedule_interval > 1 %}
+                                {% blocktranslate trimmed %}
+                                    Messages are sent every {{ schedule_interval }} minutes
+                                {% endblocktranslate %}
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
                 {% if push_notification_form.instance.id %}
