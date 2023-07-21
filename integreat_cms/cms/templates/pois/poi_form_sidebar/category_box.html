@@ -11,8 +11,12 @@
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <div>
-        <label for="{{ poi_form.category.id_for_label }}" class="mt-0">{{ poi_form.category.label }}</label>
+        <label for="{{ poi_form.category.id_for_label }}" class="mt-0">
+            {{ poi_form.category.label }}
+        </label>
         {% render_field poi_form.category|add_error_class:"border-red-500" %}
-        <div class="help-text">{{ poi_form.category.help_text }}</div>
+        <div class="help-text">
+            {{ poi_form.category.help_text }}
+        </div>
     </div>
 {% endblock collapsible_box_content %}

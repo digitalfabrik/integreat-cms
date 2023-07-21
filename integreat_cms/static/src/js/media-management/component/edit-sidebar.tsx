@@ -35,10 +35,9 @@ import {
 import cn from "classnames";
 
 import { showConfirmationPopupAjax } from "../../confirmation-popups";
-import { MediaApiPaths, File, MediaLibraryEntry, Directory, FileUsages } from "../index";
+import { MediaApiPaths, File, MediaLibraryEntry, FileUsages } from "../index";
 
 type Props = {
-    directory: Directory;
     fileIndexState: [number | null, StateUpdater<number | null>];
     mediaLibraryContent: MediaLibraryEntry[];
     apiEndpoints: MediaApiPaths;

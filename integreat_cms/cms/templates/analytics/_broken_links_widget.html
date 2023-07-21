@@ -9,7 +9,9 @@
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <div class="flex flex-wrap justify-between gap-2">
-        <p class="py-3">{% translate "The list below shows all detected errors related to links." %}</p>
+        <p class="py-3">
+            {% translate "The list below shows all detected errors related to links." %}
+        </p>
         <a href="{% url 'linkcheck_landing' region_slug=request.region.slug %}"
            class="btn">{% translate "Details" %}</a>
     </div>
@@ -28,25 +30,40 @@
                class="w-full max-w-xl mb-4 hidden">
             <tbody>
                 <tr>
-                    <td>{% translate "Invalid links" %}</td>
-                    <td id="number_invalid_urls" class="text-right"></td>
+                    <td>
+                        {% translate "Invalid links" %}
+                    </td>
+                    <td id="number_invalid_urls" class="text-right">
+                    </td>
                 </tr>
                 <tr>
-                    <td>{% translate "Valid links" %}</td>
-                    <td id="number_valid_urls" class="text-right"></td>
+                    <td>
+                        {% translate "Valid links" %}
+                    </td>
+                    <td id="number_valid_urls" class="text-right">
+                    </td>
                 </tr>
                 <tr>
-                    <td>{% translate "Ignored links" %}</td>
-                    <td id="number_ignored_urls" class="text-right"></td>
+                    <td>
+                        {% translate "Ignored links" %}
+                    </td>
+                    <td id="number_ignored_urls" class="text-right">
+                    </td>
                 </tr>
                 <tr>
-                    <td class="pb-2 border-b border-gray-400">{% translate "Unchecked links" %}</td>
+                    <td class="pb-2 border-b border-gray-400">
+                        {% translate "Unchecked links" %}
+                    </td>
                     <td id="number_unchecked_urls"
-                        class="text-right border-b border-gray-400"></td>
+                        class="text-right border-b border-gray-400">
+                    </td>
                 </tr>
                 <tr>
-                    <td class="pt-2">{% translate "Total links" %}</td>
-                    <td id="number_all_urls" class="text-right"></td>
+                    <td class="pt-2">
+                        {% translate "Total links" %}
+                    </td>
+                    <td id="number_all_urls" class="text-right">
+                    </td>
                 </tr>
             </tbody>
         </table>

@@ -93,7 +93,9 @@
                     <th class="text-sm text-left uppercase py-3 pl-4 min">
                         <input type="checkbox" id="bulk-select-all" />
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% translate "URL" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "URL" %}
+                    </th>
                     {# djlint:off H023 #}
                     <th class="text-sm text-left uppercase py-3 pr-2 min"
                         title="{% translate "SSL is the standard technology for securing Internet connections and protecting sensitive data transferred between two systems." %}&#013;&#013;{% translate "When a website is secured by an SSL certificate, its URL starts with 'https', insecure links with 'http' should no longer be used." %}">
@@ -110,7 +112,9 @@
                         title="{% translate "HTTP response status codes indicate whether a specific HTTP request has been successfully completed." %}">
                         {% translate "Code" %}
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Status" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Status" %}
+                    </th>
                     <th class="text-sm text-left uppercase py-3 pr-2"
                         title="{% translate "The link text of the first usage" %}">
                         {% translate "Link text" %}
@@ -123,7 +127,9 @@
                         title="{% translate "The number of times this URL is used in the content" %}">
                         {% translate "Usages" %}
                     </th>
-                    <th class="text-sm text-right uppercase py-3 pr-4 min">{% translate "Options" %}</th>
+                    <th class="text-sm text-right uppercase py-3 pr-4 min">
+                        {% translate "Options" %}
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -159,7 +165,9 @@
         {% endif %}
         <div class="flex flex-wrap relative w-1/2 mt-5 items-stretch gap-2">
             <select id="bulk-action" name="action" class="w-auto max-w-full">
-                <option>{% translate "Select bulk action" %}</option>
+                <option>
+                    {% translate "Select bulk action" %}
+                </option>
                 {% if view.kwargs.url_filter == 'ignored' %}
                     <option value="unignore"
                             data-bulk-action="{% url 'linkcheck' region_slug=request.region.slug url_filter=view.kwargs.url_filter %}{{ pagination_params }}">
@@ -176,7 +184,9 @@
                     </option>
                 {% endif %}
             </select>
-            <button id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
+            <button id="bulk-action-execute" class="btn" disabled>
+                {% translate "Execute" %}
+            </button>
         </div>
     </form>
     {% url 'linkcheck' as url %}

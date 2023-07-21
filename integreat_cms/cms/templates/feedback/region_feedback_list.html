@@ -7,7 +7,9 @@
     {% with filter_form.filters_visible as filters_visible %}
         <div class="table-header">
             <div class="flex flex-wrap justify-between">
-                <h1 class="heading">{% translate "Feedback" %}</h1>
+                <h1 class="heading">
+                    {% translate "Feedback" %}
+                </h1>
                 <a href="{% url 'region_feedback_archived' region_slug=request.region.slug %}"
                    class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
                     <span>
@@ -40,14 +42,30 @@
                     title="{% translate "Select all" %}">
                     <input type="checkbox" id="bulk-select-all" />
                 </th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Category" %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Feedback on" %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Language" %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Comment" %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Rating" %}</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Rating" %} ({% translate "overall" %})</th>
-                <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Marked as read by" %}</th>
-                <th class="text-sm text-right uppercase py-3 pr-2">{% translate "Date" %}</th>
+                <th class="text-sm text-left uppercase py-3 pr-2">
+                    {% translate "Category" %}
+                </th>
+                <th class="text-sm text-left uppercase py-3 pr-2">
+                    {% translate "Feedback on" %}
+                </th>
+                <th class="text-sm text-left uppercase py-3 pr-2">
+                    {% translate "Language" %}
+                </th>
+                <th class="text-sm text-left uppercase py-3 pr-2">
+                    {% translate "Comment" %}
+                </th>
+                <th class="text-sm text-left uppercase py-3 pr-2">
+                    {% translate "Rating" %}
+                </th>
+                <th class="text-sm text-left uppercase py-3 pr-2">
+                    {% translate "Rating" %} ({% translate "overall" %})
+                </th>
+                <th class="text-sm text-left uppercase py-3 pr-2">
+                    {% translate "Marked as read by" %}
+                </th>
+                <th class="text-sm text-right uppercase py-3 pr-2">
+                    {% translate "Date" %}
+                </th>
             </tr>
             {% for feedback in region_feedback %}
                 <tr class="border-t border-solid border-gray-200 hover:bg-gray-200 {% if not feedback.read %}bg-yellow-100 border-yellow-200 hover:border-gray-200{% endif %}">
@@ -58,7 +76,9 @@
                                value="{{ feedback.id }}"
                                class="bulk-select-item" />
                     </td>
-                    <td class="pr-2 whitespace-nowrap">{{ feedback.category }}</td>
+                    <td class="pr-2 whitespace-nowrap">
+                        {{ feedback.category }}
+                    </td>
                     <td class="pr-2 truncate max-w-[75px] 2xl:max-w-[200px]"
                         title="{{ feedback.object_name }}">
                         {% if feedback.object_url %}
@@ -79,7 +99,9 @@
                             </div>
                         {% endif %}
                     </td>
-                    <td class="pr-2">{{ feedback.language.translated_name }}</td>
+                    <td class="pr-2">
+                        {{ feedback.language.translated_name }}
+                    </td>
                     <td class="pr-2 max-w-[75px] xl:max-w-[280px] 2xl:max-w-[400px] 3xl:max-w-[550px] 4xl:max-w-[900px]"
                         title="{{ feedback.comment }}">
                         {% if not feedback.comment %}
@@ -118,7 +140,9 @@
                             {{ feedback.read_by.full_user_name }}
                         {% endif %}
                     </td>
-                    <td class="pr-2 text-right whitespace-nowrap">{{ feedback.created_date }}</td>
+                    <td class="pr-2 text-right whitespace-nowrap">
+                        {{ feedback.created_date }}
+                    </td>
                 </tr>
             {% empty %}
                 <tr>
@@ -143,7 +167,9 @@
             <div class="flex flex-col">
                 <div class="flex self-start gap-2 mt-2">
                     <select id="bulk-action">
-                        <option>{% translate "Select bulk action" %}</option>
+                        <option>
+                            {% translate "Select bulk action" %}
+                        </option>
                         <option data-bulk-action="{% url 'mark_region_feedback_as_read' region_slug=request.region.slug %}">
                             {% translate "Mark as read" %}
                         </option>
@@ -159,7 +185,9 @@
                             </option>
                         {% endif %}
                     </select>
-                    <button id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
+                    <button id="bulk-action-execute" class="btn" disabled>
+                        {% translate "Execute" %}
+                    </button>
                 </div>
             </div>
         {% endif %}

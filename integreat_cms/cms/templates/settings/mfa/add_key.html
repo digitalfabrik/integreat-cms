@@ -10,8 +10,11 @@
           data-mfa-challenge-url="{% spaceless %} {% if request.region %} {% url 'get_mfa_challenge' region_slug=request.region.slug %} {% else %} {% url 'get_mfa_challenge' %} {% endif %} {% endspaceless %}">
         <div class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 mb-5 hidden add-mfa-error"
              role="alert">
-            <p>{% translate "Something went wrong during 2FA registration" %}:</p>
-            <p class="add-mfa-error-msg"></p>
+            <p>
+                {% translate "Something went wrong during 2FA registration" %}:
+            </p>
+            <p class="add-mfa-error-msg">
+            </p>
         </div>
         <div class="mb-6">
             <p>
@@ -27,10 +30,14 @@
             {% render_field form.name|add_error_class:"border-red-500" placeholder=name_placeholder class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-600 leading-tight focus:outline-none focus:shadow-outline" %}
         </div>
         <div class="flex items-center justify-between">
-            <button class="btn w-full">{% translate "Add 2FA key" %}</button>
+            <button class="btn w-full">
+                {% translate "Add 2FA key" %}
+            </button>
         </div>
     </form>
     <div class="mfa-not-supported mb-6 hidden">
-        <p>{% translate "It seems like your browser does not support webauthn" %}</p>
+        <p>
+            {% translate "It seems like your browser does not support webauthn" %}
+        </p>
     </div>
 {% endblock content %}

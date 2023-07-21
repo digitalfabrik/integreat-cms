@@ -6,7 +6,9 @@
     <form method="post" data-unsaved-warning>
         {% csrf_token %}
         <div class="flex justify-between mb-4">
-            <h1 class="heading">{% translate "Search & replace in links" %}</h1>
+            <h1 class="heading">
+                {% translate "Search & replace in links" %}
+            </h1>
         </div>
         <div class="pb-4">
             <span class="font-bold pb-4">{% translate "Here you can replace internal links, e-mail addresses and phone numbers partially or completely." %}</span>
@@ -42,25 +44,41 @@
                     </div>
                     <div class="px-4 pb-4">
                         <div>
-                            <label for="{{ form.link_types.id_for_label }}">{{ form.link_types.label }}</label>
+                            <label for="{{ form.link_types.id_for_label }}">
+                                {{ form.link_types.label }}
+                            </label>
                             {% render_field form.link_types %}
                         </div>
                         <div class="flex mt-2 mb-2 gap-2">
                             <div>
-                                <label for="{{ form.search.id_for_label }}">{{ form.search.label }}</label>
-                                <div class="help-text">{{ form.search.help_text }}</div>
-                                <div class="relative flex-grow">{% render_field form.search %}</div>
+                                <label for="{{ form.search.id_for_label }}">
+                                    {{ form.search.label }}
+                                </label>
+                                <div class="help-text">
+                                    {{ form.search.help_text }}
+                                </div>
+                                <div class="relative flex-grow">
+                                    {% render_field form.search %}
+                                </div>
                             </div>
                             <i icon-name="arrow-right" class="mt-auto mb-auto"></i>
                             <div>
-                                <label for="{{ form.replace.id_for_label }}">{{ form.replace.label }}</label>
-                                <div class="help-text">{{ form.replace.help_text }}</div>
-                                <div class="relative flex-grow">{% render_field form.replace %}</div>
+                                <label for="{{ form.replace.id_for_label }}">
+                                    {{ form.replace.label }}
+                                </label>
+                                <div class="help-text">
+                                    {{ form.replace.help_text }}
+                                </div>
+                                <div class="relative flex-grow">
+                                    {% render_field form.replace %}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="btn ml-auto mr-0">{% translate "Replace" %}</button>
+                <button type="submit" class="btn ml-auto mr-0">
+                    {% translate "Replace" %}
+                </button>
             </div>
         </div>
     </form>

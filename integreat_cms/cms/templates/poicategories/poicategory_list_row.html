@@ -32,10 +32,14 @@
                     data="{% get_static_prefix %}/svg/poi-category-icons/{{ poi_category.icon }}.svg"
                     data-color="{{ poi_category.color|default_if_none:"" }}"
                     type="image/svg+xml"></object>
-            <div>{{ poi_category.get_icon_display }}</div>
+            <div>
+                {{ poi_category.get_icon_display }}
+            </div>
         {% endif %}
     </td>
-    <td class="pr-2 text-right">{{ poi_category.pois.count }}</td>
+    <td class="pr-2 text-right">
+        {{ poi_category.pois.count }}
+    </td>
     <td class="pl-2 pr-4 text-right min">
         {% if perms.cms.delete_poicategory %}
             {% if poi_category.pois.exists %}

@@ -9,7 +9,9 @@
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <div class="flex flex-wrap justify-between gap-2">
-        <p class="py-3">{% translate "Number of online accesses over the last 14 days." %}</p>
+        <p class="py-3">
+            {% translate "Number of online accesses over the last 14 days." %}
+        </p>
         <a href="{% url 'statistics' region_slug=request.region.slug %}"
            id="statistics_details"
            class="btn">

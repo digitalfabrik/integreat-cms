@@ -16,14 +16,22 @@
                 <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
             </div>
         </div>
-        <label>{% translate "Improve the understandability of the page content" %}</label>
+        <label>
+            {% translate "Improve the understandability of the page content" %}
+        </label>
         <div {% if not request.user.expert_mode %}class="hidden"{% endif %}>
             {% render_field page_form.hix_ignore %}
-            <label for="{{ page_form.hix_ignore.id_for_label }}" class="secondary">{{ page_form.hix_ignore.label }}</label>
-            <div class="help-text">{{ page_form.hix_ignore.help_text }}</div>
+            <label for="{{ page_form.hix_ignore.id_for_label }}" class="secondary">
+                {{ page_form.hix_ignore.label }}
+            </label>
+            <div class="help-text">
+                {{ page_form.hix_ignore.help_text }}
+            </div>
         </div>
         {% if not request.user.expert_mode and page_form.instance.hix_ignore %}
-            <div class="help-text">{% translate "HIX value calulation is disabled for this page." %}</div>
+            <div class="help-text">
+                {% translate "HIX value calulation is disabled for this page." %}
+            </div>
         {% endif %}
         <div id="hix-block"
              class="{% if page_form.instance.hix_ignore %}hidden{% endif %}">

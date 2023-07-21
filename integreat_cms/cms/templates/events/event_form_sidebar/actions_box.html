@@ -12,7 +12,9 @@
 {% block collapsible_box_content %}
     <div>
         {% if event_form.instance.archived %}
-            <label class="mt-0">{% translate "Restore event" %}</label>
+            <label class="mt-0">
+                {% translate "Restore event" %}
+            </label>
             <button class="btn confirmation-button w-full"
                     data-confirmation-title="{{ restore_dialog_title }}"
                     data-confirmation-text="{{ restore_dialog_text }}"
@@ -22,7 +24,9 @@
                 {% translate "Restore this event" %}
             </button>
         {% else %}
-            <label class="mt-0">{% translate "Archive event" %}</label>
+            <label class="mt-0">
+                {% translate "Archive event" %}
+            </label>
             <button class="btn confirmation-button w-full"
                     data-confirmation-title="{{ archive_dialog_title }}"
                     data-confirmation-text="{{ archive_dialog_text }}"
@@ -35,7 +39,9 @@
     </div>
     {% if perms.cms.delete_event %}
         <div>
-            <label>{% translate "Delete event" %}</label>
+            <label>
+                {% translate "Delete event" %}
+            </label>
             <button class="btn btn-red confirmation-button w-full"
                     data-confirmation-title="{{ delete_dialog_title }}"
                     data-confirmation-text="{{ delete_dialog_text }}"

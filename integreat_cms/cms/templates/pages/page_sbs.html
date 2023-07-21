@@ -24,7 +24,9 @@
                     {% if not source_page_translation.page.archived %}
                         {% has_perm 'cms.publish_page_object' request.user source_page_translation.page as can_publish_page %}
                         {% if can_publish_page %}
-                            <button name="status" value="{{ DRAFT }}" class="btn btn-outline">{% translate "Save as draft" %}</button>
+                            <button name="status" value="{{ DRAFT }}" class="btn btn-outline">
+                                {% translate "Save as draft" %}
+                            </button>
                             <button name="status" value="{{ PUBLIC }}" class="btn">
                                 {% if page_translation_form.instance.status == PUBLIC %}
                                     {% translate "Update" %}
@@ -33,7 +35,9 @@
                                 {% endif %}
                             </button>
                         {% elif can_edit_page %}
-                            <button name="status" value="{{ REVIEW }}" class="btn">{% translate "Submit for review" %}</button>
+                            <button name="status" value="{{ REVIEW }}" class="btn">
+                                {% translate "Submit for review" %}
+                            </button>
                         {% endif %}
                     {% endif %}
                 </div>
@@ -57,35 +61,53 @@
                         {{ source_page_translation.language.translated_name }}
                     </div>
                     <div class="px-4 pb-4 rounded bg-white">
-                        <label class="inline-block mt-4 mb-2 font-bold">{% translate "Version" %}:</label>
+                        <label class="inline-block mt-4 mb-2 font-bold">
+                            {% translate "Version" %}:
+                        </label>
                         {{ source_page_translation.version }}
                         <br />
-                        <label class="inline-block mb-2 font-bold">{% translate "Status" %}:</label>
+                        <label class="inline-block mb-2 font-bold">
+                            {% translate "Status" %}:
+                        </label>
                         {{ source_page_translation.get_status_display }}
-                        <label>{{ page_translation_form.slug.label }}</label>
+                        <label>
+                            {{ page_translation_form.slug.label }}
+                        </label>
                         <div class="slug-field">
-                            <label>{{ source_page_translation.base_link }}</label>
+                            <label>
+                                {{ source_page_translation.base_link }}
+                            </label>
                             <input type="text" value="{{ source_page_translation.slug }}" disabled />
                         </div>
-                        <label>{{ page_translation_form.title.label }}</label>
+                        <label>
+                            {{ page_translation_form.title.label }}
+                        </label>
                         <input id="source_translation_title"
                                type="text"
                                value="{{ source_page_translation.title }}"
                                disabled />
                         <div>
-                            <label class="block font-bold">{{ page_translation_form.content.label }}</label>
+                            <label class="block font-bold">
+                                {{ page_translation_form.content.label }}
+                            </label>
                             <textarea id="source_translation_tinymce" cols="40" rows="10" class="tinymce_textarea" disabled data-old="{{ old_translation_content }}" data-new="{{ source_page_translation.content }}" data-unsaved-warning-exclude>
                                 {{source_page_translation.content}}
                             </textarea>
                         </div>
-                        <label>{% translate "Actions" %}</label>
+                        <label>
+                            {% translate "Actions" %}
+                        </label>
                         <div class="flex flex-wrap gap-4">
                             <button id="toggle-translation-diff"
                                     class="btn grow bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                                     title="{% if page_translation_form.instance.is_up_to_date %}{% translate "No changes have been made to the source translation." %}{% else %}{% translate "Toggle source translation differences" %}{% endif %}"
                                     {% if page_translation_form.instance.is_up_to_date %}disabled{% endif %}>
-                                <div class="hidden toggle">{% translate "Hide source translation differences" %}</div>
-                                <div>{% translate "Show source translation differences" %}</div>
+                                <div class="hidden toggle">
+                                    {% translate "Hide source translation differences" %}
+                                </div>
+                                <div>
+                                    {% translate "Show source translation differences" %}
+                                </div>
                             </button>
                             <button id="copy-translation-content"
                                     title="{% translate "Copy content" %}"
@@ -127,35 +149,55 @@
                     <div class="px-4 pb-4 rounded bg-white">
                         {% csrf_token %}
                         {% if page_translation_form.instance.id %}
-                            <label class="inline-block mt-4 mb-2 font-bold">{% translate "Version" %}:</label>
+                            <label class="inline-block mt-4 mb-2 font-bold">
+                                {% translate "Version" %}:
+                            </label>
                             {{ page_translation_form.instance.version }}
                             <br />
-                            <label class="inline-block mb-2 font-bold">{% translate "Status" %}:</label>
+                            <label class="inline-block mb-2 font-bold">
+                                {% translate "Status" %}:
+                            </label>
                             {{ page_translation_form.instance.get_status_display }}
                         {% else %}
-                            <label class="inline-block mt-4 mb-2 font-bold">{% translate "Version" %}:</label>
+                            <label class="inline-block mt-4 mb-2 font-bold">
+                                {% translate "Version" %}:
+                            </label>
                             {% translate "New" %}
                             <br />
-                            <label class="inline-block mb-2 font-bold">{% translate "Status" %}:</label>
+                            <label class="inline-block mb-2 font-bold">
+                                {% translate "Status" %}:
+                            </label>
                             {% translate "Not saved yet" %}
                         {% endif %}
-                        <label for="{{ page_translation_form.slug.id_for_label }}">{{ page_translation_form.slug.label }}</label>
+                        <label for="{{ page_translation_form.slug.id_for_label }}">
+                            {{ page_translation_form.slug.label }}
+                        </label>
                         <div class="slug-field">
-                            <label for="{{ page_translation_form.slug.id_for_label }}">{{ page_translation_form.instance.base_link }}</label>
+                            <label for="{{ page_translation_form.slug.id_for_label }}">
+                                {{ page_translation_form.instance.base_link }}
+                            </label>
                             {% translate " Leave blank to generate unique permalink from title" as slug_placeholder %}
                             {% render_field page_translation_form.slug placeholder=slug_placeholder %}
                         </div>
-                        <label for="{{ page_translation_form.title.id_for_label }}">{{ page_translation_form.title.label }}</label>
+                        <label for="{{ page_translation_form.title.id_for_label }}">
+                            {{ page_translation_form.title.label }}
+                        </label>
                         {% render_field page_translation_form.title|add_error_class:"border-red-500" id="target_translation_title" %}
-                        <label for="{{ page_translation_form.content.id_for_label }}">{{ page_translation_form.content.label }}</label>
+                        <label for="{{ page_translation_form.content.id_for_label }}">
+                            {{ page_translation_form.content.label }}
+                        </label>
                         {% render_field page_translation_form.content|add_error_class:"border-red-500" class="tinymce_textarea" id="target_translation_tinymce" %}
-                        <label>{% translate "Implications on other translations" %}</label>
+                        <label>
+                            {% translate "Implications on other translations" %}
+                        </label>
                         {% render_field page_translation_form.minor_edit id="minor_edit" %}
                         <label for="{{ page_translation_form.minor_edit.id_for_label }}"
                                class="secondary">
                             {{ page_translation_form.minor_edit.label }}
                         </label>
-                        <div class="help-text">{{ page_translation_form.minor_edit.help_text }}</div>
+                        <div class="help-text">
+                            {{ page_translation_form.minor_edit.help_text }}
+                        </div>
                     </div>
                 </div>
             </div>

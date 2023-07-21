@@ -20,11 +20,15 @@
                                    {% if request.user.page_tree_tutorial_seen %}checked{% endif %} />
                             {% translate "Don't show again" %}
                         </label>
-                        <button type="submit" class="btn">{% translate "Understood" %}</button>
+                        <button type="submit" class="btn">
+                            {% translate "Understood" %}
+                        </button>
                     </div>
                 </form>
             {% else %}
-                <p class="text-red-500">Implementation error: tutorial_id was not provided</p>
+                <p class="text-red-500">
+                    Implementation error: tutorial_id was not provided
+                </p>
             {% endif %}
         </div>
     </div>

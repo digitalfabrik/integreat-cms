@@ -1,3 +1,3 @@
 import "maplibre-gl/dist/maplibre-gl.css";
 
-import "./js/pois/poi-map.ts";
+import "./js/pois/poi-map";

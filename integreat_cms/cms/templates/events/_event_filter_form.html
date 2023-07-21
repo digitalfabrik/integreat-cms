@@ -9,24 +9,36 @@
     {% include "../_keep_pagination_data.html" %}
     <div class="flex flex-wrap p-4 items-start">
         <div class="w-1/3 pr-6">
-            <label>{% translate "Time range" %}</label>
-            <div class="flex flex-wrap">{% render_field filter_form.events_time_range|add_error_class:"border-red-500" %}</div>
+            <label>
+                {% translate "Time range" %}
+            </label>
+            <div class="flex flex-wrap">
+                {% render_field filter_form.events_time_range|add_error_class:"border-red-500" %}
+            </div>
             <div id="events-custom-time-range-filter" class="hidden">
                 <div class="flex flex-wrap items-end">
                     <div class="w-1/2 pr-1">
-                        <label for="date_from" class="secondary">{% translate "From" %}</label>
+                        <label for="date_from" class="secondary">
+                            {% translate "From" %}
+                        </label>
                         {% render_field filter_form.date_from|add_error_class:"border-red-500" %}
                     </div>
                     <div class="w-1/2">
-                        <label for="date_to" class="secondary">{% translate "To" %}</label>
+                        <label for="date_to" class="secondary">
+                            {% translate "To" %}
+                        </label>
                         {% render_field filter_form.date_to|add_error_class:"border-red-500" %}
                     </div>
                 </div>
             </div>
         </div>
         <div class="w-1/3 pr-6">
-            <label>{% translate "Location" %}</label>
-            <label for="poi-query-input" class="secondary">{% translate "Event location" %}</label>
+            <label>
+                {% translate "Location" %}
+            </label>
+            <label for="poi-query-input" class="secondary">
+                {% translate "Event location" %}
+            </label>
             <div class="relative my-2">
                 {% translate "Search" as search_placeholder %}
                 <input id="poi-query-input"
@@ -44,14 +56,20 @@
                 </div>
             </div>
             {% render_field filter_form.poi_id id="id_location" class+="hidden" %}
-            <div class="relative" id="poi-query-result">{% include "events/_poi_query_result.html" %}</div>
+            <div class="relative" id="poi-query-result">
+                {% include "events/_poi_query_result.html" %}
+            </div>
         </div>
         <div class="w-1/3">
-            <label>{% translate "All day events" %}</label>
+            <label>
+                {% translate "All day events" %}
+            </label>
             <div class="flex flex-wrap">
                 {% render_field filter_form.all_day|add_error_class:"border-red-500" class+="leading-normal rounded" %}
             </div>
-            <label>{% translate "Recurring events" %}</label>
+            <label>
+                {% translate "Recurring events" %}
+            </label>
             <div class="flex flex-wrap">
                 {% render_field filter_form.recurring|add_error_class:"border-red-500" class+="leading-normal rounded" %}
             </div>
@@ -59,6 +77,8 @@
     </div>
     <div class="w-full flex p-4 justify-end gap-4">
         <a id="filter-reset" class="btn btn-ghost">{% translate "Reset filter" %}</a>
-        <button name="filter" class="btn">{% translate "Apply filter" %}</button>
+        <button name="filter" class="btn">
+            {% translate "Apply filter" %}
+        </button>
     </div>
 </form>

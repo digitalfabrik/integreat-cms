@@ -9,7 +9,9 @@
     {% with filter_form.filters_visible as filters_visible %}
         <div class="table-header">
             <div class="flex flex-wrap justify-between gap-4">
-                <h1 class="heading">{% translate "Archived Pages" %}</h1>
+                <h1 class="heading">
+                    {% translate "Archived Pages" %}
+                </h1>
                 <a href="{% url 'pages' region_slug=request.region.slug language_slug=language.slug %}"
                    class="font-bold text-sm text-gray-800 flex items-center gap-1 mb-2 hover:underline">
                     <span><i icon-name="layout" class="align-top h-5"></i> {% translate "Page Tree" %}</span>
@@ -46,9 +48,13 @@
                             <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
                         </th>
                         {% if not filter_form.is_enabled %}
-                            <th class="text-sm text-left uppercase py-3 pr-2 min">{% translate "Hierarchy" %}</th>
+                            <th class="text-sm text-left uppercase py-3 pr-2 min">
+                                {% translate "Hierarchy" %}
+                            </th>
                         {% endif %}
-                        <th class="text-sm text-left uppercase py-3 px-2">{% translate "Title in" %} {{ language.translated_name }}</th>
+                        <th class="text-sm text-left uppercase py-3 px-2">
+                            {% translate "Title in" %} {{ language.translated_name }}
+                        </th>
                         {% get_current_language as LANGUAGE_CODE %}
                         {% get_language LANGUAGE_CODE as backend_language %}
                         {% if backend_language and backend_language != language %}
@@ -68,9 +74,15 @@
                                 {% endspaceless %}
                             </div>
                         </th>
-                        <th class="text-sm text-left uppercase py-3 px-2">{% translate "Status" %}</th>
-                        <th class="text-sm text-left uppercase py-3 pl-2">{% translate "Last updated" %}</th>
-                        <th class="text-sm text-right uppercase py-3 pl-2 pr-4 min">{% translate "Options" %}</th>
+                        <th class="text-sm text-left uppercase py-3 px-2">
+                            {% translate "Status" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pl-2">
+                            {% translate "Last updated" %}
+                        </th>
+                        <th class="text-sm text-right uppercase py-3 pl-2 pr-4 min">
+                            {% translate "Options" %}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -93,12 +105,16 @@
             {% if can_edit_pages %}
                 <div class="flex flex-wrap gap-2 mt-4">
                     <select id="bulk-action" class="w-auto max-w-full">
-                        <option>{% translate "Select bulk action" %}</option>
+                        <option>
+                            {% translate "Select bulk action" %}
+                        </option>
                         <option data-bulk-action="{% url 'bulk_restore_pages' region_slug=request.region.slug language_slug=language.slug %}">
                             {% translate "Restore pages" %}
                         </option>
                     </select>
-                    <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
+                    <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
+                        {% translate "Execute" %}
+                    </button>
                 </div>
             {% endif %}
         </div>

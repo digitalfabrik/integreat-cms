@@ -10,7 +10,9 @@
     </div>
     <form method="post">
         {% csrf_token %}
-        <button class="btn w-full" type="submit">{% translate "Confirm" %}</button>
+        <button class="btn w-full" type="submit">
+            {% translate "Confirm" %}
+        </button>
         <div class="text-left mt-4">
             <a href="{% if request.region %}{% url 'user_settings' region_slug=request.region.slug %}{% else %}{% url 'user_settings' %}{% endif %}"
                class="text-gray-600 hover:text-gray-200 hover:bg-gray-600 rounded py-4 px-3 font-bold">

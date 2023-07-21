@@ -4,20 +4,28 @@
     {% include "../_keep_pagination_data.html" %}
     <div class="grid grid-cols-3 gap-4 mb-4">
         <div>
-            <label for="{{ filter_form.role.id_for_label }}">{{ filter_form.role.label }}</label>
+            <label for="{{ filter_form.role.id_for_label }}">
+                {{ filter_form.role.label }}
+            </label>
             {% render_field filter_form.role %}
         </div>
         <div>
-            <label for="{{ filter_form.permissions.id_for_label }}">{{ filter_form.permissions.label }}</label>
+            <label for="{{ filter_form.permissions.id_for_label }}">
+                {{ filter_form.permissions.label }}
+            </label>
             {% render_field filter_form.permissions %}
         </div>
         <div>
-            <label for="{{ filter_form.region.id_for_label }}">{{ filter_form.region.label }}</label>
+            <label for="{{ filter_form.region.id_for_label }}">
+                {{ filter_form.region.label }}
+            </label>
             {% render_field filter_form.region %}
         </div>
     </div>
     <div class="flex justify-end gap-4">
         <a id="filter-reset" class="btn btn-ghost">{% translate "Reset filter" %}</a>
-        <button class="btn">{% translate "Apply filter" %}</button>
+        <button class="btn">
+            {% translate "Apply filter" %}
+        </button>
     </div>
 </form>

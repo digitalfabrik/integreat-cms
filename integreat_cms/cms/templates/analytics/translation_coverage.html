@@ -4,7 +4,9 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-12">
-            <h1 class="heading">{% translate "Translation Report" %}</h1>
+            <h1 class="heading">
+                {% translate "Translation Report" %}
+            </h1>
             <p class="py-3 text-lg">
                 {% translate "Here you can get an overview of the current translation status of your page content." %}
             </p>
@@ -37,45 +39,71 @@
                     <table class="w-full rounded bg-white">
                         <thead>
                             <tr class="border-b border-solid border-gray-200">
-                                <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% translate "Language" %}</th>
-                                <th class="text-sm text-left uppercase py-3 pl-4 pr-4">{% translate "Outdated (Words)" %}</th>
-                                <th class="text-sm text-left uppercase py-3 pl-4 pr-4">{% translate "Missing (Words)" %}</th>
-                                <th class="text-sm text-left uppercase py-3 pl-4 pr-4">{% translate "Total (per language)" %}</th>
+                                <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                                    {% translate "Language" %}
+                                </th>
+                                <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
+                                    {% translate "Outdated (Words)" %}
+                                </th>
+                                <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
+                                    {% translate "Missing (Words)" %}
+                                </th>
+                                <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
+                                    {% translate "Total (per language)" %}
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for language, counter in word_count.items %}
                                 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
                                     <td class="pl-2">
-                                        <p class="block py-3 px-2 text-gray-800">{{ language }}</p>
+                                        <p class="block py-3 px-2 text-gray-800">
+                                            {{ language }}
+                                        </p>
                                     </td>
                                     <td class="pl-2">
-                                        <p class="block py-3 px-2 text-gray-800">{{ counter.OUTDATED }}</p>
+                                        <p class="block py-3 px-2 text-gray-800">
+                                            {{ counter.OUTDATED }}
+                                        </p>
                                     </td>
                                     <td class="pl-2 ">
-                                        <p class="block py-3 px-2 text-gray-800 ">{{ counter.MISSING }}</p>
+                                        <p class="block py-3 px-2 text-gray-800 ">
+                                            {{ counter.MISSING }}
+                                        </p>
                                     </td>
                                     <td class="pl-2">
-                                        <p class="block py-3 px-2 text-gray-800">{{ counter.OUTDATED|add:counter.MISSING }}</p>
+                                        <p class="block py-3 px-2 text-gray-800">
+                                            {{ counter.OUTDATED|add:counter.MISSING }}
+                                        </p>
                                     </td>
                                 </tr>
                             {% empty %}
                                 <tr>
-                                    <td colspan="6" class="px-4 py-3">{% translate "No Language available." %}</td>
+                                    <td colspan="6" class="px-4 py-3">
+                                        {% translate "No Language available." %}
+                                    </td>
                                 </tr>
                             {% endfor %}
                             <tr class="border-t-2 border-solid border-gray-900 hover:bg-gray-100">
                                 <td class="pl-2">
-                                    <p class="block font-extrabold py-3 px-2 text-gray-900">{% translate "Total" %}</p>
+                                    <p class="block font-extrabold py-3 px-2 text-gray-900">
+                                        {% translate "Total" %}
+                                    </p>
                                 </td>
                                 <td class="pl-2">
-                                    <p class="block py-3 px-2 text-gray-800">{{ total_outdated_words }}</p>
+                                    <p class="block py-3 px-2 text-gray-800">
+                                        {{ total_outdated_words }}
+                                    </p>
                                 </td>
                                 <td class="pl-2">
-                                    <p class="block py-3 px-2 text-gray-800">{{ total_missing_words }}</p>
+                                    <p class="block py-3 px-2 text-gray-800">
+                                        {{ total_missing_words }}
+                                    </p>
                                 </td>
                                 <td class="pl-2">
-                                    <p class="block py-3 px-2 text-gray-800">{{ total_outdated_words|add:total_missing_words }}</p>
+                                    <p class="block py-3 px-2 text-gray-800">
+                                        {{ total_outdated_words|add:total_missing_words }}
+                                    </p>
                                 </td>
                             </tr>
                         </tbody>

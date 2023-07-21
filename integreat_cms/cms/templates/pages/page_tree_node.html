@@ -34,7 +34,9 @@
                   class="drag cursor-move text-gray-800 inline-block pl-4 align-middle"
                   draggable="{% if can_edit_pages %}true{% else %}false{% endif %}"
                   title="{% translate "Change the order and position of the pages with drag & drop." %}">
-                {% if can_edit_pages %}<i icon-name="move"></i>{% endif %}
+                {% if can_edit_pages %}
+                    <i icon-name="move"></i>
+                {% endif %}
             </span>
             {% if not page.parent_id and not page.is_leaf or page.parent_id and page.cached_children|length > 0 %}
                 <span class="toggle-subpages inline-block align-middle cursor-wait transform"
@@ -129,7 +131,9 @@
         </div>
     </td>
     <td>
-        <div class="block py-1.5 px-2 text-gray-800">{{ page_translation.get_status_display }}</div>
+        <div class="block py-1.5 px-2 text-gray-800">
+            {{ page_translation.get_status_display }}
+        </div>
     </td>
     <td>
         <div class="block py-1.5 px-2 whitespace-nowrap text-gray-800">

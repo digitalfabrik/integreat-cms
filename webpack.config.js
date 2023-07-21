@@ -113,7 +113,10 @@ module.exports = {
         { from: "integreat_cms/static/src/logos", to: "logos" },
       ],
     }),
-    new BundleTracker({ filename: "integreat_cms/webpack-stats.json" }),
+    new BundleTracker({
+      filename: "webpack-stats.json",
+      path: "integreat_cms",
+    }),
   ],
   optimization: {
     minimize: process.env.NODE_ENV === "production",

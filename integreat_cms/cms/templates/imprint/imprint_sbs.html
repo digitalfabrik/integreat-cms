@@ -21,7 +21,9 @@
                 </a>
                 {% if perms.cms.change_imprintpage %}
                     <div class="flex flex-wrap gap-2">
-                        <button name="status" value="{{ DRAFT }}" class="btn btn-outline">{% translate "Save as draft" %}</button>
+                        <button name="status" value="{{ DRAFT }}" class="btn btn-outline">
+                            {% translate "Save as draft" %}
+                        </button>
                         <button name="status" value="{{ PUBLIC }}" class="btn">
                             {% if imprint_translation_form.instance.status == PUBLIC %}
                                 {% translate "Update" %}
@@ -51,13 +53,19 @@
                         {{ source_imprint_translation.language.translated_name }}
                     </div>
                     <div class="px-4 pb-4 rounded">
-                        <label class="inline-block">{% translate "Version" %}:</label>
+                        <label class="inline-block">
+                            {% translate "Version" %}:
+                        </label>
                         {{ source_imprint_translation.version }}
                         <br />
-                        <label class="inline-block">{% translate "Status" %}:</label>
+                        <label class="inline-block">
+                            {% translate "Status" %}:
+                        </label>
                         {{ source_imprint_translation.get_status_display }}
                         <br />
-                        <label class="inline-block">{% translate "Link to the imprint" %}:</label>
+                        <label class="inline-block">
+                            {% translate "Link to the imprint" %}:
+                        </label>
                         <a href="{{ WEBAPP_URL }}/{{ request.region.slug }}/{{ source_imprint_translation.language.slug }}/{{ IMPRINT_SLUG }}"
                            target="_blank"
                            rel="noopener noreferrer"
@@ -70,25 +78,35 @@
                             <i icon-name="check" class="hidden text-green-500"></i>
                         </a>
                         <br />
-                        <label>{{ imprint_translation_form.title.label }}</label>
+                        <label>
+                            {{ imprint_translation_form.title.label }}
+                        </label>
                         <input id="source_translation_title"
                                type="text"
                                value="{{ source_imprint_translation.title }}"
                                disabled />
                         <div class="mt-4">
-                            <label class="block mt-4 font-bold">{{ imprint_translation_form.content.label }}</label>
+                            <label class="block mt-4 font-bold">
+                                {{ imprint_translation_form.content.label }}
+                            </label>
                             <textarea id="source_translation_tinymce" cols="40" rows="10" class="tinymce_textarea" disabled data-old="{{ old_translation_content }}" data-new="{{ source_imprint_translation.content }}" data-unsaved-warning-exclude>
                                 {{source_imprint_translation.content}}
                             </textarea>
                         </div>
-                        <label>{% translate "Actions" %}</label>
+                        <label>
+                            {% translate "Actions" %}
+                        </label>
                         <div class="flex flex-wrap gap-4">
                             <button id="toggle-translation-diff"
                                     class="btn grow bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
                                     title="{% if imprint_translation_form.instance.is_up_to_date %}{% translate "No changes have been made to the source translation." %}{% else %}{% translate "Toggle source translation differences" %}{% endif %}"
                                     {% if imprint_translation_form.instance.is_up_to_date %}disabled{% endif %}>
-                                <div class="hidden toggle">{% translate "Hide source translation differences" %}</div>
-                                <div>{% translate "Show source translation differences" %}</div>
+                                <div class="hidden toggle">
+                                    {% translate "Hide source translation differences" %}
+                                </div>
+                                <div>
+                                    {% translate "Show source translation differences" %}
+                                </div>
                             </button>
                             <button id="copy-translation-content"
                                     title="{% translate "Copy content" %}"
@@ -129,13 +147,19 @@
                     <div class="px-4 pb-4 rounded">
                         {% csrf_token %}
                         {% if imprint_translation_form.instance.id %}
-                            <label class="inline-block">{% translate "Version" %}:</label>
+                            <label class="inline-block">
+                                {% translate "Version" %}:
+                            </label>
                             {{ imprint_translation_form.instance.version }}
                             <br />
-                            <label class="inline-block">{% translate "Status" %}:</label>
+                            <label class="inline-block">
+                                {% translate "Status" %}:
+                            </label>
                             {{ imprint_translation_form.instance.get_status_display }}
                             <br />
-                            <label class="inline-block">{% translate "Link to the imprint" %}:</label>
+                            <label class="inline-block">
+                                {% translate "Link to the imprint" %}:
+                            </label>
                             <a href="{{ WEBAPP_URL }}/{{ request.region.slug }}/{{ target_language.slug }}/{{ IMPRINT_SLUG }}"
                                target="_blank"
                                rel="noopener noreferrer"
@@ -149,27 +173,41 @@
                             </a>
                             <br />
                         {% else %}
-                            <label class="inline-block">{% translate "Version" %}:</label>
+                            <label class="inline-block">
+                                {% translate "Version" %}:
+                            </label>
                             {% translate "New" %}
                             <br />
-                            <label class="inline-block">{% translate "Status" %}:</label>
+                            <label class="inline-block">
+                                {% translate "Status" %}:
+                            </label>
                             {% translate "Not saved yet" %}
                             <br />
-                            <label class="inline-block">{% translate "Link to the imprint" %}:</label>
+                            <label class="inline-block">
+                                {% translate "Link to the imprint" %}:
+                            </label>
                             {% translate "Not saved yet" %}
                             <br />
                         {% endif %}
-                        <label for="{{ imprint_translation_form.title.id_for_label }}">{{ imprint_translation_form.title.label }}</label>
+                        <label for="{{ imprint_translation_form.title.id_for_label }}">
+                            {{ imprint_translation_form.title.label }}
+                        </label>
                         {% render_field imprint_translation_form.title|add_error_class:"border-red-500" id="target_translation_title" %}
-                        <label for="{{ imprint_translation_form.content.id_for_label }}">{{ imprint_translation_form.content.label }}</label>
+                        <label for="{{ imprint_translation_form.content.id_for_label }}">
+                            {{ imprint_translation_form.content.label }}
+                        </label>
                         {% render_field imprint_translation_form.content|add_error_class:"border-red-500" id="target_translation_tinymce" class="tinymce_textarea" %}
-                        <label>{% translate "Implications on other translations" %}</label>
+                        <label>
+                            {% translate "Implications on other translations" %}
+                        </label>
                         {% render_field imprint_translation_form.minor_edit %}
                         <label for="{{ imprint_translation_form.minor_edit.id_for_label }}"
                                class="secondary">
                             {{ imprint_translation_form.minor_edit.label }}
                         </label>
-                        <div class="help-text">{{ imprint_translation_form.minor_edit.help_text }}</div>
+                        <div class="help-text">
+                            {{ imprint_translation_form.minor_edit.help_text }}
+                        </div>
                     </div>
                 </div>
             </div>

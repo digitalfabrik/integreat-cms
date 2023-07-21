@@ -10,7 +10,9 @@
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     {% if page_form.instance.id and can_edit_page and not page.archived %}
-        <label class="mt-0">{% translate "Refresh date" %}</label>
+        <label class="mt-0">
+            {% translate "Refresh date" %}
+        </label>
         <button title="{% translate "Mark this page as up-to-date" %}"
                 form="refresh_date_form"
                 name="refresh_page"
@@ -20,7 +22,9 @@
         </button>
     {% endif %}
     {% if page.explicitly_archived %}
-        <label>{% translate "Restore page" %}</label>
+        <label>
+            {% translate "Restore page" %}
+        </label>
         <button title="{% translate "Restore page" %}"
                 class="btn confirmation-button w-full"
                 data-confirmation-title="{{ restore_dialog_title }}"
@@ -30,7 +34,9 @@
             <i icon-name="refresh-ccw" class="mr-2"></i> {% translate "Restore this page" %}
         </button>
     {% elif page.implicitly_archived %}
-        <label>{% translate "Restore page" %}</label>
+        <label>
+            {% translate "Restore page" %}
+        </label>
         <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
              role="alert">
             <p>
@@ -48,7 +54,9 @@
             </a>
         {% endfor %}
     {% else %}
-        <label>{% translate "Archive page" %}</label>
+        <label>
+            {% translate "Archive page" %}
+        </label>
         {% if not page.mirroring_pages.exists %}
             <button title="{% translate "Archive page" %}"
                     class="btn confirmation-button w-full"
@@ -63,7 +71,9 @@
             {% with page.mirroring_pages.all.prefetch_translations as mirroring_pages %}
                 <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
                      role="alert">
-                    <p>{% translate "You cannot archive a page which is embedded as live content from another page." %}</p>
+                    <p>
+                        {% translate "You cannot archive a page which is embedded as live content from another page." %}
+                    </p>
                 </div>
                 <p>
                     {% blocktranslate count counter=mirroring_pages|length trimmed %}
@@ -79,7 +89,9 @@
                            class="block pt-2 hover:underline">
                             <i icon-name="edit" class="mr-2"></i>
                             {{ mirroring_page.best_translation.title }}
-                            {% if mirroring_page.region != request.region %}({{ mirroring_page.region }}){% endif %}
+                            {% if mirroring_page.region != request.region %}
+                                ({{ mirroring_page.region }})
+                            {% endif %}
                         </a>
                     {% else %}
                         <a href="{{ WEBAPP_URL }}{{ mirroring_page.best_translation.get_absolute_url }}"
@@ -88,7 +100,9 @@
                            rel="noopener noreferrer">
                             <i icon-name="external-link" class="mr-2"></i>
                             {{ mirroring_page.best_translation.title }}
-                            {% if mirroring_page.region != request.region %}({{ mirroring_page.region }}){% endif %}
+                            {% if mirroring_page.region != request.region %}
+                                ({{ mirroring_page.region }})
+                            {% endif %}
                         </a>
                     {% endif %}
                 {% endfor %}
@@ -96,7 +110,9 @@
         {% endif %}
     {% endif %}
     {% if perms.cms.delete_page %}
-        <label>{% translate "Delete page" %}</label>
+        <label>
+            {% translate "Delete page" %}
+        </label>
         {% if not page.is_leaf %}
             {% with page.get_descendants.prefetch_translations as descendants %}
                 <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
@@ -122,7 +138,9 @@
             {% with page.mirroring_pages.all.prefetch_translations as mirroring_pages %}
                 <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-2"
                      role="alert">
-                    <p>{% translate "This page cannot be deleted because it was embedded as live content from another page." %}</p>
+                    <p>
+                        {% translate "This page cannot be deleted because it was embedded as live content from another page." %}
+                    </p>
                 </div>
                 <p>
                     {% blocktranslate count counter=mirroring_pages|length trimmed %}
@@ -138,7 +156,9 @@
                            class="block pt-2 hover:underline">
                             <i icon-name="edit" class="mr-2"></i>
                             {{ mirroring_page.best_translation.title }}
-                            {% if mirroring_page.region != request.region %}({{ mirroring_page.region }}){% endif %}
+                            {% if mirroring_page.region != request.region %}
+                                ({{ mirroring_page.region }})
+                            {% endif %}
                         </a>
                     {% else %}
                         <a href="{{ WEBAPP_URL }}{{ mirroring_page.best_translation.get_absolute_url }}"
@@ -147,7 +167,9 @@
                            rel="noopener noreferrer">
                             <i icon-name="external-link" class="mr-2"></i>
                             {{ mirroring_page.best_translation.title }}
-                            {% if mirroring_page.region != request.region %}({{ mirroring_page.region }}){% endif %}
+                            {% if mirroring_page.region != request.region %}
+                                ({{ mirroring_page.region }})
+                            {% endif %}
                         </a>
                     {% endif %}
                 {% endfor %}
