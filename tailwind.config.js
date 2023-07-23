@@ -4,7 +4,7 @@ module.exports = {
   content: ["./integreat_cms/cms/templates/**/*.html", "./integreat_cms/static/src/js/**/*.{js,ts,tsx}"],
   safelist: [
     {
-      pattern: /(integreat|malte|aschaffenburg)/,
+      pattern: /(integreat|malte|aschaffenburg|netzwerk-obdach)/,
       variants: ["hover"],
     },
   ],
@@ -50,6 +50,10 @@ module.exports = {
         "aschaffenburg-logo": "url('../logos/aschaffenburg/aschaffenburg-logo-slate.svg')",
         "aschaffenburg-logo-white": "url('../logos/aschaffenburg/aschaffenburg-logo-white.svg')",
         "aschaffenburg-logo-hover": "url('../logos/aschaffenburg/aschaffenburg-logo-cyan.svg')",
+        "netzwerk-obdach-icon": "url('../logos/netzwerk-obdach/netzwerk-obdach-icon.svg')",
+        "netzwerk-obdach-logo": "url('../logos/netzwerk-obdach/netzwerk-obdach-logo-black.svg')",
+        "netzwerk-obdach-logo-white": "url('../logos/netzwerk-obdach/netzwerk-obdach-logo-white.svg')",
+        "netzwerk-obdach-logo-hover": "url('../logos/netzwerk-obdach/netzwerk-obdach-logo-orange.svg')",
         "border-left":
           "linear-gradient(to right, var(--tw-gradient-from), var(--tw-gradient-from) 4px, var(--tw-gradient-to, rgba(0, 0, 0, 0)) 4px)",
       },

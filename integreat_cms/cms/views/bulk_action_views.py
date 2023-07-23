@@ -13,6 +13,8 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 from django.views.generic.list import MultipleObjectMixin
 
+from ..models import Page
+
 logger = logging.getLogger(__name__)
 
 
@@ -248,8 +250,32 @@ class BulkArchiveView(BulkActionView):
         :return: The redirect
         :rtype: ~django.http.HttpResponseRedirect
         """
-        for content_object in self.get_queryset():
-            content_object.archive()
+        if self.model is Page:
+            for content_object in self.get_queryset():
+                if content_object.mirroring_pages.exists():
+                    messages.error(
+                        request,
+                        _(
+                            "{} cannot be archived because it was embedded as live content from another page."
+                        ).format(content_object.backend_translation.title),
+                    )
+                else:
+                    messages.success(
+                        request,
+                        _("{} was successfully archived").format(
+                            content_object.backend_translation.title
+                        ),
+                    )
+                    content_object.archive()
+        else:
+            for content_object in self.get_queryset():
+                content_object.archive()
+            messages.success(
+                request,
+                _("The selected {} were successfully archived").format(
+                    self.model._meta.verbose_name_plural
+                ),
+            )
 
         # Invalidate cache
         invalidate_model(self.model)
@@ -258,13 +284,6 @@ class BulkArchiveView(BulkActionView):
             self.get_queryset(),
             request.user,
         )
-        messages.success(
-            request,
-            _("The selected {} were successfully archived").format(
-                self.model._meta.verbose_name_plural
-            ),
-        )
-
         return super().post(request, *args, **kwargs)
 
 

@@ -3,7 +3,9 @@
 {% block content %}
     {% load static %}
     {% load widget_tweaks %}
-    <h1 class="heading">{% translate "My Account Settings" %}</h1>
+    <h1 class="heading">
+        {% translate "My Account Settings" %}
+    </h1>
     <div class="flex flex-wrap mt-4">
         <div class="flex flex-wrap w-full xl:w-1/2 xl:pr-4">
             <div class="w-full mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
@@ -16,8 +18,12 @@
                     <form action="{% url 'i18n:set_language' %}" method="post" class="w-full">
                         {% csrf_token %}
                         <input name="next" type="hidden" value="{{ redirect_to }}" />
-                        <label for="language">{% translate "Choose language:" %}</label>
-                        <div class="mb-2">{% translate "This setting only affects this device." %}</div>
+                        <label for="language">
+                            {% translate "Choose language:" %}
+                        </label>
+                        <div class="mb-2">
+                            {% translate "This setting only affects this device." %}
+                        </div>
                         <select name="language">
                             {% get_current_language as LANGUAGE_CODE %}
                             {% get_available_languages as LANGUAGES %}
@@ -28,7 +34,9 @@
                                 </option>
                             {% endfor %}
                         </select>
-                        <button class="btn mt-4">{% translate "Change language" %}</button>
+                        <button class="btn mt-4">
+                            {% translate "Change language" %}
+                        </button>
                     </form>
                 </div>
             </div>
@@ -46,8 +54,12 @@
                                for="{{ user_preferences_form.distribute_sidebar_boxes.id_for_label }}">
                             {{ user_preferences_form.distribute_sidebar_boxes.label }}
                         </label>
-                        <div class="help-text">{{ user_preferences_form.distribute_sidebar_boxes.help_text }}</div>
-                        <button name="submit_form" value="preferences_form" class="btn mt-4">{% translate "Save preferences" %}</button>
+                        <div class="help-text">
+                            {{ user_preferences_form.distribute_sidebar_boxes.help_text }}
+                        </div>
+                        <button name="submit_form" value="preferences_form" class="btn mt-4">
+                            {% translate "Save preferences" %}
+                        </button>
                     </form>
                 </div>
             </div>
@@ -62,9 +74,13 @@
                 <div class="px-4 pb-4">
                     <form method="post">
                         {% csrf_token %}
-                        <label for="{{ user_email_form.email.id_for_label }}">{{ user_email_form.email.label }}</label>
+                        <label for="{{ user_email_form.email.id_for_label }}">
+                            {{ user_email_form.email.label }}
+                        </label>
                         {% render_field user_email_form.email|add_error_class:"border-red-500" %}
-                        <button name="submit_form" value="email_form" class="btn mt-4">{% translate "Change e-mail-address" %}</button>
+                        <button name="submit_form" value="email_form" class="btn mt-4">
+                            {% translate "Change e-mail-address" %}
+                        </button>
                     </form>
                 </div>
             </div>
@@ -82,7 +98,9 @@
                             {{ user_password_form.old_password.label }}
                         </label>
                         {% render_field user_password_form.old_password|add_error_class:"border-red-500" %}
-                        <label for="{{ user_password_form.new_password.id_for_label }}">{{ user_password_form.new_password.label }}</label>
+                        <label for="{{ user_password_form.new_password.id_for_label }}">
+                            {{ user_password_form.new_password.label }}
+                        </label>
                         {% render_field user_password_form.new_password|add_error_class:"border-red-500" %}
                         <label for="{{ user_password_form.new_password_confirm.id_for_label }}">
                             {{ user_password_form.new_password_confirm.label }}
@@ -90,9 +108,15 @@
                         {% translate "Enter my new password again here" as new_password_confirm_placeholder %}
                         {% render_field user_password_form.new_password_confirm|add_error_class:"border-red-500" placeholder=new_password_confirm_placeholder %}
                         <ul class="p-2">
-                            {% for item in user_password_form.new_password.help_text %}<li class="py-1">{{ item }}</li>{% endfor %}
+                            {% for item in user_password_form.new_password.help_text %}
+                                <li class="py-1">
+                                    {{ item }}
+                                </li>
+                            {% endfor %}
                         </ul>
-                        <button name="submit_form" value="password_form" class="btn">{% translate "Change password" %}</button>
+                        <button name="submit_form" value="password_form" class="btn">
+                            {% translate "Change password" %}
+                        </button>
                     </form>
                 </div>
             </div>
@@ -123,18 +147,32 @@
                     <table class="w-full rounded border border-solid border-gray-200 shadow bg-white mb-4">
                         <thead>
                             <tr class="border-b border-solid border-gray-200">
-                                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">{% translate "Key name" %}</th>
-                                <th class="text-sm text-left uppercase py-3 px-2 min">{% translate "Last usage" %}</th>
-                                <th class="text-sm text-left uppercase py-3 px-2 min">{% translate "Date added" %}</th>
-                                <th class="text-sm text-right uppercase py-3 pl-2 pr-4 min">{% translate "Actions" %}</th>
+                                <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">
+                                    {% translate "Key name" %}
+                                </th>
+                                <th class="text-sm text-left uppercase py-3 px-2 min">
+                                    {% translate "Last usage" %}
+                                </th>
+                                <th class="text-sm text-left uppercase py-3 px-2 min">
+                                    {% translate "Date added" %}
+                                </th>
+                                <th class="text-sm text-right uppercase py-3 pl-2 pr-4 min">
+                                    {% translate "Actions" %}
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for key in keys %}
                                 <tr>
-                                    <td class="pl-4">{{ key.name }}</td>
-                                    <td class="pl-2 whitespace-nowrap">{{ key.last_usage }}</td>
-                                    <td class="pl-2 whitespace-nowrap">{{ key.created_at }}</td>
+                                    <td class="pl-4">
+                                        {{ key.name }}
+                                    </td>
+                                    <td class="pl-2 whitespace-nowrap">
+                                        {{ key.last_usage }}
+                                    </td>
+                                    <td class="pl-2 whitespace-nowrap">
+                                        {{ key.created_at }}
+                                    </td>
                                     <td class="p-2 text-right">
                                         <a class="btn btn-red"
                                            href="{% spaceless %} {% if request.region %} {% url 'delete_mfa_key' region_slug=request.region.slug key_id=key.id %} {% else %} {% url 'delete_mfa_key' key_id=key.id %} {% endif %} {% endspaceless %}">
@@ -144,7 +182,9 @@
                                 </tr>
                             {% empty %}
                                 <tr>
-                                    <td colspan="6" class="px-4 py-3">{% translate "No FIDO2 keys have been added yet." %}</td>
+                                    <td colspan="6" class="px-4 py-3">
+                                        {% translate "No FIDO2 keys have been added yet." %}
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>

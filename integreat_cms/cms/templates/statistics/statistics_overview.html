@@ -5,7 +5,9 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-12">
-            <h1 class="heading">{% translate "Statistics" %}</h1>
+            <h1 class="heading">
+                {% translate "Statistics" %}
+            </h1>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 2xl:grid-cols-4">
             <div class="lg:col-span-2 2xl:row-span-2 2xl:col-span-3 rounded border border-solid border-blue-500 shadow-2xl bg-white">
@@ -43,24 +45,32 @@
                 </div>
                 <form id="statistics-form" class="flex flex-col p-4 pt-2">
                     {% csrf_token %}
-                    <label for="{{ form.start_date.id_for_label }}">{{ form.start_date.label }}</label>
+                    <label for="{{ form.start_date.id_for_label }}">
+                        {{ form.start_date.label }}
+                    </label>
                     {% render_field form.start_date|add_error_class:"border-red-500" %}
                     <div id="start_date_error"
                          class="chart-client-error text-red-500 pb-2 hidden">
                         <i icon-name="alert-triangle"></i>
                     </div>
-                    <label for="{{ form.end_date.id_for_label }}">{{ form.end_date.label }}</label>
+                    <label for="{{ form.end_date.id_for_label }}">
+                        {{ form.end_date.label }}
+                    </label>
                     {% render_field form.end_date|add_error_class:"border-red-500" %}
                     <div id="end_date_error"
                          class="chart-client-error text-red-500 pb-2 hidden">
                         <i icon-name="alert-triangle"></i>
                     </div>
-                    <label for="{{ form.period.id_for_label }}">{{ form.period.label }}</label>
+                    <label for="{{ form.period.id_for_label }}">
+                        {{ form.period.label }}
+                    </label>
                     {% render_field form.period|add_error_class:"border-red-500" %}
                     <div id="period_error" class="chart-client-error text-red-500 pb-2 hidden">
                         <i icon-name="alert-triangle"></i>
                     </div>
-                    <button class="btn mt-4">{% translate "Customize view" %}</button>
+                    <button class="btn mt-4">
+                        {% translate "Customize view" %}
+                    </button>
                 </form>
             </div>
             <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
@@ -70,15 +80,25 @@
                     </h3>
                 </div>
                 <div class="flex flex-col gap-4 p-4 pt-2">
-                    <label for="export-format">{% translate "Choose format" %}</label>
+                    <label for="export-format">
+                        {% translate "Choose format" %}
+                    </label>
                     <select id="export-format"
                             data-filename-prefix="{% translate "Statistics" %} {{ request.region.name }}"
                             data-language-column-title="{% translate "Language" %}">
-                        <option value="" selected>--- {% translate "please select" %} ---</option>
-                        <option value="image">{% translate "Image/PNG" %}</option>
-                        <option value="csv">{% translate "Table Document/CSV" %}</option>
+                        <option value="" selected>
+                            --- {% translate "please select" %} ---
+                        </option>
+                        <option value="image">
+                            {% translate "Image/PNG" %}
+                        </option>
+                        <option value="csv">
+                            {% translate "Table Document/CSV" %}
+                        </option>
                     </select>
-                    <button id="export-button" class="btn" disabled>{% translate "Export" %}</button>
+                    <button id="export-button" class="btn" disabled>
+                        {% translate "Export" %}
+                    </button>
                     <a id="export-download-link" class="hidden"></a>
                 </div>
             </div>

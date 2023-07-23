@@ -4,7 +4,9 @@
     {% load static %}
     <div class="table-header">
         <div class="flex flex-wrap justify-between">
-            <h1 class="heading">{% translate "Manage Organizations" %}</h1>
+            <h1 class="heading">
+                {% translate "Manage Organizations" %}
+            </h1>
             {% if perms.cms.change_organization %}
                 <a href="{% url 'new_organization' region_slug=request.region.slug %}"
                    class="btn">
@@ -17,11 +19,24 @@
         <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
                 <tr class="border-b border-solid border-gray-200">
-                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% translate "Name" %}</th>
-                    <th class="text-sm text-left uppercase py-3 px-2">{% translate "Members" %}</th>
-                    <th class="text-sm text-left uppercase py-3 px-2">{% translate "Maintained Pages" %}</th>
-                    <th class="text-sm text-left uppercase py-3 px-2">{% translate "Logo" %}</th>
-                    <th class="text-sm text-left uppercase py-3 p2-4 pr-4 min">{% translate "Options" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                        {% translate "Name" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 px-2">
+                        {% translate "Members" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 px-2">
+                        {% translate "Maintained Pages" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Logo" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Website" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 p2-4 pr-4 min">
+                        {% translate "Options" %}
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -29,7 +44,9 @@
                     {% include "organizations/organization_list_row.html" %}
                 {% empty %}
                     <tr>
-                        <td colspan="6" class="px-4 py-3">{% translate "No organizations available yet." %}</td>
+                        <td colspan="6" class="px-4 py-3">
+                            {% translate "No organizations available yet." %}
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>

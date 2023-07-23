@@ -6,12 +6,18 @@
             {{ user.username }}
         </a>
     </td>
-    <td class="pr-2">{{ user.first_name }}</td>
-    <td class="pr-2">{{ user.last_name }}</td>
+    <td class="pr-2">
+        {{ user.first_name }}
+    </td>
+    <td class="pr-2">
+        {{ user.last_name }}
+    </td>
     <td class="pr-2">
         <span class="hover:underline text-blue-500 hover:text-blue-600">{{ user.email|urlize }}</span>
     </td>
-    <td class="pr-2">{{ user.role }}</td>
+    <td class="pr-2">
+        {{ user.role }}
+    </td>
     <td class="pr-2 whitespace-nowrap">
         {% if user.last_login %}
             {{ user.last_login }}

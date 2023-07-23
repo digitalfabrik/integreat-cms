@@ -4,8 +4,12 @@
     {{ title }}
 {% endblock heading %}
 {% block content %}
-    <h2 class="text-2xl mb-4 text-center">{% translate "Error" %} {{ code }}</h2>
-    <p class="mb-4 text-lg">{{ message }}</p>
+    <h2 class="text-2xl mb-4 text-center">
+        {% translate "Error" %} {{ code }}
+    </h2>
+    <p class="mb-4 text-lg">
+        {{ message }}
+    </p>
     <a href="{% url 'public:region_selection' %}"
        class="btn w-full text-center">
         <i icon-name="arrow-left-circle" class="align-top"></i> {% translate "Return back home" %}

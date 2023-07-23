@@ -36,7 +36,10 @@ class DeepLApiClientConfig(AppConfig):
         if "runserver" in sys.argv or "APACHE_PID_FILE" in os.environ:
             if settings.DEEPL_ENABLED:
                 try:
-                    deepl_translator = Translator(settings.DEEPL_AUTH_KEY)
+                    deepl_translator = Translator(
+                        auth_key=settings.DEEPL_AUTH_KEY,
+                        server_url=settings.DEEPL_API_URL,
+                    )
                     self.supported_source_languages = [
                         source_language.code.lower()
                         for source_language in deepl_translator.get_source_languages()

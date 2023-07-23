@@ -34,7 +34,9 @@
                   class="drag cursor-move text-gray-800 inline-block pl-4 align-middle"
                   draggable="{% if can_edit_pages %}true{% else %}false{% endif %}"
                   title="{% translate "Change the order and position of the pages with drag & drop." %}">
-                {% if can_edit_pages %}<i icon-name="move"></i>{% endif %}
+                {% if can_edit_pages %}
+                    <i icon-name="move"></i>
+                {% endif %}
             </span>
             {% if not page.parent_id and not page.is_leaf or page.parent_id and page.cached_children|length > 0 %}
                 <span class="toggle-subpages inline-block align-middle cursor-wait transform"
@@ -129,7 +131,9 @@
         </div>
     </td>
     <td>
-        <div class="block py-1.5 px-2 text-gray-800">{{ page_translation.get_status_display }}</div>
+        <div class="block py-1.5 px-2 text-gray-800">
+            {{ page_translation.get_status_display }}
+        </div>
     </td>
     <td>
         <div class="block py-1.5 px-2 whitespace-nowrap text-gray-800">
@@ -173,14 +177,22 @@
             <i icon-name="edit"></i>
         </a>
         {% if can_edit_pages %}
-            <button title="{% translate "Archive page" %}"
-                    class="confirmation-button btn-icon"
-                    data-confirmation-title="{{ archive_dialog_title }}"
-                    data-confirmation-text="{{ archive_dialog_text }}"
-                    data-confirmation-subject="{{ page.best_translation.title }}"
-                    data-action="{% url 'archive_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
-                <i icon-name="archive"></i>
-            </button>
+            {% if page.mirroring_pages.exists %}
+                <button title="{% translate "This page cannot be archived because it was embedded as live content from another page." %}"
+                        class="btn-icon"
+                        disabled>
+                    <i icon-name="archive"></i>
+                </button>
+            {% else %}
+                <button title="{% translate "Archive page" %}"
+                        class="confirmation-button btn-icon"
+                        data-confirmation-title="{{ archive_dialog_title }}"
+                        data-confirmation-text="{{ archive_dialog_text }}"
+                        data-confirmation-subject="{{ page.best_translation.title }}"
+                        data-action="{% url 'archive_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
+                    <i icon-name="archive"></i>
+                </button>
+            {% endif %}
         {% endif %}
         {% if perms.cms.delete_page %}
             {# djlint:off H023 #}
@@ -191,7 +203,7 @@
                     <i icon-name="trash-2"></i>
                 </button>
             {% elif page.mirroring_pages.exists %}
-                <button title="{% translate "This page cannot be deleted because it was embedded as live content from another page." %}&#013;{% translate "You can however archive this page." %}"
+                <button title="{% translate "This page cannot be deleted because it was embedded as live content from another page." %}"
                         class="btn-icon"
                         disabled>
                     <i icon-name="trash-2"></i>

@@ -20,10 +20,14 @@
                 </h1>
                 <div class="flex flex-wrap gap-4 ml-auto mr-0">
                     {% if perms.cms.change_pushnotification %}
-                        <button name="submit_save" class="btn btn-outline">{% translate "Save" %}</button>
+                        <button name="submit_save" class="btn btn-outline">
+                            {% translate "Save" %}
+                        </button>
                     {% endif %}
                     {% if perms.cms.send_push_notification and not push_notification_form.instance.sent_date %}
-                        <button name="submit_send" class="btn">{% translate "Save & Send" %}</button>
+                        <button name="submit_send" class="btn">
+                            {% translate "Save & Send" %}
+                        </button>
                     {% endif %}
                 </div>
             </div>
@@ -97,9 +101,13 @@
                         </h3>
                     </div>
                     <div class="px-4 pb-4 rounded bg-white">
-                        <label for="{{ push_notification_form.channel.id_for_label }}">{{ push_notification_form.channel.label }}</label>
+                        <label for="{{ push_notification_form.channel.id_for_label }}">
+                            {{ push_notification_form.channel.label }}
+                        </label>
                         {% render_field push_notification_form.channel|add_error_class:"border-red-500" %}
-                        <label for="{{ push_notification_form.mode.id_for_label }}">{{ push_notification_form.mode.label }}</label>
+                        <label for="{{ push_notification_form.mode.id_for_label }}">
+                            {{ push_notification_form.mode.label }}
+                        </label>
                         {% render_field push_notification_form.mode|add_error_class:"border-red-500" %}
                     </div>
                 </div>
@@ -112,7 +120,9 @@
                             </h3>
                         </div>
                         <div class="px-4 pb-4 rounded bg-white">
-                            <label>{% translate "Sent" %}</label>
+                            <label>
+                                {% translate "Sent" %}
+                            </label>
                             {% if push_notification_form.instance.sent_date %}
                                 <i icon-name="check" class="text-green-500 align-text-top"></i>
                                 {{ push_notification_form.instance.sent_date }}

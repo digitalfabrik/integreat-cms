@@ -3,7 +3,9 @@
 {% load static %}
 {% block content %}
     <div class="table-header flex flex-wrap justify-between">
-        <h1 class="heading">{% translate "Language tree" %}</h1>
+        <h1 class="heading">
+            {% translate "Language tree" %}
+        </h1>
         {% if perms.cms.change_languagetreenode %}
             <a href="{% url 'new_languagetreenode' region_slug=request.region.slug %}"
                class="btn">
@@ -20,15 +22,33 @@
                     <th class="text-sm text-left uppercase py-3 pl-4 pr-2 min">
                         <input type="checkbox" id="bulk-select-all" />
                     </th>
-                    <th class="text-sm text-left uppercase py-3 px-2 min">{% translate "Hierarchy" %}</th>
-                    <th class="text-sm text-left uppercase py-3 px-2">{% translate "Language" %}</th>
-                    <th class="text-sm text-left uppercase py-3 px-2">{% translate "Slug" %}</th>
-                    <th class="text-sm text-left uppercase py-3 px-2">{% translate "BCP47 Tag" %}</th>
-                    <th class="text-sm text-left uppercase py-3 px-2">{% translate "Text direction" %}</th>
-                    <th class="text-sm text-left uppercase py-3 px-2">{% translate "Country Flags" %}</th>
-                    <th class="text-sm text-left uppercase py-3 px-2 w-4">{% translate "Active" %}</th>
-                    <th class="text-sm text-left uppercase py-3 px-2 w-4">{% translate "Visible" %}</th>
-                    <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min">{% translate "Delete" %}</th>
+                    <th class="text-sm text-left uppercase py-3 px-2 min">
+                        {% translate "Hierarchy" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 px-2">
+                        {% translate "Language" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 px-2">
+                        {% translate "Slug" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 px-2">
+                        {% translate "BCP47 Tag" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 px-2">
+                        {% translate "Text direction" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 px-2">
+                        {% translate "Country Flags" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 px-2 w-4">
+                        {% translate "Active" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 px-2 w-4">
+                        {% translate "Visible" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min">
+                        {% translate "Delete" %}
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -36,15 +56,20 @@
                     {% include "languagetreenodes/languagetreenode_list_row.html" %}
                 {% empty %}
                     <tr>
-                        <td></td>
-                        <td colspan="9" class="px-2 py-3">{% translate "No language tree available yet." %}</td>
+                        <td>
+                        </td>
+                        <td colspan="9" class="px-2 py-3">
+                            {% translate "No language tree available yet." %}
+                        </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
         <div class="flex flex-wrap gap-2 mt-2">
             <select id="bulk-action" class="w-auto max-w-full">
-                <option>{% translate "Select bulk action" %}</option>
+                <option>
+                    {% translate "Select bulk action" %}
+                </option>
                 <option data-bulk-action="{% url 'bulk_make_languagetreenodes_visible' region_slug=request.region.slug %}">
                     {% translate "Make languages visible in apps" %}
                 </option>
@@ -58,7 +83,9 @@
                     {% translate "Disable languages in content management system" %}
                 </option>
             </select>
-            <button id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
+            <button id="bulk-action-execute" class="btn" disabled>
+                {% translate "Execute" %}
+            </button>
         </div>
     </form>
     {% include "../generic_confirmation_dialog.html" %}

@@ -16,7 +16,9 @@
                 {% endif %}
             </h1>
             {% if perms.cms.change_poicategory %}
-                <button class="btn">{% translate "Save" %}</button>
+                <button class="btn">
+                    {% translate "Save" %}
+                </button>
             {% endif %}
         </div>
         <div class="flex flex-wrap">
@@ -29,7 +31,9 @@
                     </div>
                     <div class="px-4 pb-4 grid xl:grid-cols-2 gap-4">
                         <div>
-                            <label for="{{ form.icon.id_for_label }}">{{ form.icon.label }}</label>
+                            <label for="{{ form.icon.id_for_label }}">
+                                {{ form.icon.label }}
+                            </label>
                             <div class="flex">
                                 {# djlint:off H006 #}
                                 <img id="poi-category-icon-preview"
@@ -44,12 +48,16 @@
                             </div>
                         </div>
                         <div>
-                            <label for="{{ form.color.id_for_label }}">{{ form.color.label }}</label>
+                            <label for="{{ form.color.id_for_label }}">
+                                {{ form.color.label }}
+                            </label>
                             <div class="flex">
                                 <span id="poi-category-color-preview"
                                       class="w-12 rounded-l"
                                       style="background-color: {{ form.instance.color }}"></span>
-                                <div class="relative flex-grow">{% render_field form.color|add_error_class:"border-red-500" %}</div>
+                                <div class="relative flex-grow">
+                                    {% render_field form.color|add_error_class:"border-red-500" %}
+                                </div>
                             </div>
                         </div>
                     </div>

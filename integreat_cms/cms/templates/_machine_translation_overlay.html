@@ -18,12 +18,16 @@
                     <div class="flex items-center mt-2">
                         <div class="flex">
                             <span class="fp fp-rounded fp-{{ source_language.primary_country_code }} w-7 mr-2"></span>
-                            <p>{{ source_language }}</p>
+                            <p>
+                                {{ source_language }}
+                            </p>
                         </div>
                         <i class="mx-4" icon-name="arrow-big-right"></i>
                         <div class="flex">
                             <span class="fp fp-rounded fp-{{ language.primary_country_code }} w-7 mr-2"></span>
-                            <p>{{ language }}</p>
+                            <p>
+                                {{ language }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -58,18 +62,26 @@
                     </h3>
                     <table>
                         <tr>
-                            <td id="machine-translation-overlay-current-budget-label">{% translate "Current budget" %}</td>
+                            <td id="machine-translation-overlay-current-budget-label">
+                                {% translate "Current budget" %}
+                            </td>
                             <td class="pl-2" id="machine-translation-overlay-current-budget-result">
                                 {{ request.region.deepl_budget_remaining }}
                             </td>
                         </tr>
                         <tr>
-                            <td id="machine-translation-overlay-budget-usage-label">{% translate "Number of words you would use" %}</td>
-                            <td class="pl-2" id="machine-translation-overlay-budget-usage-result"></td>
+                            <td id="machine-translation-overlay-budget-usage-label">
+                                {% translate "Number of words you would use" %}
+                            </td>
+                            <td class="pl-2" id="machine-translation-overlay-budget-usage-result">
+                            </td>
                         </tr>
                         <tr class="border-solid border-t-2">
-                            <td id="machine-translation-overlay-budget-remains-label">{% translate "Remaining budget: " %}</td>
-                            <td class="pl-2" id="machine-translation-overlay-budget-remains-result"></td>
+                            <td id="machine-translation-overlay-budget-remains-label">
+                                {% translate "Remaining budget: " %}
+                            </td>
+                            <td class="pl-2" id="machine-translation-overlay-budget-remains-result">
+                            </td>
                         </tr>
                     </table>
                 </div>

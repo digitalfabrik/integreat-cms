@@ -36,7 +36,9 @@
                 {% endif %}
                 {% if perms.cms.change_organization %}
                     <div class="flex flex-wrap gap-4">
-                        <button class="btn">{% translate "Save" %}</button>
+                        <button class="btn">
+                            {% translate "Save" %}
+                        </button>
                     </div>
                 {% endif %}
             </div>
@@ -50,8 +52,14 @@
                 </div>
                 <div class="px-4 pb-4">
                     <!-- General Options for organization management -->
-                    <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                    <label for="{{ form.name.id_for_label }}">
+                        {{ form.name.label }}
+                    </label>
                     {% render_field form.name|add_error_class:"border-red-500" %}
+                    <label for="{{ form.website.id_for_label }}">
+                        {{ form.website.label }}
+                    </label>
+                    {% render_field form.website %}
                 </div>
             </div>
             <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
@@ -61,7 +69,9 @@
                     </h3>
                 </div>
                 <div class="px-4 pb-4">
-                    <label for="{{ form.icon.id_for_label }}">{{ form.icon.label }}</label>
+                    <label for="{{ form.icon.id_for_label }}">
+                        {{ form.icon.label }}
+                    </label>
                     {% render_field form.icon label=form.icon.label %}
                 </div>
             </div>
@@ -128,7 +138,9 @@
                                         </tr>
                                     {% empty %}
                                         <tr>
-                                            <td colspan="2" class="px-4 py-3">{% translate "This organization currently has no maintained pages." %}</td>
+                                            <td colspan="2" class="px-4 py-3">
+                                                {% translate "This organization currently has no maintained pages." %}
+                                            </td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>
@@ -147,19 +159,29 @@
                         <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
                             <thead>
                                 <tr class="border-b border-solid border-gray-200">
-                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% translate "Username" %}</th>
-                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">{% translate "Role" %}</th>
+                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                                        {% translate "Username" %}
+                                    </th>
+                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                                        {% translate "Role" %}
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for member in form.instance.members.all %}
                                     <tr class="border-b border-solid border-gray-200">
-                                        <td class="text-sm text-left py-3 pl-4 pr-2 text-ellipsis text-gray-800">{{ member.username }}</td>
-                                        <td class="text-sm text-left py-3 pl-4 pr-2 text-ellipsis text-gray-800">{{ member.role }}</td>
+                                        <td class="text-sm text-left py-3 pl-4 pr-2 text-ellipsis text-gray-800">
+                                            {{ member.username }}
+                                        </td>
+                                        <td class="text-sm text-left py-3 pl-4 pr-2 text-ellipsis text-gray-800">
+                                            {{ member.role }}
+                                        </td>
                                     </tr>
                                 {% empty %}
                                     <tr>
-                                        <td colspan="6" class="px-4 py-3">{% translate "This organization currently has no members." %}</td>
+                                        <td colspan="6" class="px-4 py-3">
+                                            {% translate "This organization currently has no members." %}
+                                        </td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

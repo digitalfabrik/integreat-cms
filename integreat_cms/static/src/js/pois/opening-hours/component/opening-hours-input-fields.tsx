@@ -320,7 +320,8 @@ const OpeningHoursInputFields = ({ openingHoursState, selectedDaysState, transla
                                 {openingHoursBuffer.timeSlots.map((timeSlot, index) => (
                                     <div
                                         // Force re-rendering of fields when a time slot is added or removed
-                                        key={`${index + openingHoursBuffer.timeSlots.length}`}
+                                        /* eslint-disable-next-line react/no-array-index-key */
+                                        key={index + openingHoursBuffer.timeSlots.length}
                                         class="flex flex-wrap gap-4 pb-2">
                                         <fieldset class="border border-solid border-gray-500 p-2 grow">
                                             <legend class="text-sm">

@@ -18,6 +18,10 @@ FCM_ENABLED = True
 SUMM_AI_API_KEY = "dummy"
 #: Enable manually because existing setting derives from the unset env var
 SUMM_AI_ENABLED = True
+#: Set dummy DeepL key to test automatic translations via DeepL API
+DEEPL_AUTH_KEY = "dummy"
+#: Enable manually because existing setting derives from the unset env var
+DEEPL_ENABLED = True
 #: Use debug logging on CircleCI
 LOG_LEVEL = "DEBUG"
 #: Disable linkcheck listeners on CircleCI

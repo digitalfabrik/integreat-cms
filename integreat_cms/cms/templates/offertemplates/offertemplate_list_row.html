@@ -6,11 +6,21 @@
             {{ offer_template.name }}
         </a>
     </td>
-    <td class="pr-2">{{ offer_template.slug }}</td>
-    <td class="pr-2">{{ offer_template.url }}</td>
-    <td class="pr-2">{{ offer_template.last_updated }}</td>
-    <td class="pr-2">{{ offer_template.created_date }}</td>
-    <td class="pr-2 text-right">{{ offer_template.regions.count }}</td>
+    <td class="pr-2">
+        {{ offer_template.slug }}
+    </td>
+    <td class="pr-2">
+        {{ offer_template.url }}
+    </td>
+    <td class="pr-2">
+        {{ offer_template.last_updated }}
+    </td>
+    <td class="pr-2">
+        {{ offer_template.created_date }}
+    </td>
+    <td class="pr-2 text-right">
+        {{ offer_template.regions.count }}
+    </td>
     <td class="pl-2 pr-4 text-right">
         {% if perms.cms.delete_offertemplate %}
             {% if offer_template.regions.exists %}

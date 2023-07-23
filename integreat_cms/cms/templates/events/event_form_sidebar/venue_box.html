@@ -18,7 +18,9 @@
     </label>
     <div id="location-block"
          class="{% if event_form.has_not_location.value %}hidden{% endif %}">
-        <label for="{{ event_form.location.id_for_label }}">{{ event_form.location.label }}</label>
+        <label for="{{ event_form.location.id_for_label }}">
+            {{ event_form.location.label }}
+        </label>
         {% translate "Name of event location" as poi_title_placeholder %}
         <div class="relative my-2">
             <input id="poi-query-input"
@@ -41,9 +43,13 @@
         <p class="text-sm italic block mt-2 mb-2">
             {% translate "Create an event location or start typing the name of an existing location. Only published locations can be set as event venues" %}.
         </p>
-        <div class="relative" id="poi-query-result">{% include "events/_poi_query_result.html" %}</div>
+        <div class="relative" id="poi-query-result">
+            {% include "events/_poi_query_result.html" %}
+        </div>
         <div id="poi-address-container" class="{% if not poi %} hidden{% endif %}">
-            <label class="secondary">{% translate "Address" %}</label>
+            <label class="secondary">
+                {% translate "Address" %}
+            </label>
             <input name="location"
                    id="id_location"
                    class="hidden"
@@ -73,6 +79,7 @@
              class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 hidden">
             {% trans "An error occured." %}
         </div>
-        <div id="poi-form-widget"></div>
+        <div id="poi-form-widget">
+        </div>
     </div>
 {% endblock collapsible_box_content %}

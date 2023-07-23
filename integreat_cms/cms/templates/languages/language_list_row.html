@@ -6,19 +6,33 @@
             {{ language.translated_name }}
         </a>
     </td>
-    <td class="pr-2">{{ language.native_name }}</td>
-    <td class="pr-2">{{ language.slug }}</td>
-    <td class="pr-2">{{ language.bcp47_tag }}</td>
+    <td class="pr-2">
+        {{ language.native_name }}
+    </td>
+    <td class="pr-2">
+        {{ language.slug }}
+    </td>
+    <td class="pr-2">
+        {{ language.bcp47_tag }}
+    </td>
     <td class="pr-2">
         <span class="fp fp-{{ language.primary_country_code }} fp-rounded "
               title="{{ language.get_primary_country_code_display }}"></span>
         <span class="fp fp-{{ language.secondary_country_code }} fp-rounded "
               title="{{ language.get_secondary_country_code_display }}"></span>
     </td>
-    <td class="pr-2">{{ language.get_text_direction_display }}</td>
-    <td class="pr-2">{{ language.created_date }}</td>
-    <td class="pr-2">{{ language.last_updated }}</td>
-    <td class="pr-2 text-right">{{ language.language_tree_nodes.count }}</td>
+    <td class="pr-2">
+        {{ language.get_text_direction_display }}
+    </td>
+    <td class="pr-2">
+        {{ language.created_date }}
+    </td>
+    <td class="pr-2">
+        {{ language.last_updated }}
+    </td>
+    <td class="pr-2 text-right">
+        {{ language.language_tree_nodes.count }}
+    </td>
     <td class="pl-2 pr-4 text-right">
         {% if perms.cms.delete_language %}
             {% if language.language_tree_nodes.exists %}

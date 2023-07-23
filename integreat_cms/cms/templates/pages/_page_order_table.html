@@ -14,7 +14,9 @@
                                   class="drag text-gray-800 block py-3 px-2 cursor-move"
                                   draggable="{% if not page.archived and can_edit_page %}true{% else %}false{% endif %}"
                                   title="{% translate "Change the position of the page with drag & drop." %}">
-                                {% if can_edit_page %}<i icon-name="move"></i>{% endif %}
+                                {% if can_edit_page %}
+                                    <i icon-name="move"></i>
+                                {% endif %}
                             </span>
                         </td>
                         <td id="page_title"
@@ -45,8 +47,11 @@
                         </tr>
                     {% endif %}
                     <tr class="border border-gray-200 hover:bg-gray-100">
-                        <td></td>
-                        <td>{{ sibling.best_translation.title }}</td>
+                        <td>
+                        </td>
+                        <td>
+                            {{ sibling.best_translation.title }}
+                        </td>
                     </tr>
                     {% if forloop.last %}
                         {% if not page in siblings %}
@@ -81,17 +86,23 @@
                         <td class="single_icon min">
                             <span class="drag text-gray-800 block py-3 px-2 cursor-move"
                                   draggable="{% if can_edit_page %}true{% else %}false{% endif %}">
-                                {% if can_edit_page %}<i icon-name="move"></i>{% endif %}
+                                {% if can_edit_page %}
+                                    <i icon-name="move"></i>
+                                {% endif %}
                             </span>
                         </td>
-                        <td id="page_title" data-default-title="{% translate "New Page" %}">{% translate "New Page" %}</td>
+                        <td id="page_title" data-default-title="{% translate "New Page" %}">
+                            {% translate "New Page" %}
+                        </td>
                     </tr>
                 {% else %}
                     <tr class="border-2 border-blue-500 hover:bg-gray-100">
                         <td class="single_icon min">
                             <span class="drag text-gray-800 block py-3 px-2 cursor-move"
                                   draggable="{% if can_edit_page %}true{% else %}false{% endif %}">
-                                {% if can_edit_page %}<i icon-name="move"></i>{% endif %}
+                                {% if can_edit_page %}
+                                    <i icon-name="move"></i>
+                                {% endif %}
                             </span>
                         </td>
                         <td id="page_title"

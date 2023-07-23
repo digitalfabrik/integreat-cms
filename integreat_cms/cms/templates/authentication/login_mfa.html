@@ -11,8 +11,12 @@
          data-mfa-login-verify-url="{% url 'public:login_mfa_verify' %}">
         <div class="auth-error bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 mb-5 hidden"
              role="alert">
-            <p>{% translate "Unable to verify your 2FA key, please try again." %}</p>
+            <p>
+                {% translate "Unable to verify your 2FA key, please try again." %}
+            </p>
         </div>
-        <div class="mb-3">{% translate "Please authenticate using your 2FA key by following your browser instructions" %}</div>
+        <div class="mb-3">
+            {% translate "Please authenticate using your 2FA key by following your browser instructions" %}
+        </div>
     </div>
 {% endblock content %}

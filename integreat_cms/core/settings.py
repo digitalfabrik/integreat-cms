@@ -95,7 +95,7 @@ COMPANY_URL = os.environ.get(
 )
 
 #: The available inbuilt brandings of the CMS
-AVAILABLE_BRANDINGS = ["integreat", "malte", "aschaffenburg"]
+AVAILABLE_BRANDINGS = ["integreat", "malte", "aschaffenburg", "netzwerk-obdach"]
 
 #: The branding of the CMS
 BRANDING = os.environ.get("INTEGREAT_CMS_BRANDING", "integreat")
@@ -740,6 +740,9 @@ USE_TZ = True
 ##########################
 # AUTOMATIC TRANSLATIONS #
 ##########################
+
+#: The URL to DeepL API. If not set, the library selects the correct URL automatically
+DEEPL_API_URL = os.environ.get("INTEGREAT_CMS_DEEPL_API_URL")
 
 #: Authentication token for the DeepL API. If not set, automatic translations via DeepL are disabled
 DEEPL_AUTH_KEY = os.environ.get("INTEGREAT_CMS_DEEPL_AUTH_KEY")

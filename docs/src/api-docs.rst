@@ -230,7 +230,8 @@ RESPONSE
                "id": Number,           // The id of the organization
                "slug": String,         // The slug of the organization
                "name": String,         // The name of the organization
-               "logo": String | null,  // The icon url of the organization
+               "logo": String,         // The icon url of the organization
+               "website": String,      // The url of the organization website
          } | null
          "hash": null,                 // Currently always null
       },
@@ -292,6 +293,7 @@ RESPONSE
             "name": String,              // The translated name of the category
             "color": String | null,      // The color of the category, in the format #RRGGBB
             "icon": String | null,       // The icon name of the category
+            "icon_url": String,          // The url of the icon
          } | null,
          "temporarily_closed": Boolean,  // Whether this location is temporarily closed
          "opening_hours": [              // The opening hours for the location
@@ -325,7 +327,8 @@ RESPONSE
                "id": Number,             // The id of the organization
                "slug": String,           // The slug of the organization
                "name": String,           // The name of the organization
-               "logo": String | null,    // The icon url of the organization
+               "logo": String,           // The icon url of the organization
+               "website": String,        // The url of the organization website
          } | null,
          "barrier_free": Boolean,        // Whether this location is barrier free
       },
@@ -359,10 +362,11 @@ RESPONSE
 
    [
       {
-         "id": Number,     // The id of the category
-         "name": String,   // The translated name of the category
-         "color": String,  // The color of the category, in the format #RRGGBB
-         "icon": String,   // The icon name of the category
+         "id": Number,        // The id of the category
+         "name": String,      // The translated name of the category
+         "color": String,     // The color of the category, in the format #RRGGBB
+         "icon": String,      // The icon name of the category
+         "icon_url": String,  // The url of the icon
       },
       ...
    ]

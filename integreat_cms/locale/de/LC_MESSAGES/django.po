@@ -3247,7 +3247,7 @@ msgstr ""
 msgid "Whether or not the location is read-only and hidden in the API."
 msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
 
-#: cms/models/pois/poi.py
+#: cms/models/pois/poi.py cms/models/users/organization.py
 msgid "website"
 msgstr "Webseite"
 
@@ -5925,8 +5925,16 @@ msgid "Logo"
 msgstr "Logo"
 
 #: cms/templates/organizations/organization_list.html
+msgid "Website"
+msgstr "Webseite"
+
+#: cms/templates/organizations/organization_list.html
 msgid "No organizations available yet."
 msgstr "Noch keine Organisationen vorhanden."
+
+#: cms/templates/organizations/organization_list_row.html
+msgid "To website"
+msgstr "Zur Webseite"
 
 #: cms/templates/pages/_page_order_table.html
 msgid "Change the position of the page with drag & drop."
@@ -6057,6 +6065,28 @@ msgstr "Seite archivieren"
 #: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "Archive this page"
 msgstr "Diese Seite archivieren"
+
+#: cms/templates/pages/page_form_sidebar/actions_box.html
+msgid ""
+"You cannot archive a page which is embedded as live content from another "
+"page."
+msgstr ""
+"Diese Seite kann nicht archiviert werden, da sie von einer anderen Seite als "
+"Live-Inhalt eingebunden wurde."
+
+#: cms/templates/pages/page_form_sidebar/actions_box.html
+msgid ""
+"To archive this page, you have to remove the embedded live content from this "
+"page first:"
+msgid_plural ""
+"To archive this page, you have to remove the embedded live content from "
+"these pages first:"
+msgstr[0] ""
+"Um diese Seite zu archivieren, müssen Sie den eingebetteten Live-Inhalt von "
+"dieser Seite entfernen:"
+msgstr[1] ""
+"Um diese Seite zu archivieren, müssen Sie den eingebetteten Live-Inhalt von "
+"diesen Seiten entfernen:"
 
 #: cms/templates/pages/page_form_sidebar/actions_box.html
 #: cms/templates/pages/page_tree_archived_node.html
@@ -6348,13 +6378,17 @@ msgstr ""
 msgid "Edit page"
 msgstr "Seite bearbeiten"
 
+#: cms/templates/pages/page_tree_node.html cms/views/pages/page_actions.py
+msgid ""
+"This page cannot be archived because it was embedded as live content from "
+"another page."
+msgstr ""
+"Diese Seite kann nicht archiviert werden, da sie von einer anderen Seite als "
+"Live-Inhalt eingebunden wurde."
+
 #: cms/templates/pages/page_tree_node.html
 msgid "This also involves archived subpages."
 msgstr "Dies betrifft auch archivierte Unterseiten."
-
-#: cms/templates/pages/page_tree_node.html
-msgid "You can however archive this page."
-msgstr "Sie können diese Seite jedoch archivieren."
 
 #: cms/templates/pages/page_tree_node.html
 msgid "Copy short link"
@@ -7336,6 +7370,22 @@ msgstr ""
 "verändern soll und keine Aktualisierung der Übersetzungen in anderen "
 "Sprachen erfordert."
 
+#: cms/utils/email_utils.py
+msgid "Malformed header data."
+msgstr "Fehlerhafte Header-Daten."
+
+#: cms/utils/email_utils.py
+msgid "Invalid email credentials."
+msgstr "Ungültige E-Mail-Anmeldedaten."
+
+#: cms/utils/email_utils.py
+msgid "An SMTP error occured."
+msgstr "Ein SMTP-Fehler ist aufgetreten."
+
+#: cms/utils/email_utils.py
+msgid "The email server refused the connection."
+msgstr "Der E-Mail-Server hat die Verbindung abgelehnt."
+
 #: cms/utils/internal_link_checker.py
 msgid "Imprint does not exist or is not public in this language"
 msgstr ""
@@ -7434,6 +7484,7 @@ msgid "{} was successfully sent to user {}."
 msgstr "{} wurde erfolgreich an {} gesendet."
 
 #: cms/utils/welcome_mail_utils.py
+#: cms/views/authentication/password_reset_view.py
 msgid "An error occurred! Could not send {}."
 msgstr "Es ist ein Fehler aufgetreten! Die {} konnte nicht versendet werden."
 
@@ -7513,6 +7564,10 @@ msgstr ""
 "Adresse eingegeben haben, mit der Sie sich registriert haben, und überprüfen "
 "Sie Ihren Spam-Ordner."
 
+#: cms/views/authentication/password_reset_view.py
+msgid "password reset email"
+msgstr "E-Mail zum Zurücksetzen des Passworts"
+
 #: cms/views/authentication/totp_login_view.py
 msgid "Login failed."
 msgstr "Login fehlgeschlagen."
@@ -7531,6 +7586,18 @@ msgstr ""
 #: cms/views/bulk_action_views.py
 msgid "The selected {} were successfully {}"
 msgstr "Die ausgewählten {} wurden erfolgreich {}"
+
+#: cms/views/bulk_action_views.py
+msgid ""
+"{} cannot be archived because it was embedded as live content from another "
+"page."
+msgstr ""
+"{} kann nicht archiviert werden, da sie von einer anderen Seite als Live-"
+"Inhalt eingebunden wurde."
+
+#: cms/views/bulk_action_views.py
+msgid "{} was successfully archived"
+msgstr "{} wurde erfolgreich archiviert"
 
 #: cms/views/bulk_action_views.py
 msgid "The selected {} were successfully archived"
@@ -8952,6 +9019,15 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "SMTP error."
+#~ msgstr "SMTP-Fehler."
+
+#~ msgid "You can however archive this page."
+#~ msgstr "Sie können diese Seite jedoch archivieren."
+
+#~ msgid "url"
+#~ msgstr "URL"
 
 #~ msgid "Links could not be replaced."
 #~ msgstr "Links konnten nicht ersetzt werden"
@@ -10538,9 +10614,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Bezeichner ohne Leerzeichen und Sonderzeichen. Eindeutig pro Region und "
 #~ "Sprache"
-
-#~ msgid "url"
-#~ msgstr "URL"
 
 #~ msgid "Enter the offer's name here"
 #~ msgstr "Name des Angebots hier eingeben"

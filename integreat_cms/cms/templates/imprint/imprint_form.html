@@ -23,7 +23,9 @@
             </h1>
             <div class="flex flex-wrap gap-4">
                 {% if perms.cms.change_imprintpage %}
-                    <button name="status" value="{{ DRAFT }}" class="btn btn-outline">{% translate "Save as draft" %}</button>
+                    <button name="status" value="{{ DRAFT }}" class="btn btn-outline">
+                        {% translate "Save as draft" %}
+                    </button>
                     <button name="status" value="{{ PUBLIC }}" class="btn">
                         {% if imprint_translation_form.instance.status == PUBLIC %}
                             {% translate "Update" %}
@@ -46,14 +48,20 @@
                             </label>
                             {% if imprint_translation_form.instance.id %}
                                 <div class="grid grid-cols-2 text-right">
-                                    <div class="font-bold pr-2">{% translate "Version" %}:</div>
+                                    <div class="font-bold pr-2">
+                                        {% translate "Version" %}:
+                                    </div>
                                     <div>
                                         {{ imprint_translation_form.instance.version }}
                                         (<a href="{% url 'imprint_versions' region_slug=request.region.slug language_slug=language.slug %}"
    class="text-blue-500 hover:underline">{% translate "Show" %}</a>)
                                     </div>
-                                    <div class="font-bold pr-2">{% translate "Status" %}:</div>
-                                    <div>{{ imprint_translation_form.instance.get_status_display }}</div>
+                                    <div class="font-bold pr-2">
+                                        {% translate "Status" %}:
+                                    </div>
+                                    <div>
+                                        {{ imprint_translation_form.instance.get_status_display }}
+                                    </div>
                                 </div>
                             {% endif %}
                         </div>
@@ -61,7 +69,9 @@
                         {% if imprint_translation_form.instance.id %}
                             {% if request.region.short_urls_enabled and request.user.expert_mode %}
                                 <div class="flex items-center">
-                                    <label class="inline-block mr-2">{% translate "Short URL" %}:</label>
+                                    <label class="inline-block mr-2">
+                                        {% translate "Short URL" %}:
+                                    </label>
                                     <a href="{{ imprint_translation_form.instance.short_url }}"
                                        target="_blank"
                                        rel="noopener noreferrer"
@@ -77,7 +87,9 @@
                             {% endif %}
                         {% endif %}
                         <div id="link-container" class="flex items-center">
-                            <label class="inline-block">{% translate "Link to the imprint" %}:</label>
+                            <label class="inline-block">
+                                {% translate "Link to the imprint" %}:
+                            </label>
                             <a href="{{ WEBAPP_URL }}/{{ request.region.slug }}/{{ language.slug }}/{{ IMPRINT_SLUG }}"
                                target="_blank"
                                rel="noopener noreferrer"
@@ -90,7 +102,9 @@
                                 <i icon-name="check" class="hidden text-green-500"></i>
                             </a>
                         </div>
-                        <label for="{{ imprint_translation_form.content.id_for_label }}">{{ imprint_translation_form.content.label }}</label>
+                        <label for="{{ imprint_translation_form.content.id_for_label }}">
+                            {{ imprint_translation_form.content.label }}
+                        </label>
                         {% render_field imprint_translation_form.content class+="tinymce_textarea flex-auto" %}
                     </div>
                 </div>
@@ -105,13 +119,17 @@
                             </h3>
                         </div>
                         <div class="w-full px-4 pb-4 rounded shadow bg-white">
-                            <label>{% minor_edit_label request.region language %}</label>
+                            <label>
+                                {% minor_edit_label request.region language %}
+                            </label>
                             {% render_field imprint_translation_form.minor_edit %}
                             <label for="{{ imprint_translation_form.minor_edit.id_for_label }}"
                                    class="secondary">
                                 {{ imprint_translation_form.minor_edit.label }}
                             </label>
-                            <div class="help-text">{% minor_edit_help_text request.region language imprint_translation_form %}</div>
+                            <div class="help-text">
+                                {% minor_edit_help_text request.region language imprint_translation_form %}
+                            </div>
                         </div>
                     </div>
                     {% if perms.cms.delete_imprintpage %}
@@ -123,7 +141,9 @@
                                 </h3>
                             </div>
                             <div class="px-4 pb-4">
-                                <label>{% translate "Delete imprint" %}</label>
+                                <label>
+                                    {% translate "Delete imprint" %}
+                                </label>
                                 <button title="{% translate "Delete imprint" %}"
                                         class="btn btn-red confirmation-button w-full"
                                         data-confirmation-title="{% translate "Please confirm that you really want to delete the imprint" %}"
@@ -144,9 +164,13 @@
                             </h3>
                         </div>
                         <div class="px-4 pb-4">
-                            <label for="side-by-side-select">{% translate "Direction of translation" %}</label>
+                            <label for="side-by-side-select">
+                                {% translate "Direction of translation" %}
+                            </label>
                             <select id="side-by-side-select" data-unsaved-warning-exclude>
-                                <option value="">---------</option>
+                                <option value="">
+                                    ---------
+                                </option>
                                 {% for side_by_side_language_option in side_by_side_language_options %}
                                     <option value="{% url 'sbs_edit_imprint' region_slug=request.region.slug language_slug=side_by_side_language_option.value %}"
                                             {% if side_by_side_language_option.disabled %}disabled{% elif side_by_side_language_option.selected %}selected{% endif %}>

@@ -5,7 +5,9 @@
 {% block content %}
     {% with filter_form.filters_visible as filters_visible %}
         <div class="table-header">
-            <h1 class="heading">{% translate "Archived events" %}</h1>
+            <h1 class="heading">
+                {% translate "Archived events" %}
+            </h1>
             <div class="flex flex-wrap justify-between gap-4">
                 <div class="flex flex-wrap gap-4">
                     {% include "generic_language_switcher.html" with target="events_archived" %}
@@ -33,7 +35,9 @@
                     <th class="py-3 pl-4 pr-2 min">
                         <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Title in" %} {{ language.translated_name }}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Title in" %} {{ language.translated_name }}
+                    </th>
                     {% get_current_language as LANGUAGE_CODE %}
                     {% get_language LANGUAGE_CODE as backend_language %}
                     {% if backend_language and backend_language != language %}
@@ -53,12 +57,24 @@
                             {% endspaceless %}
                         </div>
                     </th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Status" %}</th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Event location" %}</th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Start" %}</th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% translate "End" %}</th>
-                    <th class="text-sm text-left uppercase py-3 pr-2">{% translate "Recurrence" %}</th>
-                    <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min">{% translate "Options" %}</th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Status" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Event location" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Start" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "End" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Recurrence" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pl-2 pr-4 min">
+                        {% translate "Options" %}
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -84,12 +100,16 @@
     {% if perms.cms.change_event %}
         <div class="flex flex-wrap gap-2 mt-4">
             <select id="bulk-action" class="w-auto max-w-full">
-                <option>{% translate "Select bulk action" %}</option>
+                <option>
+                    {% translate "Select bulk action" %}
+                </option>
                 <option data-bulk-action="{% url 'bulk_restore_events' region_slug=request.region.slug language_slug=language.slug %}">
                     {% translate "Restore events" %}
                 </option>
             </select>
-            <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>{% translate "Execute" %}</button>
+            <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
+                {% translate "Execute" %}
+            </button>
         </div>
     {% endif %}
     {% include "../generic_confirmation_dialog.html" %}

@@ -36,9 +36,15 @@
             {{ node.translated_name }}
         </a>
     </td>
-    <td>{{ node.slug }}</td>
-    <td>{{ node.language.bcp47_tag }}</td>
-    <td>{{ node.language.get_text_direction_display }}</td>
+    <td>
+        {{ node.slug }}
+    </td>
+    <td>
+        {{ node.language.bcp47_tag }}
+    </td>
+    <td>
+        {{ node.language.get_text_direction_display }}
+    </td>
     <td>
         <span class="fp fp-{{ node.language.primary_country_code }} fp-rounded "
               title="{{ node.language.get_primary_country_code_display }}"></span>

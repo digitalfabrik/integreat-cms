@@ -10,17 +10,25 @@
         <form method="post">
             {% csrf_token %}
             <div class="my-4">
-                <p class="font-bold">{% translate "Nickname" %}:</p>
-                <p>{{ key.name }}</p>
+                <p class="font-bold">
+                    {% translate "Nickname" %}:
+                </p>
+                <p>
+                    {{ key.name }}
+                </p>
             </div>
             <div class="flex items-center justify-between">
-                <button class="btn w-full">{% translate "Delete 2FA key" %}</button>
+                <button class="btn w-full">
+                    {% translate "Delete 2FA key" %}
+                </button>
             </div>
         </form>
     </div>
     <div class="mfa-not-supported hidden">
         <div class="mb-6">
-            <p>{% translate "It seems like your browser does not support webauthn" %}</p>
+            <p>
+                {% translate "It seems like your browser does not support webauthn" %}
+            </p>
         </div>
     </div>
 {% endblock content %}

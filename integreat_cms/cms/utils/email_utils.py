@@ -1,11 +1,13 @@
 import logging
 from email.mime.image import MIMEImage
+from smtplib import SMTPAuthenticationError, SMTPException
 
 from django.conf import settings
 from django.contrib.staticfiles import finders
-from django.core.mail import EmailMultiAlternatives
+from django.core.mail import BadHeaderError, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.text import capfirst
+from django.utils.translation import gettext as _
 
 logger = logging.getLogger(__name__)
 
@@ -70,4 +72,17 @@ def send_mail(
             finders.searched_locations,
         )
     # Send email
-    email.send()
+    try:
+        email.send()
+    except BadHeaderError as e:
+        logger.error(e)
+        raise RuntimeError(_("Malformed header data.")) from e
+    except SMTPAuthenticationError as e:
+        logger.error(e)
+        raise RuntimeError(_("Invalid email credentials.")) from e
+    except SMTPException as e:
+        logger.error(e)
+        raise RuntimeError(_("An SMTP error occured.")) from e
+    except ConnectionRefusedError as e:
+        logger.error(e)
+        raise RuntimeError(_("The email server refused the connection.")) from e

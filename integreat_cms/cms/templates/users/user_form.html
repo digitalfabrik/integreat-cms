@@ -18,7 +18,9 @@
                 {% endif %}
             </h1>
             {% if perms.cms.change_user %}
-                <button class="btn">{% translate "Save" %}</button>
+                <button class="btn">
+                    {% translate "Save" %}
+                </button>
             {% endif %}
         </div>
         <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
@@ -31,19 +33,27 @@
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                     <!-- General Options for account management -->
                     <div>
-                        <label for="{{ user_form.username.id_for_label }}">{{ user_form.username.label }}</label>
+                        <label for="{{ user_form.username.id_for_label }}">
+                            {{ user_form.username.label }}
+                        </label>
                         {% render_field user_form.username|add_error_class:"border-red-500" %}
                     </div>
                     <div>
-                        <label for="{{ user_form.first_name.id_for_label }}">{{ user_form.first_name.label }}</label>
+                        <label for="{{ user_form.first_name.id_for_label }}">
+                            {{ user_form.first_name.label }}
+                        </label>
                         {% render_field user_form.first_name|add_error_class:"border-red-500" %}
                     </div>
                     <div>
-                        <label for="{{ user_form.last_name.id_for_label }}">{{ user_form.last_name.label }}</label>
+                        <label for="{{ user_form.last_name.id_for_label }}">
+                            {{ user_form.last_name.label }}
+                        </label>
                         {% render_field user_form.last_name|add_error_class:"border-red-500" %}
                     </div>
                     <div>
-                        <label for="{{ user_form.email.id_for_label }}">{{ user_form.email.label }}</label>
+                        <label for="{{ user_form.email.id_for_label }}">
+                            {{ user_form.email.label }}
+                        </label>
                         {% render_field user_form.email|add_error_class:"border-red-500" %}
                     </div>
                 </div>
@@ -57,21 +67,35 @@
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                     <div>
                         {% render_field user_form.is_active %}
-                        <label for="{{ user_form.is_active.id_for_label }}">{{ user_form.is_active.label }}</label>
-                        <div class="help-text">{{ user_form.is_active.help_text }}</div>
+                        <label for="{{ user_form.is_active.id_for_label }}">
+                            {{ user_form.is_active.label }}
+                        </label>
+                        <div class="help-text">
+                            {{ user_form.is_active.help_text }}
+                        </div>
                     </div>
                     {% if not user_form.instance.id %}
                         <div>
                             {% render_field user_form.send_activation_link %}
-                            <label for="{{ user_form.send_activation_link.id_for_label }}">{{ user_form.send_activation_link.label }}</label>
-                            <div class="help-text">{{ user_form.send_activation_link.help_text }}</div>
+                            <label for="{{ user_form.send_activation_link.id_for_label }}">
+                                {{ user_form.send_activation_link.label }}
+                            </label>
+                            <div class="help-text">
+                                {{ user_form.send_activation_link.help_text }}
+                            </div>
                         </div>
                     {% endif %}
                     <div>
-                        <label for="{{ user_form.password.id_for_label }}">{{ user_form.password.label }}</label>
+                        <label for="{{ user_form.password.id_for_label }}">
+                            {{ user_form.password.label }}
+                        </label>
                         {% render_field user_form.password|add_error_class:"border-red-500" %}
                         <ul class="help-text mt-2">
-                            {% for item in user_form.password.help_text %}<li>{{ item }}</li>{% endfor %}
+                            {% for item in user_form.password.help_text %}
+                                <li>
+                                    {{ item }}
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
                     <div class="{% if not request.user.is_superuser %}hidden{% endif %}">
@@ -79,7 +103,9 @@
                         <label for="{{ user_form.passwordless_authentication_enabled.id_for_label }}">
                             {{ user_form.passwordless_authentication_enabled.label }}
                         </label>
-                        <div class="help-text">{{ user_form.passwordless_authentication_enabled.help_text }}</div>
+                        <div class="help-text">
+                            {{ user_form.passwordless_authentication_enabled.help_text }}
+                        </div>
                         {% if user_form.passwordless_authentication_enabled.field.disabled %}
                             <i icon-name="alert-triangle" class="text-red-500"></i>
                             <span class="pl-1">{% translate "This setting is only available if the user has an active TOTP or FIDO2 setup." %}</span>
@@ -97,8 +123,12 @@
                     <div class="divide-y divide-gray-200">
                         <div class="{% if not request.user.is_superuser %}hidden{% endif %}">
                             {% render_field user_form.is_superuser %}
-                            <label for="{{ user_form.is_superuser.id_for_label }}">{{ user_form.is_superuser.label }}</label>
-                            <div class="help-text">{{ user_form.is_superuser.help_text }}</div>
+                            <label for="{{ user_form.is_superuser.id_for_label }}">
+                                {{ user_form.is_superuser.label }}
+                            </label>
+                            <div class="help-text">
+                                {{ user_form.is_superuser.help_text }}
+                            </div>
                         </div>
                         <div>
                             {% render_field user_form.is_staff %}
@@ -106,35 +136,61 @@
                                 {{ user_form.is_staff.label }}
                                 <span class="inline-block ml-2 h-5 w-5 align-text-top bg-integreat-icon bg-contain bg-center bg-no-repeat"></span>
                             </label>
-                            <div class="help-text">{% translate "Designates whether this account has access to the network management." %}</div>
+                            <div class="help-text">
+                                {% translate "Designates whether this account has access to the network management." %}
+                            </div>
                         </div>
                         <div>
                             {% render_field user_form.expert_mode %}
-                            <label for="{{ user_form.expert_mode.id_for_label }}">{{ user_form.expert_mode.label }}</label>
-                            <div class="help-text">{{ user_form.expert_mode.help_text }}</div>
+                            <label for="{{ user_form.expert_mode.id_for_label }}">
+                                {{ user_form.expert_mode.label }}
+                            </label>
+                            <div class="help-text">
+                                {{ user_form.expert_mode.help_text }}
+                            </div>
                         </div>
                     </div>
                     <div class="show-for-staff">
-                        <label for="{{ user_form.staff_role.id_for_label }}">{{ user_form.staff_role.label }}</label>
+                        <label for="{{ user_form.staff_role.id_for_label }}">
+                            {{ user_form.staff_role.label }}
+                        </label>
                         {% render_field user_form.staff_role|add_error_class:"border-red-500" %}
-                        <div class="help-text">{{ user_form.staff_role.help_text }}</div>
+                        <div class="help-text">
+                            {{ user_form.staff_role.help_text }}
+                        </div>
                     </div>
                     <div class="show-for-non-staff">
-                        <label for="{{ user_form.role.id_for_label }}">{{ user_form.role.label }}</label>
+                        <label for="{{ user_form.role.id_for_label }}">
+                            {{ user_form.role.label }}
+                        </label>
                         {% render_field user_form.role|add_error_class:"border-red-500" %}
-                        <div class="help-text">{{ user_form.role.help_text }}</div>
+                        <div class="help-text">
+                            {{ user_form.role.help_text }}
+                        </div>
                     </div>
                     <div>
-                        <label for="{{ user_form.regions.id_for_label }}" class="show-for-non-staff">{{ user_form.regions.label }}</label>
-                        <label for="{{ user_form.regions.id_for_label }}" class="show-for-staff">{% translate "Preferred regions" %}</label>
+                        <label for="{{ user_form.regions.id_for_label }}" class="show-for-non-staff">
+                            {{ user_form.regions.label }}
+                        </label>
+                        <label for="{{ user_form.regions.id_for_label }}" class="show-for-staff">
+                            {% translate "Preferred regions" %}
+                        </label>
                         {% render_field user_form.regions|add_error_class:"border-red-500" %}
-                        <div class="help-text show-for-non-staff">{{ user_form.regions.help_text }}</div>
-                        <div class="help-text show-for-staff">{% translate "The regions to which the account has quick access" %}</div>
+                        <div class="help-text show-for-non-staff">
+                            {{ user_form.regions.help_text }}
+                        </div>
+                        <div class="help-text show-for-staff">
+                            {% translate "The regions to which the account has quick access" %}
+                        </div>
                     </div>
                     <div class="show-for-non-staff">
-                        <label for="{{ user_form.organization.id_for_label }}">{{ user_form.organization.label }}</label>
+                        <label for="{{ user_form.organization.id_for_label }}">
+                            {{ user_form.organization.label }}
+                        </label>
                         {% render_field user_form.organization %}
-                        <div class="help-text">{{ user_form.organization.help_text }}</div>
+                        <div class="help-text">
+                            {{ user_form.organization.help_text }}
+                        </div>
                     </div>
                 </div>
             </div>

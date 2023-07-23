@@ -73,7 +73,7 @@ if [[ $(major "$npm_version") -lt "$required_npm_version" ]]; then
     exit 1
 fi
 # Define the required npm version
-required_node_version="12"
+required_node_version="18"
 # Check if nodejs is installed
 if [[ ! -x "$(command -v node)" ]]; then
     echo "The package nodejs is not installed. Please install nodejs version ${required_node_version} or higher manually and run this script again."  | print_error
