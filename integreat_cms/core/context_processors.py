@@ -38,6 +38,7 @@ def settings_processor(request):
         "SUMM_AI_ENABLED": settings.SUMM_AI_ENABLED,
         "TEXTLAB_API_LANGUAGES": settings.TEXTLAB_API_LANGUAGES,
         "TEXTLAB_API_ENABLED": settings.TEXTLAB_API_ENABLED,
+        "TEST": settings.TEST,
     }
 
 

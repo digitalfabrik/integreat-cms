@@ -250,6 +250,11 @@ HOSTNAME = urlparse(BASE_URL).hostname
 #:     Never deploy a site into production with :setting:`DEBUG` turned on!
 DEBUG = bool(strtobool(os.environ.get("INTEGREAT_CMS_DEBUG", "False")))
 
+
+#: Whether this is a testing system (even if DEBUG is off)
+TEST = bool(strtobool(os.environ.get("INTEGREAT_CMS_TEST", "False")))
+
+
 #: Enabled applications (see :setting:`django:INSTALLED_APPS`)
 INSTALLED_APPS = [
     # Installed custom apps

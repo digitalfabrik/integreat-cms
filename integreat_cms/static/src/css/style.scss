@@ -54,8 +54,19 @@ header {
 }
 
 nav#primary-navigation {
+    &.testing {
+        @apply top-6;
+        height: calc(100% - 24px);
+        #menu {
+            max-height: calc(100vh - 78px);
+        }
+    }
+    &.h-full {
+        #menu {
+            max-height: calc(100vh - 56px);
+        }
+    }
     #menu {
-        max-height: calc(100vh - 56px);
         a {
             @apply relative block p-3 pl-6;
         }
