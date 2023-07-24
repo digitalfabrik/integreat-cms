@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-03-23T18:25:32+00:00" />
+    <meta property="article:modified_time" content="2023-07-24T16:13:23+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Push Notifications &mdash; integreat-cms 2023.7.2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -919,6 +919,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_ENABLED"><code class="docutils literal notranslate"><span class="pre">FCM_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_HISTORY_DAYS"><code class="docutils literal notranslate"><span class="pre">FCM_HISTORY_DAYS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_KEY"><code class="docutils literal notranslate"><span class="pre">FCM_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_SCHEDULE_INTERVAL_MINUTES"><code class="docutils literal notranslate"><span class="pre">FCM_SCHEDULE_INTERVAL_MINUTES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_URL"><code class="docutils literal notranslate"><span class="pre">FCM_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.GVZ_API_ENABLED"><code class="docutils literal notranslate"><span class="pre">GVZ_API_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.GVZ_API_URL"><code class="docutils literal notranslate"><span class="pre">GVZ_API_URL</span></code></a></li>
@@ -1529,6 +1530,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#find-missing-versions"><code class="docutils literal notranslate"><span class="pre">find_missing_versions</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#hix-bulk"><code class="docutils literal notranslate"><span class="pre">hix_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#replace-links"><code class="docutils literal notranslate"><span class="pre">replace_links</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#send-push-notifications"><code class="docutils literal notranslate"><span class="pre">send_push_notifications</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#summ-ai-bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#reset-deepl-budget"><code class="docutils literal notranslate"><span class="pre">reset_deepl_budget</span></code></a></li>
 </ul>
@@ -1734,17 +1736,21 @@
 <h2>Push Notification Form<a class="headerlink" href="#push-notification-form" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.push_notifications.push_notification_form.</span></span><span class="sig-name descname"><span class="pre">PushNotificationForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/push_notifications/push_notification_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.push_notifications.push_notification_form.</span></span><span class="sig-name descname"><span class="pre">PushNotificationForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/push_notifications/push_notification_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_model_form.CustomModelForm" title="integreat_cms.cms.forms.custom_model_form.CustomModelForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomModelForm</span></code></a></p>
 <p>Form for creating and modifying push notification objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">channel</span></code>: Channel (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedChoiceField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">mode</span></code>: Mode (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TypedChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypedChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scheduled_send_date</span></code>: Scheduled send date (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.DateTimeField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTimeField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">schedule_send</span></code>: Schedule sending (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scheduled_send_date_day</span></code>: Scheduled send day (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.DateField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scheduled_send_date_time</span></code>: Scheduled send time (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.TimeField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TimeField</span></code></a>)</p></li>
 </ul>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/push_notifications/push_notification_form.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/push_notifications/push_notification_form.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Initialize push notification form</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1753,9 +1759,23 @@
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/push_notifications/push_notification_form.py#L65"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Validate form fields which depend on each other, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form.clean" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.forms.Form.clean()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The cleaned form data</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/push_notifications/push_notification_form.py#L5"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/push_notifications/push_notification_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Return all media required to render the widgets on this form.</p>
 </dd></dl>
 
@@ -1828,7 +1848,7 @@ If the main language should be used as fallback for missing translations, this a
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 23, 2023.
+      <span class="lastupdated">Last updated on Jul 24, 2023.
       </span></p>
   </div>
 
