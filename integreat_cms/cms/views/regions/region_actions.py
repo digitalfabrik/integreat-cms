@@ -11,7 +11,7 @@ from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
 from ...decorators import permission_required
-from ...models import Page, Region
+from ...models import Page, PushNotification, Region
 
 logger = logging.getLogger(__name__)
 
@@ -104,10 +104,18 @@ def delete_region(request, *args, **kwargs):
     )
     if orphan_users.exists():
         logger.info(
-            "Deleted orphan users: %r",
+            "Deleting orphan users: %r",
             orphan_users,
         )
         orphan_users.delete()
+    # Get orphan push notifications
+    orphan_pns = PushNotification.objects.filter(regions=None)
+    if orphan_pns.exists():
+        logger.info(
+            "Deleting orphan PushNotifications: %r",
+            orphan_pns,
+        )
+        orphan_pns.delete()
 
     messages.success(request, _("Region was successfully deleted"))
 
