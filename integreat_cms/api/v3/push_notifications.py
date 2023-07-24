@@ -27,7 +27,7 @@ def sent_push_notifications(request, region_slug, language_slug):
     channel = request.GET.get("channel", "all")
     query_result = (
         PushNotificationTranslation.objects.filter(
-            push_notification__region__slug=region_slug
+            push_notification__regions__slug=region_slug
         )
         .filter(
             push_notification__sent_date__gte=timezone.now()
