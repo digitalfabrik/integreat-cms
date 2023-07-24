@@ -29,7 +29,10 @@ class PushNotificationFormView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "push_notifications/push_notification_form.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    extra_context = {"current_menu_item": "push_notifications_form"}
+    extra_context = {
+        "current_menu_item": "push_notifications_form",
+        "schedule_interval": settings.FCM_SCHEDULE_INTERVAL_MINUTES,
+    }
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):

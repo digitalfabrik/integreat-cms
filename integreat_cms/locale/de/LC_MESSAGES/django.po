@@ -2032,6 +2032,32 @@ msgstr ""
 "füllen Sie das Feld manuell aus, wenn der Ort auf der Karte angezeigt werden "
 "soll."
 
+#: cms/forms/push_notifications/push_notification_form.py
+msgid "Schedule sending"
+msgstr "Automatisch senden"
+
+#: cms/forms/push_notifications/push_notification_form.py
+msgid "Scheduled send day"
+msgstr "Geplanter Tag zum Senden"
+
+#: cms/forms/push_notifications/push_notification_form.py
+msgid "Scheduled send time"
+msgstr "Geplante Zeit zum Senden"
+
+#: cms/forms/push_notifications/push_notification_form.py
+msgid "Cannot be unspecified"
+msgstr "Kann nicht leer gelassen werden"
+
+#: cms/forms/push_notifications/push_notification_form.py
+msgid "The scheduled send date cannot be in the past"
+msgstr ""
+"Der geplante Zeitpunkt zum Senden kann nicht in der Vergangenheit liegen"
+
+#: cms/forms/push_notifications/push_notification_form.py
+#, python-format
+msgid "Can only schedule every %(interval)s minutes"
+msgstr "Nachrichten können nur alle %(interval)s Minuten gesendet werden"
+
 #: cms/forms/regions/region_form.py
 msgid "Other timezones"
 msgstr "Sonstige Zeitzonen"
@@ -3340,6 +3366,14 @@ msgstr ""
 #: cms/models/push_notifications/push_notification.py
 msgid "The date and time when the push notification was sent."
 msgstr "Datum und Uhrzeit, als die Push-Benachrichtigung gesendet wurde"
+
+#: cms/models/push_notifications/push_notification.py
+msgid "scheduled send date"
+msgstr "Geplanter Zeitpunkt zum Senden"
+
+#: cms/models/push_notifications/push_notification.py
+msgid "The scheduled date for this push notification to be sent"
+msgstr "Datum und Uhrzeit, wann die Push-Benachrichtigung gesendet werden soll"
 
 #: cms/models/push_notifications/push_notification.py
 msgid "mode"
@@ -6680,6 +6714,11 @@ msgid "Save & Send"
 msgstr "Speichern & Senden"
 
 #: cms/templates/push_notifications/push_notification_form.html
+#, python-format
+msgid "Messages are sent every %(schedule_interval)s minutes"
+msgstr "Nachrichten werden alle %(schedule_interval)s Minuten gesendet"
+
+#: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/push_notifications/push_notification_list.html
 msgid "Sent"
 msgstr "Gesendet"
@@ -6694,6 +6733,10 @@ msgid "Channel"
 msgstr "Kanal"
 
 #: cms/templates/push_notifications/push_notification_list.html
+msgid "Planned send date"
+msgstr "Geplanter Zeitpunkt zum Senden"
+
+#: cms/templates/push_notifications/push_notification_list.html
 msgid "No push notifications found with these filters."
 msgstr "Keine Push-Benachrichtigungen mit diesen Filter gefunden."
 
@@ -6704,6 +6747,10 @@ msgstr "Noch keine Push-Benachrichtigungen vorhanden."
 #: cms/templates/push_notifications/push_notification_list_row.html
 msgid "Title not available"
 msgstr "Titel nicht verfügbar"
+
+#: cms/templates/push_notifications/push_notification_list_row.html
+msgid "Manual"
+msgstr "Manuell"
 
 #: cms/templates/regions/region_form.html
 #, python-format
@@ -9031,6 +9078,10 @@ msgstr ""
 
 #~ msgid "SMTP error."
 #~ msgstr "SMTP-Fehler."
+
+#~ msgid "It is possible that messages are sent only hourly"
+#~ msgstr ""
+#~ "Es ist möglich, dass Push-Benachrichtigungen nur stündlich gesendet werden"
 
 #~ msgid "You can however archive this page."
 #~ msgstr "Sie können diese Seite jedoch archivieren."

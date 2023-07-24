@@ -131,6 +131,13 @@ Search & replace links in the content::
 * ``--username USERNAME``: Associate any new created translations with ``USERNAME``
 * ``--commit``: Whether changes should be written to the database
 
+``send_push_notifications``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Send all due scheduled push notifications::
+
+    integreat-cms-cli send_push_notifications
+
 
 ``summ_ai_bulk``
 ~~~~~~~~~~~~~~~~
