@@ -2328,9 +2328,8 @@ msgstr "Die Passwörter stimmen nicht überein."
 
 #: cms/models/abstract_content_model.py cms/models/abstract_tree_node.py
 #: cms/models/feedback/feedback.py cms/models/media/directory.py
-#: cms/models/media/media_file.py
-#: cms/models/push_notifications/push_notification.py
-#: cms/models/regions/region.py cms/models/users/organization.py
+#: cms/models/media/media_file.py cms/models/regions/region.py
+#: cms/models/users/organization.py
 msgid "region"
 msgstr "Region"
 
@@ -3350,6 +3349,11 @@ msgid "location translations"
 msgstr "Orts-Übersetzungen"
 
 #: cms/models/push_notifications/push_notification.py
+#: cms/models/regions/region.py cms/models/users/user.py
+msgid "regions"
+msgstr "Regionen"
+
+#: cms/models/push_notifications/push_notification.py
 msgid "channel"
 msgstr "Kanal"
 
@@ -3736,10 +3740,6 @@ msgstr "Seiten"
 #: cms/templates/events/event_list.html
 msgid "Events"
 msgstr "Veranstaltungen"
-
-#: cms/models/regions/region.py cms/models/users/user.py
-msgid "regions"
-msgstr "Regionen"
 
 #: cms/models/users/organization.py
 msgid "organizations"
@@ -6719,6 +6719,14 @@ msgid "Messages are sent every %(schedule_interval)s minutes"
 msgstr "Nachrichten werden alle %(schedule_interval)s Minuten gesendet"
 
 #: cms/templates/push_notifications/push_notification_form.html
+msgid ""
+"Any manager with access to only some of the selected regions can view but "
+"not edit this news message."
+msgstr ""
+"Verwalter:innen, die nur auf einige der ausgewählten Regionen Zugriff haben, "
+"können diese Nachricht ansehen, aber nicht bearbeiten."
+
+#: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/push_notifications/push_notification_list.html
 msgid "Sent"
 msgstr "Gesendet"
@@ -8663,6 +8671,25 @@ msgstr ""
 "Nachträgliche Änderungen werden im \"Nachrichten\"-Bereich der App "
 "angezeigt, haben allerdings keine Auswirkung auf die gesendete Push-"
 "Benachrichtigung."
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid ""
+"This news message is also assigned to regions you don't have access to: {}."
+msgstr ""
+"Diese Nachricht ist auch Regionen zugewiesen, auf die Sie keinen Zugriff "
+"haben: {}."
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid "Thus you cannot edit or delete this news message."
+msgstr "Daher können Sie diese Nachricht nicht bearbeiten oder löschen."
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid ""
+"Please ask the one responsible for all of these regions or contact an "
+"administrator."
+msgstr ""
+"Bitte wenden Sie sich an denjenigen, der für all diese Regionen zuständig "
+"ist oder kontaktieren Sie eine:n Administrator:in."
 
 #: cms/views/push_notifications/push_notification_form_view.py
 msgid "News message \"{}\" was successfully created"

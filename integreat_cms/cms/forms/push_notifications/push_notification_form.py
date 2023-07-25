@@ -3,6 +3,7 @@ import zoneinfo
 
 from django import forms
 from django.conf import settings
+from django.forms import CheckboxSelectMultiple
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
@@ -36,7 +37,7 @@ class PushNotificationForm(CustomModelForm):
         ),
     )
 
-    def __init__(self, **kwargs):
+    def __init__(self, regions=None, selected_regions=None, disabled=False, **kwargs):
         r"""
         Initialize push notification form
 
@@ -47,8 +48,9 @@ class PushNotificationForm(CustomModelForm):
         super().__init__(**kwargs)
 
         # Make fields disabled when push notification was already sent
-        if self.instance.sent_date:
+        if self.instance.sent_date or disabled:
             self.fields["channel"].disabled = True
+            self.fields["regions"].disabled = True
             self.fields["mode"].disabled = True
 
         self.fields["scheduled_send_date_day"].widget.attrs["min"] = str(
@@ -61,6 +63,14 @@ class PushNotificationForm(CustomModelForm):
             self.fields["scheduled_send_date_day"].initial = local_time.date()
             self.fields["scheduled_send_date_time"].initial = local_time.time()
             self.fields["schedule_send"].initial = True
+
+        if regions is None:
+            regions = []
+        if selected_regions is None:
+            selected_regions = []
+
+        self.fields["regions"].choices = [(obj.id, str(obj)) for obj in regions]
+        self.fields["regions"].initial = selected_regions
 
     def clean(self):
         """
@@ -114,4 +124,7 @@ class PushNotificationForm(CustomModelForm):
 
     class Meta:
         model = PushNotification
-        fields = ["channel", "mode", "scheduled_send_date"]
+        fields = ["channel", "regions", "mode", "scheduled_send_date"]
+        widgets = {
+            "regions": CheckboxSelectMultiple(),
+        }

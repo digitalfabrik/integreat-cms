@@ -7,6 +7,7 @@ from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.forms import inlineformset_factory
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
+from django.utils.html import mark_safe
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
@@ -72,32 +73,59 @@ class PushNotificationFormView(TemplateView):
             kwargs.get("language_slug"), only_active=True
         )
 
-        push_notification = PushNotification.objects.filter(
-            id=kwargs.get("push_notification_id")
-        ).first()
+        push_notification_id = kwargs.get("push_notification_id")
+        push_notification = (
+            region.push_notifications.get(id=push_notification_id)
+            if push_notification_id
+            else None
+        )
 
-        if push_notification and push_notification.sent_date:
-            messages.info(
-                request,
-                __(
-                    _(
-                        "This news message has already been sent as push notification to mobile devices."
+        details = extract_pn_details(request, push_notification)
+        not_accessible_regions_warning = None
+
+        if push_notification:
+            if push_notification.sent_date:
+                messages.info(
+                    request,
+                    __(
+                        _(
+                            "This news message has already been sent as push notification to mobile devices."
+                        ),
+                        _(
+                            'Subsequent changes are displayed in the "News" area of the app, but have no effect on the push notification sent.'
+                        ),
                     ),
-                    _(
-                        'Subsequent changes are displayed in the "News" area of the app, but have no effect on the push notification sent.'
-                    ),
-                ),
-            )
+                )
+            if details["disable_edit"]:
+                not_accessible_regions_warning = mark_safe(
+                    __(
+                        _(
+                            "This news message is also assigned to regions you don't have access to: {}."
+                        ).format(", ".join(map(str, details["other_regions"]))),
+                        _("Thus you cannot edit or delete this news message."),
+                        _(
+                            "Please ask the one responsible for all of these regions or contact an administrator."
+                        ),
+                    )
+                )
+                messages.warning(
+                    request,
+                    not_accessible_regions_warning,
+                )
 
-        push_notification_form = PushNotificationForm(instance=push_notification)
+        push_notification_form = PushNotificationForm(
+            regions=request.available_regions,
+            selected_regions=[region],
+            instance=push_notification,
+            disabled=details["disable_edit"],
+        )
 
-        num_languages = len(region.active_languages)
         PushNotificationTranslationFormSet = inlineformset_factory(
             parent_model=PushNotification,
             model=PushNotificationTranslation,
             form=PushNotificationTranslationForm,
-            min_num=num_languages,
-            max_num=num_languages,
+            min_num=len(details["all_languages"]),
+            max_num=len(details["all_languages"]),
         )
         existing_languages = push_notification.languages if push_notification else []
         pnt_formset = PushNotificationTranslationFormSet(
@@ -106,12 +134,18 @@ class PushNotificationFormView(TemplateView):
             # Add initial data for all languages which do not yet have a translation
             initial=[
                 {"language": language}
-                for language in region.active_languages
+                for language in details["all_languages"]
                 if language not in existing_languages
             ],
         )
         # Make title of default language required
         pnt_formset[0].fields["title"].required = True
+
+        if details["disable_edit"]:
+            # Mark fields disabled when push notification was already sent
+            for formset in pnt_formset:
+                for field in formset.fields.values():
+                    field.disabled = True
 
         return render(
             request,
@@ -121,7 +155,8 @@ class PushNotificationFormView(TemplateView):
                 "push_notification_form": push_notification_form,
                 "pnt_formset": pnt_formset,
                 "language": language,
-                "languages": region.active_languages,
+                "languages": details["all_languages"],
+                "not_accessible_regions_warning": not_accessible_regions_warning,
             },
         )
 
@@ -161,21 +196,25 @@ class PushNotificationFormView(TemplateView):
             )
             raise PermissionDenied
 
+        details = extract_pn_details(request, push_notification_instance)
+
         pn_form = PushNotificationForm(
             data=request.POST,
             instance=push_notification_instance,
             additional_instance_attributes={
                 "region": region,
             },
+            regions=request.available_regions,
+            selected_regions=[region],
+            disabled=details["disable_edit"],
         )
 
-        num_languages = len(region.active_languages)
         PushNotificationTranslationFormSet = inlineformset_factory(
             parent_model=PushNotification,
             model=PushNotificationTranslation,
             form=PushNotificationTranslationForm,
-            min_num=num_languages,
-            max_num=num_languages,
+            min_num=len(details["all_languages"]),
+            max_num=len(details["all_languages"]),
         )
         existing_languages = (
             push_notification_instance.languages if push_notification_instance else []
@@ -187,14 +226,28 @@ class PushNotificationFormView(TemplateView):
             # Add initial data for all languages which do not yet have a translation
             initial=[
                 {"language": language}
-                for language in region.active_languages
+                for language in details["all_languages"]
                 if language not in existing_languages
             ],
         )
         # Make title of default language required
         pnt_formset[0].fields["title"].required = True
 
-        if not pn_form.is_valid():
+        if details["disable_edit"]:
+            not_accessible_regions_warning = __(
+                _(
+                    "This news message is also assigned to regions you don't have access to: {}."
+                ).format(", ".join(map(str, details["other_regions"]))),
+                _("Thus you cannot edit or delete this news message."),
+                _(
+                    "Please ask the one responsible for all of these regions or contact an administrator."
+                ),
+            )
+            messages.error(
+                request,
+                not_accessible_regions_warning,
+            )
+        elif not pn_form.is_valid():
             # Add error messages
             pn_form.add_error_messages(request)
         elif not pnt_formset.is_valid():
@@ -287,6 +340,42 @@ class PushNotificationFormView(TemplateView):
                 "push_notification_form": pn_form,
                 "pnt_formset": pnt_formset,
                 "language": language,
-                "languages": region.active_languages,
+                "languages": details["all_languages"],
             },
         )
+
+
+def extract_pn_details(request, push_notification):
+    r"""
+    Save and show form for creating or editing a push notification. Send push notification
+    if asked for by user.
+
+    :param request: Object representing the user call
+    :type request: ~django.http.HttpRequest
+
+    :param push_notification: The existing PushNotification or None
+    :type push_notification: ~integreat_cms.cms.models.push_notifications.push_notification.PushNotification
+
+    :return: A dict containing
+        * `all_regions`, a list of all :class:`~integreat_cms.cms.models.regions.region.Region` objects of the existing PushNotification (or the current region, if it doesn't exist yet),
+        * `other_regions`, the sublist of `all_regions` which the current user doesn't have access to,
+        * `all_languages`, a cumulative list of all active languages across all regions in `all_regions` and
+        * `disable_edit`, a boolean determining whether the user should be able to edit the PushNotification given his status (superuser, staff) and the vacancy of `other_regions`.
+    :rtype: dict
+    """
+    all_regions = (
+        push_notification.regions.all() if push_notification else [request.region]
+    )
+    other_regions = list(set(all_regions).difference(request.available_regions))
+    all_languages = Language.objects.filter(
+        language_tree_nodes__region__in=all_regions, language_tree_nodes__active=True
+    ).distinct()
+    disable_edit = bool(
+        not request.user.is_superuser and not request.user.is_staff and other_regions
+    )
+    return {
+        "all_regions": all_regions,
+        "other_regions": other_regions,
+        "all_languages": all_languages,
+        "disable_edit": disable_edit,
+    }

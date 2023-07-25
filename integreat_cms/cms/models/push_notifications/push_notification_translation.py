@@ -50,7 +50,7 @@ class PushNotificationTranslation(AbstractBaseModel):
         :rtype: ~django.db.models.QuerySet
         """
         return cls.objects.filter(
-            push_notification__region=region,
+            push_notification__regions__contains=region,
             language__slug=language_slug,
             title__icontains=query,
         )
@@ -96,7 +96,7 @@ class PushNotificationTranslation(AbstractBaseModel):
         :return: The link to the news
         :rtype: str
         """
-        return f"/{self.push_notification.region.slug}/{self.language.slug}/{self.push_notification.channel}/local/{self.id}"
+        return f"/{self.push_notification.regions.first().slug}/{self.language.slug}/{self.push_notification.channel}/local/{self.id}"
 
     def __str__(self):
         """
