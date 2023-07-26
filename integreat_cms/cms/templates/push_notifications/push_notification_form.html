@@ -10,12 +10,20 @@
                 <h1 class="heading overflow-hidden text-ellipsis">
                     {% if push_notification_form.instance.id %}
                         {% with push_notification_form.instance as push_notification_title %}
-                            {% blocktranslate trimmed %}
-                                Edit news message "{{ push_notification_title }}"
-                            {% endblocktranslate %}
+                            {% if push_notification_form.is_template.value %}
+                                {% blocktranslate trimmed %}
+                                    Edit Template "{{ push_notification_title }}"
+                                {% endblocktranslate %}
+                            {% else %}
+                                {% blocktranslate trimmed %}
+                                    Edit News "{{ push_notification_title }}"
+                                {% endblocktranslate %}
+                            {% endif %}
                         {% endwith %}
+                    {% elif push_notification_form.is_template.value %}
+                        {% translate "Create News Template" %}
                     {% else %}
-                        {% translate "Create news message" %}
+                        {% translate "Create News" %}
                     {% endif %}
                 </h1>
                 <div class="flex flex-wrap gap-4 ml-auto mr-0">
@@ -24,9 +32,15 @@
                             {% translate "Save" %}
                         </button>
                     {% endif %}
-                    {% if perms.cms.send_push_notification and not push_notification_form.instance.sent_date and not not_accessible_regions_warning %}
+                    {% if not push_notification_form.instance.id and push_notification_form.is_template.value %}
+                        {# hide button when creating a new template #}
+                    {% elif perms.cms.send_push_notification and not push_notification_form.instance.sent_date and not not_accessible_regions_warning %}
                         <button name="submit_send" class="btn">
-                            {% translate "Save & Send" %}
+                            {% if push_notification_form.is_template.value %}
+                                {% translate "Create Message from Template" %}
+                            {% else %}
+                                {% translate "Save & Send" %}
+                            {% endif %}
                         </button>
                     {% endif %}
                 </div>
@@ -109,11 +123,23 @@
                             {{ push_notification_form.mode.label }}
                         </label>
                         {% render_field push_notification_form.mode|add_error_class:"border-red-500" %}
+                        <!-- Create template from message -->
+                        <div class="hidden">
+                            {% render_field push_notification_form.is_template|add_error_class:"border-red-500" %}
+                        </div>
+                        <div id="push_notification_template_name" class="hidden">
+                            <label for="{{ push_notification_form.template_nameid_for_label }}">
+                                {{ push_notification_form.template_name.label }}
+                            </label>
+                            {% render_field push_notification_form.template_name|add_error_class:"border-red-500" %}
+                        </div>
                         <!-- Scheduled date and time -->
-                        {% render_field push_notification_form.schedule_send|add_error_class:"border-red-500" %}
-                        <label for="{{ push_notification_form.schedule_send.id_for_label }}">
-                            {{ push_notification_form.schedule_send.label }}
-                        </label>
+                        <div class="{% if push_notification_form.is_template.value %}hidden{% endif %}">
+                            {% render_field push_notification_form.schedule_send|add_error_class:"border-red-500" %}
+                            <label for="{{ push_notification_form.schedule_send.id_for_label }}">
+                                {{ push_notification_form.schedule_send.label }}
+                            </label>
+                        </div>
                         <div id="push_notification_schedule" class="hidden">
                             <label for="{{ push_notification_form.scheduled_send_date_day.id_for_label }}">
                                 {{ push_notification_form.scheduled_send_date_day.label }}
@@ -151,7 +177,7 @@
                         </div>
                     </div>
                 </div>
-                {% if push_notification_form.instance.id %}
+                {% if push_notification_form.instance.id and not push_notification_form.instance.is_template %}
                     <div class="rounded border border-blue-500 shadow-2xl bg-white">
                         <div class="rounded p-4 bg-water-500">
                             <h3 class="heading font-bold text-black">

@@ -6,6 +6,7 @@ window.addEventListener("load", () => {
         ["id_deepl_midyear_start_enabled", "deepl-renewal-toggle-div"],
         ["id_automatic_translation", "language-options"],
         ["id_schedule_send", "push_notification_schedule"],
+        ["id_is_template", "push_notification_template_name"],
     ];
     toggleables.forEach((it) => {
         const toggleControl = document.getElementById(it[0]);
