@@ -59,7 +59,7 @@
                 {% for event in poi_form.instance.events.all %}
                     <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
                        class="block pt-2 hover:underline">
-                        <i icon-name="edit" class="mr-2"></i> {{ event.best_translation.title }}
+                        <i icon-name="pen-square" class="mr-2"></i> {{ event.best_translation.title }}
                     </a>
                 {% endfor %}
             {% else %}

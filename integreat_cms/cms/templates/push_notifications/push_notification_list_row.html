@@ -23,7 +23,7 @@
                 {% spaceless %}
                     {% for other_language in languages %}
                         <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=other_language.slug %}">
-                            <i icon-name="{% if other_language in push_notification.languages %}edit-2{% else %}plus{% endif %}"
+                            <i icon-name="{% if other_language in push_notification.languages %}pen-line{% else %}plus{% endif %}"
                                class="text-gray-800"></i>
                         </a>
                     {% endfor %}
