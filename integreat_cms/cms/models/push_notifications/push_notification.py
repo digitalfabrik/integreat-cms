@@ -118,16 +118,6 @@ class PushNotification(AbstractBaseModel):
         )
 
     @cached_property
-    def timezone(self):
-        """
-        The timezone of this push notifications's region
-
-        :return: The timezone of this push notification
-        :rtype: str
-        """
-        return self.region.timezone
-
-    @cached_property
     def scheduled_send_date_local(self):
         """
         Convert the scheduled send date to local time
@@ -137,7 +127,6 @@ class PushNotification(AbstractBaseModel):
         """
         if not self.scheduled_send_date:
             return None
-        timezone.activate(self.timezone)
         return timezone.localtime(self.scheduled_send_date)
 
     def __str__(self):

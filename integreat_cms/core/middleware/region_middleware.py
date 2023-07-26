@@ -32,11 +32,12 @@ class RegionMiddleware:
         :return: The response after the region has been added to the request variable
         :rtype: ~django.http.HttpResponse
         """
-        request.region = self.get_current_region(request)
-        request.available_regions = self.get_available_regions(request)
-        request.region_selection = self.get_region_selection(
-            request, request.available_regions
+        user_regions = (
+            request.user.regions.all() if request.user.is_authenticated else []
         )
+        request.region = self.get_current_region(request)
+        request.available_regions = self.get_available_regions(request, user_regions)
+        request.region_selection = self.get_region_selection(request, user_regions)
         return self.get_response(request)
 
     @staticmethod
@@ -60,12 +61,15 @@ class RegionMiddleware:
         return None
 
     @staticmethod
-    def get_available_regions(request):
+    def get_available_regions(request, user_regions):
         """
         This method returns the regions available to the user based on the current request.
 
         :param request: Django request
         :type request: ~django.http.HttpRequest
+
+        :param user_regions: Prefetched regions of the user
+        :type user_regions: list [ ~integreat_cms.cms.models.regions.region.Region ]
 
         :return: The regions available to the user of this request
         :rtype: list [ ~integreat_cms.cms.models.regions.region.Region ]
@@ -73,39 +77,41 @@ class RegionMiddleware:
         # If user isn't authenticated, don't provide any regions
         if not request.user.is_authenticated:
             return []
-        # Firstly, attempt to provide the regions based on the user's settings
-        # (the regions should already have been prefetched by the custom user manager)
-        regions = request.user.regions.all()
         # If the user isn't a staff member or provided a valid list of regions, return those regions
-        if (
-            not request.user.is_superuser
-            or not request.user.is_staff
-            or len(regions) > 0
-        ):
-            return regions
+        if not request.user.is_superuser and not request.user.is_staff:
+            if user_regions is not None:
+                return user_regions
+            return request.user.regions.all()
         # As a last resort, query the most recently updated regions from the database
         # (this is only relevant for staff members without preferred regions)
         regions = Region.objects.order_by("-last_updated")
         return regions
 
     @staticmethod
-    def get_region_selection(request, precomputed_all_regions=None):
+    def get_region_selection(request, user_regions):
         """
         This method returns the current region selection based on the current request.
 
         :param request: Django request
         :type request: ~django.http.HttpRequest
 
-        :param precomputed_all_regions: Regions available to the user (if get_available_regions was called anyway)
-        :type precomputed_all_regions: list [ ~integreat_cms.cms.models.regions.region.Region ]
+        :param user_regions: Prefetched regions of the user
+        :type user_regions: list [ ~integreat_cms.cms.models.regions.region.Region ]
 
         :return: The current region selection of this request
         :rtype: list [ ~integreat_cms.cms.models.regions.region.Region ]
         """
-        if precomputed_all_regions is None:
-            precomputed_all_regions = RegionMiddleware.get_available_regions(request)
+        if user_regions is None:
+            user_regions = request.user.regions.all()
+        # for staff user.regions is used as a "favourites" setting
+        region_selection = (
+            user_regions
+            if (request.user.is_superuser or request.user.is_staff)
+            and len(user_regions) > 0
+            else request.available_regions
+        )
         # limit to 10 regions for the quick selection
-        region_selection = list(precomputed_all_regions)[:10]
+        region_selection = list(region_selection)[:10]
         if request.region:
             try:
                 region_selection.remove(request.region)

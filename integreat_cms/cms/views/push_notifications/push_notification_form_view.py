@@ -80,7 +80,7 @@ class PushNotificationFormView(TemplateView):
             else None
         )
 
-        details = extract_pn_details(request, push_notification)
+        details = extract_pn_details(request, push_notification, sort_for_region=region)
         not_accessible_regions_warning = None
 
         if push_notification:
@@ -99,12 +99,12 @@ class PushNotificationFormView(TemplateView):
             if details["disable_edit"]:
                 not_accessible_regions_warning = mark_safe(
                     __(
+                        _("You are not allowed to edit this message."),
                         _(
-                            "This news message is also assigned to regions you don't have access to: {}."
+                            "This news message belongs to regions you don't have access to: {}."
                         ).format(", ".join(map(str, details["other_regions"]))),
-                        _("Thus you cannot edit or delete this news message."),
                         _(
-                            "Please ask the one responsible for all of these regions or contact an administrator."
+                            "Please ask a person responsible for all regions or contact an administrator."
                         ),
                     )
                 )
@@ -160,7 +160,7 @@ class PushNotificationFormView(TemplateView):
             },
         )
 
-    # pylint: disable=too-many-branches
+    # pylint: disable=too-many-branches,too-many-statements
     def post(self, request, *args, **kwargs):
         r"""
         Save and show form for creating or editing a push notification. Send push notification
@@ -196,7 +196,9 @@ class PushNotificationFormView(TemplateView):
             )
             raise PermissionDenied
 
-        details = extract_pn_details(request, push_notification_instance)
+        details = extract_pn_details(
+            request, push_notification_instance, sort_for_region=region
+        )
 
         pn_form = PushNotificationForm(
             data=request.POST,
@@ -261,6 +263,14 @@ class PushNotificationFormView(TemplateView):
             for form in pnt_formset:
                 if not form.is_valid():
                     form.add_error_messages(request)
+        elif set(pn_form.cleaned_data["regions"]).difference(request.available_regions):
+            logger.warning(
+                "%r is not allowed to post news to %r (allowed regions: %r)",
+                request.user,
+                pn_form.cleaned_data["regions"],
+                request.available_regions,
+            )
+            raise PermissionDenied
         else:
             # Save forms
             pnt_formset.instance = pn_form.save()
@@ -293,6 +303,7 @@ class PushNotificationFormView(TemplateView):
                         push_notification_instance,
                     )
                     raise PermissionDenied
+
                 try:
                     push_sender = FirebaseApiClient(pn_form.instance)
                     if not push_sender.is_valid():
@@ -302,11 +313,15 @@ class PushNotificationFormView(TemplateView):
                                 "News message cannot be sent because required texts are missing"
                             ),
                         )
+                    elif pn_form.instance.scheduled_send_date:
+                        pn_form.instance.draft = False
+                        pn_form.instance.save()
                     elif push_sender.send_all():
                         messages.success(
                             request, _("News message was successfully sent")
                         )
                         pn_form.instance.sent_date = datetime.now()
+                        pn_form.instance.draft = False
                         pn_form.instance.save()
                     else:
                         messages.error(request, _("News message could not be sent"))
@@ -321,6 +336,9 @@ class PushNotificationFormView(TemplateView):
                             "News message could not be sent due to a configuration error."
                         ),
                     )
+            else:
+                pn_form.instance.draft = True
+                pn_form.instance.save()
 
             # Redirect to the edit page
             return redirect(
@@ -345,7 +363,7 @@ class PushNotificationFormView(TemplateView):
         )
 
 
-def extract_pn_details(request, push_notification):
+def extract_pn_details(request, push_notification, sort_for_region=None):
     r"""
     Save and show form for creating or editing a push notification. Send push notification
     if asked for by user.
@@ -355,6 +373,9 @@ def extract_pn_details(request, push_notification):
 
     :param push_notification: The existing PushNotification or None
     :type push_notification: ~integreat_cms.cms.models.push_notifications.push_notification.PushNotification
+
+    :param sort_for_region: Region for which to keep sorting order (according to language tree)
+    :type sort_for_region: ~integreat_cms.cms.models.regions.region.Region
 
     :return: A dict containing
         * `all_regions`, a list of all :class:`~integreat_cms.cms.models.regions.region.Region` objects of the existing PushNotification (or the current region, if it doesn't exist yet),
@@ -370,6 +391,13 @@ def extract_pn_details(request, push_notification):
     all_languages = Language.objects.filter(
         language_tree_nodes__region__in=all_regions, language_tree_nodes__active=True
     ).distinct()
+
+    if sort_for_region is not None:
+        act = sort_for_region.active_languages
+        all_languages = sorted(
+            list(all_languages),
+            key=lambda x: act.index(x) if x in act else 1,
+        )
     disable_edit = bool(
         not request.user.is_superuser and not request.user.is_staff and other_regions
     )
