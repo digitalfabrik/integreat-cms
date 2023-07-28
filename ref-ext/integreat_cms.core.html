@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-07-28T06:13:16+00:00" />
+    <meta property="article:modified_time" content="2023-07-28T11:25:01+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core &mdash; integreat-cms 2023.7.2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -958,6 +958,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.core.settings.MIDDLEWARE"><code class="docutils literal notranslate"><span class="pre">MIDDLEWARE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.core.settings.NOMINATIM_API_ENABLED"><code class="docutils literal notranslate"><span class="pre">NOMINATIM_API_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.core.settings.NOMINATIM_API_URL"><code class="docutils literal notranslate"><span class="pre">NOMINATIM_API_URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#integreat_cms.core.settings.NUM_REGIONS_QUICK_ACCESS"><code class="docutils literal notranslate"><span class="pre">NUM_REGIONS_QUICK_ACCESS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.core.settings.PDF_ROOT"><code class="docutils literal notranslate"><span class="pre">PDF_ROOT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.core.settings.PDF_URL"><code class="docutils literal notranslate"><span class="pre">PDF_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.core.settings.PER_PAGE"><code class="docutils literal notranslate"><span class="pre">PER_PAGE</span></code></a></li>
@@ -1849,7 +1850,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#integreat_cms.core.middleware.region_middleware.RegionMiddleware.__init__"><code class="docutils literal notranslate"><span class="pre">RegionMiddleware.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#integreat_cms.core.middleware.region_middleware.RegionMiddleware.get_available_regions"><code class="docutils literal notranslate"><span class="pre">RegionMiddleware.get_available_regions()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#integreat_cms.core.middleware.region_middleware.RegionMiddleware.get_current_region"><code class="docutils literal notranslate"><span class="pre">RegionMiddleware.get_current_region()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#integreat_cms.core.middleware.region_middleware.RegionMiddleware.get_region_selection"><code class="docutils literal notranslate"><span class="pre">RegionMiddleware.get_region_selection()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.middleware.html#integreat_cms.core.middleware.region_middleware.RegionMiddleware.get_quick_access_regions"><code class="docutils literal notranslate"><span class="pre">RegionMiddleware.get_quick_access_regions()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -3345,6 +3346,12 @@ This is used to automatically derive coordinates from addresses.</p>
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">NOMINATIM_API_URL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'http://nominatim.maps.tuerantuer.org/nominatim/'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.NOMINATIM_API_URL" title="Permalink to this definition"></a></dt>
 <dd><p>The URL to our Nominatim API.
 This is used to automatically derive coordinates from addresses.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="integreat_cms.core.settings.NUM_REGIONS_QUICK_ACCESS">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">NUM_REGIONS_QUICK_ACCESS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">15</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.NUM_REGIONS_QUICK_ACCESS" title="Permalink to this definition"></a></dt>
+<dd><p>The number of regions that are available via the dropdown</p>
 </dd></dl>
 
 <dl class="py data">
