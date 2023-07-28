@@ -41,7 +41,7 @@
              class="relative p-4 cursor-pointer text-gray-800 hover:bg-gray-200 border-r border-gray-400">
             <div class="truncate">
                 {% if request.region %}
-                    {% if request.region_selection or user.is_superuser or user.is_staff %}
+                    {% if request.quick_access_regions or user.is_superuser or user.is_staff %}
                         <i icon-name="home"></i>
                         {{ request.region.full_name }}
                         <span class="hidden lg:inline">
@@ -63,7 +63,7 @@
             </div>
             <div id="region-list"
                  class="absolute hidden shadow rounded-b top-full right-0 bg-gray-200">
-                {% for region in request.region_selection %}
+                {% for region in request.quick_access_regions %}
                     <a href="{% url 'dashboard' region_slug=region.slug %}"
                        class="block px-4 py-3 text-gray-800 hover:bg-gray-300">
                         <i icon-name="home"></i>
