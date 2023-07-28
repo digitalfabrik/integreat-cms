@@ -42,6 +42,7 @@ class Command(LogCommand):
         pending_push_notifications = PushNotification.objects.filter(
             scheduled_send_date__isnull=False,
             sent_date__isnull=True,
+            draft=False,
             scheduled_send_date__lte=timezone.now(),
         )
         for pn in pending_push_notifications:

@@ -93,7 +93,7 @@ class PushNotificationForm(CustomModelForm):
 
         # Combine the scheduled send day and time into one timezone aware field
         if not self.errors and cleaned_data.get("schedule_send"):
-            tzinfo = zoneinfo.ZoneInfo(self.instance.timezone)
+            tzinfo = zoneinfo.ZoneInfo(str(timezone.get_current_timezone()))
             time = cleaned_data["scheduled_send_date_time"] or datetime.time()
 
             cleaned_data["scheduled_send_date"] = datetime.datetime.combine(
