@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-07-25T12:16:16+00:00" />
+    <meta property="article:modified_time" content="2023-07-28T06:13:16+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Push Notifications &mdash; integreat-cms 2023.7.2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1801,7 +1801,7 @@ if asked for by user.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.push_notifications.push_notification_form_view.</span></span><span class="sig-name descname"><span class="pre">extract_pn_details</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">push_notification</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/push_notifications/push_notification_form_view.py#L348"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.push_notifications.push_notification_form_view.</span></span><span class="sig-name descname"><span class="pre">extract_pn_details</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">push_notification</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sort_for_region</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/push_notifications/push_notification_form_view.py#L366"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Save and show form for creating or editing a push notification. Send push notification
 if asked for by user.</p>
 <dl class="field-list simple">
@@ -1809,6 +1809,7 @@ if asked for by user.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – Object representing the user call</p></li>
 <li><p><strong>push_notification</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification.PushNotification" title="integreat_cms.cms.models.push_notifications.push_notification.PushNotification"><em>PushNotification</em></a>) – The existing PushNotification or None</p></li>
+<li><p><strong>sort_for_region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – Region for which to keep sorting order (according to language tree)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -1906,7 +1907,7 @@ if asked for by user.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 25, 2023.
+      <span class="lastupdated">Last updated on Jul 28, 2023.
       </span></p>
   </div>
 
