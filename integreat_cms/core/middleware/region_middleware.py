@@ -1,5 +1,6 @@
 import logging
 
+from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.urls import resolve
 
@@ -24,7 +25,12 @@ class RegionMiddleware:
 
     def __call__(self, request):
         """
-        Call the middleware for the current request
+        Call the middleware for the current request.
+        Sets the additional attributes on the ``request`` object:
+
+        - ``region``: The current region, based on the region slug URL parameter
+        - ``available_regions``: The regions the user has access to
+        - ``quick_access_regions``: The regions that are available for quick access in the top menu
 
         :param request: Django request
         :type request: ~django.http.HttpRequest
@@ -33,17 +39,23 @@ class RegionMiddleware:
         :rtype: ~django.http.HttpResponse
         """
         user_regions = (
-            request.user.regions.all() if request.user.is_authenticated else []
+            request.user.regions.all()
+            if request.user.is_authenticated
+            else Region.objects.none()
         )
         request.region = self.get_current_region(request)
         request.available_regions = self.get_available_regions(request, user_regions)
-        request.region_selection = self.get_region_selection(request, user_regions)
+        request.quick_access_regions = self.get_quick_access_regions(
+            request, user_regions
+        )
         return self.get_response(request)
 
     @staticmethod
     def get_current_region(request):
         """
         This method returns the current region based on the current request.
+        If the request path contains a region slug, the corresponding
+        :class:`~integreat_cms.cms.models.regions.region.Region` object is queried from the database.
 
         :param request: Django request
         :type request: ~django.http.HttpRequest
@@ -64,57 +76,46 @@ class RegionMiddleware:
     def get_available_regions(request, user_regions):
         """
         This method returns the regions available to the user based on the current request.
+        Staff members and superusers have access to all regions, whereas all other users have access to their selected regions.
 
         :param request: Django request
         :type request: ~django.http.HttpRequest
 
         :param user_regions: Prefetched regions of the user
-        :type user_regions: list [ ~integreat_cms.cms.models.regions.region.Region ]
+        :type user_regions: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.regions.region.Region ]
 
         :return: The regions available to the user of this request
-        :rtype: list [ ~integreat_cms.cms.models.regions.region.Region ]
+        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.regions.region.Region ]
         """
-        # If user isn't authenticated, don't provide any regions
-        if not request.user.is_authenticated:
-            return []
-        # If the user isn't a staff member or provided a valid list of regions, return those regions
-        if not request.user.is_superuser and not request.user.is_staff:
-            if user_regions is not None:
-                return user_regions
-            return request.user.regions.all()
-        # As a last resort, query the most recently updated regions from the database
-        # (this is only relevant for staff members without preferred regions)
-        regions = Region.objects.order_by("-last_updated")
-        return regions
+        if request.user.is_superuser or request.user.is_staff:
+            return Region.objects.all().order_by("-last_updated")
+        return user_regions
 
     @staticmethod
-    def get_region_selection(request, user_regions):
+    def get_quick_access_regions(request, user_regions):
         """
-        This method returns the current region selection based on the current request.
+        This method returns the regions that are available for quick access in this request.
+        For non-staff members, the region selection consists of the regions they have access to.
+        For staff members with non-empty `regions` field, it is used as a favorite setting.
+        Staff members without favorite regions just have quick access to the regions that have been last updated.
+        The current region is excluded.
+        The list is truncated to the first :attr:`~integreat_cms.core.settings.NUM_REGIONS_QUICK_ACCESS` elements.
 
-        :param request: Django request
+        :param request: The current HTTP request
         :type request: ~django.http.HttpRequest
 
         :param user_regions: Prefetched regions of the user
-        :type user_regions: list [ ~integreat_cms.cms.models.regions.region.Region ]
+        :type user_regions: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.regions.region.Region ]
 
-        :return: The current region selection of this request
+        :return: The regions that are available for quick access in the dropdown menu
         :rtype: list [ ~integreat_cms.cms.models.regions.region.Region ]
         """
-        if user_regions is None:
-            user_regions = request.user.regions.all()
-        # for staff user.regions is used as a "favourites" setting
-        region_selection = (
+        quick_access_regions = list(
             user_regions
             if (request.user.is_superuser or request.user.is_staff)
             and len(user_regions) > 0
             else request.available_regions
         )
-        # limit to 10 regions for the quick selection
-        region_selection = list(region_selection)[:10]
-        if request.region:
-            try:
-                region_selection.remove(request.region)
-            except ValueError:
-                pass
-        return region_selection
+        if request.region in quick_access_regions:
+            quick_access_regions.remove(request.region)
+        return quick_access_regions[: settings.NUM_REGIONS_QUICK_ACCESS]

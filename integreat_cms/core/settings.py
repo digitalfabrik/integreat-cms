@@ -127,6 +127,10 @@ CUSTOM_LOCALE_PATH = os.environ.get(
     "INTEGREAT_CMS_CUSTOM_LOCALE_PATH", "/etc/integreat-cms/locale"
 )
 
+#: The number of regions that are available via the dropdown
+NUM_REGIONS_QUICK_ACCESS = 15
+
+
 ##############################################################
 # Firebase Push Notifications (Firebase Cloud Messaging FCM) #
 ##############################################################
