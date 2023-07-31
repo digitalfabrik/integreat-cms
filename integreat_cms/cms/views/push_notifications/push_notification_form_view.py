@@ -1,4 +1,5 @@
 import logging
+from copy import deepcopy
 from datetime import datetime
 
 from django.conf import settings
@@ -118,6 +119,7 @@ class PushNotificationFormView(TemplateView):
             selected_regions=[region],
             instance=push_notification,
             disabled=details["disable_edit"],
+            template=("template" in request.GET),
         )
 
         PushNotificationTranslationFormSet = inlineformset_factory(
@@ -160,7 +162,7 @@ class PushNotificationFormView(TemplateView):
             },
         )
 
-    # pylint: disable=too-many-branches,too-many-statements
+    # pylint: disable=too-many-branches, too-many-statements
     def post(self, request, *args, **kwargs):
         r"""
         Save and show form for creating or editing a push notification. Send push notification
@@ -295,6 +297,9 @@ class PushNotificationFormView(TemplateView):
                     ),
                 )
 
+            # The submit_send submit button is used in 2 cases:
+            # 1. send a push notification
+            # 2. create push notifiaction from template
             if "submit_send" in request.POST and not pn_form.instance.sent_date:
                 if not request.user.has_perm("cms.send_push_notification"):
                     logger.warning(
@@ -316,6 +321,26 @@ class PushNotificationFormView(TemplateView):
                     elif pn_form.instance.scheduled_send_date:
                         pn_form.instance.draft = False
                         pn_form.instance.save()
+                    elif pn_form.instance.is_template:
+                        new_message = deepcopy(pn_form.instance)
+                        new_message.pk = None
+                        new_message.is_template = False
+                        new_message.draft = True
+                        new_message.save()
+                        new_message.regions.set(pn_form.instance.regions.all())
+                        for translation in pn_form.instance.translations.all():
+                            new_translation = deepcopy(translation)
+                            new_translation.push_notification = new_message
+                            new_translation.pk = None
+                            new_translation.save()
+                        return redirect(
+                            "edit_push_notification",
+                            **{
+                                "push_notification_id": new_message.pk,
+                                "region_slug": region.slug,
+                                "language_slug": language.slug,
+                            },
+                        )
                     elif push_sender.send_all():
                         messages.success(
                             request, _("News message was successfully sent")

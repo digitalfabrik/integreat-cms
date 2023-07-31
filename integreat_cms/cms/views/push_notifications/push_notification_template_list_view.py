@@ -16,13 +16,13 @@ logger = logging.getLogger(__name__)
 
 
 @method_decorator(permission_required("cms.view_pushnotification"), name="dispatch")
-class PushNotificationListView(TemplateView):
+class PushNotificationTemplateListView(TemplateView):
     """
     Class that handles HTTP GET requests for listing push notifications
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "push_notifications/push_notification_list.html"
+    template_name = "push_notifications/push_notification_template_list.html"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "push_notifications"}
 
@@ -86,7 +86,7 @@ class PushNotificationListView(TemplateView):
                 },
             )
 
-        push_notifications = region.push_notifications.filter(is_template=False)
+        push_notifications = region.push_notifications.filter(is_template=True)
         query = None
 
         search_data = kwargs.get("search_data")

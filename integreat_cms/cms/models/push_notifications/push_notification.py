@@ -1,5 +1,5 @@
 """
-The model for the push notificatiion
+The model for the push notification
 """
 from django.conf import settings
 from django.db import models
@@ -33,16 +33,14 @@ class PushNotification(AbstractBaseModel):
     draft = models.BooleanField(
         default=True,
         verbose_name=_("draft"),
-        help_text=_(
-            "Whether or not the push notification is a draft (drafts cannot be sent)"
-        ),
+        help_text=_("Whether or not the News is a draft (drafts cannot be sent)"),
     )
     #: :obj:`None` if the push notification is not yet sent
     sent_date = models.DateTimeField(
         null=True,
         blank=True,
         verbose_name=_("sent date"),
-        help_text=_("The date and time when the push notification was sent."),
+        help_text=_("The date and time when the News was sent."),
     )
     created_date = models.DateTimeField(
         auto_now_add=True,
@@ -52,16 +50,26 @@ class PushNotification(AbstractBaseModel):
         null=True,
         blank=True,
         verbose_name=_("scheduled send date"),
-        help_text=_("The scheduled date for this push notification to be sent"),
+        help_text=_("The scheduled date for this News to be sent"),
     )
     #: Manage choices in :mod:`~integreat_cms.cms.constants.push_notifications`
     mode = models.CharField(
         max_length=128,
         choices=PN_MODES,
         verbose_name=_("mode"),
-        help_text=_(
-            "Sets behavior for dealing with not existing push notification translations"
-        ),
+        help_text=_("Sets behavior for dealing with not existing News translations"),
+    )
+    #: Distinct functionalities for templates
+    is_template = models.BooleanField(
+        default=False,
+        verbose_name=_("News template"),
+    )
+    template_name = models.CharField(
+        null=True,
+        blank=True,
+        max_length=128,
+        verbose_name=_("News template name"),
+        help_text=_("Provide a distinct name for the template"),
     )
 
     @cached_property

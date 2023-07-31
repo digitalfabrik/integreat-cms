@@ -37,7 +37,14 @@ class PushNotificationForm(CustomModelForm):
         ),
     )
 
-    def __init__(self, regions=None, selected_regions=None, disabled=False, **kwargs):
+    def __init__(
+        self,
+        regions=None,
+        selected_regions=None,
+        disabled=False,
+        template=False,
+        **kwargs,
+    ):
         r"""
         Initialize push notification form
 
@@ -71,6 +78,7 @@ class PushNotificationForm(CustomModelForm):
 
         self.fields["regions"].choices = [(obj.id, str(obj)) for obj in regions]
         self.fields["regions"].initial = selected_regions
+        self.fields["is_template"].initial = template
 
     def clean(self):
         """
@@ -89,6 +97,13 @@ class PushNotificationForm(CustomModelForm):
                 forms.ValidationError(
                     _("Cannot be unspecified"),
                 ),
+            )
+
+        # Check if a template name is set when the message should be used as a template
+        if cleaned_data.get("is_template") and not cleaned_data.get("template_name"):
+            self.add_error(
+                "template_name",
+                forms.ValidationError(_("Please provide a name for your template")),
             )
 
         # Combine the scheduled send day and time into one timezone aware field
@@ -124,7 +139,14 @@ class PushNotificationForm(CustomModelForm):
 
     class Meta:
         model = PushNotification
-        fields = ["channel", "regions", "mode", "scheduled_send_date"]
+        fields = [
+            "channel",
+            "regions",
+            "mode",
+            "scheduled_send_date",
+            "is_template",
+            "template_name",
+        ]
         widgets = {
             "regions": CheckboxSelectMultiple(),
         }

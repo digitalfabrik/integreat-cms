@@ -1304,6 +1304,11 @@ urlpatterns = [
                                             name="push_notifications",
                                         ),
                                         path(
+                                            "templates/",
+                                            push_notifications.PushNotificationTemplateListView.as_view(),
+                                            name="push_notifications_templates",
+                                        ),
+                                        path(
                                             "new/",
                                             push_notifications.PushNotificationFormView.as_view(),
                                             name="new_push_notification",
