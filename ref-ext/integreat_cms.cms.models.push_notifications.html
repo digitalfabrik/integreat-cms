@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-07-28T06:13:16+00:00" />
+    <meta property="article:modified_time" content="2023-07-31T15:09:25+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Push Notifications &mdash; integreat-cms 2023.7.2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1736,7 +1736,7 @@
 <a class="reference internal" href="#integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation" title="integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PushNotificationTranslation</span></code></a>.</p>
 <section id="module-integreat_cms.cms.models.push_notifications.push_notification">
 <span id="push-notification"></span><h2>Push Notification<a class="headerlink" href="#module-integreat_cms.cms.models.push_notifications.push_notification" title="Permalink to this heading"></a></h2>
-<p>The model for the push notificatiion</p>
+<p>The model for the push notification</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.push_notifications.push_notification.PushNotification">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.push_notifications.push_notification.</span></span><span class="sig-name descname"><span class="pre">PushNotification</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/push_notifications/push_notification.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.push_notifications.push_notification.PushNotification" title="Permalink to this definition"></a></dt>
@@ -1747,15 +1747,19 @@
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
 <li><p><strong>channel</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Channel</p></li>
-<li><p><strong>draft</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Draft. Whether or not the push notification is a draft (drafts cannot be sent)</p></li>
-<li><p><strong>sent_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – <p>Sent date. The date and time when the push notification was sent.</p>
+<li><p><strong>draft</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – Draft. Whether or not the News is a draft (drafts cannot be sent)</p></li>
+<li><p><strong>sent_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – <p>Sent date. The date and time when the News was sent.</p>
 <p><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> if the push notification is not yet sent</p>
 </p></li>
 <li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
-<li><p><strong>scheduled_send_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Scheduled send date. The scheduled date for this push notification to be sent</p></li>
-<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – <p>Mode. Sets behavior for dealing with not existing push notification translations</p>
+<li><p><strong>scheduled_send_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Scheduled send date. The scheduled date for this News to be sent</p></li>
+<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – <p>Mode. Sets behavior for dealing with not existing News translations</p>
 <p>Manage choices in <a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.push_notifications" title="integreat_cms.cms.constants.push_notifications"><code class="xref py py-mod docutils literal notranslate"><span class="pre">push_notifications</span></code></a></p>
 </p></li>
+<li><p><strong>is_template</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><em>BooleanField</em></a>) – <p>News template</p>
+<p>Distinct functionalities for templates</p>
+</p></li>
+<li><p><strong>template_name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – News template name. Provide a distinct name for the template</p></li>
 </ul>
 </dd>
 </dl>
@@ -1925,7 +1929,7 @@ guaranteed to return a push notification translation.</p>
 <dt class="sig sig-object py" id="integreat_cms.cms.models.push_notifications.push_notification.PushNotification.draft">
 <span class="sig-name descname"><span class="pre">draft</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/push_notifications/push_notification.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.push_notifications.push_notification.PushNotification.draft" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a></p>
-<p>Draft. Whether or not the push notification is a draft (drafts cannot be sent)</p>
+<p>Draft. Whether or not the News is a draft (drafts cannot be sent)</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1986,7 +1990,7 @@ Raise a ValidationError for any errors that occur.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.push_notifications.push_notification.PushNotification.get_repr">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/push_notifications/push_notification.py#L142"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.push_notifications.push_notification.PushNotification.get_repr" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/push_notifications/push_notification.py#L150"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.push_notifications.push_notification.PushNotification.get_repr" title="Permalink to this definition"></a></dt>
 <dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method which would return <code class="docutils literal notranslate"><span class="pre">&lt;PushNotification:</span> <span class="pre">PushNotification</span> <span class="pre">object</span> <span class="pre">(id)&gt;</span></code>.
 It is used for logging.</p>
 <dl class="field-list simple">
@@ -2004,6 +2008,14 @@ It is used for logging.</p>
 <span class="sig-name descname"><span class="pre">id</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/push_notifications/push_notification.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.push_notifications.push_notification.PushNotification.id" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BigAutoField</span></code></a></p>
 <p>Primary key: ID</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.push_notifications.push_notification.PushNotification.is_template">
+<span class="sig-name descname"><span class="pre">is_template</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/push_notifications/push_notification.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.push_notifications.push_notification.PushNotification.is_template" title="Permalink to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">BooleanField</span></code></a></p>
+<p>News template</p>
+<p>Distinct functionalities for templates</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -2026,7 +2038,7 @@ translated into</p>
 <dt class="sig sig-object py" id="integreat_cms.cms.models.push_notifications.push_notification.PushNotification.mode">
 <span class="sig-name descname"><span class="pre">mode</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/push_notifications/push_notification.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.push_notifications.push_notification.PushNotification.mode" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
-<p>Mode. Sets behavior for dealing with not existing push notification translations</p>
+<p>Mode. Sets behavior for dealing with not existing News translations</p>
 <p>Choices:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">ONLY_AVAILABLE</span></code></p></li>
@@ -2096,7 +2108,7 @@ is used by fixture loading.</p>
 <dt class="sig sig-object py" id="integreat_cms.cms.models.push_notifications.push_notification.PushNotification.scheduled_send_date">
 <span class="sig-name descname"><span class="pre">scheduled_send_date</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/push_notifications/push_notification.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.push_notifications.push_notification.PushNotification.scheduled_send_date" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTimeField</span></code></a></p>
-<p>Scheduled send date. The scheduled date for this push notification to be sent</p>
+<p>Scheduled send date. The scheduled date for this News to be sent</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -2117,7 +2129,7 @@ is used by fixture loading.</p>
 <dt class="sig sig-object py" id="integreat_cms.cms.models.push_notifications.push_notification.PushNotification.sent_date">
 <span class="sig-name descname"><span class="pre">sent_date</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/push_notifications/push_notification.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.push_notifications.push_notification.PushNotification.sent_date" title="Permalink to this definition"></a></dt>
 <dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateTimeField</span></code></a></p>
-<p>Sent date. The date and time when the push notification was sent.</p>
+<p>Sent date. The date and time when the News was sent.</p>
 <p><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> if the push notification is not yet sent</p>
 </dd></dl>
 
@@ -2131,6 +2143,13 @@ attribute’s value.</p>
 <p>Used to serialize a field’s value (in the serializer, or form output,
 for example). Normally, you would just access the attribute directly
 and not use this method.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.push_notifications.push_notification.PushNotification.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/push_notifications/push_notification.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.push_notifications.push_notification.PushNotification.template_name" title="Permalink to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>News template name. Provide a distinct name for the template</p>
 </dd></dl>
 
 <dl class="py attribute">
@@ -2531,7 +2550,7 @@ failed.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 28, 2023.
+      <span class="lastupdated">Last updated on Jul 31, 2023.
       </span></p>
   </div>
 
