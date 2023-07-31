@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-07-07T19:44:52+00:00" />
+    <meta property="article:modified_time" content="2023-07-31T19:50:05+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commands &mdash; integreat-cms 2023.7.2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1532,6 +1532,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#hix-bulk"><code class="docutils literal notranslate"><span class="pre">hix_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#replace-links"><code class="docutils literal notranslate"><span class="pre">replace_links</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#send-push-notifications"><code class="docutils literal notranslate"><span class="pre">send_push_notifications</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../management-commands.html#fix-internal-links"><code class="docutils literal notranslate"><span class="pre">fix_internal_links</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#summ-ai-bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../management-commands.html#reset-deepl-budget"><code class="docutils literal notranslate"><span class="pre">reset_deepl_budget</span></code></a></li>
 </ul>
@@ -1826,6 +1827,53 @@
 </dd></dl>
 
 </section>
+<section id="test-fix-internal-links">
+<h2>Test Fix Internal Links<a class="headerlink" href="#test-fix-internal-links" title="Permalink to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_fix_internal_links.</span></span><span class="sig-name descname"><span class="pre">test_fix_internal_links_commit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_fix_internal_links.py#L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Ensure that committing changes to the database works as expected</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data_transactional</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.load_test_data_transactional" title="tests.conftest.load_test_data_transactional"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_fix_internal_links.</span></span><span class="sig-name descname"><span class="pre">test_fix_internal_links_dry_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_fix_internal_links.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Ensure that dry run works as expected</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data_transactional</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.load_test_data_transactional" title="tests.conftest.load_test_data_transactional"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_fix_internal_links.</span></span><span class="sig-name descname"><span class="pre">test_fix_internal_links_non_existing_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_fix_internal_links.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Ensure that a non existing region slug throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_fix_internal_links.</span></span><span class="sig-name descname"><span class="pre">test_fix_internal_links_non_existing_username</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_fix_internal_links.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Ensure that a non existing username throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="test-hix-bulk">
 <h2>Test Hix Bulk<a class="headerlink" href="#test-hix-bulk" title="Permalink to this heading"></a></h2>
 <dl class="py function">
@@ -1992,7 +2040,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 07, 2023.
+      <span class="lastupdated">Last updated on Jul 31, 2023.
       </span></p>
   </div>
 

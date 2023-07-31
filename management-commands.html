@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-07-24T16:13:23+00:00" />
+    <meta property="article:modified_time" content="2023-07-31T19:50:05+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Management Commands &mdash; integreat-cms 2023.7.2 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -1532,6 +1532,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#hix-bulk"><code class="docutils literal notranslate"><span class="pre">hix_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#replace-links"><code class="docutils literal notranslate"><span class="pre">replace_links</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#send-push-notifications"><code class="docutils literal notranslate"><span class="pre">send_push_notifications</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fix-internal-links"><code class="docutils literal notranslate"><span class="pre">fix_internal_links</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#summ-ai-bulk"><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#reset-deepl-budget"><code class="docutils literal notranslate"><span class="pre">reset_deepl_budget</span></code></a></li>
 </ul>
@@ -1845,6 +1846,19 @@ when you use this command in production to make sure links in archived pages are
 </pre></div>
 </div>
 </section>
+<section id="fix-internal-links">
+<h4><code class="docutils literal notranslate"><span class="pre">fix_internal_links</span></code><a class="headerlink" href="#fix-internal-links" title="Permalink to this heading"></a></h4>
+<p>Search &amp; fix broken internal links in the content:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>integreat-cms-cli<span class="w"> </span>fix_internal_links<span class="w"> </span><span class="o">[</span>--region-slug<span class="w"> </span>REGION_SLUG<span class="o">]</span><span class="w"> </span><span class="o">[</span>--username<span class="w"> </span>USERNAME<span class="o">]</span><span class="w"> </span><span class="o">[</span>--commit<span class="o">]</span>
+</pre></div>
+</div>
+<p><strong>Options:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--region-slug</span> <span class="pre">REGION_SLUG</span></code>: Only fix links in the region with slug <code class="docutils literal notranslate"><span class="pre">REGION_SLUG</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--username</span> <span class="pre">USERNAME</span></code>: Associate any new created translations with <code class="docutils literal notranslate"><span class="pre">USERNAME</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--commit</span></code>: Whether changes should be written to the database</p></li>
+</ul>
+</section>
 <section id="summ-ai-bulk">
 <h4><code class="docutils literal notranslate"><span class="pre">summ_ai_bulk</span></code><a class="headerlink" href="#summ-ai-bulk" title="Permalink to this heading"></a></h4>
 <p>Translate an entire region into Easy German via SUMM.AI:</p>
@@ -1903,7 +1917,7 @@ when you use this command in production to make sure links in archived pages are
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 24, 2023.
+      <span class="lastupdated">Last updated on Jul 31, 2023.
       </span></p>
   </div>
 
