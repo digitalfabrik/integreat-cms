@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ("cms", "0075_add_pushnotification_multiple_regions"),
+        ("cms", "0076_add_push_notification_templates"),
     ]
 
     operations = [
