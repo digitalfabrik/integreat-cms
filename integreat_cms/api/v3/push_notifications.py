@@ -34,6 +34,7 @@ def sent_push_notifications(request, region_slug, language_slug):
             - timezone.timedelta(days=settings.FCM_HISTORY_DAYS)
         )
         .filter(language__slug=language_slug)
+        .filter(push_notification__draft=False)
         .order_by("-last_updated")
     )
     if channel != "all":

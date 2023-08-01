@@ -7,6 +7,7 @@ from django.forms import CheckboxSelectMultiple
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from ...constants import region_status
 from ...models import PushNotification
 from ..custom_model_form import CustomModelForm
 
@@ -76,7 +77,11 @@ class PushNotificationForm(CustomModelForm):
         if selected_regions is None:
             selected_regions = []
 
-        self.fields["regions"].choices = [(obj.id, str(obj)) for obj in regions]
+        self.fields["regions"].choices = [
+            (obj.id, str(obj))
+            for obj in regions
+            if obj.status == region_status.ACTIVE or obj in selected_regions
+        ]
         self.fields["regions"].initial = selected_regions
         self.fields["is_template"].initial = template
 

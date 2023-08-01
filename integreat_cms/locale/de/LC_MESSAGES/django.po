@@ -1555,6 +1555,7 @@ msgid "Marketing team"
 msgstr "Marketing-Team"
 
 #: cms/constants/status.py
+#: cms/templates/push_notifications/push_notification_list_row.html
 msgid "Draft"
 msgstr "Entwurf"
 
@@ -4871,6 +4872,7 @@ msgstr "Veranstaltung erstellen"
 #: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
 #: cms/templates/pages/page_sbs.html cms/templates/pois/poi_form.html
+#: cms/templates/push_notifications/push_notification_form.html
 msgid "Save as draft"
 msgstr "Als Entwurf speichern"
 
@@ -6741,22 +6743,26 @@ msgid "Create News"
 msgstr "Nachricht erstellen"
 
 #: cms/templates/push_notifications/push_notification_form.html
-msgid "Create Message from Template"
-msgstr "Nachricht aus Vorlage erstellen"
+msgid "Create News from Template"
+msgstr "Neue Nachrichten-Vorlage erstellen"
 
 #: cms/templates/push_notifications/push_notification_form.html
 msgid "Save & Send"
 msgstr "Speichern & Senden"
 
 #: cms/templates/push_notifications/push_notification_form.html
+msgid "Save & Schedule"
+msgstr "Speichern & Terminieren"
+
+#: cms/templates/push_notifications/push_notification_form.html
 #, python-format
-msgid "Messages are sent every %(schedule_interval)s minutes"
+msgid "News are sent every %(schedule_interval)s minutes"
 msgstr "Nachrichten werden alle %(schedule_interval)s Minuten gesendet"
 
 #: cms/templates/push_notifications/push_notification_form.html
 msgid ""
 "Any manager with access to only some of the selected regions can view but "
-"not edit this news message."
+"not edit this news."
 msgstr ""
 "Verwalter:innen, die nur auf einige der ausgewählten Regionen Zugriff haben, "
 "können diese Nachricht ansehen, aber nicht bearbeiten."
@@ -6767,8 +6773,7 @@ msgid "Sent"
 msgstr "Gesendet"
 
 #: cms/templates/push_notifications/push_notification_form.html
-#: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Message not sent yet"
+msgid "News not sent yet"
 msgstr "Nachricht noch nicht gesendet"
 
 #: cms/templates/push_notifications/push_notification_list.html
@@ -6781,7 +6786,7 @@ msgstr "Kanal"
 
 #: cms/templates/push_notifications/push_notification_list.html
 msgid "Planned send date"
-msgstr "Geplanter Zeitpunkt zum Senden"
+msgstr "Terminiert am"
 
 #: cms/templates/push_notifications/push_notification_list.html
 #: cms/templates/push_notifications/push_notification_template_list.html
@@ -6800,6 +6805,10 @@ msgstr "Titel nicht verfügbar"
 #: cms/templates/push_notifications/push_notification_list_row.html
 msgid "Manual"
 msgstr "Manuell"
+
+#: cms/templates/push_notifications/push_notification_list_row.html
+msgid "Message not sent yet"
+msgstr "Nachricht noch nicht gesendet"
 
 #: cms/templates/push_notifications/push_notification_template_list.html
 msgid "Templates"
@@ -8712,20 +8721,16 @@ msgstr "Zurück zum Orts-Formular"
 
 #: cms/views/push_notifications/push_notification_form_view.py
 #: cms/views/push_notifications/push_notification_list_view.py
-#: cms/views/push_notifications/push_notification_template_list_view.py
 msgid "Push notifications are disabled."
 msgstr "Push-Benachrichtigungen sind deaktiviert."
 
 #: cms/views/push_notifications/push_notification_form_view.py
 #: cms/views/push_notifications/push_notification_list_view.py
-#: cms/views/push_notifications/push_notification_template_list_view.py
 msgid "Push notifications are disabled in this region."
 msgstr "Push-Benachrichtigungen sind in dieser Region deaktiviert."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid ""
-"This news message has already been sent as push notification to mobile "
-"devices."
+msgid "This news has already been sent as push notification to mobile devices."
 msgstr ""
 "Diese Nachricht wurde bereits als Push-Benachrichtigung an mobile Geräte "
 "gesendet."
@@ -8740,11 +8745,11 @@ msgstr ""
 "Benachrichtigung."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "You are not allowed to edit this message."
+msgid "You are not allowed to edit this news."
 msgstr "Sie dürfen diese Nachricht nicht bearbeiten."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "This news message belongs to regions you don't have access to: {}."
+msgid "This news belongs to regions you don't have access to: {}."
 msgstr ""
 "Diese Nachricht gehört zu Regionen, auf die Sie keinen Zugriff haben: {}."
 
@@ -8756,14 +8761,13 @@ msgstr ""
 "kontaktieren Sie eine:n Administrator:in."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid ""
-"This news message is also assigned to regions you don't have access to: {}."
+msgid "This news is also assigned to regions you don't have access to: {}."
 msgstr ""
 "Diese Nachricht ist auch Regionen zugewiesen, auf die Sie keinen Zugriff "
 "haben: {}."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "Thus you cannot edit or delete this news message."
+msgid "Thus you cannot edit or delete this news."
 msgstr "Daher können Sie diese Nachricht nicht bearbeiten oder löschen."
 
 #: cms/views/push_notifications/push_notification_form_view.py
@@ -8775,32 +8779,39 @@ msgstr ""
 "ist oder kontaktieren Sie eine:n Administrator:in."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News message \"{}\" was successfully created"
+msgid "Template \"{}\" was successfully created"
+msgstr "Vorlage \"{}\" wurde erfolgreich erstellt"
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid "News \"{}\" was successfully created"
 msgstr "Nachricht \"{}\" wurde erfolgreich erstellt"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News message \"{}\" was successfully saved"
+msgid "Template \"{}\" was successfully saved"
+msgstr "Vorlage \"{}\" wurde erfolgreich gespeichert"
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid "News \"{}\" was successfully saved"
 msgstr "Nachricht \"{}\" wurde erfolgreich gespeichert"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News message cannot be sent because required texts are missing"
+msgid "News cannot be sent because required texts are missing"
 msgstr "Nachricht konnte nicht gesendet werden, da erforderliche Texte fehlen"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News message was successfully sent"
+msgid "News was successfully sent"
 msgstr "Nachricht wurde erfolgreich gesendet"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News message could not be sent"
-msgstr "Nachricht konnte nicht gesendet werden"
+msgid "News cannot be sent"
+msgstr "Nachricht kann nicht gesendet werden"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News message could not be sent due to a configuration error."
+msgid "News cannot be sent due to a configuration error."
 msgstr ""
-"Nachricht konnte aufgrund eines Konfigurationsproblems nicht gesendet werden."
+"Nachricht kann aufgrund eines Konfigurationsproblems nicht gesendet werden."
 
 #: cms/views/push_notifications/push_notification_list_view.py
-#: cms/views/push_notifications/push_notification_template_list_view.py
 msgid ""
 "Please create at least one language node before creating push notifications."
 msgstr ""
@@ -9186,6 +9197,15 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Create Message from Template"
+#~ msgstr "Nachricht aus Vorlage erstellen"
+
+#~ msgid "News message \"{}\" was successfully created"
+#~ msgstr "Nachricht \"{}\" wurde erfolgreich erstellt"
+
+#~ msgid "News message \"{}\" was successfully saved"
+#~ msgstr "Nachricht \"{}\" wurde erfolgreich gespeichert"
 
 #~ msgid "Create news message"
 #~ msgstr "Neue Nachricht verfassen"
@@ -9908,12 +9928,6 @@ msgstr ""
 
 #~ msgid "Language \"{}\" was successfully saved"
 #~ msgstr "Sprache \"{}\" wurde erfolgreich gespeichert"
-
-#~ msgid "Offer template \"{}\" was successfully created"
-#~ msgstr "Angebots-Vorlage \"{}\" wurde erfolgreich erstellt"
-
-#~ msgid "Offer template \"{}\" was successfully saved"
-#~ msgstr "Angebots-Vorlage \"{}\" wurde erfolgreich gespeichert"
 
 #~ msgid "Region \"{}\" was successfully created"
 #~ msgstr "Region \"{}\" wurde erfolgreich erstellt"

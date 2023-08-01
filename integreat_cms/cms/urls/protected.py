@@ -1305,7 +1305,9 @@ urlpatterns = [
                                         ),
                                         path(
                                             "templates/",
-                                            push_notifications.PushNotificationTemplateListView.as_view(),
+                                            push_notifications.PushNotificationListView.as_view(
+                                                templates=True
+                                            ),
                                             name="push_notifications_templates",
                                         ),
                                         path(
