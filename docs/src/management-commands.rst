@@ -131,6 +131,27 @@ Search & replace links in the content::
 * ``--username USERNAME``: Associate any new created translations with ``USERNAME``
 * ``--commit``: Whether changes should be written to the database
 
+``send_push_notifications``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Send all due scheduled push notifications::
+
+    integreat-cms-cli send_push_notifications
+
+
+``fix_internal_links``
+~~~~~~~~~~~~~~~~~~~~~~
+
+Search & fix broken internal links in the content::
+
+    integreat-cms-cli fix_internal_links [--region-slug REGION_SLUG] [--username USERNAME] [--commit]
+
+**Options:**
+
+* ``--region-slug REGION_SLUG``: Only fix links in the region with slug ``REGION_SLUG``
+* ``--username USERNAME``: Associate any new created translations with ``USERNAME``
+* ``--commit``: Whether changes should be written to the database
+
 
 ``summ_ai_bulk``
 ~~~~~~~~~~~~~~~~

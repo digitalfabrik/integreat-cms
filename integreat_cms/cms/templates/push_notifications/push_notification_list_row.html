@@ -23,7 +23,7 @@
                 {% spaceless %}
                     {% for other_language in languages %}
                         <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=other_language.slug %}">
-                            <i icon-name="{% if other_language in push_notification.languages %}edit-2{% else %}plus{% endif %}"
+                            <i icon-name="{% if other_language in push_notification.languages %}pen-line{% else %}plus{% endif %}"
                                class="text-gray-800"></i>
                         </a>
                     {% endfor %}
@@ -33,6 +33,13 @@
     </td>
     <td class="pr-2">
         {{ push_notification_translation.last_updated }}
+    </td>
+    <td class="pr-2">
+        {% if push_notification.scheduled_send_date_local %}
+            {{ push_notification.scheduled_send_date_local }}
+        {% else %}
+            {% translate "Manual" %}
+        {% endif %}
     </td>
     <td class="px-2 whitespace-nowrap">
         {% if push_notification.sent_date %}

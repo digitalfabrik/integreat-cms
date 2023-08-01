@@ -6,7 +6,16 @@
     <div id="popup-overlay"
          class="fixed inset-0 opacity-75 bg-gray-800 hidden">
     </div>
-    <header class="fixed h-14 lg:pl-56 top-0 inset-x-0 flex flex-nowrap justify-end z-50 bg-gray-300 whitespace-nowrap">
+    {% if TEST %}
+        <div class="fixed h-6 top-0 inset-x-0 text-center tracking-wide z-50 bg-red-400">
+            <span class="font-bold">
+                <i icon-name="alert-triangle" class="pb-1"></i>
+                {% translate "This is a test system." %}
+            </span>
+            {% translate "Changes you make are only visible in the beta version of the app." %}
+        </div>
+    {% endif %}
+    <header class="fixed h-14 lg:pl-56 {% if TEST %}top-6{% endif %} inset-x-0 flex flex-nowrap justify-end z-50 bg-gray-300 whitespace-nowrap">
         {% if debug and request.user.is_staff %}
             <a href="{% url 'admin:index' %}"
                target="_blank"
@@ -32,7 +41,7 @@
              class="relative p-4 cursor-pointer text-gray-800 hover:bg-gray-200 border-r border-gray-400">
             <div class="truncate">
                 {% if request.region %}
-                    {% if request.region_selection or user.is_superuser or user.is_staff %}
+                    {% if request.quick_access_regions or user.is_superuser or user.is_staff %}
                         <i icon-name="home"></i>
                         {{ request.region.full_name }}
                         <span class="hidden lg:inline">
@@ -54,7 +63,7 @@
             </div>
             <div id="region-list"
                  class="absolute hidden shadow rounded-b top-full right-0 bg-gray-200">
-                {% for region in request.region_selection %}
+                {% for region in request.quick_access_regions %}
                     <a href="{% url 'dashboard' region_slug=region.slug %}"
                        class="block px-4 py-3 text-gray-800 hover:bg-gray-300">
                         <i icon-name="home"></i>
@@ -99,7 +108,7 @@
         </div>
     </header>
     <nav id="primary-navigation"
-         class="w-72 h-full fixed left-0 inset-y-0 text-gray-200 bg-gray-700 z-50 transform -translate-x-full lg:translate-x-0 motion-safe:transition-transform">
+         class="w-72 {% if TEST %}testing{% else %}h-full{% endif %}  fixed left-0 inset-y-0 text-gray-200 bg-gray-700 z-50 transform -translate-x-full lg:translate-x-0 motion-safe:transition-transform">
         <div class="w-full p-1 h-14 bg-gray-800">
             <a href="{% url 'public:region_selection' %}">
                 <div class="h-full w-full bg-{{ BRANDING }}-logo-white hover:bg-{{ BRANDING }}-logo-hover bg-contain ml-2 bg-no-repeat">
@@ -309,7 +318,7 @@
                class="hover:underline">{% translate "Version" %}: {{ version }}</a>
         </div>
     </nav>
-    <main class="relative min-h-screen flex lg:pl-72 pt-14 bg-gray-100">
+    <main class="relative min-h-screen flex lg:pl-72 {% if TEST %}pt-20{% else %}pt-14{% endif %} bg-gray-100">
         <div class="flex-1 min-w-0 p-6">
             {% include "messages.html" %}
             {% block content %}

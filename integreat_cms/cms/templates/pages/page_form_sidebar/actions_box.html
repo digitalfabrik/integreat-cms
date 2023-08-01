@@ -50,7 +50,7 @@
         {% for ancestor in page.explicitly_archived_ancestors %}
             <a href="{% url 'edit_page' page_id=ancestor.id region_slug=request.region.slug language_slug=language.slug %}"
                class="block pt-2 hover:underline">
-                <i icon-name="edit" class="mr-2"></i> {{ ancestor.best_translation.title }}
+                <i icon-name="pen-square" class="mr-2"></i> {{ ancestor.best_translation.title }}
             </a>
         {% endfor %}
     {% else %}
@@ -87,7 +87,7 @@
                     {% if can_change_page_object %}
                         <a href="{% url 'edit_page' page_id=mirroring_page.id region_slug=mirroring_page.region.slug language_slug=language.slug %}"
                            class="block pt-2 hover:underline">
-                            <i icon-name="edit" class="mr-2"></i>
+                            <i icon-name="pen-square" class="mr-2"></i>
                             {{ mirroring_page.best_translation.title }}
                             {% if mirroring_page.region != request.region %}
                                 ({{ mirroring_page.region }})
@@ -130,7 +130,7 @@
                 {% for descendant in descendants %}
                     <a href="{% url 'edit_page' page_id=descendant.id region_slug=request.region.slug language_slug=language.slug %}"
                        class="block pt-2 hover:underline">
-                        <i icon-name="edit" class="mr-2"></i> {{ descendant.best_translation.title }}
+                        <i icon-name="pen-square" class="mr-2"></i> {{ descendant.best_translation.title }}
                     </a>
                 {% endfor %}
             {% endwith %}
@@ -154,7 +154,7 @@
                     {% if can_change_page_object %}
                         <a href="{% url 'edit_page' page_id=mirroring_page.id region_slug=mirroring_page.region.slug language_slug=language.slug %}"
                            class="block pt-2 hover:underline">
-                            <i icon-name="edit" class="mr-2"></i>
+                            <i icon-name="pen-square" class="mr-2"></i>
                             {{ mirroring_page.best_translation.title }}
                             {% if mirroring_page.region != request.region %}
                                 ({{ mirroring_page.region }})

@@ -1,0 +1,31 @@
+{% load i18n %}
+<tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
+    <td class="pl-2">
+        <a title="{% if push_notification.template_name %} {{ push_notification.template_name }}{% endif %}"
+           href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=language.slug %}"
+           class="block py-3 px-2 text-gray-800">
+            {% if push_notification.template_name %}
+                {{ push_notification.template_name|truncatechars:35 }}
+            {% else %}
+                <i>{% translate "Template name not available" %}</i>
+            {% endif %}
+        </a>
+    </td>
+    <td>
+        <div class="block py-3 px-2 text-gray-800">
+            <div class="lang-grid">
+                {% spaceless %}
+                    {% for other_language in languages %}
+                        <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=other_language.slug %}">
+                            <i icon-name="{% if other_language in push_notification.languages %}edit-2{% else %}plus{% endif %}"
+                               class="text-gray-800"></i>
+                        </a>
+                    {% endfor %}
+                {% endspaceless %}
+            </div>
+        </div>
+    </td>
+    <td class="pr-2">
+        {{ push_notification_translation.last_updated }}
+    </td>
+</tr>

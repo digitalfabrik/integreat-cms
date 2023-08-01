@@ -1147,6 +1147,7 @@ if settings.FCM_ENABLED:
                         "translations-1-title": "",
                         "translations-1-text": "",
                         "translations-1-language": 6,
+                        "regions": [1],
                         "channel": "news",
                         "mode": "ONLY_AVAILABLE",
                     },

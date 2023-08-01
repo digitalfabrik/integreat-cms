@@ -1,8 +1,9 @@
 """
-The model for the push notificatiion
+The model for the push notification
 """
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
@@ -18,11 +19,10 @@ class PushNotification(AbstractBaseModel):
     Data model representing a push notification
     """
 
-    region = models.ForeignKey(
+    regions = models.ManyToManyField(
         Region,
-        on_delete=models.CASCADE,
         related_name="push_notifications",
-        verbose_name=_("region"),
+        verbose_name=_("regions"),
     )
     channel = models.CharField(
         max_length=60,
@@ -33,29 +33,43 @@ class PushNotification(AbstractBaseModel):
     draft = models.BooleanField(
         default=True,
         verbose_name=_("draft"),
-        help_text=_(
-            "Whether or not the push notification is a draft (drafts cannot be sent)"
-        ),
+        help_text=_("Whether or not the News is a draft (drafts cannot be sent)"),
     )
     #: :obj:`None` if the push notification is not yet sent
     sent_date = models.DateTimeField(
         null=True,
         blank=True,
         verbose_name=_("sent date"),
-        help_text=_("The date and time when the push notification was sent."),
+        help_text=_("The date and time when the News was sent."),
     )
     created_date = models.DateTimeField(
         auto_now_add=True,
         verbose_name=_("creation date"),
+    )
+    scheduled_send_date = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name=_("scheduled send date"),
+        help_text=_("The scheduled date for this News to be sent"),
     )
     #: Manage choices in :mod:`~integreat_cms.cms.constants.push_notifications`
     mode = models.CharField(
         max_length=128,
         choices=PN_MODES,
         verbose_name=_("mode"),
-        help_text=_(
-            "Sets behavior for dealing with not existing push notification translations"
-        ),
+        help_text=_("Sets behavior for dealing with not existing News translations"),
+    )
+    #: Distinct functionalities for templates
+    is_template = models.BooleanField(
+        default=False,
+        verbose_name=_("News template"),
+    )
+    template_name = models.CharField(
+        null=True,
+        blank=True,
+        max_length=128,
+        verbose_name=_("News template name"),
+        help_text=_("Provide a distinct name for the template"),
     )
 
     @cached_property
@@ -92,7 +106,9 @@ class PushNotification(AbstractBaseModel):
         :return: The default translation of a push notification
         :rtype: ~integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
         """
-        return self.translations.filter(language=self.region.default_language).first()
+        return self.translations.filter(
+            language=self.regions.first().default_language
+        ).first()
 
     @property
     def best_translation(self):
@@ -108,6 +124,18 @@ class PushNotification(AbstractBaseModel):
             or self.default_translation
             or self.translations.first()
         )
+
+    @cached_property
+    def scheduled_send_date_local(self):
+        """
+        Convert the scheduled send date to local time
+
+        :return: The scheduled send date in local time
+        :rtype: Optional[datetime.datetime]
+        """
+        if not self.scheduled_send_date:
+            return None
+        return timezone.localtime(self.scheduled_send_date)
 
     def __str__(self):
         """
@@ -127,7 +155,7 @@ class PushNotification(AbstractBaseModel):
         :return: The canonical string representation of the push notification
         :rtype: str
         """
-        return f"<PushNotification (id: {self.id}, channel: {self.channel}, region: {self.region.slug})>"
+        return f"<PushNotification (id: {self.id}, channel: {self.channel}, regions: {self.regions.values_list('slug', flat=True)})>"
 
     class Meta:
         #: The verbose name of the model

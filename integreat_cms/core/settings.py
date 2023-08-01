@@ -127,6 +127,10 @@ CUSTOM_LOCALE_PATH = os.environ.get(
     "INTEGREAT_CMS_CUSTOM_LOCALE_PATH", "/etc/integreat-cms/locale"
 )
 
+#: The number of regions that are available via the dropdown
+NUM_REGIONS_QUICK_ACCESS = 15
+
+
 ##############################################################
 # Firebase Push Notifications (Firebase Cloud Messaging FCM) #
 ##############################################################
@@ -147,6 +151,14 @@ FCM_CHANNELS = (("news", _("News")),)
 #: How many days push notifications are shown in the apps
 FCM_HISTORY_DAYS = 28
 
+#: The interval at which scheduled push notifications are sent out
+#: Must be <= 60 and a divisor of 60
+FCM_SCHEDULE_INTERVAL_MINUTES = int(
+    os.environ.get("INTEGREAT_CMS_FCM_SCHEDULE_INTERVAL_MINUTES", 60)
+)
+assert (
+    not 60 % FCM_SCHEDULE_INTERVAL_MINUTES
+), "Interval must be <= 60 and a divisor of 60"
 
 ###########
 # GVZ API #
@@ -249,6 +261,11 @@ HOSTNAME = urlparse(BASE_URL).hostname
 #: .. warning::
 #:     Never deploy a site into production with :setting:`DEBUG` turned on!
 DEBUG = bool(strtobool(os.environ.get("INTEGREAT_CMS_DEBUG", "False")))
+
+
+#: Whether this is a testing system (even if DEBUG is off)
+TEST = bool(strtobool(os.environ.get("INTEGREAT_CMS_TEST", "False")))
+
 
 #: Enabled applications (see :setting:`django:INSTALLED_APPS`)
 INSTALLED_APPS = [
