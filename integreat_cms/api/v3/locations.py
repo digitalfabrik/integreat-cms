@@ -57,6 +57,9 @@ def transform_poi_translation(poi_translation):
     """
     Function to create a JSON from a single poi_translation object.
 
+    The method returns the title of a location in the default language as the app
+    can currently not display RTL languages on the map.
+
     :param poi_translation: The poi translation object which should be converted
     :type poi_translation: ~integreat_cms.cms.models.pois.poi_translation.POITranslation
 
