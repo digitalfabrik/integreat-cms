@@ -132,26 +132,39 @@ class PageTranslation(AbstractBasePageTranslation):
         :return: The text, as specified
         :rtype: str
         """
+
+        # If there is no page embetted
         if not self.page.mirrored_page:
             return ""
 
+        # If the mirrored content is available in the current language
         if content := self.mirrored_translation_text:
             return content
 
+        # Get all translations of this page which have a corresponding translation of the mirrored page
+        languages = (
+            self.page.mirrored_page.prefetched_major_public_translations_by_language_slug.keys()
+        )
+        translations = [
+            self.page.get_public_translation(language_slug)
+            for language_slug in languages
+            if (
+                translation := self.page.get_mirrored_page_translation(language_slug)
+            ).content
+            and len(translation.content)
+        ]
+
+        # If the mirrored content is available in no language
+        if not translations:
+            return ""
+
+        # If a fall back exits
         error_message = (
             self.language.message_partial_live_content_not_available
             if self.content and not self.content.isspace()
             else self.language.message_content_not_available
         )
 
-        # Get all translations of this page which have a corresponding translation of the mirrored page
-        translations = filter(
-            None,
-            [
-                self.page.get_public_translation(language_slug)
-                for language_slug in self.page.mirrored_page.prefetched_major_public_translations_by_language_slug.keys()
-            ],
-        )
         return render_to_string(
             "pages/_page_content_alternatives.html",
             {"error_message": error_message, "translations": translations},
