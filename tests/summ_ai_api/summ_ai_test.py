@@ -5,8 +5,19 @@ from django.urls import reverse
 
 from integreat_cms.cms.models import Page, Region
 
-from ..conftest import ANONYMOUS, PRIV_STAFF_ROLES
+from ..conftest import (
+    ANONYMOUS,
+    APP_TEAM,
+    CMS_TEAM,
+    PRIV_STAFF_ROLES,
+    ROOT,
+    SERVICE_TEAM,
+)
 from ..utils import assert_message_in_response
+
+# Mapping between roles and pages used in the tests
+# to avoid simultaneous translation of the same content by different users
+role_pages_mapping = {ROOT: [1, 2], APP_TEAM: [3, 4], SERVICE_TEAM: [5], CMS_TEAM: [6]}
 
 
 async def fake_summ_ai_server(request):
@@ -101,7 +112,8 @@ async def test_auto_translate_easy_german(
     # Log the user in
     client, role = login_role_user_async
     # Translate the pages
-    selected_ids = [1, 2, 3]
+    selected_ids = role_pages_mapping.get(role, [1])
+
     translate_easy_german = reverse(
         "machine_translation_pages",
         kwargs={
@@ -207,8 +219,13 @@ async def test_summ_ai_error_handling(
             "language_slug": settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG,
         },
     )
-    response = await client.post(translate_easy_german, data={"selected_ids[]": [1]})
+
+    ready_for_mt_page_id = 14
+    response = await client.post(
+        translate_easy_german, data={"selected_ids[]": [ready_for_mt_page_id]}
+    )
     print(response.headers)
+
     if role in PRIV_STAFF_ROLES:
         # If the role should be allowed to access the view, we expect a redirect to the page tree
         assert response.status_code == 302
@@ -224,7 +241,7 @@ async def test_summ_ai_error_handling(
         print(response.headers)
         # Check that the error message is present
         assert_message_in_response(
-            'Page "Willkommen" could not be automatically translated into Easy German. '
+            'Page "Behörden und Beratung" could not be automatically translated into Easy German. '
             "Please try again later or contact an administrator",
             response,
         )

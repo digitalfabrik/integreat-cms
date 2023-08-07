@@ -182,3 +182,40 @@ class MachineTranslationProvider(metaclass=MachineTranslationProviderType):
             return False
 
         return True
+
+    def is_needed(self, queryset, target_language):
+        """
+        Checks if a machine translation is needed, thus checking if the
+        translation status is UP_TO_DATE or MACHINE_TRANSLATED and then
+        returns a lit of translations which are to be updated
+
+        :param queryset: The content model which should be translated
+        :type queryset: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel ]
+
+        :param target_language: The target language
+        :type target_language: ~integreat_cms.cms.models.languages.language.Language
+
+        :return: translations which need to be translated and updated
+        :rtype: list
+        """
+        # Before translating, check if translation is not up-to-date
+        to_translate = []
+        for content_object in queryset:
+            existing_target_translation = content_object.get_translation(
+                target_language.slug
+            )
+            if (
+                existing_target_translation
+                and existing_target_translation.translation_state
+                in (
+                    "UP_TO_DATE",
+                    "MACHINE_TRANSLATED",
+                )
+            ):
+                logger.debug(
+                    "There already is an up-to-date translation for %s",
+                    content_object.best_translation.title,
+                )
+            else:
+                to_translate += [content_object]
+        return to_translate
