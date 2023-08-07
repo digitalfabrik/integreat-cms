@@ -111,6 +111,13 @@ WIKI_URL: Final[str] = os.environ.get(
     "INTEGREAT_CMS_WIKI_URL", "https://wiki.integreat-app.de"
 )
 
+#: Platform Name, used for app users and social media headers
+
+#: Social media preview image
+SOCIAL_PREVIEW_IMAGE = os.environ.get(
+    "INTEGREAT_SOCIAL_PREVIEW_IMAGE", f"{WEBAPP_URL}/social-media-preview.png"
+)
+
 #: RSS feed URLs to the Integreat blog
 RSS_FEED_URLS: Final[dict[str, str]] = {
     "en": f"{WEBSITE_URL}/en/feed/",

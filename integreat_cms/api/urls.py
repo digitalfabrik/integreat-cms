@@ -37,6 +37,7 @@ from .v3.pages import (
 from .v3.pdf_export import pdf_export
 from .v3.push_notifications import sent_push_notifications
 from .v3.regions import region_by_slug, regions
+from .v3.socialmedia_headers import socialmedia_headers
 
 if TYPE_CHECKING:
     from typing import Final
@@ -133,6 +134,14 @@ region_api_urlpatterns: list[URLPattern] = [
 urlpatterns: list[URLPattern] = [
     path("api/v3/regions/", include(region_api_urlpatterns)),
     path("wp-json/extensions/v3/sites/", include(region_api_urlpatterns)),
+    path(
+        "api/v3/social/<slug:region_slug>/<slug:language_slug>/",
+        include(
+            [
+                path("<path:path>/", socialmedia_headers, name="socialmedia_headers"),
+            ]
+        ),
+    ),
     path(
         "api/v3/<slug:region_slug>/",
         include(
