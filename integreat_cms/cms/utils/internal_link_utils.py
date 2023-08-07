@@ -106,12 +106,28 @@ def get_public_translation_for_webapp_link(
         return None
 
     region_slug, language_slug, *path_parts = parts
-    path = path_parts[0]
-    object_slug = path_parts[-1]
 
     if language_slug == current_language_slug:
         # Return early if the language slug is not different
         return None
+
+    return get_public_translation_for_webapp_link_parts(
+        region_slug, language_slug, path_parts
+    )
+
+
+def get_public_translation_for_webapp_link_parts(
+    region_slug: str, language_slug: str, path_parts: list[str]
+) -> AbstractContentTranslation | None:
+    """
+    Calculates the content translation that corresponds to the given path, region slug and language slug.
+
+    :param region_slug: The slug of the region of the translation
+    :param language_slug: The slug of the language of the translation
+    :param path_parts: A list of the path parts of the translations url. For example ['events', 'test-event']
+    """
+    path = path_parts[0]
+    object_slug = path_parts[-1]
 
     object_type, foreign_object = {
         "events": (EventTranslation, "event"),
