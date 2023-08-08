@@ -114,12 +114,6 @@ def delete_language_tree_node(request, region_slug, pk):
     poi_translations = language_node.language.poi_translations
     # filter those translation that belong to the region and delete them
     poi_translations.filter(poi__region=region).delete()
-    # get all push notification translation assigned to the language node
-    push_notification_translations = (
-        language_node.language.push_notification_translations
-    )
-    # filter those translation that belong to the region and delete them
-    push_notification_translations.filter(push_notification__region=region).delete()
 
     logger.debug("%r deleted by %r", language_node, request.user)
     language_node.delete()
