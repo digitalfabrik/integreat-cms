@@ -171,9 +171,9 @@ class Command(LogCommand):
             if len(objects) == 1:
                 # Get an actual public translation of the content object
                 public_translation = objects[0].get_public_translation(language_slug)
-                if public_translation.get_absolute_url().strip("/") != unquote(
-                    url.internal_url
-                ).strip("/"):
+                if public_translation and public_translation.get_absolute_url().strip(
+                    "/"
+                ) != unquote(url.internal_url).strip("/"):
                     # If the last public url of the translation is different, perform a replacement
                     replace_links(
                         url.internal_url,
