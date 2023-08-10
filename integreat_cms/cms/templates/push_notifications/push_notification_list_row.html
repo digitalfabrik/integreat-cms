@@ -37,6 +37,9 @@
     <td class="pr-2">
         {% if push_notification.scheduled_send_date_local %}
             {{ push_notification.scheduled_send_date_local }}
+            {% if push_notification.draft %}
+                ({% translate "Draft" %})
+            {% endif %}
         {% else %}
             {% translate "Manual" %}
         {% endif %}
