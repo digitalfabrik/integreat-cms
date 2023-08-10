@@ -57,7 +57,7 @@ RESPONSE
        "latitude": Number | null,       // latitude of the geographic center of the region
        "bounding_box": [                // The bounding box of the region, containing two coordinates
             [Number, Number], [Number, Number]
-        ] | null,
+        ],
        "aliases": {                     // value can also be NULL
            "<alias>": {                 // name of a region alias (smaller municipality within a region)
                "longitude": Number,     // longitude of the geographic center of the region alias
