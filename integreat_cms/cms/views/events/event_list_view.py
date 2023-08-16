@@ -115,5 +115,7 @@ class EventListView(TemplateView, EventContextMixin, MachineTranslationContextMi
                 "filter_poi": poi,
                 "translation_status": translation_status,
                 "search_query": query,
+                "source_language": region.get_source_language(language.slug),
+                "content_type": "events",
             },
         )

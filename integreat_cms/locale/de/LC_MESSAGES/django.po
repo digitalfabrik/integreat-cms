@@ -4101,21 +4101,23 @@ msgid "Language selection"
 msgstr "Sprachauswahl"
 
 #: cms/templates/_machine_translation_overlay.html
-msgid "Pages to be translated"
-msgstr "Zu übersetzende Seiten"
+#, python-format
+msgid "%(content_type)s to be translated"
+msgstr "Zu übersetzende %(content_type)s"
 
 #: cms/templates/_machine_translation_overlay.html
 #, python-format
 msgid ""
-"None of the selected pages fullfills the required HIX score of "
+"None of the selected %(content_type)s fullfills the required HIX score of "
 "%(hix_threshold)s."
 msgstr ""
-"Keiner der ausgewählten Seiten erfüllt den benötigten HIX-Wert von "
+"Keine der ausgewählten %(content_type)s erfüllt den benötigten HIX-Wert von "
 "%(hix_threshold)s."
 
 #: cms/templates/_machine_translation_overlay.html
-msgid "None of the selected pages has a source translation."
-msgstr "Keine der ausgewählten Seiten hat eine Quellübersetzung."
+#, python-format
+msgid "None of the selected %(content_type)s has a source translation."
+msgstr "Keine der ausgewählten %(content_type)s hat eine Quellübersetzung."
 
 #: cms/templates/_machine_translation_overlay.html
 msgid "Show all"
@@ -4142,39 +4144,37 @@ msgid "Remaining budget: "
 msgstr "Verbleibendes Budget:"
 
 #: cms/templates/_machine_translation_overlay.html
-msgid "Pages that can't be translated"
-msgstr "Seiten, die nicht übersetzt werden können"
+#, python-format
+msgid "%(content_type)s that can't be translated"
+msgstr "Nicht übersetzbare %(content_type)s"
 
 #: cms/templates/_machine_translation_overlay.html
 #, python-format
 msgid ""
-"The HIX value is too low for <span id=\"not-translatable\"></span> pages. "
-"Please improve it to a value of at least %(hix_threshold)s to enable machine "
-"translations for them. Currently, the following pages cannot be machine "
-"translated:"
+"The HIX value is too low for <span id=\"not-translatable\"></span> "
+"%(content_type)s. Please improve it to a value of at least %(hix_threshold)s "
+"to enable machine translations for them. Currently, the following "
+"%(content_type)s cannot be machine translated:"
 msgstr ""
 "Der Wert der Textverständlichkeit von <span id=\"not-translatable\"></span> "
-"Seiten ist zu gering. Bitte verbessern Sie den Wert auf mindestens "
-"%(hix_threshold)s. Dann können Sie die Seiten automatisiert übersetzen. "
-"Folgende Seiten werden aktuell nicht übersetzt:"
+"%(content_type)s ist zu gering. Bitte verbessern Sie den Wert auf mindestens "
+"%(hix_threshold)s. Dann können Sie die %(content_type)s automatisiert "
+"übersetzen. Folgende %(content_type)s werden aktuell nicht übersetzt:"
 
 #: cms/templates/_machine_translation_overlay.html
+#, python-format
 msgid ""
-"There are currently <span id=\"not-translatable\"></span> page(s) that can't "
-"be translated. These pages can't be translated because they have no "
-"translation in the source language."
+"There are currently <span id=\"not-translatable\"></span> %(content_type)s "
+"that can't be translated. These %(content_type)s can't be translated because "
+"they have no translation in the source language."
 msgstr ""
-"Es gibt aktuell <span id=\"not-translatable\"></span> Seiten, die nicht "
-"übersetzt werden können. Diese Seiten können nicht übersetzt werden, weil "
-"sie keine Übersetzung in der Quellsprache haben."
+"Es gibt aktuell <span id=\"not-translatable\"></span> %(content_type)s, die "
+"nicht übersetzt werden können. Diese %(content_type)s können nicht übersetzt "
+"werden, weil sie keine Übersetzung in der Quellsprache haben."
 
 #: cms/templates/_machine_translation_overlay.html
-msgid "Show pages"
-msgstr "Seiten anzeigen"
-
-#: cms/templates/_machine_translation_overlay.html
-msgid "Don't show pages"
-msgstr "Seiten nicht anzeigen"
+msgid "Show more"
+msgstr "Weniger anzeigen"
 
 #: cms/templates/_machine_translation_overlay.html
 #: cms/templates/_tinymce_config.html
@@ -9248,6 +9248,15 @@ msgstr ""
 
 #~ msgid "url"
 #~ msgstr "URL"
+
+#~ msgid "Show pages"
+#~ msgstr "Seiten anzeigen"
+
+#~ msgid "Don't show pages"
+#~ msgstr "Seiten nicht anzeigen"
+
+#~ msgid "Pages that can't be translated"
+#~ msgstr "Seiten, die nicht übersetzt werden können"
 
 #~ msgid "Links could not be replaced."
 #~ msgstr "Links konnten nicht ersetzt werden"

@@ -178,7 +178,7 @@
                     {% if MT_PROVIDER %}
                         <option id="machine-translation-option"
                                 data-mt-provider="{{ MT_PROVIDER.name }}"
-                                data-url="{% url 'post_hix_and_word_number_per_page' region_slug=request.region.slug language_slug=language.slug %}"
+                                data-url="{% url 'word_count' region_slug=request.region.slug language_slug=language.slug model_type='page' %}"
                                 data-bulk-action="{% url 'machine_translation_pages' region_slug=request.region.slug language_slug=language.slug %}">
                             {% blocktranslate trimmed with provider=MT_PROVIDER.name %}
                                 Machine translate {{ content_type }} via {{ provider }} to {{ language }}
