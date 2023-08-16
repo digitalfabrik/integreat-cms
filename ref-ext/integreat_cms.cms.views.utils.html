@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-08-16T12:35:00+00:00" />
+    <meta property="article:modified_time" content="2023-08-16T12:55:14+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2023.8.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1818,6 +1818,32 @@ It either performs an api request or returns the value from cache.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-integreat_cms.cms.views.utils.machine_translations">
+<span id="machine-translations"></span><h2>Machine Translations<a class="headerlink" href="#module-integreat_cms.cms.views.utils.machine_translations" title="Permalink to this heading"></a></h2>
+<p>This module contains the generalized function to build the AJAX call for the machine translation popup</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.utils.machine_translations.build_json_for_machine_translation">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.utils.machine_translations.</span></span><span class="sig-name descname"><span class="pre">build_json_for_machine_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_type</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/utils/machine_translations.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.utils.machine_translations.build_json_for_machine_translation" title="Permalink to this definition"></a></dt>
+<dd><p>This function collects the hix score and the amount of words per content entry from the source</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/request-response/#django.http.HttpRequest" title="(in Django v3.2)"><em>HttpRequest</em></a>) – The current request</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – slug of the according region</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The slug of the current language</p></li>
+<li><p><strong>model_type</strong> (<a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel" title="integreat_cms.cms.models.abstract_content_model.AbstractContentModel"><em>AbstractContentModel</em></a>) – The according model to the different content types</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A dictionary that contains the data for the machine translation popup (page id, title, amount of words and optional hix value)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
 </dd>
 </dl>
 </dd></dl>
