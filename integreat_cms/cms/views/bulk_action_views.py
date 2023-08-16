@@ -13,7 +13,9 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 from django.views.generic.list import MultipleObjectMixin
 
+from ..constants import status
 from ..models import Page
+from .utils.translation_status import change_translation_status
 
 logger = logging.getLogger(__name__)
 
@@ -345,4 +347,58 @@ class BulkRestoreView(BulkActionView):
             ),
         )
 
+        return super().post(request, *args, **kwargs)
+
+
+class BulkPublishingView(BulkActionView):
+    """
+    Bulk action to publish multiple pages at once
+    """
+
+    def post(self, request, *args, **kwargs):
+        r"""
+        Function to change the translation status to publish of multiple pages at once
+
+        :param request: The current request
+        :type request: ~django.http.HttpRequest
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
+
+        :return: The redirect
+        :rtype: ~django.http.HttpResponseRedirect
+        """
+        change_translation_status(
+            request, self.get_queryset(), kwargs["language_slug"], status.PUBLIC
+        )
+        return super().post(request, *args, **kwargs)
+
+
+class BulkDraftingView(BulkActionView):
+    """
+    Bulk action to draft multiple pages at once
+    """
+
+    def post(self, request, *args, **kwargs):
+        r"""
+        Function to change the translation status to draft of multiple pages at once
+
+        :param request: The current request
+        :type request: ~django.http.HttpRequest
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
+
+        :return: The redirect
+        :rtype: ~django.http.HttpResponseRedirect
+        """
+        change_translation_status(
+            request, self.get_queryset(), kwargs["language_slug"], status.DRAFT
+        )
         return super().post(request, *args, **kwargs)
