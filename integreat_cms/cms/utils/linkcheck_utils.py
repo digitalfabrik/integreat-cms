@@ -193,7 +193,15 @@ def save_new_version(translation, new_translation, user):
 
 # pylint: disable=too-many-locals
 def replace_links(
-    search, replace, region=None, user=None, commit=True, link_types=None
+    search,
+    replace,
+    *,
+    partial_match=True,
+    region=None,
+    language=None,
+    user=None,
+    commit=True,
+    link_types=None,
 ):
     """
     Perform search & replace in the content links
@@ -204,8 +212,14 @@ def replace_links(
     :param replace: The (partial) URL to replace
     :type replace: str
 
+    :param partial_match: Whether to also replace links that only match partially
+    :type partial_match: bool
+
     :param region: Optionally limit the replacement to one region (``None`` means a global replacement)
     :type region: ~integreat_cms.cms.models.regions.region.Region
+
+    :param language: Optionally limit the replacement to one language (``None`` means a replacement for all languages)
+    :type language: ~integreat_cms.cms.models.languages.language.Language
 
     :param user: The creator of the replaced translations
     :type user: ~integreat_cms.cms.models.users.user.User
@@ -229,17 +243,29 @@ def replace_links(
     models = [PageTranslation, EventTranslation, POITranslation]
     with update_lock:
         for model in models:
-            filters = {f"{model.foreign_field()}__region": region} if region else {}
+            filters = {}
+            if region:
+                filters[f"{model.foreign_field()}__region"] = region
+            if language:
+                filters["language"] = language
+
             for translation in model.objects.filter(**filters).distinct(
                 model.foreign_field(), "language"
             ):
                 new_translation = deepcopy(translation)
                 for link in translation.links.select_related("url"):
                     url = link.url.url
-                    if search in url and (
+                    should_replace = (
+                        search in url
+                        if partial_match
+                        else search.strip("/") == url.strip("/")
+                    )
+                    if should_replace and (
                         not link_types or link.url.type in link_types
                     ):
-                        fixed_url = url.replace(search, replace)
+                        fixed_url = (
+                            url.replace(search, replace) if partial_match else replace
+                        )
                         new_translation.content = rewrite_links(
                             new_translation.content,
                             partial(replace_link_helper, url, fixed_url),

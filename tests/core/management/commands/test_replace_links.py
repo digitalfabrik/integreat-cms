@@ -78,7 +78,7 @@ def test_replace_links_dry_run(load_test_data_transactional):
         url=test_url
     ).exists(), "Test URL should exist in test data"
     assert (
-        Link.objects.filter(url__url=test_url).count() == 1
+        Link.objects.filter(url__url=test_url).count() == 3
     ), "Test link should exist in test data"
     assert not Url.objects.filter(
         url=replaced_url
@@ -98,7 +98,7 @@ def test_replace_links_dry_run(load_test_data_transactional):
         url=test_url
     ).exists(), "Test URL should not be removed during dry run"
     assert (
-        Link.objects.filter(url__url=test_url).count() == 1
+        Link.objects.filter(url__url=test_url).count() == 3
     ), "Test link should not be removed during dry run"
     assert not Url.objects.filter(
         url=replaced_url
@@ -125,7 +125,7 @@ def test_replace_links_commit(load_test_data_transactional):
         url=test_url
     ).exists(), "Test URL should not be removed during dry run"
     assert (
-        Link.objects.filter(url__url=test_url).count() == 1
+        Link.objects.filter(url__url=test_url).count() == 3
     ), "Test link should not be removed during dry run"
     assert not Url.objects.filter(
         url=replaced_url
@@ -150,5 +150,5 @@ def test_replace_links_commit(load_test_data_transactional):
         url=replaced_url
     ).exists(), "Replaced URL should exist after replacement"
     assert (
-        Link.objects.filter(url__url=replaced_url).count() == 1
+        Link.objects.filter(url__url=replaced_url).count() == 3
     ), "Replaced link should exist after replacement"

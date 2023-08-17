@@ -36,6 +36,23 @@ def test_fix_internal_links_non_existing_username(load_test_data):
     assert str(exc_info.value) == 'User with username "non-existing" does not exist.'
 
 
+old_urls = [
+    "https://integreat.app/augsburg/de/deutsche-sprache/sprachlernangebote/",
+    "https://integreat.app/augsburg/de/willkommen/",
+    "https://integreat.app/augsburg/de/events/test-veranstaltung/",
+    "https://integreat.app/augsburg/de/locations/test-ort/",
+    "http://localhost:8000/s/p/96/",
+]
+
+new_urls = [
+    "https://integreat.app/augsburg/de/deutsche-sprache/sonstige-sprachlernangebote/",
+    "https://integreat.app/augsburg/en/welcome/",
+    "https://integreat.app/augsburg/en/events/test-event/",
+    "https://integreat.app/augsburg/en/locations/test-location/",
+    "https://integreat.app/augsburg/de/test-links/",
+]
+
+
 @pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True, serialized_rollback=True)
 def test_fix_internal_links_dry_run(load_test_data_transactional):
@@ -45,33 +62,37 @@ def test_fix_internal_links_dry_run(load_test_data_transactional):
     :param load_test_data_transactional: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data_transactional`)
     :type load_test_data_transactional: tuple
     """
-    old_url = "https://integreat.app/augsburg/de/deutsche-sprache/sprachlernangebote/"
-    new_url = "https://integreat.app/augsburg/de/deutsche-sprache/sonstige-sprachlernangebote/"
+    old_link_occurrence_counts = []
 
-    assert Url.objects.filter(url=old_url).exists()
-    assert Link.objects.filter(url__url=old_url).count() == 1
+    for old_url in old_urls:
+        assert Url.objects.filter(url=old_url).exists()
+        assert Link.objects.filter(url__url=old_url).exists()
+        old_link_occurrence_counts.append(Link.objects.filter(url__url=old_url).count())
 
-    assert not Url.objects.filter(url=new_url).exists()
-    assert not Link.objects.filter(url__url=new_url).exists()
+    for new_url in new_urls:
+        assert not Url.objects.filter(url=new_url).exists()
+        assert not Link.objects.filter(url__url=new_url).exists()
 
     with enable_listeners():
         out, err = get_command_output("fix_internal_links")
     assert "✔ Finished dry-run of fixing broken internal links." in out
     assert not err
 
-    assert Url.objects.filter(
-        url=old_url
-    ).exists(), "Old URL should not be removed during dry run"
-    assert (
-        Link.objects.filter(url__url=old_url).count() == 1
-    ), "Old link should not be removed during dry run"
+    for link_occurences, old_url in zip(old_link_occurrence_counts, old_urls):
+        assert Url.objects.filter(
+            url=old_url
+        ).exists(), "Old URL should not be removed during dry run"
+        assert (
+            Link.objects.filter(url__url=old_url).count() == link_occurences
+        ), "Old link should not be modified during dry run"
 
-    assert not Url.objects.filter(
-        url=new_url
-    ).exists(), "New URL should not be created during dry run"
-    assert not Link.objects.filter(
-        url__url=new_url
-    ).exists(), "New link should not be created during dry run"
+    for new_url in new_urls:
+        assert not Url.objects.filter(
+            url=new_url
+        ).exists(), "New URL should not be created during dry run"
+        assert not Link.objects.filter(
+            url__url=new_url
+        ).exists(), "New link should not be created during dry run"
 
 
 @pytest.mark.order("last")
@@ -83,14 +104,16 @@ def test_fix_internal_links_commit(load_test_data_transactional):
     :param load_test_data_transactional: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data_transactional`)
     :type load_test_data_transactional: tuple
     """
-    old_url = "https://integreat.app/augsburg/de/deutsche-sprache/sprachlernangebote/"
-    new_url = "https://integreat.app/augsburg/de/deutsche-sprache/sonstige-sprachlernangebote/"
+    old_link_occurrence_counts = []
 
-    assert Url.objects.filter(url=old_url).exists()
-    assert Link.objects.filter(url__url=old_url).count() == 1
+    for old_url in old_urls:
+        assert Url.objects.filter(url=old_url).exists()
+        assert Link.objects.filter(url__url=old_url).exists()
+        old_link_occurrence_counts.append(Link.objects.filter(url__url=old_url).count())
 
-    assert not Url.objects.filter(url=new_url).exists()
-    assert not Link.objects.filter(url__url=new_url).exists()
+    for new_url in new_urls:
+        assert not Url.objects.filter(url=new_url).exists()
+        assert not Link.objects.filter(url__url=new_url).exists()
 
     # Now pass --commit to write changes to database
     with enable_listeners():
@@ -98,16 +121,15 @@ def test_fix_internal_links_commit(load_test_data_transactional):
     assert "✔ Successfully finished fixing broken internal links." in out
     assert not err
 
-    assert not Url.objects.filter(
-        url=old_url
-    ).exists(), "Old URL should not exist after replacement"
-    assert not Link.objects.filter(
-        url__url=old_url
-    ).exists(), "Old link should not exist after replacement"
+    for link_occurrences, old_url in zip(old_link_occurrence_counts, old_urls):
+        assert (
+            Link.objects.filter(url__url=old_url).count() < link_occurrences
+        ), "Some old links should not exist after replacement"
 
-    assert Url.objects.filter(
-        url=new_url
-    ).exists(), "New URL should exist after replacement"
-    assert (
-        Link.objects.filter(url__url=new_url).count() == 1
-    ), "New link should exist after replacement"
+    for new_url in new_urls:
+        assert Url.objects.filter(
+            url=new_url
+        ).exists(), "New URL should exist after replacement"
+        assert (
+            Link.objects.filter(url__url=new_url).count() == 1
+        ), "New link should exist after replacement"

@@ -102,7 +102,7 @@ class PageTranslation(AbstractBasePageTranslation):
         :rtype: str
         """
 
-        return settings.BASE_URL + reverse(
+        return settings.SHORT_LINKS_URL + reverse(
             "public:expand_page_translation_id", kwargs={"short_url_id": self.id}
         )
 
