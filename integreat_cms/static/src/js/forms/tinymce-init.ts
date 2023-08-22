@@ -105,7 +105,7 @@ window.addEventListener("load", () => {
             branding: false,
             paste_as_text: true,
             toolbar:
-                "bold italic underline forecolor | bullist numlist | styleselect | undo redo | ltr rtl notranslate | aligncenter indent outdent | link openmediacenter | export | removeformat ",
+                "bold italic underline forecolor | bullist numlist | styleselect | removeformat | undo redo | ltr rtl notranslate | aligncenter indent outdent | link openmediacenter | export ",
             style_formats: [
                 {
                     title: "Headings",

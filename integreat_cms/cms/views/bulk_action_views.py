@@ -279,13 +279,13 @@ class BulkArchiveView(BulkActionView):
                         request,
                         _(
                             'Page "{}" cannot be archived because it was embedded as live content from another page.'
-                        ).format(content_object.default_translation),
+                        ).format(content_object.best_translation),
                     )
                 else:
                     messages.success(
                         request,
                         _('Page "{}" was successfully archived').format(
-                            content_object.default_translation
+                            content_object.best_translation
                         ),
                     )
                     content_object.archive()
