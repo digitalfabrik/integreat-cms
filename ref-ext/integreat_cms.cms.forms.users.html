@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-08-01T12:32:26+00:00" />
+    <meta property="article:modified_time" content="2023-08-26T06:31:39+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Users &mdash; integreat-cms 2023.8.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -2470,7 +2470,7 @@ The opposite of the hidden_fields() method.</p>
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.passwordless_authentication_form.PasswordlessAuthenticationForm">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.users.passwordless_authentication_form.</span></span><span class="sig-name descname"><span class="pre">PasswordlessAuthenticationForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/passwordless_authentication_form.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.passwordless_authentication_form.PasswordlessAuthenticationForm" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Form</span></code></a></p>
-<p>Form class for authenticating users without using passwords but other authentication methods like FIDO2 or TOTP.</p>
+<p>Form class for authenticating users without using passwords but other authentication methods like FIDO2.</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">username</span></code>: Username (<code class="xref py py-class docutils literal notranslate"><span class="pre">UsernameField</span></code>)</p></li>
@@ -2791,7 +2791,7 @@ prefix set.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.region_user_form.RegionUserForm.clean">
-<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_form.py#L176"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.region_user_form.RegionUserForm.clean" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_form.py#L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.region_user_form.RegionUserForm.clean" title="Permalink to this definition"></a></dt>
 <dd><p>Validate form fields which depend on each other, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form.clean" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.forms.Form.clean()</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -2805,7 +2805,7 @@ prefix set.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.region_user_form.RegionUserForm.clean_email">
-<span class="sig-name descname"><span class="pre">clean_email</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_form.py#L165"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.region_user_form.RegionUserForm.clean_email" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean_email</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_form.py#L164"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.region_user_form.RegionUserForm.clean_email" title="Permalink to this definition"></a></dt>
 <dd><p>Make the email lower case (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -2924,7 +2924,7 @@ without redefining ordering.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.region_user_form.RegionUserForm.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_form.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.region_user_form.RegionUserForm.save" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_form.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.region_user_form.RegionUserForm.save" title="Permalink to this definition"></a></dt>
 <dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
 which are not directly determined by input fields.</p>
 <dl class="field-list simple">
@@ -3573,7 +3573,7 @@ prefix set.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_form.UserForm.clean">
-<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_form.py#L176"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_form.UserForm.clean" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_form.py#L175"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_form.UserForm.clean" title="Permalink to this definition"></a></dt>
 <dd><p>Validate form fields which depend on each other, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form.clean" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.forms.Form.clean()</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -3587,7 +3587,7 @@ prefix set.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_form.UserForm.clean_email">
-<span class="sig-name descname"><span class="pre">clean_email</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_form.py#L165"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_form.UserForm.clean_email" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">clean_email</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_form.py#L164"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_form.UserForm.clean_email" title="Permalink to this definition"></a></dt>
 <dd><p>Make the email lower case (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -3706,7 +3706,7 @@ without redefining ordering.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.forms.users.user_form.UserForm.save">
-<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_form.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_form.UserForm.save" title="Permalink to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/user_form.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.forms.users.user_form.UserForm.save" title="Permalink to this definition"></a></dt>
 <dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
 which are not directly determined by input fields.</p>
 <dl class="field-list simple">
@@ -4264,7 +4264,7 @@ The opposite of the hidden_fields() method.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 01, 2023.
+      <span class="lastupdated">Last updated on Aug 26, 2023.
       </span></p>
   </div>
 

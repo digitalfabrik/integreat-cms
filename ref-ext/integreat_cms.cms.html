@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-08-08T21:42:30+00:00" />
+    <meta property="article:modified_time" content="2023-08-26T06:31:39+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CMS &mdash; integreat-cms 2023.8.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -2645,8 +2645,8 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User"><code class="docutils literal notranslate"><span class="pre">User</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.users.html#module-integreat_cms.cms.models.users.user_mfa_key">User MFA Key</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_mfa_key.UserMfaKey"><code class="docutils literal notranslate"><span class="pre">UserMfaKey</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.users.html#module-integreat_cms.cms.models.users.user_fido_key">User Fido Key</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey"><code class="docutils literal notranslate"><span class="pre">FidoKey</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -3113,6 +3113,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.mfa_utils.generate_challenge"><code class="docutils literal notranslate"><span class="pre">generate_challenge()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.mfa_utils.get_mfa_user"><code class="docutils literal notranslate"><span class="pre">get_mfa_user()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.pdf_utils">PDF Utils</a><ul>
@@ -3163,10 +3164,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.authentication.html">Authentication</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.authentication.mfa.html">MFA</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.mfa.html#module-integreat_cms.cms.views.authentication.mfa.mfa_assert_view">MFA Assert View</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.mfa.html#module-integreat_cms.cms.views.authentication.mfa.mfa_login_view">MFA Login View</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.mfa.html#module-integreat_cms.cms.views.authentication.mfa.mfa_verify_view">MFA Verify View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.authentication.webauthn.html">Webauthn</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.webauthn.html#module-integreat_cms.cms.views.authentication.webauthn.webauthn_assert_view">Webauthn Assert View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.webauthn.html#module-integreat_cms.cms.views.authentication.webauthn.webauthn_login_view">Webauthn Login View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.webauthn.html#module-integreat_cms.cms.views.authentication.webauthn.webauthn_verify_view">Webauthn Verify View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.account_activation_view">Account Activation View</a><ul>
@@ -3537,11 +3538,11 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.settings.html">Settings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.settings.mfa.html">MFA</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.mfa.html#module-integreat_cms.cms.views.settings.mfa.authenticate_modify_mfa_view">Authenticate Modify MFA View</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.mfa.html#module-integreat_cms.cms.views.settings.mfa.delete_user_mfa_key_view">Delete User MFA Key View</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.mfa.html#module-integreat_cms.cms.views.settings.mfa.get_mfa_challenge_view">Get MFA Challenge View</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.mfa.html#module-integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view">Register User MFA Key View</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.settings.webauthn.html">Webauthn</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.webauthn.html#module-integreat_cms.cms.views.settings.webauthn.authenticate_modify_mfa_view">Authenticate Modify MFA View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.webauthn.html#module-integreat_cms.cms.views.settings.webauthn.delete_user_fido_key_view">Delete User Fido Key View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.webauthn.html#module-integreat_cms.cms.views.settings.webauthn.get_mfa_challenge_view">Get MFA Challenge View</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.settings.webauthn.html#module-integreat_cms.cms.views.settings.webauthn.register_user_fido_key_view">Register User Fido Key View</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.settings.html#module-integreat_cms.cms.views.settings.dismiss_tutorial_view">Dismiss Tutorial View</a><ul>
@@ -5323,7 +5324,7 @@ If not, the PermissionDenied exception is raised.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 08, 2023.
+      <span class="lastupdated">Last updated on Aug 26, 2023.
       </span></p>
   </div>
 

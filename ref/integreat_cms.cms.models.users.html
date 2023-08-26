@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-08-01T12:32:26+00:00" />
+    <meta property="article:modified_time" content="2023-08-26T06:31:39+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Users &mdash; integreat-cms 2023.8.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1739,7 +1739,7 @@
 <p>This package contains all user-related data models:
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>,
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization" title="integreat_cms.cms.models.users.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Organization</span></code></a> and
-<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_mfa_key.UserMfaKey" title="integreat_cms.cms.models.users.user_mfa_key.UserMfaKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserMfaKey</span></code></a>
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey" title="integreat_cms.cms.models.users.user_fido_key.FidoKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">FidoKey</span></code></a>
 (see also <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/auth/#django.contrib.auth.models.User" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.User</span></code></a> for Django’s base user model)</p>
 <section id="organization">
 <h2>Organization<a class="headerlink" href="#organization" title="Permalink to this heading"></a></h2>
@@ -2012,7 +2012,7 @@ It is used for logging.</p>
 <li><p><strong>page_translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a>) – All page translations of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation.creator" title="integreat_cms.cms.models.pages.page_translation.PageTranslation.creator"><code class="xref py py-attr docutils literal notranslate"><span class="pre">creator</span></code></a>)</p></li>
 <li><p><strong>editable_pages</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – All editable pages of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.authors" title="integreat_cms.cms.models.pages.page.Page.authors"><code class="xref py py-attr docutils literal notranslate"><span class="pre">authors</span></code></a>)</p></li>
 <li><p><strong>publishable_pages</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ManyToManyField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ManyToManyField</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – All publishable pages of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.editors" title="integreat_cms.cms.models.pages.page.Page.editors"><code class="xref py py-attr docutils literal notranslate"><span class="pre">editors</span></code></a>)</p></li>
-<li><p><strong>mfa_keys</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_mfa_key.UserMfaKey" title="integreat_cms.cms.models.users.user_mfa_key.UserMfaKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserMfaKey</span></code></a>) – All mfa keys of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_mfa_key.UserMfaKey.user" title="integreat_cms.cms.models.users.user_mfa_key.UserMfaKey.user"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p></li>
+<li><p><strong>fido_keys</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey" title="integreat_cms.cms.models.users.user_fido_key.FidoKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">FidoKey</span></code></a>) – All fido keys of this user (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey.user" title="integreat_cms.cms.models.users.user_fido_key.FidoKey.user"><code class="xref py py-attr docutils literal notranslate"><span class="pre">user</span></code></a>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -2125,13 +2125,13 @@ Use <code class="docutils literal notranslate"><span class="pre">User.objects.al
 </dd></dl>
 
 </section>
-<section id="user-mfa-key">
-<h2>User MFA Key<a class="headerlink" href="#user-mfa-key" title="Permalink to this heading"></a></h2>
+<section id="user-fido-key">
+<h2>User Fido Key<a class="headerlink" href="#user-fido-key" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.users.user_mfa_key.</span></span><span class="sig-name descname"><span class="pre">UserMfaKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user_mfa_key.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.models.users.user_fido_key.</span></span><span class="sig-name descname"><span class="pre">FidoKey</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user_fido_key.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_base_model.AbstractBaseModel" title="integreat_cms.cms.models.abstract_base_model.AbstractBaseModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">AbstractBaseModel</span></code></a></p>
-<p>Data model representing a user’s multi-factor-authentication (MFA) key</p>
+<p>Data model representing a user’s FIDO key</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -2148,24 +2148,24 @@ Use <code class="docutils literal notranslate"><span class="pre">User.objects.al
 <p>Relationship fields:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – User (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.mfa_keys" title="integreat_cms.cms.models.users.user.User.mfa_keys"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mfa_keys</span></code></a>)</p>
+<dd class="field-odd"><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – User (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.fido_keys" title="integreat_cms.cms.models.users.user.User.fido_keys"><code class="xref py py-attr docutils literal notranslate"><span class="pre">fido_keys</span></code></a>)</p>
 </dd>
 </dl>
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user_mfa_key.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DoesNotExist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user_fido_key.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ObjectDoesNotExist" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ObjectDoesNotExist</span></code></a></p>
 </dd></dl>
 
 <dl class="py exception">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user_mfa_key.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MultipleObjectsReturned</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user_fido_key.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.MultipleObjectsReturned" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">MultipleObjectsReturned</span></code></a></p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user_mfa_key.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user_fido_key.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method which would return <code class="docutils literal notranslate"><span class="pre">&lt;UserMfaKey:</span> <span class="pre">UserMfaKey</span> <span class="pre">object</span> <span class="pre">(id)&gt;</span></code>.
 It is used for logging.</p>
 <dl class="field-list simple">
@@ -2198,7 +2198,7 @@ It is used for logging.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 01, 2023.
+      <span class="lastupdated">Last updated on Aug 26, 2023.
       </span></p>
   </div>
 

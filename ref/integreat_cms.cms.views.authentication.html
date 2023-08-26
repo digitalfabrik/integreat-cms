@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-07-23T22:18:12+00:00" />
+    <meta property="article:modified_time" content="2023-08-26T06:31:39+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Authentication &mdash; integreat-cms 2023.8.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -22,7 +22,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="MFA" href="integreat_cms.cms.views.authentication.mfa.html" />
+    <link rel="next" title="Webauthn" href="integreat_cms.cms.views.authentication.webauthn.html" />
     <link rel="prev" title="Analytics" href="integreat_cms.cms.views.analytics.html" /> 
 </head>
 
@@ -1739,10 +1739,10 @@
 <p>This package contains views related to login, logout and password reset functionality as well as 2FA authentication:</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.views.authentication.mfa.html">MFA</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.authentication.mfa.html#mfa-assert-view">MFA Assert View</a></li>
-<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.authentication.mfa.html#mfa-login-view">MFA Login View</a></li>
-<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.authentication.mfa.html#mfa-verify-view">MFA Verify View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.views.authentication.webauthn.html">Webauthn</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.authentication.webauthn.html#webauthn-assert-view">Webauthn Assert View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.authentication.webauthn.html#webauthn-login-view">Webauthn Login View</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.views.authentication.webauthn.html#webauthn-verify-view">Webauthn Verify View</a></li>
 </ul>
 </li>
 </ul>
@@ -1827,7 +1827,7 @@ multi-factor-authentication.</p>
 <span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/login_view.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function overwrites <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin.form_valid" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">form_valid()</span></code></a> which is called if the login
 form is valid. In case the user has mfa-keys configured, the login is delegated to
-<a class="reference internal" href="../ref-ext/integreat_cms.cms.views.authentication.mfa.html#integreat_cms.cms.views.authentication.mfa.mfa_login_view.MfaLoginView" title="integreat_cms.cms.views.authentication.mfa.mfa_login_view.MfaLoginView"><code class="xref py py-class docutils literal notranslate"><span class="pre">MfaLoginView</span></code></a>. Else, the default method
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.views.authentication.webauthn.html#integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView" title="integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebAuthnLoginView</span></code></a>. Else, the default method
 <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.login" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">login()</span></code></a> is used to log the user in. After that, the user is redirected to
 <a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LOGIN_REDIRECT_URL" title="integreat_cms.core.settings.LOGIN_REDIRECT_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">LOGIN_REDIRECT_URL</span></code></a>.</p>
 <dl class="field-list simple">
@@ -2057,7 +2057,7 @@ multi-factor-authentication.</p>
 <span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/passwordless_login_view.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function overwrites <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin.form_valid" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">form_valid()</span></code></a> which is called if the login
 form is valid. In case the user has mfa-keys configured, the login is delegated to
-<a class="reference internal" href="../ref-ext/integreat_cms.cms.views.authentication.mfa.html#integreat_cms.cms.views.authentication.mfa.mfa_login_view.MfaLoginView" title="integreat_cms.cms.views.authentication.mfa.mfa_login_view.MfaLoginView"><code class="xref py py-class docutils literal notranslate"><span class="pre">MfaLoginView</span></code></a> or <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.totp_login_view.TOTPLoginView" title="integreat_cms.cms.views.authentication.totp_login_view.TOTPLoginView"><code class="xref py py-class docutils literal notranslate"><span class="pre">TOTPLoginView</span></code></a>. Else, the default method
+<a class="reference internal" href="../ref-ext/integreat_cms.cms.views.authentication.webauthn.html#integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView" title="integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView"><code class="xref py py-class docutils literal notranslate"><span class="pre">WebAuthnLoginView</span></code></a> or <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.totp_login_view.TOTPLoginView" title="integreat_cms.cms.views.authentication.totp_login_view.TOTPLoginView"><code class="xref py py-class docutils literal notranslate"><span class="pre">TOTPLoginView</span></code></a>. Else, the default method
 <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.login" title="(in Django v3.2)"><code class="xref py py-func docutils literal notranslate"><span class="pre">login()</span></code></a> is used to log the user in. After that, the user is redirected to
 <a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.LOGIN_REDIRECT_URL" title="integreat_cms.core.settings.LOGIN_REDIRECT_URL"><code class="xref py py-attr docutils literal notranslate"><span class="pre">LOGIN_REDIRECT_URL</span></code></a>.</p>
 <dl class="field-list simple">
@@ -2093,13 +2093,13 @@ had just successfully logged in.</p>
 <h2>Totp Login View<a class="headerlink" href="#totp-login-view" title="Permalink to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.authentication.totp_login_view.</span></span><span class="sig-name descname"><span class="pre">TOTPLoginView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/totp_login_view.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.authentication.totp_login_view.</span></span><span class="sig-name descname"><span class="pre">TOTPLoginView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/totp_login_view.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></a></p>
 <p>View to extend the default login behavior from <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.LoginView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">LoginView</span></code></a> with
 multi-factor-authentication using TOTP.</p>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/totp_login_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/totp_login_view.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Check whether TOTP login can be used right now</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2120,7 +2120,21 @@ multi-factor-authentication using TOTP.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/totp_login_view.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/typing.html#typing.Any" title="(in Python v3.9)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/totp_login_view.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get revision context data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The context dictionary</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#dict" title="(in Python v3.9)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/totp_login_view.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Retrieves the entered TOTP code of the user and validates it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2141,13 +2155,13 @@ multi-factor-authentication using TOTP.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'authentication/totp_login.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/totp_login_view.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'authentication/login_totp.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/totp_login_view.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">user</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/totp_login_view.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">user</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/authentication/totp_login_view.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The user who tries to authenticate</p>
 </dd></dl>
 
@@ -2161,7 +2175,7 @@ multi-factor-authentication using TOTP.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="integreat_cms.cms.views.analytics.html" class="btn btn-neutral float-left" title="Analytics" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="integreat_cms.cms.views.authentication.mfa.html" class="btn btn-neutral float-right" title="MFA" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="integreat_cms.cms.views.authentication.webauthn.html" class="btn btn-neutral float-right" title="Webauthn" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -2171,7 +2185,7 @@ multi-factor-authentication using TOTP.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 23, 2023.
+      <span class="lastupdated">Last updated on Aug 26, 2023.
       </span></p>
   </div>
 
