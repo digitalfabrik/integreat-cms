@@ -190,13 +190,13 @@ user_settings_urlpatterns = [
                             ),
                             path(
                                 "register/",
-                                settings.RegisterUserMfaKeyView.as_view(),
-                                name="register_new_mfa_key",
+                                settings.RegisterUserFidoKeyView.as_view(),
+                                name="register_new_fido_key",
                             ),
                             path(
                                 "delete/<int:key_id>/",
-                                settings.DeleteUserMfaKeyView.as_view(),
-                                name="delete_mfa_key",
+                                settings.DeleteUserFidoKeyView.as_view(),
+                                name="delete_fido_key",
                             ),
                         ]
                     ),

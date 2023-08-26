@@ -33,7 +33,7 @@ class UserSettingsView(TemplateView):
         context = super().get_context_data(**kwargs)
         context.update(
             {
-                "keys": self.request.user.mfa_keys.all(),
+                "keys": self.request.user.fido_keys.all(),
                 "user_email_form": UserEmailForm(instance=self.request.user),
                 "user_password_form": UserPasswordForm(instance=self.request.user),
                 "user_preferences_form": UserPreferencesForm(

@@ -12,21 +12,21 @@ from webauthn import base64url_to_bytes, verify_registration_response
 from webauthn.helpers.structs import RegistrationCredential
 
 from ....decorators import modify_mfa_authenticated
-from ....models import UserMfaKey
+from ....models import FidoKey
 
 logger = logging.getLogger(__name__)
 
 
 @method_decorator(modify_mfa_authenticated, name="dispatch")
-class RegisterUserMfaKeyView(CreateView):
+class RegisterUserFidoKeyView(CreateView):
     """
-    View to render a form for creating :class:`~integreat_cms.cms.models.users.user_mfa_key.UserMfaKey` objects
+    View to render a form for creating :class:`~integreat_cms.cms.models.users.user_fido_key.FidoKey` objects
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "settings/mfa/add_key.html"
     #: The model of this :class:`~django.views.generic.edit.CreateView`
-    model = UserMfaKey
+    model = FidoKey
     #: The fields of the model which should be handled by this create view
     fields = [
         "name",
@@ -60,13 +60,13 @@ class RegisterUserMfaKeyView(CreateView):
             ),
         )
 
-        existing_key = request.user.mfa_keys.filter(name=json_data["name"])
+        existing_key = request.user.fido_keys.filter(name=json_data["name"])
         if existing_key.exists():
             return JsonResponse(
                 {"success": False, "error": _("This key name has already been used")}
             )
 
-        existing_key = request.user.mfa_keys.filter(
+        existing_key = request.user.fido_keys.filter(
             key_id=webauthn_registration_response.credential_id
         )
         if existing_key.exists():
@@ -74,7 +74,7 @@ class RegisterUserMfaKeyView(CreateView):
                 {"success": False, "error": _("You already registered this key")}
             )
 
-        new_key = UserMfaKey(
+        new_key = FidoKey(
             user=request.user,
             name=json_data["name"],
             key_id=webauthn_registration_response.credential_id,

@@ -29,7 +29,7 @@ class PasswordlessLoginView(auth_views.LoginView):
         """
         This function overwrites :meth:`~django.views.generic.edit.FormMixin.form_valid` which is called if the login
         form is valid. In case the user has mfa-keys configured, the login is delegated to
-        :class:`~integreat_cms.cms.views.authentication.mfa.mfa_login_view.MfaLoginView` or :class:`~integreat_cms.cms.views.authentication.totp_login_view.TOTPLoginView`. Else, the default method
+        :class:`~integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView` or :class:`~integreat_cms.cms.views.authentication.totp_login_view.TOTPLoginView`. Else, the default method
         :func:`~django.contrib.auth.login` is used to log the user in. After that, the user is redirected to
         :attr:`~integreat_cms.core.settings.LOGIN_REDIRECT_URL`.
 
@@ -39,14 +39,9 @@ class PasswordlessLoginView(auth_views.LoginView):
         :return: Redirect user to mfa login view or to :attr:`~integreat_cms.core.settings.LOGIN_REDIRECT_URL`
         :rtype: ~django.http.HttpResponseRedirect
         """
-        authlog.info("User %r started passwordless authentication", form.user)
 
-        if form.user.mfa_keys.exists():
+        if form.user.fido_keys.exists():
             self.request.session["mfa_user_id"] = form.user.id
-            return redirect("public:login_mfa")
-
-        if form.user.totp_key:
-            self.request.session["mfa_user_id"] = form.user.id
-            return redirect("public:login_totp")
+            return redirect("public:login_webauthn")
 
         return redirect("public:login")

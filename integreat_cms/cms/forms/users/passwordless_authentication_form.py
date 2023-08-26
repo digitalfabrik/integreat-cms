@@ -10,7 +10,7 @@ from ...utils.translation_utils import gettext_many_lazy as __
 
 class PasswordlessAuthenticationForm(forms.Form):
     """
-    Form class for authenticating users without using passwords but other authentication methods like FIDO2 or TOTP.
+    Form class for authenticating users without using passwords but other authentication methods like FIDO2.
     """
 
     username = UsernameField(widget=forms.TextInput(attrs={"autofocus": True}))
@@ -99,7 +99,7 @@ class PasswordlessAuthenticationForm(forms.Form):
             )
 
         # Check whether a 2-factor authentication method is available
-        if not self.user.mfa_keys.exists() and not self.user.totp_key:
+        if not self.user.fido_keys.exists():
             raise ValidationError(
                 self.error_messages["not_available"],
                 code="not_available",

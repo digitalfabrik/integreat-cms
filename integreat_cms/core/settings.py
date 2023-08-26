@@ -237,18 +237,18 @@ HIX_REQUIRED_FOR_MT = float(os.environ.get("INTEGREAT_CMS_HIX_REQUIRED_FOR_MT", 
 #: (this is a setting in case the application runs behind a proxy).
 #: Used in the following views:
 #:
-#: - :class:`~integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView`
-#: - :class:`~integreat_cms.cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView`
+#: - :class:`~integreat_cms.cms.views.settings.webauthn.register_user_fido_key_view.RegisterUserFidoKeyView`
+#: - :class:`~integreat_cms.cms.views.authentication.webauthn.webauthn_verify_view.WebAuthnVerifyView`
 BASE_URL = os.environ.get("INTEGREAT_CMS_BASE_URL", "http://localhost:8000")
 
 #: Needed for `webauthn <https://pypi.org/project/webauthn/>`__
 #: (this is a setting in case the application runs behind a proxy).
 #: Used in the following views:
 #:
-#: - :class:`~integreat_cms.cms.views.settings.mfa.get_mfa_challenge_view.GetMfaChallengeView`
-#: - :class:`~integreat_cms.cms.views.settings.mfa.register_user_mfa_key_view.RegisterUserMfaKeyView`
-#: - :class:`~integreat_cms.cms.views.authentication.mfa.mfa_assert_view.MfaAssertView`
-#: - :class:`~integreat_cms.cms.views.authentication.mfa.mfa_verify_view.MfaVerifyView`
+#: - :class:`~integreat_cms.cms.views.settings.webauthn.get_mfa_challenge_view.GetMfaChallengeView`
+#: - :class:`~integreat_cms.cms.views.settings.webauthn.register_user_fido_key_view.RegisterUserFidoKeyView`
+#: - :class:`~integreat_cms.cms.views.authentication.webauthn.webauthn_assert_view.WebAuthnAssertView`
+#: - :class:`~integreat_cms.cms.views.authentication.webauthn.webauthn_verify_view.WebAuthnVerifyView`
 HOSTNAME = urlparse(BASE_URL).hostname
 
 
