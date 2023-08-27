@@ -1,8 +1,6 @@
 """
 This module includes functions related to the locations/POIs API endpoint.
 """
-from distutils.util import strtobool
-
 from django.conf import settings
 from django.db.models import Prefetch
 from django.http import JsonResponse
@@ -12,6 +10,7 @@ from django.utils.html import strip_tags
 from ...cms.constants import status
 from ...cms.models import POICategoryTranslation
 from ...cms.models.pois.poi import get_default_opening_hours
+from ...core.utils.strtobool import strtobool
 from ..decorators import json_response
 from .location_categories import transform_location_category
 

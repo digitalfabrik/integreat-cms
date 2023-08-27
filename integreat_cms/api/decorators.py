@@ -176,7 +176,7 @@ def matomo_tracking(func):
         }
 
         t = threading.Thread(target=matomo_request, args=(settings.MATOMO_URL, data))
-        t.setDaemon(True)
+        t.daemon = True
         t.start()
         return func(request, *args, **kwargs)
 
