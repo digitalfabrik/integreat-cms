@@ -10,7 +10,6 @@ See :doc:`/prod-server` for details.
 """
 
 import os
-from distutils.util import strtobool
 from urllib.parse import urlparse
 
 from django.core.exceptions import ImproperlyConfigured
@@ -18,6 +17,7 @@ from django.utils.translation import gettext_lazy as _
 
 from ..nominatim_api.utils import BoundingBox
 from .logging_formatter import ColorFormatter, RequestFormatter
+from .utils.strtobool import strtobool
 
 ###################
 # CUSTOM SETTINGS #
