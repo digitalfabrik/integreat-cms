@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 
 from ...constants import status
+from ...models import Language
 
 
 def change_translation_status(request, selected_content, language_slug, desired_status):
@@ -28,16 +29,24 @@ def change_translation_status(request, selected_content, language_slug, desired_
 
     if request.user.is_superuser or request.user.is_staff:
         for content in selected_content:
-            translation = content.get_translation(language_slug)
-            translation.status = desired_status
-            translation.pk = None
-            translation.version += 1
-            if desired_status == status.DRAFT:
-                translation.all_versions.update(status=desired_status)
-            translation.save()
-            messages.success(
-                request,
-                _('The status of "{}" was successfully changed to "{}"').format(
-                    translation, _(status_translation[desired_status])
-                ),
-            )
+            if translation := content.get_translation(language_slug):
+                translation.status = desired_status
+                translation.pk = None
+                translation.version += 1
+                if desired_status == status.DRAFT:
+                    translation.all_versions.update(status=desired_status)
+                translation.save()
+                messages.success(
+                    request,
+                    _('The status of "{}" was successfully changed to "{}".').format(
+                        translation, _(status_translation[desired_status])
+                    ),
+                )
+            else:
+                language = Language.objects.filter(slug=language_slug).first()
+                messages.warning(
+                    request,
+                    _(
+                        'There is no translation for "{}" in {}. No change has been made.'
+                    ).format(content.best_translation, language),
+                )
