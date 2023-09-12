@@ -3,12 +3,12 @@ from datetime import datetime
 
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
-from django.db.models import Case, Exists, F, OuterRef, Subquery, When
+from django.db.models import Subquery
 from django.utils import translation
 from django.views.generic import TemplateView
 
 from ...constants import status
-from ...models import Feedback, Page, PageTranslation
+from ...models import Feedback, PageTranslation
 from ...utils.linkcheck_utils import filter_urls
 from ..chat.chat_context_mixin import ChatContextMixin
 
@@ -54,6 +54,7 @@ class DashboardView(TemplateView, ChatContextMixin):
         context.update(self.get_broken_links_context())
         context.update(self.get_low_hix_value_context())
         context.update(self.get_outdated_pages_context())
+
         return context
 
     def get_unreviewed_pages_context(self):
@@ -63,31 +64,13 @@ class DashboardView(TemplateView, ChatContextMixin):
         :return: Dictionary containing the context for unreviewed pages
         :rtype: dict
         """
-
-        explicitly_archived_ancestors = Page.objects.filter(
-            tree_id=OuterRef("pk"),
-            lft__lt=OuterRef("lft"),
-            rgt__gt=OuterRef("rgt"),
-            explicitly_archived=True,
-        ).values("pk")
-
-        not_implicitly_archived_ids = Page.objects.filter(
-            id=Case(
-                When(
-                    Exists(explicitly_archived_ancestors),
-                    then=None,
-                ),
-                default=F("pk"),
-            )
-        )
-
         unreviewed_pages = (
             PageTranslation.objects.filter(
-                page__region=self.request.region,
                 status=status.REVIEW,
-                page__explicitly_archived=False,
                 language__slug=self.request.region.default_language.slug,
-                page__id__in=Subquery(not_implicitly_archived_ids.values("pk")),
+                page__id__in=Subquery(
+                    self.request.region.non_archived_pages.values("pk")
+                ),
             )
             .order_by("page__id", "language__id", "-version")
             .distinct("page__id", "language__id")
@@ -106,38 +89,20 @@ class DashboardView(TemplateView, ChatContextMixin):
         :return: Dictionary containing the context for auto saved pages
         :rtype: dict
         """
-        explicitly_archived_ancestors = Page.objects.filter(
-            tree_id=OuterRef("pk"),
-            lft__lt=OuterRef("lft"),
-            rgt__gt=OuterRef("rgt"),
-            explicitly_archived=True,
-        ).values("pk")
-
-        not_implicitly_archived_ids = Page.objects.filter(
-            id=Case(
-                When(
-                    Exists(explicitly_archived_ancestors),
-                    then=None,
-                ),
-                default=F("pk"),
-            )
-        )
-
         last_versions = (
             PageTranslation.objects.filter(
-                page__explicitly_archived=False,
-                page__id__in=Subquery(not_implicitly_archived_ids.values("pk")),
-                page__region=self.request.region,
                 language__slug=self.request.region.default_language.slug,
+                page__id__in=Subquery(
+                    self.request.region.non_archived_pages.values("pk")
+                ),
             )
             .order_by("page__id", "language__id", "-version")
             .distinct("page__id", "language__id")
         )
-
         automatically_saved_pages = PageTranslation.objects.filter(
             id__in=Subquery(last_versions.values("pk")),
             status=status.AUTO_SAVE,
-        )
+        ).all()
 
         return {
             "automatically_saved_pages": automatically_saved_pages,
@@ -185,24 +150,19 @@ class DashboardView(TemplateView, ChatContextMixin):
         :return: Dictionary containing the context for pages with low hix value
         :rtype: dict
         """
-        pages_under_hix_threshold = []
         if settings.TEXTLAB_API_ENABLED and self.request.region.hix_enabled:
-            hix_pages = self.request.region.get_pages(
-                return_unrestricted_queryset=True
-            ).filter(hix_ignore=False)
-            hix_translations = PageTranslation.objects.filter(
-                language__slug__in=settings.TEXTLAB_API_LANGUAGES, page__in=hix_pages
+            translations_under_hix_threshold = PageTranslation.objects.filter(
+                language__slug__in=settings.TEXTLAB_API_LANGUAGES,
+                page__id__in=Subquery(
+                    self.request.region.non_archived_pages.filter(
+                        hix_ignore=False
+                    ).values("pk")
+                ),
+                hix_score__lt=settings.HIX_REQUIRED_FOR_MT,
             ).distinct("page_id", "language_id")
 
-            for hix_translation in hix_translations:
-                if (
-                    hix_translation.hix_score is not None
-                    and hix_translation.hix_score < settings.HIX_REQUIRED_FOR_MT
-                ):
-                    pages_under_hix_threshold.append(hix_translation)
-
             return {
-                "pages_under_hix_threshold": pages_under_hix_threshold,
+                "pages_under_hix_threshold": translations_under_hix_threshold,
             }
         return {}
 
@@ -217,28 +177,11 @@ class DashboardView(TemplateView, ChatContextMixin):
             days=settings.OUTDATED_THRESHOLD_DAYS
         )
 
-        explicitly_archived_ancestors = Page.objects.filter(
-            tree_id=OuterRef("pk"),
-            lft__lt=OuterRef("lft"),
-            rgt__gt=OuterRef("rgt"),
-            explicitly_archived=True,
-        ).values("pk")
-
-        not_implicitly_archived_ids = Page.objects.filter(
-            id=Case(
-                When(
-                    Exists(explicitly_archived_ancestors),
-                    then=None,
-                ),
-                default=F("pk"),
-            )
-        )
-
         last_versions = (
             PageTranslation.objects.filter(
-                page__region=self.request.region,
-                page__explicitly_archived=False,
-                page__id__in=Subquery(not_implicitly_archived_ids.values("pk")),
+                page__id__in=Subquery(
+                    self.request.region.non_archived_pages.values("pk")
+                ),
                 language__slug=self.request.region.default_language.slug,
             )
             .order_by("page__id", "language__id", "-version", "last_updated")
@@ -249,8 +192,6 @@ class DashboardView(TemplateView, ChatContextMixin):
             id__in=Subquery(last_versions.values("pk")),
             last_updated__lte=OUTDATED_THRESHOLD_DATE.date(),
         )
-
-        # print(outdated_pages)
 
         days_since_last_updated = (
             (

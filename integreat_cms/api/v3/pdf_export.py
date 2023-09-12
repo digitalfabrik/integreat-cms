@@ -38,7 +38,7 @@ def pdf_export(request, region_slug, language_slug):
     """
     region = request.region
     # Request unrestricted queryset because pdf generator performs further operations (e.g. aggregation) on the queryset
-    pages = region.get_pages(return_unrestricted_queryset=True)
+    pages = region.get_pages()
     if request.GET.get("url"):
         # remove leading and trailing slashed to avoid ambiguous urls
         url = request.GET.get("url").strip("/")

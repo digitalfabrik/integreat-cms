@@ -64,9 +64,7 @@ class RegionUpdateView(CustomUpdateView):
         response = super().post(request, *args, **kwargs)
 
         if self.object.status == region_status.ARCHIVED:
-            self.object.get_pages(return_unrestricted_queryset=True).update(
-                mirrored_page=None
-            )
+            self.object.get_pages().update(mirrored_page=None)
             invalidate_model(Page)
 
         return response

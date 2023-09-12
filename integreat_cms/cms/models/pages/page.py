@@ -224,9 +224,10 @@ class Page(AbstractTreeNode, AbstractBasePage):
         """
         This returns all of the page's ancestors which are archived.
 
-        :return: The QuerySet of archived ancestors
+        :return: The list of archived ancestors
         :rtype: list [ ~integreat_cms.cms.models.pages.page.Page ]
         """
+
         return [
             ancestor
             for ancestor in self.get_cached_ancestors()

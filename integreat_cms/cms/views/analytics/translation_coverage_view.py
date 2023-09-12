@@ -125,9 +125,7 @@ class TranslationCoverageView(TemplateView):
             return {}
 
         # Get all pages of this region which are considered for the HIX value
-        hix_pages = region.get_pages(return_unrestricted_queryset=True).filter(
-            hix_ignore=False
-        )
+        hix_pages = region.get_pages().filter(hix_ignore=False)
 
         # Get the latest versions of the page translations for these pages
         hix_translations = PageTranslation.objects.filter(
