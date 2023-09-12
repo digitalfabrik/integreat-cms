@@ -3,7 +3,7 @@ This module contains action methods for feedback items (archive, restore, ...)
 """
 import logging
 
-from cacheops import invalidate_obj
+from cacheops import invalidate_model, invalidate_obj
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.utils.translation import gettext as _
@@ -113,6 +113,7 @@ def archive_region_feedback(request, region_slug):
     Feedback.objects.filter(
         id__in=selected_ids, region=region, is_technical=False
     ).update(archived=True)
+    invalidate_model(Feedback)
 
     logger.info("Feedback objects %r archived by %r", selected_ids, request.user)
     messages.success(request, _("Feedback was successfully archived"))
@@ -142,6 +143,7 @@ def restore_region_feedback(request, region_slug):
     Feedback.objects.filter(
         id__in=selected_ids, region=region, is_technical=False
     ).update(archived=False)
+    invalidate_model(Feedback)
 
     logger.info("Feedback objects %r restored by %r", selected_ids, request.user)
     messages.success(request, _("Feedback was successfully restored"))
