@@ -325,7 +325,10 @@ def cancel_translation_process_ajax(request, region_slug, language_slug, page_id
             },
             status=404,
         )
-    page_translation.all_versions.update(currently_in_translation=False)
+    if settings.REDIS_CACHE:
+        page_translation.all_versions.invalidated_update(currently_in_translation=False)
+    else:
+        page_translation.all_versions.update(currently_in_translation=False)
     # Get new (respectively old) translation state
     translation_state = page.get_translation_state(language_slug)
     return JsonResponse(

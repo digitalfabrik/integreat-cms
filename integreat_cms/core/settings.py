@@ -307,8 +307,11 @@ INSTALLED_APPS = [
     "widget_tweaks",
 ]
 
+#: Check whether redis is activated
+REDIS_CACHE = bool(strtobool(os.environ.get("INTEGREAT_CMS_REDIS_CACHE", "False")))
+
 # Install cacheops only if redis cache is available
-if "INTEGREAT_CMS_REDIS_CACHE" in os.environ:
+if REDIS_CACHE:
     INSTALLED_APPS.append("cacheops")
 
 # The default Django Admin application and debug toolbar will only be activated if the system is in debug mode.
@@ -923,7 +926,7 @@ CACHES = {
 }
 
 # Use RedisCache when activated
-if bool(strtobool(os.environ.get("INTEGREAT_CMS_REDIS_CACHE", "False"))):
+if REDIS_CACHE:
     if unix_socket := os.environ.get("INTEGREAT_CMS_REDIS_UNIX_SOCKET"):
         # Use unix socket if available (and also tell cacheops about it)
         redis_location = f"unix://{unix_socket}?db=0"
