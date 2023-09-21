@@ -93,6 +93,7 @@ def transform_poi_translation(poi_translation):
         "temporarily_closed": poi.temporarily_closed,
         # Only return opening hours if not temporarily closed and they differ from the default value
         "opening_hours": opening_hours,
+        "appointment_url": poi.appointment_url or None,
         "location": transform_poi(poi),
         "hash": None,
         "organization": {

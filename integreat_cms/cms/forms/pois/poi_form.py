@@ -50,6 +50,7 @@ class POIForm(CustomModelForm):
             "category",
             "opening_hours",
             "temporarily_closed",
+            "appointment_url",
             "organization",
             "barrier_free",
         ]

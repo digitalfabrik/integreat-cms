@@ -26,6 +26,7 @@ export type OpeningHours = {
     timeSlots: TimeSlot[];
     allDay: boolean;
     closed: boolean;
+    appointmentOnly: boolean;
 };
 
 const OpeningHoursWidget = ({ translations, days, initial, canChangeLocation }: Props) => {
