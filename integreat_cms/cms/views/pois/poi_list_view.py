@@ -124,6 +124,8 @@ class POIListView(TemplateView, POIContextMixin, MachineTranslationContextMixin)
                 "language": language,
                 "languages": region.active_languages,
                 "search_query": query,
+                "source_language": region.get_source_language(language.slug),
+                "content_type": "locations",
             },
         )
 

@@ -148,6 +148,7 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
                 "pages": pages,
                 "language": language,
                 "source_language": region.get_source_language(language.slug),
+                "content_type": "page",
                 "languages": region.active_languages,
                 "textlab_languages": settings.TEXTLAB_API_LANGUAGES,
                 "filter_form": filter_form,

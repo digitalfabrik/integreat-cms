@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth import login as auth_login
@@ -16,9 +18,21 @@ class TOTPLoginView(TemplateView):
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "authentication/totp_login.html"
+    template_name = "authentication/login_totp.html"
     #: The user who tries to authenticate
     user = None
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        r"""
+        Get revision context data
+
+        :return: The context dictionary
+        :rtype: dict
+        """
+        context = super().get_context_data(**kwargs)
+
+        context["can_use_webauthn"] = self.user.fido_keys.exists()
+        return context
 
     def dispatch(self, request, *args, **kwargs):
         r"""
@@ -67,7 +81,6 @@ class TOTPLoginView(TemplateView):
         :return: Redirection to region selection or rendered login form
         :rtype: ~django.http.HttpResponseRedirect
         """
-
         user_totp = request.POST.get("totp_code")
 
         if check_totp_code(user_totp, self.user.totp_key):
@@ -77,4 +90,4 @@ class TOTPLoginView(TemplateView):
             return redirect("public:region_selection")
 
         messages.error(request, __(_("Login failed."), _("Please try again.")))
-        return render(request, self.template_name)
+        return render(request, self.template_name, self.get_context_data(**kwargs))

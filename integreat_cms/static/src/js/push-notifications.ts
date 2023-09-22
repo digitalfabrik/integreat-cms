@@ -17,6 +17,15 @@ const adjustTextDirection = (textDirection: string, language: string) => {
     }
 };
 
+const updateSaveButtonText = () => {
+    const buttonSaveAndSend = document.getElementById("button_submit_send");
+    buttonSaveAndSend?.childNodes.forEach((child) => {
+        if (child instanceof HTMLElement) {
+            child.classList.toggle("hidden");
+        }
+    });
+};
+
 window.addEventListener("load", () => {
     document.querySelectorAll("[data-switch-language]").forEach((node) => {
         const nodeElement = node as HTMLElement;
@@ -25,4 +34,8 @@ window.addEventListener("load", () => {
             adjustTextDirection(nodeElement.dataset.textDirection, nodeElement.dataset.switchLanguage);
         });
     });
+
+    // Update the save & send button to save & schedule if the schedule checkbox gets checked
+    const toggleSchedule = document.getElementById("id_schedule_send");
+    toggleSchedule?.addEventListener("change", updateSaveButtonText);
 });

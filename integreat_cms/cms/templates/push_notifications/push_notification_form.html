@@ -29,19 +29,28 @@
                 <div class="flex flex-wrap gap-4 ml-auto mr-0">
                     {% if perms.cms.change_pushnotification and not not_accessible_regions_warning %}
                         <button name="submit_save" class="btn btn-outline">
-                            {% translate "Save" %}
-                        </button>
-                    {% endif %}
-                    {% if not push_notification_form.instance.id and push_notification_form.is_template.value %}
-                        {# hide button when creating a new template #}
-                    {% elif perms.cms.send_push_notification and not push_notification_form.instance.sent_date and not not_accessible_regions_warning %}
-                        <button name="submit_send" class="btn">
                             {% if push_notification_form.is_template.value %}
-                                {% translate "Create Message from Template" %}
+                                {% translate "Save" %}
                             {% else %}
-                                {% translate "Save & Send" %}
+                                {% translate "Save as draft" %}
                             {% endif %}
                         </button>
+                        {% if not push_notification_form.instance.id and push_notification_form.is_template.value %}
+                            {# hide button when creating a new template #}
+                        {% elif not push_notification_form.instance.sent_date %}
+                            <button name="submit_send" id="button_submit_send" class="btn">
+                                <div class="{% if push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
+                                    {% if push_notification_form.is_template.value %}
+                                        {% translate "Create News from Template" %}
+                                    {% else %}
+                                        {% translate "Save & Send" %}
+                                    {% endif %}
+                                </div>
+                                <div class="{% if not push_notification_form.instance.scheduled_send_date %}hidden{% endif %}">
+                                    {% translate "Save & Schedule" %}
+                                </div>
+                            </button>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>
@@ -151,7 +160,7 @@
                             {% render_field push_notification_form.scheduled_send_date_time|add_class:"invalid:border-red-500"|add_error_class:"border-red-500" %}
                             {% if schedule_interval > 1 %}
                                 {% blocktranslate trimmed %}
-                                    Messages are sent every {{ schedule_interval }} minutes
+                                    News are sent every {{ schedule_interval }} minutes
                                 {% endblocktranslate %}
                             {% endif %}
                         </div>
@@ -164,10 +173,10 @@
                                     <i icon-name="x" class="text-red-500 align-text-top"></i>
                                     {{ not_accessible_regions_warning }}
                                 {% else %}
-                                    {% translate "Any manager with access to only some of the selected regions can view but not edit this news message." %}
+                                    {% translate "Any manager with access to only some of the selected regions can view but not edit this news." %}
                                 {% endif %}
                             </p>
-                            {% render_field push_notification_form.regions|add_error_class:"border-red-500" %}
+                            {% render_field push_notification_form.regions class+="max-h-52 overflow-scroll"|add_error_class:"border-red-500" %}
                             {% if push_notification_form.regions|length == 1 and not_accessible_regions_warning %}
                                 <p class="pt-6">
                                     <i icon-name="x" class="text-red-500 align-text-top"></i>
@@ -194,7 +203,7 @@
                                 {{ push_notification_form.instance.sent_date }}
                             {% else %}
                                 <i icon-name="x" class="text-red-500 align-text-top"></i>
-                                {% translate "Message not sent yet" %}
+                                {% translate "News not sent yet" %}
                             {% endif %}
                         </div>
                     </div>

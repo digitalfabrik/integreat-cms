@@ -5,15 +5,15 @@ from django.utils.translation import gettext_lazy as _
 from ..abstract_base_model import AbstractBaseModel
 
 
-class UserMfaKey(AbstractBaseModel):
+class FidoKey(AbstractBaseModel):
     """
-    Data model representing a user's multi-factor-authentication (MFA) key
+    Data model representing a user's FIDO key
     """
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="mfa_keys",
+        related_name="fido_keys",
         verbose_name=_("user"),
     )
     name = models.CharField(max_length=200, verbose_name=_("key name"))

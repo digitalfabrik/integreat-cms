@@ -13,7 +13,9 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import RedirectView
 from django.views.generic.list import MultipleObjectMixin
 
+from ..constants import status
 from ..models import Page
+from .utils.translation_status import change_translation_status
 
 logger = logging.getLogger(__name__)
 
@@ -148,14 +150,34 @@ class BulkMachineTranslationView(BulkActionView):
             raise PermissionDenied(
                 f"Only staff users have the permission to bulk translate {self.form._meta.model._meta.model_name} via {language_node.mt_provider}"
             )
+
+        to_translate = language_node.mt_provider.is_needed(
+            request.region, self.get_queryset(), language_node
+        )
+        if not to_translate:
+            messages.error(
+                request,
+                _("All the selected translations are already up-to-date."),
+            )
+            return super().post(request, *args, **kwargs)
+
+        for content_object in self.get_queryset():
+            if not content_object in to_translate:
+                messages.error(
+                    request,
+                    _("There already is an up-to-date translation for {}").format(
+                        content_object.best_translation.title,
+                    ),
+                )
+
         logger.debug(
             "Machine translation via %s into %r for: %r",
             language_node.mt_provider.name,
             language_node.language,
-            self.get_queryset(),
+            to_translate,
         )
         api_client = language_node.mt_provider.api_client(request, self.form)
-        api_client.translate_queryset(self.get_queryset(), language_node.slug)
+        api_client.translate_queryset(to_translate, language_node.slug)
 
         # Let the base view handle the redirect
         return super().post(request, *args, **kwargs)
@@ -256,14 +278,14 @@ class BulkArchiveView(BulkActionView):
                     messages.error(
                         request,
                         _(
-                            "{} cannot be archived because it was embedded as live content from another page."
-                        ).format(content_object.backend_translation.title),
+                            'Page "{}" cannot be archived because it was embedded as live content from another page.'
+                        ).format(content_object.best_translation),
                     )
                 else:
                     messages.success(
                         request,
-                        _("{} was successfully archived").format(
-                            content_object.backend_translation.title
+                        _('Page "{}" was successfully archived').format(
+                            content_object.best_translation
                         ),
                     )
                     content_object.archive()
@@ -325,4 +347,58 @@ class BulkRestoreView(BulkActionView):
             ),
         )
 
+        return super().post(request, *args, **kwargs)
+
+
+class BulkPublishingView(BulkActionView):
+    """
+    Bulk action to publish multiple pages at once
+    """
+
+    def post(self, request, *args, **kwargs):
+        r"""
+        Function to change the translation status to publish of multiple pages at once
+
+        :param request: The current request
+        :type request: ~django.http.HttpRequest
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
+
+        :return: The redirect
+        :rtype: ~django.http.HttpResponseRedirect
+        """
+        change_translation_status(
+            request, self.get_queryset(), kwargs["language_slug"], status.PUBLIC
+        )
+        return super().post(request, *args, **kwargs)
+
+
+class BulkDraftingView(BulkActionView):
+    """
+    Bulk action to draft multiple pages at once
+    """
+
+    def post(self, request, *args, **kwargs):
+        r"""
+        Function to change the translation status to draft of multiple pages at once
+
+        :param request: The current request
+        :type request: ~django.http.HttpRequest
+
+        :param \*args: The supplied arguments
+        :type \*args: list
+
+        :param \**kwargs: The supplied keyword arguments
+        :type \**kwargs: dict
+
+        :return: The redirect
+        :rtype: ~django.http.HttpResponseRedirect
+        """
+        change_translation_status(
+            request, self.get_queryset(), kwargs["language_slug"], status.DRAFT
+        )
         return super().post(request, *args, **kwargs)

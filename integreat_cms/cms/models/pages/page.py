@@ -1,6 +1,6 @@
 import logging
 
-from cacheops import invalidate_model
+from cacheops import invalidate_model, invalidate_obj
 from django.conf import settings
 from django.db import models
 from django.utils.functional import cached_property
@@ -328,12 +328,18 @@ class Page(AbstractTreeNode, AbstractBasePage):
         """
         Archives the page and removes all links of this page and all its subpages from the linkchecker
         """
-        # Delete related link objects as they are no longer required
+        # Delete related link objects as they are no longer required and set mirrored page to None
         for child_page in Page.get_tree(parent=self).exclude(explicitly_archived=True):
             Link.objects.filter(page_translation__page=child_page).delete()
+            if child_page.mirrored_page:
+                child_page.mirrored_page = None
+                child_page.save()
+                invalidate_obj(child_page)
 
         self.explicitly_archived = True
+        self.mirrored_page = None
         self.save()
+        invalidate_obj(self)
 
     def restore(self):
         """

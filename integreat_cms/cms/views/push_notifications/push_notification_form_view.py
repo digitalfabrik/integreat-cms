@@ -90,7 +90,7 @@ class PushNotificationFormView(TemplateView):
                     request,
                     __(
                         _(
-                            "This news message has already been sent as push notification to mobile devices."
+                            "This news has already been sent as push notification to mobile devices."
                         ),
                         _(
                             'Subsequent changes are displayed in the "News" area of the app, but have no effect on the push notification sent.'
@@ -100,9 +100,9 @@ class PushNotificationFormView(TemplateView):
             if details["disable_edit"]:
                 not_accessible_regions_warning = mark_safe(
                     __(
-                        _("You are not allowed to edit this message."),
+                        _("You are not allowed to edit this news."),
                         _(
-                            "This news message belongs to regions you don't have access to: {}."
+                            "This news belongs to regions you don't have access to: {}."
                         ).format(", ".join(map(str, details["other_regions"]))),
                         _(
                             "Please ask a person responsible for all regions or contact an administrator."
@@ -240,9 +240,9 @@ class PushNotificationFormView(TemplateView):
         if details["disable_edit"]:
             not_accessible_regions_warning = __(
                 _(
-                    "This news message is also assigned to regions you don't have access to: {}."
+                    "This news is also assigned to regions you don't have access to: {}."
                 ).format(", ".join(map(str, details["other_regions"]))),
-                _("Thus you cannot edit or delete this news message."),
+                _("Thus you cannot edit or delete this news."),
                 _(
                     "Please ask the one responsible for all of these regions or contact an administrator."
                 ),
@@ -283,19 +283,33 @@ class PushNotificationFormView(TemplateView):
 
             # Add the success message
             if not push_notification_instance:
-                messages.success(
-                    request,
-                    _('News message "{}" was successfully created').format(
-                        pn_form.instance
-                    ),
-                )
+                if pn_form.cleaned_data["is_template"]:
+                    messages.success(
+                        request,
+                        _('Template "{}" was successfully created').format(
+                            pn_form.cleaned_data["template_name"]
+                        ),
+                    )
+                else:
+                    messages.success(
+                        request,
+                        _('News "{}" was successfully created').format(
+                            pn_form.instance
+                        ),
+                    )
             else:
-                messages.success(
-                    request,
-                    _('News message "{}" was successfully saved').format(
-                        pn_form.instance
-                    ),
-                )
+                if pn_form.cleaned_data["is_template"]:
+                    messages.success(
+                        request,
+                        _('Template "{}" was successfully saved').format(
+                            pn_form.cleaned_data["template_name"]
+                        ),
+                    )
+                else:
+                    messages.success(
+                        request,
+                        _('News "{}" was successfully saved').format(pn_form.instance),
+                    )
 
             # The submit_send submit button is used in 2 cases:
             # 1. send a push notification
@@ -314,9 +328,7 @@ class PushNotificationFormView(TemplateView):
                     if not push_sender.is_valid():
                         messages.error(
                             request,
-                            _(
-                                "News message cannot be sent because required texts are missing"
-                            ),
+                            _("News cannot be sent because required texts are missing"),
                         )
                     elif pn_form.instance.scheduled_send_date:
                         pn_form.instance.draft = False
@@ -342,24 +354,20 @@ class PushNotificationFormView(TemplateView):
                             },
                         )
                     elif push_sender.send_all():
-                        messages.success(
-                            request, _("News message was successfully sent")
-                        )
+                        messages.success(request, _("News was successfully sent"))
                         pn_form.instance.sent_date = datetime.now()
                         pn_form.instance.draft = False
                         pn_form.instance.save()
                     else:
-                        messages.error(request, _("News message could not be sent"))
+                        messages.error(request, _("News cannot be sent"))
                 except ImproperlyConfigured as e:
                     logger.error(
-                        "News message could not be sent due to a configuration error: %s",
+                        "News cannot be sent due to a configuration error: %s",
                         e,
                     )
                     messages.error(
                         request,
-                        _(
-                            "News message could not be sent due to a configuration error."
-                        ),
+                        _("News cannot be sent due to a configuration error."),
                     )
             else:
                 pn_form.instance.draft = True

@@ -73,18 +73,18 @@ urlpatterns = [
                         [
                             path(
                                 "",
-                                authentication.MfaLoginView.as_view(),
-                                name="login_mfa",
+                                authentication.WebAuthnLoginView.as_view(),
+                                name="login_webauthn",
                             ),
                             path(
                                 "assert/",
-                                authentication.MfaAssertView.as_view(),
-                                name="login_mfa_assert",
+                                authentication.WebAuthnAssertView.as_view(),
+                                name="login_webauthn_assert",
                             ),
                             path(
                                 "verify/",
-                                authentication.MfaVerifyView.as_view(),
-                                name="login_mfa_verify",
+                                authentication.WebAuthnVerifyView.as_view(),
+                                name="login_webauthn_verify",
                             ),
                         ]
                     ),

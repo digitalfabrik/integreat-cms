@@ -21,10 +21,27 @@ class PushNotificationListView(TemplateView):
     Class that handles HTTP GET requests for listing push notifications
     """
 
-    #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "push_notifications/push_notification_list.html"
+    #: If true, shows the template push notification list
+    templates = False
+    #: The template to render if templates is False
+    template = "push_notifications/push_notification_list.html"
+    #: The template to render if templates is True
+    template_templates = "push_notifications/push_notification_template_list.html"
+
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "push_notifications"}
+
+    @property
+    def template_name(self):
+        """
+        Select correct HTML template, depending on :attr:`~integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.templates` flag
+        (see :class:`~django.views.generic.base.TemplateResponseMixin`)
+
+        :return: Path to HTML template
+        :rtype: str
+        """
+
+        return self.template_templates if self.templates else self.template
 
     # pylint: disable=too-many-locals
     def get(self, request, *args, **kwargs):
@@ -86,7 +103,9 @@ class PushNotificationListView(TemplateView):
                 },
             )
 
-        push_notifications = region.push_notifications.filter(is_template=False)
+        push_notifications = region.push_notifications.filter(
+            is_template=self.templates
+        )
         query = None
 
         search_data = kwargs.get("search_data")

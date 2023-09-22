@@ -4,7 +4,7 @@ import { transformAssertionForServer, transformCredentialRequestOptions } from "
 // Based on https://github.com/duo-labs/py_webauthn/blob/master/flask_demo/static/js/webauthn.js
 window.addEventListener("load", async () => {
     const assertUrlData = document.querySelector("[data-mfa-login]");
-    const timeoutDuration = 2000;
+
     if (!assertUrlData) {
         return;
     }
@@ -36,15 +36,9 @@ window.addEventListener("load", async () => {
             window.location.href = "/";
         } else {
             document.querySelector(".auth-error").classList.remove("hidden");
-            setTimeout(() => {
-                window.location.href = "/";
-            }, timeoutDuration);
         }
     } catch (e) {
         console.error(e);
         document.querySelector(".auth-error").classList.remove("hidden");
-        setTimeout(() => {
-            window.location.href = "/";
-        }, timeoutDuration);
     }
 });

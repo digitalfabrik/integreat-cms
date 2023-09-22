@@ -190,13 +190,13 @@ user_settings_urlpatterns = [
                             ),
                             path(
                                 "register/",
-                                settings.RegisterUserMfaKeyView.as_view(),
-                                name="register_new_mfa_key",
+                                settings.RegisterUserFidoKeyView.as_view(),
+                                name="register_new_fido_key",
                             ),
                             path(
                                 "delete/<int:key_id>/",
-                                settings.DeleteUserMfaKeyView.as_view(),
-                                name="delete_mfa_key",
+                                settings.DeleteUserFidoKeyView.as_view(),
+                                name="delete_fido_key",
                             ),
                         ]
                     ),
@@ -555,9 +555,9 @@ urlpatterns = [
                                             name="slugify_ajax",
                                         ),
                                         path(
-                                            "auto-translate-hix-and-words-per-page/",
-                                            pages.post_hix_and_word_number_per_page,
-                                            name="post_hix_and_word_number_per_page",
+                                            "<model_type>/word_count/",
+                                            utils.build_json_for_machine_translation,
+                                            name="word_count",
                                         ),
                                     ]
                                 ),
@@ -863,6 +863,20 @@ urlpatterns = [
                                             name="machine_translation_pages",
                                         ),
                                         path(
+                                            "bulk-publish/",
+                                            bulk_action_views.BulkPublishingView.as_view(
+                                                model=Page,
+                                            ),
+                                            name="publish_multiple_pages",
+                                        ),
+                                        path(
+                                            "bulk-draft/",
+                                            bulk_action_views.BulkDraftingView.as_view(
+                                                model=Page,
+                                            ),
+                                            name="draft_multiple_pages",
+                                        ),
+                                        path(
                                             "<int:page_id>/",
                                             include(
                                                 [
@@ -1079,6 +1093,20 @@ urlpatterns = [
                                             name="bulk_restore_events",
                                         ),
                                         path(
+                                            "bulk-publish/",
+                                            bulk_action_views.BulkPublishingView.as_view(
+                                                model=Event,
+                                            ),
+                                            name="publish_multiple_events",
+                                        ),
+                                        path(
+                                            "bulk-draft/",
+                                            bulk_action_views.BulkDraftingView.as_view(
+                                                model=Event,
+                                            ),
+                                            name="draft_multiple_events",
+                                        ),
+                                        path(
                                             "<int:event_id>/",
                                             include(
                                                 [
@@ -1177,6 +1205,20 @@ urlpatterns = [
                                                 model=POI
                                             ),
                                             name="bulk_restore_pois",
+                                        ),
+                                        path(
+                                            "bulk-publish/",
+                                            bulk_action_views.BulkPublishingView.as_view(
+                                                model=POI,
+                                            ),
+                                            name="publish_multiple_pois",
+                                        ),
+                                        path(
+                                            "bulk-draft/",
+                                            bulk_action_views.BulkDraftingView.as_view(
+                                                model=POI,
+                                            ),
+                                            name="draft_multiple_pois",
                                         ),
                                         path(
                                             "show-poi-form-ajax/<str:poi_title>/",
@@ -1305,7 +1347,9 @@ urlpatterns = [
                                         ),
                                         path(
                                             "templates/",
-                                            push_notifications.PushNotificationTemplateListView.as_view(),
+                                            push_notifications.PushNotificationListView.as_view(
+                                                templates=True
+                                            ),
                                             name="push_notifications_templates",
                                         ),
                                         path(

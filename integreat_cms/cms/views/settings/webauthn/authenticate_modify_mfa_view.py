@@ -35,7 +35,7 @@ class AuthenticateModifyMfaView(FormView):
         kwargs = (
             {"region_slug": self.request.region.slug} if self.request.region else {}
         )
-        return reverse("register_new_mfa_key", kwargs=kwargs)
+        return reverse("register_new_fido_key", kwargs=kwargs)
 
     def form_valid(self, form):
         """

@@ -1,8 +1,6 @@
 """
 This module includes functions related to the locations/POIs API endpoint.
 """
-from distutils.util import strtobool
-
 from django.conf import settings
 from django.db.models import Prefetch
 from django.http import JsonResponse
@@ -12,6 +10,7 @@ from django.utils.html import strip_tags
 from ...cms.constants import status
 from ...cms.models import POICategoryTranslation
 from ...cms.models.pois.poi import get_default_opening_hours
+from ...core.utils.strtobool import strtobool
 from ..decorators import json_response
 from .location_categories import transform_location_category
 
@@ -56,6 +55,9 @@ def transform_poi(poi):
 def transform_poi_translation(poi_translation):
     """
     Function to create a JSON from a single poi_translation object.
+
+    The method returns the title of a location in the default language as the app
+    can currently not display RTL languages on the map.
 
     :param poi_translation: The poi translation object which should be converted
     :type poi_translation: ~integreat_cms.cms.models.pois.poi_translation.POITranslation

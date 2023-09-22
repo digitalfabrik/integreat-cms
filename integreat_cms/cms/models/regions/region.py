@@ -359,7 +359,7 @@ class Region(AbstractBaseModel):
         verbose_name=_("DeepL add-on package booked"),
         help_text=format_deepl_help_text(
             _(
-                "This makes {} translation credits available to the region instead of the {} free ones."
+                "This makes {} translation credits available to the region in addition to the {} free ones."
             )
         ),
     )
@@ -783,13 +783,15 @@ class Region(AbstractBaseModel):
             return settings.DEEPL_CREDITS_FREE
         # All regions which did book the add-on, but not mid-year, get the add-on credits
         if not self.deepl_midyear_start_month:
-            return settings.DEEPL_CREDITS_ADDON
+            return settings.DEEPL_CREDITS_ADDON + settings.DEEPL_CREDITS_FREE
         # All regions which booked the add-on in mid-year get a fraction of the add-on credits
         # Calculate how many months lie between the renewal month and the start month of the add-on
         months_difference = self.deepl_renewal_month - self.deepl_midyear_start_month
         # Calculate the available fraction of the add-on
         multiplier = (months_difference % 12) / 12
-        return int(multiplier * settings.DEEPL_CREDITS_ADDON)
+        return int(
+            multiplier * settings.DEEPL_CREDITS_ADDON + settings.DEEPL_CREDITS_FREE
+        )
 
     @property
     def deepl_budget_remaining(self):

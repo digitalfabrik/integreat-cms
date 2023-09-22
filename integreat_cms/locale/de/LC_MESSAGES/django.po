@@ -1555,18 +1555,23 @@ msgid "Marketing team"
 msgstr "Marketing-Team"
 
 #: cms/constants/status.py
+#: cms/templates/push_notifications/push_notification_list_row.html
+#: cms/templates/translations/translations_management.html
 msgid "Draft"
 msgstr "Entwurf"
 
 #: cms/constants/status.py
+#: cms/templates/translations/translations_management.html
 msgid "Pending Review"
 msgstr "Review ausstehend"
 
 #: cms/constants/status.py
+#: cms/templates/translations/translations_management.html
 msgid "Published"
 msgstr "Veröffentlicht"
 
 #: cms/constants/status.py
+#: cms/templates/translations/translations_management.html
 msgid "Auto Save"
 msgstr "Automatische Speicherung"
 
@@ -2342,7 +2347,7 @@ msgstr "Region"
 #: cms/models/media/directory.py cms/models/offers/offer_template.py
 #: cms/models/push_notifications/push_notification.py
 #: cms/models/regions/region.py cms/models/users/organization.py
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "creation date"
 msgstr "Erstellungsdatum"
 
@@ -3728,11 +3733,11 @@ msgstr "DeepL Add-On Paket gebucht"
 
 #: cms/models/regions/region.py
 msgid ""
-"This makes {} translation credits available to the region instead of the {} "
-"free ones."
+"This makes {} translation credits available to the region in addition to the "
+"{} free ones."
 msgstr ""
-"Damit stehen der Region {} Übersetzungs-Credits zur Verfügung anstatt der {} "
-"kostenlosen."
+"Damit stehen der Region {} Übersetzungs-Credits zur Verfügung zusätzlich zu "
+"den {} kostenlosen."
 
 #: cms/models/regions/region.py
 msgid "DeepL budget year start date"
@@ -3886,7 +3891,7 @@ msgstr ""
 "Aktiveren Sie diese Option, um den passwortlosen Login für dieses Konto "
 "freizuschalten"
 
-#: cms/models/users/user.py cms/models/users/user_mfa_key.py
+#: cms/models/users/user.py cms/models/users/user_fido_key.py
 msgid "user"
 msgstr "Benutzer:in"
 
@@ -3894,35 +3899,35 @@ msgstr "Benutzer:in"
 msgid "users"
 msgstr "Benutzer:innen"
 
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "key name"
 msgstr "Schlüsselname"
 
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "WebAuthn ID"
 msgstr "WebAuthn ID"
 
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "multi-factor-authentication public key"
 msgstr "öffentlicher Multi-Faktor-Authentifizierungsschlüssel"
 
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "sign count"
 msgstr "Anzahl an Signierungs-Vorgängen"
 
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "Token to prevent replay attacks."
 msgstr "Token zur Verhinderung von Replay-Attacken."
 
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "last date of use"
 msgstr "Letztes Datum der Verwendung"
 
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "multi-factor authentication key"
 msgstr "Multi-Faktor-Authentifizierungsschlüssel"
 
-#: cms/models/users/user_mfa_key.py
+#: cms/models/users/user_fido_key.py
 msgid "multi-factor authentication keys"
 msgstr "Multi-Faktor-Authentifizierungsschlüssel"
 
@@ -3931,9 +3936,12 @@ msgid "This is a test system."
 msgstr "Dies ist ein Test-System."
 
 #: cms/templates/_base.html
-msgid "Changes you make are only visible in the beta version of the app."
+msgid ""
+" This is a test system. Changes you make are only visible in development "
+"versions of the app (such as webnext)."
 msgstr ""
-"Änderungen, die Sie vornehmen, sind nur in der Beta-Version der App sichtbar."
+"Dies ist ein Testsystem. Änderungen, die Sie vornehmen, sind nur in der "
+"Staging-Version der App sichtbar (wie z.B. webnext)."
 
 #: cms/templates/_base.html
 msgid "Django Admin"
@@ -4097,21 +4105,23 @@ msgid "Language selection"
 msgstr "Sprachauswahl"
 
 #: cms/templates/_machine_translation_overlay.html
-msgid "Pages to be translated"
-msgstr "Zu übersetzende Seiten"
+#, python-format
+msgid "%(content_type)s to be translated"
+msgstr "Zu übersetzende %(content_type)s"
 
 #: cms/templates/_machine_translation_overlay.html
 #, python-format
 msgid ""
-"None of the selected pages fullfills the required HIX score of "
+"None of the selected %(content_type)s fullfills the required HIX score of "
 "%(hix_threshold)s."
 msgstr ""
-"Keiner der ausgewählten Seiten erfüllt den benötigten HIX-Wert von "
+"Keine der ausgewählten %(content_type)s erfüllt den benötigten HIX-Wert von "
 "%(hix_threshold)s."
 
 #: cms/templates/_machine_translation_overlay.html
-msgid "None of the selected pages has a source translation."
-msgstr "Keine der ausgewählten Seiten hat eine Quellübersetzung."
+#, python-format
+msgid "None of the selected %(content_type)s has a source translation."
+msgstr "Keine der ausgewählten %(content_type)s hat eine Quellübersetzung."
 
 #: cms/templates/_machine_translation_overlay.html
 msgid "Show all"
@@ -4138,39 +4148,37 @@ msgid "Remaining budget: "
 msgstr "Verbleibendes Budget:"
 
 #: cms/templates/_machine_translation_overlay.html
-msgid "Pages that can't be translated"
-msgstr "Seiten, die nicht übersetzt werden können"
+#, python-format
+msgid "%(content_type)s that can't be translated"
+msgstr "Nicht übersetzbare %(content_type)s"
 
 #: cms/templates/_machine_translation_overlay.html
 #, python-format
 msgid ""
-"The HIX value is too low for <span id=\"not-translatable\"></span> pages. "
-"Please improve it to a value of at least %(hix_threshold)s to enable machine "
-"translations for them. Currently, the following pages cannot be machine "
-"translated:"
+"The HIX value is too low for <span id=\"not-translatable\"></span> "
+"%(content_type)s. Please improve it to a value of at least %(hix_threshold)s "
+"to enable machine translations for them. Currently, the following "
+"%(content_type)s cannot be machine translated:"
 msgstr ""
 "Der Wert der Textverständlichkeit von <span id=\"not-translatable\"></span> "
-"Seiten ist zu gering. Bitte verbessern Sie den Wert auf mindestens "
-"%(hix_threshold)s. Dann können Sie die Seiten automatisiert übersetzen. "
-"Folgende Seiten werden aktuell nicht übersetzt:"
+"%(content_type)s ist zu gering. Bitte verbessern Sie den Wert auf mindestens "
+"%(hix_threshold)s. Dann können Sie die %(content_type)s automatisiert "
+"übersetzen. Folgende %(content_type)s werden aktuell nicht übersetzt:"
 
 #: cms/templates/_machine_translation_overlay.html
+#, python-format
 msgid ""
-"There are currently <span id=\"not-translatable\"></span> page(s) that can't "
-"be translated. These pages can't be translated because they have no "
-"translation in the source language."
+"There are currently <span id=\"not-translatable\"></span> %(content_type)s "
+"that can't be translated. These %(content_type)s can't be translated because "
+"they have no translation in the source language."
 msgstr ""
-"Es gibt aktuell <span id=\"not-translatable\"></span> Seiten, die nicht "
-"übersetzt werden können. Diese Seiten können nicht übersetzt werden, weil "
-"sie keine Übersetzung in der Quellsprache haben."
+"Es gibt aktuell <span id=\"not-translatable\"></span> %(content_type)s, die "
+"nicht übersetzt werden können. Diese %(content_type)s können nicht übersetzt "
+"werden, weil sie keine Übersetzung in der Quellsprache haben."
 
 #: cms/templates/_machine_translation_overlay.html
-msgid "Show pages"
-msgstr "Seiten anzeigen"
-
-#: cms/templates/_machine_translation_overlay.html
-msgid "Don't show pages"
-msgstr "Seiten nicht anzeigen"
+msgid "Show more"
+msgstr "Weniger anzeigen"
 
 #: cms/templates/_machine_translation_overlay.html
 #: cms/templates/_tinymce_config.html
@@ -4182,7 +4190,7 @@ msgid "Cancel"
 msgstr "Abbrechen"
 
 #: cms/templates/_machine_translation_overlay.html
-#: cms/templates/authentication/totp_login.html
+#: cms/templates/authentication/login_totp.html
 #: cms/templates/generic_confirmation_dialog.html
 #: cms/templates/pages/page_xliff_import_view.html
 #: cms/templates/pois/poi_form_sidebar/position_box.html
@@ -4514,23 +4522,56 @@ msgid "Forgot your password?"
 msgstr "Passwort vergessen?"
 
 #: cms/templates/authentication/login_mfa.html
-#: cms/templates/authentication/totp_login.html
+#: cms/templates/authentication/login_totp.html
+#: cms/templates/authentication/login_webauthn.html
 #: cms/templates/settings/mfa/authenticate.html
 msgid "Authentication"
 msgstr "Authentifizierung"
 
 #: cms/templates/authentication/login_mfa.html
-msgid "Unable to verify your 2FA key, please try again."
+#: cms/templates/authentication/login_webauthn.html
+msgid "Unable to verify your FIDO key, please try again."
 msgstr ""
-"Die 2-Faktor-Authentifizierung konnte nicht durchgeführt werden, bitte "
-"versuchen Sie es erneut."
+"Die Authentifizierung mit Ihrem FIDO Schlüssel konnte nicht abgeschlossen "
+"werden, bitte versuchen Sie es erneut."
 
 #: cms/templates/authentication/login_mfa.html
+#: cms/templates/authentication/login_webauthn.html
 msgid ""
-"Please authenticate using your 2FA key by following your browser instructions"
+"Please authenticate using your FIDO key by following your browser "
+"instructions"
 msgstr ""
-"Bitte authentifizieren Sie sich mit ihrem zweiten Faktor, folgen Sie dazu "
+"Bitte authentifizieren Sie sich mit ihrem FIDO Schlüssel, folgen Sie dazu "
 "den Instruktionen die im Browser angezeigt werden"
+
+#: cms/templates/authentication/login_totp.html
+#, python-format
+msgid ""
+"Please open your authenticator app on your device and enter the 6-digit code "
+"for \"%(BRANDING)s\" to verify your identity:"
+msgstr ""
+"Bitte öffnen Sie Ihre Authenticator-App und geben Sie den 6-stelligen Code "
+"für \"%(BRANDING)s\" ein, um ihre Identität zu bestätigen:"
+
+#: cms/templates/authentication/login_totp.html
+#: cms/templates/authentication/login_webauthn.html
+#: cms/templates/languages/language_form.html
+msgid "or"
+msgstr "oder"
+
+#: cms/templates/authentication/login_totp.html
+msgid "Use Security Key"
+msgstr "Sicherheitsschlüssel verwenden"
+
+#: cms/templates/authentication/login_webauthn.html
+#: cms/templates/authentication/password_reset_confirm.html
+#: cms/templates/authentication/password_reset_form.html
+msgid "Back to log in"
+msgstr "Zurück zur Anmeldung"
+
+#: cms/templates/authentication/login_webauthn.html
+msgid "Use Authenticator app"
+msgstr "Authenticator-App verwenden"
 
 #: cms/templates/authentication/password_reset_confirm.html
 #: cms/templates/authentication/password_reset_form.html
@@ -4545,23 +4586,9 @@ msgstr "Passwort wiederholen"
 msgid "Set new password"
 msgstr "Neues Passwort setzen"
 
-#: cms/templates/authentication/password_reset_confirm.html
-#: cms/templates/authentication/password_reset_form.html
-msgid "Back to log in"
-msgstr "Zurück zur Anmeldung"
-
 #: cms/templates/authentication/password_reset_form.html
 msgid "Enter your e-mail address here"
 msgstr "Ihre E-Mail-Adresse hier eingeben"
-
-#: cms/templates/authentication/totp_login.html
-#, python-format
-msgid ""
-"Please open your authenticator app on your device and enter the 6-digit code "
-"for \"%(BRANDING)s\" to verify your identity:"
-msgstr ""
-"Bitte öffnen Sie Ihre Authenticator-App und geben Sie den 6-stelligen Code "
-"für \"%(BRANDING)s\" ein, um ihre Identität zu bestätigen:"
 
 #: cms/templates/chat/_chat_messages.html
 msgid "Delete chat message"
@@ -4868,6 +4895,7 @@ msgstr "Veranstaltung erstellen"
 #: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
 #: cms/templates/pages/page_sbs.html cms/templates/pois/poi_form.html
+#: cms/templates/push_notifications/push_notification_form.html
 msgid "Save as draft"
 msgstr "Als Entwurf speichern"
 
@@ -5078,6 +5106,18 @@ msgstr "Mehrfachaktion auswählen"
 #: cms/templates/events/event_list.html
 msgid "Archive events"
 msgstr "Veranstaltungen archivieren"
+
+#: cms/templates/events/event_list.html cms/templates/pages/page_tree.html
+#: cms/templates/pois/poi_list.html
+#, python-format
+msgid "Publish %(content_type)s"
+msgstr "%(content_type)s veröffentlichen"
+
+#: cms/templates/events/event_list.html cms/templates/pages/page_tree.html
+#: cms/templates/pois/poi_list.html
+#, python-format
+msgid "Draft %(content_type)s"
+msgstr "%(content_type)s als Entwurf speichern"
 
 #: cms/templates/events/event_list.html cms/templates/pages/page_tree.html
 #: cms/templates/pois/poi_list.html
@@ -5508,10 +5548,6 @@ msgstr "Bezeichner"
 #: cms/templates/languages/language_form.html
 msgid "This is in many cases a single (macro-)language tag, according to the"
 msgstr "Das ist in vielen Fällen ein einzelner (Makro-)Sprachen-Tag aus der"
-
-#: cms/templates/languages/language_form.html
-msgid "or"
-msgstr "oder"
 
 #: cms/templates/languages/language_form.html
 #, python-format
@@ -6540,10 +6576,12 @@ msgid "The default translation is not yet published"
 msgstr "Die Standardübersetzung ist noch nicht veröffentlicht"
 
 #: cms/templates/pois/poi_form.html
-msgid "The name is currently displayed to users only in the default language"
+msgid ""
+"For technical reasons the name is displayed in the app in the default "
+"language."
 msgstr ""
-"Der Name wird anderen Benutzer:innen momentan nur in der Standardsprache "
-"angezeigt"
+"Aus technischen Gründen wird der Name in der App in der Standard-Sprache "
+"angezeigt."
 
 #: cms/templates/pois/poi_form.html
 msgid "SEO section"
@@ -6736,22 +6774,26 @@ msgid "Create News"
 msgstr "Nachricht erstellen"
 
 #: cms/templates/push_notifications/push_notification_form.html
-msgid "Create Message from Template"
-msgstr "Nachricht aus Vorlage erstellen"
+msgid "Create News from Template"
+msgstr "Neue Nachrichten-Vorlage erstellen"
 
 #: cms/templates/push_notifications/push_notification_form.html
 msgid "Save & Send"
 msgstr "Speichern & Senden"
 
 #: cms/templates/push_notifications/push_notification_form.html
+msgid "Save & Schedule"
+msgstr "Speichern & Terminieren"
+
+#: cms/templates/push_notifications/push_notification_form.html
 #, python-format
-msgid "Messages are sent every %(schedule_interval)s minutes"
+msgid "News are sent every %(schedule_interval)s minutes"
 msgstr "Nachrichten werden alle %(schedule_interval)s Minuten gesendet"
 
 #: cms/templates/push_notifications/push_notification_form.html
 msgid ""
 "Any manager with access to only some of the selected regions can view but "
-"not edit this news message."
+"not edit this news."
 msgstr ""
 "Verwalter:innen, die nur auf einige der ausgewählten Regionen Zugriff haben, "
 "können diese Nachricht ansehen, aber nicht bearbeiten."
@@ -6762,8 +6804,7 @@ msgid "Sent"
 msgstr "Gesendet"
 
 #: cms/templates/push_notifications/push_notification_form.html
-#: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Message not sent yet"
+msgid "News not sent yet"
 msgstr "Nachricht noch nicht gesendet"
 
 #: cms/templates/push_notifications/push_notification_list.html
@@ -6776,7 +6817,7 @@ msgstr "Kanal"
 
 #: cms/templates/push_notifications/push_notification_list.html
 msgid "Planned send date"
-msgstr "Geplanter Zeitpunkt zum Senden"
+msgstr "Terminiert am"
 
 #: cms/templates/push_notifications/push_notification_list.html
 #: cms/templates/push_notifications/push_notification_template_list.html
@@ -6795,6 +6836,10 @@ msgstr "Titel nicht verfügbar"
 #: cms/templates/push_notifications/push_notification_list_row.html
 msgid "Manual"
 msgstr "Manuell"
+
+#: cms/templates/push_notifications/push_notification_list_row.html
+msgid "Message not sent yet"
+msgstr "Nachricht noch nicht gesendet"
 
 #: cms/templates/push_notifications/push_notification_template_list.html
 msgid "Templates"
@@ -7002,13 +7047,14 @@ msgid "Back to the user settings"
 msgstr "Zurück zu den Kontoeinstellungen"
 
 #: cms/templates/settings/mfa/add_key.html
-msgid "Add 2FA key"
-msgstr "2FA Schlüssel hinzufügen"
+msgid "Add FIDO key"
+msgstr "FIDO Schlüssel hinzufügen"
 
 #: cms/templates/settings/mfa/add_key.html
-msgid "Something went wrong during 2FA registration"
+msgid "Something went wrong during FIDO registration"
 msgstr ""
-"Während der Registrierung eines neuen Schlüssels ist ein Fehler aufgetreten"
+"Während der Registrierung eines neuen FIDO Schlüssels ist ein Fehler "
+"aufgetreten"
 
 #: cms/templates/settings/mfa/add_key.html
 msgid ""
@@ -7024,8 +7070,7 @@ msgid "Enter key name here"
 msgstr "Schlüsselname hier eingeben"
 
 #: cms/templates/settings/mfa/add_key.html
-#: cms/templates/settings/mfa/delete.html
-msgid "It seems like your browser does not support webauthn"
+msgid "It seems like your browser does not support Webauthn"
 msgstr ""
 "Ihr Browser unterstützt leider kein Webauthn, es kann kein Schlüssel "
 "hinzugefügt werden"
@@ -7041,12 +7086,18 @@ msgstr ""
 "Einstellungen zu bearbeiten."
 
 #: cms/templates/settings/mfa/delete.html
-msgid "Delete 2FA key"
+msgid "Delete FIDO key"
 msgstr "Schlüssel entfernen"
 
 #: cms/templates/settings/mfa/delete.html
 msgid "Nickname"
 msgstr "Schlüsselname"
+
+#: cms/templates/settings/mfa/delete.html
+msgid "It seems like your browser does not support webauthn"
+msgstr ""
+"Ihr Browser unterstützt leider kein Webauthn, es kann kein Schlüssel "
+"hinzugefügt werden"
 
 #: cms/templates/settings/register_totp.html
 msgid "Add authenticator app"
@@ -7308,6 +7359,29 @@ msgstr "%(used)s von %(total)s Wörtern bereits verbraucht"
 #: cms/templates/translations/translations_management.html
 msgid "Next reset date:"
 msgstr "Nächstes Rücksetzungsdatum:"
+
+#: cms/templates/translations/translations_management.html
+msgid "Number of words in the German contents"
+msgstr "Anzahl der Wörter in den deutschen Inhalten"
+
+#: cms/templates/translations/translations_management.html
+msgid ""
+"The number of words in the latest versions per status and per content type."
+msgstr ""
+"Die Anzahl der Wörter in den neuesten Versionen pro Status und pro Art des "
+"Inhalts."
+
+#: cms/templates/translations/translations_management.html
+msgid "Content type"
+msgstr "Art des Inhalts"
+
+#: cms/templates/translations/translations_management.html
+msgid "Total per Content type"
+msgstr "Summe pro Art des Inhalts"
+
+#: cms/templates/translations/translations_management.html
+msgid "Total per Status"
+msgstr "Summe pro Status"
 
 #: cms/templates/tutorials/page_tree.html
 msgid "Introduction - Page Tree"
@@ -7605,9 +7679,9 @@ msgid "An error occurred! Could not send {}."
 msgstr "Es ist ein Fehler aufgetreten! Die {} konnte nicht versendet werden."
 
 #: cms/views/authentication/account_activation_view.py
-#: cms/views/authentication/mfa/mfa_assert_view.py
 #: cms/views/authentication/password_reset_confirm_view.py
 #: cms/views/authentication/password_reset_view.py
+#: cms/views/authentication/webauthn/webauthn_assert_view.py
 msgid "You are already logged in."
 msgstr "Sie sind bereits eingeloggt."
 
@@ -7640,11 +7714,6 @@ msgstr "Sie können sich jetzt mit dem neuen Passwort einloggen."
 #: cms/views/authentication/logout_view.py
 msgid "You have been successfully logged off."
 msgstr "Sie wurden erfolgreich abgemeldet."
-
-#: cms/views/authentication/mfa/mfa_assert_view.py
-#: cms/views/authentication/mfa/mfa_verify_view.py
-msgid "You need to log in first"
-msgstr "Sie müssen sich zunächst einloggen"
 
 #: cms/views/authentication/password_reset_confirm_view.py
 msgid "This password reset link is invalid."
@@ -7688,6 +7757,11 @@ msgstr "E-Mail zum Zurücksetzen des Passworts"
 msgid "Login failed."
 msgstr "Login fehlgeschlagen."
 
+#: cms/views/authentication/webauthn/webauthn_assert_view.py
+#: cms/views/authentication/webauthn/webauthn_verify_view.py
+msgid "You need to log in first"
+msgstr "Sie müssen sich zunächst einloggen"
+
 #: cms/views/bulk_action_views.py
 msgid "Machine translations are disabled for language \"{}\""
 msgstr "Maschinelle Übersetzungen sind deaktiviert für die Sprache \"{}\""
@@ -7700,20 +7774,28 @@ msgstr ""
 "Inhaltstyp"
 
 #: cms/views/bulk_action_views.py
+msgid "All the selected translations are already up-to-date."
+msgstr "Alle ausgewählten Übersetzungen sind bereits aktuell."
+
+#: cms/views/bulk_action_views.py
+msgid "There already is an up-to-date translation for {}"
+msgstr "Es gibt bereits eine aktuelle Übersetzung für {}"
+
+#: cms/views/bulk_action_views.py
 msgid "The selected {} were successfully {}"
 msgstr "Die ausgewählten {} wurden erfolgreich {}"
 
 #: cms/views/bulk_action_views.py
 msgid ""
-"{} cannot be archived because it was embedded as live content from another "
-"page."
+"Page \"{}\" cannot be archived because it was embedded as live content from "
+"another page."
 msgstr ""
-"{} kann nicht archiviert werden, da sie von einer anderen Seite als Live-"
-"Inhalt eingebunden wurde."
+"Seite \"{}\" kann nicht archiviert werden, da sie von einer anderen Seite "
+"als Live-Inhalt eingebunden wurde."
 
 #: cms/views/bulk_action_views.py
-msgid "{} was successfully archived"
-msgstr "{} wurde erfolgreich archiviert"
+msgid "Page \"{}\" was successfully archived"
+msgstr "Seite \"{}\" wurde erfolgreich archiviert"
 
 #: cms/views/bulk_action_views.py
 msgid "The selected {} were successfully archived"
@@ -8699,20 +8781,16 @@ msgstr "Zurück zum Orts-Formular"
 
 #: cms/views/push_notifications/push_notification_form_view.py
 #: cms/views/push_notifications/push_notification_list_view.py
-#: cms/views/push_notifications/push_notification_template_list_view.py
 msgid "Push notifications are disabled."
 msgstr "Push-Benachrichtigungen sind deaktiviert."
 
 #: cms/views/push_notifications/push_notification_form_view.py
 #: cms/views/push_notifications/push_notification_list_view.py
-#: cms/views/push_notifications/push_notification_template_list_view.py
 msgid "Push notifications are disabled in this region."
 msgstr "Push-Benachrichtigungen sind in dieser Region deaktiviert."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid ""
-"This news message has already been sent as push notification to mobile "
-"devices."
+msgid "This news has already been sent as push notification to mobile devices."
 msgstr ""
 "Diese Nachricht wurde bereits als Push-Benachrichtigung an mobile Geräte "
 "gesendet."
@@ -8727,11 +8805,11 @@ msgstr ""
 "Benachrichtigung."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "You are not allowed to edit this message."
+msgid "You are not allowed to edit this news."
 msgstr "Sie dürfen diese Nachricht nicht bearbeiten."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "This news message belongs to regions you don't have access to: {}."
+msgid "This news belongs to regions you don't have access to: {}."
 msgstr ""
 "Diese Nachricht gehört zu Regionen, auf die Sie keinen Zugriff haben: {}."
 
@@ -8743,14 +8821,13 @@ msgstr ""
 "kontaktieren Sie eine:n Administrator:in."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid ""
-"This news message is also assigned to regions you don't have access to: {}."
+msgid "This news is also assigned to regions you don't have access to: {}."
 msgstr ""
 "Diese Nachricht ist auch Regionen zugewiesen, auf die Sie keinen Zugriff "
 "haben: {}."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "Thus you cannot edit or delete this news message."
+msgid "Thus you cannot edit or delete this news."
 msgstr "Daher können Sie diese Nachricht nicht bearbeiten oder löschen."
 
 #: cms/views/push_notifications/push_notification_form_view.py
@@ -8762,32 +8839,39 @@ msgstr ""
 "ist oder kontaktieren Sie eine:n Administrator:in."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News message \"{}\" was successfully created"
+msgid "Template \"{}\" was successfully created"
+msgstr "Vorlage \"{}\" wurde erfolgreich erstellt"
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid "News \"{}\" was successfully created"
 msgstr "Nachricht \"{}\" wurde erfolgreich erstellt"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News message \"{}\" was successfully saved"
+msgid "Template \"{}\" was successfully saved"
+msgstr "Vorlage \"{}\" wurde erfolgreich gespeichert"
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid "News \"{}\" was successfully saved"
 msgstr "Nachricht \"{}\" wurde erfolgreich gespeichert"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News message cannot be sent because required texts are missing"
+msgid "News cannot be sent because required texts are missing"
 msgstr "Nachricht konnte nicht gesendet werden, da erforderliche Texte fehlen"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News message was successfully sent"
+msgid "News was successfully sent"
 msgstr "Nachricht wurde erfolgreich gesendet"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News message could not be sent"
-msgstr "Nachricht konnte nicht gesendet werden"
+msgid "News cannot be sent"
+msgstr "Nachricht kann nicht gesendet werden"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News message could not be sent due to a configuration error."
+msgid "News cannot be sent due to a configuration error."
 msgstr ""
-"Nachricht konnte aufgrund eines Konfigurationsproblems nicht gesendet werden."
+"Nachricht kann aufgrund eines Konfigurationsproblems nicht gesendet werden."
 
 #: cms/views/push_notifications/push_notification_list_view.py
-#: cms/views/push_notifications/push_notification_template_list_view.py
 msgid ""
 "Please create at least one language node before creating push notifications."
 msgstr ""
@@ -8823,53 +8907,6 @@ msgstr "Rolle \"{}\" wurde erfolgreich erstellt"
 msgid "Role \"{}\" was successfully saved"
 msgstr "Rolle \"{}\" wurde erfolgreich gespeichert"
 
-#: cms/views/settings/mfa/authenticate_modify_mfa_view.py
-msgid "The provided password is not correct"
-msgstr "Das angegebene Passwort ist falsch"
-
-#: cms/views/settings/mfa/delete_user_mfa_key_view.py
-msgid ""
-"This is your last key, once removed you will be able to log in without a "
-"second factor."
-msgstr ""
-"Dies ist der letzte Schlüssel. Sobald dieser entfernt wurde, ist ein Login "
-"ohne zusätzliche Authentifizierung möglich."
-
-#: cms/views/settings/mfa/delete_user_mfa_key_view.py
-msgid ""
-"Once you remove the key you will need to use one of the other available keys "
-"to log into your account."
-msgstr ""
-"Sobald Sie diesen Schlüssel entfernt haben müssen Sie sich mit einem der "
-"übrigen Schlüssel anmelden."
-
-#: cms/views/settings/mfa/delete_user_mfa_key_view.py
-msgid ""
-"Please make sure that you have at least one extra key available to log in "
-"before removing this key."
-msgstr ""
-"Bitte stellen Sie sicher, dass ihnen mindestens einer der aktuell "
-"registrierten Schlüssel vorliegen bevor Sie diesen Schlüssel entfernen."
-
-#: cms/views/settings/mfa/delete_user_mfa_key_view.py
-msgid "The 2-factor authentication key \"{}\" was successfully deleted"
-msgstr ""
-"Der 2-Faktor-Authentifizierungsschlüssel \"{}\" wurde erfolgreich gelöscht."
-
-#: cms/views/settings/mfa/register_user_mfa_key_view.py
-msgid "This key name has already been used"
-msgstr "Dieser Schlüsselname wurde bereits genutzt"
-
-#: cms/views/settings/mfa/register_user_mfa_key_view.py
-msgid "You already registered this key"
-msgstr "Sie haben diesen Schlüssel bereits registriert"
-
-#: cms/views/settings/mfa/register_user_mfa_key_view.py
-msgid "The 2-factor authentication key \"{}\" was successfully registered."
-msgstr ""
-"Der 2-Faktor-Authentifizierungsschlüssel \"{}\" wurde erfolgreich "
-"registriert."
-
 #: cms/views/settings/totp_delete_view.py
 msgid ""
 "You have successfully disconnected your account from your authenticator app."
@@ -8904,6 +8941,53 @@ msgstr "Passwort wurde erfolgreich geändert"
 #: cms/views/settings/user_settings_view.py
 msgid "Preferences were successfully saved"
 msgstr "Einstellungen wurden erfolgreich gespeichert"
+
+#: cms/views/settings/webauthn/authenticate_modify_mfa_view.py
+msgid "The provided password is not correct"
+msgstr "Das angegebene Passwort ist falsch"
+
+#: cms/views/settings/webauthn/delete_user_fido_key_view.py
+msgid ""
+"This is your last key, once removed you will be able to log in without a "
+"second factor."
+msgstr ""
+"Dies ist der letzte Schlüssel. Sobald dieser entfernt wurde, ist ein Login "
+"ohne zusätzliche Authentifizierung möglich."
+
+#: cms/views/settings/webauthn/delete_user_fido_key_view.py
+msgid ""
+"Once you remove the key you will need to use one of the other available keys "
+"to log into your account."
+msgstr ""
+"Sobald Sie diesen Schlüssel entfernt haben müssen Sie sich mit einem der "
+"übrigen Schlüssel anmelden."
+
+#: cms/views/settings/webauthn/delete_user_fido_key_view.py
+msgid ""
+"Please make sure that you have at least one extra key available to log in "
+"before removing this key."
+msgstr ""
+"Bitte stellen Sie sicher, dass ihnen mindestens einer der aktuell "
+"registrierten Schlüssel vorliegen bevor Sie diesen Schlüssel entfernen."
+
+#: cms/views/settings/webauthn/delete_user_fido_key_view.py
+msgid "The 2-factor authentication key \"{}\" was successfully deleted"
+msgstr ""
+"Der 2-Faktor-Authentifizierungsschlüssel \"{}\" wurde erfolgreich gelöscht."
+
+#: cms/views/settings/webauthn/register_user_fido_key_view.py
+msgid "This key name has already been used"
+msgstr "Dieser Schlüsselname wurde bereits genutzt"
+
+#: cms/views/settings/webauthn/register_user_fido_key_view.py
+msgid "You already registered this key"
+msgstr "Sie haben diesen Schlüssel bereits registriert"
+
+#: cms/views/settings/webauthn/register_user_fido_key_view.py
+msgid "The 2-factor authentication key \"{}\" was successfully registered."
+msgstr ""
+"Der 2-Faktor-Authentifizierungsschlüssel \"{}\" wurde erfolgreich "
+"registriert."
 
 #: cms/views/statistics/statistics_view.py
 msgid "Statistics are not enabled for this region."
@@ -8952,6 +9036,16 @@ msgstr ""
 msgid "Only superusers can enable or disable passwordless authentication."
 msgstr ""
 "Nur Administrator:innen können die Passwortlose Authentifizierung aktivieren"
+
+#: cms/views/utils/translation_status.py
+msgid "The status of \"{}\" was successfully changed to \"{}\"."
+msgstr ""
+"Der Veröffentlichungsstatus von \"{}\" wurde erfolgreich zu {} geändert."
+
+#: cms/views/utils/translation_status.py
+msgid "There is no translation for \"{}\" in {}. No change has been made."
+msgstr ""
+"Es gibt keine Übersetzung für \"{}\" in {}. Keine Änderung wurde vorgenommen."
 
 #: core/apps.py
 msgid "Core"
@@ -9174,6 +9268,15 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Create Message from Template"
+#~ msgstr "Nachricht aus Vorlage erstellen"
+
+#~ msgid "News message \"{}\" was successfully created"
+#~ msgstr "Nachricht \"{}\" wurde erfolgreich erstellt"
+
+#~ msgid "News message \"{}\" was successfully saved"
+#~ msgstr "Nachricht \"{}\" wurde erfolgreich gespeichert"
+
 #~ msgid "Create news message"
 #~ msgstr "Neue Nachricht verfassen"
 
@@ -9198,6 +9301,15 @@ msgstr ""
 
 #~ msgid "url"
 #~ msgstr "URL"
+
+#~ msgid "Show pages"
+#~ msgstr "Seiten anzeigen"
+
+#~ msgid "Don't show pages"
+#~ msgstr "Seiten nicht anzeigen"
+
+#~ msgid "Pages that can't be translated"
+#~ msgstr "Seiten, die nicht übersetzt werden können"
 
 #~ msgid "Links could not be replaced."
 #~ msgstr "Links konnten nicht ersetzt werden"
@@ -9708,9 +9820,6 @@ msgstr ""
 #~ msgid "404 Not Found"
 #~ msgstr "404 Nicht gefunden"
 
-#~ msgid "Content type"
-#~ msgstr "Inhaltstyp"
-
 #~ msgid "Municipality team"
 #~ msgstr "Kommunen-Team"
 
@@ -9895,12 +10004,6 @@ msgstr ""
 
 #~ msgid "Language \"{}\" was successfully saved"
 #~ msgstr "Sprache \"{}\" wurde erfolgreich gespeichert"
-
-#~ msgid "Offer template \"{}\" was successfully created"
-#~ msgstr "Angebots-Vorlage \"{}\" wurde erfolgreich erstellt"
-
-#~ msgid "Offer template \"{}\" was successfully saved"
-#~ msgstr "Angebots-Vorlage \"{}\" wurde erfolgreich gespeichert"
 
 #~ msgid "Region \"{}\" was successfully created"
 #~ msgstr "Region \"{}\" wurde erfolgreich erstellt"
