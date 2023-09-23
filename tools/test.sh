@@ -22,6 +22,8 @@ export INTEGREAT_CMS_DEEPL_AUTH_KEY="dummy"
 # Disable linkcheck listeners during testing
 export INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS=1
 
+TESTS=()
+
 # Parse given command line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -29,8 +31,12 @@ while [[ $# -gt 0 ]]; do
         --changed) CHANGED=1;shift;;
         # Verbosity for pytest
         -v|-vv|-vvv|-vvvv) VERBOSITY="$1";shift;;
+        # Select tests by keyword expression
+        -k) shift;KW_EXPR="$1";shift;;
+        # Select tests by marker
+        -m) shift;MARKER="$1";shift;;
         # If only particular tests should be run, test path can be passed as CLI argument
-        *) TEST_PATH=$1;shift;;
+        *) TESTS+=("$1");shift;;
     esac
 done
 
@@ -55,7 +61,7 @@ if [[ -n "${CHANGED}" ]]; then
         echo -e "\nIt looks like you have not run pytest without the \"--changed\" flag before." | print_warning
         echo -e "Pytest has to build a dependency database by running all tests without the flag once.\n" | print_warning
         # Override test path argument
-        unset TEST_PATH
+        unset TESTS
         # Tell testmon to run all tests and collect data
         PYTEST_ARGS+=("--testmon-noselect")
     fi
@@ -65,19 +71,34 @@ else
 fi
 
 # Determine whether coverage data should be collected
-if [[ -z "${CHANGED}" && -z "${TEST_PATH}" ]]; then
+if [[ -z "${CHANGED}" ]] && (( ${#TESTS[@]} == 0 )); then
     PYTEST_ARGS+=("--cov=integreat_cms" "--cov-report=html")
 fi
 
-# Check whether test path exists
-if [[ -e "${TEST_PATH}" ]]; then
-    # Adapt message and append to pytest arguments
-    TEST_MESSAGE=" in ${TEST_PATH}"
-    PYTEST_ARGS+=("${TEST_PATH}")
-elif [[ -n "${TEST_PATH}" ]]; then
-    # If the test path does not exist but was non-zero, show an error
-    echo -e "${TEST_PATH}: No such file or directory" | print_error
-    exit 1
+if [[ -n "${KW_EXPR}" ]] || [[ -n "${MARKER}" ]] || (( ${#TESTS[@]} )); then
+    MESSAGES=()
+    if [[ -n "${KW_EXPR}" ]]; then
+        MESSAGES+=("\"${KW_EXPR}\"")
+        PYTEST_ARGS+=("-k" "${KW_EXPR}")
+    fi
+    if [[ -n "${MARKER}" ]]; then
+        MESSAGES+=("with ${MARKER}")
+        PYTEST_ARGS+=("-m" "${KW_EXPR}")
+    fi
+    # Check whether test paths exist
+    for t in "${TESTS[@]}"; do
+        if [[ -e "${t%%::*}" ]]; then
+            # Adapt message and append to pytest arguments
+            MESSAGES+=("${t}")
+            PYTEST_ARGS+=("${t}")
+        elif [[ -n "${t}" ]]; then
+            # If the test path does not exist but was non-zero, show an error
+            echo -e "${t%%::*}: No such file or directory" | print_error
+            exit 1
+        fi
+    done
+    TEST_MESSAGE=$(join_by ", " "${MESSAGES[@]}")
+    TEST_MESSAGE=" in ${TEST_MESSAGE}"
 fi
 
 echo -e "Running all tests${TEST_MESSAGE}${CHANGED_MESSAGE}..." | print_info
