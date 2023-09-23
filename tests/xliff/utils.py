@@ -46,8 +46,6 @@ def upload_files(client, url, file_1, file_2):
     :rtype: django.http.HttpResponse
     """
     import_path = "tests/xliff/files/import"
-    # The encoding is determined in get_open_kwargs()
-    # pylint: disable=unspecified-encoding
     with open(f"{import_path}/{file_1}", **get_open_kwargs(file_1)) as f1:
         with open(f"{import_path}/{file_2}", **get_open_kwargs(file_2)) as f2:
             return client.post(url, data={"xliff_file": [f1, f2]}, format="multipart")
