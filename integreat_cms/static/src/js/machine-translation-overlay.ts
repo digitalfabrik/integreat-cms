@@ -176,7 +176,7 @@ const toggleOptionalText = (trigger: HTMLElement, optionalText: HTMLElement) => 
 const addMachineTranslationOverlayEventListeners = () => {
     // add event listeners to overlay
     const overlay = document.getElementById("machine-translation-overlay");
-    const provider = document.getElementById("machine-translation-option").getAttribute("data-mt-provider");
+    const provider = document.getElementById("machine-translation-option")?.getAttribute("data-mt-provider");
     if (overlay && provider === "DeepL") {
         // Set listener for bulk action execute button.
         document.getElementById("bulk-action-execute")?.addEventListener("click", (event) => {
