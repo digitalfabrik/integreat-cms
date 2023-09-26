@@ -1,0 +1,6 @@
+{% load i18n %}
+<span id="auto-save"
+      class="{% if form_instance.status != AUTO_SAVE %} hidden {% endif %}">
+    <i icon-name="check"></i>
+    {% trans "Automatically saved on:" %} <span id="auto-save-time">{{ form_instance.last_updated }}</span>
+</span>
