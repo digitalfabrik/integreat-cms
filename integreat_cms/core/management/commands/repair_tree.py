@@ -131,10 +131,9 @@ class Command(LogCommand):
             )
             for orphan in orphans:
                 self.stdout.write(self.bold(f"Page {orphan.id}:"))
-                self.print_error(
-                    f"\tparent_id: {orphan.parent_id}\n"
-                    f"\tparent.tree_id: {orphan.parent.tree_id}"
-                )
+                self.print_error(f"\tparent_id: {orphan.parent_id}")
+                if orphan.parent_id:
+                    self.print_error(f"\tparent.tree_id: {orphan.parent.tree_id}")
                 self.stdout.write(
                     self.bold(
                         f"\tdepth {orphan.depth}\n"

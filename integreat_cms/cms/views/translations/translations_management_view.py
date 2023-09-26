@@ -52,9 +52,11 @@ class TranslationsManagementView(TemplateView):
                 word_count[content_name][status] = 0
 
             contents = (
-                content_type.objects.filter(region=region, archived=False)
-                if not content_type == Page
-                else region.get_pages()
+                region.get_pages(prefetch_translations=True)
+                if content_type == Page
+                else content_type.objects.filter(
+                    region=region, archived=False
+                ).prefetch_translations()
             )
             for content in contents:
                 if latest_version := content.get_translation(

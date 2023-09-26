@@ -7,7 +7,7 @@ import { showConfirmationPopupWithData } from "./confirmation-popups";
 import { storeDraft } from "./forms/tinymce-init";
 import { getCsrfToken } from "./utils/csrf-token";
 
-let heartbeatInteval: NodeJS.Timer | null = null;
+let heartbeatInterval: ReturnType<typeof setTimeout> | null = null;
 let unloadEventListener: (this: Window, ev: Event) => any | null = null;
 let numHeartbeats = 0;
 
@@ -28,7 +28,7 @@ const sendTakeOverMessage = async (url: string, payload: string) => {
 };
 
 const sendHeartbeat = async (heartbeatData: HTMLElement) => {
-    clearInterval(heartbeatInteval);
+    clearInterval(heartbeatInterval);
 
     const url = heartbeatData.getAttribute("data-heartbeat-url");
     const payload = heartbeatData.getAttribute("data-heartbeat-payload");
@@ -70,7 +70,7 @@ const sendHeartbeat = async (heartbeatData: HTMLElement) => {
     } else {
         // Sends a heartbeat every 10 seconds
         const intervalLength = 10_000;
-        heartbeatInteval = setInterval(() => sendHeartbeat(heartbeatData), intervalLength);
+        heartbeatInterval = setInterval(() => sendHeartbeat(heartbeatData), intervalLength);
     }
     numHeartbeats += 1;
 };
