@@ -67,7 +67,7 @@ class TranslationsManagementForm(CustomModelForm):
         # Exclude inactive languages and the root node
         languages = self.instance.language_tree_nodes.filter(
             active=True, parent__isnull=False
-        )
+        ).select_related("language")
         mt_providers = defaultdict(list)
         self.unavailable_languages = []
         for language in languages:
