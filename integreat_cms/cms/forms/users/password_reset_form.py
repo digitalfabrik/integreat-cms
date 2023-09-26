@@ -3,7 +3,6 @@ import logging
 from django import forms
 from django.conf import settings
 from django.contrib.auth.forms import PasswordResetForm
-from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 
 from ...utils.email_utils import send_mail
@@ -52,7 +51,7 @@ class CustomPasswordResetForm(PasswordResetForm):
         :param html_email_template_name: The template to be used to render the HTML email
         :type html_email_template_name: str
         """
-        subject = f"{capfirst(settings.BRANDING)} - {_('Reset password')}"
+        subject = f"{settings.BRANDING_TITLE} - {_('Reset password')}"
         send_mail(
             subject,
             email_template_name,

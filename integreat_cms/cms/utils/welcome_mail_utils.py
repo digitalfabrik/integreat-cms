@@ -4,7 +4,6 @@ from django.conf import settings
 from django.contrib import messages
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
-from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
 from ..utils.translation_utils import gettext_many_lazy as __
@@ -33,8 +32,10 @@ def send_welcome_mail(request, user, activation):
     """
     context = {
         "user": user,
+        "BRANDING": settings.BRANDING,
+        "BRANDING_TITLE": settings.BRANDING_TITLE,
     }
-    subject = f"{capfirst(settings.BRANDING)} - "
+    subject = f"{settings.BRANDING_TITLE} - "
 
     if activation:
         token = account_activation_token_generator.make_token(user)

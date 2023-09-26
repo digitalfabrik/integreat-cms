@@ -9,7 +9,7 @@ API_ENDPOINTS = [
         "/wp-json/extensions/v3/sites/",
         "tests/api/expected-outputs/regions.json",
         200,
-        4,
+        7,
     ),
     (
         "/api/regions/augsburg/",

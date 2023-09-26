@@ -1,8 +1,8 @@
 {% load i18n %}
 
 {% translate "Welcome" %} {{ user.full_user_name }},
-{% blocktranslate trimmed with BRANDING=BRANDING|title %}
-    You are receiving this e-mail, because an account for {{ BRANDING }} was created for you.
+{% blocktranslate trimmed %}
+    You are receiving this e-mail, because an account for {{ BRANDING_TITLE }} was created for you.
 {% endblocktranslate %}
 {% if uid and token %}
 {% translate "Please click the link below to set a password and activate your account." %}
@@ -18,6 +18,6 @@
 {% translate "Your username is:" %} {{ user.get_username }}
 
 {% translate "Best regards" %},
-{% blocktranslate trimmed with BRANDING=BRANDING|title %}
-    Your {{ BRANDING }} team of {{ COMPANY }}
+{% blocktranslate trimmed %}
+    Your {{ BRANDING_TITLE }} team of {{ COMPANY }}
 {% endblocktranslate %}

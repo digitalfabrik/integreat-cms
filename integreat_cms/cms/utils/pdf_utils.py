@@ -11,7 +11,6 @@ from django.db.models import Min
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template.loader import get_template
-from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 from django.views.decorators.cache import never_cache
 from xhtml2pdf import pisa
@@ -89,7 +88,7 @@ def generate_pdf(region, language_slug, pages):
         max_len = ((os.statvfs(settings.PDF_ROOT).f_namemax // 4) * 3) - len(ext)
     except FileNotFoundError:
         max_len = 192 - len(ext)
-    name = f"{capfirst(settings.BRANDING)} - {language.translated_name} - {title}"
+    name = f"{settings.BRANDING_TITLE} - {language.translated_name} - {title}"
     filename = f"{pdf_hash}/{truncate_bytewise(name, max_len)}{ext}"
     # Only generate new pdf if not already exists
     if not pdf_storage.exists(filename):
@@ -103,6 +102,7 @@ def generate_pdf(region, language_slug, pages):
             "amount_pages": amount_pages,
             "prevent_italics": ["ar", "fa"],
             "BRANDING": settings.BRANDING,
+            "BRANDING_TITLE": settings.BRANDING_TITLE,
         }
         html = get_template("pages/page_pdf.html").render(context)
         # Save empty file

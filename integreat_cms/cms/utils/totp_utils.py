@@ -24,7 +24,7 @@ def generate_totp_qrcode(key, user):
     :rtype: str
     """
     qr_string = pyotp.TOTP(key).provisioning_uri(
-        name=user.username, issuer_name=settings.BRANDING.capitalize()
+        name=user.username, issuer_name=settings.BRANDING_TITLE
     )
 
     img = qrcode.make(qr_string)
