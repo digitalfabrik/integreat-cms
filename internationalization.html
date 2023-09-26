@@ -14,11 +14,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=3f0c00d9"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -1739,13 +1739,13 @@
            <div itemprop="articleBody">
              
   <section id="internationalization-i18n">
-<h1>Internationalization (i18n)<a class="headerlink" href="#internationalization-i18n" title="Permalink to this heading"></a></h1>
+<h1>Internationalization (i18n)<a class="headerlink" href="#internationalization-i18n" title="Link to this heading"></a></h1>
 <p>For more detailed information, have a look at the official Django documentation on <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/i18n/" title="(in Django v3.2)"><span>Internationalization and localization</span></a>.</p>
 <section id="hardcoded-strings">
-<h2>Hardcoded Strings<a class="headerlink" href="#hardcoded-strings" title="Permalink to this heading"></a></h2>
+<h2>Hardcoded Strings<a class="headerlink" href="#hardcoded-strings" title="Link to this heading"></a></h2>
 <p>Whenever you use hardcoded strings, use english text and encapsulate it with a translation function.</p>
 <section id="models">
-<h3>Models<a class="headerlink" href="#models" title="Permalink to this heading"></a></h3>
+<h3>Models<a class="headerlink" href="#models" title="Link to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext_lazy</span> <span class="k">as</span> <span class="n">_</span>
 
 <span class="n">string</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Your string&#39;</span><span class="p">)</span>
@@ -1753,7 +1753,7 @@
 </div>
 </section>
 <section id="views">
-<h3>Views<a class="headerlink" href="#views" title="Permalink to this heading"></a></h3>
+<h3>Views<a class="headerlink" href="#views" title="Link to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">django.utils.translation</span> <span class="kn">import</span> <span class="n">gettext</span> <span class="k">as</span> <span class="n">_</span>
 
 <span class="n">string</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s1">&#39;Your string&#39;</span><span class="p">)</span>
@@ -1761,14 +1761,14 @@
 </div>
 </section>
 <section id="templates">
-<h3>Templates<a class="headerlink" href="#templates" title="Permalink to this heading"></a></h3>
+<h3>Templates<a class="headerlink" href="#templates" title="Link to this heading"></a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="n">translate</span> <span class="s2">&quot;Your string&quot;</span> <span class="o">%</span><span class="p">}</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="translation-file">
-<h2>Translation File<a class="headerlink" href="#translation-file" title="Permalink to this heading"></a></h2>
+<h2>Translation File<a class="headerlink" href="#translation-file" title="Link to this heading"></a></h2>
 <p>After you finished your changes to the code base, run the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>integreat_cms
 integreat-cms-cli<span class="w"> </span>makemessages<span class="w"> </span>-l<span class="w"> </span>de<span class="w"> </span>--add-location<span class="w"> </span>file
@@ -1792,7 +1792,7 @@ integreat-cms-cli<span class="w"> </span>makemessages<span class="w"> </span>--a
 <p>And fill in all translations you can.</p>
 </section>
 <section id="compilation">
-<h2>Compilation<a class="headerlink" href="#compilation" title="Permalink to this heading"></a></h2>
+<h2>Compilation<a class="headerlink" href="#compilation" title="Link to this heading"></a></h2>
 <p>To actually see the translated strings in the backend UI, compile the django.po file as follows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>integreat_cms
 integreat-cms-cli<span class="w"> </span>compilemessages
@@ -1800,7 +1800,7 @@ integreat-cms-cli<span class="w"> </span>compilemessages
 </div>
 </section>
 <section id="developer-tools">
-<h2>Developer Tools<a class="headerlink" href="#developer-tools" title="Permalink to this heading"></a></h2>
+<h2>Developer Tools<a class="headerlink" href="#developer-tools" title="Link to this heading"></a></h2>
 <p>To do <code class="docutils literal notranslate"><span class="pre">makemessages</span></code> and <code class="docutils literal notranslate"><span class="pre">compilemessages</span></code> in one step, use <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/translate.sh">tools/translate.sh</a>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/translate.sh
 </pre></div>

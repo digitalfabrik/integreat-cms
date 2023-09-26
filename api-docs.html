@@ -14,11 +14,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=3f0c00d9"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -1739,9 +1739,9 @@
            <div itemprop="articleBody">
              
   <section id="api-documentation">
-<h1>API Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this heading"></a></h1>
+<h1>API Documentation<a class="headerlink" href="#api-documentation" title="Link to this heading"></a></h1>
 <section id="sending-the-development-header">
-<h2>Sending the Development Header<a class="headerlink" href="#sending-the-development-header" title="Permalink to this heading"></a></h2>
+<h2>Sending the Development Header<a class="headerlink" href="#sending-the-development-header" title="Link to this heading"></a></h2>
 <p>To prevent tracking of API calls during tests and development, use the
 “X-Integreat-Development” header. Example:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">curl</span> <span class="o">-</span><span class="n">H</span> <span class="s2">&quot;X-Integreat-Development: true&quot;</span>  \
@@ -1750,9 +1750,9 @@
 </div>
 </section>
 <section id="regions">
-<span id="api-regions"></span><h2>Regions<a class="headerlink" href="#regions" title="Permalink to this heading"></a></h2>
+<span id="api-regions"></span><h2>Regions<a class="headerlink" href="#regions" title="Link to this heading"></a></h2>
 <section id="request">
-<h3>REQUEST<a class="headerlink" href="#request" title="Permalink to this heading"></a></h3>
+<h3>REQUEST<a class="headerlink" href="#request" title="Link to this heading"></a></h3>
 <p>Get all regions</p>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/regions/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
@@ -1763,7 +1763,7 @@
 </div>
 </section>
 <section id="response">
-<h3>RESPONSE<a class="headerlink" href="#response" title="Permalink to this heading"></a></h3>
+<h3>RESPONSE<a class="headerlink" href="#response" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span><span class="w">                    </span><span class="c1">// id of region</span>
@@ -1808,7 +1808,7 @@
 </div>
 </section>
 <section id="id1">
-<h3>REQUEST<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<h3>REQUEST<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <p>Get a single region by slug:</p>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/regions/{region_slug}/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
@@ -1819,16 +1819,16 @@
 </div>
 </section>
 <section id="id2">
-<h3>RESPONSE<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<h3>RESPONSE<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
 <p>A single object following the layout of <a class="reference internal" href="#api-regions"><span class="std std-ref">Regions</span></a></p>
 </section>
 </section>
 <section id="languages">
-<h2>Languages<a class="headerlink" href="#languages" title="Permalink to this heading"></a></h2>
+<h2>Languages<a class="headerlink" href="#languages" title="Link to this heading"></a></h2>
 <p>Get all available languages of a region
 (this endpoint is deprecated, you can directly use the <code class="docutils literal notranslate"><span class="pre">languages</span></code> attribute of the region response)</p>
 <section id="id3">
-<h3>REQUEST<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<h3>REQUEST<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/languages/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -1838,7 +1838,7 @@
 </div>
 </section>
 <section id="id4">
-<h3>RESPONSE<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<h3>RESPONSE<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span>
@@ -1854,10 +1854,10 @@
 </section>
 </section>
 <section id="offers-extras">
-<h2>Offers / Extras<a class="headerlink" href="#offers-extras" title="Permalink to this heading"></a></h2>
+<h2>Offers / Extras<a class="headerlink" href="#offers-extras" title="Link to this heading"></a></h2>
 <p>Get all enabled offers (also called extras) for a specific region</p>
 <section id="id5">
-<h3>REQUEST<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<h3>REQUEST<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <p>The language slug, if specified, will be ignored</p>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{offers/extras}/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
@@ -1868,7 +1868,7 @@
 </div>
 </section>
 <section id="id6">
-<h3>RESPONSE<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<h3>RESPONSE<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">         </span><span class="c1">// name of offer</span>
@@ -1884,10 +1884,10 @@
 </section>
 </section>
 <section id="pages">
-<span id="api-pages"></span><h2>Pages<a class="headerlink" href="#pages" title="Permalink to this heading"></a></h2>
+<span id="api-pages"></span><h2>Pages<a class="headerlink" href="#pages" title="Link to this heading"></a></h2>
 <p>Get all non-archived pages of a region</p>
 <section id="id7">
-<h3>REQUEST<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
+<h3>REQUEST<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/pages/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -1897,7 +1897,7 @@
 </div>
 </section>
 <section id="id8">
-<h3>RESPONSE<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
+<h3>RESPONSE<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">   </span><span class="p">{</span>
 <span class="w">      </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span><span class="w">                 </span><span class="c1">// The id of the page</span>
@@ -1939,10 +1939,10 @@
 </section>
 </section>
 <section id="locations">
-<h2>Locations<a class="headerlink" href="#locations" title="Permalink to this heading"></a></h2>
+<h2>Locations<a class="headerlink" href="#locations" title="Link to this heading"></a></h2>
 <p>Get all location translations of a region</p>
 <section id="id9">
-<h3>REQUEST<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
+<h3>REQUEST<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/locations/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -1952,7 +1952,7 @@
 </div>
 </section>
 <section id="id10">
-<h3>RESPONSE<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
+<h3>RESPONSE<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">   </span><span class="p">{</span>
 <span class="w">      </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span><span class="w">                   </span><span class="c1">// The id of this location</span>
@@ -2028,10 +2028,10 @@
 </section>
 </section>
 <section id="location-categories">
-<h2>Location Categories<a class="headerlink" href="#location-categories" title="Permalink to this heading"></a></h2>
+<h2>Location Categories<a class="headerlink" href="#location-categories" title="Link to this heading"></a></h2>
 <p>Get all location categories</p>
 <section id="id11">
-<h3>REQUEST<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h3>
+<h3>REQUEST<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/location-categories/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2041,7 +2041,7 @@
 </div>
 </section>
 <section id="id12">
-<h3>RESPONSE<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h3>
+<h3>RESPONSE<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">   </span><span class="p">{</span>
 <span class="w">      </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span><span class="w">        </span><span class="c1">// The id of the category</span>
@@ -2057,10 +2057,10 @@
 </section>
 </section>
 <section id="events">
-<h2>Events<a class="headerlink" href="#events" title="Permalink to this heading"></a></h2>
+<h2>Events<a class="headerlink" href="#events" title="Link to this heading"></a></h2>
 <p>Get events for this region</p>
 <section id="id13">
-<h3>REQUEST<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h3>
+<h3>REQUEST<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/events/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2070,7 +2070,7 @@
 </div>
 </section>
 <section id="id14">
-<h3>RESPONSE<a class="headerlink" href="#id14" title="Permalink to this heading"></a></h3>
+<h3>RESPONSE<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">   </span><span class="p">{</span>
 <span class="w">      </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">               </span><span class="c1">// The id of this event, null if this is a recurrence of an event</span>
@@ -2124,10 +2124,10 @@
 </section>
 </section>
 <section id="single-page">
-<h2>Single Page<a class="headerlink" href="#single-page" title="Permalink to this heading"></a></h2>
+<h2>Single Page<a class="headerlink" href="#single-page" title="Link to this heading"></a></h2>
 <p>Get a single page translation</p>
 <section id="id15">
-<h3>REQUEST<a class="headerlink" href="#id15" title="Permalink to this heading"></a></h3>
+<h3>REQUEST<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/page/?id={page_id}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2143,17 +2143,17 @@
 </div>
 </section>
 <section id="id16">
-<h3>RESPONSE<a class="headerlink" href="#id16" title="Permalink to this heading"></a></h3>
+<h3>RESPONSE<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
 <p>A single object following the layout of <a class="reference internal" href="#api-pages"><span class="std std-ref">Pages</span></a></p>
 </section>
 </section>
 <section id="page-children">
-<h2>Page Children<a class="headerlink" href="#page-children" title="Permalink to this heading"></a></h2>
+<h2>Page Children<a class="headerlink" href="#page-children" title="Link to this heading"></a></h2>
 <p>Get the child pages of a specific page, or the child pages for all root pages in the region.
 If the id and url parameters are left out, the page children of all root pages will be returned.
 If the depth parameter is left out, only the direct children (depth 1) will be returned</p>
 <section id="id17">
-<h3>REQUEST<a class="headerlink" href="#id17" title="Permalink to this heading"></a></h3>
+<h3>REQUEST<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/children/?id={page_id}&amp;depth={depth}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2169,16 +2169,16 @@ If the depth parameter is left out, only the direct children (depth 1) will be r
 </div>
 </section>
 <section id="id18">
-<h3>RESPONSE<a class="headerlink" href="#id18" title="Permalink to this heading"></a></h3>
+<h3>RESPONSE<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
 <p>Returns a list of pages, as defined at <a class="reference internal" href="#api-pages"><span class="std std-ref">Pages</span></a>.
 This contains the queried page(s).</p>
 </section>
 </section>
 <section id="page-parents">
-<h2>Page Parents<a class="headerlink" href="#page-parents" title="Permalink to this heading"></a></h2>
+<h2>Page Parents<a class="headerlink" href="#page-parents" title="Link to this heading"></a></h2>
 <p>Get all parents for a specific page</p>
 <section id="id19">
-<h3>REQUEST<a class="headerlink" href="#id19" title="Permalink to this heading"></a></h3>
+<h3>REQUEST<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/parents/?id={page_id}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2194,17 +2194,17 @@ This contains the queried page(s).</p>
 </div>
 </section>
 <section id="id20">
-<h3>RESPONSE<a class="headerlink" href="#id20" title="Permalink to this heading"></a></h3>
+<h3>RESPONSE<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
 <p>Returns a list of pages, as defined at <a class="reference internal" href="#api-pages"><span class="std std-ref">Pages</span></a>.
 This does not contain the queried page.</p>
 </section>
 </section>
 <section id="pdf">
-<h2>PDF<a class="headerlink" href="#pdf" title="Permalink to this heading"></a></h2>
+<h2>PDF<a class="headerlink" href="#pdf" title="Link to this heading"></a></h2>
 <p>Export page translations as pdf.
 If the url parameter is left out, a pdf containing all root pages of the region will be returned</p>
 <section id="id21">
-<h3>REQUEST<a class="headerlink" href="#id21" title="Permalink to this heading"></a></h3>
+<h3>REQUEST<a class="headerlink" href="#id21" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/pdf/?url={page_url}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2217,15 +2217,15 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 </div>
 </section>
 <section id="id22">
-<h3>RESPONSE<a class="headerlink" href="#id22" title="Permalink to this heading"></a></h3>
+<h3>RESPONSE<a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
 <p>A redirect to the pdf url</p>
 </section>
 </section>
 <section id="fcm">
-<h2>FCM<a class="headerlink" href="#fcm" title="Permalink to this heading"></a></h2>
+<h2>FCM<a class="headerlink" href="#fcm" title="Link to this heading"></a></h2>
 <p>Get all sent push notifications for this region</p>
 <section id="id23">
-<h3>REQUEST<a class="headerlink" href="#id23" title="Permalink to this heading"></a></h3>
+<h3>REQUEST<a class="headerlink" href="#id23" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/fcm/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2235,7 +2235,7 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 </div>
 </section>
 <section id="id24">
-<h3>RESPONSE<a class="headerlink" href="#id24" title="Permalink to this heading"></a></h3>
+<h3>RESPONSE<a class="headerlink" href="#id24" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">   </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">            </span><span class="c1">// The id of the push notification translation</span>
 <span class="w">   </span><span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">         </span><span class="c1">// The title of the push notification in the given language</span>
@@ -2249,10 +2249,10 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 </section>
 </section>
 <section id="imprint-disclaimer">
-<h2>Imprint / Disclaimer<a class="headerlink" href="#imprint-disclaimer" title="Permalink to this heading"></a></h2>
+<h2>Imprint / Disclaimer<a class="headerlink" href="#imprint-disclaimer" title="Link to this heading"></a></h2>
 <p>Get the imprint (Also named disclaimer) for the given region in the given language</p>
 <section id="id25">
-<h3>REQUEST<a class="headerlink" href="#id25" title="Permalink to this heading"></a></h3>
+<h3>REQUEST<a class="headerlink" href="#id25" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/{imprint,disclaimer}/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2262,7 +2262,7 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 </div>
 </section>
 <section id="id26">
-<h3>Response<a class="headerlink" href="#id26" title="Permalink to this heading"></a></h3>
+<h3>Response<a class="headerlink" href="#id26" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">   </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="w">              </span><span class="c1">// The id of the imprint</span>
 <span class="w">   </span><span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">            </span><span class="c1">// The url of the imprint</span>
@@ -2289,10 +2289,10 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 </section>
 </section>
 <section id="push-page-content">
-<h2>Push Page Content<a class="headerlink" href="#push-page-content" title="Permalink to this heading"></a></h2>
+<h2>Push Page Content<a class="headerlink" href="#push-page-content" title="Link to this heading"></a></h2>
 <p>Update a page translation</p>
 <section id="id27">
-<h3>REQUEST<a class="headerlink" href="#id27" title="Permalink to this heading"></a></h3>
+<h3>REQUEST<a class="headerlink" href="#id27" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/pushpage</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
@@ -2311,7 +2311,7 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 </div>
 </section>
 <section id="id28">
-<h3>Response<a class="headerlink" href="#id28" title="Permalink to this heading"></a></h3>
+<h3>Response<a class="headerlink" href="#id28" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">   </span><span class="s2">&quot;status&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="c1">// &quot;success&quot;, &quot;error&quot;, &quot;denied&quot;</span>
 <span class="p">}</span>
@@ -2320,14 +2320,14 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 </section>
 </section>
 <section id="feedback">
-<h2>Feedback<a class="headerlink" href="#feedback" title="Permalink to this heading"></a></h2>
+<h2>Feedback<a class="headerlink" href="#feedback" title="Link to this heading"></a></h2>
 <section id="legacy-endpoint-for-page-event-disclaimer">
-<h3>Legacy-Endpoint for Page/Event/Disclaimer<a class="headerlink" href="#legacy-endpoint-for-page-event-disclaimer" title="Permalink to this heading"></a></h3>
+<h3>Legacy-Endpoint for Page/Event/Disclaimer<a class="headerlink" href="#legacy-endpoint-for-page-event-disclaimer" title="Link to this heading"></a></h3>
 <p>This is a legacy endpoint. Use the endpoints for page, event, imprint
 page resp. Feedback about a single page, event or imprint (also
 called “disclaimer”)</p>
 <section id="id29">
-<h4>REQUEST<a class="headerlink" href="#id29" title="Permalink to this heading"></a></h4>
+<h4>REQUEST<a class="headerlink" href="#id29" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2349,10 +2349,10 @@ called “disclaimer”)</p>
 </section>
 </section>
 <section id="categories">
-<h3>Categories<a class="headerlink" href="#categories" title="Permalink to this heading"></a></h3>
+<h3>Categories<a class="headerlink" href="#categories" title="Link to this heading"></a></h3>
 <p>Feedback for regions</p>
 <section id="id30">
-<h4>REQUEST<a class="headerlink" href="#id30" title="Permalink to this heading"></a></h4>
+<h4>REQUEST<a class="headerlink" href="#id30" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/categories</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2373,10 +2373,10 @@ called “disclaimer”)</p>
 </section>
 </section>
 <section id="page">
-<h3>Page<a class="headerlink" href="#page" title="Permalink to this heading"></a></h3>
+<h3>Page<a class="headerlink" href="#page" title="Link to this heading"></a></h3>
 <p>Feedback about a single page</p>
 <section id="id31">
-<h4>REQUEST<a class="headerlink" href="#id31" title="Permalink to this heading"></a></h4>
+<h4>REQUEST<a class="headerlink" href="#id31" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/page</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2398,10 +2398,10 @@ called “disclaimer”)</p>
 </section>
 </section>
 <section id="poi">
-<h3>POI<a class="headerlink" href="#poi" title="Permalink to this heading"></a></h3>
+<h3>POI<a class="headerlink" href="#poi" title="Link to this heading"></a></h3>
 <p>Feedback about a point of interest</p>
 <section id="id32">
-<h4>REQUEST<a class="headerlink" href="#id32" title="Permalink to this heading"></a></h4>
+<h4>REQUEST<a class="headerlink" href="#id32" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/poi</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2423,10 +2423,10 @@ called “disclaimer”)</p>
 </section>
 </section>
 <section id="event">
-<h3>Event<a class="headerlink" href="#event" title="Permalink to this heading"></a></h3>
+<h3>Event<a class="headerlink" href="#event" title="Link to this heading"></a></h3>
 <p>Feedback about an event</p>
 <section id="id33">
-<h4>REQUEST<a class="headerlink" href="#id33" title="Permalink to this heading"></a></h4>
+<h4>REQUEST<a class="headerlink" href="#id33" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/event</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2448,10 +2448,10 @@ called “disclaimer”)</p>
 </section>
 </section>
 <section id="id34">
-<h3>Events<a class="headerlink" href="#id34" title="Permalink to this heading"></a></h3>
+<h3>Events<a class="headerlink" href="#id34" title="Link to this heading"></a></h3>
 <p>Feedback about the event list (E.g. missing events)</p>
 <section id="id35">
-<h4>REQUEST<a class="headerlink" href="#id35" title="Permalink to this heading"></a></h4>
+<h4>REQUEST<a class="headerlink" href="#id35" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/events</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2473,10 +2473,10 @@ called “disclaimer”)</p>
 </section>
 </section>
 <section id="imprint-page">
-<h3>Imprint Page<a class="headerlink" href="#imprint-page" title="Permalink to this heading"></a></h3>
+<h3>Imprint Page<a class="headerlink" href="#imprint-page" title="Link to this heading"></a></h3>
 <p>Feedback about an imprint page</p>
 <section id="id36">
-<h4>REQUEST<a class="headerlink" href="#id36" title="Permalink to this heading"></a></h4>
+<h4>REQUEST<a class="headerlink" href="#id36" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/imprint-page</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2497,10 +2497,10 @@ called “disclaimer”)</p>
 </section>
 </section>
 <section id="map">
-<h3>Map<a class="headerlink" href="#map" title="Permalink to this heading"></a></h3>
+<h3>Map<a class="headerlink" href="#map" title="Link to this heading"></a></h3>
 <p>Feedback about the map (E.g. missing points of interest)</p>
 <section id="id37">
-<h4>REQUEST<a class="headerlink" href="#id37" title="Permalink to this heading"></a></h4>
+<h4>REQUEST<a class="headerlink" href="#id37" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/map</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2521,10 +2521,10 @@ called “disclaimer”)</p>
 </section>
 </section>
 <section id="search">
-<h3>Search<a class="headerlink" href="#search" title="Permalink to this heading"></a></h3>
+<h3>Search<a class="headerlink" href="#search" title="Link to this heading"></a></h3>
 <p>Feedback about a search result</p>
 <section id="id38">
-<h4>REQUEST<a class="headerlink" href="#id38" title="Permalink to this heading"></a></h4>
+<h4>REQUEST<a class="headerlink" href="#id38" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/search</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2546,10 +2546,10 @@ called “disclaimer”)</p>
 </section>
 </section>
 <section id="offers">
-<h3>Offers<a class="headerlink" href="#offers" title="Permalink to this heading"></a></h3>
+<h3>Offers<a class="headerlink" href="#offers" title="Link to this heading"></a></h3>
 <p>Feedback about the offer list (E.g. missing offers)</p>
 <section id="id39">
-<h4>REQUEST<a class="headerlink" href="#id39" title="Permalink to this heading"></a></h4>
+<h4>REQUEST<a class="headerlink" href="#id39" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/{offers,extras}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2570,10 +2570,10 @@ called “disclaimer”)</p>
 </section>
 </section>
 <section id="offer">
-<h3>Offer<a class="headerlink" href="#offer" title="Permalink to this heading"></a></h3>
+<h3>Offer<a class="headerlink" href="#offer" title="Link to this heading"></a></h3>
 <p>Feedback to a specific offer (also called “extra”)</p>
 <section id="id40">
-<h4>REQUEST<a class="headerlink" href="#id40" title="Permalink to this heading"></a></h4>
+<h4>REQUEST<a class="headerlink" href="#id40" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/{offer,extra}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>

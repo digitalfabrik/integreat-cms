@@ -14,11 +14,11 @@
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="_static/jquery.js"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-        <script src="_static/doctools.js"></script>
-        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=3f0c00d9"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -1739,9 +1739,9 @@
            <div itemprop="articleBody">
              
   <section id="github-workflow">
-<h1>GitHub Workflow<a class="headerlink" href="#github-workflow" title="Permalink to this heading"></a></h1>
+<h1>GitHub Workflow<a class="headerlink" href="#github-workflow" title="Link to this heading"></a></h1>
 <section id="git">
-<h2>Git<a class="headerlink" href="#git" title="Permalink to this heading"></a></h2>
+<h2>Git<a class="headerlink" href="#git" title="Link to this heading"></a></h2>
 <p>There are many great tutorials on git out there, so this one won’t cover the basics.
 Check out e.g.:</p>
 <ul class="simple">
@@ -1750,7 +1750,7 @@ Check out e.g.:</p>
 </ul>
 </section>
 <section id="github-flow">
-<h2>GitHub Flow<a class="headerlink" href="#github-flow" title="Permalink to this heading"></a></h2>
+<h2>GitHub Flow<a class="headerlink" href="#github-flow" title="Link to this heading"></a></h2>
 <p>In general, we use the <a class="reference external" href="https://guides.github.com/introduction/flow/">GitHub flow</a>:</p>
 <img alt="GitHub flow diagram" src="_images/github-flow.png" />
 <div class="admonition note">
@@ -1759,10 +1759,10 @@ Check out e.g.:</p>
 </div>
 </section>
 <section id="rebasing">
-<h2>Rebasing<a class="headerlink" href="#rebasing" title="Permalink to this heading"></a></h2>
+<h2>Rebasing<a class="headerlink" href="#rebasing" title="Link to this heading"></a></h2>
 <p>In extension to the GitHub flow, we use <a class="reference external" href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing">rebasing</a> in two situations:</p>
 <section id="update-feature-branch">
-<h3>1. Update feature branch<a class="headerlink" href="#update-feature-branch" title="Permalink to this heading"></a></h3>
+<h3>1. Update feature branch<a class="headerlink" href="#update-feature-branch" title="Link to this heading"></a></h3>
 <p>You want to merge recent changes of the develop branch into your current feature branch, e.g. because there are conflicts that prevent your branch from being merged:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># fetch upstream changes of origin/develop</span>
 git<span class="w"> </span>fetch<span class="w"> </span>--all
@@ -1777,7 +1777,7 @@ git<span class="w"> </span>push<span class="w"> </span>--force-with-lease
 </div>
 </section>
 <section id="clean-up-git-history">
-<h3>2. Clean up git history<a class="headerlink" href="#clean-up-git-history" title="Permalink to this heading"></a></h3>
+<h3>2. Clean up git history<a class="headerlink" href="#clean-up-git-history" title="Link to this heading"></a></h3>
 <p>You have many small commits which clutter the git history, or want to combine rearrange commits on your current feature branch:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># fetch upstream changes of origin/develop</span>
 git<span class="w"> </span>fetch<span class="w"> </span>--all
@@ -1812,7 +1812,7 @@ git<span class="w"> </span>reset<span class="w"> </span>--hard<span class="w"> <
 </section>
 </section>
 <section id="pre-commit-hooks">
-<span id="id3"></span><h2>Pre-commit Hooks<a class="headerlink" href="#pre-commit-hooks" title="Permalink to this heading"></a></h2>
+<span id="id3"></span><h2>Pre-commit Hooks<a class="headerlink" href="#pre-commit-hooks" title="Link to this heading"></a></h2>
 <p><a class="reference external" href="https://pre-commit.com/">Pre-commit</a> hooks are commands which are run every time a commit is created to check whether the committed changes comply
 with the repository’s standards.
 All hooks for this repository are defined in <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/.pre-commit-config.yaml">.pre-commit-config.yaml</a>.
@@ -1825,7 +1825,7 @@ At the moment, the following hooks are configured:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">translations</span></code> A script which checks whether the translation file is up-to-date (see: <a class="reference internal" href="internationalization.html"><span class="doc">Internationalization (i18n)</span></a> and <a class="reference internal" href="tools.html#translations"><span class="std std-ref">Translations</span></a>)</p></li>
 </ul>
 <section id="activation">
-<h3>Activation<a class="headerlink" href="#activation" title="Permalink to this heading"></a></h3>
+<h3>Activation<a class="headerlink" href="#activation" title="Link to this heading"></a></h3>
 <p>To activate the pre-commit hooks, either install the CMS with the command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./tools/install.sh<span class="w"> </span>--pre-commit
 </pre></div>
@@ -1837,7 +1837,7 @@ At the moment, the following hooks are configured:</p>
 <p>manually after installing.</p>
 </section>
 <section id="deactivation">
-<h3>Deactivation<a class="headerlink" href="#deactivation" title="Permalink to this heading"></a></h3>
+<h3>Deactivation<a class="headerlink" href="#deactivation" title="Link to this heading"></a></h3>
 <p>To deactivate a specific hook (in this example the <code class="docutils literal notranslate"><span class="pre">translations</span></code>-hook), use:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SKIP</span><span class="o">=</span>translations<span class="w"> </span>git<span class="w"> </span>commit
 </pre></div>
