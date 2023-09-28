@@ -60,6 +60,7 @@ CHOICES: Final[list[tuple[str, Promise]]] = [
     ("cy", _("Cyprus")),
     ("cz", _("Czechia")),
     ("de", _("Germany")),
+    ("de-si", __(_("German"), _("(easy)"))),
     ("dj", _("Djibouti")),
     ("dk", _("Denmark")),
     ("dm", _("Dominica")),

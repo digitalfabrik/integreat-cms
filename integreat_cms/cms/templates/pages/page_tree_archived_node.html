@@ -57,28 +57,30 @@
             <div class="lang-grid">
                 {% spaceless %}
                     {% for other_language in languages %}
-                        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=other_language.slug %}">
-                            {% get_translation page other_language.slug as other_translation %}
-                            {% if other_translation %}
-                                {% if other_translation.currently_in_translation %}
-                                    <span title="{% translate "Currently in translation" %}">
-                                        <i icon-name="clock" class="text-gray-800"></i>
-                                    </span>
-                                {% elif other_translation.is_outdated %}
-                                    <span title="{% translate "Translation outdated" %}">
-                                        <i icon-name="alert-triangle" class="text-gray-800"></i>
-                                    </span>
+                        {% if other_language != request.region.default_language %}
+                            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=other_language.slug %}">
+                                {% get_translation page other_language.slug as other_translation %}
+                                {% if other_translation %}
+                                    {% if other_translation.currently_in_translation %}
+                                        <span title="{% translate "Currently in translation" %}">
+                                            <i icon-name="clock" class="text-gray-800"></i>
+                                        </span>
+                                    {% elif other_translation.is_outdated %}
+                                        <span title="{% translate "Translation outdated" %}">
+                                            <i icon-name="alert-triangle" class="text-gray-800"></i>
+                                        </span>
+                                    {% else %}
+                                        <span title="{% translate "Translation up-to-date" %}">
+                                            <i icon-name="check" class="text-gray-800"></i>
+                                        </span>
+                                    {% endif %}
                                 {% else %}
-                                    <span title="{% translate "Translation up-to-date" %}">
-                                        <i icon-name="check" class="text-gray-800"></i>
+                                    <span title="{% translate "Translation missing" %}">
+                                        <i icon-name="x" class="text-gray-800"></i>
                                     </span>
                                 {% endif %}
-                            {% else %}
-                                <span title="{% translate "Translation missing" %}">
-                                    <i icon-name="x" class="text-gray-800"></i>
-                                </span>
-                            {% endif %}
-                        </a>
+                            </a>
+                        {% endif %}
                     {% endfor %}
                 {% endspaceless %}
             </div>
