@@ -1051,6 +1051,9 @@ PDF_ROOT = os.environ.get("INTEGREAT_CMS_PDF_ROOT", os.path.join(BASE_DIR, "pdf"
 #: The URL path where PDF files are served for download
 PDF_URL = "/pdf/"
 
+#: The URL where the placeholder image for broken images is stored
+PLACEHOLDER_IMAGE = BASE_DIR + STATIC_URL + "dist/images/placeholder.png"
+
 
 #######################
 # XLIFF SERIALIZATION #

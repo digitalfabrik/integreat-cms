@@ -182,7 +182,8 @@ def link_callback(uri, rel):
             settings.STATIC_URL,
             settings.MEDIA_URL,
         )
-        return uri
+        uri = settings.PLACEHOLDER_IMAGE
+
     if not (result := finders.find(uri)):
         logger.exception(
             "The file %r was not found in the static directories %r.",
