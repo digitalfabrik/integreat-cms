@@ -35,16 +35,19 @@ def page_translation_save_handler(instance, **kwargs):
         instance.hix_score = None
         return
 
-    if identical_version := instance.all_versions.filter(
-        content=instance.content, hix_score__isnull=False
-    ).first():
+    latest_version = instance.latest_version
+
+    if (
+        latest_version
+        and latest_version.hix_score
+        and latest_version.content == instance.content
+    ):
         logger.debug(
-            "Content of %r is identical to %r, copying HIX score %r",
+            "Content of %r was not changed, copying the HIX score from the previous version: %r",
             instance,
-            identical_version,
-            identical_version.hix_score,
+            latest_version.hix_score,
         )
-        instance.hix_score = identical_version.hix_score
+        instance.hix_score = latest_version.hix_score
         return
 
     if score := lookup_hix_score(instance.content):

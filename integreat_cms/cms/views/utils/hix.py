@@ -22,6 +22,26 @@ logger = logging.getLogger(__name__)
 MAX_TEXT_LENGTH = 100_000
 
 
+def normalize_text(text):
+    """
+    Normalize the text to eliminate differences in HIX value calculation
+
+    :param text: Text for hix value calculation
+    :type text: str
+
+    :return: Normalized version of the text
+    :rtype: str
+    """
+    try:
+        # If the text contains multiple paragraphs, a root div element is added
+        text = tostring(fromstring(text), pretty_print=True).decode("utf-8")
+    except LxmlError:
+        pass
+
+    # Replace all line breaks with \r\n, because Textlab API returns different HIX value depending on the line break character
+    return "\r\n".join(text.splitlines())
+
+
 @lru_cache(maxsize=512)
 def lookup_hix_score(text):
     """
@@ -37,7 +57,7 @@ def lookup_hix_score(text):
     try:
         return TextlabClient(
             settings.TEXTLAB_API_USERNAME, settings.TEXTLAB_API_KEY
-        ).benchmark(text)
+        ).benchmark(normalize_text(text))
     except (URLError, OSError) as e:
         logger.warning("HIX benchmark API call failed: %r", e)
         return None
@@ -69,13 +89,6 @@ def get_hix_score(request, region_slug):
     if not isinstance(text, str) or not text.strip():
         logger.warning("Received invalid text: %r", text)
         return JsonResponse({"error": f"Invalid text: '{text}'"})
-
-    # Normalize text to get same HIX result as with form submission
-    text = text.replace("\n", "\r\n")
-    try:
-        text = tostring(fromstring(text)).decode("utf-8")
-    except LxmlError:
-        pass
 
     if score := lookup_hix_score(text):
         return JsonResponse({"score": score})
