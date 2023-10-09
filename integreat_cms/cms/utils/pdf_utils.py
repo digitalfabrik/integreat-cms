@@ -151,8 +151,11 @@ def link_callback(uri, rel):
     :rtype: str
     """
     parsed_uri = urlparse(uri)
-    # When the uri is an absolute URL to an allowed host, convert it to an absolute local path
-    if parsed_uri.hostname in settings.ALLOWED_HOSTS:
+    if parsed_uri.hostname:
+        # When the uri is an absolute URL to an external host, return the uri unchanged.
+        if parsed_uri.hostname not in settings.ALLOWED_HOSTS:
+            return uri
+        # When the uri is an absolute URL to an allowed host, convert it to an absolute local path
         uri = parsed_uri.path
         # When the url contains the legacy media url, replace it with the new pattern
         if (LEGACY_MEDIA_URL := "/wp-content/uploads/sites/") in uri:
