@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-09-23T11:44:23+00:00" />
+    <meta property="article:modified_time" content="2023-10-09T17:04:53+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2023.9.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1557,6 +1557,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release-notes.html">Release notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#unreleased">unreleased</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id1">2023.9.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id2">2023.9.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id3">2023.8.0</a></li>
@@ -1795,7 +1796,7 @@ who is editing some content.</p>
 for a given text.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.utils.hix.get_hix_score">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.utils.hix.</span></span><span class="sig-name descname"><span class="pre">get_hix_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/utils/hix.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.utils.hix.get_hix_score" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.utils.hix.</span></span><span class="sig-name descname"><span class="pre">get_hix_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/utils/hix.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.utils.hix.get_hix_score" title="Link to this definition"></a></dt>
 <dd><p>Calculates the hix score for the param ‘text’ in the request body and returns it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1815,7 +1816,7 @@ for a given text.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.utils.hix.lookup_hix_score">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.utils.hix.</span></span><span class="sig-name descname"><span class="pre">lookup_hix_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/utils/hix.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.utils.hix.lookup_hix_score" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.utils.hix.</span></span><span class="sig-name descname"><span class="pre">lookup_hix_score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/utils/hix.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.utils.hix.lookup_hix_score" title="Link to this definition"></a></dt>
 <dd><p>This function returns the hix score for the given text.
 It either performs an api request or returns the value from cache.</p>
 <dl class="field-list simple">
@@ -1827,6 +1828,23 @@ It either performs an api request or returns the value from cache.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#float" title="(in Python v3.9)">float</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.utils.hix.normalize_text">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.utils.hix.</span></span><span class="sig-name descname"><span class="pre">normalize_text</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/utils/hix.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.utils.hix.normalize_text" title="Link to this definition"></a></dt>
+<dd><p>Normalize the text to eliminate differences in HIX value calculation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – Text for hix value calculation</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Normalized version of the text</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1972,7 +1990,7 @@ higher than results which only match through their text content.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 23, 2023.
+      <span class="lastupdated">Last updated on Oct 09, 2023.
       </span></p>
   </div>
 
