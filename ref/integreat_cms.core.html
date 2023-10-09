@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-09-23T11:44:23+00:00" />
+    <meta property="article:modified_time" content="2023-10-09T19:04:57+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core &mdash; integreat-cms 2023.9.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -883,6 +883,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.BASE_URL"><code class="docutils literal notranslate"><span class="pre">BASE_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.BLOG_URLS"><code class="docutils literal notranslate"><span class="pre">BLOG_URLS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.BRANDING"><code class="docutils literal notranslate"><span class="pre">BRANDING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.BRANDING_TITLE"><code class="docutils literal notranslate"><span class="pre">BRANDING_TITLE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CACHEOPS"><code class="docutils literal notranslate"><span class="pre">CACHEOPS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CACHEOPS_DEFAULTS"><code class="docutils literal notranslate"><span class="pre">CACHEOPS_DEFAULTS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CACHEOPS_DEGRADE_ON_FAILURE"><code class="docutils literal notranslate"><span class="pre">CACHEOPS_DEGRADE_ON_FAILURE</span></code></a></li>
@@ -1941,7 +1942,7 @@ For the full list of settings and their values, see <a class="reference external
 <p>Context processors pass additional variables to templates (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/templates/api/#context-processors" title="(in Django v3.2)"><span>Built-in template context processors</span></a>).</p>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.context_processors.</span></span><span class="sig-name descname"><span class="pre">constants_processor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/context_processors.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.context_processors.</span></span><span class="sig-name descname"><span class="pre">constants_processor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/context_processors.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This context processor injects some of our constants into the template context.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2158,9 +2159,14 @@ web server configurations (see <a class="reference external" href="https://docs.
 
 <dl class="py data">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">AVAILABLE_BRANDINGS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['integreat',</span> <span class="pre">'malte',</span> <span class="pre">'aschaffenburg',</span> <span class="pre">'netzwerk-obdach']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">AVAILABLE_BRANDINGS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'aschaffenburg':</span> <span class="pre">'hallo</span> <span class="pre">aschaffenburg',</span> <span class="pre">'integreat':</span> <span class="pre">'Integreat',</span> <span class="pre">'malte':</span> <span class="pre">'MALTE',</span> <span class="pre">'netzwerk-obdach':</span> <span class="pre">'Netzwerk</span> <span class="pre">Obdach</span> <span class="pre">&amp;</span> <span class="pre">Wohnen'}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The available inbuilt brandings of the CMS</p>
-<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;integreat&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;malte&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;aschaffenburg&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;netzwerk-obdach&#39;</span><span class="p">]</span>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">    </span><span class="s1">&#39;aschaffenburg&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;hallo aschaffenburg&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;integreat&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Integreat&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;malte&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;MALTE&#39;</span><span class="p">,</span>
+<span class="w">    </span><span class="s1">&#39;netzwerk-obdach&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;Netzwerk Obdach &amp; Wohnen&#39;</span><span class="p">,</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 </dd></dl>
@@ -2208,6 +2214,12 @@ Used in the following views:</p>
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">BRANDING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'integreat'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The branding of the CMS</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">BRANDING_TITLE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Integreat'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The readable title of the branding</p>
 </dd></dl>
 
 <dl class="py data">
@@ -3502,7 +3514,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 23, 2023.
+      <span class="lastupdated">Last updated on Oct 09, 2023.
       </span></p>
   </div>
 
