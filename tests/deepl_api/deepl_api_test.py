@@ -913,6 +913,7 @@ def test_deepl_poi_automatic_translation(
         "latitude": 1,
         "status": status.PUBLIC,
         "opening_hours": json.dumps(get_default_opening_hours()),
+        "category": 1,
     }
 
     response = client.post(

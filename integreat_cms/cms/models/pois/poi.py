@@ -75,9 +75,7 @@ class POI(AbstractContentModel):
     )
     category = models.ForeignKey(
         POICategory,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,
         related_name="pois",
         verbose_name=_("category"),
     )

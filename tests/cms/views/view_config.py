@@ -302,6 +302,7 @@ VIEWS = [
                     "latitude": 1,
                     "status": status.DRAFT,
                     "opening_hours": json.dumps(get_default_opening_hours()),
+                    "category": 1,
                 },
             ),
             ("pages", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
@@ -451,6 +452,7 @@ VIEWS = [
                     "latitude": 1,
                     "status": status.DRAFT,
                     "opening_hours": json.dumps(get_default_opening_hours()),
+                    "category": 1,
                 },
             ),
             ("pages", STAFF_ROLES),
@@ -1059,6 +1061,7 @@ VIEWS = [
                     "latitude": 1,
                     "status": status.DRAFT,
                     "opening_hours": json.dumps(get_default_opening_hours()),
+                    "category": 1,
                 },
             ),
             (
