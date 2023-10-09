@@ -1,14 +1,17 @@
+import logging
+
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.core.management.base import CommandError
+from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone
 
 from ....cms.models import PushNotification, Region
 from ....firebase_api.firebase_api_client import FirebaseApiClient
-from ..log_command import LogCommand
+
+logger = logging.getLogger(__name__)
 
 
-class Command(LogCommand):
+class Command(BaseCommand):
     """
     Management command to send timed push notifications
     """
@@ -31,8 +34,9 @@ class Command(LogCommand):
         if settings.DEBUG:
             try:
                 Region.objects.get(slug=settings.TEST_REGION_SLUG)
-                self.print_info(
-                    f"The system runs with DEBUG=True, so notifications will only be sent to the test region ({settings.TEST_REGION_SLUG})!"
+                logger.debug(
+                    "The system runs with DEBUG=True, so notifications will only be sent to the test region (%s).",
+                    settings.TEST_REGION_SLUG,
                 )
             except Region.DoesNotExist as e:
                 raise CommandError(
@@ -45,30 +49,57 @@ class Command(LogCommand):
             draft=False,
             scheduled_send_date__lte=timezone.now(),
         )
-        for pn in pending_push_notifications:
-            self.send_push_notification(pn)
-        self.print_success("Done!")
+        if total := len(pending_push_notifications):
+            for counter, push_notification in enumerate(pending_push_notifications):
+                self.send_push_notification(counter, total, push_notification)
+            logger.info(
+                "All %d scheduled push notifications have been processed.", total
+            )
+        else:
+            logger.debug(
+                "There are currently no push notifications scheduled to be sent."
+            )
 
-    def send_push_notification(self, pn):
+    def send_push_notification(self, counter, total, push_notification):
         """
         Sends a push notification
 
-        :param pn: The push notification object
-        :type pn: ~integreat_cms.cms.models.push_notifications.push_notification.PushNotification
+        :param counter: The current counter
+        :type counter: int
+
+        :param total: How many push notifications are scheduled for this slot
+        :type total: int
+
+        :param push_notification: The push notification object
+        :type push_notification: ~integreat_cms.cms.models.push_notifications.push_notification.PushNotification
         """
         try:
-            push_sender = FirebaseApiClient(pn)
+            push_sender = FirebaseApiClient(push_notification)
             if not push_sender.is_valid():
-                self.print_error(
-                    f"Push notification {repr(pn)} cannot be sent because required texts are missing"
+                logger.error(
+                    "Push notification %d/%d %r cannot be sent because required texts are missing",
+                    counter,
+                    total,
+                    push_notification,
                 )
             elif push_sender.send_all():
-                self.print_info(f"Successfully sent {repr(pn)}")
-                pn.sent_date = timezone.now()
-                pn.save()
+                logger.info(
+                    "Successfully sent %d/%d %r", counter, total, push_notification
+                )
+                push_notification.sent_date = timezone.now()
+                push_notification.save()
             else:
-                self.print_error(f"Push notification {repr(pn)} could not be sent")
+                logger.error(
+                    "Push notification %d/%d %r could not be sent",
+                    counter,
+                    total,
+                    push_notification,
+                )
         except ImproperlyConfigured as e:
-            self.print_error(
-                f"Push notification {repr(pn)} could not be sent due to a configuration error: {e}"
+            logger.info(
+                "Push notification %d/%d %r could not be sent due to a configuration error: %s",
+                counter,
+                total,
+                push_notification,
+                e,
             )
