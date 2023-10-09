@@ -95,7 +95,12 @@ COMPANY_URL = os.environ.get(
 )
 
 #: The available inbuilt brandings of the CMS
-AVAILABLE_BRANDINGS = ["integreat", "malte", "aschaffenburg", "netzwerk-obdach"]
+AVAILABLE_BRANDINGS = {
+    "integreat": "Integreat",
+    "malte": "MALTE",
+    "aschaffenburg": "hallo aschaffenburg",
+    "netzwerk-obdach": "Netzwerk Obdach & Wohnen",
+}
 
 #: The branding of the CMS
 BRANDING = os.environ.get("INTEGREAT_CMS_BRANDING", "integreat")
@@ -103,8 +108,12 @@ BRANDING = os.environ.get("INTEGREAT_CMS_BRANDING", "integreat")
 # pylint: disable=consider-using-assignment-expr
 if BRANDING not in AVAILABLE_BRANDINGS:
     raise ImproperlyConfigured(
-        f"The branding {BRANDING!r} is not supported, must be one of {AVAILABLE_BRANDINGS}."
+        f"The branding {BRANDING!r} is not supported, must be one of {list(AVAILABLE_BRANDINGS)}."
     )
+
+#: The readable title of the branding
+BRANDING_TITLE = AVAILABLE_BRANDINGS[BRANDING]
+
 
 #: The default bounding box for regions with indistinct borders
 DEFAULT_BOUNDING_BOX = BoundingBox(

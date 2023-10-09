@@ -33,6 +33,7 @@ def settings_processor(request):
     return {
         "FCM_ENABLED": settings.FCM_ENABLED,
         "BRANDING": settings.BRANDING,
+        "BRANDING_TITLE": settings.BRANDING_TITLE,
         "WEBAPP_URL": settings.WEBAPP_URL,
         "DEEPL_ENABLED": settings.DEEPL_ENABLED,
         "SUMM_AI_ENABLED": settings.SUMM_AI_ENABLED,

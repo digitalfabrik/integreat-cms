@@ -108,6 +108,7 @@ urlpatterns = [
                         extra_email_context={
                             "COMPANY": settings.COMPANY,
                             "BRANDING": settings.BRANDING,
+                            "BRANDING_TITLE": settings.BRANDING_TITLE,
                         },
                     ),
                     name="password_reset",
