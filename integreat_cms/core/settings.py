@@ -762,6 +762,12 @@ USE_L10N = True
 #: (see :setting:`django:USE_TZ` and :doc:`django:topics/i18n/index`)
 USE_TZ = True
 
+#: A full Python path to a Python package that contains custom format definitions for project locales.
+#: (see :setting:`django:FORMAT_MODULE_PATH`)
+FORMAT_MODULE_PATH = [
+    "integreat_cms.core.formats",
+]
+
 
 ##########################
 # AUTOMATIC TRANSLATIONS #
