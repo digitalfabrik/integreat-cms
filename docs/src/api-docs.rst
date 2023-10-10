@@ -429,6 +429,7 @@ RESPONSE
             "latitude": Number | null,      // The latitude of this location
             "longitude": Number | null,     // The longitude of this location
          },
+         "location_url": String | null,     // The url to the location for this event translation
          "event": {
             "id": Number | null,            // The id of this event. Null if this is a recurrence of an event
             "start": String,                // The start date&time of this event
