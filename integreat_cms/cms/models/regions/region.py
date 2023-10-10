@@ -827,23 +827,34 @@ class Region(AbstractBaseModel):
         :return: the last content update date
         :rtype: datetime.datetime
         """
-        latest_page_update = self.pages.aggregate(
-            latest_update=models.Max("translations__last_updated")
-        )["latest_update"]
-        latest_poi_update = self.pois.aggregate(
-            latest_update=models.Max("translations__last_updated")
-        )["latest_update"]
-        latest_event_update = self.events.aggregate(
-            latest_update=models.Max("translations__last_updated")
-        )["latest_update"]
+        min_date = django_timezone.make_aware(
+            django_timezone.datetime.min, django_timezone.get_default_timezone()
+        )
+
+        latest_page_update = (
+            self.pages.aggregate(
+                latest_update=models.Max("translations__last_updated")
+            )["latest_update"]
+            or min_date
+        )
+        latest_poi_update = (
+            self.pois.aggregate(latest_update=models.Max("translations__last_updated"))[
+                "latest_update"
+            ]
+            or min_date
+        )
+        latest_event_update = (
+            self.events.aggregate(
+                latest_update=models.Max("translations__last_updated")
+            )["latest_update"]
+            or min_date
+        )
         latest_imprint_update = (
             self.imprint.translations.aggregate(
                 latest_update=models.Max("last_updated")
             )["latest_update"]
             if self.imprint
-            else django_timezone.make_aware(
-                django_timezone.datetime.min, django_timezone.get_default_timezone()
-            )
+            else min_date
         )
 
         return max(
