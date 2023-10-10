@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-10-10T09:59:46+00:00" />
+    <meta property="article:modified_time" content="2023-10-10T14:45:40+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core &mdash; integreat-cms 2023.9.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -22,7 +22,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Management" href="integreat_cms.core.management.html" />
+    <link rel="next" title="Formats" href="integreat_cms.core.formats.html" />
     <link rel="prev" title="Utils" href="integreat_cms.cms.views.utils.html" /> 
 </head>
 
@@ -285,6 +285,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/integreat_cms.core.html">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.formats.html">Formats</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.formats.de.html">De</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.management.html">Management</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.management.commands.html">Commands</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.management.html#debug-command">Debug Command</a></li>
@@ -809,6 +813,10 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.formats.html">Formats</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.formats.de.html">De</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.management.html">Management</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.management.commands.html">Commands</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.management.html#module-integreat_cms.core.management.debug_command">Debug Command</a></li>
@@ -926,6 +934,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.core.settings.FCM_KEY"><code class="docutils literal notranslate"><span class="pre">FCM_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.core.settings.FCM_SCHEDULE_INTERVAL_MINUTES"><code class="docutils literal notranslate"><span class="pre">FCM_SCHEDULE_INTERVAL_MINUTES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.core.settings.FCM_URL"><code class="docutils literal notranslate"><span class="pre">FCM_URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#integreat_cms.core.settings.FORMAT_MODULE_PATH"><code class="docutils literal notranslate"><span class="pre">FORMAT_MODULE_PATH</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.core.settings.GVZ_API_ENABLED"><code class="docutils literal notranslate"><span class="pre">GVZ_API_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.core.settings.GVZ_API_URL"><code class="docutils literal notranslate"><span class="pre">GVZ_API_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.core.settings.HIX_REQUIRED_FOR_MT"><code class="docutils literal notranslate"><span class="pre">HIX_REQUIRED_FOR_MT</span></code></a></li>
@@ -1747,6 +1756,16 @@
 <p>This package is the main entry point for the application and contains all configuration for the other packages.</p>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="integreat_cms.core.formats.html">Formats</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.formats.de.html">De</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.formats.de.html#module-integreat_cms.core.formats.de.formats">Formats</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.formats.de.html#integreat_cms.core.formats.de.formats.DATETIME_FORMAT"><code class="docutils literal notranslate"><span class="pre">DATETIME_FORMAT</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="integreat_cms.core.management.html">Management</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.management.commands.html">Commands</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.duplicate_pages">Duplicate Pages</a><ul>
@@ -2976,6 +2995,16 @@ Must be &lt;= 60 and a divisor of 60</p>
 </dd></dl>
 
 <dl class="py data">
+<dt class="sig sig-object py" id="integreat_cms.core.settings.FORMAT_MODULE_PATH">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">FORMAT_MODULE_PATH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['integreat_cms.core.formats']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.FORMAT_MODULE_PATH" title="Link to this definition"></a></dt>
+<dd><p>A full Python path to a Python package that contains custom format definitions for project locales.
+(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/settings/#std-setting-FORMAT_MODULE_PATH" title="(in Django v3.2)"><code class="docutils literal notranslate"><span class="pre">FORMAT_MODULE_PATH</span></code></a>)</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;integreat_cms.core.formats&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
 <dt class="sig sig-object py" id="integreat_cms.core.settings.GVZ_API_ENABLED">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">GVZ_API_ENABLED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.core.settings.GVZ_API_ENABLED" title="Link to this definition"></a></dt>
 <dd><p>Whether or not the GVZ (Gemeindeverzeichnis) API is enabled. This is used to automatically import coordinates and
@@ -3908,7 +3937,7 @@ python frameworks (in our case Django).</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="integreat_cms.cms.views.utils.html" class="btn btn-neutral float-left" title="Utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="integreat_cms.core.management.html" class="btn btn-neutral float-right" title="Management" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="integreat_cms.core.formats.html" class="btn btn-neutral float-right" title="Formats" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
