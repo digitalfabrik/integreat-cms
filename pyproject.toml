@@ -42,7 +42,7 @@ dependencies = [
     "argon2-cffi",
     "bcrypt",
     "cffi",
-    "deepl==1.15.0",
+    "deepl",
     "Django>=3.2.20,<4.0",
     "django-cacheops",
     "django-cors-headers",
@@ -84,6 +84,7 @@ dev = [
     "djlint",
     "isort",
     "looseversion",
+    "mypy",
     "pre-commit",
     "pyjwt",
     "pylint",
@@ -93,16 +94,16 @@ dev = [
     "pytest-cov",
     "pytest-django",
     "pytest-httpserver",
+    "pytest-icdiff",
     "pytest-order",
     "pytest-testmon<=1.4.5",
     "pytest-xdist",
-    "pytest-icdiff",
     "requests-mock",
     "shellcheck-py",
     "sphinx",
-    "sphinxcontrib-django",
     "sphinx-last-updated-by-git",
     "sphinx-rtd-theme",
+    "sphinxcontrib-django",
     "twine",
     "types-python-dateutil",
     "types-pytz",
@@ -131,7 +132,7 @@ pinned = [
     "cryptography==41.0.5",
     "cssselect2==0.7.0",
     "decorator==5.1.1",
-    "deepl==1.15.0",
+    "deepl==1.16.1",
     "Django==3.2.23",
     "django-cacheops==7.0.2",
     "django-cors-headers==4.3.0",
@@ -164,7 +165,7 @@ pinned = [
     "parso==0.8.3",
     "pexpect==4.8.0",
     "Pillow==10.1.0",
-    "prompt-toolkit==3.0.39",
+    "prompt-toolkit==3.0.40",
     "psycopg2-binary==2.9.9",
     "ptyprocess==0.7.0",
     "pure-eval==0.2.2",
@@ -212,7 +213,7 @@ dev-pinned = [
     "alabaster==0.7.13",
     "astroid==3.0.1",
     "Babel==2.13.1",
-    "black==23.10.1",
+    "black==23.11.0",
     "build==1.0.3",
     "bumpver==2023.1129",
     "cfgv==3.4.0",
@@ -247,6 +248,7 @@ dev-pinned = [
     "mccabe==0.7.0",
     "mdurl==0.1.2",
     "more-itertools==10.1.0",
+    "mypy==1.7.0",
     "mypy-extensions==1.0.0",
     "nh3==0.2.14",
     "nodeenv==1.8.0",
@@ -266,7 +268,7 @@ dev-pinned = [
     "pytest==7.4.3",
     "pytest-circleci-parallelized==0.1.0",
     "pytest-cov==4.1.0",
-    "pytest-django==4.6.0",
+    "pytest-django==4.7.0",
     "pytest-httpserver==1.0.8",
     "pytest-icdiff==0.8",
     "pytest-order==1.1.0",
@@ -406,3 +408,9 @@ output-format = "colorized"
 
 [tool.pylint-per-file-ignores]
 "/tests/"="unused-argument,missing-function-docstring"
+
+[tool.mypy]
+disallow_untyped_defs = true
+ignore_missing_imports = true
+warn_redundant_casts = true
+strict_equality = true
