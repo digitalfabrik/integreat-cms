@@ -3,7 +3,7 @@ This module contains mixins for our views
 """
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
 
 from ...core.utils.machine_translation_provider import MachineTranslationProvider

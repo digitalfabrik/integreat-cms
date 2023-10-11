@@ -10,23 +10,16 @@ Hardcoded Strings
 
 Whenever you use hardcoded strings, use english text and encapsulate it with a translation function.
 
-Models
-------
-
 ::
 
     from django.utils.translation import gettext_lazy as _
 
     string = _('Your string')
 
-Views
------
+.. Note::
 
-::
+    We prefer ``gettext_lazy()`` over ``gettext`` to enable logging the messages in English independent from the user language.
 
-    from django.utils.translation import gettext as _
-
-    string = _('Your string')
 
 Templates
 ---------

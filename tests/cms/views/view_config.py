@@ -929,7 +929,6 @@ VIEWS = [
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
                 {"post_data": True},
             ),
-            ("delete_page", HIGH_PRIV_STAFF_ROLES, {"post_data": True}),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "en", "page_id": 1},
@@ -972,6 +971,7 @@ VIEWS = [
                 },
             ),
             ("sbs_edit_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
+            ("delete_page", HIGH_PRIV_STAFF_ROLES, {"post_data": True}),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "en", "page_id": 2},
@@ -983,10 +983,16 @@ VIEWS = [
             ("page_versions", STAFF_ROLES),
             ("archive_page", PRIV_STAFF_ROLES, {"post_data": True}),
             ("restore_page", PRIV_STAFF_ROLES, {"post_data": True}),
-            ("delete_page", HIGH_PRIV_STAFF_ROLES, {"post_data": True}),
         ],
         # The kwargs for these views
         {"region_slug": "nurnberg", "language_slug": "en", "page_id": 7},
+    ),
+    (
+        [
+            ("delete_page", HIGH_PRIV_STAFF_ROLES, {"post_data": True}),
+        ],
+        # The kwargs for these views
+        {"region_slug": "nurnberg", "language_slug": "en", "page_id": 8},
     ),
     (
         [

@@ -6,7 +6,7 @@ import logging
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404, redirect
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
 
 from ...decorators import permission_required

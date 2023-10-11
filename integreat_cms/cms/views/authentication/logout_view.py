@@ -2,7 +2,7 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth import views as auth_views
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger(__name__)
 

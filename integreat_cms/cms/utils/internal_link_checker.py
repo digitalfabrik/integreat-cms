@@ -5,7 +5,7 @@ from django.conf import settings
 from django.http import Http404
 from django.utils import timezone
 from django.utils.text import slugify
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 from ..constants import region_status
 from ..models import Region

@@ -6,7 +6,7 @@ from django.urls import reverse
 from integreat_cms.cms.constants import translation_status
 from integreat_cms.cms.models import Page
 
-from ..utils import assert_message_in_response
+from ..utils import assert_message_in_log
 
 
 def get_open_kwargs(file_name):
@@ -71,12 +71,15 @@ def get_and_assert_200(client, url):
     return result
 
 
-def validate_xliff_import_response(client, response, import_1, import_2):
+def validate_xliff_import_response(client, caplog, response, import_1, import_2):
     """
     Helper function to validate an XLIFF import response
 
     :param client: The authenticated client
     :type client: django.test.client.Client
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog: pytest.LogCaptureFixture
 
     :param response: The response of the confirm view to be validated
     :type response: django.http.HttpResponse
@@ -100,8 +103,9 @@ def validate_xliff_import_response(client, response, import_1, import_2):
         expected_file = import_n.get("expected_file") or import_n["file"]
         assert expected_file in response.content.decode("utf-8")
         if "confirmation_message" in import_n:
-            assert_message_in_response(import_n["confirmation_message"], response)
+            assert_message_in_log(import_n["confirmation_message"], caplog)
     # Check if XLIFF import is correctly confirmed
+    caplog.clear()
     response = client.post(redirect_location)
     print(response.headers)
     assert response.status_code == 302
@@ -116,7 +120,7 @@ def validate_xliff_import_response(client, response, import_1, import_2):
         assert translation.content == import_n["content"]
         assert not translation.currently_in_translation
         assert translation.translation_state == translation_status.UP_TO_DATE
-        assert_message_in_response(import_n["message"], response)
+        assert_message_in_log(import_n["message"], caplog)
         if translation.version > 1:
             # If a translation already exists for this version, assert that the status is inherited
             previous_translation = page.translations.get(

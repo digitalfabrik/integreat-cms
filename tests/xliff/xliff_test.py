@@ -128,7 +128,7 @@ def test_xliff_export(
     "import_1,import_2",
     XLIFF_IMPORTS,
 )
-def test_xliff_import(login_role_user, settings, import_1, import_2):
+def test_xliff_import(login_role_user, settings, caplog, import_1, import_2):
     """
     This test checks whether the xliff import works as expected
 
@@ -143,6 +143,9 @@ def test_xliff_import(login_role_user, settings, import_1, import_2):
 
     :param import_2: A list of import information
     :type import_2: dict
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog: pytest.LogCaptureFixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
@@ -155,6 +158,7 @@ def test_xliff_import(login_role_user, settings, import_1, import_2):
     if role in PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]:
         validate_xliff_import_response(
             client,
+            caplog,
             response,
             import_1,
             import_2,

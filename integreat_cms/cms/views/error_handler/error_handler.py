@@ -8,7 +8,7 @@ from django.http import (
     HttpResponseServerError,
 )
 from django.template.loader import render_to_string
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger(__name__)
 

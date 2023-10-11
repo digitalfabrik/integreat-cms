@@ -3,7 +3,7 @@ import logging
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import reverse
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, UpdateView
 from django.views.generic.base import ContextMixin
 from django.views.generic.detail import SingleObjectMixin

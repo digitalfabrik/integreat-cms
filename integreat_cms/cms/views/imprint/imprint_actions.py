@@ -7,7 +7,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.http import Http404, HttpResponseNotFound
 from django.shortcuts import redirect
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
 
 from ...decorators import permission_required

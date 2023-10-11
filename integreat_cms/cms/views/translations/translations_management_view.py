@@ -5,7 +5,7 @@ from django.contrib import messages
 from django.db import transaction
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
 from ...constants.status import CHOICES

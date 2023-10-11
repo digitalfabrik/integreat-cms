@@ -1,5 +1,7 @@
 import logging
 
+from django.contrib.messages import constants
+
 
 class ColorFormatter(logging.Formatter):
     """
@@ -10,6 +12,7 @@ class ColorFormatter(logging.Formatter):
     COLORS = {
         logging.DEBUG: 36,  # cyan
         logging.INFO: 34,  # blue
+        constants.SUCCESS: 32,  # green
         logging.WARNING: 33,  # yellow
         logging.ERROR: 31,  # red
         logging.CRITICAL: 31,  # red
