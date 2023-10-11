@@ -1,8 +1,11 @@
+from __future__ import annotations
+
 import io
 from urllib.parse import quote, urlencode
 
 import PyPDF3
 import pytest
+from django.test.client import Client
 from django.urls import reverse
 
 
@@ -58,37 +61,24 @@ from django.urls import reverse
     ],
 )
 def test_pdf_export(
-    load_test_data,
-    client,
-    admin_client,
-    language_slug,
-    page_ids,
-    url,
-    expected_filename,
-):
+    load_test_data: None,
+    client: Client,
+    admin_client: Client,
+    language_slug: str,
+    page_ids: list[int],
+    url: str,
+    expected_filename: str,
+) -> None:
     """
     Test whether the PDF export works as expected
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: tuple
-
     :param client: The fixture providing the anonymous user
-    :type client: :fixture:`client`
-
     :param admin_client: The fixture providing the logged in admin
-    :type admin_client: :fixture:`admin_client`
-
     :param language_slug: The language slug of this export
-    :type language_slug: str
-
     :param page_ids: The pages that should be exported
-    :type page_ids: list
-
     :param url: The url query param for the API request
-    :type url: str
-
     :param expected_filename: What filename to expect
-    :type expected_filename: str
     """
     kwargs = {"region_slug": "augsburg", "language_slug": language_slug}
     export_pdf = reverse("export_pdf", kwargs=kwargs)
@@ -129,18 +119,15 @@ def test_pdf_export(
 @pytest.mark.django_db
 # Override urls to serve PDF files
 @pytest.mark.urls("tests.pdf.dummy_django_app.static_urls")
-def test_pdf_export_invalid(load_test_data, client, admin_client):
+def test_pdf_export_invalid(
+    load_test_data: None, client: Client, admin_client: Client
+) -> None:
     """
     Test whether the PDF export throws the correct errors
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: tuple
-
     :param client: The fixture providing the anonymous user
-    :type client: :fixture:`client`
-
     :param admin_client: The fixture providing the logged in admin
-    :type admin_client: :fixture:`admin_client`
     """
     kwargs = {"region_slug": "augsburg", "language_slug": "de"}
     # Test error when PDF is exported via page tree

@@ -1,7 +1,13 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin
+
+if TYPE_CHECKING:
+    from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -12,16 +18,13 @@ class LanguageTreeContextMixin(ContextMixin):
     This mixin provides extra context for language tree views
     """
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Returns a dictionary representing the template context
         (see :meth:`~django.views.generic.base.ContextMixin.get_context_data`).
 
         :param \**kwargs: The given keyword arguments
-        :type \**kwargs: dict
-
         :return: The template context
-        :rtype: dict
         """
         context = super().get_context_data(**kwargs)
         context.update(

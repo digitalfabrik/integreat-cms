@@ -1,6 +1,8 @@
 """
 This is a collection of tags and filters for page content used in PDFs (:class:`~integreat_cms.cms.models.pages.page.Page`).
 """
+from __future__ import annotations
+
 import re
 from html import unescape
 
@@ -13,15 +15,12 @@ register = template.Library()
 
 
 @register.filter
-def pdf_strip_fontstyles(instance):
+def pdf_strip_fontstyles(instance: str) -> str:
     """
     This tag returns the instance, stripped of inline styling affecting fonts.
 
     :param instance: The content object instance
-    :type instance: ~integreat_cms.cms.models.pages.page.Page
-
     :return: The instance without inline font styling
-    :rtype: ~integreat_cms.cms.models.pages.page.Page
     """
     try:
         content = fromstring(instance)
@@ -35,18 +34,13 @@ def pdf_strip_fontstyles(instance):
 
 @register.filter
 # pylint: disable=unused-variable
-def pdf_truncate_links(page_content, max_chars):
+def pdf_truncate_links(page_content: str, max_chars: int) -> str:
     """
     This tag returns the page content with truncated link texts.
 
     :param page_content: The content of the page
-    :type page_content: str
-
     :param max_chars: The maximal length of a link before it will be truncated
-    :type max_chars: int
-
     :return: The content with truncated links
-    :rtype: str
     """
     try:
         content = fromstring(page_content)

@@ -1,7 +1,14 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.utils.translation import gettext_lazy as _
+
+if TYPE_CHECKING:
+    from typing import Any
+    from ...models import Page
 
 from ...constants import status, translation_status
 from ..custom_filter_form import CustomFilterForm
@@ -16,7 +23,7 @@ class PageFilterForm(CustomFilterForm):
 
     status = forms.ChoiceField(
         label=_("Publication status"),
-        choices=(("", _("All")),) + status.CHOICES,
+        choices=[("", _("All"))] + status.CHOICES,
         required=False,
     )
 
@@ -47,29 +54,23 @@ class PageFilterForm(CustomFilterForm):
     )
     query = forms.CharField(required=False)
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         r"""
         Initialize page filter form
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
         # Instantiate Form
         super().__init__(**kwargs)
         logger.debug("PageFilterForm initialized with data %r", self.data)
 
-    def apply(self, pages, language_slug):
+    def apply(self, pages: list[Page], language_slug: str) -> list[Page]:
         """
         Filter the pages list according to the given filter data
 
         :param pages: The list of pages
-        :type pages: list
-
         :param language_slug: The slug of the current language
-        :type language_slug: str
-
         :return: The filtered page list
-        :rtype: list
         """
         if self.is_enabled:
             logger.debug("Page tree filtered with changed data %r", self.changed_data)
@@ -85,18 +86,13 @@ class PageFilterForm(CustomFilterForm):
                 pages = self.filter_by_end_date(pages, language_slug)
         return pages
 
-    def filter_by_query(self, pages, language_slug):
+    def filter_by_query(self, pages: list[Page], language_slug: str) -> list[Page]:
         """
         Filter the pages list by a given search query
 
         :param pages: The list of pages
-        :type pages: list
-
         :param language_slug: The slug of the current language
-        :type language_slug: str
-
         :return: The filtered page list
-        :rtype: list
         """
         query = self.cleaned_data["query"].lower()
         # Buffer variable because the pages list should not be modified during iteration
@@ -109,18 +105,15 @@ class PageFilterForm(CustomFilterForm):
                 filtered_pages.append(page)
         return filtered_pages
 
-    def filter_by_translation_status(self, pages, language_slug):
+    def filter_by_translation_status(
+        self, pages: list[Page], language_slug: str
+    ) -> list[Page]:
         """
         Filter the pages list by a given translation status
 
         :param pages: The list of pages
-        :type pages: list
-
         :param language_slug: The slug of the current language
-        :type language_slug: str
-
         :return: The filtered page list
-        :rtype: list
         """
         selected_status = self.cleaned_data["translation_status"]
         # Buffer variable because the pages list should not be modified during iteration
@@ -131,18 +124,15 @@ class PageFilterForm(CustomFilterForm):
                 filtered_pages.append(page)
         return filtered_pages
 
-    def filter_by_publication_status(self, pages, language_slug):
+    def filter_by_publication_status(
+        self, pages: list[Page], language_slug: str
+    ) -> list[Page]:
         """
         Filter the pages list by publication status
 
         :param pages: The list of pages
-        :type pages: list
-
         :param language_slug: The slug of the current language
-        :type language_slug: str
-
         :return: The filtered page list
-        :rtype: list
         """
         selected_status = self.cleaned_data["status"]
         # Buffer variable because the pages list should not be modified during iteration
@@ -153,18 +143,13 @@ class PageFilterForm(CustomFilterForm):
                 filtered_pages.append(page)
         return filtered_pages
 
-    def filter_by_start_date(self, pages, language_slug):
+    def filter_by_start_date(self, pages: list[Page], language_slug: str) -> list[Page]:
         """
         Filter the pages list by start date
 
         :param pages: The list of pages
-        :type pages: list
-
         :param language_slug: The slug of the current language
-        :type language_slug: str
-
         :return: The filtered page list
-        :rtype: list
         """
         selected_start_date = self.cleaned_data["date_from"]
         filtered_pages = []
@@ -174,18 +159,13 @@ class PageFilterForm(CustomFilterForm):
                 filtered_pages.append(page)
         return filtered_pages
 
-    def filter_by_end_date(self, pages, language_slug):
+    def filter_by_end_date(self, pages: list[Page], language_slug: str) -> list[Page]:
         """
         Filter the pages list by end date
 
         :param pages: The list of pages
-        :type pages: list
-
         :param language_slug: The slug of the current language
-        :type language_slug: str
-
         :return: The filtered page list
-        :rtype: list
         """
         selected_end_date = self.cleaned_data["date_to"]
         filtered_pages = []

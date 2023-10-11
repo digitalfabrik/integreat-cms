@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.contrib.auth import views as auth_views
@@ -8,6 +11,13 @@ from django.utils.translation import gettext_lazy as _
 
 from ...forms import CustomPasswordResetForm
 from ...utils.translation_utils import gettext_many_lazy as __
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponseRedirect
+    from django.template.response import TemplateResponse
+
 
 logger = logging.getLogger(__name__)
 
@@ -29,18 +39,15 @@ class PasswordResetView(auth_views.PasswordResetView):
     #: The form for the password reset
     form_class = CustomPasswordResetForm
 
-    def dispatch(self, *args, **kwargs):
+    def dispatch(
+        self, *args: HttpRequest, **kwargs: Any
+    ) -> HttpResponseRedirect | TemplateResponse:
         r"""
         The view part of the view. Handles all HTTP methods equally.
 
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response or a redirection
-        :rtype: ~django.template.response.TemplateResponse or ~django.http.HttpResponseRedirect
         """
         if self.request.user.is_authenticated:
             messages.success(
@@ -50,17 +57,12 @@ class PasswordResetView(auth_views.PasswordResetView):
             return redirect("public:region_selection")
         return super().dispatch(*args, **kwargs)
 
-    def form_valid(self, form):
+    def form_valid(self, form: CustomPasswordResetForm) -> HttpResponseRedirect:
         """
         This function validates the form and sends a message depending if the function was executed successfully
 
         :param form: The supplied form
-        :type form: ~django.contrib.auth.forms.SetPasswordForm
-
         :return: passes form to form validation
-        :rtype: ~django.http.HttpResponse
-
-        If the form is valid, show a success message.
         """
         logger.debug(
             "A password reset link for email %r was requested.",

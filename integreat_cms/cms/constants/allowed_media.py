@@ -1,45 +1,57 @@
 """
 This module contains a list of Mime-Types that are allowed to be uploaded.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
+if TYPE_CHECKING:
+    from typing import Final
+
+    from django.utils.functional import Promise
+
+
 #: MIME type of PNG files
-PNG = "image/png"
+PNG: Final = "image/png"
 #: MIME type of JPEG files
-JPEG = "image/jpeg"
+JPEG: Final = "image/jpeg"
 #: MIME type of GIF files
-GIF = "image/gif"
+GIF: Final = "image/gif"
 #: MIME type of SVG files
-SVG = "image/svg+xml"
+SVG: Final = "image/svg+xml"
 #: MIME type of PDF files
-PDF = "application/pdf"
+PDF: Final = "application/pdf"
 #: MIME type of legacy 97-2007 Word files
-DOC = "application/msword"
+DOC: Final = "application/msword"
 #: MIME type of default Word files
-DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+DOCX: Final = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 #: MIME type of legacy 97-2007 Excel files
-XLS = "application/vnd.ms-excel"
+XLS: Final = "application/vnd.ms-excel"
 #: MIME type of default Excel files
-XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+XLSX: Final = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 #: MIME type of legacy 97-2007 PowerPoint files
-PPT = "application/vnd.ms-powerpoint"
+PPT: Final = "application/vnd.ms-powerpoint"
 #: MIME type of default PowerPoint files
-PPTX = "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+PPTX: Final = (
+    "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+)
 
 
 #: MIME type of image files. Expand this list to add further data types.
-IMAGES = [
+IMAGES: Final[list[tuple[str, Promise]]] = [
     (PNG, _("PNG image")),
     (JPEG, _("JPEG image")),
 ]
 
 #: MIME types of document files. Expand this list to add further data types.
-DOCUMENTS = [
+DOCUMENTS: Final[list[tuple[str, Promise]]] = [
     (PDF, _("PDF document")),
 ]
 #: Legacy MIME types that existed in the former Wordpress system.
-LEGACY_TYPES = [
+LEGACY_TYPES: Final[list[tuple[str, Promise]]] = [
     (SVG, _("SVG image")),
     (GIF, _("GIF image")),
     (DOC, _("DOC document")),
@@ -51,9 +63,9 @@ LEGACY_TYPES = [
 ]
 
 #: Allowed MIME types that can be uploaded.
-UPLOAD_CHOICES = IMAGES + DOCUMENTS
+UPLOAD_CHOICES: list[tuple[str, Promise]] = IMAGES + DOCUMENTS
 #: Allowed MIME types that are allowed in the database.
-CHOICES = UPLOAD_CHOICES + LEGACY_TYPES
+CHOICES: Final[list[tuple[str, Promise]]] = UPLOAD_CHOICES + LEGACY_TYPES
 
 if settings.LEGACY_FILE_UPLOAD:
     UPLOAD_CHOICES += LEGACY_TYPES

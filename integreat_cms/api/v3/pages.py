@@ -1,8 +1,11 @@
 """
 This module includes functions related to the pages API endpoint.
 """
+from __future__ import annotations
+
 import json
 import logging
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.core.exceptions import MultipleObjectsReturned
@@ -19,20 +22,24 @@ from ...cms.models import Page
 from ..decorators import json_response, matomo_tracking
 from .offers import transform_offer
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest
+
+    from ...cms.models import PageTranslation
+
 logger = logging.getLogger(__name__)
 
 
-def transform_page(page_translation):
+def transform_page(page_translation: PageTranslation) -> dict[str, Any]:
     """
     Function to create a dict from a single page_translation Object.
 
     :param page_translation: single page translation object
-    :type page_translation: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
-
     :raises ~django.http.Http404: HTTP status 404 if a parent is archived
 
     :return: data necessary for API
-    :rtype: dict
     """
     fallback_parent = {
         "id": 0,
@@ -103,19 +110,14 @@ def transform_page(page_translation):
 @matomo_tracking
 @json_response
 # pylint: disable=unused-argument
-def pages(request, region_slug, language_slug):
+def pages(request: HttpRequest, region_slug: str, language_slug: str) -> JsonResponse:
     """
     Function to iterate through all non-archived pages of a region and return them as JSON.
 
     :param request: Django request
-    :type request: ~django.http.HttpRequest
     :param region_slug: slug of a region
-    :type region_slug: str
     :param language_slug: language slug
-    :type language_slug: str
-
     :return: JSON object according to APIv3 pages endpoint definition
-    :rtype: ~django.http.JsonResponse
     """
     region = request.region
     # Throw a 404 error when the language does not exist or is disabled
@@ -138,17 +140,13 @@ def pages(request, region_slug, language_slug):
     )  # Turn off Safe-Mode to allow serializing arrays
 
 
-def get_single_page(request, language_slug):
+def get_single_page(request: HttpRequest, language_slug: str) -> Page:
     """
     Helper function returning the desired page or a 404 if the
     requested page does not exist or is archived.
 
     :param request: The request that has been sent to the Django server
-    :type request: ~django.http.HttpRequest
-
     :param language_slug: Code to identify the desired language
-    :type language_slug: str
-
     :raises ~django.core.exceptions.MultipleObjectsReturned: If the given url cannot be resolved unambiguously
 
     :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
@@ -156,7 +154,6 @@ def get_single_page(request, language_slug):
     :raises RuntimeError: If neither the id nor the url parameter is given
 
     :return: the requested page
-    :rtype: ~integreat_cms.cms.models.pages.page.Page
     """
     region = request.region
 
@@ -206,24 +203,19 @@ def get_single_page(request, language_slug):
 
 @json_response
 # pylint: disable=unused-argument
-def single_page(request, region_slug, language_slug):
+def single_page(
+    request: HttpRequest, region_slug: str, language_slug: str
+) -> JsonResponse:
     """
     View function returning the desired page as a JSON or a 404 if the
     requested page does not exist.
 
     :param request: The request that has been sent to the Django server
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: Slug defining the region
-    :type region_slug: str
-
     :param language_slug: Code to identify the desired language
-    :type language_slug: str
-
     :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
 
     :return: JSON with the requested page and a HTTP status 200.
-    :rtype: ~django.http.JsonResponse
     """
     try:
         page = get_single_page(request, language_slug)
@@ -237,23 +229,18 @@ def single_page(request, region_slug, language_slug):
 
 @matomo_tracking
 @json_response
-def children(request, region_slug, language_slug):
+def children(
+    request: HttpRequest, region_slug: str, language_slug: str
+) -> JsonResponse:
     """
     Retrieves all children for a single page
 
     :param request: The request that has been sent to the Django server
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: Slug defining the region
-    :type region_slug: str
-
     :param language_slug: Code to identify the desired language
-    :type language_slug: str
-
     :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
 
     :return: JSON with the requested page descendants
-    :rtype: ~django.http.JsonResponse
     """
 
     depth = int(request.GET.get("depth", 1))
@@ -288,24 +275,17 @@ def children(request, region_slug, language_slug):
 
 @json_response
 # pylint: disable=unused-argument
-def parents(request, region_slug, language_slug):
+def parents(request: HttpRequest, region_slug: str, language_slug: str) -> JsonResponse:
     """
     Retrieves all ancestors (parent and all nodes up to the root node) of a page.
     If any ancestor is archived, an 404 is raised.
 
     :param request: The request that has been sent to the Django server
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: Slug defining the region
-    :type region_slug: str
-
     :param language_slug: Code to identify the desired language
-    :type language_slug: str
-
     :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
 
     :return: JSON with the requested page ancestors
-    :rtype: ~django.http.JsonResponse
     """
     try:
         current_page = get_single_page(request, language_slug)
@@ -317,21 +297,18 @@ def parents(request, region_slug, language_slug):
     return JsonResponse(result, safe=False)
 
 
-def get_public_ancestor_translations(current_page, language_slug):
+def get_public_ancestor_translations(
+    current_page: Page, language_slug: str
+) -> list[dict[str, Any]]:
     """
     Retrieves all ancestors (parent and all nodes up to the root node) of a page.
     If any ancestor is archived or has a missing translation, a 404 is raised.
 
     :param current_page: the page that needs a list of its ancestor translations
-    :type current_page: ~integreat_cms.cms.models.pages.page.Page
-
     :param language_slug: Code to identify the desired language
-    :type language_slug: str
-
     :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
 
     :return: JSON with the requested page ancestors
-    :rtype: ~django.http.JsonResponse
     """
     result = []
     cached_ancestors = current_page.get_cached_ancestors()
@@ -347,23 +324,20 @@ def get_public_ancestor_translations(current_page, language_slug):
 @csrf_exempt
 @json_response
 # pylint: disable=unused-argument
-def push_page_translation_content(request, region_slug, language_slug):
+def push_page_translation_content(
+    request: HttpRequest,
+    region_slug: str,
+    language_slug: str,
+) -> JsonResponse:
     """
     Retrieves all ancestors (parent and all nodes up to the root node) of a page
 
     :param request: The request that has been sent to the Django server
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: Slug defining the region
-    :type region_slug: str
-
     :param language_slug: Code to identify the desired language
-    :type language_slug: str
-
     :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
 
     :return: JSON with the requested page ancestors
-    :rtype: ~django.http.JsonResponse
     """
     try:
         data = json.loads(request.body)

@@ -1,15 +1,31 @@
 """
 This module contains helpers for the SUMM.AI API client
 """
+from __future__ import annotations
+
 import itertools
 import logging
 from html import unescape
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 from lxml.etree import strip_tags, SubElement
-from lxml.html import fromstring, tostring
+from lxml.html import fromstring, HtmlElement, tostring
+
+if TYPE_CHECKING:
+    from django.forms.models import ModelFormMetaclass
+
+    from ..cms.models import (
+        Language,
+        Page,
+        PageTranslation,
+    )
+    from django.http import HttpRequest
+    from ..cms.models.abstract_content_model import AbstractContentModel
+    from ..cms.models.abstract_content_translation import AbstractContentTranslation
+    from .summ_ai_api_client import SummAiException
 
 from ..cms.constants import status
 from ..cms.utils.translation_utils import gettext_many_lazy as __
@@ -23,47 +39,36 @@ class TextField:
     """
 
     #: The name of the corresponding model field
-    #:
-    #: :type: str
-    name = ""
+    name: str
     #: The source text
-    #:
-    #: :type: str
-    text = ""
+    text: str
     #: The translated text
-    #:
-    #: :type: str
-    translated_text = ""
+    translated_text: str = ""
     #: The exception which occurred during translation, if any
-    #:
-    #: :type: Exception
-    exception = None
+    exception: Exception | None = None
 
-    def __init__(self, name, translation):
+    def __init__(self, name: str, translation: PageTranslation) -> None:
         """
         Constructor initializes the class variables
 
         :param text: The text to be translated
-        :type text: str
         """
         self.name = name
         self.text = getattr(translation, name, "").strip()
 
-    def translate(self, translated_text):
+    def translate(self, translated_text: str) -> None:
         """
         Translate the text of the current text field
 
         :param translated_text: The translated text
-        :type translated_text: str
         """
         self.translated_text = translated_text
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         The representation used for logging
 
         :return: The canonical string representation of the text field
-        :rtype: str
         """
         return f"<{type(self).__name__} (text: {self.text})>"
 
@@ -75,12 +80,10 @@ class HTMLSegment(TextField):
     """
 
     #: The current HTML segment
-    #:
-    #: :type: lxml.html.HtmlElement
-    segment = None
+    segment: HtmlElement
 
     # pylint: disable=super-init-not-called
-    def __init__(self, segment):
+    def __init__(self, segment: HtmlElement) -> None:
         """
         Convert the lxml tree element to a flat text string.
         Preserve <br> tags as new lines characters.
@@ -88,7 +91,6 @@ class HTMLSegment(TextField):
         Unescape all special HTML entities into unicode characters.
 
         :param segment: The current HTML segment
-        :type segment: ~integreat_cms.cms.models.regions.region.Region
         """
         self.segment = segment
         # Preserve new line tags
@@ -99,12 +101,11 @@ class HTMLSegment(TextField):
         # Unescape to convert umlauts etc. to unicode
         self.text = unescape(self.segment.text_content()).strip()
 
-    def translate(self, translated_text):
+    def translate(self, translated_text: str) -> None:
         """
         Translate the current HTML segment and create new sub elements for line breaks
 
         :param translated_text: The translated text
-        :type translated_text: str
         """
         # Only do something if response was not empty (otherwise keep original text)
         if translated_text:
@@ -123,24 +124,17 @@ class HTMLField:
     """
 
     #: The name of the corresponding model field
-    #:
-    #: :type: str
-    name = ""
+    name: str
     #: The list of HTML segments
-    #:
-    #: :type: list [ lxml.html.HtmlElement ]
-    segments = []
+    segments: list[HtmlElement] = []
     #: The current HTML stream
-    #:
-    #: :type: lxml.html.HtmlElement
-    html = None
+    html: HtmlElement = None
 
-    def __init__(self, name, translation):
+    def __init__(self, name: str, translation: PageTranslation) -> None:
         """
         Parse the HTML string into an lxml tree object and split into segments
 
         :param html: The HTML string content of this field
-        :type html: str
         """
         self.name = name
         if html_str := getattr(translation, name, ""):
@@ -151,22 +145,20 @@ class HTMLField:
                 for segment in self.html.iter(*settings.SUMM_AI_HTML_TAGS)
             ]
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         The representation used for logging
 
         :return: The canonical string representation of the HTML field
-        :rtype: str
         """
         return f"<HTMLField (segments: {self.segments})>"
 
     @property
-    def translated_text(self):
+    def translated_text(self) -> str | None:
         """
         Assemble the content of the HTML segments into a HTML string again
 
         :returns: The translated HTML
-        :rtype: str
         """
         if self.html is not None:
             return tostring(
@@ -175,12 +167,11 @@ class HTMLField:
         return None
 
     @property
-    def exception(self):
+    def exception(self) -> SummAiException | None:
         """
         Check if any of the segments experienced an error
 
         :returns: The first exception of this HTML field
-        :rtype: Exception
         """
         return next(
             (segment.exception for segment in self.segments if segment.exception), None
@@ -190,57 +181,38 @@ class HTMLField:
 class TranslationHelper:
     """
     Custom helper class for interaction with SUMM.AI
+
+    :param request: The current request
+    :param form_class: The subclass of the current content type
+    :param object_instance: The current object instance to be translated
+    :param german_translation: The German source translation of the object instance
+    :param valid: Wether or not the translation was successful
+    :param text_fields: The text fields of this helper
+    :param html_fields: The HTML fields of this helper
     """
 
-    #: The current request
-    #:
-    #: :type: ~django.http.HttpRequest
-    request = None
-    #: The :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
-    #: subclass of the current content type
-    #:
-    #: :type: ~django.forms.models.ModelFormMetaclass
-    form_class = None
-    #: The current object instance to be translated
-    #:
-    #: :type: ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel
-    object_instance = None
-    #: The German source translation of the object instance
-    #:
-    #: :type: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
-    german_translation = None
     #: Wether or not the translation was successful
-    #:
-    #: :type: bool
-    valid = True
-    #: list: The text fields of this helper
-    #:
-    #: :type: list
-    text_fields = []
-    #: The HTML fields of this helper
-    #:
-    #: :type: list
-    html_fields = []
+    valid: bool = True
 
-    def __init__(self, request, form_class, object_instance):
+    def __init__(
+        self,
+        request: HttpRequest,
+        form_class: ModelFormMetaclass,
+        object_instance: Page,
+    ) -> None:
         """
         Constructor initializes the class variables
 
         :param request: current request
-        :type request: ~django.http.HttpRequest
-
         :param form_class: The :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
                            subclass of the current content type
-        :type form_class: :type: ~django.forms.models.ModelFormMetaclass
-
         :param object_instance: The current object instance
-        :type object_instance: ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel
         """
-        self.request = request
-        self.form_class = form_class
-        self.object_instance = object_instance
-        self.german_translation = object_instance.get_translation(
-            settings.SUMM_AI_GERMAN_LANGUAGE_SLUG
+        self.request: HttpRequest = request
+        self.form_class: ModelFormMetaclass = form_class
+        self.object_instance: AbstractContentModel = object_instance
+        self.german_translation: AbstractContentTranslation | None = (
+            object_instance.get_translation(settings.SUMM_AI_GERMAN_LANGUAGE_SLUG)
         )
         if not self.german_translation:
             messages.error(
@@ -252,26 +224,25 @@ class TranslationHelper:
             )
             self.valid = False
             return
-        self.text_fields = [
+        self.text_fields: list[TextField] = [
             TextField(name=text_field, translation=self.german_translation)
             for text_field in settings.SUMM_AI_TEXT_FIELDS
         ]
-        self.html_fields = [
+        self.html_fields: list[HTMLField] = [
             HTMLField(name=html_field, translation=self.german_translation)
             for html_field in settings.SUMM_AI_HTML_FIELDS
         ]
 
     @property
-    def fields(self):
+    def fields(self) -> list[HTMLField | TextField]:
         """
         Get all fields of this helper instance
 
         :returns: All fields which need to be translated
-        :rtype: list [ ~integreat_cms.summ_ai_api.utils.TextField or ~integreat_cms.summ_ai_api.utils.HTMLField ]
         """
         return self.text_fields + self.html_fields
 
-    def get_text_fields(self):
+    def get_text_fields(self) -> list[HTMLSegment]:
         """
         Get all text fields of this helper instance
         (all native :attr:`~integreat_cms.summ_ai_api.utils.TranslationHelper.text_fields`
@@ -279,7 +250,6 @@ class TranslationHelper:
         :attr:`~integreat_cms.summ_ai_api.utils.TranslationHelper.html_fields`)
 
         :returns: All text fields and segments which need to be translated
-        :rtype: list [ ~integreat_cms.summ_ai_api.utils.TextField ]
         """
         if not self.valid:
             return []
@@ -302,15 +272,16 @@ class TranslationHelper:
         )
         return text_fields
 
-    def commit(self, easy_german):
+    def commit(self, easy_german: Language) -> None:
         """
         Save the translated changes to the database
 
         :param easy_german: The language object of Easy German
-        :type easy_german: ~integreat_cms.cms.models.languages.language.Language
         """
         if not self.valid:
             return
+        if TYPE_CHECKING:
+            assert self.german_translation
         # Check whether any of the fields returned an error
         if any(field.exception for field in self.fields):
             messages.error(
@@ -393,11 +364,10 @@ class TranslationHelper:
             ),
         )
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         The representation used for logging
 
         :return: The canonical string representation of the translation helper
-        :rtype: str
         """
         return f"<TranslationHelper (translation: {self.german_translation!r})>"

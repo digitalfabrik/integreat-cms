@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.conf import settings
 from django.db.models import Exists, OuterRef
 from linkcheck import Linklist
@@ -11,24 +15,25 @@ from .models import (
     POITranslation,
 )
 
+if TYPE_CHECKING:
+    from django.db.models.base import ModelBase
+    from django.db.models.query import QuerySet
+
 
 class ActiveLanguageLinklist(Linklist):
     """
     Base class for content translation link lists
     """
 
-    html_fields = ["content"]
+    html_fields: list[str] = ["content"]
 
     @classmethod
-    def filter_callable(cls, objects):
+    def filter_callable(cls, objects: QuerySet) -> QuerySet:
         """
         Get only translations in active languages
 
         :param objects: Objects to be filtered
-        :type objects: ~django.db.models.query.QuerySet
-
         :return: Objects that passed the filter
-        :rtype: ~django.db.models.query.QuerySet
         """
         # Because of large overhead, we only want this filter during the findlinks management command.
         if settings.LINKCHECK_COMMAND_RUNNING:
@@ -51,18 +56,15 @@ class PageTranslationLinklist(ActiveLanguageLinklist):
     Class for selecting the PageTranslation model for link checks
     """
 
-    model = PageTranslation
+    model: ModelBase = PageTranslation
 
     @classmethod
-    def filter_callable(cls, objects):
+    def filter_callable(cls, objects: QuerySet) -> QuerySet:
         """
         Get only latest versions for non-archived pages in active languages
 
         :param objects: Objects to be filtered
-        :type objects: ~django.db.models.query.QuerySet
-
         :return: Objects that passed the filter
-        :rtype: ~django.db.models.query.QuerySet
         """
         # Apply filter of parent class
         objects = super().filter_callable(objects)
@@ -81,15 +83,12 @@ class NonArchivedLinkList(ActiveLanguageLinklist):
     """
 
     @classmethod
-    def filter_callable(cls, objects):
+    def filter_callable(cls, objects: QuerySet) -> QuerySet:
         """
-        Get only latest translations for non-archived events/locations in acitive languages
+        Get only latest translations for non-archived events/locations in active languages
 
         :param objects: Objects to be filtered
-        :type objects: ~django.db.models.query.QuerySet
-
         :return: Objects that passed the filter
-        :rtype: ~django.db.models.query.QuerySet
         """
         # Apply filter of parent class
         objects = super().filter_callable(objects)
@@ -106,18 +105,15 @@ class EventTranslationLinklist(NonArchivedLinkList):
     Class for selecting the EventTranslation model for link checks
     """
 
-    model = EventTranslation
+    model: ModelBase = EventTranslation
 
     @classmethod
-    def filter_callable(cls, objects):
+    def filter_callable(cls, objects: QuerySet) -> QuerySet:
         """
         Get only translations of upcoming events in active languages
 
         :param objects: Objects to be filtered
-        :type objects: ~django.db.models.query.QuerySet
-
         :return: Objects that passed the filter
-        :rtype: ~django.db.models.query.QuerySet
         """
         # Apply filter of parent class
         objects = super().filter_callable(objects)
@@ -133,7 +129,7 @@ class POITranslationLinklist(NonArchivedLinkList):
     Class for selecting the POITranslation model for link checks
     """
 
-    model = POITranslation
+    model: ModelBase = POITranslation
 
 
 linklists = {

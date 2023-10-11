@@ -1,8 +1,11 @@
+from __future__ import annotations
+
 import asyncio
 import logging
 import re
 from datetime import date, datetime
 from itertools import cycle
+from typing import TYPE_CHECKING
 from urllib.parse import urlencode
 
 import aiohttp
@@ -10,6 +13,23 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 from ..cms.constants import colors, matomo_periods
+
+if TYPE_CHECKING:
+    import sys
+
+    if sys.version_info >= (3, 10):
+        from typing import TypeGuard
+    else:
+        from typing_extensions import TypeGuard
+
+    from asyncio import AbstractEventLoop
+    from collections.abc import KeysView
+    from typing import Any
+
+    from aiohttp import ClientSession
+    from django.utils.functional import Promise
+
+    from ..cms.models import Language, Region
 
 logger = logging.getLogger(__name__)
 
@@ -31,39 +51,35 @@ class MatomoApiClient:
     """
 
     #: Matomo API-key
-    matomo_token = None
+    matomo_token: str | None = None
     #: Matomo ID
-    matomo_id = None
+    matomo_id: int | None = None
     #: The active languages
-    languages = None
+    languages: list[Language] = []
 
-    def __init__(self, region):
+    def __init__(self, region: Region) -> None:
         """
         Constructor initializes the class variables
 
         :param region: The region this Matomo API Manager connects to
-        :type region: ~integreat_cms.cms.models.regions.region.Region
         """
         self.region_name = region.name
         self.matomo_token = region.matomo_token
         self.matomo_id = region.matomo_id
         self.languages = region.active_languages
 
-    async def fetch(self, session, **kwargs):
+    async def fetch(
+        self, session: ClientSession, **kwargs: Any
+    ) -> dict[str, Any] | list[int]:
         r"""
         Uses :meth:`aiohttp.ClientSession.get` to perform an asynchronous GET request to the Matomo API.
 
         :param session: The session object which is used for the request
-        :type session: aiohttp.ClientSession
-
         :param \**kwargs: The parameters which are passed to the Matomo API
-        :type \**kwargs: dict
-
         :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
                                                                Matomo API request
 
         :return: The parsed :mod:`json` result
-        :rtype: dict
         """
         # The default get parameters for all requests
         query_params = {
@@ -93,37 +109,32 @@ class MatomoApiClient:
         except aiohttp.ClientError as e:
             raise MatomoException(str(e)) from e
 
-    async def get_matomo_id_async(self, **query_params):
+    async def get_matomo_id_async(self, **query_params: Any) -> list[int]:
         r"""
         Async wrapper to fetch the Matomo ID with :mod:`aiohttp`.
         Opens a :class:`~aiohttp.ClientSession` and calls :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch`.
         Called from :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_matomo_id`.
 
         :param \**query_params: The parameters which are passed to the Matomo API
-        :type \**query_params: dict
-
-        :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
-                                                               Matomo API request
-
-
         :return: The parsed :mod:`json` result
-        :rtype: list
+        :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
+                                                                             Matomo API request
         """
         async with aiohttp.ClientSession() as session:
-            return await self.fetch(session, **query_params)
+            result = await self.fetch(session, **query_params)
+            if TYPE_CHECKING:
+                assert isinstance(result, list)
+            return result
 
-    def get_matomo_id(self, token_auth):
+    def get_matomo_id(self, token_auth: str) -> int:
         """
         Returns the matomo website id based on the provided authentication key.
 
         :param token_auth: The Matomo authentication token which should be used
-        :type token_auth: str
-
         :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
                                                                Matomo API request or the access token is not correct
 
         :return: ID of the connected Matomo instance
-        :rtype: int
         """
         # Initialize async event loop
         loop = asyncio.new_event_loop()
@@ -144,46 +155,43 @@ class MatomoApiClient:
                 f"The access token for {self.region_name} is not correct."
             ) from e
 
-    async def get_total_visits_async(self, query_params):
+    async def get_total_visits_async(
+        self, query_params: dict[str, str | int | None]
+    ) -> dict[str, Any]:
         """
         Async wrapper to fetch the total visits with :mod:`aiohttp`.
         Opens a :class:`~aiohttp.ClientSession` and calls :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch`.
         Called from :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_total_visits`.
 
         :param query_params: The parameters which are passed to the Matomo API
-        :type query_params: dict
-
         :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
                                                                Matomo API request
 
         :return: The parsed :mod:`json` result
-        :rtype: dict
         """
         async with aiohttp.ClientSession() as session:
-            return await self.fetch(
+            result = await self.fetch(
                 session,
                 **query_params,
             )
+            if TYPE_CHECKING:
+                assert isinstance(result, dict)
+            return result
 
-    def get_total_visits(self, start_date, end_date, period=matomo_periods.DAY):
+    def get_total_visits(
+        self, start_date: date, end_date: date, period: str = matomo_periods.DAY
+    ) -> dict[str, Any]:
         """
         Returns the total calls within a time range for all languages.
 
         :param start_date: Start date
-        :type start_date: ~datetime.date
-
         :param end_date: End date
-        :type end_date: ~datetime.date
-
         :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES` -
                        defaults to :attr:`~integreat_cms.cms.constants.matomo_periods.DAY`)
-        :type period: str
-
         :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
                                                                Matomo API request
 
         :return: The total visits in the ChartData format expected by ChartJs
-        :rtype: dict
         """
         query_params = {
             "date": f"{start_date},{end_date}",
@@ -215,7 +223,12 @@ class MatomoApiClient:
             },
         }
 
-    async def get_visits_per_language_async(self, loop, query_params, languages):
+    async def get_visits_per_language_async(
+        self,
+        loop: AbstractEventLoop,
+        query_params: dict[str, Any],
+        languages: list[Language],
+    ) -> list[dict[str, Any]]:
         """
         Async wrapper to fetch the total visits with :mod:`aiohttp`.
         Opens a :class:`~aiohttp.ClientSession`, creates a :class:`~asyncio.Task` for each language to call
@@ -226,19 +239,12 @@ class MatomoApiClient:
         Called from :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_visits_per_language`.
 
         :param loop: The asyncio event loop
-        :type loop: asyncio.AbstractEventLoop
-
         :param query_params: The parameters which are passed to the Matomo API
-        :type query_params: dict
-
         :param languages: The list of languages which should be retrieved
-        :type languages: list [ ~integreat_cms.cms.models.languages.language.Language ]
-
         :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
                                                                Matomo API request
 
         :return: The list of gathered results
-        :rtype: list
         """
         async with aiohttp.ClientSession() as session:
             # Create tasks for visits by language
@@ -283,26 +289,30 @@ class MatomoApiClient:
             )
             # Wait for all tasks to finish and collect the results
             # (the results are sorted in the order the tasks were created)
-            return await asyncio.gather(*tasks)
+            result = await asyncio.gather(*tasks)
+            # We're not retrieving the matomo id as part of the tasks, thus we know that the result is a list of dicts, not a list of list of ints.
+            if TYPE_CHECKING:
 
-    def get_visits_per_language(self, start_date, end_date, period):
+                def is_dict_list(
+                    l: list[dict[str, Any] | list[int]]
+                ) -> TypeGuard[list[dict[str, Any]]]:
+                    return all(isinstance(d, dict) for d in l)
+
+                assert is_dict_list(result)
+            return result
+
+    def get_visits_per_language(
+        self, start_date: date, end_date: date, period: str
+    ) -> dict[str, Any]:
         """
         Returns the total unique visitors in a timerange as defined in period
 
         :param start_date: Start date
-        :type start_date: ~datetime.date
-
         :param end_date: End date
-        :type end_date: ~datetime.date
-
         :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
-        :type period: str
-
-        :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
-                                                               Matomo API request
-
         :return: The visits per language in the ChartData format expected by ChartJs
-        :rtype: dict
+        :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
+                                                                             Matomo API request
         """
         query_params = {
             "date": f"{start_date},{end_date}",
@@ -386,18 +396,13 @@ class MatomoApiClient:
         }
 
     @staticmethod
-    def simplify_date_labels(date_labels, period):
+    def simplify_date_labels(date_labels: KeysView[str], period: str) -> list[Promise]:
         """
         Convert the dates returned by Matomo to more readable labels
 
         :param date_labels: The date labels returned by Matomo
-        :type date_labels: list [ str ]
-
         :param period: The period of the labels (determines the format)
-        :type period: str
-
         :return: The readable labels
-        :rtype: list [ str ]
         """
         simplified_date_labels = []
         if period == matomo_periods.DAY:

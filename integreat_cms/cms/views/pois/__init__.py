@@ -1,6 +1,8 @@
 """
 This package contains all views related to POIs (points of interest)
 """
+from __future__ import annotations
+
 from .poi_actions import (
     archive_poi,
     auto_complete_address,

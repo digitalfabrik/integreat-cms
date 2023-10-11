@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
@@ -14,6 +17,11 @@ from ...forms import PageFilterForm
 from ...models import Page, PageTranslation
 from ..mixins import MachineTranslationContextMixin
 from .page_context_mixin import PageContextMixin
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
 
 logger = logging.getLogger(__name__)
 
@@ -34,32 +42,24 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
     translation_model = PageTranslation
 
     @property
-    def template_name(self):
+    def template_name(self) -> str:
         """
         Select correct HTML template, depending on :attr:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView.archived` flag
         (see :class:`~django.views.generic.base.TemplateResponseMixin`)
 
         :return: Path to HTML template
-        :rtype: str
         """
 
         return self.template_archived if self.archived else self.template
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Render page tree
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         # current region

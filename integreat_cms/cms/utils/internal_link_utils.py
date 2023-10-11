@@ -1,7 +1,10 @@
 """
 This file contains utility functions for recognizing and modifying internal links
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 from urllib.parse import unquote, urlparse
 
 from django.conf import settings
@@ -15,10 +18,15 @@ from ..models import (
     POI,
 )
 
+if TYPE_CHECKING:
+    from ..models.abstract_content_translation import AbstractContentTranslation
+
 logger = logging.getLogger(__name__)
 
 
-def update_link_language(current_link, link_text, target_language_slug):
+def update_link_language(
+    current_link: str, link_text: str, target_language_slug: str
+) -> tuple[str, str] | None:
     """
     Fixes the link, so that it points to the correct language.
     Returns a tuple of the translated url and (potentially) translated title.
@@ -27,16 +35,9 @@ def update_link_language(current_link, link_text, target_language_slug):
     Note that the resulting link might refer to a fallback language and not the actual target language.
 
     :param current_link: The link to the content translation
-    :type current_link: str
-
     :param link_text: The text of the link
-    :type link_text: str
-
     :param target_language_slug: The language slug for the target translation
-    :type target_language_slug: str
-
     :returns: a tuple of (url, title) of the target translation, or None
-    :rtype: Optional[tuple]
     """
     source_translation = get_public_translation_for_link(
         current_link, current_language_slug=target_language_slug
@@ -62,11 +63,13 @@ def update_link_language(current_link, link_text, target_language_slug):
     return None
 
 
-WEBAPP_NETLOC = urlparse(settings.WEBAPP_URL).netloc
-SHORT_LINKS_NETLOC = urlparse(settings.SHORT_LINKS_URL).netloc
+WEBAPP_NETLOC: str = urlparse(settings.WEBAPP_URL).netloc
+SHORT_LINKS_NETLOC: str = urlparse(settings.SHORT_LINKS_URL).netloc
 
 
-def get_public_translation_for_link(url, current_language_slug=None):
+def get_public_translation_for_link(
+    url: str, current_language_slug: str | None = None
+) -> AbstractContentTranslation | None:
     """
     This function gets the public content translation object corresponding to the path of an internal url.
     If the url does not refer to any object, this function will return None.
@@ -74,13 +77,8 @@ def get_public_translation_for_link(url, current_language_slug=None):
     If the language of the url is the same as `current_language_slug`, this function will return None.
 
     :param url: The url
-    :type url: str
-
     :param current_language_slug: A language slug that will cause the function to return early if contained in the url
-    :type current_language_slug: Optional[str]
-
     :returns: The latest corresponding content translation
-    :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
     """
     parsed_url = urlparse(url)
     if parsed_url.netloc == WEBAPP_NETLOC:
@@ -92,33 +90,31 @@ def get_public_translation_for_link(url, current_language_slug=None):
     return None
 
 
-def get_public_translation_for_webapp_link(path, current_language_slug=None):
+def get_public_translation_for_webapp_link(
+    path: str, current_language_slug: str | None = None
+) -> AbstractContentTranslation | None:
     """
     Calculates the content object that corresponds to the webapp url path and returns its latest public translation.
 
     :param path: The url path, for example given the url 'https://integreat.app/augsburg/de/willkommen/' it would be '/augsburg/de/willkommen/'
-    :type path: str
-
     :param current_language_slug: A language slug that will cause the function to return early if contained in the url
-    :type current_language_slug: Optional[str]
-
     :returns: The latest corresponding content translation
-    :rtype: Optional[~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation]
     """
-    parts = unquote(path).strip("/").split("/")
+    parts: list[str] = unquote(path).strip("/").split("/")
     if len(parts) < 3:
         # Not a relevant internal url
         return None
 
-    region_slug, language_slug, *path = parts
-    object_slug = path[-1]
+    region_slug, language_slug, *path_parts = parts
+    path = path_parts[0]
+    object_slug = path_parts[-1]
 
     if language_slug == current_language_slug:
         # Return early if the language slug is not different
         return None
 
     object_type = {"events": Event, "locations": POI, "disclaimer": ImprintPage}.get(
-        path[0], Page
+        path, Page
     )
     filter_args = {
         "region__slug": region_slug,
@@ -143,17 +139,16 @@ def get_public_translation_for_webapp_link(path, current_language_slug=None):
     return instance.get_public_translation(language_slug)
 
 
-def get_public_translation_for_short_link(path):
+def get_public_translation_for_short_link(
+    path: str,
+) -> AbstractContentTranslation | None:
     """
     Calculates the content object that corresponds to the short url path and returns its latest public translation.
 
     :param path: The url path, for example given the url 'http://localhost:8000/s/p/124/' it would be '/s/p/124/'
-    :type path: str
-
     :returns: The latest corresponding content translation
-    :rtype: Optional[~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation]
     """
-    parts = unquote(path).strip("/").split("/")
+    parts: list[str] = unquote(path).strip("/").split("/")
     if len(parts) != 3 or parts[0] != "s":
         # Not a relevant internal url
         return None

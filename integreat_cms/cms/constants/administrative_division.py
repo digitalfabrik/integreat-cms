@@ -1,39 +1,49 @@
 """
 This module contains constants which represent all possible administrative divisions of a region in Germany.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.utils.translation import gettext_lazy as _
 
+if TYPE_CHECKING:
+    from typing import Final
+
+    from django.utils.functional import Promise
+
+
 #: Federal state (German: "Bundesland")
-FEDERAL_STATE = "FEDERAL_STATE"
+FEDERAL_STATE: Final = "FEDERAL_STATE"
 #: Area state (German: "Flächenland")
-AREA_STATE = "AREA_STATE"
+AREA_STATE: Final = "AREA_STATE"
 #: Free state (German: "Freistaat")
-FREE_STATE = "FREE_STATE"
+FREE_STATE: Final = "FREE_STATE"
 #: City state (German: "Stadtstaat")
-CITY_STATE = "CITY_STATE"
+CITY_STATE: Final = "CITY_STATE"
 #: Governmental district (German: "Regierungsbezirk")
-GOVERNMENTAL_DISTRICT = "GOVERNMENTAL_DISTRICT"
+GOVERNMENTAL_DISTRICT: Final = "GOVERNMENTAL_DISTRICT"
 #: Urban district (German: "Kreisfreie Stadt")
-URBAN_DISTRICT = "URBAN_DISTRICT"
+URBAN_DISTRICT: Final = "URBAN_DISTRICT"
 #: Rural district (German: "Landkreis")
-RURAL_DISTRICT = "RURAL_DISTRICT"
+RURAL_DISTRICT: Final = "RURAL_DISTRICT"
 #: District (German: "Kreis")
-DISTRICT = "DISTRICT"
+DISTRICT: Final = "DISTRICT"
 #: City (German: "Stadt")
-CITY = "CITY"
+CITY: Final = "CITY"
 #: City and district (German: "Stadt und Landkreis")
-CITY_AND_DISTRICT = "CITY_AND_DISTRICT"
+CITY_AND_DISTRICT: Final = "CITY_AND_DISTRICT"
 #: Region (German: "Region")
-REGION = "REGION"
+REGION: Final = "REGION"
 #: Municipality (German: "Gemeinde")
-MUNICIPALITY = "MUNICIPALITY"
+MUNICIPALITY: Final = "MUNICIPALITY"
 #: Collective municipality (German: "Verbandsgemeinde")
-COLLECTIVE_MUNICIPALITY = "COLLECTIVE_MUNICIPALITY"
+COLLECTIVE_MUNICIPALITY: Final = "COLLECTIVE_MUNICIPALITY"
 #: Initial reception center (German: "Erstaufnahmeeinrichtung")
-INITIAL_RECEPTION_CENTER = "INITIAL_RECEPTION_CENTER"
+INITIAL_RECEPTION_CENTER: Final = "INITIAL_RECEPTION_CENTER"
 
 #: Choices to use these constants in a database field
-CHOICES = (
+CHOICES: Final[list[tuple[str, Promise]]] = [
     (CITY, _("City")),
     (DISTRICT, _("District")),
     (RURAL_DISTRICT, _("Rural district")),
@@ -48,4 +58,4 @@ CHOICES = (
     (MUNICIPALITY, _("Municipality")),
     (COLLECTIVE_MUNICIPALITY, _("Collective municipality")),
     (INITIAL_RECEPTION_CENTER, _("Initial reception center")),
-)
+]

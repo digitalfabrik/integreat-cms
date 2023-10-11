@@ -2,7 +2,10 @@
 This is a collection of tags and filters which are useful for all content types (:class:`~integreat_cms.cms.models.pages.page.Page`,
 :class:`~integreat_cms.cms.models.events.event.Event` and :class:`~integreat_cms.cms.models.pois.poi.POI`).
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django import template
 from django.urls import reverse
@@ -11,56 +14,60 @@ from django.utils.translation import gettext_lazy as _
 from ..constants import translation_status
 from ..models import EventTranslation, Language, PageTranslation, POITranslation
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import QueryDict
+    from django.utils.datastructures import MultiValueDict
+    from django.utils.functional import Promise, SimpleLazyObject
+    from django.utils.safestring import SafeString
+
+    from ..forms.custom_content_model_form import CustomContentModelForm
+    from ..models import Region
+    from ..models.abstract_content_model import AbstractContentModel
+    from ..models.abstract_content_translation import AbstractContentTranslation
+
 logger = logging.getLogger(__name__)
 register = template.Library()
 
 
 @register.simple_tag
-def get_translation(instance, language_slug):
+def get_translation(
+    instance: AbstractContentModel, language_slug: str
+) -> AbstractContentTranslation | None:
     """
     This tag returns the most recent translation of the requested content object in the requested language.
 
     :param instance: The content object instance
-    :type instance: ~integreat_cms.cms.models.pages.page.Page, ~integreat_cms.cms.models.events.event.Event or ~integreat_cms.cms.models.pois.poi.POI
-
     :param language_slug: The slug of the requested language
-    :type language_slug: str
-
     :return: The translation object of the requested instance
-    :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation, ~integreat_cms.cms.models.events.event_translation.EventTranslation,
             or ~integreat_cms.cms.models.pois.poi_translation.POITranslation
     """
     return instance.get_translation(language_slug)
 
 
 @register.simple_tag
-def get_public_translation(instance, language_slug):
+def get_public_translation(
+    instance: AbstractContentModel, language_slug: str
+) -> AbstractContentTranslation | None:
     """
     This tag returns the most recent public translation of the requested content object in the requested language.
 
     :param instance: The content object instance
-    :type instance: ~integreat_cms.cms.models.pages.page.Page, ~integreat_cms.cms.models.events.event.Event or ~integreat_cms.cms.models.pois.poi.POI
-
     :param language_slug: The slug of the requested language
-    :type language_slug: str
-
     :return: The translation object of the requested instance
-    :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation, ~integreat_cms.cms.models.events.event_translation.EventTranslation,
             or ~integreat_cms.cms.models.pois.poi_translation.POITranslation
     """
     return instance.get_public_translation(language_slug)
 
 
 @register.simple_tag
-def translated_language_name(language_slug):
+def translated_language_name(language_slug: str) -> str:
     """
     This tag returns the name of the requested language in the current backend language
 
     :param language_slug: The slug of the requested language
-    :type language_slug: str
-
     :return: The translated name of the requested language
-    :rtype: str
     """
     language = Language.objects.filter(slug=language_slug)
     if language.exists():
@@ -69,32 +76,24 @@ def translated_language_name(language_slug):
 
 
 @register.simple_tag
-def get_language(language_slug):
+def get_language(language_slug: str) -> Language | None:
     """
     This tag returns the requested language by slug
 
     :param language_slug: The slug of the requested language
-    :type language_slug: str
-
     :return: The requested language
-    :rtype: ~integreat_cms.cms.models.languages.language.Language
     """
     return Language.objects.filter(slug=language_slug).first()
 
 
 @register.simple_tag
-def minor_edit_label(region, language):
+def minor_edit_label(region: Region, language: Language) -> Promise:
     """
     This tag returns the label of the minor edit field of the given form
 
     :param region: current region
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :param language: The current language
-    :type language: ~integreat_cms.cms.models.languages.language.Language
-
     :return: The minor edit label
-    :rtype: str
     """
     language_node = region.language_node_by_slug[language.slug]
     if language_node.is_leaf():
@@ -105,21 +104,16 @@ def minor_edit_label(region, language):
 
 
 @register.simple_tag
-def minor_edit_help_text(region, language, translation_form):
+def minor_edit_help_text(
+    region: Region, language: Language, translation_form: CustomContentModelForm
+) -> Promise:
     """
     This tag returns the help text of the minor edit field of the given form
 
     :param region: current region
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :param language: The current language
-    :type language: ~integreat_cms.cms.models.languages.language.Language
-
     :param translation_form: The given model form
-    :type translation_form: ~integreat_cms.cms.forms.custom_model_form.CustomModelForm
-
     :return: The minor edit help text
-    :rtype: str
     """
     language_node = region.language_node_by_slug[language.slug]
     if language_node.is_leaf():
@@ -132,29 +126,24 @@ def minor_edit_help_text(region, language, translation_form):
 
 
 @register.simple_tag
-def build_url(target, region_slug, language_slug, content_field=None, content_id=None):
+def build_url(
+    target: SafeString,
+    region_slug: str,
+    language_slug: str,
+    content_field: SafeString | str | None = None,
+    content_id: int | None = None,
+) -> str:
     """
     This tag returns the requested language by slug
 
     :param target: The slug of the requested target
-    :type target: str
-
     :param region_slug: The slug of the requested region
-    :type region_slug: str
-
     :param language_slug: The slug of the requested language
-    :type language_slug: str
-
     :param content_field: The name of the content field
-    :type content_field: str
-
     :param content_id: The id of the content
-    :type content_id: int
-
     :return: list of args
-    :rtype: str
     """
-    kwargs = {
+    kwargs: dict[str, str | int] = {
         "region_slug": region_slug,
         "language_slug": language_slug,
     }
@@ -164,18 +153,13 @@ def build_url(target, region_slug, language_slug, content_field=None, content_id
 
 
 @register.filter
-def remove(elements, element):
+def remove(elements: list[Any], element: Any) -> list[Any]:
     """
     This tag removes an element from a list.
 
     :param elements: The given list of elements
-    :type elements: list
-
     :param element: The element to be removed
-    :type element: object
-
     :return: The list without the element
-    :rtype: list
     """
     try:
         # Copy input list to make sure it is not modified in place
@@ -188,18 +172,16 @@ def remove(elements, element):
 
 
 @register.filter
-def sort_translation_states(translation_states, second_language):
+def sort_translation_states(
+    translation_states: dict[str, tuple[Language, str]],
+    second_language: Language,
+) -> list[tuple[Language, str]]:
     """
     This filter sorts languages in language tabs
 
     :param translation_states: Other languages
-    :type translation_states: dict [ tuple ( ~integreat_cms.cms.models.languages.language.Language, str ) ]
-
     :param second_language: The current language
-    :type second_language: ~integreat_cms.cms.models.languages.language.Language
-
     :return: the filtered list with the current language on the second position
-    :rtype: list
     """
     try:
         first_language_slug = next(iter(translation_states))
@@ -207,61 +189,51 @@ def sort_translation_states(translation_states, second_language):
         return [(second_language, translation_status.MISSING)]
     if first_language_slug != second_language.slug:
         second_language_state = translation_states.pop(second_language.slug)
-        translation_states = list(translation_states.values())
-        translation_states.insert(1, second_language_state)
+        translation_states_list = list(translation_states.values())
+        translation_states_list.insert(1, second_language_state)
     else:
-        translation_states = list(translation_states.values())
-    return translation_states
+        translation_states_list = list(translation_states.values())
+    return translation_states_list
 
 
 @register.filter
-def get_int_list(data, list_name):
+def get_int_list(data: QueryDict, list_name: str) -> list[int]:
     """
     This filter returns the list data of a one-to-many field as ints.
 
     :param data: The requested form data
-    :type data: ~django.http.QueryDict
-
     :param list_name: The name of the requested field
-    :type list_name: str
-
     :return: The int value list
-    :rtype: list [ int ]
     """
     return [int(item) for item in data.getlist(list_name)]
 
 
 @register.filter
-def is_empty(iterable):
+def is_empty(iterable: MultiValueDict) -> bool:
     """
     This filter checks whether the given iterable is empty.
 
     :param iterable: The requested iterable
-    :type iterable: ~collections.abc.Iterable
-
     :return: Whether or not the given iterable is empty
-    :rtype: bool
     """
     return not bool(iterable)
 
 
 @register.simple_tag
-def object_translation_has_view_perm(user, obj):
+def object_translation_has_view_perm(
+    user: SimpleLazyObject, obj: AbstractContentTranslation
+) -> bool:
     """
     This filter accepts any translation of Event, Page or Poi and returns
     whether this account has the permission to view this object
 
     :param user: The requested user
-    :type user: ~integreat_cms.cms.models.users.user.User
-
     :param obj: The requested object
-    :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation,
                ~integreat_cms.cms.models.events.event_translation.EventTranslation, or ~integreat_cms.cms.models.pois.poi_translation.POITranslation
 
     :raises ValueError: if the object is not a translation of Event, Page or Poi
 
     :return: Whether this account is allowed to view this object
-    :rtype: bool
     """
     if isinstance(obj, EventTranslation):
         return user.has_perm("cms.view_event")

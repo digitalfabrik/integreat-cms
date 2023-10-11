@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from cacheops import invalidate_obj
 from django import forms
@@ -8,6 +11,9 @@ from ...constants import position
 from ...models import Language, LanguageTreeNode
 from ..custom_model_form import CustomModelForm
 from ..custom_tree_node_form import CustomTreeNodeForm
+
+if TYPE_CHECKING:
+    from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -34,12 +40,11 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
             "machine_translation_enabled",
         ]
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         r"""
         Initialize language tree node form
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
         # Pop kwarg to make sure parent class does not get this argument
         region = kwargs.pop("region", None)
@@ -76,7 +81,7 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
         self.fields["parent"].queryset = parent_queryset
         self.fields["_ref_node_id"].choices = self.fields["parent"].choices
 
-    def clean(self):
+    def clean(self) -> dict[str, Any]:
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`:
         Don't allow multiple root nodes for one region:
@@ -84,7 +89,6 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
         :class:`~django.core.exceptions.ValidationError`.
 
         :return: The cleaned form data
-        :rtype: dict
         """
         cleaned_data = super().clean()
 
@@ -119,16 +123,13 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
         )
         return cleaned_data
 
-    def save(self, commit=True):
+    def save(self, commit: bool = True) -> LanguageTreeNode:
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to flush
         the cache after committing.
 
         :param commit: Whether or not the changes should be written to the database
-        :type commit: bool
-
         :return: The saved page translation object
-        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
         # Save CustomModelForm and CustomTreeNodeForm
         result = super().save(commit=commit)

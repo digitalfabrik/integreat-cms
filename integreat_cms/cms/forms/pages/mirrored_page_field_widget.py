@@ -1,5 +1,12 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django import forms
 from django.urls import reverse
+
+if TYPE_CHECKING:
+    from .page_form import PageForm
 
 
 class MirroredPageFieldWidget(forms.widgets.Select):
@@ -8,41 +15,38 @@ class MirroredPageFieldWidget(forms.widgets.Select):
     """
 
     #: The form this field is bound to
-    form = None
+    form: PageForm | None = None
     #: The current language slug
-    language_slug = None
+    language_slug: str | None = None
 
     # pylint: disable=too-many-arguments
     def create_option(
-        self, name, value, label, selected, index, subindex=None, attrs=None
-    ):
+        self,
+        name: str,
+        value: int,
+        label: str,
+        selected: bool,
+        index: int,
+        subindex: int | None = None,
+        attrs: dict | None = None,
+    ) -> dict:
         """
         This function creates an option which can be selected in the parent field
 
         :param name: The name of the option
-        :type name: str
-
         :param value: the value of the option (the page id)
-        :type value: int
-
         :param label: The label of the option
-        :type label: str
-
         :param selected: Whether or not the option is selected
-        :type selected: bool
-
         :param index: The index of the option
-        :type index: int
-
         :param subindex: The subindex of the option
-        :type subindex: int
-
         :param attrs: The attributes of the option
-        :type attrs: dict
-
         :return: The option dict
-        :rtype: dict
         """
+        if TYPE_CHECKING:
+            assert self.form
+            assert self.form.instance
+            assert self.form.instance.region
+
         # Create dictionary of options
         option_dict = super().create_option(
             name, value, label, selected, index, subindex=subindex, attrs=attrs

@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
@@ -10,10 +13,15 @@ from ..utils.translation_utils import gettext_many_lazy as __
 from .account_activation_token_generator import account_activation_token_generator
 from .email_utils import send_mail
 
+if TYPE_CHECKING:
+    from django.http import HttpRequest
+
+    from ..models import User
+
 logger = logging.getLogger(__name__)
 
 
-def send_welcome_mail(request, user, activation):
+def send_welcome_mail(request: HttpRequest, user: User, activation: bool) -> None:
     """
     Sends welcome email to user with new account.
 
@@ -22,13 +30,8 @@ def send_welcome_mail(request, user, activation):
     version and also attach the integreat logo.
 
     :param request: The current http request
-    :type request: ~django.http.HttpRequest
-
     :param user: The user to whom the e-mail is to be sent
-    :type user: ~django.contrib.auth.models.User
-
     :param activation: Activation link should be generated
-    :type activation: bool
     """
     context = {
         "user": user,

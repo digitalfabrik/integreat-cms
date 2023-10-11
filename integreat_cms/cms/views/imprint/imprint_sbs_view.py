@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.http import Http404
@@ -14,6 +17,11 @@ from ...models import ImprintPage, Language
 from ..media.media_context_mixin import MediaContextMixin
 from .imprint_context_mixin import ImprintContextMixin
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
+
 logger = logging.getLogger(__name__)
 
 
@@ -27,16 +35,13 @@ class ImprintSideBySideView(TemplateView, ImprintContextMixin, MediaContextMixin
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "imprint/imprint_sbs.html"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Returns a dictionary representing the template context
         (see :meth:`~django.views.generic.base.ContextMixin.get_context_data`).
 
         :param \**kwargs: The given keyword arguments
-        :type \**kwargs: dict
-
         :return: The template context
-        :rtype: dict
         """
         context = super().get_context_data(**kwargs)
         context.update(
@@ -51,23 +56,16 @@ class ImprintSideBySideView(TemplateView, ImprintContextMixin, MediaContextMixin
         )
         return context
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Render :class:`~integreat_cms.cms.forms.imprint.imprint_translation_form.ImprintTranslationForm` on the side by side view
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises ~django.http.Http404: If no imprint exists for the region
 
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         region = request.region
@@ -145,24 +143,17 @@ class ImprintSideBySideView(TemplateView, ImprintContextMixin, MediaContextMixin
             },
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Submit :class:`~integreat_cms.cms.forms.imprint.imprint_translation_form.ImprintTranslationForm` and save
         :class:`~integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation` object
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises ~django.http.Http404: If no imprint exists for the region
 
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         region = request.region
@@ -259,22 +250,17 @@ class ImprintSideBySideView(TemplateView, ImprintContextMixin, MediaContextMixin
         )
 
 
-def get_old_source_content(imprint, source_language, target_language):
+def get_old_source_content(
+    imprint: ImprintPage, source_language: Language, target_language: Language
+) -> str:
     """
     This function returns the content of the source language translation that was up to date when the latest (no minor edit)
     target language translation was created.
 
     :param imprint: The imprint
-    :type imprint: ~integreat_cms.cms.models.pages.imprint_page.ImprintPage
-
     :param source_language: The source language of the imprint
-    :type source_language: ~integreat_cms.cms.models.languages.language.Language
-
     :param target_language: The target language of the imprint
-    :type target_language: ~integreat_cms.cms.models.languages.language.Language
-
     :return: The content of the translation
-    :rtype: str
     """
     # For the text diff, use the latest source translation that was created before the latest no minor edit target translation
 

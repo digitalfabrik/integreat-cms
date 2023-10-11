@@ -1,5 +1,13 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+
+if TYPE_CHECKING:
+    from typing import Literal
+    from .abstract_base_page import AbstractBasePage
 
 from ..abstract_content_translation import AbstractContentTranslation
 
@@ -10,7 +18,7 @@ class AbstractBasePageTranslation(AbstractContentTranslation):
     """
 
     @cached_property
-    def page(self):
+    def page(self) -> AbstractBasePage:
         """
         The page the translation belongs to
 
@@ -19,7 +27,7 @@ class AbstractBasePageTranslation(AbstractContentTranslation):
         raise NotImplementedError
 
     @cached_property
-    def short_url(self):
+    def short_url(self) -> str:
         """
         This property calculates the short url dynamically
 
@@ -28,33 +36,30 @@ class AbstractBasePageTranslation(AbstractContentTranslation):
         raise NotImplementedError
 
     @staticmethod
-    def foreign_field():
+    def foreign_field() -> Literal["page"]:
         """
         Returns the string "page" which ist the field name of the reference to the page which the translation belongs to
 
         :return: The foreign field name
-        :rtype: str
         """
         return "page"
 
     @cached_property
-    def foreign_object(self):
+    def foreign_object(self) -> AbstractBasePage:
         """
         This property is an alias of the page foreign key and is needed to generalize the :mod:`~integreat_cms.cms.utils.slug_utils`
         for all content types
 
         :return: The page to which the translation belongs
-        :rtype: ~integreat_cms.cms.models.pages.page.Page
         """
         return self.page
 
     @cached_property
-    def readable_title(self):
+    def readable_title(self) -> str:
         """
         Get the title of a page translation including the title in the best translation
 
         :return: The readable title of the page translation
-        :rtype: str
         """
         # Build readable page translation title
         best_translation = self.page.best_translation

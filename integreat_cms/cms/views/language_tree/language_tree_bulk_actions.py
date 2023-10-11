@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from cacheops import invalidate_obj
 from django.utils.translation import gettext_lazy as _
@@ -10,6 +13,11 @@ from ...models import (
     POITranslation,
 )
 from ..bulk_action_views import BulkUpdateBooleanFieldView
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 
@@ -25,7 +33,7 @@ class LanguageTreeBulkActionView(BulkUpdateBooleanFieldView):
     model = LanguageTreeNode
 
     @property
-    def field_name(self):
+    def field_name(self) -> str:
         """
         Called when the bulk action is performed and the ``field_name`` attribute was not overwritten
 
@@ -36,7 +44,7 @@ class LanguageTreeBulkActionView(BulkUpdateBooleanFieldView):
         )
 
     @property
-    def action(self):
+    def action(self) -> str:
         """
         Called when the bulk action is performed and the ``action`` attribute was not overwritten
 
@@ -46,21 +54,16 @@ class LanguageTreeBulkActionView(BulkUpdateBooleanFieldView):
             "Subclasses of LanguageTreeBulkActionView must provide an 'action' attribute"
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
         r"""
         Execute bulk action for language tree node and flush the cache
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The redirect
-        :rtype: ~django.http.HttpResponseRedirect
         """
         # Execute bulk action
         response = super().post(request, *args, **kwargs)
@@ -115,7 +118,9 @@ class BulkActivateView(LanguageTreeBulkActionView):
     #: The name of the action
     action = _("activated")
 
-    def post(self, request, *args, **kwargs):
+    def post(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
         for language_tree_node in self.get_queryset():
             models = [PageTranslation, EventTranslation, POITranslation]
             for model in models:

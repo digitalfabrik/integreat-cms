@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.shortcuts import redirect, render
@@ -9,6 +12,11 @@ from django.views.generic import TemplateView
 from ...decorators import permission_required
 from ...forms import RegionUserForm
 from ...utils.welcome_mail_utils import send_welcome_mail
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
 
 logger = logging.getLogger(__name__)
 
@@ -25,21 +33,14 @@ class RegionUserFormView(TemplateView):
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "region_user_form"}
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Render :class:`~integreat_cms.cms.forms.users.user_form.UserForm` for region users
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         region = request.region
@@ -61,22 +62,15 @@ class RegionUserFormView(TemplateView):
             },
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Submit :class:`~integreat_cms.cms.forms.users.user_form.UserForm` and  save :class:`~django.contrib.auth.models.User`
         object for region users
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         region = request.region

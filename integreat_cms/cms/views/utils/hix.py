@@ -3,9 +3,12 @@ This file contains functionality to communicate with the Textlab api to get the 
 for a given text.
 """
 
+from __future__ import annotations
+
 import json
 import logging
 from functools import lru_cache
+from typing import TYPE_CHECKING
 from urllib.error import URLError
 
 from django.conf import settings
@@ -17,20 +20,22 @@ from lxml.html import fromstring, tostring
 from ....api.decorators import json_response
 from ....textlab_api.textlab_api_client import TextlabClient
 
+if TYPE_CHECKING:
+    from typing import Final
+
+    from django.http import HttpRequest
+
 logger = logging.getLogger(__name__)
 
-MAX_TEXT_LENGTH = 100_000
+MAX_TEXT_LENGTH: Final[int] = 100_000
 
 
-def normalize_text(text):
+def normalize_text(text: str) -> str:
     """
     Normalize the text to eliminate differences in HIX value calculation
 
     :param text: Text for hix value calculation
-    :type text: str
-
     :return: Normalized version of the text
-    :rtype: str
     """
     try:
         # If the text contains multiple paragraphs, a root div element is added
@@ -43,16 +48,13 @@ def normalize_text(text):
 
 
 @lru_cache(maxsize=512)
-def lookup_hix_score(text):
+def lookup_hix_score(text: str) -> float | None:
     """
     This function returns the hix score for the given text.
     It either performs an api request or returns the value from cache.
 
     :param text: The text to calculate the hix score for
-    :type text: str
-
     :return: The score for the given text
-    :rtype: float
     """
     try:
         return TextlabClient(
@@ -66,18 +68,13 @@ def lookup_hix_score(text):
 @require_POST
 @json_response
 # pylint: disable=unused-argument
-def get_hix_score(request, region_slug):
+def get_hix_score(request: HttpRequest, region_slug: str) -> JsonResponse:
     """
     Calculates the hix score for the param 'text' in the request body and returns it.
 
     :param request: The request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: A json response, of {"score": value} in case of success
-    :rtype: ~django.http.JsonResponse
     """
     # Don't pass texts larger than 100kb to the api in order to avoid being vulnerable to dos attacks
     if len(request.body) > MAX_TEXT_LENGTH:

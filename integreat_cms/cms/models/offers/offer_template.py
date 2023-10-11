@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -67,23 +69,21 @@ class OfferTemplate(AbstractBaseModel):
         verbose_name=_("modification date"),
     )
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``OfferTemplate object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the offer template
-        :rtype: str
         """
         return self.name
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<OfferTemplate: OfferTemplate object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the offer template
-        :rtype: str
         """
         return f"<OfferTemplate (id: {self.id}, slug: {self.slug})>"
 

@@ -2,8 +2,15 @@
 This modules contains the config for the API tests
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Final
+
 #: The API endpoints
-API_ENDPOINTS = [
+API_ENDPOINTS: Final[list[tuple[str, str, str, int, int]]] = [
     (
         "/api/regions/",
         "/wp-json/extensions/v3/sites/",
@@ -287,7 +294,7 @@ API_ENDPOINTS = [
 ]
 
 #: This list contains the config for all API feedback views
-API_FEEDBACK_VIEWS = [
+API_FEEDBACK_VIEWS: Final[list[tuple[str, dict[str, str]]]] = [
     (
         "api:legacy_feedback_endpoint",
         {
@@ -480,7 +487,9 @@ API_FEEDBACK_VIEWS = [
     ),
 ]
 
-API_FEEDBACK_ERRORS = [
+API_FEEDBACK_ERRORS: Final[
+    list[tuple[str, dict[str, str], dict[str, str], dict[str, int | str]]]
+] = [
     (
         "api:region_feedback",
         {"region_slug": "augsburg", "language_slug": "ch"},

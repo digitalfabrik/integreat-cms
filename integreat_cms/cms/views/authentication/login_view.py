@@ -1,8 +1,15 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import views as auth_views
 from django.shortcuts import redirect
+
+if TYPE_CHECKING:
+    from django.contrib.auth.forms import AuthenticationForm
+    from django.http.response import HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +26,7 @@ class LoginView(auth_views.LoginView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "authentication/login.html"
 
-    def form_valid(self, form):
+    def form_valid(self, form: AuthenticationForm) -> HttpResponseRedirect:
         """
         This function overwrites :meth:`~django.views.generic.edit.FormMixin.form_valid` which is called if the login
         form is valid. In case the user has mfa-keys configured, the login is delegated to
@@ -28,10 +35,7 @@ class LoginView(auth_views.LoginView):
         :attr:`~integreat_cms.core.settings.LOGIN_REDIRECT_URL`.
 
         :param form: User login form
-        :type form: ~django.contrib.auth.forms.AuthenticationForm
-
         :return: Redirect user to mfa login view or to :attr:`~integreat_cms.core.settings.LOGIN_REDIRECT_URL`
-        :rtype: ~django.http.HttpResponseRedirect
         """
 
         user = form.get_user()

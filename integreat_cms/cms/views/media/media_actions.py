@@ -1,7 +1,10 @@
 """
 This module contains view actions for media related objects.
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.db.models import ProtectedError, Q
 from django.http import HttpResponse, JsonResponse
@@ -21,6 +24,11 @@ from ...forms import (
 )
 from ...models import Directory, MediaFile
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest
+
 logger = logging.getLogger(__name__)
 
 
@@ -28,22 +36,19 @@ logger = logging.getLogger(__name__)
 @permission_required("cms.view_mediafile")
 @json_response
 # pylint: disable=unused-argument
-def get_directory_path_ajax(request, region_slug=None):
+def get_directory_path_ajax(
+    request: HttpRequest, region_slug: str | None = None
+) -> JsonResponse:
     """
     View provides the frontend with the current directory path for the breadcrumbs.
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: JSON response which indicates error or success
-    :rtype: ~django.http.JsonResponse
     """
     region = request.region
 
-    directory_path = []
+    directory_path: list[dict[str, Any]] = []
 
     if request.GET.get("directory"):
         directory = get_object_or_404(
@@ -62,18 +67,15 @@ def get_directory_path_ajax(request, region_slug=None):
 @permission_required("cms.view_mediafile")
 @json_response
 # pylint: disable=unused-argument
-def get_directory_content_ajax(request, region_slug=None):
+def get_directory_content_ajax(
+    request: HttpRequest, region_slug: str | None = None
+) -> JsonResponse:
     """
     View provides the frontend with the content of a directory via AJAX.
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: JSON response which indicates error or success
-    :rtype: ~django.http.JsonResponse
     """
     region = request.region
 
@@ -103,18 +105,15 @@ def get_directory_content_ajax(request, region_slug=None):
 @permission_required("cms.view_directory")
 @permission_required("cms.view_mediafile")
 # pylint: disable=unused-argument
-def get_query_search_results_ajax(request, region_slug=None):
+def get_query_search_results_ajax(
+    request: HttpRequest, region_slug: str | None = None
+) -> JsonResponse:
     """
     View to search the media library
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: JSON response with the search result
-    :rtype: ~django.http.JsonResponse
     """
     query = request.GET.get("query")
     logger.debug("Media library searched with query %r", query)
@@ -131,18 +130,15 @@ def get_query_search_results_ajax(request, region_slug=None):
 @json_response
 @permission_required("cms.view_mediafile")
 # pylint: disable=unused-argument
-def get_file_usages_ajax(request, region_slug=None):
+def get_file_usages_ajax(
+    request: HttpRequest, region_slug: str | None = None
+) -> JsonResponse:
     """
     View to search unused media files
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: JSON response with the search result
-    :rtype: ~django.http.JsonResponse
     """
 
     file = get_object_or_404(
@@ -159,18 +155,15 @@ def get_file_usages_ajax(request, region_slug=None):
 @permission_required("cms.view_directory")
 @permission_required("cms.view_mediafile")
 # pylint: disable=unused-argument
-def get_unused_media_files_ajax(request, region_slug=None):
+def get_unused_media_files_ajax(
+    request: HttpRequest, region_slug: str | None = None
+) -> JsonResponse:
     """
     View to search unused media files
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: JSON response with the search result
-    :rtype: ~django.http.JsonResponse
     """
 
     unused_media_files = MediaFile.objects.filter(
@@ -186,18 +179,15 @@ def get_unused_media_files_ajax(request, region_slug=None):
 @permission_required("cms.upload_mediafile")
 @json_response
 # pylint: disable=unused-argument
-def upload_file_ajax(request, region_slug=None):
+def upload_file_ajax(
+    request: HttpRequest, region_slug: str | None = None
+) -> JsonResponse:
     """
     View to create a file via an AJAX upload.
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: JSON response which indicates error or success
-    :rtype: ~django.http.JsonResponse
     """
     region = request.region
 
@@ -236,18 +226,15 @@ def upload_file_ajax(request, region_slug=None):
 @permission_required("cms.change_mediafile")
 @json_response
 # pylint: disable=unused-argument
-def edit_file_ajax(request, region_slug=None):
+def edit_file_ajax(
+    request: HttpRequest, region_slug: str | None = None
+) -> JsonResponse:
     """
     View provides the edit of a file via AJAX.
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: JSON response which indicates error or success
-    :rtype: ~django.http.JsonResponse
     """
     region = request.region
 
@@ -300,18 +287,15 @@ def edit_file_ajax(request, region_slug=None):
 @permission_required("cms.replace_mediafile")
 @json_response
 # pylint: disable=unused-argument
-def replace_file_ajax(request, region_slug=None):
+def replace_file_ajax(
+    request: HttpRequest, region_slug: str | None = None
+) -> JsonResponse:
     """
     View provides the replacement of a file via AJAX.
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: JSON response which indicates error or success
-    :rtype: ~django.http.JsonResponse
     """
     region = request.region
 
@@ -354,18 +338,15 @@ def replace_file_ajax(request, region_slug=None):
 @permission_required("cms.delete_mediafile")
 @json_response
 # pylint: disable=unused-argument
-def delete_file_ajax(request, region_slug=None):
+def delete_file_ajax(
+    request: HttpRequest, region_slug: str | None = None
+) -> JsonResponse:
     """
     View to delete a file via an AJAX call.
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: JSON response which indicates error or success
-    :rtype: ~django.http.JsonResponse
     """
     region = request.region
 
@@ -398,18 +379,15 @@ def delete_file_ajax(request, region_slug=None):
 @permission_required("cms.add_directory")
 @json_response
 # pylint: disable=unused-argument
-def create_directory_ajax(request, region_slug=None):
+def create_directory_ajax(
+    request: HttpRequest, region_slug: str | None = None
+) -> JsonResponse:
     """
     View provides the frontend with the option to create a directory via AJAX.
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: JSON response which indicates error or success
-    :rtype: ~django.http.JsonResponse
     """
     region = request.region
 
@@ -448,18 +426,15 @@ def create_directory_ajax(request, region_slug=None):
 @permission_required("cms.change_directory")
 @json_response
 # pylint: disable=unused-argument
-def edit_directory_ajax(request, region_slug=None):
+def edit_directory_ajax(
+    request: HttpRequest, region_slug: str | None = None
+) -> JsonResponse:
     """
     View provides the frontend with the option to modify a directory via AJAX.
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: JSON response which indicates error or success
-    :rtype: ~django.http.JsonResponse
     """
     region = request.region
 
@@ -507,18 +482,15 @@ def edit_directory_ajax(request, region_slug=None):
 @permission_required("cms.delete_directory")
 @json_response
 # pylint: disable=unused-argument
-def delete_directory_ajax(request, region_slug=None):
+def delete_directory_ajax(
+    request: HttpRequest, region_slug: str | None = None
+) -> JsonResponse:
     """
     View provides the frontend with the option to delete a directory via AJAX.
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: JSON response which indicates error or success
-    :rtype: ~django.http.JsonResponse
     """
     region = request.region
 
@@ -563,18 +535,15 @@ def delete_directory_ajax(request, region_slug=None):
 @permission_required("cms.change_mediafile")
 @json_response
 # pylint: disable=unused-argument
-def move_file_ajax(request, region_slug=None):
+def move_file_ajax(
+    request: HttpRequest, region_slug: str | None = None
+) -> JsonResponse:
     """
     This view provides the frontend with the option to move files via AJAX.
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: JSON response which indicates error or success
-    :rtype: ~django.http.JsonResponse
     """
 
     region = request.region

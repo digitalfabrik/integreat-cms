@@ -1,25 +1,35 @@
 """
 This module contains all string representations of weekdays, used by :class:`~integreat_cms.cms.models.events.event.Event`.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.utils.translation import gettext_lazy as _
 
+if TYPE_CHECKING:
+    from typing import Final
+
+    from django.utils.functional import Promise
+
+
 #: Monday
-MONDAY = 0
+MONDAY: Final = 0
 #: Tuesday
-TUESDAY = 1
+TUESDAY: Final = 1
 #: Wednesday
-WEDNESDAY = 2
+WEDNESDAY: Final = 2
 #: Thursday
-THURSDAY = 3
+THURSDAY: Final = 3
 #: Friday
-FRIDAY = 4
+FRIDAY: Final = 4
 #: Saturday
-SATURDAY = 5
+SATURDAY: Final = 5
 #: Sunday
-SUNDAY = 6
+SUNDAY: Final = 6
 
 #: Choices to use these constants in a database field
-CHOICES = (
+CHOICES: Final[list[tuple[int, Promise]]] = [
     (MONDAY, _("Monday")),
     (TUESDAY, _("Tuesday")),
     (WEDNESDAY, _("Wednesday")),
@@ -27,10 +37,10 @@ CHOICES = (
     (FRIDAY, _("Friday")),
     (SATURDAY, _("Saturday")),
     (SUNDAY, _("Sunday")),
-)
+]
 
 #: Working days: Monday to Friday
-WORKING_DAYS = [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY]
+WORKING_DAYS: Final[list[int]] = [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY]
 
 #: Weekend: Saturday and Sunday
-WEEKEND = [SATURDAY, SUNDAY]
+WEEKEND: Final[list[int]] = [SATURDAY, SUNDAY]

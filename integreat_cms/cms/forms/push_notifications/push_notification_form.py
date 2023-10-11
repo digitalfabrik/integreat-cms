@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import datetime
 import zoneinfo
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.conf import settings
@@ -12,6 +15,13 @@ from django.utils.translation import gettext_lazy as _
 from ...constants import region_status
 from ...models import PushNotification
 from ..custom_model_form import CustomModelForm
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.db.models.query import QuerySet
+
+    from ..models import Region
 
 
 class PushNotificationForm(CustomModelForm):
@@ -42,17 +52,16 @@ class PushNotificationForm(CustomModelForm):
 
     def __init__(
         self,
-        regions=None,
-        selected_regions=None,
-        disabled=False,
-        template=False,
-        **kwargs,
-    ):
+        regions: QuerySet | None = None,
+        selected_regions: list[Region] | None = None,
+        disabled: bool = False,
+        template: bool = False,
+        **kwargs: Any,
+    ) -> None:
         r"""
         Initialize push notification form
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
         # Instantiate CustomModelForm
         super().__init__(**kwargs)
@@ -90,12 +99,11 @@ class PushNotificationForm(CustomModelForm):
         self.fields["regions"].initial = selected_regions
         self.fields["is_template"].initial = template
 
-    def clean(self):
+    def clean(self) -> dict[str, Any]:
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
 
         :return: The cleaned form data
-        :rtype: dict
         """
         cleaned_data = super().clean()
 

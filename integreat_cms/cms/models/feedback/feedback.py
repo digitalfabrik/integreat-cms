@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.conf import settings
 from django.db import models
 from django.utils.functional import cached_property
@@ -12,6 +16,9 @@ from ..abstract_base_model import AbstractBaseModel
 from ..languages.language import Language
 from ..regions.region import Region
 
+if TYPE_CHECKING:
+    from django.db.models.query import QuerySet
+
 
 class CascadeDeletePolymorphicQuerySet(PolymorphicQuerySet):
     """
@@ -22,12 +29,11 @@ class CascadeDeletePolymorphicQuerySet(PolymorphicQuerySet):
     Related Django ticket: https://code.djangoproject.com/ticket/23076
     """
 
-    def delete(self):
+    def delete(self) -> tuple[int, dict[str, int]]:
         """
         This method deletes all objects in this QuerySet.
 
         :return: A tuple of the number of objects delete and the delete objects grouped by their type
-        :rtype: tuple
         """
         if not self.polymorphic_disabled:
             return self.non_polymorphic().delete()
@@ -101,59 +107,52 @@ class Feedback(PolymorphicModel, AbstractBaseModel):
     )
 
     @property
-    def category(self):
+    def category(self) -> str:
         """
         This property returns the category (verbose name of the submodel) of this feedback object.
 
         :return: capitalized category
-        :rtype: str
         """
         return capfirst(self._meta.verbose_name)
 
     @cached_property
-    def rating_sum_positive(self):
+    def rating_sum_positive(self) -> int:
         """
         This property returns the sum of the up-ratings of this object.
 
         :return: The number of positive ratings on this feedback object
-        :rtype: int
         """
         return self.related_feedback.filter(rating=feedback_ratings.POSITIVE).count()
 
     @cached_property
-    def rating_sum_negative(self):
+    def rating_sum_negative(self) -> int:
         """
         This property returns the sum of the down-ratings of this object.
 
         :return: The number of negative ratings on this feedback object
-        :rtype: int
         """
         return self.related_feedback.filter(rating=feedback_ratings.NEGATIVE).count()
 
     @property
-    def read(self):
+    def read(self) -> bool:
         """
         This property returns whether or not the feedback is marked as read or not.
         It is ``True`` if :attr:`~integreat_cms.cms.models.feedback.feedback.Feedback.read_by` is set and ``False``
         otherwise.
 
         :return: Whether the feedback is marked as read
-        :rtype: bool
         """
         return bool(self.read_by)
 
     @classmethod
-    def search(cls, region, query):
+    def search(cls, region: Region | None, query: str) -> QuerySet:
         """
         Searches for all feedbacks which match the given `query` in their comment.
         :param region: The current region or None for non-regional feedback
-        :type region: ~integreat_cms.cms.models.regions.region.Region
         :param query: The query string used for filtering the events
-        :type query: str
         :return: A query for all matching objects
-        :rtype: ~django.db.models.QuerySet
         """
-        kwargs = {"comment__icontains": query}
+        kwargs: dict[str, str | bool | Region | None] = {"comment__icontains": query}
         if region is None:
             kwargs["is_technical"] = True
         else:
@@ -162,23 +161,21 @@ class Feedback(PolymorphicModel, AbstractBaseModel):
 
         return cls.objects.filter(**kwargs)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Feedback object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the feedback
-        :rtype: str
         """
         return self.comment
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<Feedback: Feedback object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the feedback
-        :rtype: str
         """
         class_name = type(self).__name__
         return f"<{class_name} (id: {self.id})>"

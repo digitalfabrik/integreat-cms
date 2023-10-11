@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -5,6 +9,9 @@ from django.utils.translation import gettext_lazy as _
 
 from ..pages.page_translation import PageTranslation
 from .feedback import Feedback
+
+if TYPE_CHECKING:
+    from django.db.models.query import QuerySet
 
 
 class PageFeedback(Feedback):
@@ -20,22 +27,20 @@ class PageFeedback(Feedback):
     )
 
     @property
-    def object_name(self):
+    def object_name(self) -> str:
         """
         This property returns the name of the object this feedback comments on.
 
         :return: The name of the object this feedback refers to
-        :rtype: str
         """
         return self.best_page_translation.title
 
     @cached_property
-    def object_url(self):
+    def object_url(self) -> str:
         """
         This property returns the url to the object this feedback comments on.
 
         :return: The url to the referred object
-        :rtype: str
         """
         return reverse(
             "edit_page",
@@ -47,22 +52,20 @@ class PageFeedback(Feedback):
         )
 
     @cached_property
-    def best_page_translation(self):
+    def best_page_translation(self) -> PageTranslation:
         """
         This property returns the best translation for the page this feedback comments on.
 
         :return: The best page translation
-        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
         return self.page_translation.page.best_translation
 
     @property
-    def related_feedback(self):
+    def related_feedback(self) -> QuerySet[PageFeedback]:
         """
         This property returns all feedback entries which relate to the same object and have the same is_technical value.
 
         :return: The queryset of related feedback
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.feedback.page_feedback.PageFeedback ]
         """
         return PageFeedback.objects.filter(
             page_translation__page=self.page_translation.page,

@@ -1,9 +1,18 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.core.serializers import base
 
 from ..cms.models import Page, PageTranslation
 from . import base_serializer
+
+if TYPE_CHECKING:
+    from typing import Any
+    from xml.dom.minidom import Element
+
+    from django.db.models.fields import CharField, TextField
 
 logger = logging.getLogger(__name__)
 
@@ -20,25 +29,19 @@ class Serializer(base_serializer.Serializer):
     #: The target language of this serializer instance
     target_language = None
 
-    def serialize(self, queryset, *args, **kwargs):
+    def serialize(
+        self, queryset: list[PageTranslation], *args: Any, **kwargs: Any
+    ) -> str:
         r"""
         Initialize serialization and find out in which source and target language the given elements are.
 
         :param queryset: QuerySet of all :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation` objects which
                          should be serialized
-        :type queryset: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.pages.page_translation.PageTranslation ]
-
         :param \*args: The remaining arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises ~django.core.serializers.base.SerializationError: If the serialization fails
 
         :return: The serialized XLIFF string
-        :rtype: str
-
         """
         # Get all language objects of the given page translations
         language_set = set(map(lambda p: p.language, queryset))
@@ -75,10 +78,14 @@ class Serializer(base_serializer.Serializer):
         )
         return super().serialize(queryset, *args, **kwargs)
 
-    def start_serialization(self):
+    def start_serialization(self) -> None:
         """
         Start serialization - open the XML document and the root element.
         """
+        if TYPE_CHECKING:
+            assert self.xml
+            assert self.source_language
+            assert self.target_language
         logger.debug(
             "XLIFF 2.0 starting serialization",
         )
@@ -95,14 +102,15 @@ class Serializer(base_serializer.Serializer):
             },
         )
 
-    def start_object(self, obj):
+    def start_object(self, obj: PageTranslation) -> None:
         """
         Called as each object is handled.
         Adds an XLIFF ``<file>``-block with meta-information about the object.
 
         :param obj: The page translation object which is started
-        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
+        if TYPE_CHECKING:
+            assert self.xml
         logger.debug("XLIFF 2.0 serialization starting object %r", obj)
         self.xml.startElement(
             "file",
@@ -111,18 +119,16 @@ class Serializer(base_serializer.Serializer):
             },
         )
 
-    def handle_field(self, obj, field):
+    def handle_field(self, obj: PageTranslation, field: CharField | TextField) -> None:
         """
         Called to handle each field on an object (except for ForeignKeys and ManyToManyFields)
 
         :param obj: The page translation object which is handled
-        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
-
         :param field: The model field
-        :type field: ~django.db.models.Field
-
         :raises ~django.core.serializers.base.SerializationError: If the serialization fails
         """
+        if TYPE_CHECKING:
+            assert self.xml
         logger.debug(
             "XLIFF 2.0 serialization handling field %r of object %r", field, obj
         )
@@ -157,14 +163,15 @@ class Serializer(base_serializer.Serializer):
         self.xml.endElement("segment")
         self.xml.endElement("unit")
 
-    def end_object(self, obj):
+    def end_object(self, obj: PageTranslation) -> None:
         """
         Called after handling all fields for an object.
         Ends the ``<file>``-block.
 
         :param obj: The page translation object which is finished
-        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
+        if TYPE_CHECKING:
+            assert self.xml
         logger.debug("XLIFF 2.0 serialization ending object %r", obj)
         self.xml.endElement("file")
 
@@ -179,16 +186,12 @@ class Deserializer(base_serializer.Deserializer):
     #: The node name of serialized fields
     unit_node = "unit"
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         r"""
         Initialize XLIFF 2.0 deserializer
 
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises ~django.core.serializers.base.DeserializationError: If the deserialization fails
         """
         # Initialize base deserializer
@@ -214,16 +217,13 @@ class Deserializer(base_serializer.Deserializer):
             "The XLIFF file does not contain an <xliff>-block,"
         )
 
-    def get_object(self, node):
+    def get_object(self, node: Element) -> PageTranslation:
         """
         Retrieve an object from the serialized unit node.
         To be implemented in the subclass of this base serializer.
 
         :param node: The current xml node of the object
-        :type node: xml.dom.minidom.Element
-
         :return: The original page translation
-        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
         # Get the page to which this serialized object belongs to
         page_id = self.require_attribute(node, "original")

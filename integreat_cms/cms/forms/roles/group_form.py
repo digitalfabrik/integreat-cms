@@ -1,6 +1,13 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.contrib.auth.models import Group
 
 from ..custom_model_form import CustomModelForm
+
+if TYPE_CHECKING:
+    from typing import Any
 
 
 class GroupForm(CustomModelForm):
@@ -19,7 +26,7 @@ class GroupForm(CustomModelForm):
         #: The fields of the model which should be handled by this form
         fields = ["permissions"]
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         # Instantiate CustomModelForm
         super().__init__(**kwargs)
         self.fields["permissions"].widget.attrs["size"] = "20"

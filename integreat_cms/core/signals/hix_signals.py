@@ -1,7 +1,14 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
+
+if TYPE_CHECKING:
+    from typing import Any
+    from integreat_cms.cms.models.pages.page_translation import PageTranslation
 
 from ...cms.models import PageTranslation
 from ...cms.views.utils.hix import lookup_hix_score
@@ -10,15 +17,12 @@ logger = logging.getLogger(__name__)
 
 
 @receiver(pre_save, sender=PageTranslation)
-def page_translation_save_handler(instance, **kwargs):
+def page_translation_save_handler(instance: PageTranslation, **kwargs: Any) -> None:
     r"""
     Calculates a hix store for a page translation before saving
 
     :param instance: The page translation that gets saved
-    :type instance: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
-
     :param \**kwargs: The supplied keyword arguments
-    :type \**kwargs: dict
     """
 
     if kwargs.get("raw"):

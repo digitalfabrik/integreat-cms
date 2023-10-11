@@ -1,8 +1,14 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.core.validators import EmailValidator, URLValidator
 from django.utils.translation import gettext_lazy as _
+
+if TYPE_CHECKING:
+    from django.core.validators import URLValidator
 
 logger = logging.getLogger(__name__)
 
@@ -13,19 +19,16 @@ class LinkField(forms.URLField):
     """
 
     #: Disable the default URL validator
-    default_validators = []
+    default_validators: list[URLValidator] = []
     #: Whether to skip the validation URL fragments in URLField.to_python()
-    skip_url_fragment_validation = True
+    skip_url_fragment_validation: bool = True
 
-    def to_python(self, value):
+    def to_python(self, value: str) -> str:
         """
         Convert the string value to the appropriate Python data structure for this field
 
         :param value: The value that was input into the form
-        :type value: str
-
         :returns: The Python value
-        :rtype: str
         """
         if self.skip_url_fragment_validation:
             # Skip the URL field to_python for email and phone links
@@ -38,16 +41,13 @@ class LinkField(forms.URLField):
             value = super().to_python(value)
         return value
 
-    def clean(self, value):
+    def clean(self, value: str) -> str:
         """
         Validate the given value and return its "cleaned" value as an
         appropriate Python object. Raise ValidationError for any errors.
 
         :param value: The value that was input into the form
-        :type value: str
-
         :returns: The cleaned value
-        :rtype: str
         """
         if value.startswith("mailto:"):
             email = value[7:]

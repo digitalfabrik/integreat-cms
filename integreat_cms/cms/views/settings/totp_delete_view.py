@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.shortcuts import redirect, render
@@ -7,6 +10,11 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
 from ...decorators import modify_mfa_authenticated
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
 
 logger = logging.getLogger(__name__)
 
@@ -20,21 +28,14 @@ class TOTPDeleteView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "settings/delete_totp.html"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Render confirmation view for TOTP deletion
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         return render(
@@ -42,21 +43,14 @@ class TOTPDeleteView(TemplateView):
             self.template_name,
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Delete the TOTP key of an user.
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: A redirection to the account settings
-        :rtype: ~django.http.HttpResponseRedirect
         """
 
         user = request.user

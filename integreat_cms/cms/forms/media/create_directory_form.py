@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import logging
 
 from django import forms
@@ -29,18 +31,18 @@ class CreateDirectoryForm(CustomModelForm):
             "parent",
         )
 
-    def clean(self):
+    def clean(self) -> dict:
         """
         This function provides additional validation rules for the directory form.
 
         :return: The cleaned data
-        :rtype: dict
         """
         cleaned_data = super().clean()
 
         if (
-            cleaned_data.get("parent")
-            and cleaned_data.get("parent").region != self.instance.region
+            (parent := cleaned_data.get("parent"))
+            and self.instance
+            and parent.region != self.instance.region
         ):
             self.add_error(
                 "parent",

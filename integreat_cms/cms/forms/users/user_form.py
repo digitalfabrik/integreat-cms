@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.contrib.auth import get_user_model
@@ -7,6 +10,10 @@ from django.contrib.auth.password_validation import (
     validate_password,
 )
 from django.utils.translation import gettext_lazy as _
+
+if TYPE_CHECKING:
+    from typing import Any
+    from ...models import User
 
 from ...models import Role
 from ...utils.translation_utils import gettext_many_lazy as __
@@ -79,12 +86,11 @@ class UserForm(CustomModelForm):
         ]
         field_classes = {"organization": OrganizationField}
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         r"""
         Initialize user form
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
 
         # Instantiate CustomModelForm
@@ -119,16 +125,13 @@ class UserForm(CustomModelForm):
         ):
             self.fields["passwordless_authentication_enabled"].disabled = True
 
-    def save(self, commit=True):
+    def save(self, commit: bool = True) -> User:
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
         which are not directly determined by input fields.
 
         :param commit: Whether or not the changes should be written to the database
-        :type commit: bool
-
         :return: The saved user object
-        :rtype: ~django.contrib.auth.models.User
         """
 
         # Save CustomModelForm
@@ -161,23 +164,21 @@ class UserForm(CustomModelForm):
 
         return user
 
-    def clean_email(self):
+    def clean_email(self) -> str:
         """
         Make the email lower case (see :ref:`overriding-modelform-clean-method`)
 
         :return: The email in lower case
-        :rtype: str
         """
         if email := self.cleaned_data.get("email"):
             email = email.lower()
         return email
 
-    def clean(self):
+    def clean(self) -> dict[str, Any]:
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
 
         :return: The cleaned form data
-        :rtype: dict
         """
         cleaned_data = super().clean()
 
@@ -263,7 +264,9 @@ class UserForm(CustomModelForm):
                         code="invalid",
                     ),
                 )
-            elif cleaned_data["organization"].region not in cleaned_data.get("regions"):
+            elif cleaned_data["organization"].region not in cleaned_data.get(
+                "regions", []
+            ):
                 logger.warning(
                     "User %r cannot be member of organization %r of other region",
                     self.instance,

@@ -1,8 +1,11 @@
+from __future__ import annotations
+
 import filecmp
 import io
 import zipfile
 from os import listdir
 from os.path import isfile, join
+from typing import TYPE_CHECKING
 
 import pytest
 from django.urls import reverse
@@ -23,6 +26,14 @@ from ..conftest import (
 from .utils import upload_files, validate_xliff_import_response
 from .xliff_config import XLIFF_IMPORTS
 
+if TYPE_CHECKING:
+    from pathlib import Path
+    from typing import Any
+
+    from _pytest.logging import LogCaptureFixture
+    from django.test.client import Client
+    from pytest_django.fixtures import SettingsWrapper
+
 
 # pylint: disable=too-many-locals
 @pytest.mark.django_db
@@ -34,28 +45,22 @@ from .xliff_config import XLIFF_IMPORTS
     [("download_xliff", "latest"), ("download_xliff_only_public", "only_public")],
 )
 def test_xliff_export(
-    login_role_user, settings, tmp_path, xliff_version, view, directory
-):
+    login_role_user: tuple[Client, str],
+    settings: SettingsWrapper,
+    tmp_path: Path,
+    xliff_version: str,
+    view: str,
+    directory: str,
+) -> None:
     """
     This test checks whether the xliff export works as expected
 
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
-    :type login_role_user: tuple
-
     :param settings: The fixture providing the django settings
-    :type settings: :fixture:`settings`
-
     :param tmp_path: The fixture providing the directory for temporary files for this test case
-    :type tmp_path: :fixture:`tmp_path`
-
     :param xliff_version: The XLIFF version to be tested
-    :type xliff_version: str
-
     :param view: The name of the view for the export
-    :type view: str
-
     :param directory: The directory that contains the expected XLIFF files
-    :type directory: str
     """
     # Override used XLIFF version
     settings.XLIFF_EXPORT_VERSION = xliff_version
@@ -128,24 +133,21 @@ def test_xliff_export(
     "import_1,import_2",
     XLIFF_IMPORTS,
 )
-def test_xliff_import(login_role_user, settings, caplog, import_1, import_2):
+def test_xliff_import(
+    login_role_user: tuple[Client, str],
+    settings: SettingsWrapper,
+    caplog: LogCaptureFixture,
+    import_1: dict[str, Any],
+    import_2: dict[str, Any],
+) -> None:
     """
     This test checks whether the xliff import works as expected
 
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
-    :type login_role_user: tuple
-
     :param settings: The fixture providing the django settings
-    :type settings: :fixture:`settings`
-
     :param import_1: A dict of import information
-    :type import_1: dict
-
     :param import_2: A list of import information
-    :type import_2: dict
-
     :param caplog: The :fixture:`caplog` fixture
-    :type caplog: pytest.LogCaptureFixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"

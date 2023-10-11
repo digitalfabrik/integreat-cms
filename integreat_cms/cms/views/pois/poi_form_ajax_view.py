@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import TemplateView
@@ -6,6 +10,11 @@ from ...forms import POIForm, POITranslationForm
 from ...models import Language, POITranslation
 from ...models.pois.poi import get_default_opening_hours, POI
 from .poi_context_mixin import POIContextMixin
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
 
 
 class POIFormAjaxView(TemplateView, POIContextMixin):
@@ -16,20 +25,13 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
     #: Template for ajax POI widget
     template = "events/_poi_form_widget.html"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""Render a POI form widget template
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The html template of a POI form
-        :rtype: ~django.http.HttpResponse
         """
         poi_form = POIForm()
         poi_title = kwargs.get("poi_title")
@@ -45,22 +47,15 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
             },
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""Add a new POI to the database
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises ~django.http.Http404: If no language for the given language slug was found
 
         :return: A status message, either a success or an error message
-        :rtype: ~django.http.JsonResponse
         """
 
         region = request.region

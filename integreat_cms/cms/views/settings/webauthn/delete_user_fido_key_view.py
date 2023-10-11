@@ -1,7 +1,10 @@
 """
 This module contains all views related to multi-factor authentication
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.shortcuts import redirect, render
@@ -11,6 +14,11 @@ from django.views.generic import TemplateView
 
 from ....decorators import modify_mfa_authenticated
 from ....utils.translation_utils import gettext_many_lazy as __
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 
@@ -24,21 +32,14 @@ class DeleteUserFidoKeyView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "settings/mfa/delete.html"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Render mfa-deletion view
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         key = request.user.fido_keys.get(id=kwargs["key_id"])
@@ -69,18 +70,13 @@ class DeleteUserFidoKeyView(TemplateView):
             {"key": key},
         )
 
-    def post(self, request, **kwargs):
+    def post(self, request: HttpRequest, **kwargs: Any) -> HttpResponseRedirect:
         r"""
         Delete a multi-factor-authentication key
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: A redirection to the account settings
-        :rtype: ~django.http.HttpResponseRedirect
         """
 
         key = request.user.fido_keys.get(id=kwargs["key_id"])

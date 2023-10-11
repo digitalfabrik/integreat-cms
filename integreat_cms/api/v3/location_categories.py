@@ -1,26 +1,31 @@
 """
 This module includes the POI category API endpoint.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.conf import settings
 from django.http import JsonResponse
 from django.templatetags.static import static
+
+if TYPE_CHECKING:
+    from typing import Any
+    from django.http import HttpRequest
 
 from ...cms.models import POICategory
 from ..decorators import json_response
 
 
-def transform_location_category(location_category, language_slug):
+def transform_location_category(
+    location_category: POICategory, language_slug: str
+) -> dict[str, Any] | None:
     """
     Function to create a JSON from a single location category object.
 
     :param location_category: The location category object which should be converted
-    :type location_category: ~integreat_cms.cms.models.poi_categories.poi_category.POICategory
-
     :param language_slug: The slug of the requested language
-    :type language_slug: str
-
     :return: Data necessary for API
-    :rtype: dict
     """
     if not location_category:
         return None
@@ -41,21 +46,16 @@ def transform_location_category(location_category, language_slug):
 
 @json_response
 # pylint: disable=unused-argument
-def location_categories(request, region_slug, language_slug):
+def location_categories(
+    request: HttpRequest, region_slug: str, language_slug: str
+) -> JsonResponse:
     """
     Function to return all POI categories as JSON.
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the requested region
-    :type region_slug: str
-
     :param language_slug: The slug of the requested language
-    :type language_slug: str
-
     :return: JSON object of all POI categories
-    :rtype: ~django.http.JsonResponse
     """
     region = request.region
     # Throw a 404 error when the language does not exist or is disabled

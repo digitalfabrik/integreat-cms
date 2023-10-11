@@ -1,6 +1,10 @@
 """
 This module contains mixins for our views
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -8,18 +12,20 @@ from django.views.generic.base import ContextMixin, TemplateResponseMixin
 
 from ...core.utils.machine_translation_provider import MachineTranslationProvider
 
+if TYPE_CHECKING:
+    from typing import Any
+
 
 class RegionPermissionRequiredMixing(UserPassesTestMixin):
     """
     A mixin that can be used for class-based views that require that the user is has access to the current region of this request
     """
 
-    def test_func(self):
+    def test_func(self) -> bool:
         """
         The test this account has to pass
 
         :return: Whether this account has passed the test
-        :rtype: bool
         """
         # Superusers and staff have permissions for all regions
         return (
@@ -35,12 +41,11 @@ class ModelTemplateResponseMixin(TemplateResponseMixin):
     """
 
     @property
-    def template_name(self):
+    def template_name(self) -> str:
         """
         Return the template name to be used for the request.
 
         :return: The template to be rendered
-        :rtype: str
         """
         model_name = self.model._meta.model_name
         model_name_plural = self.model.get_model_name_plural()
@@ -53,16 +58,13 @@ class ModelConfirmationContextMixin(ContextMixin):
     A mixin that can be used to inject confirmation text into a template of a model (e.g. list or form)
     """
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Returns a dictionary representing the template context
         (see :meth:`~django.views.generic.base.ContextMixin.get_context_data`).
 
         :param \**kwargs: The given keyword arguments
-        :type \**kwargs: dict
-
         :return: The template context
-        :rtype: dict
         """
         context = super().get_context_data(**kwargs)
         context.update(
@@ -82,18 +84,15 @@ class ContentEditLockMixin(ContextMixin):
     """
 
     #: The reverse name of the url of the associated list view
-    back_url_name = None
+    back_url_name: str | None = None
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Returns a dictionary representing the template context
         (see :meth:`~django.views.generic.base.ContextMixin.get_context_data`).
 
         :param \**kwargs: The given keyword arguments
-        :type \**kwargs: dict
-
         :return: The template context
-        :rtype: dict
         """
         context = super().get_context_data(**kwargs)
         context.update(
@@ -116,16 +115,13 @@ class MachineTranslationContextMixin(ContextMixin):
     This mixin provides extra context for machine translation options
     """
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Returns a dictionary representing the template context
         (see :meth:`~django.views.generic.base.ContextMixin.get_context_data`).
 
         :param \**kwargs: The given keyword arguments
-        :type \**kwargs: dict
-
         :return: The template context
-        :rtype: dict
         """
         context = super().get_context_data(**kwargs)
         language_slug = kwargs["language_slug"]

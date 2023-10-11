@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 from urllib.parse import urlparse
 
 from django.conf import settings
@@ -6,6 +9,11 @@ from django.core.serializers import base
 
 from ..cms.models import Page, PageTranslation
 from . import base_serializer
+
+if TYPE_CHECKING:
+    from xml.dom.minidom import Element
+
+    from django.db.models.fields import CharField, TextField
 
 logger = logging.getLogger(__name__)
 
@@ -16,11 +24,13 @@ class Serializer(base_serializer.Serializer):
     This was inspired by `django-xliff <https://github.com/callowayproject/django-xliff>`__.
     """
 
-    def start_serialization(self):
+    def start_serialization(self) -> None:
         """
         Start serialization - open the XML document and the root element.
         """
         super().start_serialization()
+        if TYPE_CHECKING:
+            assert self.xml
         self.xml.startElement(
             "xliff",
             {
@@ -29,16 +39,16 @@ class Serializer(base_serializer.Serializer):
             },
         )
 
-    def start_object(self, obj):
+    def start_object(self, obj: PageTranslation) -> None:
         """
         Called as each object is handled. Adds an XLIFF ``<file>``-block with meta-information about the object and an
         additional ``<body>`` for XLIFF version 1.2.
 
         :param obj: The page translation object which is started
-        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
-
         :raises ~django.core.serializers.base.SerializationError: If the serialization fails
         """
+        if TYPE_CHECKING:
+            assert self.xml
         if not (
             source_language := obj.page.region.get_source_language(obj.language.slug)
         ):
@@ -73,19 +83,18 @@ class Serializer(base_serializer.Serializer):
         self.xml.endElement("header")
         self.xml.startElement("body", {})
 
-    def handle_field(self, obj, field):
+    def handle_field(self, obj: PageTranslation, field: CharField | TextField) -> None:
         """
         Called to handle each field on an object (except for ForeignKeys and ManyToManyFields)
 
         :param obj: The page translation object which is handled
-        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
-
         :param field: The model field
-        :type field: ~django.db.models.Field
         """
+        if TYPE_CHECKING:
+            assert self.xml
         # Use legacy field name if available
-        REVERSE_XLIFF_LEGACY_FIELDS = dict(
-            map(reversed, settings.XLIFF_LEGACY_FIELDS.items())
+        REVERSE_XLIFF_LEGACY_FIELDS: dict[str, str] = dict(
+            map(reversed, settings.XLIFF_LEGACY_FIELDS.items())  # type: ignore[arg-type]
         )
         field_name = REVERSE_XLIFF_LEGACY_FIELDS.get(field.name, field.name)
         attrs = {
@@ -111,14 +120,15 @@ class Serializer(base_serializer.Serializer):
 
         self.xml.endElement("trans-unit")
 
-    def end_object(self, obj):
+    def end_object(self, obj: PageTranslation) -> None:
         """
         Called after handling all fields for an object.
         Ends the ``<file>``-block.
 
         :param obj: The page translation object which is finished
-        :type obj: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
         """
+        if TYPE_CHECKING:
+            assert self.xml
         self.xml.endElement("body")
         self.xml.endElement("file")
 
@@ -131,18 +141,14 @@ class Deserializer(base_serializer.Deserializer):
     #: The node name of serialized fields
     unit_node = "trans-unit"
 
-    def get_object(self, node):
+    def get_object(self, node: Element) -> PageTranslation:
         """
         Retrieve an object from the serialized unit node.
 
         :param node: The current xml node of the object
-        :type node: xml.dom.minidom.Element
-
         :raises ~django.core.serializers.base.DeserializationError: If the deserialization fails
 
         :return: The original page translation
-        :rtype: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
-
         """
         # Get original page
         page_id = self.require_attribute(node, "original")

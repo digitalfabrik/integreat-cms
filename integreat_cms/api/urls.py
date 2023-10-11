@@ -1,6 +1,10 @@
 """
 Expansion of API-Endpoints for the CMS
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.urls import include, path, re_path
 
 from .v3.events import events
@@ -33,10 +37,15 @@ from .v3.pdf_export import pdf_export
 from .v3.push_notifications import sent_push_notifications
 from .v3.regions import region_by_slug, regions
 
-#: The namespace for this URL config (see :attr:`django.urls.ResolverMatch.app_name`)
-app_name = "api"
+if TYPE_CHECKING:
+    from typing import Final
 
-content_api_urlpatterns = [
+    from django.urls.resolvers import URLPattern
+
+#: The namespace for this URL config (see :attr:`django.urls.ResolverMatch.app_name`)
+app_name: Final = "api"
+
+content_api_urlpatterns: list[URLPattern] = [
     path("pages/", pages, name="pages"),
     path("locations/", locations, name="locations"),
     path("location-categories/", location_categories, name="location_categories"),
@@ -114,13 +123,13 @@ content_api_urlpatterns = [
     ),
 ]
 
-region_api_urlpatterns = [
+region_api_urlpatterns: list[URLPattern] = [
     path("", regions, name="regions"),
     path("<slug:region_slug>/", region_by_slug, name="region_by_slug"),
 ]
 
 #: The url patterns of this module (see :doc:`django:topics/http/urls`)
-urlpatterns = [
+urlpatterns: list[URLPattern] = [
     path("api/regions/", include(region_api_urlpatterns)),
     path("wp-json/extensions/v3/sites/", include(region_api_urlpatterns)),
     path(

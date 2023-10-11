@@ -1,3 +1,11 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Any
+
+
 import pytest
 from django.core.management.base import CommandError
 from linkcheck.listeners import enable_listeners
@@ -6,7 +14,7 @@ from linkcheck.models import Link, Url
 from ..utils import get_command_output
 
 
-def test_replace_links_missing_args():
+def test_replace_links_missing_args() -> None:
     """
     Ensure that missing args cause an error
     """
@@ -18,7 +26,7 @@ def test_replace_links_missing_args():
     )
 
 
-def test_replace_links_missing_replace():
+def test_replace_links_missing_replace() -> None:
     """
     Ensure that a missing replace throws an error
     """
@@ -28,12 +36,11 @@ def test_replace_links_missing_replace():
 
 
 @pytest.mark.django_db
-def test_replace_links_non_existing_region(load_test_data):
+def test_replace_links_non_existing_region(load_test_data: None) -> None:
     """
     Ensure that a non existing region slug throws an error
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: tuple
     """
     with pytest.raises(CommandError) as exc_info:
         assert not any(
@@ -45,12 +52,11 @@ def test_replace_links_non_existing_region(load_test_data):
 
 
 @pytest.mark.django_db
-def test_replace_links_non_existing_username(load_test_data):
+def test_replace_links_non_existing_username(load_test_data: None) -> None:
     """
     Ensure that a non existing username throws an error
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: tuple
     """
     with pytest.raises(CommandError) as exc_info:
         assert not any(
@@ -63,12 +69,11 @@ def test_replace_links_non_existing_username(load_test_data):
 
 @pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_replace_links_dry_run(load_test_data_transactional):
+def test_replace_links_dry_run(load_test_data_transactional: Any | None) -> None:
     """
     Ensure that dry run works as expected
 
     :param load_test_data_transactional: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data_transactional`)
-    :type load_test_data_transactional: tuple
     """
     test_url = "https://integreat.app/augsburg/de/willkommen/"
     search = "/augsburg/"
@@ -110,12 +115,11 @@ def test_replace_links_dry_run(load_test_data_transactional):
 
 @pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_replace_links_commit(load_test_data_transactional):
+def test_replace_links_commit(load_test_data_transactional: Any | None) -> None:
     """
     Ensure that committing changes to the database works as expected
 
     :param load_test_data_transactional: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data_transactional`)
-    :type load_test_data_transactional: tuple
     """
     test_url = "https://integreat.app/augsburg/de/willkommen/"
     search = "/augsburg/"

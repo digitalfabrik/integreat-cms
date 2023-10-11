@@ -1,28 +1,34 @@
 """
 This file contains the helper function to change the translation file
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 
 from ...constants import status
 from ...models import Language
 
+if TYPE_CHECKING:
+    from django.db.models.query import QuerySet
+    from django.http import HttpRequest
 
-def change_translation_status(request, selected_content, language_slug, desired_status):
+
+def change_translation_status(
+    request: HttpRequest,
+    selected_content: QuerySet,
+    language_slug: str,
+    desired_status: str,
+) -> None:
     """
     Helper function to change the translation status
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param selected_content: The current queryset
-    :type selected_content: ~integreat_cms.cms.models.abstract_content_model.ContentQuerySet
-
     :param language_slug: The language slug of the current language
-    :type language_slug: str
-
     :param desired_status: The desired status
-    :type desired_status: str
     """
 
     status_translation = {"PUBLIC": "Published", "DRAFT": "Draft"}

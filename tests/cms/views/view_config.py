@@ -1,7 +1,10 @@
 """
 This modules contains the config for the view tests
 """
+from __future__ import annotations
+
 import json
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.urls import reverse
@@ -23,12 +26,20 @@ from ...conftest import (
     WRITE_ROLES,
 )
 
+if TYPE_CHECKING:
+    from typing import Any, Final
+
 #: This list contains the config for all views
 #: Each element is a tuple which consists of two elements: A list of view configs and the keyword arguments that are
 #: identical for all views in this list. Each view config item consists of the name of the view, the list of roles that
 #: are allowed to access that view and optionally post data that is sent with the request. The post data can either be
 #: a dict to send form data or a string to send JSON.
-VIEWS = [
+VIEWS: list[
+    tuple[
+        list[tuple[str, list] | tuple[str, list, dict] | tuple[str, list, str]],
+        dict[str, str | int],
+    ]
+] = [
     (
         [
             ("public:login_webauthn", ALL_ROLES),
@@ -1380,14 +1391,16 @@ if settings.FCM_ENABLED:
     ]
 
 #: In order for these views to be used as parameters, we have to flatten the nested structure
-PARAMETRIZED_VIEWS = [
+PARAMETRIZED_VIEWS: Final[
+    list[tuple[str, dict[str, str | int], dict[str, Any] | str, list[str]]]
+] = [
     (view_name, kwargs, post_data[0] if post_data else {}, roles)
     for view_conf, kwargs in VIEWS
     for view_name, roles, *post_data in view_conf
 ]
 
 #: This list contains the config for all views which should check whether they correctly redirect to another url
-REDIRECT_VIEWS = [
+REDIRECT_VIEWS: Final[list[tuple[list[tuple[str, list[str], str]], dict]]] = [
     (
         [
             ("public:login", ROLES, settings.LOGIN_REDIRECT_URL),
@@ -1539,14 +1552,14 @@ REDIRECT_VIEWS = [
 ]
 
 #: In order for these views to be used as parameters, we have to flatten the nested structure
-PARAMETRIZED_REDIRECT_VIEWS = [
+PARAMETRIZED_REDIRECT_VIEWS: Final[list[tuple[str, dict[str, str], list[str], str]]] = [
     (view_name, kwargs, roles, target)
     for view_conf, kwargs in REDIRECT_VIEWS
     for view_name, roles, target in view_conf
 ]
 
 #: Public views that only work for anonymous users
-PARAMETRIZED_PUBLIC_VIEWS = [
+PARAMETRIZED_PUBLIC_VIEWS: Final[list[tuple[str, dict[str, str]]]] = [
     ("public:login", {}),
     ("public:login_webauthn", {}),
     ("public:password_reset", {}),

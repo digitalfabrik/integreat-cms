@@ -1,9 +1,17 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib.auth import views as auth_views
 from django.shortcuts import render
 
 from ....utils.mfa_utils import get_mfa_user
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
 
 logger = logging.getLogger(__name__)
 
@@ -17,21 +25,14 @@ class WebAuthnLoginView(auth_views.LoginView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "authentication/login_webauthn.html"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Renders the login form for TOTP authentication
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied kwargs
-        :type \**kwargs: dict
-
         :return: Rendered login form
-        :rtype: ~django.http.HttpResponse
         """
         has_totp = False
         passwordless_route = False

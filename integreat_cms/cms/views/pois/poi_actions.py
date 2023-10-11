@@ -1,8 +1,11 @@
 """
 This module contains view actions for objects related to POIs.
 """
+from __future__ import annotations
+
 import json
 import logging
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
@@ -16,29 +19,25 @@ from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ...decorators import permission_required
 from ...models import POI
 
+if TYPE_CHECKING:
+    from django.http import HttpRequest, HttpResponseRedirect
+
 logger = logging.getLogger(__name__)
 
 
 @require_POST
 @permission_required("cms.change_poi")
-def archive_poi(request, poi_id, region_slug, language_slug):
+def archive_poi(
+    request: HttpRequest, poi_id: int, region_slug: str, language_slug: str
+) -> HttpResponseRedirect:
     """
     Archive POI object
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param poi_id: The id of the POI which should be archived
-    :type poi_id: int
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param language_slug: The slug of the current language
-    :type language_slug: str
-
     :return: A redirection to the :class:`~integreat_cms.cms.views.pois.poi_list_view.POIListView`
-    :rtype: ~django.http.HttpResponseRedirect
     """
     poi = POI.objects.get(id=poi_id)
 
@@ -58,24 +57,17 @@ def archive_poi(request, poi_id, region_slug, language_slug):
 
 @require_POST
 @permission_required("cms.change_poi")
-def restore_poi(request, poi_id, region_slug, language_slug):
+def restore_poi(
+    request: HttpRequest, poi_id: int, region_slug: str, language_slug: str
+) -> HttpResponseRedirect:
     """
     Restore POI object (set ``archived=False``)
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param poi_id: The id of the POI which should be restored
-    :type poi_id: int
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param language_slug: The slug of the current language
-    :type language_slug: str
-
     :return: A redirection to the :class:`~integreat_cms.cms.views.pois.poi_list_view.POIListView`
-    :rtype: ~django.http.HttpResponseRedirect
     """
     poi = POI.objects.get(id=poi_id)
 
@@ -95,24 +87,17 @@ def restore_poi(request, poi_id, region_slug, language_slug):
 
 @require_POST
 @permission_required("cms.delete_poi")
-def delete_poi(request, poi_id, region_slug, language_slug):
+def delete_poi(
+    request: HttpRequest, poi_id: int, region_slug: str, language_slug: str
+) -> HttpResponseRedirect:
     """
     Delete POI object
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param poi_id: The id of the POI which should be deleted
-    :type poi_id: int
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param language_slug: The slug of the current language
-    :type language_slug: str
-
     :return: A redirection to the :class:`~integreat_cms.cms.views.pois.poi_list_view.POIListView`
-    :rtype: ~django.http.HttpResponseRedirect
     """
 
     poi = POI.objects.get(id=poi_id)
@@ -131,26 +116,19 @@ def delete_poi(request, poi_id, region_slug, language_slug):
 
 @permission_required("cms.view_poi")
 # pylint: disable=unused-argument
-def view_poi(request, poi_id, region_slug, language_slug):
+def view_poi(
+    request: HttpRequest, poi_id: int, region_slug: str, language_slug: str
+) -> HttpResponse:
     """
     View POI object
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param poi_id: The id of the POI which should be viewed
-    :type poi_id: int
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param language_slug: The slug of the current language
-    :type language_slug: str
-
     :raises ~django.http.Http404: If user no translation exists for the requested POI and language
 
     :return: A redirection to the :class:`~integreat_cms.cms.views.pois.poi_list_view.POIListView`
-    :rtype: ~django.http.HttpResponseRedirect
     """
     poi = POI.objects.get(id=poi_id)
 
@@ -165,20 +143,15 @@ def view_poi(request, poi_id, region_slug, language_slug):
 @require_POST
 @permission_required("cms.view_poi")
 # pylint: disable=unused-argument
-def auto_complete_address(request, region_slug):
+def auto_complete_address(request: HttpRequest, region_slug: str) -> JsonResponse:
     """
     Autocomplete location address and coordinates
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :raises ~django.http.Http404: If no location was found for the given address
 
     :return: The address and coordinates of the location
-    :rtype: ~django.http.JsonResponse
     """
     data = json.loads(request.body.decode("utf-8"))
 
@@ -219,20 +192,17 @@ def auto_complete_address(request, region_slug):
 @require_POST
 @permission_required("cms.view_poi")
 # pylint: disable=unused-argument
-def get_address_from_coordinates(request, region_slug):
+def get_address_from_coordinates(
+    request: HttpRequest, region_slug: str
+) -> JsonResponse:
     """
     Derive address from the coordinates (map pin position)
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :raises ~django.http.Http404: If no address was found for the given coordinates
 
     :return: The address of the location
-    :rtype: ~django.http.JsonResponse
     """
     if not settings.NOMINATIM_API_ENABLED:
         return HttpResponse(_("Location service is disabled"), status_code=503)

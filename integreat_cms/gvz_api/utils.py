@@ -1,12 +1,18 @@
 """
 Helper classes for Gemeindeverzeichnis API
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 import requests
 from django.conf import settings
 
 from ..cms.constants import administrative_division as ad
+
+if TYPE_CHECKING:
+    from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -16,23 +22,20 @@ class GvzApiWrapper:
     Class that wraps around the GVZ (Gemeindeverzeichnis) API
     """
 
-    api_url = settings.GVZ_API_URL
+    api_url: str = settings.GVZ_API_URL
     """
     The URL to the external GVZ API
     """
 
-    def search(self, region_name, division_category):
+    def search(
+        self, region_name: str | None, division_category: int | None
+    ) -> list[dict[str, Any]]:
         """
         Search for a region and return candidates
 
         :param region_name: name of a region (city name, county name, etc)
-        :type region_name: str
-
         :param division_category: GVZ category of division (state, district, county, municipality)
-        :type division_category: int
-
         :return: JSON search results defined in the GVZ API
-        :rtype: str
         """
         logger.debug("Searching for %r", region_name)
         regions = requests.get(
@@ -41,15 +44,12 @@ class GvzApiWrapper:
         ).json()["results"]
         return regions
 
-    def get_details(self, ags):
+    def get_details(self, ags: str) -> dict | None:
         """
         Get details for a region id (i.e. Gemeindeschlüssel)
 
         :param ags: Gemeindeschlüssel
-        :type ags: str
-
         :return: dictionary containing longitude, latitude, type, id, name
-        :rtype: dict
         """
         logger.debug("GVZ API: Details for %r", ags)
         result = requests.get(
@@ -71,15 +71,12 @@ class GvzApiWrapper:
             "children": region["children"],
         }
 
-    def get_child_coordinates(self, child_urls):
+    def get_child_coordinates(self, child_urls: list) -> dict:
         """
         Recursively get coordinates for list of children
 
         :param child_urls: URLs to REST API children
-        :type child_urls: list
-
         :return: dictionary of coordinates
-        :rtype: dict
         """
         result = {}
         for url in child_urls:
@@ -94,15 +91,12 @@ class GvzApiWrapper:
         return result
 
     @staticmethod
-    def translate_division_category(division_type):
+    def translate_division_category(division_type: str | None) -> int | None:
         """
         Map Integreat CMS division types to Gemeindeverzeichnis division categories.
 
         :param division_type: type of a region
-        :type division_type: str
-
         :return: division category identifier
-        :rtype: int
         """
         result = None
         if division_type in [
@@ -129,18 +123,15 @@ class GvzApiWrapper:
             result = 60
         return result
 
-    def best_match(self, region_name, division_type):
+    def best_match(
+        self, region_name: str | None, division_type: str | None
+    ) -> dict[str, Any] | None:
         """
         Tries to find the correct region id (single search hit)
 
         :param region_name: name of a region (city name, county name, etc)
-        :type region_name: str
-
         :param division_type: administrative division type of region (choices: :mod:`~integreat_cms.cms.constants.administrative_division`)
-        :type division_type: str
-
         :return: JSON search results defined in the GVZ API
-        :rtype: str
         """
         # First: let's try normal search. If there is only one result, then
         # everything is good.
@@ -171,16 +162,16 @@ class GvzRegion:
     from API on initialization.
 
     :param region_ags: official ID for a region, i.e. Gemeindeschlüssel, defaults to ``None``
-    :type region_ags: str
-
     :param region_name: name of a region (city name, county name, etc), defaults to ``None``
-    :type region_name: str
-
     :param division_type: administrative division type of region (choices: :mod:`~integreat_cms.cms.constants.administrative_division`), defaults to ``None``
-    :type division_type: str
     """
 
-    def __init__(self, region_ags=None, region_name=None, region_type=None):
+    def __init__(
+        self,
+        region_ags: str | None = None,
+        region_name: str | None = None,
+        region_type: str | None = None,
+    ) -> None:
         """
         Load initial values for region from GVZ API
         """
@@ -196,7 +187,7 @@ class GvzRegion:
         ):
             self.ags = best_match["ags"]
 
-        self.name = None
+        self.name: str = ""
         self.longitude = None
         self.latitude = None
         self.child_coordinates = {}
@@ -209,12 +200,11 @@ class GvzRegion:
             self.latitude = details["latitude"]
             self.child_coordinates = api.get_child_coordinates(details["children"])
 
-    def as_dict(self):
+    def as_dict(self) -> dict[str, Any]:
         """
         Dictionary representation of region
 
         :return: name, longitude, latitude, list of children
-        :rtype: dict
         """
         return {
             "name": str(self),
@@ -223,20 +213,18 @@ class GvzRegion:
             "children": self.child_coordinates,
         }
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         String representation of region
 
         :return: name of region
-        :rtype: str
         """
         return self.name
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         Canonical representation of GVZ region
 
         :return: Debugging representation of GVZ region
-        :rtype: str
         """
         return f"<GvzRegion (name: {self.name}, ags: {self.ags}, longitude: {self.longitude}, latitude: {self.latitude})>"

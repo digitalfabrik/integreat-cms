@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import json
 import logging
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
@@ -13,6 +16,11 @@ from webauthn.helpers.structs import RegistrationCredential
 
 from ....decorators import modify_mfa_authenticated
 from ....models import FidoKey
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
 
 logger = logging.getLogger(__name__)
 
@@ -32,22 +40,15 @@ class RegisterUserFidoKeyView(CreateView):
         "name",
     ]
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Verify a registration challenge and register a 2-FA key.
         Called asynchronously by JavaScript.
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The JSON response
-        :rtype: ~django.http.JsonResponse
         """
         json_data = json.loads(request.body)
 

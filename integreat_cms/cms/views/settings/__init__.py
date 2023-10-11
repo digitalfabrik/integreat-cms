@@ -1,6 +1,8 @@
 """
 This package contains all views related to settings
 """
+from __future__ import annotations
+
 from .dismiss_tutorial_view import DismissTutorial
 from .totp_delete_view import TOTPDeleteView
 from .totp_register_view import TOTPRegisterView

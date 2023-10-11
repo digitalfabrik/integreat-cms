@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import json
+from typing import TYPE_CHECKING
 
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
@@ -7,21 +10,28 @@ from django.utils.text import slugify
 from ...models import EventTranslation, PageTranslation, POITranslation
 from ...utils.slug_utils import generate_unique_slug
 
+if TYPE_CHECKING:
+    from typing import Literal
+
+    from django.http import HttpRequest
+
+    from ...utils.slug_utils import SlugKwargs
+
 
 # pylint: disable=unused-argument
-def slugify_ajax(request, region_slug, language_slug, model_type):
+def slugify_ajax(
+    request: HttpRequest,
+    region_slug: str,
+    language_slug: str,
+    model_type: Literal["page", "event", "poi"],
+) -> JsonResponse:
     """checks the current user input for title and generates unique slug for permalink
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
     :param region_slug: region identifier
-    :type region_slug: str
     :param language_slug: language slug
-    :type language_slug: str
     :param model_type: The type of model to generate a unique slug for, one of `event|page|poi`
-    :type model_type: str
     :return: unique translation slug
-    :rtype: str
     :raises ~django.core.exceptions.PermissionDenied: If the user does not have the permission to access this function
     """
     required_permission = {
@@ -48,7 +58,7 @@ def slugify_ajax(request, region_slug, language_slug, model_type):
         **{model_type: model_id, "language": language}
     ).first()
 
-    kwargs = {
+    kwargs: SlugKwargs = {
         "slug": form_title,
         "manager": manager,
         "object_instance": object_instance,

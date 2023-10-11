@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.utils.translation import gettext_lazy as _
 
 from ...models import Page
@@ -17,20 +19,18 @@ class PageVersionView(PageContextMixin, ContentVersionView):
     #: The label of the "back to form" button
     back_to_form_label = _("Back to the page form")
 
-    def has_change_permission(self):
+    def has_change_permission(self) -> bool:
         """
         Whether the user has the permission to change objects
 
         :returns: Whether the user can change objects
-        :rtype: bool
         """
         return self.request.user.has_perm("cms.change_page_object", self.object)
 
-    def has_publish_permission(self):
+    def has_publish_permission(self) -> bool:
         """
         Whether the user has the permission to publish objects
 
         :returns: Whether the user can publish objects
-        :rtype: bool
         """
         return self.request.user.has_perm("cms.publish_page_object", self.object)

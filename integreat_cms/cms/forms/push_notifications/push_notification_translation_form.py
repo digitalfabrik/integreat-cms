@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
@@ -7,6 +10,10 @@ from django.utils.translation import override
 from ...constants import push_notifications
 from ...models import PushNotificationTranslation
 from ..custom_model_form import CustomModelForm
+
+if TYPE_CHECKING:
+    from django.db.models.base import ModelBase
+    from django.http import HttpRequest
 
 logger = logging.getLogger(__name__)
 
@@ -23,17 +30,16 @@ class PushNotificationTranslationForm(CustomModelForm):
         """
 
         #: The model of this :class:`django.forms.ModelForm`
-        model = PushNotificationTranslation
+        model: ModelBase = PushNotificationTranslation
         #: The fields of the model which should be handled by this form
-        fields = ["title", "text", "language"]
+        fields: list[str] = ["title", "text", "language"]
 
-    def add_error_messages(self, request):
+    def add_error_messages(self, request: HttpRequest) -> None:
         """
         This function overwrites :meth:`~integreat_cms.cms.forms.custom_model_form.CustomModelForm.add_error_messages`
         to add the language of the current translation to the error messages
 
         :param request: The current request submitting the form
-        :type request: ~django.http.HttpRequest
         """
         # Add field errors
         for field in self:
@@ -53,13 +59,12 @@ class PushNotificationTranslationForm(CustomModelForm):
                 "PushNotificationTranslationForm submitted with errors: %r", self.errors
             )
 
-    def has_changed(self):
+    def has_changed(self) -> bool:
         """
         Return ``True`` if submitted data differs from initial data.
         If the main language should be used as fallback for missing translations, this always return ``True``.
 
         :return: Whether the form has changed
-        :rtype: bool
         """
         if (
             hasattr(self.instance, "push_notification")

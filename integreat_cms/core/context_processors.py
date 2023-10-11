@@ -1,34 +1,37 @@
 """
 Context processors pass additional variables to templates (see :ref:`context-processors`).
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.conf import settings
 
 from .. import __version__
 from ..cms.constants import status
 
+if TYPE_CHECKING:
+    from typing import Any
 
-def version_processor(request):
+    from django.http import HttpRequest
+
+
+def version_processor(request: HttpRequest) -> dict[str, str]:
     """
     This context processor injects the current package version into the template context.
 
     :param request: The current http request
-    :type request: ~django.http.HttpRequest
-
     :return: The currently installed version of this package
-    :rtype: dict
     """
     return {"version": __version__}
 
 
-def settings_processor(request):
+def settings_processor(request: HttpRequest) -> dict[str, Any]:
     """
     This context processor injects a few settings into the template context.
 
     :param request: The current http request
-    :type request: ~django.http.HttpRequest
-
     :return: A few of our settings
-    :rtype: dict
     """
     return {
         "FCM_ENABLED": settings.FCM_ENABLED,
@@ -43,15 +46,12 @@ def settings_processor(request):
     }
 
 
-def constants_processor(request):
+def constants_processor(request: HttpRequest) -> dict[str, str]:
     """
     This context processor injects some of our constants into the template context.
 
     :param request: The current http request
-    :type request: ~django.http.HttpRequest
-
     :return: A few of our constants
-    :rtype: dict
     """
     return {
         "DRAFT": status.DRAFT,

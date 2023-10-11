@@ -1,6 +1,9 @@
+from __future__ import annotations
+
 import datetime
 import json
 import logging
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib.auth import login as auth_login
@@ -11,7 +14,10 @@ from webauthn import base64url_to_bytes, verify_authentication_response
 from webauthn.helpers.exceptions import InvalidAuthenticationResponse
 from webauthn.helpers.structs import AuthenticationCredential
 
-from integreat_cms.cms.utils.mfa_utils import get_mfa_user
+if TYPE_CHECKING:
+    from django.http import HttpRequest
+
+from ....utils.mfa_utils import get_mfa_user
 
 logger = logging.getLogger(__name__)
 
@@ -22,14 +28,11 @@ class WebAuthnVerifyView(View):
     After a successful verification, the user is logged in.
     """
 
-    def post(self, request):
+    def post(self, request: HttpRequest) -> JsonResponse:
         """
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :return: The mfa challenge as JSON
-        :rtype: ~django.http.JsonResponse
         """
         if not (user := get_mfa_user(request)):
             return JsonResponse(

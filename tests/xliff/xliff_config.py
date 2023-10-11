@@ -2,8 +2,15 @@
 This file contains the import config for XLIFF tests.
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Final
+
 #: The files to be uploaded and their expected response
-XLIFF_IMPORTS = [
+XLIFF_IMPORTS: Final[list[tuple[dict[str, int | str], dict[str, int | str]]]] = [
     (
         {
             "id": 1,

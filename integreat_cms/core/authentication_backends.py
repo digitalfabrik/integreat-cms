@@ -2,8 +2,19 @@
 This file contains custom authentication backends, see :ref:`ref/contrib/auth:authentication backends` and
 :ref:`django:authentication-backends`.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import BaseBackend
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest
+
+    from integreat_cms.cms.models.users.user import User
 
 UserModel = get_user_model()
 
@@ -13,18 +24,13 @@ class EmailAuthenticationBackend(BaseBackend):
     This authentication backend allows users to login with their email address instead of their username
     """
 
-    def authenticate(self, request, **kwargs):
+    def authenticate(self, request: HttpRequest, **kwargs: Any) -> User | None:
         r"""
         Try to authenticate a user with the given email and password
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: Either the authenticated user or ``None`` is the credentials were not valid
-        :rtype: ~integreat_cms.cms.models.users.user.User
         """
         if email := kwargs.get(UserModel.USERNAME_FIELD):
             password = kwargs.get("password")
@@ -39,15 +45,12 @@ class EmailAuthenticationBackend(BaseBackend):
                     return user
         return None
 
-    def get_user(self, user_id):
+    def get_user(self, user_id: int) -> User | None:
         """
         Get the user by its primary key
 
         :param user_id: The id of the user
-        :type user_id: int
-
         :return: Either the user or ``None`` if no user with this id exists
-        :rtype: ~integreat_cms.cms.models.users.user.User
         """
         try:
             return UserModel.objects.get(pk=user_id)

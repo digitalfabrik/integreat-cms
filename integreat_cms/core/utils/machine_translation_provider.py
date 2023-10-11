@@ -1,9 +1,19 @@
 """
 This module contains utilities for machine translations
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from ...cms.constants import machine_translation_permissions as mt_perms
+
+if TYPE_CHECKING:
+    from django.db.models.base import ModelBase
+    from django.db.models.query import QuerySet
+    from django.utils.functional import SimpleLazyObject
+
+    from ...cms.models import Event, Language, Page, POI, Region
 
 logger = logging.getLogger(__name__)
 
@@ -13,20 +23,18 @@ class MachineTranslationProviderType(type):
     A meta class for machine translation providers
     """
 
-    def __str__(cls):
+    def __str__(cls) -> str:
         """
         :return: A readable string representation of the machine translation provider
-        :rtype: str
         """
-        return cls.name
+        return cls.name  # type: ignore[attr-defined]
 
-    def __repr__(cls):
+    def __repr__(cls) -> str:
         """
         :return: The canonical string representation of the machine translation provider
-        :rtype: str
         """
         class_name = cls.__name__
-        return f"<{class_name} (name: {cls.name}, api_client: {cls.api_client!r})>"
+        return f"<{class_name} (name: {cls.name}, api_client: {cls.api_client!r})>"  # type: ignore[attr-defined]
 
 
 class MachineTranslationProvider(metaclass=MachineTranslationProviderType):
@@ -36,35 +44,30 @@ class MachineTranslationProvider(metaclass=MachineTranslationProviderType):
     """
 
     #: The readable name for this provider
-    name = ""
+    name: str = ""
     #: The API client class for this provider
-    api_client = None
+    api_client: type | None = None
     #: Whether to require the staff permission for bulk actions
-    bulk_only_for_staff = False
+    bulk_only_for_staff: bool = False
     #: Whether the provider is globally enabled
-    enabled = True
+    enabled: bool = True
     #: The name of the region attribute which denotes whether the provider is enabled in a region
-    region_enabled_attr = None
+    region_enabled_attr: str | None = None
     #: The supported source languages
-    supported_source_languages = []
+    supported_source_languages: list[str] = []
     #: The supported target languages
-    supported_target_languages = []
+    supported_target_languages: list[str] = []
 
     # pylint: disable=too-many-return-statements
     @classmethod
-    def is_enabled(cls, region, language):
+    def is_enabled(cls, region: Region, language: Language) -> bool:
         """
         Whether this provider is enabled for a given region and language.
         Call this from the parent class.
 
         :param region: The given region
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :param language: The given language
-        :type language: ~integreat_cms.cms.models.languages.language.Language
-
         :returns: Wether this provider is enabled for the given region and language
-        :rtype: bool
         """
         if not (language_node := region.language_node_by_slug.get(language.slug)):
             logger.debug(
@@ -109,6 +112,8 @@ class MachineTranslationProvider(metaclass=MachineTranslationProviderType):
             return False
 
         source_language = region.get_source_language(language_node.slug)
+        if TYPE_CHECKING:
+            assert source_language
         if source_language.slug not in cls.supported_source_languages:
             logger.debug(
                 "Machine translations via %s are disabled for %r because the slug of its source language %r is not in %r.",
@@ -132,23 +137,18 @@ class MachineTranslationProvider(metaclass=MachineTranslationProviderType):
         return True
 
     @staticmethod
-    def is_permitted(region, user, content_type):
+    def is_permitted(
+        region: Region, user: SimpleLazyObject, content_type: ModelBase
+    ) -> bool:
         """
         Checks if a machine translation is permitted, i.e. if for the
         given region, MT of the given content type is allowed and
         MT into the target language is enabled for the requesting user.
 
         :param region: The current region
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :param user: The current user
-        :type user: ~django.contrib.auth.models.User
-
         :param content_type: The content model which should be translated
-        :type content_type: ~django.db.models.base.ModelBase
-
         :return: Whether the translation is permitted
-        :rtype: bool
         """
         foreign_field = content_type.foreign_field()
         mt_perms_setting = getattr(region, f"machine_translate_{foreign_field}s")
@@ -183,20 +183,17 @@ class MachineTranslationProvider(metaclass=MachineTranslationProviderType):
 
         return True
 
-    def is_needed(self, queryset, target_language):
+    def is_needed(
+        self, queryset: QuerySet[Event | Page | POI], target_language: Language
+    ) -> list[Event | Page | POI]:
         """
         Checks if a machine translation is needed, thus checking if the
         translation status is UP_TO_DATE or MACHINE_TRANSLATED and then
         returns a lit of translations which are to be updated
 
         :param queryset: The content model which should be translated
-        :type queryset: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel ]
-
         :param target_language: The target language
-        :type target_language: ~integreat_cms.cms.models.languages.language.Language
-
         :return: translations which need to be translated and updated
-        :rtype: list
         """
         # Before translating, check if translation is not up-to-date
         to_translate = []

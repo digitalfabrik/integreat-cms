@@ -1,9 +1,16 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from ..abstract_base_model import AbstractBaseModel
+
+if TYPE_CHECKING:
+    from django.db.models.query import QuerySet
 
 
 # pylint: disable=too-few-public-methods
@@ -13,12 +20,11 @@ class ChatHistoryManager(models.Manager):
     (as configured in :attr:`~integreat_cms.core.settings.AUTHOR_CHAT_HISTORY_DAYS`)
     """
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         """
         Custom queryset with applied filters to return the chat messages of the last x days
 
         :return: The QuerySet of the most recent chat history
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.chat.chat_message.ChatMessage ]
         """
         return (
             super()
@@ -52,23 +58,21 @@ class ChatMessage(AbstractBaseModel):
     #: A manager for the most recent chat history
     history = ChatHistoryManager()
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``ChatMessage object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the chat message
-        :rtype: str
         """
         return f"{self.sent_datetime.strftime('%Y-%m-%d %H:%M')} - {self.sender.full_user_name}: {self.text}"
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<ChatMessage: ChatMessage object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the chat message
-        :rtype: str
         """
         return f"<ChatMessage (id: {self.id}, sender: {self.sender.username}, date: {self.sent_datetime.strftime('%Y-%m-%d %H:%M')})>"
 

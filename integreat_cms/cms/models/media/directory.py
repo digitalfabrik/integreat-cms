@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
@@ -6,6 +10,11 @@ from django.utils.translation import gettext_lazy as _
 
 from ..abstract_base_model import AbstractBaseModel
 from ..regions.region import Region
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.db.models.query import QuerySet
 
 
 class Directory(AbstractBaseModel):
@@ -42,12 +51,11 @@ class Directory(AbstractBaseModel):
         help_text=_("Whether the directory is hidden in the regional media library"),
     )
 
-    def serialize(self):
+    def serialize(self) -> dict[str, Any]:
         """
         This method creates a serialized version of that object for later use in AJAX and JSON.
 
         :return: The serialized representation of the directory
-        :rtype: str
         """
         return {
             "type": "directory",
@@ -62,40 +70,33 @@ class Directory(AbstractBaseModel):
         }
 
     @classmethod
-    def search(cls, region, query):
+    def search(cls, region: Region, query: str) -> QuerySet[Directory]:
         """
         Searches for all directories which match the given `query` in their name.
 
         :param region: The searched region
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :param query: The query string used for filtering the regions
-        :type query: str
-
         :return: A query for all matching objects
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.media.directory.Directory ]
         """
         return cls.objects.filter(
             Q(region=region) | Q(region__isnull=True, is_hidden=False),
             Q(name__icontains=query),
         )
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         This overwrites the default Python __str__ method which would return <Directory object at 0xDEADBEEF>
 
         :return: The string representation (in this case the name) of the directory
-        :rtype: str
         """
         return self.name
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<Directory: Directory object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the directory
-        :rtype: str
         """
         region = f"region: {self.region.slug}" if self.region else "global"
         return f"<Directory (id: {self.id}, name: {self.name}, {region})>"

@@ -1,9 +1,12 @@
 """
 This module contains view actions related to pages.
 """
+from __future__ import annotations
+
 import asyncio
 import logging
 from datetime import date, timedelta
+from typing import TYPE_CHECKING
 
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
@@ -12,23 +15,21 @@ from ....matomo_api.matomo_api_client import MatomoException
 from ...decorators import permission_required
 from ...forms import StatisticsFilterForm
 
+if TYPE_CHECKING:
+    from django.http import HttpRequest
+
 logger = logging.getLogger(__name__)
 
 
 @permission_required("cms.view_statistics")
 # pylint: disable=unused-argument
-def get_total_visits_ajax(request, region_slug):
+def get_total_visits_ajax(request: HttpRequest, region_slug: str) -> JsonResponse:
     """
     Aggregates the total API hits of the last 14 days and renders a Widget for the Dashboard.
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: A JSON with all API-Hits of the last 2 weeks
-    :rtype: ~django.http.JsonResponse
     """
 
     region = request.region
@@ -59,18 +60,15 @@ def get_total_visits_ajax(request, region_slug):
 
 @require_POST
 # pylint: disable=unused-argument
-def get_visits_per_language_ajax(request, region_slug):
+def get_visits_per_language_ajax(
+    request: HttpRequest, region_slug: str
+) -> JsonResponse:
     """
     Ajax method to request the app hits for a certain timerange distinguished by languages.
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: A JSON with all API-Hits of the requested time period
-    :rtype: ~django.http.JsonResponse
     """
 
     region = request.region

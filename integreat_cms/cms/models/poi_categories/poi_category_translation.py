@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -29,23 +31,21 @@ class POICategoryTranslation(AbstractBaseModel):
         help_text=_("The name of the POI category."),
     )
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``POICategoryTranslation object (name)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the category translation
-        :rtype: str
         """
         return self.name
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<POI CategoryTranslation: POICategoryTranslation object (id, category name)>``.
         It is used for logging.
 
         :return: The canonical string representation of the category translation
-        :rtype: str
         """
         return f"<POI CategoryTranslation (id: {self.id}, category: {self.category_id}, language: {self.language_id}, name: {self.name})>"
 

@@ -1,21 +1,31 @@
 """
 This module contains the possible names of roles to make them translatable and the permission definitions.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.utils.translation import gettext_lazy as _
 
+if TYPE_CHECKING:
+    from typing import Final
+
+    from django.utils.functional import Promise
+
+
 #: Region management
-MANAGEMENT = "MANAGEMENT"
+MANAGEMENT: Final = "MANAGEMENT"
 #: Content editor
-EDITOR = "EDITOR"
+EDITOR: Final = "EDITOR"
 #: Author
-AUTHOR = "AUTHOR"
+AUTHOR: Final = "AUTHOR"
 #: Event manager
-EVENT_MANAGER = "EVENT_MANAGER"
+EVENT_MANAGER: Final = "EVENT_MANAGER"
 #: User without editing permission
-OBSERVER = "OBSERVER"
+OBSERVER: Final = "OBSERVER"
 
 #: Choices for non-staff roles
-ROLES = [
+ROLES: Final[list[tuple[str, Promise]]] = [
     (MANAGEMENT, _("Manager")),
     (EDITOR, _("Editor")),
     (AUTHOR, _("Author")),
@@ -24,16 +34,16 @@ ROLES = [
 ]
 
 #: Service team
-SERVICE_TEAM = "SERVICE_TEAM"
+SERVICE_TEAM: Final = "SERVICE_TEAM"
 #: CMS team
-CMS_TEAM = "CMS_TEAM"
+CMS_TEAM: Final = "CMS_TEAM"
 #: App team
-APP_TEAM = "APP_TEAM"
+APP_TEAM: Final = "APP_TEAM"
 #: Promo team
-MARKETING_TEAM = "MARKETING_TEAM"
+MARKETING_TEAM: Final = "MARKETING_TEAM"
 
 #: Choices for staff roles
-STAFF_ROLES = [
+STAFF_ROLES: Final[list[tuple[str, Promise]]] = [
     (SERVICE_TEAM, _("Service team")),
     (CMS_TEAM, _("CMS team")),
     (APP_TEAM, _("App team")),
@@ -41,10 +51,10 @@ STAFF_ROLES = [
 ]
 
 #: Choices to use these constants in a database field
-CHOICES = ROLES + STAFF_ROLES
+CHOICES: Final[list[tuple[str, Promise]]] = ROLES + STAFF_ROLES
 
 #: The permissions of the event manager role
-EVENT_MANAGER_PERMISSIONS = [
+EVENT_MANAGER_PERMISSIONS: Final[list[str]] = [
     "add_directory",
     "change_directory",
     "change_event",
@@ -60,7 +70,7 @@ EVENT_MANAGER_PERMISSIONS = [
 ]
 
 #: The permissions of the limited_page_manager
-OBSERVER_PERMISSIONS = [
+OBSERVER_PERMISSIONS: Final[list[str]] = [
     "add_directory",
     "change_directory",
     "view_directory",
@@ -73,21 +83,21 @@ OBSERVER_PERMISSIONS = [
 ]
 
 #: The permissions of the author role
-AUTHOR_PERMISSIONS = EVENT_MANAGER_PERMISSIONS + [
+AUTHOR_PERMISSIONS: Final[list[str]] = EVENT_MANAGER_PERMISSIONS + [
     "change_page",
     "view_page",
 ]
 
 
 #: The permissions of the editor role
-EDITOR_PERMISSIONS = AUTHOR_PERMISSIONS + [
+EDITOR_PERMISSIONS: Final[list[str]] = AUTHOR_PERMISSIONS + [
     "publish_page",
     "view_translation_report",
     "view_broken_links",
 ]
 
 #: The permissions of the management role
-MANAGEMENT_PERMISSIONS = EDITOR_PERMISSIONS + [
+MANAGEMENT_PERMISSIONS: Final[list[str]] = EDITOR_PERMISSIONS + [
     "change_feedback",
     "change_imprintpage",
     "change_organization",
@@ -110,7 +120,7 @@ MANAGEMENT_PERMISSIONS = EDITOR_PERMISSIONS + [
 ]
 
 #: The permissions of the marketing team
-MARKETING_TEAM_PERMISSIONS = [
+MARKETING_TEAM_PERMISSIONS: Final[list[str]] = [
     "change_chatmessage",
     "view_directory",
     "view_event",
@@ -133,7 +143,7 @@ MARKETING_TEAM_PERMISSIONS = [
 ]
 
 #: The permissions of the app team
-APP_TEAM_PERMISSIONS = MARKETING_TEAM_PERMISSIONS + [
+APP_TEAM_PERMISSIONS: Final[list[str]] = MARKETING_TEAM_PERMISSIONS + [
     "add_directory",
     "change_directory",
     "change_event",
@@ -153,7 +163,7 @@ APP_TEAM_PERMISSIONS = MARKETING_TEAM_PERMISSIONS + [
 ]
 
 #: The permissions of the service team
-SERVICE_TEAM_PERMISSIONS = APP_TEAM_PERMISSIONS + [
+SERVICE_TEAM_PERMISSIONS: Final[list[str]] = APP_TEAM_PERMISSIONS + [
     "change_language",
     "change_languagetreenode",
     "change_offertemplate",
@@ -179,10 +189,10 @@ SERVICE_TEAM_PERMISSIONS = APP_TEAM_PERMISSIONS + [
 ]
 
 #: The permissions of the cms team
-CMS_TEAM_PERMISSIONS = SERVICE_TEAM_PERMISSIONS
+CMS_TEAM_PERMISSIONS: Final[list[str]] = SERVICE_TEAM_PERMISSIONS
 
 #: The permissions of all roles
-PERMISSIONS = {
+PERMISSIONS: Final[dict[str, list[str]]] = {
     EVENT_MANAGER: EVENT_MANAGER_PERMISSIONS,
     OBSERVER: OBSERVER_PERMISSIONS,
     AUTHOR: AUTHOR_PERMISSIONS,

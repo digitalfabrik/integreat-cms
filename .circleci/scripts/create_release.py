@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from __future__ import annotations
+
 import argparse
 import mimetypes
 import os
@@ -7,7 +9,7 @@ import os
 import requests
 
 
-def main():
+def main() -> None:
     """
     Create a GitHub release
     """

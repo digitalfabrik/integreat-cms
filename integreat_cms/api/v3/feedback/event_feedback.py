@@ -1,75 +1,70 @@
+from __future__ import annotations
+
 import logging
 import re
+from typing import TYPE_CHECKING
 
 from django.http import Http404, JsonResponse
 
 from ....cms.models import EventFeedback
 from ...decorators import feedback_handler, json_response
 
+if TYPE_CHECKING:
+    from ....cms.models.languages.language import Language
+    from ....cms.models.regions.region import Region
+
 logger = logging.getLogger(__name__)
 
 
 @feedback_handler
 @json_response
-def event_feedback(data, region, language, comment, rating, is_technical):
+def event_feedback(
+    data: dict[str, str],
+    region: Region,
+    language: Language,
+    comment: str,
+    rating: bool,
+    is_technical: bool,
+) -> JsonResponse:
     """
     Store feedback about single event in database
 
     :param data: HTTP request body data
-    :type data: dict
-
     :param region: The region of this sitemap's urls
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :param language: The language of this sitemap's urls
-    :type language: ~integreat_cms.cms.models.languages.language.Language
-
     :param comment: The comment sent as feedback
-    :type comment: str
-
     :param rating: up or downvote, neutral
-    :type rating: str
-
     :param is_technical: is feedback on content or on tech
-    :type is_technical: bool
-
     :return: decorated function that saves feedback in database
-    :rtype: ~collections.abc.Callable
     """
     return event_feedback_internal(
         data, region, language, comment, rating, is_technical
     )
 
 
-def event_feedback_internal(data, region, language, comment, rating, is_technical):
+def event_feedback_internal(
+    data: dict[str, str],
+    region: Region,
+    language: Language,
+    comment: str,
+    rating: bool,
+    is_technical: bool,
+) -> JsonResponse:
     """
     Store feedback about single event in database
 
     :param data: HTTP request body data
-    :type data: dict
-
     :param region: The region of this sitemap's urls
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :param language: The language of this sitemap's urls
-    :type language: ~integreat_cms.cms.models.languages.language.Language
-
     :param comment: The comment sent as feedback
-    :type comment: str
-
     :param rating: up or downvote, neutral
-    :type rating: str
-
     :param is_technical: is feedback on content or on tech
-    :type is_technical: bool
-
     :raises ~django.http.Http404: HTTP status 404 if no event with the given slug exists.
 
     :return: JSON object according to APIv3 single page feedback endpoint definition
-    :rtype: ~django.http.JsonResponse
     """
-    # Remove date from the slug for recurrung events
-    event_translation_slug = re.sub(r"\$\d{4}-\d{2}-\d{2}$", "", data.get("slug"))
+    # Remove date from the slug for recurring events
+    event_translation_slug = re.sub(r"\$\d{4}-\d{2}-\d{2}$", "", data.get("slug", ""))
 
     events = region.events.filter(
         translations__slug=event_translation_slug,

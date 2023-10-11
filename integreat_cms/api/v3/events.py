@@ -1,8 +1,10 @@
 """
 This module includes functions related to the event API endpoint.
 """
+from __future__ import annotations
 
 from datetime import datetime, timedelta
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.http import JsonResponse
@@ -12,19 +14,22 @@ from django.utils.html import strip_tags
 from ..decorators import json_response
 from .locations import transform_poi
 
+if TYPE_CHECKING:
+    from datetime import date
+    from typing import Any, Iterator
 
-def transform_event(event, custom_date=None):
+    from django.http import HttpRequest
+
+    from ...cms.models import Event, EventTranslation, POITranslation
+
+
+def transform_event(event: Event, custom_date: date | None = None) -> dict[str, Any]:
     """
     Function to create a JSON from a single event object.
 
     :param event: The event which should be converted
-    :type event: ~integreat_cms.cms.models.events.event.Event
-
     :param custom_date: The date overwrite of the event
-    :type custom_date: ~datetime.date
-
     :return: data necessary for API
-    :rtype: dict
     """
     start_local = event.start_local
     end_local = event.end_local
@@ -53,22 +58,17 @@ def transform_event(event, custom_date=None):
 
 
 def transform_event_translation(
-    event_translation, poi_translation, recurrence_date=None
-):
+    event_translation: EventTranslation,
+    poi_translation: POITranslation | None,
+    recurrence_date: date | None = None,
+) -> dict[str, Any]:
     """
     Function to create a JSON from a single event_translation object.
 
     :param event_translation: The event translation object which should be converted
-    :type event_translation: ~integreat_cms.cms.models.events.event_translation.EventTranslation
-
     :param poi_translation: The poi translation object which is associated to this event
-    :type poi_translation: ~integreat_cms.cms.models.pois.poi_translation.POITranslation
-
     :param recurrence_date: The recurrence date for the event
-    :type recurrence_date: ~datetime.date
-
     :return: data necessary for API
-    :rtype: dict
     """
     event = event_translation.event
     slug = (
@@ -104,19 +104,16 @@ def transform_event_translation(
     }
 
 
-def transform_available_languages(event_translation, recurrence_date):
+def transform_available_languages(
+    event_translation: EventTranslation, recurrence_date: date
+) -> dict[str, dict[str, str | None]]:
     """
     Function to create a JSON object of all available translations of an event translation.
     This is similar to `event_translation.available_languages_dict` embeds the recurrence date in the translation slug.
 
     :param event_translation: The event translation object which should be converted
-    :type event_translation: ~integreat_cms.cms.models.events.event_translation.EventTranslation
-
     :param recurrence_date: The date of this event translation
-    :type recurrence_date: ~datetime.date
-
     :return: data necessary for API
-    :rtype: dict
     """
     languages = {}
 
@@ -135,21 +132,18 @@ def transform_available_languages(event_translation, recurrence_date):
     return languages
 
 
-def transform_event_recurrences(event_translation, poi_translation, today):
+def transform_event_recurrences(
+    event_translation: EventTranslation,
+    poi_translation: POITranslation | None,
+    today: date,
+) -> Iterator[dict[str, Any]]:
     """
     Yield all future recurrences of the event.
 
     :param event_translation: The event translation object which should be converted
-    :type event_translation: ~integreat_cms.cms.models.events.event_translation.EventTranslation
-
     :param poi_translation: The poi translation object which is associated to this event
-    :type poi_translation: ~integreat_cms.cms.models.pois.poi_translation.POITranslation
-
     :param today: The first date at which event may be yielded
-    :type today: ~datetime.date
-
     :return: An iterator over all future recurrences up to ``settings.API_EVENTS_MAX_TIME_SPAN_DAYS``
-    :rtype: Iterator[:class:`~datetime.date`]
     """
 
     event = event_translation.event
@@ -179,27 +173,20 @@ def transform_event_recurrences(event_translation, poi_translation, today):
 
 @json_response
 # pylint: disable=unused-argument
-def events(request, region_slug, language_slug):
+def events(request: HttpRequest, region_slug: str, language_slug: str) -> JsonResponse:
     """
     List all events of the region and transform result into JSON
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the requested region
-    :type region_slug: str
-
     :param language_slug: The slug of the requested language
-    :type language_slug: str
-
     :return: JSON object according to APIv3 events endpoint definition
-    :rtype: ~django.http.JsonResponse
     """
     region = request.region
     # Throw a 404 error when the language does not exist or is disabled
     region.get_language_or_404(language_slug, only_active=True)
 
-    result = []
+    result: list[dict[str, str | int | None]] = []
     now = timezone.now().date()
     combine_recurring_events = "combine_recurring" in request.GET
     for event in region.events.prefetch_public_translations().filter(archived=False):

@@ -1,10 +1,18 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.core.management.base import CommandError
 from django.template.defaultfilters import filesizeformat
 
 from ....cms.models import MediaFile
 from ..log_command import LogCommand
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.core.management.base import CommandParser
 
 logger = logging.getLogger(__name__)
 
@@ -16,12 +24,11 @@ class Command(LogCommand):
 
     help = "Find large media files in the CMS"
 
-    def add_arguments(self, parser):
+    def add_arguments(self, parser: CommandParser) -> None:
         """
         Define the arguments of this command
 
         :param parser: The argument parser
-        :type parser: ~django.core.management.base.CommandParser
         """
         parser.add_argument(
             "--limit",
@@ -37,22 +44,14 @@ class Command(LogCommand):
         )
 
     # pylint: disable=arguments-differ
-    def handle(self, *args, limit, threshold, **options):
+    def handle(self, *args: Any, limit: int, threshold: int, **options: Any) -> None:
         r"""
         Try to run the command
 
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param limit: Limit the result to this number
-        :type limit: int
-
         :param threshold: Only show the files larger than this value
-        :type threshold: float
-
         :param \**options: The supplied keyword options
-        :type \**options: dict
-
         :raises ~django.core.management.base.CommandError: When the input is invalid
         """
         if threshold < 0:

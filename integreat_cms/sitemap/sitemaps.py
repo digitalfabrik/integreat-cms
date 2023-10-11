@@ -1,8 +1,11 @@
 """
 This module contains all sitemap classes which are all based on :class:`django.contrib.sitemaps.Sitemap`.
 """
+from __future__ import annotations
+
 import logging
 from abc import ABC, abstractmethod
+from typing import TYPE_CHECKING
 from urllib.parse import urlsplit
 
 from django.conf import settings
@@ -16,6 +19,15 @@ from ..cms.models import (
     POITranslation,
 )
 
+if TYPE_CHECKING:
+    from datetime import datetime
+    from typing import Any
+
+    from django.db.models.query import QuerySet
+
+    from ..cms.models import Language, Region
+    from ..cms.models.abstract_content_translation import AbstractContentTranslation
+
 logger = logging.getLogger(__name__)
 
 
@@ -25,56 +37,50 @@ class WebappSitemap(ABC, Sitemap):
     """
 
     #: The default change frequency for all sitemap's urls
-    changefreq = "monthly"
+    changefreq: str = "monthly"
 
     #: The default priority for all sitemap's urls
-    priority = 0.5
+    priority: float = 0.5
 
     @property
     @abstractmethod
-    def queryset(self):
+    def queryset(self) -> QuerySet[OfferTemplate | AbstractContentTranslation]:
         """
         Each subclass needs at least a ``queryset`` attribute defined.
         """
 
-    def __init__(self, region, language):
+    def __init__(self, region: Region, language: Language) -> None:
         """
         This init function sets the region and language parameters.
 
         :param region: The region of this sitemap's urls
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :param language: The language of this sitemap's urls
-        :type language: ~integreat_cms.cms.models.languages.language.Language
         """
         self.region = region
         self.language = language
 
-    def items(self):
+    def items(self) -> QuerySet[OfferTemplate | AbstractContentTranslation]:
         """
         This functions returns the public translations contained in this sitemap.
 
         :return: The queryset of translation objects
-        :rtype: ~django.db.models.query.QuerySet
         """
         return self.queryset
 
     @staticmethod
-    def lastmod(translation):
+    def lastmod(translation: OfferTemplate | AbstractContentTranslation) -> datetime:
         """
         This functions returns the date when a translation was last modified.
 
         :param translation: The given translation
-        :type translation: ~integreat_cms.cms.models.pages.page_translation.PageTranslation,
                            ~integreat_cms.cms.models.events.event_translation.EventTranslation, or
                            ~integreat_cms.cms.models.pois.poi_translation.POITranslation
 
         :return: The list of urls
-        :rtype: ~datetime.datetime
         """
         return translation.last_updated
 
-    def _urls(self, page, protocol, domain):
+    def _urls(self, page: int, protocol: str, domain: str) -> list[dict[str, Any]]:
         """
         This is a patched version of :func:`django.contrib.sitemaps.Sitemap._urls` which adds the alternative languages
         to the list of urls.
@@ -85,16 +91,9 @@ class WebappSitemap(ABC, Sitemap):
         support this functionality when used together with :doc:`django:ref/contrib/sites`.
 
         :param page: The page for the paginator (will always be ``1`` in our case)
-        :type page: int
-
         :param protocol: The protocol of the urls
-        :type protocol: str
-
         :param domain: The domain of the urls
-        :type domain: str
-
         :return: A list of urls
-        :rtype: list [ dict ]
         """
         splitted_url = urlsplit(settings.WEBAPP_URL)
         # Generate list of urls without alternative languages
@@ -104,15 +103,14 @@ class WebappSitemap(ABC, Sitemap):
             url["alternates"] = self.sitemap_alternates(url["item"])
         return urls
 
-    def sitemap_alternates(self, obj):
+    def sitemap_alternates(
+        self, obj: OfferTemplate | AbstractContentTranslation
+    ) -> list[dict[str, str]]:
         """
         This function returns the sitemap alternatives for a given object
 
         :param obj: The object
-        :type obj: ~integreat_cms.cms.models.pages.page.Page, ~integreat_cms.cms.models.events.event.Event or ~integreat_cms.cms.models.pois.poi.POI
-
         :return: The sitemap alternates of the given object
-        :rtype: dict
         """
         return obj.sitemap_alternates
 
@@ -127,19 +125,18 @@ class PageSitemap(WebappSitemap):
     """
 
     #: The priority of this sitemap's urls
-    priority = 1.0
+    priority: float = 1.0
     #: The :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation` :class:`~django.db.models.query.QuerySet` of this sitemap
-    queryset = PageTranslation.objects.filter(status=status.PUBLIC)
+    queryset: QuerySet[PageTranslation] = PageTranslation.objects.filter(
+        status=status.PUBLIC
+    )
 
-    def __init__(self, region, language):
+    def __init__(self, region: Region, language: Language) -> None:
         """
         This init function filters the queryset of page translation objects based on the given region and language.
 
         :param region: The region of this sitemap's urls
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :param language: The language of this sitemap's urls
-        :type language: ~integreat_cms.cms.models.languages.language.Language
         """
         # Instantiate WebappSitemap
         super().__init__(region, language)
@@ -160,22 +157,19 @@ class EventSitemap(WebappSitemap):
     """
 
     #: The usual change frequency of this sitemap's urls
-    changefreq = "daily"
+    changefreq: str = "daily"
 
     #: The :class:`~integreat_cms.cms.models.events.event_translation.EventTranslation` :class:`~django.db.models.query.QuerySet` of this sitemap
-    queryset = EventTranslation.objects.filter(
+    queryset: QuerySet[EventTranslation] = EventTranslation.objects.filter(
         event__archived=False, status=status.PUBLIC
     )
 
-    def __init__(self, region, language):
+    def __init__(self, region: Region, language: Language) -> None:
         """
         This init function filters the queryset of event translation objects based on the given region and language.
 
         :param region: The region of this sitemap's urls
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :param language: The language of this sitemap's urls
-        :type language: ~integreat_cms.cms.models.languages.language.Language
         """
         # Instantiate WebappSitemap
         super().__init__(region, language)
@@ -196,17 +190,16 @@ class POISitemap(WebappSitemap):
     """
 
     #: The :class:`~integreat_cms.cms.models.pois.poi_translation.POITranslation` :class:`~django.db.models.query.QuerySet` queryset of this sitemap
-    queryset = POITranslation.objects.filter(poi__archived=False, status=status.PUBLIC)
+    queryset: QuerySet[POITranslation] = POITranslation.objects.filter(
+        poi__archived=False, status=status.PUBLIC
+    )
 
-    def __init__(self, region, language):
+    def __init__(self, region: Region, language: Language) -> None:
         """
         This init function filters the queryset of POI translation objects based on the given region and language.
 
         :param region: The region of this sitemap's urls
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :param language: The language of this sitemap's urls
-        :type language: ~integreat_cms.cms.models.languages.language.Language
         """
         # Instantiate WebappSitemap
         super().__init__(region, language)
@@ -228,46 +221,37 @@ class OfferSitemap(WebappSitemap):
     #: The priority of this sitemap's urls (``1.0``)
     priority = 1.0
     #: The :class:`~integreat_cms.cms.models.offers.offer_template.OfferTemplate` :class:`~django.db.models.query.QuerySet` queryset of this sitemap
-    queryset = OfferTemplate.objects.all()
+    queryset: QuerySet[OfferTemplate] = OfferTemplate.objects.all()
 
-    def __init__(self, region, language):
+    def __init__(self, region: Region, language: Language) -> None:
         """
         This init function filters the queryset of offers objects based on the given region.
 
         :param region: The region of this sitemap's urls
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :param language: The language of this sitemap's urls
-        :type language: ~integreat_cms.cms.models.languages.language.Language
         """
         # Instantiate WebappSitemap
         super().__init__(region, language)
         # Filter queryset based on region
         self.queryset = self.queryset.filter(regions=self.region)
 
-    def location(self, item):
+    def location(self, item: OfferTemplate) -> str:
         """
         This location function returns the absolute path for a given object returned by items().
 
         :param item: Objects passed from items() method
-        :type item: ~integreat_cms.cms.models.offers.offer_template.OfferTemplate
-
         :return: The absolute path of the given offer object
-        :rtype: str
         """
         return "/" + "/".join(
             [self.region.slug, self.language.slug, "offers", item.slug]
         )
 
-    def sitemap_alternates(self, obj):
+    def sitemap_alternates(self, obj: OfferTemplate) -> list[dict[str, str]]:
         """
         This sitemap_alternates function returns the language alternatives of offers for the use in sitemaps.
 
         :param obj: Objects passed from items() method
-        :type obj: ~integreat_cms.cms.models.offers.offer_template.OfferTemplate
-
         :return: A list of dictionaries containing the alternative translations of offers
-        :rtype: list [ dict ]
         """
         return [
             {

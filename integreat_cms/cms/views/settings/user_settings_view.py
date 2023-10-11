@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
@@ -7,6 +10,11 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
 from ...forms import UserEmailForm, UserPasswordForm, UserPreferencesForm
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 
@@ -19,16 +27,13 @@ class UserSettingsView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "settings/user_settings.html"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Returns a dictionary representing the template context
         (see :meth:`~django.views.generic.base.ContextMixin.get_context_data`).
 
         :param \**kwargs: The given keyword arguments
-        :type \**kwargs: dict
-
         :return: The template context
-        :rtype: dict
         """
         context = super().get_context_data(**kwargs)
         context.update(
@@ -43,23 +48,18 @@ class UserSettingsView(TemplateView):
         )
         return context
 
-    def post(self, request, *args, **kwargs):
+    def post(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
         r"""
         Submit :class:`~integreat_cms.cms.forms.users.user_email_form.UserEmailForm` and
         :class:`~integreat_cms.cms.forms.users.user_password_form.UserPasswordForm` and save :class:`~django.contrib.auth.models.User`
         object
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
         region = request.region
 

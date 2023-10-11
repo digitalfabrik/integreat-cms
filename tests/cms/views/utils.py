@@ -1,33 +1,37 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.conf import settings
+from django.test.client import Client
 from django.urls import reverse
 
 from ...conftest import ANONYMOUS
 from ...utils import assert_no_error_messages
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from _pytest.logging import LogCaptureFixture
+
 
 def check_view_status_code(
-    login_role_user, caplog, view_name, kwargs, post_data, roles
-):
+    login_role_user: tuple[Client, str],
+    caplog: LogCaptureFixture,
+    view_name: str,
+    kwargs: dict[str, Any],
+    post_data: dict[str, Any] | str,
+    roles: list[str],
+) -> None:
     """
     This test checks whether the given view return the correct status code for the current role
 
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
-    :type login_role_user: tuple
-
     :param caplog: The :fixture:`caplog` fixture
-    :type caplog: pytest.LogCaptureFixture
-
     :param view_name: The identifier of the view
-    :type view_name: str
-
     :param kwargs: The keyword argument passed to the view
-    :type kwargs: dict
-
     :param post_data: The post data for this view
-    :type post_data: dict
-
     :param roles: The list of roles which should be able to access this view
-    :type roles: list
     """
     client, role = login_role_user
     url = reverse(view_name, kwargs=kwargs)

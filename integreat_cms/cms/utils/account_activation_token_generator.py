@@ -2,6 +2,8 @@
 This module contains helpers for the account activation process
 (also see :class:`~integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView`).
 """
+from __future__ import annotations
+
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 
 

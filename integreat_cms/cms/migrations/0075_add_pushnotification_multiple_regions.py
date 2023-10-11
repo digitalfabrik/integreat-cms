@@ -1,17 +1,22 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.db import migrations, models
 from django.db.models.deletion import CASCADE
 
+if TYPE_CHECKING:
+    from django.apps.registry import Apps
+    from django.db.backends.base.schema import BaseDatabaseSchemaEditor
+
 
 # pylint: disable=unused-argument
-def forwards_func(apps, schema_editor):
+def forwards_func(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
     """
     Adopting the old data when applying this migration
 
     :param apps: The configuration of installed applications
-    :type apps: ~django.apps.registry.Apps
-
     :param schema_editor: The database abstraction layer that creates actual SQL code
-    :type schema_editor: ~django.db.backends.base.schema.BaseDatabaseSchemaEditor
     """
     PushNotification = apps.get_model("cms", "PushNotification")
     for pn in PushNotification.objects.all():
@@ -19,15 +24,12 @@ def forwards_func(apps, schema_editor):
 
 
 # pylint: disable=unused-argument
-def reverse_func(apps, schema_editor):
+def reverse_func(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
     """
     Reverting (most of the) newer data when reverting this migration
 
     :param apps: The configuration of installed applications
-    :type apps: ~django.apps.registry.Apps
-
     :param schema_editor: The database abstraction layer that creates actual SQL code
-    :type schema_editor: ~django.db.backends.base.schema.BaseDatabaseSchemaEditor
     """
     PushNotification = apps.get_model("cms", "PushNotification")
     for pn in PushNotification.objects.all():

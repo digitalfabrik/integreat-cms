@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -12,6 +15,15 @@ from django.views.generic.edit import ModelFormMixin
 from ...forms import poi_category_translation_formset_factory, POICategoryForm
 from ...models import Language, POICategory
 from ..mixins import ModelTemplateResponseMixin
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponseRedirect
+
+    from integreat_cms.cms.forms.poi_categories.poi_category_translation_form import (
+        BaseInlinePOICategoryTranslationFormSet,
+    )
 
 logger = logging.getLogger(__name__)
 
@@ -34,24 +46,23 @@ class POICategoryMixin(
 
     #: The object instance of this :class:`~django.views.generic.detail.SingleObjectMixin`
     #: (see :meth:`~django.views.generic.detail.SingleObjectMixin.get_object`)
-    object = None
+    object: POICategory | None = None
 
     #: The context dict passed to the template
     #: (see :attr:`~django.views.generic.base.ContextMixin.extra_context`)
     extra_context = {"current_menu_item": "poicategories"}
 
     #: The formset of this mixin for POICategoryTranslation
-    formset = None
+    formset: BaseInlinePOICategoryTranslationFormSet | None = None
 
     #: The form class to instantiate
     form_class = POICategoryForm
 
-    def get_permission_required(self):
+    def get_permission_required(self) -> tuple[str]:
         """
         Override this method to override the permission_required attribute.
 
         :return: The permissions that are required for views inheriting from this Mixin
-        :rtype: ~collections.abc.Iterable
         """
         # If the form is submitted via POST, require the change permission
         if self.request.method == "POST":
@@ -59,12 +70,11 @@ class POICategoryMixin(
         # If the form is just retrieved, require the view permission
         return ("cms.view_poicategory",)
 
-    def get_formset(self):
+    def get_formset(self) -> BaseInlinePOICategoryTranslationFormSet:
         """
         Retrieve and instantiate the formset class
 
         :returns: The formset
-        :rtype: ~django.forms.formsets.POICategoryTranslationFormFormSet
         """
         # If the formset already has been instantiated, don't do it again
         if self.formset:
@@ -86,36 +96,28 @@ class POICategoryMixin(
             initial=[{"language": language} for language in languages],
         )
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Add the formset to the template context
         (see :meth:`~django.views.generic.base.ContextMixin.get_context_data`).
 
         :param \**kwargs: The given keyword arguments
-        :type \**kwargs: dict
-
         :return: The template context
-        :rtype: dict
         """
         context = super().get_context_data(**kwargs)
         context["formset"] = self.get_formset()
         return context
 
-    def post(self, request, *args, **kwargs):
+    def post(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
         r"""
         Check whether the formset is valid and delegate to the respective function
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The redirect
-        :rtype: ~django.http.HttpResponseRedirect
         """
         form = self.get_form()
         self.formset = self.get_formset()
@@ -124,26 +126,26 @@ class POICategoryMixin(
             return self.form_valid(form)
         return self.form_invalid(form)
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         """
         Determine the URL to redirect to when the form is successfully validated
 
         :return: The url to redirect on success
-        :rtype: str
         """
+        if TYPE_CHECKING:
+            assert self.object
         return reverse("edit_poicategory", kwargs={"pk": self.object.pk})
 
-    def form_invalid(self, form):
+    def form_invalid(self, form: POICategoryForm) -> HttpResponseRedirect:
         """
         Renders a response, providing the invalid form as context.
         (see :meth:`~django.views.generic.edit.ModelFormMixin.form_invalid`)
 
         :param form: The invalid form instance
-        :type form: ~django.forms.ModelForm
-
         :return: The rendered invalid form
-        :rtype: ~django.http.HttpResponse
         """
+        if TYPE_CHECKING:
+            assert self.formset
         # Add error messages
         for formset_form in self.formset:
             formset_form.add_error_messages(self.request)
@@ -161,7 +163,7 @@ class POICategoryCreateView(POICategoryMixin, CreateView):
     (if there are any) and saving the object.
     """
 
-    def form_valid(self, form):
+    def form_valid(self, form: POICategoryForm) -> HttpResponseRedirect:
         """
         Create a :class:`~integreat_cms.cms.models.poi_categories.poi_category.POICategory`
         object and save all related
@@ -170,13 +172,14 @@ class POICategoryCreateView(POICategoryMixin, CreateView):
         (See :meth:`~django.views.generic.edit.ModelFormMixin.form_valid`)
 
         :param form: The valid form instance
-        :type form: ~django.forms.ModelForm
 
         :return: A redirection to the success url
-        :rtype: ~django.http.HttpResponseRedirect
         """
         # Create POICategory object
         self.object = form.save(commit=False)
+        if TYPE_CHECKING:
+            assert self.object
+            assert self.formset
         self.object.save()
         # Save POICategoryTranslation objects
         translations = self.formset.save(commit=False)
@@ -201,27 +204,23 @@ class POICategoryUpdateView(POICategoryMixin, UpdateView):
     This uses a form automatically generated from the object's model class.
     """
 
-    def post(self, request, *args, **kwargs):
+    def post(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
         r"""
         Get the current :class:`~integreat_cms.cms.models.poi_categories.poi_category.POICategory`
         object and save the formset
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
 
         :return: The redirect
-        :rtype: ~django.http.HttpResponseRedirect
         """
         self.object = self.get_object()
         return super().post(request, *args, **kwargs)
 
-    def form_valid(self, form):
+    def form_valid(self, form: POICategoryForm) -> HttpResponseRedirect:
         """
         Save all changed
         :class:`~integreat_cms.cms.models.poi_categories.poi_category_translation.POICategoryTranslation`
@@ -229,11 +228,12 @@ class POICategoryUpdateView(POICategoryMixin, UpdateView):
         (See :meth:`~django.views.generic.edit.ModelFormMixin.form_valid`)
 
         :param form: The valid form instance
-        :type form: ~django.forms.ModelForm
 
         :return: A redirection to the success url
-        :rtype: ~django.http.HttpResponseRedirect
         """
+        if TYPE_CHECKING:
+            assert self.object
+            assert self.formset
         if not self.formset.has_changed() and not form.has_changed():
             messages.info(self.request, _("No changes made"))
         else:

@@ -2,6 +2,10 @@
 This module contains signal handlers related to feedback objects.
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from cacheops import invalidate_obj
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
@@ -20,18 +24,20 @@ from ...cms.models import (
     SearchResultFeedback,
 )
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.db.models.base import ModelBase
+
 
 @receiver(post_delete, sender=Feedback)
 # pylint: disable=unused-argument
-def feedback_delete_handler(sender, **kwargs):
+def feedback_delete_handler(sender: ModelBase, **kwargs: Any) -> None:
     r"""
     Invalidate feedback cache after feedback deletion
 
     :param sender: The class of the feedback that was deleted
-    :type sender: type
-
     :param \**kwargs: The supplied keyword arguments
-    :type \**kwargs: dict
     """
     if kwargs.get("instance"):
         invalidate_obj(kwargs.get("instance"))
@@ -48,15 +54,14 @@ def feedback_delete_handler(sender, **kwargs):
 @receiver(post_save, sender=RegionFeedback)
 @receiver(post_save, sender=SearchResultFeedback)
 # pylint: disable=unused-argument
-def feedback_create_handler(sender, **kwargs):
+def feedback_create_handler(sender: ModelBase, **kwargs: Any) -> None:
     r"""
     Invalidate feedback cache after feedback creation
 
     :param sender: The class of the feedback that was deleted
-    :type sender: type
-
     :param \**kwargs: The supplied keyword arguments
-    :type \**kwargs: dict
     """
-    if kwargs.get("instance") and hasattr(kwargs.get("instance"), "feedback_ptr"):
-        invalidate_obj(kwargs.get("instance").feedback_ptr)
+    if (instance := kwargs.get("instance")) and (
+        feedback_ptr := getattr(instance, "feedback_ptr", None)
+    ):
+        invalidate_obj(feedback_ptr)

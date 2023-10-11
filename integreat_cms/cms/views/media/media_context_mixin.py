@@ -1,8 +1,15 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin
 
 from ...constants import allowed_media
+
+if TYPE_CHECKING:
+    from typing import Any
 
 
 # pylint: disable=too-few-public-methods
@@ -11,15 +18,12 @@ class MediaContextMixin(ContextMixin):
     This mixin provides context data required by the the media library.
     """
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Overwrites the default :meth:`~django.views.generic.base.ContextMixin.get_context_data` Method of Django to provide an additional context for template rendering.
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The overwritten context.
-        :rtype: dict
         """
         context = super().get_context_data(**kwargs)
 

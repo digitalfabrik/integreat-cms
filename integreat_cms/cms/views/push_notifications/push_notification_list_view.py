@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
@@ -11,6 +14,11 @@ from django.views.generic import TemplateView
 from ...decorators import permission_required
 from ...forms import ObjectSearchForm
 from ...models import PushNotificationTranslation
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
 
 logger = logging.getLogger(__name__)
 
@@ -32,33 +40,25 @@ class PushNotificationListView(TemplateView):
     extra_context = {"current_menu_item": "push_notifications"}
 
     @property
-    def template_name(self):
+    def template_name(self) -> str:
         """
         Select correct HTML template, depending on :attr:`~integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.templates` flag
         (see :class:`~django.views.generic.base.TemplateResponseMixin`)
 
         :return: Path to HTML template
-        :rtype: str
         """
 
         return self.template_templates if self.templates else self.template
 
     # pylint: disable=too-many-locals
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Create a list that shows existing push notifications and translations
 
         :param request: Object representing the user call
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         # current region
@@ -137,17 +137,13 @@ class PushNotificationListView(TemplateView):
             },
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Apply the query and filter the rendered push notifications
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
         :param \*args: The supplied arguments
-        :type \*args: list
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
         return self.get(request, *args, **kwargs, search_data=request.POST)

@@ -1,11 +1,17 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib.auth import views as auth_views
 from django.shortcuts import redirect
 
-from integreat_cms.cms.forms.users.passwordless_authentication_form import (
+from ...forms.users.passwordless_authentication_form import (
     PasswordlessAuthenticationForm,
 )
+
+if TYPE_CHECKING:
+    from django.http import HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 authlog = logging.getLogger("auth")
@@ -25,7 +31,7 @@ class PasswordlessLoginView(auth_views.LoginView):
     #: The form class for the passwordless login
     form_class = PasswordlessAuthenticationForm
 
-    def form_valid(self, form):
+    def form_valid(self, form: PasswordlessAuthenticationForm) -> HttpResponseRedirect:
         """
         This function overwrites :meth:`~django.views.generic.edit.FormMixin.form_valid` which is called if the login
         form is valid. In case the user has mfa-keys configured, the login is delegated to
@@ -34,11 +40,10 @@ class PasswordlessLoginView(auth_views.LoginView):
         :attr:`~integreat_cms.core.settings.LOGIN_REDIRECT_URL`.
 
         :param form: User login form
-        :type form: ~django.contrib.auth.forms.AuthenticationForm
-
         :return: Redirect user to mfa login view or to :attr:`~integreat_cms.core.settings.LOGIN_REDIRECT_URL`
-        :rtype: ~django.http.HttpResponseRedirect
         """
+        if TYPE_CHECKING:
+            assert form.user
 
         if form.user.fido_keys.exists():
             self.request.session["mfa_user_id"] = form.user.id

@@ -1,7 +1,14 @@
 """
 APIv3 feedback endpoint for feedback about offers
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.http import JsonResponse
+
+if TYPE_CHECKING:
+    from ....cms.models import Language, Region
 
 from ....cms.models import OfferListFeedback
 from ...decorators import feedback_handler, json_response
@@ -10,30 +17,24 @@ from ...decorators import feedback_handler, json_response
 @feedback_handler
 @json_response
 # pylint: disable=unused-argument
-def offer_list_feedback(data, region, language, comment, rating, is_technical):
+def offer_list_feedback(
+    data: dict,
+    region: Region,
+    language: Language,
+    comment: str,
+    rating: bool,
+    is_technical: bool,
+) -> JsonResponse:
     """
     Store feedback about offers list in database
 
     :param data: HTTP request body data
-    :type data: dict
-
     :param region: The region of this sitemap's urls
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :param language: The language of this sitemap's urls
-    :type language: ~integreat_cms.cms.models.languages.language.Language
-
     :param comment: The comment sent as feedback
-    :type comment: str
-
     :param rating: up or downvote, neutral
-    :type rating: str
-
     :param is_technical: is feedback on content or on tech
-    :type is_technical: bool
-
     :return: JSON object according to APIv3 offers list feedback endpoint definition
-    :rtype: ~django.http.JsonResponse
     """
     OfferListFeedback.objects.create(
         region=region,

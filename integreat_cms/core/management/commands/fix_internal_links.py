@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 from urllib.parse import unquote
 
 from django.contrib.auth import get_user_model
@@ -10,18 +13,22 @@ from ....cms.utils import internal_link_utils
 from ....cms.utils.linkcheck_utils import replace_links
 from ..log_command import LogCommand
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.core.management.base import CommandParser
+
+    from ....cms.models import User
+
 logger = logging.getLogger(__name__)
 
 
-def get_region(region_slug):
+def get_region(region_slug: str) -> Region:
     """
     Get a region object by slug or raise an error if not found
 
     :param region_slug: Region slug
-    :type region_slug: str
-
     :return: Region
-    :rtype: ~integreat_cms.cms.models.regions.region.Region
     """
     try:
         return Region.objects.get(slug=region_slug)
@@ -29,15 +36,12 @@ def get_region(region_slug):
         raise CommandError(f'Region with slug "{region_slug}" does not exist.') from e
 
 
-def get_user(username):
+def get_user(username: str) -> User:
     """
     Get a user by username or raise an error if not found
 
     :param username: Username
-    :type username: str
-
     :return: User
-    :rtype: ~integreat_cms.cms.models.users.user.User
     """
     try:
         return get_user_model().objects.get(username=username)
@@ -58,12 +62,11 @@ class Command(LogCommand):
 
     help = "Search & fix broken internal links in the content"
 
-    def add_arguments(self, parser):
+    def add_arguments(self, parser: CommandParser) -> None:
         """
         Define the arguments of this command
 
         :param parser: The argument parser
-        :type parser: ~django.core.management.base.CommandParser
         """
         parser.add_argument(
             "--region-slug", help="Only fix links in the region with this slug"
@@ -76,25 +79,17 @@ class Command(LogCommand):
         )
 
     # pylint: disable=arguments-differ
-    def handle(self, *args, region_slug, username, commit, **options):
+    def handle(
+        self, *args: Any, region_slug: str, username: str, commit: bool, **options: Any
+    ) -> None:
         r"""
         Try to run the command
 
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param region_slug: The slug of the given region
-        :type region_slug: str
-
         :param username: The username of the creator
-        :type username: str
-
         :param commit: Whether changes should be written to the database
-        :type commit: bool
-
         :param \**options: The supplied keyword options
-        :type \**options: dict
-
         :raises ~django.core.management.base.CommandError: When the input is invalid
         """
         region = get_region(region_slug) if region_slug else None

@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
@@ -14,6 +17,11 @@ from ...forms import EventFilterForm
 from ...models import EventTranslation
 from ..mixins import MachineTranslationContextMixin
 from .event_context_mixin import EventContextMixin
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
 
 logger = logging.getLogger(__name__)
 
@@ -35,31 +43,23 @@ class EventListView(TemplateView, EventContextMixin, MachineTranslationContextMi
     translation_model = EventTranslation
 
     @property
-    def template_name(self):
+    def template_name(self) -> str:
         """
         Select correct HTML template, depending on :attr:`~integreat_cms.cms.views.events.event_list_view.EventListView.archived` flag
         (see :class:`~django.views.generic.base.TemplateResponseMixin`)
 
         :return: Path to HTML template
-        :rtype: str
         """
         return self.template_archived if self.archived else self.template
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Render events list for HTTP GET requests
 
         :param request: Object representing the user call
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
         # current region
         region = request.region

@@ -1,6 +1,24 @@
 """
 This file contains helper functions for XLIFF tests.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import sys
+    from typing import Any, Literal, TypedDict
+
+    if sys.version_info >= (3, 11):
+        from typing import NotRequired
+    else:
+        from typing_extensions import NotRequired
+
+    from _pytest.logging import LogCaptureFixture
+
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.template.response import TemplateResponse
+from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.constants import translation_status
@@ -8,16 +26,26 @@ from integreat_cms.cms.models import Page
 
 from ..utils import assert_message_in_log
 
+if TYPE_CHECKING:
 
-def get_open_kwargs(file_name):
+    class OpenKwargs(TypedDict):
+        """
+        A custom type for partial keyword arguments to :func:`python:open`
+        """
+
+        #: The ``mode`` argument
+        mode: Literal["r", "rb"]
+        #: The ``encoding`` argument
+        encoding: NotRequired[Literal["utf-8"]]
+
+
+def get_open_kwargs(file_name: str) -> OpenKwargs:
     """
     Determine the ``open()`` keyword arguments of a file (binary mode for ZIP files)
 
     :param file_name: The filename
-    :type file_name: str
 
     :return: The kwargs
-    :rtype: dict
     """
     return (
         {"mode": "rb"}
@@ -26,24 +54,18 @@ def get_open_kwargs(file_name):
     )
 
 
-def upload_files(client, url, file_1, file_2):
+def upload_files(
+    client: Client, url: str, file_1: str, file_2: str
+) -> HttpResponseNotFound | HttpResponseRedirect:
     """
     Helper function to upload two XLIFF files
 
     :param client: The authenticated client
-    :type client: django.test.client.Client
-
     :param url: The URL to which the files should be uploaded
-    :type url: str
-
     :param file_1: The first file
-    :type file_1: str
-
     :param file_2: The second file
-    :type file_2: str
 
     :return: The upload response
-    :rtype: django.http.HttpResponse
     """
     import_path = "tests/xliff/files/import"
     with open(f"{import_path}/{file_1}", **get_open_kwargs(file_1)) as f1:
@@ -51,18 +73,14 @@ def upload_files(client, url, file_1, file_2):
             return client.post(url, data={"xliff_file": [f1, f2]}, format="multipart")
 
 
-def get_and_assert_200(client, url):
+def get_and_assert_200(client: Client, url: str) -> HttpResponse | TemplateResponse:
     """
     Perform a get request and make sure the result is successful
 
     :param client: The authenticated client
-    :type client: django.test.client.Client
-
     :param url: The URL to open
-    :type url: str
 
     :return: The successful response
-    :rtype: django.http.HttpResponse
     """
     # Check if xliff view is correctly rendered
     result = client.get(url)
@@ -71,24 +89,21 @@ def get_and_assert_200(client, url):
     return result
 
 
-def validate_xliff_import_response(client, caplog, response, import_1, import_2):
+def validate_xliff_import_response(
+    client: Client,
+    caplog: LogCaptureFixture,
+    response: HttpResponseRedirect,
+    import_1: dict[str, Any],
+    import_2: dict[str, Any],
+) -> None:
     """
     Helper function to validate an XLIFF import response
 
     :param client: The authenticated client
-    :type client: django.test.client.Client
-
     :param caplog: The :fixture:`caplog` fixture
-    :type caplog: pytest.LogCaptureFixture
-
     :param response: The response of the confirm view to be validated
-    :type response: django.http.HttpResponse
-
     :param import_1: A dict of import information
-    :type import_1: dict
-
     :param import_2: A list of import information
-    :type import_2: dict
     """
     # If the role should be allowed to access the view, we expect a successful result
     assert response.status_code == 302

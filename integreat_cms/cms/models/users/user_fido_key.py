@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -39,23 +41,21 @@ class FidoKey(AbstractBaseModel):
         verbose_name=_("creation date"),
     )
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``UserMfaKey object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the user MFA
-        :rtype: str
         """
         return f"{self.name} ({self.user.full_user_name})"
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<UserMfaKey: UserMfaKey object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the user MFA
-        :rtype: str
         """
         return f"<UserMfaKey (id: {self.id}, name: {self.name}, user: {self.user.username})>"
 

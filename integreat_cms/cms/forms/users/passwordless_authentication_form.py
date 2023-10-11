@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UsernameField
@@ -6,6 +10,13 @@ from django.forms import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from ...utils.translation_utils import gettext_many_lazy as __
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest
+
+    from ...models import User
 
 
 class PasswordlessAuthenticationForm(forms.Form):
@@ -16,7 +27,7 @@ class PasswordlessAuthenticationForm(forms.Form):
     username = UsernameField(widget=forms.TextInput(attrs={"autofocus": True}))
 
     #: The user who tries to login without password
-    user = None
+    user: User | None = None
 
     #: The different reasons why passwordless authentication might not be possible
     error_messages = {
@@ -33,21 +44,16 @@ class PasswordlessAuthenticationForm(forms.Form):
 
     def __init__(
         self,
-        *args,
-        request=None,
-        **kwargs,
-    ):
+        *args: Any,
+        request: HttpRequest | None = None,
+        **kwargs: Any,
+    ) -> None:
         r"""
         Render passwordless authentication form for HTTP GET requests
 
         :param request: Object representing the user call
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
         self.request = request
         super().__init__(*args, **kwargs)
@@ -60,14 +66,13 @@ class PasswordlessAuthenticationForm(forms.Form):
         self.fields["username"].max_length = username_max_length
         self.fields["username"].widget.attrs["maxlength"] = username_max_length
 
-    def clean_username(self):
+    def clean_username(self) -> str:
         """
         Checks the input of the user to enable authentication
 
         :raises ~django.core.exceptions.ValidationError: If the given username or email is invalid
 
         :return: The cleaned username
-        :rtype: str
         """
         username = self.cleaned_data.get("username")
 

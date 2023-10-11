@@ -1,12 +1,23 @@
 """
 The model for the push notification
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
+
+if TYPE_CHECKING:
+    from datetime import datetime
+
+    from django.db.models.query import QuerySet
+
+    from .push_notification_translation import PushNotificationTranslation
 
 from ...constants.push_notifications import PN_MODES
 from ..abstract_base_model import AbstractBaseModel
@@ -73,51 +84,47 @@ class PushNotification(AbstractBaseModel):
     )
 
     @cached_property
-    def languages(self):
+    def languages(self) -> QuerySet[Language]:
         """
         This property returns a QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` objects,
         to which a push notification translation exists.
 
         :return: QuerySet of all :class:`~integreat_cms.cms.models.languages.language.Language` a push notification is
                  translated into
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language.Language ]
         """
         return Language.objects.filter(
             push_notification_translations__push_notification=self
         )
 
     @property
-    def backend_translation(self):
+    def backend_translation(self) -> PushNotificationTranslation | None:
         """
         This function returns the translation of this push notification in the current backend language.
 
         :return: The backend translation of a push notification
-        :rtype: ~integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
         """
         return self.translations.filter(language__slug=get_language()).first()
 
     @property
-    def default_translation(self):
+    def default_translation(self) -> PushNotificationTranslation:
         """
         This function returns the translation of this push notification in the region's default language.
         Since a push notification can only be created by creating a translation in the default language, this is
         guaranteed to return a push notification translation.
 
         :return: The default translation of a push notification
-        :rtype: ~integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
         """
         return self.translations.filter(
             language=self.regions.first().default_language
         ).first()
 
     @property
-    def best_translation(self):
+    def best_translation(self) -> PushNotificationTranslation:
         """
         This function returns the translation of this push notification in the current backend language and if it
         doesn't exist, it provides a fallback to the translation in the region's default language.
 
         :return: The "best" translation of a push notification for displaying in the backend
-        :rtype: ~integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
         """
         return (
             self.backend_translation
@@ -126,34 +133,31 @@ class PushNotification(AbstractBaseModel):
         )
 
     @cached_property
-    def scheduled_send_date_local(self):
+    def scheduled_send_date_local(self) -> datetime | None:
         """
         Convert the scheduled send date to local time
 
         :return: The scheduled send date in local time
-        :rtype: Optional[datetime.datetime]
         """
         if not self.scheduled_send_date:
             return None
         return timezone.localtime(self.scheduled_send_date)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``PushNotification object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the push notification
-        :rtype: str
         """
         return self.best_translation.title
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<PushNotification: PushNotification object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the push notification
-        :rtype: str
         """
         return f"<PushNotification (id: {self.id}, channel: {self.channel}, regions: {self.regions.values_list('slug', flat=True)})>"
 

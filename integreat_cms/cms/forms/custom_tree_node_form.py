@@ -1,7 +1,17 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django import forms
 from treebeard.forms import MoveNodeForm
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.db.models.base import ModelBase
+
+    from ..models import LanguageTreeNode, Page
 
 logger = logging.getLogger(__name__)
 
@@ -11,12 +21,11 @@ class CustomTreeNodeForm(MoveNodeForm):
     Form for creating and modifying tree node objects
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         r"""
         Initialize custom tree node form
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
 
         # Instantiate MoveNodeForm
@@ -26,27 +35,25 @@ class CustomTreeNodeForm(MoveNodeForm):
         self.fields["_ref_node_id"].widget = forms.HiddenInput()
         self.fields["_position"].widget = forms.HiddenInput()
 
-    def _clean_cleaned_data(self):
+    def _clean_cleaned_data(self) -> tuple[str, int]:
         """
         Delete auxiliary fields not belonging to node model and include instance attributes in cleaned_data
 
         :return: The initial data for _ref_node_id and _position fields
-        :rtype: tuple
         """
         # This workaround is required because the MoveNodeForm does not take
         # instance attribute into account which are not included in cleaned_data
         self.cleaned_data["region"] = self.instance.region
         return super()._clean_cleaned_data()
 
-    def _get_position_ref_node(self, instance):
+    def _get_position_ref_node(
+        self, instance: LanguageTreeNode | Page
+    ) -> dict[str, str]:
         """
         Get the initial values for the referenced node and the position
 
         :param instance: The node instance
-        :type instance: ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode
-
         :return: A dictionary containing the initial values
-        :rtype: dict
         """
         prev_sibling = instance.get_prev_sibling()
         # If the previous sibling is of another region, use a different node as reference
@@ -74,19 +81,16 @@ class CustomTreeNodeForm(MoveNodeForm):
         return {key: str(value) for key, value in initial_data.items()}
 
     @classmethod
-    def mk_dropdown_tree(cls, model, for_node=None):
+    def mk_dropdown_tree(
+        cls, model: ModelBase, for_node: None | (LanguageTreeNode | Page) = None
+    ) -> list:
         """
         Creates a tree-like list of choices. Overwrites the parent method because the field is hidden anyway and
         additional queries to render the node titles should be avoided.
 
         :param model: ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode
-        :type model: type
-
         :param for_node: The instance of this form
-        :type for_node: ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode
-
         :return: A list of select options
-        :rtype: list
         """
         # No need to calculate anything here, because we set self.fields["_ref_node_id"].choices manually
         return []

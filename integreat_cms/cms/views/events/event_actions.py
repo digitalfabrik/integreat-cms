@@ -1,8 +1,11 @@
 """
 This module contains action methods for events (archive, restore, ...)
 """
+from __future__ import annotations
+
 import json
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.db.models import OuterRef, Subquery
@@ -14,29 +17,25 @@ from ...constants import status
 from ...decorators import permission_required
 from ...models import POITranslation, Region
 
+if TYPE_CHECKING:
+    from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+
 logger = logging.getLogger(__name__)
 
 
 @require_POST
 @permission_required("cms.change_event")
-def archive(request, event_id, region_slug, language_slug):
+def archive(
+    request: HttpRequest, event_id: int, region_slug: str, language_slug: str
+) -> HttpResponseRedirect:
     """
     Set archived flag for an event
 
     :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
     :param event_id: internal id of the event to be archived
-    :type event_id: int
-
     :param region_slug: slug of the region which the event belongs to
-    :type region_slug: str
-
     :param language_slug: current GUI language slug
-    :type language_slug: str
-
     :return: The rendered template response
-    :rtype: ~django.template.response.TemplateResponse
     """
     region = request.region
     event = get_object_or_404(region.events, id=event_id)
@@ -57,24 +56,17 @@ def archive(request, event_id, region_slug, language_slug):
 
 @require_POST
 @permission_required("cms.change_event")
-def copy(request, event_id, region_slug, language_slug):
+def copy(
+    request: HttpRequest, event_id: int, region_slug: str, language_slug: str
+) -> HttpResponseRedirect:
     """
     Duplicates the given event and all of its translations.
 
     :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
     :param event_id: internal id of the event to be copied
-    :type event_id: int
-
     :param region_slug: slug of the region which the event belongs to
-    :type region_slug: str
-
     :param language_slug: current GUI language slug
-    :type language_slug: str
-
     :return: The rendered template response
-    :rtype: ~django.template.response.TemplateResponse
     """
     region = request.region
     event = get_object_or_404(region.events, id=event_id)
@@ -91,24 +83,17 @@ def copy(request, event_id, region_slug, language_slug):
 
 @require_POST
 @permission_required("cms.change_event")
-def restore(request, event_id, region_slug, language_slug):
+def restore(
+    request: HttpRequest, event_id: int, region_slug: str, language_slug: str
+) -> HttpResponseRedirect:
     """
     Remove archived flag for an event
 
     :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
     :param event_id: internal id of the event to be un-archived
-    :type event_id: int
-
     :param region_slug: slug of the region which the event belongs to
-    :type region_slug: str
-
     :param language_slug: current GUI language slug
-    :type language_slug: str
-
     :return: The rendered template response
-    :rtype: ~django.template.response.TemplateResponse
     """
     region = request.region
     event = get_object_or_404(region.events, id=event_id)
@@ -129,24 +114,17 @@ def restore(request, event_id, region_slug, language_slug):
 
 @require_POST
 @permission_required("cms.delete_event")
-def delete(request, event_id, region_slug, language_slug):
+def delete(
+    request: HttpRequest, event_id: int, region_slug: str, language_slug: str
+) -> HttpResponseRedirect:
     """
     Delete a single event
 
     :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
     :param event_id: internal id of the event to be deleted
-    :type event_id: int
-
     :param region_slug: slug of the region which the event belongs to
-    :type region_slug: str
-
     :param language_slug: current GUI language slug
-    :type language_slug: str
-
     :return: The rendered template response
-    :rtype: ~django.template.response.TemplateResponse
     """
     region = request.region
     event = get_object_or_404(region.events, id=event_id)
@@ -170,18 +148,13 @@ def delete(request, event_id, region_slug, language_slug):
 @require_POST
 @permission_required("cms.view_event")
 # pylint: disable=unused-argument
-def search_poi_ajax(request, region_slug):
+def search_poi_ajax(request: HttpRequest, region_slug: str) -> HttpResponse:
     """
     AJAX endpoint for searching POIs
 
     :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The current regions slug
-    :type region_slug: str
-
     :return: The rendered template response
-    :rtype: ~django.template.response.TemplateResponse
     """
     data = json.loads(request.body.decode("utf-8"))
 

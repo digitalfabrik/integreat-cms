@@ -1,12 +1,15 @@
+from __future__ import annotations
+
 import pytest
 from django.core.management.base import CommandError
+from pytest_django.fixtures import SettingsWrapper
 
 from integreat_cms.cms.models import Region
 
 from ..utils import get_command_output
 
 
-def test_summ_ai_bulk_missing_args():
+def test_summ_ai_bulk_missing_args() -> None:
     """
     Ensure that missing args cause an error
     """
@@ -18,7 +21,7 @@ def test_summ_ai_bulk_missing_args():
     )
 
 
-def test_summ_ai_bulk_missing_username():
+def test_summ_ai_bulk_missing_username() -> None:
     """
     Ensure that a missing username throws an error
     """
@@ -30,7 +33,7 @@ def test_summ_ai_bulk_missing_username():
 
 
 @pytest.mark.django_db
-def test_summ_ai_bulk_disabled(settings, load_test_data):
+def test_summ_ai_bulk_disabled(settings: SettingsWrapper, load_test_data: None) -> None:
     """
     Ensure that calling when globally disabled throws an error
     """
@@ -41,7 +44,7 @@ def test_summ_ai_bulk_disabled(settings, load_test_data):
 
 
 @pytest.mark.django_db
-def test_summ_ai_bulk_non_existing_region():
+def test_summ_ai_bulk_non_existing_region() -> None:
     """
     Ensure that a non existing region slug throws an error
     """
@@ -52,7 +55,7 @@ def test_summ_ai_bulk_non_existing_region():
 
 # pylint: disable=fixme
 @pytest.mark.django_db
-def test_summ_ai_bulk_disabled_region(load_test_data):
+def test_summ_ai_bulk_disabled_region(load_test_data: None) -> None:
     """
     Ensure that calling when disabled in a region throws an error
     """
@@ -64,7 +67,7 @@ def test_summ_ai_bulk_disabled_region(load_test_data):
 
 
 @pytest.mark.django_db
-def test_summ_ai_bulk_non_existing_username(load_test_data):
+def test_summ_ai_bulk_non_existing_username(load_test_data: None) -> None:
     """
     Ensure that a non existing username throws an error
     """

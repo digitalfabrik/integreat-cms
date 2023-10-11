@@ -1,8 +1,17 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import PermissionDenied
 from django.urls import resolve
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
+    from typing import Any, Final
+
+    from django.http import HttpRequest
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +26,7 @@ class AccessControlMiddleware:
     """
 
     #: The namespaces that are whitelisted and don't require access control
-    whitelist = [
+    whitelist: Final[list[str]] = [
         "api",
         "public",
         "sitemap",
@@ -28,26 +37,22 @@ class AccessControlMiddleware:
         "djdt",
     ]
 
-    def __init__(self, get_response):
+    def __init__(self, get_response: Callable) -> None:
         """
         Initialize the middleware for the current view
 
         :param get_response: A callable to get the response for the current request
-        :type get_response: ~collections.abc.Callable
         """
         self.get_response = get_response
 
-    def __call__(self, request):
+    def __call__(self, request: HttpRequest) -> Any:
         """
         Call the middleware for the current request
 
         :param request: Django request
-        :type request: ~django.http.HttpRequest
-
         :raises ~django.core.exceptions.PermissionDenied: If user doesn't have the permission to access the requested area
 
         :return: The response after the region has been added to the request variable
-        :rtype: ~django.http.HttpResponse
         """
         # Resolve current url
         resolver_match = resolve(request.path)

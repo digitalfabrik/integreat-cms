@@ -1,6 +1,8 @@
 """
 Form for submitting filter requests
 """
+from __future__ import annotations
+
 import logging
 from datetime import date, timedelta
 
@@ -42,12 +44,11 @@ class StatisticsFilterForm(forms.Form):
         label=_("Evaluation"),
     )
 
-    def clean(self):
+    def clean(self) -> dict:
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
 
         :return: The cleaned data
-        :rtype: dict
         """
         cleaned_data = super().clean()
 

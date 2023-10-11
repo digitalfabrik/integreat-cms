@@ -1,6 +1,9 @@
+from __future__ import annotations
+
 import logging
 import zoneinfo
 from datetime import datetime, time, timedelta
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.conf import settings
@@ -9,6 +12,9 @@ from django.utils.translation import gettext_lazy as _
 from ...models import Event
 from ..custom_model_form import CustomModelForm
 from ..icon_widget import IconWidget
+
+if TYPE_CHECKING:
+    from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -81,12 +87,11 @@ class EventForm(CustomModelForm):
             },
         }
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         r"""
         Initialize event form
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
 
         # Instantiate CustomModelForm
@@ -105,12 +110,11 @@ class EventForm(CustomModelForm):
             self.fields["is_recurring"].initial = self.instance.is_recurring
             self.fields["has_not_location"].initial = not self.instance.has_location
 
-    def clean(self):
+    def clean(self) -> dict[str, Any]:
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
 
         :return: The cleaned form data
-        :rtype: dict
         """
         cleaned_data = super().clean()
 
@@ -146,8 +150,10 @@ class EventForm(CustomModelForm):
             ] == time.max.replace(second=0, microsecond=0):
                 self.data["is_all_day"] = True
 
-        if cleaned_data.get("end_date") and cleaned_data.get("start_date"):
-            if cleaned_data.get("end_date") < cleaned_data.get("start_date"):
+        if (start_date := cleaned_data.get("start_date")) and (
+            end_date := cleaned_data.get("end_date")
+        ):
+            if end_date < start_date:
                 # If both dates are given, check if they are valid
                 self.add_error(
                     "end_date",
@@ -158,12 +164,12 @@ class EventForm(CustomModelForm):
                         code="invalid",
                     ),
                 )
-            elif cleaned_data.get("end_date") == cleaned_data.get("start_date"):
+            elif end_date == start_date:
                 # If both dates are identical, check the times
                 if (
-                    cleaned_data.get("end_time")
-                    and cleaned_data.get("start_time")
-                    and cleaned_data.get("end_time") < cleaned_data.get("start_time")
+                    (start_time := cleaned_data.get("start_time"))
+                    and (end_time := cleaned_data.get("end_time"))
+                    and end_time < start_time
                 ):
                     self.add_error(
                         "end_time",
@@ -174,9 +180,7 @@ class EventForm(CustomModelForm):
                             code="invalid",
                         ),
                     )
-            elif cleaned_data["end_date"] - cleaned_data["start_date"] > timedelta(
-                settings.MAX_EVENT_DURATION - 1
-            ):
+            elif end_date - start_date > timedelta(settings.MAX_EVENT_DURATION - 1):
                 self.add_error(
                     "end_date",
                     forms.ValidationError(

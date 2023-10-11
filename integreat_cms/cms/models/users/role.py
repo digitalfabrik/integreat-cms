@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.contrib.auth.models import Group
 from django.db import models
 from django.utils import translation
@@ -33,33 +35,30 @@ class Role(AbstractBaseModel):
     )
 
     @cached_property
-    def english_name(self):
+    def english_name(self) -> str:
         """
         This returns the english name of a role which is used for logging
 
         :return: The english name of the role
-        :rtype: str
         """
         with translation.override("en"):
             return self.get_name_display()
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Role object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the role
-        :rtype: str
         """
         return self.get_name_display()
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<Role: Role object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the role
-        :rtype: str
         """
         return f"<Role (id: {self.id}, name: {self.english_name}{', staff role' if self.staff_role else ''})>"
 

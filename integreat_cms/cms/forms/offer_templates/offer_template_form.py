@@ -1,6 +1,13 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from ...models import OfferTemplate
 from ...utils.slug_utils import generate_unique_slug_helper
 from ..custom_model_form import CustomModelForm
+
+if TYPE_CHECKING:
+    from typing import Any
 
 
 class OfferTemplateForm(CustomModelForm):
@@ -27,35 +34,30 @@ class OfferTemplateForm(CustomModelForm):
             "supported_by_app_in_content",
         ]
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         r"""
         Initialize offer template form
 
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
         super().__init__(*args, **kwargs)
 
         self.fields["slug"].required = False
 
-    def clean_slug(self):
+    def clean_slug(self) -> str:
         """
         Validate the slug field (see :ref:`overriding-modelform-clean-method`)
 
         :return: A unique slug based on the input value
-        :rtype: str
         """
         return generate_unique_slug_helper(self, "offer-template")
 
-    def clean_post_data(self):
+    def clean_post_data(self) -> dict:
         """
         Validate the post data field (see :ref:`overriding-modelform-clean-method`)
 
         :return: The valid post data
-        :rtype: str
         """
         if cleaned_post_data := self.cleaned_data["post_data"]:
             return cleaned_post_data

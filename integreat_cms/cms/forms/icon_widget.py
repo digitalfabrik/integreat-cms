@@ -1,6 +1,13 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django import forms
 
 from ..models import MediaFile
+
+if TYPE_CHECKING:
+    from typing import Any
 
 
 class IconWidget(forms.HiddenInput):
@@ -11,21 +18,16 @@ class IconWidget(forms.HiddenInput):
     #: The template to use for this widget
     template_name = "icon_widget.html"
 
-    def get_context(self, name, value, attrs):
+    def get_context(
+        self, name: str, value: Any | None, attrs: dict[str, Any]
+    ) -> dict[str, dict[str, Any]]:
         """
         This function gets the context of icon fields
 
         :param name: the supplied name
-        :type name: str
-
         :param value: the supplied values
-        :type value: str
-
         :param attrs: the supplied attrs
-        :type attrs: list
-
         :return: context
-        :rtype: dict
         """
 
         context = super().get_context(name, value, attrs)

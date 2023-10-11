@@ -1,4 +1,6 @@
-from typing import Any
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -10,6 +12,13 @@ from django.views.generic import TemplateView
 from ...utils.totp_utils import check_totp_code
 from ...utils.translation_utils import gettext_many_lazy as __
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
+
+    from ..models import User
+
 
 class TOTPLoginView(TemplateView):
     """
@@ -18,37 +27,31 @@ class TOTPLoginView(TemplateView):
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "authentication/login_totp.html"
+    template_name: str = "authentication/login_totp.html"
     #: The user who tries to authenticate
-    user = None
+    user: User | None = None
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Get revision context data
 
         :return: The context dictionary
-        :rtype: dict
         """
         context = super().get_context_data(**kwargs)
 
+        if TYPE_CHECKING:
+            assert self.user
         context["can_use_webauthn"] = self.user.fido_keys.exists()
         return context
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Check whether TOTP login can be used right now
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: Redirection to login form or region selection
-        :rtype: ~django.http.HttpResponseRedirect
         """
 
         if request.user.is_authenticated:
@@ -65,22 +68,17 @@ class TOTPLoginView(TemplateView):
         # Now process dispatch as it otherwise normally would
         return super().dispatch(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Retrieves the entered TOTP code of the user and validates it.
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: Redirection to region selection or rendered login form
-        :rtype: ~django.http.HttpResponseRedirect
         """
+        if TYPE_CHECKING:
+            assert self.user
         user_totp = request.POST.get("totp_code")
 
         if check_totp_code(user_totp, self.user.totp_key):

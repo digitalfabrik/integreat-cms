@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.contrib import messages
@@ -9,6 +12,11 @@ from django.utils.translation import gettext_lazy as _
 
 from ..utils.text_utils import lowfirst
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest
+
 
 class CustomModelForm(forms.ModelForm):
     """
@@ -16,13 +24,11 @@ class CustomModelForm(forms.ModelForm):
     Use this form as base class instead of :class:`django.forms.ModelForm`.
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         r"""
         Initialize placeholder model form
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises TypeError: If form is instantiated directly without an inheriting subclass
         """
         # pop kwarg to make sure the super class does not get this params
@@ -93,13 +99,12 @@ class CustomModelForm(forms.ModelForm):
                     {"placeholder": capfirst(_("Enter {} here").format(model_field))}
                 )
 
-    def clean(self):
+    def clean(self) -> dict[str, Any]:
         """
         This method extends the default ``clean()``-method of the base :class:`~django.forms.ModelForm` to provide debug
         logging
 
         :return: The cleaned data (see :ref:`overriding-modelform-clean-method`)
-        :rtype: dict
         """
         # Validate ModelForm
         cleaned_data = super().clean()
@@ -110,16 +115,13 @@ class CustomModelForm(forms.ModelForm):
         )
         return cleaned_data
 
-    def save(self, commit=True):
+    def save(self, commit: bool = True) -> Any:
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to provide debug
         logging
 
         :param commit: Whether or not the changes should be written to the database
-        :type commit: bool
-
         :return: The saved object returned by :ref:`django:topics-modelform-save`
-        :rtype: object
         """
         self.logger.debug(
             "%s saved with changed data %r",
@@ -132,13 +134,12 @@ class CustomModelForm(forms.ModelForm):
         # Save ModelForm
         return super().save(commit=commit)
 
-    def add_error_messages(self, request):
+    def add_error_messages(self, request: HttpRequest) -> None:
         """
         This function accepts the current request and adds the form's error messages to the message queue of
         :mod:`django.contrib.messages`.
 
         :param request: The current request submitting the form
-        :type request: ~django.http.HttpRequest
         """
         # Add field errors
         for field in self:
@@ -153,12 +154,11 @@ class CustomModelForm(forms.ModelForm):
                 "%r submitted with errors: %r", type(self).__name__, self.errors
             )
 
-    def get_error_messages(self):
+    def get_error_messages(self) -> list[dict[str, str]]:
         """
         Return all error messages of this form and append labels to field-errors
 
         :return: The errors of this form
-        :rtype: list
         """
         error_messages = []
         # Add field errors

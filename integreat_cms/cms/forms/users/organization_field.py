@@ -1,5 +1,16 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.forms import ModelChoiceField
 from django.forms.widgets import Select
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.forms.models import ModelChoiceIteratorValue
+
+    from ...models import Organization
 
 
 class OrganizationFieldWidget(Select):
@@ -9,34 +20,26 @@ class OrganizationFieldWidget(Select):
 
     # pylint: disable=too-many-arguments
     def create_option(
-        self, name, value, label, selected, index, subindex=None, attrs=None
-    ):
+        self,
+        name: str,
+        value: ModelChoiceIteratorValue | str,
+        label: dict[str, Any] | str,
+        selected: bool,
+        index: int,
+        subindex: Any | None = None,
+        attrs: dict[str, str] | None = None,
+    ) -> dict[str, Any]:
         """
         This function creates an option which can be selected in the organization field
 
         :param name: The name of the option
-        :type name: str
-
         :param value: the value of the option (the page id)
-        :type value: int
-
         :param label: The label (and optionally the region id) of the option
-        :type label: str or dict
-
         :param selected: Whether or not the option is selected
-        :type selected: bool
-
         :param index: The index of the option
-        :type index: int
-
         :param subindex: The subindex of the option
-        :type subindex: int
-
         :param attrs: The attributes of the option
-        :type attrs: dict
-
         :return: The option dict
-        :rtype: dict
         """
         # If our "hacky" dict is given as label, get the real string label
         if isinstance(label, dict):
@@ -63,7 +66,7 @@ class OrganizationField(ModelChoiceField):
     #: The widget to use when rendering this type of Field.
     widget = OrganizationFieldWidget
 
-    def label_from_instance(self, obj):
+    def label_from_instance(self, obj: Organization) -> dict[str, Any]:
         """
         Normally, this function convert objects into strings and
         generate the labels for the choices presented by this object.
@@ -73,10 +76,7 @@ class OrganizationField(ModelChoiceField):
         function to enable it to use it as data attribute.
 
         :param obj: The name of the option
-        :type obj: str
-
         :return: A dict of the real label and the organization's region id
-        :rtype: dict
         """
         return {
             "label": super().label_from_instance(obj),  # the real label
