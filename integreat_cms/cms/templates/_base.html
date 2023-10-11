@@ -54,7 +54,7 @@
                         </a>
                     {% endif %}
                 {% else %}
-                    <i icon-name="grid"></i>
+                    <i icon-name="layout-grid"></i>
                     {% translate "Network Management" %}
                     <span class="hidden lg:inline">
                         <i icon-name="chevron-down"></i>
@@ -74,7 +74,7 @@
                     {% if request.region %}
                         <a href="{% url 'admin_dashboard' %}"
                            class="block px-4 py-3 text-gray-800 hover:bg-gray-300 rounded-b">
-                            <i icon-name="grid"></i>
+                            <i icon-name="layout-grid"></i>
                             {% translate "Network Management" %}
                         </a>
                     {% endif %}
@@ -119,7 +119,7 @@
             {% if request.region %}
                 <a href="{% url 'dashboard' region_slug=request.region.slug %}"
                    class="{% if current_menu_item == 'region_dashboard' %} active{% endif %}">
-                    <i icon-name="grid"></i>
+                    <i icon-name="layout-grid"></i>
                     {% translate "My Dashboard" %}
                 </a>
                 <!-- Analytics Section -->
@@ -251,7 +251,7 @@
             {% else %}
                 <a href="{% url 'admin_dashboard' %}"
                    class="{% if current_menu_item == 'admin_dashboard' %} active{% endif %}">
-                    <i icon-name="grid"></i>
+                    <i icon-name="layout-grid"></i>
                     {% translate "Admin Dashboard" %}
                 </a>
                 {% if perms.cms.view_region %}
