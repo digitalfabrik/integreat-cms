@@ -244,8 +244,8 @@ class TestFirebaseApiClient:
 
         assert targets == set(
             [
-                "/topics/nurnberg-en-news",
-                "/topics/nurnberg-de-news",
+                "/topics/augsburg-en-news",
+                "/topics/augsburg-de-news",
             ]
         )
 
@@ -264,7 +264,7 @@ class TestFirebaseApiClient:
         settings.FCM_ENABLED = True
 
         notification = PushNotification.objects.get(pk=1)
-        notification.regions.add(Region.objects.get(slug="augsburg"))
+        notification.regions.add(Region.objects.get(slug="nurnberg"))
 
         pns = FirebaseApiClient(notification)
         pns.send_all()

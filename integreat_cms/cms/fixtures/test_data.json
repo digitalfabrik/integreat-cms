@@ -3744,12 +3744,75 @@
     "model": "cms.pushnotification",
     "pk": 1,
     "fields": {
-      "regions": [2],
+      "regions": [1],
       "channel": "news",
       "draft": false,
       "sent_date": "2022-03-05T10:32:33.118Z",
       "created_date": "2022-03-05T10:31:33.118Z",
       "mode": "ONLY_AVAILABLE"
+    }
+  },
+  {
+    "model": "cms.pushnotification",
+    "pk": 2,
+    "fields": {
+      "regions": [1],
+      "channel": "news",
+      "draft": true,
+      "sent_date": null,
+      "created_date": "2022-03-05T10:35:33.118Z",
+      "mode": "ONLY_AVAILABLE"
+    }
+  },
+  {
+    "model": "cms.pushnotification",
+    "pk": 3,
+    "fields": {
+      "regions": [1, 2],
+      "channel": "news",
+      "draft": true,
+      "sent_date": null,
+      "created_date": "2023-07-18T20:15:00.000Z",
+      "mode": "ONLY_AVAILABLE"
+    }
+  },
+  {
+    "model": "cms.pushnotification",
+    "pk": 4,
+    "fields": {
+      "regions": [1],
+      "channel": "news",
+      "draft": false,
+      "sent_date": null,
+      "scheduled_send_date": "2030-01-01T00:00:00.000Z",
+      "created_date": "2023-10-09T20:15:00.000Z",
+      "mode": "ONLY_AVAILABLE"
+    }
+  },
+  {
+    "model": "cms.pushnotification",
+    "pk": 5,
+    "fields": {
+      "regions": [1],
+      "channel": "news",
+      "draft": true,
+      "is_template": true,
+      "template_name": "Vorlage",
+      "sent_date": null,
+      "created_date": "2023-10-09T20:15:00.000Z",
+      "mode": "USE_MAIN_LANGUAGE"
+    }
+  },
+  {
+    "model": "cms.pushnotification",
+    "pk": 6,
+    "fields": {
+      "regions": [2],
+      "channel": "news",
+      "draft": false,
+      "sent_date": "2022-03-05T10:32:33.118Z",
+      "created_date": "2022-03-05T10:31:33.118Z",
+      "mode": "USE_MAIN_LANGUAGE"
     }
   },
   {
@@ -3775,18 +3838,6 @@
     }
   },
   {
-    "model": "cms.pushnotification",
-    "pk": 2,
-    "fields": {
-      "regions": [2],
-      "channel": "news",
-      "draft": true,
-      "sent_date": null,
-      "created_date": "2022-03-05T10:35:33.118Z",
-      "mode": "ONLY_AVAILABLE"
-    }
-  },
-  {
     "model": "cms.pushnotificationtranslation",
     "pk": 3,
     "fields": {
@@ -3798,18 +3849,6 @@
     }
   },
   {
-    "model": "cms.pushnotification",
-    "pk": 3,
-    "fields": {
-      "regions": [1, 2],
-      "channel": "news",
-      "draft": true,
-      "sent_date": null,
-      "created_date": "2023-07-18T20:15:00.000Z",
-      "mode": "ONLY_AVAILABLE"
-    }
-  },
-  {
     "model": "cms.pushnotificationtranslation",
     "pk": 4,
     "fields": {
@@ -3818,6 +3857,39 @@
       "language": 1,
       "push_notification": 3,
       "last_updated": "2023-07-18T20:15:00.000Z"
+    }
+  },
+  {
+    "model": "cms.pushnotificationtranslation",
+    "pk": 5,
+    "fields": {
+      "title": "Terminierte Nachricht",
+      "text": "Diese Nachricht wurde zum automatischen Senden geplant.",
+      "language": 1,
+      "push_notification": 4,
+      "last_updated": "2023-10-09T20:15:00.000Z"
+    }
+  },
+  {
+    "model": "cms.pushnotificationtranslation",
+    "pk": 6,
+    "fields": {
+      "title": "Vorlage",
+      "text": "Diese Nachricht ist eine Vorlage.",
+      "language": 1,
+      "push_notification": 5,
+      "last_updated": "2023-10-09T20:15:00.000Z"
+    }
+  },
+  {
+    "model": "cms.pushnotificationtranslation",
+    "pk": 7,
+    "fields": {
+      "title": "Test DE",
+      "text": "Test DE Inhalt",
+      "language": 1,
+      "push_notification": 6,
+      "last_updated": "2022-03-05T10:31:33.130Z"
     }
   },
   {
