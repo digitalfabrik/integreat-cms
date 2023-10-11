@@ -6,7 +6,6 @@ from django.conf import settings
 from django.contrib.staticfiles import finders
 from django.core.mail import BadHeaderError, EmailMultiAlternatives
 from django.template.loader import render_to_string
-from django.utils.text import capfirst
 from django.utils.translation import gettext as _
 
 logger = logging.getLogger(__name__)
@@ -44,7 +43,8 @@ def send_mail(
         {
             "base_url": settings.BASE_URL,
             "COMPANY": settings.COMPANY,
-            "BRANDING": capfirst(settings.BRANDING),
+            "BRANDING": settings.BRANDING,
+            "BRANDING_TITLE": settings.BRANDING_TITLE,
         }
     )
     # Assemble message body

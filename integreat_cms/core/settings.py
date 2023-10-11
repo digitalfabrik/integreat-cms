@@ -95,7 +95,12 @@ COMPANY_URL = os.environ.get(
 )
 
 #: The available inbuilt brandings of the CMS
-AVAILABLE_BRANDINGS = ["integreat", "malte", "aschaffenburg", "netzwerk-obdach"]
+AVAILABLE_BRANDINGS = {
+    "integreat": "Integreat",
+    "malte": "MALTE",
+    "aschaffenburg": "hallo aschaffenburg",
+    "netzwerk-obdach": "Netzwerk Obdach & Wohnen",
+}
 
 #: The branding of the CMS
 BRANDING = os.environ.get("INTEGREAT_CMS_BRANDING", "integreat")
@@ -103,8 +108,12 @@ BRANDING = os.environ.get("INTEGREAT_CMS_BRANDING", "integreat")
 # pylint: disable=consider-using-assignment-expr
 if BRANDING not in AVAILABLE_BRANDINGS:
     raise ImproperlyConfigured(
-        f"The branding {BRANDING!r} is not supported, must be one of {AVAILABLE_BRANDINGS}."
+        f"The branding {BRANDING!r} is not supported, must be one of {list(AVAILABLE_BRANDINGS)}."
     )
+
+#: The readable title of the branding
+BRANDING_TITLE = AVAILABLE_BRANDINGS[BRANDING]
+
 
 #: The default bounding box for regions with indistinct borders
 DEFAULT_BOUNDING_BOX = BoundingBox(
@@ -752,6 +761,12 @@ USE_L10N = True
 #: A boolean that specifies if datetimes will be timezone-aware by default or not
 #: (see :setting:`django:USE_TZ` and :doc:`django:topics/i18n/index`)
 USE_TZ = True
+
+#: A full Python path to a Python package that contains custom format definitions for project locales.
+#: (see :setting:`django:FORMAT_MODULE_PATH`)
+FORMAT_MODULE_PATH = [
+    "integreat_cms.core.formats",
+]
 
 
 ##########################

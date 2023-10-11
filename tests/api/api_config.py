@@ -9,7 +9,7 @@ API_ENDPOINTS = [
         "/wp-json/extensions/v3/sites/",
         "tests/api/expected-outputs/regions.json",
         200,
-        4,
+        7,
     ),
     (
         "/api/regions/augsburg/",
@@ -226,21 +226,21 @@ API_ENDPOINTS = [
         "/nurnberg/de/wp-json/extensions/v3/locations/",
         "tests/api/expected-outputs/nurnberg_de_locations.json",
         200,
-        4,
+        5,
     ),
     (
         "/api/nurnberg/en/locations/",
         "/nurnberg/en/wp-json/extensions/v3/locations/",
         "tests/api/expected-outputs/nurnberg_en_locations.json",
         200,
-        4,
+        5,
     ),
     (
         "/api/nurnberg/ar/locations/",
         "/nurnberg/ar/wp-json/extensions/v3/locations/",
         "tests/api/expected-outputs/nurnberg_ar_locations.json",
         200,
-        4,
+        5,
     ),
     (
         "/api/nurnberg/de/imprint/",

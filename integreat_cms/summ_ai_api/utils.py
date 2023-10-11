@@ -322,7 +322,7 @@ class TranslationHelper:
                         type(self.object_instance)._meta.verbose_name.title(),
                         self.german_translation.title,
                     ),
-                    _("Please try again later or contact an administrator"),
+                    _("Please try again later or contact an administrator."),
                 ),
             )
             return

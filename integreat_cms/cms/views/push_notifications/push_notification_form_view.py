@@ -8,7 +8,9 @@ from django.core.exceptions import ImproperlyConfigured, PermissionDenied
 from django.forms import inlineformset_factory
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
+from django.utils.formats import localize
 from django.utils.html import mark_safe
+from django.utils.timezone import localtime
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
 
@@ -178,6 +180,7 @@ class PushNotificationFormView(TemplateView):
         :type \**kwargs: dict
 
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to send push notifications
+        :raises NotImplementedError: If no valid submit button was clicked
 
         :return: The rendered template response
         :rtype: ~django.template.response.TemplateResponse
@@ -258,9 +261,6 @@ class PushNotificationFormView(TemplateView):
             # Add non-form errors
             for error in pnt_formset.non_form_errors():
                 messages.error(request, _(error))
-                logger.debug(
-                    "Error when validating push notification formset: %r", error
-                )
             # Add form error messages
             for form in pnt_formset:
                 if not form.is_valid():
@@ -274,6 +274,8 @@ class PushNotificationFormView(TemplateView):
             )
             raise PermissionDenied
         else:
+            # Redirect when everything went well and render the form directly when an error happens
+            success = True
             # Save forms
             pnt_formset.instance = pn_form.save()
             if not push_notification_instance:
@@ -282,106 +284,56 @@ class PushNotificationFormView(TemplateView):
             pnt_formset.save()
 
             # Add the success message
-            if not push_notification_instance:
-                if pn_form.cleaned_data["is_template"]:
-                    messages.success(
-                        request,
-                        _('Template "{}" was successfully created').format(
-                            pn_form.cleaned_data["template_name"]
-                        ),
-                    )
-                else:
-                    messages.success(
-                        request,
-                        _('News "{}" was successfully created').format(
-                            pn_form.instance
-                        ),
-                    )
+            action = _("updated") if push_notification_instance else _("created")
+            if pn_form.instance.is_template:
+                messages.success(
+                    request,
+                    _('Template "{}" was successfully {}').format(
+                        pn_form.instance.template_name, action
+                    ),
+                )
             else:
-                if pn_form.cleaned_data["is_template"]:
-                    messages.success(
-                        request,
-                        _('Template "{}" was successfully saved').format(
-                            pn_form.cleaned_data["template_name"]
-                        ),
-                    )
-                else:
-                    messages.success(
-                        request,
-                        _('News "{}" was successfully saved').format(pn_form.instance),
-                    )
+                messages.success(
+                    request,
+                    _('News "{}" was successfully {}').format(pn_form.instance, action),
+                )
 
-            # The submit_send submit button is used in 2 cases:
-            # 1. send a push notification
-            # 2. create push notifiaction from template
-            if "submit_send" in request.POST and not pn_form.instance.sent_date:
-                if not request.user.has_perm("cms.send_push_notification"):
-                    logger.warning(
-                        "%r does not have the permission to send %r",
-                        request.user,
-                        push_notification_instance,
-                    )
-                    raise PermissionDenied
-
-                try:
-                    push_sender = FirebaseApiClient(pn_form.instance)
-                    if not push_sender.is_valid():
-                        messages.error(
-                            request,
-                            _("News cannot be sent because required texts are missing"),
-                        )
-                    elif pn_form.instance.scheduled_send_date:
-                        pn_form.instance.draft = False
-                        pn_form.instance.save()
-                    elif pn_form.instance.is_template:
-                        new_message = deepcopy(pn_form.instance)
-                        new_message.pk = None
-                        new_message.is_template = False
-                        new_message.draft = True
-                        new_message.save()
-                        new_message.regions.set(pn_form.instance.regions.all())
-                        for translation in pn_form.instance.translations.all():
-                            new_translation = deepcopy(translation)
-                            new_translation.push_notification = new_message
-                            new_translation.pk = None
-                            new_translation.save()
-                        return redirect(
-                            "edit_push_notification",
-                            **{
-                                "push_notification_id": new_message.pk,
-                                "region_slug": region.slug,
-                                "language_slug": language.slug,
-                            },
-                        )
-                    elif push_sender.send_all():
-                        messages.success(request, _("News was successfully sent"))
-                        pn_form.instance.sent_date = datetime.now()
-                        pn_form.instance.draft = False
-                        pn_form.instance.save()
-                    else:
-                        messages.error(request, _("News cannot be sent"))
-                except ImproperlyConfigured as e:
-                    logger.error(
-                        "News cannot be sent due to a configuration error: %s",
-                        e,
-                    )
-                    messages.error(
-                        request,
-                        _("News cannot be sent due to a configuration error."),
-                    )
-            else:
+            if "submit_draft" in request.POST:
                 pn_form.instance.draft = True
                 pn_form.instance.save()
+            elif "submit_update" in request.POST:
+                pn_form.instance.draft = False
+                pn_form.instance.save()
+            elif "create_from_template" in request.POST:
+                if new_push_notification := create_from_template(request, pn_form):
+                    return redirect(
+                        "edit_push_notification",
+                        **{
+                            "push_notification_id": new_push_notification.pk,
+                            "region_slug": region.slug,
+                            "language_slug": language.slug,
+                        },
+                    )
+                success = False
+            elif "submit_schedule" in request.POST:
+                success = send_pn(request, pn_form, schedule=True)
+            elif "submit_send" in request.POST:
+                success = send_pn(request, pn_form)
+            else:
+                raise NotImplementedError(
+                    "One of the following keys is required in POST data: 'submit_draft', 'submit_update', 'create_from_template', 'submit_schedule', 'submit_send'"
+                )
 
-            # Redirect to the edit page
-            return redirect(
-                "edit_push_notification",
-                **{
-                    "push_notification_id": pn_form.instance.id,
-                    "region_slug": region.slug,
-                    "language_slug": language.slug,
-                },
-            )
+            if success:
+                # Redirect to the edit page
+                return redirect(
+                    "edit_push_notification",
+                    **{
+                        "push_notification_id": pn_form.instance.id,
+                        "region_slug": region.slug,
+                        "language_slug": language.slug,
+                    },
+                )
 
         return render(
             request,
@@ -394,6 +346,145 @@ class PushNotificationFormView(TemplateView):
                 "languages": details["all_languages"],
             },
         )
+
+
+def create_from_template(request, pn_form):
+    """
+    Create a push notification from a template
+
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
+    :param pn_form: The push notification form
+    :type pn_form: ~integreat_cms.cms.forms.push_notifications.push_notification_form.PushNotificationForm
+
+    :return: The new created push notification object
+    :rtype: ~integreat_cms.cms.models.push_notifications.push_notification.PushNotification
+    """
+    if not pn_form.instance.is_template:
+        messages.error(
+            request,
+            _('News "{}" is not a template').format(pn_form.instance),
+        )
+        return None
+
+    new_push_notification = deepcopy(pn_form.instance)
+    new_push_notification.pk = None
+    new_push_notification.is_template = False
+    new_push_notification.template_name = None
+    new_push_notification.draft = True
+    new_push_notification.save()
+    new_push_notification.regions.set(pn_form.instance.regions.all())
+    for translation in pn_form.instance.translations.all():
+        new_translation = deepcopy(translation)
+        new_translation.push_notification = new_push_notification
+        new_translation.pk = None
+        new_translation.save()
+    messages.success(
+        request,
+        __(
+            _('News "{}" was successfully created from template "{}".').format(
+                new_push_notification, pn_form.instance.template_name
+            ),
+            _("In the next step, the news can now be sent."),
+        ),
+    )
+    return new_push_notification
+
+
+# pylint: disable=too-many-return-statements
+def send_pn(request, pn_form, schedule=False):
+    """
+    Send (or schedule) a push notification
+
+    :param request: The current request
+    :type request: ~django.http.HttpRequest
+
+    :param pn_form: The push notification form
+    :type pn_form: ~integreat_cms.cms.forms.push_notifications.push_notification_form.PushNotificationForm
+
+    :param schedule: Whether the message should be scheduled instead of sent directly
+    :type schedule: bool
+
+    :raises ~django.core.exceptions.PermissionDenied: When the user does not have the permission to send notifications
+
+    :return: Whether sending (or scheduling) was successful
+    :rtype: bool
+    """
+    if not request.user.has_perm("cms.send_push_notification"):
+        logger.warning(
+            "%r does not have the permission to send %r",
+            request.user,
+            pn_form.instance,
+        )
+        raise PermissionDenied
+
+    if pn_form.instance.sent_date:
+        messages.error(
+            request,
+            _('News "{}" was already sent on {}').format(
+                pn_form.instance, localize(localtime(pn_form.instance.sent_date))
+            ),
+        )
+        return False
+
+    try:
+        push_sender = FirebaseApiClient(pn_form.instance)
+    except ImproperlyConfigured as e:
+        logger.error(
+            "News could not be sent due to a configuration error: %s",
+            e,
+        )
+        messages.error(
+            request,
+            _('News "{}" could not be sent due to a configuration error.').format(
+                pn_form.instance
+            ),
+        )
+        return False
+    if not push_sender.is_valid():
+        messages.error(
+            request,
+            _('News "{}" cannot be sent because required texts are missing').format(
+                pn_form.instance
+            ),
+        )
+        return False
+    if schedule:
+        if not pn_form.instance.scheduled_send_date:
+            messages.error(
+                request,
+                _('News "{}" cannot be scheduled because the date is missing').format(
+                    pn_form.instance
+                ),
+            )
+            return False
+        pn_form.instance.draft = False
+        pn_form.instance.save()
+        messages.success(
+            request,
+            _('News "{}" was successfully scheduled for {}').format(
+                pn_form.instance,
+                localize(localtime(pn_form.instance.scheduled_send_date)),
+            ),
+        )
+        return True
+    if not push_sender.send_all():
+        messages.error(
+            request,
+            __(
+                _('News "{}" could not be sent.').format(pn_form.instance),
+                _("Please try again later or contact an administrator."),
+            ),
+        )
+        return False
+    pn_form.instance.sent_date = datetime.now()
+    pn_form.instance.draft = False
+    pn_form.instance.save()
+    messages.success(
+        request, _('News "{}" was successfully sent').format(pn_form.instance)
+    )
+    return True
 
 
 def extract_pn_details(request, push_notification, sort_for_region=None):

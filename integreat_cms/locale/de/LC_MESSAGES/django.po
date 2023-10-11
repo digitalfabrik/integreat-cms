@@ -1555,6 +1555,7 @@ msgid "Marketing team"
 msgstr "Marketing-Team"
 
 #: cms/constants/status.py
+#: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/push_notifications/push_notification_list_row.html
 #: cms/templates/translations/translations_management.html
 msgid "Draft"
@@ -2052,6 +2053,11 @@ msgstr "Geplante Zeit zum Senden"
 #: cms/forms/push_notifications/push_notification_form.py
 msgid "Cannot be unspecified"
 msgstr "Kann nicht leer gelassen werden"
+
+#: cms/forms/push_notifications/push_notification_form.py
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid "News \"{}\" was already sent on {}"
+msgstr "Nachricht \"{}\" wurde bereits gesendet am {}"
 
 #: cms/forms/push_notifications/push_notification_form.py
 msgid "Please provide a name for your template"
@@ -3937,11 +3943,11 @@ msgstr "Dies ist ein Test-System."
 
 #: cms/templates/_base.html
 msgid ""
-" This is a test system. Changes you make are only visible in development "
-"versions of the app (such as webnext)."
+"Changes you make are only visible in development versions of the app (such "
+"as webnext)."
 msgstr ""
-"Dies ist ein Testsystem. Änderungen, die Sie vornehmen, sind nur in der "
-"Staging-Version der App sichtbar (wie z.B. webnext)."
+"Änderungen, die Sie vornehmen, sind nur in der Staging-Version der App "
+"sichtbar (wie z.B. webnext)."
 
 #: cms/templates/_base.html
 msgid "Django Admin"
@@ -4251,6 +4257,7 @@ msgstr "Kontaktperson"
 #: cms/templates/languagetreenodes/languagetreenode_form.html
 #: cms/templates/pages/page_form.html cms/templates/pages/page_sbs.html
 #: cms/templates/pois/poi_form.html
+#: cms/templates/push_notifications/push_notification_form.html
 msgid "Update"
 msgstr "Aktualisieren"
 
@@ -4428,8 +4435,8 @@ msgstr "Größe der App"
 
 #: cms/templates/analytics/_website_size_widget.html
 #, python-format
-msgid "The chart below shows the current size of the %(BRANDING)s app."
-msgstr "Hier sehen Sie die aktuelle Größe Ihrer %(BRANDING)s App."
+msgid "The chart below shows the current size of the %(BRANDING_TITLE)s app."
+msgstr "Hier sehen Sie die aktuelle Größe Ihrer %(BRANDING_TITLE)s App."
 
 #: cms/templates/analytics/translation_coverage.html
 msgid ""
@@ -4552,10 +4559,10 @@ msgstr ""
 #, python-format
 msgid ""
 "Please open your authenticator app on your device and enter the 6-digit code "
-"for \"%(BRANDING)s\" to verify your identity:"
+"for \"%(BRANDING_TITLE)s\" to verify your identity:"
 msgstr ""
 "Bitte öffnen Sie Ihre Authenticator-App und geben Sie den 6-stelligen Code "
-"für \"%(BRANDING)s\" ein, um ihre Identität zu bestätigen:"
+"für \"%(BRANDING_TITLE)s\" ein, um ihre Identität zu bestätigen:"
 
 #: cms/templates/authentication/login_totp.html
 #: cms/templates/authentication/login_webauthn.html
@@ -4749,8 +4756,8 @@ msgstr "Viele Grüße"
 #: cms/templates/emails/password_reset_email.txt
 #: cms/templates/emails/welcome_email.txt
 #, python-format
-msgid "Your %(BRANDING)s team of %(COMPANY)s"
-msgstr "Ihr %(BRANDING)s-Team der %(COMPANY)s"
+msgid "Your %(BRANDING_TITLE)s team of %(COMPANY)s"
+msgstr "Ihr %(BRANDING_TITLE)s-Team der %(COMPANY)s"
 
 #: cms/templates/emails/password_reset_email.html
 #: cms/templates/emails/password_reset_email.txt
@@ -4764,10 +4771,10 @@ msgstr "Willkommen"
 #, python-format
 msgid ""
 "You are receiving this e-mail, because you have requested a password reset "
-"for your %(BRANDING)s account."
+"for your %(BRANDING_TITLE)s account."
 msgstr ""
 "Sie erhalten diese E-Mail, weil Sie das Zurücksetzen des Passworts für Ihr "
-"%(BRANDING)s-Konto angefordert haben."
+"%(BRANDING_TITLE)s-Konto angefordert haben."
 
 #: cms/templates/emails/password_reset_email.html
 #: cms/templates/emails/password_reset_email.txt
@@ -4795,11 +4802,11 @@ msgstr "Ihr Kontoname, falls vergessen:"
 #: cms/templates/emails/welcome_email.txt
 #, python-format
 msgid ""
-"You are receiving this e-mail, because an account for %(BRANDING)s was "
+"You are receiving this e-mail, because an account for %(BRANDING_TITLE)s was "
 "created for you."
 msgstr ""
-"Sie erhalten diese E-Mail, weil für Sie ein %(BRANDING)s-Konto erstellt "
-"wurde."
+"Sie erhalten diese E-Mail, weil für Sie ein %(BRANDING_TITLE)s-Konto "
+"erstellt wurde."
 
 #: cms/templates/emails/welcome_email.html
 #: cms/templates/emails/welcome_email.txt
@@ -5529,7 +5536,6 @@ msgstr "Neue Sprache erstellen"
 #: cms/templates/offertemplates/offertemplate_form.html
 #: cms/templates/organizations/organization_form.html
 #: cms/templates/poicategories/poicategory_form.html
-#: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/regions/region_form.html cms/templates/roles/role_form.html
 #: cms/templates/translations/translations_management.html
 #: cms/templates/users/region_user_form.html cms/templates/users/user_form.html
@@ -6778,8 +6784,16 @@ msgid "Create News"
 msgstr "Nachricht erstellen"
 
 #: cms/templates/push_notifications/push_notification_form.html
-msgid "Create News from Template"
-msgstr "Neue Nachrichten-Vorlage erstellen"
+msgid "Update template"
+msgstr "Vorlage aktualisieren"
+
+#: cms/templates/push_notifications/push_notification_form.html
+msgid "Save template"
+msgstr "Vorlage speichern"
+
+#: cms/templates/push_notifications/push_notification_form.html
+msgid "Create news from template"
+msgstr "Neue Nachricht aus dieser Vorlage erstellen"
 
 #: cms/templates/push_notifications/push_notification_form.html
 msgid "Save & Send"
@@ -6797,15 +6811,55 @@ msgstr "Nachrichten werden alle %(schedule_interval)s Minuten gesendet"
 #: cms/templates/push_notifications/push_notification_form.html
 msgid ""
 "Any manager with access to only some of the selected regions can view but "
+"not edit this news template."
+msgstr ""
+"Verwalter:innen, die nur auf einige der ausgewählten Regionen Zugriff haben, "
+"können diese Vorlage ansehen, aber nicht bearbeiten."
+
+#: cms/templates/push_notifications/push_notification_form.html
+msgid ""
+"Any manager with access to only some of the selected regions can view but "
 "not edit this news."
 msgstr ""
 "Verwalter:innen, die nur auf einige der ausgewählten Regionen Zugriff haben, "
 "können diese Nachricht ansehen, aber nicht bearbeiten."
 
 #: cms/templates/push_notifications/push_notification_form.html
+msgid "Sent draft"
+msgstr "Gesendeter Entwurf"
+
+#: cms/templates/push_notifications/push_notification_form.html
+#, python-format
+msgid ""
+"News was sent on %(sent_date)s, but is now in draft state, which means it is "
+"no longer shown in the news section of the app."
+msgstr ""
+"Die Nachricht wurde am %(sent_date)s gesendet, befindet sich jetzt aber im "
+"Entwurfsstatus, d.h. sie wird nicht mehr im Nachrichtenbereich der App "
+"angezeigt"
+
+#: cms/templates/push_notifications/push_notification_form.html
 #: cms/templates/push_notifications/push_notification_list.html
 msgid "Sent"
 msgstr "Gesendet"
+
+#: cms/templates/push_notifications/push_notification_form.html
+msgid "News sent on:"
+msgstr "Nachricht wurde gesendet am:"
+
+#: cms/templates/push_notifications/push_notification_form.html
+msgid "News is scheduled, but in draft and will not be sent automatically."
+msgstr ""
+"Die Nachricht ist terminiert, aber im Entwurf und wird nicht automatisch "
+"gesendet."
+
+#: cms/templates/push_notifications/push_notification_form.html
+msgid "Scheduled"
+msgstr "Terminiert"
+
+#: cms/templates/push_notifications/push_notification_form.html
+msgid "News will be sent automatically on:"
+msgstr "Nachricht wird automatisch versendet am:"
 
 #: cms/templates/push_notifications/push_notification_form.html
 msgid "News not sent yet"
@@ -6838,16 +6892,12 @@ msgid "Title not available"
 msgstr "Titel nicht verfügbar"
 
 #: cms/templates/push_notifications/push_notification_list_row.html
-msgid "Manual"
-msgstr "Manuell"
-
-#: cms/templates/push_notifications/push_notification_list_row.html
 msgid "Message not sent yet"
 msgstr "Nachricht noch nicht gesendet"
 
 #: cms/templates/push_notifications/push_notification_template_list.html
-msgid "Templates"
-msgstr "Vorlagen"
+msgid "News Templates"
+msgstr "Nachrichten-Vorlagen"
 
 #: cms/templates/push_notifications/push_notification_template_list.html
 msgid "Open News"
@@ -7114,10 +7164,10 @@ msgstr "Bitte scannen Sie den QR-Code mit Ihrer Authenticator-App."
 #: cms/templates/settings/register_totp.html
 #, python-format
 msgid ""
-"Please enter the 6-digit code for \"%(BRANDING)s\" to  confirm the "
+"Please enter the 6-digit code for \"%(BRANDING_TITLE)s\" to  confirm the "
 "registration:"
 msgstr ""
-"Bitte geben Sie den 6-stelligen Code für \"%(BRANDING)s\" ein, um die "
+"Bitte geben Sie den 6-stelligen Code für \"%(BRANDING_TITLE)s\" ein, um die "
 "Registrierung zu bestätigen:"
 
 #: cms/templates/settings/user_settings.html
@@ -8843,37 +8893,65 @@ msgstr ""
 "ist oder kontaktieren Sie eine:n Administrator:in."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "Template \"{}\" was successfully created"
-msgstr "Vorlage \"{}\" wurde erfolgreich erstellt"
+msgid "updated"
+msgstr "aktualisiert"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News \"{}\" was successfully created"
-msgstr "Nachricht \"{}\" wurde erfolgreich erstellt"
+msgid "created"
+msgstr "erstellt"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "Template \"{}\" was successfully saved"
-msgstr "Vorlage \"{}\" wurde erfolgreich gespeichert"
+msgid "Template \"{}\" was successfully {}"
+msgstr "Vorlage \"{}\" wurde erfolgreich {}"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News \"{}\" was successfully saved"
-msgstr "Nachricht \"{}\" wurde erfolgreich gespeichert"
+msgid "News \"{}\" was successfully {}"
+msgstr "Nachricht \"{}\" wurde erfolgreich {}"
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News cannot be sent because required texts are missing"
-msgstr "Nachricht konnte nicht gesendet werden, da erforderliche Texte fehlen"
+msgid "News \"{}\" is not a template"
+msgstr "Nachricht \"{}\" ist keine Vorlage."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News was successfully sent"
-msgstr "Nachricht wurde erfolgreich gesendet"
+msgid "News \"{}\" was successfully created from template \"{}\"."
+msgstr "Nachricht \"{}\" wurde erfolgreich aus der Vorlage \"{}\" erstellt."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News cannot be sent"
-msgstr "Nachricht kann nicht gesendet werden"
+msgid "In the next step, the news can now be sent."
+msgstr "Im nächsten Schritt kann diese Nachricht nun versendet werden."
 
 #: cms/views/push_notifications/push_notification_form_view.py
-msgid "News cannot be sent due to a configuration error."
+msgid "News \"{}\" could not be sent due to a configuration error."
 msgstr ""
-"Nachricht kann aufgrund eines Konfigurationsproblems nicht gesendet werden."
+"Nachricht \"{}\" konnte aufgrund eines Konfigurationsproblems nicht gesendet "
+"werden."
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid "News \"{}\" cannot be sent because required texts are missing"
+msgstr ""
+"Nachricht \"{}\" kann nicht gesendet werden, da erforderliche Texte fehlen"
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid "News \"{}\" cannot be scheduled because the date is missing"
+msgstr "Nachricht \"{}\" kann nicht terminiert werden, da das Datum fehlt"
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid "News \"{}\" was successfully scheduled for {}"
+msgstr "Nachricht \"{}\" wurde erfolgreich terminiert auf den {}"
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid "News \"{}\" could not be sent."
+msgstr "Nachricht \"{}\" konnte nicht gesendet werden."
+
+#: cms/views/push_notifications/push_notification_form_view.py
+#: summ_ai_api/utils.py xliff/utils.py
+msgid "Please try again later or contact an administrator."
+msgstr ""
+"Bitte versuchen Sie es erneut oder kontaktieren Sie eine:n Administrator:in."
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid "News \"{}\" was successfully sent"
+msgstr "Nachricht \"{}\" wurde erfolgreich gesendet"
 
 #: cms/views/push_notifications/push_notification_list_view.py
 msgid ""
@@ -9141,11 +9219,6 @@ msgstr ""
 "{} \"{}\" konnte nicht automatisch in Leichte Sprache übersetzt werden."
 
 #: summ_ai_api/utils.py
-msgid "Please try again later or contact an administrator"
-msgstr ""
-"Bitte versuchen Sie es erneut oder kontaktieren Sie einen Administrator."
-
-#: summ_ai_api/utils.py
 msgid "{} \"{}\" has been successfully translated into Easy German."
 msgstr "{} \"{}\" wurde erfolgreich in Leichte Sprache übersetzt."
 
@@ -9189,11 +9262,6 @@ msgstr "veröffentliche"
 msgid "An unexpected error has occurred while exporting page {}."
 msgstr ""
 "Es ist ein unerwarteter Fehler beim Exportieren der Seite {} aufgetreten."
-
-#: xliff/utils.py
-msgid "Please try again later or contact an administrator."
-msgstr ""
-"Bitte versuchen Sie es erneut oder kontaktieren Sie eine:n Administrator:in."
 
 #: xliff/utils.py
 msgid "The page referenced in XLIFF file \"{}\" could not be found."
@@ -9272,6 +9340,36 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "News was already sent on {}"
+#~ msgstr "Nachricht wurde bereits gesendet am {}"
+
+#~ msgid "News was successfully sent"
+#~ msgstr "Nachricht wurde erfolgreich gesendet"
+
+#~ msgid "News is scheduled on:"
+#~ msgstr "Nachricht wurde terminiert auf:"
+
+#~ msgid "Manual"
+#~ msgstr "Manuell"
+
+#~ msgid "Templates"
+#~ msgstr "Vorlagen"
+
+#~ msgid "Template"
+#~ msgstr "Vorlage"
+
+#~ msgid "Template \"{}\" was successfully created"
+#~ msgstr "Vorlage \"{}\" wurde erfolgreich erstellt"
+
+#~ msgid "News \"{}\" was successfully created"
+#~ msgstr "Nachricht \"{}\" wurde erfolgreich erstellt"
+
+#~ msgid "Template \"{}\" was successfully updated"
+#~ msgstr "Vorlage \"{}\" wurde erfolgreich aktualisiert"
+
+#~ msgid "News \"{}\" was successfully updated"
+#~ msgstr "Nachricht \"{}\" wurde erfolgreich aktualisiert"
+
 #~ msgid "Create Message from Template"
 #~ msgstr "Nachricht aus Vorlage erstellen"
 
@@ -9289,9 +9387,6 @@ msgstr ""
 
 #~ msgid "push notification template name"
 #~ msgstr "Name der Vorlage"
-
-#~ msgid "Save this message as template"
-#~ msgstr "Diese Seite als Vorlage speichern"
 
 #~ msgid "SMTP error."
 #~ msgstr "SMTP-Fehler."
@@ -9758,9 +9853,6 @@ msgstr ""
 
 #~ msgid "edited"
 #~ msgstr "Bearbeiter"
-
-#~ msgid "created"
-#~ msgstr "Erstellt"
 
 #~ msgid "Language tree node for \"{}\" was successfully saved"
 #~ msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich gespeichert"

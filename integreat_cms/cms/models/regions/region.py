@@ -818,6 +818,53 @@ class Region(AbstractBaseModel):
             },
         )
 
+    @cached_property
+    def last_content_update(self):
+        """
+        Find the latest date at which any content of the
+        region has been modified.
+
+        :return: the last content update date
+        :rtype: datetime.datetime
+        """
+        min_date = django_timezone.make_aware(
+            django_timezone.datetime.min, django_timezone.get_default_timezone()
+        )
+
+        latest_page_update = (
+            self.pages.aggregate(
+                latest_update=models.Max("translations__last_updated")
+            )["latest_update"]
+            or min_date
+        )
+        latest_poi_update = (
+            self.pois.aggregate(latest_update=models.Max("translations__last_updated"))[
+                "latest_update"
+            ]
+            or min_date
+        )
+        latest_event_update = (
+            self.events.aggregate(
+                latest_update=models.Max("translations__last_updated")
+            )["latest_update"]
+            or min_date
+        )
+        latest_imprint_update = (
+            self.imprint.translations.aggregate(
+                latest_update=models.Max("last_updated")
+            )["latest_update"]
+            if self.imprint
+            else min_date
+        )
+
+        return max(
+            latest_page_update,
+            latest_poi_update,
+            latest_event_update,
+            latest_imprint_update,
+            self.last_updated,
+        )
+
     def __str__(self):
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Region object (id)``.

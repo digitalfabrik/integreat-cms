@@ -28,6 +28,7 @@ def render_error_template(context):
             "COMPANY": settings.COMPANY,
             "COMPANY_URL": settings.COMPANY_URL,
             "BRANDING": settings.BRANDING,
+            "BRANDING_TITLE": settings.BRANDING_TITLE,
         }
     )
     return render_to_string("error_handler/http_error.html", context)
