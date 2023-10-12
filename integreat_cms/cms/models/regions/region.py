@@ -854,8 +854,8 @@ class Region(AbstractBaseModel):
                 latest_update=models.Max("last_updated")
             )["latest_update"]
             if self.imprint
-            else min_date
-        )
+            else None
+        ) or min_date
 
         return max(
             latest_page_update,
