@@ -205,7 +205,12 @@ def page_to_xliff(page, target_language, dir_name, only_public=False):
     logger.debug("Created XLIFF file %r", actual_filename)
 
     # Set "currently in translation" status for existing target translations
-    target_page_translation.all_versions.update(currently_in_translation=True)
+    if settings.REDIS_CACHE:
+        target_page_translation.all_versions.invalidated_update(
+            currently_in_translation=True
+        )
+    else:
+        target_page_translation.all_versions.update(currently_in_translation=True)
 
     return download_storage.path(actual_filename)
 
