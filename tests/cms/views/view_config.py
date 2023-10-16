@@ -480,6 +480,22 @@ VIEWS = [
                     "offers": [3],
                 },
             ),
+            (
+                "edit_region",
+                PRIV_STAFF_ROLES,
+                {
+                    "administrative_division": "CITY",
+                    "name": "Augsburg",
+                    "admin_mail": "augsburg@example.com",
+                    "postal_code": "86150",
+                    "status": "ARCHIVED",
+                    "longitude": 1,
+                    "latitude": 1,
+                    "timezone": "Europe/Berlin",
+                    "deepl_renewal_month": 6,
+                    "offers": [3],
+                },
+            ),
         ],
         # The kwargs for these views
         {"slug": "augsburg"},
