@@ -1,7 +1,11 @@
 import { getCsrfToken } from "../utils/csrf-token";
 
-export const updateField = (fieldName: string, value: string) => {
+export const updateField = (fieldName: string, value: string, replace: boolean = true) => {
     const field = document.getElementById(`id_${fieldName}`) as HTMLInputElement;
+    // Don't update the field if it is not empty and replace is false
+    if (field.value && !replace) {
+        return;
+    }
     // Only fill value if it was changed
     if (value && field.value !== value) {
         field.value = value;
@@ -49,8 +53,8 @@ const autoCompleteAddress = async () => {
         return;
     }
 
-    updateField("postcode", data.postcode);
-    updateField("city", data.city);
+    updateField("postcode", data.postcode, false);
+    updateField("city", data.city, false);
     updateField("country", data.country);
 
     if (autoFillCoordinates.checked) {
