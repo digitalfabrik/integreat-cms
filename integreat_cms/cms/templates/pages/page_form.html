@@ -119,7 +119,7 @@
                                 </div>
                             {% endif %}
                         </div>
-                        {% render_field page_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
+                        {% render_field page_translation_form.title|add_error_class:"border-red-500" class+="mb-2" conditional-warning="" %}
                         {% if page_translation_form.instance.id %}
                             {% if request.region.short_urls_enabled and request.user.expert_mode %}
                                 <div class="flex items-center">
@@ -178,7 +178,7 @@
                         <label for="{{ page_translation_form.content.id_for_label }}">
                             {{ page_translation_form.content.label }}
                         </label>
-                        {% render_field page_translation_form.content class+="tinymce_textarea flex-auto" data-unsaved-warning-exclude="" %}
+                        {% render_field page_translation_form.content class+="tinymce_textarea flex-auto" content-area="" %}
                     </div>
                 </div>
             </div>

@@ -25,6 +25,10 @@ export const storeDraft = () => {
     tinymce.activeEditor.plugins.autosave.storeDraft();
 };
 
+export let contentAreaChanged = false;
+export let userIsLeaving = false;
+
+
 const parseSvg = (svgUrl: string): string => atob(svgUrl.replace("data:image/svg+xml;base64,", ""));
 
 const insertIcon = (editor: Editor, tinymceConfig: HTMLElement, name: string): void => {
@@ -217,15 +221,16 @@ window.addEventListener("load", () => {
                     element.dispatchEvent(new Event("tinyMCEInitialized"));
                 });
 
+                tinymce.on("BeforeUnload", () => {
+                    userIsLeaving = true;
+                });
                 editor.on("StoreDraft", autosaveEditor);
                 // When the editor becomes dirty, send an input event, so that the unsaved warning can be shown
-                editor.on("dirty", () => {
-                    if ((editor.targetElm as HTMLElement).hasAttribute("data-unsaved-warning-exclude")) {
+                editor.on("dirty", () => {       
+                    if ((editor.targetElm as HTMLElement).hasAttribute("content-area")) {
+                        contentAreaChanged = true;
                         return;
                     }
-                    document.querySelectorAll("[data-unsaved-warning]").forEach((element) => {
-                        element.dispatchEvent(new Event("input"));
-                    });
                 });
                 // Create an event every time the content changes
                 editor.on("keyup", () =>

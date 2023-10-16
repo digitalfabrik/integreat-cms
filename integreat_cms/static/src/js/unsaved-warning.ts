@@ -3,10 +3,16 @@
  */
 
 let dirty = false;
+let conditionalWarning = false;
+
+import { toggleUnsavedWarningTrue, toggleUnsavedWarningFalse } from "./forms/autosave";
+import { contentAreaChanged } from "./forms/tinymce-init";
 
 window.addEventListener("beforeunload", (event) => {
-    // trigger only when something is edited and no submit/save button clicked
-    if (dirty) {
+    const form = document.getElementById("content_form") as HTMLFormElement;
+    // trigger only when something will not be saved
+    if ((form && !(new FormData(form)).get("title"))||(!contentAreaChanged && conditionalWarning) ||dirty) {
+        toggleUnsavedWarningTrue();
         event.preventDefault();
         /* eslint-disable-next-line no-param-reassign */
         event.returnValue = "This content is not saved. Would you leave the page?";
@@ -22,6 +28,10 @@ window.addEventListener("load", () => {
         if (target.hasAttribute("data-unsaved-warning-exclude")) {
             return;
         }
+        if (target.hasAttribute("conditional-warning")) {
+            conditionalWarning = true;
+            return;
+        }
         if (!dirty) {
             console.debug("editing detected, enabled beforeunload warning");
         }
@@ -35,6 +45,8 @@ window.addEventListener("load", () => {
     // removes the warning on autosave
     form?.addEventListener("autosave", () => {
         dirty = false;
+        conditionalWarning = false;
+        toggleUnsavedWarningFalse();
         console.debug("Autosave, disabled beforeunload warning");
     });
 });
