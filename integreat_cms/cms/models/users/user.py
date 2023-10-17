@@ -92,7 +92,7 @@ class User(AbstractUser, AbstractBaseModel):
         verbose_name=_("experienced user"),
         help_text=_(
             "Enable this option to display additional features like XLIFF import/export, page filtering, "
-            "mirrored pages, page-based permissions, do-not-translate-tag and status information for broken links"
+            "mirrored pages, page-based permissions and status information for broken links"
         ),
     )
     page_tree_tutorial_seen = models.BooleanField(
