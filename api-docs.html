@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-10-11T20:37:53+00:00" />
+    <meta property="article:modified_time" content="2023-10-17T14:11:24+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API Documentation &mdash; integreat-cms 2023.10.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -1977,6 +1977,7 @@
 <span class="w">      </span><span class="s2">&quot;meta_description&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">     </span><span class="c1">// The meta description of this location</span>
 <span class="w">      </span><span class="s2">&quot;excerpt&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">              </span><span class="c1">// An excerpt from the content of the location</span>
 <span class="w">      </span><span class="s2">&quot;content&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">              </span><span class="c1">// The content of the location</span>
+<span class="w">      </span><span class="s2">&quot;appointment_url&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="c1">// The URL to where an appointment can be made</span>
 <span class="w">      </span><span class="s2">&quot;available_languages&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w">        </span><span class="c1">// The translations of this location</span>
 <span class="w">         </span><span class="s2">&quot;&lt;language_slug&gt;&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span><span class="w">             </span><span class="c1">// The id of the translation</span>
@@ -2002,6 +2003,7 @@
 <span class="w">         </span><span class="p">{</span><span class="w">                            </span><span class="c1">// The opening hours for day 0 (Monday)</span>
 <span class="w">            </span><span class="s2">&quot;allDay&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">        </span><span class="c1">// Whether the location is all day open</span>
 <span class="w">            </span><span class="s2">&quot;closed&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">        </span><span class="c1">// Whether the location is all day closed</span>
+<span class="w">            </span><span class="s2">&quot;appointmentOnly&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="c1">// Whether the location is accessible by prior appointment only</span>
 <span class="w">            </span><span class="s2">&quot;timeSlots&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w">            </span><span class="c1">// If allDay and closed are false, the timeslots for this day, when the location is open</span>
 <span class="w">               </span><span class="p">{</span>
 <span class="w">                  </span><span class="s2">&quot;start&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">    </span><span class="c1">// The start time of the timeslot, in the format `HH:MM`, 24 Hour time</span>
@@ -2625,7 +2627,7 @@ called “disclaimer”)</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 11, 2023.
+      <span class="lastupdated">Last updated on Oct 17, 2023.
       </span></p>
   </div>
 
