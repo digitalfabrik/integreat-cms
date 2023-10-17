@@ -85,13 +85,6 @@
                                 {% endif %}
                             </div>
                             {% render_field poi_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
-                            {% if language != request.region.default_language %}
-                                <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-600 px-4 py-1 mb-2">
-                                    {% blocktranslate trimmed %}
-                                        For technical reasons the name is displayed in the app in the default language.
-                                    {% endblocktranslate %}
-                                </div>
-                            {% endif %}
                             <div id="link-container" class="flex items-center">
                                 <label for="{{ poi_translation_form.slug.id_for_label }}" class="mr-2">
                                     {{ poi_translation_form.slug.label }}:
