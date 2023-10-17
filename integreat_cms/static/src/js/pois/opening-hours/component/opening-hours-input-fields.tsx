@@ -101,6 +101,15 @@ const OpeningHoursInputFields = ({ openingHoursState, selectedDaysState, transla
         setOpeningHoursBuffer(newOpeningHoursBuffer);
     };
 
+    // When the appointment only checkbox is changed, write the changes to the buffer
+    const updateAppointmentOnly = ({ target }: Event) => {
+        console.debug("Changed appointment only checkbox:", target);
+        // Create new object instead of reference to existing one
+        const newOpeningHoursBuffer = deepCopy(openingHoursBuffer);
+        newOpeningHoursBuffer.appointmentOnly = (target as HTMLInputElement).checked;
+        setOpeningHoursBuffer(newOpeningHoursBuffer);
+    };
+
     // When the opening time is updated, write the changes to the buffer
     const updateOpeningTime = ({ target }: Event) => {
         const timeInput = target as HTMLInputElement;
@@ -316,6 +325,18 @@ const OpeningHoursInputFields = ({ openingHoursState, selectedDaysState, transla
                                         checked={openingHoursBuffer.closed}
                                     />
                                     <label for="closed">{translations.closedLabel}</label>
+                                </div>
+                                <div>
+                                    <input
+                                        type="checkbox"
+                                        name="appointment_only"
+                                        id="appointment_only"
+                                        onChange={updateAppointmentOnly}
+                                        checked={openingHoursBuffer.appointmentOnly}
+                                    />
+                                    <label for="appointment_only" class="mt-0 mb-4">
+                                        {translations.appointmentOnlyLabel}
+                                    </label>
                                 </div>
                                 {openingHoursBuffer.timeSlots.map((timeSlot, index) => (
                                     <div

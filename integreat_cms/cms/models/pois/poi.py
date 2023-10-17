@@ -18,7 +18,10 @@ def get_default_opening_hours():
     :return: The default opening hours
     :rtype: list
     """
-    return [{"allDay": False, "closed": True, "timeSlots": []} for _ in range(7)]
+    return [
+        {"allDay": False, "closed": True, "appointmentOnly": False, "timeSlots": []}
+        for _ in range(7)
+    ]
 
 
 class POI(AbstractContentModel):
@@ -85,6 +88,14 @@ class POI(AbstractContentModel):
         help_text=__(
             _("Whether or not the location is temporarily closed."),
             _("The opening hours remain and are only hidden."),
+        ),
+    )
+    appointment_url = models.URLField(
+        max_length=500,
+        blank=True,
+        verbose_name=_("appointment link"),
+        help_text=_(
+            "Link to an external website where an appointment for this location can be made."
         ),
     )
     opening_hours = models.JSONField(

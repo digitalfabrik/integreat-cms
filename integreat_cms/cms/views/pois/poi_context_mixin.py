@@ -46,6 +46,7 @@ class POIContextMixin(ContextMixin):
                 "openingTimeLabel": _("Opening time"),
                 "closingTimeLabel": _("Closing time"),
                 "allDayLabel": _("Open around the clock"),
+                "appointmentOnlyLabel": _("By prior appointment only"),
                 "selectText": _(
                     "Select the days for which the times selected below should apply"
                 ),

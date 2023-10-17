@@ -32,9 +32,10 @@ const OpeningHoursDisplay = ({ openingHours, setSelectedDays, translations, days
                     onClick={() => canChangeLocation && setSelectedDays([day])}
                     onKeyDown={() => canChangeLocation && setSelectedDays([day])}>
                     <label class="secondary my-0 !cursor-pointer">{translations.weekdays[day]}</label>
-                    <div class="text-right">
-                        {dayOpeningHours.closed && translations.closedLabel}
-                        {dayOpeningHours.allDay && translations.allDayLabel}
+                    <div class="text-right flex flex-col">
+                        <span>{dayOpeningHours.closed && translations.closedLabel}</span>
+                        <span>{dayOpeningHours.allDay && translations.allDayLabel}</span>
+                        <span>{dayOpeningHours.appointmentOnly && translations.appointmentOnlyLabel}</span>
                         {dayOpeningHours.timeSlots.map((timeSlot) => (
                             <p key={`${timeSlot.start}-${timeSlot.end}`}>
                                 {timeSlot.start} - {timeSlot.end}
