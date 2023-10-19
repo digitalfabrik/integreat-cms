@@ -52,12 +52,17 @@ def transform_event(event, custom_date=None):
     }
 
 
-def transform_event_translation(event_translation, recurrence_date=None):
+def transform_event_translation(
+    event_translation, poi_translation, recurrence_date=None
+):
     """
     Function to create a JSON from a single event_translation object.
 
     :param event_translation: The event translation object which should be converted
     :type event_translation: ~integreat_cms.cms.models.events.event_translation.EventTranslation
+
+    :param poi_translation: The poi translation object which is associated to this event
+    :type poi_translation: ~integreat_cms.cms.models.pois.poi_translation.POITranslation
 
     :param recurrence_date: The recurrence date for the event
     :type recurrence_date: ~datetime.date
@@ -88,6 +93,9 @@ def transform_event_translation(event_translation, recurrence_date=None):
         else event_translation.available_languages_dict,
         "thumbnail": event.icon.url if event.icon else None,
         "location": transform_poi(event.location),
+        "location_url": settings.BASE_URL + poi_translation.get_absolute_url()
+        if poi_translation
+        else None,
         "event": transform_event(event, recurrence_date),
         "hash": None,
         "recurrence_rule": event.recurrence_rule.to_ical_rrule_string()
@@ -127,12 +135,15 @@ def transform_available_languages(event_translation, recurrence_date):
     return languages
 
 
-def transform_event_recurrences(event_translation, today):
+def transform_event_recurrences(event_translation, poi_translation, today):
     """
     Yield all future recurrences of the event.
 
     :param event_translation: The event translation object which should be converted
     :type event_translation: ~integreat_cms.cms.models.events.event_translation.EventTranslation
+
+    :param poi_translation: The poi translation object which is associated to this event
+    :type poi_translation: ~integreat_cms.cms.models.pois.poi_translation.POITranslation
 
     :param today: The first date at which event may be yielded
     :type today: ~datetime.date
@@ -161,7 +172,9 @@ def transform_event_recurrences(event_translation, today):
         if recurrence_date < today:
             continue
 
-        yield transform_event_translation(event_translation, recurrence_date)
+        yield transform_event_translation(
+            event_translation, poi_translation, recurrence_date
+        )
 
 
 @json_response
@@ -193,10 +206,23 @@ def events(request, region_slug, language_slug):
         if not event.is_past and (
             event_translation := event.get_public_translation(language_slug)
         ):
+            poi_translation = (
+                event.location.get_public_translation(language_slug)
+                if event_translation.event.location
+                else None
+            )
             if event.is_recurring and not combine_recurring_events:
-                result.extend(iter(transform_event_recurrences(event_translation, now)))
+                result.extend(
+                    iter(
+                        transform_event_recurrences(
+                            event_translation, poi_translation, now
+                        )
+                    )
+                )
             else:
-                result.append(transform_event_translation(event_translation))
+                result.append(
+                    transform_event_translation(event_translation, poi_translation)
+                )
 
     return JsonResponse(
         result, safe=False
