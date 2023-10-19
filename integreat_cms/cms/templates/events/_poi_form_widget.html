@@ -21,6 +21,10 @@
         {{ poi_form.country.label }}
     </label>
     {% render_field poi_form.country|append_attr:"form:ajax_poi_form" %}
+    <label for="{{ poi_form.category.id_for_label }}">
+        {{ poi_form.category.label }}
+    </label>
+    {% render_field poi_form.category|append_attr:"form:ajax_poi_form" %}
     <button name="status"
             value="{{ PUBLIC }}"
             form="ajax_poi_form"
