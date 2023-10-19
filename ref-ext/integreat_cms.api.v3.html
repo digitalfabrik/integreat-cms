@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-10-18T10:59:27+00:00" />
+    <meta property="article:modified_time" content="2023-10-19T09:47:41+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>V3 &mdash; integreat-cms 2023.10.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1815,7 +1815,7 @@
 <p>This module includes functions related to the event API endpoint.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.api.v3.events.events">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.events.</span></span><span class="sig-name descname"><span class="pre">events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/events.py#L167"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.v3.events.events" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.events.</span></span><span class="sig-name descname"><span class="pre">events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/events.py#L180"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.v3.events.events" title="Link to this definition"></a></dt>
 <dd><p>List all events of the region and transform result into JSON</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1836,7 +1836,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.api.v3.events.transform_available_languages">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.events.</span></span><span class="sig-name descname"><span class="pre">transform_available_languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurrence_date</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/events.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.v3.events.transform_available_languages" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.events.</span></span><span class="sig-name descname"><span class="pre">transform_available_languages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurrence_date</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/events.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.v3.events.transform_available_languages" title="Link to this definition"></a></dt>
 <dd><p>Function to create a JSON object of all available translations of an event translation.
 This is similar to <cite>event_translation.available_languages_dict</cite> embeds the recurrence date in the translation slug.</p>
 <dl class="field-list simple">
@@ -1877,12 +1877,13 @@ This is similar to <cite>event_translation.available_languages_dict</cite> embed
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.api.v3.events.transform_event_recurrences">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.events.</span></span><span class="sig-name descname"><span class="pre">transform_event_recurrences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">today</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/events.py#L130"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.v3.events.transform_event_recurrences" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.events.</span></span><span class="sig-name descname"><span class="pre">transform_event_recurrences</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">today</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/events.py#L138"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.v3.events.transform_event_recurrences" title="Link to this definition"></a></dt>
 <dd><p>Yield all future recurrences of the event.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>event_translation</strong> (<a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation"><em>EventTranslation</em></a>) – The event translation object which should be converted</p></li>
+<li><p><strong>poi_translation</strong> (<a class="reference internal" href="integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation" title="integreat_cms.cms.models.pois.poi_translation.POITranslation"><em>POITranslation</em></a>) – The poi translation object which is associated to this event</p></li>
 <li><p><strong>today</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/datetime.html#datetime.date" title="(in Python v3.9)"><em>date</em></a>) – The first date at which event may be yielded</p></li>
 </ul>
 </dd>
@@ -1897,12 +1898,13 @@ This is similar to <cite>event_translation.available_languages_dict</cite> embed
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.api.v3.events.transform_event_translation">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.events.</span></span><span class="sig-name descname"><span class="pre">transform_event_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurrence_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/events.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.v3.events.transform_event_translation" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.api.v3.events.</span></span><span class="sig-name descname"><span class="pre">transform_event_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">poi_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recurrence_date</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/v3/events.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.v3.events.transform_event_translation" title="Link to this definition"></a></dt>
 <dd><p>Function to create a JSON from a single event_translation object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>event_translation</strong> (<a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation" title="integreat_cms.cms.models.events.event_translation.EventTranslation"><em>EventTranslation</em></a>) – The event translation object which should be converted</p></li>
+<li><p><strong>poi_translation</strong> (<a class="reference internal" href="integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation" title="integreat_cms.cms.models.pois.poi_translation.POITranslation"><em>POITranslation</em></a>) – The poi translation object which is associated to this event</p></li>
 <li><p><strong>recurrence_date</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/datetime.html#datetime.date" title="(in Python v3.9)"><em>date</em></a>) – The recurrence date for the event</p></li>
 </ul>
 </dd>
@@ -2534,7 +2536,7 @@ by forwarding the request to <a class="reference internal" href="integreat_cms.c
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 18, 2023.
+      <span class="lastupdated">Last updated on Oct 19, 2023.
       </span></p>
   </div>
 
