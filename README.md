@@ -71,6 +71,7 @@ To better understand the overall intention it might also be helpful to look at t
 
 ## License
 
-This project is licensed under the Apache 2.0 License, see [LICENSE.txt](./LICENSE.txt)
+Copyright © 2018 [Tür an Tür - Digitalfabrik gGmbH](https://github.com/digitalfabrik) and [individual contributors](https://github.com/digitalfabrik/integreat-cms/graphs/contributors).
+All rights reserved.
 
-All files in [./integreat_cms/static/src/logos/](./integreat_cms/static/src/logos/) are not covered by this license and may only be used with specific permission of the copyright holder.
+This project is licensed under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0), see [LICENSE](./LICENSE) and [NOTICE.md](./NOTICE.md).
