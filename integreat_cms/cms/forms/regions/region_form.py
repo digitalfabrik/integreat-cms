@@ -17,7 +17,7 @@ from ....gvz_api.utils import GvzRegion
 from ....matomo_api.matomo_api_client import MatomoException
 from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ...constants import status
-from ...models import LanguageTreeNode, Page, PageTranslation, Region
+from ...models import LanguageTreeNode, OfferTemplate, Page, PageTranslation, Region
 from ...models.regions.region import format_deepl_help_text
 from ...utils.slug_utils import generate_unique_slug_helper
 from ...utils.translation_utils import gettext_many_lazy as __
@@ -25,6 +25,28 @@ from ..custom_model_form import CustomModelForm
 from ..icon_widget import IconWidget
 
 logger = logging.getLogger(__name__)
+
+
+class CheckboxSelectMultipleWithDisabled(forms.CheckboxSelectMultiple):
+    """
+    This class adds functionality for disabling certain choices in the
+    :class:`~django.forms.CheckboxSelectMultiple` widget
+    """
+
+    disabled_options = []
+
+    def create_option(self, *args, **kwargs):
+        """
+        Overwrites the parent's method in order to disable
+        a set of pre-determined options
+
+        :return: a single option
+        :rtype: dict
+        """
+        option = super().create_option(*args, **kwargs)
+        if option["value"].instance in self.disabled_options:
+            option["attrs"]["class"] = "fake-disable fake-disable-region"
+        return option
 
 
 def get_timezone_choices():
@@ -153,7 +175,7 @@ class RegionForm(CustomModelForm):
         widgets = {
             "timezone": forms.Select(choices=get_timezone_choices()),
             "icon": IconWidget(),
-            "offers": forms.CheckboxSelectMultiple(),
+            "offers": CheckboxSelectMultipleWithDisabled(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -167,24 +189,26 @@ class RegionForm(CustomModelForm):
         :type \**kwargs: dict
         """
         super().__init__(*args, **kwargs)
-        if self.instance and "/" in self.instance.timezone:
+        if "/" in self.instance.timezone:
             self.fields["timezone_area"].initial = self.instance.timezone.split("/")[0]
         self.fields["slug"].required = False
         # Do not require coordinates because they might be automatically filled
         self.fields["latitude"].required = False
         self.fields["longitude"].required = False
         # Disable SUMM.AI option if locally and globally disabled
-        if not settings.SUMM_AI_ENABLED and not (
-            self.instance and self.instance.summ_ai_enabled
-        ):
+        if not settings.SUMM_AI_ENABLED and not self.instance.summ_ai_enabled:
             self.fields["summ_ai_enabled"].disabled = True
-        if not settings.TEXTLAB_API_ENABLED and not (
-            self.instance and self.instance.hix_enabled
-        ):
+        if not settings.TEXTLAB_API_ENABLED and not self.instance.hix_enabled:
             self.fields["hix_enabled"].disabled = True
         self.fields["deepl_midyear_start_enabled"].initial = bool(
             self.instance.deepl_midyear_start_month
         )
+        self.disabled_offer_options = (
+            OfferTemplate.objects.filter(pages__region=self.instance)
+            if self.instance.id
+            else OfferTemplate.objects.none()
+        )
+        self.fields["offers"].widget.disabled_options = self.disabled_offer_options
 
     def save(self, commit=True):
         """
@@ -239,6 +263,7 @@ class RegionForm(CustomModelForm):
         :rtype: dict
         """
         cleaned_data = super().clean()
+
         # Check whether statistics can be enabled
         if cleaned_data["statistics_enabled"] and not cleaned_data["matomo_token"]:
             self.add_error(
@@ -276,6 +301,17 @@ class RegionForm(CustomModelForm):
             == cleaned_data["deepl_renewal_month"]
         ):
             cleaned_data["deepl_midyear_start_month"] = None
+
+        # Make sure no non-disableable offers have been disabled
+        if self.disabled_offer_options and not all(
+            offer in cleaned_data["offers"] for offer in self.disabled_offer_options
+        ):
+            self.add_error(
+                "offers",
+                _(
+                    "Some offers could not be disabled, since they are currently embedded in at least one page."
+                ),
+            )
 
         # Get additional data from GVZ API
         if apps.get_app_config("gvz_api").api_available:
@@ -676,6 +712,8 @@ def duplicate_pages(
         target_page.full_clean()
         # Save duplicated page
         target_page.save()
+        # Set embedded offers ManyToMany field
+        target_page.embedded_offers.add(*source_page.embedded_offers.all())
         logger.debug(
             "%s Created %r",
             row_logging_prefix + "├─",

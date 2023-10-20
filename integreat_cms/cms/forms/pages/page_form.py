@@ -62,6 +62,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             "parent",
             "api_token",
             "hix_ignore",
+            "embedded_offers",
         ]
         #: The widgets for the fields if they differ from the standard widgets
         widgets = {
@@ -69,6 +70,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             "mirrored_page": MirroredPageFieldWidget(),
             "icon": IconWidget(),
             "parent": ParentFieldWidget(),
+            "embedded_offers": forms.CheckboxSelectMultiple(),
         }
 
     def __init__(self, **kwargs):
@@ -101,6 +103,11 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
 
         # Let mirrored page queryset be empty per default and only fill it if a region is selected
         mirrored_page_queryset = Page.objects.none()
+
+        # Filter the offer providers available for embedding
+        self.fields["embedded_offers"].queryset = self.instance.region.offers.filter(
+            supported_by_app_in_content=True
+        )
 
         if self.is_bound:
             # If form is bound (submitted with data) limit the queryset to the selected region to validate the selected

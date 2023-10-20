@@ -477,6 +477,7 @@ VIEWS = [
                     "latitude": 1,
                     "timezone": "Europe/Berlin",
                     "deepl_renewal_month": 6,
+                    "offers": [3],
                 },
             ),
         ],

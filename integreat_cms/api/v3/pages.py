@@ -17,6 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 from ...cms.forms import PageTranslationForm
 from ...cms.models import Page
 from ..decorators import json_response, matomo_tracking
+from .offers import transform_offer
 
 logger = logging.getLogger(__name__)
 
@@ -92,6 +93,10 @@ def transform_page(page_translation):
         if organization
         else None,
         "hash": None,
+        "embedded_offers": [
+            transform_offer(offer, page_translation.page.region)
+            for offer in page_translation.page.embedded_offers.all()
+        ],
     }
 
 
@@ -120,6 +125,9 @@ def pages(request, region_slug, language_slug):
     # requested from the database
     for page in (
         region.pages.select_related("organization__icon")
+        .prefetch_related(
+            "embedded_offers",
+        )
         .filter(explicitly_archived=False)
         .cache_tree(archived=False, language_slug=language_slug)
     ):
@@ -163,6 +171,7 @@ def get_single_page(request, language_slug):
         # Get page by filtering for translation slug and translation language slug
         filtered_pages = (
             region.pages.select_related("organization__icon")
+            .prefetch_related("embedded_offers")
             .filter(
                 translations__slug=page_translation_slug,
                 translations__language__slug=language_slug,
@@ -261,6 +270,7 @@ def children(request, region_slug, language_slug):
     result = []
     public_region_pages = (
         request.region.pages.select_related("organization__icon")
+        .prefetch_related("embedded_offers")
         .filter(
             explicitly_archived=False, tree_id__in=[page.tree_id for page in root_pages]
         )

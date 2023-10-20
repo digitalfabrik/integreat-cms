@@ -232,8 +232,18 @@ RESPONSE
                "name": String,         // The name of the organization
                "logo": String,         // The icon url of the organization
                "website": String,      // The url of the organization website
-         } | null
+         } | null,
          "hash": null,                 // Currently always null
+         "embedded_offers": [           // A (possibly empty) list of embedded offers
+              {
+                "name": String,        // name of offer
+                "alias": String,       // alias (slug) of offer
+                "url": String,         // url to offer
+                "post": Object | null, // post-data (key & value pairs) for url (if needed) as json-object
+                "thumbnail": String,   // url of thumbnail
+              },
+                ...
+        ],
       },
       ...
    ]

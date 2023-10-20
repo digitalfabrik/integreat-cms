@@ -38,6 +38,7 @@ import "./js/forms/distribute-sidebar-boxes";
 import "./js/languages/country-flag-fields";
 
 import "./js/regions/conditional-fields";
+import "./js/regions/fake_disabled_checkboxes";
 
 import "./js/feedback/toggle-feedback-entries";
 
