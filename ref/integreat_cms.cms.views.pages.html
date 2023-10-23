@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-10-17T14:11:24+00:00" />
+    <meta property="article:modified_time" content="2023-10-23T11:01:54+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pages &mdash; integreat-cms 2023.10.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -322,6 +322,7 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#logging-formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#settings">Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#sphinx-settings">Sphinx Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#storages">Storages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#urls">Urls</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#wsgi">Wsgi</a></li>
 </ul>
@@ -857,6 +858,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.FCM_KEY"><code class="docutils literal notranslate"><span class="pre">FCM_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.LINKCHECK_DISABLE_LISTENERS"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_DISABLE_LISTENERS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.LOG_LEVEL"><code class="docutils literal notranslate"><span class="pre">LOG_LEVEL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.MESSAGE_LOGGING_ENABLED"><code class="docutils literal notranslate"><span class="pre">MESSAGE_LOGGING_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.SECRET_KEY"><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.SUMM_AI_API_KEY"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_API_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.SUMM_AI_ENABLED"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_ENABLED</span></code></a></li>
@@ -969,6 +971,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MEDIA_THUMBNAIL_CROP"><code class="docutils literal notranslate"><span class="pre">MEDIA_THUMBNAIL_CROP</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MEDIA_THUMBNAIL_SIZE"><code class="docutils literal notranslate"><span class="pre">MEDIA_THUMBNAIL_SIZE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MEDIA_URL"><code class="docutils literal notranslate"><span class="pre">MEDIA_URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MESSAGE_LOGGING_ENABLED"><code class="docutils literal notranslate"><span class="pre">MESSAGE_LOGGING_ENABLED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MESSAGE_STORAGE"><code class="docutils literal notranslate"><span class="pre">MESSAGE_STORAGE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MIDDLEWARE"><code class="docutils literal notranslate"><span class="pre">MIDDLEWARE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.NOMINATIM_API_ENABLED"><code class="docutils literal notranslate"><span class="pre">NOMINATIM_API_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.NOMINATIM_API_URL"><code class="docutils literal notranslate"><span class="pre">NOMINATIM_API_URL</span></code></a></li>
@@ -1033,6 +1037,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.sphinx_settings">Sphinx Settings</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.sphinx_settings.SECRET_KEY"><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.sphinx_settings.USE_I18N"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.storages">Storages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.storages.MessageLoggerStorage"><code class="docutils literal notranslate"><span class="pre">MessageLoggerStorage</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.urls">Urls</a><ul>
@@ -1382,7 +1390,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.html#module-tests.utils">Utils</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.utils.assert_message_in_response"><code class="docutils literal notranslate"><span class="pre">assert_message_in_response()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.utils.assert_message_in_log"><code class="docutils literal notranslate"><span class="pre">assert_message_in_log()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.utils.assert_no_error_messages"><code class="docutils literal notranslate"><span class="pre">assert_no_error_messages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.utils.get_error_messages"><code class="docutils literal notranslate"><span class="pre">get_error_messages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.utils.get_messages"><code class="docutils literal notranslate"><span class="pre">get_messages()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1403,8 +1414,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../internationalization.html">Internationalization (i18n)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../internationalization.html#hardcoded-strings">Hardcoded Strings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#models">Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#views">Views</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../internationalization.html#templates">Templates</a></li>
 </ul>
 </li>
@@ -2294,24 +2303,24 @@ The pages get extracted from request.GET attribute and the request is forwarded 
 <h2>Page Form View<a class="headerlink" href="#page-form-view" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.pages.page_form_view.</span></span><span class="sig-name descname"><span class="pre">PageFormView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.pages.page_form_view.</span></span><span class="sig-name descname"><span class="pre">PageFormView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_context_mixin.PageContextMixin" title="integreat_cms.cms.views.pages.page_context_mixin.PageContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageContextMixin</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin" title="integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">MediaContextMixin</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.ContentEditLockMixin" title="integreat_cms.cms.views.mixins.ContentEditLockMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContentEditLockMixin</span></code></a></p>
 <p>View for the page form and page translation form</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">back_url_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pages'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">back_url_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pages'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The url name of the view to show if the user decides to go back (see <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.ContentEditLockMixin" title="integreat_cms.cms.views.mixins.ContentEditLockMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContentEditLockMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'current_menu_item':</span> <span class="pre">'new_page'}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'current_menu_item':</span> <span class="pre">'new_page'}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Render <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_form.PageForm" title="integreat_cms.cms.forms.pages.page_form.PageForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageForm</span></code></a> and <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm" title="integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslationForm</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2335,7 +2344,7 @@ The pages get extracted from request.GET attribute and the request is forwarded 
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_side_by_side_language_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L464"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_side_by_side_language_options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L463"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This is a helper function to generate the side-by-side language options for both the get and post requests.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2356,7 +2365,7 @@ The pages get extracted from request.GET attribute and the request is forwarded 
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L237"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L236"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Submit <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_form.PageForm" title="integreat_cms.cms.forms.pages.page_form.PageForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageForm</span></code></a> and
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm" title="integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslationForm</span></code></a> and save <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>
 and <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">PageTranslation</span></code></a> objects.
@@ -2384,7 +2393,7 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/to
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pages/page_form.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'pages/page_form.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/pages/page_form_view.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
@@ -2813,7 +2822,7 @@ target language translation was created.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 17, 2023.
+      <span class="lastupdated">Last updated on Oct 23, 2023.
       </span></p>
   </div>
 

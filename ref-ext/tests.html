@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-05-16T13:39:37+00:00" />
+    <meta property="article:modified_time" content="2023-10-23T11:01:54+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tests &mdash; integreat-cms 2023.10.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -322,6 +322,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#logging-formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#settings">Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#sphinx-settings">Sphinx Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#storages">Storages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#urls">Urls</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.html#wsgi">Wsgi</a></li>
 </ul>
@@ -857,6 +858,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.circleci_settings.FCM_KEY"><code class="docutils literal notranslate"><span class="pre">FCM_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.circleci_settings.LINKCHECK_DISABLE_LISTENERS"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_DISABLE_LISTENERS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.circleci_settings.LOG_LEVEL"><code class="docutils literal notranslate"><span class="pre">LOG_LEVEL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.circleci_settings.MESSAGE_LOGGING_ENABLED"><code class="docutils literal notranslate"><span class="pre">MESSAGE_LOGGING_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.circleci_settings.SECRET_KEY"><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.circleci_settings.SUMM_AI_API_KEY"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_API_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.circleci_settings.SUMM_AI_ENABLED"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_ENABLED</span></code></a></li>
@@ -969,6 +971,8 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.MEDIA_THUMBNAIL_CROP"><code class="docutils literal notranslate"><span class="pre">MEDIA_THUMBNAIL_CROP</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.MEDIA_THUMBNAIL_SIZE"><code class="docutils literal notranslate"><span class="pre">MEDIA_THUMBNAIL_SIZE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.MEDIA_URL"><code class="docutils literal notranslate"><span class="pre">MEDIA_URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.MESSAGE_LOGGING_ENABLED"><code class="docutils literal notranslate"><span class="pre">MESSAGE_LOGGING_ENABLED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.MESSAGE_STORAGE"><code class="docutils literal notranslate"><span class="pre">MESSAGE_STORAGE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.MIDDLEWARE"><code class="docutils literal notranslate"><span class="pre">MIDDLEWARE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.NOMINATIM_API_ENABLED"><code class="docutils literal notranslate"><span class="pre">NOMINATIM_API_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.NOMINATIM_API_URL"><code class="docutils literal notranslate"><span class="pre">NOMINATIM_API_URL</span></code></a></li>
@@ -1033,6 +1037,10 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#module-integreat_cms.core.sphinx_settings">Sphinx Settings</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.sphinx_settings.SECRET_KEY"><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.sphinx_settings.USE_I18N"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#module-integreat_cms.core.storages">Storages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.storages.MessageLoggerStorage"><code class="docutils literal notranslate"><span class="pre">MessageLoggerStorage</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#module-integreat_cms.core.urls">Urls</a><ul>
@@ -1382,7 +1390,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-tests.utils">Utils</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#tests.utils.assert_message_in_response"><code class="docutils literal notranslate"><span class="pre">assert_message_in_response()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tests.utils.assert_message_in_log"><code class="docutils literal notranslate"><span class="pre">assert_message_in_log()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tests.utils.assert_no_error_messages"><code class="docutils literal notranslate"><span class="pre">assert_no_error_messages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tests.utils.get_error_messages"><code class="docutils literal notranslate"><span class="pre">get_error_messages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tests.utils.get_messages"><code class="docutils literal notranslate"><span class="pre">get_messages()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1403,8 +1414,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../internationalization.html">Internationalization (i18n)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../internationalization.html#hardcoded-strings">Hardcoded Strings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#models">Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#views">Views</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../internationalization.html#templates">Templates</a></li>
 </ul>
 </li>
@@ -2168,18 +2177,66 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
 <span id="utils"></span><h2>Utils<a class="headerlink" href="#module-tests.utils" title="Link to this heading"></a></h2>
 <p>This file contains helper functions for tests.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="tests.utils.assert_message_in_response">
-<span class="sig-prename descclassname"><span class="pre">tests.utils.</span></span><span class="sig-name descname"><span class="pre">assert_message_in_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">response</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/utils.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.utils.assert_message_in_response" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="tests.utils.assert_message_in_log">
+<span class="sig-prename descclassname"><span class="pre">tests.utils.</span></span><span class="sig-name descname"><span class="pre">assert_message_in_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caplog</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/utils.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.utils.assert_message_in_log" title="Link to this definition"></a></dt>
 <dd><p>Check whether a given message is in the messages div</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The expected message</p></li>
-<li><p><strong>response</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The HTML content of the page</p></li>
+<li><p><strong>caplog</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.LogCaptureFixture" title="(in pytest v0.1.dev129+gcac1eed)"><em>pytest.LogCaptureFixture</em></a>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev129+gcac1eed)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/exceptions.html#AssertionError" title="(in Python v3.9)"><strong>AssertionError</strong></a> – When the response does not contain parsable HTML code</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/exceptions.html#AssertionError" title="(in Python v3.9)"><strong>AssertionError</strong></a> – When the expected message was not found in the logs</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.utils.assert_no_error_messages">
+<span class="sig-prename descclassname"><span class="pre">tests.utils.</span></span><span class="sig-name descname"><span class="pre">assert_no_error_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">caplog</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/utils.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.utils.assert_no_error_messages" title="Link to this definition"></a></dt>
+<dd><p>Assert that no error messages were shown to the user</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>caplog</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.LogCaptureFixture" title="(in pytest v0.1.dev129+gcac1eed)"><em>pytest.LogCaptureFixture</em></a>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev129+gcac1eed)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/exceptions.html#AssertionError" title="(in Python v3.9)"><strong>AssertionError</strong></a> – When the the logs contains error messages</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.utils.get_error_messages">
+<span class="sig-prename descclassname"><span class="pre">tests.utils.</span></span><span class="sig-name descname"><span class="pre">get_error_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">caplog</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/utils.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.utils.get_error_messages" title="Link to this definition"></a></dt>
+<dd><p>Get all errors from the messages framework</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>caplog</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.LogCaptureFixture" title="(in pytest v0.1.dev129+gcac1eed)"><em>pytest.LogCaptureFixture</em></a>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev129+gcac1eed)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The list of error messages that were shown to the user</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.utils.get_messages">
+<span class="sig-prename descclassname"><span class="pre">tests.utils.</span></span><span class="sig-name descname"><span class="pre">get_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">caplog</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/utils.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.utils.get_messages" title="Link to this definition"></a></dt>
+<dd><p>Get all logs from the messages framework</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>caplog</strong> (<a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#pytest.LogCaptureFixture" title="(in pytest v0.1.dev129+gcac1eed)"><em>pytest.LogCaptureFixture</em></a>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev129+gcac1eed)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The list of messages that were shown to the user</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)">list</a>[<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)">str</a>]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2202,7 +2259,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 16, 2023.
+      <span class="lastupdated">Last updated on Oct 23, 2023.
       </span></p>
   </div>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-10-17T14:11:24+00:00" />
+    <meta property="article:modified_time" content="2023-10-23T11:01:54+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commands &mdash; integreat-cms 2023.10.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -322,6 +322,7 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#logging-formatter">Logging Formatter</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#settings">Settings</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#sphinx-settings">Sphinx Settings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#storages">Storages</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#urls">Urls</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#wsgi">Wsgi</a></li>
 </ul>
@@ -857,6 +858,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.FCM_KEY"><code class="docutils literal notranslate"><span class="pre">FCM_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.LINKCHECK_DISABLE_LISTENERS"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_DISABLE_LISTENERS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.LOG_LEVEL"><code class="docutils literal notranslate"><span class="pre">LOG_LEVEL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.MESSAGE_LOGGING_ENABLED"><code class="docutils literal notranslate"><span class="pre">MESSAGE_LOGGING_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.SECRET_KEY"><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.SUMM_AI_API_KEY"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_API_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.SUMM_AI_ENABLED"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_ENABLED</span></code></a></li>
@@ -969,6 +971,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MEDIA_THUMBNAIL_CROP"><code class="docutils literal notranslate"><span class="pre">MEDIA_THUMBNAIL_CROP</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MEDIA_THUMBNAIL_SIZE"><code class="docutils literal notranslate"><span class="pre">MEDIA_THUMBNAIL_SIZE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MEDIA_URL"><code class="docutils literal notranslate"><span class="pre">MEDIA_URL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MESSAGE_LOGGING_ENABLED"><code class="docutils literal notranslate"><span class="pre">MESSAGE_LOGGING_ENABLED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MESSAGE_STORAGE"><code class="docutils literal notranslate"><span class="pre">MESSAGE_STORAGE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MIDDLEWARE"><code class="docutils literal notranslate"><span class="pre">MIDDLEWARE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.NOMINATIM_API_ENABLED"><code class="docutils literal notranslate"><span class="pre">NOMINATIM_API_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.NOMINATIM_API_URL"><code class="docutils literal notranslate"><span class="pre">NOMINATIM_API_URL</span></code></a></li>
@@ -1033,6 +1037,10 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.sphinx_settings">Sphinx Settings</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.sphinx_settings.SECRET_KEY"><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.sphinx_settings.USE_I18N"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.storages">Storages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.storages.MessageLoggerStorage"><code class="docutils literal notranslate"><span class="pre">MessageLoggerStorage</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.urls">Urls</a><ul>
@@ -1382,7 +1390,10 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.html#module-tests.utils">Utils</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.utils.assert_message_in_response"><code class="docutils literal notranslate"><span class="pre">assert_message_in_response()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.utils.assert_message_in_log"><code class="docutils literal notranslate"><span class="pre">assert_message_in_log()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.utils.assert_no_error_messages"><code class="docutils literal notranslate"><span class="pre">assert_no_error_messages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.utils.get_error_messages"><code class="docutils literal notranslate"><span class="pre">get_error_messages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.utils.get_messages"><code class="docutils literal notranslate"><span class="pre">get_messages()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1403,8 +1414,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../internationalization.html">Internationalization (i18n)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../internationalization.html#hardcoded-strings">Hardcoded Strings</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#models">Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../internationalization.html#views">Views</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../internationalization.html#templates">Templates</a></li>
 </ul>
 </li>
@@ -2065,7 +2074,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 17, 2023.
+      <span class="lastupdated">Last updated on Oct 23, 2023.
       </span></p>
   </div>
 
