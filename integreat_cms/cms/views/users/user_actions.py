@@ -32,9 +32,12 @@ def delete_user(request, user_id):
     """
 
     user = get_object_or_404(get_user_model(), id=user_id)
-    logger.info("%r deleted %r", request.user, user)
-    user.delete()
 
+    # Mark feedback read by the user as unread to prevent IntegrityError
+    user.feedback.update(read_by=None)
+
+    user.delete()
+    logger.info("%r deleted %r", request.user, user)
     messages.success(
         request, _('Account "{}" was successfully deleted.').format(user.full_user_name)
     )
