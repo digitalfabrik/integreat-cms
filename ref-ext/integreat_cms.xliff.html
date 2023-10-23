@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-10-23T13:13:36+00:00" />
+    <meta property="article:modified_time" content="2023-10-23T14:23:29+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>XLIFF &mdash; integreat-cms 2023.10.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -232,6 +232,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#email-utils">Email Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#internal-link-checker">Internal Link Checker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#internal-link-utils">Internal Link Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#linkcheck-utils">Linkcheck Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#mfa-utils">MFA Utils</a></li>
@@ -735,6 +736,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.email_utils">Email Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_checker">Internal Link Checker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_utils">Internal Link Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.linkcheck_utils">Linkcheck Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a></li>
@@ -987,6 +989,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SECRET_KEY"><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SERIALIZATION_MODULES"><code class="docutils literal notranslate"><span class="pre">SERIALIZATION_MODULES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SERVER_EMAIL"><code class="docutils literal notranslate"><span class="pre">SERVER_EMAIL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SHORT_LINKS_URL"><code class="docutils literal notranslate"><span class="pre">SHORT_LINKS_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SITE_DOMAIN"><code class="docutils literal notranslate"><span class="pre">SITE_DOMAIN</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.STATICFILES_DIRS"><code class="docutils literal notranslate"><span class="pre">STATICFILES_DIRS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.STATICFILES_FINDERS"><code class="docutils literal notranslate"><span class="pre">STATICFILES_FINDERS</span></code></a></li>
@@ -1204,7 +1207,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-integreat_cms.xliff.utils">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.xliff.utils.get_translation_key"><code class="docutils literal notranslate"><span class="pre">get_translation_key()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.xliff.utils.get_xliff_import_diff"><code class="docutils literal notranslate"><span class="pre">get_xliff_import_diff()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#integreat_cms.xliff.utils.get_xliff_import_errors"><code class="docutils literal notranslate"><span class="pre">get_xliff_import_errors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#integreat_cms.xliff.utils.get_xliff_import_errors_and_clean_translation"><code class="docutils literal notranslate"><span class="pre">get_xliff_import_errors_and_clean_translation()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.xliff.utils.page_to_xliff"><code class="docutils literal notranslate"><span class="pre">page_to_xliff()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.xliff.utils.pages_to_xliff_file"><code class="docutils literal notranslate"><span class="pre">pages_to_xliff_file()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.xliff.utils.xliff_import_confirm"><code class="docutils literal notranslate"><span class="pre">xliff_import_confirm()</span></code></a></li>
@@ -2615,7 +2618,7 @@ Adds an XLIFF <code class="docutils literal notranslate"><span class="pre">&lt;f
 <p>Helper functions for the XLIFF serializer</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.xliff.utils.get_translation_key">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">get_translation_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L589"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.get_translation_key" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">get_translation_key</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translation</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L596"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.get_translation_key" title="Link to this definition"></a></dt>
 <dd><p>Return a unique key for each translation to be able to find duplicates.
 We cannot use the translation id here because the objects have not been written to the database.</p>
 <dl class="field-list simple">
@@ -2652,10 +2655,11 @@ We cannot use the translation id here because the objects have not been written 
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="integreat_cms.xliff.utils.get_xliff_import_errors">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">get_xliff_import_errors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_message_if_unchanged</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L507"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.get_xliff_import_errors" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="integreat_cms.xliff.utils.get_xliff_import_errors_and_clean_translation">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.xliff.utils.</span></span><span class="sig-name descname"><span class="pre">get_xliff_import_errors_and_clean_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_translation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">add_message_if_unchanged</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/xliff/utils.py#L509"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.xliff.utils.get_xliff_import_errors_and_clean_translation" title="Link to this definition"></a></dt>
 <dd><p>Validate an imported page translation and return all errors
-As a side effect, a unique slug is generated for the translation if it does not yet have one.</p>
+As a side effect, a unique slug is generated for the translation if it does not yet have one.
+Additionally, the content of the translation will be cleaned by a PageTranslationForm.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
