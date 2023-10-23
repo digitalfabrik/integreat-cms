@@ -1,7 +1,7 @@
 import logging
 
 from django import forms
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 from ...models import MediaFile
 from ..custom_model_form import CustomModelForm

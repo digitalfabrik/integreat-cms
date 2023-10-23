@@ -508,6 +508,14 @@ LOGFILE = os.environ.get(
     "INTEGREAT_CMS_LOGFILE", os.path.join(BASE_DIR, "integreat-cms.log")
 )
 
+#: A custom message store for logging (see :setting:`django:MESSAGE_STORAGE`)
+MESSAGE_STORAGE = "integreat_cms.core.storages.MessageLoggerStorage"
+
+#: Whether to log all entries from the messages framework
+MESSAGE_LOGGING_ENABLED = bool(
+    strtobool(os.environ.get("INTEGREAT_CMS_MESSAGE_LOGGING_ENABLED", str(DEBUG)))
+)
+
 #: Logging configuration dictionary (see :setting:`django:LOGGING`)
 LOGGING = {
     "version": 1,

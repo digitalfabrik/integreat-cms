@@ -5,7 +5,7 @@ import logging
 
 from django.conf import settings
 from django.contrib import messages
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger(__name__)
 
@@ -29,12 +29,6 @@ def check_hix_score(request, source_translation, show_message=True):
     if not source_translation.hix_enabled:
         return True
     if not source_translation.hix_sufficient_for_mt:
-        logger.debug(
-            "HIX score %.2f of %r is too low for machine translation (minimum required: %.1f)",
-            source_translation.hix_score,
-            source_translation,
-            settings.HIX_REQUIRED_FOR_MT,
-        )
         if show_message:
             messages.error(
                 request,
@@ -48,10 +42,6 @@ def check_hix_score(request, source_translation, show_message=True):
             )
         return False
     if source_translation.hix_ignore:
-        logger.debug(
-            "Machine translations are disabled for %r, because its HIX value is ignored",
-            source_translation,
-        )
         if show_message:
             messages.error(
                 request,

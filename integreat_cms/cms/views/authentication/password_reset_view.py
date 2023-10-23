@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import views as auth_views
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 from ...forms import CustomPasswordResetForm
 from ...utils.translation_utils import gettext_many_lazy as __

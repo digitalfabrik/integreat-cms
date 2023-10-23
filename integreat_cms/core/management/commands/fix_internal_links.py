@@ -5,7 +5,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.management.base import CommandError
 from django.utils.text import slugify
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Url
 
 from integreat_cms.cms.utils.linkcheck_utils import replace_links

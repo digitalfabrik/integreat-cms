@@ -3,7 +3,7 @@ import logging
 from django.conf import settings
 from django.http import JsonResponse
 from django.http.response import HttpResponse
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import View
 from webauthn import generate_authentication_options, options_to_json
 from webauthn.helpers import bytes_to_base64url

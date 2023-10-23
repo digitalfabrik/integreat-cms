@@ -7,7 +7,7 @@ from html import unescape
 
 from django.conf import settings
 from django.contrib import messages
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from lxml.etree import strip_tags, SubElement
 from lxml.html import fromstring, tostring
 

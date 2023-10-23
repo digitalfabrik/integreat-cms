@@ -17,7 +17,7 @@ from django.core.files.storage import FileSystemStorage
 from django.db import IntegrityError, transaction
 from django.forms.models import model_to_dict
 from django.utils.html import format_html, format_html_join
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from linkcheck import update_lock
 
 from ..cms.constants import text_directions

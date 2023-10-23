@@ -11,7 +11,7 @@ from django.utils.decorators import method_decorator
 from django.utils.formats import localize
 from django.utils.html import mark_safe
 from django.utils.timezone import localtime
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
 from ....firebase_api.firebase_api_client import FirebaseApiClient

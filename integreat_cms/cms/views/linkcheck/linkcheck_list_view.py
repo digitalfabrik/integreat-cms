@@ -10,7 +10,7 @@ from django.contrib import messages
 from django.http import Http404
 from django.shortcuts import redirect, reverse
 from django.utils.decorators import method_decorator
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView
 from linkcheck import update_lock
 from linkcheck.models import Link, Url

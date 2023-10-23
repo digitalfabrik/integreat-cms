@@ -7,7 +7,7 @@ import time
 from django.contrib.auth.hashers import check_password
 from django.shortcuts import redirect
 from django.urls import reverse
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import FormView
 
 from ....forms import AuthenticationForm

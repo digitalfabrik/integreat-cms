@@ -2,14 +2,20 @@ from django.conf import settings
 from django.urls import reverse
 
 from ...conftest import ANONYMOUS
+from ...utils import assert_no_error_messages
 
 
-def check_view_status_code(login_role_user, view_name, kwargs, post_data, roles):
+def check_view_status_code(
+    login_role_user, caplog, view_name, kwargs, post_data, roles
+):
     """
     This test checks whether the given view return the correct status code for the current role
 
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
     :type login_role_user: tuple
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog: pytest.LogCaptureFixture
 
     :param view_name: The identifier of the view
     :type view_name: str
@@ -34,6 +40,7 @@ def check_view_status_code(login_role_user, view_name, kwargs, post_data, roles)
     else:
         response = client.get(url)
     print(response.headers)
+    assert_no_error_messages(caplog)
     if role in roles:
         # If the role should be allowed to access the view, we expect a successful result
         if post_data:

@@ -5,7 +5,7 @@ import logging
 from django.conf import settings
 from django.contrib.auth import login as auth_login
 from django.http import JsonResponse
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import View
 from webauthn import base64url_to_bytes, verify_authentication_response
 from webauthn.helpers.exceptions import InvalidAuthenticationResponse
