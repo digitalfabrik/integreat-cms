@@ -55,7 +55,7 @@ const sendHeartbeat = async (heartbeatData: HTMLElement) => {
             popupText,
             (_) =>
                 sendTakeOverMessage(url, payload).then(() => {
-                    window.removeEventListener("unload", unloadEventListener);
+                    window.removeEventListener("pagehide", unloadEventListener);
                     // window.location.reload() does not correctly work if the view is rendered after a post request, because then
                     // the browser tries to re-send the post request
                     /* eslint-disable-next-line no-self-assign */
@@ -87,8 +87,13 @@ const setupHeartbeat = () => {
     // On unload release the lock so the page is faster accessible again
     const lockReleaseUrl = heartbeatData.getAttribute("data-lock-release-url");
     const heartbeatPayload = heartbeatData.getAttribute("data-heartbeat-payload");
-    unloadEventListener = () => sendMessage(lockReleaseUrl, heartbeatPayload);
-    window.addEventListener("unload", unloadEventListener);
+    unloadEventListener = () => {
+        const data = new FormData();
+        data.append("csrfmiddlewaretoken", getCsrfToken());
+        data.append("body", heartbeatPayload);
+        navigator.sendBeacon(lockReleaseUrl, data);
+    };
+    window.addEventListener("pagehide", unloadEventListener);
 };
 
 window.addEventListener("load", setupHeartbeat);

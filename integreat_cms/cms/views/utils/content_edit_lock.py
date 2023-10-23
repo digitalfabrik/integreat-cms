@@ -61,7 +61,7 @@ def content_edit_lock_release(request, region_slug=None):
     :return: Json object containing `success: true` if the content object could be unlocked
     :rtype: ~django.http.JsonResponse
     """
-    body = json.loads(request.body.decode("utf-8"))
+    body = json.loads(request.POST.get("body"))
     id_, type_ = body
 
     success = unlock_content(id_, type_, request.user)
