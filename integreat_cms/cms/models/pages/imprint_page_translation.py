@@ -65,7 +65,7 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         :rtype: str
         """
 
-        return settings.BASE_URL + reverse(
+        return settings.SHORT_LINKS_URL + reverse(
             "public:expand_imprint_translation_id",
             kwargs={"imprint_translation_id": self.id},
         )

@@ -83,7 +83,7 @@ class Command(LogCommand):
         else:
             user = None
 
-        replace_links(search, replace, region, user, commit)
+        replace_links(search, replace, region=region, user=user, commit=commit)
 
         if commit:
             self.print_success(

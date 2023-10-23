@@ -30,6 +30,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #: (see :mod:`~integreat_cms.sitemap` for more information).
 WEBAPP_URL = os.environ.get("INTEGREAT_CMS_WEBAPP_URL", "https://integreat.app")
 
+#: The URL to a domain that handles short links.
+#: This is currently the same as `BASE_URL` but will change in the future.
+SHORT_LINKS_URL = os.environ.get(
+    "INTEGREAT_CMS_SHORT_LINKS_URL", "http://localhost:8000"
+)
+
 #: The URL to the Matomo statistics server.
 MATOMO_URL = os.environ.get(
     "INTEGREAT_CMS_MATOMO_URL", "https://statistics.integreat-app.de"
@@ -981,7 +987,7 @@ PER_PAGE = 16
 
 #: Used by `django-linkcheck <https://github.com/DjangoAdminHackers/django-linkcheck#site_domain-and-linkcheck_site_domains>`_
 #: to determine whether a link is internal.
-LINKCHECK_SITE_DOMAINS = [WEBAPP_URL]
+LINKCHECK_SITE_DOMAINS = [WEBAPP_URL, SHORT_LINKS_URL]
 
 #: Disable linkcheck listeners e.g. when the fixtures are loaded
 LINKCHECK_DISABLE_LISTENERS = bool(
