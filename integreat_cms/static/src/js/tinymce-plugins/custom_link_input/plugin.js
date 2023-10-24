@@ -62,6 +62,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
             const anchor = getAnchor();
             const initialText = anchor ? anchor.textContent : editor.selection.getContent({ format: "text" });
             const initialUrl = anchor ? anchor.getAttribute("href") : "";
+            const initialAutoUpdateValue = anchor ? anchor.getAttribute("data-integreat-auto-update") === "true" : true;
 
             const textDisabled = anchor ? anchor.children.length > 0 : false;
             let prevSearchText = "";
@@ -225,6 +226,11 @@ import { getCsrfToken } from "../../utils/csrf-token";
                                     items: completionItems,
                                     disabled: true,
                                 },
+                                {
+                                    type: "checkbox",
+                                    name: "autoupdate",
+                                    label: tinymceConfig.getAttribute("data-link-dialog-autoupdate-text"),
+                                },
                             ],
                         },
                     ],
@@ -245,10 +251,11 @@ import { getCsrfToken } from "../../utils/csrf-token";
                 initialData: {
                     text: initialText,
                     url: initialUrl,
+                    autoupdate: initialAutoUpdateValue,
                 },
                 onSubmit: (api) => {
                     const data = api.getData();
-                    const { url } = data;
+                    const { url, autoupdate } = data;
                     const text = textDisabled ? null : data.text || url;
 
                     if (data.url.trim() === "") {
@@ -257,13 +264,15 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     api.close();
 
                     const realUrl = checkUrlHttps(url);
+
                     // Either insert a new link or update the existing one
                     const anchor = getAnchor();
                     if (!anchor) {
-                        editor.insertContent(`<a href=${realUrl}>${text}</a>`);
+                        editor.insertContent(`<a href=${realUrl} data-integreat-auto-update=${autoupdate}>${text}</a>`);
                     } else {
                         updateLink(editor, anchor, text, {
-                            href: realUrl,
+                            "href": realUrl,
+                            "data-integreat-auto-update": autoupdate,
                         });
                     }
                 },

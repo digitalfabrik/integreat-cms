@@ -10,9 +10,11 @@ from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 
 if TYPE_CHECKING:
+    from lxml.html import Element
     from typing import Literal
     from ...models import Event
 
+from ...utils.tinymce_icon_utils import get_icon_html
 from ..abstract_content_translation import AbstractContentTranslation
 from ..decorators import modify_fields
 
@@ -82,6 +84,17 @@ class EventTranslation(AbstractContentTranslation):
                 "region_slug": self.event.region.slug,
             },
         )
+
+    @cached_property
+    def link_title(self) -> Element | str:
+        """
+        This property returns the html that should be used as a title for a link to this translation
+
+        :return: The link content
+        """
+        img = get_icon_html("clock")
+        img.tail = self.title
+        return img
 
     class Meta:
         #: The verbose name of the model

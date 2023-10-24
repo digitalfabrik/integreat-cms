@@ -8,6 +8,7 @@ from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from lxml.html import tostring
 
 from ...constants import status
 from ...models import (
@@ -45,8 +46,10 @@ def format_object_translation(
     :return: A dictionary with the title, path, url and type of the translation object
     """
     return {
-        "title": object_translation.title,
         "path": object_translation.path(),
+        "title": object_translation.link_title
+        if isinstance(object_translation.link_title, str)
+        else tostring(object_translation.link_title).decode("utf-8"),
         "url": f"{settings.WEBAPP_URL}{object_translation.get_absolute_url()}",
         "type": typ,
     }
