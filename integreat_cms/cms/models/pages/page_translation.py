@@ -266,7 +266,7 @@ class PageTranslation(AbstractBasePageTranslation):
         This functions returns a list of translated tags which apply to this function.
         Supported tags:
         * Live content: if the page of this translation has live content
-        * Empty: if the page contains no text and has no subpages (TODO: Can also be empty if subpages are archived)
+        * Empty: if the page contains no text and has no non-archived subpages
 
         :return: A list of tags which apply to this translation
         """
@@ -275,7 +275,10 @@ class PageTranslation(AbstractBasePageTranslation):
         if self.page.mirrored_page:
             tags.append(_("Live content"))
 
-        if self.is_empty and self.page.is_leaf():
+        if self.is_empty and (
+            self.page.is_leaf()
+            or not self.page.children.filter(explicitly_archived=False).exists()
+        ):
             tags.append(_("Empty"))
 
         return tags
