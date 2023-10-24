@@ -87,6 +87,13 @@ class EventTranslation(AbstractContentTranslation):
             },
         )
 
+    @staticmethod
+    def default_icon() -> str | None:
+        """
+        :return: The default icon that should be used for this content translation type, or ``None`` for no icon
+        """
+        return "clock"
+
     @classmethod
     def search(cls, region: Region, language_slug: str, query: str) -> QuerySet:
         """
