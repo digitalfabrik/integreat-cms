@@ -1,6 +1,6 @@
 from cacheops import invalidate_model
 from django.contrib import messages
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 from ...constants import region_status
 from ...forms import RegionForm

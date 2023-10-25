@@ -20,7 +20,7 @@ from ..conftest import (
     PRIV_STAFF_ROLES,
     WRITE_ROLES,
 )
-from ..utils import assert_message_in_response
+from ..utils import assert_message_in_log
 
 # Slugs we want to use for testing
 region_slug = "augsburg"
@@ -114,10 +114,7 @@ def get_word_count(translations):
 
 @pytest.mark.django_db
 def test_deepl_bulk_mt_pages(
-    load_test_data,
-    login_role_user,
-    settings,
-    httpserver,
+    load_test_data, login_role_user, settings, httpserver, caplog
 ):
     """
     Check for bulk machine translation of pages via the DeepL API
@@ -133,6 +130,9 @@ def test_deepl_bulk_mt_pages(
 
     :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
     :type httpserver: `pytest_httpserver.HTTPServer`
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog: pytest.LogCaptureFixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
@@ -180,9 +180,9 @@ def test_deepl_bulk_mt_pages(
         )
         for page_translation in page_translations:
             # Check that the success message are present
-            assert_message_in_response(
-                f'Page "{page_translation[source_language_slug]}" has successfully been translated (German ➜ English).',
-                response,
+            assert_message_in_log(
+                f'SUCCESS  Page "{page_translation[source_language_slug]}" has successfully been translated (German ➜ English).',
+                caplog,
             )
             # Check that the page translation exists and really has the correct content
             assert page_translation[target_language_slug].machine_translated is True
@@ -220,10 +220,7 @@ def test_deepl_bulk_mt_pages(
 
 @pytest.mark.django_db
 def test_deepl_bulk_mt_pois(
-    load_test_data,
-    login_role_user,
-    settings,
-    httpserver,
+    load_test_data, login_role_user, settings, httpserver, caplog
 ):
     """
     Check for bulk machine translation of pois via the DeepL API
@@ -239,6 +236,9 @@ def test_deepl_bulk_mt_pois(
 
     :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
     :type httpserver: `pytest_httpserver.HTTPServer`
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog:
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
@@ -284,9 +284,9 @@ def test_deepl_bulk_mt_pois(
         )
 
         for poi_translation in poi_translations:
-            assert_message_in_response(
-                f'Location "{poi_translation[source_language_slug]}" has successfully been translated (German ➜ English).',
-                response,
+            assert_message_in_log(
+                f'SUCCESS  Location "{poi_translation[source_language_slug]}" has successfully been translated (German ➜ English).',
+                caplog,
             )
             # Check that the page translation exists and really has the correct content
             assert poi_translation[target_language_slug].machine_translated is True
@@ -330,10 +330,7 @@ def test_deepl_bulk_mt_pois(
 
 @pytest.mark.django_db
 def test_deepl_bulk_mt_events(
-    load_test_data,
-    login_role_user,
-    settings,
-    httpserver,
+    load_test_data, login_role_user, settings, httpserver, caplog
 ):
     """
     Check for bulk machine translation of events via the DeepL API
@@ -349,6 +346,9 @@ def test_deepl_bulk_mt_events(
 
     :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
     :type httpserver: `pytest_httpserver.HTTPServer`
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog: pytest.LogCaptureFixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
@@ -394,9 +394,9 @@ def test_deepl_bulk_mt_events(
         )
 
         for event_translation in event_translations:
-            assert_message_in_response(
-                f'Event "{event_translation[source_language_slug]}" has successfully been translated (German ➜ English).',
-                response,
+            assert_message_in_log(
+                f'SUCCESS  Event "{event_translation[source_language_slug]}" has successfully been translated (German ➜ English).',
+                caplog,
             )
             # Check that the page translation exists and really has the correct content
             assert event_translation[target_language_slug].machine_translated is True
@@ -437,11 +437,7 @@ def test_deepl_bulk_mt_events(
 @pytest.mark.parametrize(
     "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
 )
-def test_deepl_bulk_mt_exceeds_limit(
-    load_test_data,
-    login_role_user,
-    settings,
-):
+def test_deepl_bulk_mt_exceeds_limit(load_test_data, login_role_user, settings, caplog):
     """
     Check for bulk machine translation error when the attempted translation would exceed the region's word limit
 
@@ -453,6 +449,9 @@ def test_deepl_bulk_mt_exceeds_limit(
 
     :param settings: The fixture providing the django settings
     :type settings: :fixture:`settings`
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog: pytest.LogCaptureFixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
@@ -499,9 +498,9 @@ def test_deepl_bulk_mt_exceeds_limit(
         translation_word_count = get_word_count(
             [page_translation[source_language_slug]]
         )
-        assert_message_in_response(
-            f"Translation from German to English not possible: translation of {translation_word_count} words would exceed the remaining budget of 0 words.",
-            response,
+        assert_message_in_log(
+            f"ERROR    Translation from German to English not possible: translation of {translation_word_count} words would exceed the remaining budget of 0 words.",
+            caplog,
         )
         assert (
             page_translation[target_language_slug] is None
@@ -513,11 +512,7 @@ def test_deepl_bulk_mt_exceeds_limit(
 @pytest.mark.parametrize(
     "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
 )
-def test_deepl_bulk_mt_up_to_date(
-    load_test_data,
-    login_role_user,
-    settings,
-):
+def test_deepl_bulk_mt_up_to_date(load_test_data, login_role_user, settings, caplog):
     """
     Check for bulk machine translation error when one of the target translations is up-to-date and the other is machine translated
 
@@ -529,6 +524,9 @@ def test_deepl_bulk_mt_up_to_date(
 
     :param settings: The fixture providing the django settings
     :type settings: :fixture:`settings`
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog: pytest.LogCaptureFixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
@@ -569,9 +567,9 @@ def test_deepl_bulk_mt_up_to_date(
     response = client.get(page_tree)
 
     # Check for a failure message
-    assert_message_in_response(
-        "All the selected translations are already up-to-date.",
-        response,
+    assert_message_in_log(
+        "ERROR    All the selected translations are already up-to-date.",
+        caplog,
     )
 
 
@@ -580,10 +578,7 @@ def test_deepl_bulk_mt_up_to_date(
     "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
 )
 def test_deepl_bulk_mt_up_to_date_and_ready_for_mt(
-    load_test_data,
-    login_role_user,
-    settings,
-    httpserver,
+    load_test_data, login_role_user, settings, httpserver, caplog
 ):
     """
     Check for bulk machine translation when one of the target translations is up-to-date and the other is ready for MT
@@ -599,6 +594,9 @@ def test_deepl_bulk_mt_up_to_date_and_ready_for_mt(
 
     :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
     :type httpserver: `pytest_httpserver.HTTPServer`
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog: pytest.LogCaptureFixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
@@ -654,17 +652,17 @@ def test_deepl_bulk_mt_up_to_date_and_ready_for_mt(
     for poi_translation in poi_translations:
         # Check for a failure message if translation was already up-to-date
         if poi_translation[source_language_slug].poi_id == up_to_date_poi_id:
-            assert_message_in_response(
-                f"There already is an up-to-date translation for {poi_translation[target_language_slug].title}",
-                response,
+            assert_message_in_log(
+                f"ERROR    There already is an up-to-date translation for {poi_translation[target_language_slug].title}",
+                caplog,
             )
             assert poi_translation[target_language_slug].machine_translated is False
 
         # Check for a successful message if translation was ready for mt
         if poi_translation[source_language_slug].poi_id == ready_for_mt_poi_id:
-            assert_message_in_response(
-                f'Location "{poi_translation[source_language_slug]}" has successfully been translated (German ➜ English).',
-                response,
+            assert_message_in_log(
+                f'SUCCESS  Location "{poi_translation[source_language_slug]}" has successfully been translated (German ➜ English).',
+                caplog,
             )
             assert poi_translation[target_language_slug].machine_translated is True
 
@@ -674,10 +672,7 @@ def test_deepl_bulk_mt_up_to_date_and_ready_for_mt(
     "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
 )
 def test_deepl_page_automatic_translation(
-    load_test_data,
-    login_role_user,
-    settings,
-    httpserver,
+    load_test_data, login_role_user, settings, httpserver, caplog
 ):
     """
     Check machine translation of the page when automatic_translation checkbox in set on the page form
@@ -693,6 +688,9 @@ def test_deepl_page_automatic_translation(
 
     :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
     :type httpserver: `pytest_httpserver.HTTPServer`
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog: pytest.LogCaptureFixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
@@ -745,9 +743,9 @@ def test_deepl_page_automatic_translation(
     target_translation = page_translations[0][target_language_slug]
 
     # Check that the success message is present
-    assert_message_in_response(
-        f'Page "{source_translation.title}" has successfully been translated (German ➜ English).',
-        response,
+    assert_message_in_log(
+        f'SUCCESS  Page "{source_translation.title}" has successfully been translated (German ➜ English).',
+        caplog,
     )
     # Check that the page translation exists and has the correct content
     assert target_translation.machine_translated is True
@@ -765,10 +763,7 @@ def test_deepl_page_automatic_translation(
     "login_role_user", PRIV_STAFF_ROLES + WRITE_ROLES, indirect=True
 )
 def test_deepl_event_automatic_translation(
-    load_test_data,
-    login_role_user,
-    settings,
-    httpserver,
+    load_test_data, login_role_user, settings, httpserver, caplog
 ):
     """
     Check machine translation of the event when automatic_translation checkbox in set on the event form
@@ -784,6 +779,9 @@ def test_deepl_event_automatic_translation(
 
     :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
     :type httpserver: `pytest_httpserver.HTTPServer`
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog: pytest.LogCaptureFixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
@@ -836,9 +834,9 @@ def test_deepl_event_automatic_translation(
     target_translation = event_translations[0][target_language_slug]
 
     # Check that the success message is present
-    assert_message_in_response(
-        f'Event "{source_translation.title}" has successfully been translated (German ➜ English).',
-        response,
+    assert_message_in_log(
+        f'SUCCESS  Event "{source_translation.title}" has successfully been translated (German ➜ English).',
+        caplog,
     )
     # Check that the page translation exists and has the correct content
     assert target_translation.machine_translated is True
@@ -856,10 +854,7 @@ def test_deepl_event_automatic_translation(
     "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
 )
 def test_deepl_poi_automatic_translation(
-    load_test_data,
-    login_role_user,
-    settings,
-    httpserver,
+    load_test_data, login_role_user, settings, httpserver, caplog
 ):
     """
     Check machine translation of the POI when automatic_translation checkbox in set on the POI form
@@ -875,6 +870,9 @@ def test_deepl_poi_automatic_translation(
 
     :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
     :type httpserver: `pytest_httpserver.HTTPServer`
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog: pytest.LogCaptureFixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
@@ -932,9 +930,9 @@ def test_deepl_poi_automatic_translation(
     target_translation = poi_translations[0][target_language_slug]
 
     # Check that the success message is present
-    assert_message_in_response(
-        f'Location "{source_translation.title}" has successfully been translated (German ➜ English).',
-        response,
+    assert_message_in_log(
+        f'SUCCESS  Location "{source_translation.title}" has successfully been translated (German ➜ English).',
+        caplog,
     )
     # Check that the page translation exists and has the correct content
     assert target_translation.machine_translated is True
@@ -952,9 +950,7 @@ def test_deepl_poi_automatic_translation(
     "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
 )
 def test_deepl_bulk_mt_no_source_language(
-    load_test_data,
-    login_role_user,
-    settings,
+    load_test_data, login_role_user, settings, caplog
 ):
     """
     Check for bulk machine translation error when the source language is not available
@@ -967,6 +963,9 @@ def test_deepl_bulk_mt_no_source_language(
 
     :param settings: The fixture providing the django settings
     :type settings: :fixture:`settings`
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog: pytest.LogCaptureFixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
@@ -1007,9 +1006,9 @@ def test_deepl_bulk_mt_no_source_language(
 
     for page_translation in page_translations:
         # Check for a failure message
-        assert_message_in_response(
-            'Machine translations are disabled for language "English"',
-            response,
+        assert_message_in_log(
+            'ERROR    Machine translations are disabled for language "English"',
+            caplog,
         )
         # Check that the page was not machine translated
         assert (
@@ -1023,9 +1022,7 @@ def test_deepl_bulk_mt_no_source_language(
     "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
 )
 def test_deepl_bulk_mt_no_target_language(
-    load_test_data,
-    login_role_user,
-    settings,
+    load_test_data, login_role_user, settings, caplog
 ):
     """
     Check for bulk machine translation error when the target language is not available
@@ -1038,6 +1035,9 @@ def test_deepl_bulk_mt_no_target_language(
 
     :param settings: The fixture providing the django settings
     :type settings: :fixture:`settings`
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog: pytest.LogCaptureFixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
@@ -1078,9 +1078,9 @@ def test_deepl_bulk_mt_no_target_language(
 
     for page_translation in page_translations:
         # Check for a failure message
-        assert_message_in_response(
-            'Machine translations are disabled for language "English"',
-            response,
+        assert_message_in_log(
+            'ERROR    Machine translations are disabled for language "English"',
+            caplog,
         )
         # Check that the page was not machine translated
         assert (
@@ -1095,10 +1095,7 @@ def test_deepl_bulk_mt_no_target_language(
 )
 @pytest.mark.skip(reason="server error handling is currently not implemented")
 def test_deepl_bulk_mt_api_error(
-    load_test_data,
-    login_role_user,
-    settings,
-    httpserver,
+    load_test_data, login_role_user, settings, httpserver, caplog
 ):
     """
     Check for error handling when DeepL API returns server error
@@ -1114,6 +1111,9 @@ def test_deepl_bulk_mt_api_error(
 
     :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
     :type httpserver: `pytest_httpserver.HTTPServer`
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog: pytest.LogCaptureFixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
@@ -1160,10 +1160,10 @@ def test_deepl_bulk_mt_api_error(
 
     for page_translation in page_translations:
         # Check for a failure message
-        assert_message_in_response(
-            f'Page "{page_translation[source_language_slug]}" could not be automatically translated into English. '
+        assert_message_in_log(
+            f'ERROR    Page "{page_translation[source_language_slug]}" could not be automatically translated into English. '
             "Please try again later or contact an administrator",
-            response,
+            caplog,
         )
         # Check that the page was not machine translated
         assert (

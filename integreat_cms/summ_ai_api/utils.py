@@ -7,7 +7,7 @@ from html import unescape
 
 from django.conf import settings
 from django.contrib import messages
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 from lxml.etree import strip_tags, SubElement
 from lxml.html import fromstring, tostring
 
@@ -372,9 +372,15 @@ class TranslationHelper:
         content_translation_form.save()
         # Revert "currently in translation" value of all versions
         if existing_target_translation:
-            existing_target_translation.all_versions.update(
-                currently_in_translation=False
-            )
+            if settings.REDIS_CACHE:
+                existing_target_translation.all_versions.invalidated_update(
+                    currently_in_translation=False
+                )
+            else:
+                existing_target_translation.all_versions.update(
+                    currently_in_translation=False
+                )
+
         logger.debug(
             "Successfully translated %r into Easy German",
             content_translation_form.instance,

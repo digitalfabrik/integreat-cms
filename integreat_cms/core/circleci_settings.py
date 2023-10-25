@@ -26,6 +26,8 @@ DEEPL_ENABLED = True
 LOG_LEVEL = "DEBUG"
 #: Disable linkcheck listeners on CircleCI
 LINKCHECK_DISABLE_LISTENERS = True
+#: Enable logging of all entries from the messages framework
+MESSAGE_LOGGING_ENABLED = True
 
 # Use simple non-colored logging in circleci
 for logger in LOGGING["loggers"].values():

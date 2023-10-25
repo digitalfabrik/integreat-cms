@@ -5,7 +5,7 @@ from django.contrib.auth import views as auth_views
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 logger = logging.getLogger(__name__)
 
@@ -55,7 +55,6 @@ class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
                 ]
             ),
         )
-        logger.debug("An invalid password reset link was used.")
         return redirect("public:password_reset")
 
     def form_valid(self, form):

@@ -12,6 +12,7 @@ JSON_SCHEMA = {
         "properties": {
             "allDay": {"type": "boolean"},
             "closed": {"type": "boolean"},
+            "appointmentOnly": {"type": "boolean"},
             "timeSlots": {
                 "type": "array",
                 "items": {
@@ -30,6 +31,6 @@ JSON_SCHEMA = {
                 },
             },
         },
-        "required": ["allDay", "closed", "timeSlots"],
+        "required": ["allDay", "closed", "appointmentOnly", "timeSlots"],
     },
 }

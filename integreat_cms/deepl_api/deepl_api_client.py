@@ -7,7 +7,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
 from django.utils.html import strip_tags
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
 from ..core.utils.machine_translation_provider import MachineTranslationProvider
@@ -197,9 +197,15 @@ class DeepLApiClient(MachineTranslationApiClient):
                     content_translation_form.save()
                     # Revert "currently in translation" value of all versions
                     if existing_target_translation:
-                        existing_target_translation.all_versions.update(
-                            currently_in_translation=False
-                        )
+                        if settings.REDIS_CACHE:
+                            existing_target_translation.all_versions.invalidated_update(
+                                currently_in_translation=False
+                            )
+                        else:
+                            existing_target_translation.all_versions.update(
+                                currently_in_translation=False
+                            )
+
                     logger.debug(
                         "Successfully translated for: %r",
                         content_translation_form.instance,

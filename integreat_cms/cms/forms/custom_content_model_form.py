@@ -11,6 +11,7 @@ from lxml.html import fromstring, tostring
 
 from ..constants import status
 from ..models import MediaFile
+from ..utils import internal_link_utils
 from ..utils.slug_utils import generate_unique_slug_helper
 from .custom_model_form import CustomModelForm
 
@@ -124,6 +125,19 @@ class CustomContentModelForm(CustomModelForm):
         for link in content.iter("a"):
             link.attrib.pop("target", None)
             self.logger.debug("Removed target attribute from link: %r", tostring(link))
+
+        # Update internal links
+        for link in content.iter("a"):
+            if href := link.attrib.get("href"):
+                if translation := internal_link_utils.update_link_language(
+                    href, link.text, self.instance.language.slug
+                ):
+                    translated_url, translated_text = translation
+                    link.set("href", translated_url)
+                    link.text = translated_text
+                    self.logger.debug(
+                        "Updated link url from %s to %s", href, translated_url
+                    )
 
         # Scan for media files in content and replace alt texts
         for image in content.iter("img"):

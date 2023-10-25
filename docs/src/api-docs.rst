@@ -275,6 +275,7 @@ RESPONSE
          "meta_description": String,     // The meta description of this location
          "excerpt": String,              // An excerpt from the content of the location
          "content": String,              // The content of the location
+         "appointment_url": String | null,// The URL to where an appointment can be made
          "available_languages": [        // The translations of this location
             "<language_slug>": {
                "id": Number,             // The id of the translation
@@ -300,6 +301,7 @@ RESPONSE
             {                            // The opening hours for day 0 (Monday)
                "allDay": Boolean,        // Whether the location is all day open
                "closed": Boolean,        // Whether the location is all day closed
+               "appointmentOnly": Boolean,// Whether the location is accessible by prior appointment only
                "timeSlots": [            // If allDay and closed are false, the timeslots for this day, when the location is open
                   {
                      "start": String,    // The start time of the timeslot, in the format `HH:MM`, 24 Hour time
@@ -427,6 +429,7 @@ RESPONSE
             "latitude": Number | null,      // The latitude of this location
             "longitude": Number | null,     // The longitude of this location
          },
+         "location_url": String | null,     // The url to the location for this event translation
          "event": {
             "id": Number | null,            // The id of this event. Null if this is a recurrence of an event
             "start": String,                // The start date&time of this event

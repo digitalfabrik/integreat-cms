@@ -6,7 +6,7 @@ import magic
 from django import forms
 from django.conf import settings
 from django.utils import timezone
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 from ...constants import allowed_media
 from ...models import MediaFile

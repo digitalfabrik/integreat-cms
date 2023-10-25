@@ -43,7 +43,7 @@ class LinkReplaceForm(forms.Form):
         replace_links(
             self.cleaned_data["search"],
             self.cleaned_data["replace"],
-            self.region,
+            region=self.region,
             commit=True,
             link_types=self.cleaned_data["link_types"],
         )

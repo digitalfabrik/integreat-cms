@@ -26,5 +26,12 @@
         <div class="help-text">
             {{ poi_form.temporarily_closed.help_text }}
         </div>
+        <label for="{{ poi_form.appointment_url.id_for_label }}">
+            {{ poi_form.appointment_url.label }}
+        </label>
+        {% render_field poi_form.appointment_url %}
+        <div class="help-text">
+            {{ poi_form.appointment_url.help_text }}
+        </div>
     </div>
 {% endblock collapsible_box_content %}

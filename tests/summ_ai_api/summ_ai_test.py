@@ -13,7 +13,7 @@ from ..conftest import (
     ROOT,
     SERVICE_TEAM,
 )
-from ..utils import assert_message_in_response
+from ..utils import assert_message_in_log
 
 # Mapping between roles and pages used in the tests
 # to avoid simultaneous translation of the same content by different users
@@ -83,7 +83,7 @@ def get_changed_pages(settings, ids):
 
 @pytest.mark.django_db
 async def test_auto_translate_easy_german(
-    login_role_user_async, settings, aiohttp_raw_server
+    login_role_user_async, settings, aiohttp_raw_server, caplog
 ):
     """
     This test checks whether the SUMM.AI API client works as expected
@@ -96,6 +96,9 @@ async def test_auto_translate_easy_german(
 
     :param aiohttp_raw_server: The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server
     :type aiohttp_raw_server: :data:`aiohttp:pytest_aiohttp.aiohttp_raw_server`
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog: pytest.LogCaptureFixture
     """
     # The region we want to use for testing
     region_slug = "augsburg"
@@ -142,9 +145,9 @@ async def test_auto_translate_easy_german(
         changed_pages = await get_changed_pages(settings, selected_ids)
         for page in changed_pages:
             # Check that the success message are present
-            assert_message_in_response(
-                f'Page "{page[settings.SUMM_AI_GERMAN_LANGUAGE_SLUG]}" has been successfully translated into Easy German.',
-                response,
+            assert_message_in_log(
+                f'SUCCESS  Page "{page[settings.SUMM_AI_GERMAN_LANGUAGE_SLUG]}" has been successfully translated into Easy German.',
+                caplog,
             )
             # Check that the page translation exists and really has the correct content
             assert (
@@ -183,7 +186,7 @@ async def broken_fake_summ_ai_server(request):
 
 @pytest.mark.django_db
 async def test_summ_ai_error_handling(
-    login_role_user_async, settings, aiohttp_raw_server
+    login_role_user_async, settings, aiohttp_raw_server, caplog
 ):
     """
     This test checks whether the error handling of the SUMM.AI API client works as expected
@@ -196,6 +199,9 @@ async def test_summ_ai_error_handling(
 
     :param aiohttp_raw_server: The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server
     :type aiohttp_raw_server: :data:`aiohttp:pytest_aiohttp.aiohttp_raw_server`
+
+    :param caplog: The :fixture:`caplog` fixture
+    :type caplog: pytest.LogCaptureFixture
     """
     # The region we want to use for testing
     region_slug = "augsburg"
@@ -240,8 +246,8 @@ async def test_summ_ai_error_handling(
         response = await client.get(page_tree)
         print(response.headers)
         # Check that the error message is present
-        assert_message_in_response(
-            'Page "Behörden und Beratung" could not be automatically translated into Easy German. '
-            "Please try again later or contact an administrator",
-            response,
+        assert_message_in_log(
+            'ERROR    Page "Behörden und Beratung" could not be automatically translated into Easy German. '
+            "Please try again later or contact an administrator.",
+            caplog,
         )

@@ -30,6 +30,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #: (see :mod:`~integreat_cms.sitemap` for more information).
 WEBAPP_URL = os.environ.get("INTEGREAT_CMS_WEBAPP_URL", "https://integreat.app")
 
+#: The URL to a domain that handles short links.
+#: This is currently the same as `BASE_URL` but will change in the future.
+SHORT_LINKS_URL = os.environ.get(
+    "INTEGREAT_CMS_SHORT_LINKS_URL", "http://localhost:8000"
+)
+
 #: The URL to the Matomo statistics server.
 MATOMO_URL = os.environ.get(
     "INTEGREAT_CMS_MATOMO_URL", "https://statistics.integreat-app.de"
@@ -307,8 +313,11 @@ INSTALLED_APPS = [
     "widget_tweaks",
 ]
 
+#: Check whether redis is activated
+REDIS_CACHE = bool(strtobool(os.environ.get("INTEGREAT_CMS_REDIS_CACHE", "False")))
+
 # Install cacheops only if redis cache is available
-if "INTEGREAT_CMS_REDIS_CACHE" in os.environ:
+if REDIS_CACHE:
     INSTALLED_APPS.append("cacheops")
 
 # The default Django Admin application and debug toolbar will only be activated if the system is in debug mode.
@@ -503,6 +512,14 @@ DEPS_LOG_LEVEL = os.environ.get(
 #: The file path of the logfile. Needs to be writable by the application.
 LOGFILE = os.environ.get(
     "INTEGREAT_CMS_LOGFILE", os.path.join(BASE_DIR, "integreat-cms.log")
+)
+
+#: A custom message store for logging (see :setting:`django:MESSAGE_STORAGE`)
+MESSAGE_STORAGE = "integreat_cms.core.storages.MessageLoggerStorage"
+
+#: Whether to log all entries from the messages framework
+MESSAGE_LOGGING_ENABLED = bool(
+    strtobool(os.environ.get("INTEGREAT_CMS_MESSAGE_LOGGING_ENABLED", str(DEBUG)))
 )
 
 #: Logging configuration dictionary (see :setting:`django:LOGGING`)
@@ -923,7 +940,7 @@ CACHES = {
 }
 
 # Use RedisCache when activated
-if bool(strtobool(os.environ.get("INTEGREAT_CMS_REDIS_CACHE", "False"))):
+if REDIS_CACHE:
     if unix_socket := os.environ.get("INTEGREAT_CMS_REDIS_UNIX_SOCKET"):
         # Use unix socket if available (and also tell cacheops about it)
         redis_location = f"unix://{unix_socket}?db=0"
@@ -970,7 +987,7 @@ PER_PAGE = 16
 
 #: Used by `django-linkcheck <https://github.com/DjangoAdminHackers/django-linkcheck#site_domain-and-linkcheck_site_domains>`_
 #: to determine whether a link is internal.
-LINKCHECK_SITE_DOMAINS = [WEBAPP_URL]
+LINKCHECK_SITE_DOMAINS = [WEBAPP_URL, SHORT_LINKS_URL]
 
 #: Disable linkcheck listeners e.g. when the fixtures are loaded
 LINKCHECK_DISABLE_LISTENERS = bool(

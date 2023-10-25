@@ -56,9 +56,6 @@ def transform_poi_translation(poi_translation):
     """
     Function to create a JSON from a single poi_translation object.
 
-    The method returns the title of a location in the default language as the app
-    can currently not display RTL languages on the map.
-
     :param poi_translation: The poi translation object which should be converted
     :type poi_translation: ~integreat_cms.cms.models.pois.poi_translation.POITranslation
 
@@ -75,7 +72,7 @@ def transform_poi_translation(poi_translation):
         "id": poi_translation.id,
         "url": settings.BASE_URL + poi_translation.get_absolute_url(),
         "path": poi_translation.get_absolute_url(),
-        "title": poi.default_public_translation.title,
+        "title": poi_translation.title,
         "modified_gmt": poi_translation.last_updated,  # deprecated field in the future
         "last_updated": timezone.localtime(poi_translation.last_updated),
         "meta_description": poi_translation.meta_description,
@@ -93,6 +90,7 @@ def transform_poi_translation(poi_translation):
         "temporarily_closed": poi.temporarily_closed,
         # Only return opening hours if not temporarily closed and they differ from the default value
         "opening_hours": opening_hours,
+        "appointment_url": poi.appointment_url or None,
         "location": transform_poi(poi),
         "hash": None,
         "organization": {

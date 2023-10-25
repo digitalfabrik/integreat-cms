@@ -1,16 +1,12 @@
 import logging
 from urllib.parse import unquote
 
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.management.base import CommandError
-from django.utils.text import slugify
-from django.utils.translation import gettext as _
 from linkcheck.models import Url
 
-from integreat_cms.cms.utils.linkcheck_utils import replace_links
-
-from ....cms.models import Event, Page, POI, Region
+from ....cms.models import Region
+from ....cms.utils import internal_link_utils
 from ....cms.utils.linkcheck_utils import replace_links
 from ..log_command import LogCommand
 
@@ -49,49 +45,15 @@ def get_user(username):
         raise CommandError(f'User with username "{username}" does not exist.') from e
 
 
-def parse_internal_url(url):
-    """
-    Parse internal url
-
-    :param url: The URL
-    :type url: linkcheck.models.Url
-
-    :return: Region slug, language slug, content type, translation slug
-    :rtype: str, str, str, str
-    """
-    prepared_url = unquote(url.internal_url).strip("/")
-    region_slug, language_and_path = prepared_url.split("/", maxsplit=1)
-    language_slug, path = language_and_path.split("/", maxsplit=1)
-    path_components = path.split("/")
-    content_type = path_components[0]
-    translation_slug = path_components[-1]
-
-    return region_slug, language_slug, content_type, translation_slug
-
-
-def get_content_model(content_type):
-    """
-    Get content model by content type
-
-    :param content_type: Content type extracted from internal url path
-    :type content_type: str
-
-    :return: Data model (Page, Event or POI)
-    :rtype: ~django.db.models.Model
-    """
-    if content_type == "events":
-        return Event
-    if content_type == "locations":
-        return POI
-    return Page
-
-
 class Command(LogCommand):
     """
     Management command to automatically fix broken internal links in the whole content
-    Links will be fixed in two cases:
+    Links will be fixed in three cases:
     1. A parent page has been moved, so the slug is identical but the path is not correct anymore
     2. The slug of a page has been changed, so a link might reference an older version of a page
+    3. A translation has been created, but the links it contains still point to the source language
+
+    In none of these cases will the link text be changed.
     """
 
     help = "Search & fix broken internal links in the content"
@@ -138,50 +100,32 @@ class Command(LogCommand):
         region = get_region(region_slug) if region_slug else None
         user = get_user(username) if username else None
 
-        # Get all broken internal urls
-        broken_internal_urls = [
-            url
-            for url in Url.objects.all()
-            if url.type == "internal" and not url.status
-        ]
-
-        for url in broken_internal_urls:
-            (
-                region_slug,
-                language_slug,
-                content_type,
-                translation_slug,
-            ) = parse_internal_url(url)
-
-            if content_type in [settings.IMPRINT_SLUG, "news", "offers"]:
-                # Only links to pages, events or locations can be fixed automatically
+        for url in Url.objects.all():
+            if not url.internal:
+                continue
+            source_translation = internal_link_utils.get_public_translation_for_link(
+                url.url
+            )
+            if not source_translation:
                 continue
 
-            # Find a content object by translation url
-            objects = (
-                get_content_model(content_type)
-                .objects.filter(
-                    translations__slug=slugify(translation_slug, allow_unicode=True),
-                    translations__language__slug=language_slug,
-                    region__slug=region_slug,
-                )
-                .distinct()
-            )
-
-            if len(objects) == 1:
-                # Get an actual public translation of the content object
-                public_translation = objects[0].get_public_translation(language_slug)
-                if public_translation and public_translation.get_absolute_url().strip(
-                    "/"
-                ) != unquote(url.internal_url).strip("/"):
-                    # If the last public url of the translation is different, perform a replacement
-                    replace_links(
-                        url.internal_url,
-                        public_translation.get_absolute_url(),
-                        region,
-                        user,
-                        commit,
-                    )
+            for link in url.links.all():
+                target_language_slug = link.content_object.language.slug
+                if target_translation := source_translation.foreign_object.get_public_translation(
+                    target_language_slug
+                ):
+                    target_url = target_translation.full_url
+                    source_url = unquote(url.url)
+                    if target_url.strip("/") != source_url.strip("/"):
+                        replace_links(
+                            source_url,
+                            target_url,
+                            region=region,
+                            partial_match=False,
+                            language=target_translation.language,
+                            user=user,
+                            commit=commit,
+                        )
 
         if commit:
             self.print_success("✔ Successfully finished fixing broken internal links.")
