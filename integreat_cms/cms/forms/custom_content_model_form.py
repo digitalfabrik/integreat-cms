@@ -134,7 +134,9 @@ class CustomContentModelForm(CustomModelForm):
                 ):
                     translated_url, translated_text = translation
                     link.set("href", translated_url)
-                    link.text = translated_text
+                    # translated_text might be None if the link tag consists of other tags instead of plain text
+                    if translated_text:
+                        link.text = translated_text
                     self.logger.debug(
                         "Updated link url from %s to %s", href, translated_url
                     )
