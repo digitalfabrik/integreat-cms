@@ -51,13 +51,13 @@ def update_link_language(current_link, link_text, target_language_slug):
         fixed_link = target_translation.full_url
 
         # Update the title if it was previously the translation title or the url
-        title = link_text
-        if source_translation.title.lower() == link_text.strip().lower():
-            title = target_translation.title
-        elif current_link.strip() == link_text.strip():
-            title = fixed_link
+        if link_text:
+            if source_translation.title.lower() == link_text.strip().lower():
+                link_text = target_translation.title
+            elif current_link.strip() == link_text.strip():
+                link_text = fixed_link
 
-        return fixed_link, title
+        return fixed_link, link_text
 
     return None
 
