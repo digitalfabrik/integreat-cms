@@ -511,7 +511,7 @@ jobs:
       - run:
           name: Get release notes
           command: |
-            RELEASE_NOTES=$(./tools/make_release_notes.sh --format=raw --no-heading --no-subheading)
+            RELEASE_NOTES=$(./tools/make_release_notes.sh --format=raw --no-heading --no-subheading | sed "s/\"/'/g")
             echo "export RELEASE_NOTES=\"${RELEASE_NOTES}\"" >> $BASH_ENV
       - run:
           name: Get contributors
