@@ -20,7 +20,8 @@
                     <i icon-name="arrow-left-circle" class="align-top"></i> {% translate "Back to the imprint form" %}
                 </a>
                 {% if perms.cms.change_imprintpage %}
-                    <div class="flex flex-wrap gap-2">
+                    <div class="flex flex-wrap gap-2 ml-auto mr-0 items-center">
+                        {% include "generic_auto_save_note.html" with form_instance=imprint_translation_form.instance %}
                         <button name="status" value="{{ DRAFT }}" class="btn btn-outline">
                             {% translate "Save as draft" %}
                         </button>

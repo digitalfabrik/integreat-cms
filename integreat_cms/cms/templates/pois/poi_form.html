@@ -33,7 +33,8 @@
                 {% endif %}
             </h1>
             {% if not poi_form.instance.archived and perms.cms.change_poi %}
-                <div class="flex flex-wrap gap-4 ml-auto mr-0">
+                <div class="flex flex-wrap gap-4 ml-auto mr-0 items-center">
+                    {% include "generic_auto_save_note.html" with form_instance=poi_translation_form.instance %}
                     <button name="status" value="{{ DRAFT }}" class="btn btn-outline">
                         {% translate "Save as draft" %}
                     </button>

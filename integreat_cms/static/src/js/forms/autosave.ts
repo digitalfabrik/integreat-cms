@@ -1,6 +1,18 @@
 import tinymce from "tinymce";
 import { getCsrfToken } from "../utils/csrf-token";
 
+const formatDate = (date: Date) => {
+    const options: Intl.DateTimeFormatOptions = {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+    };
+
+    return new Intl.DateTimeFormat(document.documentElement.lang, options).format(date);
+};
+
 export const autosaveEditor = async () => {
     const form = document.getElementById("content_form") as HTMLFormElement;
     tinymce.triggerSave();
@@ -9,6 +21,14 @@ export const autosaveEditor = async () => {
     formData.append("status", "AUTO_SAVE");
     // Override minor edit field to keep translation status
     formData.set("minor_edit", "on");
+    // Show auto save remark
+    const autoSaveNote = document.getElementById("auto-save");
+    autoSaveNote.classList.remove("hidden");
+    const autoSaveTime = document.getElementById("auto-save-time");
+    autoSaveTime.innerText = formatDate(new Date());
+    form.addEventListener("input", () => {
+        autoSaveNote.classList.add("hidden");
+    });
     const data = await fetch(form.action, {
         method: "POST",
         headers: {
