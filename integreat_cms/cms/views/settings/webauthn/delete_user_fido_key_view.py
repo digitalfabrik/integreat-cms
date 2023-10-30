@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
 from ....decorators import modify_mfa_authenticated
+from ....utils.translation_utils import gettext_many_lazy as __
 
 logger = logging.getLogger(__name__)
 
@@ -52,15 +53,13 @@ class DeleteUserFidoKeyView(TemplateView):
         else:
             messages.warning(
                 request,
-                " ".join(
-                    [
-                        _(
-                            "Once you remove the key you will need to use one of the other available keys to log into your account."
-                        ),
-                        _(
-                            "Please make sure that you have at least one extra key available to log in before removing this key."
-                        ),
-                    ]
+                __(
+                    _(
+                        "Once you remove the key you will need to use one of the other available keys to log into your account."
+                    ),
+                    _(
+                        "Please make sure that you have at least one extra key available to log in before removing this key."
+                    ),
                 ),
             )
 
