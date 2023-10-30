@@ -85,6 +85,9 @@ class DashboardView(TemplateView, ChatContextMixin):
         :return: Dictionary containing the context for unreviewed pages
         :rtype: dict
         """
+        if not self.request.region.default_language:
+            return {}
+
         unreviewed_pages = PageTranslation.objects.filter(
             language__slug=self.request.region.default_language.slug,
             id__in=self.latest_version_ids,
@@ -103,6 +106,9 @@ class DashboardView(TemplateView, ChatContextMixin):
         :return: Dictionary containing the context for auto saved pages
         :rtype: dict
         """
+        if not self.request.region.default_language:
+            return {}
+
         automatically_saved_pages = PageTranslation.objects.filter(
             language__slug=self.request.region.default_language.slug,
             id__in=self.latest_version_ids,
@@ -155,18 +161,19 @@ class DashboardView(TemplateView, ChatContextMixin):
         :return: Dictionary containing the context for pages with low hix value
         :rtype: dict
         """
-        if settings.TEXTLAB_API_ENABLED and self.request.region.hix_enabled:
-            translations_under_hix_threshold = PageTranslation.objects.filter(
-                language__slug__in=settings.TEXTLAB_API_LANGUAGES,
-                id__in=self.latest_version_ids,
-                page__hix_ignore=False,
-                hix_score__lt=settings.HIX_REQUIRED_FOR_MT,
-            )
+        if not settings.TEXTLAB_API_ENABLED or not self.request.region.hix_enabled:
+            return {}
 
-            return {
-                "pages_under_hix_threshold": translations_under_hix_threshold,
-            }
-        return {}
+        translations_under_hix_threshold = PageTranslation.objects.filter(
+            language__slug__in=settings.TEXTLAB_API_LANGUAGES,
+            id__in=self.latest_version_ids,
+            page__hix_ignore=False,
+            hix_score__lt=settings.HIX_REQUIRED_FOR_MT,
+        )
+
+        return {
+            "pages_under_hix_threshold": translations_under_hix_threshold,
+        }
 
     def get_outdated_pages_context(self):
         r"""
@@ -175,6 +182,9 @@ class DashboardView(TemplateView, ChatContextMixin):
         :return: Dictionary containing the context for outdated pages
         :rtype: dict
         """
+        if not self.request.region.default_language:
+            return {}
+
         OUTDATED_THRESHOLD_DATE = datetime.now() - relativedelta(
             days=settings.OUTDATED_THRESHOLD_DAYS
         )
