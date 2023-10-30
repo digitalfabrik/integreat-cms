@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-10-25T16:55:26+00:00" />
+    <meta property="article:modified_time" content="2023-10-30T19:09:00+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sitemap &mdash; integreat-cms 2023.10.2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -979,6 +979,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.NOMINATIM_API_ENABLED"><code class="docutils literal notranslate"><span class="pre">NOMINATIM_API_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.NOMINATIM_API_URL"><code class="docutils literal notranslate"><span class="pre">NOMINATIM_API_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.NUM_REGIONS_QUICK_ACCESS"><code class="docutils literal notranslate"><span class="pre">NUM_REGIONS_QUICK_ACCESS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.OUTDATED_THRESHOLD_DAYS"><code class="docutils literal notranslate"><span class="pre">OUTDATED_THRESHOLD_DAYS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.PDF_ROOT"><code class="docutils literal notranslate"><span class="pre">PDF_ROOT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.PDF_URL"><code class="docutils literal notranslate"><span class="pre">PDF_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.PER_PAGE"><code class="docutils literal notranslate"><span class="pre">PER_PAGE</span></code></a></li>
@@ -1775,49 +1776,49 @@
 <p>This modules contains the config for the sitemap tests</p>
 <dl class="py data">
 <dt class="sig sig-object py" id="tests.sitemap.sitemap_config.SITEMAPS">
-<span class="sig-prename descclassname"><span class="pre">tests.sitemap.sitemap_config.</span></span><span class="sig-name descname"><span class="pre">SITEMAPS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-index.xml',</span> <span class="pre">43),</span> <span class="pre">('/augsburg/de/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-augsburg-de.xml',</span> <span class="pre">144),</span> <span class="pre">('/augsburg/en/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-augsburg-en.xml',</span> <span class="pre">130),</span> <span class="pre">('/augsburg/ar/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-augsburg-ar.xml',</span> <span class="pre">106),</span> <span class="pre">('/augsburg/fa/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-augsburg-fa.xml',</span> <span class="pre">85),</span> <span class="pre">('/nurnberg/de/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-nurnberg-de.xml',</span> <span class="pre">75),</span> <span class="pre">('/nurnberg/en/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-nurnberg-en.xml',</span> <span class="pre">54),</span> <span class="pre">('/nurnberg/ar/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-nurnberg-ar.xml',</span> <span class="pre">33),</span> <span class="pre">('/nurnberg/fa/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-nurnberg-fa.xml',</span> <span class="pre">26)]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/sitemap/sitemap_config.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.sitemap.sitemap_config.SITEMAPS" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.sitemap.sitemap_config.</span></span><span class="sig-name descname"><span class="pre">SITEMAPS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[('/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-index.xml',</span> <span class="pre">38),</span> <span class="pre">('/augsburg/de/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-augsburg-de.xml',</span> <span class="pre">142),</span> <span class="pre">('/augsburg/en/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-augsburg-en.xml',</span> <span class="pre">128),</span> <span class="pre">('/augsburg/ar/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-augsburg-ar.xml',</span> <span class="pre">104),</span> <span class="pre">('/augsburg/fa/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-augsburg-fa.xml',</span> <span class="pre">83),</span> <span class="pre">('/nurnberg/de/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-nurnberg-de.xml',</span> <span class="pre">73),</span> <span class="pre">('/nurnberg/en/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-nurnberg-en.xml',</span> <span class="pre">52),</span> <span class="pre">('/nurnberg/ar/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-nurnberg-ar.xml',</span> <span class="pre">31),</span> <span class="pre">('/nurnberg/fa/sitemap.xml',</span> <span class="pre">'tests/sitemap/expected-sitemaps/sitemap-nurnberg-fa.xml',</span> <span class="pre">24)]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/sitemap/sitemap_config.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.sitemap.sitemap_config.SITEMAPS" title="Link to this definition"></a></dt>
 <dd><p>The sitemaps</p>
 <div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
-<span class="w">    </span><span class="p">(</span><span class="s1">&#39;/sitemap.xml&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tests/sitemap/expected-sitemaps/sitemap-index.xml&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">43</span><span class="p">),</span>
+<span class="w">    </span><span class="p">(</span><span class="s1">&#39;/sitemap.xml&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tests/sitemap/expected-sitemaps/sitemap-index.xml&#39;</span><span class="p">,</span><span class="w"> </span><span class="mf">38</span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span>
 <span class="w">        </span><span class="s1">&#39;/augsburg/de/sitemap.xml&#39;</span><span class="p">,</span>
 <span class="w">        </span><span class="s1">&#39;tests/sitemap/expected-sitemaps/sitemap-augsburg-de.xml&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">144</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">142</span><span class="p">,</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span>
 <span class="w">        </span><span class="s1">&#39;/augsburg/en/sitemap.xml&#39;</span><span class="p">,</span>
 <span class="w">        </span><span class="s1">&#39;tests/sitemap/expected-sitemaps/sitemap-augsburg-en.xml&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">130</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">128</span><span class="p">,</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span>
 <span class="w">        </span><span class="s1">&#39;/augsburg/ar/sitemap.xml&#39;</span><span class="p">,</span>
 <span class="w">        </span><span class="s1">&#39;tests/sitemap/expected-sitemaps/sitemap-augsburg-ar.xml&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">106</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">104</span><span class="p">,</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span>
 <span class="w">        </span><span class="s1">&#39;/augsburg/fa/sitemap.xml&#39;</span><span class="p">,</span>
 <span class="w">        </span><span class="s1">&#39;tests/sitemap/expected-sitemaps/sitemap-augsburg-fa.xml&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">85</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">83</span><span class="p">,</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span>
 <span class="w">        </span><span class="s1">&#39;/nurnberg/de/sitemap.xml&#39;</span><span class="p">,</span>
 <span class="w">        </span><span class="s1">&#39;tests/sitemap/expected-sitemaps/sitemap-nurnberg-de.xml&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">75</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">73</span><span class="p">,</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span>
 <span class="w">        </span><span class="s1">&#39;/nurnberg/en/sitemap.xml&#39;</span><span class="p">,</span>
 <span class="w">        </span><span class="s1">&#39;tests/sitemap/expected-sitemaps/sitemap-nurnberg-en.xml&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">54</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">52</span><span class="p">,</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span>
 <span class="w">        </span><span class="s1">&#39;/nurnberg/ar/sitemap.xml&#39;</span><span class="p">,</span>
 <span class="w">        </span><span class="s1">&#39;tests/sitemap/expected-sitemaps/sitemap-nurnberg-ar.xml&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">33</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">31</span><span class="p">,</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="w">    </span><span class="p">(</span>
 <span class="w">        </span><span class="s1">&#39;/nurnberg/fa/sitemap.xml&#39;</span><span class="p">,</span>
 <span class="w">        </span><span class="s1">&#39;tests/sitemap/expected-sitemaps/sitemap-nurnberg-fa.xml&#39;</span><span class="p">,</span>
-<span class="w">        </span><span class="mf">26</span><span class="p">,</span>
+<span class="w">        </span><span class="mf">24</span><span class="p">,</span>
 <span class="w">    </span><span class="p">),</span>
 <span class="p">]</span>
 </pre></div>
@@ -1864,7 +1865,7 @@ provided in the corresponding xml file.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Oct 25, 2023.
+      <span class="lastupdated">Last updated on Oct 30, 2023.
       </span></p>
   </div>
 

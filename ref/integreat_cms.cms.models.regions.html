@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-10-30T08:35:28+00:00" />
+    <meta property="article:modified_time" content="2023-10-30T19:09:00+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Regions &mdash; integreat-cms 2023.10.2 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -979,6 +979,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.NOMINATIM_API_ENABLED"><code class="docutils literal notranslate"><span class="pre">NOMINATIM_API_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.NOMINATIM_API_URL"><code class="docutils literal notranslate"><span class="pre">NOMINATIM_API_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.NUM_REGIONS_QUICK_ACCESS"><code class="docutils literal notranslate"><span class="pre">NUM_REGIONS_QUICK_ACCESS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.OUTDATED_THRESHOLD_DAYS"><code class="docutils literal notranslate"><span class="pre">OUTDATED_THRESHOLD_DAYS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.PDF_ROOT"><code class="docutils literal notranslate"><span class="pre">PDF_ROOT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.PDF_URL"><code class="docutils literal notranslate"><span class="pre">PDF_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.PER_PAGE"><code class="docutils literal notranslate"><span class="pre">PER_PAGE</span></code></a></li>
@@ -1917,10 +1918,6 @@ Also see <a class="reference external" href="https://en.wikipedia.org/wiki/Admin
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">archived_pages</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property returns a QuerySet of all archived pages and their descendants of this region.</p>
-<p>Per default, the returned queryset has some limitations because of the usage of
-<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet.union" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">union()</span></code></a>. To perform the extra effort of returning an unrestricted
-queryset, use <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.get_pages" title="integreat_cms.cms.models.regions.region.Region.get_pages"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_pages()</span></code></a> with the parameters <code class="docutils literal notranslate"><span class="pre">archived</span></code> and
-<code class="docutils literal notranslate"><span class="pre">return_unrestricted_queryset</span></code> set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A QuerySet of all archived pages of this region</p>
@@ -2014,6 +2011,22 @@ region.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">explicitly_archived_ancestors_subquery</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This property returns a subquery for all explicitly archived anchestors of a given page.
+Needs to be used as part of another query because in order to resolve <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/expressions/#django.db.models.OuterRef" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">OuterRef</span></code></a>,
+e.g. in a <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/expressions/#django.db.models.Subquery" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Subquery</span></code></a> or in <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/expressions/#django.db.models.Exists" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exists</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A queryset of the explicitly archived ancestors.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet" title="(in Django v3.2)"><em>QuerySet</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">full_name</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This property returns the full name of a region including its administrative division</p>
 <dl class="field-list simple">
@@ -2052,20 +2065,14 @@ region.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">archived</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_unrestricted_queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_translations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_public_translations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotate_language_tree</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L684"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">archived</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_translations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_public_translations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">annotate_language_tree</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L700"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This method returns either all archived or all non-archived pages of this region.
 To retrieve all pages independently of their archived-state, use the reverse foreign key
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.pages" title="integreat_cms.cms.models.regions.region.Region.pages"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pages</span></code></a>.</p>
-<p>Per default, the returned queryset has some limitations because of the usage of
-<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet.difference" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">difference()</span></code></a> and <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet.union" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">union()</span></code></a>.
-To perform the extra effort of returning an unrestricted queryset, set the parameter
-<code class="docutils literal notranslate"><span class="pre">return_unrestricted_queryset</span></code> to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>archived</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether or not only archived pages should be returned (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
-<li><p><strong>return_unrestricted_queryset</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether or not the result should be returned as unrestricted queryset.
-(default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
 <li><p><strong>prefetch_translations</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether the latest translations for each language should be prefetched
 (default: <code class="docutils literal notranslate"><span class="pre">False</span></code>)</p></li>
 <li><p><strong>prefetch_public_translations</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether the latest public translations for each language should be prefetched
@@ -2085,7 +2092,7 @@ To perform the extra effort of returning an unrestricted queryset, set the param
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L886"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L884"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method which would return <code class="docutils literal notranslate"><span class="pre">&lt;Region:</span> <span class="pre">Region</span> <span class="pre">object</span> <span class="pre">(id)&gt;</span></code>.
 It is used for logging.</p>
 <dl class="field-list simple">
@@ -2100,7 +2107,7 @@ It is used for logging.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_root_pages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L741"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_root_pages</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L739"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This method returns all root pages of this region.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -2251,11 +2258,6 @@ region has been modified.</p>
 <dd><p>This property returns a QuerySet of all non-archived pages of this region.
 A page is considered as “non-archived” if its <code class="docutils literal notranslate"><span class="pre">explicitly_archived</span></code> property is <code class="docutils literal notranslate"><span class="pre">False</span></code> and all the
 page’s ancestors are not archived as well.</p>
-<p>Per default, the returned queryset has some limitations because of the usage of
-<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet.difference" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">difference()</span></code></a> (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/querysets/#django.db.models.query.QuerySet.union" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">union()</span></code></a> for some
-restrictions). To perform the extra effort of returning an unrestricted queryset, use
-<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.get_pages" title="integreat_cms.cms.models.regions.region.Region.get_pages"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_pages()</span></code></a> with the parameter
-<code class="docutils literal notranslate"><span class="pre">return_unrestricted_queryset</span></code> set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A QuerySet of all non-archived pages of this region</p>
@@ -2306,12 +2308,12 @@ region and are neither superusers nor staff.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L752"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/regions/region.py#L750"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Searches for all regions which match the given <cite>query</cite> in their name.
 :param query: The query string used for filtering the regions
 :type query: str
 :return: A query for all matching objects
-:rtype: ~django.db.models.QuerySet</p>
+:rtype: ~django.db.models.query.QuerySet</p>
 </dd></dl>
 
 <dl class="py attribute">
