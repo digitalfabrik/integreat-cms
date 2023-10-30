@@ -315,21 +315,40 @@ class BulkRestoreView(BulkActionView):
         :param \**kwargs: The supplied keyword arguments
         :return: The redirect
         """
+        restore_failed = []
         for content_object in self.get_queryset():
-            content_object.restore()
+            if self.get_queryset().model is Page and content_object.implicitly_archived:
+                messages.error(
+                    request,
+                    _(
+                        'The selected {} "{}" could not be restored because it has an archived ancestor page'
+                    ).format(
+                        self.model._meta.verbose_name,
+                        content_object.best_translation.title,
+                    ),
+                )
+                restore_failed.append(content_object)
+            else:
+                content_object.restore()
+                messages.success(
+                    request,
+                    _('The selected {} "{}" was successfully restored').format(
+                        self.model._meta.verbose_name,
+                        content_object.best_translation.title,
+                    ),
+                )
 
         # Invalidate cache
         invalidate_model(self.model)
         logger.debug(
             "Restored %r by %r",
-            self.get_queryset(),
+            self.get_queryset().exclude(id__in=[page.id for page in restore_failed]),
             request.user,
         )
-        messages.success(
-            request,
-            _("The selected {} were successfully restored").format(
-                self.model._meta.verbose_name_plural
-            ),
+        logger.debug(
+            "Could not be restored %r by %r",
+            restore_failed,
+            request.user,
         )
 
         return super().post(request, *args, **kwargs)
