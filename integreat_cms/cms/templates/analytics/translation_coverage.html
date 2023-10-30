@@ -110,6 +110,9 @@
                     </table>
                 </div>
             </div>
+            {% if TEXTLAB_API_ENABLED and request.region.hix_enabled and worst_hix_translations %}
+                {% include "analytics/_page_hix_widget.html" with box_id="hix-overview" %}
+            {% endif %}
         </div>
     </div>
     {{ chart_data|json_script:"chart_data" }}

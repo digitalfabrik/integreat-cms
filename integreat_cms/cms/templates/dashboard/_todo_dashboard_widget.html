@@ -1,0 +1,33 @@
+{% extends "_collapsible_box.html" %}
+{% load i18n %}
+{% block collapsible_box_icon %}
+    clipboard-list
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% translate "To-Do's" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <div class="flex flex-wrap gap-2">
+        <p class="pt-2 px-4">
+            {% blocktranslate trimmed %}
+                Every day you can find a list of ideas on how you can improve the content of your pages
+            {% endblocktranslate %}
+        </p>
+        {% if perms.cms.change_page %}
+            {% include "dashboard/todo_dashboard_rows/_unreviewed_pages_row.html" %}
+            {% include "dashboard/todo_dashboard_rows/_automatically_saved_pages_row.html" %}
+        {% endif %}
+        {% if perms.cms.change_feedback %}
+            {% include "dashboard/todo_dashboard_rows/_unread_feedback_row.html" %}
+        {% endif %}
+        {% if perms.cms.change_page and perms.cms.view_broken_links %}
+            {% include "dashboard/todo_dashboard_rows/_broken_links_row.html" %}
+        {% endif %}
+        {% if perms.cms.change_page and TEXTLAB_API_ENABLED and request.region.hix_enabled %}
+            {% include "dashboard/todo_dashboard_rows/_low_hix_row.html" %}
+        {% endif %}
+        {% if perms.cms.change_page %}
+            {% include "dashboard/todo_dashboard_rows/_outdated_pages_row.html" %}
+        {% endif %}
+    </div>
+{% endblock collapsible_box_content %}
