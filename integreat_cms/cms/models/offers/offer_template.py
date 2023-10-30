@@ -50,7 +50,14 @@ class OfferTemplate(AbstractBaseModel):
             "Whether and how to insert the postcode of the region into the URL or POST data"
         ),
     )
-
+    supported_by_app_in_content = models.BooleanField(
+        default=False,
+        blank=True,
+        verbose_name=_("supported by app in content"),
+        help_text=_(
+            "Whether the Integreat app supports displaying offers from this provider in pages"
+        ),
+    )
     created_date = models.DateTimeField(
         default=timezone.now,
         verbose_name=_("creation date"),
