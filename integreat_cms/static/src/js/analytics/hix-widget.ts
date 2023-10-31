@@ -209,10 +209,10 @@ window.addEventListener("load", async () => {
         if (hixIgnore.checked) {
             hixBlock.classList.add("hidden");
             toggleMTCheckboxes(true);
-            mtForm.classList.add("hidden");
+            mtForm?.classList.add("hidden");
         } else {
             toggleMTCheckboxes(false);
-            mtForm.classList.remove("hidden");
+            mtForm?.classList.remove("hidden");
             hixBlock.classList.remove("hidden");
         }
     };
