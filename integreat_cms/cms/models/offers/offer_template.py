@@ -27,8 +27,11 @@ class OfferTemplate(AbstractBaseModel):
             _("Leave blank to generate unique parameter from name"),
         ),
     )
-    thumbnail = models.URLField(max_length=250, verbose_name=_("thumbnail URL"))
+    thumbnail = models.URLField(
+        blank=True, max_length=250, verbose_name=_("thumbnail URL")
+    )
     url = models.URLField(
+        blank=True,
         max_length=250,
         verbose_name=_("URL"),
         help_text=_("This will be an external API endpoint in most cases."),
@@ -59,6 +62,12 @@ class OfferTemplate(AbstractBaseModel):
         help_text=_(
             "Whether the Integreat app supports displaying offers from this provider in pages"
         ),
+    )
+    is_zammad_form = models.BooleanField(
+        default=False,
+        blank=True,
+        verbose_name=_("is Zammad form"),
+        help_text=_("Whether this offer should be treated as a Zammad form by the App"),
     )
     created_date = models.DateTimeField(
         default=timezone.now,

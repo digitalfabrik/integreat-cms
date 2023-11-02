@@ -767,6 +767,8 @@ VIEWS: ViewConfig = [
                     "timezone": "Europe/Berlin",
                     "deepl_renewal_month": 6,
                     "offers": [3],
+                    "zammad_offers": [5],
+                    "zammad_url": "https://zammad-test.example.com",
                 },
             ),
             (
@@ -783,6 +785,8 @@ VIEWS: ViewConfig = [
                     "timezone": "Europe/Berlin",
                     "deepl_renewal_month": 6,
                     "offers": [3],
+                    "zammad_offers": [5],
+                    "zammad_url": "https://zammad-test.example.com",
                 },
             ),
         ],

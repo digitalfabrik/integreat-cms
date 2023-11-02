@@ -126,6 +126,16 @@ class RegionForm(CustomModelForm):
         ),
     )
 
+    zammad_offers = forms.ModelMultipleChoiceField(
+        queryset=OfferTemplate.objects.filter(is_zammad_form=True),
+        required=False,
+        label=_("Zammad forms"),
+        help_text=_(
+            "Zammad forms are a type of offer which can only be used if a Zammad-URL is provided for the region."
+        ),
+        widget=CheckboxSelectMultipleWithDisabled(),
+    )
+
     class Meta:
         """
         This class contains additional meta configuration of the form class, see the :class:`django.forms.ModelForm`
@@ -172,6 +182,7 @@ class RegionForm(CustomModelForm):
             "deepl_renewal_month",
             "deepl_addon_booked",
             "deepl_midyear_start_month",
+            "zammad_url",
         ]
         #: The widgets which are used in this form
         widgets = {
@@ -207,7 +218,17 @@ class RegionForm(CustomModelForm):
             if self.instance.id
             else OfferTemplate.objects.none()
         )
+        self.fields["offers"].queryset = OfferTemplate.objects.filter(
+            is_zammad_form=False
+        )
         self.fields["offers"].widget.disabled_options = self.disabled_offer_options
+
+        self.fields[
+            "zammad_offers"
+        ].widget.disabled_options = self.disabled_offer_options
+        self.fields["zammad_offers"].initial = (
+            self.instance.offers.filter(is_zammad_form=True) if self.instance.id else []
+        )
 
     def save(self, commit: bool = True) -> Region:
         """
@@ -297,7 +318,12 @@ class RegionForm(CustomModelForm):
         ):
             cleaned_data["deepl_midyear_start_month"] = None
 
-        # Make sure no non-disableable offers have been disabled
+        # Re-combine all offers and make sure no non-disableable offers have been disabled
+        if not cleaned_data["zammad_url"]:
+            cleaned_data["zammad_offers"] = []
+        cleaned_data["offers"] = list(cleaned_data["offers"]) + list(
+            cleaned_data["zammad_offers"]
+        )
         if self.disabled_offer_options and not all(
             offer in cleaned_data["offers"] for offer in self.disabled_offer_options
         ):

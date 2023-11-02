@@ -1961,6 +1961,10 @@ msgstr ""
 "Die Datei kann nicht in einem Verzeichnis einer anderen Region hochgeladen "
 "werden."
 
+#: cms/forms/offer_templates/offer_template_form.py
+msgid "This field is required."
+msgstr "Dieses Feld ist erforderlich."
+
 #: cms/forms/organizations/organization_form.py
 msgid ""
 "An organization with the same name already exists in this region. Please "
@@ -2114,6 +2118,18 @@ msgstr ""
 #: cms/forms/regions/region_form.py
 msgid "Budget will be set as a monthly fraction of {} credits"
 msgstr "Das Budget wird monatsanteilig von {} Credits berechnet."
+
+#: cms/forms/regions/region_form.py
+msgid "Zammad forms"
+msgstr "Zammad Formulare"
+
+#: cms/forms/regions/region_form.py
+msgid ""
+"Zammad forms are a type of offer which can only be used if a Zammad-URL is "
+"provided for the region."
+msgstr ""
+"Zammad Formulare sind eine Art von Angebot die nur mit angegebener Zammad-"
+"URL genutzt werden können."
 
 #: cms/forms/regions/region_form.py
 msgid "Statistics can only be enabled when a valid access token is supplied."
@@ -3041,6 +3057,15 @@ msgstr ""
 "unterstützt"
 
 #: cms/models/offers/offer_template.py
+msgid "is Zammad form"
+msgstr "Ist Zammad Formular"
+
+#: cms/models/offers/offer_template.py
+msgid "Whether this offer should be treated as a Zammad form by the App"
+msgstr ""
+"Ob dieses Angebot von der App als Zammad Formular behandelt werden soll"
+
+#: cms/models/offers/offer_template.py
 msgid "offer template"
 msgstr "Angebots-Vorlage"
 
@@ -3808,6 +3833,18 @@ msgstr "Seiten"
 #: cms/templates/events/event_list.html
 msgid "Events"
 msgstr "Veranstaltungen"
+
+#: cms/models/regions/region.py
+msgid "Zammad-URL"
+msgstr "Zammad-URL"
+
+#: cms/models/regions/region.py
+msgid ""
+"URL pointing to this region's Zammad instance. Setting this enables Zammad "
+"form offers."
+msgstr ""
+"URL, die auf die Zammad-Instanz dieser Region verweist. Wenn diese gesetzt "
+"ist, werden Zammad-Formular Angebote freigeschalten."
 
 #: cms/models/users/organization.py
 msgid "organizations"
@@ -10856,9 +10893,6 @@ msgstr ""
 
 #~ msgid "language tag"
 #~ msgstr "Sprach-Tag"
-
-#~ msgid "Matomo URL"
-#~ msgstr "Matomo-URL"
 
 #~ msgid "activate SSL verification for Matomo"
 #~ msgstr "SSL-Verifikation für Matomo aktivieren"

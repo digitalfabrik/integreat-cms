@@ -51,6 +51,8 @@ def get_post_data(offer: OfferTemplate, region: Region) -> dict[str, str] | None
     post_data = offer.post_data
     if offer.use_postal_code == postal_code.POST:
         post_data.update({"search-plz": region.postal_code})
+    if offer.is_zammad_form and region.zammad_url:
+        post_data.update({"zammad-url": region.zammad_url})
     if not post_data:
         return None
     return post_data
