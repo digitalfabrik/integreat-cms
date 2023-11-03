@@ -1,8 +1,9 @@
 {% load i18n %}
 <div class="flex justify-between border-t-2 border-zinc-600 p-4 w-full">
-    <div class="flex items-center">
+    <div class="flex items-center basis-full">
         <div class="mr-6">
-            <i icon-name="{% spaceless %}{% block todo_dashboard_icon %}{% endblock todo_dashboard_icon %}{% endspaceless %}"></i>
+            <i class="h-8 w-8"
+               icon-name="{% spaceless %}{% block todo_dashboard_icon %}{% endblock todo_dashboard_icon %}{% endspaceless %}"></i>
         </div>
         <div>
             <a href="{% spaceless %}{% block todo_dashboard_title_link %}{% endblock todo_dashboard_title_link %}{% endspaceless %}"
@@ -19,7 +20,7 @@
             </p>
         </div>
     </div>
-    <div class="flex items-center justify-end w-80 text-center">
+    <div class="flex items-center text-center whitespace-nowrap ml-6 justify-center w-36">
         {% block todo_dashboard_button_link %}
         {% endblock todo_dashboard_button_link %}
     </div>
