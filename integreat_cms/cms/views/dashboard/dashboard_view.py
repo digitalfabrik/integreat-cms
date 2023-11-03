@@ -22,6 +22,7 @@ class DashboardView(TemplateView, ChatContextMixin):
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "dashboard/dashboard.html"
+    latest_version_ids = []
 
     def get_context_data(self, **kwargs):
         r"""
@@ -36,6 +37,7 @@ class DashboardView(TemplateView, ChatContextMixin):
         context = super().get_context_data(**kwargs)
         # RSS FEED urls
         language_slug = translation.get_language()
+        self.latest_version_ids = self.get_latest_versions()
         context.update(
             {
                 "current_menu_item": "region_dashboard",
@@ -57,6 +59,25 @@ class DashboardView(TemplateView, ChatContextMixin):
 
         return context
 
+    def get_latest_versions(self):
+        """
+        Collects all the latest page translations of the current region
+
+        :return: all the latest page translations of the current region
+        :rtype: ~django.db.models.query.QuerySet
+
+        """
+        latest_version_ids = (
+            PageTranslation.objects.filter(
+                page__id__in=Subquery(
+                    self.request.region.non_archived_pages.values("pk")
+                ),
+            )
+            .distinct("page__id", "language__id")
+            .values_list("pk", flat=True)
+        )
+        return list(latest_version_ids)
+
     def get_unreviewed_pages_context(self):
         """
         Extend context by info on unreviewed pages
@@ -64,17 +85,10 @@ class DashboardView(TemplateView, ChatContextMixin):
         :return: Dictionary containing the context for unreviewed pages
         :rtype: dict
         """
-        unreviewed_pages = (
-            PageTranslation.objects.filter(
-                status=status.REVIEW,
-                language__slug=self.request.region.default_language.slug,
-                page__id__in=Subquery(
-                    self.request.region.non_archived_pages.values("pk")
-                ),
-            )
-            .order_by("page__id", "language__id", "-version")
-            .distinct("page__id", "language__id")
-            .all()
+        unreviewed_pages = PageTranslation.objects.filter(
+            language__slug=self.request.region.default_language.slug,
+            id__in=self.latest_version_ids,
+            status=status.REVIEW,
         )
 
         return {
@@ -89,20 +103,11 @@ class DashboardView(TemplateView, ChatContextMixin):
         :return: Dictionary containing the context for auto saved pages
         :rtype: dict
         """
-        last_versions = (
-            PageTranslation.objects.filter(
-                language__slug=self.request.region.default_language.slug,
-                page__id__in=Subquery(
-                    self.request.region.non_archived_pages.values("pk")
-                ),
-            )
-            .order_by("page__id", "language__id", "-version")
-            .distinct("page__id", "language__id")
-        )
         automatically_saved_pages = PageTranslation.objects.filter(
-            id__in=Subquery(last_versions.values("pk")),
+            language__slug=self.request.region.default_language.slug,
+            id__in=self.latest_version_ids,
             status=status.AUTO_SAVE,
-        ).all()
+        )
 
         return {
             "automatically_saved_pages": automatically_saved_pages,
@@ -153,13 +158,10 @@ class DashboardView(TemplateView, ChatContextMixin):
         if settings.TEXTLAB_API_ENABLED and self.request.region.hix_enabled:
             translations_under_hix_threshold = PageTranslation.objects.filter(
                 language__slug__in=settings.TEXTLAB_API_LANGUAGES,
-                page__id__in=Subquery(
-                    self.request.region.non_archived_pages.filter(
-                        hix_ignore=False
-                    ).values("pk")
-                ),
+                id__in=self.latest_version_ids,
+                page__hix_ignore=False,
                 hix_score__lt=settings.HIX_REQUIRED_FOR_MT,
-            ).distinct("page_id", "language_id")
+            )
 
             return {
                 "pages_under_hix_threshold": translations_under_hix_threshold,
@@ -177,21 +179,11 @@ class DashboardView(TemplateView, ChatContextMixin):
             days=settings.OUTDATED_THRESHOLD_DAYS
         )
 
-        last_versions = (
-            PageTranslation.objects.filter(
-                page__id__in=Subquery(
-                    self.request.region.non_archived_pages.values("pk")
-                ),
-                language__slug=self.request.region.default_language.slug,
-            )
-            .order_by("page__id", "language__id", "-version", "last_updated")
-            .distinct("page__id", "language__id")
-        )
-
         outdated_pages = PageTranslation.objects.filter(
-            id__in=Subquery(last_versions.values("pk")),
+            language__slug=self.request.region.default_language.slug,
+            id__in=self.latest_version_ids,
             last_updated__lte=OUTDATED_THRESHOLD_DATE.date(),
-        )
+        ).order_by("last_updated")
 
         days_since_last_updated = (
             (
