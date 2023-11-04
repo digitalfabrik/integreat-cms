@@ -122,14 +122,14 @@ class EventFilterForm(CustomFilterForm):
         elif all_day.ALL_DAY in self.cleaned_data["all_day"]:
             # Filter for all-day events
             events = events.filter(
-                start_time=time.min,
-                end_time=time.max.replace(second=0, microsecond=0),
+                start__time=time.min,
+                end__time=time.max.replace(second=0, microsecond=0),
             )
         elif all_day.NOT_ALL_DAY in self.cleaned_data["all_day"]:
             # Exclude all-day events
             events = events.exclude(
-                start_time=time.min,
-                end_time=time.max.replace(second=0, microsecond=0),
+                start__time=time.min,
+                end__time=time.max.replace(second=0, microsecond=0),
             )
         # Filter events for recurrence
         if (
