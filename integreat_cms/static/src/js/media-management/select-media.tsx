@@ -47,7 +47,8 @@ const SelectMedia = ({
             <button
                 onClick={cancel}
                 type="submit"
-                className="p-1 rounded-full hover:bg-blue-500 hover:text-white absolute top-6 right-6">
+                className="p-1 rounded-full hover:bg-blue-500 hover:text-white absolute top-6 right-6"
+                aria-label="Cancel">
                 <XCircle className="inline-block h-8 w-8" />
             </button>
         </div>
