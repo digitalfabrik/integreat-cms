@@ -347,19 +347,10 @@ load-plugins = [
     "pylint_django",
     "pylint_per_file_ignores",
     "pylint.extensions.code_style",
-    "pylint.extensions.comparetozero",
     "pylint.extensions.comparison_placement",
     "pylint.extensions.consider_ternary_expression",
     "pylint.extensions.docparams",
-    "pylint.extensions.emptystring",
     "pylint.extensions.for_any_all",
-]
-enable = [
-    "consider-using-augmented-assign",
-]
-disable = [
-    "consider-using-namedtuple-or-dataclass",
-    "consider-using-tuple",
 ]
 recursive = true
 ignore-paths = [
@@ -380,15 +371,23 @@ max-parents = 7
 
 [tool.pylint.messages_control]
 disable = [
+    "consider-using-namedtuple-or-dataclass",
+    "consider-using-tuple",
+    "duplicate-code",
     "invalid-name",
     "line-too-long",
-    "too-many-lines",
     "missing-module-docstring",
     "no-member",
+    "too-many-lines",
+    "ungrouped-imports",
     "unsupported-binary-operation",
+    "wrong-import-position",
 ]
 enable = [
-    "useless-suppression"
+    "consider-using-augmented-assign",
+    "use-implicit-booleaness-not-comparison-to-string",
+    "use-implicit-booleaness-not-comparison-to-zero",
+    "useless-suppression",
 ]
 
 [tool.pylint.reports]

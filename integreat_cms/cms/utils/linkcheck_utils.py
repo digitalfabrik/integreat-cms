@@ -191,7 +191,7 @@ def save_new_version(translation, new_translation, user):
     logger.debug("Created new translation version %r", new_translation)
 
 
-# pylint: disable=too-many-locals
+# pylint: disable=too-many-locals,too-many-arguments
 def replace_links(
     search,
     replace,
