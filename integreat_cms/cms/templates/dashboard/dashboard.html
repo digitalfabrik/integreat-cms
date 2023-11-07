@@ -9,25 +9,21 @@
         </h1>
         <div class="xl:flex gap-3 pt-2">
             <div class="xl:w-1/2">
+                <!-- Task Widget -->
+                {% if perms.cms.change_page or perms.cms.change_feedback %}
+                    {% if request.region.default_language %}
+                        {% include "dashboard/_todo_dashboard_widget.html" with no_padding=True %}
+                    {% endif %}
+                {% endif %}
                 <!-- Statistic Widget -->
                 {% if request.region.statistics_enabled and perms.cms.view_statistics %}
                     {% include "statistics/_statistics_widget.html" with box_id="dashboard-statistics" %}
                 {% endif %}
+            </div>
+            <div class="xl:w-1/2">
                 <!-- Chat Widget -->
                 {% if chat_form and perms.cms.change_chatmessage %}
                     {% include "chat/_chat_widget.html" with box_id="dashboard-chat" %}
-                {% endif %}
-                <!-- Translation Status Widget: TODO-->
-                <!-- App Size Widget: TODO -->
-                <!-- Page HIX Widget-->
-                {% if TEXTLAB_API_ENABLED and request.region.hix_enabled and worst_hix_translations %}
-                    {% include "analytics/_page_hix_widget.html" %}
-                {% endif %}
-            </div>
-            <div class="xl:w-1/2">
-                <!-- Broken Link Widget -->
-                {% if perms.cms.view_broken_links %}
-                    {% include "analytics/_broken_links_widget.html" with box_id="dashboard-links" %}
                 {% endif %}
                 <!-- News Widget -->
                 {% include "dashboard/_news_widget.html" with box_id="dashboard-news" %}

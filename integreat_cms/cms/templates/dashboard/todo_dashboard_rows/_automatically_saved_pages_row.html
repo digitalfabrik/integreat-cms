@@ -1,0 +1,37 @@
+{% extends "../_todo_dashboard_row.html" %}
+{% load i18n %}
+{% block todo_dashboard_icon %}
+    save
+{% endblock todo_dashboard_icon %}
+{% block todo_dashboard_title_link %}
+    {% url 'pages' region_slug=request.region.slug language_slug=default_language_slug %}?status=AUTO_SAVE
+{% endblock todo_dashboard_title_link %}
+{% block todo_dashboard_title %}
+    {% translate "Automatically saved pages" %}
+{% endblock todo_dashboard_title %}
+{% block todo_dashboard_number %}
+    {% with total=automatically_saved_pages|length %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock todo_dashboard_number %}
+{% block todo_dashboard_description %}
+    {% if automatically_saved_pages %}
+        {% blocktranslate trimmed with single_automatically_saved_page=automatically_saved_pages.0 %}
+            The page <b>{{ single_automatically_saved_page }}</b> has been saved automatically. Please don't forget to publish this page once it's ready.
+        {% endblocktranslate %}
+    {% else %}
+        {% blocktranslate trimmed %}
+            At the moment there are no automatically saved pages. Good job!
+        {% endblocktranslate %}
+    {% endif %}
+{% endblock todo_dashboard_description %}
+{% block todo_dashboard_button_link %}
+    {% if automatically_saved_pages %}
+        <a class="btn !rounded-full"
+           href="{% url 'edit_page' region_slug=request.region.slug language_slug=default_language_slug page_id=automatically_saved_pages.0.page_id %}">
+            {% translate "Go to page" %}
+        </a>
+    {% else %}
+        <i class="h-8 w-8 text-green-500" icon-name="check-circle-2"></i>
+    {% endif %}
+{% endblock todo_dashboard_button_link %}

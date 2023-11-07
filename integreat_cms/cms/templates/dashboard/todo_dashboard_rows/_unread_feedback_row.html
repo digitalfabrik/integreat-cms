@@ -1,0 +1,37 @@
+{% extends "../_todo_dashboard_row.html" %}
+{% load i18n %}
+{% block todo_dashboard_icon %}
+    thumbs-up
+{% endblock todo_dashboard_icon %}
+{% block todo_dashboard_title_link %}
+    {% url 'region_feedback' region_slug=request.region.slug %}?read_status=UNREAD
+{% endblock todo_dashboard_title_link %}
+{% block todo_dashboard_title %}
+    {% translate "Unread feedback" %}
+{% endblock todo_dashboard_title %}
+{% block todo_dashboard_number %}
+    {% with total=unread_feedback|length %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock todo_dashboard_number %}
+{% block todo_dashboard_description %}
+    {% if unread_feedback %}
+        {% blocktranslate trimmed %}
+            You have unread feedback. Please answer your feedback to improve the quality of your pages and improve the relationship to the users.
+        {% endblocktranslate %}
+    {% else %}
+        {% blocktranslate trimmed %}
+            At the moment there is no unread feedback. Good job!
+        {% endblocktranslate %}
+    {% endif %}
+{% endblock todo_dashboard_description %}
+{% block todo_dashboard_button_link %}
+    {% if unread_feedback %}
+        <a href="{% url 'region_feedback' region_slug=request.region.slug %}"
+           class="btn !rounded-full">
+            {% translate "Go to feedback" %}
+        </a>
+    {% else %}
+        <i class="h-8 w-8 text-green-500" icon-name="check-circle-2"></i>
+    {% endif %}
+{% endblock todo_dashboard_button_link %}

@@ -16,6 +16,8 @@ import { getCsrfToken } from "../utils/csrf-token";
 // See https://www.chartjs.org/docs/latest/getting-started/integration.html#bundlers-webpack-rollup-etc for details
 Chart.register(DoughnutController, ArcElement, CategoryScale, LinearScale, Tooltip, Title);
 
+let initialContent: string = null;
+
 const updateChart = (chart: Chart, value: number) => {
     const hixMaxValue = 20;
     const hixThresholdGood = 15;
@@ -78,13 +80,14 @@ const setHixLabelState = (state: string) => {
 const getHixValue = async () => {
     const updateButton = document.getElementById("btn-update-hix-value");
     let result;
+    const sentContent = getContent().trim();
     await fetch(updateButton.dataset.url, {
         method: "POST",
         headers: {
             "X-CSRFToken": getCsrfToken(),
         },
         body: JSON.stringify({
-            text: getContent(),
+            text: sentContent,
         }),
     })
         .then((response) => response.json())
@@ -92,6 +95,9 @@ const getHixValue = async () => {
             const labelState = json.error ? "error" : "updated";
             setHixLabelState(labelState);
             result = json.score;
+            if (!json.error) {
+                initialContent = sentContent;
+            }
         });
     return result;
 };
@@ -170,7 +176,9 @@ window.addEventListener("load", async () => {
     };
 
     const initHixValue = async () => {
-        if (!getContent().trim()) {
+        initialContent = getContent().trim();
+
+        if (!initialContent) {
             setHixLabelState("no-content");
             return;
         }
@@ -188,9 +196,19 @@ window.addEventListener("load", async () => {
     document.querySelectorAll("[data-content-changed]").forEach((element) => {
         // make sure initHixValue is called only after tinyMCE is initialized
         element.addEventListener("tinyMCEInitialized", initHixValue);
-        element.addEventListener("contentChanged", () =>
-            setHixLabelState(getContent().trim() ? "outdated" : "no-content")
-        );
+        element.addEventListener("contentChanged", () => {
+            const content = getContent().trim();
+            const labelState = (() => {
+                if (!content) {
+                    return "no-content";
+                }
+                if (content !== initialContent) {
+                    return "outdated";
+                }
+                return "updated";
+            })();
+            return setHixLabelState(labelState);
+        });
     });
 
     // Set listener for update button
@@ -209,10 +227,10 @@ window.addEventListener("load", async () => {
         if (hixIgnore.checked) {
             hixBlock.classList.add("hidden");
             toggleMTCheckboxes(true);
-            mtForm.classList.add("hidden");
+            mtForm?.classList.add("hidden");
         } else {
             toggleMTCheckboxes(false);
-            mtForm.classList.remove("hidden");
+            mtForm?.classList.remove("hidden");
             hixBlock.classList.remove("hidden");
         }
     };

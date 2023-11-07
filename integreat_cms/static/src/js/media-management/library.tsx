@@ -239,7 +239,8 @@ const Library = ({
                                     "bg-gray-100 border-gray-100": selectionMode,
                                     "bg-gray-200 border-gray-200": !selectionMode,
                                 })}
-                                type="button">
+                                type="button"
+                                aria-label="Reset">
                                 <X className="w-5" />
                             </button>
                         )}
@@ -248,7 +249,8 @@ const Library = ({
                             title={mediaTranslations.btn_search}
                             class="bg-blue-500 hover:bg-blue-600 text-white rounded-r py-2 px-3"
                             type="submit"
-                            form="media-search-form">
+                            form="media-search-form"
+                            aria-label="Search">
                             <Search className="w-5" />
                         </button>
                     </div>

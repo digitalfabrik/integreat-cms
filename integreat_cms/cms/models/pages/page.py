@@ -197,6 +197,14 @@ class Page(AbstractTreeNode, AbstractBasePage):
         verbose_name=_("Ignore HIX value"),
         help_text=_("This allows to ignore HIX value for this specific page."),
     )
+    embedded_offers = models.ManyToManyField(
+        "cms.OfferTemplate",
+        blank=True,
+        verbose_name=_("page based offer"),
+        help_text=_(
+            "Select an offer provider whose offers should be displayed on this page."
+        ),
+    )
 
     #: Custom model manager to inherit methods from tree manager as well as the custom content queryset
     objects = PageManager()
@@ -216,9 +224,10 @@ class Page(AbstractTreeNode, AbstractBasePage):
         """
         This returns all of the page's ancestors which are archived.
 
-        :return: The QuerySet of archived ancestors
+        :return: The list of archived ancestors
         :rtype: list [ ~integreat_cms.cms.models.pages.page.Page ]
         """
+
         return [
             ancestor
             for ancestor in self.get_cached_ancestors()

@@ -48,6 +48,12 @@
             {% render_field page_form.mirrored_page_first id="mirrored_page_first" %}
         </div>
     </div>
+    <div>
+        <label for="embedded_offers">
+            {% translate "Embed offers" %}
+        </label>
+        {% render_field page_form.embedded_offers id="embedded_offers" %}
+    </div>
     {% if request.user.expert_mode %}
         <div>
             <label>
@@ -84,12 +90,16 @@
                 <label>
                     {% translate "Additional permissions for this page" %}
                 </label>
-                <p class="italic">
-                    {% translate "This affects only users, who don't have the permission to change arbitrary pages anyway." %}
-                </p>
-                <div id="page_permission_table">
-                    {% include "pages/_page_permission_table.html" %}
-                </div>
+                {% if page_id %}
+                    <p class="italic">
+                        {% translate "This only affects users who do not have permission to edit arbitrary pages." %}
+                    </p>
+                    <div id="page_permission_table">
+                        {% include "pages/_page_permission_table.html" %}
+                    </div>
+                {% else %}
+                    <i icon-name="alert-triangle" class="pb-1"></i> {% translate "Page permissions can only be set after the page has been saved as draft or published for the first time." %}
+                {% endif %}
             </div>
         {% endif %}
     {% endif %}

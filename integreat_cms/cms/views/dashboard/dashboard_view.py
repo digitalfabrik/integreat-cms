@@ -1,10 +1,15 @@
 import logging
+from datetime import datetime
 
+from dateutil.relativedelta import relativedelta
 from django.conf import settings
+from django.db.models import Subquery
 from django.utils import translation
 from django.views.generic import TemplateView
 
-from ...models import PageTranslation
+from ...constants import status
+from ...models import Feedback, PageTranslation
+from ...utils.linkcheck_utils import filter_urls
 from ..chat.chat_context_mixin import ChatContextMixin
 
 logger = logging.getLogger(__name__)
@@ -17,6 +22,7 @@ class DashboardView(TemplateView, ChatContextMixin):
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "dashboard/dashboard.html"
+    latest_version_ids = []
 
     def get_context_data(self, **kwargs):
         r"""
@@ -31,6 +37,7 @@ class DashboardView(TemplateView, ChatContextMixin):
         context = super().get_context_data(**kwargs)
         # RSS FEED urls
         language_slug = translation.get_language()
+        self.latest_version_ids = self.get_latest_versions()
         context.update(
             {
                 "current_menu_item": "region_dashboard",
@@ -42,51 +49,166 @@ class DashboardView(TemplateView, ChatContextMixin):
                 ),
             }
         )
-        context.update(self.get_hix_context())
+
+        context.update(self.get_unreviewed_pages_context())
+        context.update(self.get_automatically_saved_pages())
+        context.update(self.get_unread_feedback_context())
+        # Temporarily disable linkcheck todo for performance reasons
+        # context.update(self.get_broken_links_context())
+        context.update(self.get_low_hix_value_context())
+        context.update(self.get_outdated_pages_context())
+
         return context
 
-    def get_hix_context(self):
+    def get_latest_versions(self):
         """
-        Extend context by HIX info
+        Collects all the latest page translations of the current region
 
-        :return: The HIX context dictionary
+        :return: all the latest page translations of the current region
+        :rtype: ~django.db.models.query.QuerySet
+
+        """
+        latest_version_ids = (
+            PageTranslation.objects.filter(
+                page__id__in=Subquery(
+                    self.request.region.non_archived_pages.values("pk")
+                ),
+            )
+            .distinct("page__id", "language__id")
+            .values_list("pk", flat=True)
+        )
+        return list(latest_version_ids)
+
+    def get_unreviewed_pages_context(self):
+        """
+        Extend context by info on unreviewed pages
+
+        :return: Dictionary containing the context for unreviewed pages
         :rtype: dict
         """
-        if not settings.TEXTLAB_API_ENABLED:
+        if not self.request.region.default_language:
             return {}
 
-        # Get the current region
-        region = self.request.region
-        if not region.hix_enabled:
-            return {}
-
-        # Get all pages of this region which are considered for the HIX value
-        hix_pages = region.get_pages(return_unrestricted_queryset=True).filter(
-            hix_ignore=False
-        )
-
-        # Get the latest versions of the page translations for these pages
-        hix_translations = PageTranslation.objects.filter(
-            language__slug__in=settings.TEXTLAB_API_LANGUAGES, page__in=hix_pages
-        ).distinct("page_id", "language_id")
-
-        # Get all hix translations where the score is set
-        hix_translations_with_score = [pt for pt in hix_translations if pt.hix_score]
-
-        # Get the worst n pages
-        worst_hix_translations = sorted(
-            hix_translations_with_score, key=lambda pt: pt.hix_score
-        )
-
-        # Get the number of translations which are not ready for MT
-        not_ready_for_mt_count = sum(
-            pt.hix_score < settings.HIX_REQUIRED_FOR_MT
-            for pt in hix_translations_with_score
+        unreviewed_pages = PageTranslation.objects.filter(
+            language__slug=self.request.region.default_language.slug,
+            id__in=self.latest_version_ids,
+            status=status.REVIEW,
         )
 
         return {
-            "worst_hix_translations": worst_hix_translations,
-            "hix_threshold": settings.HIX_REQUIRED_FOR_MT,
-            "ready_for_mt_count": len(hix_translations) - not_ready_for_mt_count,
-            "total_count": len(hix_translations),
+            "unreviewed_pages": unreviewed_pages,
+            "default_language_slug": self.request.region.default_language.slug,
+        }
+
+    def get_automatically_saved_pages(self):
+        r"""
+        Extend context by info on automatically saved pages
+
+        :return: Dictionary containing the context for auto saved pages
+        :rtype: dict
+        """
+        if not self.request.region.default_language:
+            return {}
+
+        automatically_saved_pages = PageTranslation.objects.filter(
+            language__slug=self.request.region.default_language.slug,
+            id__in=self.latest_version_ids,
+            status=status.AUTO_SAVE,
+        )
+
+        return {
+            "automatically_saved_pages": automatically_saved_pages,
+            "default_language_slug": self.request.region.default_language.slug,
+        }
+
+    def get_unread_feedback_context(self):
+        r"""
+        Extend context by info on unread feedback
+
+        :return: Dictionary containing the context for unreviewed pages
+        :rtype: dict
+        """
+        unread_feedback = Feedback.objects.filter(
+            read_by=None, archived=False, region=self.request.region
+        )
+        return {
+            "unread_feedback": unread_feedback,
+        }
+
+    def get_broken_links_context(self):
+        r"""
+        Extend context by info on broken links
+
+        :return: Dictionary containing the context for broken links
+        :rtype: dict
+        """
+        invalid_urls = filter_urls(self.request.region.slug, "invalid")[0]
+        invalid_url = invalid_urls[0] if invalid_urls else None
+
+        relevant_translation = (
+            invalid_url.region_links[0].content_object if invalid_url else None
+        )
+
+        return {
+            "broken_links": invalid_urls,
+            "relevant_translation": relevant_translation,
+            "relevant_url": invalid_url,
+        }
+
+    def get_low_hix_value_context(self):
+        r"""
+        Extend context by info on pages with low hix value
+
+        :return: Dictionary containing the context for pages with low hix value
+        :rtype: dict
+        """
+        if not settings.TEXTLAB_API_ENABLED or not self.request.region.hix_enabled:
+            return {}
+
+        translations_under_hix_threshold = PageTranslation.objects.filter(
+            language__slug__in=settings.TEXTLAB_API_LANGUAGES,
+            id__in=self.latest_version_ids,
+            page__hix_ignore=False,
+            hix_score__lt=settings.HIX_REQUIRED_FOR_MT,
+        )
+
+        return {
+            "pages_under_hix_threshold": translations_under_hix_threshold,
+        }
+
+    def get_outdated_pages_context(self):
+        r"""
+        Extend context by info on outdated pages
+
+        :return: Dictionary containing the context for outdated pages
+        :rtype: dict
+        """
+        if not self.request.region.default_language:
+            return {}
+
+        OUTDATED_THRESHOLD_DATE = datetime.now() - relativedelta(
+            days=settings.OUTDATED_THRESHOLD_DAYS
+        )
+
+        outdated_pages = PageTranslation.objects.filter(
+            language__slug=self.request.region.default_language.slug,
+            id__in=self.latest_version_ids,
+            last_updated__lte=OUTDATED_THRESHOLD_DATE.date(),
+        ).order_by("last_updated")
+
+        days_since_last_updated = (
+            (
+                datetime.today() - most_outdated_page.last_updated.replace(tzinfo=None)
+            ).days
+            if (most_outdated_page := outdated_pages[0] if outdated_pages else None)
+            else None
+        )
+
+        OUTDATED_THRESHOLD_DATE = OUTDATED_THRESHOLD_DATE.strftime("%Y-%m-%d")
+
+        return {
+            "outdated_pages": outdated_pages,
+            "most_outdated_page": most_outdated_page,
+            "days_since_last_updated": days_since_last_updated,
+            "outdated_threshold_date": OUTDATED_THRESHOLD_DATE,
         }

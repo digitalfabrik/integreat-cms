@@ -21,7 +21,8 @@
                     {% translate "Create imprint" %}
                 {% endif %}
             </h1>
-            <div class="flex flex-wrap gap-4">
+            <div class="flex flex-wrap gap-4 ml-auto mr-0 items-center">
+                {% include "generic_auto_save_note.html" with form_instance=imprint_translation_form.instance %}
                 {% if perms.cms.change_imprintpage %}
                     <button name="status" value="{{ DRAFT }}" class="btn btn-outline">
                         {% translate "Save as draft" %}

@@ -17,6 +17,26 @@ function format_pyproject_toml {
 require_installed
 ensure_not_root
 
+# Parse command line arguments
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    --python) PYTHON="$2"; shift 2;;
+    --python=*) PYTHON="${1#*=}"; shift 1;;
+    *) echo "Unknown option: $1" | print_error; exit 1;;
+  esac
+done
+
+if [[ -n "${PYTHON}" ]]; then
+    PYTHON=$(command -v "${PYTHON}")
+    if [[ ! -x "${PYTHON}" ]]; then
+        echo "The given python command '${PYTHON}' is not executable." | print_error
+        exit 1
+    fi
+else
+    # Default python binary
+    PYTHON="python3"
+fi
+
 # Check if npm dependencies are up to date
 echo "Updating JavaScript dependencies..." | print_info
 npm update
@@ -28,7 +48,7 @@ npm audit fix || true
 # Update pip dependencies
 echo "Updating Python dependencies..." | print_info
 # Create temporary venv to make sure dev dependencies are not included initially
-python3 -m venv .venv.tmp
+${PYTHON} -m venv .venv.tmp
 source .venv.tmp/bin/activate
 # Install package locally (without the pinned extra, so the newest available versions are installed)
 pip install -e .

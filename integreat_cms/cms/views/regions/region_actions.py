@@ -91,6 +91,8 @@ def delete_region(request, *args, **kwargs):
     region.events.update(location=None)
     # Prevent ProtectedError when media files get deleted before their usages as organization logo
     region.organizations.all().delete()
+    # Prevent IntegrityError when multiple feedback objects exist
+    region.feedback.all().delete()
     # Delete region and cascade delete all contents
     deleted_objects = region.delete()
     logger.info(

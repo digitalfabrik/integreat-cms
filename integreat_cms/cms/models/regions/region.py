@@ -630,32 +630,48 @@ class Region(AbstractBaseModel):
         except KeyError as e:
             raise Http404("No language matches the given query.") from e
 
+    @property
+    def explicitly_archived_ancestors_subquery(self):
+        """
+        This property returns a subquery for all explicitly archived anchestors of a given page.
+        Needs to be used as part of another query because in order to resolve :class:`~django.db.models.OuterRef`,
+        e.g. in a :class:`~django.db.models.Subquery` or in :class:`~django.db.models.Exists`.
+
+        :return: A queryset of the explicitly archived ancestors.
+        :rtype: ~django.db.models.query.QuerySet
+        """
+
+        return self.pages.filter(
+            tree_id=models.OuterRef("tree_id"),
+            lft__lt=models.OuterRef("lft"),
+            rgt__gt=models.OuterRef("rgt"),
+            explicitly_archived=True,
+        )
+
     @cached_property
     def archived_pages(self):
         """
         This property returns a QuerySet of all archived pages and their descendants of this region.
 
-        Per default, the returned queryset has some limitations because of the usage of
-        :meth:`~django.db.models.query.QuerySet.union`. To perform the extra effort of returning an unrestricted
-        queryset, use :meth:`~integreat_cms.cms.models.regions.region.Region.get_pages` with the parameters ``archived`` and
-        ``return_unrestricted_queryset`` set to ``True``.
-
         :return: A QuerySet of all archived pages of this region
         :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
-        # Queryset of explicitly archived pages
-        explicitly_archived_pages = self.pages.filter(explicitly_archived=True)
-        # Multiple order_by clauses are not allowed in sql queries, so to make combined queries with union() work,
-        # we have to remove ordering from the input querysets and apply the default ordering to the resulting queryset.
-        explicitly_archived_pages = explicitly_archived_pages.order_by()
-        # List of QuerySets of descendants of archived pages
-        implicitly_archived_pages = [
-            page.get_descendants().order_by() for page in explicitly_archived_pages
-        ]
-        # Merge explicitly and implicitly archived pages
-        archived_pages = explicitly_archived_pages.union(*implicitly_archived_pages)
-        # Order the resulting :class:`~treebeard.ns_tree.NS_NodeQuerySet` to restore the tree-structure
-        return archived_pages.order_by("tree_id", "lft")
+
+        return self.pages.filter(
+            id=models.Case(
+                models.When(
+                    models.Exists(
+                        self.explicitly_archived_ancestors_subquery.values("pk")
+                    ),
+                    then=models.F("pk"),
+                ),
+                models.When(
+                    explicitly_archived=True,
+                    then=models.F("pk"),
+                ),
+                default=None,
+            )
+        )
 
     @cached_property
     def non_archived_pages(self):
@@ -664,27 +680,26 @@ class Region(AbstractBaseModel):
         A page is considered as "non-archived" if its ``explicitly_archived`` property is ``False`` and all the
         page's ancestors are not archived as well.
 
-        Per default, the returned queryset has some limitations because of the usage of
-        :meth:`~django.db.models.query.QuerySet.difference` (see :meth:`~django.db.models.query.QuerySet.union` for some
-        restrictions). To perform the extra effort of returning an unrestricted queryset, use
-        :meth:`~integreat_cms.cms.models.regions.region.Region.get_pages` with the parameter
-        ``return_unrestricted_queryset`` set to ``True``.
-
         :return: A QuerySet of all non-archived pages of this region
         :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
-        # Multiple order_by clauses are not allowed in sql queries, so to make combined queries with difference() work,
-        # we have to remove ordering from the input querysets and apply the default ordering to the resulting queryset.
-        archived_pages = self.archived_pages.order_by()
-        # Exclude archived pages from all pages
-        non_archived_pages = self.pages.difference(archived_pages)
-        # Order the resulting TreeQuerySet to restore the tree-structure
-        return non_archived_pages.order_by("tree_id", "lft")
+
+        return self.pages.filter(
+            id=models.Case(
+                models.When(
+                    models.Exists(
+                        self.explicitly_archived_ancestors_subquery.values("pk")
+                    ),
+                    then=None,
+                ),
+                default=models.F("pk"),
+            ),
+            explicitly_archived=False,
+        )
 
     def get_pages(
         self,
         archived=False,
-        return_unrestricted_queryset=False,
         prefetch_translations=False,
         prefetch_public_translations=False,
         annotate_language_tree=False,
@@ -694,17 +709,8 @@ class Region(AbstractBaseModel):
         To retrieve all pages independently of their archived-state, use the reverse foreign key
         :attr:`~integreat_cms.cms.models.regions.region.Region.pages`.
 
-        Per default, the returned queryset has some limitations because of the usage of
-        :meth:`~django.db.models.query.QuerySet.difference` and :meth:`~django.db.models.query.QuerySet.union`.
-        To perform the extra effort of returning an unrestricted queryset, set the parameter
-        ``return_unrestricted_queryset`` to ``True``.
-
         :param archived: Whether or not only archived pages should be returned (default: ``False``)
         :type archived: bool
-
-        :param return_unrestricted_queryset: Whether or not the result should be returned as unrestricted queryset.
-                                             (default: ``False``)
-        :type return_unrestricted_queryset: bool
 
         :param prefetch_translations: Whether the latest translations for each language should be prefetched
                                       (default: ``False``)
@@ -722,14 +728,6 @@ class Region(AbstractBaseModel):
         :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
         pages = self.archived_pages if archived else self.non_archived_pages
-        if (
-            return_unrestricted_queryset
-            or prefetch_translations
-            or prefetch_public_translations
-        ):
-            # Generate a new unrestricted queryset containing the same pages
-            page_ids = [page.id for page in pages]
-            pages = self.pages.filter(id__in=page_ids)
         if prefetch_translations:
             pages = pages.prefetch_translations()
         if prefetch_public_translations:
@@ -756,7 +754,7 @@ class Region(AbstractBaseModel):
         :param query: The query string used for filtering the regions
         :type query: str
         :return: A query for all matching objects
-        :rtype: ~django.db.models.QuerySet
+        :rtype: ~django.db.models.query.QuerySet
         """
         return cls.objects.filter(name__icontains=query)
 

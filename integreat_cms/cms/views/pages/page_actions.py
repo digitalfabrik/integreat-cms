@@ -873,9 +873,7 @@ def refresh_date(
     :rtype: ~django.http.HttpResponseRedirect
     """
     region = request.region
-    page = get_object_or_404(
-        region.get_pages(archived=False, return_unrestricted_queryset=True), id=page_id
-    )
+    page = get_object_or_404(region.get_pages(archived=False), id=page_id)
 
     if not request.user.has_perm("cms.change_page_object", page):
         raise PermissionDenied(

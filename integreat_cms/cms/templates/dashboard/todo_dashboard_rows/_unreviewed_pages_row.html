@@ -1,0 +1,37 @@
+{% extends "../_todo_dashboard_row.html" %}
+{% load i18n %}
+{% block todo_dashboard_icon %}
+    view
+{% endblock todo_dashboard_icon %}
+{% block todo_dashboard_title_link %}
+    {% url 'pages' region_slug=request.region.slug language_slug=default_language_slug %}?status=REVIEW
+{% endblock todo_dashboard_title_link %}
+{% block todo_dashboard_title %}
+    {% translate "Pages that are waiting for review" %}
+{% endblock todo_dashboard_title %}
+{% block todo_dashboard_number %}
+    {% with total=unreviewed_pages|length %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock todo_dashboard_number %}
+{% block todo_dashboard_description %}
+    {% if unreviewed_pages %}
+        {% blocktranslate trimmed with single_unreviewed_page=unreviewed_pages.0 %}
+            The page <b>{{ single_unreviewed_page }}</b> is waiting for a review. Please review the page to ensure the content is accurate.
+        {% endblocktranslate %}
+    {% else %}
+        {% blocktranslate trimmed %}
+            At the moment there is no page waiting for a review. Good job!
+        {% endblocktranslate %}
+    {% endif %}
+{% endblock todo_dashboard_description %}
+{% block todo_dashboard_button_link %}
+    {% if unreviewed_pages %}
+        <a class="btn !rounded-full"
+           href="{% url 'edit_page' region_slug=request.region.slug language_slug=default_language_slug page_id=unreviewed_pages.0.page_id %}">
+            {% translate "Go to page" %}
+        </a>
+    {% else %}
+        <i class="h-8 w-8 text-green-500" icon-name="check-circle-2"></i>
+    {% endif %}
+{% endblock todo_dashboard_button_link %}

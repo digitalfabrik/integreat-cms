@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from ...utils.account_activation_token_generator import (
     account_activation_token_generator,
 )
+from ...utils.translation_utils import gettext_many_lazy as __
 
 logger = logging.getLogger(__name__)
 
@@ -55,14 +56,12 @@ class AccountActivationView(auth_views.PasswordResetConfirmView):
         # Redirect to the login form
         messages.error(
             self.request,
-            " ".join(
-                [
-                    _("This account activation link is invalid."),
-                    _("It may have already been used."),
-                    _(
-                        "Please contact an administrator to request a new link to activate your account."
-                    ),
-                ]
+            __(
+                _("This account activation link is invalid."),
+                _("It may have already been used."),
+                _(
+                    "Please contact an administrator to request a new link to activate your account."
+                ),
             ),
         )
         return redirect("public:login")
@@ -80,11 +79,9 @@ class AccountActivationView(auth_views.PasswordResetConfirmView):
         """
         messages.success(
             self.request,
-            " ".join(
-                [
-                    _("Your account has been successfully activated."),
-                    _("You can now log in with your new password."),
-                ]
+            __(
+                _("Your account has been successfully activated."),
+                _("You can now log in with your new password."),
             ),
         )
         form.user.is_active = True

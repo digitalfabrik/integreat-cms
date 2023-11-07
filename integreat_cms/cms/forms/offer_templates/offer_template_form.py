@@ -17,7 +17,15 @@ class OfferTemplateForm(CustomModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = OfferTemplate
         #: The fields of the model which should be handled by this form
-        fields = ["name", "slug", "thumbnail", "url", "post_data", "use_postal_code"]
+        fields = [
+            "name",
+            "slug",
+            "thumbnail",
+            "url",
+            "post_data",
+            "use_postal_code",
+            "supported_by_app_in_content",
+        ]
 
     def __init__(self, *args, **kwargs):
         r"""

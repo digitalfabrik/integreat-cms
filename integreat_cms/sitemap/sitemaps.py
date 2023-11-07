@@ -145,7 +145,7 @@ class PageSitemap(WebappSitemap):
         super().__init__(region, language)
         # Filter queryset based on region and language
         self.queryset = self.queryset.filter(
-            page__in=self.region.get_pages(return_unrestricted_queryset=True),
+            page__in=self.region.get_pages(),
             language=self.language,
         ).distinct("page__pk")
 

@@ -45,7 +45,8 @@
                 {% endif %}
             </h1>
             {% if not page_form.instance.id or not page_form.instance.archived %}
-                <div class="flex flex-wrap grow justify-end gap-2">
+                <div class="flex flex-wrap grow justify-end gap-2 items-center">
+                    {% include "generic_auto_save_note.html" with form_instance=page_translation_form.instance %}
                     <button name="preview_page" type="button" data-preview-page data-edit-page-mode data-right-to-left={{ right_to_left }} class="btn btn-ghost">
                         {% translate "Preview" %}
                     </button>

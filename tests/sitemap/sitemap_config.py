@@ -7,46 +7,46 @@ SITEMAPS = [
     (
         "/sitemap.xml",
         "tests/sitemap/expected-sitemaps/sitemap-index.xml",
-        43,
+        38,
     ),
     (
         "/augsburg/de/sitemap.xml",
         "tests/sitemap/expected-sitemaps/sitemap-augsburg-de.xml",
-        144,
+        142,
     ),
     (
         "/augsburg/en/sitemap.xml",
         "tests/sitemap/expected-sitemaps/sitemap-augsburg-en.xml",
-        130,
+        128,
     ),
     (
         "/augsburg/ar/sitemap.xml",
         "tests/sitemap/expected-sitemaps/sitemap-augsburg-ar.xml",
-        106,
+        104,
     ),
     (
         "/augsburg/fa/sitemap.xml",
         "tests/sitemap/expected-sitemaps/sitemap-augsburg-fa.xml",
-        85,
+        83,
     ),
     (
         "/nurnberg/de/sitemap.xml",
         "tests/sitemap/expected-sitemaps/sitemap-nurnberg-de.xml",
-        75,
+        73,
     ),
     (
         "/nurnberg/en/sitemap.xml",
         "tests/sitemap/expected-sitemaps/sitemap-nurnberg-en.xml",
-        54,
+        52,
     ),
     (
         "/nurnberg/ar/sitemap.xml",
         "tests/sitemap/expected-sitemaps/sitemap-nurnberg-ar.xml",
-        33,
+        31,
     ),
     (
         "/nurnberg/fa/sitemap.xml",
         "tests/sitemap/expected-sitemaps/sitemap-nurnberg-fa.xml",
-        26,
+        24,
     ),
 ]

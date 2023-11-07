@@ -142,7 +142,8 @@ const EditSidebar = ({
                     <button
                         title={mediaTranslations.btn_close}
                         class="hover:bg-blue-500 hover:text-white font-bold rounded-full"
-                        onClick={() => setFileIndex(null)}>
+                        onClick={() => setFileIndex(null)}
+                        aria-label="Close">
                         <XCircle class="inline-block h-5 align-text-bottom" />
                     </button>
                 </div>
@@ -185,7 +186,8 @@ const EditSidebar = ({
                                             e.preventDefault();
                                             setFileNameEditable(true);
                                         }}
-                                        disabled={isLoading}>
+                                        disabled={isLoading}
+                                        aria-label="Edit">
                                         <Edit3 class="inline-block" />
                                     </button>
                                 )}
@@ -226,7 +228,8 @@ const EditSidebar = ({
                                             e.preventDefault();
                                             setAltTextEditable(true);
                                         }}
-                                        disabled={isLoading}>
+                                        disabled={isLoading}
+                                        aria-label="Edit">
                                         <Edit3 class="inline-block" />
                                     </button>
                                 )}

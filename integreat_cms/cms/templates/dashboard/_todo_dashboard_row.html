@@ -1,0 +1,24 @@
+{% load i18n %}
+<div class="flex justify-between border-t-2 border-zinc-600 p-4 w-full">
+    <div class="flex items-center basis-full">
+        <div class="mr-6">
+            <i class="h-8 w-8"
+               icon-name="{% spaceless %}{% block todo_dashboard_icon %}{% endblock todo_dashboard_icon %}{% endspaceless %}"></i>
+        </div>
+        <div>
+            {# djlint:off #}<a href="{% spaceless %}{% block todo_dashboard_title_link %}{% endblock todo_dashboard_title_link %}{% endspaceless %}"
+            class="text-blue-500 font-bold underline">{% spaceless %}{% block todo_dashboard_title %}{% endblock todo_dashboard_title %}{% endspaceless %}</a>{# djlint:on #}
+            {% block todo_dashboard_number %}
+                <span>({% translate "in total" %} {{ total }})</span>
+            {% endblock todo_dashboard_number %}
+            <p>
+                {% block todo_dashboard_description %}
+                {% endblock todo_dashboard_description %}
+            </p>
+        </div>
+    </div>
+    <div class="flex items-center text-center whitespace-nowrap ml-6 justify-center w-48">
+        {% block todo_dashboard_button_link %}
+        {% endblock todo_dashboard_button_link %}
+    </div>
+</div>
