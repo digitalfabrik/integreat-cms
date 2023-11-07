@@ -11,7 +11,9 @@
             <div class="xl:w-1/2">
                 <!-- Task Widget -->
                 {% if perms.cms.change_page or perms.cms.change_feedback %}
-                    {% include "dashboard/_todo_dashboard_widget.html" with no_padding=True %}
+                    {% if request.region.default_language %}
+                        {% include "dashboard/_todo_dashboard_widget.html" with no_padding=True %}
+                    {% endif %}
                 {% endif %}
                 <!-- Statistic Widget -->
                 {% if request.region.statistics_enabled and perms.cms.view_statistics %}
