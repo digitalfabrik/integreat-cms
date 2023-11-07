@@ -53,7 +53,8 @@ class DashboardView(TemplateView, ChatContextMixin):
         context.update(self.get_unreviewed_pages_context())
         context.update(self.get_automatically_saved_pages())
         context.update(self.get_unread_feedback_context())
-        context.update(self.get_broken_links_context())
+        # Temporarily disable linkcheck todo for performance reasons
+        # context.update(self.get_broken_links_context())
         context.update(self.get_low_hix_value_context())
         context.update(self.get_outdated_pages_context())
 
