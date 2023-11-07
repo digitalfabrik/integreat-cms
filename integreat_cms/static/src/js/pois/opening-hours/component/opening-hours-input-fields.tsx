@@ -279,7 +279,8 @@ const OpeningHoursInputFields = ({ openingHoursState, selectedDaysState, transla
                                 <button
                                     className="rounded-full hover:bg-blue-500 hover:text-white"
                                     onClick={closeInputFields}
-                                    type="button">
+                                    type="button"
+                                    aria-label="Close">
                                     <XCircle className="inline-block" />
                                 </button>
                             </div>
@@ -379,7 +380,8 @@ const OpeningHoursInputFields = ({ openingHoursState, selectedDaysState, transla
                                                 className="rounded-full hover:text-red-500"
                                                 title={translations.removeTimeSlotText}
                                                 onClick={(event) => removeTimeSlot(event, index)}
-                                                type="submit">
+                                                type="submit"
+                                                aria-label="Remove">
                                                 <XCircle className="inline-block" />
                                             </button>
                                         </div>

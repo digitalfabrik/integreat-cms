@@ -87,7 +87,8 @@ const EditDirectorySidebar = ({
                                             e.preventDefault();
                                             setDirectoryNameEditable(true);
                                         }}
-                                        disabled={isLoading}>
+                                        disabled={isLoading}
+                                        aria-label="Edit">
                                         <Edit3 class="inline-block" />
                                     </button>
                                 )}
