@@ -18,6 +18,7 @@ from django.views.generic.list import MultipleObjectMixin
 
 from ..constants import status
 from ..models import Page
+from .utils.stringify_list import iter_to_string
 from .utils.translation_status import change_translation_status
 
 if TYPE_CHECKING:
@@ -318,38 +319,41 @@ class BulkRestoreView(BulkActionView):
         restore_failed = []
         for content_object in self.get_queryset():
             if self.get_queryset().model is Page and content_object.implicitly_archived:
-                messages.error(
-                    request,
-                    _(
-                        'The selected {} "{}" could not be restored because it has an archived ancestor page'
-                    ).format(
-                        self.model._meta.verbose_name,
-                        content_object.best_translation.title,
-                    ),
-                )
                 restore_failed.append(content_object)
             else:
                 content_object.restore()
-                messages.success(
-                    request,
-                    _('The selected {} "{}" was successfully restored').format(
-                        self.model._meta.verbose_name,
-                        content_object.best_translation.title,
+
+        if restore_failed:
+            messages.error(
+                request,
+                _(
+                    "The following {} could not be restored because they have at least one archived parent {}: {}"
+                ).format(
+                    self.model._meta.verbose_name_plural,
+                    self.model._meta.verbose_name,
+                    iter_to_string(
+                        [object.best_translation.title for object in restore_failed]
                     ),
-                )
+                ),
+            )
+
+        restore_succeeded = self.get_queryset().exclude(
+            id__in=[page.id for page in restore_failed]
+        )
+
+        if restore_succeeded:
+            messages.success(
+                request,
+                _("The following {} were successfully restored: {}").format(
+                    self.model._meta.verbose_name_plural,
+                    iter_to_string(
+                        [object.best_translation.title for object in restore_succeeded]
+                    ),
+                ),
+            )
 
         # Invalidate cache
         invalidate_model(self.model)
-        logger.debug(
-            "Restored %r by %r",
-            self.get_queryset().exclude(id__in=[page.id for page in restore_failed]),
-            request.user,
-        )
-        logger.debug(
-            "Could not be restored %r by %r",
-            restore_failed,
-            request.user,
-        )
 
         return super().post(request, *args, **kwargs)
 
