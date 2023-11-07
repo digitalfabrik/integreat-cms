@@ -47,7 +47,7 @@ github_pages_url = f"https://{github_username}.github.io/{github_repository}"
 django_github_url = f"https://github.com/django/django/blob/stable/{django_version}.x"
 
 #: The full version, including alpha/beta/rc tags
-release = "2023.10.2"
+release = "2023.11.0"
 
 # -- General configuration ---------------------------------------------------
 
