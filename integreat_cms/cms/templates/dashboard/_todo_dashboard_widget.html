@@ -20,9 +20,11 @@
         {% if perms.cms.change_feedback %}
             {% include "dashboard/todo_dashboard_rows/_unread_feedback_row.html" %}
         {% endif %}
+        {% comment "Temporarily disable linkcheck widget for performance reasons" %}
         {% if perms.cms.change_page and perms.cms.view_broken_links %}
             {% include "dashboard/todo_dashboard_rows/_broken_links_row.html" %}
         {% endif %}
+        {% endcomment %}
         {% if perms.cms.change_page and TEXTLAB_API_ENABLED and request.region.hix_enabled %}
             {% include "dashboard/todo_dashboard_rows/_low_hix_row.html" %}
         {% endif %}
