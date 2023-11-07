@@ -630,7 +630,7 @@ class Region(AbstractBaseModel):
         except KeyError as e:
             raise Http404("No language matches the given query.") from e
 
-    @cached_property
+    @property
     def explicitly_archived_ancestors_subquery(self):
         """
         This property returns a subquery for all explicitly archived anchestors of a given page.
