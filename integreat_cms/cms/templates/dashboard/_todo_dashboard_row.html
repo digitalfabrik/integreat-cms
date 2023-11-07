@@ -6,11 +6,8 @@
                icon-name="{% spaceless %}{% block todo_dashboard_icon %}{% endblock todo_dashboard_icon %}{% endspaceless %}"></i>
         </div>
         <div>
-            <a href="{% spaceless %}{% block todo_dashboard_title_link %}{% endblock todo_dashboard_title_link %}{% endspaceless %}"
-               class="text-blue-500 font-bold underline">
-                {% block todo_dashboard_title %}
-                {% endblock todo_dashboard_title %}
-            </a>
+            {# djlint:off #}<a href="{% spaceless %}{% block todo_dashboard_title_link %}{% endblock todo_dashboard_title_link %}{% endspaceless %}"
+            class="text-blue-500 font-bold underline">{% spaceless %}{% block todo_dashboard_title %}{% endblock todo_dashboard_title %}{% endspaceless %}</a>{# djlint:on #}
             {% block todo_dashboard_number %}
                 <span>({% translate "in total" %} {{ total }})</span>
             {% endblock todo_dashboard_number %}
