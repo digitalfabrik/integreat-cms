@@ -56,23 +56,37 @@
                 </div>
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
                     <!-- Select which languages can be machine translated -->
-                    {% if form.machine_translatable_languages.field.queryset.exists %}
+                    {% if request.region.active_languages|length == 0 %}
                         <div>
                             <div class="help-text mt-4">
-                                {{ form.machine_translatable_languages.help_text }}
+                                {% translate "There is no active language in this region." %}
                             </div>
-                            {% render_field form.machine_translatable_languages %}
                         </div>
-                    {% endif %}
-                    {% if form.unavailable_languages %}
+                    {% elif request.region.active_languages|length == 1 %}
                         <div>
                             <div class="help-text mt-4">
-                                {% translate "These languages are currently unavailable for machine translations" %}:
+                                {% translate "There is no other language than the default language in this region." %}
                             </div>
-                            <p>
-                                {{ form.unavailable_languages|join:", " }}
-                            </p>
                         </div>
+                    {% else %}
+                        {% if form.machine_translatable_languages.field.queryset.exists %}
+                            <div>
+                                <div class="help-text mt-4">
+                                    {{ form.machine_translatable_languages.help_text }}
+                                </div>
+                                {% render_field form.machine_translatable_languages %}
+                            </div>
+                        {% endif %}
+                        {% if form.unavailable_languages %}
+                            <div>
+                                <div class="help-text mt-4">
+                                    {% translate "These languages are currently unavailable for machine translations" %}:
+                                </div>
+                                <p>
+                                    {{ form.unavailable_languages|join:", " }}
+                                </p>
+                            </div>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>
