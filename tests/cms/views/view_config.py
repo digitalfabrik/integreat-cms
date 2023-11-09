@@ -15,6 +15,7 @@ from integreat_cms.cms.models.pois.poi import get_default_opening_hours
 from ...conftest import (
     ALL_ROLES,
     AUTHOR,
+    CMS_TEAM,
     EDITOR,
     HIGH_PRIV_STAFF_ROLES,
     MANAGEMENT,
@@ -22,6 +23,7 @@ from ...conftest import (
     PRIV_STAFF_ROLES,
     ROLES,
     ROOT,
+    SERVICE_TEAM,
     STAFF_ROLES,
     WRITE_ROLES,
 )
@@ -329,12 +331,32 @@ VIEWS: list[
                 {"selected_ids[]": [1, 2, 3]},
             ),
             (
+                "publish_multiple_pages",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                {"selected_ids[]": [1]},
+            ),
+            (
+                "draft_multiple_pages",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                {"selected_ids[]": [1]},
+            ),
+            (
                 "bulk_archive_events",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"selected_ids[]": [1]},
             ),
             (
                 "bulk_restore_events",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"selected_ids[]": [1]},
+            ),
+            (
+                "publish_multiple_events",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"selected_ids[]": [1]},
+            ),
+            (
+                "draft_multiple_events",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"selected_ids[]": [1]},
             ),
@@ -348,9 +370,159 @@ VIEWS: list[
                 PRIV_STAFF_ROLES + WRITE_ROLES,
                 {"selected_ids[]": [4]},
             ),
+            (
+                "publish_multiple_pois",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"selected_ids[]": [4]},
+            ),
+            (
+                "draft_multiple_pois",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                {"selected_ids[]": [4]},
+            ),
+            (
+                "search_content_ajax",
+                ROLES,
+                json.dumps(
+                    {
+                        "query_string": "Test-Veranstaltung",
+                        "object_types": ["event"],
+                        "archived": False,
+                    }
+                ),
+            ),
+            (
+                "search_content_ajax",
+                ROLES,
+                json.dumps(
+                    {
+                        "query_string": "Test-Ort",
+                        "object_types": ["poi"],
+                        "archived": False,
+                    }
+                ),
+            ),
+            (
+                "search_content_ajax",
+                STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
+                json.dumps(
+                    {
+                        "query_string": "Willkommen",
+                        "object_types": ["page"],
+                        "archived": False,
+                    }
+                ),
+            ),
+            (
+                "search_content_ajax",
+                STAFF_ROLES + [MANAGEMENT],
+                json.dumps(
+                    {
+                        "query_string": "Test",
+                        "object_types": ["feedback"],
+                        "archived": False,
+                    }
+                ),
+            ),
+            (
+                "search_content_ajax",
+                STAFF_ROLES + [MANAGEMENT],
+                json.dumps(
+                    {
+                        "query_string": "Test",
+                        "object_types": ["push_notification"],
+                        "archived": False,
+                    }
+                ),
+            ),
+            (
+                "search_content_ajax",
+                STAFF_ROLES,
+                json.dumps(
+                    {
+                        "query_string": "Augsburg",
+                        "object_types": ["region"],
+                        "archived": False,
+                    }
+                ),
+            ),
+            (
+                "search_content_ajax",
+                STAFF_ROLES + [MANAGEMENT],
+                json.dumps(
+                    {
+                        "query_string": "root",
+                        "object_types": ["user"],
+                        "archived": False,
+                    }
+                ),
+            ),
+            (
+                "search_content_ajax",
+                ROLES,
+                json.dumps(
+                    {
+                        "query_string": "Test",
+                        "object_types": ["media"],
+                        "archived": False,
+                    }
+                ),
+            ),
         ],
         # The kwargs for these views
         {"region_slug": "augsburg", "language_slug": "de"},
+    ),
+    (
+        [
+            (
+                "slugify_ajax",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                json.dumps(
+                    {
+                        "title": "Slugify event",
+                    }
+                ),
+            ),
+        ],
+        {"region_slug": "augsburg", "language_slug": "de", "model_type": "event"},
+    ),
+    (
+        [
+            (
+                "slugify_ajax",
+                PRIV_STAFF_ROLES + WRITE_ROLES,
+                json.dumps(
+                    {
+                        "title": "Slugify poi",
+                    }
+                ),
+            ),
+        ],
+        {"region_slug": "augsburg", "language_slug": "de", "model_type": "poi"},
+    ),
+    (
+        [
+            (
+                "slugify_ajax",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                json.dumps(
+                    {
+                        "title": "Slugify page",
+                    }
+                ),
+            ),
+        ],
+        {"region_slug": "augsburg", "language_slug": "de", "model_type": "page"},
+    ),
+    (
+        [
+            (
+                "publish_multiple_pages",
+                PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
+                {"selected_ids[]": [5]},
+            ),
+        ],
+        {"region_slug": "augsburg", "language_slug": "ar"},
     ),
     (
         [
@@ -510,6 +682,18 @@ VIEWS: list[
         ],
         # The kwargs for these views
         {"slug": "augsburg"},
+    ),
+    (
+        [
+            (
+                "delete_region",
+                [ROOT, SERVICE_TEAM, CMS_TEAM],
+                {
+                    "slug": "artland",
+                },
+            ),
+        ],
+        {"slug": "artland"},
     ),
     (
         [
