@@ -98,9 +98,10 @@ class EventFilterForm(CustomFilterForm):
         elif events_time_range.CUSTOM in cleaned_time_range:
             # Filter events for their start and end
             tzinfo = zoneinfo.ZoneInfo(region.timezone)
-            from_local = datetime.combine(
-                self.cleaned_data["date_from"] or date.min, time.min, tzinfo=tzinfo
-            )
+            if date_from := self.cleaned_data["date_from"]:
+                from_local = datetime.combine(date_from, time.min, tzinfo=tzinfo)
+            else:
+                from_local = datetime.min.replace(tzinfo=zoneinfo.ZoneInfo(key="UTC"))
             to_local = datetime.combine(
                 self.cleaned_data["date_to"] or date.max, time.max, tzinfo=tzinfo
             )

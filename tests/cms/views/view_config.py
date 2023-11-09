@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 from typing import TYPE_CHECKING
+from urllib import parse
 
 from django.conf import settings
 from django.urls import reverse
@@ -29,19 +30,48 @@ from ...conftest import (
 )
 
 if TYPE_CHECKING:
-    from typing import Any, Final
+    import sys
+    from typing import Any, Final, Union
+
+    if sys.version_info >= (3, 10):
+        from typing import TypeAlias
+    else:
+        from typing_extensions import TypeAlias
+
+    ViewNameStr: TypeAlias = str
+    ViewNameGetparams: TypeAlias = str
+    ViewName: TypeAlias = Union[ViewNameStr, tuple[ViewNameStr, ViewNameGetparams]]
+    Roles: TypeAlias = list[str]
+    PostDataDict: TypeAlias = dict[str, Any]
+    PostDataJSON: TypeAlias = str
+    PostData: TypeAlias = Union[PostDataDict, PostDataJSON]
+    View: TypeAlias = Union[tuple[ViewName, Roles], tuple[ViewName, Roles, PostData]]
+    ViewKwargs: TypeAlias = dict[str, Union[str, int]]
+    ViewGroup: TypeAlias = tuple[list[View], ViewKwargs]
+    ViewConfig: TypeAlias = list[ViewGroup]
+
+    ParametrizedView: TypeAlias = tuple[ViewName, ViewKwargs, PostData, Roles]
+    ParametrizedViewConfig: TypeAlias = list[ParametrizedView]
+
+    RedirectTarget: TypeAlias = str
+    RedirectView: TypeAlias = tuple[ViewNameStr, Roles, RedirectTarget]
+    RedirectViewGroup: TypeAlias = tuple[list[RedirectView], ViewKwargs]
+    RedirectViewConfig: TypeAlias = list[RedirectViewGroup]
+
+    ParametrizedRedirectView: TypeAlias = tuple[
+        ViewName, ViewKwargs, Roles, RedirectTarget
+    ]
+    ParametrizedRedirectViewConfig: TypeAlias = list[ParametrizedRedirectView]
+
+    ParametrizedPublicView = tuple[ViewNameStr, PostDataDict]
+    ParametrizedPublicViewConfig: TypeAlias = list[ParametrizedPublicView]
 
 #: This list contains the config for all views
 #: Each element is a tuple which consists of two elements: A list of view configs and the keyword arguments that are
 #: identical for all views in this list. Each view config item consists of the name of the view, the list of roles that
 #: are allowed to access that view and optionally post data that is sent with the request. The post data can either be
 #: a dict to send form data or a string to send JSON.
-VIEWS: list[
-    tuple[
-        list[tuple[str, list] | tuple[str, list, dict] | tuple[str, list, str]],
-        dict[str, str | int],
-    ]
-] = [
+VIEWS: ViewConfig = [
     (
         [
             ("public:login_webauthn", ALL_ROLES),
@@ -264,6 +294,82 @@ VIEWS: list[
                 {"title": "imprint", "status": status.DRAFT},
             ),
             ("events", ROLES),
+            (
+                (
+                    "events",
+                    parse.urlencode(
+                        {
+                            "events_time_range": "CUSTOM",
+                            "date_from": "2023-01-01",
+                            "date_to": "2030-12-31",
+                        }
+                    ),
+                ),
+                ROLES,
+            ),
+            (
+                (
+                    "events",
+                    parse.urlencode(
+                        {
+                            "events_time_range": "CUSTOM",
+                            "date_from": "2023-01-01",
+                        }
+                    ),
+                ),
+                ROLES,
+            ),
+            (
+                (
+                    "events",
+                    parse.urlencode(
+                        {
+                            "events_time_range": "CUSTOM",
+                            "date_to": "2030-12-31",
+                        }
+                    ),
+                ),
+                ROLES,
+            ),
+            (
+                (
+                    "events",
+                    parse.urlencode(
+                        {
+                            "events_time_range": ["PAST", "UPCOMING"],
+                        }
+                    ),
+                ),
+                ROLES,
+            ),
+            (
+                (
+                    "events",
+                    parse.urlencode(
+                        {
+                            "events_time_range": "UPCOMING",
+                            "poi_id": 4,
+                            "all_day": 1,
+                            "recurring": 1,
+                        }
+                    ),
+                ),
+                ROLES,
+            ),
+            (
+                (
+                    "events",
+                    parse.urlencode(
+                        {
+                            "events_time_range": "PAST",
+                            "all_day": 2,
+                            "recurring": 2,
+                            "query": "test",
+                        }
+                    ),
+                ),
+                ROLES,
+            ),
             ("events_archived", ROLES),
             ("new_event", ROLES),
             (
@@ -1575,16 +1681,14 @@ if settings.FCM_ENABLED:
     ]
 
 #: In order for these views to be used as parameters, we have to flatten the nested structure
-PARAMETRIZED_VIEWS: Final[
-    list[tuple[str, dict[str, str | int], dict[str, Any] | str, list[str]]]
-] = [
+PARAMETRIZED_VIEWS: Final[ParametrizedViewConfig] = [
     (view_name, kwargs, post_data[0] if post_data else {}, roles)
     for view_conf, kwargs in VIEWS
     for view_name, roles, *post_data in view_conf
 ]
 
 #: This list contains the config for all views which should check whether they correctly redirect to another url
-REDIRECT_VIEWS: Final[list[tuple[list[tuple[str, list[str], str]], dict]]] = [
+REDIRECT_VIEWS: Final[RedirectViewConfig] = [
     (
         [
             ("public:login", ROLES, settings.LOGIN_REDIRECT_URL),
@@ -1736,14 +1840,14 @@ REDIRECT_VIEWS: Final[list[tuple[list[tuple[str, list[str], str]], dict]]] = [
 ]
 
 #: In order for these views to be used as parameters, we have to flatten the nested structure
-PARAMETRIZED_REDIRECT_VIEWS: Final[list[tuple[str, dict[str, str], list[str], str]]] = [
+PARAMETRIZED_REDIRECT_VIEWS: Final[ParametrizedRedirectViewConfig] = [
     (view_name, kwargs, roles, target)
     for view_conf, kwargs in REDIRECT_VIEWS
     for view_name, roles, target in view_conf
 ]
 
 #: Public views that only work for anonymous users
-PARAMETRIZED_PUBLIC_VIEWS: Final[list[tuple[str, dict[str, str]]]] = [
+PARAMETRIZED_PUBLIC_VIEWS: Final[ParametrizedPublicViewConfig] = [
     ("public:login", {}),
     ("public:login_webauthn", {}),
     ("public:password_reset", {}),
