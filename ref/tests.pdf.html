@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-11-07T19:08:51+00:00" />
+    <meta property="article:modified_time" content="2023-11-11T10:37:33+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PDF &mdash; integreat-cms 2023.11.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1448,6 +1448,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#extensions">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#module-conf">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.author"><code class="docutils literal notranslate"><span class="pre">author</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.autodoc_typehints"><code class="docutils literal notranslate"><span class="pre">autodoc_typehints</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.copyright"><code class="docutils literal notranslate"><span class="pre">copyright</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.django_settings"><code class="docutils literal notranslate"><span class="pre">django_settings</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.django_version"><code class="docutils literal notranslate"><span class="pre">django_version</span></code></a></li>
@@ -1466,11 +1467,11 @@
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.html_theme"><code class="docutils literal notranslate"><span class="pre">html_theme</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.html_theme_options"><code class="docutils literal notranslate"><span class="pre">html_theme_options</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.intersphinx_mapping"><code class="docutils literal notranslate"><span class="pre">intersphinx_mapping</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.intersphinx_timeout"><code class="docutils literal notranslate"><span class="pre">intersphinx_timeout</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.linkcode_resolve"><code class="docutils literal notranslate"><span class="pre">linkcode_resolve()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.modindex_common_prefix"><code class="docutils literal notranslate"><span class="pre">modindex_common_prefix</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.nitpick_ignore"><code class="docutils literal notranslate"><span class="pre">nitpick_ignore</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.nitpicky"><code class="docutils literal notranslate"><span class="pre">nitpicky</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.patch_django_for_autodoc"><code class="docutils literal notranslate"><span class="pre">patch_django_for_autodoc()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.release"><code class="docutils literal notranslate"><span class="pre">release</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.rst_epilog"><code class="docutils literal notranslate"><span class="pre">rst_epilog</span></code></a></li>
@@ -1785,34 +1786,40 @@
 <h2>Test PDF Export<a class="headerlink" href="#test-pdf-export" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.pdf.test_pdf_export.</span></span><span class="sig-name descname"><span class="pre">test_pdf_export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_filename</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/pdf/test_pdf_export.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.pdf.test_pdf_export.</span></span><span class="sig-name descname"><span class="pre">test_pdf_export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.Client" title="(in Django v3.2)"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.Client" title="(in Django v3.2)"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">page_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">expected_filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/pdf/test_pdf_export.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Test whether the PDF export works as expected</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>load_test_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
-<li><p><strong>client</strong> (<a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/helpers.html#std-fixture-client" title="(in pytest-django)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">client</span></code></a>) – The fixture providing the anonymous user</p></li>
-<li><p><strong>admin_client</strong> (<a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/helpers.html#std-fixture-admin_client" title="(in pytest-django)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">admin_client</span></code></a>) – The fixture providing the logged in admin</p></li>
+<li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
+<li><p><strong>client</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.Client" title="(in Django v3.2)"><em>Client</em></a>) – The fixture providing the anonymous user</p></li>
+<li><p><strong>admin_client</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.Client" title="(in Django v3.2)"><em>Client</em></a>) – The fixture providing the logged in admin</p></li>
 <li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The language slug of this export</p></li>
-<li><p><strong>page_ids</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The pages that should be exported</p></li>
+<li><p><strong>page_ids</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.9/library/functions.html#int" title="(in Python v3.9)"><em>int</em></a><em>]</em>) – The pages that should be exported</p></li>
 <li><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The url query param for the API request</p></li>
 <li><p><strong>expected_filename</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – What filename to expect</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.pdf.test_pdf_export.</span></span><span class="sig-name descname"><span class="pre">test_pdf_export_invalid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_client</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/pdf/test_pdf_export.py#L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.pdf.test_pdf_export.</span></span><span class="sig-name descname"><span class="pre">test_pdf_export_invalid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.Client" title="(in Django v3.2)"><span class="pre">Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">admin_client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.Client" title="(in Django v3.2)"><span class="pre">Client</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/pdf/test_pdf_export.py#L119"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Test whether the PDF export throws the correct errors</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>load_test_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
-<li><p><strong>client</strong> (<a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/helpers.html#std-fixture-client" title="(in pytest-django)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">client</span></code></a>) – The fixture providing the anonymous user</p></li>
-<li><p><strong>admin_client</strong> (<a class="reference external" href="https://pytest-django.readthedocs.io/en/latest/helpers.html#std-fixture-admin_client" title="(in pytest-django)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">admin_client</span></code></a>) – The fixture providing the logged in admin</p></li>
+<li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
+<li><p><strong>client</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.Client" title="(in Django v3.2)"><em>Client</em></a>) – The fixture providing the anonymous user</p></li>
+<li><p><strong>admin_client</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.Client" title="(in Django v3.2)"><em>Client</em></a>) – The fixture providing the logged in admin</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1835,7 +1842,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 07, 2023.
+      <span class="lastupdated">Last updated on Nov 11, 2023.
       </span></p>
   </div>
 

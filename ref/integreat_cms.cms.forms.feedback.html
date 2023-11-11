@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-11-07T19:08:51+00:00" />
+    <meta property="article:modified_time" content="2023-11-11T10:37:33+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Feedback &mdash; integreat-cms 2023.11.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1448,6 +1448,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#extensions">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#module-conf">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.author"><code class="docutils literal notranslate"><span class="pre">author</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.autodoc_typehints"><code class="docutils literal notranslate"><span class="pre">autodoc_typehints</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.copyright"><code class="docutils literal notranslate"><span class="pre">copyright</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.django_settings"><code class="docutils literal notranslate"><span class="pre">django_settings</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.django_version"><code class="docutils literal notranslate"><span class="pre">django_version</span></code></a></li>
@@ -1466,11 +1467,11 @@
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.html_theme"><code class="docutils literal notranslate"><span class="pre">html_theme</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.html_theme_options"><code class="docutils literal notranslate"><span class="pre">html_theme_options</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.intersphinx_mapping"><code class="docutils literal notranslate"><span class="pre">intersphinx_mapping</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.intersphinx_timeout"><code class="docutils literal notranslate"><span class="pre">intersphinx_timeout</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.linkcode_resolve"><code class="docutils literal notranslate"><span class="pre">linkcode_resolve()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.modindex_common_prefix"><code class="docutils literal notranslate"><span class="pre">modindex_common_prefix</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.nitpick_ignore"><code class="docutils literal notranslate"><span class="pre">nitpick_ignore</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.nitpicky"><code class="docutils literal notranslate"><span class="pre">nitpicky</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.patch_django_for_autodoc"><code class="docutils literal notranslate"><span class="pre">patch_django_for_autodoc()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.release"><code class="docutils literal notranslate"><span class="pre">release</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.rst_epilog"><code class="docutils literal notranslate"><span class="pre">rst_epilog</span></code></a></li>
@@ -1779,7 +1780,7 @@
 <h2>Admin Feedback Filter Form<a class="headerlink" href="#admin-feedback-filter-form" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.feedback.admin_feedback_filter_form.</span></span><span class="sig-name descname"><span class="pre">AdminFeedbackFilterForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/feedback/admin_feedback_filter_form.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.feedback.admin_feedback_filter_form.</span></span><span class="sig-name descname"><span class="pre">AdminFeedbackFilterForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/feedback/admin_feedback_filter_form.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.feedback.html#integreat_cms.cms.forms.feedback.region_feedback_filter_form.RegionFeedbackFilterForm" title="integreat_cms.cms.forms.feedback.region_feedback_filter_form.RegionFeedbackFilterForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">RegionFeedbackFilterForm</span></code></a></p>
 <p>Form for filtering admin (technical) feedback objects</p>
 <p><strong>Form fields:</strong></p>
@@ -1793,9 +1794,14 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">query</span></code>: Query (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">region</span></code>: Region (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelChoiceField</span></code></a>)</p></li>
 </ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>Any</em>) – </p>
+</dd>
+</dl>
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/feedback/admin_feedback_filter_form.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/feedback/admin_feedback_filter_form.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Return all media required to render the widgets on this form.</p>
 </dd></dl>
 
@@ -1806,7 +1812,7 @@
 <h2>Region Feedback Filter Form<a class="headerlink" href="#region-feedback-filter-form" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.feedback.region_feedback_filter_form.</span></span><span class="sig-name descname"><span class="pre">RegionFeedbackFilterForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/feedback/region_feedback_filter_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.feedback.region_feedback_filter_form.</span></span><span class="sig-name descname"><span class="pre">RegionFeedbackFilterForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/feedback/region_feedback_filter_form.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.html#integreat_cms.cms.forms.custom_filter_form.CustomFilterForm" title="integreat_cms.cms.forms.custom_filter_form.CustomFilterForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">CustomFilterForm</span></code></a></p>
 <p>Form for filtering feedback objects</p>
 <p><strong>Form fields:</strong></p>
@@ -1819,29 +1825,34 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">date_to</span></code>: To (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.DateField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">DateField</span></code></a>)</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">query</span></code>: Query (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
 </ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>kwargs</strong> (<em>Any</em>) – </p>
+</dd>
+</dl>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feedback</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/feedback/region_feedback_filter_form.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">feedback</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicQuerySet" title="integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicQuerySet"><span class="pre">CascadeDeletePolymorphicQuerySet</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">region</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><span class="pre">Region</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicQuerySet" title="integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicQuerySet"><span class="pre">CascadeDeletePolymorphicQuerySet</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/feedback/region_feedback_filter_form.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Filter the feedback list according to the given filter data</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>feedback</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><em>list</em></a>) – The list of feedback</p></li>
-<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a>) – The current region</p></li>
+<li><p><strong>feedback</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicQuerySet" title="integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicQuerySet"><em>CascadeDeletePolymorphicQuerySet</em></a>) – The list of feedback</p></li>
+<li><p><strong>region</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><em>Region</em></a><em> | </em><em>None</em>) – The current region</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The filtered feedback list and the search query</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a></p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)">tuple</a>[<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicQuerySet" title="integreat_cms.cms.models.feedback.feedback.CascadeDeletePolymorphicQuerySet">CascadeDeletePolymorphicQuerySet</a>, None]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/feedback/region_feedback_filter_form.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">media</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/feedback/region_feedback_filter_form.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Return all media required to render the widgets on this form.</p>
 </dd></dl>
 
@@ -1865,7 +1876,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 07, 2023.
+      <span class="lastupdated">Last updated on Nov 11, 2023.
       </span></p>
   </div>
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-11-07T19:08:51+00:00" />
+    <meta property="article:modified_time" content="2023-11-11T10:37:33+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commands &mdash; integreat-cms 2023.11.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -1448,6 +1448,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#extensions">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../documentation.html#module-conf">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.author"><code class="docutils literal notranslate"><span class="pre">author</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.autodoc_typehints"><code class="docutils literal notranslate"><span class="pre">autodoc_typehints</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.copyright"><code class="docutils literal notranslate"><span class="pre">copyright</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.django_settings"><code class="docutils literal notranslate"><span class="pre">django_settings</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.django_version"><code class="docutils literal notranslate"><span class="pre">django_version</span></code></a></li>
@@ -1466,11 +1467,11 @@
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.html_theme"><code class="docutils literal notranslate"><span class="pre">html_theme</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.html_theme_options"><code class="docutils literal notranslate"><span class="pre">html_theme_options</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.intersphinx_mapping"><code class="docutils literal notranslate"><span class="pre">intersphinx_mapping</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.intersphinx_timeout"><code class="docutils literal notranslate"><span class="pre">intersphinx_timeout</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.linkcode_resolve"><code class="docutils literal notranslate"><span class="pre">linkcode_resolve()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.modindex_common_prefix"><code class="docutils literal notranslate"><span class="pre">modindex_common_prefix</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.nitpick_ignore"><code class="docutils literal notranslate"><span class="pre">nitpick_ignore</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.nitpicky"><code class="docutils literal notranslate"><span class="pre">nitpicky</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.patch_django_for_autodoc"><code class="docutils literal notranslate"><span class="pre">patch_django_for_autodoc()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.release"><code class="docutils literal notranslate"><span class="pre">release</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../documentation.html#conf.rst_epilog"><code class="docutils literal notranslate"><span class="pre">rst_epilog</span></code></a></li>
@@ -1778,26 +1779,58 @@
 <span id="test-duplicate-pages"></span><h2>Test Duplicate Pages<a class="headerlink" href="#module-tests.core.management.commands.test_duplicate_pages" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_duplicate_pages.test_duplicate_pages">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_duplicate_pages.</span></span><span class="sig-name descname"><span class="pre">test_duplicate_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_duplicate_pages.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_duplicate_pages.test_duplicate_pages" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_duplicate_pages.</span></span><span class="sig-name descname"><span class="pre">test_duplicate_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_duplicate_pages.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_duplicate_pages.test_duplicate_pages" title="Link to this definition"></a></dt>
 <dd><p>Ensure that pages are really duplicated</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – </p></li>
+<li><p><strong>load_test_data</strong> (<em>None</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_duplicate_pages.test_duplicate_pages_missing_region_slug">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_duplicate_pages.</span></span><span class="sig-name descname"><span class="pre">test_duplicate_pages_missing_region_slug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_duplicate_pages.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_duplicate_pages.test_duplicate_pages_missing_region_slug" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_duplicate_pages.</span></span><span class="sig-name descname"><span class="pre">test_duplicate_pages_missing_region_slug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_duplicate_pages.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_duplicate_pages.test_duplicate_pages_missing_region_slug" title="Link to this definition"></a></dt>
 <dd><p>Ensure that a missing region slug throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>settings</strong> (<em>SettingsWrapper</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_duplicate_pages.test_duplicate_pages_non_existing_region">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_duplicate_pages.</span></span><span class="sig-name descname"><span class="pre">test_duplicate_pages_non_existing_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_duplicate_pages.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_duplicate_pages.test_duplicate_pages_non_existing_region" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_duplicate_pages.</span></span><span class="sig-name descname"><span class="pre">test_duplicate_pages_non_existing_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_duplicate_pages.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_duplicate_pages.test_duplicate_pages_non_existing_region" title="Link to this definition"></a></dt>
 <dd><p>Ensure that a non existing region slug throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>settings</strong> (<em>SettingsWrapper</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_duplicate_pages.test_duplicate_pages_prod">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_duplicate_pages.</span></span><span class="sig-name descname"><span class="pre">test_duplicate_pages_prod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_duplicate_pages.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_duplicate_pages.test_duplicate_pages_prod" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_duplicate_pages.</span></span><span class="sig-name descname"><span class="pre">test_duplicate_pages_prod</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_duplicate_pages.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_duplicate_pages.test_duplicate_pages_prod" title="Link to this definition"></a></dt>
 <dd><p>Ensure that this command does not work in production mode</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -1805,38 +1838,68 @@
 <span id="test-find-large-files"></span><h2>Test Find Large Files<a class="headerlink" href="#module-tests.core.management.commands.test_find_large_files" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_find_large_files.test_find_large_files">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_large_files.</span></span><span class="sig-name descname"><span class="pre">test_find_large_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_large_files.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_large_files.test_find_large_files" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_large_files.</span></span><span class="sig-name descname"><span class="pre">test_find_large_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_large_files.py#L56"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_large_files.test_find_large_files" title="Link to this definition"></a></dt>
 <dd><p>Ensure that finding large files works</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_find_large_files.test_find_large_files_exceeding_limit">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_large_files.</span></span><span class="sig-name descname"><span class="pre">test_find_large_files_exceeding_limit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_large_files.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_large_files.test_find_large_files_exceeding_limit" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_large_files.</span></span><span class="sig-name descname"><span class="pre">test_find_large_files_exceeding_limit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_large_files.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_large_files.test_find_large_files_exceeding_limit" title="Link to this definition"></a></dt>
 <dd><p>Ensure that a too high limit throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_find_large_files.test_find_large_files_invalid_limit">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_large_files.</span></span><span class="sig-name descname"><span class="pre">test_find_large_files_invalid_limit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_large_files.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_large_files.test_find_large_files_invalid_limit" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_large_files.</span></span><span class="sig-name descname"><span class="pre">test_find_large_files_invalid_limit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_large_files.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_large_files.test_find_large_files_invalid_limit" title="Link to this definition"></a></dt>
 <dd><p>Ensure that a negative limit throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_find_large_files.test_find_large_files_invalid_threshold">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_large_files.</span></span><span class="sig-name descname"><span class="pre">test_find_large_files_invalid_threshold</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_large_files.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_large_files.test_find_large_files_invalid_threshold" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_large_files.</span></span><span class="sig-name descname"><span class="pre">test_find_large_files_invalid_threshold</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_large_files.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_large_files.test_find_large_files_invalid_threshold" title="Link to this definition"></a></dt>
 <dd><p>Ensure that a negative threshold throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_find_large_files.test_find_large_files_valid_limit">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_large_files.</span></span><span class="sig-name descname"><span class="pre">test_find_large_files_valid_limit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_large_files.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_large_files.test_find_large_files_valid_limit" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_large_files.</span></span><span class="sig-name descname"><span class="pre">test_find_large_files_valid_limit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_large_files.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_large_files.test_find_large_files_valid_limit" title="Link to this definition"></a></dt>
 <dd><p>Ensure that changing the limit works</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_find_large_files.test_find_large_files_valid_threshold">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_large_files.</span></span><span class="sig-name descname"><span class="pre">test_find_large_files_valid_threshold</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_large_files.py#L44"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_large_files.test_find_large_files_valid_threshold" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_large_files.</span></span><span class="sig-name descname"><span class="pre">test_find_large_files_valid_threshold</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_large_files.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_large_files.test_find_large_files_valid_threshold" title="Link to this definition"></a></dt>
 <dd><p>Ensure that increasing the threshold works</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -1844,26 +1907,55 @@
 <span id="test-find-missing-versions"></span><h2>Test Find Missing Versions<a class="headerlink" href="#module-tests.core.management.commands.test_find_missing_versions" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_find_missing_versions.test_find_missing_versions_failure">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_missing_versions.</span></span><span class="sig-name descname"><span class="pre">test_find_missing_versions_failure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_missing_versions.py#L41"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_missing_versions.test_find_missing_versions_failure" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_missing_versions.</span></span><span class="sig-name descname"><span class="pre">test_find_missing_versions_failure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_missing_versions.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_missing_versions.test_find_missing_versions_failure" title="Link to this definition"></a></dt>
 <dd><p>Ensure that inconsistencies are listed</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_find_missing_versions.test_find_missing_versions_invalid_model">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_missing_versions.</span></span><span class="sig-name descname"><span class="pre">test_find_missing_versions_invalid_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_missing_versions.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_missing_versions.test_find_missing_versions_invalid_model" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_missing_versions.</span></span><span class="sig-name descname"><span class="pre">test_find_missing_versions_invalid_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_missing_versions.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_missing_versions.test_find_missing_versions_invalid_model" title="Link to this definition"></a></dt>
 <dd><p>Ensure that an invalid model throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_find_missing_versions.test_find_missing_versions_missing_model">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_missing_versions.</span></span><span class="sig-name descname"><span class="pre">test_find_missing_versions_missing_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_missing_versions.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_missing_versions.test_find_missing_versions_missing_model" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_missing_versions.</span></span><span class="sig-name descname"><span class="pre">test_find_missing_versions_missing_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_missing_versions.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_missing_versions.test_find_missing_versions_missing_model" title="Link to this definition"></a></dt>
 <dd><p>Ensure that missing model cause an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_find_missing_versions.test_find_missing_versions_success">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_missing_versions.</span></span><span class="sig-name descname"><span class="pre">test_find_missing_versions_success</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_missing_versions.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_missing_versions.test_find_missing_versions_success" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_find_missing_versions.</span></span><span class="sig-name descname"><span class="pre">test_find_missing_versions_success</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_find_missing_versions.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_find_missing_versions.test_find_missing_versions_success" title="Link to this definition"></a></dt>
 <dd><p>Ensure no errors are found in default test data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>None</em>) – </p></li>
+<li><p><strong>model</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -1871,44 +1963,56 @@
 <span id="test-fix-internal-links"></span><h2>Test Fix Internal Links<a class="headerlink" href="#module-tests.core.management.commands.test_fix_internal_links" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_fix_internal_links.test_fix_internal_links_commit">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_fix_internal_links.</span></span><span class="sig-name descname"><span class="pre">test_fix_internal_links_commit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_fix_internal_links.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_fix_internal_links.test_fix_internal_links_commit" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_fix_internal_links.</span></span><span class="sig-name descname"><span class="pre">test_fix_internal_links_commit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_fix_internal_links.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_fix_internal_links.test_fix_internal_links_commit" title="Link to this definition"></a></dt>
 <dd><p>Ensure that committing changes to the database works as expected</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>load_test_data_transactional</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data_transactional" title="tests.conftest.load_test_data_transactional"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a>)</p>
+<dd class="field-odd"><p><strong>load_test_data_transactional</strong> (<em>Any</em><em> | </em><em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data_transactional" title="tests.conftest.load_test_data_transactional"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_fix_internal_links.test_fix_internal_links_dry_run">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_fix_internal_links.</span></span><span class="sig-name descname"><span class="pre">test_fix_internal_links_dry_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_fix_internal_links.py#L56"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_fix_internal_links.test_fix_internal_links_dry_run" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_fix_internal_links.</span></span><span class="sig-name descname"><span class="pre">test_fix_internal_links_dry_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_fix_internal_links.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_fix_internal_links.test_fix_internal_links_dry_run" title="Link to this definition"></a></dt>
 <dd><p>Ensure that dry run works as expected</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>load_test_data_transactional</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data_transactional" title="tests.conftest.load_test_data_transactional"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a>)</p>
+<dd class="field-odd"><p><strong>load_test_data_transactional</strong> (<em>Any</em><em> | </em><em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data_transactional" title="tests.conftest.load_test_data_transactional"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_fix_internal_links.test_fix_internal_links_non_existing_region">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_fix_internal_links.</span></span><span class="sig-name descname"><span class="pre">test_fix_internal_links_non_existing_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_fix_internal_links.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_fix_internal_links.test_fix_internal_links_non_existing_region" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_fix_internal_links.</span></span><span class="sig-name descname"><span class="pre">test_fix_internal_links_non_existing_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_fix_internal_links.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_fix_internal_links.test_fix_internal_links_non_existing_region" title="Link to this definition"></a></dt>
 <dd><p>Ensure that a non existing region slug throws an error</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>load_test_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_fix_internal_links.test_fix_internal_links_non_existing_username">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_fix_internal_links.</span></span><span class="sig-name descname"><span class="pre">test_fix_internal_links_non_existing_username</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_fix_internal_links.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_fix_internal_links.test_fix_internal_links_non_existing_username" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_fix_internal_links.</span></span><span class="sig-name descname"><span class="pre">test_fix_internal_links_non_existing_username</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_fix_internal_links.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_fix_internal_links.test_fix_internal_links_non_existing_username" title="Link to this definition"></a></dt>
 <dd><p>Ensure that a non existing username throws an error</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>load_test_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1918,14 +2022,30 @@
 <span id="test-hix-bulk"></span><h2>Test Hix Bulk<a class="headerlink" href="#module-tests.core.management.commands.test_hix_bulk" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_hix_bulk.test_hix_bulk_bulk_non_existing_region">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_hix_bulk.</span></span><span class="sig-name descname"><span class="pre">test_hix_bulk_bulk_non_existing_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_hix_bulk.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_hix_bulk.test_hix_bulk_bulk_non_existing_region" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_hix_bulk.</span></span><span class="sig-name descname"><span class="pre">test_hix_bulk_bulk_non_existing_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_hix_bulk.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_hix_bulk.test_hix_bulk_bulk_non_existing_region" title="Link to this definition"></a></dt>
 <dd><p>Ensure that a non existing region slug throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>settings</strong> (<em>SettingsWrapper</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_hix_bulk.test_hix_bulk_textlab_api_disabled">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_hix_bulk.</span></span><span class="sig-name descname"><span class="pre">test_hix_bulk_textlab_api_disabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_hix_bulk.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_hix_bulk.test_hix_bulk_textlab_api_disabled" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_hix_bulk.</span></span><span class="sig-name descname"><span class="pre">test_hix_bulk_textlab_api_disabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_hix_bulk.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_hix_bulk.test_hix_bulk_textlab_api_disabled" title="Link to this definition"></a></dt>
 <dd><p>Ensure that a disabled textlab api causes an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>settings</strong> (<em>SettingsWrapper</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -1933,56 +2053,78 @@
 <span id="test-replace-links"></span><h2>Test Replace Links<a class="headerlink" href="#module-tests.core.management.commands.test_replace_links" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_replace_links.test_replace_links_commit">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_commit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L111"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_commit" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_commit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L116"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_commit" title="Link to this definition"></a></dt>
 <dd><p>Ensure that committing changes to the database works as expected</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>load_test_data_transactional</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data_transactional" title="tests.conftest.load_test_data_transactional"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a>)</p>
+<dd class="field-odd"><p><strong>load_test_data_transactional</strong> (<em>Any</em><em> | </em><em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data_transactional" title="tests.conftest.load_test_data_transactional"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_replace_links.test_replace_links_dry_run">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_dry_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_dry_run" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_dry_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_dry_run" title="Link to this definition"></a></dt>
 <dd><p>Ensure that dry run works as expected</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>load_test_data_transactional</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data_transactional" title="tests.conftest.load_test_data_transactional"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a>)</p>
+<dd class="field-odd"><p><strong>load_test_data_transactional</strong> (<em>Any</em><em> | </em><em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data_transactional" title="tests.conftest.load_test_data_transactional"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_replace_links.test_replace_links_missing_args">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_missing_args</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_missing_args" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_missing_args</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_missing_args" title="Link to this definition"></a></dt>
 <dd><p>Ensure that missing args cause an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_replace_links.test_replace_links_missing_replace">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_missing_replace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_missing_replace" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_missing_replace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_missing_replace" title="Link to this definition"></a></dt>
 <dd><p>Ensure that a missing replace throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_replace_links.test_replace_links_non_existing_region">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_non_existing_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_non_existing_region" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_non_existing_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_non_existing_region" title="Link to this definition"></a></dt>
 <dd><p>Ensure that a non existing region slug throws an error</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>load_test_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_replace_links.test_replace_links_non_existing_username">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_non_existing_username</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_non_existing_username" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_replace_links.</span></span><span class="sig-name descname"><span class="pre">test_replace_links_non_existing_username</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_replace_links.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_replace_links.test_replace_links_non_existing_username" title="Link to this definition"></a></dt>
 <dd><p>Ensure that a non existing username throws an error</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>load_test_data</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#tuple" title="(in Python v3.9)"><em>tuple</em></a>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1992,24 +2134,24 @@
 <span id="test-reset-deepl-budget"></span><h2>Test Reset Deepl Budget<a class="headerlink" href="#module-tests.core.management.commands.test_reset_deepl_budget" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_reset_deepl_budget.datetime_not_first_day">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_reset_deepl_budget.</span></span><span class="sig-name descname"><span class="pre">datetime_not_first_day</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_reset_deepl_budget.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_reset_deepl_budget.datetime_not_first_day" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_reset_deepl_budget.</span></span><span class="sig-name descname"><span class="pre">datetime_not_first_day</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_reset_deepl_budget.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_reset_deepl_budget.datetime_not_first_day" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.9/library/functions.html#object" title="(in Python v3.9)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Fake datetime object where now() is never the first day of the month</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_reset_deepl_budget.datetime_not_first_day.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_reset_deepl_budget.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_reset_deepl_budget.datetime_not_first_day.__init__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_reset_deepl_budget.py#L20"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_reset_deepl_budget.datetime_not_first_day.__init__" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_reset_deepl_budget.datetime_not_first_day.now">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">now</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_reset_deepl_budget.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_reset_deepl_budget.datetime_not_first_day.now" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">now</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/datetime.html#datetime.datetime" title="(in Python v3.9)"><span class="pre">datetime</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_reset_deepl_budget.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_reset_deepl_budget.datetime_not_first_day.now" title="Link to this definition"></a></dt>
 <dd><p>generate a date with day=2</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>a date which is never the 1st day of the month</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/datetime.html#datetime.datetime" title="(in Python v3.9)">datetime.datetime</a></p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.9/library/datetime.html#datetime.datetime" title="(in Python v3.9)"><em>datetime</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -2018,14 +2160,27 @@
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_reset_deepl_budget.test_not_first_day">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_reset_deepl_budget.</span></span><span class="sig-name descname"><span class="pre">test_not_first_day</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_reset_deepl_budget.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_reset_deepl_budget.test_not_first_day" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_reset_deepl_budget.</span></span><span class="sig-name descname"><span class="pre">test_not_first_day</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_reset_deepl_budget.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_reset_deepl_budget.test_not_first_day" title="Link to this definition"></a></dt>
 <dd><p>Ensure that the command will not run when it’s not the 1st day of the month without –force</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_reset_deepl_budget.test_reset_deepl_budget">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_reset_deepl_budget.</span></span><span class="sig-name descname"><span class="pre">test_reset_deepl_budget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_reset_deepl_budget.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_reset_deepl_budget.test_reset_deepl_budget" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_reset_deepl_budget.</span></span><span class="sig-name descname"><span class="pre">test_reset_deepl_budget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_reset_deepl_budget.py#L49"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_reset_deepl_budget.test_reset_deepl_budget" title="Link to this definition"></a></dt>
 <dd><p>Ensure that DeepL budget gets reset successfully</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data_transactional</strong> (<em>Any</em><em> | </em><em>None</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -2033,38 +2188,80 @@
 <span id="test-summ-ai-bulk"></span><h2>Test SUMM.AI Bulk<a class="headerlink" href="#module-tests.core.management.commands.test_summ_ai_bulk" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_disabled">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_summ_ai_bulk.</span></span><span class="sig-name descname"><span class="pre">test_summ_ai_bulk_disabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_summ_ai_bulk.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_disabled" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_summ_ai_bulk.</span></span><span class="sig-name descname"><span class="pre">test_summ_ai_bulk_disabled</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_summ_ai_bulk.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_disabled" title="Link to this definition"></a></dt>
 <dd><p>Ensure that calling when globally disabled throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – </p></li>
+<li><p><strong>load_test_data</strong> (<em>None</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_disabled_region">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_summ_ai_bulk.</span></span><span class="sig-name descname"><span class="pre">test_summ_ai_bulk_disabled_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_summ_ai_bulk.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_disabled_region" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_summ_ai_bulk.</span></span><span class="sig-name descname"><span class="pre">test_summ_ai_bulk_disabled_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_summ_ai_bulk.py#L57"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_disabled_region" title="Link to this definition"></a></dt>
 <dd><p>Ensure that calling when disabled in a region throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_missing_args">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_summ_ai_bulk.</span></span><span class="sig-name descname"><span class="pre">test_summ_ai_bulk_missing_args</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_summ_ai_bulk.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_missing_args" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_summ_ai_bulk.</span></span><span class="sig-name descname"><span class="pre">test_summ_ai_bulk_missing_args</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_summ_ai_bulk.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_missing_args" title="Link to this definition"></a></dt>
 <dd><p>Ensure that missing args cause an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_missing_username">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_summ_ai_bulk.</span></span><span class="sig-name descname"><span class="pre">test_summ_ai_bulk_missing_username</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_summ_ai_bulk.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_missing_username" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_summ_ai_bulk.</span></span><span class="sig-name descname"><span class="pre">test_summ_ai_bulk_missing_username</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_summ_ai_bulk.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_missing_username" title="Link to this definition"></a></dt>
 <dd><p>Ensure that a missing username throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_non_existing_region">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_summ_ai_bulk.</span></span><span class="sig-name descname"><span class="pre">test_summ_ai_bulk_non_existing_region</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_summ_ai_bulk.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_non_existing_region" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_summ_ai_bulk.</span></span><span class="sig-name descname"><span class="pre">test_summ_ai_bulk_non_existing_region</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_summ_ai_bulk.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_non_existing_region" title="Link to this definition"></a></dt>
 <dd><p>Ensure that a non existing region slug throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_non_existing_username">
-<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_summ_ai_bulk.</span></span><span class="sig-name descname"><span class="pre">test_summ_ai_bulk_non_existing_username</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_summ_ai_bulk.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_non_existing_username" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.core.management.commands.test_summ_ai_bulk.</span></span><span class="sig-name descname"><span class="pre">test_summ_ai_bulk_non_existing_username</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/core/management/commands/test_summ_ai_bulk.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.core.management.commands.test_summ_ai_bulk.test_summ_ai_bulk_non_existing_username" title="Link to this definition"></a></dt>
 <dd><p>Ensure that a non existing username throws an error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data</strong> (<em>None</em>) – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -2085,7 +2282,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 07, 2023.
+      <span class="lastupdated">Last updated on Nov 11, 2023.
       </span></p>
   </div>
 

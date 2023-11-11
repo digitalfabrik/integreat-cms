@@ -1444,6 +1444,7 @@
 <li class="toctree-l2"><a class="reference internal" href="documentation.html#extensions">Extensions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="documentation.html#module-conf">Configuration</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.author"><code class="docutils literal notranslate"><span class="pre">author</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.autodoc_typehints"><code class="docutils literal notranslate"><span class="pre">autodoc_typehints</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.copyright"><code class="docutils literal notranslate"><span class="pre">copyright</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.django_settings"><code class="docutils literal notranslate"><span class="pre">django_settings</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.django_version"><code class="docutils literal notranslate"><span class="pre">django_version</span></code></a></li>
@@ -1462,11 +1463,11 @@
 <li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.html_theme"><code class="docutils literal notranslate"><span class="pre">html_theme</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.html_theme_options"><code class="docutils literal notranslate"><span class="pre">html_theme_options</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.intersphinx_mapping"><code class="docutils literal notranslate"><span class="pre">intersphinx_mapping</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.intersphinx_timeout"><code class="docutils literal notranslate"><span class="pre">intersphinx_timeout</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.linkcode_resolve"><code class="docutils literal notranslate"><span class="pre">linkcode_resolve()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.modindex_common_prefix"><code class="docutils literal notranslate"><span class="pre">modindex_common_prefix</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.nitpick_ignore"><code class="docutils literal notranslate"><span class="pre">nitpick_ignore</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.nitpicky"><code class="docutils literal notranslate"><span class="pre">nitpicky</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.patch_django_for_autodoc"><code class="docutils literal notranslate"><span class="pre">patch_django_for_autodoc()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.project"><code class="docutils literal notranslate"><span class="pre">project</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.release"><code class="docutils literal notranslate"><span class="pre">release</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="documentation.html#conf.rst_epilog"><code class="docutils literal notranslate"><span class="pre">rst_epilog</span></code></a></li>
@@ -4096,6 +4097,8 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.status.AUTO_SAVE">AUTO_SAVE (in module integreat_cms.cms.constants.status)</a>
 </li>
+      <li><a href="documentation.html#conf.autodoc_typehints">autodoc_typehints (in module conf)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.forms.regions.html#integreat_cms.cms.forms.regions.region_form.RegionForm.autofill_bounding_box">autofill_bounding_box() (integreat_cms.cms.forms.regions.region_form.RegionForm static method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.automatic_translation">automatic_translation (integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation attribute)</a>
@@ -5933,6 +5936,14 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.dashboard_view.DashboardView">DashboardView (class in integreat_cms.cms.views.dashboard.dashboard_view)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.forms.events.html#integreat_cms.cms.forms.events.event_filter_form.EventFilterForm.data">data (integreat_cms.cms.forms.events.event_filter_form.EventFilterForm attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.forms.feedback.html#integreat_cms.cms.forms.feedback.admin_feedback_filter_form.AdminFeedbackFilterForm.data">(integreat_cms.cms.forms.feedback.admin_feedback_filter_form.AdminFeedbackFilterForm attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.forms.feedback.html#integreat_cms.cms.forms.feedback.region_feedback_filter_form.RegionFeedbackFilterForm.data">(integreat_cms.cms.forms.feedback.region_feedback_filter_form.RegionFeedbackFilterForm attribute)</a>
+</li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.docker_settings.DATABASES">DATABASES (in module integreat_cms.core.docker_settings)</a>
 
       <ul>
@@ -7609,16 +7620,16 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.translation_status.FALLBACK">FALLBACK (in module integreat_cms.cms.constants.translation_status)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel.fallback_translations_enabled">fallback_translations_enabled (integreat_cms.cms.models.abstract_content_model.AbstractContentModel attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel.fallback_translations_enabled">fallback_translations_enabled (integreat_cms.cms.models.abstract_content_model.AbstractContentModel property)</a>
 
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.fallback_translations_enabled">(integreat_cms.cms.models.events.event.Event property)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage.fallback_translations_enabled">(integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage attribute)</a>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage.fallback_translations_enabled">(integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage property)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page.ImprintPage.fallback_translations_enabled">(integreat_cms.cms.models.pages.imprint_page.ImprintPage attribute)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.fallback_translations_enabled">(integreat_cms.cms.models.pages.page.Page attribute)</a>
+        <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.fallback_translations_enabled">(integreat_cms.cms.models.pages.page.Page property)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI.fallback_translations_enabled">(integreat_cms.cms.models.pois.poi.POI property)</a>
 </li>
@@ -8080,8 +8091,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.form_class">(integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient attribute)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TranslationHelper.form_class">(integreat_cms.summ_ai_api.utils.TranslationHelper attribute)</a>
-</li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -8542,8 +8551,6 @@
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper">generate_unique_slug_helper() (in module integreat_cms.cms.utils.slug_utils)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView">GeneratePdfView (class in integreat_cms.cms.views.pages.page_bulk_actions)</a>
-</li>
-      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TranslationHelper.german_translation">german_translation (integreat_cms.summ_ai_api.utils.TranslationHelper attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.postal_code.GET">GET (in module integreat_cms.cms.constants.postal_code)</a>
 </li>
@@ -12474,8 +12481,6 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.POITranslationLinklist.html_fields">(integreat_cms.cms.linklists.POITranslationLinklist attribute)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TranslationHelper.html_fields">(integreat_cms.summ_ai_api.utils.TranslationHelper attribute)</a>
-</li>
       </ul></li>
       <li><a href="documentation.html#conf.html_last_updated_fmt">html_last_updated_fmt (in module conf)</a>
 </li>
@@ -14836,8 +14841,6 @@
         <li><a href="ref-ext/integreat_cms.cms.views.analytics.html#module-integreat_cms.cms.views.analytics">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.views.analytics.app_size_view
 
@@ -14845,6 +14848,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.analytics.html#module-integreat_cms.cms.views.analytics.app_size_view">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.views.analytics.translation_coverage_view
 
@@ -16289,6 +16294,8 @@
 </li>
       </ul></li>
       <li><a href="documentation.html#conf.intersphinx_mapping">intersphinx_mapping (in module conf)</a>
+</li>
+      <li><a href="documentation.html#conf.intersphinx_timeout">intersphinx_timeout (in module conf)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule.interval">interval (integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule attribute)</a>
 </li>
@@ -19221,8 +19228,6 @@
         <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.POITranslationLinklist.object_filter">(integreat_cms.cms.linklists.POITranslationLinklist attribute)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TranslationHelper.object_instance">object_instance (integreat_cms.summ_ai_api.utils.TranslationHelper attribute)</a>
-</li>
       <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.event_feedback.EventFeedback.object_name">object_name (integreat_cms.cms.models.feedback.event_feedback.EventFeedback property)</a>
 
       <ul>
@@ -20377,8 +20382,6 @@
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView.patch">(integreat_cms.cms.views.pages.page_bulk_actions.GeneratePdfView method)</a>
 </li>
       </ul></li>
-      <li><a href="documentation.html#conf.patch_django_for_autodoc">patch_django_for_autodoc() (in module conf)</a>
-</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.path">path() (integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation method)</a>
 
       <ul>
@@ -22963,8 +22966,6 @@
         <li><a href="ref-ext/integreat_cms.deepl_api.html#integreat_cms.deepl_api.deepl_api_client.DeepLApiClient.request">(integreat_cms.deepl_api.deepl_api_client.DeepLApiClient attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.request">(integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient attribute)</a>
-</li>
-        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TranslationHelper.request">(integreat_cms.summ_ai_api.utils.TranslationHelper attribute)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.logging_formatter.RequestFormatter">RequestFormatter (class in integreat_cms.core.logging_formatter)</a>
@@ -25717,8 +25718,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.text_direction">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode attribute)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TranslationHelper.text_fields">text_fields (integreat_cms.summ_ai_api.utils.TranslationHelper attribute)</a>
-</li>
       <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField">TextField (class in integreat_cms.summ_ai_api.utils)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_BULK_COOL_DOWN_PERIOD">TEXTLAB_API_BULK_COOL_DOWN_PERIOD (in module integreat_cms.core.settings)</a>
