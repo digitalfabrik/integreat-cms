@@ -1,7 +1,15 @@
 """
 This module includes functions related to the regions API endpoint.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.http import Http404, JsonResponse
+
+if TYPE_CHECKING:
+    from typing import Any
+    from django.http import HttpRequest
 
 from ...cms.constants import region_status
 from ...cms.models import Region
@@ -9,15 +17,12 @@ from ..decorators import json_response
 from .languages import transform_language
 
 
-def transform_region(region):
+def transform_region(region: Region) -> dict[str, Any]:
     """
     Function to create a JSON from a single region object, including information if region is live/active.
 
     :param region: The region object which should be converted
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :return: data necessary for API
-    :rtype: dict
     """
     return {
         "id": region.id,
@@ -42,12 +47,11 @@ def transform_region(region):
 
 
 @json_response
-def regions(_):
+def regions(_: HttpRequest) -> JsonResponse:
     """
     List all regions that are not archived and transform result into JSON
 
     :return: JSON object according to APIv3 regions endpoint definition
-    :rtype: ~django.http.JsonResponse
     """
     result = list(
         map(transform_region, Region.objects.exclude(status=region_status.ARCHIVED))
@@ -59,12 +63,11 @@ def regions(_):
 
 @json_response
 # pylint: disable=unused-argument
-def region_by_slug(request, region_slug):
+def region_by_slug(request: HttpRequest, region_slug: str) -> JsonResponse:
     """
     Retrieve a single region and transform result into JSON
 
     :return: JSON object according to APIv3 live regions endpoint definition
-    :rtype: ~django.http.JsonResponse
     """
     if request.region.status == region_status.ARCHIVED:
         raise Http404("This region is archived.")

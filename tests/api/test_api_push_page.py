@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import pytest
 from django.test.client import Client
 from django.urls import resolve, reverse
@@ -6,14 +8,13 @@ from integreat_cms.cms.models import Page
 
 
 @pytest.mark.django_db
-def test_api_push_page_content(load_test_data):
+def test_api_push_page_content(load_test_data: None) -> None:
     """
     This test class checks all endpoints defined in :attr:`~tests.api.api_config.API_ENDPOINTS`.
     It verifies that the content delivered by the endpoint is equivalent with the data
     provided in the corresponding json file.
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: tuple
     """
     client = Client()
     valid_token = "valid-token"

@@ -1,6 +1,10 @@
 """
 This module includes functions related to the locations/POIs API endpoint.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.conf import settings
 from django.db.models import Prefetch
 from django.http import JsonResponse
@@ -14,16 +18,20 @@ from ...core.utils.strtobool import strtobool
 from ..decorators import json_response
 from .location_categories import transform_location_category
 
+if TYPE_CHECKING:
+    from typing import Any
 
-def transform_poi(poi):
+    from django.http import HttpRequest
+
+    from ...cms.models import POI, POITranslation
+
+
+def transform_poi(poi: POI | None) -> dict[str, Any]:
     """
     Function to create a JSON from a single poi object.
 
     :param poi: The poi object which should be converted
-    :type poi: ~integreat_cms.cms.models.pois.poi.POI
-
     :return: data necessary for API
-    :rtype: dict
     """
     if not poi:
         return {
@@ -52,15 +60,12 @@ def transform_poi(poi):
     }
 
 
-def transform_poi_translation(poi_translation):
+def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]:
     """
     Function to create a JSON from a single poi_translation object.
 
     :param poi_translation: The poi translation object which should be converted
-    :type poi_translation: ~integreat_cms.cms.models.pois.poi_translation.POITranslation
-
     :return: data necessary for API
-    :rtype: dict
     """
 
     poi = poi_translation.poi
@@ -108,21 +113,16 @@ def transform_poi_translation(poi_translation):
 
 @json_response
 # pylint: disable=unused-argument
-def locations(request, region_slug, language_slug):
+def locations(
+    request: HttpRequest, region_slug: str, language_slug: str
+) -> JsonResponse:
     """
     List all POIs of the region and transform result into JSON
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the requested region
-    :type region_slug: str
-
     :param language_slug: The slug of the requested language
-    :type language_slug: str
-
     :return: JSON object according to APIv3 locations endpoint definition
-    :rtype: ~django.http.JsonResponse
     """
     region = request.region
     # Throw a 404 error when the language does not exist or is disabled

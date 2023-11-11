@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import json
 import logging
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.conf import settings
@@ -14,6 +17,9 @@ from ...models import POI
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..custom_model_form import CustomModelForm
 from ..icon_widget import IconWidget
+
+if TYPE_CHECKING:
+    from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -60,12 +66,11 @@ class POIForm(CustomModelForm):
         }
 
     # pylint: disable=too-many-return-statements
-    def clean_opening_hours(self):
+    def clean_opening_hours(self) -> list[dict[str, Any]]:
         """
         Validate the opening hours field (see :ref:`overriding-modelform-clean-method`).
 
         :return: The valid opening hours
-        :rtype: dict
         """
         # Only show generic error message because users cannot directly modify the JSON input
         generic_error = __(
@@ -149,12 +154,11 @@ class POIForm(CustomModelForm):
                     return cleaned_opening_hours
         return cleaned_opening_hours
 
-    def clean(self):
+    def clean(self) -> dict[str, Any]:
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
 
         :return: The cleaned form data
-        :rtype: dict
         """
         cleaned_data = super().clean()
 
@@ -162,9 +166,9 @@ class POIForm(CustomModelForm):
         if settings.NOMINATIM_API_ENABLED:
             nominatim_api_client = NominatimApiClient()
             latitude, longitude = nominatim_api_client.get_coordinates(
-                street=cleaned_data.get("address"),
-                postalcode=cleaned_data.get("postcode"),
-                city=cleaned_data.get("city"),
+                street=cleaned_data.get("address", ""),
+                postalcode=cleaned_data.get("postcode", ""),
+                city=cleaned_data.get("city", ""),
             )
             if latitude and longitude:
                 # Only override coordinates if not set manually

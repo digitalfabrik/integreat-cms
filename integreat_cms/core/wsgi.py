@@ -7,24 +7,27 @@ python frameworks (in our case Django).
 
 For more information on this file, see :doc:`django:howto/deployment/wsgi/index`.
 """
+from __future__ import annotations
+
 import configparser
 import os
+from typing import TYPE_CHECKING
 
 from django.core.wsgi import get_wsgi_application
 
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
-def application(environ, start_response):
+    from django.core.handlers.wsgi import WSGIHandler
+
+
+def application(environ: dict[str, str], start_response: Callable) -> WSGIHandler:
     """
     This returns the WSGI callable
 
     :param environ: The environment variables
-    :type environ: dict
-
     :param start_response: A function which starts the response
-    :type start_response: ~collections.abc.Callable
-
     :return: The WSGI callable
-    :rtype: ~django.core.handlers.WSGIHandler
     """
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "integreat_cms.core.settings")
 

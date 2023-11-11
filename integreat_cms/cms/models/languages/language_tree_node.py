@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
@@ -7,6 +11,11 @@ from ...constants import machine_translation_providers
 from ..abstract_tree_node import AbstractTreeNode
 from ..decorators import modify_fields
 from .language import Language
+
+if TYPE_CHECKING:
+    from integreat_cms.core.utils.machine_translation_provider import (
+        MachineTranslationProviderType,
+    )
 
 
 @modify_fields(parent={"verbose_name": _("source language")})
@@ -50,62 +59,56 @@ class LanguageTreeNode(AbstractTreeNode):
     )
 
     @cached_property
-    def slug(self):
+    def slug(self) -> str:
         """
         Returns the slug of this node's language
 
         :return: The language slug of this language node
-        :rtype: str
         """
         return self.language.slug
 
     @cached_property
-    def native_name(self):
+    def native_name(self) -> str:
         """
         Returns the native name of this node's language
 
         :return: The native name of this language node
-        :rtype: str
         """
         return self.language.native_name
 
     @cached_property
-    def english_name(self):
+    def english_name(self) -> str:
         """
         Returns the name of this node's language in English
 
         :return: The English name of this language node
-        :rtype: str
         """
         return self.language.english_name
 
     @cached_property
-    def translated_name(self):
+    def translated_name(self) -> str:
         """
         Returns the name of this node's language in the current backend language
 
         :return: The translated name of this language node
-        :rtype: str
         """
         return self.language.translated_name
 
     @cached_property
-    def text_direction(self):
+    def text_direction(self) -> str:
         """
         Returns the text direction (e.g. left-to-right) of this node's language
 
         :return: The text direction name of this language node
-        :rtype: str
         """
         return self.language.text_direction
 
     @cached_property
-    def mt_providers(self):
+    def mt_providers(self) -> list[MachineTranslationProviderType]:
         """
         Return the list of supported machine translation providers
 
         :return: The MT provider for this target language
-        :rtype: list [ ~integreat_cms.core.utils.machine_translation_provider.MachineTranslationProviderType ]
         """
         return [
             provider
@@ -114,32 +117,29 @@ class LanguageTreeNode(AbstractTreeNode):
         ]
 
     @cached_property
-    def mt_provider(self):
+    def mt_provider(self) -> MachineTranslationProviderType | None:
         """
         Return the machine translation provider if it exists, or ``None`` otherwise
 
         :return: The MT provider for this target language
-        :rtype: ~integreat_cms.core.utils.machine_translation_provider.MachineTranslationProviderType
         """
         return next(iter(self.mt_providers), None)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``LanguageTreeNode object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the language node
-        :rtype: str
         """
         return self.translated_name
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<LanguageTreeNode: LanguageTreeNode object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the language node
-        :rtype: str
         """
         language_str = f", language: {self.language.slug}" if self.language else ""
         parent_str = f", parent: {self.parent_id}" if self.parent_id else ""

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import logging
 
 from django.apps import apps
@@ -24,22 +26,20 @@ class DeepLProvider(MachineTranslationProvider):
 
     @classmethod
     @classproperty
-    def supported_source_languages(cls):
+    def supported_source_languages(cls) -> list[str]:
         """
         The supported source languages
 
         :return: The list of supported source languages
-        :rtype: list [ str ]
         """
         return apps.get_app_config("deepl_api").supported_source_languages
 
     @classmethod
     @classproperty
-    def supported_target_languages(cls):
+    def supported_target_languages(cls) -> list[str]:
         """
         The supported target languages
 
         :return: The list of supported target languages
-        :rtype: list [ str ]
         """
         return apps.get_app_config("deepl_api").supported_target_languages

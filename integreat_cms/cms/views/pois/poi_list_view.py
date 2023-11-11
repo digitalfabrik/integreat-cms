@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
@@ -13,6 +16,11 @@ from ...forms import ObjectSearchForm
 from ...models import POITranslation
 from ..mixins import MachineTranslationContextMixin
 from .poi_context_mixin import POIContextMixin
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
 
 logger = logging.getLogger(__name__)
 
@@ -33,32 +41,24 @@ class POIListView(TemplateView, POIContextMixin, MachineTranslationContextMixin)
     translation_model = POITranslation
 
     @property
-    def template_name(self):
+    def template_name(self) -> str:
         """
         Select correct HTML template, depending on :attr:`~integreat_cms.cms.views.pois.poi_list_view.POIListView.archived` flag
         (see :class:`~django.views.generic.base.TemplateResponseMixin`)
 
         :return: Path to HTML template
-        :rtype: str
         """
         return self.template_archived if self.archived else self.template
 
     # pylint: disable=too-many-locals
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Render POI list
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         # current region
@@ -129,17 +129,13 @@ class POIListView(TemplateView, POIContextMixin, MachineTranslationContextMixin)
             },
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Apply the query and filter the rendered pois
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
         :param \*args: The supplied arguments
-        :type \*args: list
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
         return self.get(request, *args, **kwargs, search_data=request.POST)

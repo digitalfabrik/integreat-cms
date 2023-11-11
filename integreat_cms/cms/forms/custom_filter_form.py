@@ -1,4 +1,13 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django import forms
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http.request import QueryDict
 
 
 class CustomFilterForm(forms.Form):
@@ -6,17 +15,16 @@ class CustomFilterForm(forms.Form):
     Base class for filter forms
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         r"""
         Initialize the custom filter form
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
         super().__init__(**kwargs)
 
         # If no values for some fields are supplied, use the initial values
-        self.data = self.data.copy()
+        self.data: QueryDict = self.data.copy()
         for name in self.declared_fields:
             if name not in self.data:
                 initial = self.fields[name].initial
@@ -26,21 +34,19 @@ class CustomFilterForm(forms.Form):
                     self.data[name] = initial
 
     @property
-    def is_enabled(self):
+    def is_enabled(self) -> bool:
         """
         This function determines whether the filters are applied.
 
         :return: Whether filtering should be performed
-        :rtype: bool
         """
         return self.is_valid() and self.has_changed()
 
     @property
-    def filters_visible(self):
+    def filters_visible(self) -> bool:
         """
         This function determines whether the filter form is visible by default.
 
         :return: Whether any filters (other than search) were changed
-        :rtype: bool
         """
         return self.is_enabled and self.changed_data != ["query"]

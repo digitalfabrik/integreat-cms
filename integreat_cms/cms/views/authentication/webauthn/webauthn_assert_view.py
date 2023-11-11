@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.http import JsonResponse
@@ -9,7 +12,10 @@ from webauthn import generate_authentication_options, options_to_json
 from webauthn.helpers import bytes_to_base64url
 from webauthn.helpers.structs import PublicKeyCredentialDescriptor
 
-from integreat_cms.cms.utils.mfa_utils import get_mfa_user
+if TYPE_CHECKING:
+    from django.http import HttpRequest
+
+from ....utils.mfa_utils import get_mfa_user
 
 logger = logging.getLogger(__name__)
 
@@ -22,14 +28,11 @@ class WebAuthnAssertView(View):
     This AJAX view is called asynchronously by JavaScript.
     """
 
-    def get(self, request):
+    def get(self, request: HttpRequest) -> HttpResponse:
         """
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :return: The mfa challenge as JSON
-        :rtype: ~django.http.JsonResponse
         """
         if not (user := get_mfa_user(request)):
             return JsonResponse(

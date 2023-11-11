@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import logging
 
 from django import forms
@@ -25,19 +27,19 @@ class MediaMoveForm(CustomModelForm):
         #: The fields of the model which should be handled by this form
         fields = ("parent_directory",)
 
-    def clean(self):
+    def clean(self) -> dict:
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`:
         If the file is moved to another region, add a :class:`~django.core.exceptions.ValidationError`.
 
         :return: The cleaned form data
-        :rtype: dict
         """
         cleaned_data = super().clean()
 
         if (
-            cleaned_data.get("parent_directory")
-            and cleaned_data.get("parent_directory").region != self.instance.region
+            (parent := cleaned_data.get("parent_directory"))
+            and self.instance
+            and parent.region != self.instance.region
         ):
             self.add_error(
                 "parent_directory",

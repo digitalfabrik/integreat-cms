@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.shortcuts import redirect, render
@@ -17,6 +20,13 @@ from ...utils.translation_utils import translate_link
 from ..media.media_context_mixin import MediaContextMixin
 from .imprint_context_mixin import ImprintContextMixin
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
+
+    from ...models import Language, Region
+
 logger = logging.getLogger(__name__)
 
 
@@ -34,21 +44,14 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
         "translation_status": translation_status,
     }
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Render :class:`~integreat_cms.cms.forms.imprint.imprint_translation_form.ImprintTranslationForm`
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         # current region
@@ -159,23 +162,16 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
             },
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Binds the user input data to the imprint form and validates the input.
         Forms containing images/files need to be additionally instantiated with the FILES attribute of request objects,
         see :doc:`django:topics/http/file-uploads`
 
         :param request: Request submitted for saving imprint form
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: Redirection to the populated imprint form
-        :rtype: ~django.http.HttpResponseRedirect
         """
 
         region = request.region
@@ -265,21 +261,16 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
         )
 
     @staticmethod
-    def get_side_by_side_language_options(region, language, imprint):
+    def get_side_by_side_language_options(
+        region: Region, language: Language, imprint: ImprintPage | None
+    ) -> list[dict[str, Any]]:
         """
         This is a helper function to generate the side-by-side language options for both the get and post requests.
 
         :param region: The current region
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :param language: The current language
-        :type language: ~integreat_cms.cms.models.languages.language.Language
-
         :param imprint: The current imprint
-        :type imprint: ~integreat_cms.cms.models.pages.imprint_page.ImprintPage
-
         :return: The list of language options, each represented by a dict
-        :rtype: list
         """
         side_by_side_language_options = []
         for language_node in region.language_tree_nodes.filter(active=True):

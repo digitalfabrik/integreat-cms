@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.core.paginator import Paginator
@@ -9,6 +12,11 @@ from django.views.generic import TemplateView
 from ...decorators import permission_required
 from ...forms import AdminFeedbackFilterForm
 from ...models import Feedback
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
 
 logger = logging.getLogger(__name__)
 
@@ -27,31 +35,23 @@ class AdminFeedbackListView(TemplateView):
     archived = False
 
     @property
-    def template_name(self):
+    def template_name(self) -> str:
         """
         Select correct HTML template, depending on :attr:`~integreat_cms.cms.views.feedback.admin_feedback_list_view.AdminFeedbackListView.archived` flag
         (see :class:`~django.views.generic.base.TemplateResponseMixin`)
 
         :return: Path to HTML template
-        :rtype: str
         """
         return self.template_archived if self.archived else self.template
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Render admin feedback list
 
         :param request: Object representing the user call
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         admin_feedback = Feedback.objects.filter(

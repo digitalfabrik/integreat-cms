@@ -1,17 +1,23 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.contrib.auth import get_user_model
 from django.db.models import Q
 
+if TYPE_CHECKING:
+    from django.db.models.query import QuerySet
 
-def search_users(region, query):
+    from ..models import Region, User
+
+
+def search_users(region: Region | None, query: str) -> QuerySet[User]:
     """
     Searches for all users that match the given `query`.
     If region is None, all users are searched.
     :param region: The current region
-    :type region: ~integreat_cms.cms.models.regions.region.Region
     :param query: The query string used for filtering the regions
-    :type query: str
     :return: A query for all matching objects
-    :rtype: ~django.db.models.QuerySet
     """
 
     filter_query = (

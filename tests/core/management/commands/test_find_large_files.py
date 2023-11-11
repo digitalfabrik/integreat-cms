@@ -1,10 +1,12 @@
+from __future__ import annotations
+
 import pytest
 from django.core.management.base import CommandError
 
 from ..utils import get_command_output
 
 
-def test_find_large_files_invalid_limit():
+def test_find_large_files_invalid_limit() -> None:
     """
     Ensure that a negative limit throws an error
     """
@@ -13,7 +15,7 @@ def test_find_large_files_invalid_limit():
     assert str(exc_info.value) == "The limit cannot be negative."
 
 
-def test_find_large_files_exceeding_limit():
+def test_find_large_files_exceeding_limit() -> None:
     """
     Ensure that a too high limit throws an error
     """
@@ -22,7 +24,7 @@ def test_find_large_files_exceeding_limit():
     assert str(exc_info.value) == "Please select a limit smaller than 100."
 
 
-def test_find_large_files_invalid_threshold():
+def test_find_large_files_invalid_threshold() -> None:
     """
     Ensure that a negative threshold throws an error
     """
@@ -32,7 +34,7 @@ def test_find_large_files_invalid_threshold():
 
 
 @pytest.mark.django_db
-def test_find_large_files_valid_limit():
+def test_find_large_files_valid_limit() -> None:
     """
     Ensure that changing the limit works
     """
@@ -42,7 +44,7 @@ def test_find_large_files_valid_limit():
 
 
 @pytest.mark.django_db
-def test_find_large_files_valid_threshold():
+def test_find_large_files_valid_threshold() -> None:
     """
     Ensure that increasing the threshold works
     """
@@ -52,7 +54,7 @@ def test_find_large_files_valid_threshold():
 
 
 @pytest.mark.django_db
-def test_find_large_files():
+def test_find_large_files() -> None:
     """
     Ensure that finding large files works
     """

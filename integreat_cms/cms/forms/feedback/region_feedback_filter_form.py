@@ -1,8 +1,15 @@
+from __future__ import annotations
+
 from datetime import date
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
+
+if TYPE_CHECKING:
+    from ..models.feedback.feedback import CascadeDeletePolymorphicQuerySet
+    from ..models import Region
 
 from ...constants import feedback_ratings, feedback_read_status
 from ...models import Feedback, Language
@@ -61,18 +68,15 @@ class RegionFeedbackFilterForm(CustomFilterForm):
     )
     query = forms.CharField(required=False)
 
-    def apply(self, feedback, region):
+    def apply(
+        self, feedback: CascadeDeletePolymorphicQuerySet, region: Region | None
+    ) -> tuple[CascadeDeletePolymorphicQuerySet, None]:
         """
         Filter the feedback list according to the given filter data
 
         :param feedback: The list of feedback
-        :type feedback: list
-
         :param region: The current region
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :return: The filtered feedback list and the search query
-        :rtype: tuple
         """
         if not self.is_enabled:
             return feedback, None

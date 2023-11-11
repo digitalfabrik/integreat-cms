@@ -1,11 +1,14 @@
+from __future__ import annotations
+
 import pytest
 from django.core.management.base import CommandError
+from pytest_django.fixtures import SettingsWrapper
 
 from ..utils import get_command_output
 
 
 @pytest.mark.django_db
-def test_hix_bulk_textlab_api_disabled(settings):
+def test_hix_bulk_textlab_api_disabled(settings: SettingsWrapper) -> None:
     """
     Ensure that a disabled textlab api causes an error
     """
@@ -16,7 +19,7 @@ def test_hix_bulk_textlab_api_disabled(settings):
 
 
 @pytest.mark.django_db
-def test_hix_bulk_bulk_non_existing_region(settings):
+def test_hix_bulk_bulk_non_existing_region(settings: SettingsWrapper) -> None:
     """
     Ensure that a non existing region slug throws an error
     """

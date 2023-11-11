@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -5,6 +9,9 @@ from django.utils.translation import gettext_lazy as _
 
 from ..events.event_translation import EventTranslation
 from .feedback import Feedback
+
+if TYPE_CHECKING:
+    from django.db.models.query import QuerySet
 
 
 class EventFeedback(Feedback):
@@ -20,22 +27,20 @@ class EventFeedback(Feedback):
     )
 
     @property
-    def object_name(self):
+    def object_name(self) -> str:
         """
         This property returns the name of the object this feedback comments on.
 
         :return: The name of the object this feedback refers to
-        :rtype: str
         """
         return self.best_event_translation.title
 
     @cached_property
-    def object_url(self):
+    def object_url(self) -> str:
         """
         This property returns the url to the object this feedback comments on.
 
         :return: The url to the referred object
-        :rtype: str
         """
         return reverse(
             "edit_event",
@@ -47,22 +52,20 @@ class EventFeedback(Feedback):
         )
 
     @cached_property
-    def best_event_translation(self):
+    def best_event_translation(self) -> EventTranslation:
         """
         This property returns the best translation for the event this feedback comments on.
 
         :return: The best event translation
-        :rtype: ~integreat_cms.cms.models.events.event_translation.EventTranslation
         """
         return self.event_translation.event.best_translation
 
     @property
-    def related_feedback(self):
+    def related_feedback(self) -> QuerySet[EventFeedback]:
         """
         This property returns all feedback entries which relate to the same object and have the same is_technical value.
 
         :return: The queryset of related feedback
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.feedback.event_feedback.EventFeedback ]
         """
         return EventFeedback.objects.filter(
             event_translation__event=self.event_translation.event,

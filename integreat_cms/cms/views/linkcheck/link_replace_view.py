@@ -1,9 +1,18 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.contrib import messages
 from django.shortcuts import redirect, render
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import TemplateView
 
 from ...forms import LinkReplaceForm
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
 
 
 class LinkReplaceView(TemplateView):
@@ -17,21 +26,14 @@ class LinkReplaceView(TemplateView):
         "current_menu_item": "linkcheck",
     }
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Render link replace form
 
         :param request: Object representing the user call
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
         form = LinkReplaceForm(
             region=self.request.region, initial={"link_types": ["internal"]}
@@ -46,23 +48,16 @@ class LinkReplaceView(TemplateView):
             },
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Applies link replace form
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises ~django.http.Http404: HTTP status 404 if the edited URL does not exist
 
         :return: Redirect to broken link list
-        :rtype: ~django.http.HttpResponseRedirect
         """
         form = LinkReplaceForm(data=request.POST, region=self.request.region)
 

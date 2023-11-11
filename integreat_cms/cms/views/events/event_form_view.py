@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from cacheops import invalidate_model
 from django.conf import settings
@@ -18,6 +21,11 @@ from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
 from .event_context_mixin import EventContextMixin
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
+
 logger = logging.getLogger(__name__)
 
 
@@ -35,23 +43,16 @@ class EventFormView(
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"translation_status": translation_status}
     #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`
-    back_url_name = "events"
+    back_url_name: str | None = "events"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Render event form for HTTP GET requests
 
         :param request: Object representing the user call
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
         region = request.region
         language = region.get_language_or_404(
@@ -122,20 +123,15 @@ class EventFormView(
         )
 
     # pylint: disable=too-many-locals,too-many-branches
-    def post(self, request, **kwargs):
+    def post(self, request: HttpRequest, **kwargs: Any) -> HttpResponse:
         r"""
         Save event and ender event form for HTTP POST requests
 
         :param request: Object representing the user call
-        :type request: ~django.http.HttpRequest
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to publish events
 
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
         region = request.region
         language = Language.objects.get(slug=kwargs.get("language_slug"))

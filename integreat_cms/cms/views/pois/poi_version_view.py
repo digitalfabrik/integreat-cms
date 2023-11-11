@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.utils.translation import gettext_lazy as _
 
 from ...models import POI
@@ -17,11 +19,10 @@ class POIVersionView(POIContextMixin, ContentVersionView):
     #: The label of the "back to form" button
     back_to_form_label = _("Back to the poi form")
 
-    def has_publish_permission(self):
+    def has_publish_permission(self) -> bool:
         """
         All users who can change POIs also can publish these changes
 
         :returns: Whether the user can publish POIs
-        :rtype: bool
         """
         return self.has_change_permission()

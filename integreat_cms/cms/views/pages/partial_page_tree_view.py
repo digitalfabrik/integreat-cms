@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import json
 from collections import defaultdict
 
-from django.http import JsonResponse
+from django.http import HttpRequest, JsonResponse
 from django.template.loader import render_to_string
 from django.utils.translation import get_language
 from django.views.decorators.http import require_POST
@@ -14,21 +16,16 @@ from ..pages.page_context_mixin import PageContextMixin
 @permission_required("cms.view_page")
 @require_POST
 # pylint: disable=unused-argument
-def render_partial_page_tree_views(request, region_slug, language_slug):
+def render_partial_page_tree_views(
+    request: HttpRequest, region_slug: str, language_slug: str
+) -> JsonResponse:
     r"""
     Retrieve the rendered subtree of a given root page
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param language_slug: The slug of the current language
-    :type language_slug: str
-
     :return: The rendered template responses
-    :rtype: ~django.http.JsonResponse
     """
     requested_tree_ids = [int(i) for i in json.loads(request.body.decode("utf-8"))]
 

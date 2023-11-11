@@ -4,14 +4,11 @@ register = template.Library()
 
 
 @register.filter
-def diff(value, arg):
+def diff(value: int, arg: int) -> int:
     """subtract arg from value
 
     :param value: origin value
-    :type value: int
     :param arg: value to be subtracted
-    :type arg: int
     :return: result of subtraction
-    :rtype: int
     """
     return value - arg

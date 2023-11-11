@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from ...models import Role
 from ..custom_model_form import CustomModelForm
 

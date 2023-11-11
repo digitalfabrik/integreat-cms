@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 from urllib.parse import urlparse
 
 from django import forms
@@ -15,18 +18,22 @@ from ..utils import internal_link_utils
 from ..utils.slug_utils import generate_unique_slug_helper
 from .custom_model_form import CustomModelForm
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest
+
 
 class CustomContentModelForm(CustomModelForm):
     """
     Form for the content model forms for pages, events and POIs.
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         r"""
         Initialize custom content model form
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
         # Handle content edit lock
         self.changed_by_user = kwargs.pop("changed_by_user", None)
@@ -50,12 +57,11 @@ class CustomContentModelForm(CustomModelForm):
                 # If the foreign object does not exist yet, there ist also no lock so nothing must be done
                 pass
 
-    def clean(self):
+    def clean(self) -> dict[str, Any]:
         """
         This method extends the ``clean()``-method to verify that a user can modify this content model
 
         :return: The cleaned data (see :ref:`overriding-modelform-clean-method`)
-        :rtype: dict
         """
         # Validate CustomModelForm
         cleaned_data = super().clean()
@@ -90,7 +96,7 @@ class CustomContentModelForm(CustomModelForm):
 
         return cleaned_data
 
-    def clean_content(self):
+    def clean_content(self) -> str:
         """
         Validate the content field (see :ref:`overriding-modelform-clean-method`) and applies changes
         to ``<img>``- and ``<a>``-Tags to match the guidelines.
@@ -98,7 +104,6 @@ class CustomContentModelForm(CustomModelForm):
         :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the text content
 
         :return: The valid content
-        :rtype: str
         """
         try:
             content = fromstring(self.cleaned_data["content"])
@@ -162,12 +167,11 @@ class CustomContentModelForm(CustomModelForm):
 
         return tostring(content, with_tail=False).decode("utf-8")
 
-    def clean_slug(self):
+    def clean_slug(self) -> str:
         """
         Validate the slug field (see :ref:`overriding-modelform-clean-method`)
 
         :return: A unique slug based on the input value
-        :rtype: str
         """
         unique_slug = generate_unique_slug_helper(
             self, self._meta.model.foreign_field()
@@ -176,19 +180,14 @@ class CustomContentModelForm(CustomModelForm):
         self.data["slug"] = unique_slug
         return unique_slug
 
-    def save(self, commit=True, foreign_form_changed=False):
+    def save(self, commit: bool = True, foreign_form_changed: bool = False) -> Any:
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
         which are not directly determined by input fields.
 
         :param commit: Whether or not the changes should be written to the database
-        :type commit: bool
-
         :param foreign_form_changed: Whether or not the foreign form of this translation form was changed
-        :type foreign_form_changed: bool
-
         :return: The saved content translation object
-        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
 
         if commit:
@@ -207,13 +206,12 @@ class CustomContentModelForm(CustomModelForm):
         # Save CustomModelForm
         return super().save(commit=commit)
 
-    def add_success_message(self, request):
+    def add_success_message(self, request: HttpRequest) -> None:
         """
         This adds a success message for a translation form.
         Requires the attributes "title", "status" and "foreign_object" on the form instance.
 
         :param request: The current request submitting the translation form
-        :type request: ~django.http.HttpRequest
         """
         model_name = type(self.instance.foreign_object)._meta.verbose_name.title()
         if not self.instance.status == status.PUBLIC:

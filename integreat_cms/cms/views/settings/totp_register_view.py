@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 import pyotp
 from django.contrib import messages
@@ -9,6 +12,11 @@ from django.views.generic import TemplateView
 
 from ...decorators import modify_mfa_authenticated
 from ...utils.totp_utils import check_totp_code, generate_totp_qrcode
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
 
 logger = logging.getLogger(__name__)
 
@@ -21,21 +29,14 @@ class TOTPRegisterView(TemplateView):
 
     template_name = "settings/register_totp.html"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Initialize the registration for the authentication application.
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: A redirection to the account settings
-        :rtype: ~django.http.HttpResponseRedirect
         """
         if request.user.totp_key:
             messages.error(
@@ -54,21 +55,14 @@ class TOTPRegisterView(TemplateView):
         request.session["new_totp_key"] = key
         return render(request, self.template_name, context={"qr": qrcode})
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         View to validate the connection between the authenticator app and the user account.
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: A redirection to the account settings
-        :rtype: ~django.http.HttpResponseRedirect
         """
         totp_code = request.POST.get("totp")
         key = request.session["new_totp_key"]

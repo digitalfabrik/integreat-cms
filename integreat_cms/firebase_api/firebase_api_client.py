@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 import requests
 from django.conf import settings
@@ -9,6 +12,11 @@ from ..cms.forms.push_notifications.push_notification_translation_form import (
     PushNotificationTranslation,
 )
 from ..cms.models import Region
+
+if TYPE_CHECKING:
+    from requests.models import Response
+
+    from ..cms.models.push_notifications.push_notification import PushNotification
 
 logger = logging.getLogger(__name__)
 
@@ -26,13 +34,11 @@ class FirebaseApiClient:
         https://firebase.google.com/docs/cloud-messaging/migrate-v1
     """
 
-    def __init__(self, push_notification):
+    def __init__(self, push_notification: PushNotification) -> None:
         """
         Load relevant push notification translations and prepare content for sending
 
         :param push_notification: the push notification that should be sent
-        :type push_notification: ~integreat_cms.cms.models.push_notifications.push_notification.PushNotification
-
         :raises ~django.core.exceptions.ImproperlyConfigured: If the auth key is missing or the system runs in debug
                                                               mode but the test region does not exist.
         """
@@ -61,7 +67,7 @@ class FirebaseApiClient:
                 ) from e
         self.regions = push_notification.regions.all()
 
-    def load_secondary_pnts(self):
+    def load_secondary_pnts(self) -> None:
         """
         Load push notification translations in other languages
         """
@@ -79,12 +85,11 @@ class FirebaseApiClient:
             elif len(secondary_pnt.title) > 0:
                 self.prepared_pnts.append(secondary_pnt)
 
-    def is_valid(self):
+    def is_valid(self) -> bool:
         """
         Check if all data for sending push notifications is available
 
         :return: all prepared push notification translations are valid
-        :rtype: bool
         """
         if not self.prepared_pnts:
             logger.debug(
@@ -97,18 +102,13 @@ class FirebaseApiClient:
                 return False
         return True
 
-    def send_pn(self, pnt, region):
+    def send_pn(self, pnt: PushNotificationTranslation, region: Region) -> Response:
         """
         Send single push notification translation
 
         :param pnt: The prepared push notification translation to be sent
-        :type pnt: ~integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
-
         :param region: The region for which to send the prepared push notification translation
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :return: Response of the :mod:`requests` library
-        :rtype: ~requests.Response
         """
         payload = {
             "to": f"/topics/{region.slug}-{pnt.language.slug}-{self.push_notification.channel}",
@@ -139,12 +139,11 @@ class FirebaseApiClient:
             timeout=settings.DEFAULT_REQUEST_TIMEOUT,
         )
 
-    def send_all(self):
+    def send_all(self) -> bool:
         """
         Send all prepared push notification translations
 
         :return: Success status
-        :rtype: bool
         """
         status = True
         for pnt in self.prepared_pnts:

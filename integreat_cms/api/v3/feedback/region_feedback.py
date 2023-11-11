@@ -1,39 +1,40 @@
 """
 APIv3 endpoint for feedback about full region (main level of content)
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.http import JsonResponse
 
 from ....cms.models import RegionFeedback
 from ...decorators import feedback_handler, json_response
 
+if TYPE_CHECKING:
+    from ....cms.models import Language, Region
+
 
 @feedback_handler
 @json_response
 # pylint: disable=unused-argument
-def region_feedback(data, region, language, comment, rating, is_technical):
+def region_feedback(
+    data: dict,
+    region: Region,
+    language: Language,
+    comment: str,
+    rating: bool | None,
+    is_technical: bool,
+) -> JsonResponse:
     """
     Store feedback about region / main pages in database
 
     :param data: HTTP request body data
-    :type data: dict
-
     :param region: The region of this sitemap's urls
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :param language: The language of this sitemap's urls
-    :type language: ~integreat_cms.cms.models.languages.language.Language
-
     :param comment: The comment sent as feedback
-    :type comment: str
-
     :param rating: up or downvote, neutral
-    :type rating: bool
-
     :param is_technical: is feedback on content or on tech
-    :type is_technical: bool
-
     :return: JSON object according to APIv3 region feedback endpoint definition
-    :rtype: ~django.http.JsonResponse
     """
     RegionFeedback.objects.create(
         region=region,

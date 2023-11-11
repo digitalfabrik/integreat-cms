@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import logging
 from collections import Counter
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.db import transaction
@@ -12,6 +15,11 @@ from ...constants.status import CHOICES
 from ...decorators import permission_required
 from ...forms import TranslationsManagementForm
 from ...models import Event, Page, POI
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 
@@ -29,21 +37,18 @@ class TranslationsManagementView(TemplateView):
     extra_context = {"current_menu_item": "translations_management"}
 
     # pylint: disable=unused-variable
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Extend context by word counts
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The context dictionary
-        :rtype: dict
         """
 
         region = self.request.region
         content_types = [Event, POI, Page]
 
-        word_count = {}
+        word_count: dict[str, Counter] = {}
 
         for content_type in content_types:
             content_name = content_type._meta.verbose_name_plural.title()
@@ -80,21 +85,14 @@ class TranslationsManagementView(TemplateView):
         )
         return context
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Render translations management interface
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         form = TranslationsManagementForm(instance=request.region)
@@ -109,23 +107,18 @@ class TranslationsManagementView(TemplateView):
         )
 
     @transaction.atomic
-    def post(self, request, *args, **kwargs):
+    def post(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
         r"""
         Submit :class:`~integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm` objects.
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         form = TranslationsManagementForm(

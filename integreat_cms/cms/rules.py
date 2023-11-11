@@ -17,24 +17,26 @@ For a given user and page, the following permissions are added:
 
 See the project's `README <https://github.com/dfunckt/django-rules/blob/master/README.rst>`_ to learn more.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from rules import add_perm, predicate
+
+if TYPE_CHECKING:
+    from .models import ChatMessage, Page, User
 
 # Predicates
 
 
 @predicate
-def is_page_author(user, page):
+def is_page_author(user: User, page: Page | None) -> bool:
     """
     This predicate checks whether the given user is one of the authors of the given page.
 
     :param user: The user who's permission should be checked
-    :type user: ~django.contrib.auth.models.User
-
     :param page: The requested page
-    :type page: ~integreat_cms.cms.models.pages.page.Page
-
     :return: Whether or not ``user`` is an author of ``page``
-    :rtype: bool
     """
     if not page or not page.id:
         return False
@@ -42,18 +44,13 @@ def is_page_author(user, page):
 
 
 @predicate
-def is_page_editor(user, page):
+def is_page_editor(user: User, page: Page | None) -> bool:
     """
     This predicate checks whether the given user is one of the editors of the given page.
 
     :param user: The user who's permission should be checked
-    :type user: ~django.contrib.auth.models.User
-
     :param page: The requested page
-    :type page: ~integreat_cms.cms.models.pages.page.Page
-
     :return: Whether or not ``user`` is an editor of ``page``
-    :rtype: bool
     """
     if not page or not page.id:
         return False
@@ -61,18 +58,13 @@ def is_page_editor(user, page):
 
 
 @predicate
-def can_edit_all_pages(user, page):
+def can_edit_all_pages(user: User, page: Page | None) -> bool:
     """
     This predicate checks whether the given user can edit all pages.
 
     :param user: The user who's permission should be checked
-    :type user: ~django.contrib.auth.models.User
-
     :param page: The page parameter is used for the region check
-    :type page: ~integreat_cms.cms.models.pages.page.Page
-
     :return: Whether or not ``user`` can edit all pages
-    :rtype: bool
     """
     if (
         not user.is_superuser
@@ -86,18 +78,13 @@ def can_edit_all_pages(user, page):
 
 
 @predicate
-def can_publish_all_pages(user, page):
+def can_publish_all_pages(user: User, page: Page | None) -> bool:
     """
     This predicate checks whether the given user can publish all pages.
 
     :param user: The user who's permission should be checked
-    :type user: ~django.contrib.auth.models.User
-
     :param page: The page parameter is used for the region check
-    :type page: ~integreat_cms.cms.models.pages.page.Page
-
     :return: Whether or not ``user`` can publish all pages
-    :rtype: bool
     """
     if not (user.is_superuser or user.is_staff):
         if page and page.id and page.region not in user.regions.all():
@@ -106,18 +93,13 @@ def can_publish_all_pages(user, page):
 
 
 @predicate
-def is_in_responsible_organization(user, page):
+def is_in_responsible_organization(user: User, page: Page | None) -> bool:
     """
     This predicate checks whether the given user is a member of the page's responsible organization.
 
     :param user: The user who's permission should be checked
-    :type user: ~django.contrib.auth.models.User
-
     :param page: The requested page
-    :type page: ~integreat_cms.cms.models.pages.page.Page
-
     :return: Whether or not ``user`` is a member of ``page.organization``
-    :rtype: bool
     """
     if not page or not page.id or not page.organization:
         return False
@@ -125,18 +107,13 @@ def is_in_responsible_organization(user, page):
 
 
 @predicate
-def can_delete_chat_message(user, chat_message):
+def can_delete_chat_message(user: User, chat_message: ChatMessage) -> bool:
     """
     This predicate checks whether the given user can delete a given chat message
 
     :param user: The user who's permission should be checked
-    :type user: ~django.contrib.auth.models.User
-
     :param chat_message: The requested chat message
-    :type chat_message: ~integreat_cms.cms.models.chat.chat_message.ChatMessage
-
     :return: Whether or not ``user`` is allowed to delete ``chat_message``
-    :rtype: bool
     """
     # Check if user has the permission to delete all chat messages
     if user.has_perm("cms.delete_chat_message"):

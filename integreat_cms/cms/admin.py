@@ -1,12 +1,19 @@
 """
 Debug lists and forms for all models
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.apps import apps
 from django.conf import settings
 from django.contrib import admin
 from treebeard.admin import TreeAdmin
 from treebeard.forms import movenodeform_factory
 from treebeard.ns_tree import NS_Node
+
+if TYPE_CHECKING:
+    from django.forms import ModelForm
 
 if settings.DEBUG:
     for model in apps.get_app_config("cms").get_models():
@@ -18,13 +25,13 @@ if settings.DEBUG:
                 """
 
                 #: The form is dynamically generated via :func:`treebeard.forms.movenodeform_factory`
-                form = movenodeform_factory(model)
+                form: ModelForm = movenodeform_factory(model)
                 # Filters in the right sidebar of the lists
-                list_filter = ("region",)
+                list_filter: tuple[str, ...] = ("region",)
                 #: Which fields are displayed as columns in the lists
-                list_display = ("__str__", "region")
+                list_display: tuple[str, ...] = ("__str__", "region")
                 #: How lists of objects should be ordered
-                ordering = ("region",)
+                ordering: tuple[str, ...] = ("region",)
 
             admin.site.register(model, ModelTreeAdmin)
         else:

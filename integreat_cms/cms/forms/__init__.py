@@ -3,6 +3,8 @@ Forms for creating and modifying database objects.
 Please refer to :mod:`django.forms` for general information about Django forms (see also: :doc:`django:topics/forms/index`).
 """
 
+from __future__ import annotations
+
 from .chat.chat_message_form import ChatMessageForm
 from .events.event_filter_form import EventFilterForm
 from .events.event_form import EventForm

@@ -1,19 +1,19 @@
+from __future__ import annotations
+
 from urllib.parse import urlencode
 
 import pytest
+from django.test.client import Client
 from django.urls import reverse
 
 
 @pytest.mark.django_db
-def test_page_filters(load_test_data, admin_client):
+def test_page_filters(load_test_data: None, admin_client: Client) -> None:
     """
     Test whether duplicating regions works as expected
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: tuple
-
     :param admin_client: The fixture providing the logged in admin
-    :type admin_client: :fixture:`admin_client`
     """
     page_tree = reverse(
         "pages", kwargs={"region_slug": "augsburg", "language_slug": "en"}
@@ -28,7 +28,7 @@ def test_page_filters(load_test_data, admin_client):
     assert "Trivia about Augsburg" not in response.content.decode("utf-8")
     assert "About the Integreat App Augsburg" not in response.content.decode("utf-8")
     # Searching for a page should return all results, independently of their level
-    filter_params = {"query": "Augsburg"}
+    filter_params: dict[str, str | list[str]] = {"query": "Augsburg"}
     response = admin_client.get(f"{page_tree}?{urlencode(filter_params)}")
     print(response.headers)
     assert response.status_code == 200

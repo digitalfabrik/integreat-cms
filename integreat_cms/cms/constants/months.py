@@ -1,35 +1,45 @@
 """
 This module contains all string representations of months, used by :class:`~integreat_cms.cms.models.events.event.Event`.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.utils.translation import gettext_lazy as _
 
+if TYPE_CHECKING:
+    from typing import Final
+
+    from django.utils.functional import Promise
+
+
 #: January
-JANUARY = 0
+JANUARY: Final = 0
 #: February
-FEBRUARY = 1
+FEBRUARY: Final = 1
 #: March
-MARCH = 2
+MARCH: Final = 2
 #: April
-APRIL = 3
+APRIL: Final = 3
 #: May
-MAY = 4
+MAY: Final = 4
 #: June
-JUNE = 5
+JUNE: Final = 5
 #: July
-JULY = 6
+JULY: Final = 6
 #: August
-AUGUST = 7
+AUGUST: Final = 7
 #: September
-SEPTEMBER = 8
+SEPTEMBER: Final = 8
 #: October
-OCTOBER = 9
+OCTOBER: Final = 9
 #: November
-NOVEMBER = 10
+NOVEMBER: Final = 10
 #: December
-DECEMBER = 11
+DECEMBER: Final = 11
 
 #: Choices to use these constants in a database field
-CHOICES = (
+CHOICES: Final[list[tuple[int, Promise]]] = [
     (JANUARY, _("January")),
     (FEBRUARY, _("February")),
     (MARCH, _("March")),
@@ -42,4 +52,4 @@ CHOICES = (
     (OCTOBER, _("October")),
     (NOVEMBER, _("November")),
     (DECEMBER, _("December")),
-)
+]

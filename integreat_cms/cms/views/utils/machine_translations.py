@@ -1,36 +1,40 @@
 """
 This module contains the generalized function to build the AJAX call for the machine translation popup
 """
+from __future__ import annotations
+
 import json
 import logging
+from typing import TYPE_CHECKING
 
 from django.http import JsonResponse
 
 from ....textlab_api.utils import check_hix_score
 from ...models import Event, Page, POI
 
+if TYPE_CHECKING:
+    from typing import Literal
+
+    from django.http import HttpRequest
+
 logger = logging.getLogger(__name__)
 
 
 # pylint: disable=unused-argument, too-many-locals
-def build_json_for_machine_translation(request, region_slug, language_slug, model_type):
+def build_json_for_machine_translation(
+    request: HttpRequest,
+    region_slug: str,
+    language_slug: str,
+    model_type: Literal["page", "event", "poi"],
+) -> JsonResponse:
     """
     This function collects the hix score and the amount of words per content entry from the source
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: slug of the according region
-    :type region_slug: str
-
     :param language_slug: The slug of the current language
-    :type language_slug: str
-
     :param model_type: The according model to the different content types
-    :type model_type: ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel
-
     :return: A dictionary that contains the data for the machine translation popup (page id, title, amount of words and optional hix value)
-    :rtype: dict
     """
 
     model_types = {

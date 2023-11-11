@@ -1,6 +1,12 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.views.generic import TemplateView
+
+if TYPE_CHECKING:
+    from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -14,15 +20,12 @@ class AppSizeView(TemplateView):
     template_name = "analytics/app_size.html"
 
     # pylint: disable=fixme
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict:
         r"""
         Extend context by app size
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The context dictionary
-        :rtype: dict
         """
         context = super().get_context_data(**kwargs)
 

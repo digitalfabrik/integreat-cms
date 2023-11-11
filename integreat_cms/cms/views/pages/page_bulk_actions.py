@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
@@ -11,6 +14,12 @@ from ...utils.pdf_utils import generate_pdf
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
 from ..bulk_action_views import BulkActionView
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
+    from django.http.response import HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 
@@ -35,21 +44,16 @@ class GeneratePdfView(PageBulkActionMixin, BulkActionView):
     #: Whether the public translation objects should be prefetched
     prefetch_public_translations = True
 
-    def post(self, request, *args, **kwargs):
+    def post(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
         r"""
         Apply the bulk action on every item in the queryset and redirect
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The redirect
-        :rtype: ~django.http.HttpResponseRedirect
         """
         # Generate PDF document and redirect to it
         return generate_pdf(
@@ -70,22 +74,17 @@ class ExportXliffView(PageBulkActionMixin, BulkActionView):
     #: Whether the view requires change permissions
     require_change_permission = False
 
-    def post(self, request, *args, **kwargs):
+    def post(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
         r"""
         Function for handling a XLIFF export request for pages.
         The pages get extracted from request.GET attribute and the request is forwarded to :func:`~integreat_cms.xliff.utils.pages_to_xliff_file`
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The redirect
-        :rtype: ~django.http.HttpResponseRedirect
         """
         target_language = get_object_or_404(
             self.request.region.language_tree_nodes,
@@ -139,22 +138,15 @@ class ExportMultiLanguageXliffView(PageBulkActionMixin, BulkActionView):
     #: Whether the view requires change permissions
     require_change_permission = False
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Function for handling a XLIFF export request for pages and multiple languages.
         The pages get extracted from request.GET attribute and the request is forwarded to :func:`~integreat_cms.xliff.utils.pages_to_xliff_file`
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The redirect
-        :rtype: ~django.http.HttpResponseRedirect
         """
 
         target_languages = [

@@ -1,4 +1,10 @@
+from __future__ import annotations
+
 import json
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 import pytest
 from django.test.client import Client
@@ -11,39 +17,26 @@ from .api_config import API_ENDPOINTS
     "endpoint,wp_endpoint,expected_result,expected_code,expected_queries", API_ENDPOINTS
 )
 def test_api_result(
-    load_test_data,
-    django_assert_num_queries,
-    endpoint,
-    wp_endpoint,
-    expected_result,
-    expected_code,
-    expected_queries,
-):
+    load_test_data: None,
+    django_assert_num_queries: Callable,
+    endpoint: str,
+    wp_endpoint: str,
+    expected_result: str,
+    expected_code: int,
+    expected_queries: int,
+) -> None:
     """
     This test class checks all endpoints defined in :attr:`~tests.api.api_config.API_ENDPOINTS`.
     It verifies that the content delivered by the endpoint is equivalent with the data
     provided in the corresponding json file.
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: tuple
-
     :param django_assert_num_queries: The fixture providing the query assertion
-    :type django_assert_num_queries: functools.partialmethod
-
     :param endpoint: The url of the new Django pattern
-    :type endpoint: str
-
     :param wp_endpoint: The legacy url of the wordpress endpoint pattern
-    :type wp_endpoint: str
-
     :param expected_result: The path to the json file that contains the expected result
-    :type expected_result: str
-
     :param expected_code: The expected HTTP status code
-    :type expected_code: int
-
     :param expected_queries: The expected number of SQL queries
-    :type expected_queries: int
     """
     client = Client()
     with django_assert_num_queries(expected_queries):

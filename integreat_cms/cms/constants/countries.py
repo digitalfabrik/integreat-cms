@@ -2,12 +2,22 @@
 This module contains a mapping from ISO 3166-1 alpha-2 country codes to their names in English.
 Data based on: https://github.com/SmileyChris/django-countries/blob/master/django_countries/data.py
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.utils.translation import gettext_lazy as _
 
 from ..utils.translation_utils import gettext_many_lazy as __
 
+if TYPE_CHECKING:
+    from typing import Final
+
+    from django.utils.functional import Promise
+
+
 #: Choices which can be used as primary countries for language objects
-CHOICES = (
+CHOICES: Final[list[tuple[str, Promise]]] = [
     ("ab", __(_("Arabic"), _("(non-political)"))),
     ("ad", _("Andorra")),
     ("ae", _("United Arab Emirates")),
@@ -182,10 +192,10 @@ CHOICES = (
     ("za", _("South Africa")),
     ("zm", _("Zambia")),
     ("zw", _("Zimbabwe")),
-)
+]
 
 #: Choices which are currently inactive and cannot be used to represent languages
-INACTIVE_CHOICES = (
+INACTIVE_CHOICES: Final[list[tuple[str, Promise]]] = [
     ("ac", _("Ascension")),
     ("ag", _("Antigua and Barbuda")),
     ("ai", _("Anguilla")),
@@ -265,4 +275,4 @@ INACTIVE_CHOICES = (
     ("wf", _("Wallis and Futuna")),
     ("ws", _("Samoa")),
     ("yt", _("Mayotte")),
-)
+]

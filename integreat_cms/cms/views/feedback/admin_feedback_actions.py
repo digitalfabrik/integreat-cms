@@ -1,7 +1,10 @@
 """
 This module contains action methods for feedback items (archive, restore, ...)
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from cacheops import invalidate_model, invalidate_obj
 from django.contrib import messages
@@ -12,20 +15,20 @@ from django.views.decorators.http import require_POST
 from ...decorators import permission_required
 from ...models import Feedback
 
+if TYPE_CHECKING:
+    from django.http import HttpRequest, HttpResponseRedirect
+
 logger = logging.getLogger(__name__)
 
 
 @require_POST
 @permission_required("cms.change_feedback")
-def mark_admin_feedback_as_read(request):
+def mark_admin_feedback_as_read(request: HttpRequest) -> HttpResponseRedirect:
     """
     Set read flag for a list of feedback items
 
     :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
     :return: A redirection to the admin feedback list
-    :rtype: ~django.http.HttpResponseRedirect
     """
 
     selected_ids = request.POST.getlist("selected_ids[]")
@@ -44,15 +47,12 @@ def mark_admin_feedback_as_read(request):
 
 @require_POST
 @permission_required("cms.change_feedback")
-def mark_admin_feedback_as_unread(request):
+def mark_admin_feedback_as_unread(request: HttpRequest) -> HttpResponseRedirect:
     """
     Unset read flag for a list of feedback items
 
     :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
     :return: A redirection to the admin feedback list
-    :rtype: ~django.http.HttpResponseRedirect
     """
 
     selected_ids = request.POST.getlist("selected_ids[]")
@@ -73,15 +73,12 @@ def mark_admin_feedback_as_unread(request):
 
 @require_POST
 @permission_required("cms.change_feedback")
-def archive_admin_feedback(request):
+def archive_admin_feedback(request: HttpRequest) -> HttpResponseRedirect:
     """
     Archive a list of feedback items
 
     :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
     :return: A redirection to the admin feedback list
-    :rtype: ~django.http.HttpResponseRedirect
     """
 
     selected_ids = request.POST.getlist("selected_ids[]")
@@ -98,15 +95,12 @@ def archive_admin_feedback(request):
 
 @require_POST
 @permission_required("cms.change_feedback")
-def restore_admin_feedback(request):
+def restore_admin_feedback(request: HttpRequest) -> HttpResponseRedirect:
     """
     Restore a list of feedback items
 
     :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
     :return: A redirection to the admin feedback list
-    :rtype: ~django.http.HttpResponseRedirect
     """
 
     selected_ids = request.POST.getlist("selected_ids[]")
@@ -123,15 +117,12 @@ def restore_admin_feedback(request):
 
 @require_POST
 @permission_required("cms.delete_feedback")
-def delete_admin_feedback(request):
+def delete_admin_feedback(request: HttpRequest) -> HttpResponseRedirect:
     """
     Delete a list of feedback items
 
     :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
     :return: A redirection to the admin feedback list
-    :rtype: ~django.http.HttpResponseRedirect
     """
 
     selected_ids = request.POST.getlist("selected_ids[]")

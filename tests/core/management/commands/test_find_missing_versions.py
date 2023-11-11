@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import pytest
 from django.core.management.base import CommandError
 
@@ -6,7 +8,7 @@ from integreat_cms.cms.models import Page
 from ..utils import get_command_output
 
 
-def test_find_missing_versions_missing_model():
+def test_find_missing_versions_missing_model() -> None:
     """
     Ensure that missing model cause an error
     """
@@ -15,7 +17,7 @@ def test_find_missing_versions_missing_model():
     assert str(exc_info.value) == "Error: the following arguments are required: model"
 
 
-def test_find_missing_versions_invalid_model():
+def test_find_missing_versions_invalid_model() -> None:
     """
     Ensure that an invalid model throws an error
     """
@@ -29,7 +31,7 @@ def test_find_missing_versions_invalid_model():
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("model", ["page", "event", "poi"])
-def test_find_missing_versions_success(load_test_data, model):
+def test_find_missing_versions_success(load_test_data: None, model: str) -> None:
     """
     Ensure no errors are found in default test data
     """
@@ -39,7 +41,7 @@ def test_find_missing_versions_success(load_test_data, model):
 
 
 @pytest.mark.django_db
-def test_find_missing_versions_failure(load_test_data):
+def test_find_missing_versions_failure(load_test_data: None) -> None:
     """
     Ensure that inconsistencies are listed
     """

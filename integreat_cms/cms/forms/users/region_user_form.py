@@ -1,6 +1,13 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib.auth import get_user_model
+
+if TYPE_CHECKING:
+    from typing import Any
+    from ...models import Region
 
 from ...models import Organization
 from .user_form import UserForm
@@ -13,15 +20,12 @@ class RegionUserForm(UserForm):
     Form for creating and modifying region user objects
     """
 
-    def __init__(self, region, **kwargs):
+    def __init__(self, region: Region, **kwargs: Any) -> None:
         r"""
         Initialize region user form
 
         :param region: The current region
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
 
         # Instantiate UserForm

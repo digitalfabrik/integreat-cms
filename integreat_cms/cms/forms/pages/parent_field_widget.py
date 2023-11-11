@@ -1,5 +1,14 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django import forms
 from django.urls import reverse
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.utils.safestring import SafeString
 
 
 class ParentFieldWidget(forms.widgets.Select):
@@ -12,35 +21,30 @@ class ParentFieldWidget(forms.widgets.Select):
 
     # pylint: disable=too-many-arguments
     def create_option(
-        self, name, value, label, selected, index, subindex=None, attrs=None
-    ):
+        self,
+        name: str,
+        value: int | str,
+        label: SafeString | str,
+        selected: bool,
+        index: int,
+        subindex: Any | None = None,
+        attrs: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
         """
         This function creates an option which can be selected in the parent field
 
         :param name: The name of the option
-        :type name: str
-
         :param value: the value of the option (the page id)
-        :type value: int
-
         :param label: The label of the option
-        :type label: str
-
         :param selected: Whether or not the option is selected
-        :type selected: bool
-
         :param index: The index of the option
-        :type index: int
-
         :param subindex: The subindex of the option
-        :type subindex: int
-
         :param attrs: The attributes of the option
-        :type attrs: dict
-
         :return: The option dict
-        :rtype: dict
         """
+        if TYPE_CHECKING:
+            assert self.form
+            assert self.form.instance
         # Create dictionary of options
         option_dict = super().create_option(
             name, value, label, selected, index, subindex=subindex, attrs=attrs

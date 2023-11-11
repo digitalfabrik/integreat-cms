@@ -1,3 +1,11 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Any
+
+
 import pytest
 from django.core.management.base import CommandError
 from linkcheck.listeners import enable_listeners
@@ -7,12 +15,11 @@ from ..utils import get_command_output
 
 
 @pytest.mark.django_db
-def test_fix_internal_links_non_existing_region(load_test_data):
+def test_fix_internal_links_non_existing_region(load_test_data: None) -> None:
     """
     Ensure that a non existing region slug throws an error
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: tuple
     """
     with pytest.raises(CommandError) as exc_info:
         assert not any(
@@ -22,12 +29,13 @@ def test_fix_internal_links_non_existing_region(load_test_data):
 
 
 @pytest.mark.django_db
-def test_fix_internal_links_non_existing_username(load_test_data):
+def test_fix_internal_links_non_existing_username(
+    load_test_data: None,
+) -> None:
     """
     Ensure that a non existing username throws an error
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: tuple
     """
     with pytest.raises(CommandError) as exc_info:
         assert not any(
@@ -55,12 +63,13 @@ new_urls = [
 
 @pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_fix_internal_links_dry_run(load_test_data_transactional):
+def test_fix_internal_links_dry_run(
+    load_test_data_transactional: Any | None,
+) -> None:
     """
     Ensure that dry run works as expected
 
     :param load_test_data_transactional: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data_transactional`)
-    :type load_test_data_transactional: tuple
     """
     old_link_occurrence_counts = []
 
@@ -97,12 +106,11 @@ def test_fix_internal_links_dry_run(load_test_data_transactional):
 
 @pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_fix_internal_links_commit(load_test_data_transactional):
+def test_fix_internal_links_commit(load_test_data_transactional: Any | None) -> None:
     """
     Ensure that committing changes to the database works as expected
 
     :param load_test_data_transactional: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data_transactional`)
-    :type load_test_data_transactional: tuple
     """
     old_link_occurrence_counts = []
 

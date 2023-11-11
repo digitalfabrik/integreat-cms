@@ -1,7 +1,15 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.db.models.fields import BLANK_CHOICE_DASH
+
+if TYPE_CHECKING:
+    from django.db.models.query import QuerySet
+    from ...models import User
+
 from django.utils.translation import gettext_lazy as _
 
 from ...constants import roles
@@ -38,15 +46,12 @@ class UserFilterForm(CustomFilterForm):
     )
     query = forms.CharField(required=False)
 
-    def apply(self, users):
+    def apply(self, users: QuerySet[User]) -> QuerySet[User]:
         """
         Filter the users list according to the given filter data
 
         :param users: The list of users
-        :type users: list
-
         :return: The filtered page list
-        :rtype: list
         """
         if self.is_enabled:
             logger.debug("User list filtered with changed data %r", self.changed_data)
@@ -60,15 +65,12 @@ class UserFilterForm(CustomFilterForm):
                 users = users.filter(regions=self.cleaned_data["region"])
         return users
 
-    def filter_by_query(self, users):
+    def filter_by_query(self, users: QuerySet[User]) -> QuerySet[User]:
         """
         Filter the pages list by a given search query
 
         :param users: The list of users
-        :type users: list
-
         :return: The filtered page list
-        :rtype: list
         """
         query = self.cleaned_data["query"].lower()
         user_keys = search_users(region=None, query=query).values("pk")

@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -11,6 +14,20 @@ from django.views.generic.detail import SingleObjectMixin
 
 from ..constants import status
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.db.models.base import ModelBase
+    from django.http import HttpRequest, HttpResponseRedirect
+    from django.template.response import TemplateResponse
+    from django.utils.functional import Promise
+
+    from ..models import Language
+    from ..models.abstract_content_model import AbstractContentModel, ContentQuerySet
+    from ..models.abstract_content_translation import AbstractContentTranslation
+    from ..models.events.event import EventQuerySet
+    from ..models.pages.page import PageQuerySet
+
 logger = logging.getLogger(__name__)
 
 
@@ -20,56 +37,59 @@ class ContentVersionView(PermissionRequiredMixin, SingleObjectMixin, TemplateVie
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "content_versions.html"
+    template_name: str = "content_versions.html"
 
     #: The current language
-    language = None
+    language: Language | None = None
 
     #: The current content model (see :class:`~django.views.generic.detail.SingleObjectMixin`)
-    model = None
+    model: ModelBase | None = None
 
     #: The current content object (see :class:`~django.views.generic.detail.SingleObjectMixin`)
-    object = None
+    object: AbstractContentModel | None = None
 
     #: All translations of the content object in the current language
-    translations = []
+    translations: list[AbstractContentTranslation] = []
 
     #: The currently selected translation version
-    selected_version = None
+    selected_version: AbstractContentTranslation | None = None
 
     #: The label of the "back to form" button
-    back_to_form_label = _("Back to the form")
+    back_to_form_label: Promise = _("Back to the form")
 
     @property
-    def model_name(self):
+    def model_name(self) -> str:
         """
         The name of this model
 
         :returns: The name of this model
-        :rtype: str
         """
+        if TYPE_CHECKING:
+            assert self.model
         return self.model._meta.model_name.lower()
 
     @property
-    def pk_url_kwarg(self):
+    def pk_url_kwarg(self) -> str:
         """
         The name of the URLConf keyword argument that contains the primary key.
         By default, pk_url_kwarg is 'pk'.
         See :attr:`django:django.views.generic.detail.SingleObjectMixin.pk_url_kwarg`.
 
         :returns: The name of URL kwarg of the id
-        :rtype: str
         """
         return f"{self.model_name}_id"
 
     @property
-    def edit_url(self):
+    def edit_url(self) -> str:
         """
         The url to the form in the current language
 
         :returns: The edit url
-        :rtype: str
         """
+        if TYPE_CHECKING:
+            assert self.request.region
+            assert self.language
+            assert self.object
         return reverse(
             f"edit_{self.model_name}",
             kwargs={
@@ -80,13 +100,16 @@ class ContentVersionView(PermissionRequiredMixin, SingleObjectMixin, TemplateVie
         )
 
     @property
-    def versions_url(self):
+    def versions_url(self) -> str:
         """
         The url to the form in the current language
 
         :returns: The edit url
-        :rtype: str
         """
+        if TYPE_CHECKING:
+            assert self.request.region
+            assert self.language
+            assert self.object
         return reverse(
             f"{self.model_name}_versions",
             kwargs={
@@ -96,39 +119,35 @@ class ContentVersionView(PermissionRequiredMixin, SingleObjectMixin, TemplateVie
             },
         )
 
-    def has_view_permission(self):
+    def has_view_permission(self) -> bool:
         """
         Whether the user has the permission to change objects
 
         :returns: Whether the user can change objects
-        :rtype: bool
         """
         return self.request.user.has_perm(f"cms.view_{self.model_name}")
 
-    def has_change_permission(self):
+    def has_change_permission(self) -> bool:
         """
         Whether the user has the permission to change objects
 
         :returns: Whether the user can change objects
-        :rtype: bool
         """
         return self.request.user.has_perm(f"cms.change_{self.model_name}")
 
-    def has_publish_permission(self):
+    def has_publish_permission(self) -> bool:
         """
         Whether the user has the permission to publish objects
 
         :returns: Whether the user can publish objects
-        :rtype: bool
         """
         return self.request.user.has_perm(f"cms.publish_{self.model_name}")
 
-    def has_permission(self):
+    def has_permission(self) -> bool:
         """
         Override :meth:`django:django.contrib.auth.mixins.PermissionRequiredMixin.has_permission`
 
         :returns: Whether the current user can access this view
-        :rtype: bool
         """
         archived = getattr(self.object, "archived", False)
         if self.request.method == "POST":
@@ -145,24 +164,25 @@ class ContentVersionView(PermissionRequiredMixin, SingleObjectMixin, TemplateVie
             )
         return self.has_view_permission()
 
-    def get_queryset(self):
+    def get_queryset(self) -> ContentQuerySet | (EventQuerySet | PageQuerySet):
         """
         Filter the content objects by the current region
 
         :raises ~django.http.Http404: HTTP status 404 if the content is not found
 
         :return: The rendered template response
-        :rtype: ~integreat_cms.cms.models.abstract_content_model.ContentQuerySet
         """
         return super().get_queryset().filter(region=self.request.region)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Get revision context data
 
         :return: The context dictionary
-        :rtype: dict
         """
+        if TYPE_CHECKING:
+            assert self.selected_version
+            assert self.model
         context = super().get_context_data(**kwargs)
 
         api_version = next(
@@ -197,25 +217,22 @@ class ContentVersionView(PermissionRequiredMixin, SingleObjectMixin, TemplateVie
 
         return context
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect | TemplateResponse:
         r"""
         Validate the versions view
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
         self.object = self.get_object()
+        if TYPE_CHECKING:
+            assert self.object
 
         self.language = self.request.region.get_language_or_404(
             kwargs.get("language_slug"), only_active=True
@@ -244,23 +261,18 @@ class ContentVersionView(PermissionRequiredMixin, SingleObjectMixin, TemplateVie
 
         return super().dispatch(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
+    def post(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
         r"""
         Restore a previous revision of a page translation
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         if desired_status := request.POST.get("status"):
@@ -331,12 +343,11 @@ class ContentVersionView(PermissionRequiredMixin, SingleObjectMixin, TemplateVie
 
         return redirect(self.versions_url)
 
-    def restore_version(self, restored_version):
+    def restore_version(self, restored_version: Any) -> None:
         """
         Restore the given version
 
         :param restored_version: The version which should be restored
-        :type restored_version: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
         current_version = self.translations[0]
         # Delete all now outdated links

@@ -1,22 +1,27 @@
 #!/usr/bin/env python3
 
+from __future__ import annotations
+
 import argparse
 import json
 import logging
+from typing import TYPE_CHECKING
 
 import requests
+
+if TYPE_CHECKING:
+    from typing import Any
 
 # Init logging config
 logging.basicConfig(format="%(message)s")
 logger = logging.getLogger(__name__)
 
 
-def parse_args():
+def parse_args() -> argparse.Namespace:
     """
     Parse the given command line arguments
 
     :returns: The command line arguments
-    :rtype: str
     """
 
     # Parse command line arguments
@@ -29,7 +34,7 @@ def parse_args():
     parser.add_argument(
         "-v", "--verbose", action="count", default=0, help="increase logging verbosity"
     )
-    args = parser.parse_args()
+    args: argparse.Namespace = parser.parse_args()
 
     # Set logging verbosity
     if args.verbose == 1:
@@ -40,28 +45,21 @@ def parse_args():
     return args
 
 
-def get_commits(token, base, head):
+def get_commits(token: str, base: str, head: str) -> list[dict[str, Any]]:
     """
     Get the commits between the to references ``base`` and ``head``
 
     :param token: The access token for the GitHub API
-    :type token: str
-
     :param base: The base git reference
-    :type base: str
-
     :param head: The head git reference
-    :type head: str
-
     :raises SystemExit: When the API returns an error
 
     :returns: The list of commits
-    :rtype: list
     """
     # Get the commits since the last tag
     another_page = True
     endpoint = f"https://api.github.com/repos/digitalfabrik/integreat-cms/compare/{base}...{head}?per_page=100"
-    commits = []
+    commits: list[dict[str, Any]] = []
 
     # Retrieve commits as long as other pages exist
     while another_page:
@@ -96,19 +94,15 @@ def get_commits(token, base, head):
     return commits
 
 
-def get_authors(commits):
+def get_authors(commits: list[dict[str, Any]]) -> list[str]:
     """
     Get a list of authors of a list of commits
 
     :param commits: The list of commits
-    :type commits: list
-
-    :raises SystemExit: When the commits do not contain a valid author
-
     :returns: The list of authors
-    :rtype: list
+    :raises SystemExit: When the commits do not contain a valid author
     """
-    authors = []
+    authors: list[str] = []
     for commit in commits:
         # Skip anonymous authors
         if not commit["author"]:
@@ -131,7 +125,7 @@ def get_authors(commits):
     return authors
 
 
-def main():
+def main() -> None:
     """
     Get the contributors between two given git references
 

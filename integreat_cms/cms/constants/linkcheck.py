@@ -1,6 +1,14 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.utils.translation import gettext_lazy as _
 
-LINKCHECK_STATUS_TRANSLATIONS = [
+if TYPE_CHECKING:
+    from typing import Final
+
+
+LINKCHECK_STATUS_TRANSLATIONS: Final = [
     _(
         "New Connection Error: Failed to establish a new connection: "
         "[Errno -2] Name or service not known"
@@ -13,7 +21,7 @@ LINKCHECK_STATUS_TRANSLATIONS = [
     ),
 ]
 
-LINK_TYPES = [
+LINK_TYPES: Final = [
     ("internal", _("Internal links")),
     ("external", _("External links")),
     ("mailto", _("Email links")),

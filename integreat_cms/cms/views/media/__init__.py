@@ -1,6 +1,8 @@
 """
 This package contains all views related to media files
 """
+from __future__ import annotations
+
 from .media_actions import (
     create_directory_ajax,
     delete_directory_ajax,

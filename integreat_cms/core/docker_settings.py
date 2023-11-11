@@ -9,6 +9,8 @@ For the full list of settings and their values, see :doc:`django:ref/settings`.
 """
 # pylint: disable=wildcard-import
 # pylint: disable=unused-wildcard-import
+from __future__ import annotations
+
 from .settings import *
 
 #: A dictionary containing the settings for all databases to be used with this Django installation

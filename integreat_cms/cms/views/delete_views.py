@@ -1,7 +1,10 @@
 """
 This module contains deletion views for our models that don't need custom handling.
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -10,6 +13,11 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import DeleteView
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
 
 logger = logging.getLogger(__name__)
 
@@ -23,47 +31,38 @@ class CustomModelDeleteMixin(
     """
 
     #: Whether the objects should be protected from deletion if it is used in many to many relationships
-    protect_manytomany = None
+    protect_manytomany: str | None = None
 
-    def get_permission_required(self):
+    def get_permission_required(self) -> tuple[str, ...]:
         """
         Override this method to override the permission_required attribute.
 
         :return: The permissions that are required for views inheriting from this Mixin
-        :rtype: ~collections.abc.Iterable
         """
         return (f"cms.delete_{self.model._meta.model_name}",)
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         """
         Determine the URL to redirect to when the object is successfully deleted
 
         :return: The url to redirect on success
-        :rtype: str
         """
         kwargs = {}
         if self.request.region:
             kwargs["region_slug"] = self.request.region.slug
         return reverse(self.object.get_model_name_plural(), kwargs=kwargs)
 
-    def delete(self, request, *args, **kwargs):
+    def delete(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Call the delete() method on the fetched object and then redirect to the
         success URL.
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises django.db.IntegrityError: If the object has many to many relationships that prevent deletion
 
         :return: A redirection to the ``success_url``
-        :rtype: ~django.http.HttpResponseRedirect
         """
         self.object = self.get_object()
         # Check whether object has many to many relationships that should prevent deleting
@@ -92,4 +91,4 @@ class CustomDeleteView(CustomModelDeleteMixin, DeleteView):
 
     #: The list of HTTP method names that this view will accept.
     #: Since we're doing confirmation dynamically, we don't need the get-request part of this view
-    http_method_names = ["post"]
+    http_method_names: list[str] = ["post"]

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import logging
 
 from debug_toolbar.panels.sql.tracking import SQLQueryTriggered
@@ -13,18 +15,17 @@ class AbstractBaseModel(models.Model):
     """
 
     @classmethod
-    def get_model_name_plural(cls):
+    def get_model_name_plural(cls) -> str:
         """
         Get the plural representation of this model name
 
         :returns: The plural model name
-        :rtype: str
         """
         model_name = cls._meta.model_name
         # Build correct plural of models ending with "y"
         return f"{model_name[:-1]}ies" if model_name.endswith("y") else f"{model_name}s"
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         Returns the canonical string representation of the content object
 
@@ -32,7 +33,7 @@ class AbstractBaseModel(models.Model):
         """
         raise NotImplementedError
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return
         ``<AbstractContentModel: AbstractContentModel object (id)>``.
@@ -40,7 +41,6 @@ class AbstractBaseModel(models.Model):
         the fields used in the ``get_repr()`` method do not exist yet (e.g. because other errors occurred)
 
         :return: The canonical string representation of the content object
-        :rtype: str
         """
         try:
             return self.get_repr()

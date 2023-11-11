@@ -1,22 +1,25 @@
 """
 This module contains helpers for file handling.
 """
+from __future__ import annotations
+
 import logging
 import os
+from typing import TYPE_CHECKING
 from zipfile import ZipFile
+
+if TYPE_CHECKING:
+    from typing import Any
 
 logger = logging.getLogger(__name__)
 
 
-def create_zip_archive(source_file_paths, zip_file_path):
+def create_zip_archive(source_file_paths: list[str], zip_file_path: str) -> None:
     """
     Create zip file from list of source files
 
     :param source_file_paths: list of files to be zipped
-    :type source_file_paths: list
-
     :param zip_file_path: path to zipped file
-    :type zip_file_path: str
     """
     os.makedirs(os.path.dirname(zip_file_path), exist_ok=True)
     with ZipFile(zip_file_path, "w") as zip_file:
@@ -34,7 +37,11 @@ def create_zip_archive(source_file_paths, zip_file_path):
     )
 
 
-def extract_zip_archive(zip_file_path, target_directory, allowed_file_extensions=None):
+def extract_zip_archive(
+    zip_file_path: str,
+    target_directory: str,
+    allowed_file_extensions: Any | None = None,
+) -> tuple[list[str], list]:
     """
     Extract zip file and return file paths of content. Returns a tuple of extracted and invalid files::
 
@@ -45,16 +52,9 @@ def extract_zip_archive(zip_file_path, target_directory, allowed_file_extensions
         extracted_files, _ = extract_zip_archive(zip_file_path, target_directory)
 
     :param zip_file_path: path to zip file
-    :type zip_file_path: str
-
     :param target_directory: directory to where the files should be extracted
-    :type target_directory: str
-
     :param allowed_file_extensions: list of allowed file extensions. If ``None`` or empty list, all extensions are allowed.
-    :type allowed_file_extensions: list
-
     :return: a tuple of two lists of the valid and invalid filenames
-    :rtype: tuple ( list )
     """
     with ZipFile(zip_file_path, "r") as zip_file:
         # Get zip file contents
@@ -65,7 +65,7 @@ def extract_zip_archive(zip_file_path, target_directory, allowed_file_extensions
             invalid_files = [
                 file_path
                 for file_path in extracted_files
-                if not file_path.endswith(("/") + tuple(allowed_file_extensions))
+                if not file_path.endswith(("/",) + tuple(allowed_file_extensions))
             ]
             # Remove all invalid files from extracted files
             extracted_files = list(set(extracted_files) - set(invalid_files))

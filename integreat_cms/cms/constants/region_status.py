@@ -1,18 +1,28 @@
 """
 This module contains the possible status of regions.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.utils.translation import gettext_lazy as _
 
+if TYPE_CHECKING:
+    from typing import Final
+
+    from django.utils.functional import Promise
+
+
 #: Active
-ACTIVE = "ACTIVE"
+ACTIVE: Final = "ACTIVE"
 #: Hidden
-HIDDEN = "HIDDEN"
+HIDDEN: Final = "HIDDEN"
 #: Archived
-ARCHIVED = "ARCHIVED"
+ARCHIVED: Final = "ARCHIVED"
 
 #: Choices to use these constants in a database field
-CHOICES = (
+CHOICES: Final[list[tuple[str, Promise]]] = [
     (ACTIVE, _("Active")),
     (HIDDEN, _("Hidden")),
     (ARCHIVED, _("Archived")),
-)
+]

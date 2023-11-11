@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import logging
 import os
+from typing import TYPE_CHECKING
 
 import magic
 from django import forms
@@ -11,6 +14,10 @@ from ...constants import allowed_media
 from ...models import MediaFile
 from ...utils.media_utils import generate_thumbnail
 from ..custom_model_form import CustomModelForm
+
+if TYPE_CHECKING:
+    from django.http import QueryDict
+    from django.utils.datastructures import MultiValueDict
 
 logger = logging.getLogger(__name__)
 
@@ -29,21 +36,30 @@ class ReplaceMediaFileForm(CustomModelForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = MediaFile
         #: The fields of the model which should be handled by this form
-        fields = ("file", "name", "thumbnail", "file_size", "last_modified")
+        fields: tuple[str, ...] = (
+            "file",
+            "name",
+            "thumbnail",
+            "file_size",
+            "last_modified",
+        )
 
-    def __init__(self, data=None, files=None, instance=None):
+    def __init__(
+        self,
+        data: QueryDict | None = None,
+        files: MultiValueDict | None = None,
+        instance: MediaFile | None = None,
+    ) -> None:
         """
         Initialize UploadMediaFileForm form
 
         :param data: A dictionary-like object containing all given HTTP POST parameters
-        :type data: django.http.QueryDict
-
         :param files: A dictionary-like object containing all uploaded files
-        :type files: django.utils.datastructures.MultiValueDict
-
         :param instance: This form's instance
-        :type instance: ~integreat_cms.cms.models.media.media_file.MediaFile
         """
+
+        if TYPE_CHECKING:
+            assert instance
 
         # instantiate ModelForm
         super().__init__(data=data, files=files, instance=instance)
@@ -59,14 +75,13 @@ class ReplaceMediaFileForm(CustomModelForm):
             instance.thumbnail.path if instance.thumbnail else None
         )
 
-    def clean(self):
+    def clean(self) -> dict:
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`:
         Check whether a file was uploaded and whether it's type matches the original file's type.
         If the file type is invalid, add a :class:`~django.core.exceptions.ValidationError`.
 
         :return: The cleaned form data
-        :rtype: dict
         """
         cleaned_data = super().clean()
 
@@ -105,8 +120,8 @@ class ReplaceMediaFileForm(CustomModelForm):
                     ),
                 )
         # Add the calculated file_size to the form data
-        if cleaned_data.get("file"):
-            cleaned_data["file_size"] = cleaned_data.get("file").size
+        if file := cleaned_data.get("file"):
+            cleaned_data["file_size"] = file.size
         cleaned_data["last_modified"] = timezone.now()
 
         logger.debug(
@@ -114,7 +129,7 @@ class ReplaceMediaFileForm(CustomModelForm):
         )
         return cleaned_data
 
-    def save(self, commit=True):
+    def save(self, commit: bool = True) -> MediaFile:
         # Remove old file
         os.remove(self.original_file_path)
         logger.debug("Removed old file %r", self.original_file_path)
@@ -124,4 +139,4 @@ class ReplaceMediaFileForm(CustomModelForm):
             os.remove(self.original_thumbnail_path)
             logger.debug("Removed old thumbnail %r", self.original_thumbnail_path)
 
-        super().save(commit=commit)
+        return super().save(commit=commit)

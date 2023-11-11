@@ -1,7 +1,16 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.utils.translation import gettext_lazy as _
+
+if TYPE_CHECKING:
+    from typing import Any
+    from treebeard.ns_tree import NS_NodeQuerySet
+
+    from ..models import EventTranslation, PageTranslation, POITranslation
 
 from ...core.utils.machine_translation_provider import MachineTranslationProvider
 from ...textlab_api.utils import check_hix_score
@@ -31,12 +40,11 @@ class MachineTranslationForm(CustomContentModelForm):
         label=_("Update existing translations:"),
     )
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         r"""
         Initialize MT translation form. If request and language kwargs are missing, MTs are disabled.
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
         # Pop kwargs to make sure the super class does not get this params
         self.request = kwargs.pop("request", None)
@@ -64,7 +72,8 @@ class MachineTranslationForm(CustomContentModelForm):
             if language_node.parent_id == parent_node.id and language_node.mt_provider
         ]
 
-        to_update, to_create = [], []
+        to_create: list[int] = []
+        to_update: list[int] = []
         for target in translation_targets:
             target_type = (
                 to_update
@@ -82,25 +91,23 @@ class MachineTranslationForm(CustomContentModelForm):
         ].queryset = self.request.region.language_tree_nodes.filter(id__in=to_update)
         self.initial["mt_translations_to_update"] = to_update
 
-    def mt_form_is_enabled(self):
+    def mt_form_is_enabled(self) -> NS_NodeQuerySet:
         """
         Helper method to decide if this form should be shown, or if it should be hidden for
         the current language due to a lack of MT-compatible child language nodes
 
         :return: Whether this form is enabled
-        :rtype: bool
         """
         return (
             self.fields["mt_translations_to_update"].queryset
             or self.fields["mt_translations_to_create"].queryset
         )
 
-    def clean(self):
+    def clean(self) -> dict[str, Any]:
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
 
         :return: The cleaned form data
-        :rtype: dict
         """
         cleaned_data = super().clean()
 
@@ -109,18 +116,15 @@ class MachineTranslationForm(CustomContentModelForm):
             cleaned_data["mt_translations_to_update"] = LanguageTreeNode.objects.none()
         return cleaned_data
 
-    def save(self, commit=True, foreign_form_changed=False):
+    def save(
+        self, commit: bool = True, foreign_form_changed: bool = False
+    ) -> EventTranslation | (PageTranslation | POITranslation):
         """
         Create machine translations and save them to the database
 
         :param commit: Whether or not the changes should be written to the database
-        :type commit: bool
-
         :param foreign_form_changed: Whether or not the foreign form of this translation form was changed
-        :type foreign_form_changed: bool
-
         :return: The saved content translation object
-        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
         self.instance = super().save(commit, foreign_form_changed)
 

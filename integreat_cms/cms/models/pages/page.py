@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from cacheops import invalidate_model, invalidate_obj
 from django.conf import settings
@@ -15,6 +18,12 @@ from ..decorators import modify_fields
 from .abstract_base_page import AbstractBasePage
 from .page_translation import PageTranslation
 
+if TYPE_CHECKING:
+    from typing import Any, Iterator
+
+    from django.db.models.base import ModelBase
+    from django.utils.safestring import SafeString
+
 logger = logging.getLogger(__name__)
 
 
@@ -23,28 +32,25 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
     Custom queryset for pages to inherit methods from both querysets for tree nodes and content objects
     """
 
-    def cache_tree(self, archived=None, language_slug=None):
+    def cache_tree(
+        self, archived: bool | None = None, language_slug: str | None = None
+    ) -> list[Page]:
         """
         Caches a page tree queryset in a python data structure.
 
         :param archived: Whether the pages should be limited to either archived  or non-archived pages.
                          If not passed or ``None``, both archived and non-archived pages are returned.
-        :type archived: bool
-
         :param language_slug: Code to identify the desired language (optional, requires ``archived`` to be ``False``)
-        :type language_slug: str
-
         :raises ValueError: Indicates that the combination of parameters is not supported.
 
         :return: A list of pages with cached children, descendants and ancestors and a list of all skipped pages
-        :rtype: tuple [ list, list ]
         """
         if language_slug is not None and archived is not False:
             raise ValueError(
                 "archived must be False in order to filter for public translations by language_slug"
             )
-        result = {}
-        skipped_pages = []
+        result: dict[int, Page] = {}
+        skipped_pages: list[Page] = []
         for page in (
             self.prefetch_translations()
             .prefetch_public_translations()
@@ -109,12 +115,11 @@ class PageManager(models.Manager):
     Custom manager for pages to inherit methods from both managers for tree nodes and content objects
     """
 
-    def get_queryset(self):
+    def get_queryset(self) -> PageQuerySet:
         """
         Sets the custom queryset as the default.
 
         :return: The sorted queryset
-        :rtype: ~integreat_cms.cms.models.pages.page.PageQuerySet
         """
         return PageQuerySet(self.model).order_by("tree_id", "lft")
 
@@ -210,22 +215,20 @@ class Page(AbstractTreeNode, AbstractBasePage):
     objects = PageManager()
 
     @staticmethod
-    def get_translation_model():
+    def get_translation_model() -> ModelBase:
         """
         Returns the translation model of this content model
 
         :return: The class of translations
-        :rtype: type
         """
         return PageTranslation
 
     @cached_property
-    def explicitly_archived_ancestors(self):
+    def explicitly_archived_ancestors(self) -> list[Page]:
         """
         This returns all of the page's ancestors which are archived.
 
         :return: The list of archived ancestors
-        :rtype: list [ ~integreat_cms.cms.models.pages.page.Page ]
         """
 
         return [
@@ -235,32 +238,29 @@ class Page(AbstractTreeNode, AbstractBasePage):
         ]
 
     @cached_property
-    def implicitly_archived(self):
+    def implicitly_archived(self) -> bool:
         """
         This checks whether one of the page's ancestors is archived which means that this page is implicitly archived as well.
 
         :return: Whether or not this page is implicitly archived
-        :rtype: bool
         """
         return bool(self.explicitly_archived_ancestors)
 
     @cached_property
-    def archived(self):
+    def archived(self) -> bool:
         """
         A hierarchical page is archived either explicitly if ``explicitly_archived=True`` or implicitly if one of its
         ancestors is explicitly archived.
 
         :return: Whether or not this page is archived
-        :rtype: bool
         """
         return self.explicitly_archived or self.implicitly_archived
 
-    def get_non_archived_children(self):
+    def get_non_archived_children(self) -> Iterator[Page]:
         """
         This method returns all children of this page that are neither explicitly archived nor implicitly archived
 
         :return: The non-archived children
-        :rtype: Iterator[ ~integreat_cms.cms.models.pages.page.Page ]
         """
         # Keep track of archived parents to exclude their implicitly archived children
         archived_parents = set()
@@ -276,64 +276,53 @@ class Page(AbstractTreeNode, AbstractBasePage):
                 yield child_page
 
     @classmethod
-    def get_root_pages(cls, region_slug):
+    def get_root_pages(cls, region_slug: str) -> PageQuerySet:
         """
         Gets all root pages
 
         :param region_slug: Slug defining the region
-        :type region_slug: str
-
         :return: All root pages i.e. pages without parents
-        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
         return cls.get_region_root_nodes(region_slug=region_slug)
 
-    def get_mirrored_page_translation(self, language_slug):
+    def get_mirrored_page_translation(self, language_slug: str) -> Any | None:
         """
         Mirrored content always includes the live content from another page. This content needs to be added when
         delivering content to end users.
 
         :param language_slug: The slug of the requested :class:`~integreat_cms.cms.models.languages.language.Language`
-        :type language_slug: str
-
         :return: The content of a mirrored page
-        :rtype: str
         """
         if self.mirrored_page:
             return self.mirrored_page.get_public_translation(language_slug)
         return None
 
     @cached_property
-    def relative_depth(self):
+    def relative_depth(self) -> int:
         """
         The relative depth inside a cached tree structure. This is relevant for archived pages, where even sub-pages
         should be displayed as root-pages if their parents are not archived.
 
         :return: The relative depth of this node inside its queryset
-        :rtype: int
         """
         if hasattr(self, "_relative_depth"):
             return self._relative_depth
         return self.depth
 
-    def move(self, target, pos=None):
+    def move(self, target: Page, pos: str | None = None) -> None:
         """
         Moving tree nodes potentially causes changes to the fields tree_id, lft and rgt in :class:`~treebeard.ns_tree.NS_Node`
         so the cache of page translations has to be cleared, because of it's relation to :class:`~integreat_cms.cms.models.pages.page.Page`
 
         :param target: The target node which determines the new position
-        :type target: ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode
-
         :param pos: The new position of the page relative to the target
                     (choices: :mod:`~integreat_cms.cms.constants.position`)
-        :type pos: str
-
         :raises ~treebeard.exceptions.InvalidPosition: If the node is moved to another region
         """
         super().move(target, pos)
         invalidate_model(PageTranslation)
 
-    def archive(self):
+    def archive(self) -> None:
         """
         Archives the page and removes all links of this page and all its subpages from the linkchecker
         """
@@ -350,7 +339,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         self.save()
         invalidate_obj(self)
 
-    def restore(self):
+    def restore(self) -> None:
         """
         Restores the page and adds all links of this page and its now non-archived subpages back
         """
@@ -366,23 +355,21 @@ class Page(AbstractTreeNode, AbstractBasePage):
                     # The post_save signal will create link objects from the content
                     translation.save(update_timestamp=False)
 
-    def __str__(self):
+    def __str__(self) -> SafeString:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Page object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the page
-        :rtype: str
         """
         return self.best_translation.path()
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<Page: Page object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the page
-        :rtype: str
         """
         parent_str = f", parent: {self.parent_id}" if self.parent_id else ""
         region_str = f", region: {self.region.slug}" if self.region else ""

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import logging
 
 from django.conf import settings
@@ -28,7 +30,7 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
     links = GenericRelation(Link, related_query_name="imprint_translation")
 
     @cached_property
-    def url_infix(self):
+    def url_infix(self) -> str:
         """
         Generates the infix of the url of the imprint translation object
 
@@ -36,17 +38,15 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         see :meth:`~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.get_absolute_url`
 
         :return: The infix of the url
-        :rtype: str
         """
         return ""
 
     @cached_property
-    def backend_edit_link(self):
+    def backend_edit_link(self) -> str:
         """
         This function returns the absolute url to the editor for this translation
 
         :return: The url
-        :rtype: str
         """
         return reverse(
             "edit_imprint",
@@ -57,12 +57,11 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         )
 
     @cached_property
-    def short_url(self):
+    def short_url(self) -> str:
         """
         This function returns the absolute short url to the imprint translation
 
         :return: The short url of an imprint translation
-        :rtype: str
         """
 
         return settings.SHORT_LINKS_URL + reverse(
@@ -71,12 +70,11 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         )
 
     @property
-    def slug(self):
+    def slug(self) -> str:
         """
         For compatibility with the other page translations, a slug property is useful.
 
         :return: pseudo slug for the imprint translation
-        :rtype: str
         """
         return settings.IMPRINT_SLUG
 

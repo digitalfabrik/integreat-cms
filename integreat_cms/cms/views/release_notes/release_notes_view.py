@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.views.generic.base import TemplateView
 
 from .release_notes_context_mixin import ReleaseNotesContextMixin

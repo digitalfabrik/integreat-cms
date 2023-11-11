@@ -3,9 +3,12 @@ This module contains the :class:`~integreat_cms.cms.models.media.media_file.Medi
 :func:`~integreat_cms.cms.models.media.media_file.upload_path` and :func:`~integreat_cms.cms.models.media.media_file.upload_path_thumbnail` which
 are used to determine the file system path to which the files should be uploaded.
 """
+from __future__ import annotations
+
 import logging
 from os.path import splitext
 from time import strftime
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -24,10 +27,16 @@ from ..abstract_base_model import AbstractBaseModel
 from ..regions.region import Region
 from .directory import Directory
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.db.models.fields.files import FieldFile
+    from django.db.models.query import QuerySet
+
 logger = logging.getLogger(__name__)
 
 
-def upload_path(instance, filename):
+def upload_path(instance: MediaFile, filename: str) -> str:
     """
     This function calculates the path for a file which is uploaded to the media library.
     It contains the region id, the current year and month as subdirectories and the filename.
@@ -35,13 +44,8 @@ def upload_path(instance, filename):
     If it already exists, Django will automatically append a random string to make sure the file name is unique.
 
     :param instance: The media library object
-    :type instance: ~integreat_cms.cms.models.media.media_file.MediaFile
-
     :param filename: The filename of media library object
-    :type filename: str
-
     :return: The upload path of the file
-    :rtype: str
     """
     # If the instance already exists in the database, make sure the upload path doesn't change
     if instance.id:
@@ -63,7 +67,7 @@ def upload_path(instance, filename):
 
 
 # pylint: disable=unused-argument
-def upload_path_thumbnail(instance, filename):
+def upload_path_thumbnail(instance: MediaFile, filename: str) -> str:
     """
     This function derives the upload path of a thumbnail file from it's original file.
     This makes it a bit easier to determine which thumbnail belongs to which file if there are multiple files with the
@@ -74,13 +78,8 @@ def upload_path_thumbnail(instance, filename):
     will be stored as ``A_EOHRFQ2_thumbnail.jpg``, making it easier to examine these files on the file system.
 
     :param instance: The media library object
-    :type instance: ~integreat_cms.cms.models.media.media_file.MediaFile
-
     :param filename: The (unused) initial filename of thumbnail
-    :type filename: str
-
     :return: The upload path of the thumbnail
-    :rtype: str
     """
     # If the instance already exists in the database, make sure the upload path doesn't change
     if instance.id:
@@ -100,15 +99,12 @@ def upload_path_thumbnail(instance, filename):
     return path
 
 
-def file_size_limit(value):
+def file_size_limit(value: FieldFile) -> None:
     """
     This function checks if the uploaded file exceeds the file size limit
 
     :param value: the size of upload file
-    :type value: int
-
     :raises ~django.core.exceptions.ValidationError: when the file size exceeds the size given in the settings.
-
     """
     if value.size > settings.MEDIA_MAX_UPLOAD_SIZE:
         raise ValidationError(
@@ -123,12 +119,11 @@ class MediaFileQuerySet(models.QuerySet):
     Custom queryset for media files
     """
 
-    def filter_unused(self):
+    def filter_unused(self) -> MediaFileQuerySet:
         r"""
         Filter for unused media files
 
         :return: The queryset of unused media files
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.media.media_file.MediaFile ]
         """
         urls = Url.objects.filter(
             url=Concat(
@@ -209,22 +204,20 @@ class MediaFile(AbstractBaseModel):
     objects = MediaFileQuerySet.as_manager()
 
     @property
-    def url(self):
+    def url(self) -> str | None:
         """
         Returns the path of the physical file
 
         :return: The path of the file
-        :rtype: str
         """
         return settings.BASE_URL + self.file.url if self.file else None
 
     @property
-    def thumbnail_url(self):
+    def thumbnail_url(self) -> str | None:
         """
         Return the path of the image that should be used as the thumbnail.
 
         :return: The path of the file. If the file is an image and no thumbnail could be generated the file itself will be returned.
-        :rtype: str
         """
         if not self.thumbnail:
             return self.url if self.type.startswith("image") else None
@@ -233,12 +226,11 @@ class MediaFile(AbstractBaseModel):
         )
 
     @cached_property
-    def icon_usages(self):
+    def icon_usages(self) -> list[AbstractBaseModel]:
         """
         Check where a media file is used as icon
 
         :return: List of all objects that use this file as icon
-        :rtype: list
         """
         return (
             list(self.icon_organizations.all())
@@ -249,51 +241,46 @@ class MediaFile(AbstractBaseModel):
         )
 
     @cached_property
-    def is_icon(self):
+    def is_icon(self) -> bool:
         """
         Check if a media file is used as icon
 
         :return: Whether a file is an icon
-        :rtype: bool
         """
         return bool(self.icon_usages)
 
     @cached_property
-    def content_usages(self):
+    def content_usages(self) -> QuerySet:
         """
         Check where this media file is embedded in the content
 
         :return: list with the search result
-        :rtype: list
         """
         return Link.objects.filter(url__url=self.url).distinct("object_id")
 
     @cached_property
-    def is_embedded(self):
+    def is_embedded(self) -> bool:
         """
         Check if a media file is embedded in the content
 
         :return: Whether a file is embedded
-        :rtype: bool
         """
         return bool(self.content_usages)
 
     @cached_property
-    def is_used(self):
+    def is_used(self) -> bool:
         """
         Check if a media file is used
 
         :return: Whether a file is used
-        :rtype: bool
         """
         return self.is_icon or self.is_embedded
 
-    def serialize_usages(self):
+    def serialize_usages(self) -> dict[str, Any]:
         """
         This methods creates a serialized dict of the file's usages. This can later be used in the AJAX calls.
 
         :return: A serialized dictionary representation of the file's usages
-        :rtype: dict
         """
 
         return {
@@ -329,12 +316,11 @@ class MediaFile(AbstractBaseModel):
             or None,
         }
 
-    def serialize(self):
+    def serialize(self) -> dict[str, Any]:
         """
         This methods creates a serialized string of that document. This can later be used in the AJAX calls.
 
         :return: A serialized dictionary representation of the document for JSON concatenation
-        :rtype: dict
         """
 
         return {
@@ -353,18 +339,13 @@ class MediaFile(AbstractBaseModel):
         }
 
     @classmethod
-    def search(cls, region, query):
+    def search(cls, region: Region, query: str) -> QuerySet:
         """
         Searches for all media files which match the given `query` in their name.
 
         :param region: The searched region
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :param query: The query string used for filtering the media file
-        :type query: str
-
         :return: A queryset for all matching objects
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.media.media_file.MediaFile ]
         """
         return cls.objects.filter(
             Q(region=region) | Q(region__isnull=True, is_hidden=False),
@@ -373,23 +354,21 @@ class MediaFile(AbstractBaseModel):
             | Q(file__icontains=query),
         )
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``MediaFile object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the document
-        :rtype: str
         """
         return self.name
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<MediaFile: MediaFile object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the document
-        :rtype: str
         """
         file_path = f"path: {self.file.path}, " if self.file else ""
         return (

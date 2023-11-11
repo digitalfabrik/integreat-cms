@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.contrib.auth import views as auth_views
@@ -11,6 +14,12 @@ from ...utils.account_activation_token_generator import (
     account_activation_token_generator,
 )
 from ...utils.translation_utils import gettext_many_lazy as __
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.contrib.auth.forms import SetPasswordForm
+    from django.http import HttpResponse
 
 logger = logging.getLogger(__name__)
 
@@ -29,18 +38,13 @@ class AccountActivationView(auth_views.PasswordResetConfirmView):
     #: make sure password reset tokens are not accepted for account activation and vice versa)
     token_generator = account_activation_token_generator
 
-    def dispatch(self, *args, **kwargs):
+    def dispatch(self, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         The view part of the view. Handles all HTTP methods equally.
 
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response or a redirection to the login page
-        :rtype: ~django.template.response.TemplateResponse or ~django.http.HttpResponseRedirect
         """
         if self.request.user.is_authenticated:
             messages.success(
@@ -66,16 +70,12 @@ class AccountActivationView(auth_views.PasswordResetConfirmView):
         )
         return redirect("public:login")
 
-    def form_valid(self, form):
+    def form_valid(self, form: SetPasswordForm) -> HttpResponse:
         """
         If the form is valid, show a success message.
 
         :param form: The supplied form
-        :type form: ~django.contrib.auth.forms.SetPasswordForm
-
         :return: A redirection to the ``success_url``
-        :rtype: ~django.http.HttpResponseRedirect
-
         """
         messages.success(
             self.request,

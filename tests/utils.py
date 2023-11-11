@@ -1,18 +1,21 @@
 """
 This file contains helper functions for tests.
 """
+from __future__ import annotations
+
 import re
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from _pytest.logging import LogCaptureFixture
 
 
-def get_messages(caplog):
+def get_messages(caplog: LogCaptureFixture) -> list[str]:
     """
     Get all logs from the messages framework
 
     :param caplog: The :fixture:`caplog` fixture
-    :type caplog: pytest.LogCaptureFixture
-
     :return: The list of messages that were shown to the user
-    :rtype: list[str]
     """
     message_log_matches = re.findall(
         r"^([A-Z]+[\s]+)integreat_cms.core.storages:storages.py:[\d]+ (.*)$",
@@ -22,26 +25,21 @@ def get_messages(caplog):
     return [level + message for level, message in message_log_matches]
 
 
-def get_error_messages(caplog):
+def get_error_messages(caplog: LogCaptureFixture) -> list[str]:
     """
     Get all errors from the messages framework
 
     :param caplog: The :fixture:`caplog` fixture
-    :type caplog: pytest.LogCaptureFixture
-
     :return: The list of error messages that were shown to the user
-    :rtype: list[str]
     """
     return [message for message in get_messages(caplog) if message.startswith("ERROR ")]
 
 
-def assert_no_error_messages(caplog):
+def assert_no_error_messages(caplog: LogCaptureFixture) -> None:
     """
     Assert that no error messages were shown to the user
 
     :param caplog: The :fixture:`caplog` fixture
-    :type caplog: pytest.LogCaptureFixture
-
     :raises AssertionError: When the the logs contains error messages
     """
     error_messages = get_error_messages(caplog)
@@ -52,16 +50,12 @@ def assert_no_error_messages(caplog):
     )
 
 
-def assert_message_in_log(message, caplog):
+def assert_message_in_log(message: str, caplog: LogCaptureFixture) -> None:
     """
     Check whether a given message is in the messages div
 
     :param message: The expected message
-    :type message: str
-
     :param caplog: The :fixture:`caplog` fixture
-    :type caplog: pytest.LogCaptureFixture
-
     :raises AssertionError: When the expected message was not found in the logs
     """
     messages = get_messages(caplog)

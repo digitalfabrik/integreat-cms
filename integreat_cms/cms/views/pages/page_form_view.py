@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
@@ -20,6 +23,15 @@ from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
 from .page_context_mixin import PageContextMixin
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+
+    from integreat_cms.cms.models.languages.language import Language
+    from integreat_cms.cms.models.pages.page import Page
+    from integreat_cms.cms.models.regions.region import Region
+
 logger = logging.getLogger(__name__)
 
 
@@ -38,26 +50,19 @@ class PageFormView(
         "current_menu_item": "new_page",
     }
     #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`)
-    back_url_name = "pages"
+    back_url_name: str | None = "pages"
 
     # pylint: disable=too-many-locals, too-many-branches
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Render :class:`~integreat_cms.cms.forms.pages.page_form.PageForm` and :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm`
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         region = request.region
@@ -234,7 +239,9 @@ class PageFormView(
 
     # pylint: disable=too-many-statements
     @transaction.atomic
-    def post(self, request, *args, **kwargs):
+    def post(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
         r"""
         Submit :class:`~integreat_cms.cms.forms.pages.page_form.PageForm` and
         :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm` and save :class:`~integreat_cms.cms.models.pages.page.Page`
@@ -243,18 +250,11 @@ class PageFormView(
         see :doc:`django:topics/http/file-uploads`
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         region = request.region
@@ -461,21 +461,16 @@ class PageFormView(
         )
 
     @staticmethod
-    def get_side_by_side_language_options(region, language, page):
+    def get_side_by_side_language_options(
+        region: Region, language: Language, page: Page | None
+    ) -> list[dict[str, Any]]:
         """
         This is a helper function to generate the side-by-side language options for both the get and post requests.
 
         :param region: The current region
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :param language: The current language
-        :type language: ~integreat_cms.cms.models.languages.language.Language
-
         :param page: The current page
-        :type page: ~integreat_cms.cms.models.pages.page.Page
-
         :return: The list of language options, each represented by a dict
-        :rtype: list
         """
 
         side_by_side_language_options = []

@@ -1,8 +1,10 @@
 """
 Custom user model that is used instead of the default Django user model
 """
+from __future__ import annotations
 
 import logging
+from typing import TYPE_CHECKING
 
 from debug_toolbar.panels.sql.tracking import SQLQueryTriggered
 from django.contrib.auth.models import AbstractUser, UserManager
@@ -10,6 +12,13 @@ from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+
+if TYPE_CHECKING:
+    from datetime import datetime
+
+    from django.db.models.query import QuerySet
+
+    from .role import Role
 
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_base_model import AbstractBaseModel
@@ -26,12 +35,11 @@ class CustomUserManager(UserManager):
     This manager prefetches the regions of each user because they are needed for permissions checks and the region selection anyway
     """
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         """
         Get the queryset of users including the prefetched ``regions``
 
         :return: The queryset of users
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.users.user.User ]
         """
         return (
             super()
@@ -135,12 +143,11 @@ class User(AbstractUser, AbstractBaseModel):
     objects = CustomUserManager()
 
     @cached_property
-    def role(self):
+    def role(self) -> Role | None:
         """
         We refer to Django user groups as roles.
 
         :return: The role of this user
-        :rtype: ~integreat_cms.cms.models.users.role.Role
         """
         # Many-to-many relationships can only be used for objects that are already saved to the database
         if self.id:
@@ -150,12 +157,11 @@ class User(AbstractUser, AbstractBaseModel):
         return None
 
     @cached_property
-    def distinct_region(self):
+    def distinct_region(self) -> Region | None:
         """
         If the user is no staff member and has exactly one region, this property returns it
 
         :return: The only region of this user
-        :rtype: ~integreat_cms.cms.models.regions.region.Region
         """
         # Many-to-many relationships can only be used for objects that are already saved to the database
         if self.id and not self.is_staff:
@@ -165,32 +171,29 @@ class User(AbstractUser, AbstractBaseModel):
         return None
 
     @property
-    def full_user_name(self):
+    def full_user_name(self) -> str:
         """
         Return the full name of the user. If either the first or the last name are present, return them, otherwise
         return the username.
 
         :return: The full name of the user
-        :rtype: str
         """
         return self.get_full_name() or self.get_username()
 
     @property
-    def unread_chat_messages(self):
+    def unread_chat_messages(self) -> QuerySet[ChatMessage]:
         """
         Return all unread messages of this user
 
         :return: The unread messages of this user
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.chat.chat_message.ChatMessage ]
         """
         return ChatMessage.history.filter(sent_datetime__gt=self.chat_last_visited)
 
-    def update_chat_last_visited(self):
+    def update_chat_last_visited(self) -> datetime:
         """
         Update the :attr:`~integreat_cms.cms.models.users.user.User.chat_last_visited` to the current time
 
         :return: the previous :attr:`~integreat_cms.cms.models.users.user.User.chat_last_visited` value
-        :rtype: ~datetime.datetime
         """
         previous_chat_last_visited = self.chat_last_visited
         self.chat_last_visited = timezone.now()
@@ -203,23 +206,21 @@ class User(AbstractUser, AbstractBaseModel):
         )
         return previous_chat_last_visited
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``User object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the user
-        :rtype: str
         """
         return self.full_user_name
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<User: User object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the user
-        :rtype: str
         """
         # Get username representation
         username_str = f", username: {self.username}" if self.username else ""

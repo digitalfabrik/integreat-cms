@@ -11,23 +11,33 @@ views, e.g.:
 * ``redirect("public:login")``
 * ``reverse_lazy("public:login")``
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.conf import settings
 from django.urls import include, path
 from django.views.generic import RedirectView
 
 from ..views import authentication, dashboard, error_handler, imprint, pages
 
+if TYPE_CHECKING:
+    from typing import Final
+
+    from django.urls.resolvers import URLPattern
+
+
 #: The namespace for this URL config (see :attr:`django.urls.ResolverMatch.app_name`)
-app_name = "public"
+app_name: Final = "public"
 
 #: The extra context passed to auth views
-auth_context = {
+auth_context: dict[str, str] = {
     "COMPANY": settings.COMPANY,
     "COMPANY_URL": settings.COMPANY_URL,
 }
 
 #: The url patterns of this module (see :doc:`django:topics/http/urls`)
-urlpatterns = [
+urlpatterns: list[URLPattern] = [
     path("", dashboard.RegionSelection.as_view(), name="region_selection"),
     path(
         "s/",

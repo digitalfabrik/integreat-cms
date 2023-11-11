@@ -1,8 +1,15 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from .feedback import Feedback
+
+if TYPE_CHECKING:
+    from django.db.models.query import QuerySet
 
 
 class EventListFeedback(Feedback):
@@ -11,22 +18,20 @@ class EventListFeedback(Feedback):
     """
 
     @property
-    def object_name(self):
+    def object_name(self) -> str:
         """
         This property returns the name of the object this feedback comments on.
 
         :return: The name of the object this feedback refers to
-        :rtype: str
         """
         return _("Event list")
 
     @cached_property
-    def object_url(self):
+    def object_url(self) -> str:
         """
         This property returns the url to the object this feedback comments on.
 
         :return: The url to the referred object
-        :rtype: str
         """
         return reverse(
             "events",
@@ -36,12 +41,11 @@ class EventListFeedback(Feedback):
         )
 
     @property
-    def related_feedback(self):
+    def related_feedback(self) -> QuerySet[EventListFeedback]:
         """
         This property returns all feedback entries which relate to the same object and have the same is_technical value.
 
         :return: The queryset of related feedback
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.feedback.event_list_feedback.EventListFeedback ]
         """
         return EventListFeedback.objects.filter(
             region=self.region, language=self.language, is_technical=self.is_technical

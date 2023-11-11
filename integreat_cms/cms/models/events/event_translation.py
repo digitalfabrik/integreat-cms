@@ -1,9 +1,17 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
+
+if TYPE_CHECKING:
+    from typing import Literal
+    from ...models import Event
 
 from ..abstract_content_translation import AbstractContentTranslation
 from ..decorators import modify_fields
@@ -28,28 +36,26 @@ class EventTranslation(AbstractContentTranslation):
     links = GenericRelation(Link, related_query_name="event_translation")
 
     @cached_property
-    def foreign_object(self):
+    def foreign_object(self) -> Event:
         """
         This property is an alias of the event foreign key and is needed to generalize the :mod:`~integreat_cms.cms.utils.slug_utils`
         for all content types
 
         :return: The event to which the translation belongs
-        :rtype: ~integreat_cms.cms.models.events.event.Event
         """
         return self.event
 
     @staticmethod
-    def foreign_field():
+    def foreign_field() -> Literal["event"]:
         """
         Returns the string "event" which ist the field name of the reference to the event which the translation belongs to
 
         :return: The foreign field name
-        :rtype: str
         """
         return "event"
 
     @cached_property
-    def url_infix(self):
+    def url_infix(self) -> Literal["events"]:
         """
         Returns the string "events" which is the infix of the url of  the event translation object
         Generates the infix of the url of the event translation object
@@ -58,17 +64,15 @@ class EventTranslation(AbstractContentTranslation):
         see :meth:`~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.get_absolute_url`
 
         :return: The infix of the url
-        :rtype: str
         """
         return "events"
 
     @cached_property
-    def backend_edit_link(self):
+    def backend_edit_link(self) -> str:
         """
         This function returns the absolute url to the editor for this translation
 
         :return: The url
-        :rtype: str
         """
         return reverse(
             "edit_event",

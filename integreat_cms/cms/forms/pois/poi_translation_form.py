@@ -1,7 +1,13 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from ...models import POITranslation
 from ..machine_translation_form import MachineTranslationForm
+
+if TYPE_CHECKING:
+    from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -22,12 +28,11 @@ class POITranslationForm(MachineTranslationForm):
         #: The fields of the model which should be handled by this form
         fields = MachineTranslationForm.Meta.fields + ["meta_description", "slug"]
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         r"""
         Initialize POI translation form
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
 
         # Pop kwarg to make sure the super class does not get this param

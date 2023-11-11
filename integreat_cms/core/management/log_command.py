@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.core.management.base import BaseCommand
 from django.utils.termcolors import make_style
 
@@ -15,29 +17,26 @@ class LogCommand(BaseCommand):
     #: Make text cyan
     cyan = staticmethod(make_style(fg="cyan"))
 
-    def print_info(self, message):
+    def print_info(self, message: str) -> None:
         """
         Print colored info message
 
         :param message: The message
-        :type message: str
         """
         self.stdout.write(self.bold(self.blue(message)))
 
-    def print_success(self, message):
+    def print_success(self, message: str) -> None:
         """
         Print colored success message
 
         :param message: The message
-        :type message: str
         """
         self.stdout.write(self.style.SUCCESS(message))
 
-    def print_error(self, message):
+    def print_error(self, message: str) -> None:
         """
         Print colored error message
 
         :param message: The message
-        :type message: str
         """
         self.stderr.write(self.style.ERROR(message))

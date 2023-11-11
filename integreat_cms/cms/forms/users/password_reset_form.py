@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.conf import settings
@@ -6,6 +9,9 @@ from django.contrib.auth.forms import PasswordResetForm
 from django.utils.translation import gettext_lazy as _
 
 from ...utils.email_utils import send_mail
+
+if TYPE_CHECKING:
+    from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -21,35 +27,25 @@ class CustomPasswordResetForm(PasswordResetForm):
         widget=forms.EmailInput(attrs={"autocomplete": "email"}),
     )
 
+    # pylint: disable=signature-differs
     def send_mail(
         self,
-        subject_template_name,
-        email_template_name,
-        context,
-        from_email,
-        to_email,
-        html_email_template_name=None,
-    ):
+        subject_template_name: str,
+        email_template_name: str,
+        context: dict[str, Any],
+        from_email: Any | None,
+        to_email: str,
+        html_email_template_name: str,
+    ) -> None:
         """
         Send a django.core.mail.EmailMultiAlternatives to `to_email`.
 
         :param subject_template_name: The template to be used to render the subject of the email
-        :type subject_template_name: str
-
         :param email_template_name: The template to be used to render the text email
-        :type email_template_name: str
-
         :param context: The template context variables
-        :type context: dict
-
         :param from_email: The email address of the sender
-        :type from_email: str
-
         :param to_email: The email address of the recipient
-        :type to_email: str
-
         :param html_email_template_name: The template to be used to render the HTML email
-        :type html_email_template_name: str
         """
         subject = f"{settings.BRANDING_TITLE} - {_('Reset password')}"
         send_mail(

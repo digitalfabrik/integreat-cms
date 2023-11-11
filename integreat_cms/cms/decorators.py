@@ -3,37 +3,41 @@ Django view decorators can be used to restrict the execution of a view function 
 
 For more information, see :doc:`django:topics/http/decorators`.
 """
+from __future__ import annotations
+
 import time
 from functools import wraps
+from typing import TYPE_CHECKING
 
 from django.contrib.auth.decorators import user_passes_test
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
 
+if TYPE_CHECKING:
+    from collections.abc import Callable
+    from typing import Any
 
-def permission_required(permission):
+    from django.http import HttpRequest, HttpResponse
+    from django.utils.functional import SimpleLazyObject
+
+
+def permission_required(permission: str) -> Callable:
     """
     Decorator for views that checks whether a user has a particular permission enabled.
     If not, the PermissionDenied exception is raised.
 
     :param permission: The required permission
-    :type permission: str
-
     :return: The decorated function
-    :rtype: ~collections.abc.Callable
     """
 
-    def check_permission(user):
+    def check_permission(user: SimpleLazyObject) -> bool:
         """
         This function checks the permission of a user
 
         :param user: The user, that is checked
-        :type user: ~integreat_cms.cms.models.users.user.User
-
         :raises ~django.core.exceptions.PermissionDenied: If user doesn't have the given permission
 
         :return: Whether this account has the permission or not
-        :rtype: bool
         """
 
         if user.has_perm(permission):
@@ -43,35 +47,25 @@ def permission_required(permission):
     return user_passes_test(check_permission)
 
 
-def region_permission_required(function):
+def region_permission_required(function: Callable) -> Callable:
     """
     This decorator can be used to make sure a view can only be retrieved by users of the requested region.
 
     :param function: The view function which should be protected
-    :type function: ~collections.abc.Callable
-
     :return: The decorated function
-    :rtype: ~collections.abc.Callable
     """
 
     @wraps(function)
-    def wrap(request, *args, **kwargs):
+    def wrap(request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         The inner function for this decorator
 
         :param request: Django request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied kwargs
-        :type \**kwargs: dict
-
         :raises ~django.core.exceptions.PermissionDenied: If user doesn't have the permission to access the region
 
         :return: the decorated function
-        :rtype: ~collections.abc.Callable
         """
         user = request.user
         # superusers and staff have permissions for all regions
@@ -86,33 +80,23 @@ def region_permission_required(function):
     return wrap
 
 
-def modify_mfa_authenticated(function):
+def modify_mfa_authenticated(function: Callable) -> Callable:
     """
     This decorator can be used to make sure a user can only modify his 2FA settings when he has a valid 2FA session.
 
     :param function: The view function which should be protected
-    :type function: ~collections.abc.Callable
-
     :return: The decorated function
-    :rtype: ~collections.abc.Callable
     """
 
     @wraps(function)
-    def wrap(request, *args, **kwargs):
+    def wrap(request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         The inner function for this decorator
 
         :param request: Django request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied kwargs
-        :type \**kwargs: dict
-
         :return: the decorated function
-        :rtype: ~collections.abc.Callable
         """
         if not "modify_mfa_authentication_time" in request.session or request.session[
             "modify_mfa_authentication_time"

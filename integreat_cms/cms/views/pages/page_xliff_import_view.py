@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import logging
 import os
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
@@ -11,6 +14,12 @@ from django.views.generic import TemplateView
 from ....xliff.utils import get_xliff_import_diff, xliff_import_confirm
 from ...decorators import permission_required
 from .page_context_mixin import PageContextMixin
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
+    from django.http.response import HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 
@@ -32,17 +41,16 @@ class PageXliffImportView(TemplateView, PageContextMixin):
     #: The upload directory of this import
     xliff_dir = None
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Returns a dictionary representing the template context
         (see :meth:`~django.views.generic.base.ContextMixin.get_context_data`).
 
         :param \**kwargs: The given keyword arguments
-        :type \**kwargs: dict
-
         :return: The template context
-        :rtype: dict
         """
+        if TYPE_CHECKING:
+            assert self.xliff_dir
         context = super().get_context_data(**kwargs)
         context.update(
             {
@@ -56,24 +64,19 @@ class PageXliffImportView(TemplateView, PageContextMixin):
         )
         return context
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Redirect to page tree if XLIFF directory does not exist
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
         # Get current region and language
         self.region = request.region
+        if TYPE_CHECKING:
+            assert self.region
         self.language = self.region.get_language_or_404(
             kwargs.get("language_slug"), only_active=True
         )
@@ -96,22 +99,21 @@ class PageXliffImportView(TemplateView, PageContextMixin):
             )
         return super().dispatch(request, *args, **kwargs)
 
-    def post(self, request, *args, **kwargs):
+    def post(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
         r"""
         Confirm the xliff import
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
+        if TYPE_CHECKING:
+            assert self.region
+            assert self.language
+            assert self.xliff_dir
         logger.info(
             "XLIFF files of directory %r imported by %r",
             self.xliff_dir,

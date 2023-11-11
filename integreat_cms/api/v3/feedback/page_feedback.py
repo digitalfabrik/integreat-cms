@@ -1,72 +1,66 @@
 """
 APIv3 endpoint for feedback bout single pages
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.http import Http404, JsonResponse
 
 from ....cms.models import PageFeedback
 from ...decorators import feedback_handler, json_response
 
+if TYPE_CHECKING:
+    from ....cms.models import Language, Region
+
 logger = logging.getLogger(__name__)
 
 
 @feedback_handler
 @json_response
-def page_feedback(data, region, language, comment, rating, is_technical):
+def page_feedback(
+    data: dict[str, str],
+    region: Region,
+    language: Language,
+    comment: str,
+    rating: bool,
+    is_technical: bool,
+) -> JsonResponse:
     """
     Decorate function for storing feedback about single page in database
 
     :param data: HTTP request body data
-    :type data: dict
-
     :param region: The region of this sitemap's urls
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :param language: The language of this sitemap's urls
-    :type language: ~integreat_cms.cms.models.languages.language.Language
-
     :param comment: The comment sent as feedback
-    :type comment: str
-
     :param rating: up or downvote, neutral
-    :type rating: str
-
     :param is_technical: is feedback on content or on tech
-    :type is_technical: bool
-
     :return: decorated function that saves feedback in database
-    :rtype: ~collections.abc.Callable
     """
     return page_feedback_internal(data, region, language, comment, rating, is_technical)
 
 
-def page_feedback_internal(data, region, language, comment, rating, is_technical):
+def page_feedback_internal(
+    data: dict[str, str],
+    region: Region,
+    language: Language,
+    comment: str,
+    rating: bool,
+    is_technical: bool,
+) -> JsonResponse:
     """
     Store feedback about single event in database
 
     :param data: HTTP request body data
-    :type data: dict
-
     :param region: The region of this sitemap's urls
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :param language: The language of this sitemap's urls
-    :type language: ~integreat_cms.cms.models.languages.language.Language
-
     :param comment: The comment sent as feedback
-    :type comment: str
-
     :param rating: up or downvote, neutral
-    :type rating: str
-
     :param is_technical: is feedback on content or on tech
-    :type is_technical: bool
-
     :raises ~django.http.Http404: HTTP status 404 if no page with the given slug exists.
 
     :return: JSON object according to APIv3 single page feedback endpoint definition
-    :rtype: ~django.http.JsonResponse
     """
     page_translation_slug = data.get("slug")
 

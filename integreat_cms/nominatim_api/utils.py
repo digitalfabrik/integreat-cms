@@ -1,7 +1,13 @@
 """
 Utilities for the Nominatim API app
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from geopy.location import Location
 
 logger = logging.getLogger(__name__)
 
@@ -11,21 +17,20 @@ class BoundingBox:
     Class for bounding boxes
     """
 
-    def __init__(self, latitude_min, latitude_max, longitude_min, longitude_max):
+    def __init__(
+        self,
+        latitude_min: float,
+        latitude_max: float,
+        longitude_min: float,
+        longitude_max: float,
+    ) -> None:
         """
         Initialize the bounding box
 
         :param latitude_min: The bottom boundary of the box
-        :type latitude_min: float
-
         :param latitude_max: The top boundary of the box
-        :type latitude_max: float
-
         :param longitude_min: The left boundary of the box
-        :type longitude_min: float
-
         :param longitude_max: The right boundary of the box
-        :type longitude_max: float
         """
         self.latitude_min = latitude_min
         self.latitude_max = latitude_max
@@ -33,7 +38,7 @@ class BoundingBox:
         self.longitude_max = longitude_max
 
     @property
-    def api_representation(self):
+    def api_representation(self) -> list[list[float]]:
         """
         The bounding box in the format::
 
@@ -49,7 +54,6 @@ class BoundingBox:
             ]
 
         :return: A nested list of the borders of the box
-        :rtype: [ [ float, float ], [ float, float ] ]
         """
         return [
             [self.longitude_min, self.latitude_min],
@@ -57,34 +61,26 @@ class BoundingBox:
         ]
 
     @classmethod
-    def from_result(cls, result):
+    def from_result(cls, result: Location | None) -> BoundingBox | None:
         """
         Return a bounding box object from a Nominatim API result
 
         :param result: The Nominatim API result
-        :type result: geopy.location.Location
-
         :return: A bounding box
-        :rtype: ~integreat_cms.nominatim_api.utils.BoundingBox
         """
-        if not result:
-            return None
         # The order of the bounding box fields match the order of the fields in the __init__ method.
-        return cls(*result.raw["boundingbox"])
+        return cls(*result.raw["boundingbox"]) if result else None
 
     @classmethod
-    def merge(cls, *bounding_boxes):
+    def merge(cls, *bounding_boxes: BoundingBox | None) -> BoundingBox | None:
         r"""
         Merge the given bounding boxes
 
         :param \*bounding_boxes: The bounding boxes that should be merged
-        :type \*bounding_boxes: list [ ~integreat_cms.nominatim_api.utils.BoundingBox ]
-
         :return: A bounding box that contains all of the given boxes
-        :rtype: ~integreat_cms.nominatim_api.utils.BoundingBox
         """
         # Filter out empty boxes
-        if bounding_boxes := list(filter(None, bounding_boxes)):
+        if bounding_boxes := tuple(filter(None, bounding_boxes)):
             logger.debug("Merging bounding boxes: %r", bounding_boxes)
             # Return a new bounding box with the minimum/maximum values over all given bounding boxes
             return cls(
@@ -96,11 +92,10 @@ class BoundingBox:
         # If an empty list was given, return None
         return None
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         """
         String representation for debug logging
 
         :return: The canonical representation of the object
-        :rtype: str
         """
         return f"<BoundingBox(longitude_min: {self.longitude_min}, latitude_min: {self.latitude_min}, longitude_max: {self.longitude_max}, latitude_max: {self.latitude_max}])>"

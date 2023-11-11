@@ -1,5 +1,7 @@
-import datetime
+from __future__ import annotations
+
 from datetime import date, datetime, time, timedelta
+from typing import TYPE_CHECKING
 
 from dateutil import rrule
 from django.contrib.postgres.fields import ArrayField
@@ -11,6 +13,9 @@ from django.utils.translation import gettext_lazy as _
 
 from ...constants import frequency, weekdays, weeks
 from ..abstract_base_model import AbstractBaseModel
+
+if TYPE_CHECKING:
+    from typing import Iterator
 
 
 class RecurrenceRule(AbstractBaseModel):
@@ -70,35 +75,25 @@ class RecurrenceRule(AbstractBaseModel):
         ),
     )
 
-    def iter_after(self, start_date):
+    def iter_after(self, start_date: date) -> Iterator[date]:
         """
         Iterate all recurrences after a given start date.
         This method assumes that ``weekdays_for_weekly`` contains at least one member
         and that ``weekday_for_monthly`` and ``week_for_monthly`` are not null.
 
         :param start_date: The date on which the iteration should start
-        :type start_date: ~datetime.date
-
         :return: An iterator over all dates defined by this recurrence rule
-        :rtype: Iterator[:class:`~datetime.date`]
         """
         next_recurrence = start_date
 
-        def get_nth_weekday(month_date, weekday, n):
+        def get_nth_weekday(month_date: date, weekday: int, n: int) -> date:
             """
             Get the nth occurrence of a given weekday in a specific month
 
             :param month_date: the current date of month
-            :type month_date: datetime.datetime
-
             :param weekday: the requested weekday
-            :type weekday: str
-
             :param n: the requested number
-            :type n: integer
-
             :return: The nth weekday
-            :rtype: datetime.datetime
             """
             month_date = month_date.replace(day=1)
             month_date += timedelta((weekday - month_date.weekday()) % 7)
@@ -108,32 +103,28 @@ class RecurrenceRule(AbstractBaseModel):
                 n_th_occurrence = month_date + timedelta(weeks=n - 2)
             return n_th_occurrence
 
-        def next_month(month_date):
+        def next_month(month_date: date) -> date:
             """
             Advance the given date by one month
 
             :param month_date: the given date
-            :type month_date: datetime.datetime
-
             :return: The same date one month later
-            :rtype: datetime.datetime
             """
             month_date = month_date.replace(day=1)
             if month_date.month < 12:
                 return month_date.replace(month=month_date.month + 1)
             return month_date.replace(month=1, year=month_date.year + 1)
 
-        def advance():
+        def advance() -> Iterator[date]:
             """
             Get the next occurrence by this rule
 
             :return: date objects
-            :rtype: Iterator[:class: `~datetime.date`]
             """
 
             nonlocal next_recurrence
             if self.frequency == frequency.DAILY:
-                yield
+                yield next_recurrence
                 next_recurrence += timedelta(days=1)
             elif self.frequency == frequency.WEEKLY:
                 # Yield each day of the week that is valid, since
@@ -144,7 +135,7 @@ class RecurrenceRule(AbstractBaseModel):
                     next_recurrence += timedelta(
                         days=weekday - next_recurrence.weekday()
                     )
-                    yield
+                    yield next_recurrence
                 # advance to the next monday
                 next_recurrence += timedelta(days=7 - next_recurrence.weekday())
             elif self.frequency == frequency.MONTHLY:
@@ -157,10 +148,10 @@ class RecurrenceRule(AbstractBaseModel):
                         self.weekday_for_monthly,
                         self.week_for_monthly,
                     )
-                yield
+                yield next_recurrence
                 next_recurrence = next_month(next_recurrence)
             elif self.frequency == frequency.YEARLY:
-                yield
+                yield next_recurrence
 
                 # It is not possible to go simply to the next year if the current date is february 29
                 year_dif = 1
@@ -183,35 +174,32 @@ class RecurrenceRule(AbstractBaseModel):
                     yield next_recurrence
             i += 1
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``RecurrenceRule object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the recurrence rule
-        :rtype: str
         """
         return gettext('Recurrence rule of "{}" ({})').format(
             self.event.best_translation.title, self.get_frequency_display()
         )
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<RecurrenceRule: RecurrenceRule object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the recurrence rule
-        :rtype: str
         """
         return f"<RecurrenceRule (id: {self.id}, event: {self.event.best_translation.slug})>"
 
-    def to_ical_rrule(self):
+    def to_ical_rrule(self) -> rrule.rrule:
         """
         Calculates the ical standardized rrule for a recurring rule. See details of the rrule here:
         https://icalendar.org/iCalendar-RFC-5545/3-8-5-3-recurrence-rule.html
 
         :return: The ical rrule for the recurrence rule
-        :rtype: dateutil.rrule.rrule
         """
         kwargs = {}
         if self.frequency == frequency.WEEKLY:
@@ -234,12 +222,11 @@ class RecurrenceRule(AbstractBaseModel):
         )
         return ical_rrule
 
-    def to_ical_rrule_string(self):
+    def to_ical_rrule_string(self) -> str:
         """
         Gets the iCal rrule as a string
 
         :return: The ical rrule for the recurrence rule as a string
-        :rtype: str
         """
         return str(self.to_ical_rrule())
 

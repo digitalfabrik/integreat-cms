@@ -1,20 +1,24 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django import template
 from django.utils.safestring import mark_safe
+
+if TYPE_CHECKING:
+    from linkcheck.models import Url
 
 register = template.Library()
 
 
 @register.simple_tag
 @mark_safe
-def url_ssl_icon(url):
+def url_ssl_icon(url: Url) -> str:
     """
     Return the icon that represents an URL's SSL status
 
     :param url: The URL
-    :type url: linkcheck.models.Url
-
     :return: The HTML code of the SSL status icon
-    :rtype: str
     """
     if url.internal:
         return ""
@@ -29,15 +33,12 @@ def url_ssl_icon(url):
 
 @register.simple_tag
 @mark_safe
-def url_anchor_icon(url):
+def url_anchor_icon(url: Url) -> str:
     """
     Return the icon that represents an URL's HTML anchor status
 
     :param url: The URL
-    :type url: linkcheck.models.Url
-
     :return: The HTML code of the anchor status icon
-    :rtype: str
     """
     if not url.has_anchor or not url.last_checked:
         return ""

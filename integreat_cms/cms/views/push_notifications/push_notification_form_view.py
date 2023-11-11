@@ -1,6 +1,9 @@
+from __future__ import annotations
+
 import logging
 from copy import deepcopy
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
@@ -19,6 +22,13 @@ from ...decorators import permission_required
 from ...forms import PushNotificationForm, PushNotificationTranslationForm
 from ...models import Language, PushNotification, PushNotificationTranslation
 from ...utils.translation_utils import gettext_many_lazy as __
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
+
+    from integreat_cms.cms.models.regions.region import Region
 
 logger = logging.getLogger(__name__)
 
@@ -39,21 +49,14 @@ class PushNotificationFormView(TemplateView):
     }
 
     # pylint: disable=too-many-locals
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Open form for creating or editing a push notification
 
         :param request: Object representing the user call
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         region = request.region
@@ -165,25 +168,18 @@ class PushNotificationFormView(TemplateView):
         )
 
     # pylint: disable=too-many-branches, too-many-statements
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Save and show form for creating or editing a push notification. Send push notification
         if asked for by user.
 
         :param request: Object representing the user call
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to send push notifications
         :raises NotImplementedError: If no valid submit button was clicked
 
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         region = request.region
@@ -348,18 +344,15 @@ class PushNotificationFormView(TemplateView):
         )
 
 
-def create_from_template(request, pn_form):
+def create_from_template(
+    request: HttpRequest, pn_form: PushNotificationForm
+) -> PushNotification | None:
     """
     Create a push notification from a template
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param pn_form: The push notification form
-    :type pn_form: ~integreat_cms.cms.forms.push_notifications.push_notification_form.PushNotificationForm
-
     :return: The new created push notification object
-    :rtype: ~integreat_cms.cms.models.push_notifications.push_notification.PushNotification
     """
     if not pn_form.instance.is_template:
         messages.error(
@@ -393,23 +386,18 @@ def create_from_template(request, pn_form):
 
 
 # pylint: disable=too-many-return-statements
-def send_pn(request, pn_form, schedule=False):
+def send_pn(
+    request: HttpRequest, pn_form: PushNotificationForm, schedule: bool = False
+) -> bool:
     """
     Send (or schedule) a push notification
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param pn_form: The push notification form
-    :type pn_form: ~integreat_cms.cms.forms.push_notifications.push_notification_form.PushNotificationForm
-
     :param schedule: Whether the message should be scheduled instead of sent directly
-    :type schedule: bool
-
     :raises ~django.core.exceptions.PermissionDenied: When the user does not have the permission to send notifications
 
     :return: Whether sending (or scheduling) was successful
-    :rtype: bool
     """
     if not request.user.has_perm("cms.send_push_notification"):
         logger.warning(
@@ -487,26 +475,23 @@ def send_pn(request, pn_form, schedule=False):
     return True
 
 
-def extract_pn_details(request, push_notification, sort_for_region=None):
+def extract_pn_details(
+    request: HttpRequest,
+    push_notification: PushNotification | None,
+    sort_for_region: Region | None = None,
+) -> dict[str, Any]:
     r"""
     Save and show form for creating or editing a push notification. Send push notification
     if asked for by user.
 
     :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
     :param push_notification: The existing PushNotification or None
-    :type push_notification: ~integreat_cms.cms.models.push_notifications.push_notification.PushNotification
-
     :param sort_for_region: Region for which to keep sorting order (according to language tree)
-    :type sort_for_region: ~integreat_cms.cms.models.regions.region.Region
-
     :return: A dict containing
         * `all_regions`, a list of all :class:`~integreat_cms.cms.models.regions.region.Region` objects of the existing PushNotification (or the current region, if it doesn't exist yet),
         * `other_regions`, the sublist of `all_regions` which the current user doesn't have access to,
         * `all_languages`, a cumulative list of all active languages across all regions in `all_regions` and
         * `disable_edit`, a boolean determining whether the user should be able to edit the PushNotification given his status (superuser, staff) and the vacancy of `other_regions`.
-    :rtype: dict
     """
     all_regions = (
         push_notification.regions.all() if push_notification else [request.region]

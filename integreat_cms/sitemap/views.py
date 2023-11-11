@@ -3,7 +3,10 @@ This module contains views for generating the sitemap dynamically.
 The views are class-based patches of the inbuilt views :func:`~django.contrib.sitemaps.views.index` and
 :func:`~django.contrib.sitemaps.views.sitemap` of the :mod:`django.contrib.sitemaps` :doc:`django:ref/contrib/sitemaps`.
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
@@ -16,6 +19,12 @@ from django.views.generic.base import TemplateResponseMixin, View
 from ..cms.constants import region_status
 from ..cms.models import Region
 from .utils import get_sitemaps
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest
+    from django.template.response import TemplateResponse
 
 logger = logging.getLogger(__name__)
 
@@ -31,25 +40,18 @@ class SitemapIndexView(TemplateResponseMixin, View):
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "sitemap_index.xml"
+    template_name: str = "sitemap_index.xml"
     #: The content type to use for the response (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    content_type = "application/xml"
+    content_type: str = "application/xml"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> TemplateResponse:
         r"""
         This function handles a get request
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied args
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword args
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         logger.debug("Sitemap index requested with args %r and kwargs %r", args, kwargs)
@@ -88,28 +90,21 @@ class SitemapView(TemplateResponseMixin, View):
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "sitemap.xml"
+    template_name: str = "sitemap.xml"
     #: The content type to use for the response (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    content_type = "application/xml"
+    content_type: str = "application/xml"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> TemplateResponse:
         r"""
         This function handles a get request
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied args
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword args (should contain ``region_slug`` and ``language_slug``)
-        :type \**kwargs: dict
-
         :raises ~django.http.Http404: Raises a HTTP 404 if the either the region or language does not exist or is invalid
                                       or if the sitemap is empty.
 
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         logger.debug("Sitemap requested with args %r and kwargs %r", args, kwargs)
@@ -129,8 +124,8 @@ class SitemapView(TemplateResponseMixin, View):
             raise Http404
 
         # Join the lists of all urls of all sitemaps
-        urls = sum(
-            [sitemap.get_urls(site=get_current_site(request)) for sitemap in sitemaps],
+        urls: list[dict[str, Any]] = sum(
+            (sitemap.get_urls(site=get_current_site(request)) for sitemap in sitemaps),
             [],
         )
         # Pick the latest last_modified if all sitemaps

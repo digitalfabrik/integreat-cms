@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 from urllib.error import URLError
 
 from django.apps import AppConfig, apps
@@ -6,6 +9,12 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 from .textlab_api_client import TextlabClient
+
+if TYPE_CHECKING:
+    from typing import Final
+
+    from django.utils.functional import Promise
+
 
 logger = logging.getLogger(__name__)
 
@@ -16,11 +25,11 @@ class TextlabApiConfig(AppConfig):
     """
 
     #: Full Python path to the application
-    name = "integreat_cms.textlab_api"
+    name: Final[str] = "integreat_cms.textlab_api"
     #: Human-readable name for the application
-    verbose_name = _("TextLab API")
+    verbose_name: Final[Promise] = _("TextLab API")
 
-    def ready(self):
+    def ready(self) -> None:
         """
         Checking if api is available
         """

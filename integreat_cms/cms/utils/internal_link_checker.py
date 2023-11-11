@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 from urllib.parse import unquote
 
 from django.conf import settings
@@ -10,13 +13,18 @@ from django.utils.translation import gettext_lazy as _
 from ..constants import region_status
 from ..models import Region
 
+if TYPE_CHECKING:
+    from django.db.models.fields.related import RelatedManager
+    from linkcheck.models import Url
+
+    from ..models import Event, Language, Page, POI
+
 logger = logging.getLogger(__name__)
 
 
-def mark_valid(url):
+def mark_valid(url: Url) -> None:
     """
     :param url: The internal URL to mark as valid
-    :type url: linkcheck.models.Url
     """
     url.reset_for_check()
     url.status = True
@@ -25,13 +33,10 @@ def mark_valid(url):
     url.save()
 
 
-def mark_invalid(url, error_message=""):
+def mark_invalid(url: Url, error_message: str = "") -> None:
     """
     :param url: The internal URL to mark as invalid
-    :type url: linkcheck.models.Url
-
     :param error_message: The reason why this URL is invalid
-    :type error_message: str
     """
     url.reset_for_check()
     url.status = False
@@ -40,24 +45,17 @@ def mark_invalid(url, error_message=""):
     url.save()
 
 
-def check_imprint(url, path_components, region, language):
+def check_imprint(
+    url: Url, path_components: list[str], region: Region, language: Language
+) -> bool:
     """
     Check whether the imprint exists in the given region and language
 
     :param url: The internal URL to check
-    :type url: linkcheck.models.Url
-
     :param path_components: The path components
-    :type path_components: list [ str ]
-
     :param region: The region
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :param language: The language
-    :type language: ~integreat_cms.cms.models.languages.language.Language
-
     :returns: The validity status of the URL
-    :rtype: bool
     """
     if (
         len(path_components) == 1
@@ -74,24 +72,17 @@ def check_imprint(url, path_components, region, language):
 
 
 # pylint: disable=too-many-branches
-def check_news_link(url, path_components, region, language):
+def check_news_link(
+    url: Url, path_components: list[str], region: Region, language: Language
+) -> bool | None:
     """
     Check whether the news exists in the given region
 
     :param url: The internal URL to check
-    :type url: linkcheck.models.Url
-
     :param path_components: The path components
-    :type path_components: list [ str ]
-
     :param region: The region
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :param language: The language
-    :type language: ~integreat_cms.cms.models.languages.language.Language
-
     :returns: The validity status of the URL
-    :rtype: bool
     """
     if len(path_components) == 1:
         mark_invalid(
@@ -139,21 +130,14 @@ def check_news_link(url, path_components, region, language):
     return url.status
 
 
-def check_offer_link(url, path_components, region):
+def check_offer_link(url: Url, path_components: list[str], region: Region) -> bool:
     """
     Check whether the offer exists in the given region
 
     :param url: The internal URL to check
-    :type url: linkcheck.models.Url
-
     :param path_components: The path components
-    :type path_components: list [ str ]
-
     :param region: The region
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :returns: The validity status of the URL
-    :rtype: bool
     """
     if not region.offers.exists():
         logger.debug("No offers are enabled in %r", region)
@@ -180,18 +164,15 @@ def check_offer_link(url, path_components, region):
     return url.status
 
 
-def check_translation_link(content_object, url, language):
+def check_translation_link(
+    content_object: Event | (Page | POI), url: Url, language: Language
+) -> bool:
     """
     Check whether the link of the given content object is valid
 
     :param content_object: The content object
-    :type content_object: ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel
-
     :param url: The internal URL to check
-    :type url: linkcheck.models.Url
-
     :param language: The language
-    :type language: ~integreat_cms.cms.models.languages.language.Language
     """
     if content_object.archived:
         logger.debug("%r is archived", content_object)
@@ -219,27 +200,23 @@ def check_translation_link(content_object, url, language):
     return url.status
 
 
-def check_object_link(content_type, manager, slug, url, region, language):
+def check_object_link(
+    content_type: str,
+    manager: RelatedManager,
+    slug: str,
+    url: Url,
+    region: Region,
+    language: Language,
+) -> bool:
     """
     Check whether the given content objects are valid
 
     :param content_type: The content type (``Page``, ``Event`` or ``POI``)
-    :type content_type: str
-
     :param manager: The object manager
-    :type manager: ~django.db.models.Manager
-
     :param url: The internal URL to check
-    :type url: linkcheck.models.Url
-
     :param slug: The slug of the translation
-    :type slug: str
-
     :param region: The region
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :param language: The language
-    :type language: ~integreat_cms.cms.models.languages.language.Language
     """
     objects = manager.filter(
         translations__slug=slugify(slug, allow_unicode=True),
@@ -279,32 +256,24 @@ def check_object_link(content_type, manager, slug, url, region, language):
 
 
 def check_event_or_location(
-    content_type, manager, url, path_components, region, language
-):
+    content_type: str,
+    manager: RelatedManager,
+    url: Url,
+    path_components: list[str],
+    region: Region,
+    language: Language,
+) -> bool:
     """
     Check whether the event or location with that URL exists in the given region and language.
     Fallback translations are also checked when they are enabled in the specific region.
 
     :param content_type: The content type (``Event`` or ``POI``)
-    :type content_type: str
-
     :param manager: The object manager
-    :type manager: ~django.db.models.Manager
-
     :param url: The internal URL to check
-    :type url: linkcheck.models.Url
-
     :param path_components: The path components
-    :type path_components: list [ str ]
-
     :param region: The region
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :param language: The language
-    :type language: ~integreat_cms.cms.models.languages.language.Language
-
     :returns: The validity status of the URL
-    :rtype: bool
     """
     if len(path_components) == 1:
         logger.debug(
@@ -331,13 +300,10 @@ def check_event_or_location(
 
 
 # pylint: disable=too-many-return-statements
-def check_internal(url):
+def check_internal(url: Url) -> bool | None:
     """
     :param url: The internal URL to check
-    :type url: linkcheck.models.Url
-
     :returns: The status of the URL
-    :rtype: bool
     """
     logger.debug(
         "Checking %r (type: %r, internal: %r)", url, url.type, url.internal_url

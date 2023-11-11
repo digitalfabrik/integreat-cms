@@ -1,7 +1,7 @@
 from integreat_cms.cms.utils.translation_utils import translate_link
 
 
-def test_translate_link():
+def test_translate_link() -> None:
     """
     Test whether the :meth:`~integreat_cms.cms.utils.translation_utils.translate_link` function correctly escapes message
     text while preserving the link tags

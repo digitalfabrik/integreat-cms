@@ -2,7 +2,10 @@
 This module contains view actions for the language tree.
 Typically, they do not render a whole page, but only parts of it or they redirect to regular views.
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from cacheops import invalidate_obj
 from django.contrib import messages
@@ -16,33 +19,33 @@ from ...constants import position
 from ...decorators import permission_required
 from ...models import LanguageTreeNode
 
+if TYPE_CHECKING:
+    from django.http import HttpRequest, HttpResponseRedirect
+
+    from ...models import Region
+
 logger = logging.getLogger(__name__)
 
 
 @require_POST
 @permission_required("cms.change_languagetreenode")
 @transaction.atomic
-def move_language_tree_node(request, region_slug, pk, target_id, target_position):
+def move_language_tree_node(
+    request: HttpRequest,
+    region_slug: str,
+    pk: int,
+    target_id: int,
+    target_position: str,
+) -> HttpResponseRedirect:
     """
     This action moves the given language tree node to the given position relative to the given target.
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the region which language tree should be modified
-    :type region_slug: str
-
     :param pk: The id of the language tree node which should be moved
-    :type pk: int
-
     :param target_id: The id of the target language tree node
-    :type target_id: int
-
     :param target_position: The desired position (choices: :mod:`~integreat_cms.cms.constants.position`)
-    :type target_position: str
-
     :return: A redirection to the language tree
-    :rtype: ~django.http.HttpResponseRedirect
     """
 
     region = request.region
@@ -81,22 +84,17 @@ def move_language_tree_node(request, region_slug, pk, target_id, target_position
 @require_POST
 @permission_required("cms.delete_languagetreenode")
 @transaction.atomic
-def delete_language_tree_node(request, region_slug, pk):
+def delete_language_tree_node(
+    request: HttpRequest, region_slug: str, pk: int
+) -> HttpResponseRedirect:
     """
     Deletes the language node of distinct region
     and all page translations for this language
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the region which language node should be deleted
-    :type region_slug: str
-
     :param pk: The id of the language tree node which should be deleted
-    :type pk: int
-
     :return: A redirection to the language tree
-    :rtype: ~django.http.HttpResponseRedirect
     """
     # get current region
     region = request.region
@@ -129,13 +127,12 @@ def delete_language_tree_node(request, region_slug, pk):
     return redirect("languagetreenodes", **{"region_slug": region_slug})
 
 
-def manually_invalidate_models(region):
+def manually_invalidate_models(region: Region) -> None:
     """
     This is a helper function to iterate through all affected objects and invalidate their cache.
     This is necessary as the original cache invalidation of cacheops only triggers for direct foreign key relationships.
 
     :param region: The affected region
-    :type region: ~integreat_cms.cms.models.regions.region.Region
     """
     for page in region.pages.all():
         invalidate_obj(page)

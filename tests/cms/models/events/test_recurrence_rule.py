@@ -1,11 +1,17 @@
 """
 Test module for RecurrenceRule class
 """
+from __future__ import annotations
+
 import datetime
+from typing import TYPE_CHECKING
 
 import pytz
 
 from integreat_cms.cms.models import Event, RecurrenceRule
+
+if TYPE_CHECKING:
+    from rrule import rrule
 
 
 class TestCreatingIcalRule:
@@ -18,7 +24,7 @@ class TestCreatingIcalRule:
         end=datetime.datetime(2030, 1, 1, 12, 30, 0, 0, pytz.UTC),
     )
 
-    def test_api_rrule_every_year_start_date_in_the_past(self):
+    def test_api_rrule_every_year_start_date_in_the_past(self) -> None:
         recurrence_rule = RecurrenceRule(
             frequency="YEARLY",
             interval=1,
@@ -35,12 +41,12 @@ class TestCreatingIcalRule:
         ical_rrule = recurrence_rule.to_ical_rrule_string()
         assert ical_rrule == "DTSTART:20200101T113000\nRRULE:FREQ=YEARLY"
 
-    def check_rrule(self, recurrence_rule, expected):
+    def check_rrule(self, recurrence_rule: rrule, expected: str) -> None:
         self.test_event.recurrence_rule = recurrence_rule
         ical_rrule = recurrence_rule.to_ical_rrule_string()
         assert ical_rrule == expected
 
-    def test_api_rrule_every_three_days(self):
+    def test_api_rrule_every_three_days(self) -> None:
         recurrence_rule = RecurrenceRule(
             frequency="DAILY",
             interval=3,
@@ -53,7 +59,7 @@ class TestCreatingIcalRule:
             recurrence_rule, "DTSTART:20300101T113000\nRRULE:FREQ=DAILY;INTERVAL=3"
         )
 
-    def test_api_rrule_weekly(self):
+    def test_api_rrule_weekly(self) -> None:
         recurrence_rule = RecurrenceRule(
             frequency="WEEKLY",
             interval=1,
@@ -66,7 +72,7 @@ class TestCreatingIcalRule:
             recurrence_rule, "DTSTART:20300101T113000\nRRULE:FREQ=WEEKLY;BYDAY=MO,TU"
         )
 
-    def test_api_rrule_monthly(self):
+    def test_api_rrule_monthly(self) -> None:
         recurrence_rule = RecurrenceRule(
             frequency="MONTHLY",
             interval=1,
@@ -79,7 +85,7 @@ class TestCreatingIcalRule:
             recurrence_rule, "DTSTART:20300101T113000\nRRULE:FREQ=MONTHLY;BYDAY=+1FR"
         )
 
-    def test_api_rrule_bimonthly_until(self):
+    def test_api_rrule_bimonthly_until(self) -> None:
         recurrence_rule = RecurrenceRule(
             frequency="MONTHLY",
             interval=2,
@@ -93,7 +99,7 @@ class TestCreatingIcalRule:
             "DTSTART:20300101T113000\nRRULE:FREQ=MONTHLY;INTERVAL=2;UNTIL=20301019T235959;BYDAY=+1SU",
         )
 
-    def test_api_rrule_yearly(self):
+    def test_api_rrule_yearly(self) -> None:
         recurrence_rule = RecurrenceRule(
             frequency="YEARLY",
             interval=1,

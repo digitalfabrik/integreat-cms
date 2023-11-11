@@ -1,21 +1,31 @@
 """
 This module contains the possible status of translations.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.utils.translation import gettext_lazy as _
 
+if TYPE_CHECKING:
+    from typing import Final
+
+    from django.utils.functional import Promise
+
+
 #: Draft
-DRAFT = "DRAFT"
+DRAFT: Final = "DRAFT"
 #: Pending Review
-REVIEW = "REVIEW"
+REVIEW: Final = "REVIEW"
 #: Public
-PUBLIC = "PUBLIC"
+PUBLIC: Final = "PUBLIC"
 #: Auto Save
-AUTO_SAVE = "AUTO_SAVE"
+AUTO_SAVE: Final = "AUTO_SAVE"
 
 #: Choices to use these constants in a database field
-CHOICES = (
+CHOICES: Final[list[tuple[str, Promise]]] = [
     (DRAFT, _("Draft")),
     (REVIEW, _("Pending Review")),
     (PUBLIC, _("Published")),
     (AUTO_SAVE, _("Auto Save")),
-)
+]

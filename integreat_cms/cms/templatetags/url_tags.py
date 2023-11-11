@@ -2,32 +2,33 @@
 Contains a collection of tags for working with urls.
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 from django import template
+
+if TYPE_CHECKING:
+    from urllib.parse import ParseResult
 
 register = template.Library()
 
 
 @register.simple_tag
-def add_queries(url, *queries):
-    r"""
+def add_queries(url: str, key: str, value: str | int) -> str:
+    """
     This filter adds a query to an url
 
     :param url: The url to modify
-    :type url: str
-
-    :param \*queries: The queries to add to the url. Should contain key-value pairs
-    :type \*queries: tuple
+    :param key: The key of the querystring
+    :param value: The value of the querystring
 
     :return: The url with a modified query part
-    :rtype: str
     """
-    url = urlparse(url)
-    url_query = parse_qs(url.query, keep_blank_values=True)
-    while queries:
-        key, value, *queries = queries
-        url_query[key] = str(value)
+    parsed_url: ParseResult = urlparse(url)
+    url_query: dict[str, list[str]] = parse_qs(parsed_url.query, keep_blank_values=True)
+    url_query[key] = [str(value)]
 
-    url = url._replace(query=urlencode(url_query, doseq=True))
-    return urlunparse(url)
+    parsed_url = parsed_url._replace(query=urlencode(url_query, doseq=True))
+    return urlunparse(parsed_url)

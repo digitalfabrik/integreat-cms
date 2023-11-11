@@ -3,6 +3,10 @@ URLconf for login-protected views of the cms package. These urls are processed b
 :mod:`~integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware`.
 Views which should not have login protection go into :mod:`~integreat_cms.cms.urls.public`.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.urls import include, path
 
 from ..forms import (
@@ -53,8 +57,12 @@ from ..views import (
     utils,
 )
 
+if TYPE_CHECKING:
+    from django.urls.resolvers import URLPattern
+
+
 #: The media library ajax url patterns are reused twice (for the admin media library and the region media library)
-media_ajax_urlpatterns = [
+media_ajax_urlpatterns: list[URLPattern] = [
     path(
         "media/",
         include(
@@ -144,7 +152,7 @@ media_ajax_urlpatterns = [
 ]
 
 #: The user setting url patterns are reused twice (for the staff area and the region area)
-user_settings_urlpatterns = [
+user_settings_urlpatterns: list[URLPattern] = [
     path(
         "user-settings/",
         include(
@@ -207,7 +215,7 @@ user_settings_urlpatterns = [
 ]
 
 #: The page order table url patterns are reused twice (for root pages and for subpages)
-page_order_table_urlpatterns = [
+page_order_table_urlpatterns: list[URLPattern] = [
     path(
         "",
         pages.get_page_order_table_ajax,
@@ -221,7 +229,7 @@ page_order_table_urlpatterns = [
 ]
 
 #: The url patterns of this module (see :doc:`django:topics/http/urls`)
-urlpatterns = [
+urlpatterns: list[URLPattern] = [
     path(
         "admin-dashboard/",
         dashboard.AdminDashboardView.as_view(),

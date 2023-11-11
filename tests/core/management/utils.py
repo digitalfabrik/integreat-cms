@@ -1,23 +1,23 @@
+from __future__ import annotations
+
 from io import StringIO
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Any
+
 
 from django.core.management import call_command
 
 
-def get_command_output(command, *args, **kwargs):
+def get_command_output(command: str, *args: str, **kwargs: Any) -> tuple[str, str]:
     r"""
     Call a management command and return its output
 
     :param command: The command that is being invoked
-    :type command: str
-
     :param \*args: The supplied arguments
-    :type \*args: list
-
     :param \**kwargs: The supplied kwargs
-    :type \**kwargs: dict
-
     :return: The stdout and stderr IO streams
-    :rtype: tuple [ str ]
     """
     out = StringIO()
     err = StringIO()
