@@ -346,6 +346,13 @@ push = false
     'release = "{version}"',
 ]
 
+[tool.coverage.report]
+exclude_also = [
+    "def __repr__",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]
+
 [tool.djlint]
 profile="django"
 line_break_after_multiline_tag=true
