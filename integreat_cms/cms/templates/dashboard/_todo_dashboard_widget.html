@@ -13,23 +13,23 @@
                 Every day you can find a list of ideas on how you can improve the content of your pages.
             {% endblocktranslate %}
         </p>
-        {% if perms.cms.change_page %}
-            {% include "dashboard/todo_dashboard_rows/_unreviewed_pages_row.html" %}
-            {% include "dashboard/todo_dashboard_rows/_automatically_saved_pages_row.html" %}
-        {% endif %}
-        {% if perms.cms.change_feedback %}
-            {% include "dashboard/todo_dashboard_rows/_unread_feedback_row.html" %}
-        {% endif %}
         {% comment "Temporarily disable linkcheck widget for performance reasons" %}
         {% if perms.cms.change_page and perms.cms.view_broken_links %}
             {% include "dashboard/todo_dashboard_rows/_broken_links_row.html" %}
         {% endif %}
         {% endcomment %}
+        {% if perms.cms.change_page %}
+            {% include "dashboard/todo_dashboard_rows/_outdated_pages_row.html" %}
+        {% endif %}
         {% if perms.cms.change_page and TEXTLAB_API_ENABLED and request.region.hix_enabled %}
             {% include "dashboard/todo_dashboard_rows/_low_hix_row.html" %}
         {% endif %}
+        {% if perms.cms.change_feedback %}
+            {% include "dashboard/todo_dashboard_rows/_unread_feedback_row.html" %}
+        {% endif %}
         {% if perms.cms.change_page %}
-            {% include "dashboard/todo_dashboard_rows/_outdated_pages_row.html" %}
+            {% include "dashboard/todo_dashboard_rows/_unreviewed_pages_row.html" %}
+            {% include "dashboard/todo_dashboard_rows/_automatically_saved_pages_row.html" %}
         {% endif %}
     </div>
 {% endblock collapsible_box_content %}
