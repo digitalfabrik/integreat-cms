@@ -185,6 +185,9 @@ CUSTOM_LOCALE_PATH: Final[str] = os.environ.get(
 #: The number of regions that are available via the dropdown
 NUM_REGIONS_QUICK_ACCESS: Final[int] = 15
 
+BACKGROUND_TASKS_ENABLED = bool(
+    strtobool(os.environ.get("INTEGREAT_CMS_BACKGROUND_TASKS_ENABLED", "True"))
+)
 
 ##############################################################
 # Firebase Push Notifications (Firebase Cloud Messaging FCM) #

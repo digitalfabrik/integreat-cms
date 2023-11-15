@@ -30,3 +30,5 @@ LOG_LEVEL = "DEBUG"
 LINKCHECK_DISABLE_LISTENERS = True
 #: Enable logging of all entries from the messages framework
 MESSAGE_LOGGING_ENABLED = True
+# Disable background tasks during testing
+BACKGROUND_TASKS_ENABLED = False
