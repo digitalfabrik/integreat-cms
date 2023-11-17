@@ -7,6 +7,7 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
+from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
@@ -127,9 +128,8 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
     if not slug:
         if fallback not in cleaned_data:
             raise ValidationError(
-                _("Cannot generate slug from %(fallback)s."),
+                _("Cannot generate slug from {}.").format(_(fallback)),
                 code="invalid",
-                params={"fallback": _(fallback)},
             )
         # Check whether slug field supports unicode
         allow_unicode = object_instance._meta.get_field("slug").allow_unicode
@@ -168,7 +168,17 @@ def generate_unique_slug(**kwargs: Unpack[SlugKwargs]) -> str:
             else:
                 # the current object is also allowed to have the same slug
                 other_objects = other_objects.exclude(id=object_instance.id)
-        if not other_objects.exists():
+        if (
+            not other_objects.exists()
+            and not (
+                foreign_model == "page"
+                and unique_slug in settings.RESERVED_REGION_PAGE_PATTERNS
+            )
+            and not (
+                foreign_model == "region"
+                and unique_slug in settings.RESERVED_REGION_SLUGS
+            )
+        ):
             break
         i += 1
         unique_slug = f"{slug}-{i}"
