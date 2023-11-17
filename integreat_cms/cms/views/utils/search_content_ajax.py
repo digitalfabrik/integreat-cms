@@ -5,6 +5,7 @@ import logging
 from typing import TYPE_CHECKING
 
 from django.conf import settings
+from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
@@ -52,7 +53,7 @@ def format_object_translation(
 
 
 @require_POST
-# pylint: disable=unused-argument,too-many-branches
+# pylint: disable=unused-argument,too-many-branches,too-many-statements
 def search_content_ajax(
     request: HttpRequest,
     region_slug: str | None = None,
@@ -65,6 +66,10 @@ def search_content_ajax(
     :param request: The current request
     :param region_slug: The slug of the current region
     :param language_slug: language slug
+    :type language_slug: str
+
+    :raises ~django.core.exceptions.PermissionDenied: If the user has no permission to the object type
+
     :raises AttributeError: If the request contains an object type which is unknown or if the user has no permission for it
 
     :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
@@ -82,10 +87,12 @@ def search_content_ajax(
     results: list[dict[str, Any]] = []
 
     user = request.user
-    if user.has_perm("cms.view_event") and "event" in object_types:
+    if "event" in object_types:
         if TYPE_CHECKING:
             assert language_slug
         object_types.remove("event")
+        if not user.has_perm("cms.view_event"):
+            raise PermissionDenied
         event_translations = (
             EventTranslation.search(region, language_slug, query)
             .filter(event__archived=archived_flag, status=status.PUBLIC)
@@ -95,8 +102,10 @@ def search_content_ajax(
             format_object_translation(obj, "event") for obj in event_translations
         )
 
-    if user.has_perm("cms.view_feedback") and "feedback" in object_types:
+    if "feedback" in object_types:
         object_types.remove("feedback")
+        if not user.has_perm("cms.view_feedback"):
+            raise PermissionDenied
         results.extend(
             {
                 "title": feedback.comment,
@@ -106,10 +115,12 @@ def search_content_ajax(
             for feedback in Feedback.search(region, query)
         )
 
-    if user.has_perm("cms.view_page") and "page" in object_types:
+    if "page" in object_types:
         if TYPE_CHECKING:
             assert language_slug
         object_types.remove("page")
+        if not user.has_perm("cms.view_page"):
+            raise PermissionDenied
         pages = region.pages.all().cache_tree(archived=archived_flag)
         for page in pages:
             page_translation = page.get_translation(language_slug)
@@ -119,10 +130,12 @@ def search_content_ajax(
             ):
                 results.append(format_object_translation(page_translation, "page"))
 
-    if user.has_perm("cms.view_poi") and "poi" in object_types:
+    if "poi" in object_types:
         if TYPE_CHECKING:
             assert language_slug
         object_types.remove("poi")
+        if not user.has_perm("cms.view_poi"):
+            raise PermissionDenied
         poi_translations = (
             POITranslation.search(region, language_slug, query)
             .filter(poi__archived=archived_flag, status=status.PUBLIC)
@@ -132,13 +145,12 @@ def search_content_ajax(
             format_object_translation(obj, "poi") for obj in poi_translations
         )
 
-    if (
-        user.has_perm("cms.view_pushnotification")
-        and "push_notification" in object_types
-    ):
+    if "push_notification" in object_types:
         if TYPE_CHECKING:
             assert language_slug
         object_types.remove("push_notification")
+        if not user.has_perm("cms.view_pushnotification"):
+            raise PermissionDenied
         results.extend(
             {
                 "title": push_notification.title,
@@ -150,8 +162,10 @@ def search_content_ajax(
             )
         )
 
-    if user.has_perm("cms.view_region") and "region" in object_types:
+    if "region" in object_types:
         object_types.remove("region")
+        if not user.has_perm("cms.view_region"):
+            raise PermissionDenied
         results.extend(
             {
                 "title": region.name,
@@ -161,8 +175,10 @@ def search_content_ajax(
             for region in Region.search(query)
         )
 
-    if user.has_perm("cms.view_user") and "user" in object_types:
+    if "user" in object_types:
         object_types.remove("user")
+        if not user.has_perm("cms.view_user"):
+            raise PermissionDenied
         results.extend(
             {
                 "title": user.username,

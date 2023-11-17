@@ -67,28 +67,6 @@
   },
   {
     "model": "cms.user",
-    "pk": 9,
-    "fields": {
-      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "author",
-      "first_name": "Region",
-      "last_name": "Author",
-      "email": "author@example.com",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2019-11-13T09:21:34.960Z",
-      "groups": [8],
-      "user_permissions": [],
-      "organization": null,
-      "regions": [1],
-      "expert_mode": true,
-      "page_tree_tutorial_seen": true
-    }
-  },
-  {
-    "model": "cms.user",
     "pk": 4,
     "fields": {
       "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
@@ -102,28 +80,6 @@
       "is_active": true,
       "date_joined": "2019-11-13T09:21:34.960Z",
       "groups": [3],
-      "user_permissions": [],
-      "organization": null,
-      "regions": [1],
-      "expert_mode": true,
-      "page_tree_tutorial_seen": true
-    }
-  },
-  {
-    "model": "cms.user",
-    "pk": 10,
-    "fields": {
-      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "observer",
-      "first_name": "Region",
-      "last_name": "Observer",
-      "email": "observer@example.com",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2019-11-13T09:21:34.960Z",
-      "groups": [9],
       "user_permissions": [],
       "organization": null,
       "regions": [1],
@@ -215,6 +171,72 @@
       "user_permissions": [],
       "organization": null,
       "regions": [],
+      "expert_mode": true,
+      "page_tree_tutorial_seen": true
+    }
+  },
+  {
+    "model": "cms.user",
+    "pk": 9,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "author",
+      "first_name": "Region",
+      "last_name": "Author",
+      "email": "author@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-11-13T09:21:34.960Z",
+      "groups": [8],
+      "user_permissions": [],
+      "organization": null,
+      "regions": [1],
+      "expert_mode": true,
+      "page_tree_tutorial_seen": true
+    }
+  },
+  {
+    "model": "cms.user",
+    "pk": 10,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "observer",
+      "first_name": "Region",
+      "last_name": "Observer",
+      "email": "observer@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-11-13T09:21:34.960Z",
+      "groups": [9],
+      "user_permissions": [],
+      "organization": null,
+      "regions": [1],
+      "expert_mode": true,
+      "page_tree_tutorial_seen": true
+    }
+  },
+  {
+    "model": "cms.user",
+    "pk": 11,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "management_artland",
+      "first_name": "Artland",
+      "last_name": "Manager",
+      "email": "management_artland@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-11-13T09:21:34.960Z",
+      "groups": [1],
+      "user_permissions": [],
+      "organization": null,
+      "regions": [4],
       "expert_mode": true,
       "page_tree_tutorial_seen": true
     }
@@ -4314,6 +4336,18 @@
     }
   },
   {
+    "model": "cms.pushnotification",
+    "pk": 7,
+    "fields": {
+      "regions": [4],
+      "channel": "news",
+      "draft": false,
+      "sent_date": "2022-03-05T10:32:33.118Z",
+      "created_date": "2022-03-05T10:31:33.118Z",
+      "mode": "USE_MAIN_LANGUAGE"
+    }
+  },
+  {
     "model": "cms.pushnotificationtranslation",
     "pk": 1,
     "fields": {
@@ -4387,6 +4421,17 @@
       "text": "Test DE Inhalt",
       "language": 1,
       "push_notification": 6,
+      "last_updated": "2022-03-05T10:31:33.130Z"
+    }
+  },
+  {
+    "model": "cms.pushnotificationtranslation",
+    "pk": 8,
+    "fields": {
+      "title": "Test",
+      "text": "Test",
+      "language": 1,
+      "push_notification": 7,
       "last_updated": "2022-03-05T10:31:33.130Z"
     }
   },

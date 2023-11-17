@@ -57,7 +57,7 @@ class PushNotificationTranslation(AbstractBaseModel):
         :return: A query for all matching objects
         """
         return cls.objects.filter(
-            push_notification__regions__contains=region,
+            push_notification__regions=region,
             language__slug=language_slug,
             title__icontains=query,
         )
