@@ -12,6 +12,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
+from linkcheck.listeners import disable_listeners
 
 from ...decorators import permission_required
 from ...models import Page, PushNotification, Region
@@ -96,8 +97,11 @@ def delete_region(
     region.organizations.all().delete()
     # Prevent IntegrityError when multiple feedback objects exist
     region.feedback.all().delete()
-    # Delete region and cascade delete all contents
-    deleted_objects = region.delete()
+    # Disable linkchecking while deleting this region
+    # Active linkchecking would drastically slow performance and the links will be fixed with the next run of the findlinks management command anyway
+    with disable_listeners():
+        # Delete region and cascade delete all contents
+        deleted_objects = region.delete()
     logger.info(
         "%r deleted %r, cascade deleted objects: %r",
         request.user,
