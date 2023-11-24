@@ -27,7 +27,9 @@ const renderPoiData = (
 
 const hidePoiFormWidget = () => {
     const widget = document.getElementById("poi-form-widget") as HTMLElement;
-    widget.textContent = "";
+    if (widget) {
+        widget.textContent = "";
+    }
 };
 
 const setPoi = ({ target }: Event) => {
