@@ -47,11 +47,19 @@ def normalize_text(text: str) -> str:
     return "\r\n".join(text.splitlines())
 
 
+class CacheMeIfYouCan(Exception):
+    """
+    Helper exception used for stopping @lru_cache from caching
+    """
+
+
 @lru_cache(maxsize=512)
-def lookup_hix_score(text: str) -> float | None:
+def lookup_hix_score_helper(text: str) -> float | None:
     """
     This function returns the hix score for the given text.
-    It either performs an api request or returns the value from cache.
+    It either performs an api request or returns the value from cache,
+    unless it is None, in which case an exception is raised to prevent
+    caching.
 
     :param text: The text to calculate the hix score for
     :return: The score for the given text
@@ -62,6 +70,20 @@ def lookup_hix_score(text: str) -> float | None:
         ).benchmark(normalize_text(text))
     except (URLError, OSError) as e:
         logger.warning("HIX benchmark API call failed: %r", e)
+        raise CacheMeIfYouCan from e
+
+
+def lookup_hix_score(text: str) -> float | None:
+    """
+    This function returns the hix score for the given text.
+    It either performs an api request or returns the value from cache.
+
+    :param text: The text to calculate the hix score for
+    :return: The score for the given text
+    """
+    try:
+        return lookup_hix_score_helper(text)
+    except CacheMeIfYouCan:
         return None
 
 
