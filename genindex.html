@@ -394,6 +394,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ref/tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.cms.utils.html">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref/tests.cms.utils.html#test-internal-link-checker">Test Internal Link Checker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/tests.cms.utils.html#test-slug-utils">Test Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/tests.cms.utils.html#test-translation-utils">Test Translation Utils</a></li>
 </ul>
 </li>
@@ -981,6 +982,8 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.PER_PAGE"><code class="docutils literal notranslate"><span class="pre">PER_PAGE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.REDIS_CACHE"><code class="docutils literal notranslate"><span class="pre">REDIS_CACHE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.RELEASE_NOTES_DIRS"><code class="docutils literal notranslate"><span class="pre">RELEASE_NOTES_DIRS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.RESERVED_REGION_PAGE_PATTERNS"><code class="docutils literal notranslate"><span class="pre">RESERVED_REGION_PAGE_PATTERNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.RESERVED_REGION_SLUGS"><code class="docutils literal notranslate"><span class="pre">RESERVED_REGION_SLUGS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.ROOT_URLCONF"><code class="docutils literal notranslate"><span class="pre">ROOT_URLCONF</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.RSS_FEED_URLS"><code class="docutils literal notranslate"><span class="pre">RSS_FEED_URLS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SECRET_KEY"><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a></li>
@@ -1251,6 +1254,7 @@
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.cms.utils.html">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_internal_link_checker">Test Internal Link Checker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_slug_utils">Test Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_translation_utils">Test Translation Utils</a></li>
 </ul>
 </li>
@@ -18752,6 +18756,8 @@
 </li>
         <li><a href="ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_internal_link_checker">tests.cms.utils.test_internal_link_checker</a>
 </li>
+        <li><a href="ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_slug_utils">tests.cms.utils.test_slug_utils</a>
+</li>
         <li><a href="ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_translation_utils">tests.cms.utils.test_translation_utils</a>
 </li>
         <li><a href="ref-ext/tests.cms.views.html#module-tests.cms.views">tests.cms.views</a>
@@ -23081,6 +23087,10 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.users.html#integreat_cms.cms.views.users.region_user_actions.resend_activation_link_region">resend_activation_link_region() (in module integreat_cms.cms.views.users.region_user_actions)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.RESERVED_REGION_PAGE_PATTERNS">RESERVED_REGION_PAGE_PATTERNS (in module integreat_cms.core.settings)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.RESERVED_REGION_SLUGS">RESERVED_REGION_SLUGS (in module integreat_cms.core.settings)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView.reset_url_token">reset_url_token (integreat_cms.cms.views.authentication.account_activation_view.AccountActivationView attribute)</a>
 
       <ul>
@@ -25135,6 +25145,14 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing.test_func">test_func() (integreat_cms.cms.views.mixins.RegionPermissionRequiredMixing method)</a>
 </li>
+      <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_slug_utils.test_generate_unique_slug_fallback">test_generate_unique_slug_fallback() (in module tests.cms.utils.test_slug_utils)</a>
+</li>
+      <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_slug_utils.test_generate_unique_slug_no_fallback">test_generate_unique_slug_no_fallback() (in module tests.cms.utils.test_slug_utils)</a>
+</li>
+      <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_slug_utils.test_generate_unique_slug_reserved_page_slug">test_generate_unique_slug_reserved_page_slug() (in module tests.cms.utils.test_slug_utils)</a>
+</li>
+      <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_slug_utils.test_generate_unique_slug_reserved_region_slug">test_generate_unique_slug_reserved_region_slug() (in module tests.cms.utils.test_slug_utils)</a>
+</li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_hix_bulk.test_hix_bulk_bulk_non_existing_region">test_hix_bulk_bulk_non_existing_region() (in module tests.core.management.commands.test_hix_bulk)</a>
 </li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_hix_bulk.test_hix_bulk_textlab_api_disabled">test_hix_bulk_textlab_api_disabled() (in module tests.core.management.commands.test_hix_bulk)</a>
@@ -25219,10 +25237,10 @@
 </li>
       <li><a href="ref-ext/tests.cms.views.status_code.html#tests.cms.views.status_code.test_view_status_code_4.test_view_status_code_4">test_view_status_code_4() (in module tests.cms.views.status_code.test_view_status_code_4)</a>
 </li>
-      <li><a href="ref-ext/tests.cms.views.status_code.html#tests.cms.views.status_code.test_view_status_code_5.test_view_status_code_5">test_view_status_code_5() (in module tests.cms.views.status_code.test_view_status_code_5)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ref-ext/tests.cms.views.status_code.html#tests.cms.views.status_code.test_view_status_code_5.test_view_status_code_5">test_view_status_code_5() (in module tests.cms.views.status_code.test_view_status_code_5)</a>
+</li>
       <li><a href="ref-ext/tests.cms.views.status_code.html#tests.cms.views.status_code.test_view_status_code_6.test_view_status_code_6">test_view_status_code_6() (in module tests.cms.views.status_code.test_view_status_code_6)</a>
 </li>
       <li><a href="ref-ext/tests.cms.views.status_code.html#tests.cms.views.status_code.test_view_status_code_7.test_view_status_code_7">test_view_status_code_7() (in module tests.cms.views.status_code.test_view_status_code_7)</a>
@@ -25319,6 +25337,13 @@
 
       <ul>
         <li><a href="ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_internal_link_checker">module</a>
+</li>
+      </ul></li>
+      <li>
+    tests.cms.utils.test_slug_utils
+
+      <ul>
+        <li><a href="ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_slug_utils">module</a>
 </li>
       </ul></li>
       <li>

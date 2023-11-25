@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-11-25T13:23:37+00:00" />
+    <meta property="article:modified_time" content="2023-11-25T14:33:41+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2023.11.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -398,6 +398,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.utils.html">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.utils.html#test-internal-link-checker">Test Internal Link Checker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.utils.html#test-slug-utils">Test Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.utils.html#test-translation-utils">Test Translation Utils</a></li>
 </ul>
 </li>
@@ -985,6 +986,8 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.PER_PAGE"><code class="docutils literal notranslate"><span class="pre">PER_PAGE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.REDIS_CACHE"><code class="docutils literal notranslate"><span class="pre">REDIS_CACHE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.RELEASE_NOTES_DIRS"><code class="docutils literal notranslate"><span class="pre">RELEASE_NOTES_DIRS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.RESERVED_REGION_PAGE_PATTERNS"><code class="docutils literal notranslate"><span class="pre">RESERVED_REGION_PAGE_PATTERNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.RESERVED_REGION_SLUGS"><code class="docutils literal notranslate"><span class="pre">RESERVED_REGION_SLUGS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.ROOT_URLCONF"><code class="docutils literal notranslate"><span class="pre">ROOT_URLCONF</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.RSS_FEED_URLS"><code class="docutils literal notranslate"><span class="pre">RSS_FEED_URLS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SECRET_KEY"><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a></li>
@@ -1255,6 +1258,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="tests.cms.html">CMS</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#module-tests.cms.utils.test_internal_link_checker">Test Internal Link Checker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-tests.cms.utils.test_slug_utils">Test Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-tests.cms.utils.test_translation_utils">Test Translation Utils</a></li>
 </ul>
 </li>
@@ -1839,6 +1843,75 @@
 <li><p><strong>load_test_data</strong> (<em>None</em>) – The fixture providing the test data (see <a class="reference internal" href="tests.html#tests.conftest.load_test_data" title="tests.conftest.load_test_data"><code class="xref py py-meth docutils literal notranslate"><span class="pre">load_test_data()</span></code></a>)</p></li>
 <li><p><strong>link</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><em>str</em></a>) – The URL to check</p></li>
 <li><p><strong>trailing_slash</strong> (<a class="reference external" href="https://docs.python.org/3.9/library/functions.html#bool" title="(in Python v3.9)"><em>bool</em></a>) – Whether to ensure the trailing slash</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-tests.cms.utils.test_slug_utils">
+<span id="test-slug-utils"></span><h2>Test Slug Utils<a class="headerlink" href="#module-tests.cms.utils.test_slug_utils" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.cms.utils.test_slug_utils.test_generate_unique_slug_fallback">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_slug_utils.</span></span><span class="sig-name descname"><span class="pre">test_generate_unique_slug_fallback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_slug_utils.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.utils.test_slug_utils.test_generate_unique_slug_fallback" title="Link to this definition"></a></dt>
+<dd><p>Test whether the <a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper" title="integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate_unique_slug_helper()</span></code></a> function correctly uses the fallback property
+when no slug is provided</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – </p></li>
+<li><p><strong>load_test_data</strong> (<em>None</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.cms.utils.test_slug_utils.test_generate_unique_slug_no_fallback">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_slug_utils.</span></span><span class="sig-name descname"><span class="pre">test_generate_unique_slug_no_fallback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_slug_utils.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.utils.test_slug_utils.test_generate_unique_slug_no_fallback" title="Link to this definition"></a></dt>
+<dd><p>Test whether the <a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper" title="integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate_unique_slug_helper()</span></code></a> throws a <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ValidationError" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ValidationError</span></code></a>,
+while the fallback property does not exist</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.cms.utils.test_slug_utils.test_generate_unique_slug_reserved_page_slug">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_slug_utils.</span></span><span class="sig-name descname"><span class="pre">test_generate_unique_slug_reserved_page_slug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_slug_utils.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.utils.test_slug_utils.test_generate_unique_slug_reserved_page_slug" title="Link to this definition"></a></dt>
+<dd><p>Test whether the <a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper" title="integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate_unique_slug_helper()</span></code></a> function  function returns the correct unique slug
+when the new page slug is a reserved slug</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – </p></li>
+<li><p><strong>load_test_data</strong> (<em>None</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.cms.utils.test_slug_utils.test_generate_unique_slug_reserved_region_slug">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_slug_utils.</span></span><span class="sig-name descname"><span class="pre">test_generate_unique_slug_reserved_region_slug</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.9/library/constants.html#None" title="(in Python v3.9)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_slug_utils.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.utils.test_slug_utils.test_generate_unique_slug_reserved_region_slug" title="Link to this definition"></a></dt>
+<dd><p>Test whether the <a class="reference internal" href="integreat_cms.cms.utils.html#integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper" title="integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper"><code class="xref py py-meth docutils literal notranslate"><span class="pre">generate_unique_slug_helper()</span></code></a> function returns the correct unique slug
+when the new region slug is a reserved slug</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – </p></li>
+<li><p><strong>load_test_data</strong> (<em>None</em>) – </p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>

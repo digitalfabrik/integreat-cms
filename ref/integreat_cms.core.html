@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <meta property="article:modified_time" content="2023-11-25T13:23:37+00:00" />
+    <meta property="article:modified_time" content="2023-11-25T14:33:41+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core &mdash; integreat-cms 2023.11.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -398,6 +398,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.cms.utils.html">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#test-internal-link-checker">Test Internal Link Checker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#test-slug-utils">Test Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#test-translation-utils">Test Translation Utils</a></li>
 </ul>
 </li>
@@ -985,6 +986,8 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.PER_PAGE"><code class="docutils literal notranslate"><span class="pre">PER_PAGE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.REDIS_CACHE"><code class="docutils literal notranslate"><span class="pre">REDIS_CACHE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.RELEASE_NOTES_DIRS"><code class="docutils literal notranslate"><span class="pre">RELEASE_NOTES_DIRS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.RESERVED_REGION_PAGE_PATTERNS"><code class="docutils literal notranslate"><span class="pre">RESERVED_REGION_PAGE_PATTERNS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.RESERVED_REGION_SLUGS"><code class="docutils literal notranslate"><span class="pre">RESERVED_REGION_SLUGS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.ROOT_URLCONF"><code class="docutils literal notranslate"><span class="pre">ROOT_URLCONF</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.RSS_FEED_URLS"><code class="docutils literal notranslate"><span class="pre">RSS_FEED_URLS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SECRET_KEY"><code class="docutils literal notranslate"><span class="pre">SECRET_KEY</span></code></a></li>
@@ -1255,6 +1258,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.cms.utils.html">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_internal_link_checker">Test Internal Link Checker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_slug_utils">Test Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_translation_utils">Test Translation Utils</a></li>
 </ul>
 </li>
@@ -3096,6 +3100,24 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/re
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">RELEASE_NOTES_DIRS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'/home/circleci/project/integreat_cms/release_notes'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Where release notes are stored</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">RESERVED_REGION_PAGE_PATTERNS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['disclaimer',</span> <span class="pre">'news',</span> <span class="pre">'events',</span> <span class="pre">'locations',</span> <span class="pre">'offers',</span> <span class="pre">'search']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Reserved region page patterns</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;disclaimer&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;news&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;events&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;locations&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;offers&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;search&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">RESERVED_REGION_SLUGS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#list" title="(in Python v3.9)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.9/library/stdtypes.html#str" title="(in Python v3.9)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['landing',</span> <span class="pre">'recommend',</span> <span class="pre">'licenses',</span> <span class="pre">'main-disclaimer',</span> <span class="pre">'jpal',</span> <span class="pre">'not-found']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Reserved region slugs, that are used in the webapp</p>
+<div class="highlight-JavaScript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="s1">&#39;landing&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;recommend&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;licenses&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;main-disclaimer&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;jpal&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;not-found&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
 </dd></dl>
 
 <dl class="py data">
