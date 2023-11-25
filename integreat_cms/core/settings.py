@@ -64,6 +64,26 @@ IMPRINT_SLUG: Final[str] = os.environ.get("INTEGREAT_CMS_IMPRINT_SLUG", "disclai
 
 TEST_REGION_SLUG: Final[str] = "testumgebung"
 
+#: Reserved region slugs, that are used in the webapp
+RESERVED_REGION_SLUGS: Final[list[str]] = [
+    "landing",
+    "recommend",
+    "licenses",
+    "main-disclaimer",
+    "jpal",
+    "not-found",
+]
+
+#: Reserved region page patterns
+RESERVED_REGION_PAGE_PATTERNS: Final[list[str]] = [
+    IMPRINT_SLUG,
+    "news",
+    "events",
+    "locations",
+    "offers",
+    "search",
+]
+
 #: URL to the Integreat Website
 WEBSITE_URL: Final[str] = os.environ.get(
     "INTEGREAT_CMS_WEBSITE_URL", "https://integreat-app.de"
