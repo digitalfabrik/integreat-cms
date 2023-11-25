@@ -6,10 +6,13 @@
  * Hide disallowed organization choices
  */
 const updateOrganizationChoices = (event: Event) => {
+    const organization = document.getElementById("id_organization") as HTMLSelectElement;
+    if (!organization) {
+        return;
+    }
     const regions = event.target as HTMLSelectElement;
     // Get all selected region ids
     const regionIds = Array.from(regions.selectedOptions).map(({ value }) => value);
-    const organization = document.getElementById("id_organization") as HTMLSelectElement;
     // Hide/show the adjusted organization options
     Array.from(organization.options).forEach((element) => {
         if (element.dataset.regionId) {
