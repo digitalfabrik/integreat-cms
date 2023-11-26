@@ -18,7 +18,6 @@
 {% firstof font_style|add:"del { background-color: rgb(252 165 165); } ins { background-color: rgb(134 239 172); text-decoration-line: none; }" as content_style %}
 <div id="tinymce-config-options"
      data-webapp-url="{% get_webapp_url %}"
-     data-internal-urls="{% get_internal_urls %}"
      data-language="{{ LANGUAGE_CODE|slice:'0:2' }}"
      data-directionality="{% if right_to_left %}rtl{% else %}ltr{% endif %}"
      data-no-translate-tooltip='{% translate "Do not translate the selected text." %}'

@@ -2,7 +2,6 @@ import { getCsrfToken } from "../../utils/csrf-token";
 
 (() => {
     const tinymceConfig = document.getElementById("tinymce-config-options");
-    const internalUrls = tinymceConfig.getAttribute("data-internal-urls");
 
     const getCompletions = async (query, id) => {
         const url = tinymceConfig.getAttribute("data-link-ajax-url");
@@ -35,8 +34,6 @@ import { getCsrfToken } from "../../utils/csrf-token";
         }
         return url;
     };
-
-    const isExternalUrl = (url) => !internalUrls.split(" ").some((e) => url.includes(e));
 
     const updateLink = (editor, anchorElm, text, linkAttrs) => {
         if (text !== null) {
@@ -263,15 +260,10 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     // Either insert a new link or update the existing one
                     const anchor = getAnchor();
                     if (!anchor) {
-                        if (isExternalUrl(realUrl)) {
-                            editor.insertContent(`<a href=${realUrl} class="link-external">${text}</a>`);
-                        } else {
-                            editor.insertContent(`<a href=${realUrl}>${text}</a>`);
-                        }
+                        editor.insertContent(`<a href=${realUrl}>${text}</a>`);
                     } else {
                         updateLink(editor, anchor, text, {
                             href: realUrl,
-                            class: isExternalUrl(realUrl) ? "link-external" : "",
                         });
                     }
                 },
@@ -320,7 +312,6 @@ import { getCsrfToken } from "../../utils/csrf-token";
                             const anchor = getAnchor();
                             updateLink(editor, anchor, null, {
                                 href: realUrl,
-                                class: isExternalUrl(realUrl) ? "link-external" : "",
                             });
                         }
                         formApi.hide();
