@@ -96,6 +96,7 @@ class CustomContentModelForm(CustomModelForm):
 
         return cleaned_data
 
+    # pylint: disable=too-many-branches
     def clean_content(self) -> str:
         """
         Validate the content field (see :ref:`overriding-modelform-clean-method`) and applies changes
@@ -125,6 +126,21 @@ class CustomContentModelForm(CustomModelForm):
             self.logger.debug(
                 "Replaced %r tag with p tag: %r", tag_type, tostring(monospaced)
             )
+
+        # Set link-external as class for external links
+        for link in content.iter("a"):
+            if href := link.get("href"):
+                is_external = not any(url in href for url in settings.INTERNAL_URLS)
+                if "link-external" not in link.classes and is_external:
+                    link.classes.add("link-external")
+                    self.logger.debug(
+                        "Added class 'link-external' to %r", tostring(link)
+                    )
+                elif "link-external" in link.classes and not is_external:
+                    link.classes.remove("link-external")
+                    self.logger.debug(
+                        "Removed class 'link-external' from %r", tostring(link)
+                    )
 
         # Remove external links
         for link in content.iter("a"):
