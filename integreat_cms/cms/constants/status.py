@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 #: Draft
 DRAFT: Final = "DRAFT"
-#: Pending Review
+#: Pending Approval
 REVIEW: Final = "REVIEW"
 #: Public
 PUBLIC: Final = "PUBLIC"
@@ -26,7 +26,7 @@ AUTO_SAVE: Final = "AUTO_SAVE"
 #: Choices to use these constants in a database field
 CHOICES: Final[list[tuple[str, Promise]]] = [
     (DRAFT, _("Draft")),
-    (REVIEW, _("Pending Review")),
+    (REVIEW, _("Pending Approval")),
     (PUBLIC, _("Published")),
     (AUTO_SAVE, _("Auto Save")),
 ]

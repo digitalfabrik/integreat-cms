@@ -7,7 +7,7 @@
     {% url 'pages' region_slug=request.region.slug language_slug=default_language_slug %}?status=REVIEW
 {% endblock todo_dashboard_title_link %}
 {% block todo_dashboard_title %}
-    {% translate "Pages that are waiting for review" %}
+    {% translate "Pages pending approval" %}
 {% endblock todo_dashboard_title %}
 {% block todo_dashboard_number %}
     {% with total=unreviewed_pages|length %}
@@ -17,11 +17,11 @@
 {% block todo_dashboard_description %}
     {% if unreviewed_pages %}
         {% blocktranslate trimmed with single_unreviewed_page=unreviewed_pages.0 %}
-            The page <b>{{ single_unreviewed_page }}</b> is waiting for a review. Please review the page to ensure the content is accurate.
+            The page <b>{{ single_unreviewed_page }}</b> is waiting for approval. Please review the page to ensure the content is accurate.
         {% endblocktranslate %}
     {% else %}
         {% blocktranslate trimmed %}
-            At the moment there is no page waiting for a review. Good job!
+            At the moment there is no page waiting for approval. Good job!
         {% endblocktranslate %}
     {% endif %}
 {% endblock todo_dashboard_description %}
