@@ -123,114 +123,112 @@
                     </div>
                 </div>
             </div>
-            {% if request.user.is_staff %}
-                <div class="2xl:col-span-2 rounded border border-solid border-blue-500 shadow-2xl bg-white">
-                    <div class="p-4 rounded bg-water-500">
-                        <h3 class="heading font-bold text-black">
-                            <i icon-name="bar-chart-horizontal" class="mr-2"></i> {% translate "Number of words in the German contents" %}
-                        </h3>
+            <div class="2xl:col-span-2 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                <div class="p-4 rounded bg-water-500">
+                    <h3 class="heading font-bold text-black">
+                        <i icon-name="bar-chart-horizontal" class="mr-2"></i> {% translate "Number of words in the German contents" %}
+                    </h3>
+                </div>
+                <div class="px-4 pb-4 mt-4">
+                    <div class="help-text mt-4">
+                        {% translate "The number of words in the latest versions per status and per content type." %}
                     </div>
-                    <div class="px-4 pb-4 mt-4">
-                        <div class="help-text mt-4">
-                            {% translate "The number of words in the latest versions per status and per content type." %}
-                        </div>
-                        <div class="overflow-auto">
-                            <table class="w-full rounded bg-white">
-                                <thead>
-                                    <tr class="border-b border-solid border-gray-200">
-                                        <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
-                                            {% translate "Content type" %}
-                                        </th>
-                                        <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
-                                            {% translate "Published" %}
-                                        </th>
-                                        <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
-                                            {% translate "Draft" %}
-                                        </th>
-                                        <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
-                                            {% translate "Pending Review" %}
-                                        </th>
-                                        <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
-                                            {% translate "Auto Save" %}
-                                        </th>
-                                        <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
-                                            {% translate "Total per Content type" %}
-                                        </th>
-                                    </tr>
-                                </thead>
-                                {% for content, counter in word_count.items %}
-                                    <tbody>
-                                        <tr class="border-t-2 border-solid border-gray-200 hover:bg-gray-100">
-                                            <td class="pl-2">
-                                                <p class="block py-3 px-2 text-gray-800">
-                                                    {{ content }}
-                                                </p>
-                                            </td>
-                                            <td class="pl-2">
-                                                <p class="block py-3 px-2 text-gray-800">
-                                                    {{ counter.PUBLIC }}
-                                                </p>
-                                            </td>
-                                            <td class="pl-2">
-                                                <p class="block py-3 px-2 text-gray-800">
-                                                    {{ counter.DRAFT }}
-                                                </p>
-                                            </td>
-                                            <td class="pl-2">
-                                                <p class="block py-3 px-2 text-gray-800">
-                                                    {{ counter.REVIEW }}
-                                                </p>
-                                            </td>
-                                            <td class="pl-2">
-                                                <p class="block py-3 px-2 text-gray-800">
-                                                    {{ counter.AUTO_SAVE }}
-                                                </p>
-                                            </td>
-                                            <td class="pl-2">
-                                                <p class="block py-3 px-2 text-gray-800">
-                                                    {{ counter.PUBLIC|add:counter.DRAFT|add:counter.REVIEW|add:counter.AUTO_SAVE }}
-                                                </p>
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                    <tr class="border-t-2 border-solid border-gray-900 hover:bg-gray-100">
+                    <div class="overflow-auto">
+                        <table class="w-full rounded bg-white">
+                            <thead>
+                                <tr class="border-b border-solid border-gray-200">
+                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
+                                        {% translate "Content type" %}
+                                    </th>
+                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
+                                        {% translate "Published" %}
+                                    </th>
+                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
+                                        {% translate "Draft" %}
+                                    </th>
+                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
+                                        {% translate "Pending Review" %}
+                                    </th>
+                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
+                                        {% translate "Auto Save" %}
+                                    </th>
+                                    <th class="text-sm text-left uppercase py-3 pl-4 pr-4">
+                                        {% translate "Total per Content type" %}
+                                    </th>
+                                </tr>
+                            </thead>
+                            {% for content, counter in word_count.items %}
+                                <tbody>
+                                    <tr class="border-t-2 border-solid border-gray-200 hover:bg-gray-100">
                                         <td class="pl-2">
-                                            <p class="block font-extrabold py-3 px-2 text-gray-900">
-                                                {% translate "Total per Status" %}
+                                            <p class="block py-3 px-2 text-gray-800">
+                                                {{ content }}
                                             </p>
                                         </td>
                                         <td class="pl-2">
                                             <p class="block py-3 px-2 text-gray-800">
-                                                {{ total_public_words }}
+                                                {{ counter.PUBLIC }}
                                             </p>
                                         </td>
                                         <td class="pl-2">
                                             <p class="block py-3 px-2 text-gray-800">
-                                                {{ total_draft_words }}
+                                                {{ counter.DRAFT }}
                                             </p>
                                         </td>
                                         <td class="pl-2">
                                             <p class="block py-3 px-2 text-gray-800">
-                                                {{ total_review_words }}
+                                                {{ counter.REVIEW }}
                                             </p>
                                         </td>
                                         <td class="pl-2">
                                             <p class="block py-3 px-2 text-gray-800">
-                                                {{ total_autosave_words }}
+                                                {{ counter.AUTO_SAVE }}
                                             </p>
                                         </td>
                                         <td class="pl-2">
                                             <p class="block py-3 px-2 text-gray-800">
-                                                {{ total_public_words|add:total_draft_words|add:total_review_words|add:total_autosave_words }}
+                                                {{ counter.PUBLIC|add:counter.DRAFT|add:counter.REVIEW|add:counter.AUTO_SAVE }}
                                             </p>
                                         </td>
                                     </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                                {% endfor %}
+                                <tr class="border-t-2 border-solid border-gray-900 hover:bg-gray-100">
+                                    <td class="pl-2">
+                                        <p class="block font-extrabold py-3 px-2 text-gray-900">
+                                            {% translate "Total per Status" %}
+                                        </p>
+                                    </td>
+                                    <td class="pl-2">
+                                        <p class="block py-3 px-2 text-gray-800">
+                                            {{ total_public_words }}
+                                        </p>
+                                    </td>
+                                    <td class="pl-2">
+                                        <p class="block py-3 px-2 text-gray-800">
+                                            {{ total_draft_words }}
+                                        </p>
+                                    </td>
+                                    <td class="pl-2">
+                                        <p class="block py-3 px-2 text-gray-800">
+                                            {{ total_review_words }}
+                                        </p>
+                                    </td>
+                                    <td class="pl-2">
+                                        <p class="block py-3 px-2 text-gray-800">
+                                            {{ total_autosave_words }}
+                                        </p>
+                                    </td>
+                                    <td class="pl-2">
+                                        <p class="block py-3 px-2 text-gray-800">
+                                            {{ total_public_words|add:total_draft_words|add:total_review_words|add:total_autosave_words }}
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-            {% endif %}
+            </div>
         </div>
     </form>
 {% endblock content %}
