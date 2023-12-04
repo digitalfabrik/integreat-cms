@@ -13,16 +13,18 @@ if TYPE_CHECKING:
 
     from _pytest.logging import LogCaptureFixture
 
+    from .view_config import RedirectTarget, Roles, ViewKwargs, ViewNameStr
+
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("view_name,kwargs,roles,target", PARAMETRIZED_REDIRECT_VIEWS)
 def test_view_redirect(
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
-    view_name: str,
-    kwargs: dict[str, Any],
-    roles: list[str],
-    target: str,
+    view_name: ViewNameStr,
+    kwargs: ViewKwargs,
+    roles: Roles,
+    target: RedirectTarget,
 ) -> None:
     """
     This test checks whether the given view redirects to the given target url

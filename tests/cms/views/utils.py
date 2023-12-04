@@ -14,14 +14,16 @@ if TYPE_CHECKING:
 
     from _pytest.logging import LogCaptureFixture
 
+    from .view_config import PostData, Roles, ViewKwargs, ViewName
+
 
 def check_view_status_code(
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
-    view_name: str,
-    kwargs: dict[str, Any],
-    post_data: dict[str, Any] | str,
-    roles: list[str],
+    view_name: ViewName,
+    kwargs: ViewKwargs,
+    post_data: PostData,
+    roles: Roles,
 ) -> None:
     """
     This test checks whether the given view return the correct status code for the current role
@@ -34,13 +36,17 @@ def check_view_status_code(
     :param roles: The list of roles which should be able to access this view
     """
     client, role = login_role_user
-    url = reverse(view_name, kwargs=kwargs)
+    if isinstance(view_name, tuple):
+        next_url = reverse(view_name[0], kwargs=kwargs)
+        url = f"{next_url}?{view_name[1]}"
+    else:
+        next_url = url = reverse(view_name, kwargs=kwargs)
     if post_data:
-        kwargs = {"data": post_data}
+        post_kwargs = {"data": post_data}
         # If the post data is a string, assume json as content type
         if isinstance(post_data, str):
-            kwargs["content_type"] = "application/json"
-        response = client.post(url, **kwargs)
+            post_kwargs["content_type"] = "application/json"
+        response = client.post(url, **post_kwargs)
     else:
         response = client.get(url)
     print(response.headers)
@@ -50,7 +56,7 @@ def check_view_status_code(
         if post_data:
             if (
                 response.headers.get("Content-Type") == "application/json"
-                or kwargs.get("content_type") == "application/json"
+                or post_kwargs.get("content_type") == "application/json"
             ):
                 # Json-views should return 200 or 201 CREATED (for feedback)
                 assert response.status_code in [
@@ -74,7 +80,7 @@ def check_view_status_code(
             response.status_code == 302
         ), f"View {view_name} did not enforce access control for anonymous users (status code {response.status_code} instead of 302)"
         assert (
-            response.headers.get("location") == f"{settings.LOGIN_URL}?next={url}"
+            response.headers.get("location") == f"{settings.LOGIN_URL}?next={next_url}"
         ), f"View {view_name} did not redirect to login for anonymous users (location header {response.headers.get('location')})"
     else:
         # For logged in users, we want to show an error if they get a permission denied

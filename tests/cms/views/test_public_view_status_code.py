@@ -12,14 +12,16 @@ from .view_config import PARAMETRIZED_PUBLIC_VIEWS
 if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
 
+    from .view_config import PostData, ViewNameStr
+
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("view_name,post_data", PARAMETRIZED_PUBLIC_VIEWS)
 def test_public_view_status_code(
     load_test_data: None,
     caplog: LogCaptureFixture,
-    view_name: str,
-    post_data: dict[str, str],
+    view_name: ViewNameStr,
+    post_data: PostData,
 ) -> None:
     """
     This test checks whether the given view return the correct status code for anonymous users
