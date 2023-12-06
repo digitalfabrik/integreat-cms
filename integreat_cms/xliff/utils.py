@@ -1,12 +1,15 @@
 """
 Helper functions for the XLIFF serializer
 """
+from __future__ import annotations
+
 import datetime
 import difflib
 import glob
 import logging
 import os
 import uuid
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
@@ -26,6 +29,16 @@ from ..cms.models import Page, PageTranslation
 from ..cms.utils.file_utils import create_zip_archive
 from ..cms.utils.translation_utils import gettext_many_lazy as __
 
+if TYPE_CHECKING:
+    from typing import Any
+    from uuid import UUID
+
+    from django.core.serializers.base import DeserializedObject
+    from django.http import HttpRequest
+
+    from ..cms.models.languages.language import Language
+    from ..cms.models.pages.page import PageQuerySet
+
 upload_storage = FileSystemStorage(location=settings.XLIFF_UPLOAD_DIR)
 download_storage = FileSystemStorage(
     location=settings.XLIFF_DOWNLOAD_DIR, base_url=settings.XLIFF_URL
@@ -34,25 +47,21 @@ download_storage = FileSystemStorage(
 logger = logging.getLogger(__name__)
 
 
-def pages_to_xliff_file(request, pages, target_languages, only_public=False):
+def pages_to_xliff_file(
+    request: HttpRequest,
+    pages: PageQuerySet,
+    target_languages: list[Language],
+    only_public: bool = False,
+) -> str | None:
     """
     Export a list of page IDs to a ZIP archive containing XLIFF files for a specified target language (or just a single
     XLIFF file if only one page is converted)
 
     :param request: The current request (used for error messages)
-    :type request: ~django.http.HttpRequest
-
     :param pages: list of pages which should be translated
-    :type pages: list [ ~integreat_cms.cms.models.pages.page.Page ]
-
     :param target_languages: list of target languages (should exclude the region's default language)
-    :type target_languages: [ :class:`~integreat_cms.cms.models.languages.language.Language` ]
-
     :param only_public: Whether only public versions should be exported
-    :type only_public: bool
-
     :return: The path of the generated zip file
-    :rtype: str
     """
     logger.debug(
         "XLIFF export started by %r for pages %r and languages %r",
@@ -113,28 +122,21 @@ def pages_to_xliff_file(request, pages, target_languages, only_public=False):
     return xliff_file_url
 
 
-def page_to_xliff(page, target_language, dir_name, only_public=False):
+def page_to_xliff(
+    page: Page, target_language: Language, dir_name: UUID, only_public: bool = False
+) -> str:
     """
     Export a page to an XLIFF file for a specified target language
 
     :param page: Page which should be translated
-    :type page: ~integreat_cms.cms.models.pages.page.Page
-
     :param target_language: The target language (should not be the region's default language)
-    :type target_language: :class:`~integreat_cms.cms.models.languages.language.Language`
-
     :param dir_name: The directory in which the xliff files should be created
-    :type dir_name: uuid.UUID
-
     :param only_public: Whether only public versions should be exported
-    :type only_public: bool
-
     :raises RuntimeWarning: If the selected page translation does not have a source translation
 
     :raises RuntimeError: When an unexpected error occurs during serialization
 
     :return: The path of the generated XLIFF file
-    :rtype: str
     """
     target_page_translation = (
         page.get_public_translation(target_language.slug)
@@ -215,18 +217,15 @@ def page_to_xliff(page, target_language, dir_name, only_public=False):
     return download_storage.path(actual_filename)
 
 
-def xliffs_to_pages(request, xliff_dir):
+def xliffs_to_pages(
+    request: HttpRequest, xliff_dir: str
+) -> dict[str, list[DeserializedObject]]:
     """
     Export a page to an XLIFF file for a specified target language
 
     :param request: The current request (used for error messages)
-    :type request: ~django.http.HttpRequest
-
     :param xliff_dir: The directory containing the xliff files
-    :type xliff_dir: str
-
     :return: A dict of all page translations as ``DeserializedObject``
-    :rtype: dict
     """
     # Check if result is cached
     if cached_result := cache.get(f"xliff-{xliff_dir}"):
@@ -287,20 +286,15 @@ def xliffs_to_pages(request, xliff_dir):
     return page_translations
 
 
-def get_xliff_import_diff(request, xliff_dir):
+def get_xliff_import_diff(request: HttpRequest, xliff_dir: str) -> list[dict[str, Any]]:
     """
     Show the XLIFF import diff
 
     :param request: The current request (used for error messages)
-    :type request: ~django.http.HttpRequest
-
     :param xliff_dir: The directory containing the xliff files
-    :type xliff_dir: str
-
     :return: A dict containing data about the imported xliff files
-    :rtype: dict
     """
-    diff = {}
+    diff: dict[str, dict] = {}
     for xliff_file, deserialized_objects in xliffs_to_pages(request, xliff_dir).items():
         for deserialized in deserialized_objects:
             page_translation = deserialized.object
@@ -383,21 +377,16 @@ def get_xliff_import_diff(request, xliff_dir):
     return list(diff.values())
 
 
-def xliff_import_confirm(request, xliff_dir, machine_translated):
+def xliff_import_confirm(
+    request: HttpRequest, xliff_dir: str, machine_translated: bool
+) -> bool:
     """
     Confirm the XLIFF import and write changes to database
 
     :param request: The current request (used for error messages)
-    :type request: ~django.http.HttpRequest
-
     :param xliff_dir: The directory containing the xliff files
-    :type xliff_dir: str
-
     :param machine_translated: A flag indicating the import was marked as machine translated
-    :type machine_translated: bool
-
     :return: A dict containing data about the imported xliff files
-    :rtype: dict
     """
     success = True
     # Acquire linkcheck lock to avoid race conditions between post_save signal and links.delete()
@@ -507,24 +496,19 @@ def xliff_import_confirm(request, xliff_dir, machine_translated):
 
 
 def get_xliff_import_errors_and_clean_translation(
-    request, page_translation, add_message_if_unchanged=False
-):
+    request: HttpRequest,
+    page_translation: PageTranslation,
+    add_message_if_unchanged: bool = False,
+) -> tuple[list, bool]:
     """
     Validate an imported page translation and return all errors
     As a side effect, a unique slug is generated for the translation if it does not yet have one.
     Additionally, the content of the translation will be cleaned by a PageTranslationForm.
 
     :param request: The current request (used for error messages)
-    :type request: ~django.http.HttpRequest
-
     :param page_translation: The page translation which is being imported
-    :type page_translation: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
-
     :param add_message_if_unchanged: Whether a message should be added if no changes are detected
-    :type add_message_if_unchanged: bool
-
     :return: All errors of this XLIFF import
-    :rtype: list [ dict ]
     """
     error_messages = []
     # Get current region
@@ -593,15 +577,12 @@ def get_xliff_import_errors_and_clean_translation(
     return error_messages, page_translation_form.has_changed()
 
 
-def get_translation_key(translation):
+def get_translation_key(translation: PageTranslation) -> str:
     """
     Return a unique key for each translation to be able to find duplicates.
     We cannot use the translation id here because the objects have not been written to the database.
 
     :param translation: The translation
-    :type translation: ~integreat_cms.cms.models.pages.page_translation.PageTranslation
-
     :return: A unique key for this ``Page``/``Language``/``version`` combination
-    :rtype: str
     """
     return f"{translation.page.id}-{translation.language.id}-{translation.version}"

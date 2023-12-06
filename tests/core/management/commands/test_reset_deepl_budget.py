@@ -1,4 +1,11 @@
+from __future__ import annotations
+
 from datetime import datetime
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Any
+
 from unittest.mock import patch
 
 import pytest
@@ -16,19 +23,18 @@ class datetime_not_first_day:
     """
 
     @classmethod
-    def now(cls):
+    def now(cls) -> datetime:
         """
         generate a date with day=2
 
         :returns: a date which is never the 1st day of the month
-        :rtype: datetime.datetime
         """
         real_now = datetime.now()
         return real_now.replace(day=2)
 
 
 @patch("datetime.datetime", datetime_not_first_day)
-def test_not_first_day():
+def test_not_first_day() -> None:
     """
     Ensure that the command will not run when it's not the 1st day of the month without --force
     """
@@ -42,7 +48,7 @@ def test_not_first_day():
 
 @pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_reset_deepl_budget(load_test_data_transactional):
+def test_reset_deepl_budget(load_test_data_transactional: Any | None) -> None:
     """
     Ensure that DeepL budget gets reset successfully
     """

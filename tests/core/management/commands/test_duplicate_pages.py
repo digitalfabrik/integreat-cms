@@ -1,12 +1,15 @@
+from __future__ import annotations
+
 import pytest
 from django.core.management.base import CommandError
+from pytest_django.fixtures import SettingsWrapper
 
 from integreat_cms.cms.models import Page, PageTranslation
 
 from ..utils import get_command_output
 
 
-def test_duplicate_pages_prod():
+def test_duplicate_pages_prod() -> None:
     """
     Ensure that this command does not work in production mode
     """
@@ -15,7 +18,7 @@ def test_duplicate_pages_prod():
     assert str(exc_info.value) == "This command can only be used in DEBUG mode."
 
 
-def test_duplicate_pages_missing_region_slug(settings):
+def test_duplicate_pages_missing_region_slug(settings: SettingsWrapper) -> None:
     """
     Ensure that a missing region slug throws an error
     """
@@ -29,7 +32,7 @@ def test_duplicate_pages_missing_region_slug(settings):
 
 
 @pytest.mark.django_db
-def test_duplicate_pages_non_existing_region(settings):
+def test_duplicate_pages_non_existing_region(settings: SettingsWrapper) -> None:
     """
     Ensure that a non existing region slug throws an error
     """
@@ -40,7 +43,7 @@ def test_duplicate_pages_non_existing_region(settings):
 
 
 @pytest.mark.django_db
-def test_duplicate_pages(settings, load_test_data):
+def test_duplicate_pages(settings: SettingsWrapper, load_test_data: None) -> None:
     """
     Ensure that pages are really duplicated
     """

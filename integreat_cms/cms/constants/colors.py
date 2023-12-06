@@ -2,12 +2,19 @@
 This module contains colors which aim to be good distinguishable by humans.
 They are used to display graphs with overlapping lines (e.g. statistics).
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Final
+
 
 #: The default color (blue-500 from tailwind css).
-DEFAULT = "#3b82f6"
+DEFAULT: Final = "#3b82f6"
 
 #: A list of 20 distinguishable colors (taken from https://sashamaps.net/docs/resources/20-colors/)
-CHOICES = [
+CHOICES: Final[list[str]] = [
     "#e6194b",
     "#000075",
     "#ffe119",

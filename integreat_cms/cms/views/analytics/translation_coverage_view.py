@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import logging
 from collections import Counter
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.utils.decorators import method_decorator
@@ -15,6 +18,13 @@ from ...constants.translation_status import (
 from ...decorators import permission_required
 from ...models import PageTranslation
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.db.models.query import QuerySet
+
+    from ..models import Language
+
 logger = logging.getLogger(__name__)
 
 
@@ -27,21 +37,18 @@ class TranslationCoverageView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "analytics/translation_coverage.html"
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Extend context by translation coverage data
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The context dictionary
-        :rtype: dict
         """
         # The current region
         region = self.request.region
         # Initialize dicts which will hold the counter per language
-        translation_count = {}
-        word_count = {}
+        translation_count: dict[Language, Counter] = {}
+        word_count: dict[Language, Counter] = {}
         # Cache the page tree to avoid database overhead
         pages = (
             region.pages.filter(explicitly_archived=False)
@@ -109,12 +116,11 @@ class TranslationCoverageView(TemplateView):
         context.update(self.get_hix_context())
         return context
 
-    def get_hix_context(self):
+    def get_hix_context(self) -> dict[str, QuerySet | int | float]:
         """
         Extend context by HIX info
 
         :return: The HIX context dictionary
-        :rtype: dict
         """
         if not settings.TEXTLAB_API_ENABLED:
             return {}

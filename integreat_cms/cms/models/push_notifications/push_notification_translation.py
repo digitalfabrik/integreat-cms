@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -6,6 +10,11 @@ from ...constants import push_notifications as pnt_const
 from ..abstract_base_model import AbstractBaseModel
 from ..languages.language import Language
 from .push_notification import PushNotification
+
+if TYPE_CHECKING:
+    from django.db.models.query import QuerySet
+
+    from ..regions.region import Region
 
 
 class PushNotificationTranslation(AbstractBaseModel):
@@ -37,30 +46,27 @@ class PushNotificationTranslation(AbstractBaseModel):
     )
 
     @classmethod
-    def search(cls, region, language_slug, query):
+    def search(
+        cls, region: Region, language_slug: str, query: str
+    ) -> QuerySet[PushNotificationTranslation]:
         """
         Searches for all push notifications which match the given `query` in their title.
         :param region: The current region
-        :type region: ~integreat_cms.cms.models.regions.region.Region
         :param language_slug: The language slug
-        :type language_slug: str
         :param query: The query string used for filtering the push notifications
-        :type query: str
         :return: A query for all matching objects
-        :rtype: ~django.db.models.QuerySet
         """
         return cls.objects.filter(
-            push_notification__regions__contains=region,
+            push_notification__regions=region,
             language__slug=language_slug,
             title__icontains=query,
         )
 
-    def get_title(self):
+    def get_title(self) -> str:
         """
         Get the title of the notification translation.
 
         :return: A title for the push notification
-        :rtype: str
         """
         if (
             self.push_notification.mode == pnt_const.USE_MAIN_LANGUAGE
@@ -70,12 +76,11 @@ class PushNotificationTranslation(AbstractBaseModel):
             return self.push_notification.default_translation.title
         return self.title
 
-    def get_text(self):
+    def get_text(self) -> str:
         """
         Get the text of the notification. Construct a fallback text if possible.
 
         :return: A text for the push notification
-        :rtype: str
         """
         if self.push_notification.mode == pnt_const.USE_MAIN_LANGUAGE and not self.text:
             translations = "\n".join(
@@ -89,32 +94,29 @@ class PushNotificationTranslation(AbstractBaseModel):
             return f"{self.language.message_content_not_available}\n{translations}"
         return self.text
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         """
         Generates the absolute url to a news object in the app
 
         :return: The link to the news
-        :rtype: str
         """
         return f"/{self.push_notification.regions.first().slug}/{self.language.slug}/{self.push_notification.channel}/local/{self.id}"
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``PushNotificationTranslation object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the event
-        :rtype: str
         """
         return self.title
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<PushNotificationTranslation: PushNotificationTranslation object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the event
-        :rtype: str
         """
         return f"<PushNotificationTranslation (id: {self.id}, push_notification_id: {self.push_notification.id}, title: {self.title})>"
 

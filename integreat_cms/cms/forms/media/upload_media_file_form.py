@@ -1,6 +1,9 @@
+from __future__ import annotations
+
 import logging
 import mimetypes
 from os.path import splitext
+from typing import TYPE_CHECKING
 
 import magic
 from django import forms
@@ -12,6 +15,10 @@ from ...constants import allowed_media
 from ...models import MediaFile
 from ...utils.media_utils import generate_thumbnail
 from ..custom_model_form import CustomModelForm
+
+if TYPE_CHECKING:
+    from django.http import QueryDict
+    from django.utils.datastructures import MultiValueDict
 
 logger = logging.getLogger(__name__)
 
@@ -40,21 +47,19 @@ class UploadMediaFileForm(CustomModelForm):
             "last_modified",
         )
 
-    def __init__(self, data=None, files=None, instance=None):
+    def __init__(
+        self,
+        data: QueryDict | None = None,
+        files: MultiValueDict | None = None,
+        instance: MediaFile | None = None,
+    ) -> None:
         """
         Initialize UploadMediaFileForm form
 
         :param data: submitted POST data
-        :type data: dict
-
         :param data: A dictionary-like object containing all given HTTP POST parameters
-        :type data: django.http.QueryDict
-
         :param files: A dictionary-like object containing all uploaded files
-        :type files: django.utils.datastructures.MultiValueDict
-
         :param instance: This form's instance
-        :type instance: ~integreat_cms.cms.models.media.media_file.MediaFile
         """
 
         # instantiate ModelForm
@@ -67,14 +72,13 @@ class UploadMediaFileForm(CustomModelForm):
         self.fields["file_size"].required = False
         self.fields["last_modified"].required = False
 
-    def clean(self):
+    def clean(self) -> dict:
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`:
         Don't allow multiple root nodes for one region:
         If the file type is invalid, add a :class:`~django.core.exceptions.ValidationError`.
 
         :return: The cleaned form data
-        :rtype: dict
         """
         cleaned_data = super().clean()
 
@@ -108,8 +112,9 @@ class UploadMediaFileForm(CustomModelForm):
                 file.name = name + valid_extensions[0]
 
         if (
-            cleaned_data.get("parent_directory")
-            and cleaned_data.get("parent_directory").region != self.instance.region
+            (parent_directory := cleaned_data.get("parent_directory"))
+            and self.instance
+            and parent_directory.region != self.instance.region
         ):
             self.add_error(
                 "parent_directory",
@@ -120,7 +125,11 @@ class UploadMediaFileForm(CustomModelForm):
             )
 
         # If everything looks good until now, generate a thumbnail and an optimized image
-        if not self.errors and cleaned_data.get("type").startswith("image"):
+        if (
+            not self.errors
+            and (img_type := cleaned_data.get("type"))
+            and img_type.startswith("image")
+        ):
             if optimized_image := generate_thumbnail(
                 file, settings.MEDIA_OPTIMIZED_SIZE, False
             ):
@@ -135,8 +144,8 @@ class UploadMediaFileForm(CustomModelForm):
                     ),
                 )
         # Add the calculated file_size and the modification date to the form data
-        if cleaned_data.get("file"):
-            cleaned_data["file_size"] = cleaned_data.get("file").size
+        if file := cleaned_data.get("file"):
+            cleaned_data["file_size"] = file.size
         cleaned_data["last_modified"] = timezone.now()
 
         logger.debug(

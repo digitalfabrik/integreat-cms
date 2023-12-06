@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import logging
 from html import escape
+from typing import TYPE_CHECKING
 
 from django.apps import apps
 from django.conf import settings
@@ -11,10 +14,24 @@ from django.template.defaultfilters import floatformat
 from django.urls import reverse
 from django.utils import timezone as django_timezone
 from django.utils.functional import cached_property, keep_lazy_text
-from django.utils.safestring import mark_safe
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import override
+
+if TYPE_CHECKING:
+    from datetime import datetime
+
+    from django.db.models.query import QuerySet
+    from django.utils.functional import Promise
+    from django.utils.safestring import SafeString
+
+    from ..languages.language import Language
+    from ..languages.language_tree_node import LanguageTreeNode
+    from ..pages.imprint_page import ImprintPage
+    from ..pages.page import PageQuerySet
+    from ...nominatim_api.utils import BoundingBox
+
+from django.utils.safestring import mark_safe
 
 from ....matomo_api.matomo_api_client import MatomoApiClient
 from ....nominatim_api.utils import BoundingBox
@@ -32,15 +49,12 @@ logger = logging.getLogger(__name__)
 
 
 @keep_lazy_text
-def format_deepl_help_text(help_text):
+def format_deepl_help_text(help_text: Promise) -> str:
     """
     Helper function to lazily format help text with number separators
 
     :param help_text: DeepL field help text to format
-    :type help_text: django.utils.functional.Promise
-
     :return: formatted help text
-    :rtype: django.utils.functional.Promise
     """
     return help_text.format(
         floatformat(settings.DEEPL_CREDITS_ADDON, "g"),
@@ -57,13 +71,12 @@ class RegionManager(models.Manager):
     :attr:`~integreat_cms.cms.models.regions.region.Region.full_name`.
     """
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet:
         """
         Get the queryset of regions including the custom attribute ``language_tree_root`` which contains the root node
         of the region's language tree.
 
         :return: The queryset of regions
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.regions.region.Region ]
         """
         # Get model instead of importing it to avoid circular imports
         LanguageTreeNode = apps.get_model(
@@ -400,12 +413,11 @@ class Region(AbstractBaseModel):
     objects = RegionManager()
 
     @cached_property
-    def has_bounding_box(self):
+    def has_bounding_box(self) -> bool:
         """
         Whether the region has an individual bounding box
 
         :return: Whether all required coordinates for the bounding box are set
-        :rtype: bool
         """
         return all(
             [
@@ -417,12 +429,11 @@ class Region(AbstractBaseModel):
         )
 
     @cached_property
-    def bounding_box(self):
+    def bounding_box(self) -> BoundingBox:
         """
         The bounding box of the region
 
         :return: A bounding box object
-        :rtype: ~integreat_cms.nominatim_api.utils.BoundingBox
         """
         if self.has_bounding_box:
             return BoundingBox(
@@ -434,13 +445,12 @@ class Region(AbstractBaseModel):
         return settings.DEFAULT_BOUNDING_BOX
 
     @cached_property
-    def language_tree(self):
+    def language_tree(self) -> list[LanguageTreeNode]:
         """
         This property returns a QuerySet of all
         :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode` objects of this region.
 
         :return: A QuerySet of all active language tree nodes of this region
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode ]
         """
         try:
             # Try to get the prefetched language tree
@@ -451,46 +461,40 @@ class Region(AbstractBaseModel):
             return list(self.language_tree_nodes.all().select_related("language"))
 
     @cached_property
-    def language_node_by_id(self):
+    def language_node_by_id(self) -> dict[int, LanguageTreeNode]:
         """
         This property returns this region's language tree nodes indexed by ids
 
         :return: A mapping from language tree node ids to their language tree nodes in this region
-        :rtype: dict
         """
         return {node.id: node for node in self.language_tree}
 
     @cached_property
-    def language_node_by_slug(self):
+    def language_node_by_slug(self) -> dict[str, LanguageTreeNode]:
         """
         This property returns this region's language tree nodes indexed by slugs
 
         :return: A mapping from language slugs to their language tree nodes in this region
-        :rtype: dict
         """
         return {node.slug: node for node in self.language_tree}
 
     @cached_property
-    def languages(self):
+    def languages(self) -> list[Language]:
         """
         This property returns a list of all :class:`~integreat_cms.cms.models.languages.language.Language` objects
         which have a :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode` which belongs to
         this region.
 
         :return: A list of all :class:`~integreat_cms.cms.models.languages.language.Language` instances of this region
-        :rtype: list [ ~integreat_cms.cms.models.languages.language.Language ]
         """
         return [node.language for node in self.language_tree]
 
-    def get_source_language(self, language_slug):
+    def get_source_language(self, language_slug: str) -> Language | None:
         """
         This property returns this region's source language of a given language object
 
         :param language_slug: The slug of the requested language
-        :type language_slug: str
-
         :return: The source language of the given language in this region
-        :rtype: dict
         """
         try:
             parent_id = self.language_node_by_slug.get(language_slug).parent_id
@@ -499,61 +503,56 @@ class Region(AbstractBaseModel):
             return None
 
     @cached_property
-    def active_languages(self):
+    def active_languages(self) -> list[Language]:
         """
         This property returns a list of all :class:`~integreat_cms.cms.models.languages.language.Language` objects
         which have  an active :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode` which
         belongs to this region.
 
         :return: A list of all active :class:`~integreat_cms.cms.models.languages.language.Language` instances of this region
-        :rtype: list [ ~integreat_cms.cms.models.languages.language.Language ]
         """
         return [node.language for node in self.language_tree if node.active]
 
     @cached_property
-    def visible_languages(self):
+    def visible_languages(self) -> list[Language]:
         """
         This property returns a list of all :class:`~integreat_cms.cms.models.languages.language.Language` objects
         which have an active & visible :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode`
         which belongs to this region.
 
         :return: A list of all active & visible :class:`~integreat_cms.cms.models.languages.language.Language` instances of this region
-        :rtype: list [ ~integreat_cms.cms.models.languages.language.Language ]
         """
         return [
             node.language for node in self.language_tree if node.active and node.visible
         ]
 
     @cached_property
-    def language_tree_root(self):
+    def language_tree_root(self) -> LanguageTreeNode | None:
         """
         This property returns a the root node of the region's language tree
 
         :return: The region's language root node
-        :rtype: ~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode
         """
         return next(iter(self.language_tree), None)
 
     @cached_property
-    def default_language(self):
+    def default_language(self) -> Language | None:
         """
         This property returns the language :class:`~integreat_cms.cms.models.languages.language.Language` which
         corresponds to the root :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode` of this
         region.
 
         :return: The root :class:`~integreat_cms.cms.models.languages.language.Language` of a region
-        :rtype: ~integreat_cms.cms.models.languages.language.Language
         """
         return self.language_tree_root.language if self.language_tree_root else None
 
     @cached_property
-    def prefix(self):
+    def prefix(self) -> str:
         """
         This property returns the administrative division of a region if it's included in the name.
         If this region has no default language, this property returns an empty string
 
         :return: The prefix of the region
-        :rtype: str
         """
         if self.custom_prefix:
             return self.custom_prefix
@@ -564,23 +563,21 @@ class Region(AbstractBaseModel):
         return ""
 
     @cached_property
-    def full_name(self):
+    def full_name(self) -> str:
         """
         This property returns the full name of a region including its administrative division
 
         :return: The full name of the region
-        :rtype: str
         """
         return f"{self.prefix} {self.name}".strip()
 
     @cached_property
-    def region_users(self):
+    def region_users(self) -> QuerySet:
         """
         This property returns a QuerySet of all :class:`~django.contrib.auth.models.User` objects which belong to this
         region and are neither superusers nor staff.
 
         :return: A QuerySet of all :class:`~django.contrib.auth.models.User` object instances of a region
-        :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
         return get_user_model().objects.filter(
             regions=self,
@@ -589,32 +586,26 @@ class Region(AbstractBaseModel):
         )
 
     @cached_property
-    def statistics(self):
+    def statistics(self) -> MatomoApiClient:
         """
         This property returns the MatomoApiClient of the current region.
 
         :return: The statistics manager
-        :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
         return MatomoApiClient(self)
 
-    def get_language_or_404(self, language_slug, only_active=False, only_visible=False):
+    def get_language_or_404(
+        self, language_slug: str, only_active: bool = False, only_visible: bool = False
+    ) -> Language:
         """
         This class method returns the requested language of this region with optional filters ``active`` and ``visible``
 
         :param language_slug: The slug of the requested language
-        :type language_slug: str
-
         :param only_active: Whether to return only active languages
-        :type only_active: bool
-
         :param only_visible: Whether to return only visible languages
-        :type only_visible: bool
-
         :raises ~django.http.Http404: When no language with the given slug exists for this region and this filters
 
         :return: The requested :class:`~integreat_cms.cms.models.languages.language.Language` of this region
-        :rtype: ~integreat_cms.cms.models.languages.language.Language
         """
         try:
             node = self.language_node_by_slug[language_slug]
@@ -631,14 +622,13 @@ class Region(AbstractBaseModel):
             raise Http404("No language matches the given query.") from e
 
     @property
-    def explicitly_archived_ancestors_subquery(self):
+    def explicitly_archived_ancestors_subquery(self) -> PageQuerySet:
         """
-        This property returns a subquery for all explicitly archived anchestors of a given page.
+        This property returns a subquery for all explicitly archived ancestors of a given page.
         Needs to be used as part of another query because in order to resolve :class:`~django.db.models.OuterRef`,
         e.g. in a :class:`~django.db.models.Subquery` or in :class:`~django.db.models.Exists`.
 
         :return: A queryset of the explicitly archived ancestors.
-        :rtype: ~django.db.models.query.QuerySet
         """
 
         return self.pages.filter(
@@ -649,12 +639,11 @@ class Region(AbstractBaseModel):
         )
 
     @cached_property
-    def archived_pages(self):
+    def archived_pages(self) -> PageQuerySet:
         """
         This property returns a QuerySet of all archived pages and their descendants of this region.
 
         :return: A QuerySet of all archived pages of this region
-        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
 
         return self.pages.filter(
@@ -674,14 +663,13 @@ class Region(AbstractBaseModel):
         )
 
     @cached_property
-    def non_archived_pages(self):
+    def non_archived_pages(self) -> PageQuerySet:
         """
         This property returns a QuerySet of all non-archived pages of this region.
         A page is considered as "non-archived" if its ``explicitly_archived`` property is ``False`` and all the
         page's ancestors are not archived as well.
 
         :return: A QuerySet of all non-archived pages of this region
-        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
 
         return self.pages.filter(
@@ -699,33 +687,21 @@ class Region(AbstractBaseModel):
 
     def get_pages(
         self,
-        archived=False,
-        prefetch_translations=False,
-        prefetch_public_translations=False,
-        annotate_language_tree=False,
-    ):
+        archived: bool = False,
+        prefetch_translations: bool = False,
+        prefetch_public_translations: bool = False,
+        annotate_language_tree: bool = False,
+    ) -> PageQuerySet:
         """
         This method returns either all archived or all non-archived pages of this region.
         To retrieve all pages independently of their archived-state, use the reverse foreign key
         :attr:`~integreat_cms.cms.models.regions.region.Region.pages`.
 
         :param archived: Whether or not only archived pages should be returned (default: ``False``)
-        :type archived: bool
-
-        :param prefetch_translations: Whether the latest translations for each language should be prefetched
-                                      (default: ``False``)
-        :type prefetch_translations: bool
-
-        :param prefetch_public_translations: Whether the latest public translations for each language should be prefetched
-                                             (default: ``False``)
-        :type prefetch_public_translations: bool
-
-        :param annotate_language_tree: Whether the pages should be annotated with the region's language tree
-                                       (default: ``False``)
-        :type annotate_language_tree: bool
-
+        :param prefetch_translations: Whether the latest translations for each language should be prefetched (default: ``False``)
+        :param prefetch_public_translations: Whether the latest public translations for each language should be prefetched (default: ``False``)
+        :param annotate_language_tree: Whether the pages should be annotated with the region's language tree (default: ``False``)
         :return: Either the archived or the non-archived pages of this region
-        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
         pages = self.archived_pages if archived else self.non_archived_pages
         if prefetch_translations:
@@ -736,45 +712,40 @@ class Region(AbstractBaseModel):
             pages = pages.annotate(language_tree=models.Subquery(self.language_tree))
         return pages
 
-    def get_root_pages(self):
+    def get_root_pages(self) -> PageQuerySet:
         """
         This method returns all root pages of this region.
 
         :return: This region's root pages
-        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.pages.page.Page ]
         """
         # Get model instead of importing it to avoid circular imports
         Page = apps.get_model(app_label="cms", model_name="Page")
         return Page.get_root_pages(region_slug=self.slug)
 
     @classmethod
-    def search(cls, query):
+    def search(cls, query: str) -> QuerySet[Region]:
         """
         Searches for all regions which match the given `query` in their name.
         :param query: The query string used for filtering the regions
-        :type query: str
         :return: A query for all matching objects
-        :rtype: ~django.db.models.query.QuerySet
         """
         return cls.objects.filter(name__icontains=query)
 
     @cached_property
-    def imprint(self):
+    def imprint(self) -> ImprintPage | None:
         """
         This property returns this region's imprint
 
         :return: The imprint of this region
-        :rtype: ~integreat_cms.cms.models.pages.imprint_page.ImprintPage
         """
         return self.imprints.first()
 
     @property
-    def deepl_budget(self):
+    def deepl_budget(self) -> int:
         """
         Calculate the maximum translation credit budget (number of words)
 
         :return: The region's total DeepL budget
-        :rtype: int
         """
         # All regions which did not book the add-on get the free credits
         if not self.deepl_addon_booked:
@@ -792,22 +763,20 @@ class Region(AbstractBaseModel):
         )
 
     @property
-    def deepl_budget_remaining(self):
+    def deepl_budget_remaining(self) -> int:
         """
         Calculate the remaining translation credit budget (number of words)
 
         :return: The region's remaining DeepL budget
-        :rtype: int
         """
         return max(0, self.deepl_budget - self.deepl_budget_used)
 
     @cached_property
-    def backend_edit_link(self):
+    def backend_edit_link(self) -> str:
         """
         This function returns the absolute url to the edit form of this region
 
         :return: The url
-        :rtype: str
         """
         return reverse(
             "edit_region",
@@ -817,13 +786,12 @@ class Region(AbstractBaseModel):
         )
 
     @cached_property
-    def last_content_update(self):
+    def last_content_update(self) -> datetime:
         """
         Find the latest date at which any content of the
         region has been modified.
 
         :return: the last content update date
-        :rtype: datetime.datetime
         """
         min_date = django_timezone.make_aware(
             django_timezone.datetime.min, django_timezone.get_default_timezone()
@@ -863,13 +831,12 @@ class Region(AbstractBaseModel):
             self.last_updated,
         )
 
-    def __str__(self):
+    def __str__(self) -> SafeString:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Region object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the region
-        :rtype: str
         """
         label = escape(self.full_name)
         if self.status == region_status.HIDDEN:
@@ -881,13 +848,12 @@ class Region(AbstractBaseModel):
         # mark as safe so that the warning triangle is not escaped
         return mark_safe(label)
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<Region: Region object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the region
-        :rtype: str
         """
         return f"<Region (id: {self.id}, slug: {self.slug})>"
 

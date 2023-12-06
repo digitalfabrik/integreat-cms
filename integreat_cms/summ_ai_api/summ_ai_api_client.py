@@ -1,9 +1,12 @@
 """
 This module contains the API client to interact with the SUMM.AI API
 """
+from __future__ import annotations
+
 import asyncio
-import itertools
 import logging
+from itertools import chain
+from typing import TYPE_CHECKING
 
 import aiohttp
 from django.conf import settings
@@ -11,6 +14,17 @@ from django.conf import settings
 from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
 from ..core.utils.machine_translation_provider import MachineTranslationProvider
 from .utils import TranslationHelper
+
+if TYPE_CHECKING:
+    from asyncio import AbstractEventLoop
+    from typing import Iterator
+
+    from aiohttp import ClientSession
+    from django.forms.models import ModelFormMetaclass
+    from django.http import HttpRequest
+
+    from ..cms.models.pages.page import Page
+    from .utils import TextField
 
 logger = logging.getLogger(__name__)
 
@@ -26,16 +40,13 @@ class SummAiApiClient(MachineTranslationApiClient):
     SUMM.AI API client to get German pages in Easy German language.
     """
 
-    def __init__(self, request, form_class):
+    def __init__(self, request: HttpRequest, form_class: ModelFormMetaclass) -> None:
         """
         Constructor initializes the class variables
 
         :param region: The current region
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :param form_class: The :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
                            subclass of the current content type
-        :type form_class: ~django.forms.models.ModelFormMetaclass
         """
         super().__init__(request, form_class)
         if not MachineTranslationProvider.is_permitted(
@@ -49,20 +60,17 @@ class SummAiApiClient(MachineTranslationApiClient):
         if not self.region.summ_ai_enabled:
             raise RuntimeError(f"SUMM.AI is disabled in {self.region!r}.")
 
-    async def translate_text_field(self, session, text_field):
+    async def translate_text_field(
+        self, session: ClientSession, text_field: TextField
+    ) -> TextField:
         """
         Uses :meth:`aiohttp.ClientSession.post` to perform an asynchronous POST request to the SUMM.AI API.
         After the translation is finished, the processing is delegated to the specific textfield's
         :meth:`~integreat_cms.summ_ai_api.utils.TextField.translate`.
 
         :param session: The session object which is used for the request
-        :type session: aiohttp.ClientSession
-
         :param text_field: The text field to be translated
-        :type text_field: ~integreat_cms.summ_ai_api.utils.TextField
-
         :return: The modified text field containing the translated text
-        :rtype: ~integreat_cms.summ_ai_api.utils.TextField
         """
         logger.debug("Translating %r", text_field)
         # Use test region for development
@@ -101,8 +109,11 @@ class SummAiApiClient(MachineTranslationApiClient):
                 e,
             )
             text_field.exception = e
+        return text_field
 
-    async def translate_text_fields(self, loop, text_fields):
+    async def translate_text_fields(
+        self, loop: AbstractEventLoop, text_fields: Iterator[TextField]
+    ) -> list[TextField]:
         """
         Translate a list of text fields from German into Easy German.
         Create an async task
@@ -110,13 +121,8 @@ class SummAiApiClient(MachineTranslationApiClient):
         for each entry.
 
         :param loop: The asyncio event loop
-        :type loop: asyncio.AbstractEventLoop
-
         :param text_fields: The text fields to be translated
-        :type text_fields: list [ ~integreat_cms.summ_ai_api.utils.TextField ]
-
         :returns: The list of completed text fields
-        :rtype: list [ ~integreat_cms.summ_ai_api.utils.TextField ]
         """
         # Set a custom SUMM.AI timeout
         timeout = aiohttp.ClientTimeout(total=60 * settings.SUMM_AI_TIMEOUT)
@@ -130,17 +136,14 @@ class SummAiApiClient(MachineTranslationApiClient):
             # (the results are sorted in the order the tasks were created)
             return await asyncio.gather(*tasks)
 
-    def translate_queryset(self, queryset, language_slug):
+    def translate_queryset(self, queryset: list[Page], language_slug: str) -> None:
         """
         Translate a queryset of content objects from German into Easy German.
 
         To increase the speed of the translations, all operations are parallelized.
 
         :param queryset: The queryset which should be translated
-        :type queryset: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel ]
-
         :param language_slug: The target language slug to translate into
-        :type language_slug: str
         """
         # Make sure both languages exist
         self.request.region.get_language_or_404(settings.SUMM_AI_GERMAN_LANGUAGE_SLUG)
@@ -155,7 +158,7 @@ class SummAiApiClient(MachineTranslationApiClient):
         ]
 
         # Aggregate all strings that need to be translated
-        text_fields = itertools.chain(
+        text_fields = chain(
             *[
                 translation_helper.get_text_fields()
                 for translation_helper in translation_helpers

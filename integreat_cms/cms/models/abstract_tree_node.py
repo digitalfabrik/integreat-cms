@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from cacheops import invalidate_model
 from db_mutex import DBMutexError, DBMutexTimeoutError
@@ -8,6 +11,10 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from treebeard.exceptions import InvalidPosition
 from treebeard.ns_tree import NS_Node
+
+if TYPE_CHECKING:
+    from typing import Any
+    from treebeard.ns_tree import NS_NodeQuerySet
 
 from ..constants import position
 from .abstract_base_model import AbstractBaseModel
@@ -38,27 +45,21 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
     )
 
     @classmethod
-    def get_region_root_nodes(cls, region_slug):
+    def get_region_root_nodes(cls, region_slug: str) -> NS_NodeQuerySet:
         """
         Get all root nodes of a specific region
 
         :param region_slug: The slug of the requested :class:`~integreat_cms.cms.models.regions.region.Region`
-        :type region_slug: str
-
         :return: A queryset containing the root nodes in the tree.
-        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet
         """
         return super().get_root_nodes().filter(region__slug=region_slug)
 
-    def add_child(self, **kwargs):
+    def add_child(self, **kwargs: Any) -> AbstractTreeNode:
         r"""
         Adds a child to the node
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The new child
-        :rtype: ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode
         """
         # Adding a child can modify all other nodes via raw sql queries (which are not recognized by cachalot),
         # so we have to invalidate the whole model manually.
@@ -67,18 +68,13 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         invalidate_model(self.__class__)
         return child
 
-    def add_sibling(self, pos=None, **kwargs):
+    def add_sibling(self, pos: str | None = None, **kwargs: Any) -> AbstractTreeNode:
         r"""
         Adds a new node as a sibling to the current node object
 
         :param pos: The position of the new sibling
-        :type pos: str
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The new sibling
-        :rtype: ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode
         """
         # Adding a sibling can modify all other nodes via raw sql queries (which are not recognized by cachalot),
         # so we have to invalidate the whole model manually.
@@ -88,16 +84,13 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         return sibling
 
     @classmethod
-    def get_tree(cls, parent=None):
+    def get_tree(cls, parent: AbstractTreeNode | None = None) -> NS_NodeQuerySet:
         """
         Get the tree of a specific parent node
 
         :param parent: The parent node of which the tree should be returned (optional, if no parent is given, all trees
                        are returned.)
-        :type parent: ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode
-
         :return: A :class:`~django.db.models.query.QuerySet` of nodes ordered as DFS, including the parent.
-        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet
         """
         if not parent:
             logger.debug(
@@ -109,37 +102,32 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         return super().get_tree(parent=parent)
 
     @classmethod
-    def get_region_tree(cls, region_slug):
+    def get_region_tree(cls, region_slug: str) -> NS_NodeQuerySet:
         """
         Get the tree of a specific region
 
         :param region_slug: The slug of the requested :class:`~integreat_cms.cms.models.regions.region.Region`
-        :type region_slug: str
-
         :return: A :class:`~django.db.models.query.QuerySet` of nodes ordered as DFS, including the parent.
-        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet
         """
         return cls.get_tree().filter(region__slug=region_slug)
 
     @cached_property
-    def region_siblings(self):
+    def region_siblings(self) -> NS_NodeQuerySet:
         """
         Get all siblings of a specific node in its region
 
         :return: A :class:`~django.db.models.query.QuerySet` of all the node's siblings, including the node itself.
-        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet
         """
         if self.lft == 1:
             return self.get_region_root_nodes(region_slug=self.region.slug)
         return super().get_siblings()
 
     @cached_property
-    def prev_region_sibling(self):
+    def prev_region_sibling(self) -> AbstractTreeNode | None:
         """
         Get the previous node's sibling, or None if it was the leftmost sibling.
 
         :return: The previous node's sibling in its region
-        :rtype: ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode
         """
         siblings = self.region_siblings
         ids = [obj.pk for obj in siblings]
@@ -148,12 +136,11 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         return None
 
     @cached_property
-    def next_region_sibling(self):
+    def next_region_sibling(self) -> AbstractTreeNode | None:
         """
         Get the next node's sibling, or None if it was the rightmost sibling.
 
         :return: The next node's sibling in its region
-        :rtype: ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode
         """
         siblings = self.region_siblings
         ids = [obj.pk for obj in siblings]
@@ -161,16 +148,15 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
             return siblings[idx + 1]
         return None
 
-    def get_cached_ancestors(self, include_self=False):
+    def get_cached_ancestors(
+        self, include_self: bool = False
+    ) -> list[AbstractTreeNode]:
         """
         Get the cached ancestors of a specific node
 
         :param include_self: Whether the current node should be included in the result (defaults to ``False``)
-        :type include_self: bool
-
         :return: A :class:`~django.db.models.query.QuerySet` containing the current node object's ancestors, starting by
                  the root node and descending to the parent.
-        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet
         """
         if not hasattr(self, "_cached_ancestors"):
             self._cached_ancestors = list(self.get_ancestors())
@@ -179,28 +165,26 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         return self._cached_ancestors
 
     @cached_property
-    def cached_parent(self):
+    def cached_parent(self) -> AbstractTreeNode | None:
         """
         Get the parent node of the current node object.
         Caches the result in the object itself to help in loops.
 
         :return: The parent of the node
-        :rtype: ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode
         """
         if self.is_root():
             return None
         return self.get_cached_ancestors()[-1]
 
-    def get_cached_descendants(self, include_self=False):
+    def get_cached_descendants(
+        self, include_self: bool = False
+    ) -> list[AbstractTreeNode]:
         """
         Get the cached descendants of a specific node
 
         :param include_self: Whether the current node should be included in the result (defaults to ``False``)
-        :type include_self: bool
-
         :return: A :class:`~django.db.models.query.QuerySet` containing the current node object's ancestors, starting by
                  the root node and descending to the parent.
-        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet
         """
         if not hasattr(self, "_cached_descendants"):
             self._cached_descendants = list(self.get_descendants())
@@ -209,12 +193,11 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         return self._cached_descendants
 
     @cached_property
-    def cached_children(self):
+    def cached_children(self) -> list[AbstractTreeNode]:
         """
         Get all cached children
 
         :returns: A list of all the node's cached children
-        :rtype: list
         """
         if not hasattr(self, "_cached_children"):
             if hasattr(self, "_cached_descendants"):
@@ -227,32 +210,25 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
                 self._cached_children = list(self.get_children())
         return self._cached_children
 
-    def get_tree_max_depth(self, max_depth=1):
+    def get_tree_max_depth(self, max_depth: int = 1) -> NS_NodeQuerySet:
         """
         Return all descendants with depth less or equal to max depth relative to this nodes depth
 
         :param max_depth: The nodes maximum depth in the tree
-        :type max_depth: int
-
         :return: This node including its descendants with relative max depth
-        :rtype: ~treebeard.ns_tree.NS_NodeQuerySet [ ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode ]
         """
         return self.__class__.get_tree(parent=self).filter(
             depth__lte=self.depth + max_depth
         )
 
-    def move(self, target, pos=None):
+    def move(self, target: AbstractTreeNode, pos: str | None = None) -> None:
         """
         Moves the current node and all it's descendants to a new position
         relative to another node.
 
         :param target: The target mode which determines the new position
-        :type target: ~integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode
-
         :param pos: The new position of the page relative to the target
                     (choices: :mod:`~integreat_cms.cms.constants.position`)
-        :type pos: str
-
         :raises ~treebeard.exceptions.InvalidPosition: If the node is moved to another region
         :raises ~db_mutex.exceptions.DBMutexError: If the DB mutex could not be retrieved
         :raises ~db_mutex.exceptions.DBMutexTimeoutError: If waiting for the DB mutex timed out
@@ -300,7 +276,7 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         self.save()
 
     @classmethod
-    def find_problems(cls):
+    def find_problems(cls) -> None:
         """
         Checks for problems in the tree structure.
 
@@ -309,7 +285,7 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         """
 
     @classmethod
-    def fix_tree(cls):
+    def fix_tree(cls) -> None:
         """
         Solves problems that can appear when transactions are not used and
         a piece of code breaks, leaving the tree in an inconsistent state.
@@ -318,13 +294,12 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         Method 'fix_tree' is abstract in class 'Node' but is not overridden (abstract-method)
         """
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<AbstractTreeNode: AbstractTreeNode object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the tree node
-        :rtype: str
         """
         parent_str = f", parent: {self.parent_id}" if self.parent_id else ""
         region_str = f", region: {self.region.slug}" if self.region else ""

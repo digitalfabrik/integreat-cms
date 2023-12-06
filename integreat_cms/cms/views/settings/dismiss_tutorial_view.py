@@ -1,5 +1,12 @@
-from django.http import JsonResponse
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+from django.http import HttpRequest, JsonResponse
 from django.views.generic.base import View
+
+if TYPE_CHECKING:
+    from typing import Any
 
 
 class DismissTutorial(View):
@@ -12,21 +19,14 @@ class DismissTutorial(View):
     #: Since this changes the database, we want to have the csrf protection of post views.
     http_method_names = ["post"]
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> JsonResponse:
         r"""
         Marks a tutorial as dismissed
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.http.HttpResponseRedirect
         """
 
         if (tutorial_slug := kwargs.get("slug")) == "page-tree":

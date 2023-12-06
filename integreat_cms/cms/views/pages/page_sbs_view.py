@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
@@ -15,6 +18,13 @@ from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
 from .page_context_mixin import PageContextMixin
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+
+    from integreat_cms.cms.models.pages.page import Page
+
 logger = logging.getLogger(__name__)
 
 
@@ -29,23 +39,18 @@ class PageSideBySideView(
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pages/page_sbs.html"
     #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`)
-    back_url_name = "pages"
+    back_url_name: str | None = "pages"
 
-    def get(self, request, *args, **kwargs):
+    def get(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponse | HttpResponseRedirect:
         r"""
         Render :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm` on the side by side view
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         region = request.region
@@ -121,24 +126,17 @@ class PageSideBySideView(
             },
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Submit :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm` and save
         :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation` object
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit pages
 
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         region = request.region
@@ -240,22 +238,17 @@ class PageSideBySideView(
         )
 
 
-def get_old_source_content(page, source_language, target_language):
+def get_old_source_content(
+    page: Page, source_language: Language, target_language: Language
+) -> str:
     """
     This function returns the content of the source language translation that was up to date when the latest (no minor edit)
     target language translation was created.
 
     :param page: The page
-    :type page: ~integreat_cms.cms.models.pages.page.Page
-
     :param source_language: The source language of the page
-    :type source_language: ~integreat_cms.cms.models.languages.language.Language
-
     :param target_language: The target language of the page
-    :type target_language: ~integreat_cms.cms.models.languages.language.Language
-
     :return: The content of the translation
-    :rtype: str
     """
     if major_target_page_translation := page.translations.filter(
         language__slug=target_language.slug, minor_edit=False

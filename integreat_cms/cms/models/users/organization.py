@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -43,50 +45,45 @@ class Organization(AbstractBaseModel):
 
     website = models.URLField(max_length=250, verbose_name=_("website"))
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Organization object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the organization
-        :rtype: str
         """
         return self.name
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<Organization: Organization object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the organization
-        :rtype: str
         """
         return f"<Organization (id: {self.id}, slug: {self.slug}, region: {self.region.slug})>"
 
     @property
-    def num_pages(self):
+    def num_pages(self) -> int:
         """
 
         :return: the current number of maintained pages of an organization object
-        :rtype: int
         """
         return self.pages.count()
 
     @property
-    def num_members(self):
+    def num_members(self) -> int:
         """
         :return: the current number of members of an organization object
-        :rtype: int
         """
         return self.members.count()
 
     @cached_property
-    def backend_edit_link(self):
+    def backend_edit_link(self) -> str:
         """
         This function returns the absolute url to the edit form of this region
 
         :return: The url
-        :rtype: str
         """
         return reverse(
             "edit_organization",

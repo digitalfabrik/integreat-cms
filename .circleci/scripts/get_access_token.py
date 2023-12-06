@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+from __future__ import annotations
+
 import os
 from base64 import b64decode
 from datetime import datetime, timedelta
@@ -8,7 +10,7 @@ import jwt
 import requests
 
 
-def main():
+def main() -> None:
     """
     This method reads the deliverino private key from the environment variable ``DELIVERINO_PRIVATE_KEY``, generates a
     JSON web token which is valid for 10 minutes, uses this to request an installation access token (which is then valid

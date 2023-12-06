@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import logging
 import time
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib.messages.storage.fallback import FallbackStorage
@@ -11,21 +14,21 @@ from ....cms.models import Region, User
 from ....summ_ai_api.summ_ai_api_client import SummAiApiClient
 from ..log_command import LogCommand
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.core.management.base import CommandParser
+
 logger = logging.getLogger(__name__)
 
 
-def summ_ai_bulk(region, username, initial=True):
+def summ_ai_bulk(region: Region, username: str, initial: bool = True) -> None:
     """
     Translate a complete region into Easy German
 
     :param region: The current region
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :param username: The username of the creator of the translation objects
-    :type username: str
-
     :param initial: Whether existing translations should not be updated
-    :type initial: bool
     """
     logger.info(
         "Translating %r into Easy German%s",
@@ -79,14 +82,13 @@ class Command(LogCommand):
     Management command to create an initial translation for Easy German via SUMM.AI
     """
 
-    help = "Creates an initial translation for Easy German via SUMM.AI"
+    help: str = "Creates an initial translation for Easy German via SUMM.AI"
 
-    def add_arguments(self, parser):
+    def add_arguments(self, parser: CommandParser) -> None:
         """
         Define the arguments of this command
 
         :param parser: The argument parser
-        :type parser: ~django.core.management.base.CommandParser
         """
         parser.add_argument("region_slug", help="The slug of the region")
         parser.add_argument("username", help="The username of the creator")
@@ -97,24 +99,17 @@ class Command(LogCommand):
         )
 
     # pylint: disable=arguments-differ
-    def handle(self, *args, region_slug, username, initial, **options):
+    def handle(
+        self, *args: Any, region_slug: str, username: str, initial: bool, **options: Any
+    ) -> None:
         r"""
         Try to run the command
 
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param region_slug: The slug of the given region
-        :type region_slug: str
-
         :param username: The username of the creator
-        :type username: str
-
         :param initial: Whether existing translations should not be updated
-        :type initial: bool
-
         :param \**options: The supplied keyword options
-        :type \**options: dict
         """
         if not settings.SUMM_AI_ENABLED:
             raise CommandError("SUMM.AI API is disabled globally.")

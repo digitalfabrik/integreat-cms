@@ -1,7 +1,10 @@
 """
 A view representing an instance of a point of interest. POIs can be created or updated via this view.
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
@@ -20,6 +23,11 @@ from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
 from .poi_context_mixin import POIContextMixin
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
+
 logger = logging.getLogger(__name__)
 
 
@@ -35,23 +43,16 @@ class POIFormView(
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "pois/poi_form.html"
     #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`)
-    back_url_name = "pois"
+    back_url_name: str | None = "pois"
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Render :class:`~integreat_cms.cms.forms.pois.poi_form.POIForm` and :class:`~integreat_cms.cms.forms.pois.poi_translation_form.POITranslationForm`
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         region = request.region
@@ -103,23 +104,16 @@ class POIFormView(
         )
 
     # pylint: disable=too-many-locals
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Submit :class:`~integreat_cms.cms.forms.pois.poi_form.POIForm` and
         :class:`~integreat_cms.cms.forms.pois.poi_translation_form.POITranslationForm` and save :class:`~integreat_cms.cms.models.pois.poi.POI` and
         :class:`~integreat_cms.cms.models.pois.poi_translation.POITranslation` objects
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response
-        :rtype: ~django.template.response.TemplateResponse
         """
 
         region = request.region

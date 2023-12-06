@@ -1,9 +1,19 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+
+if TYPE_CHECKING:
+    from typing import Any, Literal
+    from django.db.models.query import QuerySet
+    from .abstract_content_model import AbstractContentModel
+    from .regions.region import Region
 
 from ..constants import status, translation_status
 from ..utils.translation_utils import gettext_many_lazy as __
@@ -82,10 +92,10 @@ class AbstractContentTranslation(AbstractBaseModel):
     #: The HIX score is ``None`` if not overwritten by a submodel
     hix_score = None
     #: Whether this object is read-only and not meant to be stored to the database
-    read_only = False
+    read_only: bool = False
 
     @staticmethod
-    def foreign_field():
+    def foreign_field() -> Literal["page", "event", "poi"]:
         """
         The field name of the reference to the foreign object which the translation belongs to
 
@@ -94,7 +104,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         raise NotImplementedError
 
     @cached_property
-    def foreign_object(self):
+    def foreign_object(self) -> AbstractContentModel:
         """
         Returns the object the translation belongs to
         This is needed to generalize the :mod:`~integreat_cms.cms.utils.slug_utils` for all content types
@@ -104,7 +114,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         raise NotImplementedError
 
     @cached_property
-    def url_prefix(self):
+    def url_prefix(self) -> str:
         """
         Generates the prefix of the url of the content translation object
 
@@ -112,7 +122,6 @@ class AbstractContentTranslation(AbstractBaseModel):
         see :meth:`~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.get_absolute_url`
 
         :return: The prefix to the url
-        :rtype: str
         """
         return (
             "/"
@@ -130,7 +139,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         )
 
     @cached_property
-    def url_infix(self):
+    def url_infix(self) -> str:
         """
         Generates the infix of the url of the content translation object
 
@@ -142,7 +151,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         raise NotImplementedError
 
     @cached_property
-    def base_link(self):
+    def base_link(self) -> str:
         """
         Generates the base link which is the whole url without slug
 
@@ -150,13 +159,12 @@ class AbstractContentTranslation(AbstractBaseModel):
         see :meth:`~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.get_absolute_url`
 
         :return: the base link of the content
-        :rtype: str
         """
         if not self.id:
             return settings.WEBAPP_URL + "/"
         return settings.WEBAPP_URL + self.url_prefix
 
-    def get_absolute_url(self):
+    def get_absolute_url(self) -> str:
         """
         Generates the absolute url of the content translation object
 
@@ -181,22 +189,20 @@ class AbstractContentTranslation(AbstractBaseModel):
                                                     |----------|    slug
 
         :return: The absolute url
-        :rtype: str
         """
         return self.url_prefix + self.slug + "/"
 
     @cached_property
-    def full_url(self):
+    def full_url(self) -> str:
         """
         This property returns the full url of this content translation object
 
         :return: The full url
-        :rtype: str
         """
         return settings.WEBAPP_URL + self.get_absolute_url()
 
     @cached_property
-    def backend_edit_link(self):
+    def backend_edit_link(self) -> str:
         """
         Generates the url of the edit page for the content
 
@@ -205,7 +211,9 @@ class AbstractContentTranslation(AbstractBaseModel):
         raise NotImplementedError
 
     @cached_property
-    def available_languages_dict(self):
+    def available_languages_dict(
+        self,
+    ) -> dict[str, dict[str, Any]] | dict[str, dict[str, str | None]]:
         """
         This property checks in which :class:`~integreat_cms.cms.models.languages.language.Language` the content is
         translated apart from ``self.language``
@@ -222,7 +230,6 @@ class AbstractContentTranslation(AbstractBaseModel):
             }
 
         :return: A dictionary containing the available languages of a content translation
-        :rtype: dict
         """
         available_languages = {}
 
@@ -239,14 +246,13 @@ class AbstractContentTranslation(AbstractBaseModel):
         return available_languages
 
     @cached_property
-    def sitemap_alternates(self):
+    def sitemap_alternates(self) -> list[dict[str, str]]:
         """
         This property returns the language alternatives of a content translation for the use in sitemaps.
         Similar to :func:`~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.available_languages_dict`,
         but in a slightly different format.
 
         :return: A list of dictionaries containing the alternative translations of a content translation
-        :rtype: list [ dict ]
         """
         available_languages = []
         for language in self.foreign_object.public_languages:
@@ -264,18 +270,17 @@ class AbstractContentTranslation(AbstractBaseModel):
         return available_languages
 
     @cached_property
-    def source_language(self):
+    def source_language(self) -> Language | None:
         """
         This property returns the source language of this language in this
         :class:`~integreat_cms.cms.models.regions.region.Region`'s language tree
 
         :return: The source language of this translation
-        :rtype: ~integreat_cms.cms.models.languages.language.Language
         """
         return self.foreign_object.region.get_source_language(self.language.slug)
 
     @cached_property
-    def source_translation(self):
+    def source_translation(self) -> AbstractContentTranslation | None:
         """
         This property returns the translation which was used to create the ``self`` translation.
         It derives this information from the :class:`~integreat_cms.cms.models.regions.region.Region`'s root
@@ -284,14 +289,13 @@ class AbstractContentTranslation(AbstractBaseModel):
         :return: The content translation in the source :class:`~integreat_cms.cms.models.languages.language.Language`
                  (:obj:`None` if the translation is in the :class:`~integreat_cms.cms.models.regions.region.Region`'s
                  default :class:`~integreat_cms.cms.models.languages.language.Language`)
-        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
         if self.source_language:
             return self.foreign_object.get_translation(self.source_language.slug)
         return None
 
     @cached_property
-    def public_source_translation(self):
+    def public_source_translation(self) -> AbstractContentTranslation | None:
         """
         This property returns the public translation which was used to create the ``self`` translation.
         It derives this information from the :class:`~integreat_cms.cms.models.regions.region.Region`'s root
@@ -299,14 +303,13 @@ class AbstractContentTranslation(AbstractBaseModel):
 
         :return: The content translation in the source :class:`~integreat_cms.cms.models.languages.language.Language`
                  (:obj:`None` if no public source translation exists)
-        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
         if self.source_language:
             return self.foreign_object.get_public_translation(self.source_language.slug)
         return None
 
     @cached_property
-    def public_or_draft_source_translation(self):
+    def public_or_draft_source_translation(self) -> AbstractContentTranslation | None:
         """
         This property returns the public and draft translation which was used to create the ``self`` translation.
         It derives this information from the :class:`~integreat_cms.cms.models.regions.region.Region`'s root
@@ -314,7 +317,6 @@ class AbstractContentTranslation(AbstractBaseModel):
 
         :return: The content translation in the source :class:`~integreat_cms.cms.models.languages.language.Language`
                  (:obj:`None` if no public source translation exists)
-        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
         if self.source_language:
             return self.foreign_object.get_public_or_draft_translation(
@@ -323,7 +325,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         return None
 
     @cached_property
-    def major_public_source_translation(self):
+    def major_public_source_translation(self) -> AbstractContentTranslation | None:
         """
         This property returns the latest major public version of the translation which was used to create the ``self``
         translation. It derives this information from the :class:`~integreat_cms.cms.models.regions.region.Region`'s root
@@ -332,7 +334,6 @@ class AbstractContentTranslation(AbstractBaseModel):
         :return: The content translation in the source :class:`~integreat_cms.cms.models.languages.language.Language`
                  (:obj:`None` if the translation is in the :class:`~integreat_cms.cms.models.regions.region.Region`'s
                  default :class:`~integreat_cms.cms.models.languages.language.Language`)
-        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
         if self.source_language:
             return self.foreign_object.get_major_public_translation(
@@ -341,7 +342,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         return None
 
     @cached_property
-    def major_source_translation(self):
+    def major_source_translation(self) -> AbstractContentTranslation | None:
         """
         This property returns the latest major version of the translation which was used to create the ``self``
         translation. It derives this information from the :class:`~integreat_cms.cms.models.regions.region.Region`'s root
@@ -350,67 +351,61 @@ class AbstractContentTranslation(AbstractBaseModel):
         :return: The content translation in the source :class:`~integreat_cms.cms.models.languages.language.Language`
                  (:obj:`None` if the translation is in the :class:`~integreat_cms.cms.models.regions.region.Region`'s
                  default :class:`~integreat_cms.cms.models.languages.language.Language`)
-        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
         if self.source_language:
             return self.foreign_object.get_major_translation(self.source_language.slug)
         return None
 
     @cached_property
-    def latest_version(self):
+    def latest_version(self) -> AbstractContentTranslation | None:
         """
         This property is a link to the most recent version of this translation.
 
         :return: The latest revision of the translation
-        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
         return self.foreign_object.get_translation(self.language.slug)
 
     @cached_property
-    def public_version(self):
+    def public_version(self) -> AbstractContentTranslation | None:
         """
         This property is a link to the most recent public version of this translation.
         If the translation itself is not public, this property can return a revision which is older than ``self``.
 
         :return: The latest public revision of the translation
-        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
         return self.foreign_object.get_public_translation(self.language.slug)
 
     @cached_property
-    def major_public_version(self):
+    def major_public_version(self) -> AbstractContentTranslation | None:
         """
         This property is a link to the most recent major public version of this translation.
         This is used when translations, which are derived from this translation, check whether they are up to date.
 
         :return: The latest major public revision of the translation
-        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
         return self.foreign_object.get_major_public_translation(self.language.slug)
 
     @cached_property
-    def major_version(self):
+    def major_version(self) -> AbstractContentTranslation | None:
         """
         This property is a link to the most recent major version of this translation.
         This is used when translations, which are derived from this translation, check whether they are up to date.
 
         :return: The latest major public revision of the translation
-        :rtype: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
         """
         return self.foreign_object.get_major_translation(self.language.slug)
 
     @cached_property
-    def all_versions(self):
+    def all_versions(self) -> QuerySet:
         """
         This property returns all versions of this translation's page in its language
 
         :return: All versions of this translation
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation ]
         """
         return self.foreign_object.translations.filter(language=self.language)
 
     @cached_property
-    def is_outdated(self):
+    def is_outdated(self) -> bool:
         """
         This property checks whether a translation is outdated and thus needs a new revision of the content.
         This happens, when the source translation is updated and the update is no `minor_edit`.
@@ -427,28 +422,25 @@ class AbstractContentTranslation(AbstractBaseModel):
         source translation.
 
         :return: Flag to indicate whether the translation is outdated
-        :rtype: bool
         """
         return self.translation_state == translation_status.OUTDATED
 
     @cached_property
-    def is_up_to_date(self):
+    def is_up_to_date(self) -> bool:
         """
         This property checks whether a translation is up to date.
         A translation is considered up to date when it is not outdated and not being translated at the moment.
 
         :return: Flag which indicates whether a translation is up to date
-        :rtype: bool
         """
         return self.translation_state == translation_status.UP_TO_DATE
 
     @cached_property
-    def translation_state(self):
+    def translation_state(self) -> str:
         """
         This function returns the current state of a translation in the given language.
 
         :return: A string describing the state of the translation, one of :data:`~integreat_cms.cms.constants.translation_status.CHOICES`
-        :rtype: str
         """
         if not (translation := self.major_version):
             # If the page does not have a major public version, it is considered "missing" (keep in mind that it might
@@ -476,17 +468,13 @@ class AbstractContentTranslation(AbstractBaseModel):
         return translation_status.UP_TO_DATE
 
     @classmethod
-    def search(cls, region, language_slug, query):
+    def search(cls, region: Region, language_slug: str, query: str) -> QuerySet:
         """
         Searches for all content translations which match the given `query` in their title or slug.
         :param region: The current region
-        :type region: ~integreat_cms.cms.models.regions.region.Region
         :param language_slug: The language slug
-        :type language_slug: str
         :param query: The query string used for filtering the content translations
-        :type query: str
         :return: A query for all matching objects
-        :rtype: ~django.db.models.QuerySet
         """
         return (
             cls.objects.filter(
@@ -497,23 +485,21 @@ class AbstractContentTranslation(AbstractBaseModel):
             .distinct(cls.foreign_field())
         )
 
-    def path(self):
+    def path(self) -> str:
         """
         This method returns a human-readable path that should uniquely identify this object within a given region
         If this content object does not have a hierarchy, just `str(obj)` should suffice
 
         :return: The path
-        :rtype: str
         """
         return str(self)
 
     @cached_property
-    def hix_enabled(self):
+    def hix_enabled(self) -> bool:
         """
         This function returns whether the HIX API is enabled for this instance
 
         :returns: Whether HIX is enabled
-        :rtype: bool
         """
         return (
             settings.TEXTLAB_API_ENABLED
@@ -523,43 +509,39 @@ class AbstractContentTranslation(AbstractBaseModel):
         )
 
     @cached_property
-    def hix_ignore(self):
+    def hix_ignore(self) -> bool:
         """
         Whether this translation is ignored for HIX calculation
 
         :return: Wether the HIX value is ignored
-        :rtype: bool
         """
         return self.foreign_object.hix_ignore
 
     @cached_property
-    def hix_sufficient_for_mt(self):
+    def hix_sufficient_for_mt(self) -> bool:
         """
         Whether this translation has a sufficient HIX value for machine translations.
         If it is ``None``, machine translations are allowed by default.
 
         :return: Wether the HIX value is sufficient for MT
-        :rtype: bool
         """
         return self.hix_score is None or self.hix_score >= settings.HIX_REQUIRED_FOR_MT
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the content translation
-        :rtype: str
         """
         return self.title
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method.
         It is used for logging.
 
         :return: The canonical string representation of the content translation
-        :rtype: str
         """
         return (
             f"<{type(self).__name__} ("
@@ -569,17 +551,13 @@ class AbstractContentTranslation(AbstractBaseModel):
             f"slug: {self.slug})>"
         )
 
-    def save(self, *args, **kwargs):
+    def save(self, *args: Any, **kwargs: Any) -> None:
         r"""
         This overwrites the default Django :meth:`~django.db.models.Model.save` method,
         to update the last_updated field on changes.
 
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied kwargs
-        :type \**kwargs: dict
-
         :raises RuntimeError: When the object was locked for database writes
         """
         if self.read_only:

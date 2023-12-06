@@ -1,8 +1,16 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.contrib.auth import get_user_model
 from django.db.models import Q
+
+if TYPE_CHECKING:
+    from typing import Any
+    from django.db.models.query import QuerySet
+
 from django.utils.translation import gettext_lazy as _
 
 from ...constants import mirrored_page_first, position
@@ -73,12 +81,11 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             "embedded_offers": forms.CheckboxSelectMultiple(),
         }
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         r"""
         Initialize page form
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
 
         # Instantiate CustomModelForm and CustomTreeNodeForm
@@ -174,24 +181,22 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         self.fields["parent"].choices = cached_parent_choices
         self.fields["_ref_node_id"].choices = ref_node_choices
 
-    def _clean_cleaned_data(self):
+    def _clean_cleaned_data(self) -> tuple[str, int]:
         """
         Delete auxiliary fields not belonging to node model and include instance attributes in cleaned_data
 
         :return: The initial data for _ref_node_id and _position fields
-        :rtype: tuple
         """
         del self.cleaned_data["mirrored_page_region"]
         del self.cleaned_data["enable_api_token"]
         return super()._clean_cleaned_data()
 
-    def get_author_queryset(self):
+    def get_author_queryset(self) -> QuerySet:
         """
         This method retrieves all users, who are eligible to be defined as page authors because they don't yet have the
         permission to edit this page.
 
         :return: All potential page authors
-        :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
 
         users_without_permissions = (
@@ -215,13 +220,12 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             )
         return users_without_permissions
 
-    def get_editor_queryset(self):
+    def get_editor_queryset(self) -> QuerySet:
         """
         This method retrieves all users, who are eligible to be defined as page editors because they don't yet have
         the permission to publish this page.
 
         :return: All potential page editors
-        :rtype: ~django.db.models.query.QuerySet [ ~django.contrib.auth.models.User ]
         """
 
         users_without_permissions = (

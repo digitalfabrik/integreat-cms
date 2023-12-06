@@ -1,42 +1,52 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.conf import settings
+from django.test.client import Client
 from django.urls import reverse
 
 from ...conftest import ANONYMOUS
 from ...utils import assert_no_error_messages
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from _pytest.logging import LogCaptureFixture
+
+    from .view_config import PostData, Roles, ViewKwargs, ViewName
+
 
 def check_view_status_code(
-    login_role_user, caplog, view_name, kwargs, post_data, roles
-):
+    login_role_user: tuple[Client, str],
+    caplog: LogCaptureFixture,
+    view_name: ViewName,
+    kwargs: ViewKwargs,
+    post_data: PostData,
+    roles: Roles,
+) -> None:
     """
     This test checks whether the given view return the correct status code for the current role
 
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
-    :type login_role_user: tuple
-
     :param caplog: The :fixture:`caplog` fixture
-    :type caplog: pytest.LogCaptureFixture
-
     :param view_name: The identifier of the view
-    :type view_name: str
-
     :param kwargs: The keyword argument passed to the view
-    :type kwargs: dict
-
     :param post_data: The post data for this view
-    :type post_data: dict
-
     :param roles: The list of roles which should be able to access this view
-    :type roles: list
     """
     client, role = login_role_user
-    url = reverse(view_name, kwargs=kwargs)
+    if isinstance(view_name, tuple):
+        next_url = reverse(view_name[0], kwargs=kwargs)
+        url = f"{next_url}?{view_name[1]}"
+    else:
+        next_url = url = reverse(view_name, kwargs=kwargs)
     if post_data:
-        kwargs = {"data": post_data}
+        post_kwargs = {"data": post_data}
         # If the post data is a string, assume json as content type
         if isinstance(post_data, str):
-            kwargs["content_type"] = "application/json"
-        response = client.post(url, **kwargs)
+            post_kwargs["content_type"] = "application/json"
+        response = client.post(url, **post_kwargs)
     else:
         response = client.get(url)
     print(response.headers)
@@ -46,7 +56,7 @@ def check_view_status_code(
         if post_data:
             if (
                 response.headers.get("Content-Type") == "application/json"
-                or kwargs.get("content_type") == "application/json"
+                or post_kwargs.get("content_type") == "application/json"
             ):
                 # Json-views should return 200 or 201 CREATED (for feedback)
                 assert response.status_code in [
@@ -70,7 +80,7 @@ def check_view_status_code(
             response.status_code == 302
         ), f"View {view_name} did not enforce access control for anonymous users (status code {response.status_code} instead of 302)"
         assert (
-            response.headers.get("location") == f"{settings.LOGIN_URL}?next={url}"
+            response.headers.get("location") == f"{settings.LOGIN_URL}?next={next_url}"
         ), f"View {view_name} did not redirect to login for anonymous users (location header {response.headers.get('location')})"
     else:
         # For logged in users, we want to show an error if they get a permission denied

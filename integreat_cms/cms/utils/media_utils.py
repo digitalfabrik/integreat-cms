@@ -1,6 +1,8 @@
 """
 Utility functions for the media management. Most of the functions are used to transform media data to other data types.
 """
+from __future__ import annotations
+
 import logging
 from io import BytesIO
 
@@ -12,26 +14,19 @@ logger = logging.getLogger(__name__)
 
 
 def generate_thumbnail(
-    original_image,
-    size=settings.MEDIA_THUMBNAIL_SIZE,
-    crop=settings.MEDIA_THUMBNAIL_CROP,
-):
+    original_image: InMemoryUploadedFile,
+    size: int = settings.MEDIA_THUMBNAIL_SIZE,
+    crop: bool = settings.MEDIA_THUMBNAIL_CROP,
+) -> InMemoryUploadedFile | None:
     """
     Creates a thumbnail for a given media_file.
 
     :param original_image: Original image for the thumbnail
-    :type original_image: ~django.core.files.uploadedfile.InMemoryUploadedFile
-
     :param size: Desired size of the thumbnail (maximum for height and with), defaults to
                  :attr:`~integreat_cms.core.settings.MEDIA_THUMBNAIL_SIZE`
-    :type size: int
-
     :param crop: Whether the thumbnail should be cropped (resulting in a square regardless of the initial aspect ratio),
                  defaults to :attr:`~integreat_cms.core.settings.MEDIA_THUMBNAIL_CROP`
-    :type crop: bool
-
     :return: The created thumbnail in memory
-    :rtype: ~django.core.files.uploadedfile.InMemoryUploadedFile
     """
     logger.debug(
         "Generating thumbnail for %r with max size: %spx%s",

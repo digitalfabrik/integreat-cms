@@ -1,7 +1,10 @@
 """
 This module contains the base view for bulk actions
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from cacheops import invalidate_model
 from django.contrib import messages
@@ -15,7 +18,15 @@ from django.views.generic.list import MultipleObjectMixin
 
 from ..constants import status
 from ..models import Page
+from .utils.stringify_list import iter_to_string
 from .utils.translation_status import change_translation_status
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.forms import ModelForm
+    from django.http import HttpRequest, HttpResponse
+    from django.http.response import HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 
@@ -27,20 +38,19 @@ class BulkActionView(PermissionRequiredMixin, MultipleObjectMixin, RedirectView)
 
     #: The list of HTTP method names that this view will accept.
     #: The bulk action form uses only POST as submission method.
-    http_method_names = ["post"]
+    http_method_names: list[str] = ["post"]
     #: Whether the view requires change permissions
-    require_change_permission = True
+    require_change_permission: bool = True
     #: Whether the translation objects should be prefetched
-    prefetch_translations = False
+    prefetch_translations: bool = False
     #: Whether the public translation objects should be prefetched
-    prefetch_public_translations = False
+    prefetch_public_translations: bool = False
 
-    def get_permission_required(self):
+    def get_permission_required(self) -> tuple[str]:
         """
         Override this method to override the permission_required attribute.
 
         :return: The permissions that are required for views inheriting from this Mixin
-        :rtype: ~collections.abc.Iterable
         """
         # If the bulk action performs changes to the database, require the change permission
         if self.require_change_permission:
@@ -48,18 +58,13 @@ class BulkActionView(PermissionRequiredMixin, MultipleObjectMixin, RedirectView)
         # If the bulk action is just a read-view (e.g. export), require the view permission
         return (f"cms.view_{self.model._meta.model_name}",)
 
-    def get_redirect_url(self, *args, **kwargs):
+    def get_redirect_url(self, *args: Any, **kwargs: Any) -> str:
         r"""
         Retrieve url for redirection
 
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: url to redirect to
-        :rtype: str
         """
         redirect_kwargs = {
             "region_slug": self.request.region.slug,
@@ -69,14 +74,13 @@ class BulkActionView(PermissionRequiredMixin, MultipleObjectMixin, RedirectView)
             redirect_kwargs["language_slug"] = kwargs["language_slug"]
         return reverse(f"{self.model._meta.model_name}s", kwargs=redirect_kwargs)
 
-    def get_queryset(self):
+    def get_queryset(self) -> Any:
         """
         Get the queryset of selected items for this bulk action
 
         :raises ~django.http.Http404: HTTP status 404 if no objects with the given ids exist
 
         :return: The QuerySet of the filtered links
-        :rtype: ~django.db.models.query.QuerySet
         """
         # This workaround is necessary to enable the async tests for the SUMM.AI client
         logger.debug("request body: %s", self.request.body)
@@ -103,27 +107,24 @@ class BulkMachineTranslationView(BulkActionView):
     """
 
     #: Whether the public translation objects should be prefetched
-    prefetch_translations = True
+    prefetch_translations: bool = True
 
     #: the form of this bulk action
-    form = None
+    form: ModelForm | None = None
 
-    def post(self, request, *args, **kwargs):
+    def post(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
         r"""
         Translate multiple objects automatically
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The redirect
-        :rtype: ~django.http.HttpResponseRedirect
         """
+        if TYPE_CHECKING:
+            assert self.form
         language_slug = kwargs["language_slug"]
         language_node = request.region.language_node_by_slug.get(language_slug)
         if not language_node or not language_node.active:
@@ -189,10 +190,10 @@ class BulkUpdateBooleanFieldView(BulkActionView):
     """
 
     #: The value of the field (defaults to ``True``)
-    value = True
+    value: bool = True
 
     @property
-    def field_name(self):
+    def field_name(self) -> str:
         """
         Called when the bulk action is performed and the ``field_name`` attribute was not overwritten
 
@@ -203,7 +204,7 @@ class BulkUpdateBooleanFieldView(BulkActionView):
         )
 
     @property
-    def action(self):
+    def action(self) -> str:
         """
         Called when the bulk action is performed and the ``action`` attribute was not overwritten
 
@@ -213,21 +214,16 @@ class BulkUpdateBooleanFieldView(BulkActionView):
             "Subclasses of BulkUpdateBooleanFieldView must provide an 'action' attribute"
         )
 
-    def post(self, request, *args, **kwargs):
+    def post(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
         r"""
         Update the fields of the selected objects and redirect
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The redirect
-        :rtype: ~django.http.HttpResponseRedirect
         """
 
         # Archive objects
@@ -256,21 +252,16 @@ class BulkArchiveView(BulkActionView):
     Bulk action for restoring multiple objects at once
     """
 
-    def post(self, request, *args, **kwargs):
+    def post(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
         r"""
         Archive multiple objects
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The redirect
-        :rtype: ~django.http.HttpResponseRedirect
         """
         if self.model is Page:
             for content_object in self.get_queryset():
@@ -314,38 +305,55 @@ class BulkRestoreView(BulkActionView):
     Bulk action for restoring multiple objects at once
     """
 
-    def post(self, request, *args, **kwargs):
+    def post(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
         r"""
         Restore multiple objects
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The redirect
-        :rtype: ~django.http.HttpResponseRedirect
         """
+        restore_failed = []
         for content_object in self.get_queryset():
-            content_object.restore()
+            if self.get_queryset().model is Page and content_object.implicitly_archived:
+                restore_failed.append(content_object)
+            else:
+                content_object.restore()
+
+        if restore_failed:
+            messages.error(
+                request,
+                _(
+                    "The following {} could not be restored because they have at least one archived parent {}: {}"
+                ).format(
+                    self.model._meta.verbose_name_plural,
+                    self.model._meta.verbose_name,
+                    iter_to_string(
+                        [object.best_translation.title for object in restore_failed]
+                    ),
+                ),
+            )
+
+        restore_succeeded = self.get_queryset().exclude(
+            id__in=[page.id for page in restore_failed]
+        )
+
+        if restore_succeeded:
+            messages.success(
+                request,
+                _("The following {} were successfully restored: {}").format(
+                    self.model._meta.verbose_name_plural,
+                    iter_to_string(
+                        [object.best_translation.title for object in restore_succeeded]
+                    ),
+                ),
+            )
 
         # Invalidate cache
         invalidate_model(self.model)
-        logger.debug(
-            "Restored %r by %r",
-            self.get_queryset(),
-            request.user,
-        )
-        messages.success(
-            request,
-            _("The selected {} were successfully restored").format(
-                self.model._meta.verbose_name_plural
-            ),
-        )
 
         return super().post(request, *args, **kwargs)
 
@@ -355,21 +363,14 @@ class BulkPublishingView(BulkActionView):
     Bulk action to publish multiple pages at once
     """
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Function to change the translation status to publish of multiple pages at once
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The redirect
-        :rtype: ~django.http.HttpResponseRedirect
         """
         change_translation_status(
             request, self.get_queryset(), kwargs["language_slug"], status.PUBLIC
@@ -382,21 +383,14 @@ class BulkDraftingView(BulkActionView):
     Bulk action to draft multiple pages at once
     """
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Function to change the translation status to draft of multiple pages at once
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The redirect
-        :rtype: ~django.http.HttpResponseRedirect
         """
         change_translation_status(
             request, self.get_queryset(), kwargs["language_slug"], status.DRAFT

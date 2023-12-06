@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.contrib.auth import views as auth_views
@@ -8,6 +11,12 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 from ...utils.translation_utils import gettext_many_lazy as __
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.contrib.auth.forms import SetPasswordForm
+    from django.http import HttpResponse
 
 logger = logging.getLogger(__name__)
 
@@ -22,18 +31,13 @@ class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
     #: If the password was successfully reset, redirect to the login
     success_url = reverse_lazy("public:login")
 
-    def dispatch(self, *args, **kwargs):
+    def dispatch(self, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         The view part of the view. Handles all HTTP methods equally.
 
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The rendered template response or a redirection to the password reset page
-        :rtype: ~django.template.response.TemplateResponse or ~django.http.HttpResponseRedirect
         """
         if self.request.user.is_authenticated:
             messages.success(
@@ -57,16 +61,12 @@ class PasswordResetConfirmView(auth_views.PasswordResetConfirmView):
         )
         return redirect("public:password_reset")
 
-    def form_valid(self, form):
+    def form_valid(self, form: SetPasswordForm) -> HttpResponse:
         """
         If the form is valid, show a success message.
 
         :param form: The supplied form
-        :type form: ~django.contrib.auth.forms.SetPasswordForm
-
         :return: form validation
-        :rtype: ~django.http.HttpResponse
-
         """
         messages.success(
             self.request,

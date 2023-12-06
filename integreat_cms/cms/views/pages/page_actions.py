@@ -1,10 +1,13 @@
 """
 This module contains view actions related to pages.
 """
+from __future__ import annotations
+
 import json
 import logging
 import os
 import uuid
+from typing import TYPE_CHECKING
 
 from db_mutex import DBMutexError, DBMutexTimeoutError
 from django.conf import settings
@@ -12,7 +15,13 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
 from django.db import transaction
-from django.http import Http404, HttpResponseNotFound, JsonResponse
+from django.http import (
+    Http404,
+    HttpResponse,
+    HttpResponseNotFound,
+    HttpResponseRedirect,
+    JsonResponse,
+)
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
@@ -25,30 +34,26 @@ from ...forms import PageForm
 from ...models import Page, PageTranslation, Region
 from ...utils.file_utils import extract_zip_archive
 
+if TYPE_CHECKING:
+    from django.http import HttpRequest
+
 logger = logging.getLogger(__name__)
 
 
 @require_POST
-def archive_page(request, page_id, region_slug, language_slug):
+def archive_page(
+    request: HttpRequest, page_id: int, region_slug: str, language_slug: str
+) -> HttpResponseRedirect:
     """
     Archive page object
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param page_id: The id of the page which should be archived
-    :type page_id: int
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param language_slug: The slug of the current language
-    :type language_slug: str
-
     :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
     :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
-    :rtype: ~django.http.HttpResponseRedirect
     """
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
@@ -81,26 +86,19 @@ def archive_page(request, page_id, region_slug, language_slug):
 
 
 @require_POST
-def restore_page(request, page_id, region_slug, language_slug):
+def restore_page(
+    request: HttpRequest, page_id: int, region_slug: str, language_slug: str
+) -> HttpResponseRedirect:
     """
     Restore page object (set ``archived=False``)
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param page_id: The id of the page which should be restored
-    :type page_id: int
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param language_slug: The slug of the current language
-    :type language_slug: str
-
     :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to edit the specific page
 
     :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
-    :rtype: ~django.http.HttpResponseRedirect
     """
 
     region = request.region
@@ -149,26 +147,19 @@ def restore_page(request, page_id, region_slug, language_slug):
 @permission_required("cms.view_page")
 @json_response
 # pylint: disable=unused-argument
-def preview_page_ajax(request, page_id, region_slug, language_slug):
+def preview_page_ajax(
+    request: HttpRequest, page_id: int, region_slug: str, language_slug: str
+) -> JsonResponse:
     """
     Preview page object
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param page_id: The id of the page which should be viewed
-    :type page_id: int
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param language_slug: The slug of the current language
-    :type language_slug: str
-
     :raises ~django.http.Http404: HTTP status 404 if page translation does not exist
 
     :return: Significant page data as a JSON.
-    :rtype: ~django.http.JsonResponse
     """
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
@@ -195,26 +186,19 @@ def preview_page_ajax(request, page_id, region_slug, language_slug):
 @permission_required("cms.view_page")
 @json_response
 # pylint: disable=unused-argument
-def get_page_content_ajax(request, region_slug, language_slug, page_id):
+def get_page_content_ajax(
+    request: HttpRequest, region_slug: str, language_slug: str, page_id: int
+) -> JsonResponse:
     """
     Get content of a page translation based on language slug
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param language_slug: The slug of the current language
-    :type language_slug: str
-
     :param page_id: The id of the page which should be viewed
-    :type page_id: int
-
     :raises ~django.http.Http404: HTTP status 404 if page translation does not exist
 
     :return: Page translation content as a JSON.
-    :rtype: ~django.http.JsonResponse
     """
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
@@ -226,24 +210,17 @@ def get_page_content_ajax(request, region_slug, language_slug, page_id):
 @require_POST
 @permission_required("cms.delete_page")
 @transaction.atomic
-def delete_page(request, page_id, region_slug, language_slug):
+def delete_page(
+    request: HttpRequest, page_id: int, region_slug: str, language_slug: str
+) -> HttpResponseRedirect:
     """
     Delete page object
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param page_id: The id of the page which should be deleted
-    :type page_id: int
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param language_slug: The slug of the current language
-    :type language_slug: str
-
     :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
-    :rtype: ~django.http.HttpResponseRedirect
     """
 
     region = request.region
@@ -272,18 +249,15 @@ def delete_page(request, page_id, region_slug, language_slug):
     )
 
 
-def expand_page_translation_id(request, short_url_id):
+def expand_page_translation_id(
+    request: HttpRequest, short_url_id: int
+) -> HttpResponseRedirect:
     """
     Searches for a page translation with corresponding ID and redirects browser to web app
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param short_url_id: The id of the requested page
-    :type short_url_id: int
-
     :return: A redirection to :class:`~integreat_cms.core.settings.WEBAPP_URL`
-    :rtype: ~django.http.HttpResponseRedirect
     """
 
     page_translation = PageTranslation.objects.get(id=short_url_id).public_version
@@ -297,24 +271,17 @@ def expand_page_translation_id(request, short_url_id):
 @permission_required("cms.change_page")
 @json_response
 # pylint: disable=unused-argument
-def cancel_translation_process_ajax(request, region_slug, language_slug, page_id):
+def cancel_translation_process_ajax(
+    request: HttpRequest, region_slug: str, language_slug: str, page_id: int
+) -> JsonResponse:
     """
     This view is called for manually unsetting the translation process
 
     :param request: ajax request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param language_slug: The slug of the current language
-    :type language_slug: str
-
     :param page_id: The id of the requested page
-    :type page_id: int
-
     :return: on success returns language of updated translation
-    :rtype: ~django.http.JsonResponse
     """
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
@@ -342,21 +309,16 @@ def cancel_translation_process_ajax(request, region_slug, language_slug, page_id
 
 @require_POST
 @permission_required("cms.change_page")
-def upload_xliff(request, region_slug, language_slug):
+def upload_xliff(
+    request: HttpRequest, region_slug: str, language_slug: str
+) -> HttpResponseRedirect:
     """
     Upload and import an XLIFF file
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param language_slug: The slug of the current language
-    :type language_slug: str
-
     :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
-    :rtype: ~django.http.HttpResponseRedirect
     """
     xliff_paths = []
     upload_files = request.FILES.getlist("xliff_file")
@@ -446,30 +408,24 @@ def upload_xliff(request, region_slug, language_slug):
 @require_POST
 @permission_required("cms.change_page")
 @transaction.atomic
-def move_page(request, region_slug, language_slug, page_id, target_id, position):
+def move_page(
+    request: HttpRequest,
+    region_slug: str,
+    language_slug: str,
+    page_id: int,
+    target_id: int,
+    position: str,
+) -> HttpResponseRedirect:
     """
     Move a page object in the page tree
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param language_slug: The slug of the current language
-    :type language_slug: str
-
     :param page_id: The id of the page which should be moved
-    :type page_id: int
-
     :param target_id: The id of the page which determines the new position
-    :type target_id: int
-
     :param position: The new position of the page relative to the target (choices: :mod:`~integreat_cms.cms.constants.position`)
-    :type position: str
-
     :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
-    :rtype: ~django.http.HttpResponseRedirect
     """
 
     region = request.region
@@ -518,21 +474,16 @@ def move_page(request, region_slug, language_slug, page_id, target_id, position)
 @permission_required("cms.change_page")
 @permission_required("cms.grant_page_permissions")
 # pylint: disable=too-many-branches,unused-argument
-def grant_page_permission_ajax(request, region_slug):
+def grant_page_permission_ajax(request: HttpRequest, region_slug: str) -> HttpResponse:
     """
     Grant a user editing or publishing permissions on a specific page object
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :raises ~django.core.exceptions.PermissionDenied: If page permissions are disabled for this region or the user does
                                                       not have the permission to grant page permissions
 
     :return: The rendered page permission table
-    :rtype: ~django.template.response.TemplateResponse
     """
 
     try:
@@ -641,21 +592,16 @@ def grant_page_permission_ajax(request, region_slug):
 @permission_required("cms.change_page")
 @permission_required("cms.grant_page_permissions")
 # pylint: disable=unused-argument
-def revoke_page_permission_ajax(request, region_slug):
+def revoke_page_permission_ajax(request: HttpRequest, region_slug: str) -> HttpResponse:
     """
     Remove a page permission for a given user and page
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :raises ~django.core.exceptions.PermissionDenied: If page permissions are disabled for this region or the user does
                                                       not have the permission to revoke page permissions
 
     :return: The rendered page permission table
-    :rtype: ~django.template.response.TemplateResponse
     """
 
     try:
@@ -753,25 +699,21 @@ def revoke_page_permission_ajax(request, region_slug):
 
 @permission_required("cms.view_page")
 # pylint: disable=unused-argument
-def get_page_order_table_ajax(request, region_slug, parent_id=None, page_id=None):
+def get_page_order_table_ajax(
+    request: HttpRequest,
+    region_slug: str,
+    parent_id: int | None = None,
+    page_id: int | None = None,
+) -> HttpResponse:
     """
     Retrieve the order table for a given page and a given parent page.
     This is used in the page form to change the order of a page relative to its siblings.
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param parent_id: The id of the parent page to which the order table should be returned
-    :type parent_id: int
-
     :param page_id: The id of the page of the current page form
-    :type page_id: int
-
     :return: The rendered page order table
-    :rtype: ~django.template.response.TemplateResponse
     """
 
     region = request.region
@@ -806,21 +748,16 @@ def get_page_order_table_ajax(request, region_slug, parent_id=None, page_id=None
 
 @permission_required("cms.view_page")
 # pylint: disable=unused-argument
-def render_mirrored_page_field(request, region_slug, language_slug):
+def render_mirrored_page_field(
+    request: HttpRequest, region_slug: str, language_slug: str
+) -> HttpResponse:
     """
     Retrieve the rendered mirrored page field template
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param language_slug: The slug of the current language
-    :type language_slug: str
-
     :return: The rendered mirrored page field
-    :rtype: ~django.template.response.TemplateResponse
     """
     # Get the region from which the content should be embedded
     region = get_object_or_404(Region, id=request.GET.get("region_id"))
@@ -847,30 +784,21 @@ def render_mirrored_page_field(request, region_slug, language_slug):
 @require_POST
 # pylint: disable=unused-argument
 def refresh_date(
-    request,
-    page_id,
-    region_slug,
-    language_slug,
-):
+    request: HttpRequest,
+    page_id: int,
+    region_slug: str,
+    language_slug: str,
+) -> HttpResponseRedirect:
     """
     Refresh the date for all translations of a corresponding page
 
     :param request: The current request
-    :type request: ~django.http.HttpRequest
-
     :param page_id: The id of the page of the current page form
-    :type page_id: int
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param language_slug: The slug of the current language
-    :type language_slug: str
-
     :raises ~django.core.exceptions.PermissionDenied: If the user does not have the permission to refresh page dates
 
     :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_form_view.PageFormView`
-    :rtype: ~django.http.HttpResponseRedirect
     """
     region = request.region
     page = get_object_or_404(region.get_pages(archived=False), id=page_id)

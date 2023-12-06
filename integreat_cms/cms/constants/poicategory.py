@@ -1,22 +1,30 @@
 """
 This module contains constants for POICategory.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.utils.translation import gettext_lazy as _
 
-DARK_BLUE = "#3700D2"
-SKY_BLUE = "#2E98FB"
-CYAN = "#1DC6C6"
-FOREST_GREEN = "#3F8F01"
-LAWN_GREEN = "#07DC03"
-YELLOW = "#F2DA04"
-GOLD = "#C38E03"
-ORANGE = "#FF7C32"
-RED = "#FF3333"
-PINK = "#EE36DC"
-LAVENDER = "#A258FF"
-GREY = "#585858"
+if TYPE_CHECKING:
+    from typing import Final
 
-COLORS = [
+
+DARK_BLUE: Final = "#3700D2"
+SKY_BLUE: Final = "#2E98FB"
+CYAN: Final = "#1DC6C6"
+FOREST_GREEN: Final = "#3F8F01"
+LAWN_GREEN: Final = "#07DC03"
+YELLOW: Final = "#F2DA04"
+GOLD: Final = "#C38E03"
+ORANGE: Final = "#FF7C32"
+RED: Final = "#FF3333"
+PINK: Final = "#EE36DC"
+LAVENDER: Final = "#A258FF"
+GREY: Final = "#585858"
+
+COLORS: Final = [
     (DARK_BLUE, _("Dark blue")),
     (SKY_BLUE, _("Sky blue")),
     (CYAN, _("Cyan")),
@@ -31,27 +39,27 @@ COLORS = [
     (GREY, _("Grey")),
 ]
 
-ADVICE = "advice"
-CULTURE = "culture"
-DAILY_ROUTINE = "daily_routine"
-EDUCATION = "education"
-FINANCE = "finance"
-GASTRONOMY = "gastronomy"
-HEALTH = "health"
-HOUSE = "house"
-LEISURE = "leisure"
-MEDIA = "media"
-MEDICAL_AID = "medical_aid"
-MEETING_POINT = "meeting_point"
-MOBILITY = "mobility"
-OFFICE = "office"
-OTHER = "other"
-OTHER_HELP = "other_help"
-SERVICE = "service"
-SHOPPING = "shopping"
-STRUCTURE = "structure"
+ADVICE: Final = "advice"
+CULTURE: Final = "culture"
+DAILY_ROUTINE: Final = "daily_routine"
+EDUCATION: Final = "education"
+FINANCE: Final = "finance"
+GASTRONOMY: Final = "gastronomy"
+HEALTH: Final = "health"
+HOUSE: Final = "house"
+LEISURE: Final = "leisure"
+MEDIA: Final = "media"
+MEDICAL_AID: Final = "medical_aid"
+MEETING_POINT: Final = "meeting_point"
+MOBILITY: Final = "mobility"
+OFFICE: Final = "office"
+OTHER: Final = "other"
+OTHER_HELP: Final = "other_help"
+SERVICE: Final = "service"
+SHOPPING: Final = "shopping"
+STRUCTURE: Final = "structure"
 
-ICONS = [
+ICONS: Final = [
     (ADVICE, _("Advice")),
     (CULTURE, _("Culture")),
     (DAILY_ROUTINE, _("Daily routine")),

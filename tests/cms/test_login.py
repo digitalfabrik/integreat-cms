@@ -1,27 +1,29 @@
+from __future__ import annotations
+
 import pytest
 from django.contrib import auth
+from django.test.client import Client
 from django.urls import reverse
+from pytest_django.fixtures import SettingsWrapper
 
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
     "username", ["root", "root@root.root", "management", "management@example.com"]
 )
-def test_login_success(load_test_data, client, settings, username):
+def test_login_success(
+    load_test_data: None,
+    client: Client,
+    settings: SettingsWrapper,
+    username: str,
+) -> None:
     """
     Test whether login via username & email works as expected
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: tuple
-
-    :param client: The fixture providing the an unauthenticated user client
-    :type client: :fixture:`client`
-
-    :param settings: The Django settings
-    :type settings: :fixture:`settings`
-
+    :param client: The fixture providing the an unauthenticated user client (see :fixture:`client`)
+    :param settings: The Django settings (see :fixture:`settings`)
     :param username: The username/email to use for login
-    :type username: str
     """
     # Test login via username/password
     response = client.post(
@@ -58,21 +60,16 @@ def test_login_success(load_test_data, client, settings, username):
         "",
     ],
 )
-def test_login_failure(load_test_data, client, settings, username):
+def test_login_failure(
+    load_test_data: None, client: Client, settings: SettingsWrapper, username: str
+) -> None:
     """
     Test whether login with incorrect credentials does not work
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: tuple
-
-    :param client: The fixture providing the an unauthenticated user client
-    :type client: :fixture:`client`
-
-    :param settings: The Django settings
-    :type settings: :fixture:`settings`
-
+    :param client: The fixture providing the an unauthenticated user client (see :fixture:`client`)
+    :param settings: The Django settings (see :fixture:`settings`)
     :param username: The username/email to use for login
-    :type username: str
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"

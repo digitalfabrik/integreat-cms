@@ -1,10 +1,19 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Any
+    from pytest_django.fixtures import SettingsWrapper
+    from requests_mock.mocker import Mocker
+    from requests_mock.request import _RequestObjectProxy
+    from requests_mock.response import _Context
+    from _pytest.logging import LogCaptureFixture
+
 import pytest
 from django.core.exceptions import ImproperlyConfigured
 
-from integreat_cms.cms.models.push_notifications.push_notification import (
-    PushNotification,
-)
-from integreat_cms.cms.models.regions.region import Region
+from integreat_cms.cms.models import PushNotification, Region
 from integreat_cms.firebase_api.firebase_api_client import FirebaseApiClient
 
 
@@ -26,15 +35,14 @@ class TestFirebaseApiClient:
     }
 
     @pytest.mark.django_db
-    def test_client_throws_exception_when_fcm_disabled(self, settings, load_test_data):
+    def test_client_throws_exception_when_fcm_disabled(
+        self, settings: SettingsWrapper, load_test_data: None
+    ) -> None:
         """
         Tests that an ImproperlyConfigured exception is thrown, if firebase API is disabled in settings
 
         :param settings: The Django settings
-        :type settings: :fixture:`settings`
-
         :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-        :type load_test_data: tuple
         """
         settings.FCM_ENABLED = False
         notification = PushNotification.objects.first()
@@ -42,32 +50,28 @@ class TestFirebaseApiClient:
             FirebaseApiClient(notification)
 
     @pytest.mark.django_db
-    def test_is_valid(self, settings, load_test_data):
+    def test_is_valid(self, settings: SettingsWrapper, load_test_data: None) -> None:
         """
         Tests that :meth:`~integreat_cms.firebase_api.firebase_api_client.FirebaseApiClient.is_valid` is ``True``,
         when FCM_ENABLED and pushNotification valid (with title and translation)
 
         :param settings: The Django settings
-        :type settings: :fixture:`settings`
-
         :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-        :type load_test_data: tuple
         """
         settings.FCM_ENABLED = True
         notification = PushNotification.objects.first()
         assert FirebaseApiClient(notification).is_valid()
 
     @pytest.mark.django_db
-    def test_is_invalid_when_no_translation(self, settings, load_test_data):
+    def test_is_invalid_when_no_translation(
+        self, settings: SettingsWrapper, load_test_data: None
+    ) -> None:
         """
         Tests that :meth:`~integreat_cms.firebase_api.firebase_api_client.FirebaseApiClient.is_valid` is ``False``,
         when translation missing
 
         :param settings: The Django settings
-        :type settings: :fixture:`settings`
-
         :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-        :type load_test_data: tuple
         """
         settings.FCM_ENABLED = True
         notification = PushNotification.objects.first()
@@ -76,16 +80,15 @@ class TestFirebaseApiClient:
         assert not pns.is_valid()
 
     @pytest.mark.django_db
-    def test_is_invalid_when_no_title(self, settings, load_test_data):
+    def test_is_invalid_when_no_title(
+        self, settings: SettingsWrapper, load_test_data: None
+    ) -> None:
         """
         Tests that :meth:`~integreat_cms.firebase_api.firebase_api_client.FirebaseApiClient.is_valid` is ``False``,
         when pushNotification-title is missing
 
         :param settings: The Django settings
-        :type settings: :fixture:`settings`
-
         :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-        :type load_test_data: tuple
         """
         settings.FCM_ENABLED = True
         notification = PushNotification.objects.first()
@@ -95,22 +98,19 @@ class TestFirebaseApiClient:
 
     @pytest.mark.django_db
     def test_firebase_api_200_success(
-        self, settings, load_test_data, requests_mock, caplog
-    ):
+        self,
+        settings: SettingsWrapper,
+        load_test_data: None,
+        requests_mock: Mocker,
+        caplog: LogCaptureFixture,
+    ) -> None:
         """
         Tests firebase-api-response handling, test a successful API call
 
         :param settings: The Django settings
-        :type settings: :fixture:`settings`
-
         :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-        :type load_test_data: tuple
-
         :param requests_mock: Fixture for mocking requests, see :doc:`requests-mock:pytest`
-        :type requests_mock: ~requests_mock.mocker.Mocker
-
         :param caplog: Fixture for asserting log messages in tests (see :fixture:`pytest:caplog`)
-        :type caplog: ~_pytest.logging.LogCaptureFixture
         """
         status = self.send_all_with_mocked_response(
             settings, requests_mock, self.response_mock_data["200_success"]
@@ -121,23 +121,20 @@ class TestFirebaseApiClient:
 
     @pytest.mark.django_db
     def test_firebase_api_200_unexpected_api_response(
-        self, settings, load_test_data, requests_mock, caplog
-    ):
+        self,
+        settings: SettingsWrapper,
+        load_test_data: None,
+        requests_mock: Mocker,
+        caplog: LogCaptureFixture,
+    ) -> None:
         """
         Tests firebase-api-response handling,
         test a partial successful api call - HTTP 200 but no message_id in response
 
         :param settings: The Django settings
-        :type settings: :fixture:`settings`
-
         :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-        :type load_test_data: tuple
-
         :param requests_mock: Fixture for mocking requests, see :doc:`requests-mock:pytest`
-        :type requests_mock: ~requests_mock.mocker.Mocker
-
         :param caplog: Fixture for asserting log messages in tests (see :fixture:`pytest:caplog`)
-        :type caplog: ~_pytest.logging.LogCaptureFixture
         """
         status = self.send_all_with_mocked_response(
             settings, requests_mock, self.response_mock_data["200_no_message_id"]
@@ -148,23 +145,20 @@ class TestFirebaseApiClient:
 
     @pytest.mark.django_db
     def test_firebase_api_403_wrong_token(
-        self, settings, load_test_data, requests_mock, caplog
-    ):
+        self,
+        settings: SettingsWrapper,
+        load_test_data: None,
+        requests_mock: Mocker,
+        caplog: LogCaptureFixture,
+    ) -> None:
         """
         Tests firebase-api-response handling,
         test a denied call - HTTP 403 because of wrong auth-token
 
         :param settings: The Django settings
-        :type settings: :fixture:`settings`
-
         :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-        :type load_test_data: tuple
-
         :param requests_mock: Fixture for mocking requests, see :doc:`requests-mock:pytest`
-        :type requests_mock: ~requests_mock.mocker.Mocker
-
         :param caplog: Fixture for asserting log messages in tests (see :fixture:`pytest:caplog`)
-        :type caplog: ~_pytest.logging.LogCaptureFixture
         """
         status = self.send_all_with_mocked_response(
             settings, requests_mock, self.response_mock_data["401_invalid_key"]
@@ -174,21 +168,20 @@ class TestFirebaseApiClient:
         assert not status
 
     @pytest.mark.django_db
-    def test_firebase_api_404(self, settings, load_test_data, requests_mock, caplog):
+    def test_firebase_api_404(
+        self,
+        settings: SettingsWrapper,
+        load_test_data: None,
+        requests_mock: Mocker,
+        caplog: LogCaptureFixture,
+    ) -> None:
         """
         Tests firebase-api-response handling, test 404 response
 
         :param settings: The Django settings
-        :type settings: :fixture:`settings`
-
         :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-        :type load_test_data: tuple
-
         :param requests_mock: Fixture for mocking requests, see :doc:`requests-mock:pytest`
-        :type requests_mock: ~requests_mock.mocker.Mocker
-
         :param caplog: Fixture for asserting log messages in tests (see :fixture:`pytest:caplog`)
-        :type caplog: ~_pytest.logging.LogCaptureFixture
         """
         status = self.send_all_with_mocked_response(
             settings, requests_mock, self.response_mock_data["404"]
@@ -198,23 +191,21 @@ class TestFirebaseApiClient:
         assert not status
 
     @pytest.mark.django_db
-    def send_all_with_mocked_response(self, settings, requests_mock, mocked_response):
+    def send_all_with_mocked_response(
+        self,
+        settings: SettingsWrapper,
+        requests_mock: Mocker,
+        mocked_response: dict[str, Any],
+    ) -> bool:
         """
         Fires a :meth:`~integreat_cms.firebase_api.firebase_api_client.FirebaseApiClient.send_all`
         with mocked post
 
         :param settings: The Django settings
-        :type settings: :fixture:`settings`
-
         :param requests_mock: Fixture for mocking requests, see :doc:`requests-mock:pytest`
-        :type requests_mock: ~_pytest.logging.LogCaptureFixture
-
         :param mocked_response: Data for the mocked response, depending on test-scenario (given by
                                 :attr:`~tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.response_mock_data`)
-        :type mocked_response: dict
-
         :return: Success status of the notification sending
-        :rtype: bool
         """
         status_code = mocked_response.pop("status_code")
         settings.FCM_ENABLED = True
@@ -226,10 +217,14 @@ class TestFirebaseApiClient:
         return pns.send_all()
 
     @pytest.mark.django_db
-    def test_region_notification_send(self, settings, load_test_data, requests_mock):
+    def test_region_notification_send(
+        self, settings: SettingsWrapper, load_test_data: None, requests_mock: Mocker
+    ) -> None:
         targets = set()
 
-        def evaluate_request(request, context):
+        def evaluate_request(
+            request: _RequestObjectProxy, context: _Context
+        ) -> dict[str, Any]:
             targets.add(request.json()["to"])
             return self.response_mock_data["200_success"]
 
@@ -251,11 +246,13 @@ class TestFirebaseApiClient:
 
     @pytest.mark.django_db
     def test_multiple_regions_notification_send(
-        self, settings, load_test_data, requests_mock
-    ):
+        self, settings: SettingsWrapper, load_test_data: None, requests_mock: Mocker
+    ) -> None:
         targets = set()
 
-        def evaluate_request(request, context):
+        def evaluate_request(
+            request: _RequestObjectProxy, context: _Context
+        ) -> dict[str, Any]:
             targets.add(request.json()["to"])
             return self.response_mock_data["200_success"]
 

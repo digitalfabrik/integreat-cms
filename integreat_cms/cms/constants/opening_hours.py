@@ -1,8 +1,15 @@
 """
 Thile file contains the JSON schema for opening hours
 """
+from __future__ import annotations
 
-JSON_SCHEMA = {
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Final
+
+
+JSON_SCHEMA: Final = {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "type": "array",
     "minItems": 7,

@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
@@ -5,6 +9,9 @@ from django.utils.translation import gettext_lazy as _
 
 from ..offers.offer_template import OfferTemplate
 from .feedback import Feedback
+
+if TYPE_CHECKING:
+    from django.db.models.query import QuerySet
 
 
 class OfferFeedback(Feedback):
@@ -20,32 +27,29 @@ class OfferFeedback(Feedback):
     )
 
     @property
-    def object_name(self):
+    def object_name(self) -> str:
         """
         This property returns the name of the object this feedback comments on.
 
         :return: The name of the object this feedback refers to
-        :rtype: str
         """
         return self.offer.name
 
     @cached_property
-    def object_url(self):
+    def object_url(self) -> str:
         """
         This property returns the url to the object this feedback comments on.
 
         :return: The url to the referred object
-        :rtype: str
         """
         return reverse("edit_offertemplate", kwargs={"slug": self.offer.slug})
 
     @property
-    def related_feedback(self):
+    def related_feedback(self) -> QuerySet[OfferFeedback]:
         """
         This property returns all feedback entries which relate to the same object and have the same is_technical value.
 
         :return: The queryset of related feedback
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.feedback.offer_feedback.OfferFeedback ]
         """
         return OfferFeedback.objects.filter(
             offer=self.offer, is_technical=self.is_technical

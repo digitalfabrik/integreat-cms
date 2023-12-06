@@ -1,7 +1,15 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import pytest
 from aiohttp import web
+from aiohttp.web_request import BaseRequest
+from aiohttp.web_response import Response
 from asgiref.sync import sync_to_async
+from django.test.client import AsyncClient
 from django.urls import reverse
+from pytest_django.fixtures import SettingsWrapper
 
 from integreat_cms.cms.models import Page, Region
 
@@ -15,20 +23,29 @@ from ..conftest import (
 )
 from ..utils import assert_message_in_log
 
+if TYPE_CHECKING:
+    from collections.abc import Callable
+    from typing import Any, Final
+
+    from _pytest.logging import LogCaptureFixture
+
 # Mapping between roles and pages used in the tests
 # to avoid simultaneous translation of the same content by different users
-role_pages_mapping = {ROOT: [1, 2], APP_TEAM: [3, 4], SERVICE_TEAM: [5], CMS_TEAM: [6]}
+role_pages_mapping: Final[dict[str, list[int]]] = {
+    ROOT: [1, 2],
+    APP_TEAM: [3, 4],
+    SERVICE_TEAM: [5],
+    CMS_TEAM: [6],
+}
 
 
-async def fake_summ_ai_server(request):
+async def fake_summ_ai_server(request: BaseRequest) -> Response:
     """
     Create fake responses which simulate the SUMM.AI API server
 
     :param request: The request
-    :type request: aiohttp.web.Request
 
     :return: The response
-    :rtype: aiohttp.web.Response
     """
     return web.json_response(
         {
@@ -39,12 +56,11 @@ async def fake_summ_ai_server(request):
 
 
 @sync_to_async
-def enable_summ_api(region_slug):
+def enable_summ_api(region_slug: str) -> None:
     """
     Enable SUMM.AI in the test region
 
     :param region_slug: The slug of the region in which we want to enable SUMM.AI
-    :type region_slug: str
     """
     # Enable SUMM.AI in the test region without changing last_updated field
     # to prevent race conditions with other tests
@@ -52,18 +68,16 @@ def enable_summ_api(region_slug):
 
 
 @sync_to_async
-def get_changed_pages(settings, ids):
+def get_changed_pages(
+    settings: SettingsWrapper, ids: list[int]
+) -> list[dict[str, Any]]:
     """
     Load the changed pages with the specified ids from the database
 
     :param settings: The fixture providing the django settings
-    :type settings: :fixture:`settings`
-
     :param ids: A list containing the requested pages including their translations in German and Easy German
-    :type ids: list [ int ]
 
     :return: The changed pages
-    :rtype: list [ dict ]
     """
     # Enable SUMM.AI in the test region
     return [
@@ -83,22 +97,18 @@ def get_changed_pages(settings, ids):
 
 @pytest.mark.django_db
 async def test_auto_translate_easy_german(
-    login_role_user_async, settings, aiohttp_raw_server, caplog
-):
+    login_role_user_async: tuple[AsyncClient, str],
+    settings: SettingsWrapper,
+    aiohttp_raw_server: Callable,
+    caplog: LogCaptureFixture,
+) -> None:
     """
     This test checks whether the SUMM.AI API client works as expected
 
     :param login_role_user_async: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
-    :type login_role_user_async: tuple
-
     :param settings: The fixture providing the django settings
-    :type settings: :fixture:`settings`
-
     :param aiohttp_raw_server: The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server
-    :type aiohttp_raw_server: :data:`aiohttp:pytest_aiohttp.aiohttp_raw_server`
-
     :param caplog: The :fixture:`caplog` fixture
-    :type caplog: pytest.LogCaptureFixture
     """
     # The region we want to use for testing
     region_slug = "augsburg"
@@ -166,15 +176,13 @@ async def test_auto_translate_easy_german(
         assert response.status_code == 403
 
 
-async def broken_fake_summ_ai_server(request):
+async def broken_fake_summ_ai_server(request: BaseRequest) -> Response:
     """
     Create fake responses which simulate the SUMM.AI API server
 
     :param request: The request
-    :type request: aiohttp.web.Request
 
     :return: The response
-    :rtype: aiohttp.web.Response
     """
     return web.json_response(
         data={
@@ -186,22 +194,18 @@ async def broken_fake_summ_ai_server(request):
 
 @pytest.mark.django_db
 async def test_summ_ai_error_handling(
-    login_role_user_async, settings, aiohttp_raw_server, caplog
-):
+    login_role_user_async: tuple[AsyncClient, str],
+    settings: SettingsWrapper,
+    aiohttp_raw_server: Callable,
+    caplog: LogCaptureFixture,
+) -> None:
     """
     This test checks whether the error handling of the SUMM.AI API client works as expected
 
     :param login_role_user_async: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
-    :type login_role_user_async: tuple
-
     :param settings: The fixture providing the django settings
-    :type settings: :fixture:`settings`
-
     :param aiohttp_raw_server: The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server
-    :type aiohttp_raw_server: :data:`aiohttp:pytest_aiohttp.aiohttp_raw_server`
-
     :param caplog: The :fixture:`caplog` fixture
-    :type caplog: pytest.LogCaptureFixture
     """
     # The region we want to use for testing
     region_slug = "augsburg"

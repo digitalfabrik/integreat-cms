@@ -1,11 +1,18 @@
 """
 Form for submitting filter requests
 """
+from __future__ import annotations
+
 import logging
 import zoneinfo
 from datetime import date, datetime, time
+from typing import TYPE_CHECKING
 
 from django import forms
+
+if TYPE_CHECKING:
+    from ..models.events.event import EventQuerySet
+    from ..models import Region
 
 from ...constants import all_day, events_time_range, recurrence
 from ...models import EventTranslation
@@ -66,21 +73,16 @@ class EventFilterForm(CustomFilterForm):
     query = forms.CharField(required=False)
 
     # pylint: disable=too-many-branches
-    def apply(self, events, region, language_slug):
+    def apply(
+        self, events: EventQuerySet, region: Region, language_slug: str
+    ) -> tuple[EventQuerySet, None, None]:
         """
         Filter the events according to the given filter data
 
         :param events: The list of events
-        :type events: list
-
         :param region: The current region
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :param language_slug: The slug of the current language
-        :type language_slug: str
-
         :return: The filtered list of events, the poi used for filtering, and the search query
-        :rtype: tuple
         """
         if not self.is_enabled:
             events = events.filter_upcoming()
@@ -96,9 +98,10 @@ class EventFilterForm(CustomFilterForm):
         elif events_time_range.CUSTOM in cleaned_time_range:
             # Filter events for their start and end
             tzinfo = zoneinfo.ZoneInfo(region.timezone)
-            from_local = datetime.combine(
-                self.cleaned_data["date_from"] or date.min, time.min, tzinfo=tzinfo
-            )
+            if date_from := self.cleaned_data["date_from"]:
+                from_local = datetime.combine(date_from, time.min, tzinfo=tzinfo)
+            else:
+                from_local = datetime.min.replace(tzinfo=zoneinfo.ZoneInfo(key="UTC"))
             to_local = datetime.combine(
                 self.cleaned_data["date_to"] or date.max, time.max, tzinfo=tzinfo
             )

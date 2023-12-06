@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.utils.translation import gettext_lazy as _
@@ -6,6 +9,9 @@ from django.utils.translation import gettext_lazy as _
 from ...constants import frequency, weekdays
 from ...models import RecurrenceRule
 from ..custom_model_form import CustomModelForm
+
+if TYPE_CHECKING:
+    from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -44,12 +50,11 @@ class RecurrenceRuleForm(CustomModelForm):
             ),
         }
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         r"""
         Initialize recurrence rule form
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
 
         # Set event start date to be used in clean()-method
@@ -64,12 +69,11 @@ class RecurrenceRuleForm(CustomModelForm):
                 self.instance.recurrence_end_date
             )
 
-    def clean(self):
+    def clean(self) -> dict[str, Any]:
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
 
         :return: The cleaned form data
-        :rtype: dict
         """
         cleaned_data = super().clean()
 
@@ -137,12 +141,11 @@ class RecurrenceRuleForm(CustomModelForm):
         )
         return cleaned_data
 
-    def has_changed(self):
+    def has_changed(self) -> bool:
         """
         This function provides a workaround for the ``weekdays_for_weekly`` field to be correctly recognized as changed.
 
         :return: Whether or not the recurrence rule form has changed
-        :rtype: bool
         """
         # Handle weekdays_for_weekly data separately from the other data because has_changed doesn't work
         # with CheckboxSelectMultiple widgets and ArrayFields out of the box

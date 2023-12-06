@@ -3,21 +3,31 @@ This module contains all string representations of event time range filter optio
 :class:`~integreat_cms.cms.forms.events.event_filter_form.EventFilterForm` and
 :class:`~integreat_cms.cms.views.events.event_list_view.EventListView`.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.utils.translation import gettext_lazy as _
 
+if TYPE_CHECKING:
+    from typing import Final
+
+    from django.utils.functional import Promise
+
+
 #: Events in the future
-UPCOMING = "UPCOMING"
+UPCOMING: Final = "UPCOMING"
 #: Events in the past
-PAST = "PAST"
+PAST: Final = "PAST"
 #: Events in a custom time range
-CUSTOM = "CUSTOM"
+CUSTOM: Final = "CUSTOM"
 
 #: Choices which indicate that no filtering is required
-ALL_EVENTS = [UPCOMING, PAST]
+ALL_EVENTS: list[str] = [UPCOMING, PAST]
 
 #: Choices to use these constants in a form field
-CHOICES = (
+CHOICES: list[tuple[str, Promise]] = [
     (CUSTOM, _("Custom time range")),
     (UPCOMING, _("Upcoming events")),
     (PAST, _("Past events")),
-)
+]

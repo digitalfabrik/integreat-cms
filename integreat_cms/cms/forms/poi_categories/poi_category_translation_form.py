@@ -1,10 +1,16 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.core.exceptions import ValidationError
 from django.forms import inlineformset_factory
 from django.forms.formsets import DELETION_FIELD_NAME
 from django.forms.models import BaseInlineFormSet
 from django.utils.translation import gettext_lazy as _
+
+if TYPE_CHECKING:
+    from typing import Any
 
 from ...models import Language, POICategory, POICategoryTranslation
 from ..custom_model_form import CustomModelForm
@@ -17,12 +23,11 @@ class POICategoryTranslationForm(CustomModelForm):
     Form for creating and modifying POI category translation objects
     """
 
-    def __init__(self, **kwargs):
+    def __init__(self, **kwargs: Any) -> None:
         r"""
         Initialize POI category translation form
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
 
         # Instantiate CustomModelForm
@@ -39,12 +44,11 @@ class POICategoryTranslationForm(CustomModelForm):
         )
         self.fields["name"].label = _("Translation in {}").format(language_name)
 
-    def clean(self):
+    def clean(self) -> dict[str, Any]:
         """
         This method extends the ``clean()``-method to delete translations with an empty name.
 
         :return: The cleaned data (see :ref:`overriding-modelform-clean-method`)
-        :rtype: dict
         """
         cleaned_data = super().clean()
         # If the name field is empty, delete the form
@@ -69,7 +73,7 @@ class BaseInlinePOICategoryTranslationFormSet(BaseInlineFormSet):
     A formset for translations of POI categories
     """
 
-    def get_form_kwargs(self, index):
+    def get_form_kwargs(self, index: int) -> dict[str, dict[str, Language]]:
         """
         Return additional keyword arguments for each individual formset form.
         (see :meth:`~django.views.generic.edit.ModelFormMixin.get_form_kwargs` and
@@ -77,10 +81,7 @@ class BaseInlinePOICategoryTranslationFormSet(BaseInlineFormSet):
 
         :param index: The index of the initialized form
                       (will be ``None`` if the form being constructed is a new empty form)
-        :type index: int
-
         :return: The form kwargs
-        :rtype: dict
         """
         kwargs = super().get_form_kwargs(index)
         # Only add the additional instances for extra forms which do not have the initial data
@@ -97,7 +98,7 @@ class BaseInlinePOICategoryTranslationFormSet(BaseInlineFormSet):
             }
         return kwargs
 
-    def clean(self):
+    def clean(self) -> None:
         """
         Make sure that at least one translation is given
 
@@ -108,12 +109,11 @@ class BaseInlinePOICategoryTranslationFormSet(BaseInlineFormSet):
             raise ValidationError(_("At least one translation is required."))
 
 
-def poi_category_translation_formset_factory():
+def poi_category_translation_formset_factory() -> type:
     """
     Build the formset class
 
     :returns: The POICategoryTranslationFormset class
-    :rtype: type
     """
     num_languages = Language.objects.count()
     return inlineformset_factory(

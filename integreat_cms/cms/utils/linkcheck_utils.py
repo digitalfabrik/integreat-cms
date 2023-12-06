@@ -1,7 +1,10 @@
+from __future__ import annotations
+
 import logging
 import time
 from copy import deepcopy
 from functools import partial
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.db.models import Prefetch, Q
@@ -10,26 +13,28 @@ from linkcheck.listeners import tasks_queue
 from linkcheck.models import Link, Url
 from lxml.html import rewrite_links
 
-from integreat_cms.cms.models import EventTranslation, PageTranslation, POITranslation
+from ..models import EventTranslation, PageTranslation, POITranslation
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from ..models import Language, Region, User
 
 logger = logging.getLogger(__name__)
 
 
-def get_urls(region_slug=None, url_ids=None, prefetch_content_objects=True):
+def get_urls(
+    region_slug: str | None = None,
+    url_ids: Any | None = None,
+    prefetch_content_objects: bool = True,
+) -> list[Url]:
     """
     Count all urls by status, either of a specific region or globally
 
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param url_ids: The list of requested url ids
-    :type url_ids: list
-
     :param prefetch_content_objects: Whether or not content objects should be prefetched
-    :type prefetch_content_objects: bool
-
     :return: The list (or queryset) of urls
-    :rtype: list or ~django.db.models.query.QuerySet
     """
     urls = Url.objects.all()
     if url_ids is not None:
@@ -63,37 +68,31 @@ def get_urls(region_slug=None, url_ids=None, prefetch_content_objects=True):
     return urls
 
 
-def get_url_count(region_slug=None):
+def get_url_count(region_slug: str | None = None) -> dict[str, int]:
     """
     Count all urls by status. The content objects are not prefetched because they are not needed for the counter.
 
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: A dictionary containing the counters of all remaining urls
-    :rtype: dict
     """
     _, count_dict = filter_urls(region_slug=region_slug, prefetch_content_objects=False)
     return count_dict
 
 
 # pylint: disable=too-many-branches
-def filter_urls(region_slug=None, url_filter=None, prefetch_content_objects=True):
+def filter_urls(
+    region_slug: str | None = None,
+    url_filter: str | None = None,
+    prefetch_content_objects: bool = True,
+) -> tuple[list[Url], dict[str, int]]:
     """
     Filter all urls of one region by the given category
 
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :param url_filter: Which urls should be returned (one of ``valid``, ``invalid``, ``ignored``, ``unchecked``).
                         If parameter is not in these choices or omitted, all urls are returned by default.
-    :type url_filter: str
-
     :param prefetch_content_objects: Whether or not content objects should be prefetched
-    :type prefetch_content_objects: bool
-
     :return: A tuple of the requested urls and a dict containing the counters of all remaining urls
-    :rtype: tuple
     """
     urls = get_urls(
         region_slug=region_slug, prefetch_content_objects=prefetch_content_objects
@@ -150,37 +149,27 @@ def filter_urls(region_slug=None, url_filter=None, prefetch_content_objects=True
     return urls, count_dict
 
 
-def replace_link_helper(old_url, new_url, link):
+def replace_link_helper(old_url: str, new_url: str, link: str) -> str:
     """
     A small helper function which can be passed to :meth:`lxml.html.HtmlMixin.rewrite_links`
 
     :param old_url: The url which should be replaced
-    :type old_url: str
-
     :param new_url: The url which should be inserted instead of the old url
-    :type new_url: str
-
     :param link: The current link
-    :type link: str
-
     :return: The replaced link
-    :rtype: str
     """
     return new_url if link == old_url else link
 
 
-def save_new_version(translation, new_translation, user):
+def save_new_version(
+    translation: PageTranslation, new_translation: PageTranslation, user: Any | None
+) -> None:
     """
     Save a new translation version
 
     :param translation: The old translation
-    :type translation: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
-
     :param new_translation: The new translation
-    :type new_translation: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
-
     :param user: The creator of the new version
-    :type user: ~integreat_cms.cms.models.users.user.User
     """
     translation.links.all().delete()
     new_translation.pk = None
@@ -193,43 +182,27 @@ def save_new_version(translation, new_translation, user):
 
 # pylint: disable=too-many-locals,too-many-arguments
 def replace_links(
-    search,
-    replace,
+    search: str,
+    replace: str,
     *,
-    partial_match=True,
-    region=None,
-    language=None,
-    user=None,
-    commit=True,
-    link_types=None,
-):
+    partial_match: bool = True,
+    region: Region | None = None,
+    language: Language | None = None,
+    user: User | None = None,
+    commit: bool = True,
+    link_types: list[str] | None = None,
+) -> None:
     """
     Perform search & replace in the content links
 
     :param search: The (partial) URL to search
-    :type search: str
-
     :param replace: The (partial) URL to replace
-    :type replace: str
-
     :param partial_match: Whether to also replace links that only match partially
-    :type partial_match: bool
-
     :param region: Optionally limit the replacement to one region (``None`` means a global replacement)
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :param language: Optionally limit the replacement to one language (``None`` means a replacement for all languages)
-    :type language: ~integreat_cms.cms.models.languages.language.Language
-
     :param user: The creator of the replaced translations
-    :type user: ~integreat_cms.cms.models.users.user.User
-
     :param commit: Whether changes should be written to the database
-    :type commit: bool
-
     :param link_types: Which kind of links should be replaced
-    :type link_types: list
-
     """
     region_msg = f' of "{region!r}"' if region else ""
     user_msg = f' by "{user!r}"' if user else ""

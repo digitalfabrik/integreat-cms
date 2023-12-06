@@ -2,8 +2,15 @@
 This modules contains the config for the sitemap tests
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Final
+
 #: The sitemaps
-SITEMAPS = [
+SITEMAPS: Final[list[tuple[str, str, int]]] = [
     (
         "/sitemap.xml",
         "tests/sitemap/expected-sitemaps/sitemap-index.xml",

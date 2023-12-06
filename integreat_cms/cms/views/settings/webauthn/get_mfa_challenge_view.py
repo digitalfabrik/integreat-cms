@@ -1,7 +1,10 @@
 """
 This module contains all views related to multi-factor authentication
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.http import HttpResponse
@@ -12,6 +15,11 @@ from webauthn.helpers import bytes_to_base64url
 
 from ....decorators import modify_mfa_authenticated
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest
+
 logger = logging.getLogger(__name__)
 
 
@@ -21,21 +29,14 @@ class GetMfaChallengeView(View):
     View to generate a challenge for multi-factor-authentication
     """
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Return MFA challenge
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The mfa challenge as JSON
-        :rtype: ~django.http.JsonResponse
         """
 
         user = request.user

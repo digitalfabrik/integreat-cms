@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import logging
 import time
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.core.management.base import CommandError
@@ -8,16 +11,20 @@ from linkcheck.listeners import disable_listeners
 from ....cms.models import Region
 from ..log_command import LogCommand
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.core.management.base import CommandParser
+
 logger = logging.getLogger(__name__)
 
 
-def calculate_hix_for_region(region):
+def calculate_hix_for_region(region: Region) -> None:
     """
     Calculates the hix score for all missing pages in the region.
     Assumes that hix is globally enabled and enabled for the region
 
     :param region: The region
-    :type region: ~integreat_cms.cms.models.regions.region.Region
     """
     for page in region.pages.all().prefetch_translations(
         to_attr="prefetched_textlab_translations",
@@ -46,12 +53,11 @@ class Command(LogCommand):
 
     help = "Calculates and stores the hix value for all public page translations for which it is missing"
 
-    def add_arguments(self, parser):
+    def add_arguments(self, parser: CommandParser) -> None:
         """
         Define the arguments of this command
 
         :param parser: The argument parser
-        :type parser: ~django.core.management.base.CommandParser
         """
         parser.add_argument(
             "region_slugs",
@@ -60,18 +66,13 @@ class Command(LogCommand):
         )
 
     # pylint: disable=arguments-differ
-    def handle(self, *args, region_slugs, **options):
+    def handle(self, *args: Any, region_slugs: list[str], **options: Any) -> None:
         r"""
         Try to run the command
 
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param region_slugs: The slugs of the given regions
-        :type region_slugs: list
-
         :param \**options: The supplied keyword options
-        :type \**options: dict
         """
         if not settings.TEXTLAB_API_ENABLED:
             raise CommandError("HIX API is globally disabled")

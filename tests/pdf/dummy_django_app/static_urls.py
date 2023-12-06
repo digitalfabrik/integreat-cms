@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from django.conf import settings
 from django.urls import include, path
 from django.views.static import serve

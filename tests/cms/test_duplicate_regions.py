@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import pytest
 from django.forms.models import model_to_dict
+from django.test.client import Client
 from django.urls import reverse
 from django.utils import timezone
 from linkcheck.models import Link
@@ -12,15 +15,14 @@ from integreat_cms.cms.utils.linkcheck_utils import get_url_count
 # pylint: disable=too-many-locals
 @pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_duplicate_regions(load_test_data_transactional, admin_client):
+def test_duplicate_regions(
+    load_test_data_transactional: None, admin_client: Client
+) -> None:
     """
     Test whether duplicating regions works as expected
 
     :param load_test_data_transactional: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data_transactional`)
-    :type load_test_data_transactional: tuple
-
-    :param admin_client: The fixture providing the logged in admin
-    :type admin_client: :fixture:`admin_client`
+    :param admin_client: The fixture providing the logged in admin (see :fixture:`admin_client`)
     """
     source_region = Region.objects.get(id=1)
     target_region_slug = "cloned"

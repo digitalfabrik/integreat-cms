@@ -1,10 +1,18 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.urls import reverse
 
 from ...forms import LanguageTreeNodeForm
 from ...models import EventTranslation, PageTranslation, POITranslation
 from ..form_views import CustomCreateView, CustomUpdateView
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http.response import HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 
@@ -18,12 +26,11 @@ class LanguageTreeNodeCreateView(CustomCreateView):
     #: The form class of this form view
     form_class = LanguageTreeNodeForm
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         """
         Determine the URL to redirect to when the form is successfully validated
 
         :return: The url to redirect on success
-        :rtype: str
         """
         if "submit_add_new" in self.request.POST:
             # If the "Create and add more" button was clicked, redirect to the new creation form
@@ -33,12 +40,11 @@ class LanguageTreeNodeCreateView(CustomCreateView):
             )
         return super().get_success_url()
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict[str, Any]:
         """
         Return the keyword arguments for instantiating the form
 
         :return: The form kwargs
-        :rtype: dict
         """
         kwargs = super().get_form_kwargs()
         kwargs["region"] = self.request.region
@@ -50,7 +56,7 @@ class LanguageTreeNodeUpdateView(CustomUpdateView):
     Class that handles activating/deactivating of a language tree node
     """
 
-    def form_valid(self, form):
+    def form_valid(self, form: LanguageTreeNodeForm) -> HttpResponseRedirect:
         response = super().form_valid(form)
 
         language_tree_node = self.get_object()

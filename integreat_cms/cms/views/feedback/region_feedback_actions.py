@@ -1,7 +1,10 @@
 """
 This module contains action methods for feedback items (archive, restore, ...)
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from cacheops import invalidate_model, invalidate_obj
 from django.contrib import messages
@@ -12,23 +15,23 @@ from django.views.decorators.http import require_POST
 from ...decorators import permission_required
 from ...models import Feedback
 
+if TYPE_CHECKING:
+    from django.http import HttpRequest, HttpResponseRedirect
+
 logger = logging.getLogger(__name__)
 
 
 @require_POST
 @permission_required("cms.change_feedback")
-def mark_region_feedback_as_read(request, region_slug):
+def mark_region_feedback_as_read(
+    request: HttpRequest, region_slug: str
+) -> HttpResponseRedirect:
     """
     Set read flag for a list of feedback items
 
     :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: A redirection to the region feedback list
-    :rtype: ~django.http.HttpResponseRedirect
     """
 
     region = request.region
@@ -55,18 +58,15 @@ def mark_region_feedback_as_read(request, region_slug):
 
 @require_POST
 @permission_required("cms.change_feedback")
-def mark_region_feedback_as_unread(request, region_slug):
+def mark_region_feedback_as_unread(
+    request: HttpRequest, region_slug: str
+) -> HttpResponseRedirect:
     """
     Unset read flag for a list of feedback items
 
     :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: A redirection to the region feedback list
-    :rtype: ~django.http.HttpResponseRedirect
     """
 
     region = request.region
@@ -93,18 +93,15 @@ def mark_region_feedback_as_unread(request, region_slug):
 
 @require_POST
 @permission_required("cms.change_feedback")
-def archive_region_feedback(request, region_slug):
+def archive_region_feedback(
+    request: HttpRequest, region_slug: str
+) -> HttpResponseRedirect:
     """
     Archive a list of feedback items
 
     :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: A redirection to the region feedback list
-    :rtype: ~django.http.HttpResponseRedirect
     """
 
     region = request.region
@@ -123,18 +120,15 @@ def archive_region_feedback(request, region_slug):
 
 @require_POST
 @permission_required("cms.change_feedback")
-def restore_region_feedback(request, region_slug):
+def restore_region_feedback(
+    request: HttpRequest, region_slug: str
+) -> HttpResponseRedirect:
     """
     Restore a list of feedback items
 
     :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: A redirection to the region feedback list
-    :rtype: ~django.http.HttpResponseRedirect
     """
 
     region = request.region
@@ -153,18 +147,15 @@ def restore_region_feedback(request, region_slug):
 
 @require_POST
 @permission_required("cms.delete_feedback")
-def delete_region_feedback(request, region_slug):
+def delete_region_feedback(
+    request: HttpRequest, region_slug: str
+) -> HttpResponseRedirect:
     """
     Delete a list of feedback items
 
     :param request: Object representing the user call
-    :type request: ~django.http.HttpRequest
-
     :param region_slug: The slug of the current region
-    :type region_slug: str
-
     :return: A redirection to the region feedback list
-    :rtype: ~django.http.HttpResponseRedirect
     """
 
     region = request.region

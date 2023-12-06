@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
@@ -8,6 +11,10 @@ from django.utils import timezone
 from ....cms.models import PushNotification, Region
 from ....firebase_api.firebase_api_client import FirebaseApiClient
 
+if TYPE_CHECKING:
+    from typing import Any
+
+
 logger = logging.getLogger(__name__)
 
 
@@ -16,17 +23,14 @@ class Command(BaseCommand):
     Management command to send timed push notifications
     """
 
-    help = "Send pending push notifications"
+    help: str = "Send pending push notifications"
 
-    def handle(self, *args, **options):
+    def handle(self, *args: Any, **options: Any) -> None:
         r"""
         Try to run the command
 
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**options: The supplied keyword options
-        :type \**options: dict
         """
         if not settings.FCM_ENABLED:
             raise CommandError("Push notifications are disabled")
@@ -60,18 +64,15 @@ class Command(BaseCommand):
                 "There are currently no push notifications scheduled to be sent."
             )
 
-    def send_push_notification(self, counter, total, push_notification):
+    def send_push_notification(
+        self, counter: int, total: int, push_notification: PushNotification
+    ) -> None:
         """
         Sends a push notification
 
         :param counter: The current counter
-        :type counter: int
-
         :param total: How many push notifications are scheduled for this slot
-        :type total: int
-
         :param push_notification: The push notification object
-        :type push_notification: ~integreat_cms.cms.models.push_notifications.push_notification.PushNotification
         """
         try:
             push_sender = FirebaseApiClient(push_notification)

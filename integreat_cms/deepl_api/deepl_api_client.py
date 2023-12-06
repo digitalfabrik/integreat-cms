@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import logging
 from html import unescape
+from typing import TYPE_CHECKING
 
 import deepl
 from django.apps import apps
@@ -13,6 +16,19 @@ from ..core.utils.machine_translation_api_client import MachineTranslationApiCli
 from ..core.utils.machine_translation_provider import MachineTranslationProvider
 from ..textlab_api.utils import check_hix_score
 
+if TYPE_CHECKING:
+    from django.forms.models import ModelFormMetaclass
+    from django.http import HttpRequest
+
+    from integreat_cms.cms.models.events.event import Event
+    from integreat_cms.cms.models.events.event_translation import EventTranslation
+    from integreat_cms.cms.models.languages.language import Language
+    from integreat_cms.cms.models.pages.page import Page
+    from integreat_cms.cms.models.pages.page_translation import PageTranslation
+    from integreat_cms.cms.models.pois.poi import POI
+    from integreat_cms.cms.models.pois.poi_translation import POITranslation
+    from integreat_cms.cms.models.regions.region import Region
+
 logger = logging.getLogger(__name__)
 
 
@@ -21,16 +37,13 @@ class DeepLApiClient(MachineTranslationApiClient):
     DeepL API client to automatically translate selected objects.
     """
 
-    def __init__(self, request, form_class):
+    def __init__(self, request: HttpRequest, form_class: ModelFormMetaclass) -> None:
         """
         Initialize the DeepL client
 
         :param region: The current region
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :param form_class: The :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
                            subclass of the current content type
-        :type form_class: ~django.forms.models.ModelFormMetaclass
         """
         super().__init__(request, form_class)
         if not MachineTranslationProvider.is_permitted(
@@ -47,34 +60,30 @@ class DeepLApiClient(MachineTranslationApiClient):
         self.translatable_attributes = ["title", "content", "meta_description"]
 
     @staticmethod
-    def get_target_language_key(target_language):
+    def get_target_language_key(target_language: Language) -> str:
         """
         This function decides the correct target language key
 
         :param target_language: the target language
-        :type target_language: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
-
         :return: target_language_key which is 2 characters long for all languages except English and Portugese where the BCP tag is transmitted
-        :rtype: str
         """
         deepl_config = apps.get_app_config("deepl_api")
         for code in [target_language.slug, target_language.bcp47_tag]:
             if code.lower() in deepl_config.supported_target_languages:
                 return code
-        return None
+        return ""
 
-    def check_usage(self, region, source_translation):
+    def check_usage(
+        self,
+        region: Region,
+        source_translation: EventTranslation | (PageTranslation | POITranslation),
+    ) -> tuple[bool, int]:
         """
         This function checks if the attempted translation would exceed the region's word limit
 
         :param region: region for which to check usage
-        :type region: ~integreat_cms.cms.models.regions.region.Region
-
         :param source_translation: single content object
-        :type source_translation: ~integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation
-
         :return: translation would exceed limit, region budget, attempted translation word count
-        :rtype: (bool, int, int)
         """
         # Gather content to be translated and calculate total word count
         attributes = [
@@ -85,10 +94,10 @@ class DeepLApiClient(MachineTranslationApiClient):
             unescape(strip_tags(attr)) for attr in attributes if attr
         ]
 
-        content_to_translate = " ".join(content_to_translate)
+        content_to_translate_str = " ".join(content_to_translate)
         for char in "-;:,;!?\n":
-            content_to_translate = content_to_translate.replace(char, " ")
-        word_count = len(content_to_translate.split())
+            content_to_translate_str = content_to_translate_str.replace(char, " ")
+        word_count = len(content_to_translate_str.split())
 
         # Check if translation would exceed DeepL usage limit
         region.refresh_from_db()
@@ -98,15 +107,14 @@ class DeepLApiClient(MachineTranslationApiClient):
 
         return (translation_exceeds_limit, word_count)
 
-    def translate_queryset(self, queryset, language_slug):
+    def translate_queryset(
+        self, queryset: list[Event] | (list[Page] | list[POI]), language_slug: str
+    ) -> None:
         """
         This function translates a content queryset via DeepL
 
         :param queryset: The content QuerySet
-        :type queryset: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.abstract_content_model.AbstractContentModel ]
-
         :param language_slug: The target language slug
-        :type language_slug: str
         """
         with transaction.atomic():
             # Re-select the region from db to prevent simultaneous

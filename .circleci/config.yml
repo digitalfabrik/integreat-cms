@@ -85,6 +85,17 @@ jobs:
       - run:
           name: Run pylint
           command: ./tools/pylint.sh
+  mypy:
+    docker:
+      - image: cimg/python:3.9.16
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run my[py]
+          command: ./tools/mypy.sh
   check-release-notes:
     docker:
       - image: cimg/python:3.9.16
@@ -634,6 +645,9 @@ workflows:
           requires:
             - pip-install
       - pylint:
+          requires:
+            - pip-install
+      - mypy:
           requires:
             - pip-install
       - eslint:

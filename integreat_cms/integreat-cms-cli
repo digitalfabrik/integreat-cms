@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """ Django's command-line utility for administrative tasks. """
+from __future__ import annotations
+
 import configparser
 import os
 import sys
 
 
-def read_config():
+def read_config() -> None:
     """
     Reads and parses the corresponding configurations.
     """
@@ -19,7 +21,7 @@ def read_config():
             os.environ.setdefault(f"INTEGREAT_CMS_{KEY.upper()}", VALUE)
 
 
-def main():
+def main() -> None:
     """
     Application entry point
 

@@ -1,25 +1,34 @@
+from __future__ import annotations
+
 import logging
 from argparse import ArgumentTypeError
+from typing import TYPE_CHECKING
 
 from ....cms.models import EventTranslation, PageTranslation, POITranslation
 from ..log_command import LogCommand
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.core.management.base import CommandParser
+    from django.db.models.base import ModelBase
+
 logger = logging.getLogger(__name__)
 
 #: The possible model choices
-MODELS = {"page": PageTranslation, "event": EventTranslation, "poi": POITranslation}
+MODELS: dict[str, ModelBase] = {
+    "page": PageTranslation,
+    "event": EventTranslation,
+    "poi": POITranslation,
+}
 
 
-def get_model(model_str):
+def get_model(model_str: str) -> ModelBase:
     """
     Convert a model string to a translation model class
 
     :param model_str: The model string
-    :type model_str: str
-
     :return: The model class
-    :rtype: type
-
     :raises ~argparse.ArgumentTypeError: When the input is invalid
     """
     try:
@@ -37,12 +46,11 @@ class Command(LogCommand):
 
     help = "Find version inconsistencies in the CMS"
 
-    def add_arguments(self, parser):
+    def add_arguments(self, parser: CommandParser) -> None:
         """
         Define the arguments of this command
 
         :param parser: The argument parser
-        :type parser: ~django.core.management.base.CommandParser
         """
         parser.add_argument(
             "model",
@@ -51,18 +59,13 @@ class Command(LogCommand):
         )
 
     # pylint: disable=arguments-differ
-    def handle(self, *args, model, **options):
+    def handle(self, *args: Any, model: ModelBase, **options: Any) -> None:
         r"""
         Try to run the command
 
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param model: The model to check
-        :type model: type
-
         :param \**options: The supplied keyword options
-        :type \**options: dict
         """
         self.print_info(
             f"Checking the model {model.__name__} for version inconsistencies..."

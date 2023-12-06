@@ -1,4 +1,10 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from django.db import ModelBase
 
 from ...models import LanguageTreeNode
 from ..list_views import ModelListView
@@ -15,16 +21,15 @@ class LanguageTreeView(LanguageTreeContextMixin, ModelListView):
     """
 
     #: The model of this list view
-    model = LanguageTreeNode
+    model: ModelBase = LanguageTreeNode
     #: Disable pagination for language tree
-    paginate_by = None
+    paginate_by: int | None = None
 
-    def get_queryset(self):
+    def get_queryset(self) -> list[LanguageTreeNode]:
         """
         Get language tree queryset
 
         :return: The language tree of the current region
-        :rtype: ~django.db.models.query.QuerySet [ ~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode ]
         """
         # Return the annotated language tree of the current region to save a few database queries
         return self.request.region.language_tree

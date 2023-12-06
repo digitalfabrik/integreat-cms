@@ -1,9 +1,11 @@
+from __future__ import annotations
+
 import pytest
 from linkcheck.models import Url
 
 from integreat_cms.cms.utils.internal_link_checker import check_internal
 
-VALID_INTERNAL_LINKS = [
+VALID_INTERNAL_LINKS: list[str] = [
     "https://integreat.app",
     "https://integreat.app/augsburg",
     "https://integreat.app/augsburg/de",
@@ -30,7 +32,7 @@ VALID_INTERNAL_LINKS = [
     "https://integreat.app/nurnberg/de/locations/test-ort",
 ]
 
-INVALID_INTERNAL_LINKS = [
+INVALID_INTERNAL_LINKS: list[str] = [
     "https://integreat.app/non-existing",
     "https://integreat.app/non-existing/de",
     "https://integreat.app/augsburg/non-existing",
@@ -56,7 +58,7 @@ INVALID_INTERNAL_LINKS = [
     "https://integreat.app/nurnberg/ar/locations/test-ort",
 ]
 
-SKIPPED_INTERNAL_LINKS = [
+SKIPPED_INTERNAL_LINKS: list[str] = [
     "https://google.com",
     "#anchor",
     "relative-link",
@@ -67,15 +69,12 @@ SKIPPED_INTERNAL_LINKS = [
 ]
 
 
-def prepage_url(link, trailing_slash):
+def prepage_url(link: str, trailing_slash: bool) -> Url:
     """
     Make sure a link either has or doesn't have a trailing slash
 
     :param link: The link
-    :type link: str
-
     :param trailing_slash: Whether to ensure the trailing slash
-    :type trailing_slash: bool
     """
     if trailing_slash and not link.endswith("/"):
         link += "/"
@@ -88,18 +87,15 @@ def prepage_url(link, trailing_slash):
 @pytest.mark.django_db
 @pytest.mark.parametrize("link", VALID_INTERNAL_LINKS)
 @pytest.mark.parametrize("trailing_slash", [True, False])
-def test_check_internal_valid(load_test_data, link, trailing_slash):
+def test_check_internal_valid(
+    load_test_data: None, link: str, trailing_slash: bool
+) -> None:
     """
     Check whether the given internal URL is correctly identified as valid link
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: NoneType
-
     :param link: The URL to check
-    :type link: str
-
     :param trailing_slash: Whether to ensure the trailing slash
-    :type trailing_slash: bool
     """
     url = prepage_url(link, trailing_slash)
     assert check_internal(url), f"URL '{link}' is not correctly identified as valid"
@@ -108,18 +104,15 @@ def test_check_internal_valid(load_test_data, link, trailing_slash):
 @pytest.mark.django_db
 @pytest.mark.parametrize("link", INVALID_INTERNAL_LINKS)
 @pytest.mark.parametrize("trailing_slash", [True, False])
-def test_check_internal_invalid(load_test_data, link, trailing_slash):
+def test_check_internal_invalid(
+    load_test_data: None, link: str, trailing_slash: bool
+) -> None:
     """
-    Check whether the given internal URL is correctly identified as vinalid link
+    Check whether the given internal URL is correctly identified as invalid link
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: NoneType
-
     :param link: The URL to check
-    :type link: str
-
     :param trailing_slash: Whether to ensure the trailing slash
-    :type trailing_slash: bool
     """
     url = prepage_url(link, trailing_slash)
     assert not check_internal(
@@ -130,18 +123,15 @@ def test_check_internal_invalid(load_test_data, link, trailing_slash):
 @pytest.mark.django_db
 @pytest.mark.parametrize("link", SKIPPED_INTERNAL_LINKS)
 @pytest.mark.parametrize("trailing_slash", [True, False])
-def test_check_internal_skipped(load_test_data, link, trailing_slash):
+def test_check_internal_skipped(
+    load_test_data: None, link: str, trailing_slash: bool
+) -> None:
     """
     Check whether the given internal URL is correctly skipped
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: NoneType
-
     :param link: The URL to check
-    :type link: str
-
     :param trailing_slash: Whether to ensure the trailing slash
-    :type trailing_slash: bool
     """
     url = prepage_url(link, trailing_slash)
     assert check_internal(url) is None, f"URL '{link}' is not skipped"

@@ -8,21 +8,17 @@ class WPBCryptPasswordHasher(BCryptSHA256PasswordHasher):
     For PHP style hashes only verification is supported.
     """
 
-    algorithm = "bcrypt_php"
-    library = ("bcrypt", "bcrypt")
-    rounds = 10
+    algorithm: str = "bcrypt_php"
+    library: tuple[str, ...] = ("bcrypt", "bcrypt")
+    rounds: int = 10
 
-    def verify(self, password, encoded):
+    def verify(self, password: str, encoded: str) -> bool:
         """
         Validate that entered password matches stored hash
 
         :param password: the plain text password
-        :type password: str
         :param encoded: the hashed and salted password, i.e. from database
-        :type encoded: str
-
         :return: entered password matches the hash
-        :rtype: bool
         """
         bcrypt = self._load_library()
         algorithm, data = encoded.split("$", 1)

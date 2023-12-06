@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.contrib.auth import get_user_model
@@ -9,6 +12,13 @@ from django.contrib.auth.password_validation import (
 from django.utils.translation import gettext_lazy as _
 
 from ..custom_model_form import CustomModelForm
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.db.models import ModelBase
+
+    from ..models import User
 
 logger = logging.getLogger(__name__)
 
@@ -44,20 +54,17 @@ class UserPasswordForm(CustomModelForm):
         """
 
         #: The model of this :class:`django.forms.ModelForm`
-        model = get_user_model()
+        model: ModelBase = get_user_model()
         #: The fields of the model which should be handled by this form
-        fields = []
+        fields: list[str] = []
 
-    def save(self, commit=True):
+    def save(self, commit: bool = True) -> User:
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
         which are not directly determined by input fields.
 
         :param commit: Whether or not the changes should be written to the database
-        :type commit: bool
-
         :return: The saved user object
-        :rtype: ~django.contrib.auth.models.User
         """
 
         # check if password field was changed
@@ -68,12 +75,11 @@ class UserPasswordForm(CustomModelForm):
 
         return self.instance
 
-    def clean(self):
+    def clean(self) -> dict[str, Any]:
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
 
         :return: The cleaned form data
-        :rtype: dict
         """
         cleaned_data = super().clean()
         old_password = cleaned_data.get("old_password")

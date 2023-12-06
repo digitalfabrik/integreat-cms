@@ -1,5 +1,8 @@
+from __future__ import annotations
+
 import logging
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
@@ -12,6 +15,14 @@ from ...models import Feedback, PageTranslation
 from ...utils.linkcheck_utils import filter_urls
 from ..chat.chat_context_mixin import ChatContextMixin
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.db.models.query import QuerySet
+    from linkcheck.models import Url
+
+    from ...models.abstract_content_translation import AbstractContentTranslation
+
 logger = logging.getLogger(__name__)
 
 
@@ -21,18 +32,16 @@ class DashboardView(TemplateView, ChatContextMixin):
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "dashboard/dashboard.html"
-    latest_version_ids = []
+    template_name: str = "dashboard/dashboard.html"
+    #: The ids of the latest page translations of the current region
+    latest_version_ids: list[int] = []
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Extend context by blog urls
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The context dictionary
-        :rtype: dict
         """
         context = super().get_context_data(**kwargs)
         # RSS FEED urls
@@ -60,13 +69,11 @@ class DashboardView(TemplateView, ChatContextMixin):
 
         return context
 
-    def get_latest_versions(self):
+    def get_latest_versions(self) -> list[int]:
         """
         Collects all the latest page translations of the current region
 
-        :return: all the latest page translations of the current region
-        :rtype: ~django.db.models.query.QuerySet
-
+        :return: The ids of the latest page translations of the current region
         """
         latest_version_ids = (
             PageTranslation.objects.filter(
@@ -79,12 +86,11 @@ class DashboardView(TemplateView, ChatContextMixin):
         )
         return list(latest_version_ids)
 
-    def get_unreviewed_pages_context(self):
+    def get_unreviewed_pages_context(self) -> dict[str, QuerySet | str]:
         """
         Extend context by info on unreviewed pages
 
         :return: Dictionary containing the context for unreviewed pages
-        :rtype: dict
         """
         if not self.request.region.default_language:
             return {}
@@ -100,12 +106,11 @@ class DashboardView(TemplateView, ChatContextMixin):
             "default_language_slug": self.request.region.default_language.slug,
         }
 
-    def get_automatically_saved_pages(self):
+    def get_automatically_saved_pages(self) -> dict[str, QuerySet | str]:
         r"""
         Extend context by info on automatically saved pages
 
         :return: Dictionary containing the context for auto saved pages
-        :rtype: dict
         """
         if not self.request.region.default_language:
             return {}
@@ -121,12 +126,11 @@ class DashboardView(TemplateView, ChatContextMixin):
             "default_language_slug": self.request.region.default_language.slug,
         }
 
-    def get_unread_feedback_context(self):
+    def get_unread_feedback_context(self) -> dict[str, QuerySet]:
         r"""
         Extend context by info on unread feedback
 
         :return: Dictionary containing the context for unreviewed pages
-        :rtype: dict
         """
         unread_feedback = Feedback.objects.filter(
             read_by=None, archived=False, region=self.request.region
@@ -135,12 +139,13 @@ class DashboardView(TemplateView, ChatContextMixin):
             "unread_feedback": unread_feedback,
         }
 
-    def get_broken_links_context(self):
+    def get_broken_links_context(
+        self,
+    ) -> dict[str, list[Url] | Url | AbstractContentTranslation]:
         r"""
         Extend context by info on broken links
 
         :return: Dictionary containing the context for broken links
-        :rtype: dict
         """
         invalid_urls = filter_urls(self.request.region.slug, "invalid")[0]
         invalid_url = invalid_urls[0] if invalid_urls else None
@@ -155,12 +160,11 @@ class DashboardView(TemplateView, ChatContextMixin):
             "relevant_url": invalid_url,
         }
 
-    def get_low_hix_value_context(self):
+    def get_low_hix_value_context(self) -> dict[str, QuerySet]:
         r"""
         Extend context by info on pages with low hix value
 
         :return: Dictionary containing the context for pages with low hix value
-        :rtype: dict
         """
         if not settings.TEXTLAB_API_ENABLED or not self.request.region.hix_enabled:
             return {}
@@ -176,39 +180,38 @@ class DashboardView(TemplateView, ChatContextMixin):
             "pages_under_hix_threshold": translations_under_hix_threshold,
         }
 
-    def get_outdated_pages_context(self):
+    def get_outdated_pages_context(
+        self,
+    ) -> dict[str, QuerySet | PageTranslation | datetime | int | None]:
         r"""
         Extend context by info on outdated pages
 
         :return: Dictionary containing the context for outdated pages
-        :rtype: dict
         """
         if not self.request.region.default_language:
             return {}
 
-        OUTDATED_THRESHOLD_DATE = datetime.now() - relativedelta(
+        outdated_threshold_date = datetime.now() - relativedelta(
             days=settings.OUTDATED_THRESHOLD_DAYS
         )
 
         outdated_pages = PageTranslation.objects.filter(
             language__slug=self.request.region.default_language.slug,
             id__in=self.latest_version_ids,
-            last_updated__lte=OUTDATED_THRESHOLD_DATE.date(),
+            last_updated__lte=outdated_threshold_date.date(),
         ).order_by("last_updated")
 
         days_since_last_updated = (
-            (
-                datetime.today() - most_outdated_page.last_updated.replace(tzinfo=None)
-            ).days
+            (datetime.now() - most_outdated_page.last_updated.replace(tzinfo=None)).days
             if (most_outdated_page := outdated_pages[0] if outdated_pages else None)
             else None
         )
 
-        OUTDATED_THRESHOLD_DATE = OUTDATED_THRESHOLD_DATE.strftime("%Y-%m-%d")
+        outdated_threshold_date_str = outdated_threshold_date.strftime("%Y-%m-%d")
 
         return {
             "outdated_pages": outdated_pages,
             "most_outdated_page": most_outdated_page,
             "days_since_last_updated": days_since_last_updated,
-            "outdated_threshold_date": OUTDATED_THRESHOLD_DATE,
+            "outdated_threshold_date": outdated_threshold_date_str,
         }

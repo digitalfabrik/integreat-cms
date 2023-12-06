@@ -1,6 +1,13 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.http import Http404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+
+if TYPE_CHECKING:
+    from typing import Any
 
 from ...models import ImprintPage
 from ..content_version_view import ContentVersionView
@@ -20,13 +27,14 @@ class ImprintVersionView(ImprintContextMixin, ContentVersionView):
     back_to_form_label = _("Back to the imprint form")
 
     @property
-    def edit_url(self):
+    def edit_url(self) -> str:
         """
         The url to the form in the current language
 
         :returns: The edit url
-        :rtype: str
         """
+        if TYPE_CHECKING:
+            assert self.language
         return reverse(
             "edit_imprint",
             kwargs={
@@ -36,13 +44,14 @@ class ImprintVersionView(ImprintContextMixin, ContentVersionView):
         )
 
     @property
-    def versions_url(self):
+    def versions_url(self) -> str:
         """
         The url to the form in the current language
 
         :returns: The edit url
-        :rtype: str
         """
+        if TYPE_CHECKING:
+            assert self.language
         return reverse(
             "imprint_versions",
             kwargs={
@@ -51,24 +60,22 @@ class ImprintVersionView(ImprintContextMixin, ContentVersionView):
             },
         )
 
-    def get_object(self, queryset=None):
+    def get_object(self, queryset: Any | None = None) -> ImprintPage:
         """
         Get the current imprint object
 
         :raises ~django.http.Http404: HTTP status 404 if the imprint is not found
 
         :return: The imprint object
-        :rtype: ~integreat_cms.cms.models.pages.imprint_page.ImprintPage
         """
         if not (imprint := self.request.region.imprint):
             raise Http404("No imprint found for this region")
         return imprint
 
-    def has_publish_permission(self):
+    def has_publish_permission(self) -> bool:
         """
         All users who can change the imprint also can publish these changes
 
         :returns: Whether the user can publish the imprint
-        :rtype: bool
         """
         return self.has_change_permission()

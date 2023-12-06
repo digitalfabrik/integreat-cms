@@ -1,9 +1,19 @@
 """
 This module includes functions that extend the functionality of the Django Debug Toolbar to non HTML responses.
 """
+from __future__ import annotations
+
 import json
+from typing import TYPE_CHECKING
 
 from django.http import HttpResponse
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
+    from typing import Any
+
+    from asgiref.sync import AsyncToSync
+    from django.http import HttpRequest
 
 
 # pylint: disable=too-few-public-methods
@@ -14,24 +24,20 @@ class JsonDebugToolbarMiddleware:
     has a 'debug' query parameter (e.g. http://localhost:8000/api/augsburg/de/pages?debug)
     """
 
-    def __init__(self, get_response):
+    def __init__(self, get_response: Callable | AsyncToSync) -> None:
         """
         Initialize the middleware for the current view
 
         :param get_response: A callable to get the response for the current request
-        :type get_response: ~collections.abc.Callable
         """
         self.get_response = get_response
 
-    def __call__(self, request):
+    def __call__(self, request: HttpRequest) -> Any:
         """
         Call the middleware for the current request
 
         :param request: Django request
-        :type request: ~django.http.HttpRequest
-
         :return: The modified response
-        :rtype: ~django.http.HttpResponse
         """
         response = self.get_response(request)
         if "debug" in request.GET and response["Content-Type"] == "application/json":

@@ -7575,6 +7575,15 @@ msgid "Automatically machine translate the following types of content:"
 msgstr "Folgende Inhalte automatisch maschinell übersetzen:"
 
 #: cms/templates/translations/translations_management.html
+msgid "There is no active language in this region."
+msgstr "Es gibt keine aktive Sprache in dieser Region."
+
+#: cms/templates/translations/translations_management.html
+msgid "There is no other language than the default language in this region."
+msgstr ""
+"Es gibt keine andere Sprache als die Standard-Sprache in dieser Region."
+
+#: cms/templates/translations/translations_management.html
 msgid "These languages are currently unavailable for machine translations"
 msgstr ""
 "Für folgende Sprachen sind maschinelle Übersetzungen momentan nicht verfügbar"
@@ -7897,9 +7906,8 @@ msgid "The PDF could not be successfully generated."
 msgstr "PDF-Datei konnte nicht erfolgreich erzeugt werden."
 
 #: cms/utils/slug_utils.py
-#, python-format
-msgid "Cannot generate slug from %(fallback)s."
-msgstr "Slug kann nicht aus dem %(fallback)s abgeleitet werden."
+msgid "Cannot generate slug from {}."
+msgstr "Slug kann nicht aus dem {} abgeleitet werden."
 
 #: cms/utils/welcome_mail_utils.py
 msgid "activation mail"
@@ -8042,8 +8050,16 @@ msgid "The selected {} were successfully archived"
 msgstr "Die ausgewählten {} wurden erfolgreich archiviert"
 
 #: cms/views/bulk_action_views.py
-msgid "The selected {} were successfully restored"
-msgstr "Die ausgewählten {} wurden erfolgreich wiederhergestellt"
+msgid ""
+"The following {} could not be restored because they have at least one "
+"archived parent {}: {}"
+msgstr ""
+"Die folgenden {} konnten nicht wiederhergestellt werden, weil mindestens "
+"eine übergeordnete {} archiviert ist: {}"
+
+#: cms/views/bulk_action_views.py
+msgid "The following {} were successfully restored: {}"
+msgstr "Die folgenden {} wurden erfolgreich wiederhergestellt: {}"
 
 #: cms/views/content_version_view.py
 msgid "Back to the form"
@@ -9309,6 +9325,10 @@ msgid "Only superusers can enable or disable passwordless authentication."
 msgstr ""
 "Nur Administrator:innen können die Passwortlose Authentifizierung aktivieren"
 
+#: cms/views/utils/stringify_list.py
+msgid "and"
+msgstr "und"
+
 #: cms/views/utils/translation_status.py
 msgid "The status of \"{}\" was successfully changed to \"{}\"."
 msgstr ""
@@ -9529,6 +9549,9 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "The selected {} \"{}\" was successfully restored"
+#~ msgstr "Die ausgewählten {} \"{}\" wurden erfolgreich wiederhergestellt"
 
 #~ msgid ""
 #~ "For technical reasons the name is displayed in the app in the default "

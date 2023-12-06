@@ -16,13 +16,21 @@ Additionally, the error handlers in :mod:`~integreat_cms.cms.views.error_handler
 
 For more information on this file, see :doc:`django:topics/http/urls`.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 
+if TYPE_CHECKING:
+    from django.urls.resolvers import URLPattern
+
+
 #: The url patterns of this module (see :doc:`django:topics/http/urls`)
-urlpatterns = [
+urlpatterns: list[URLPattern] = [
     path("", include("integreat_cms.api.urls")),
     path(
         "i18n/",
@@ -78,7 +86,7 @@ urlpatterns += [
     ),
 ]
 
-handler400 = "integreat_cms.cms.views.error_handler.handler400"
-handler403 = "integreat_cms.cms.views.error_handler.handler403"
-handler404 = "integreat_cms.cms.views.error_handler.handler404"
-handler500 = "integreat_cms.cms.views.error_handler.handler500"
+handler400: str = "integreat_cms.cms.views.error_handler.handler400"
+handler403: str = "integreat_cms.cms.views.error_handler.handler403"
+handler404: str = "integreat_cms.cms.views.error_handler.handler404"
+handler500: str = "integreat_cms.cms.views.error_handler.handler500"

@@ -1,5 +1,14 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+
+if TYPE_CHECKING:
+    from typing import Any
+    from django.db.models.base import ModelBase
+
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 
@@ -11,12 +20,11 @@ from ..pois.poi_translation import POITranslation
 from ..users.organization import Organization
 
 
-def get_default_opening_hours():
+def get_default_opening_hours() -> list[dict[str, Any]]:
     """
     Return the default opening hours
 
     :return: The default opening hours
-    :rtype: list
     """
     return [
         {"allDay": False, "closed": True, "appointmentOnly": False, "timeSlots": []}
@@ -119,26 +127,24 @@ class POI(AbstractContentModel):
     )
 
     @property
-    def fallback_translations_enabled(self):
+    def fallback_translations_enabled(self) -> bool:
         """
         Whether translations should be returned in the default language if they do not exist
 
         :return: Whether fallback translations are enabled
-        :rtype: bool
         """
         return self.region.fallback_translations_enabled
 
     @staticmethod
-    def get_translation_model():
+    def get_translation_model() -> ModelBase:
         """
         Returns the translation model of this content model
 
         :return: The class of translations
-        :rtype: type
         """
         return POITranslation
 
-    def archive(self):
+    def archive(self) -> None:
         """
         Archives the poi and removes all links of this poi from the linkchecker
         """
@@ -148,7 +154,7 @@ class POI(AbstractContentModel):
         # Delete related link objects as they are no longer required
         Link.objects.filter(poi_translation__poi=self).delete()
 
-    def restore(self):
+    def restore(self) -> None:
         """
         Restores the event and adds all links of this event back
         """

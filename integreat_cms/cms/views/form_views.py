@@ -1,12 +1,22 @@
 """
 This module contains form views for our models that don't need custom handling.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import FieldDoesNotExist
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.edit import BaseCreateView, BaseUpdateView, ModelFormMixin
+
+if TYPE_CHECKING:
+    from typing import Any
+    from django.http import HttpResponse, HttpResponseRedirect
+    from ..forms.custom_model_form import CustomModelForm
+    from django.db.models.base import ModelBase
 
 from .media import MediaContextMixin
 from .mixins import ModelConfirmationContextMixin, ModelTemplateResponseMixin
@@ -26,14 +36,13 @@ class CustomModelFormMixin(
     """
 
     #: The suffix to append to the auto-generated candidate template name.
-    template_name_suffix = "_form"
+    template_name_suffix: str = "_form"
 
-    def get_permission_required(self):
+    def get_permission_required(self) -> tuple[str]:
         """
         Override this method to override the permission_required attribute.
 
         :return: The permissions that are required for views inheriting from this Mixin
-        :rtype: ~collections.abc.Iterable
         """
         # If the form is submitted via POST, require the change permission
         if self.request.method == "POST":
@@ -42,48 +51,42 @@ class CustomModelFormMixin(
         return (f"cms.view_{self.model._meta.model_name}",)
 
     @property
-    def model(self):
+    def model(self) -> ModelBase:
         """
         Return the model class of this form mixin
 
         :return: The corresponding Django model
-        :rtype: ~django.db.models.Model
         """
         return self.form_class._meta.model
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Returns a dictionary representing the template context
         (see :meth:`~django.views.generic.base.ContextMixin.get_context_data`).
 
         :param \**kwargs: The given keyword arguments
-        :type \**kwargs: dict
-
         :return: The template context
-        :rtype: dict
         """
         context = super().get_context_data(**kwargs)
         context.update({"current_menu_item": f"{self.model._meta.model_name}s"})
         return context
 
-    def get_form_kwargs(self):
+    def get_form_kwargs(self) -> dict[str, Any]:
         """
         Return the keyword arguments for instantiating the form
 
         :return: The form kwargs
-        :rtype: dict
         """
         kwargs = super().get_form_kwargs()
         if self.request.region:
             kwargs["additional_instance_attributes"] = {"region": self.request.region}
         return kwargs
 
-    def get_success_url(self):
+    def get_success_url(self) -> str:
         """
         Determine the URL to redirect to when the form is successfully validated
 
         :return: The url to redirect on success
-        :rtype: str
         """
         kwargs = {}
         try:
@@ -97,15 +100,12 @@ class CustomModelFormMixin(
             kwargs["region_slug"] = self.request.region.slug
         return reverse(f"edit_{self.object._meta.model_name}", kwargs=kwargs)
 
-    def form_valid(self, form):
+    def form_valid(self, form: CustomModelForm) -> HttpResponseRedirect:
         """
         Saves the form instance, sets the current object for the view, and redirects to :meth:`get_success_url`.
 
         :param form: The valid form instance
-        :type form: ~django.forms.ModelForm
-
         :return: A redirection to the success url
-        :rtype: ~django.http.HttpResponseRedirect
         """
         if not form.has_changed():
             # Add "no changes" messages
@@ -126,15 +126,12 @@ class CustomModelFormMixin(
             )
         return super().form_valid(form)
 
-    def form_invalid(self, form):
+    def form_invalid(self, form: CustomModelForm) -> HttpResponse:
         """
         Renders a response, providing the invalid form as context.
 
         :param form: The invalid form instance
-        :type form: ~django.forms.ModelForm
-
         :return: The rendered invalid form
-        :rtype: ~django.http.HttpResponse
         """
         form.add_error_messages(self.request)
         return super().form_invalid(form)

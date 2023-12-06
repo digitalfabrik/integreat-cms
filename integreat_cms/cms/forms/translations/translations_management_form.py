@@ -1,11 +1,17 @@
+from __future__ import annotations
+
 import logging
 from collections import defaultdict
+from typing import TYPE_CHECKING
 
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
 from ...models import Region
 from ..custom_model_form import CustomModelForm
+
+if TYPE_CHECKING:
+    from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -18,7 +24,7 @@ class CustomCheckboxSelectMultiple(forms.CheckboxSelectMultiple):
     """
 
     #: The template to use when rendering this widget
-    template_name = "translations/languages_input.html"
+    template_name: str = "translations/languages_input.html"
 
 
 class TranslationsManagementForm(CustomModelForm):
@@ -35,7 +41,7 @@ class TranslationsManagementForm(CustomModelForm):
     )
 
     #: The languages that cannot be selected at the moment
-    unavailable_languages = []
+    unavailable_languages: list[str] = []
 
     class Meta:
         """
@@ -52,15 +58,12 @@ class TranslationsManagementForm(CustomModelForm):
             "machine_translate_pois",
         ]
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         r"""
         Initialize translations management form
 
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
         super().__init__(*args, **kwargs)
 
@@ -85,16 +88,13 @@ class TranslationsManagementForm(CustomModelForm):
             "machine_translatable_languages"
         ] = self.instance.language_tree_nodes.filter(machine_translation_enabled=True)
 
-    def save(self, commit=True):
+    def save(self, commit: bool = True) -> Region:
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
         which are not directly determined by input fields.
 
         :param commit: Whether or not the changes should be written to the database
-        :type commit: bool
-
         :return: The saved region object
-        :rtype: ~integreat_cms.cms.models.regions.region.Region
         """
 
         # Save CustomModelForm

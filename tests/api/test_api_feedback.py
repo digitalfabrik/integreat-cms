@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 import pytest
 from django.test.client import Client
@@ -20,7 +23,13 @@ from integreat_cms.cms.models import (
 
 from .api_config import API_FEEDBACK_ERRORS, API_FEEDBACK_VIEWS
 
-feedback_type_dict = {
+if TYPE_CHECKING:
+    from typing import Any, Final
+
+    from django.db.models.base import ModelBase
+
+
+feedback_type_dict: Final[dict[str, ModelBase]] = {
     "api:region_feedback": RegionFeedback,
     "api:page_feedback": PageFeedback,
     "api:poi_feedback": POIFeedback,
@@ -36,18 +45,15 @@ feedback_type_dict = {
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("view_name,post_data", API_FEEDBACK_VIEWS)
-def test_api_feedback_success(load_test_data, view_name, post_data):
+def test_api_feedback_success(
+    load_test_data: None, view_name: str, post_data: dict[str, str]
+) -> None:
     """
     Check successful feedback submission for different feedback types
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: NoneType
-
     :param view_name: The identifier of the view
-    :type view_name: str
-
     :param post_data: The post data for this view
-    :type post_data: dict
     """
     client = Client()
     url = reverse(view_name, kwargs={"region_slug": "augsburg", "language_slug": "de"})
@@ -86,25 +92,20 @@ def test_api_feedback_success(load_test_data, view_name, post_data):
     "view_name,kwargs,post_data,response_data", API_FEEDBACK_ERRORS
 )
 def test_api_feedback_errors(
-    load_test_data, view_name, kwargs, post_data, response_data
-):
+    load_test_data: None,
+    view_name: str,
+    kwargs: dict[str, str],
+    post_data: dict[str, str],
+    response_data: dict[str, Any],
+) -> None:
     """
     Check different errors during feedback processing
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: NoneType
-
     :param view_name: The identifier of the view
-    :type view_name: str
-
     :param kwargs: The keyword argument passed to the view
-    :type kwargs: dict
-
     :param post_data: The post data for this view
-    :type post_data: dict
-
     :param response_data: The expected response data
-    :type response_data: dict
     """
     client = Client()
     url = reverse(view_name, kwargs=kwargs)
@@ -117,12 +118,11 @@ def test_api_feedback_errors(
 
 
 @pytest.mark.django_db
-def test_api_feedback_invalid_method(load_test_data):
+def test_api_feedback_invalid_method(load_test_data: None) -> None:
     """
     Check error when request method is not POST
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    :type load_test_data: NoneType
     """
     client = Client()
     url = reverse(

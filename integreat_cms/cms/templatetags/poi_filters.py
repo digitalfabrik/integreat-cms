@@ -1,24 +1,26 @@
 """
 This is a collection of tags and filters for points of interest (:class:`~integreat_cms.cms.models.pois.poi.POI`).
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django import template
+
+if TYPE_CHECKING:
+    from ..models import Language, POI
 
 register = template.Library()
 
 
 @register.filter
-def poi_translation_title(poi, language):
+def poi_translation_title(poi: POI, language: Language) -> str:
     """
     This tag returns the title of the most recent translation of the requested point of interest in the requested language.
 
     :param poi: The requested point of interest
-    :type poi: ~integreat_cms.cms.models.pois.poi.POI
-
     :param language: The requested language
-    :type language: ~integreat_cms.cms.models.languages.language.Language
-
     :return: The title of the requested translation
-    :rtype: str
     """
     all_poi_translations = poi.translations
     poi_translation = all_poi_translations.filter(language__slug=language.slug)

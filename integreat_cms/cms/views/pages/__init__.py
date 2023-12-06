@@ -1,6 +1,8 @@
 """
 This package contains all views related to pages
 """
+from __future__ import annotations
+
 from .page_actions import (
     archive_page,
     cancel_translation_process_ajax,

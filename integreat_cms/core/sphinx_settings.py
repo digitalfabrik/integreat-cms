@@ -8,6 +8,8 @@ For the full list of settings and their values, see :doc:`django:ref/settings`.
 """
 # pylint: disable=wildcard-import
 # pylint: disable=unused-wildcard-import
+from __future__ import annotations
+
 from .settings import *
 
 #: Set a dummy secret key for documentation build even if it's not in debug mode

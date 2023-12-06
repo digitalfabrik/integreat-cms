@@ -1,7 +1,10 @@
+from __future__ import annotations
+
 import logging
 import time
 from copy import deepcopy
 from functools import partial
+from typing import TYPE_CHECKING
 from urllib.parse import urlencode
 
 from cacheops import invalidate_model
@@ -20,6 +23,12 @@ from ...decorators import permission_required
 from ...forms.linkcheck.edit_url_form import EditUrlForm
 from ...utils.linkcheck_utils import filter_urls, get_urls
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest, HttpResponse
+    from django.template.response import TemplateResponse
+
 logger = logging.getLogger(__name__)
 
 
@@ -30,67 +39,59 @@ class LinkcheckListView(ListView):
     """
 
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-    template_name = "linkcheck/links_by_filter.html"
+    template_name: str = "linkcheck/links_by_filter.html"
     #: Designates the name of the variable to use in the context
     #: (see :class:`~django.views.generic.list.MultipleObjectMixin`)
-    context_object_name = "filtered_urls"
+    context_object_name: str = "filtered_urls"
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
-    extra_context = {
+    extra_context: dict[str, str | int] = {
         "current_menu_item": "linkcheck",
         "LINKCHECK_EMAIL_ENABLED": settings.LINKCHECK_EMAIL_ENABLED,
         "LINKCHECK_PHONE_ENABLED": settings.LINKCHECK_PHONE_ENABLED,
     }
     #: The currently edited instance
-    instance = None
+    instance: Url | None = None
     #: The link edit form
-    form = None
+    form: EditUrlForm | None = None
 
-    def get_paginate_by(self, queryset):
+    def get_paginate_by(self, queryset: list[Url]) -> int:
         """
         Get the number of items to paginate by, or ``None`` for no pagination.
 
         :param queryset: The QuerySet of the filtered urls
-        :type queryset: ~django.db.models.query.QuerySet
-
         :return: The pagination number
-        :rtype: int
         """
         return int(self.request.GET.get("size", settings.PER_PAGE))
 
-    def get_pagination_params(self):
+    def get_pagination_params(self) -> str:
         """
         Get the urlencoded pagination GET parameters
 
         :return: The URL params
-        :rtype: str
         """
         params = {
             k: v for k, v in self.request.GET.items() if k in (self.page_kwarg, "size")
         }
         return f"?{urlencode(params)}" if params else ""
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Extend context by edit url form
 
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :return: The context dictionary
-        :rtype: dict
         """
         context = super().get_context_data(**kwargs)
         context["edit_url_form"] = self.form
         context["pagination_params"] = self.get_pagination_params()
         return context
 
-    def get_queryset(self):
+    def get_queryset(self) -> list[Url]:
         """
         Selects all urls for the current region
         Finally annotates queryset by the content_type title
 
         :return: The QuerySet of the filtered urls
-        :rtype: ~django.db.models.query.QuerySet
         """
         urls, count_dict = filter_urls(
             self.kwargs.get("region_slug"), self.kwargs.get("url_filter")
@@ -98,7 +99,7 @@ class LinkcheckListView(ListView):
         self.extra_context.update(count_dict)
         return urls
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         """
         Dispatch the view to either get() or post()
         """
@@ -116,23 +117,16 @@ class LinkcheckListView(ListView):
             self.form = EditUrlForm(**form_kwargs)
         return super().dispatch(request, *args, **kwargs)
 
-    def get(self, request, *args, **kwargs):
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> TemplateResponse:
         r"""
         Return the get view and fall back to the last page if the requested page does not exist
 
         :param request: Object representing the user call
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises ~django.http.Http404: When the view returns a 404 and already requests the last page
 
         :return: The rendered linkcheck template or a redirect to the last page
-        :rtype: ~django.template.response.TemplateResponse or ~django.http.HttpResponseRedirect
         """
         try:
             return super().get(request, *args, **kwargs)
@@ -148,26 +142,21 @@ class LinkcheckListView(ListView):
             return redirect(f"{request.path}?{urlencode(params)}")
 
     # pylint: disable-msg=too-many-branches
-    def post(self, request, *args, **kwargs):
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Applies selected action for selected urls
 
         :param request: The current request
-        :type request: ~django.http.HttpRequest
-
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
-
         :raises ~django.http.Http404: HTTP status 404 if the edited URL does not exist
 
         :return: Redirect to current linkcheck tab
-        :rtype: ~django.http.HttpResponseRedirect
         """
         if self.form:
             if self.form.is_valid():
+                if TYPE_CHECKING:
+                    assert self.instance
                 new_url = self.form.cleaned_data["url"]
                 # Get all current translations with the same url
                 translations = {
@@ -244,21 +233,14 @@ class LinkcheckListView(ListView):
         return redirect(f"{linkcheck_url}{self.get_pagination_params()}")
 
     @staticmethod
-    def replace_link(old_url, new_url, link):
+    def replace_link(old_url: str, new_url: str, link: str) -> str:
         """
         Replace the URL of a link
 
         :param old_url: The old URL to be replaced
-        :type old_url: str
-
         :param new_url: The new URL
-        :type new_url: str
-
         :param link: The input link
-        :type link: str
-
         :return: The replaced link
-        :rtype: str
         """
         if link == old_url:
             logger.debug("Replacing %r with %r", old_url, new_url)

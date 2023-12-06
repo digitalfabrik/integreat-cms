@@ -1,6 +1,15 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from cacheops import invalidate_obj
 from django.core.validators import MinLengthValidator
 from django.db import models
+
+if TYPE_CHECKING:
+    from typing import Any
+    from django.db.models.query import QuerySet
+
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext
@@ -123,34 +132,31 @@ class Language(AbstractBaseModel):
     )
 
     @cached_property
-    def translated_name(self):
+    def translated_name(self) -> str:
         """
         Returns the name of the language in the current backend language
 
         :return: The translated name of the language
-        :rtype: str
         """
         return gettext(self.english_name)
 
     @cached_property
-    def active_in_regions(self):
+    def active_in_regions(self) -> QuerySet:
         """
         Returns regions in which the language is active
 
         :return: regions in which the language is active
-        :rtype: ~django.db.models.query.QuerySet [~integreat_cms.cms.models.regions.region.Region]
         """
         return Region.objects.filter(
             language_tree_nodes__language=self, language_tree_nodes__active=True
         )
 
     @cached_property
-    def visible_in_regions(self):
+    def visible_in_regions(self) -> QuerySet:
         """
         Returns regions in which the language is visible
 
         :return: regions in which the language is visible
-        :rtype: ~django.db.models.query.QuerySet [~integreat_cms.cms.models.regions.region.Region]
         """
         return Region.objects.filter(
             language_tree_nodes__language=self,
@@ -158,16 +164,13 @@ class Language(AbstractBaseModel):
             language_tree_nodes__visible=True,
         )
 
-    def save(self, *args, **kwargs):
+    def save(self, *args: Any, **kwargs: Any) -> None:
         r"""
         This overwrites the default Django :meth:`~django.db.models.Model.save` method,
         to invalidate the cache of the related objects.
 
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied kwargs
-        :type \**kwargs: dict
         """
         super().save(*args, **kwargs)
         # Invalidate related objects
@@ -182,23 +185,21 @@ class Language(AbstractBaseModel):
         for obj in self.push_notification_translations.all():
             invalidate_obj(obj)
 
-    def __str__(self):
+    def __str__(self) -> str:
         """
         This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``Language object (id)``.
         It is used in the Django admin backend and as label for ModelChoiceFields.
 
         :return: A readable string representation of the language
-        :rtype: str
         """
         return self.translated_name
 
-    def get_repr(self):
+    def get_repr(self) -> str:
         """
         This overwrites the default Django ``__repr__()`` method which would return ``<Language: Language object (id)>``.
         It is used for logging.
 
         :return: The canonical string representation of the language
-        :rtype: str
         """
         return (
             f"<Language (id: {self.id}, slug: {self.slug}, name: {self.english_name})>"

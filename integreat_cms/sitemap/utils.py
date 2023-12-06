@@ -1,27 +1,30 @@
 """
 This module contains utils for the sitemap app.
 """
+from __future__ import annotations
+
 import logging
+from typing import TYPE_CHECKING
 
 from .sitemaps import EventSitemap, OfferSitemap, PageSitemap, POISitemap
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from integreat_cms.cms.models.languages.language import Language
+    from integreat_cms.cms.models.regions.region import Region
 
 logger = logging.getLogger(__name__)
 
 
-def get_sitemaps(region, language):
+def get_sitemaps(region: Region, language: Language) -> list[Any]:
     """
     This helper function generates a list of all non-empty sitemaps for a given region and language
     It is used in :class:`~integreat_cms.sitemap.views.SitemapIndexView` and :class:`~integreat_cms.sitemap.views.SitemapView`.
 
     :param region: The requested region
-    :type region: ~integreat_cms.cms.models.regions.region.Region
-
     :param language: The requested language
-    :type language: ~integreat_cms.cms.models.languages.language.Language
-
-
     :return: All sitemaps for the given region and language
-    :rtype: list [ ~sitemap.sitemaps.WebappSitemap ]
     """
     sitemaps = [
         PageSitemap(region, language),

@@ -1,6 +1,10 @@
 """
 This module includes functions related to the push notification that are sent via firebase.
 """
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.conf import settings
 from django.http import JsonResponse
 from django.utils import timezone
@@ -8,21 +12,23 @@ from django.utils import timezone
 from ...cms.models import PushNotificationTranslation
 from ..decorators import json_response
 
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.http import HttpRequest
+
 
 @json_response
-def sent_push_notifications(request, region_slug, language_slug):
+def sent_push_notifications(
+    request: HttpRequest, region_slug: str, language_slug: str
+) -> JsonResponse:
     """
     Function to iterate through all sent push notifications related to a region and adds them to a JSON.
 
     :param request: Django request
-    :type request: ~django.http.HttpRequest
     :param region_slug: slug of a region
-    :type region_slug: str
     :param language_slug: language slug
-    :type language_slug: str
-
     :return: JSON object according to APIv3 push notifications definition
-    :rtype: ~django.http.JsonResponse
     """
     channel = request.GET.get("channel", "all")
     query_result = (
@@ -43,15 +49,12 @@ def sent_push_notifications(request, region_slug, language_slug):
     return JsonResponse(result, safe=False)
 
 
-def transform_notification(pnt):
+def transform_notification(pnt: PushNotificationTranslation) -> dict[str, Any]:
     """
     Function to create a JSON from a single push notification translation Object.
 
     :param pnt: A push notification translation
-    :type pnt: ~integreat_cms.cms.models.push_notifications.push_notification_translation.PushNotificationTranslation
-
     :return: data necessary for API
-    :rtype: dict
     """
     return {
         "id": str(pnt.pk),

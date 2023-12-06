@@ -1,10 +1,18 @@
+from __future__ import annotations
+
 import logging
 from datetime import datetime
+from typing import TYPE_CHECKING
 
 from django.core.management.base import CommandError
 
 from ....cms.models import Region
 from ..log_command import LogCommand
+
+if TYPE_CHECKING:
+    from typing import Any
+
+    from django.core.management.base import CommandParser
 
 logger = logging.getLogger(__name__)
 
@@ -14,14 +22,13 @@ class Command(LogCommand):
     Management command to reset DeepL budget
     """
 
-    help = "Reset DeepL budget"
+    help: str = "Reset DeepL budget"
 
-    def add_arguments(self, parser):
+    def add_arguments(self, parser: CommandParser) -> None:
         """
         Define the arguments of this command
 
         :param parser: The argument parser
-        :type parser: ~django.core.management.base.CommandParser
         """
         parser.add_argument(
             "--force",
@@ -30,7 +37,7 @@ class Command(LogCommand):
         )
 
     # pylint: disable=arguments-differ
-    def handle(self, *args, force, **options):
+    def handle(self, *args: Any, force: bool, **options: Any) -> None:
         """
         Try to run the command
         """

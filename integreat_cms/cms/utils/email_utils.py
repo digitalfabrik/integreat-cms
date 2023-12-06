@@ -1,6 +1,9 @@
+from __future__ import annotations
+
 import logging
 from email.mime.image import MIMEImage
 from smtplib import SMTPAuthenticationError, SMTPException
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib.staticfiles import finders
@@ -8,12 +11,19 @@ from django.core.mail import BadHeaderError, EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
+if TYPE_CHECKING:
+    from typing import Any
+
 logger = logging.getLogger(__name__)
 
 
 def send_mail(
-    subject, email_template_name, html_email_template_name, context, recipient
-):
+    subject: str,
+    email_template_name: str,
+    html_email_template_name: str,
+    context: dict[str, Any],
+    recipient: str,
+) -> None:
     """
     Sends welcome email to user with new account.
 
@@ -22,22 +32,11 @@ def send_mail(
     version and also attach the branding logo.
 
     :param subject: The subject of the email
-    :type subject: str
-
     :param email_template_name: The template to be used to render the text email
-    :type email_template_name: str
-
     :param html_email_template_name: The template to be used to render the HTML email
-    :type html_email_template_name: str
-
     :param subject: The subject of the email
-    :type subject: str
-
     :param context: The template context variables
-    :type context: dict
-
     :param recipient: The email address of the recipient
-    :type recipient: str
     """
     context.update(
         {

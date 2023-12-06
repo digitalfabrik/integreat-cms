@@ -1,18 +1,25 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django.db import migrations
 
 from ..constants import status
 
+if TYPE_CHECKING:
+    from django.apps.registry import Apps
+    from django.db.backends.base.schema import BaseDatabaseSchemaEditor
+
 
 # pylint: disable=unused-argument
-def update_poi_translation_status(apps, schema_editor):
+def update_poi_translation_status(
+    apps: Apps, schema_editor: BaseDatabaseSchemaEditor
+) -> None:
     """
     Update poi translation status to draft for pois without the default public translation
 
     :param apps: The configuration of installed applications
-    :type apps: ~django.apps.registry.Apps
-
     :param schema_editor: The database abstraction layer that creates actual SQL code
-    :type schema_editor: ~django.db.backends.base.schema.BaseDatabaseSchemaEditor
     """
     Region = apps.get_model("cms", "Region")
     POITranslation = apps.get_model("cms", "POITranslation")

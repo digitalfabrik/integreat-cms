@@ -1,7 +1,10 @@
+from __future__ import annotations
+
 import json
 import logging
 import time
 from copy import deepcopy
+from typing import TYPE_CHECKING
 from zoneinfo import available_timezones
 
 from django import forms
@@ -24,6 +27,9 @@ from ...utils.translation_utils import gettext_many_lazy as __
 from ..custom_model_form import CustomModelForm
 from ..icon_widget import IconWidget
 
+if TYPE_CHECKING:
+    from typing import Any
+
 logger = logging.getLogger(__name__)
 
 
@@ -33,15 +39,14 @@ class CheckboxSelectMultipleWithDisabled(forms.CheckboxSelectMultiple):
     :class:`~django.forms.CheckboxSelectMultiple` widget
     """
 
-    disabled_options = []
+    disabled_options: list[OfferTemplate] = []
 
-    def create_option(self, *args, **kwargs):
+    def create_option(self, *args: Any, **kwargs: Any) -> dict[str, Any]:
         """
         Overwrites the parent's method in order to disable
         a set of pre-determined options
 
         :return: a single option
-        :rtype: dict
         """
         option = super().create_option(*args, **kwargs)
         if option["value"].instance in self.disabled_options:
@@ -49,12 +54,11 @@ class CheckboxSelectMultipleWithDisabled(forms.CheckboxSelectMultiple):
         return option
 
 
-def get_timezone_choices():
+def get_timezone_choices() -> list[tuple[str, str]]:
     """
     This method generates the options for the second timezone dropdown
 
     :return: A list of all available timezones
-    :rtype: list
     """
     timezones = list(available_timezones())
     timezones.sort()
@@ -63,14 +67,12 @@ def get_timezone_choices():
     ]
 
 
-def get_timezone_area_choices():
+def get_timezone_area_choices() -> list[tuple[str, str]]:
     """
     This method generates the options for the first timezone dropdown.
     It displays the general area of a country or city. Often the continent.
 
     :return: A list of the general areas of the timezones
-    :rtype: list
-
     """
     timezone_regions = list(
         {
@@ -178,15 +180,12 @@ class RegionForm(CustomModelForm):
             "offers": CheckboxSelectMultipleWithDisabled(),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         r"""
         Initialize region form
 
         :param \*args: The supplied arguments
-        :type \*args: list
-
         :param \**kwargs: The supplied keyword arguments
-        :type \**kwargs: dict
         """
         super().__init__(*args, **kwargs)
         if "/" in self.instance.timezone:
@@ -210,16 +209,13 @@ class RegionForm(CustomModelForm):
         )
         self.fields["offers"].widget.disabled_options = self.disabled_offer_options
 
-    def save(self, commit=True):
+    def save(self, commit: bool = True) -> Region:
         """
         This method extends the default ``save()``-method of the base :class:`~django.forms.ModelForm` to set attributes
         which are not directly determined by input fields.
 
         :param commit: Whether or not the changes should be written to the database
-        :type commit: bool
-
         :return: The saved region object
-        :rtype: ~integreat_cms.cms.models.regions.region.Region
         """
 
         # Only duplicate content if region is created and a region was selected
@@ -255,12 +251,11 @@ class RegionForm(CustomModelForm):
         return region
 
     # pylint: disable=too-many-branches
-    def clean(self):
+    def clean(self) -> dict[str, Any]:
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
 
         :return: The cleaned form data
-        :rtype: dict
         """
         cleaned_data = super().clean()
 
@@ -358,21 +353,19 @@ class RegionForm(CustomModelForm):
         logger.debug("RegionForm validated [2] with cleaned data %r", cleaned_data)
         return cleaned_data
 
-    def clean_slug(self):
+    def clean_slug(self) -> str:
         """
         Validate the slug field (see :ref:`overriding-modelform-clean-method`)
 
         :return: A unique slug based on the input value
-        :rtype: str
         """
         return generate_unique_slug_helper(self, "region")
 
-    def clean_custom_prefix(self):
+    def clean_custom_prefix(self) -> str:
         """
         Validate the custom prefix field. (see :ref:`overriding-modelform-clean-method`)
 
         :return: The given prefix or ``None`` if it is invalid
-        :rtype: str
         """
         cleaned_data = self.cleaned_data
         # Validate custom prefix
@@ -461,12 +454,11 @@ class RegionForm(CustomModelForm):
             )
         return cleaned_data.get("custom_prefix")
 
-    def clean_aliases(self):
+    def clean_aliases(self) -> dict:
         """
         Validate the aliases field (see :ref:`overriding-modelform-clean-method`).
 
         :return: The valid aliases
-        :rtype: dict
         """
         cleaned_aliases = self.cleaned_data["aliases"]
         # If a string is given, try to load as JSON string
@@ -478,12 +470,11 @@ class RegionForm(CustomModelForm):
         # Convert None to an empty dict
         return cleaned_aliases or {}
 
-    def clean_summ_ai_enabled(self):
+    def clean_summ_ai_enabled(self) -> bool:
         """
         Validate the summ_ai_enabled field (see :ref:`overriding-modelform-clean-method`)
 
         :return: The validated field whether SUMM.AI is enabled
-        :rtype: str
         """
         if self.cleaned_data.get("summ_ai_enabled") and not settings.SUMM_AI_ENABLED:
             self.add_error(
@@ -492,12 +483,11 @@ class RegionForm(CustomModelForm):
             return False
         return self.cleaned_data.get("summ_ai_enabled")
 
-    def clean_hix_enabled(self):
+    def clean_hix_enabled(self) -> bool:
         """
         Validate the hix_enabled field (see :ref:`overriding-modelform-clean-method`).
 
         :return: The validated field
-        :rtype: bool
         """
         cleaned_hix_enabled = self.cleaned_data["hix_enabled"]
         # Check whether someone tries to activate hix when no API key is set
@@ -508,23 +498,20 @@ class RegionForm(CustomModelForm):
         return cleaned_hix_enabled
 
     @staticmethod
-    def autofill_bounding_box(cleaned_data):
+    def autofill_bounding_box(cleaned_data: dict[str, Any]) -> dict[str, Any]:
         """
         Automatically fill the bounding box coordinates
 
         :param cleaned_data: The partially cleaned data
-        :type cleaned_data: dict
-
         :return: The updated cleaned data
-        :rtype: dict
         """
         # When the Nominatim API is enabled, auto fill the bounding box coordinates
         if settings.NOMINATIM_API_ENABLED:
             nominatim_api_client = NominatimApiClient()
             if bounding_box := nominatim_api_client.get_bounding_box(
-                administrative_division=cleaned_data.get("administrative_division"),
-                name=cleaned_data.get("name"),
-                aliases=cleaned_data.get("aliases"),
+                administrative_division=cleaned_data.get("administrative_division", ""),
+                name=cleaned_data.get("name", ""),
+                aliases=cleaned_data.get("aliases", ""),
             ):
                 # Update bounding box values if not set manually
                 if not cleaned_data.get("latitude_min"):
@@ -540,12 +527,12 @@ class RegionForm(CustomModelForm):
 
 
 def duplicate_language_tree(
-    source_region,
-    target_region,
-    source_parent=None,
-    target_parent=None,
-    logging_prefix="",
-):
+    source_region: Region,
+    target_region: Region,
+    source_parent: LanguageTreeNode | None = None,
+    target_parent: LanguageTreeNode | None = None,
+    logging_prefix: str = "",
+) -> None:
     """
     Function to duplicate the language tree of one region to another.
 
@@ -555,19 +542,10 @@ def duplicate_language_tree(
     The recursion is necessary because the new nodes need their correct (also duplicated) parent node.
 
     :param source_region: The region from which the language tree should be duplicated
-    :type source_region: ~integreat_cms.cms.models.regions.region.Region
-
     :param target_region: The region to which the language tree should be added
-    :type target_region: ~integreat_cms.cms.models.regions.region.Region
-
     :param source_parent: The current parent node id of the recursion
-    :type source_parent: ~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode
-
     :param target_parent: The node of the target region which is the duplicate of the source parent node
-    :type target_parent: ~integreat_cms.cms.models.pages.page.Page
-
     :param logging_prefix: recursion level to get a pretty log output
-    :type logging_prefix: str
     """
     logger.debug(
         "%s Duplicating child nodes",
@@ -629,13 +607,13 @@ def duplicate_language_tree(
 
 
 def duplicate_pages(
-    source_region,
-    target_region,
-    source_parent=None,
-    target_parent=None,
-    logging_prefix="",
-    keep_status=False,
-):
+    source_region: Region,
+    target_region: Region,
+    source_parent: Page | None = None,
+    target_parent: Page | None = None,
+    logging_prefix: str = "",
+    keep_status: bool = False,
+) -> None:
     """
     Function to duplicate all non-archived pages from one region to another
 
@@ -645,22 +623,11 @@ def duplicate_pages(
     The recursion is necessary because the new pages need their correct (also duplicated) parent page.
 
     :param source_region: The region from which the pages should be duplicated
-    :type source_region: ~integreat_cms.cms.models.regions.region.Region
-
     :param target_region: The region to which the pages should be added
-    :type target_region: ~integreat_cms.cms.models.regions.region.Region
-
     :param source_parent: The current parent page id of the recursion
-    :type source_parent: ~integreat_cms.cms.models.pages.page.Page
-
     :param target_parent: The page of the target region which is the duplicate of the source parent page
-    :type target_parent: ~integreat_cms.cms.models.pages.page.Page
-
     :param logging_prefix: Recursion level to get a pretty log output
-    :type logging_prefix: str
-
     :param keep_status: Parameter to indicate whether the status of the cloned pages should be kept
-    :type keep_status: bool
     """
 
     logger.debug(
@@ -734,21 +701,16 @@ def duplicate_pages(
             )
 
 
-def duplicate_page_translations(source_page, target_page, logging_prefix, keep_status):
+def duplicate_page_translations(
+    source_page: Page, target_page: Page, logging_prefix: str, keep_status: bool
+) -> None:
     """
     Duplicate all translations of a given source page to a given target page
 
     :param source_page: The given source page
-    :type source_page: ~integreat_cms.cms.models.pages.page.Page
-
     :param target_page: The desired target page
-    :type target_page: ~integreat_cms.cms.models.pages.page.Page
-
     :param logging_prefix: The prefix to be used for logging
-    :type logging_prefix: str
-
     :param keep_status: Parameter to indicate whether the status of the cloned pages should be kept
-    :type keep_status: bool
     """
     logger.debug(
         "%s Duplicating page translations",
@@ -781,16 +743,12 @@ def duplicate_page_translations(source_page, target_page, logging_prefix, keep_s
         )
 
 
-def duplicate_imprint(source_region, target_region):
+def duplicate_imprint(source_region: Region, target_region: Region) -> None:
     """
     Function to duplicate the imprint from one region to another.
 
     :param source_region: the source region from which the imprint should be duplicated
-    :type source_region: ~integreat_cms.cms.models.regions.region.Region
-
     :param target_region: the target region
-    :type target_region: ~integreat_cms.cms.models.regions.region.Region
-
     """
     source_imprint = source_region.imprint
     target_imprint = deepcopy(source_imprint)
@@ -819,26 +777,21 @@ def duplicate_imprint(source_region, target_region):
 
 
 # pylint: disable=unused-argument,fixme
-def duplicate_media(source_region, target_region):
+def duplicate_media(source_region: Region, target_region: Region) -> None:
     """
     Function to duplicate all media of one region to another.
 
     :param source_region: the source region from which the pages should be duplicated
-    :type source_region: ~integreat_cms.cms.models.regions.region.Region
-
     :param target_region: the target region
-    :type target_region: ~integreat_cms.cms.models.regions.region.Region
-
     """
     # TODO: implement duplication of all media files
 
 
-def find_links(region):
+def find_links(region: Region) -> None:
     """
     Find all link objects in the latest versions of the region's page translations
 
     :param region: The region which should be scanned for links
-    :type region: ~integreat_cms.cms.models.regions.region.Region
     """
     logger.info("Scanning for broken links in region %r", region)
     # Get the latest page translations of the region

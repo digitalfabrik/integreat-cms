@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import logging
 
 from django.db import models
@@ -21,13 +23,12 @@ class AbstractBasePage(AbstractContentModel):
     )
 
     @cached_property
-    def archived(self):
+    def archived(self) -> bool:
         """
         This is an alias of ``explicitly_archived``. Used for hierarchical pages to implement a more complex notion of
         explicitly and implicitly archived pages (see :func:`~integreat_cms.cms.models.pages.page.Page.archived`).
 
         :return: Whether or not this page is archived
-        :rtype: bool
         """
         return self.explicitly_archived
 
