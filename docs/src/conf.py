@@ -57,7 +57,7 @@ django_github_url: Final[
 ] = f"https://github.com/django/django/blob/stable/{django_version}.x"
 
 #: The full version, including alpha/beta/rc tags
-release = "2023.11.0"
+release = "2023.12.0"
 
 # -- General configuration ---------------------------------------------------
 
