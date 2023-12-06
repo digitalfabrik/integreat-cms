@@ -61,9 +61,9 @@ def test_api_feedback_success(
     assert response.status_code == 201
     assert response.json() == {"success": "Feedback successfully submitted"}
 
-    # database checks
-    assert Feedback.objects.count() == 1
-    feedback = Feedback.objects.first()
+    # Check the latest feedback in the database
+    assert Feedback.objects.count() == 7
+    feedback = Feedback.objects.latest("created_date")
 
     if view_name != "api:legacy_feedback_endpoint":
         assert isinstance(feedback, feedback_type_dict[view_name])
@@ -113,8 +113,8 @@ def test_api_feedback_errors(
     assert response.status_code == response_data["code"]
     assert response.json() == {"error": f"{response_data['error']}"}
 
-    # database checks
-    assert not Feedback.objects.exists()
+    # Check that the count of feedback in the database has not been increased
+    assert Feedback.objects.count() == 6
 
 
 @pytest.mark.django_db
@@ -132,5 +132,5 @@ def test_api_feedback_invalid_method(load_test_data: None) -> None:
     assert response.status_code == 405
     assert response.json() == {"error": "Invalid request."}
 
-    # database checks
-    assert not Feedback.objects.exists()
+    # Check that the count of feedback in the database has not been increased
+    assert Feedback.objects.count() == 6
