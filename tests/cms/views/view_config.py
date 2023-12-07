@@ -814,6 +814,7 @@ VIEWS: ViewConfig = [
                     "bcp47_tag": "de-de",
                     "text_direction": "LEFT_TO_RIGHT",
                     "table_of_contents": "Inhaltsverzeichnis",
+                    "socialmedia_webapp_title": "Integreat | Web-App | Lokale Informationen für dich",
                     "primary_country_code": "de",
                     "message_content_not_available": "Foo1",
                     "message_partial_live_content_not_available": "Foo2",
