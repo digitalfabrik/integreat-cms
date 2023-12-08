@@ -6,6 +6,9 @@ if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
 
+import csv
+from io import StringIO
+
 import pytest
 from django.conf import settings
 from django.contrib import auth
@@ -18,6 +21,7 @@ from tests.conftest import (
     HIGH_PRIV_STAFF_ROLES,
     MANAGEMENT,
     PRIV_STAFF_ROLES,
+    STAFF_ROLES,
 )
 from tests.utils import assert_message_in_log
 
@@ -247,4 +251,70 @@ def test_delete_region_feedback(
 
     else:
         # For logged in users, we want to show an error if they get a permission denied
+        assert response.status_code == 403
+
+
+@pytest.mark.django_db
+def test_csv_export_feedback(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    caplog: LogCaptureFixture,
+) -> None:
+    client, role = login_role_user
+
+    csv_export = reverse("export_region_feedback", kwargs=region_slug_param)
+    csv_to_export_ids = [7, 8]
+    response = client.post(csv_export, data={"selected_ids[]": csv_to_export_ids})
+
+    if role in STAFF_ROLES + [MANAGEMENT]:
+        assert response.status_code == 200
+        assert response.headers.get("Content-Type") == "text/csv"
+
+        csv_content = response.content.decode("utf-8")
+        csv_reader = csv.reader(StringIO(csv_content))
+
+        expected_header = [
+            "Kategorie",
+            "Feedback zu",
+            "Sprache",
+            "Bewertung",
+            "Gelesen von",
+            "Kommentar",
+            "Datum",
+        ]
+        assert next(csv_reader) == expected_header
+
+        expected_data_row = [
+            "Regionen-Feedback",
+            "Augsburg",
+            "Deutsch",
+            "Positiv",
+            "Root User",
+            "Read positive feedback CSV export",
+            "11.08.2019 07:57",
+        ]
+        assert next(csv_reader) == expected_data_row
+
+        expected_data_row = [
+            "Regionen-Feedback",
+            "Augsburg",
+            "Deutsch",
+            "Negativ",
+            "",
+            "Unread negative feedback CSV export",
+            "11.08.2019 07:57",
+        ]
+        assert next(csv_reader) == expected_data_row
+
+        with pytest.raises(StopIteration):
+            next(csv_reader)
+
+    elif role == ANONYMOUS:
+        assert response.status_code == 302
+        assert (
+            response.headers.get("location")
+            == f"{settings.LOGIN_URL}?next={csv_export}"
+        )
+
+    else:
         assert response.status_code == 403

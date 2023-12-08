@@ -351,6 +351,7 @@ INSTALLED_APPS: Final[list[str]] = [
     # Installed third-party-apps
     "corsheaders",
     "db_mutex",
+    "import_export",
     "linkcheck",
     "polymorphic",
     "rules.apps.AutodiscoverRulesConfig",

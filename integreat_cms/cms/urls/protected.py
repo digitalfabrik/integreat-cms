@@ -1333,6 +1333,11 @@ urlpatterns: list[URLPattern] = [
                                 feedback.delete_region_feedback,
                                 name="delete_region_feedback",
                             ),
+                            path(
+                                "export/",
+                                feedback.export_region_feedback,
+                                name="export_region_feedback",
+                            ),
                         ]
                     ),
                 ),
