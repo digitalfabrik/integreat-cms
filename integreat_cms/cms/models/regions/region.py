@@ -409,6 +409,16 @@ class Region(AbstractBaseModel):
         verbose_name=_("Locations"),
     )
 
+    zammad_url = models.URLField(
+        max_length=256,
+        blank=True,
+        default="",
+        verbose_name=_("Zammad-URL"),
+        help_text=_(
+            "URL pointing to this region's Zammad instance. Setting this enables Zammad form offers."
+        ),
+    )
+
     #: Custom model manager :class:`~integreat_cms.cms.models.regions.region.RegionManager` for region objects
     objects = RegionManager()
 

@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from django.utils.translation import gettext_lazy as _
+
 from ...models import OfferTemplate
 from ...utils.slug_utils import generate_unique_slug_helper
 from ..custom_model_form import CustomModelForm
@@ -32,6 +34,7 @@ class OfferTemplateForm(CustomModelForm):
             "post_data",
             "use_postal_code",
             "supported_by_app_in_content",
+            "is_zammad_form",
         ]
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
@@ -44,6 +47,20 @@ class OfferTemplateForm(CustomModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields["slug"].required = False
+
+    def clean(self) -> dict:
+        """
+        Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
+
+        :return: The cleaned form data
+        :rtype: dict
+        """
+        cleaned_data = super().clean()
+        if not cleaned_data["is_zammad_form"] and not cleaned_data["url"]:
+            self.add_error("url", _("This field is required."))
+        if not cleaned_data["is_zammad_form"] and not cleaned_data["thumbnail"]:
+            self.add_error("thumbnail", _("This field is required."))
+        return cleaned_data
 
     def clean_slug(self) -> str:
         """

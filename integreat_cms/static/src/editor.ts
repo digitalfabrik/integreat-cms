@@ -8,4 +8,4 @@ import "./js/pages/sbs-copy-content";
 import "./js/content-edit-lock";
 import "./js/pages/page-preview-form";
 import "./js/analytics/hix-widget";
-import "./js/mutually_exclusive_checkboxes";
+import "./js/mutually-exclusive-checkboxes";
