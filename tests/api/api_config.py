@@ -542,3 +542,69 @@ API_FEEDBACK_ERRORS: Final[
         {"code": 400, "error": "Search query is required."},
     ),
 ]
+
+API_SOCIAL_ENDPOINTS: Final[list[tuple[str, str, str, int, int]]] = [
+    (
+        "/api/social/",
+        "/wp-json/extensions/v3/social/",
+        "tests/api/expected-outputs/root_de_social.json",
+        200,
+        1,
+    ),
+    (
+        "/api/social/landing/en/",
+        "/wp-json/extensions/v3/social/landing/en/",
+        "tests/api/expected-outputs/root_en_social.json",
+        200,
+        2,
+    ),
+    (
+        "/api/social/augsburg/de/",
+        "/wp-json/extensions/v3/social/augsburg/de/",
+        "tests/api/expected-outputs/augsburg_de_social.json",
+        200,
+        3,
+    ),
+    (
+        "/api/social/augsburg/de/willkommen/",
+        "/wp-json/extensions/v3/social/augsburg/de/willkommen/",
+        "tests/api/expected-outputs/augsburg_de_social_page.json",
+        200,
+        7,
+    ),
+    (
+        "/api/social/augsburg/de/non-existing/",
+        "/wp-json/extensions/v3/social/augsburg/de/non-existing/",
+        "tests/api/expected-outputs/augsburg_de_social_non-existing_page.json",
+        200,
+        4,
+    ),
+    (
+        "/api/social/augsburg/de/non-existing/",
+        "/wp-json/extensions/v3/social/augsburg/de/non-existing/",
+        "tests/api/expected-outputs/augsburg_de_social_non-existing_page.json",
+        200,
+        4,
+    ),
+    (
+        "/api/social/augsburg/de/events/test-veranstaltung/",
+        "/wp-json/extensions/v3/social/augsburg/de/events/test-veranstaltung/",
+        "tests/api/expected-outputs/augsburg_de_social_event.json",
+        200,
+        7,
+    ),
+    (
+        "/api/social/augsburg/de/locations/test-ort/",
+        "/wp-json/extensions/v3/social/augsburg/de/locations/test-ort/",
+        "tests/api/expected-outputs/augsburg_de_social_location.json",
+        200,
+        7,
+    ),
+    (
+        "/api/social/augsburg/de/news/local/1/",
+        "/wp-json/extensions/v3/social/augsburg/de/news/local/1/",
+        "tests/api/expected-outputs/augsburg_de_social_location.json",
+        200,
+        8,
+    ),
+]
