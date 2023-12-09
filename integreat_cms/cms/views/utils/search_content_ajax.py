@@ -45,11 +45,19 @@ def format_object_translation(
     :param typ: The type of this object
     :return: A dictionary with the title, path, url and type of the translation object
     """
+    if isinstance(object_translation.link_title, str):
+        html_title = object_translation.link_title
+        text_title = object_translation.link_title
+    else:
+        html_title = tostring(object_translation.link_title).decode("utf-8")
+        text_title = (
+            object_translation.link_title.text_content()
+            + object_translation.link_title.tail
+        )
     return {
         "path": object_translation.path(),
-        "title": object_translation.link_title
-        if isinstance(object_translation.link_title, str)
-        else tostring(object_translation.link_title).decode("utf-8"),
+        "title": text_title,
+        "html_title": html_title,
         "url": f"{settings.WEBAPP_URL}{object_translation.get_absolute_url()}",
         "type": typ,
     }

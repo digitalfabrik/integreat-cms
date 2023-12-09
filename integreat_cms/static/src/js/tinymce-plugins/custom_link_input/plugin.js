@@ -156,7 +156,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
                         for (const completion of newCompletions) {
                             completionItems.push({
                                 text: completion.path,
-                                title: completion.title,
+                                title: completion.html_title,
                                 value: completion.url,
                             });
                         }
