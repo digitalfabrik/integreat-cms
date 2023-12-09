@@ -3,8 +3,8 @@
 {% load i18n %}
 {% load content_filters %}
 {% with translation_states|sort_translation_states:language as sorted_translation_states %}
-    <ul class="flex flex-wrap items-end px-4">
-        {% for other_language, other_status in sorted_translation_states|slice:":4" %}
+    <ul id="tab-wrapper" class="flex flex-wrap items-end px-4">
+        {% for other_language, other_status in sorted_translation_states %}
             <li class="mr-2 -mb-[2px] {% if other_language == language %}z-10{% endif %}">
                 <div class="bg-white font-bold">
                     <div class="border-b-2 border-white">
@@ -72,45 +72,11 @@
                 <div id="language-switcher" class="flex flex-col text-black">
                     <div id="language-switcher-current"
                          class="font-bold text-right bg-water-500 py-[calc(0.75rem+2px)] px-4 border-l border-t border-r border-blue-500 rounded-t cursor-default">
-                        {% translate "Other Languages" %}
+                        <i id="language-switcher-globe" icon-name="globe" class="hidden"></i>
+                        <span id="language-switcher-text">{% translate "Other Languages" %}</span>
                         <i icon-name="chevron-down"></i>
                     </div>
                     <div id="language-switcher-list" class="h-0 hidden z-10">
-                        {% for other_language, other_status in sorted_translation_states|slice:"4:" %}
-                            <a href="{% build_url target=target region_slug=request.region.slug language_slug=other_language.slug content_field=content_field content_id=instance.id %}"
-                               class="flex justify-between font-bold whitespace-nowrap {% if forloop.last %}rounded-b border-b{% endif %} py-2 px-3 border-l border-r border-t border-blue-500 hover:bg-water-500 bg-white">
-                                <div>
-                                    {% if other_status == translation_status.IN_TRANSLATION %}
-                                        <span title="{% translate "Currently in translation" %}">
-                                            <i icon-name="clock"></i>
-                                        </span>
-                                    {% elif other_status == translation_status.OUTDATED %}
-                                        <span title="{% translate "Translation outdated" %}">
-                                            <i icon-name="alert-triangle"></i>
-                                        </span>
-                                    {% elif other_status == translation_status.UP_TO_DATE %}
-                                        <span title="{% translate "Translation up-to-date" %}">
-                                            <i icon-name="check"></i>
-                                        </span>
-                                    {% elif other_status == translation_status.MISSING %}
-                                        <span title="{% translate "Translation missing" %}" class="no-trans">
-                                            <i icon-name="x"></i>
-                                        </span>
-                                    {% elif other_status == translation_status.MACHINE_TRANSLATED %}
-                                        <span title="{% translate "Machine translated" %}">
-                                            <i icon-name="bot"></i>
-                                        </span>
-                                    {% endif %}
-                                    <span class="px-2 max-w-max truncate">{{ other_language.translated_name }}</span>
-                                </div>
-                                <div>
-                                    <span class="fp fp-rounded fp-{{ other_language.primary_country_code }} ml-2"></span>
-                                    {% if other_language.secondary_country_code %}
-                                        <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
-                                    {% endif %}
-                                </div>
-                            </a>
-                        {% endfor %}
                     </div>
                 </div>
             </li>
