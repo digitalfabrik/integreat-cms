@@ -8,10 +8,10 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
+from lxml.html import Element
 
 if TYPE_CHECKING:
     from typing import Literal
-    from lxml.html import Element
     from .pois.poi import POI
 
 from ...utils.tinymce_icon_utils import get_icon_html
@@ -104,6 +104,13 @@ class POITranslation(AbstractContentTranslation):
         :return: The link content
         """
         img = get_icon_html("pin")
+
+        if icon := self.poi.icon:
+            if thumbnail := icon.thumbnail_url:
+                img = Element("img")
+                img.set("style", "height:15px;")
+                img.set("src", thumbnail)
+
         img.tail = self.title
         return img
 
