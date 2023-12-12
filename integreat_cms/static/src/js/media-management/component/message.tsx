@@ -45,10 +45,10 @@ const MessageComponent = ({ newMessage }: Props) => {
                     key={window.btoa(message.text)}
                     className={cn(
                         "border-l-4 px-4 py-3 mb-4 break-all",
-                        { "bg-green-100 border-green-500 text-green-500": message.type === "success" },
-                        { "bg-blue-100 border-blue-500 text-blue-500": message.type === "info" },
-                        { "bg-orange-100 border-orange-500 text-orange-500": message.type === "warning" },
-                        { "bg-red-100 border-red-500 text-red-500": message.type === "error" }
+                        { "bg-green-100 border-green-500 text-green-800": message.type === "success" },
+                        { "bg-blue-100 border-blue-500 text-blue-700": message.type === "info" },
+                        { "bg-orange-100 border-orange-500 text-orange-700": message.type === "warning" },
+                        { "bg-red-100 border-red-500 text-red-700": message.type === "error" }
                     )}
                     role="alert">
                     {message.text}

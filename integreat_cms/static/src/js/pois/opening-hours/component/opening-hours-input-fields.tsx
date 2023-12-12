@@ -387,7 +387,7 @@ const OpeningHoursInputFields = ({ openingHoursState, selectedDaysState, transla
                                         </div>
                                         <div
                                             id={`time_slot_error_${index}`}
-                                            className="w-full bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 hidden"
+                                            className="w-full bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 hidden"
                                             role="alert"
                                         />
                                     </div>
