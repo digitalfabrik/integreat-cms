@@ -235,28 +235,27 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         """
         logger.debug("Moving %r to position %r of %r", self, pos, target)
         try:
-            with db_mutex(self.__class__.__name__):
-                # Do not allow to move a node outside its region, but allow
-                # moving as siblings of root nodes (because it's a separate tree)
-                if self.region != target.region and not (
-                    target.is_root()
-                    and pos
-                    in [
-                        position.LEFT,
-                        position.RIGHT,
-                        position.FIRST_SIBLING,
-                        position.LAST_SIBLING,
-                    ]
-                ):
-                    raise InvalidPosition(
-                        _(
-                            'The node "{}" in region "{}" cannot be moved to "{}".'
-                        ).format(self, self.region, target.region)
+            # Do not allow to move a node outside its region, but allow
+            # moving as siblings of root nodes (because it's a separate tree)
+            if self.region != target.region and not (
+                target.is_root()
+                and pos
+                in [
+                    position.LEFT,
+                    position.RIGHT,
+                    position.FIRST_SIBLING,
+                    position.LAST_SIBLING,
+                ]
+            ):
+                raise InvalidPosition(
+                    _('The node "{}" in region "{}" cannot be moved to "{}".').format(
+                        self, self.region, target.region
                     )
-                # Moving a node can modify all other nodes via raw sql queries (which are not recognized by cachalot),
-                # so we have to invalidate the whole model manually.
-                invalidate_model(self.__class__)
-                super().move(target, pos)
+                )
+            # Moving a node can modify all other nodes via raw sql queries (which are not recognized by cachalot),
+            # so we have to invalidate the whole model manually.
+            invalidate_model(self.__class__)
+            super().move(target, pos)
         except DBMutexError as e:
             raise DBMutexError(
                 _('Could not change position in tree of "{}".').format(self)

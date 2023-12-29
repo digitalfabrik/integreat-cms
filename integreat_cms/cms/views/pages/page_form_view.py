@@ -19,6 +19,7 @@ from ...forms import PageForm, PageTranslationForm
 from ...models import PageTranslation
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
+from ...utils.tree_mutex import tree_mutex
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
 from .page_context_mixin import PageContextMixin
@@ -239,6 +240,7 @@ class PageFormView(
 
     # pylint: disable=too-many-statements
     @transaction.atomic
+    @tree_mutex
     def post(
         self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponseRedirect:

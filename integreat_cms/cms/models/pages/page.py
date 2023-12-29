@@ -5,7 +5,9 @@ from typing import TYPE_CHECKING
 
 from cacheops import invalidate_model, invalidate_obj
 from django.conf import settings
+from django.contrib.postgres.fields import RangeOperators
 from django.db import models
+from django.db.models import CheckConstraint, Deferrable, F, Q, UniqueConstraint
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
@@ -392,3 +394,17 @@ class Page(AbstractTreeNode, AbstractBasePage):
             ("publish_page", "Can publish page"),
             ("grant_page_permissions", "Can grant page permission"),
         )
+
+        constraints = [
+            UniqueConstraint(
+                name="unique_lft_tree",
+                fields=["tree_id", "lft"],
+                deferrable=Deferrable.DEFERRED,
+            ),
+            UniqueConstraint(
+                name="unique_rgt_tree",
+                fields=["tree_id", "rgt"],
+                deferrable=Deferrable.DEFERRED,
+            ),
+            CheckConstraint(check=Q(lft__lt=F("rgt")), name="check_rgt_greater_lft"),
+        ]
