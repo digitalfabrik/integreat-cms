@@ -35,7 +35,7 @@ fi
 
 # Check if requirements are satisfied
 # Define the required python version
-required_python_version="3.9"
+required_python_version="3.11"
 if [[ ! -x "$(command -v python3)" ]]; then
     echo "Python3 is not installed. Please install Python ${required_python_version} or higher manually and run this script again."  | print_error
     exit 1

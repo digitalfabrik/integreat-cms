@@ -31,12 +31,7 @@ from ...conftest import (
 
 if TYPE_CHECKING:
     import sys
-    from typing import Any, Final, Union
-
-    if sys.version_info >= (3, 10):
-        from typing import TypeAlias
-    else:
-        from typing_extensions import TypeAlias
+    from typing import Any, Final, TypeAlias, Union
 
     ViewNameStr: TypeAlias = str
     ViewNameGetparams: TypeAlias = str
