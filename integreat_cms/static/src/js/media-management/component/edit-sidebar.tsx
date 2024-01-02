@@ -396,11 +396,15 @@ const EditSidebar = ({
                                 )}
                                 {canDeleteFile && (
                                     <button
-                                        title={mediaTranslations.btn_delete_file}
-                                        className={cn("btn", { "btn-red": !isLoading })}
+                                        title={
+                                            file.deletable
+                                                ? mediaTranslations.btn_delete_file
+                                                : mediaTranslations.btn_delete_used_file
+                                        }
+                                        className={cn("btn", { "btn-red": !isLoading && file.deletable })}
                                         data-confirmation-title={mediaTranslations.text_file_delete_confirm}
                                         data-confirmation-subject={file.name}
-                                        disabled={isLoading}
+                                        disabled={isLoading || !file.deletable}
                                         onClick={showConfirmationPopupAjax}
                                         onaction-confirmed={() => document.getElementById("delete-file").click()}>
                                         <Trash2 class="inline-block" />
