@@ -7,7 +7,6 @@ import logging
 from typing import TYPE_CHECKING
 
 from django.conf import settings
-from django.contrib.messages import constants
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.utils.translation import override
 
@@ -15,9 +14,6 @@ if TYPE_CHECKING:
     from django.utils.functional import Promise
 
 logger = logging.getLogger(__name__)
-
-# 25 is not a default logging level, so it has to be added manually
-logging.addLevelName(constants.SUCCESS, "SUCCESS")
 
 
 class MessageLoggerStorage(FallbackStorage):

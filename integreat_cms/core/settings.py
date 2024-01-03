@@ -12,9 +12,11 @@ See :doc:`/prod-server` for details.
 from __future__ import annotations
 
 import os
+import sys
 from typing import TYPE_CHECKING
 from urllib.parse import urlparse
 
+from django.contrib.messages.constants import SUCCESS
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
 
@@ -613,6 +615,10 @@ LOGGING: Final[dict[str, Any]] = {
         "require_debug_false": {
             "()": "django.utils.log.RequireDebugFalse",
         },
+        "only_stdout": {
+            "()": "django.utils.log.CallbackFilter",
+            "callback": lambda record: record.levelno <= SUCCESS,
+        },
     },
     "handlers": {
         "console": {
@@ -625,10 +631,19 @@ LOGGING: Final[dict[str, Any]] = {
             "class": "logging.StreamHandler",
             "formatter": "console-colored",
         },
-        "management-command": {
-            "filters": ["require_debug_true"],
+        # Send DEBUG, INFO and SUCCESS to stdout
+        "management-command-stdout": {
+            "class": "logging.StreamHandler",
+            "filters": ["only_stdout"],
+            "formatter": "management-command",
+            "level": "DEBUG",
+            "stream": sys.stdout,
+        },
+        # Send WARNING, ERROR and CRITICAL to stderr
+        "management-command-stderr": {
             "class": "logging.StreamHandler",
             "formatter": "management-command",
+            "level": "WARNING",
         },
         "logfile": {
             "class": "logging.FileHandler",
@@ -662,7 +677,11 @@ LOGGING: Final[dict[str, Any]] = {
             "level": LOG_LEVEL,
         },
         "integreat_cms.core.management.commands": {
-            "handlers": ["management-command", "logfile"],
+            "handlers": [
+                "management-command-stdout",
+                "management-command-stderr",
+                "logfile",
+            ],
             "level": LOG_LEVEL,
             "propagate": False,
         },

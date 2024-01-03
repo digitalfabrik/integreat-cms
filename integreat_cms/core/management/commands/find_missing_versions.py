@@ -67,8 +67,9 @@ class Command(LogCommand):
         :param model: The model to check
         :param \**options: The supplied keyword options
         """
-        self.print_info(
-            f"Checking the model {model.__name__} for version inconsistencies..."
+        self.set_logging_stream()
+        logger.info(
+            "Checking the model %s for version inconsistencies...", model.__name__
         )
         success = True
         for latest_version in model.objects.distinct(
@@ -78,9 +79,13 @@ class Command(LogCommand):
                 language=latest_version.language
             ).count()
             if latest_version.version != num:
-                self.print_error(
-                    f"The latest version of {latest_version.foreign_object!r} in {latest_version.language!r} is {latest_version.version}, but there are only {num} translation objects!"
+                logger.error(
+                    "The latest version of %r in %r is %s, but there are only %s translation objects!",
+                    latest_version.foreign_object,
+                    latest_version.language,
+                    latest_version.version,
+                    num,
                 )
                 success = False
         if success:
-            self.print_success("✔ All versions are consistent.")
+            logger.success("✔ All versions are consistent.")  # type: ignore[attr-defined]

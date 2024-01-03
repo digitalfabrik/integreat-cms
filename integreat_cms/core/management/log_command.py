@@ -1,42 +1,38 @@
 from __future__ import annotations
 
+import logging
+from typing import TYPE_CHECKING
+
 from django.core.management.base import BaseCommand
-from django.utils.termcolors import make_style
+
+if TYPE_CHECKING:
+    from typing import Any
 
 
-# pylint: disable=abstract-method
+logger = logging.getLogger("integreat_cms.core.management.commands")
+
+
 class LogCommand(BaseCommand):
     """
-    Base class for management commands to improve the output
+    Base class for management commands to set the stream handler of the logger to the command's stdout wrapper
     """
 
-    #: Make text bold
-    bold = staticmethod(make_style(opts=("bold",)))
-    #: Make text blue
-    blue = staticmethod(make_style(fg="blue"))
-    #: Make text cyan
-    cyan = staticmethod(make_style(fg="cyan"))
-
-    def print_info(self, message: str) -> None:
+    def handle(self, *args: Any, **options: Any) -> None:
         """
-        Print colored info message
-
-        :param message: The message
+        The actual logic of the command. Subclasses must implement this method.
         """
-        self.stdout.write(self.bold(self.blue(message)))
+        raise NotImplementedError(
+            "subclasses of BaseCommand must provide a handle() method"
+        )
 
-    def print_success(self, message: str) -> None:
+    def set_logging_stream(self) -> None:
         """
-        Print colored success message
-
-        :param message: The message
+        Set the output stream to the command's stdout/stderr wrapper.
+        Has to be called as part of the command's handle() function.
         """
-        self.stdout.write(self.style.SUCCESS(message))
-
-    def print_error(self, message: str) -> None:
-        """
-        Print colored error message
-
-        :param message: The message
-        """
-        self.stderr.write(self.style.ERROR(message))
+        for handler in logger.handlers:
+            if isinstance(handler, logging.StreamHandler):
+                if handler.get_name() == "management-command-stdout":
+                    handler.setStream(self.stdout)
+                elif handler.get_name() == "management-command-stderr":
+                    handler.setStream(self.stderr)

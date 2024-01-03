@@ -111,6 +111,8 @@ class Command(LogCommand):
         :param initial: Whether existing translations should not be updated
         :param \**options: The supplied keyword options
         """
+        self.set_logging_stream()
+
         if not settings.SUMM_AI_ENABLED:
             raise CommandError("SUMM.AI API is disabled globally.")
         try:
@@ -122,12 +124,12 @@ class Command(LogCommand):
         if not region.summ_ai_enabled:
             raise CommandError(f'SUMM.AI API is disabled in "{region}".')
         if settings.SUMM_AI_TEST_MODE:
-            self.print_info(
+            logger.info(
                 "SUMM.AI API is enabled, but in test mode. No credits get charged, but only a dummy text is returned."
             )
         elif settings.DEBUG:
-            self.print_info(
+            logger.info(
                 "SUMM.AI API is enabled, but in debug mode. Text is really translated and credits get charged, but user is 'testumgebung'"
             )
         summ_ai_bulk(region, username, initial)
-        self.print_success(f"Successfully translated region {region} into Easy German")
+        logger.success("Successfully translated region %r into Easy German", region)  # type: ignore[attr-defined]

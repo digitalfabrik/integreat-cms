@@ -41,22 +41,39 @@ class Command(LogCommand):
         """
         Try to run the command
         """
+        self.set_logging_stream()
 
-        current_day = datetime.now().day
-        current_month = datetime.now().month - 1
+        now = datetime.now()
+        current_day = now.day
+        # month constants are zero-based
+        current_month = now.month - 1
+        current_month_name = now.strftime("%B")
 
-        if current_day != 1 and not force:
-            raise CommandError(
-                "It is not the 1st day of the month. If you want to reset DeepL budget despite that, run the command with --force"
-            )
+        if current_day != 1:
+            if force:
+                logger.warning(
+                    "Resetting DeepL budget although it is not the 1st day of the month (it's the %r)",
+                    current_day,
+                )
+            else:
+                raise CommandError(
+                    "It is not the 1st day of the month. If you want to reset DeepL budget despite that, run the command with --force"
+                )
 
         if not (regions := Region.objects.filter(deepl_renewal_month=current_month)):
-            self.print_info(
-                "✔ There is no region whose DeepL budget needs to be reset."
+            logger.info(
+                "There is no region whose DeepL budget needs to be reset in %r.",
+                current_month_name,
             )
         else:
             for region in regions:
+                logger.info(
+                    "Reset DeepL budget of %r (previously used: %r, previous midyear start month: %r).",
+                    region,
+                    region.deepl_budget_used,
+                    region.deepl_midyear_start_month,
+                )
                 region.deepl_budget_used = 0
                 region.deepl_midyear_start_month = None
                 region.save()
-            self.print_info("✔ DeepL budget has been reset.")
+            logger.success("✔ DeepL budget has been reset.")  # type: ignore[attr-defined]

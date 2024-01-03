@@ -190,7 +190,7 @@ When adding new custom commands, you can use the base classes:
 :class:`~integreat_cms.core.management.log_command.LogCommand`
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-A base class to improve the logging output of management commands
+A base class for management commands to set the stream handler of the logger to the command's stdout wrapper
 
 
 :class:`~integreat_cms.core.management.debug_command.DebugCommand`

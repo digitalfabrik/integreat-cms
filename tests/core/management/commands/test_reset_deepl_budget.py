@@ -68,11 +68,10 @@ def test_reset_deepl_budget(load_test_data_transactional: Any | None) -> None:
         deepl_budget_used=42,
     )
 
-    out, err = get_command_output("reset_deepl_budget", "--force")
+    out, _err = get_command_output("reset_deepl_budget", "--force")
     region1.refresh_from_db()
     region2.refresh_from_db()
     assert "✔ DeepL budget has been reset." in out
-    assert not err
     assert (
         not region1.deepl_budget_used
     ), "The DeepL budget of region 1 should have been reset to 0."

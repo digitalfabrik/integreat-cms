@@ -54,6 +54,7 @@ class Command(LogCommand):
         :param \**options: The supplied keyword options
         :raises ~django.core.management.base.CommandError: When the input is invalid
         """
+        self.set_logging_stream()
         if threshold < 0:
             raise CommandError("The threshold cannot be negative.")
         if limit < 0:
@@ -61,8 +62,8 @@ class Command(LogCommand):
         if limit > 100:
             raise CommandError("Please select a limit smaller than 100.")
         threshold_bytes = threshold * 1024 * 1024
-        self.print_info(
-            f"Searching the largest {limit} media with more than {threshold}MiB..."
+        logger.info(
+            "Searching the largest %s media with more than %sMiB...", limit, threshold
         )
         if queryset := MediaFile.objects.filter(file_size__gt=threshold_bytes).order_by(
             "-file_size"
@@ -74,8 +75,6 @@ class Command(LogCommand):
             # Get the max len to enable right-aligned padding
             max_size_len = max(len(size) for size, _, _ in file_info)
             for size, name, region in file_info:
-                self.stdout.write(
-                    f"{size:>{max_size_len}}: {self.cyan(name)} ({region})"
-                )
+                logger.info(f"%{max_size_len}s: %s (%r)", size, name, region)
         else:
-            self.stdout.write("No files found with these filters.")
+            logger.info("No files found with these filters.")
