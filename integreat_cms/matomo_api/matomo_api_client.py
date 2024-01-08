@@ -16,15 +16,9 @@ from ..cms.constants import colors, matomo_periods
 
 if TYPE_CHECKING:
     import sys
-
-    if sys.version_info >= (3, 10):
-        from typing import TypeGuard
-    else:
-        from typing_extensions import TypeGuard
-
     from asyncio import AbstractEventLoop
     from collections.abc import KeysView
-    from typing import Any
+    from typing import Any, TypeGuard
 
     from aiohttp import ClientSession
     from django.utils.functional import Promise
