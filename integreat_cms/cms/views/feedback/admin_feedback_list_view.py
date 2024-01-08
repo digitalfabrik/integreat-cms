@@ -60,7 +60,7 @@ class AdminFeedbackListView(TemplateView):
 
         # Filter pages according to given filters, if any
         filter_form = AdminFeedbackFilterForm(data=request.GET)
-        admin_feedback, query = filter_form.apply(admin_feedback, region=None)
+        admin_feedback, query = filter_form.apply(admin_feedback)
 
         admin_feedback = admin_feedback.select_related("region", "language")
 

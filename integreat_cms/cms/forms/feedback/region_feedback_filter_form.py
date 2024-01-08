@@ -69,20 +69,19 @@ class RegionFeedbackFilterForm(CustomFilterForm):
     query = forms.CharField(required=False)
 
     def apply(
-        self, feedback: CascadeDeletePolymorphicQuerySet, region: Region | None
+        self, feedback: CascadeDeletePolymorphicQuerySet
     ) -> tuple[CascadeDeletePolymorphicQuerySet, None]:
         """
         Filter the feedback list according to the given filter data
 
         :param feedback: The list of feedback
-        :param region: The current region
         :return: The filtered feedback list and the search query
         """
         if not self.is_enabled:
             return feedback, None
 
         if query := self.cleaned_data["query"]:
-            feedback = Feedback.search(region=region, query=query)
+            feedback = feedback.filter(comment__icontains=query)
 
         # Filter feedback for region
         if self.cleaned_data.get("region", None):

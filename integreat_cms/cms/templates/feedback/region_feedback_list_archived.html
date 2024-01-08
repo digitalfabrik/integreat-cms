@@ -19,7 +19,7 @@
                 </a>
             </div>
             <div class="flex justify-between">
-                {% include "_search_input.html" with object_type="feedback" region_slug=request.region.slug related_form="region-feedback-filter-form" %}
+                {% include "_search_input.html" with object_type="feedback" object_archived=True region_slug=request.region.slug related_form="region-feedback-filter-form" %}
                 <button id="filter-toggle" class="btn btn-ghost">
                     <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% translate "Show filters" %}</span>
                     <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% translate "Hide filters" %}</span>
@@ -106,9 +106,9 @@
                         {% if not feedback.comment %}
                             <i icon-name="minus" class="pr-1"></i>
                         {% else %}
-                            <div class="feedback-entry">
-                                <span class="feedback-entry-content">{{ feedback.comment }}</span>
-                                <a class="toggle-feedback-entry">
+                            <div class="table-cell-truncate">
+                                <span class="table-cell-content">{{ feedback.comment }}</span>
+                                <a class="toggle-table-cell">
                                     <i icon-name="chevron-down" class="more"></i>
                                     <i icon-name="chevron-up" class="less"></i>
                                 </a>
