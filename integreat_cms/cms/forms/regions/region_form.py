@@ -210,8 +210,8 @@ class RegionForm(CustomModelForm):
             self.fields["summ_ai_enabled"].disabled = True
         if not settings.TEXTLAB_API_ENABLED and not self.instance.hix_enabled:
             self.fields["hix_enabled"].disabled = True
-        self.fields["deepl_midyear_start_enabled"].initial = bool(
-            self.instance.deepl_midyear_start_month
+        self.fields["deepl_midyear_start_enabled"].initial = (
+            self.instance.deepl_midyear_start_month is not None
         )
         self.disabled_offer_options = (
             OfferTemplate.objects.filter(pages__region=self.instance)
