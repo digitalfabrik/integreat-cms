@@ -300,10 +300,10 @@ class PageFormView(
             },
             changed_by_user=request.user,
         )
-        user_slug = page_translation_form.data.get("slug")
+        desired_slug = page_translation_form.data.get("slug")
 
         if not page_form.is_valid() or not page_translation_form.is_valid():
-            # Add error messages
+            # Alert user to fields with error
             page_form.add_error_messages(request)
             page_translation_form.add_error_messages(request)
         elif not request.user.has_perm(
@@ -336,9 +336,12 @@ class PageFormView(
             )
 
             # Show a message that the slug was changed if it was not unique
-            if user_slug and user_slug != page_translation_form.cleaned_data["slug"]:
+            if (
+                desired_slug
+                and desired_slug != page_translation_form.cleaned_data["slug"]
+            ):
                 other_translation = PageTranslation.objects.filter(
-                    page__region=region, slug=user_slug, language=language
+                    page__region=region, slug=desired_slug, language=language
                 ).first()
                 other_translation_link = reverse(
                     "page_versions",
@@ -350,10 +353,10 @@ class PageFormView(
                     },
                 )
                 message = _(
-                    "The slug was changed from '{user_slug}' to '{slug}', "
-                    "because '{user_slug}' is already used by <a>{translation}</a>.",
+                    "The slug was changed from '{desired_slug}' to '{slug}', "
+                    "because '{desired_slug}' is already used by <a>{translation}</a>.",
                 ).format(
-                    user_slug=user_slug,
+                    desired_slug=desired_slug,
                     slug=page_translation_form.cleaned_data["slug"],
                     translation=other_translation,
                 )
