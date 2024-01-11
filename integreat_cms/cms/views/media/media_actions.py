@@ -354,6 +354,22 @@ def delete_file_ajax(
         MediaFile.objects.filter(region=region), id=request.POST.get("id")
     )
 
+    # Check if the media file is in use
+    if media_file.is_used:
+        return JsonResponse(
+            {
+                "messages": [
+                    {
+                        "type": "warning",
+                        "text": _(
+                            'File "{}" cannot be deleted because it is used as an icon or content.'
+                        ).format(media_file.name),
+                    }
+                ],
+            },
+            status=400,
+        )
+
     # Delete corresponding physical files
     media_file.file.delete()
     media_file.thumbnail.delete()

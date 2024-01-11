@@ -336,6 +336,7 @@ class MediaFile(AbstractBaseModel):
             "lastModified": localize(timezone.localtime(self.last_modified)),
             "isGlobal": not self.region,
             "isHidden": self.is_hidden,
+            "deletable": not self.is_used,
         }
 
     @classmethod

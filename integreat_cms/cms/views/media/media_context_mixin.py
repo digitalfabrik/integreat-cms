@@ -43,6 +43,7 @@ class MediaContextMixin(ContextMixin):
                 "btn_upload_file": _("Upload file"),
                 "btn_save_file": _("Save file"),
                 "btn_delete_file": _("Delete file"),
+                "btn_delete_used_file": _("You can only delete unused media files"),
                 "btn_show_file": _("Show file"),
                 "btn_create": _("Create"),
                 "btn_enter_directory": _("Enter directory"),
