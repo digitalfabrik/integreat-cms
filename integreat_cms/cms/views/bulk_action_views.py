@@ -19,7 +19,7 @@ from django.views.generic.list import MultipleObjectMixin
 
 from ..constants import status
 from ..models import Page
-from .utils.stringify_list import iter_to_string
+from ..utils.stringify_list import iter_to_string
 from .utils.translation_status import change_translation_status
 
 if TYPE_CHECKING:
