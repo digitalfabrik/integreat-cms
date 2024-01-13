@@ -273,31 +273,20 @@ class TranslationHelper:
         )
         return text_fields
 
-    def commit(self, easy_german: Language) -> None:
+    def commit(self, easy_german: Language) -> bool:
         """
         Save the translated changes to the database
 
         :param easy_german: The language object of Easy German
+        :return: Whether the commit was successful
         """
         if not self.valid:
-            return
+            return False
         if TYPE_CHECKING:
             assert self.german_translation
         # Check whether any of the fields returned an error
         if any(field.exception for field in self.fields):
-            messages.error(
-                self.request,
-                __(
-                    _(
-                        '{} "{}" could not be automatically translated into Easy German.'
-                    ).format(
-                        type(self.object_instance)._meta.verbose_name.title(),
-                        self.german_translation.title,
-                    ),
-                    _("Please try again later or contact an administrator."),
-                ),
-            )
-            return
+            return False
         # Initialize form to create new translation object
         existing_target_translation = self.object_instance.get_translation(
             settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG
@@ -330,16 +319,7 @@ class TranslationHelper:
                 self.object_instance,
                 content_translation_form.errors,
             )
-            messages.error(
-                self.request,
-                _(
-                    '{} "{}" could not be automatically translated into Easy German.'
-                ).format(
-                    type(self.object_instance)._meta.verbose_name.title(),
-                    self.german_translation.title,
-                ),
-            )
-            return
+            return False
         # Save new translation
         content_translation_form.save()
         # Revert "currently in translation" value of all versions
@@ -357,13 +337,7 @@ class TranslationHelper:
             "Successfully translated %r into Easy German",
             content_translation_form.instance,
         )
-        messages.success(
-            self.request,
-            _('{} "{}" has been successfully translated into Easy German.').format(
-                type(self.object_instance)._meta.verbose_name.title(),
-                self.german_translation.title,
-            ),
-        )
+        return True
 
     def __repr__(self) -> str:
         """

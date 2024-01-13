@@ -14,6 +14,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import Http404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext_lazy
 from django.views.generic import RedirectView
 from django.views.generic.list import MultipleObjectMixin
 
@@ -163,14 +164,20 @@ class BulkMachineTranslationView(BulkActionView):
             )
             return super().post(request, *args, **kwargs)
 
-        for content_object in self.get_queryset():
-            if not content_object in to_translate:
-                messages.error(
-                    request,
-                    _("There already is an up-to-date translation for {}").format(
-                        content_object.best_translation.title,
-                    ),
-                )
+        already_up_to_date_translations = [
+            content_object.best_translation.title
+            for content_object in self.get_queryset()
+            if content_object not in to_translate
+        ]
+        if already_up_to_date_translations:
+            messages.error(
+                request,
+                ngettext_lazy(
+                    "There already is an up-to-date translation for {}",
+                    "There already are up-to-date translations for {}",
+                    len(already_up_to_date_translations),
+                ).format(iter_to_string(already_up_to_date_translations)),
+            )
 
         logger.debug(
             "Machine translation via %s into %r for: %r",
@@ -264,32 +271,19 @@ class BulkArchiveView(BulkActionView):
         :param \**kwargs: The supplied keyword arguments
         :return: The redirect
         """
-        if self.model is Page:
-            for content_object in self.get_queryset():
-                if content_object.mirroring_pages.exists():
-                    messages.error(
-                        request,
-                        _(
-                            'Page "{}" cannot be archived because it was embedded as live content from another page.'
-                        ).format(content_object.best_translation),
-                    )
-                else:
-                    messages.success(
-                        request,
-                        _('Page "{}" was successfully archived').format(
-                            content_object.best_translation
-                        ),
-                    )
-                    content_object.archive()
-        else:
-            for content_object in self.get_queryset():
+        archive_successful = []
+        archive_unchanged = []
+        archive_failed_because_embedded = []
+
+        for content_object in self.get_queryset():
+            title = content_object.best_translation.title
+            if self.model is Page and content_object.mirroring_pages.exists():
+                archive_failed_because_embedded.append(title)
+            elif content_object.archived:
+                archive_unchanged.append(title)
+            else:
                 content_object.archive()
-            messages.success(
-                request,
-                _("The selected {} were successfully archived").format(
-                    self.model._meta.verbose_name_plural
-                ),
-            )
+                archive_successful.append(title)
 
         # Invalidate cache
         invalidate_model(self.model)
@@ -298,6 +292,47 @@ class BulkArchiveView(BulkActionView):
             self.get_queryset(),
             request.user,
         )
+
+        if archive_successful:
+            messages.success(
+                request,
+                ngettext_lazy(
+                    "{model_name} {object_names} was successfully archived.",
+                    "The following {model_name_plural} were successfully archived: {object_names}",
+                    len(archive_successful),
+                ).format(
+                    model_name=self.model._meta.verbose_name.title(),
+                    model_name_plural=self.model._meta.verbose_name_plural,
+                    object_names=iter_to_string(archive_successful),
+                ),
+            )
+
+        if archive_unchanged:
+            messages.info(
+                request,
+                ngettext_lazy(
+                    "{model_name} {object_names} is already archived.",
+                    "The following {model_name_plural} are already archived: {object_names}",
+                    len(archive_unchanged),
+                ).format(
+                    model_name=self.model._meta.verbose_name.title(),
+                    model_name_plural=self.model._meta.verbose_name_plural,
+                    object_names=iter_to_string(archive_unchanged),
+                ),
+            )
+
+        if archive_failed_because_embedded:
+            messages.error(
+                request,
+                ngettext_lazy(
+                    "Page {object_names} could not be archived because it is embedded as live content from other pages.",
+                    "The following pages could not be archived because they were embedded as live content from other pages: {object_names}",
+                    len(archive_failed_because_embedded),
+                ).format(
+                    object_names=iter_to_string(archive_failed_because_embedded),
+                ),
+            )
+
         return super().post(request, *args, **kwargs)
 
 
@@ -317,39 +352,58 @@ class BulkRestoreView(BulkActionView):
         :param \**kwargs: The supplied keyword arguments
         :return: The redirect
         """
-        restore_failed = []
+        restore_succeeded = []
+        restore_unchanged = []
+        restore_failed_because_parent_archived = []
+
         for content_object in self.get_queryset():
             if self.get_queryset().model is Page and content_object.implicitly_archived:
-                restore_failed.append(content_object)
+                restore_failed_because_parent_archived.append(
+                    content_object.best_translation.title
+                )
+            elif not content_object.archived:
+                restore_unchanged.append(content_object.best_translation.title)
             else:
                 content_object.restore()
-
-        if restore_failed:
-            messages.error(
-                request,
-                _(
-                    "The following {} could not be restored because they have at least one archived parent {}: {}"
-                ).format(
-                    self.model._meta.verbose_name_plural,
-                    self.model._meta.verbose_name,
-                    iter_to_string(
-                        [object.best_translation.title for object in restore_failed]
-                    ),
-                ),
-            )
-
-        restore_succeeded = self.get_queryset().exclude(
-            id__in=[page.id for page in restore_failed]
-        )
+                restore_succeeded.append(content_object.best_translation.title)
 
         if restore_succeeded:
             messages.success(
                 request,
-                _("The following {} were successfully restored: {}").format(
-                    self.model._meta.verbose_name_plural,
-                    iter_to_string(
-                        [object.best_translation.title for object in restore_succeeded]
-                    ),
+                ngettext_lazy(
+                    "{model_name} {object_names} was successfully restored.",
+                    "The following {model_name_plural} were successfully restored: {object_names}",
+                    len(restore_succeeded),
+                ).format(
+                    model_name=self.model._meta.verbose_name.title(),
+                    model_name_plural=self.model._meta.verbose_name_plural,
+                    object_names=iter_to_string(restore_succeeded),
+                ),
+            )
+
+        if restore_unchanged:
+            messages.success(
+                request,
+                ngettext_lazy(
+                    "{model_name} {object_names} is not archived.",
+                    "The following {model_name_plural} are not archived: {object_names}",
+                    len(restore_unchanged),
+                ).format(
+                    model_name=self.model._meta.verbose_name.title(),
+                    model_name_plural=self.model._meta.verbose_name_plural,
+                    object_names=iter_to_string(restore_unchanged),
+                ),
+            )
+
+        if restore_failed_because_parent_archived:
+            messages.error(
+                request,
+                ngettext_lazy(
+                    "Page {} could not be restored because it has at least one archived parent.",
+                    "The following pages could not be restored because they have at least one archived parent: {}",
+                    len(restore_failed_because_parent_archived),
+                ).format(
+                    iter_to_string(restore_failed_because_parent_archived),
                 ),
             )
 

@@ -60,8 +60,7 @@ def assert_message_in_log(message: str, caplog: LogCaptureFixture) -> None:
     :raises AssertionError: When the expected message was not found in the logs
     """
     messages = get_messages(caplog)
-    assert (
-        message in messages
-    ), f"The following message: \n\n{message}\n\nwas not found in the " + (
-        "message log:\n\n" + "\n".join(messages) if messages else "empty message log."
+    assert message in messages, (
+        f"The following message: \n\n{message}\n\nwas not found in the message log:\n\n"
+        + ("\n".join(messages) if messages else "empty message log.")
     )

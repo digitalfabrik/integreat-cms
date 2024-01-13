@@ -12,6 +12,7 @@ from django.urls import reverse
 from pytest_django.fixtures import SettingsWrapper
 
 from integreat_cms.cms.models import Page, Region
+from integreat_cms.cms.utils.stringify_list import iter_to_string
 
 from ..conftest import (
     ANONYMOUS,
@@ -153,13 +154,22 @@ async def test_auto_translate_easy_german(
         print(response.headers)
         # Get the page objects including their translations from the database
         changed_pages = await get_changed_pages(settings, selected_ids)
-        for page in changed_pages:
-            # Check that the success message are present
+        # Check that the success message are present
+        if len(changed_pages) == 1:
             assert_message_in_log(
-                f'SUCCESS  Page "{page[settings.SUMM_AI_GERMAN_LANGUAGE_SLUG]}" has been successfully translated into Easy German.',
+                f'SUCCESS  Page "{changed_pages[0][settings.SUMM_AI_GERMAN_LANGUAGE_SLUG]}" has been successfully translated into Easy German.',
                 caplog,
             )
-            # Check that the page translation exists and really has the correct content
+        else:
+            changed_pages_str = iter_to_string(
+                page[settings.SUMM_AI_GERMAN_LANGUAGE_SLUG] for page in changed_pages
+            )
+            assert_message_in_log(
+                f"SUCCESS  The following pages have been successfully translated into Easy German: {changed_pages_str}",
+                caplog,
+            )
+        # Check that the page translation exists and really has the correct content
+        for page in changed_pages:
             assert (
                 "Hier ist Ihre Leichte Sprache Übersetzung"
                 in page[settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG].content
@@ -251,7 +261,6 @@ async def test_summ_ai_error_handling(
         print(response.headers)
         # Check that the error message is present
         assert_message_in_log(
-            'ERROR    Page "Behörden und Beratung" could not be automatically translated into Easy German. '
-            "Please try again later or contact an administrator.",
+            'ERROR    Page "Behörden und Beratung" could not be automatically translated into Easy German.',
             caplog,
         )

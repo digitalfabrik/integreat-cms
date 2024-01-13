@@ -7964,6 +7964,10 @@ msgstr "PDF-Datei konnte nicht erfolgreich erzeugt werden."
 msgid "Cannot generate slug from {}."
 msgstr "Slug kann nicht aus dem {} abgeleitet werden."
 
+#: cms/utils/stringify_list.py
+msgid "and"
+msgstr "und"
+
 #: cms/utils/welcome_mail_utils.py
 msgid "activation mail"
 msgstr "Aktivierungsmail"
@@ -8082,39 +8086,79 @@ msgstr "Alle ausgewählten Übersetzungen sind bereits aktuell."
 
 #: cms/views/bulk_action_views.py
 msgid "There already is an up-to-date translation for {}"
-msgstr "Es gibt bereits eine aktuelle Übersetzung für {}"
+msgid_plural "There already are up-to-date translations for {}"
+msgstr[0] "Es gibt bereits eine aktuelle Übersetzung für {}"
+msgstr[1] "Es gibt bereits aktuelle Übersetzungen für {}"
 
 #: cms/views/bulk_action_views.py
 msgid "The selected {} were successfully {}"
 msgstr "Die ausgewählten {} wurden erfolgreich {}"
 
 #: cms/views/bulk_action_views.py
+#, python-brace-format
+msgid "{model_name} {object_names} was successfully archived."
+msgid_plural ""
+"The following {model_name_plural} were successfully archived: {object_names}"
+msgstr[0] "{model_name} {object_names} wurde erfolgreich archiviert."
+msgstr[1] ""
+"Die folgenden {model_name_plural} wurden erfolgreich archiviert: "
+"{object_names}"
+
+#: cms/views/bulk_action_views.py
+#, python-brace-format
+msgid "{model_name} {object_names} is already archived."
+msgid_plural ""
+"The following {model_name_plural} are already archived: {object_names}"
+msgstr[0] "{model_name} {object_names} ist bereits archiviert."
+msgstr[1] ""
+"Die folgenden {model_name_plural} sind bereits archiviert: {object_names}"
+
+#: cms/views/bulk_action_views.py
+#, python-brace-format
 msgid ""
-"Page \"{}\" cannot be archived because it was embedded as live content from "
-"another page."
-msgstr ""
-"Seite \"{}\" kann nicht archiviert werden, da sie von einer anderen Seite "
-"als Live-Inhalt eingebunden wurde."
+"Page {object_names} could not be archived because it is embedded as live "
+"content from other pages."
+msgid_plural ""
+"The following pages could not be archived because they were embedded as live "
+"content from other pages: {object_names}"
+msgstr[0] ""
+"Seite \"{object_names}\" kann nicht archiviert werden, da sie von einer "
+"anderen Seite als Live-Inhalt eingebunden wurde."
+msgstr[1] ""
+"Die folgdenden Seiten können nicht archiviert werden, da sie von anderen "
+"Seiten als Live-Inhalt eingebunden werden: \"{object_names}\""
 
 #: cms/views/bulk_action_views.py
-msgid "Page \"{}\" was successfully archived"
-msgstr "Seite \"{}\" wurde erfolgreich archiviert"
+#, python-brace-format
+msgid "{model_name} {object_names} was successfully restored."
+msgid_plural ""
+"The following {model_name_plural} were successfully restored: {object_names}"
+msgstr[0] "{model_name} {object_names} wurde erfolgreich wiederhergestellt."
+msgstr[1] ""
+"Die folgenden {model_name_plural} wurden erfolgreich wiederhergestellt: "
+"{object_names}"
 
 #: cms/views/bulk_action_views.py
-msgid "The selected {} were successfully archived"
-msgstr "Die ausgewählten {} wurden erfolgreich archiviert"
+#, python-brace-format
+msgid "{model_name} {object_names} is not archived."
+msgid_plural ""
+"The following {model_name_plural} are not archived: {object_names}"
+msgstr[0] "{model_name} {object_names} ist nicht archiviert."
+msgstr[1] ""
+"Die folgenden {model_name_plural} sind nicht archiviert: {object_names}"
 
 #: cms/views/bulk_action_views.py
 msgid ""
-"The following {} could not be restored because they have at least one "
-"archived parent {}: {}"
-msgstr ""
-"Die folgenden {} konnten nicht wiederhergestellt werden, weil mindestens "
-"eine übergeordnete {} archiviert ist: {}"
-
-#: cms/views/bulk_action_views.py
-msgid "The following {} were successfully restored: {}"
-msgstr "Die folgenden {} wurden erfolgreich wiederhergestellt: {}"
+"Page {} could not be restored because it has at least one archived parent."
+msgid_plural ""
+"The following pages could not be restored because they have at least one "
+"archived parent: {}"
+msgstr[0] ""
+"Die Seite {} konnten nicht wiederhergestellt werden, weil mindestens eine "
+"übergeordnete Seite archiviert ist."
+msgstr[1] ""
+"Die folgenden Seiten konnten nicht wiederhergestellt werden, weil mindestens "
+"eine übergeordnete Seite archiviert ist: {}"
 
 #: cms/views/content_version_view.py
 msgid "Back to the form"
@@ -9226,8 +9270,7 @@ msgstr "Nachricht \"{}\" wurde erfolgreich terminiert auf den {}"
 msgid "News \"{}\" could not be sent."
 msgstr "Nachricht \"{}\" konnte nicht gesendet werden."
 
-#: cms/views/push_notifications/push_notification_form_view.py
-#: summ_ai_api/utils.py xliff/utils.py
+#: cms/views/push_notifications/push_notification_form_view.py xliff/utils.py
 msgid "Please try again later or contact an administrator."
 msgstr ""
 "Bitte versuchen Sie es erneut oder kontaktieren Sie eine:n Administrator:in."
@@ -9402,19 +9445,49 @@ msgid "Only superusers can enable or disable passwordless authentication."
 msgstr ""
 "Nur Administrator:innen können die Passwortlose Authentifizierung aktivieren"
 
-#: cms/views/utils/stringify_list.py
-msgid "and"
-msgstr "und"
+#: cms/views/utils/publication_status.py
+#, python-brace-format
+msgid ""
+"The publication status of {model_name} {object_names} was successfully "
+"changed to \"{changed_status}\"."
+msgid_plural ""
+"The publication status of the following {model_name_plural} was successfully "
+"changed to \"{changed_status}\": {object_names}"
+msgstr[0] ""
+"Der Veröffentlichungsstatus von {model_name} {object_names} wurde "
+"erfolgreich zu \"{changed_status}\" geändert."
+msgstr[1] ""
+"Der Veröffentlichungsstatus der folgenden {model_name_plural} wurde "
+"erfolgreich zu \"{changed_status}\" geändert: {object_names}"
 
-#: cms/views/utils/translation_status.py
-msgid "The status of \"{}\" was successfully changed to \"{}\"."
-msgstr ""
-"Der Veröffentlichungsstatus von \"{}\" wurde erfolgreich zu {} geändert."
+#: cms/views/utils/publication_status.py
+#, python-brace-format
+msgid ""
+"The publication status of {model_name} {object_names} is already "
+"\"{changed_status}\"."
+msgid_plural ""
+"The publication status of the following {model_name_plural} is already "
+"\"{changed_status}\": {object_names}"
+msgstr[0] ""
+"Der Veröffentlichungsstatus von {model_name} {object_names} ist bereits \"{changed_status}\""
+msgstr[1] ""
+"Der Veröffentlichungsstatus der folgenden {model_name_plural} ist bereits \"{changed_status}\": {object_names}"
 
-#: cms/views/utils/translation_status.py
-msgid "There is no translation for \"{}\" in {}. No change has been made."
-msgstr ""
-"Es gibt keine Übersetzung für \"{}\" in {}. Keine Änderung wurde vorgenommen."
+#: cms/views/utils/publication_status.py
+#, python-brace-format
+msgid ""
+"The publication status of {model_name} {object_names} could not be changed "
+"to \"{changed_status}\", because it has no translation in {language}."
+msgid_plural ""
+"The publication status of the following {model_name_plural} could not be "
+"changed to \"{changed_status}\", because they don't have a translation in "
+"{language}: {object_names}"
+msgstr[0] ""
+"Der Veröffentlichungsstatus von {model_name} {object_names} konnte nicht zu \"{changed_status}\" geändert werden, " 
+"weil es keine Übersetztung in {language} gibt." 
+msgstr[1] ""
+"Der Veröffentlichungsstatus der folgenden {model_name_plural} konnte nicht zu \"{changed_status}\" geändert werden, "
+"weil es keine Übersetztung in {language} gibt: {object_names}." 
 
 #: core/apps.py
 msgid "Core"
@@ -9437,24 +9510,81 @@ msgid "DeepL API"
 msgstr "DeepL API"
 
 #: deepl_api/deepl_api_client.py
-msgid "No source translation could be found for {} \"{}\"."
-msgstr "Es konnte kein Quelltext für {} \"{}\" gefunden werden."
-
-#: deepl_api/deepl_api_client.py
+#, python-brace-format
 msgid ""
-"Translation from {} to {} not possible: translation of {} words would exceed "
-"the remaining budget of {} words."
-msgstr ""
-"Übersetzung von {} nach {} nicht möglich: die Übersetzung von {} Wörtern "
-"übersteigt das verbleibende Übersetzungsbudget von {} Wörtern."
+"{model_name} {object_names} has successfully been translated "
+"({source_language} ➜ {target_language})."
+msgid_plural ""
+"The following {model_name_plural} have successfully been translated "
+"({source_language} ➜ {target_language}): {object_names}"
+msgstr[0] ""
+"{model_name} {object_names} wurde erfolgreich übersetzt ({source_language} ➜ "
+"{target_language})."
+msgstr[1] ""
+"Die folgenden {model_name_plural} wurden erfolgreich übersetzt "
+"({source_language} ➜ {target_language}): {object_names}"
 
 #: deepl_api/deepl_api_client.py
-msgid "{} \"{}\" has successfully been translated ({} ➜ {})."
-msgstr "{} \"{}\" wurde erfolgreich übersetzt ({} ➜ {})"
+#, python-brace-format
+msgid ""
+"{model_name} {object_names} could not be translated because its source "
+"translation is missing."
+msgid_plural ""
+"The following {model_name_plural} could not be translated because their "
+"source translations are missing: {object_names}"
+msgstr[0] ""
+"{model_name} {object_names} konnte nicht übersetzt werden, da die Quell-"
+"Übersetzung fehlt."
+msgstr[1] ""
+"Die folgenden {model_name_plural} konnten nicht übersetzt werden, da ihre "
+"Quell-Übersetzung fehlen: {object_names}"
 
 #: deepl_api/deepl_api_client.py
-msgid "{} \"{}\" could not be translated automatically."
-msgstr "{} \"{}\" konnte nicht automatisch übersetzt werden."
+#, python-brace-format
+msgid ""
+"{model_name} {object_names} could not be translated because it would exceed "
+"the remaining budget of {remaining_budget} words."
+msgid_plural ""
+"The following {model_name_plural} could not be translated because they would "
+"exceed the remaining budget of {remaining_budget} words: {object_names}"
+msgstr[0] ""
+"{model_name} {object_names} konnte nicht übersetzt werden, da die "
+"Übersetzung das verbleibende Übersetzungsbudget von {remaining_budget} "
+"Wörtern übersteigen würde."
+msgstr[1] ""
+"Die folgenden {model_name_plural} konnten nicht übersetzt werden, da die "
+"Übersetzung das verbleibende Übersetzungsbudget von {remaining_budget} "
+"Wörtern übersteigen würde: {object_names}"
+
+#: deepl_api/deepl_api_client.py
+#, python-brace-format
+msgid ""
+"{model_name} {object_names} could not be translated because its HIX score is "
+"too low for machine translation (minimum required: {min_required})."
+msgid_plural ""
+"The following {model_name_plural} could not be translated because their HIX "
+"score is too low for machine translation (minimum required: {min_required}): "
+"{object_names}"
+msgstr[0] ""
+"{model_name} {object_names} konnte nicht übersetzt werden, da der HIX Wert "
+"zu gering für die maschinelle Übersetzung ist (erforderlicher Mindestwert: "
+"{min_required})"
+msgstr[1] ""
+"Die folgenden {model_name_plural} konnten nicht übersetzt werden, da ihre "
+"HIX Werte für die maschinelle Übersetzung zu gering sind (erforderlicher "
+"Mindestwert: {min_required}): {object_names}"
+
+#: deepl_api/deepl_api_client.py
+#, python-brace-format
+msgid "{model_name} {object_names} could not be translated automatically."
+msgid_plural ""
+"The following {model_name_plural} could not translated automatically: "
+"{object_names}"
+msgstr[0] ""
+"{model_name} {object_names} konnte nicht automatisch übersetzt werden."
+msgstr[1] ""
+"Die folgenden {model_name_plural} konnten nicht automatisch übersetzt "
+"werden: {object_names}"
 
 #: firebase_api/apps.py
 msgid "Firebase API"
@@ -9496,18 +9626,38 @@ msgstr "Sitemap"
 msgid "SUMM.AI API"
 msgstr "SUMM.AI API"
 
+#: summ_ai_api/summ_ai_api_client.py
+#, python-brace-format
+msgid ""
+"{model_name} {object_names} has been successfully translated into Easy "
+"German."
+msgid_plural ""
+"The following {model_name_plural} have been successfully translated into "
+"Easy German: {object_names}"
+msgstr[0] ""
+"{model_name} {object_names} wurde erfolgreich in Leichte Sprache übersetzt."
+msgstr[1] ""
+"Die folgenden {model_name_plural} wurden erfolgreich in Leichte Sprache "
+"übersetzt: {object_names}"
+
+#: summ_ai_api/summ_ai_api_client.py
+#, python-brace-format
+msgid ""
+"{model_name} {object_names} could not be automatically translated into Easy "
+"German."
+msgid_plural ""
+"The following {model_name_plural} could not be automatically translated into "
+"Easy German: {object_names}"
+msgstr[0] ""
+"{model_name} {object_names} konnte nicht automatisch in Leichte Sprache "
+"übersetzt werden."
+msgstr[1] ""
+"Die folgenden {model_name_plural} konnten nicht automatisch in Leichte "
+"Sprache übersetzt werden: {object_names}"
+
 #: summ_ai_api/utils.py
 msgid "No German translation could be found for {} \"{}\"."
 msgstr "Es konnte keine Deutsche Übersetzung für {} \"{}\" gefunden werden."
-
-#: summ_ai_api/utils.py
-msgid "{} \"{}\" could not be automatically translated into Easy German."
-msgstr ""
-"{} \"{}\" konnte nicht automatisch in Leichte Sprache übersetzt werden."
-
-#: summ_ai_api/utils.py
-msgid "{} \"{}\" has been successfully translated into Easy German."
-msgstr "{} \"{}\" wurde erfolgreich in Leichte Sprache übersetzt."
 
 #: textlab_api/apps.py
 msgid "TextLab API"
@@ -9610,11 +9760,15 @@ msgstr ""
 
 #: xliff/utils.py
 msgid "Page {} was imported successfully."
-msgstr "Seite {} wurde erfolgreich importiert."
+msgid_plural "Pages {} were imported successfully."
+msgstr[0] "Seite {} wurde erfolgreich importiert."
+msgstr[1] "Seiten {} wurden erfolgreich importiert."
 
 #: xliff/utils.py
 msgid "Page {} was imported without changes."
-msgstr "Seite {} wurde ohne Änderungen importiert."
+msgid_plural "Pages {} were imported without changes."
+msgstr[0] "Seite {} wurde ohne Änderungen importiert."
+msgstr[1] "Seiten {} wurden ohne Änderungen importiert."
 
 #: xliff/utils.py
 msgid "You don't have the permission to import this page."
