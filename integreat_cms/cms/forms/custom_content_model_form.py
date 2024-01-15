@@ -239,28 +239,20 @@ class CustomContentModelForm(CustomModelForm):
 
         :param request: The current request submitting the translation form
         """
+        status_messages = {
+            status.AUTO_SAVE: _('{} "{}" was saved automatically'),
+            status.REVIEW: _('{} "{}" was successfully submitted for review'),
+            status.DRAFT: _('{} "{}" was successfully saved as draft'),
+            status.PUBLIC: (
+                _('{} "{}" was successfully published')
+                if "status" in self.changed_data
+                else _('{} "{}" was successfully updated')
+            ),
+        }
+
         model_name = type(self.instance.foreign_object)._meta.verbose_name.title()
-        if not self.instance.status == status.PUBLIC:
-            messages.success(
-                request,
-                _('{} "{}" was successfully saved as draft').format(
-                    model_name, self.instance.title
-                ),
-            )
-        elif "status" not in self.changed_data:
-            messages.success(
-                request,
-                _('{} "{}" was successfully updated').format(
-                    model_name, self.instance.title
-                ),
-            )
-        else:
-            messages.success(
-                request,
-                _('{} "{}" was successfully published').format(
-                    model_name, self.instance.title
-                ),
-            )
+        if message := status_messages.get(self.instance.status):
+            messages.success(request, message.format(model_name, self.instance.title))
 
     class Meta:
         fields = [
