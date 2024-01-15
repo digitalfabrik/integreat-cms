@@ -18,7 +18,7 @@ from .settings import *
 #: (see :setting:`django:DATABASES`)
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": "integreat",
         "USER": "integreat",
         "PASSWORD": "password",

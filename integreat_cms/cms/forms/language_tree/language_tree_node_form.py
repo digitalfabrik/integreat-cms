@@ -18,6 +18,7 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
+# pylint: disable=too-many-ancestors
 class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
     """
     Form for creating and modifying language tree node objects

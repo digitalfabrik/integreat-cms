@@ -28,7 +28,6 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-many-ancestors
 class POICategoryMixin(
     PermissionRequiredMixin,
     ModelTemplateResponseMixin,

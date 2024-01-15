@@ -15,7 +15,6 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template.loader import get_template
 from django.utils.translation import gettext_lazy as _
-from django.views.decorators.cache import never_cache
 from xhtml2pdf import pisa
 from xhtml2pdf.default import DEFAULT_CSS
 
@@ -34,7 +33,6 @@ logger = logging.getLogger(__name__)
 pdf_storage = FileSystemStorage(location=settings.PDF_ROOT, base_url=settings.PDF_URL)
 
 
-@never_cache
 # pylint: disable=too-many-locals
 def generate_pdf(
     region: Region, language_slug: str, pages: PageQuerySet

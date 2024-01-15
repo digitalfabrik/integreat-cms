@@ -5,7 +5,9 @@ from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.cache import never_cache
 from django.views.generic.list import MultipleObjectMixin
 
 from ....xliff.utils import pages_to_xliff_file
@@ -33,7 +35,6 @@ class PageBulkActionMixin(MultipleObjectMixin):
     model = Page
 
 
-# pylint: disable=too-many-ancestors
 class GeneratePdfView(PageBulkActionMixin, BulkActionView):
     """
     Bulk action for generating a PDF document of the content
@@ -44,6 +45,7 @@ class GeneratePdfView(PageBulkActionMixin, BulkActionView):
     #: Whether the public translation objects should be prefetched
     prefetch_public_translations = True
 
+    @method_decorator(never_cache)
     def post(
         self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponseRedirect:
@@ -58,12 +60,11 @@ class GeneratePdfView(PageBulkActionMixin, BulkActionView):
         # Generate PDF document and redirect to it
         return generate_pdf(
             request.region,
-            kwargs.get("language_slug"),
+            str(kwargs.get("language_slug")),
             self.get_queryset(),
         )
 
 
-# pylint: disable=too-many-ancestors
 class ExportXliffView(PageBulkActionMixin, BulkActionView):
     """
     Bulk action for generating XLIFF files for translations
