@@ -61,7 +61,7 @@ class RegionFeedbackListView(TemplateView):
         )
 
         filter_form = RegionFeedbackFilterForm(data=request.GET)
-        region_feedback, query = filter_form.apply(region_feedback, region)
+        region_feedback, query = filter_form.apply(region_feedback)
 
         region_feedback = region_feedback.select_related("region", "language")
 
