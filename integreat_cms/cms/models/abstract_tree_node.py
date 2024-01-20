@@ -45,14 +45,14 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
     )
 
     @classmethod
-    def get_region_root_nodes(cls, region_slug: str) -> NS_NodeQuerySet:
+    def get_region_root_node(cls, region_slug: str) -> AbstractTreeNode:
         """
-        Get all root nodes of a specific region
+        Get the root node of a specific region
 
         :param region_slug: The slug of the requested :class:`~integreat_cms.cms.models.regions.region.Region`
-        :return: A queryset containing the root nodes in the tree.
+        :return: The root node of the region
         """
-        return super().get_root_nodes().filter(region__slug=region_slug)
+        return super().get_root_nodes().get(region__slug=region_slug)
 
     def add_child(self, **kwargs: Any) -> AbstractTreeNode:
         r"""
@@ -118,8 +118,7 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
 
         :return: A :class:`~django.db.models.query.QuerySet` of all the node's siblings, including the node itself.
         """
-        if self.lft == 1:
-            return self.get_region_root_nodes(region_slug=self.region.slug)
+        assert self.lft != 1, "Should not request siblings of the region root node"
         return super().get_siblings()
 
     @cached_property
@@ -159,10 +158,16 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
                  the root node and descending to the parent.
         """
         if not hasattr(self, "_cached_ancestors"):
-            self._cached_ancestors = list(self.get_ancestors())
+            self._cached_ancestors = list(
+                ancestor for ancestor in self.get_ancestors() if ancestor.parent_id
+            )
         if include_self:
             return [*self._cached_ancestors, self]
         return self._cached_ancestors
+
+    @property
+    def is_direct_child_of_root(self) -> bool:
+        return self.depth == 2
 
     @cached_property
     def cached_parent(self) -> AbstractTreeNode | None:
@@ -172,9 +177,10 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
 
         :return: The parent of the node
         """
-        if self.is_root():
+        if self.is_direct_child_of_root:
             return None
-        return self.get_cached_ancestors()[-1]
+        # TODO: Use cached ancestors again
+        return list(self.get_ancestors())[-1]
 
     def get_cached_descendants(
         self, include_self: bool = False
@@ -201,6 +207,7 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         """
         if not hasattr(self, "_cached_children"):
             if hasattr(self, "_cached_descendants"):
+                print(self._cached_descendants)
                 self._cached_children = [
                     descendant
                     for descendant in self._cached_descendants

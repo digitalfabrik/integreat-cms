@@ -28,7 +28,7 @@ if TYPE_CHECKING:
     from ..languages.language import Language
     from ..languages.language_tree_node import LanguageTreeNode
     from ..pages.imprint_page import ImprintPage
-    from ..pages.page import PageQuerySet
+    from ..pages.page import PageQuerySet, Page
     from ...nominatim_api.utils import BoundingBox
 
 from django.utils.safestring import mark_safe
@@ -722,7 +722,7 @@ class Region(AbstractBaseModel):
             pages = pages.annotate(language_tree=models.Subquery(self.language_tree))
         return pages
 
-    def get_root_pages(self) -> PageQuerySet:
+    def get_root_page(self) -> Page:
         """
         This method returns all root pages of this region.
 
@@ -730,7 +730,7 @@ class Region(AbstractBaseModel):
         """
         # Get model instead of importing it to avoid circular imports
         Page = apps.get_model(app_label="cms", model_name="Page")
-        return Page.get_root_pages(region_slug=self.slug)
+        return Page.get_root_page(region_slug=self.slug)
 
     @classmethod
     def search(cls, query: str) -> QuerySet[Region]:

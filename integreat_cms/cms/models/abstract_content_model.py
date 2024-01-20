@@ -408,7 +408,10 @@ class AbstractContentModel(AbstractBaseModel):
 
         :return: The default translation of a content object
         """
-        return self.get_translation(self.region.default_language.slug)
+        default_language = self.region.default_language
+        if not default_language:
+            return None
+        return self.get_translation(default_language.slug)
 
     @cached_property
     def default_public_translation(self) -> AbstractContentTranslation | None:

@@ -9,6 +9,7 @@ from django.utils.translation import get_language
 from django.views.decorators.http import require_POST
 
 from ...decorators import permission_required
+from ...models import Page
 from ...models.languages.language import Language
 from ..pages.page_context_mixin import PageContextMixin
 
@@ -27,31 +28,38 @@ def render_partial_page_tree_views(
     :param language_slug: The slug of the current language
     :return: The rendered template responses
     """
-    requested_tree_ids = [int(i) for i in json.loads(request.body.decode("utf-8"))]
+    requested_page_ids = [int(i) for i in json.loads(request.body.decode("utf-8"))]
 
     region = request.region
     language = region.get_language_or_404(language_slug, only_active=True)
 
     backend_language = Language.objects.filter(slug=get_language()).first()
 
-    all_pages = (
-        region.pages.filter(tree_id__in=requested_tree_ids)
-        .prefetch_major_translations()
-        .prefetch_related("mirroring_pages")
-        .cache_tree(archived=False)
-    )
+    # all_pages = (
+    #     region.pages.filter(tree_id__in=requested_tree_ids)
+    #     .prefetch_major_translations()
+    #     .prefetch_related("mirroring_pages")
+    #     .cache_tree(archived=False)
+    # )
+    #
+    # pages_by_id = defaultdict(list)
+    # for page in all_pages:
+    #     pages_by_id[page.tree_id].append(page)
 
-    pages_by_id = defaultdict(list)
-    for page in all_pages:
-        pages_by_id[page.tree_id].append(page)
+    pages_by_id = {}
+    for page_id in requested_page_ids:
+        if page := Page.objects.filter(id=page_id).first():
+            pages_by_id[page_id] = list(
+                region.pages.filter(lft__gte=page.lft, rgt__lte=page.rgt)
+            )
 
     sub_trees = []
-    for tree_id in requested_tree_ids:
+    for page_id in requested_page_ids:
         # Skip page trees which do not exist
-        if tree_id not in pages_by_id:
+        if page_id not in pages_by_id:
             continue
         # Get the tree of the given id
-        pages = pages_by_id[tree_id]
+        pages = pages_by_id[page_id]
         # The first element must be the root node
         parent = pages[0]
         # The remaining pages are the descendants

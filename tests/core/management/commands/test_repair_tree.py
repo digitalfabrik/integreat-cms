@@ -13,7 +13,8 @@ def test_check_clean_tree_fields(load_test_data: None) -> None:
     Ensure no errors are found in default test data
     """
     for region in Region.objects.all():
-        for root in Page.get_root_pages(region.slug):
+        # TODO: Fix this
+        for root in Page.get_root_page(region.slug):
             out, err = get_command_output("repair_tree", root.id)
             assert f"Detecting problems in tree with id {root.tree_id}..." in out
             assert not err
@@ -25,6 +26,7 @@ def test_fix_clean_tree_fields(load_test_data: None) -> None:
     Ensure no errors need to be fixed in default test data
     """
     for region in Region.objects.all():
+        # TODO: Fix this
         for root in Page.get_root_pages(region.slug):
             out, err = get_command_output("repair_tree", root.id, commit=True)
             assert f"Fixing tree with id {root.tree_id}..." in out

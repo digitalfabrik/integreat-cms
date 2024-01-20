@@ -728,6 +728,7 @@ def get_page_order_table_ajax(
             if not sibling.explicitly_archived
         ]
     else:
+        # TODO: Fix this
         siblings = region.get_root_pages().filter(explicitly_archived=False)
 
     logger.debug(

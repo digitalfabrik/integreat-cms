@@ -248,8 +248,9 @@ def children(
         # try to get a single ancestor page based on the requests query string
         root_pages = [get_single_page(request, language_slug)]
     except RuntimeError:
+        # TODO Fix this
         # if neither id nor url is set then get all root pages
-        root_pages = Page.get_root_pages(region_slug)
+        root_pages = [Page.get_root_page(region_slug)]
         # simulate a virtual root node for WP compatibility
         # so that depth = 1 returns only those pages without parents (immediate children of this virtual root page)
         # like in wordpress depth = 0 will return no results in this case

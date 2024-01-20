@@ -38,13 +38,12 @@
                     <i icon-name="move"></i>
                 {% endif %}
             </span>
-            {% if not page.parent_id and not page.is_leaf or page.parent_id and page.cached_children|length > 0 %}
+            {% if page.is_direct_child_of_root and not page.is_leaf or page.parent_id and page.cached_children|length > 0 %}
                 <span class="toggle-subpages inline-block align-middle cursor-wait transform"
                       data-expand-title="{% translate "Expand all subpages" %}"
                       data-collapse-title="{% translate "Collapse all subpages" %}"
                       data-page-id="{{ page.id }}"
-                      data-page-children="{{ page|get_children_ids }}"
-                      data-page-tree-id="{{ page.tree_id }}">
+                      data-page-children="{{ page|get_children_ids }}">
                     <i icon-name="chevron-right"></i>
                 </span>
             {% endif %}

@@ -256,6 +256,7 @@ class RegionForm(CustomModelForm):
             # Disable linkcheck listeners to prevent links to be created for outdated versions
             with disable_listeners():
                 # Duplicate pages
+                # TODO: Fix this
                 logger.info("Duplicating page tree of %r to %r", source_region, region)
                 duplicate_pages(source_region, region, keep_status=keep_status)
                 # Duplicate Imprint
@@ -268,6 +269,16 @@ class RegionForm(CustomModelForm):
             duplicate_media(source_region, region)
             # Create links for the most recent versions of all translations manually
             find_links(region)
+        else:
+            # Create the root page of the region
+            root_page = Page()
+            root_page.region = region
+            # TODO: This is not race condition save
+            root_page = Page.add_root(instance=root_page)
+            # Check if the page is valid
+            root_page.full_clean()
+            root_page.save()
+            logger.debug("Created root page %r", root_page)
 
         return region
 

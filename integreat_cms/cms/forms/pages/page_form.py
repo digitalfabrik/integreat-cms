@@ -153,12 +153,17 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             mirrored_page_queryset = mirrored_page_queryset.exclude(id=self.instance.id)
         else:
             # Set the default position to the right of the last root page
-            if last_root_page := self.instance.region.get_root_pages().last():
+            if (
+                last_root_page := self.instance.region.get_root_page()
+                .get_children()
+                .last()
+            ):
                 self.fields["_ref_node_id"].initial = last_root_page.id
                 self.fields["_position"].initial = position.RIGHT
             else:
-                # If no page exists, treebeard expects the value "" as reference node id
-                self.fields["_ref_node_id"].initial = ""
+                self.fields[
+                    "_ref_node_id"
+                ].initial = self.instance.region.get_root_page().id
                 self.fields["_position"].initial = position.FIRST_CHILD
 
         # Set choices of mirrored_page field manually to make use of cache_tree()
@@ -177,13 +182,19 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         cached_parent_choices.extend(
             [
                 (page.id, str(page))
-                for page in parent_queryset.cache_tree(archived=False)
+                for page in parent_queryset.cache_tree(
+                    archived=False, include_root=True
+                )
             ]
         )
         ref_node_choices = [("", "---------")]
         ref_node_choices.extend(
-            [(page.id, str(page)) for page in parent_queryset.cache_tree()]
+            [
+                (page.id, str(page))
+                for page in parent_queryset.cache_tree(include_root=True)
+            ]
         )
+        print(">>>", ref_node_choices)
         self.fields["parent"].choices = cached_parent_choices
         self.fields["_ref_node_id"].choices = ref_node_choices
 

@@ -128,7 +128,7 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
             region.pages.all()
             if filter_form.is_enabled or self.archived
             # Else, only fetch the root pages and load the subpages dynamically via ajax
-            else region.pages.filter(lft=1)
+            else region.pages.filter(depth=2)
         )
 
         # Cache tree structure to reduce database queries

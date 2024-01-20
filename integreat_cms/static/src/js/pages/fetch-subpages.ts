@@ -36,11 +36,13 @@ const fetchSubpages = (collapseSpan: HTMLElement, html: string) => {
             const descendantId = parseInt(rowToInsert.dataset.dropId, 10);
             descendantIds.push(descendantId);
             // Check if the descendant is a direct child
+            console.log(rowToInsert.classList);
             if (rowToInsert.classList.contains("level-2")) {
                 directChildrenIds.push(descendantId);
             }
         }
         // render icons
+        console.log(rowToInsert);
         createIconsAt(rowToInsert);
         // Insert child into DOM tree
         currentRow.after(rowToInsert);
@@ -57,7 +59,7 @@ const fetchSubpages = (collapseSpan: HTMLElement, html: string) => {
 };
 
 const fetchAllSubpages = async (url: string, pages: HTMLElement[]) => {
-    const ids = pages.map((page) => page.dataset.pageTreeId);
+    const ids = pages.map((page) => page.dataset.pageId);
     const response = await fetch(url, {
         method: "POST",
         headers: {

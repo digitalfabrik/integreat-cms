@@ -33,7 +33,10 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
     """
 
     def cache_tree(
-        self, archived: bool | None = None, language_slug: str | None = None
+        self,
+        archived: bool | None = None,
+        language_slug: str | None = None,
+        include_root: bool = False,
     ) -> list[Page]:
         """
         Caches a page tree queryset in a python data structure.
@@ -70,7 +73,7 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
                     not page.explicitly_archived
                     and (
                         # If the page is a root page, include it only when archive is either False or None
-                        (not page.parent_id and not archived)
+                        (page.depth <= 2 and not archived)
                         # Alternatively, include it if its parent is in the result
                         or (page.parent_id in result)
                     )
@@ -90,7 +93,6 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
                     page._cached_ancestors.extend(
                         result[page.parent_id]._cached_ancestors
                     )
-                    page._cached_ancestors.append(result[page.parent_id])
                     # Cache the current page as descendant of the parent's page ancestors
                     for ancestor in result[page.parent_id]._cached_ancestors:
                         if ancestor.id in result:
@@ -106,7 +108,11 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
                 skipped_pages.append(page)
         logger.debug("Cached result: %r", result)
         logger.debug("Skipped pages: %r", skipped_pages)
-        return list(result.values())
+        # Don't include the region root page
+        if include_root:
+            return list(result.values())
+        else:
+            return list(val for val in result.values() if val.parent_id)
 
 
 # pylint: disable=too-few-public-methods
@@ -276,14 +282,14 @@ class Page(AbstractTreeNode, AbstractBasePage):
                 yield child_page
 
     @classmethod
-    def get_root_pages(cls, region_slug: str) -> PageQuerySet:
+    def get_root_page(cls, region_slug: str) -> Page:
         """
-        Gets all root pages
+        Gets the region root page
 
         :param region_slug: Slug defining the region
-        :return: All root pages i.e. pages without parents
+        :return: The regions root page
         """
-        return cls.get_region_root_nodes(region_slug=region_slug)
+        return cls.get_region_root_node(region_slug=region_slug)
 
     def get_mirrored_page_translation(self, language_slug: str) -> Any | None:
         """
@@ -307,7 +313,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         """
         if hasattr(self, "_relative_depth"):
             return self._relative_depth
-        return self.depth
+        return self.depth - 1
 
     def move(self, target: Page, pos: str | None = None) -> None:
         """
@@ -362,7 +368,8 @@ class Page(AbstractTreeNode, AbstractBasePage):
 
         :return: A readable string representation of the page
         """
-        return self.best_translation.path()
+        best_translation = self.best_translation
+        return best_translation.path() if best_translation else "<Empty Page>"
 
     def get_repr(self) -> str:
         """
