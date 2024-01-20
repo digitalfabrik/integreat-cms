@@ -174,11 +174,10 @@ const getPageOrderTable = async ({ target }: Event) => {
         registerEventHandlers();
     } catch (error: any) {
         // Show error message instead of table
-        document.getElementById(
-            "page_order_table"
-        ).innerHTML = `<div class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-4" role="alert"><p>${escapeMeta(
-            error.message
-        )}</p></div>`;
+        document.getElementById("page_order_table").innerHTML =
+            `<div class="bg-red-100 border-l-4 border-red-500 text-red-500 px-4 py-3 my-4" role="alert"><p>${escapeMeta(
+                error.message
+            )}</p></div>`;
     }
 };
 
