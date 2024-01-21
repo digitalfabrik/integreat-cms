@@ -8,8 +8,6 @@ import logging
 from collections.abc import Callable
 from typing import Generator
 
-from django.db import transaction
-
 from ..models import Page
 from ..utils.tree_mutex import tree_mutex
 
@@ -117,7 +115,6 @@ class Printer:
         self._write = new
 
 
-@transaction.atomic
 @tree_mutex
 def repair_tree(
     page_id: int = 0, commit: bool = False, printer: Printer = Printer()
