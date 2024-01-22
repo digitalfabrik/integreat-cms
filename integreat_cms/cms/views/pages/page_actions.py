@@ -790,7 +790,7 @@ def refresh_date(
     language_slug: str,
 ) -> HttpResponseRedirect:
     """
-    Refresh the date for all translations of a corresponding page
+    Refresh the date for up-to-date translations of a corresponding page
 
     :param request: The current request
     :param page_id: The id of the page of the current page form
@@ -820,8 +820,14 @@ def refresh_date(
             page_translation.language
         ),
     )
-    # Update timestamps of all translations
-    for page_translation in page_translations:
+    translations_to_update = [
+        page_translation
+        for page_translation in page_translations
+        if page_translation.language.slug == language_slug
+        or page_translation.is_up_to_date
+    ]
+    # Update timestamps of up-to-date translations
+    for page_translation in translations_to_update:
         page_translation.save()
 
     messages.success(request, _("Marked all translations of this page as up-to-date"))

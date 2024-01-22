@@ -66,6 +66,8 @@ class Command(LogCommand):
         :param \**options: The supplied keyword options
         :raises ~django.core.management.base.CommandError: When the input is invalid
         """
+        self.set_logging_stream()
+
         if region_slug:
             try:
                 region = Region.objects.get(slug=region_slug)
@@ -88,10 +90,14 @@ class Command(LogCommand):
         replace_links(search, replace, region=region, user=user, commit=commit)
 
         if commit:
-            self.print_success(
-                f'✔ Successfully replaced "{search}" with "{replace}" in content links.'
+            logger.success(  # type: ignore[attr-defined]
+                "✔ Successfully replaced %r with %r in content links.",
+                search,
+                replace,
             )
         else:
-            self.print_info(
-                f'✔ Finished dry-run of replacing "{search}" with "{replace}" in content links.'
+            logger.info(
+                "✔ Finished dry-run of replacing %r with %r in content links.",
+                search,
+                replace,
             )

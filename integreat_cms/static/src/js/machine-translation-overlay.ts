@@ -118,7 +118,7 @@ const prepareOverlay = (filteredContent: Content) => {
     const warningListElement = document.getElementById("machine-translation-overlay-warning");
     const expandableWarningListElement = document.getElementById("machine-translation-overlay-warning-optional");
     expandableWarningListElement.textContent = "";
-    buildNotTranslatableList(filteredContent.not_translatable, expandableWarningListElement);
+    buildNotTranslatableList(filteredContent.non_translatable, expandableWarningListElement);
 
     const expansionTrigger = document.getElementById("machine-translation-overlay-expansion-trigger");
     const noPageWarning = document.getElementById("no-content-warning");

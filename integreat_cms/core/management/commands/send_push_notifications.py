@@ -5,11 +5,12 @@ from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import CommandError
 from django.utils import timezone
 
 from ....cms.models import PushNotification, Region
 from ....firebase_api.firebase_api_client import FirebaseApiClient
+from ..log_command import LogCommand
 
 if TYPE_CHECKING:
     from typing import Any
@@ -18,7 +19,7 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-class Command(BaseCommand):
+class Command(LogCommand):
     """
     Management command to send timed push notifications
     """
@@ -32,6 +33,8 @@ class Command(BaseCommand):
         :param \*args: The supplied arguments
         :param \**options: The supplied keyword options
         """
+        self.set_logging_stream()
+
         if not settings.FCM_ENABLED:
             raise CommandError("Push notifications are disabled")
 
@@ -56,11 +59,12 @@ class Command(BaseCommand):
         if total := len(pending_push_notifications):
             for counter, push_notification in enumerate(pending_push_notifications):
                 self.send_push_notification(counter, total, push_notification)
-            logger.info(
-                "All %d scheduled push notifications have been processed.", total
+            logger.success(  # type: ignore[attr-defined]
+                "✔ All %d scheduled push notifications have been processed.",
+                total,
             )
         else:
-            logger.debug(
+            logger.info(
                 "There are currently no push notifications scheduled to be sent."
             )
 
@@ -84,8 +88,11 @@ class Command(BaseCommand):
                     push_notification,
                 )
             elif push_sender.send_all():
-                logger.info(
-                    "Successfully sent %d/%d %r", counter, total, push_notification
+                logger.success(  # type: ignore[attr-defined]
+                    "Successfully sent %d/%d %r",
+                    counter,
+                    total,
+                    push_notification,
                 )
                 push_notification.sent_date = timezone.now()
                 push_notification.save()
@@ -97,7 +104,7 @@ class Command(BaseCommand):
                     push_notification,
                 )
         except ImproperlyConfigured as e:
-            logger.info(
+            logger.error(
                 "Push notification %d/%d %r could not be sent due to a configuration error: %s",
                 counter,
                 total,

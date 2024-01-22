@@ -58,7 +58,6 @@ class RegionUpdateView(CustomUpdateView):
         :param \**kwargs: The supplied keyword arguments
         :return: The rendered template response
         """
-
         response = super().post(request, *args, **kwargs)
 
         if self.object.status == region_status.ARCHIVED:

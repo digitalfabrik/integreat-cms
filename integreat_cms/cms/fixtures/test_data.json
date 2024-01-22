@@ -270,7 +270,8 @@
       "admin_mail": "augsburg@integreat-app.de",
       "created_date": "2019-08-12T07:48:17.997Z",
       "last_updated": "2019-08-12T07:48:17.998Z",
-      "offers": [1, 2, 3]
+      "zammad_url": "https://zammad.example.com",
+      "offers": [1, 2, 3, 5]
     }
   },
   {
@@ -2760,7 +2761,8 @@
       "mirrored_page_first": true,
       "organization": null,
       "authors": [],
-      "editors": []
+      "editors": [],
+      "embedded_offers": [5]
     }
   },
   {
@@ -3124,6 +3126,19 @@
       "use_postal_code": "GET",
       "created_date": "2019-10-09T16:46:26.624Z",
       "last_updated": "2019-10-09T16:46:26.632Z"
+    }
+  },
+  {
+    "model": "cms.offertemplate",
+    "pk": 5,
+    "fields": {
+      "name": "Zammad Formular",
+      "slug": "zammad-formular",
+      "post_data": { "form-id": "example" },
+      "supported_by_app_in_content": true,
+      "is_zammad_form": true,
+      "created_date": "2023-10-09T16:46:26.624Z",
+      "last_updated": "2023-10-09T16:46:26.632Z"
     }
   },
   {
@@ -4461,6 +4476,140 @@
       "last_updated": "2019-08-11T07:57:42.456Z",
       "region": 1,
       "created_date": "2019-08-11T07:57:42.456Z"
+    }
+  },
+  {
+    "model": "cms.feedback",
+    "pk": 1,
+    "fields": {
+      "region": 1,
+      "language": 1,
+      "rating": true,
+      "comment": "Feedback unread and not archived",
+      "is_technical": true,
+      "created_date": "2019-08-11T07:57:42.456Z",
+      "archived": false,
+      "polymorphic_ctype": 26
+    }
+  },
+  {
+    "model": "cms.regionfeedback",
+    "pk": 1,
+    "fields": {
+      "feedback_ptr": 1
+    }
+  },
+  {
+    "model": "cms.feedback",
+    "pk": 2,
+    "fields": {
+      "region": 1,
+      "language": 1,
+      "rating": true,
+      "comment": "Feedback read and archived",
+      "is_technical": true,
+      "created_date": "2019-08-11T07:57:42.456Z",
+      "read_by": 1,
+      "archived": true,
+      "polymorphic_ctype": 24
+    }
+  },
+  {
+    "model": "cms.pagefeedback",
+    "pk": 2,
+    "fields": {
+      "feedback_ptr": 2,
+      "page_translation": 1
+    }
+  },
+  {
+    "model": "cms.feedback",
+    "pk": 3,
+    "fields": {
+      "region": 1,
+      "language": 1,
+      "rating": true,
+      "comment": "Feedback read and not archived",
+      "is_technical": true,
+      "created_date": "2019-08-11T07:57:42.456Z",
+      "read_by": 1,
+      "archived": false,
+      "polymorphic_ctype": 15
+    }
+  },
+  {
+    "model": "cms.eventfeedback",
+    "pk": 3,
+    "fields": {
+      "feedback_ptr": 3,
+      "event_translation": 1
+    }
+  },
+  {
+    "model": "cms.feedback",
+    "pk": 4,
+    "fields": {
+      "region": 1,
+      "language": 1,
+      "rating": true,
+      "comment": "Region feedback unread and not archived",
+      "is_technical": false,
+      "created_date": "2019-08-11T07:57:42.456Z",
+      "archived": false,
+      "polymorphic_ctype": 26
+    }
+  },
+  {
+    "model": "cms.regionfeedback",
+    "pk": 4,
+    "fields": {
+      "feedback_ptr": 4
+    }
+  },
+  {
+    "model": "cms.feedback",
+    "pk": 5,
+    "fields": {
+      "region": 1,
+      "language": 1,
+      "rating": true,
+      "comment": "Region feedback read and archived",
+      "is_technical": false,
+      "created_date": "2019-08-11T07:57:42.456Z",
+      "read_by": 1,
+      "archived": true,
+      "polymorphic_ctype": 24
+    }
+  },
+  {
+    "model": "cms.pagefeedback",
+    "pk": 5,
+    "fields": {
+      "feedback_ptr": 5,
+      "page_translation": 1
+    }
+  },
+  {
+    "model": "cms.feedback",
+    "pk": 6,
+    "fields": {
+      "region": 1,
+      "language": 1,
+      "rating": true,
+      "comment": "Region feedback read and not archived",
+      "is_technical": false,
+      "created_date": "2019-08-11T07:57:42.456Z",
+      "read_by": 1,
+      "archived": false,
+      "polymorphic_ctype": 25
+    }
+  },
+  {
+    "model": "cms.poifeedback",
+    "pk": 6,
+    "fields": {
+      "feedback_ptr": 6,
+      "poi_translation": 1
     }
   }
 ]

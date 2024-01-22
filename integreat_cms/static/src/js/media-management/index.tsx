@@ -48,6 +48,7 @@ export type File = {
     lastModified: Date;
     isGlobal: boolean;
     isHidden: boolean;
+    deletable: boolean;
 };
 
 export type FileUsage = {

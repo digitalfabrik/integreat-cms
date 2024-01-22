@@ -38,7 +38,7 @@ import "./js/forms/distribute-sidebar-boxes";
 import "./js/languages/country-flag-fields";
 
 import "./js/regions/conditional-fields";
-import "./js/regions/fake_disabled_checkboxes";
+import "./js/regions/fake-disabled-checkboxes";
 
 import "./js/feedback/toggle-feedback-entries";
 
@@ -66,6 +66,8 @@ import "./js/pages/page-preview";
 
 import "./js/mfa/add-key";
 import "./js/mfa/login";
+
+import "./js/offers/zammad";
 
 import "./js/analytics/statistics-charts";
 import "./js/analytics/translation_coverage";

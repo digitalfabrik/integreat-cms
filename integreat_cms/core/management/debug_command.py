@@ -14,7 +14,6 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=abstract-method
 class DebugCommand(LogCommand):
     """
     Base class for management commands which can only be executed in debug mode
@@ -31,3 +30,11 @@ class DebugCommand(LogCommand):
         if not settings.DEBUG:
             raise CommandError("This command can only be used in DEBUG mode.")
         super().execute(*args, **options)
+
+    def handle(self, *args: Any, **options: Any) -> None:
+        """
+        The actual logic of the command. Subclasses must implement this method.
+        """
+        raise NotImplementedError(
+            "subclasses of BaseCommand must provide a handle() method"
+        )

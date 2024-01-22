@@ -14,17 +14,7 @@ from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
     import sys
-    from typing import Any, Literal, TypedDict
-
-    if sys.version_info >= (3, 10):
-        from typing import TypeAlias
-    else:
-        from typing_extensions import TypeAlias
-
-    if sys.version_info >= (3, 11):
-        from typing import NotRequired, Unpack
-    else:
-        from typing_extensions import NotRequired, Unpack
+    from typing import Any, Literal, NotRequired, TypeAlias, TypedDict, Unpack
 
     from django.db.models import Manager
     from django.forms import ModelForm

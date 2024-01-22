@@ -54,7 +54,9 @@ def test_duplicate_pages(settings: SettingsWrapper, load_test_data: None) -> Non
         page__region__slug=region_slug
     ).count()
     out, err = get_command_output("duplicate_pages", "augsburg")
-    assert '✔ Successfully duplicated pages for region "Stadt Augsburg".' in out
+    assert (
+        "✔ Successfully duplicated pages for <Region (id: 1, slug: augsburg)>." in out
+    )
     assert not err
     page_count_after = Page.objects.filter(region__slug=region_slug).count()
     translations_count_after = PageTranslation.objects.filter(

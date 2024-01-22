@@ -104,6 +104,8 @@ class Command(DebugCommand):
         :param \**options: The supplied keyword options
         :raises ~django.core.management.base.CommandError: When the input is invalid
         """
+        self.set_logging_stream()
+
         try:
             region = Region.objects.get(slug=region_slug)
         except Region.DoesNotExist as e:
@@ -111,6 +113,6 @@ class Command(DebugCommand):
                 f'Region with slug "{region_slug}" does not exist.'
             ) from e
 
-        logger.info("Duplicating pages for region %s", region)
+        logger.info("Duplicating pages for %r", region)
         duplicate_pages(region)
-        self.print_success(f'✔ Successfully duplicated pages for region "{region}".')
+        logger.success("✔ Successfully duplicated pages for %r.", region)  # type: ignore[attr-defined]

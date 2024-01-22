@@ -9,10 +9,7 @@ if TYPE_CHECKING:
     import sys
     from typing import Any, Literal, TypedDict
 
-    if sys.version_info >= (3, 11):
-        from typing import NotRequired
-    else:
-        from typing_extensions import NotRequired
+    from typing import NotRequired
 
     from _pytest.logging import LogCaptureFixture
 

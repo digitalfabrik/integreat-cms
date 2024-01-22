@@ -112,7 +112,9 @@ def search_content_ajax(
                 "url": None,
                 "type": "feedback",
             }
-            for feedback in Feedback.search(region, query)
+            for feedback in Feedback.search(region, query).filter(
+                archived=archived_flag
+            )
         )
 
     if "page" in object_types:

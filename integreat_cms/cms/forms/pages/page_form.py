@@ -116,6 +116,12 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             supported_by_app_in_content=True
         )
 
+        # Filter Zammad forms out if the region has no Zammad-URL set
+        if not self.instance.region.zammad_url:
+            self.fields["embedded_offers"].queryset = self.fields[
+                "embedded_offers"
+            ].queryset.filter(is_zammad_form=False)
+
         if self.is_bound:
             # If form is bound (submitted with data) limit the queryset to the selected region to validate the selected
             # mirrored page and to render the options for the mirrored page.
