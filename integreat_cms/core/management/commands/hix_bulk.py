@@ -74,6 +74,8 @@ class Command(LogCommand):
         :param region_slugs: The slugs of the given regions
         :param \**options: The supplied keyword options
         """
+        self.set_logging_stream()
+
         if not settings.TEXTLAB_API_ENABLED:
             raise CommandError("HIX API is globally disabled")
 
@@ -94,9 +96,10 @@ class Command(LogCommand):
 
                 logger.info("Processing region %r", region)
                 calculate_hix_for_region(region)
-                self.print_info(
-                    f"Waiting for {settings.TEXTLAB_API_BULK_COOL_DOWN_PERIOD}s to cool down"
+                logger.info(
+                    "Waiting for %ss to cool down",
+                    settings.TEXTLAB_API_BULK_COOL_DOWN_PERIOD,
                 )
                 time.sleep(settings.TEXTLAB_API_BULK_COOL_DOWN_PERIOD)
 
-        self.print_success("Done")
+        logger.success("✔ Calculated all HIX values")  # type: ignore[attr-defined]

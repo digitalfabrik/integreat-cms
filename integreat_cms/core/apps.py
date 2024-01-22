@@ -6,10 +6,11 @@ import sys
 from typing import TYPE_CHECKING
 
 from django.apps import AppConfig
+from django.contrib.messages.constants import SUCCESS
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
-    from typing import Final
+    from typing import Any, Final
 
     from django.utils.functional import Promise
 
@@ -37,6 +38,17 @@ class CoreConfig(AppConfig):
         # pylint: disable=unused-import,import-outside-toplevel
         # Implicitly connect signal handlers decorated with @receiver.
         from . import signals
+
+        # Add SUCCESS (25) as custom log level
+        logging.addLevelName(SUCCESS, "SUCCESS")
+
+        def success(
+            self: logging.Logger, message: str, *args: Any, **kwargs: Any
+        ) -> None:
+            if self.isEnabledFor(SUCCESS):
+                self._log(SUCCESS, message, args, **kwargs)
+
+        setattr(logging.getLoggerClass(), "success", success)
 
         # Determine whether the availability of external APIs should be checked
         self.test_external_apis = (

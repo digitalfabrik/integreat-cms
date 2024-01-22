@@ -95,7 +95,7 @@ def test_replace_links_dry_run(load_test_data_transactional: Any | None) -> None
     with enable_listeners():
         out, err = get_command_output("replace_links", search, replace)
     assert (
-        f'✔ Finished dry-run of replacing "{search}" with "{replace}" in content links.'
+        f"✔ Finished dry-run of replacing '{search}' with '{replace}' in content links."
         in out
     )
     assert not err
@@ -141,7 +141,7 @@ def test_replace_links_commit(load_test_data_transactional: Any | None) -> None:
     with enable_listeners():
         out, err = get_command_output("replace_links", search, replace, "--commit")
     assert (
-        f'✔ Successfully replaced "{search}" with "{replace}" in content links.' in out
+        f"✔ Successfully replaced '{search}' with '{replace}' in content links." in out
     )
     assert not err
     assert not Url.objects.filter(

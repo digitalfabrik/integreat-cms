@@ -92,6 +92,8 @@ class Command(LogCommand):
         :param \**options: The supplied keyword options
         :raises ~django.core.management.base.CommandError: When the input is invalid
         """
+        self.set_logging_stream()
+
         region = get_region(region_slug) if region_slug else None
         user = get_user(username) if username else None
 
@@ -123,6 +125,6 @@ class Command(LogCommand):
                         )
 
         if commit:
-            self.print_success("✔ Successfully finished fixing broken internal links.")
+            logger.success("✔ Successfully finished fixing broken internal links.")  # type: ignore[attr-defined]
         else:
-            self.print_info("✔ Finished dry-run of fixing broken internal links.")
+            logger.info("✔ Finished dry-run of fixing broken internal links.")

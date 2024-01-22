@@ -30,7 +30,3 @@ LOG_LEVEL = "DEBUG"
 LINKCHECK_DISABLE_LISTENERS = True
 #: Enable logging of all entries from the messages framework
 MESSAGE_LOGGING_ENABLED = True
-
-# Use simple non-colored logging in circleci
-for logger in LOGGING["loggers"].values():
-    logger["handlers"] = ["console"]

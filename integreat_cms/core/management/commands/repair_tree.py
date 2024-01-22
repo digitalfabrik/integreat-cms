@@ -50,6 +50,8 @@ class Command(LogCommand):
         :param \**options: The supplied keyword options
         :raises ~django.core.management.base.CommandError: When the input is invalid
         """
+        self.set_logging_stream()
+
         try:
             root_node = Page.objects.get(id=page_id)
         except Page.DoesNotExist as e:
@@ -58,7 +60,7 @@ class Command(LogCommand):
         while root_node.parent:
             root_node = root_node.parent
         action = "Fixing" if commit else "Detecting problems in"
-        self.print_info(f"{action} tree with id {root_node.tree_id}...")
+        logger.info("%s tree with id %s...", action, root_node.tree_id)
         self.calculate_left_right_values(root_node, 1, commit)
         self.check_for_orphans(root_node.tree_id)
 
@@ -72,37 +74,37 @@ class Command(LogCommand):
         :return: Whether the tree fields of the node are valid
         """
         valid = True
-        self.stdout.write(self.bold(f"Page {tree_node.id}:"))
-        self.print_success(f"\tparent_id: {tree_node.parent_id}")
+        logger.info("Page %s:", tree_node.id)
+        logger.success("\tparent_id: %s", tree_node.parent_id)  # type: ignore[attr-defined]
         if not tree_node.parent or tree_node.tree_id == tree_node.parent.tree_id:
-            self.print_success(f"\ttree_id: {tree_node.tree_id}")
+            logger.success("\ttree_id: %s", tree_node.tree_id)  # type: ignore[attr-defined]
         else:
-            self.print_error(
-                f"\ttree_id: {tree_node.tree_id} → {tree_node.parent.tree_id}"
+            logger.error(
+                "\ttree_id: %s → %s", tree_node.tree_id, tree_node.parent.tree_id
             )
             valid = False
         if tree_node.parent_id:
             if tree_node.depth == tree_node.parent.depth + 1:
-                self.print_success(f"\tdepth: {tree_node.depth}")
+                logger.success("\tdepth: %s", tree_node.depth)  # type: ignore[attr-defined]
             else:
-                self.print_error(
-                    f"\tdepth: {tree_node.depth} → {tree_node.parent.depth + 1}"
+                logger.error(
+                    "\tdepth: %s → %s", tree_node.depth, tree_node.parent.depth + 1
                 )
                 valid = False
         elif tree_node.depth == 1:
-            self.print_success(f"\tdepth: {tree_node.depth}")
+            logger.success("\tdepth: %s", tree_node.depth)  # type: ignore[attr-defined]
         else:
-            self.print_error(f"\tdepth: {tree_node.depth} → 1")
+            logger.error("\tdepth: %s → 1", tree_node.depth)
             valid = False
         if tree_node.lft == left:
-            self.print_success(f"\tlft: {tree_node.lft}")
+            logger.success("\tlft: %s", tree_node.lft)  # type: ignore[attr-defined]
         else:
-            self.print_error(f"\tlft: {tree_node.lft} → {left}")
+            logger.error("\tlft: %s → %s", tree_node.lft, left)
             valid = False
         if tree_node.rgt == right:
-            self.print_success(f"\trgt: {tree_node.rgt}")
+            logger.success("\trgt: %s", tree_node.rgt)  # type: ignore[attr-defined]
         else:
-            self.print_error(f"\trgt: {tree_node.rgt} → {right}")
+            logger.error("\trgt: %s → %s", tree_node.rgt, right)
             valid = False
         return valid
 
@@ -115,21 +117,21 @@ class Command(LogCommand):
         if orphans := Page.objects.filter(tree_id=tree_id).exclude(
             id__in=self.pages_seen
         ):
-            self.print_error(
+            logger.error(
                 "\n💣 Orphans detected! The following pages share the tree id "
-                f"{tree_id} but don't have a relation to the root node:"
+                "%s but don't have a relation to the root node:",
+                tree_id,
             )
             for orphan in orphans:
-                self.stdout.write(self.bold(f"Page {orphan.id}:"))
-                self.print_error(f"\tparent_id: {orphan.parent_id}")
+                logger.info("Page %s:", orphan.id)
+                logger.error("\tparent_id: %s", orphan.parent_id)
                 if orphan.parent_id:
-                    self.print_error(f"\tparent.tree_id: {orphan.parent.tree_id}")
-                self.stdout.write(
-                    self.bold(
-                        f"\tdepth {orphan.depth}\n"
-                        f"\tlft: {orphan.lft}\n"
-                        f"\trgt: {orphan.rgt}"
-                    )
+                    logger.error("\tparent.tree_id: %s", orphan.parent.tree_id)
+                logger.info(
+                    "\tdepth %s\n\tlft: %s\n\trgt: %s",
+                    orphan.depth,
+                    orphan.lft,
+                    orphan.rgt,
                 )
 
     def calculate_left_right_values(
