@@ -25,7 +25,7 @@ def test_api_push_page_content(load_test_data: None) -> None:
         view_name, kwargs={"region_slug": "augsburg", "language_slug": "de"}
     )
     # Check whether the endpoints resolve correctly
-    match = resolve("/api/augsburg/de/pushpage/")
+    match = resolve("/api/v3/augsburg/de/pushpage/")
     wp_match = resolve("/augsburg/de/wp-json/extensions/v3/pushpage/")
     assert match.view_name == wp_match.view_name == view_name
     # Test invalid submission
