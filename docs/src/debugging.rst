@@ -13,6 +13,6 @@ When the sidebar is collapsed, you can show it by clicking on the "DJDT" button 
 
 In order to use this for JSON views, you have to append ``?debug`` to the URL, e.g.::
 
-    http://localhost:8000/api/augsburg/de/pages?debug
+    http://localhost:8000/api/v3/augsburg/de/pages?debug
 
 (See :class:`~integreat_cms.api.middleware.json_debug_toolbar_middleware.JsonDebugToolbarMiddleware` for reference.)
