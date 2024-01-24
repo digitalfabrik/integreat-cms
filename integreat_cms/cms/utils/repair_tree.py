@@ -109,7 +109,7 @@ def repair_tree(
 
 def print_changed_fields(
     tree_node: Page, left: int, right: int, printer: Printer = Printer()
-) -> bool:
+) -> None:
     """
     Check whether the tree fields are correct
 
@@ -149,7 +149,7 @@ class MPTTFixer:
     to fix hierarchy and sorts siblings by (potentially inconsistent) lft.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Creates a fixed tree when initializing class but does not save results
         """
@@ -159,7 +159,7 @@ class MPTTFixer:
         self.fix_root_nodes()
         self.fix_child_nodes()
 
-    def fix_root_nodes(self):
+    def fix_root_nodes(self) -> None:
         """
         extract root nodes and reset lft + rgt values
         """
@@ -174,7 +174,7 @@ class MPTTFixer:
                 tree_counter = tree_counter + 1
                 self.fixed_nodes[node.pk] = node
 
-    def fix_child_nodes(self):
+    def fix_child_nodes(self) -> None:
         """
         Get all remaining (child) nodes, add add them to the new/fixed tree
         """
@@ -188,7 +188,7 @@ class MPTTFixer:
                 self.fixed_nodes[parent.pk].fixed_children.append(node.pk)
                 self.update_ancestors_rgt(node.pk)
 
-    def calculate_lft_rgt(self, node: Page, parent: Page):
+    def calculate_lft_rgt(self, node: Page, parent: Page) -> Page:
         """
         add a new node to the existing MPTT structure. As we sorted by lft, we always add
         to the right of existing nodes.
@@ -206,7 +206,7 @@ class MPTTFixer:
             node.depth = left_sibling.depth
         return node
 
-    def update_ancestors_rgt(self, node_id: int):
+    def update_ancestors_rgt(self, node_id: int) -> None:
         """
         As we only append siblings to the right, we only need to modify the rgt values
         of all ancestors to adopt the new node into the tree.
@@ -216,7 +216,7 @@ class MPTTFixer:
             self.fixed_nodes[node.parent_id].rgt = node.rgt + 1
             node = self.fixed_nodes[node.parent_id]
 
-    def get_fixed_root_nodes(self):
+    def get_fixed_root_nodes(self) -> [Page]:
         """
         Return a list of all fixed root nodes
         """
@@ -224,7 +224,7 @@ class MPTTFixer:
             if node.parent is None:
                 yield node
 
-    def get_fixed_root_node(self, page_id: int):
+    def get_fixed_root_node(self, page_id: int) -> Page:
         """
         Travel up ancestors of a page until we get the root node
         """
@@ -233,13 +233,13 @@ class MPTTFixer:
             page = self.fixed_nodes[page.parent_id]
         return page
 
-    def get_fixed_tree_nodes(self):
+    def get_fixed_tree_nodes(self) -> [Page]:
         """
         Yield all page tree nodes
         """
         return self.fixed_nodes.values()
 
-    def get_fixed_tree_of_page(self, node_id: int = None):
+    def get_fixed_tree_of_page(self, node_id: int = None) -> [Page]:
         """
         get all nodes of page tree, either identfied by one page or the (new) tree ID.
         get all trees if no key is provided.
