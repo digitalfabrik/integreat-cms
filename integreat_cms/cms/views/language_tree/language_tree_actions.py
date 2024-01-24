@@ -10,6 +10,7 @@ from typing import TYPE_CHECKING
 from cacheops import invalidate_obj
 from django.contrib import messages
 from django.db import transaction
+from django.db.models import ProtectedError
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
@@ -114,7 +115,17 @@ def delete_language_tree_node(
     poi_translations.filter(poi__region=region).delete()
 
     logger.debug("%r deleted by %r", language_node, request.user)
-    language_node.delete()
+
+    try:
+        language_node.delete()
+    except ProtectedError:
+        messages.error(
+            request,
+            _(
+                'The language tree node "{}" cannot be deleted because it is the source language of other language(s).'
+            ).format(language_node.translated_name),
+        )
+        return redirect("languagetreenodes", **{"region_slug": region_slug})
 
     manually_invalidate_models(region)
 
