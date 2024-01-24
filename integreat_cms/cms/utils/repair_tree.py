@@ -18,7 +18,10 @@ class Printer:
     Select printer for stdout or log file
     """
 
-    def __init__(self, print_func=None, error=None, success=None):
+    def __init__(self, print_func=None, error=None, success=None) -> None:
+        """
+        Map passed print functions to internal attributes
+        """
         self._print = print_func
         self._error = error
         self._success = success
@@ -26,53 +29,83 @@ class Printer:
         self._bold = None
 
     @property
-    def print(self):
+    def print(self) -> print:
+        """
+        Return regular print w/o coloring
+        """
         if not self._print:
             return logger.debug
         return self._print
 
     @print.setter
-    def print(self, new):
+    def print(self, new: print) -> None:
+        """
+        Print w/o styling
+        """
         self._print = new
 
     @property
-    def error(self):
+    def error(self) -> print:
+        """
+        Return error print function
+        """
         if not self._error:
             return self.print
         return self._error
 
     @error.setter
-    def error(self, new):
+    def error(self, new: print) -> None:
+        """
+        Set print function with error styling
+        """
         self._error = new
 
     @property
-    def success(self):
+    def success(self) -> print:
+        """
+        Return success print function
+        """
         if not self._success:
             return self.print
         return self._success
 
     @success.setter
-    def success(self, new):
+    def success(self, new: print) -> None:
+        """
+        Set print function with success styling
+        """
         self._success = new
 
     @property
-    def bold(self):
+    def bold(self) -> print:
+        """
+        Return bold print function
+        """
         if not self._bold:
             return lambda x: x
         return self._bold
 
     @bold.setter
-    def bold(self, new):
+    def bold(self, new: print) -> None:
+        """
+        Set print function for bold font
+        """
         self._bold = new
 
     @property
-    def write(self):
+    def write(self) -> print:
+        """
+        Return write function w/o new line
+        """
         if not self._write:
             return self.print
         return self._write
 
     @write.setter
-    def write(self, new):
+    def write(self, new: print) -> None:
+        """
+        Set write function w/o new line
+        """
         self._write = new
 
 
@@ -216,7 +249,7 @@ class MPTTFixer:
             self.fixed_nodes[node.parent_id].rgt = node.rgt + 1
             node = self.fixed_nodes[node.parent_id]
 
-    def get_fixed_root_nodes(self) -> [Page]:
+    def get_fixed_root_nodes(self) -> list[Page]:
         """
         Return a list of all fixed root nodes
         """
@@ -239,7 +272,7 @@ class MPTTFixer:
         """
         return self.fixed_nodes.values()
 
-    def get_fixed_tree_of_page(self, node_id: int = None) -> [Page]:
+    def get_fixed_tree_of_page(self, node_id: int = None) -> list[Page]:
         """
         get all nodes of page tree, either identfied by one page or the (new) tree ID.
         get all trees if no key is provided.
