@@ -4,7 +4,6 @@ import logging
 from typing import TYPE_CHECKING
 
 from django.core.management.base import CommandError
-from django.db import transaction
 
 from ....cms.models import Page
 from ....cms.utils.repair_tree import Printer, repair_tree
@@ -42,7 +41,6 @@ class Command(LogCommand):
             help="Whether changes should be written to the database",
         )
 
-    @transaction.atomic
     # pylint: disable=arguments-differ
     def handle(self, *args: Any, page_id: int, commit: bool, **options: Any) -> None:
         r"""
