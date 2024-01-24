@@ -2,6 +2,7 @@
 This module contains utilities to repair or detect inconsistencies in a tree
 """
 from __future__ import annotations
+from collections.abc import Callable
 
 import logging
 
@@ -29,7 +30,7 @@ class Printer:
         self._bold = None
 
     @property
-    def print(self) -> print:
+    def print(self) -> Callable[str]:
         """
         Return regular print w/o coloring
         """
@@ -38,7 +39,7 @@ class Printer:
         return self._print
 
     @print.setter
-    def print(self, new: print) -> None:
+    def print(self, new: Callable[str]) -> None:
         """
         Print w/o styling
         """
@@ -54,14 +55,14 @@ class Printer:
         return self._error
 
     @error.setter
-    def error(self, new: print) -> None:
+    def error(self, new: Callable[str]) -> None:
         """
         Set print function with error styling
         """
         self._error = new
 
     @property
-    def success(self) -> print:
+    def success(self) -> Callable[str]:
         """
         Return success print function
         """
@@ -70,14 +71,14 @@ class Printer:
         return self._success
 
     @success.setter
-    def success(self, new: print) -> None:
+    def success(self, new: Callable[str]) -> None:
         """
         Set print function with success styling
         """
         self._success = new
 
     @property
-    def bold(self) -> print:
+    def bold(self) -> Callable[str]:
         """
         Return bold print function
         """
@@ -86,14 +87,14 @@ class Printer:
         return self._bold
 
     @bold.setter
-    def bold(self, new: print) -> None:
+    def bold(self, new: Callable[str]) -> None:
         """
         Set print function for bold font
         """
         self._bold = new
 
     @property
-    def write(self) -> print:
+    def write(self) -> Callable[str]:
         """
         Return write function w/o new line
         """
@@ -102,7 +103,7 @@ class Printer:
         return self._write
 
     @write.setter
-    def write(self, new: print) -> None:
+    def write(self, new: Callable[str]) -> None:
         """
         Set write function w/o new line
         """
@@ -181,14 +182,13 @@ class MPTTFixer:
     eats all nodes and coughs out fixed LFT, RGT and depth values. Uses the parent field
     to fix hierarchy and sorts siblings by (potentially inconsistent) lft.
     """
-
     def __init__(self) -> None:
         """
         Creates a fixed tree when initializing class but does not save results
         """
-        self.broken_nodes = list(Page.objects.all().order_by("tree_id", "lft"))
+        self.broken_nodes: list[Page] = list(Page.objects.all().order_by("tree_id", "lft"))
         # Dictionaries keep the insert order as of Python 3.7
-        self.fixed_nodes = {}
+        self.fixed_nodes: dict[int, Page] = {}
         self.fix_root_nodes()
         self.fix_child_nodes()
 
