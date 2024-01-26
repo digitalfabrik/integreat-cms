@@ -2221,14 +2221,6 @@ msgstr "Das Start-Datum kann nicht nach dem End-Datum liegen"
 msgid "The end date can't be before the start date"
 msgstr "Das End-Datum kann nicht vor dem Start-Datum liegen"
 
-#: cms/forms/translations/translations_management_form.py
-msgid "Language Selection"
-msgstr "Sprachauswahl"
-
-#: cms/forms/translations/translations_management_form.py
-msgid "Allow machine translations into the following languages:"
-msgstr "Folgende Sprachen maschinell übersetzen:"
-
 #: cms/forms/users/authentication_form.py cms/forms/users/user_form.py
 #: cms/templates/authentication/password_reset_confirm.html
 msgid "Password"
@@ -2916,6 +2908,14 @@ msgstr "maschinell übersetzbar"
 #: cms/models/languages/language_tree_node.py
 msgid "Enable or disable machine translations into this language"
 msgstr "Maschinelle Übersetzungen in diese Sprache erlauben oder verbieten"
+
+#: cms/models/languages/language_tree_node.py
+msgid "machine translation provider"
+msgstr "Anbieter für maschinelle Übersetzungen"
+
+#: cms/models/languages/language_tree_node.py
+msgid "Preferred provider for translations into this language"
+msgstr "Bevorzugter Anbieter für Übersetzungen in diese Sprache"
 
 #: cms/models/languages/language_tree_node.py
 msgid "language tree node"
@@ -7612,16 +7612,8 @@ msgid "Manage machine translations"
 msgstr "Maschinelle Übersetzungen verwalten"
 
 #: cms/templates/translations/translations_management.html
-msgid "Machine Translation"
-msgstr "Maschinelle Übersetzung"
-
-#: cms/templates/translations/translations_management.html
-msgid "Automatic translations"
-msgstr "Automatische Übersetzungen"
-
-#: cms/templates/translations/translations_management.html
-msgid "Automatically machine translate the following types of content:"
-msgstr "Folgende Inhalte automatisch maschinell übersetzen:"
+msgid "Select provider"
+msgstr "Anbieter auswählen"
 
 #: cms/templates/translations/translations_management.html
 msgid "There is no active language in this region."
@@ -7633,9 +7625,29 @@ msgstr ""
 "Es gibt keine andere Sprache als die Standard-Sprache in dieser Region."
 
 #: cms/templates/translations/translations_management.html
+msgid ""
+"Please select which translation provider you prefer to use for the given "
+"language:"
+msgstr ""
+"Bitte wählen Sie, welchen Anbieter für Übersetzungen Sie für die gegebene "
+"Sprache bevorzugen:"
+
+#: cms/templates/translations/translations_management.html
 msgid "These languages are currently unavailable for machine translations"
 msgstr ""
 "Für folgende Sprachen sind maschinelle Übersetzungen momentan nicht verfügbar"
+
+#: cms/templates/translations/translations_management.html
+msgid "Machine Translation"
+msgstr "Maschinelle Übersetzung"
+
+#: cms/templates/translations/translations_management.html
+msgid "Automatic translations"
+msgstr "Automatische Übersetzungen"
+
+#: cms/templates/translations/translations_management.html
+msgid "Automatically machine translate the following types of content:"
+msgstr "Folgende Inhalte automatisch maschinell übersetzen:"
 
 #: cms/templates/translations/translations_management.html
 msgid "Translation Budget"
@@ -9774,6 +9786,12 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Language Selection"
+#~ msgstr "Sprachauswahl"
+
+#~ msgid "Allow machine translations into the following languages:"
+#~ msgstr "Folgende Sprachen maschinell übersetzen:"
 
 #~ msgid "The selected {} \"{}\" was successfully restored"
 #~ msgstr "Die ausgewählten {} \"{}\" wurden erfolgreich wiederhergestellt"

@@ -57,6 +57,16 @@ class LanguageTreeNode(AbstractTreeNode):
         verbose_name=_("machine translatable"),
         help_text=_("Enable or disable machine translations into this language"),
     )
+    preferred_mt_provider = models.CharField(
+        max_length=255,
+        choices=map(
+            lambda provider: (provider.name, provider.name),
+            machine_translation_providers.CHOICES,
+        ),
+        default=next(iter(machine_translation_providers.CHOICES)).name,
+        verbose_name=_("machine translation provider"),
+        help_text=_("Preferred provider for translations into this language"),
+    )
 
     @cached_property
     def slug(self) -> str:
@@ -119,11 +129,14 @@ class LanguageTreeNode(AbstractTreeNode):
     @cached_property
     def mt_provider(self) -> MachineTranslationProviderType | None:
         """
-        Return the machine translation provider if it exists, or ``None`` otherwise
+        Return the preferred machine translation provider if valid, or the first available provider, or ``None``
 
         :return: The MT provider for this target language
         """
-        return next(iter(self.mt_providers), None)
+        return next(
+            (p for p in self.mt_providers if p.name == self.preferred_mt_provider),
+            next(iter(self.mt_providers), None),
+        )
 
     def __str__(self) -> str:
         """
