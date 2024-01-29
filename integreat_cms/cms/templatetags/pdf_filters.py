@@ -29,7 +29,7 @@ def pdf_strip_fontstyles(instance: str) -> str:
     for element in content.iter():
         if style := element.attrib.pop("style", None):
             element.attrib["style"] = re.sub(r"font-[a-zA-Z]+:[^;]+", "", style)
-    return unescape(tostring(content, with_tail=False).decode("utf-8"))
+    return unescape(tostring(content, encoding="unicode", with_tail=False))
 
 
 @register.filter
@@ -52,4 +52,4 @@ def pdf_truncate_links(page_content: str, max_chars: int) -> str:
                 Truncator(word).chars(max_chars) for word in elem.text.split(" ")
             )
 
-    return unescape(tostring(content, with_tail=False).decode("utf-8"))
+    return unescape(tostring(content, encoding="unicode", with_tail=False))
