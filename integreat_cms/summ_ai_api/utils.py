@@ -1,6 +1,7 @@
 """
 This module contains helpers for the SUMM.AI API client
 """
+
 from __future__ import annotations
 
 import itertools

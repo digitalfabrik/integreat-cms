@@ -1,6 +1,7 @@
 """
 This module includes the POI category API endpoint.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -32,9 +33,11 @@ def transform_location_category(
     category_translation = location_category.get_translation(language_slug)
     return {
         "id": location_category.id,
-        "name": category_translation.name
-        if category_translation
-        else location_category.name,
+        "name": (
+            category_translation.name
+            if category_translation
+            else location_category.name
+        ),
         "color": location_category.color,
         "icon": location_category.icon,
         "icon_url": (

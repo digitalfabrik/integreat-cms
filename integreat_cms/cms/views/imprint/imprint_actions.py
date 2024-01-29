@@ -1,6 +1,7 @@
 """
 This module contains view actions related to the imprint.
 """
+
 from __future__ import annotations
 
 import logging

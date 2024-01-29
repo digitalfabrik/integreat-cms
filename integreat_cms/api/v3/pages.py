@@ -1,6 +1,7 @@
 """
 This module includes functions related to the pages API endpoint.
 """
+
 from __future__ import annotations
 
 import json
@@ -87,18 +88,20 @@ def transform_page(page_translation: PageTranslation) -> dict[str, Any]:
         "parent": parent,
         "order": order,
         "available_languages": page_translation.available_languages_dict,
-        "thumbnail": page_translation.page.icon.url
-        if page_translation.page.icon
-        else None,
-        "organization": {
-            "id": organization.id,
-            "slug": organization.slug,
-            "name": organization.name,
-            "logo": organization.icon.url,
-            "website": organization.website,
-        }
-        if organization
-        else None,
+        "thumbnail": (
+            page_translation.page.icon.url if page_translation.page.icon else None
+        ),
+        "organization": (
+            {
+                "id": organization.id,
+                "slug": organization.slug,
+                "name": organization.name,
+                "logo": organization.icon.url,
+                "website": organization.website,
+            }
+            if organization
+            else None
+        ),
         "hash": None,
         "embedded_offers": [
             transform_offer(offer, page_translation.page.region)

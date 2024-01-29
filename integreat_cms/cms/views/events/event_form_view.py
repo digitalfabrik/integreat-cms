@@ -116,9 +116,9 @@ class EventFormView(
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],
                 "url_link": url_link,
-                "translation_states": event_instance.translation_states
-                if event_instance
-                else [],
+                "translation_states": (
+                    event_instance.translation_states if event_instance else []
+                ),
             },
         )
 
@@ -304,8 +304,8 @@ class EventFormView(
                 "language": language,
                 "languages": region.active_languages if event_instance else [language],
                 "url_link": url_link,
-                "translation_states": event_instance.translation_states
-                if event_instance
-                else [],
+                "translation_states": (
+                    event_instance.translation_states if event_instance else []
+                ),
             },
         )

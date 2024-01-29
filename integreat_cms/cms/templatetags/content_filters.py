@@ -2,6 +2,7 @@
 This is a collection of tags and filters which are useful for all content types (:class:`~integreat_cms.cms.models.pages.page.Page`,
 :class:`~integreat_cms.cms.models.events.event.Event` and :class:`~integreat_cms.cms.models.pois.poi.POI`).
 """
+
 from __future__ import annotations
 
 import logging

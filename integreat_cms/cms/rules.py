@@ -17,6 +17,7 @@ For a given user and page, the following permissions are added:
 
 See the project's `README <https://github.com/dfunckt/django-rules/blob/master/README.rst>`_ to learn more.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

@@ -1,6 +1,7 @@
 """
 This is a collection of tags and filters which are useful for all models.
 """
+
 from __future__ import annotations
 
 import logging

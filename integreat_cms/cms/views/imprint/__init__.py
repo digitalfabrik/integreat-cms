@@ -1,6 +1,7 @@
 """
 This package contains all views related to the imprint
 """
+
 from __future__ import annotations
 
 from .imprint_actions import delete_imprint, expand_imprint_translation_id

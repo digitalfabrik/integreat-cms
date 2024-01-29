@@ -1,6 +1,7 @@
 """
 This module includes functions that are used as decorators in the API endpoints.
 """
+
 from __future__ import annotations
 
 import json

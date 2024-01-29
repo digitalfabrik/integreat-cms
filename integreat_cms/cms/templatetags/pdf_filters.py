@@ -1,6 +1,7 @@
 """
 This is a collection of tags and filters for page content used in PDFs (:class:`~integreat_cms.cms.models.pages.page.Page`).
 """
+
 from __future__ import annotations
 
 import re

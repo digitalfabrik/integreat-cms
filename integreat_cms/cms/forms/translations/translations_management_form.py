@@ -84,9 +84,9 @@ class TranslationsManagementForm(CustomModelForm):
         self.fields["machine_translatable_languages"].queryset = languages.filter(
             id__in=[id for languages in mt_providers.values() for id, _ in languages]
         )
-        self.initial[
-            "machine_translatable_languages"
-        ] = self.instance.language_tree_nodes.filter(machine_translation_enabled=True)
+        self.initial["machine_translatable_languages"] = (
+            self.instance.language_tree_nodes.filter(machine_translation_enabled=True)
+        )
 
     def save(self, commit: bool = True) -> Region:
         """

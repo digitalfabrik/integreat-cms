@@ -1,6 +1,7 @@
 """
 This module contains labels for the choices regarding the position of embedding live content
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

@@ -1,6 +1,7 @@
 """
 Form for submitting filter requests
 """
+
 from __future__ import annotations
 
 import logging

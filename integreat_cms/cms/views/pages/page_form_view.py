@@ -454,9 +454,9 @@ class PageFormView(
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
-                "translation_states": page_instance.translation_states
-                if page_instance
-                else [],
+                "translation_states": (
+                    page_instance.translation_states if page_instance else []
+                ),
             },
         )
 

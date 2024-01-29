@@ -1,6 +1,7 @@
 """
 This module contains action methods for events (archive, restore, ...)
 """
+
 from __future__ import annotations
 
 import json

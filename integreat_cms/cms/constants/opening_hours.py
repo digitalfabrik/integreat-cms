@@ -1,6 +1,7 @@
 """
 Thile file contains the JSON schema for opening hours
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

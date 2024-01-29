@@ -16,6 +16,7 @@ Additionally, the error handlers in :mod:`~integreat_cms.cms.views.error_handler
 
 For more information on this file, see :doc:`django:topics/http/urls`.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

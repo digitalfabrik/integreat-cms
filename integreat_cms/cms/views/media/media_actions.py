@@ -1,6 +1,7 @@
 """
 This module contains view actions for media related objects.
 """
+
 from __future__ import annotations
 
 import logging

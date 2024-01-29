@@ -1,6 +1,7 @@
 """
 This module contains all constants representing the text directions of a :class:`~integreat_cms.cms.models.languages.language.Language`.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

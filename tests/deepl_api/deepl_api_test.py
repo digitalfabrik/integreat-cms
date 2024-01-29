@@ -97,8 +97,9 @@ def get_content_translations(
 
 
 def get_word_count(
-    translations: list[EventTranslation]
-    | (list[PageTranslation] | list[POITranslation]),
+    translations: list[EventTranslation] | (
+        list[PageTranslation] | list[POITranslation]
+    ),
 ) -> int:
     """
     Count the total number of words in the title, content and meta-description of translations

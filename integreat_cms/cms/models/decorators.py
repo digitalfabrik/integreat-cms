@@ -1,6 +1,7 @@
 """
 Django model decorators can be used to modify inherited fields of abstract models.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

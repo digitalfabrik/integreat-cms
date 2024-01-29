@@ -3,6 +3,7 @@ This module contains the :class:`~integreat_cms.cms.models.media.media_file.Medi
 :func:`~integreat_cms.cms.models.media.media_file.upload_path` and :func:`~integreat_cms.cms.models.media.media_file.upload_path_thumbnail` which
 are used to determine the file system path to which the files should be uploaded.
 """
+
 from __future__ import annotations
 
 import logging

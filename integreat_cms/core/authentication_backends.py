@@ -2,6 +2,7 @@
 This file contains custom authentication backends, see :ref:`ref/contrib/auth:authentication backends` and
 :ref:`django:authentication-backends`.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

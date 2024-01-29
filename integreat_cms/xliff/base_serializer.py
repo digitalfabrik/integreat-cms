@@ -6,6 +6,7 @@ It makes use of the existing Django serialization functionality (see :doc:`djang
 It extends :django-source:`django/core/serializers/base.py` and
 :django-source:`django/core/serializers/xml_serializer.py`.
 """
+
 from __future__ import annotations
 
 import logging

@@ -171,9 +171,11 @@ class DeepLApiClient(MachineTranslationApiClient):
                     continue
 
                 data = {
-                    "status": existing_target_translation.status
-                    if existing_target_translation
-                    else source_translation.status,
+                    "status": (
+                        existing_target_translation.status
+                        if existing_target_translation
+                        else source_translation.status
+                    ),
                     "machine_translated": True,
                     "currently_in_translation": False,
                 }

@@ -1,6 +1,7 @@
 """
 Expansion of API-Endpoints for the CMS
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

@@ -1,6 +1,7 @@
 """
 Custom user model that is used instead of the default Django user model
 """
+
 from __future__ import annotations
 
 import logging

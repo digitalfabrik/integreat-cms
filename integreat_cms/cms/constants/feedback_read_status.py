@@ -6,6 +6,7 @@ The module also contains a constant :attr:`~integreat_cms.cms.constants.all_day.
 values linked to the strings and is used for correctly instantiating :class:`django.forms.TypedMultipleChoiceField`
 instances in :class:`~integreat_cms.cms.forms.events.event_filter_form.EventFilterForm`.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

@@ -1,6 +1,7 @@
 """
 Context processors pass additional variables to templates (see :ref:`context-processors`).
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

@@ -1,6 +1,7 @@
 """
 This module contains all string representations of weekdays, used by :class:`~integreat_cms.cms.models.events.event.Event`.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

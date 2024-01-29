@@ -1,6 +1,7 @@
 """
 This package contains all views related to the language tree of a region
 """
+
 from __future__ import annotations
 
 from .language_tree_actions import delete_language_tree_node, move_language_tree_node

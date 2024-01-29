@@ -1,6 +1,7 @@
 """
 This module contains the API client to interact with the SUMM.AI API
 """
+
 from __future__ import annotations
 
 import asyncio

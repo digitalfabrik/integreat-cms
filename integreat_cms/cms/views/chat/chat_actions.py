@@ -1,6 +1,7 @@
 """
 This module contains action methods for the author chat
 """
+
 from __future__ import annotations
 
 import logging

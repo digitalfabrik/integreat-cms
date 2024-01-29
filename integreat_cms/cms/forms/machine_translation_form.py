@@ -83,12 +83,12 @@ class MachineTranslationForm(CustomContentModelForm):
             )
             target_type.append(target.id)
 
-        self.fields[
-            "mt_translations_to_create"
-        ].queryset = self.request.region.language_tree_nodes.filter(id__in=to_create)
-        self.fields[
-            "mt_translations_to_update"
-        ].queryset = self.request.region.language_tree_nodes.filter(id__in=to_update)
+        self.fields["mt_translations_to_create"].queryset = (
+            self.request.region.language_tree_nodes.filter(id__in=to_create)
+        )
+        self.fields["mt_translations_to_update"].queryset = (
+            self.request.region.language_tree_nodes.filter(id__in=to_update)
+        )
         self.initial["mt_translations_to_update"] = to_update
 
     def mt_form_is_enabled(self) -> NS_NodeQuerySet:

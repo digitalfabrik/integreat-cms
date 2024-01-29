@@ -1,6 +1,7 @@
 """
 This module contains the possible modes for push notifications.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

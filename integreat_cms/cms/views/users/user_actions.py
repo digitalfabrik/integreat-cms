@@ -1,6 +1,7 @@
 """
 This module contains view actions for user objects.
 """
+
 from __future__ import annotations
 
 import logging

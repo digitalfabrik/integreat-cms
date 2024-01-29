@@ -1,6 +1,7 @@
 """
 This module contains custom Django storages
 """
+
 from __future__ import annotations
 
 import logging

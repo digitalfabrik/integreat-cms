@@ -1,6 +1,7 @@
 """
 This module contains helpers for the gettext translation process of UI languages.
 """
+
 from __future__ import annotations
 
 import logging

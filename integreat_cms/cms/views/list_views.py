@@ -1,6 +1,7 @@
 """
 This module contains list views for our models that don't need custom handling.
 """
+
 from __future__ import annotations
 
 import logging

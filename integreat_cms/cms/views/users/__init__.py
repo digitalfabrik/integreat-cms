@@ -1,6 +1,7 @@
 """
 This package contains all views related to users
 """
+
 from __future__ import annotations
 
 from .region_user_actions import delete_region_user, resend_activation_link_region

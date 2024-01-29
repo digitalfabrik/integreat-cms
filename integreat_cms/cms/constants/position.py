@@ -2,6 +2,7 @@
 This module contains all possible positions inside a MPTT tree model.
 It is used to determine the relative position of nodes in relation to another node.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

@@ -1,6 +1,7 @@
 """
 APIv3 endpoint for feedback about full region (main level of content)
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
