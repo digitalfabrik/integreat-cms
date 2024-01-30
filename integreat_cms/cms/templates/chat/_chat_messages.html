@@ -11,14 +11,17 @@
             ({{ message.sender.email|urlize }})
         {% endif %}
         {% has_perm 'cms.delete_chat_message_object' request.user message as can_delete_message %}
+        {# djlint:off #}
         <button title="{% translate "Delete chat message" %}"
                 class="{% if not can_delete_message %} invisible{% endif %} button-delete-chat-message btn-icon float-right ml-2"
                 data-confirmation-title="{% translate "Please confirm that you really want to delete this chat message:" %}"
-                data-confirmation-text='{% translate "Sender:" %} {{ message.sender.full_user_name }} &#010 {% translate "Sent on:" %} {{ message.sent_datetime }}'
+                data-confirmation-text='{% translate "Sender:" %} {{ message.sender.full_user_name }}
+                                        {% translate "Sent on:" %} {{ message.sent_datetime }}'
                 data-confirmation-subject="{{ message.text }}"
                 data-action="{% spaceless %} {% if request.region %} {% url "delete_chat_message" region_slug=request.region.slug message_id=message.id %} {% else %} {% url "delete_chat_message" message_id=message.id %} {% endif %} {% endspaceless %}">
             <i icon-name="trash-2"></i>
         </button>
+        {# djlint:on #}
         <span class="text-gray-600 float-right">{{ message.sent_datetime }}</span>
         <p class="pt-2 whitespace-pre-line">
             {{ message.text|urlize }}

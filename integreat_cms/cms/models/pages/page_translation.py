@@ -365,7 +365,7 @@ class PageTranslation(AbstractBasePageTranslation):
 
         :return: The path
         """
-        label = " &rarr; ".join(
+        label = " → ".join(
             [
                 # escape page title because string is marked as safe afterwards
                 escape(
@@ -381,7 +381,7 @@ class PageTranslation(AbstractBasePageTranslation):
         )
         # Add warning if page is archived
         if self.page.archived:
-            label += " (&#9888; " + _("Archived") + ")"
+            label += " (⚠ " + _("Archived") + ")"
         # mark as safe so that the arrow and the warning triangle are not escaped
         return mark_safe(label)
 
