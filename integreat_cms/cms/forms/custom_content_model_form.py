@@ -15,6 +15,7 @@ from lxml.html import fromstring, tostring
 from ..constants import status
 from ..models import MediaFile
 from ..utils import internal_link_utils
+from ..utils.linkcheck_utils import fix_content_link_encoding
 from ..utils.slug_utils import generate_unique_slug_helper
 from .custom_model_form import CustomModelForm
 
@@ -189,7 +190,8 @@ class CustomContentModelForm(CustomModelForm):
                 self.logger.debug("Image alt text replaced: %r", media_file.alt_text)
                 image.attrib["alt"] = media_file.alt_text
 
-        return tostring(content, encoding="unicode", with_tail=False)
+        content_str = tostring(content, encoding="unicode", with_tail=False)
+        return fix_content_link_encoding(content_str)
 
     def clean_slug(self) -> str:
         """
