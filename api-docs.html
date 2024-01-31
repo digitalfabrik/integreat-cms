@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2023-11-07T19:08:51+00:00" />
+    <meta property="article:modified_time" content="2024-01-31T16:54:56+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API Documentation &mdash; integreat-cms 2024.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -1612,6 +1612,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release-notes.html">Release notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#unreleased">unreleased</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release-notes.html#id1">2024.1.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release-notes.html#id2">2023.12.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release-notes.html#id3">2023.11.0</a></li>
@@ -1815,7 +1816,7 @@
 <section id="request">
 <h3>REQUEST<a class="headerlink" href="#request" title="Link to this heading"></a></h3>
 <p>Get all regions</p>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/regions/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/regions/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
 <p>Deprecated url:</p>
@@ -1871,7 +1872,7 @@
 <section id="id1">
 <h3>REQUEST<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
 <p>Get a single region by slug:</p>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/regions/{region_slug}/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/regions/{region_slug}/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
 <p>Deprecated url:</p>
@@ -1890,7 +1891,7 @@
 (this endpoint is deprecated, you can directly use the <code class="docutils literal notranslate"><span class="pre">languages</span></code> attribute of the region response)</p>
 <section id="id3">
 <h3>REQUEST<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/languages/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/languages/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
 <p>Deprecated url:</p>
@@ -1920,7 +1921,7 @@
 <section id="id5">
 <h3>REQUEST<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <p>The language slug, if specified, will be ignored</p>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{offers/extras}/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{offers/extras}/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
 <p>Deprecated url:</p>
@@ -1949,7 +1950,7 @@
 <p>Get all non-archived pages of a region</p>
 <section id="id7">
 <h3>REQUEST<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/pages/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/pages/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
 <p>Deprecated url:</p>
@@ -2014,7 +2015,7 @@
 <p>Get all location translations of a region</p>
 <section id="id9">
 <h3>REQUEST<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/locations/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/locations/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
 <p>Deprecated url:</p>
@@ -2105,7 +2106,7 @@
 <p>Get all location categories</p>
 <section id="id11">
 <h3>REQUEST<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/location-categories/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/location-categories/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
 <p>Deprecated url:</p>
@@ -2134,7 +2135,7 @@
 <p>Get events for this region</p>
 <section id="id13">
 <h3>REQUEST<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/events/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/events/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
 <p>Deprecated url:</p>
@@ -2202,10 +2203,10 @@
 <p>Get a single page translation</p>
 <section id="id15">
 <h3>REQUEST<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/page/?id={page_id}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/page/?id={page_id}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/page/?url={page_url}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/page/?url={page_url}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
 <p>Deprecated urls:</p>
@@ -2228,10 +2229,10 @@ If the id and url parameters are left out, the page children of all root pages w
 If the depth parameter is left out, only the direct children (depth 1) will be returned</p>
 <section id="id17">
 <h3>REQUEST<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/children/?id={page_id}&amp;depth={depth}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/children/?id={page_id}&amp;depth={depth}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/children/?url={page_url}&amp;depth={depth}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/children/?url={page_url}&amp;depth={depth}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
 <p>Deprecated urls:</p>
@@ -2253,10 +2254,10 @@ This contains the queried page(s).</p>
 <p>Get all parents for a specific page</p>
 <section id="id19">
 <h3>REQUEST<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/parents/?id={page_id}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/parents/?id={page_id}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/parents/?url={page_url}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/parents/?url={page_url}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
 <p>Deprecated urls:</p>
@@ -2279,7 +2280,7 @@ This does not contain the queried page.</p>
 If the url parameter is left out, a pdf containing all root pages of the region will be returned</p>
 <section id="id21">
 <h3>REQUEST<a class="headerlink" href="#id21" title="Link to this heading"></a></h3>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/pdf/?url={page_url}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/pdf/?url={page_url}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
 <p>Deprecated urls:</p>
@@ -2300,7 +2301,7 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 <p>Get all sent push notifications for this region</p>
 <section id="id23">
 <h3>REQUEST<a class="headerlink" href="#id23" title="Link to this heading"></a></h3>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/fcm/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/fcm/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
 <p>Deprecated url:</p>
@@ -2327,7 +2328,7 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 <p>Get the imprint (Also named disclaimer) for the given region in the given language</p>
 <section id="id25">
 <h3>REQUEST<a class="headerlink" href="#id25" title="Link to this heading"></a></h3>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/{region_slug}/{language_slug}/{imprint,disclaimer}/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/{imprint,disclaimer}/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
 <p>Deprecated url:</p>
@@ -2367,7 +2368,7 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 <p>Update a page translation</p>
 <section id="id27">
 <h3>REQUEST<a class="headerlink" href="#id27" title="Link to this heading"></a></h3>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/pushpage</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/pushpage</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
 </div>
@@ -2402,7 +2403,7 @@ page resp. Feedback about a single page, event or imprint (also
 called “disclaimer”)</p>
 <section id="id29">
 <h4>REQUEST<a class="headerlink" href="#id29" title="Link to this heading"></a></h4>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
 </div>
@@ -2427,7 +2428,7 @@ called “disclaimer”)</p>
 <p>Feedback for regions</p>
 <section id="id30">
 <h4>REQUEST<a class="headerlink" href="#id30" title="Link to this heading"></a></h4>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/categories</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/categories</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
 </div>
@@ -2451,7 +2452,7 @@ called “disclaimer”)</p>
 <p>Feedback about a single page</p>
 <section id="id31">
 <h4>REQUEST<a class="headerlink" href="#id31" title="Link to this heading"></a></h4>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/page</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/page</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
 </div>
@@ -2476,7 +2477,7 @@ called “disclaimer”)</p>
 <p>Feedback about a point of interest</p>
 <section id="id32">
 <h4>REQUEST<a class="headerlink" href="#id32" title="Link to this heading"></a></h4>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/poi</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/poi</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
 </div>
@@ -2501,7 +2502,7 @@ called “disclaimer”)</p>
 <p>Feedback about an event</p>
 <section id="id33">
 <h4>REQUEST<a class="headerlink" href="#id33" title="Link to this heading"></a></h4>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/event</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/event</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
 </div>
@@ -2526,7 +2527,7 @@ called “disclaimer”)</p>
 <p>Feedback about the event list (E.g. missing events)</p>
 <section id="id35">
 <h4>REQUEST<a class="headerlink" href="#id35" title="Link to this heading"></a></h4>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/events</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/events</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
 </div>
@@ -2551,7 +2552,7 @@ called “disclaimer”)</p>
 <p>Feedback about an imprint page</p>
 <section id="id36">
 <h4>REQUEST<a class="headerlink" href="#id36" title="Link to this heading"></a></h4>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/imprint-page</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/imprint-page</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
 </div>
@@ -2575,7 +2576,7 @@ called “disclaimer”)</p>
 <p>Feedback about the map (E.g. missing points of interest)</p>
 <section id="id37">
 <h4>REQUEST<a class="headerlink" href="#id37" title="Link to this heading"></a></h4>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/map</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/map</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
 </div>
@@ -2599,7 +2600,7 @@ called “disclaimer”)</p>
 <p>Feedback about a search result</p>
 <section id="id38">
 <h4>REQUEST<a class="headerlink" href="#id38" title="Link to this heading"></a></h4>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/search</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/search</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
 </div>
@@ -2624,7 +2625,7 @@ called “disclaimer”)</p>
 <p>Feedback about the offer list (E.g. missing offers)</p>
 <section id="id39">
 <h4>REQUEST<a class="headerlink" href="#id39" title="Link to this heading"></a></h4>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/{offers,extras}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/{offers,extras}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
 </div>
@@ -2648,7 +2649,7 @@ called “disclaimer”)</p>
 <p>Feedback to a specific offer (also called “extra”)</p>
 <section id="id40">
 <h4>REQUEST<a class="headerlink" href="#id40" title="Link to this heading"></a></h4>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/{region_slug}/{language_slug}/feedback/{offer,extra}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/{offer,extra}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
 </div>
@@ -2686,7 +2687,7 @@ called “disclaimer”)</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 07, 2023.
+      <span class="lastupdated">Last updated on Jan 31, 2024.
       </span></p>
   </div>
 
