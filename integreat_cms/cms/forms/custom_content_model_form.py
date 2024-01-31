@@ -15,6 +15,7 @@ from lxml.html import fromstring, tostring
 from ..constants import status
 from ..models import MediaFile
 from ..utils import internal_link_utils
+from ..utils.linkcheck_utils import fix_content_link_encoding
 from ..utils.slug_utils import generate_unique_slug_helper
 from .custom_model_form import CustomModelForm
 
@@ -116,7 +117,8 @@ class CustomContentModelForm(CustomModelForm):
         for heading in content.iter("h1"):
             heading.tag = "h2"
             self.logger.debug(
-                "Replaced heading 1 with heading 2: %r", tostring(heading)
+                "Replaced heading 1 with heading 2: %r",
+                tostring(heading, encoding="unicode"),
             )
 
         # Convert pre and code tags to p tags
@@ -124,7 +126,9 @@ class CustomContentModelForm(CustomModelForm):
             tag_type = monospaced.tag
             monospaced.tag = "p"
             self.logger.debug(
-                "Replaced %r tag with p tag: %r", tag_type, tostring(monospaced)
+                "Replaced %r tag with p tag: %r",
+                tag_type,
+                tostring(monospaced, encoding="unicode"),
             )
 
         # Set link-external as class for external links
@@ -134,18 +138,23 @@ class CustomContentModelForm(CustomModelForm):
                 if "link-external" not in link.classes and is_external:
                     link.classes.add("link-external")
                     self.logger.debug(
-                        "Added class 'link-external' to %r", tostring(link)
+                        "Added class 'link-external' to %r",
+                        tostring(link, encoding="unicode"),
                     )
                 elif "link-external" in link.classes and not is_external:
                     link.classes.remove("link-external")
                     self.logger.debug(
-                        "Removed class 'link-external' from %r", tostring(link)
+                        "Removed class 'link-external' from %r",
+                        tostring(link, encoding="unicode"),
                     )
 
         # Remove external links
         for link in content.iter("a"):
             link.attrib.pop("target", None)
-            self.logger.debug("Removed target attribute from link: %r", tostring(link))
+            self.logger.debug(
+                "Removed target attribute from link: %r",
+                tostring(link, encoding="unicode"),
+            )
 
         # Update internal links
         for link in content.iter("a"):
@@ -181,7 +190,8 @@ class CustomContentModelForm(CustomModelForm):
                 self.logger.debug("Image alt text replaced: %r", media_file.alt_text)
                 image.attrib["alt"] = media_file.alt_text
 
-        return tostring(content, with_tail=False).decode("utf-8")
+        content_str = tostring(content, encoding="unicode", with_tail=False)
+        return fix_content_link_encoding(content_str)
 
     def clean_slug(self) -> str:
         """

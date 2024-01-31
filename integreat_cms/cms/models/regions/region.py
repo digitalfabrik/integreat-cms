@@ -851,10 +851,10 @@ class Region(AbstractBaseModel):
         label = escape(self.full_name)
         if self.status == region_status.HIDDEN:
             # Add warning if region is hidden
-            label += " (&#9888; " + gettext("Hidden") + ")"
+            label += " (⚠ " + gettext("Hidden") + ")"
         elif self.status == region_status.ARCHIVED:
             # Add warning if region is archived
-            label += " (&#9888; " + gettext("Archived") + ")"
+            label += " (⚠ " + gettext("Archived") + ")"
         # mark as safe so that the warning triangle is not escaped
         return mark_safe(label)
 

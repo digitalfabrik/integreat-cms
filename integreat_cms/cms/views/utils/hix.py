@@ -53,7 +53,7 @@ def normalize_text(text: str) -> str:
             div.append(root)
             root = div
 
-        text = tostring(root, pretty_print=True).decode("utf-8")
+        text = tostring(root, encoding="unicode", pretty_print=True)
 
     except LxmlError:
         pass
