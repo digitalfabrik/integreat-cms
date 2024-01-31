@@ -2,6 +2,7 @@
 This module contains all possible configurations of postal codes in offers.
 This is needed when the postal code is placed inside the offer's url or api request data.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

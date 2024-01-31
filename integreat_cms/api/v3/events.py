@@ -1,6 +1,7 @@
 """
 This module includes functions related to the event API endpoint.
 """
+
 from __future__ import annotations
 
 from datetime import datetime, timedelta
@@ -86,21 +87,25 @@ def transform_event_translation(
         "last_updated": timezone.localtime(event_translation.last_updated),
         "excerpt": strip_tags(event_translation.content),
         "content": event_translation.content,
-        "available_languages": transform_available_languages(
-            event_translation, recurrence_date
-        )
-        if recurrence_date
-        else event_translation.available_languages_dict,
+        "available_languages": (
+            transform_available_languages(event_translation, recurrence_date)
+            if recurrence_date
+            else event_translation.available_languages_dict
+        ),
         "thumbnail": event.icon.url if event.icon else None,
         "location": transform_poi(event.location),
-        "location_url": settings.BASE_URL + poi_translation.get_absolute_url()
-        if poi_translation
-        else None,
+        "location_url": (
+            settings.BASE_URL + poi_translation.get_absolute_url()
+            if poi_translation
+            else None
+        ),
         "event": transform_event(event, recurrence_date),
         "hash": None,
-        "recurrence_rule": event.recurrence_rule.to_ical_rrule_string()
-        if event.recurrence_rule
-        else None,
+        "recurrence_rule": (
+            event.recurrence_rule.to_ical_rrule_string()
+            if event.recurrence_rule
+            else None
+        ),
     }
 
 

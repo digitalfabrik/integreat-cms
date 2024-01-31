@@ -1,6 +1,7 @@
 """
 This package contains all views related to settings
 """
+
 from __future__ import annotations
 
 from .dismiss_tutorial_view import DismissTutorial

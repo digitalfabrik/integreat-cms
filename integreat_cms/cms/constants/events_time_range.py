@@ -3,6 +3,7 @@ This module contains all string representations of event time range filter optio
 :class:`~integreat_cms.cms.forms.events.event_filter_form.EventFilterForm` and
 :class:`~integreat_cms.cms.views.events.event_list_view.EventListView`.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

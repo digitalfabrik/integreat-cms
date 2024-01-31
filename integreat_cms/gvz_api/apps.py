@@ -1,6 +1,7 @@
 """
 Configuration of GVZ API app
 """
+
 from __future__ import annotations
 
 import json

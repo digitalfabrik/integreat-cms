@@ -1,6 +1,7 @@
 """
 This module contains view actions for objects related to POIs.
 """
+
 from __future__ import annotations
 
 import json

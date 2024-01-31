@@ -3,6 +3,7 @@ Django view decorators can be used to restrict the execution of a view function 
 
 For more information, see :doc:`django:topics/http/decorators`.
 """
+
 from __future__ import annotations
 
 import time

@@ -1,6 +1,7 @@
 """
 This module contains helpers for strings.
 """
+
 from __future__ import annotations
 
 from django.utils.functional import keep_lazy_text, Promise

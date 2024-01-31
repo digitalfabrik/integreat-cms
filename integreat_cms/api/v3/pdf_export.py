@@ -3,6 +3,7 @@ View to return PDF document containing the requested pages.
 Single pages may be requested by url parameter, if no parameter is included all pages
 related to the current region and language will be returned.
 """
+
 from __future__ import annotations
 
 import logging

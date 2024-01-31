@@ -1,6 +1,7 @@
 """
 This module includes functions related to the push notification that are sent via firebase.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

@@ -2,6 +2,7 @@
 This file contains locale formats to override the default ones.
 See :setting:`django:FORMAT_MODULE_PATH` and :attr:`~integreat_cms.core.settings.FORMAT_MODULE_PATH` for more information.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

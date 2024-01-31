@@ -1,6 +1,7 @@
 """
 This package contains all views related to feedback
 """
+
 from __future__ import annotations
 
 from .admin_feedback_actions import (

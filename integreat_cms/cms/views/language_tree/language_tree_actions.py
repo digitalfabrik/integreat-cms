@@ -2,6 +2,7 @@
 This module contains view actions for the language tree.
 Typically, they do not render a whole page, but only parts of it or they redirect to regular views.
 """
+
 from __future__ import annotations
 
 import logging

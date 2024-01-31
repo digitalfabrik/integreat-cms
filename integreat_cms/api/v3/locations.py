@@ -1,6 +1,7 @@
 """
 This module includes functions related to the locations/POIs API endpoint.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -98,15 +99,17 @@ def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]
         "appointment_url": poi.appointment_url or None,
         "location": transform_poi(poi),
         "hash": None,
-        "organization": {
-            "id": poi.organization.id,
-            "slug": poi.organization.slug,
-            "name": poi.organization.name,
-            "logo": poi.organization.icon.url,
-            "website": poi.organization.website,
-        }
-        if poi.organization
-        else None,
+        "organization": (
+            {
+                "id": poi.organization.id,
+                "slug": poi.organization.slug,
+                "name": poi.organization.name,
+                "logo": poi.organization.icon.url,
+                "website": poi.organization.website,
+            }
+            if poi.organization
+            else None
+        ),
         "barrier_free": poi.barrier_free,
     }
 

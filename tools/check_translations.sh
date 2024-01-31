@@ -25,7 +25,7 @@ pcregrep -Mq 'msgstr ""\n\n' $TRANSLATION_FILE && EMPTY_ENTRIES=$? || EMPTY_ENTR
 grep -q "#, fuzzy" $TRANSLATION_FILE && FUZZY_ENTRIES=$? || FUZZY_ENTRIES=$?
 
 # Check if there are any problems
-if [[ -n "${TRANSLATION_DIFF}" ]] || [ $EMPTY_ENTRIES -eq 0 ] || [ $FUZZY_ENTRIES -eq 0 ]; then
+if [[ -n "${TRANSLATION_DIFF}" ]] || [ "${EMPTY_ENTRIES}" -eq 0 ] || [ "${FUZZY_ENTRIES}" -eq 0 ]; then
     # Check for missing entries
     if [[ -n "${TRANSLATION_DIFF}" ]]; then
         echo -e "❌ Your translation file is not up to date! 💣" | print_error
@@ -38,13 +38,13 @@ if [[ -n "${TRANSLATION_DIFF}" ]] || [ $EMPTY_ENTRIES -eq 0 ] || [ $FUZZY_ENTRIE
         git --no-pager diff --color $TRANSLATION_FILE | print_with_borders
     fi
     # Check for empty entries
-    if [ $EMPTY_ENTRIES -eq 0 ]; then
+    if [ "${EMPTY_ENTRIES}" -eq 0 ]; then
         echo -e "❌ You have empty entries in your translation file. Please translate them manually:\n" | print_error
         echo -e "${TRANSLATION_FILE}"
         pcregrep -M -B2 -n --color=never 'msgstr ""\n\n' $TRANSLATION_FILE | sed '4~5d' | format_grep_output | print_with_borders
     fi
     # Check for fuzzy headers (automatic translation proposals)
-    if [ $FUZZY_ENTRIES -eq 0 ]; then
+    if [ "${FUZZY_ENTRIES}" -eq 0 ]; then
         echo -e "❌ You have fuzzy headers in your translation file (See [1] for more information)." | print_error
         echo -e "Please review them manually, adjust the translation if necessary and remove the fuzzy header afterwards.\n" | print_error
         echo -e "${TRANSLATION_FILE}"

@@ -1,6 +1,7 @@
 """
 This package contains all views related to events
 """
+
 from __future__ import annotations
 
 from .event_actions import archive, copy, delete, restore, search_poi_ajax

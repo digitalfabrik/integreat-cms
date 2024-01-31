@@ -1,6 +1,7 @@
 """
 APIv3 endpoint for feedback about the imprint
 """
+
 from __future__ import annotations
 
 import logging

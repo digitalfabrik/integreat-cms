@@ -1,6 +1,7 @@
 """
 This module contains all sitemap classes which are all based on :class:`django.contrib.sitemaps.Sitemap`.
 """
+
 from __future__ import annotations
 
 import logging

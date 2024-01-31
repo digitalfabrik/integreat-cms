@@ -1,6 +1,7 @@
 """
 This file contains the helper function to change the translation file
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

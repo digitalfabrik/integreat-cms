@@ -10,6 +10,7 @@ See :mod:`~integreat_cms.core.urls` for the other namespaces of this application
 
 For more information on this file, see :doc:`django:topics/http/urls`.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

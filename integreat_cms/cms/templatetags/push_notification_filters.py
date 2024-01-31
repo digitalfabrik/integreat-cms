@@ -2,6 +2,7 @@
 This is a collection of tags and filters for :class:`~integreat_cms.cms.models.push_notifications.push_notification.PushNotification`
 objects.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

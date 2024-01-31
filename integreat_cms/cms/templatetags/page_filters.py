@@ -1,6 +1,7 @@
 """
 This is a collection of tags and filters for :class:`~integreat_cms.cms.models.pages.page.Page` objects.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

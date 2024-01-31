@@ -1,6 +1,7 @@
 """
 Utility functions for the media management. Most of the functions are used to transform media data to other data types.
 """
+
 from __future__ import annotations
 
 import logging

@@ -1,6 +1,7 @@
 """
 This module contains a list of Mime-Types that are allowed to be uploaded.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

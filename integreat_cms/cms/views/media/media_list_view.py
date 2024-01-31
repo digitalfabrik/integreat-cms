@@ -3,6 +3,7 @@ The module is working as the view component for the dynamic data loading for the
 Therefore, it's managing the region permissions and connects the different data structures.
 Especially, the root file, the use of the file defined in the Document and the different meta data.
 """
+
 from __future__ import annotations
 
 from django.utils.decorators import method_decorator

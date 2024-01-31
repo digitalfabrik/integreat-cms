@@ -1,6 +1,7 @@
 """
 This package contains all views related to push notifications
 """
+
 from __future__ import annotations
 
 from .push_notification_form_view import PushNotificationFormView

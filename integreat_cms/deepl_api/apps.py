@@ -1,6 +1,7 @@
 """
 Configuration of DeepL API app
 """
+
 from __future__ import annotations
 
 import logging

@@ -1,6 +1,7 @@
 """
 This module contains view actions related to pages.
 """
+
 from __future__ import annotations
 
 import asyncio

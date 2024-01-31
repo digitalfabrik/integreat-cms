@@ -1,6 +1,7 @@
 """
 This contains tags for accessing settings
 """
+
 from __future__ import annotations
 
 from django import template

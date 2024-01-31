@@ -1,6 +1,7 @@
 """
 This module includes functions that extend the functionality of the Django Debug Toolbar to non HTML responses.
 """
+
 from __future__ import annotations
 
 import json

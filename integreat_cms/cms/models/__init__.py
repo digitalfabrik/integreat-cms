@@ -2,6 +2,7 @@
 This package contains all data models of the Integreat CMS.
 Please refer to :mod:`django.db.models` for general information about Django models.
 """
+
 from __future__ import annotations
 
 from .chat.chat_message import ChatMessage

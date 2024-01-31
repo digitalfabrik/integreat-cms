@@ -1,4 +1,5 @@
 """Views related to the statistics module"""
+
 from __future__ import annotations
 
 import logging

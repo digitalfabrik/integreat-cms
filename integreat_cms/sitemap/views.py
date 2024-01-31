@@ -3,6 +3,7 @@ This module contains views for generating the sitemap dynamically.
 The views are class-based patches of the inbuilt views :func:`~django.contrib.sitemaps.views.index` and
 :func:`~django.contrib.sitemaps.views.sitemap` of the :mod:`django.contrib.sitemaps` :doc:`django:ref/contrib/sitemaps`.
 """
+
 from __future__ import annotations
 
 import logging

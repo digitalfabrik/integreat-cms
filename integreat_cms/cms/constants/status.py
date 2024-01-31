@@ -1,6 +1,7 @@
 """
 This module contains the possible status of translations.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

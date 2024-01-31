@@ -7,6 +7,7 @@ python frameworks (in our case Django).
 
 For more information on this file, see :doc:`django:howto/deployment/wsgi/index`.
 """
+
 from __future__ import annotations
 
 import configparser

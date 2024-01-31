@@ -4,6 +4,7 @@ All configuration is imported from :mod:`~integreat_cms.core.settings` except it
 For more information on this file, see :doc:`django:topics/settings`.
 For the full list of settings and their values, see :doc:`django:ref/settings`.
 """
+
 # pylint: disable=wildcard-import
 # pylint: disable=unused-wildcard-import
 from __future__ import annotations

@@ -1,6 +1,7 @@
 """
 APIv3 feedback endpoint for feedback about single offer
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
