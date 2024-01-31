@@ -27,7 +27,7 @@ Get all regions
 
 .. code:: http
 
-   GET /api/regions/ HTTP/2
+   GET /api/v3/regions/ HTTP/2
 
 Deprecated url:
 
@@ -88,7 +88,7 @@ Get a single region by slug:
 
 .. code:: http
 
-   GET /api/regions/{region_slug}/ HTTP/2
+   GET /api/v3/regions/{region_slug}/ HTTP/2
 
 Deprecated url:
 
@@ -113,7 +113,7 @@ REQUEST
 
 .. code:: http
 
-    GET /api/{region_slug}/languages/ HTTP/2
+    GET /api/v3/{region_slug}/languages/ HTTP/2
 
 Deprecated url:
 
@@ -150,7 +150,7 @@ The language slug, if specified, will be ignored
 
 .. code:: http
 
-    GET /api/{region_slug}/{offers/extras}/ HTTP/2
+    GET /api/v3/{region_slug}/{offers/extras}/ HTTP/2
 
 Deprecated url:
 
@@ -187,7 +187,7 @@ REQUEST
 
 .. code:: http
 
-   GET /api/{region_slug}/{language_slug}/pages/ HTTP/2
+   GET /api/v3/{region_slug}/{language_slug}/pages/ HTTP/2
 
 Deprecated url:
 
@@ -260,7 +260,7 @@ REQUEST
 
 .. code:: http
 
-   GET /api/{region_slug}/{language_slug}/locations/ HTTP/2
+   GET /api/v3/{region_slug}/{language_slug}/locations/ HTTP/2
 
 Deprecated url:
 
@@ -358,7 +358,7 @@ REQUEST
 
 .. code:: http
 
-   GET /api/{region_slug}/{language_slug}/location-categories/ HTTP/2
+   GET /api/v3/{region_slug}/{language_slug}/location-categories/ HTTP/2
 
 Deprecated url:
 
@@ -394,7 +394,7 @@ REQUEST
 
 .. code:: http
 
-   GET /api/{region_slug}/{language_slug}/events/ HTTP/2
+   GET /api/v3/{region_slug}/{language_slug}/events/ HTTP/2
 
 Deprecated url:
 
@@ -469,12 +469,12 @@ REQUEST
 
 .. code:: http
 
-   GET /api/{region_slug}/{language_slug}/page/?id={page_id} HTTP/2
+   GET /api/v3/{region_slug}/{language_slug}/page/?id={page_id} HTTP/2
 
 
 .. code:: http
 
-   GET /api/{region_slug}/{language_slug}/page/?url={page_url} HTTP/2
+   GET /api/v3/{region_slug}/{language_slug}/page/?url={page_url} HTTP/2
 
 
 Deprecated urls:
@@ -506,12 +506,12 @@ REQUEST
 
 .. code:: http
 
-   GET /api/{region_slug}/{language_slug}/children/?id={page_id}&depth={depth} HTTP/2
+   GET /api/v3/{region_slug}/{language_slug}/children/?id={page_id}&depth={depth} HTTP/2
 
 
 .. code:: http
 
-   GET /api/{region_slug}/{language_slug}/children/?url={page_url}&depth={depth} HTTP/2
+   GET /api/v3/{region_slug}/{language_slug}/children/?url={page_url}&depth={depth} HTTP/2
 
 
 Deprecated urls:
@@ -541,12 +541,12 @@ REQUEST
 
 .. code:: http
 
-   GET /api/{region_slug}/{language_slug}/parents/?id={page_id} HTTP/2
+   GET /api/v3/{region_slug}/{language_slug}/parents/?id={page_id} HTTP/2
 
 
 .. code:: http
 
-   GET /api/{region_slug}/{language_slug}/parents/?url={page_url} HTTP/2
+   GET /api/v3/{region_slug}/{language_slug}/parents/?url={page_url} HTTP/2
 
 
 Deprecated urls:
@@ -577,7 +577,7 @@ REQUEST
 
 .. code:: http
 
-   GET /api/{region_slug}/{language_slug}/pdf/?url={page_url} HTTP/2
+   GET /api/v3/{region_slug}/{language_slug}/pdf/?url={page_url} HTTP/2
 
 Deprecated urls:
 
@@ -606,7 +606,7 @@ REQUEST
 
 .. code:: http
 
-   GET /api/{region_slug}/{language_slug}/fcm/ HTTP/2
+   GET /api/v3/{region_slug}/{language_slug}/fcm/ HTTP/2
 
 Deprecated url:
 
@@ -639,7 +639,7 @@ REQUEST
 
 .. code:: http
 
-   GET /api/{region_slug}/{language_slug}/{imprint,disclaimer}/ HTTP/2
+   GET /api/v3/{region_slug}/{language_slug}/{imprint,disclaimer}/ HTTP/2
 
 Deprecated url:
 
@@ -685,7 +685,7 @@ REQUEST
 
 .. code:: http
 
-   POST /api/{region_slug}/{language_slug}/pushpage HTTP/2
+   POST /api/v3/{region_slug}/{language_slug}/pushpage HTTP/2
    Content-Type: application/json
 
 Deprecated url:
@@ -729,7 +729,7 @@ REQUEST
 
 .. code:: http
 
-   POST /api/{region_slug}/{language_slug}/feedback HTTP/2
+   POST /api/v3/{region_slug}/{language_slug}/feedback HTTP/2
    Content-Type: multipart/form-data or application/x-www-form-urlencoded
 
 Deprecated url:
@@ -760,7 +760,7 @@ REQUEST
 
 .. code:: http
 
-   POST /api/{region_slug}/{language_slug}/feedback/categories HTTP/2
+   POST /api/v3/{region_slug}/{language_slug}/feedback/categories HTTP/2
    Content-Type: multipart/form-data or application/x-www-form-urlencoded
 
 Deprecated url:
@@ -790,7 +790,7 @@ REQUEST
 
 .. code:: http
 
-   POST /api/{region_slug}/{language_slug}/feedback/page HTTP/2
+   POST /api/v3/{region_slug}/{language_slug}/feedback/page HTTP/2
    Content-Type: multipart/form-data or application/x-www-form-urlencoded
 
 Deprecated url:
@@ -821,7 +821,7 @@ REQUEST
 
 .. code:: http
 
-   POST /api/{region_slug}/{language_slug}/feedback/poi HTTP/2
+   POST /api/v3/{region_slug}/{language_slug}/feedback/poi HTTP/2
    Content-Type: multipart/form-data or application/x-www-form-urlencoded
 
 Deprecated url:
@@ -852,7 +852,7 @@ REQUEST
 
 .. code:: http
 
-   POST /api/{region_slug}/{language_slug}/feedback/event HTTP/2
+   POST /api/v3/{region_slug}/{language_slug}/feedback/event HTTP/2
    Content-Type: multipart/form-data or application/x-www-form-urlencoded
 
 Deprecated url:
@@ -883,7 +883,7 @@ REQUEST
 
 .. code:: http
 
-   POST /api/{region_slug}/{language_slug}/feedback/events HTTP/2
+   POST /api/v3/{region_slug}/{language_slug}/feedback/events HTTP/2
    Content-Type: multipart/form-data or application/x-www-form-urlencoded
 
 Deprecated url:
@@ -914,7 +914,7 @@ REQUEST
 
 .. code:: http
 
-   POST /api/{region_slug}/{language_slug}/feedback/imprint-page HTTP/2
+   POST /api/v3/{region_slug}/{language_slug}/feedback/imprint-page HTTP/2
    Content-Type: multipart/form-data or application/x-www-form-urlencoded
 
 Deprecated url:
@@ -944,7 +944,7 @@ REQUEST
 
 .. code:: http
 
-   POST /api/{region_slug}/{language_slug}/feedback/map HTTP/2
+   POST /api/v3/{region_slug}/{language_slug}/feedback/map HTTP/2
    Content-Type: multipart/form-data or application/x-www-form-urlencoded
 
 Deprecated url:
@@ -974,7 +974,7 @@ REQUEST
 
 .. code:: http
 
-   POST /api/{region_slug}/{language_slug}/feedback/search HTTP/2
+   POST /api/v3/{region_slug}/{language_slug}/feedback/search HTTP/2
    Content-Type: multipart/form-data or application/x-www-form-urlencoded
 
 Deprecated url:
@@ -1005,7 +1005,7 @@ REQUEST
 
 .. code:: http
 
-   POST /api/{region_slug}/{language_slug}/feedback/{offers,extras} HTTP/2
+   POST /api/v3/{region_slug}/{language_slug}/feedback/{offers,extras} HTTP/2
    Content-Type: multipart/form-data or application/x-www-form-urlencoded
 
 Deprecated url:
@@ -1035,7 +1035,7 @@ REQUEST
 
 .. code:: http
 
-   POST /api/{region_slug}/{language_slug}/feedback/{offer,extra} HTTP/2
+   POST /api/v3/{region_slug}/{language_slug}/feedback/{offer,extra} HTTP/2
    Content-Type: multipart/form-data or application/x-www-form-urlencoded
 
 Deprecated url:

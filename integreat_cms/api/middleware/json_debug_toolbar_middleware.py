@@ -21,7 +21,7 @@ class JsonDebugToolbarMiddleware:
     """
     The Django Debug Toolbar usually only works for views that return HTML.
     This middleware wraps any JSON response in HTML if the request
-    has a 'debug' query parameter (e.g. http://localhost:8000/api/augsburg/de/pages?debug)
+    has a 'debug' query parameter (e.g. http://localhost:8000/api/v3/augsburg/de/pages?debug)
     """
 
     def __init__(self, get_response: Callable | AsyncToSync) -> None:
