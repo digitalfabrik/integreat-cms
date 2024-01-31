@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-01-23T16:43:19+00:00" />
+    <meta property="article:modified_time" content="2024-01-31T11:16:07+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CMS &mdash; integreat-cms 2024.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -413,6 +413,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.html#test-duplicate-regions">Test Duplicate Regions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.html#test-language">Test Language</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.html#test-login">Test Login</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.html#test-media-library">Test Media Library</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.html#test-page-filters">Test Page Filters</a></li>
@@ -1277,6 +1278,13 @@
 <li class="toctree-l4"><a class="reference internal" href="#tests.cms.test_duplicate_regions.test_duplicate_regions"><code class="docutils literal notranslate"><span class="pre">test_duplicate_regions()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#module-tests.cms.test_language">Test Language</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#tests.cms.test_language.test_create_new_language_node"><code class="docutils literal notranslate"><span class="pre">test_create_new_language_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.cms.test_language.test_delete_language_node"><code class="docutils literal notranslate"><span class="pre">test_delete_language_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.cms.test_language.test_move_language_node"><code class="docutils literal notranslate"><span class="pre">test_move_language_node()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tests.cms.test_language.test_update_language_node"><code class="docutils literal notranslate"><span class="pre">test_update_language_node()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#module-tests.cms.test_login">Test Login</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#tests.cms.test_login.test_login_failure"><code class="docutils literal notranslate"><span class="pre">test_login_failure()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="#tests.cms.test_login.test_login_success"><code class="docutils literal notranslate"><span class="pre">test_login_success()</span></code></a></li>
@@ -1931,6 +1939,73 @@
 </dd></dl>
 
 </section>
+<section id="module-tests.cms.test_language">
+<span id="test-language"></span><h2>Test Language<a class="headerlink" href="#module-tests.cms.test_language" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.cms.test_language.test_create_new_language_node">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.test_language.</span></span><span class="sig-name descname"><span class="pre">test_create_new_language_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">login_role_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.Client" title="(in Django v3.2)"><span class="pre">Client</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/test_language.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.test_language.test_create_new_language_node" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>None</em>) – </p></li>
+<li><p><strong>login_role_user</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.Client" title="(in Django v3.2)"><em>Client</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.cms.test_language.test_delete_language_node">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.test_language.</span></span><span class="sig-name descname"><span class="pre">test_delete_language_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">login_role_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.Client" title="(in Django v3.2)"><span class="pre">Client</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/test_language.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.test_language.test_delete_language_node" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>None</em>) – </p></li>
+<li><p><strong>login_role_user</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.Client" title="(in Django v3.2)"><em>Client</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.cms.test_language.test_move_language_node">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.test_language.</span></span><span class="sig-name descname"><span class="pre">test_move_language_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">login_role_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.Client" title="(in Django v3.2)"><span class="pre">Client</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/test_language.py#L116"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.test_language.test_move_language_node" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>None</em>) – </p></li>
+<li><p><strong>login_role_user</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.Client" title="(in Django v3.2)"><em>Client</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="tests.cms.test_language.test_update_language_node">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.test_language.</span></span><span class="sig-name descname"><span class="pre">test_update_language_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">login_role_user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.Client" title="(in Django v3.2)"><span class="pre">Client</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/test_language.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.cms.test_language.test_update_language_node" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>load_test_data</strong> (<em>None</em>) – </p></li>
+<li><p><strong>login_role_user</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/testing/tools/#django.test.Client" title="(in Django v3.2)"><em>Client</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-tests.cms.test_login">
 <span id="test-login"></span><h2>Test Login<a class="headerlink" href="#module-tests.cms.test_login" title="Link to this heading"></a></h2>
 <dl class="py function">
@@ -2204,7 +2279,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jan 23, 2024.
+      <span class="lastupdated">Last updated on Jan 31, 2024.
       </span></p>
   </div>
 
