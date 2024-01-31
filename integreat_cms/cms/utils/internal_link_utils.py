@@ -19,30 +19,39 @@ from ..models import (
 )
 
 if TYPE_CHECKING:
+    from typing import Optional
+
+    from lxml.html import Element
+
     from ..models.abstract_content_translation import AbstractContentTranslation
 
 logger = logging.getLogger(__name__)
 
 
-def update_link_language(
-    current_link: str, link_text: str, target_language_slug: str
-) -> tuple[str, str] | None:
+# pylint: disable=compare-to-zero
+def update_link(
+    link: Element, target_language_slug: str
+) -> Optional[tuple[str, Element | str]]:
     """
-    Fixes the link, so that it points to the correct language.
-    Returns a tuple of the translated url and (potentially) translated title.
+    Fixes the internal link, if it is broken.
+    This includes:
+
+    - Changing the link language to `target_language_slug`
+    - Fixing the link path if any part of it points to an outdated version of a content translation
+
+    Returns a tuple of the translated url and (potentially) modified title.
     For example, with current_link = 'https://integreat.app/augsburg/de/willkommen/' and language_slug = 'en'
     a possible return value could be ('https://integreat.app/augsburg/en/welcome/, 'Welcome').
     Note that the resulting link might refer to a fallback language and not the actual target language.
 
-    :param current_link: The link to the content translation
-    :param link_text: The text of the link
+    :param link: The link to be updated
     :param target_language_slug: The language slug for the target translation
-    :returns: a tuple of (url, title) of the target translation, or None
+    :returns: a tuple of (url, innerHtml) of the target translation, or None
     """
-    source_translation = get_public_translation_for_link(
-        current_link, current_language_slug=target_language_slug
-    )
-    if not source_translation:
+    if not (current_url := link.get("href")):
+        return None
+
+    if not (source_translation := get_public_translation_for_link(current_url)):
         return None
 
     if target_translation := source_translation.foreign_object.get_public_translation(
@@ -51,14 +60,14 @@ def update_link_language(
         # Always use the full url, even if the url was previously a short url
         fixed_link = target_translation.full_url
 
-        # Update the title if it was previously the translation title or the url
-        if link_text:
-            if source_translation.title.lower() == link_text.strip().lower():
-                link_text = target_translation.title
-            elif current_link.strip() == link_text.strip():
-                link_text = fixed_link
+        # Update the title if it was previously the url, otherwise use the new title
+        link_html = None
+        if len(link) == 0 and link.text and current_url.strip() == link.text.strip():
+            link_html = fixed_link
+        elif link.get("data-integreat-auto-update") == "true":
+            link_html = target_translation.link_title
 
-        return fixed_link, link_text
+        return fixed_link, link_html
 
     return None
 
@@ -67,9 +76,7 @@ WEBAPP_NETLOC: str = urlparse(settings.WEBAPP_URL).netloc
 SHORT_LINKS_NETLOC: str = urlparse(settings.SHORT_LINKS_URL).netloc
 
 
-def get_public_translation_for_link(
-    url: str, current_language_slug: str | None = None
-) -> AbstractContentTranslation | None:
+def get_public_translation_for_link(url: str) -> AbstractContentTranslation | None:
     """
     This function gets the public content translation object corresponding to the path of an internal url.
     If the url does not refer to any object, this function will return None.
@@ -77,27 +84,23 @@ def get_public_translation_for_link(
     If the language of the url is the same as `current_language_slug`, this function will return None.
 
     :param url: The url
-    :param current_language_slug: A language slug that will cause the function to return early if contained in the url
     :returns: The latest corresponding content translation
     """
     parsed_url = urlparse(url)
     if parsed_url.netloc == WEBAPP_NETLOC:
-        return get_public_translation_for_webapp_link(
-            parsed_url.path, current_language_slug
-        )
+        return get_public_translation_for_webapp_link(parsed_url.path)
     if parsed_url.netloc == SHORT_LINKS_NETLOC:
         return get_public_translation_for_short_link(parsed_url.path)
     return None
 
 
 def get_public_translation_for_webapp_link(
-    path: str, current_language_slug: str | None = None
+    path: str,
 ) -> AbstractContentTranslation | None:
     """
     Calculates the content object that corresponds to the webapp url path and returns its latest public translation.
 
     :param path: The url path, for example given the url 'https://integreat.app/augsburg/de/willkommen/' it would be '/augsburg/de/willkommen/'
-    :param current_language_slug: A language slug that will cause the function to return early if contained in the url
     :returns: The latest corresponding content translation
     """
     parts: list[str] = unquote(path).strip("/").split("/")
@@ -108,10 +111,6 @@ def get_public_translation_for_webapp_link(
     region_slug, language_slug, *path_parts = parts
     path = path_parts[0]
     object_slug = path_parts[-1]
-
-    if language_slug == current_language_slug:
-        # Return early if the language slug is not different
-        return None
 
     object_type = {"events": Event, "locations": POI, "disclaimer": ImprintPage}.get(
         path, Page

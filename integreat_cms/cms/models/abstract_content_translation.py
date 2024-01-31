@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from html import escape
 from typing import TYPE_CHECKING
 
 from django.conf import settings
@@ -12,6 +13,7 @@ from django.utils.translation import gettext_lazy as _
 if TYPE_CHECKING:
     from typing import Any, Literal
     from django.db.models.query import QuerySet
+    from lxml.html import Element
     from .abstract_content_model import AbstractContentModel
     from .regions.region import Region
 
@@ -523,9 +525,18 @@ class AbstractContentTranslation(AbstractBaseModel):
         Whether this translation has a sufficient HIX value for machine translations.
         If it is ``None``, machine translations are allowed by default.
 
-        :return: Wether the HIX value is sufficient for MT
+        :return: Whether the HIX value is sufficient for MT
         """
         return self.hix_score is None or self.hix_score >= settings.HIX_REQUIRED_FOR_MT
+
+    @cached_property
+    def link_title(self) -> Element | str:
+        """
+        This property returns the html that should be used as a title for a link to this translation
+
+        :return: The link content
+        """
+        return escape(str(self))
 
     def __str__(self) -> str:
         """

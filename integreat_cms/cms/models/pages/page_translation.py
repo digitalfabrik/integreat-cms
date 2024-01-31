@@ -10,6 +10,7 @@ from django.db import models
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.functional import cached_property
+from lxml.html import Element
 
 if TYPE_CHECKING:
     from datetime import datetime
@@ -384,6 +385,23 @@ class PageTranslation(AbstractBasePageTranslation):
             label += " (&#9888; " + _("Archived") + ")"
         # mark as safe so that the arrow and the warning triangle are not escaped
         return mark_safe(label)
+
+    @cached_property
+    def link_title(self) -> Element | str:
+        """
+        This property returns the html that should be used as a title for a link to this translation
+
+        :return: The link content
+        """
+        if icon := self.page.icon:
+            if thumbnail := icon.thumbnail_url:
+                img = Element("img")
+                img.set("style", "height:15px;")
+                img.set("src", thumbnail)
+                img.tail = self.title
+                return img
+
+        return super().link_title
 
     class Meta:
         #: The verbose name of the model

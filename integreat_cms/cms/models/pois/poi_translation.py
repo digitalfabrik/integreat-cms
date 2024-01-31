@@ -8,11 +8,13 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
+from lxml.html import Element
 
 if TYPE_CHECKING:
     from typing import Literal
     from .pois.poi import POI
 
+from ...utils.tinymce_icon_utils import get_icon_html
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_content_translation import AbstractContentTranslation
 from ..decorators import modify_fields
@@ -93,6 +95,24 @@ class POITranslation(AbstractContentTranslation):
                 "region_slug": self.poi.region.slug,
             },
         )
+
+    @cached_property
+    def link_title(self) -> str | Element:
+        """
+        This property returns the html that should be used as a title for a link to this translation
+
+        :return: The link content
+        """
+        img = get_icon_html("pin")
+
+        if icon := self.poi.icon:
+            if thumbnail := icon.thumbnail_url:
+                img = Element("img")
+                img.set("style", "height:15px;")
+                img.set("src", thumbnail)
+
+        img.tail = self.title
+        return img
 
     class Meta:
         #: The verbose name of the model
