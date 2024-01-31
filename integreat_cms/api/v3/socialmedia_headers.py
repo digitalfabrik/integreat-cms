@@ -8,9 +8,9 @@ from html import unescape
 from typing import TYPE_CHECKING
 
 from django.conf import settings
+from django.http import Http404
 from django.shortcuts import render
 from django.utils.html import strip_tags
-from django.utils.translation import activate
 
 from integreat_cms.cms.models.events.event_translation import EventTranslation
 from integreat_cms.cms.models.languages.language import Language
@@ -23,16 +23,12 @@ from integreat_cms.cms.models.regions.region import Region
 from ...cms.models import PageTranslation
 
 if TYPE_CHECKING:
-    from typing import Optional
-
     from django.http import HttpRequest, HttpResponse
 
 logger = logging.getLogger(__name__)
 
 
-def socialmedia_headers(
-    request: HttpRequest, path: Optional[str] = None
-) -> HttpResponse:
+def socialmedia_headers(request: HttpRequest, path: str | None = None) -> HttpResponse:
     """
     Detects the path context and renders the socialmedia headers.
     Available contexts are:
@@ -41,37 +37,22 @@ def socialmedia_headers(
     - page e.g. /testumgebung/de/willkommen, /testumgebung/de/events/event
 
     :param request: The request that has been sent to the Django server
-    :param path: The path of the page the social meddia headers should be created for
+    :param path: The path of the page the social media headers should be created for
 
     :return: HTML meta headers required by social media platforms
     """
-    slugs = list(filter(bool, path.split("/"))) if path else []
+    slugs = iter(path.split("/") if path else [])
 
-    potential_region_slug = slugs[0] if len(slugs) > 0 else None
-    region = (
-        Region.objects.filter(slug=potential_region_slug).first()
-        if potential_region_slug
-        else None
-    )
+    region = Region.objects.filter(slug=next(slugs, None)).first()
 
-    potential_language = (
-        Language.objects.filter(slug=slugs[1]).first() if len(slugs) > 1 else None
-    )
-    language = potential_language or Language.objects.get(slug="de")
+    language = Language.objects.get(slug=next(slugs, settings.LANGUAGE_CODE))
     if not region:
         return root_socialmedia_headers(request, language, path or "")
 
-    content_headers = None
-    if len(slugs) >= 3:
-        content_headers = content_socialmedia_headers(
-            request, region, language, "/".join(slugs[2:])
-        )
+    if len(list(slugs)):
+        return content_socialmedia_headers(request, region, language, "/".join(slugs))
 
-    return (
-        content_headers
-        if content_headers
-        else region_socialmedia_headers(request, region, path or "")
-    )
+    return region_socialmedia_headers(request, region, path or "")
 
 
 def root_socialmedia_headers(
@@ -85,7 +66,7 @@ def root_socialmedia_headers(
     :param path: The path to the page
     :return: HTML social meta headers required by social media platforms
     """
-    title = language.socialmedia_webapp_title
+    title = language.socialmedia_webapp_title or settings.BRANDING_TITLE
     url = f"{settings.WEBAPP_URL}/{path}"
 
     excerpt = (
@@ -132,9 +113,9 @@ def content_socialmedia_headers(
     :return: HTML meta headers required by social media platforms
     """
 
-    path_elements = path.split("/", maxsplit=1)
-    route = path_elements[0] if len(path_elements) > 0 else None
-    slug = path_elements[1] if len(path_elements) == 2 else None
+    path_elements = iter(path.split("/", maxsplit=1))
+    route = next(path_elements, None)
+    slug = next(path_elements, None)
 
     if route == "events" and slug:
         return event_socialmedia_headers(request, region, language, slug)
@@ -146,17 +127,30 @@ def content_socialmedia_headers(
     return page_socialmedia_headers(request, region, language, path)
 
 
-def _get_excerpt(content: str) -> str:
+def get_excerpt(content: str) -> str:
+    """
+    Correctly escapes, truncates and normalizes the content of the page to display in a search result
+
+    :param content: The content of the page
+    :return: A page excerpt containing the first 100 characters of "raw" content
+    """
     return unescape(strip_tags(content))[:100]
 
 
-def _get_region_title(region: Region, page_title: str) -> str:
+def get_region_title(region: Region, page_title: str) -> str:
+    """
+    Constructs in a unified format the page title of a page in a region.
+
+    :param region: The region where the page resides in
+    :param page_title: The title of the page
+    :return: The constructed page title
+    """
     return f"{page_title} - {region.name} | {settings.BRANDING_TITLE}"
 
 
 def event_socialmedia_headers(
     request: HttpRequest, region: Region, language: Language, slug: str
-) -> Optional[HttpResponse]:
+) -> HttpResponse | None:
     """
     Tries rendering the socialmedia headers for an event page in a specified region and language.
 
@@ -171,21 +165,20 @@ def event_socialmedia_headers(
             region, language.slug, slug
         ).first()
     ):
-        return None
+        raise Http404("Event not found in this region with this language.")
 
     # TODO: add event json-ld
-    activate(language.slug)
     return render_socialmedia_headers(
         request=request,
-        title=_get_region_title(region, event_translation.title),
-        excerpt=_get_excerpt(event_translation.content),
+        title=get_region_title(region, event_translation.title),
+        excerpt=get_excerpt(event_translation.content),
         url=event_translation.full_url,
     )
 
 
 def news_socialmedia_headers(
     request: HttpRequest, region: Region, language: Language, path: str
-) -> Optional[HttpResponse]:
+) -> HttpResponse | None:
     """
     Tries rendering the socialmedia headers for a news page in a specified region and language.
 
@@ -202,25 +195,24 @@ def news_socialmedia_headers(
 
     pn_translation = PushNotificationTranslation.objects.filter(
         language__slug=language.slug,
-        push_notification=slug,
+        push_notification__id=slug,
         push_notification__regions=region,
     ).first()
 
     if not pn_translation:
-        return None
+        raise Http404("Push Notification not found in this region with this language.")
 
-    activate(language.slug)
     return render_socialmedia_headers(
         request=request,
-        title=_get_region_title(region, pn_translation.get_title()),
-        excerpt=_get_excerpt(pn_translation.get_text()),
+        title=get_region_title(region, pn_translation.get_title()),
+        excerpt=get_excerpt(pn_translation.get_text()),
         url=f"{settings.WEBAPP_URL}/{pn_translation.get_absolute_url()}",
     )
 
 
 def location_socialmedia_headers(
     request: HttpRequest, region: Region, language: Language, slug: str
-) -> Optional[HttpResponse]:
+) -> HttpResponse | None:
     """
     Tries rendering the socialmedia headers for a location page in a specified region and language.
 
@@ -235,20 +227,19 @@ def location_socialmedia_headers(
             region, language.slug, slug
         ).first()
     ):
-        return None
+        raise Http404("POI not found in this region with this language.")
 
-    activate(language.slug)
     return render_socialmedia_headers(
         request=request,
-        title=_get_region_title(region, location_translation.title),
-        excerpt=_get_excerpt(location_translation.content),
+        title=get_region_title(region, location_translation.title),
+        excerpt=get_excerpt(location_translation.content),
         url=location_translation.full_url,
     )
 
 
 def page_socialmedia_headers(
     request: HttpRequest, region: Region, language: Language, path: str
-) -> Optional[HttpResponse]:
+) -> HttpResponse | None:
     """
     Tries rendering the socialmedia headers for a page in a specified region and language.
 
@@ -261,20 +252,19 @@ def page_socialmedia_headers(
     if not (
         page_translation := PageTranslation.search(region, language.slug, path).first()
     ):
-        return None
+        raise Http404("Page not found in this region with this language.")
 
     # TODO: add breadcrumb json-ld if content_translation exists
-    activate(language.slug)
     return render_socialmedia_headers(
         request=request,
-        title=_get_region_title(region, page_translation.title),
-        excerpt=_get_excerpt(page_translation.content),
+        title=get_region_title(region, page_translation.title),
+        excerpt=get_excerpt(page_translation.content),
         url=page_translation.full_url,
     )
 
 
 def render_socialmedia_headers(
-    request: HttpRequest, title: str, excerpt: Optional[str], url: str
+    request: HttpRequest, title: str, excerpt: str | None, url: str
 ) -> HttpResponse:
     """
     Renders the socialmedia headers with the specified arguments
