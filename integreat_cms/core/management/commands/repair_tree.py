@@ -127,12 +127,9 @@ class Command(LogCommand):
                 logger.error("\tparent_id: %s", orphan.parent_id)
                 if orphan.parent_id:
                     logger.error("\tparent.tree_id: %s", orphan.parent.tree_id)
-                logger.info(
-                    "\tdepth %s\n\tlft: %s\n\trgt: %s",
-                    orphan.depth,
-                    orphan.lft,
-                    orphan.rgt,
-                )
+                logger.info("\tdepth %s", orphan.depth)
+                logger.info("\tlft: %s", orphan.lft)
+                logger.info("\trgt: %s", orphan.rgt)
 
     def calculate_left_right_values(
         self, tree_node: Page, left: int, commit: bool
