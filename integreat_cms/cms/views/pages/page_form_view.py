@@ -111,7 +111,7 @@ class PageFormView(
                         status_message = _("The last changes were saved automatically.")
                         action = _("discard")
                     else:
-                        status_message = _("The latest changes are pending review.")
+                        status_message = _("The latest changes are pending approval.")
                         action = _("reject")
                     # If the user has the permission to reject/discard, show another message
                     if request.user.has_perm("cms.publish_page_object", page):
