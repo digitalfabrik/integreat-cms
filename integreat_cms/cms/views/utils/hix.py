@@ -14,7 +14,7 @@ from urllib.error import URLError
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from lxml.etree import Element, LxmlError
+from lxml.etree import LxmlError
 from lxml.html import fromstring, tostring
 
 from ....api.decorators import json_response
@@ -41,19 +41,18 @@ def normalize_text(text: str) -> str:
     try:
         root = fromstring(text)
 
-        # Remove empty paragraphs (otherwise they increase the HIX value)
-        for p in root.iter("p"):
-            if not list(p) and (not p.text or not p.text.strip()):
-                p.getparent().remove(p)
+        # Remove paragraphs without text (e.g. empty paragraphs or with an image only)
+        for node in root.iter():
+            node_text = node.text_content()
+            if not node_text or not node_text.strip():
+                node.getparent().remove(node)
 
-        # Make sure the root element is div
-        # (this matters for the single paragraph case, because the HIX value will be different with and without the div tag)
-        if root.tag != "div":
-            div = Element("div")
-            div.append(root)
-            root = div
+        # If there is only one paragraph left, remove the root div tag
+        nodes = list(root)
+        if root.tag == "div" and len(nodes) == 1:
+            root = nodes[0]
 
-        text = tostring(root, encoding="unicode", pretty_print=True)
+        text = tostring(root, encoding="unicode", pretty_print=True).strip()
 
     except LxmlError:
         pass
