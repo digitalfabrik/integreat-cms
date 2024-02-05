@@ -1823,7 +1823,7 @@
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – If no imprint exists for the region</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/http/views/#django.http.Http404" title="(in Django v4.2)"><strong>Http404</strong></a> – If no imprint exists for the region</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A redirection to the <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.imprint.html#integreat_cms.cms.views.imprint.imprint_form_view.ImprintFormView" title="integreat_cms.cms.views.imprint.imprint_form_view.ImprintFormView"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintFormView</span></code></a></p>
@@ -1860,13 +1860,13 @@
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.imprint.imprint_context_mixin.</span></span><span class="sig-name descname"><span class="pre">ImprintContextMixin</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/imprint/imprint_context_mixin.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a></p>
 <p>This mixin provides extra context for imprint views</p>
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/imprint/imprint_context_mixin.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns a dictionary representing the template context
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin.get_context_data" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_context_data()</span></code></a>).</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin.get_context_data" title="(in Django v4.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_context_data()</span></code></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>**kwargs</strong> (<em>Any</em>) – The given keyword arguments</p>
@@ -1888,12 +1888,12 @@
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.imprint.imprint_form_view.</span></span><span class="sig-name descname"><span class="pre">ImprintFormView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/imprint/imprint_form_view.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.imprint.html#integreat_cms.cms.views.imprint.imprint_context_mixin.ImprintContextMixin" title="integreat_cms.cms.views.imprint.imprint_context_mixin.ImprintContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintContextMixin</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin" title="integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">MediaContextMixin</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.imprint.html#integreat_cms.cms.views.imprint.imprint_context_mixin.ImprintContextMixin" title="integreat_cms.cms.views.imprint.imprint_context_mixin.ImprintContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintContextMixin</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin" title="integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">MediaContextMixin</span></code></a></p>
 <p>View for the imprint page form and imprint page translation form</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'translation_status':</span> <span class="pre">&lt;module</span> <span class="pre">'integreat_cms.cms.constants.translation_status'</span> <span class="pre">from</span> <span class="pre">'/home/circleci/project/integreat_cms/cms/constants/translation_status.py'&gt;}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/imprint/imprint_form_view.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
+<dd><p>The context dict passed to the template (see <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ContextMixin</span></code></a>)</p>
 </dd></dl>
 
 <dl class="py method">
@@ -1943,7 +1943,7 @@
 <span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/imprint/imprint_form_view.py#L165"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Binds the user input data to the imprint form and validates the input.
 Forms containing images/files need to be additionally instantiated with the FILES attribute of request objects,
-see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/file-uploads/" title="(in Django v3.2)"><span>File Uploads</span></a></p>
+see <a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/http/file-uploads/" title="(in Django v4.2)"><span>File Uploads</span></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1964,7 +1964,7 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/to
 <dl class="py attribute">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'imprint/imprint_form.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/imprint/imprint_form_view.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>
@@ -1975,7 +1975,7 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/to
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.imprint.imprint_sbs_view.</span></span><span class="sig-name descname"><span class="pre">ImprintSideBySideView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/imprint/imprint_sbs_view.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.imprint.html#integreat_cms.cms.views.imprint.imprint_context_mixin.ImprintContextMixin" title="integreat_cms.cms.views.imprint.imprint_context_mixin.ImprintContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintContextMixin</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin" title="integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">MediaContextMixin</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.imprint.html#integreat_cms.cms.views.imprint.imprint_context_mixin.ImprintContextMixin" title="integreat_cms.cms.views.imprint.imprint_context_mixin.ImprintContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintContextMixin</span></code></a>, <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin" title="integreat_cms.cms.views.media.media_context_mixin.MediaContextMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">MediaContextMixin</span></code></a></p>
 <p>View for the imprint side by side form</p>
 <dl class="py method">
 <dt class="sig sig-object py">
@@ -1990,7 +1990,7 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/to
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – If no imprint exists for the region</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/http/views/#django.http.Http404" title="(in Django v4.2)"><strong>Http404</strong></a> – If no imprint exists for the region</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The rendered template response</p>
@@ -2005,7 +2005,7 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/to
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/imprint/imprint_sbs_view.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Returns a dictionary representing the template context
-(see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin.get_context_data" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_context_data()</span></code></a>).</p>
+(see <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/mixins-simple/#django.views.generic.base.ContextMixin.get_context_data" title="(in Django v4.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_context_data()</span></code></a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>**kwargs</strong> (<em>Any</em>) – The given keyword arguments</p>
@@ -2033,7 +2033,7 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/to
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – If no imprint exists for the region</p>
+<dd class="field-even"><p><a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/http/views/#django.http.Http404" title="(in Django v4.2)"><strong>Http404</strong></a> – If no imprint exists for the region</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The rendered template response</p>
@@ -2047,7 +2047,7 @@ see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/to
 <dl class="py attribute">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'imprint/imprint_sbs.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/imprint/imprint_sbs_view.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>
@@ -2105,7 +2105,7 @@ target language translation was created.</p>
 <dd><p>Get the current imprint object</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/http/views/#django.http.Http404" title="(in Django v3.2)"><strong>Http404</strong></a> – HTTP status 404 if the imprint is not found</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/http/views/#django.http.Http404" title="(in Django v4.2)"><strong>Http404</strong></a> – HTTP status 404 if the imprint is not found</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The imprint object</p>
@@ -2136,25 +2136,25 @@ target language translation was created.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">model</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/imprint_page.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The current content model (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-single-object/#django.views.generic.detail.SingleObjectMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SingleObjectMixin</span></code></a>)</p>
+<dd><p>The current content model (see <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/mixins-single-object/#django.views.generic.detail.SingleObjectMixin" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">SingleObjectMixin</span></code></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
-<li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v4.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v4.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
 </ul>
 </dd>
 </dl>
 <p>Relationship fields:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>region</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.imprints" title="integreat_cms.cms.models.regions.region.Region.imprints"><code class="xref py py-attr docutils literal notranslate"><span class="pre">imprints</span></code></a>)</p>
+<dd class="field-odd"><p><strong>region</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.imprints" title="integreat_cms.cms.models.regions.region.Region.imprints"><code class="xref py py-attr docutils literal notranslate"><span class="pre">imprints</span></code></a>)</p>
 </dd>
 </dl>
 <p>Reverse relationships:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation" title="integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintPageTranslation</span></code></a>) – All translations of this imprint (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation.page" title="integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation.page"><code class="xref py py-attr docutils literal notranslate"><span class="pre">page</span></code></a>)</p>
+<dd class="field-odd"><p><strong>translations</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation" title="integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintPageTranslation</span></code></a>) – All translations of this imprint (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation.page" title="integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation.page"><code class="xref py py-attr docutils literal notranslate"><span class="pre">page</span></code></a>)</p>
 </dd>
 </dl>
 <p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page.ImprintPage" title="integreat_cms.cms.models.pages.imprint_page.ImprintPage"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintPage</span></code></a></p>

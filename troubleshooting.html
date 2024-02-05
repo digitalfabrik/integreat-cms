@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2023-03-12T11:31:59+00:00" />
+    <meta property="article:modified_time" content="2024-02-05T09:37:38+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Troubleshooting &mdash; integreat-cms 2024.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -1869,27 +1869,6 @@ sudo<span class="w"> </span>apt-get<span class="w"> </span>update
 </pre></div>
 </div>
 </div>
-<div class="admonition error">
-<p class="admonition-title">Error</p>
-<div class="line-block">
-<div class="line">Error: pg_config executable not found.</div>
-<div class="line">or</div>
-<div class="line">ImportError: dlopen(/Users/xyz/Documents/Dev/integreat-cms/.venv/lib/python3.8/site-packages/psycopg2/_psycopg.cpython-38-darwin.so, 2): Symbol not found: _PQbackendPID</div>
-</div>
-</div>
-<div class="hint admonition">
-<p class="admonition-title">Solution</p>
-<p>There are some issues with the psycopg2 binary package right now. It needs to be compiled locally which requires postgres and libpq:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>libpq<span class="w"> </span>postgres<span class="w"> </span>--build-from-source
-</pre></div>
-</div>
-<p>The packages need to be built from source as the binary version of postgres is still x86. Building it from source works absolutely fine.
-Afterwards psycopg2 needs to be reinstalled without using your local cache:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>uninstall<span class="w"> </span>psycopg2-binary
-pip<span class="w"> </span>install<span class="w"> </span>psycopg2-binary<span class="w"> </span>--no-cache-dir
-</pre></div>
-</div>
-</div>
 </section>
 <section id="webpack-compilation-errors">
 <h2>Webpack Compilation Errors<a class="headerlink" href="#webpack-compilation-errors" title="Link to this heading"></a></h2>
@@ -1924,7 +1903,7 @@ TSXXXX: ...
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Mar 12, 2023.
+      <span class="lastupdated">Last updated on Feb 05, 2024.
       </span></p>
   </div>
 

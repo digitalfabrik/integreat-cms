@@ -1838,15 +1838,15 @@ the confirmation form and delete the key from the database</p></li>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.settings.webauthn.authenticate_modify_mfa_view.</span></span><span class="sig-name descname"><span class="pre">AuthenticateModifyMfaView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/webauthn/authenticate_modify_mfa_view.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#django.views.generic.edit.FormView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/generic-editing/#django.views.generic.edit.FormView" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormView</span></code></a></p>
 <p>View to authenticate a user before changing the mfa settings</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">form_class</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/users/authentication_form.py#L7"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The form class for this form view (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormMixin</span></code></a>)</p>
+<dd><p>The form class for this form view (see <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">FormMixin</span></code></a>)</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">password</span></code>: Password (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">password</span></code>: Password (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/forms/fields/#django.forms.CharField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
 </ul>
 <p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm" title="integreat_cms.cms.forms.users.authentication_form.AuthenticationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AuthenticationForm</span></code></a></p>
 </dd></dl>
@@ -1854,7 +1854,7 @@ the confirmation form and delete the key from the database</p></li>
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">form_valid</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm" title="integreat_cms.cms.forms.users.authentication_form.AuthenticationForm"><span class="pre">AuthenticationForm</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/webauthn/authenticate_modify_mfa_view.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This function overwrites <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin.form_valid" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">form_valid()</span></code></a> which is called if the
+<dd><p>This function overwrites <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/mixins-editing/#django.views.generic.edit.FormMixin.form_valid" title="(in Django v4.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">form_valid()</span></code></a> which is called if the
 <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.authentication_form.AuthenticationForm" title="integreat_cms.cms.forms.users.authentication_form.AuthenticationForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">AuthenticationForm</span></code></a> is valid. In case the user provided correct credentials,
 the current time is saved in a session variable so a timeout of the authentication can be implemented.</p>
 <dl class="field-list simple">
@@ -1887,7 +1887,7 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dl class="py attribute">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'settings/mfa/authenticate.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/webauthn/authenticate_modify_mfa_view.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>
@@ -1899,7 +1899,7 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.settings.webauthn.delete_user_fido_key_view.</span></span><span class="sig-name descname"><span class="pre">DeleteUserFidoKeyView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/webauthn/delete_user_fido_key_view.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></a></p>
 <p>View to delete a multi-factor-authentication key</p>
 <dl class="py method">
 <dt class="sig sig-object py">
@@ -1945,7 +1945,7 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dl class="py attribute">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'settings/mfa/delete.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/webauthn/delete_user_fido_key_view.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>
@@ -1957,7 +1957,7 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.settings.webauthn.get_mfa_challenge_view.</span></span><span class="sig-name descname"><span class="pre">GetMfaChallengeView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/webauthn/get_mfa_challenge_view.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/base/#django.views.generic.base.View" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">View</span></code></a></p>
 <p>View to generate a challenge for multi-factor-authentication</p>
 <dl class="py method">
 <dt class="sig sig-object py">
@@ -1988,7 +1988,7 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.settings.webauthn.register_user_fido_key_view.</span></span><span class="sig-name descname"><span class="pre">RegisterUserFidoKeyView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/webauthn/register_user_fido_key_view.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#django.views.generic.edit.CreateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CreateView</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/generic-editing/#django.views.generic.edit.CreateView" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CreateView</span></code></a></p>
 <p>View to render a form for creating <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey" title="integreat_cms.cms.models.users.user_fido_key.FidoKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">FidoKey</span></code></a> objects</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
@@ -1999,24 +1999,24 @@ the current time is saved in a session variable so a timeout of the authenticati
 <dl class="py attribute">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">model</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/user_fido_key.py#L10"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The model of this <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/generic-editing/#django.views.generic.edit.CreateView" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CreateView</span></code></a></p>
+<dd><p>The model of this <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/generic-editing/#django.views.generic.edit.CreateView" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CreateView</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v3.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.CharField" title="(in Django v3.2)"><em>CharField</em></a>) – Key name</p></li>
-<li><p><strong>key_id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BinaryField" title="(in Django v3.2)"><em>BinaryField</em></a>) – WebAuthn ID</p></li>
-<li><p><strong>public_key</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.BinaryField" title="(in Django v3.2)"><em>BinaryField</em></a>) – Multi-factor-authentication public key</p></li>
-<li><p><strong>sign_count</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.IntegerField" title="(in Django v3.2)"><em>IntegerField</em></a>) – Sign count. Token to prevent replay attacks.</p></li>
-<li><p><strong>last_usage</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Last date of use</p></li>
-<li><p><strong>created_at</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v3.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v4.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><em>CharField</em></a>) – Key name</p></li>
+<li><p><strong>key_id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.BinaryField" title="(in Django v4.2)"><em>BinaryField</em></a>) – WebAuthn ID</p></li>
+<li><p><strong>public_key</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.BinaryField" title="(in Django v4.2)"><em>BinaryField</em></a>) – Multi-factor-authentication public key</p></li>
+<li><p><strong>sign_count</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.IntegerField" title="(in Django v4.2)"><em>IntegerField</em></a>) – Sign count. Token to prevent replay attacks.</p></li>
+<li><p><strong>last_usage</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v4.2)"><em>DateTimeField</em></a>) – Last date of use</p></li>
+<li><p><strong>created_at</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v4.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
 </ul>
 </dd>
 </dl>
 <p>Relationship fields:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – User (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.fido_keys" title="integreat_cms.cms.models.users.user.User.fido_keys"><code class="xref py py-attr docutils literal notranslate"><span class="pre">fido_keys</span></code></a>)</p>
+<dd class="field-odd"><p><strong>user</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – User (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.fido_keys" title="integreat_cms.cms.models.users.user.User.fido_keys"><code class="xref py py-attr docutils literal notranslate"><span class="pre">fido_keys</span></code></a>)</p>
 </dd>
 </dl>
 <p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user_fido_key.FidoKey" title="integreat_cms.cms.models.users.user_fido_key.FidoKey"><code class="xref py py-class docutils literal notranslate"><span class="pre">FidoKey</span></code></a></p>
@@ -2047,7 +2047,7 @@ Called asynchronously by JavaScript.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'settings/mfa/add_key.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/settings/webauthn/register_user_fido_key_view.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
+<dd><p>The template to render (see <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/mixins-simple/#django.views.generic.base.TemplateResponseMixin" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponseMixin</span></code></a>)</p>
 </dd></dl>
 
 </dd></dl>

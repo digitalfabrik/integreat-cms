@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-01-31T17:27:47+00:00" />
+    <meta property="article:modified_time" content="2024-02-05T09:37:38+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Forms &mdash; integreat-cms 2024.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -1807,7 +1807,7 @@
   <section id="forms">
 <h1>Forms<a class="headerlink" href="#forms" title="Link to this heading"></a></h1>
 <p>Forms for creating and modifying database objects.
-Please refer to <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#module-django.forms" title="(in Django v3.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.forms</span></code></a> for general information about Django forms (see also: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/" title="(in Django v3.2)"><span>Working with forms</span></a>).</p>
+Please refer to <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/forms/api/#module-django.forms" title="(in Django v4.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.forms</span></code></a> for general information about Django forms (see also: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/forms/" title="(in Django v4.2)"><span>Working with forms</span></a>).</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.forms.chat.html">Chat</a><ul>
@@ -1958,7 +1958,7 @@ Requires the attributes “title”, “status” and “foreign_object” on th
 <dd><p>This method extends the <code class="docutils literal notranslate"><span class="pre">clean()</span></code>-method to verify that a user can modify this content model</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The cleaned data (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>)</p>
+<dd class="field-odd"><p>The cleaned data (see <a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v4.2)"><span>Overriding the clean() method</span></a>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, Any]</p>
@@ -1969,11 +1969,11 @@ Requires the attributes “title”, “status” and “foreign_object” on th
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">clean_content</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_content_model_form.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Validate the content field (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>) and applies changes
+<dd><p>Validate the content field (see <a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v4.2)"><span>Overriding the clean() method</span></a>) and applies changes
 to <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</span></code>- and <code class="docutils literal notranslate"><span class="pre">&lt;a&gt;</span></code>-Tags to match the guidelines.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/exceptions/#django.core.exceptions.ValidationError" title="(in Django v3.2)"><strong>ValidationError</strong></a> – When a heading 1 (<code class="docutils literal notranslate"><span class="pre">&lt;h1&gt;</span></code>) is used in the text content</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/exceptions/#django.core.exceptions.ValidationError" title="(in Django v4.2)"><strong>ValidationError</strong></a> – When a heading 1 (<code class="docutils literal notranslate"><span class="pre">&lt;h1&gt;</span></code>) is used in the text content</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The valid content</p>
@@ -1987,7 +1987,7 @@ to <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</spa
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">clean_slug</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_content_model_form.py#L196"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Validate the slug field (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>)</p>
+<dd><p>Validate the slug field (see <a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v4.2)"><span>Overriding the clean() method</span></a>)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A unique slug based on the input value</p>
@@ -2007,7 +2007,7 @@ to <code class="docutils literal notranslate"><span class="pre">&lt;img&gt;</spa
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">foreign_form_changed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_content_model_form.py#L209"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
+<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to set attributes
 which are not directly determined by input fields.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2033,7 +2033,7 @@ which are not directly determined by input fields.</p>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.custom_filter_form.</span></span><span class="sig-name descname"><span class="pre">CustomFilterForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_filter_form.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Form</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/forms/api/#django.forms.Form" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Form</span></code></a></p>
 <p>Base class for filter forms</p>
 <p><strong>Form fields:</strong></p>
 <dl class="field-list simple">
@@ -2091,9 +2091,9 @@ which are not directly determined by input fields.</p>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.custom_model_form.</span></span><span class="sig-name descname"><span class="pre">CustomModelForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_model_form.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a></p>
 <p>Form for populating all text widgets of a ModelForm with the default placeholder “Enter … here”.
-Use this form as base class instead of <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.ModelForm</span></code></a>.</p>
+Use this form as base class instead of <a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">django.forms.ModelForm</span></code></a>.</p>
 <p><strong>Form fields:</strong></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2121,7 +2121,7 @@ Use this form as base class instead of <a class="reference external" href="https
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">add_error_messages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_model_form.py#L137"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>This function accepts the current request and adds the form’s error messages to the message queue of
-<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/contrib/messages/#module-django.contrib.messages" title="(in Django v3.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.contrib.messages</span></code></a>.</p>
+<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/contrib/messages/#module-django.contrib.messages" title="(in Django v4.2)"><code class="xref py py-mod docutils literal notranslate"><span class="pre">django.contrib.messages</span></code></a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>request</strong> (<em>HttpRequest</em>) – The current request submitting the form</p>
@@ -2135,11 +2135,11 @@ Use this form as base class instead of <a class="reference external" href="https
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_model_form.py#L102"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">clean()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to provide debug
+<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">clean()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to provide debug
 logging</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The cleaned data (see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v3.2)"><span>Overriding the clean() method</span></a>)</p>
+<dd class="field-odd"><p>The cleaned data (see <a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/forms/modelforms/#overriding-modelform-clean-method" title="(in Django v4.2)"><span>Overriding the clean() method</span></a>)</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, Any]</p>
@@ -2170,14 +2170,14 @@ logging</p>
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/custom_model_form.py#L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to provide debug
+<dd><p>This method extends the default <code class="docutils literal notranslate"><span class="pre">save()</span></code>-method of the base <a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/forms/modelforms/#django.forms.ModelForm" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelForm</span></code></a> to provide debug
 logging</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>commit</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether or not the changes should be written to the database</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The saved object returned by <a class="reference external" href="https://docs.djangoproject.com/en/3.2/topics/forms/modelforms/#topics-modelform-save" title="(in Django v3.2)"><span>The save() method</span></a></p>
+<dd class="field-even"><p>The saved object returned by <a class="reference external" href="https://docs.djangoproject.com/en/4.2/topics/forms/modelforms/#topics-modelform-save" title="(in Django v4.2)"><span>The save() method</span></a></p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Any</p>
@@ -2197,8 +2197,8 @@ logging</p>
 <p>Form for creating and modifying tree node objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">_position</span></code>: Position (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChoiceField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">_ref_node_id</span></code>: Relative to (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_position</span></code>: Position (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/forms/fields/#django.forms.ChoiceField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_ref_node_id</span></code>: Relative to (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/forms/fields/#django.forms.ChoiceField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ChoiceField</span></code></a>)</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2254,7 +2254,7 @@ additional queries to render the node titles should be avoided.</p>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.icon_widget.</span></span><span class="sig-name descname"><span class="pre">IconWidget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attrs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/icon_widget.py#L13"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/widgets/#django.forms.HiddenInput" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HiddenInput</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/forms/widgets/#django.forms.HiddenInput" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">HiddenInput</span></code></a></p>
 <p>A custom widget to render the icon field</p>
 <dl class="py method">
 <dt class="sig sig-object py">
@@ -2296,8 +2296,8 @@ additional queries to render the node titles should be avoided.</p>
 It should be used as base class for translation forms which enable machine translations.</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">mt_translations_to_create</span></code>: Create new translations: (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelMultipleChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMultipleChoiceField</span></code></a>)</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">mt_translations_to_update</span></code>: Update existing translations: (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.ModelMultipleChoiceField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMultipleChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mt_translations_to_create</span></code>: Create new translations: (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/forms/fields/#django.forms.ModelMultipleChoiceField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMultipleChoiceField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">mt_translations_to_update</span></code>: Update existing translations: (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/forms/fields/#django.forms.ModelMultipleChoiceField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelMultipleChoiceField</span></code></a>)</p></li>
 </ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2321,7 +2321,7 @@ It should be used as base class for translation forms which enable machine trans
 <dl class="py method">
 <dt class="sig sig-object py">
 <span class="sig-name descname"><span class="pre">clean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/machine_translation_form.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Validate form fields which depend on each other, see <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form.clean" title="(in Django v3.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.forms.Form.clean()</span></code></a></p>
+<dd><p>Validate form fields which depend on each other, see <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/forms/api/#django.forms.Form.clean" title="(in Django v4.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">django.forms.Form.clean()</span></code></a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The cleaned form data</p>
@@ -2381,11 +2381,11 @@ the current language due to a lack of MT-compatible child language nodes</p>
 <dl class="py class">
 <dt class="sig sig-object py">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.forms.object_search_form.</span></span><span class="sig-name descname"><span class="pre">ObjectSearchForm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">files=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_id='id_%s'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error_class=&lt;class</span> <span class="pre">'django.forms.utils.ErrorList'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_suffix=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_permitted=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_order=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_required_attribute=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">renderer=None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/forms/object_search_form.py#L4"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/api/#django.forms.Form" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Form</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/forms/api/#django.forms.Form" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Form</span></code></a></p>
 <p>Form for searching objects</p>
 <p><strong>Form fields:</strong></p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">query</span></code>: Query (<a class="reference external" href="https://docs.djangoproject.com/en/3.2/ref/forms/fields/#django.forms.CharField" title="(in Django v3.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">query</span></code>: Query (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/forms/fields/#django.forms.CharField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a>)</p></li>
 </ul>
 <dl class="py property">
 <dt class="sig sig-object py">
@@ -2413,7 +2413,7 @@ the current language due to a lack of MT-compatible child language nodes</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jan 31, 2024.
+      <span class="lastupdated">Last updated on Feb 05, 2024.
       </span></p>
   </div>
 
