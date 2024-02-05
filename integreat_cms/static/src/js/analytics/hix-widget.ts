@@ -164,13 +164,13 @@ window.addEventListener("load", async () => {
     const toggleMTAvailability = (hixValue: number) => {
         const mtForm = document.getElementById("machine-translation-form");
         const hixScoreWarning = document.getElementById("hix-score-warning");
-        const minimumHix = parseFloat(mtForm.dataset.minimumHix);
+        const minimumHix = parseFloat(mtForm?.dataset.minimumHix);
 
         if (hixValue && hixValue < minimumHix) {
-            hixScoreWarning.classList.remove("hidden");
+            hixScoreWarning?.classList.remove("hidden");
             toggleMTCheckboxes(true);
         } else {
-            hixScoreWarning.classList.add("hidden");
+            hixScoreWarning?.classList.add("hidden");
             toggleMTCheckboxes(false);
         }
     };
