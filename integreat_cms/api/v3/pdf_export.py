@@ -10,6 +10,7 @@ import logging
 from typing import TYPE_CHECKING
 
 from django.http import Http404
+from django.views.decorators.cache import never_cache
 
 from ...cms.models import Page
 from ...cms.utils.pdf_utils import generate_pdf
@@ -22,6 +23,7 @@ logger = logging.getLogger(__name__)
 
 
 @json_response
+@never_cache
 # pylint: disable=unused-argument
 def pdf_export(
     request: HttpRequest, region_slug: str, language_slug: str

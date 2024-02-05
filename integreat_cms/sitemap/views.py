@@ -72,7 +72,7 @@ class SitemapIndexView(TemplateResponseMixin, View):
                         },
                     )
                     absolute_url = f"{settings.WEBAPP_URL}{sitemap_url}"
-                    sitemaps.append(absolute_url)
+                    sitemaps.append({"location": absolute_url})
 
         logger.debug("Sitemap index: %r", sitemaps)
 

@@ -376,6 +376,7 @@ if DEBUG:
 
 #: Activated middlewares (see :setting:`django:MIDDLEWARE`)
 MIDDLEWARE: list[str] = [
+    "django.middleware.gzip.GZipMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -393,7 +394,7 @@ MIDDLEWARE: list[str] = [
 # The Django debug toolbar middleware will only be activated if the debug_toolbar app is installed
 if "debug_toolbar" in INSTALLED_APPS:
     # The debug toolbar middleware should be put first (see :doc:`django-debug-toolbar:installation`)
-    MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
+    MIDDLEWARE.insert(1, "debug_toolbar.middleware.DebugToolbarMiddleware")
     MIDDLEWARE.append("integreat_cms.api.middleware.JsonDebugToolbarMiddleware")
 
 #: Default URL dispatcher (see :setting:`django:ROOT_URLCONF`)
@@ -432,7 +433,7 @@ WSGI_APPLICATION: Final[str] = "integreat_cms.core.wsgi.application"
 #: (see :setting:`django:DATABASES`)
 DATABASES: dict[str, dict[str, str]] = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "ENGINE": "django.db.backends.postgresql",
         "NAME": os.environ.get("INTEGREAT_CMS_DB_NAME", "integreat"),
         "USER": os.environ.get("INTEGREAT_CMS_DB_USER", "integreat"),
         "PASSWORD": os.environ.get(

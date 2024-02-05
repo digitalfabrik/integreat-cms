@@ -119,9 +119,8 @@ class UserForm(CustomModelForm):
         self.fields["email"].required = True
 
         # Check if passwordless authentication is possible for the user
-        if (
-            "passwordless_authentication_enabled" in self.fields
-            and not self.instance.fido_keys.exists()
+        if "passwordless_authentication_enabled" in self.fields and (
+            not self.instance.pk or not self.instance.fido_keys.exists()
         ):
             self.fields["passwordless_authentication_enabled"].disabled = True
 
