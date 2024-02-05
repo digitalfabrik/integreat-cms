@@ -745,6 +745,7 @@ def get_page_order_table_ajax(
         {
             "page": page,
             "siblings": siblings,
+            "can_edit_page": request.user.has_perm("cms.change_page_object", page),
         },
     )
 
