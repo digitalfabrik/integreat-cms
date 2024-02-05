@@ -9,7 +9,7 @@ window.addEventListener("load", async () => {
     }
 
     // Display the correct renewal date for the MT budget
-    const renewalDateElement = document.querySelector("#deepl-renewal-date") as HTMLElement;
+    const renewalDateElement = document.querySelector("#mt-renewal-date") as HTMLElement;
     const renewalMonth = parseInt(renewalDateElement.dataset.renewalMonth, 10);
     const now = new Date();
     // Determine whether or not the next time the renewal month starts will happen this year or next year

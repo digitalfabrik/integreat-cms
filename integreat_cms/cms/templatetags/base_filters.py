@@ -46,12 +46,15 @@ def get_private_member(
 @register.simple_tag
 def get_mt_visibility(region: Region, perms: PermWrapper) -> bool:
     """
-    This tag checks whether either DEEPL or SUMM.AI is activated in the region and the user has permission to manage automatic translations.
+    This tag checks whether either DeepL or Google Translate or SUMM.AI is activated in the region and the user has permission to manage automatic translations.
 
     :param region: The rcurrent region
     :param perms: Permission of the user
     :return: Whether the MT section should be shown
     """
     return "cms.manage_translations" in perms and (
-        settings.DEEPL_ENABLED or settings.SUMM_AI_ENABLED and region.summ_ai_enabled
+        settings.DEEPL_ENABLED
+        or settings.GOOGLE_TRANSLATE_ENABLED
+        or settings.SUMM_AI_ENABLED
+        and region.summ_ai_enabled
     )

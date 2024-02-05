@@ -33,9 +33,9 @@ window.addEventListener("load", () => {
         });
     }
 
-    // event handler for auto-filling DeepL renewal budget year start month
-    const midyearDateEnabledCheckbox = document.getElementById("id_deepl_midyear_start_enabled");
-    const midyearDateSelector = document.getElementById("id_deepl_midyear_start_month") as HTMLSelectElement;
+    // event handler for auto-filling MT renewal budget year start month
+    const midyearDateEnabledCheckbox = document.getElementById("id_mt_midyear_start_enabled");
+    const midyearDateSelector = document.getElementById("id_mt_midyear_start_month") as HTMLSelectElement;
     if (midyearDateEnabledCheckbox && midyearDateSelector) {
         midyearDateEnabledCheckbox.addEventListener("click", ({ target }) => {
             if ((target as HTMLInputElement).checked && !midyearDateSelector.value) {

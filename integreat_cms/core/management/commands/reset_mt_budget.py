@@ -19,10 +19,10 @@ logger = logging.getLogger(__name__)
 
 class Command(LogCommand):
     """
-    Management command to reset DeepL budget
+    Management command to reset MT budget
     """
 
-    help: str = "Reset DeepL budget"
+    help: str = "Reset MT budget"
 
     def add_arguments(self, parser: CommandParser) -> None:
         """
@@ -52,28 +52,28 @@ class Command(LogCommand):
         if current_day != 1:
             if force:
                 logger.warning(
-                    "Resetting DeepL budget although it is not the 1st day of the month (it's the %r)",
+                    "Resetting MT budget although it is not the 1st day of the month (it's the %r)",
                     current_day,
                 )
             else:
                 raise CommandError(
-                    "It is not the 1st day of the month. If you want to reset DeepL budget despite that, run the command with --force"
+                    "It is not the 1st day of the month. If you want to reset MT budget despite that, run the command with --force"
                 )
 
-        if not (regions := Region.objects.filter(deepl_renewal_month=current_month)):
+        if not (regions := Region.objects.filter(mt_renewal_month=current_month)):
             logger.info(
-                "There is no region whose DeepL budget needs to be reset in %r.",
+                "There is no region whose MT budget needs to be reset in %r.",
                 current_month_name,
             )
         else:
             for region in regions:
                 logger.info(
-                    "Reset DeepL budget of %r (previously used: %r, previous midyear start month: %r).",
+                    "Reset MT budget of %r (previously used: %r, previous midyear start month: %r).",
                     region,
-                    region.deepl_budget_used,
-                    region.deepl_midyear_start_month,
+                    region.mt_budget_used,
+                    region.mt_midyear_start_month,
                 )
-                region.deepl_budget_used = 0
-                region.deepl_midyear_start_month = None
+                region.mt_budget_used = 0
+                region.mt_midyear_start_month = None
                 region.save()
-            logger.success("✔ DeepL budget has been reset.")  # type: ignore[attr-defined]
+            logger.success("✔ MT budget has been reset.")  # type: ignore[attr-defined]

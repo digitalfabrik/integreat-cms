@@ -337,6 +337,7 @@ INSTALLED_APPS: Final[list[str]] = [
     "integreat_cms.cms",
     "integreat_cms.core",
     "integreat_cms.deepl_api",
+    "integreat_cms.google_translate_api",
     "integreat_cms.firebase_api",
     "integreat_cms.gvz_api",
     "integreat_cms.matomo_api",
@@ -866,9 +867,28 @@ FORMAT_MODULE_PATH: Final[list[str]] = [
 ]
 
 
-##########################
-# AUTOMATIC TRANSLATIONS #
-##########################
+#####################################
+# MT Global - AUTOMATIC TRANSLATION #
+#####################################
+
+#: An integer specifying the number of translation credits available to regions for free
+MT_CREDITS_FREE: Final[int] = int(os.environ.get("MT_CREDITS_FREE", 50_000))
+
+#: An integer specifying the number of translation credits that can be bought as an add-on
+MT_CREDITS_ADDON: Final[int] = int(os.environ.get("MT_CREDITS_ADDON", 1_000_000))
+
+#: A floating point that specifies the percentage of MT_CREDITS_FREE used as a soft margin
+MT_SOFT_MARGIN_FRACTION: Final[float] = float(
+    os.environ.get("INTEGREAT_CMS_MT_SOFT_MARGIN", 0.01)
+)
+
+#: The actual number of words which are used as soft margin
+MT_SOFT_MARGIN: Final[int] = int(MT_SOFT_MARGIN_FRACTION * MT_CREDITS_FREE)
+
+
+#################################
+# DeepL - AUTOMATIC TRANSLATION #
+#################################
 
 #: The URL to DeepL API. If not set, the library selects the correct URL automatically
 DEEPL_API_URL: Final[str | None] = os.environ.get("INTEGREAT_CMS_DEEPL_API_URL")
@@ -880,19 +900,38 @@ DEEPL_AUTH_KEY: str | None = os.environ.get("INTEGREAT_CMS_DEEPL_AUTH_KEY")
 #: This is ``True`` if :attr:`~integreat_cms.core.settings.DEEPL_AUTH_KEY` is set, ``False`` otherwise.
 DEEPL_ENABLED: bool = bool(DEEPL_AUTH_KEY)
 
-#: An integer specifying the number of translation credits available two regions for free
-DEEPL_CREDITS_FREE: Final[int] = int(os.environ.get("DEEPL_CREDITS_FREE", 50_000))
 
-#: An integer specifying the number of translation credits that can be bought as an add-on
-DEEPL_CREDITS_ADDON: Final[int] = int(os.environ.get("DEEPL_CREDITS_ADDON", 1_000_000))
+############################################
+# Google Translate - AUTOMATIC TRANSLATION #
+############################################
 
-#: A floating point that specifies the percentage of DEEPL_CREDITS_FREE used as a soft margin
-DEEPL_SOFT_MARGIN_FRACTION: Final[float] = float(
-    os.environ.get("INTEGREAT_CMS_DEEPL_SOFT_MARGIN", 0.01)
+#: Version of Google Translate, either Basic or Advanced
+GOOGLE_TRANSLATE_VERSION: Final[str] = os.environ.get(
+    "INTEGREAT_CMS_GOOGLE_TRANSLATE_VERSION", "Basic"
 )
 
-#: The actual number of words which are used as soft margin
-DEEPL_SOFT_MARGIN: Final[int] = int(DEEPL_SOFT_MARGIN_FRACTION * DEEPL_CREDITS_FREE)
+#: Path to the saved credential json file
+GOOGLE_APPLICATION_CREDENTIALS: Final[str | None] = os.environ.get(
+    "INTEGREAT_CMS_GOOGLE_CREDENTIALS"
+)
+
+#: Google project id
+GOOGLE_PROJECT_ID: Final[str | None] = os.environ.get("INTEGREAT_CMS_GOOGLE_PROJECT_ID")
+
+#: Location for google translate. Default to "global". This must be non-global for custom glossaries.
+GOOGLE_TRANSLATE_LOCATION: Final[str] = os.environ.get(
+    "INTEGREAT_CMS_GOOGLE_TRANSLATE_LOCATION", "global"
+)
+
+#: This is ``True`` when both the credentials and project id are provided
+GOOGLE_TRANSLATE_ENABLED: bool = bool(GOOGLE_APPLICATION_CREDENTIALS) and bool(
+    GOOGLE_PROJECT_ID
+)
+
+#: `parent` parameter for Google Translate, consists of project id and location
+GOOGLE_PARENT_PARAM: Final[str] = (
+    f"projects/{GOOGLE_PROJECT_ID}/locations/{GOOGLE_TRANSLATE_LOCATION}"
+)
 
 
 #########################

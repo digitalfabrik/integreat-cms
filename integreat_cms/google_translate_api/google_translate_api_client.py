@@ -4,13 +4,14 @@ import logging
 from html import unescape
 from typing import TYPE_CHECKING
 
-import deepl
 from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext_lazy
+from google.cloud import translate_v2, translate_v3  # type: ignore[attr-defined]
+from google.oauth2 import service_account
 
 from ..cms.utils.stringify_list import iter_to_string
 from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
@@ -29,14 +30,14 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-class DeepLApiClient(MachineTranslationApiClient):
+class GoogleTranslateApiClient(MachineTranslationApiClient):
     """
-    DeepL API client to automatically translate selected objects.
+    Google Translate API client to automatically translate selected objects.
     """
 
     def __init__(self, request: HttpRequest, form_class: ModelFormMetaclass) -> None:
         """
-        Initialize the DeepL client
+        Initialize the Google Translate client
 
         :param region: The current region
         :param form_class: The :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
@@ -49,11 +50,24 @@ class DeepLApiClient(MachineTranslationApiClient):
             raise RuntimeError(
                 f'Machine translations are disabled for content type "{form_class._meta.model}" and {request.user!r}.'
             )
-        if not settings.DEEPL_ENABLED:
-            raise RuntimeError("DeepL is disabled globally.")
-        self.translator = deepl.Translator(
-            auth_key=settings.DEEPL_AUTH_KEY, server_url=settings.DEEPL_API_URL
-        )
+        if not settings.GOOGLE_TRANSLATE_ENABLED:
+            raise RuntimeError("Google translate is disabled globally.")
+
+        try:
+            credentials = service_account.Credentials.from_service_account_file(
+                settings.GOOGLE_APPLICATION_CREDENTIALS
+            )
+            if settings.GOOGLE_TRANSLATE_VERSION == "Advanced":
+                self.translator_v3 = translate_v3.TranslationServiceClient(
+                    credentials=credentials
+                )
+            else:
+                self.translator_v2 = translate_v2.Client(credentials=credentials)
+        except Exception as e:  # pylint: disable=broad-except
+            logger.error(e)
+            logger.error(
+                "Google translate is not available. Please check the credentials file."
+            )
 
     @staticmethod
     def get_target_language_key(target_language: Language) -> str:
@@ -63,9 +77,9 @@ class DeepLApiClient(MachineTranslationApiClient):
         :param target_language: the target language
         :return: target_language_key which is 2 characters long for all languages except English and Portugese where the BCP tag is transmitted
         """
-        deepl_config = apps.get_app_config("deepl_api")
+        google_translate_config = apps.get_app_config("google_translate_api")
         for code in [target_language.slug, target_language.bcp47_tag]:
-            if code.lower() in deepl_config.supported_target_languages:
+            if code.lower() in google_translate_config.supported_target_languages:
                 return code
         return ""
 
@@ -74,14 +88,14 @@ class DeepLApiClient(MachineTranslationApiClient):
         self, queryset: list[Event] | (list[Page] | list[POI]), language_slug: str
     ) -> None:
         """
-        This function translates a content queryset via DeepL
+        This function translates a content queryset via Google Translate
 
         :param queryset: The content QuerySet
         :param language_slug: The target language slug
         """
         with transaction.atomic():
             # Re-select the region from db to prevent simultaneous
-            # requests exceeding the DeepL usage limit
+            # requests exceeding the MT usage limit
             region = (
                 apps.get_model("cms", "Region")
                 .objects.select_for_update()
@@ -147,13 +161,28 @@ class DeepLApiClient(MachineTranslationApiClient):
                     if hasattr(source_translation, attr) and getattr(
                         source_translation, attr
                     ):
-                        # data has to be unescaped for DeepL to recognize umlauts
-                        data[attr] = self.translator.translate_text(
-                            unescape(getattr(source_translation, attr)),
-                            source_lang=source_language.slug,
-                            target_lang=target_language_key,
-                            tag_handling="html",
-                        )
+                        # data has to be unescaped to recognize Umlaute
+                        if settings.GOOGLE_TRANSLATE_VERSION == "Advanced":
+                            parent = settings.GOOGLE_PARENT_PARAM
+                            request = translate_v3.TranslateTextRequest(
+                                contents=[unescape(getattr(source_translation, attr))],
+                                parent=parent,
+                                target_language_code=target_language_key,
+                                source_language_code=source_language.slug,
+                                mime_type="text/html",
+                            )
+                            data[attr] = (
+                                self.translator_v3.translate_text(request=request)
+                                .translations[0]
+                                .translated_text
+                            )
+                        else:
+                            data[attr] = self.translator_v2.translate(
+                                values=[unescape(getattr(source_translation, attr))],
+                                target_language=target_language_key,
+                                source_language=source_language.slug,
+                                format_="html",
+                            )[0]["translatedText"]
 
                 content_translation_form = self.form_class(
                     data=data,
@@ -191,7 +220,7 @@ class DeepLApiClient(MachineTranslationApiClient):
                     )
                     failed_changes_generic_error.append(source_translation.title)
 
-                # Update remaining DeepL usage for the region
+                # Update remaining MT usage for the region
                 region.mt_budget_used += word_count
                 region.save()
 

@@ -39,48 +39,48 @@ def test_not_first_day() -> None:
     Ensure that the command will not run when it's not the 1st day of the month without --force
     """
     with pytest.raises(CommandError) as exc_info:
-        assert not any(get_command_output("reset_deepl_budget"))
+        assert not any(get_command_output("reset_mt_budget"))
         assert (
             str(exc_info.value)
-            == "It is not the 1st day of the month. If you want to reset DeepL budget despite that, run the command with --force"
+            == "It is not the 1st day of the month. If you want to reset MT budget despite that, run the command with --force"
         )
 
 
 @pytest.mark.order("last")
 @pytest.mark.django_db(transaction=True, serialized_rollback=True)
-def test_reset_deepl_budget(load_test_data_transactional: Any | None) -> None:
+def test_reset_mt_budget(load_test_data_transactional: Any | None) -> None:
     """
-    Ensure that DeepL budget gets reset successfully
+    Ensure that MT budget gets reset successfully
     """
 
     current_month = datetime.now().month - 1
 
     region1 = Region.objects.create(
-        slug="deepl_test_1",
-        deepl_renewal_month=current_month,
-        deepl_midyear_start_month=current_month + 1,
-        deepl_budget_used=42,
+        slug="mt_test_1",
+        mt_renewal_month=current_month,
+        mt_midyear_start_month=current_month + 1,
+        mt_budget_used=42,
     )
     region2 = Region.objects.create(
-        slug="deepl_test_2",
-        deepl_renewal_month=current_month + 1,
-        deepl_midyear_start_month=current_month + 1,
-        deepl_budget_used=42,
+        slug="mt_test_2",
+        mt_renewal_month=current_month + 1,
+        mt_midyear_start_month=current_month + 1,
+        mt_budget_used=42,
     )
 
-    out, _err = get_command_output("reset_deepl_budget", "--force")
+    out, _err = get_command_output("reset_mt_budget", "--force")
     region1.refresh_from_db()
     region2.refresh_from_db()
-    assert "✔ DeepL budget has been reset." in out
+    assert "✔ MT budget has been reset." in out
     assert (
-        not region1.deepl_budget_used
-    ), "The DeepL budget of region 1 should have been reset to 0."
+        not region1.mt_budget_used
+    ), "The MT budget of region 1 should have been reset to 0."
     assert (
-        region2.deepl_budget_used == 42
-    ), "The DeepL budget of region 2 should remain unchanged."
+        region2.mt_budget_used == 42
+    ), "The MT budget of region 2 should remain unchanged."
     assert (
-        region1.deepl_midyear_start_month is None
+        region1.mt_midyear_start_month is None
     ), "The midyear start month of region 1 should have been reset to None."
     assert (
-        region2.deepl_midyear_start_month == current_month + 1
+        region2.mt_midyear_start_month == current_month + 1
     ), "The midyear start month of region 2 should not have been reset to None."
