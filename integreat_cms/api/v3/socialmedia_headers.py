@@ -52,7 +52,7 @@ def socialmedia_headers(request: HttpRequest, path: str | None = None) -> HttpRe
     if len(list(slugs)):
         return content_socialmedia_headers(request, region, language, "/".join(slugs))
 
-    return region_socialmedia_headers(request, region, path or "")
+    return region_socialmedia_headers(request, region, language, path or "")
 
 
 def root_socialmedia_headers(
@@ -80,11 +80,11 @@ def root_socialmedia_headers(
             " you can find local information, advice centres and services."
         )
     )
-    return render_socialmedia_headers(request, title, excerpt, url)
+    return render_socialmedia_headers(request, title, language.bcp47_tag, excerpt, url)
 
 
 def region_socialmedia_headers(
-    request: HttpRequest, region: Region, path: str
+    request: HttpRequest, region: Region, language: Language, path: str
 ) -> HttpResponse:
     """
     Generally renders the social media headers for a root region page.
@@ -97,7 +97,7 @@ def region_socialmedia_headers(
     """
     title = f"{region.name} | {settings.BRANDING_TITLE}"
     url = f"{settings.WEBAPP_URL}/{path}"
-    return render_socialmedia_headers(request, title, None, url)
+    return render_socialmedia_headers(request, title, language.bcp47_tag, None, url)
 
 
 def content_socialmedia_headers(
@@ -171,6 +171,7 @@ def event_socialmedia_headers(
     return render_socialmedia_headers(
         request=request,
         title=get_region_title(region, event_translation.title),
+        language_code=language.bcp47_tag,
         excerpt=get_excerpt(event_translation.content),
         url=event_translation.full_url,
     )
@@ -205,6 +206,7 @@ def news_socialmedia_headers(
     return render_socialmedia_headers(
         request=request,
         title=get_region_title(region, pn_translation.get_title()),
+        language_code=language.bcp47_tag,
         excerpt=get_excerpt(pn_translation.get_text()),
         url=f"{settings.WEBAPP_URL}/{pn_translation.get_absolute_url()}",
     )
@@ -232,6 +234,7 @@ def location_socialmedia_headers(
     return render_socialmedia_headers(
         request=request,
         title=get_region_title(region, location_translation.title),
+        language_code=language.bcp47_tag,
         excerpt=get_excerpt(location_translation.content),
         url=location_translation.full_url,
     )
@@ -258,31 +261,34 @@ def page_socialmedia_headers(
     return render_socialmedia_headers(
         request=request,
         title=get_region_title(region, page_translation.title),
+        language_code=language.bcp47_tag,
         excerpt=get_excerpt(page_translation.content),
         url=page_translation.full_url,
     )
 
 
 def render_socialmedia_headers(
-    request: HttpRequest, title: str, excerpt: str | None, url: str
+    request: HttpRequest, title: str, language_code: str, excerpt: str | None, url: str
 ) -> HttpResponse:
     """
     Renders the socialmedia headers with the specified arguments
 
     :param request: The request sent to the Django Server
     :param title: The title of the page in the socialmedia headers
+    :param language_code: The language of the page
     :param excerpt: An optional excerpt describing the content of the page. If omitted google, will automatically crawl an excerpt
     :param url: The url the headers belong to
     :return: HTML social meta headers required by social media platforms
     """
     return render(
         request,
-        "socialmedia_headers.html",
+        "socialmedia_headers.djlintignore.html",
         {
             "title": title,
             "excerpt": excerpt,
             "platform": settings.BRANDING_TITLE,
             "url": url,
-            "image": settings.SOCIAL_PREVIEW_IMAGE,
+            "image": f"{settings.BASE_URL}/{settings.SOCIAL_PREVIEW_IMAGE}",
+            "language_code": language_code,
         },
     )

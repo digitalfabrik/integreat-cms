@@ -14,14 +14,13 @@ from .api_config import API_SOCIAL_ENDPOINTS
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "endpoint,wp_endpoint,expected_result,expected_code,expected_queries",
+    "endpoint,expected_result,expected_code,expected_queries",
     API_SOCIAL_ENDPOINTS,
 )
 def test_api_result(
     load_test_data: None,
     django_assert_num_queries: Callable,
     endpoint: str,
-    wp_endpoint: str,
     expected_result: str,
     expected_code: int,
     expected_queries: int,
@@ -44,13 +43,7 @@ def test_api_result(
         response = client.get(endpoint, format="html")
     print(response.headers)
     assert response.status_code == expected_code
-    with django_assert_num_queries(expected_queries):
-        response_wp = client.get(wp_endpoint, format="html")
-    print(response_wp.headers)
-    assert response_wp.status_code == expected_code
     with open(expected_result, encoding="utf-8") as f:
         result = json.load(f)
         template_context = response.context.dicts[3]
-        wp_template_context = response_wp.context.dicts[3]
         assert dict(template_context) == result
-        assert dict(wp_template_context) == result

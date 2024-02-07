@@ -110,9 +110,8 @@ class Language(AbstractBaseModel):
         ),
     )
     socialmedia_webapp_title = models.CharField(
-        default=f"{settings.BRANDING_TITLE} | Web-App | Lokale Informationen für Dich",
         max_length=250,
-        blank=False,
+        blank=True,
         verbose_name=_("Socialmedia title of the WebApp"),
         help_text=_(
             "Displayed title of the WebApp in the search results and on socialmedia pages."

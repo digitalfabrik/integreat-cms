@@ -33,7 +33,8 @@ repos:
     rev: v1.34.1
     hooks:
       - id: djlint-django
-        args: [--extend-exclude, .djlintignore.html, --reformat, --lint]
+        args: [--reformat, --lint]
+        exclude: integreat_cms/cms/templates/socialmedia_headers.djlintignore.html
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v9.0.0-alpha.2
     hooks:
