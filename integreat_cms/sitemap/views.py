@@ -3,6 +3,7 @@ This module contains views for generating the sitemap dynamically.
 The views are class-based patches of the inbuilt views :func:`~django.contrib.sitemaps.views.index` and
 :func:`~django.contrib.sitemaps.views.sitemap` of the :mod:`django.contrib.sitemaps` :doc:`django:ref/contrib/sitemaps`.
 """
+
 from __future__ import annotations
 
 import logging
@@ -71,7 +72,7 @@ class SitemapIndexView(TemplateResponseMixin, View):
                         },
                     )
                     absolute_url = f"{settings.WEBAPP_URL}{sitemap_url}"
-                    sitemaps.append(absolute_url)
+                    sitemaps.append({"location": absolute_url})
 
         logger.debug("Sitemap index: %r", sitemaps)
 

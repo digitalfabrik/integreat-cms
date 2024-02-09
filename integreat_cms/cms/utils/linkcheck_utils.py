@@ -1,19 +1,27 @@
 from __future__ import annotations
 
 import logging
+import re
 import time
 from copy import deepcopy
 from functools import partial
 from typing import TYPE_CHECKING
+from urllib.parse import ParseResult, unquote, urlparse
 
 from django.conf import settings
-from django.db.models import Prefetch, Q
+from django.db.models import Prefetch, Q, Subquery
 from linkcheck import update_lock
 from linkcheck.listeners import tasks_queue
 from linkcheck.models import Link, Url
 from lxml.html import rewrite_links
 
-from ..models import EventTranslation, PageTranslation, POITranslation
+from integreat_cms.cms.models import (
+    EventTranslation,
+    ImprintPageTranslation,
+    PageTranslation,
+    POITranslation,
+    Region,
+)
 
 if TYPE_CHECKING:
     from typing import Any
@@ -29,7 +37,7 @@ def get_urls(
     prefetch_content_objects: bool = True,
 ) -> list[Url]:
     """
-    Count all urls by status, either of a specific region or globally
+    Collect all the urls which appear in the latest versions of the contents of the region, filtered by ID or region if given.
 
     :param region_slug: The slug of the current region
     :param url_ids: The list of requested url ids
@@ -41,15 +49,39 @@ def get_urls(
         # If the results should be limited to specific ids, filter the queryset
         urls = urls.filter(id__in=url_ids)
     if region_slug:
+        region = Region.objects.get(slug=region_slug)
+        latest_pagetranslation_versions = Subquery(
+            PageTranslation.objects.filter(
+                page__id__in=Subquery(region.non_archived_pages.values("pk")),
+            )
+            .distinct("page__id", "language__id")
+            .values_list("pk", flat=True)
+        )
+        latest_poitranslation_versions = Subquery(
+            POITranslation.objects.filter(poi__region=region)
+            .distinct("poi__id", "language__id")
+            .values_list("pk", flat=True)
+        )
+        latest_eventtranslation_versions = Subquery(
+            EventTranslation.objects.filter(event__region=region)
+            .distinct("event__id", "language__id")
+            .values_list("pk", flat=True)
+        )
+        latest_imprinttranslation_versions = Subquery(
+            ImprintPageTranslation.objects.filter(page__region=region)
+            .distinct("page__id", "language__id")
+            .values_list("pk", flat=True)
+        )
         # Get all link objects of the requested region
         region_links = Link.objects.filter(
-            Q(page_translation__page__region__slug=region_slug)
-            | Q(imprint_translation__page__region__slug=region_slug)
-            | Q(event_translation__event__region__slug=region_slug)
-            | Q(poi_translation__poi__region__slug=region_slug)
+            Q(page_translation__id__in=latest_pagetranslation_versions)
+            | Q(imprint_translation__id__in=latest_imprinttranslation_versions)
+            | Q(event_translation__id__in=latest_eventtranslation_versions)
+            | Q(poi_translation__id__in=latest_poitranslation_versions)
         ).order_by("id")
+
         if prefetch_content_objects:
-            region_links = region_links.prefetch_related("content_object")
+            region_links = region_links.prefetch_related("content_object__language")
         # Prefetch all link objects of the requested region
         urls = urls.prefetch_related(
             Prefetch(
@@ -253,3 +285,25 @@ def replace_links(
     time.sleep(0.1)
     tasks_queue.join()
     logger.info("Finished replacing %r with %r in content links", search, replace)
+
+
+def fix_domain_encoding(url: re.Match[str]) -> str:
+    """
+    Fix the encoding of punycode domains
+
+    :param url: The input url match
+    :return: The fixed url
+    """
+    parsed_url: ParseResult = urlparse(url.group(1))
+    parsed_url = parsed_url._replace(netloc=unquote(parsed_url.netloc))
+    return parsed_url.geturl()
+
+
+def fix_content_link_encoding(content: str) -> str:
+    """
+    Fix the encoding of punycode domains in an html content string
+
+    :param content: The input content
+    :return: The fixed content
+    """
+    return re.sub(r"(?<=[\"'])(https?://.+?)(?=[\"'])", fix_domain_encoding, content)

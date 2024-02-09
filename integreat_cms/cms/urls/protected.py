@@ -3,6 +3,7 @@ URLconf for login-protected views of the cms package. These urls are processed b
 :mod:`~integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware`.
 Views which should not have login protection go into :mod:`~integreat_cms.cms.urls.public`.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -1331,6 +1332,11 @@ urlpatterns: list[URLPattern] = [
                                 "delete/",
                                 feedback.delete_region_feedback,
                                 name="delete_region_feedback",
+                            ),
+                            path(
+                                "export/",
+                                feedback.export_region_feedback,
+                                name="export_region_feedback",
                             ),
                         ]
                     ),

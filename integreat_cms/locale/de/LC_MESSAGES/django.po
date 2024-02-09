@@ -1563,8 +1563,8 @@ msgstr "Entwurf"
 
 #: cms/constants/status.py
 #: cms/templates/translations/translations_management.html
-msgid "Pending Review"
-msgstr "Review ausstehend"
+msgid "Pending Approval"
+msgstr "Freigabe ausstehend"
 
 #: cms/constants/status.py
 #: cms/templates/translations/translations_management.html
@@ -1694,16 +1694,24 @@ msgstr ""
 "schließen sich gegenseitig aus."
 
 #: cms/forms/custom_content_model_form.py
+msgid "{} \"{}\" was saved automatically"
+msgstr "{} \"{}\" wurde automatisch gespeichert"
+
+#: cms/forms/custom_content_model_form.py
+msgid "{} \"{}\" was successfully submitted for review"
+msgstr "{} \"{}\" wurde erfolgreich zur Überprüfung eingereicht"
+
+#: cms/forms/custom_content_model_form.py
 msgid "{} \"{}\" was successfully saved as draft"
 msgstr "{} \"{}\" wurde erfolgreich als Entwurf gespeichert"
 
 #: cms/forms/custom_content_model_form.py
-msgid "{} \"{}\" was successfully updated"
-msgstr "{} \"{}\" wurde erfolgreich aktualisiert"
-
-#: cms/forms/custom_content_model_form.py
 msgid "{} \"{}\" was successfully published"
 msgstr "{} \"{}\" wurde erfolgreich veröffentlicht"
+
+#: cms/forms/custom_content_model_form.py
+msgid "{} \"{}\" was successfully updated"
+msgstr "{} \"{}\" wurde erfolgreich aktualisiert"
 
 #: cms/forms/custom_model_form.py
 msgid "Enter {} here"
@@ -1820,6 +1828,7 @@ msgstr "Alle Regionen"
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/_page_xliff_import_diff.html
 #: cms/templates/statistics/statistics_overview.html
+#: cms/views/feedback/feedback_resource.py
 msgid "Language"
 msgstr "Sprache"
 
@@ -1837,6 +1846,7 @@ msgstr "Alle Kategorien"
 #: cms/templates/feedback/region_feedback_list.html
 #: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
+#: cms/views/feedback/feedback_resource.py
 msgid "Category"
 msgstr "Kategorie"
 
@@ -1859,6 +1869,7 @@ msgstr "Status"
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
 #: cms/templates/feedback/region_feedback_list_archived.html
+#: cms/views/feedback/feedback_resource.py
 msgid "Rating"
 msgstr "Bewertung"
 
@@ -4714,6 +4725,7 @@ msgstr "Versionen von \"%(content_title)s\""
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
 #: cms/templates/feedback/region_feedback_list_archived.html
+#: cms/views/feedback/feedback_resource.py
 msgid "Date"
 msgstr "Datum"
 
@@ -4801,8 +4813,8 @@ msgid "Accept and publish the current changes"
 msgstr "Aktuelle Änderungen akzeptieren und veröffentlichen"
 
 #: cms/templates/content_versions.html
-msgid "Restore this version and submit for review"
-msgstr "Diese Revision wiederherstellen und zum Review vorlegen"
+msgid "Restore this version and submit for approval"
+msgstr "Diese Revision wiederherstellen und zur Freigabe vorlegen"
 
 #: cms/templates/dashboard/_news_widget.html
 msgid "Integreat News"
@@ -4950,21 +4962,21 @@ msgid "Go to feedback"
 msgstr "Zum Feedback"
 
 #: cms/templates/dashboard/todo_dashboard_rows/_unreviewed_pages_row.html
-msgid "Pages that are waiting for review"
-msgstr "Seiten, die zum Review vorliegen"
+msgid "Pages pending approval"
+msgstr "Seiten, die zur Freigabe vorliegen"
 
 #: cms/templates/dashboard/todo_dashboard_rows/_unreviewed_pages_row.html
 #, python-format
 msgid ""
-"The page <b>%(single_unreviewed_page)s</b> is waiting for a review. Please "
+"The page <b>%(single_unreviewed_page)s</b> is waiting for approval. Please "
 "review the page to ensure the content is accurate."
 msgstr ""
-"Die Seite <b>%(single_unreviewed_page)s</b> liegt zur Überprüfung vor. Bitte "
+"Die Seite <b>%(single_unreviewed_page)s</b> liegt zur Freigabe vor. Bitte "
 "beurteilen Sie, ob die Seite fehlerfrei ist."
 
 #: cms/templates/dashboard/todo_dashboard_rows/_unreviewed_pages_row.html
-msgid "At the moment there is no page waiting for a review. Good job!"
-msgstr "Aktuell liegen keine Seiten zur Überprüfung vor. Gute Arbeit!"
+msgid "At the moment there is no page waiting for approval. Good job!"
+msgstr "Aktuell liegen keine Seiten zur Freigabe vor. Gute Arbeit!"
 
 #: cms/templates/emails/_base_email.html
 #: cms/templates/emails/password_reset_email.txt
@@ -5132,8 +5144,8 @@ msgstr "Als Entwurf speichern"
 
 #: cms/templates/events/event_form.html cms/templates/pages/page_form.html
 #: cms/templates/pages/page_sbs.html
-msgid "Submit for review"
-msgstr "Zur Überprüfung vorlegen"
+msgid "Submit for approval"
+msgstr "Zur Freigabe vorlegen"
 
 #: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
 #: cms/templates/pages/page_form.html cms/templates/pois/poi_form.html
@@ -5445,6 +5457,7 @@ msgstr "Die fünf aktuellsten Einträge werden aufgeführt."
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
 #: cms/templates/feedback/region_feedback_list_archived.html
+#: cms/views/feedback/feedback_resource.py
 msgid "Feedback on"
 msgstr "Feedback zu"
 
@@ -5453,6 +5466,7 @@ msgstr "Feedback zu"
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
 #: cms/templates/feedback/region_feedback_list_archived.html
+#: cms/views/feedback/feedback_resource.py
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -5559,6 +5573,10 @@ msgstr "Kein Feedback mit diesen Filtern gefunden."
 #: cms/templates/feedback/region_feedback_list.html
 msgid "No feedback available yet."
 msgstr "Noch kein Feedback vorhanden."
+
+#: cms/templates/feedback/region_feedback_list.html
+msgid "Export to CSV"
+msgstr "Als CSV-Datei exportieren"
 
 #: cms/templates/generic_auto_save_note.html
 msgid "Automatically saved on:"
@@ -8240,8 +8258,8 @@ msgid ""
 "and submit them for review instead."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu "
-"veröffentlichen, aber Sie können Änderungen vornehmen und diese zur "
-"Überprüfung vorlegen."
+"veröffentlichen, aber Sie können Änderungen vornehmen und diese zur Freigabe "
+"vorlegen."
 
 #: cms/views/events/event_form_view.py cms/views/imprint/imprint_form_view.py
 #: cms/views/pages/page_form_view.py cms/views/pois/poi_form_view.py
@@ -8302,6 +8320,10 @@ msgstr "Feedback wurde erfolgreich wiederhergestellt"
 #: cms/views/feedback/region_feedback_actions.py
 msgid "Feedback was successfully deleted"
 msgstr "Feedback wurde erfolgreich gelöscht"
+
+#: cms/views/feedback/feedback_resource.py
+msgid "Read by"
+msgstr "Gelesen von"
 
 #: cms/views/form_views.py cms/views/imprint/imprint_sbs_view.py
 #: cms/views/pages/page_sbs_view.py
@@ -8376,6 +8398,14 @@ msgstr "Eine Region kann nur eine Standard-Sprache besitzen."
 #: cms/views/language_tree/language_tree_actions.py
 msgid "The language tree node \"{}\" was successfully moved."
 msgstr "Der Sprach-Knoten \"{}\" wurde erfolgreich verschoben."
+
+#: cms/views/language_tree/language_tree_actions.py
+msgid ""
+"The language tree node \"{}\" cannot be deleted because it is the source "
+"language of other language(s)."
+msgstr ""
+"Der Sprach-Knoten \"{}\" kann nicht gelöscht werden, da er die Quell-Sprache "
+"anderer Sprachen ist."
 
 #: cms/views/language_tree/language_tree_actions.py
 msgid ""
@@ -8848,8 +8878,8 @@ msgid "discard"
 msgstr "verwerfen"
 
 #: cms/views/pages/page_form_view.py
-msgid "The latest changes are pending review."
-msgstr "Die letzten Änderungen stehen zur Überprüfung aus."
+msgid "The latest changes are pending approval."
+msgstr "Die letzten Änderungen stehen zur Freigabe aus."
 
 #: cms/views/pages/page_form_view.py
 msgid "reject"
@@ -8878,7 +8908,7 @@ msgid ""
 "changes and submit them for review instead."
 msgstr ""
 "Sie haben nicht die nötige Berechtigung, um diese Seite zu veröffentlichen, "
-"aber Sie können Änderungen vornehmen und diese zur Überprüfung vorlegen."
+"aber Sie können Änderungen vornehmen und diese zur Freigabe vorlegen."
 
 #: cms/views/pages/page_form_view.py
 #, python-brace-format
@@ -9663,7 +9693,7 @@ msgstr ""
 #~ "Es ist möglich, dass Push-Benachrichtigungen nur stündlich gesendet werden"
 
 #~ msgid "Good job! You don't have any open task."
-#~ msgstr "Aktuell liegen keine Seiten zur Überprüfung vor. Gute Arbeit!"
+#~ msgstr "Aktuell liegen keine Seiten zur Freigabe vor. Gute Arbeit!"
 
 #~ msgid "You can however archive this page."
 #~ msgstr "Sie können diese Seite jedoch archivieren."
@@ -10545,7 +10575,7 @@ msgstr ""
 #~ "changes and submit them for review instead."
 #~ msgstr ""
 #~ "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten, "
-#~ "aber Sie können Änderungen vornehmen und diese zur Überprüfung vorlegen."
+#~ "aber Sie können Änderungen vornehmen und diese zur Freigabe vorlegen."
 
 #~ msgid "Only staff members can have staff roles"
 #~ msgstr "Nur Teammitglieder können Teammitglieder-Rollen haben"
@@ -10830,8 +10860,8 @@ msgstr ""
 #~ msgid "Please contact the Integreat team to get a new link."
 #~ msgstr "Bitte kontaktieren Sie das Integreat Team für einen neuen Link."
 
-#~ msgid "&larr; Back to log in"
-#~ msgstr "&larr; zurück zur Anmeldung"
+#~ msgid "← Back to log in"
+#~ msgstr "← zurück zur Anmeldung"
 
 #~ msgid "The password reset link is invalid."
 #~ msgstr "Der Link zum Zurücksetzen des Passworts ist ungültig."
@@ -10992,9 +11022,6 @@ msgstr ""
 
 #~ msgid "Integreat Backend"
 #~ msgstr "Integreat CMS"
-
-#~ msgid "read"
-#~ msgstr "gelesen"
 
 #~ msgid "Time"
 #~ msgstr "Uhrzeit"
@@ -11318,7 +11345,7 @@ msgstr ""
 #~ "changes and submit them for review instead."
 #~ msgstr ""
 #~ "Sie haben nicht die nötige Berechtigung, um diese Seite zu bearbeiten, "
-#~ "aber Sie können Änderungen vornehmen und diese zur Überprüfung vorlegen."
+#~ "aber Sie können Änderungen vornehmen und diese zur Freigabe vorlegen."
 
 #~ msgid "Yes, archive this event now."
 #~ msgstr "Ja, dieses Event jetzt archivieren"
@@ -11529,9 +11556,6 @@ msgstr ""
 
 #~ msgid "POI is archived."
 #~ msgstr "Der POI wurde archiviert."
-
-#~ msgid "Finished Review"
-#~ msgstr "Review abgeschlossen"
 
 #~ msgid "Side by Side View"
 #~ msgstr "Übersetzungen nebeneinander anzeigen"

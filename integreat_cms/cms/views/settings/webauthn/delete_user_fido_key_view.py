@@ -1,6 +1,7 @@
 """
 This module contains all views related to multi-factor authentication
 """
+
 from __future__ import annotations
 
 import logging

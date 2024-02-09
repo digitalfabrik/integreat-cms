@@ -1,6 +1,7 @@
 """
 This module contains constants which represent all possible administrative divisions of a region in Germany.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

@@ -22,7 +22,6 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-many-ancestors
 class LanguageTreeBulkActionView(BulkUpdateBooleanFieldView):
     """
     Bulk action view for language tree nodes which flushes

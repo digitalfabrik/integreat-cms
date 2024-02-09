@@ -161,7 +161,7 @@ async def test_auto_translate_easy_german(
             )
             # Check that the page translation exists and really has the correct content
             assert (
-                "Hier ist Ihre Leichte Sprache &#220;bersetzung"
+                "Hier ist Ihre Leichte Sprache Übersetzung"
                 in page[settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG].content
             )
     elif role == ANONYMOUS:

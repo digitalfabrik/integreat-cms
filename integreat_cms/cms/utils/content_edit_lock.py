@@ -1,6 +1,7 @@
 """
 This file contains a mechanism to lock a content editor for other people while a person is using it.
 """
+
 from __future__ import annotations
 
 import logging

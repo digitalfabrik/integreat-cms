@@ -1,6 +1,7 @@
 """
 This is a collection of tags and filters for strings.
 """
+
 from __future__ import annotations
 
 import json

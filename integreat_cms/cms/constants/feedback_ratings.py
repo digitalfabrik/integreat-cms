@@ -1,6 +1,7 @@
 """
 This module contains all constants representing the rating of the :class:`~integreat_cms.cms.models.feedback.feedback.Feedback` model.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

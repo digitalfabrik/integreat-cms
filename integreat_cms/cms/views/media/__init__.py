@@ -1,6 +1,7 @@
 """
 This package contains all views related to media files
 """
+
 from __future__ import annotations
 
 from .media_actions import (

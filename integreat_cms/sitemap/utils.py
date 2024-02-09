@@ -1,6 +1,7 @@
 """
 This module contains utils for the sitemap app.
 """
+
 from __future__ import annotations
 
 import logging

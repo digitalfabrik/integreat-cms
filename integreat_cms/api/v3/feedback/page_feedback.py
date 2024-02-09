@@ -1,6 +1,7 @@
 """
 APIv3 endpoint for feedback bout single pages
 """
+
 from __future__ import annotations
 
 import logging

@@ -1,6 +1,7 @@
 """
 Expansion of API-Endpoints for the CMS
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
@@ -130,10 +131,10 @@ region_api_urlpatterns: list[URLPattern] = [
 
 #: The url patterns of this module (see :doc:`django:topics/http/urls`)
 urlpatterns: list[URLPattern] = [
-    path("api/regions/", include(region_api_urlpatterns)),
+    path("api/v3/regions/", include(region_api_urlpatterns)),
     path("wp-json/extensions/v3/sites/", include(region_api_urlpatterns)),
     path(
-        "api/<slug:region_slug>/",
+        "api/v3/<slug:region_slug>/",
         include(
             [
                 path("languages/", languages, name="languages"),

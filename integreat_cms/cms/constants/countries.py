@@ -2,6 +2,7 @@
 This module contains a mapping from ISO 3166-1 alpha-2 country codes to their names in English.
 Data based on: https://github.com/SmileyChris/django-countries/blob/master/django_countries/data.py
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

@@ -5,7 +5,6 @@ This file only contains the options which deviate from the default values.
 For a full list see the documentation: :doc:`sphinx:usage/configuration`
 """
 
-
 # -- Path setup --------------------------------------------------------------
 
 from __future__ import annotations
@@ -48,13 +47,13 @@ github_repository: Final[str] = "integreat-cms"
 #: GitHub URL
 github_url: Final[str] = f"https://github.com/{github_username}/{github_repository}"
 #: GitHub pages URL (target of gh-pages branch)
-github_pages_url: Final[
-    str
-] = f"https://{github_username}.github.io/{github_repository}"
+github_pages_url: Final[str] = (
+    f"https://{github_username}.github.io/{github_repository}"
+)
 # GitHub URL of Django repository
-django_github_url: Final[
-    str
-] = f"https://github.com/django/django/blob/stable/{django_version}.x"
+django_github_url: Final[str] = (
+    f"https://github.com/django/django/blob/stable/{django_version}.x"
+)
 
 #: The full version, including alpha/beta/rc tags
 release = "2024.1.0"
@@ -120,6 +119,10 @@ intersphinx_mapping: Final[dict[str, tuple[str, str | None]]] = {
     "twine": ("https://twine.readthedocs.io/en/latest/", None),
     "wsgi": ("https://wsgi.readthedocs.io/en/latest/", None),
     "xhtml2pdf": ("https://xhtml2pdf.readthedocs.io/en/latest/", None),
+    "django-import-export": (
+        "https://django-import-export.readthedocs.io/en/latest/",
+        None,
+    ),
 }
 #: The intersphinx request timeout in seconds
 intersphinx_timeout: Final[int] = 5
@@ -224,13 +227,13 @@ html_theme_options: Final[dict[str, bool]] = {
     "collapse_navigation": False,
 }
 #: The logo shown in the menu bar
-html_logo: Final[
-    str
-] = "../../integreat_cms/static/src/logos/integreat/integreat-logo-white.svg"
+html_logo: Final[str] = (
+    "../../integreat_cms/static/src/logos/integreat/integreat-logo-white.svg"
+)
 #: The favicon of the html doc files
-html_favicon: Final[
-    str
-] = "../../integreat_cms/static/src/logos/integreat/integreat-icon.svg"
+html_favicon: Final[str] = (
+    "../../integreat_cms/static/src/logos/integreat/integreat-icon.svg"
+)
 #: The url where the docs should be published (via gh-pages)
 html_baseurl: Final[str] = github_pages_url
 #: Do not include links to the documentation source (.rst files) in build

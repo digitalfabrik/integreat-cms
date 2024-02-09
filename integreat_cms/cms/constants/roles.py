@@ -1,6 +1,7 @@
 """
 This module contains the possible names of roles to make them translatable and the permission definitions.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

@@ -1,6 +1,7 @@
 """
 This module contains helpers for multi-factor-authentication tasks.
 """
+
 from __future__ import annotations
 
 import random

@@ -1,6 +1,7 @@
 """
 Debug lists and forms for all models
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

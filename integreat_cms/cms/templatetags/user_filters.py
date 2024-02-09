@@ -1,6 +1,7 @@
 """
 This is a collection of tags and filters which are useful for all user forms
 """
+
 from __future__ import annotations
 
 import logging

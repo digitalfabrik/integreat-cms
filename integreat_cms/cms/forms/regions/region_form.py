@@ -223,9 +223,9 @@ class RegionForm(CustomModelForm):
         )
         self.fields["offers"].widget.disabled_options = self.disabled_offer_options
 
-        self.fields[
-            "zammad_offers"
-        ].widget.disabled_options = self.disabled_offer_options
+        self.fields["zammad_offers"].widget.disabled_options = (
+            self.disabled_offer_options
+        )
         self.fields["zammad_offers"].initial = (
             self.instance.offers.filter(is_zammad_form=True) if self.instance.id else []
         )

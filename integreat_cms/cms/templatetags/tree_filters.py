@@ -4,6 +4,7 @@ This is a collection of tags and filters for models which inherit from the MPTT 
 (:class:`~integreat_cms.cms.models.pages.page.Page` and
 :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode`).
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

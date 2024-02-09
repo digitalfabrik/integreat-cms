@@ -1,6 +1,7 @@
 """
 APIv3 legacy feedback endpoint for pages, events and imprint
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

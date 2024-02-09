@@ -2,6 +2,7 @@
 This module contains colors which aim to be good distinguishable by humans.
 They are used to display graphs with overlapping lines (e.g. statistics).
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

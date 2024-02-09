@@ -10,7 +10,6 @@ import django.core.validators
 import django.utils.timezone
 from django.conf import settings
 from django.db import migrations, models
-from django.utils.timezone import utc
 
 import integreat_cms.cms.models.media.media_file
 import integreat_cms.cms.models.users.user
@@ -114,7 +113,9 @@ class Migration(migrations.Migration):
                 (
                     "chat_last_visited",
                     models.DateTimeField(
-                        default=datetime.datetime(1, 1, 1, 0, 0, tzinfo=utc),
+                        default=datetime.datetime(
+                            1, 1, 1, 0, 0, tzinfo=datetime.timezone.utc
+                        ),
                         help_text="The date and time when the user did read the chat the last time",
                         verbose_name="last chat visit date",
                     ),

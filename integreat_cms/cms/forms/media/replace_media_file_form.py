@@ -131,9 +131,11 @@ class ReplaceMediaFileForm(CustomModelForm):
 
     def save(self, commit: bool = True) -> MediaFile:
         # Remove old file
-        os.remove(self.original_file_path)
-        logger.debug("Removed old file %r", self.original_file_path)
-
+        try:
+            os.remove(self.original_file_path)
+            logger.debug("Removed old file %r", self.original_file_path)
+        except FileNotFoundError:
+            logger.debug("The file %r could not be removed", self.original_file_path)
         # Remove old thumbnail
         if self.original_thumbnail_path:
             os.remove(self.original_thumbnail_path)

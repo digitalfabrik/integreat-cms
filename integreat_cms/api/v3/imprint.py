@@ -1,6 +1,7 @@
 """
 This module includes functions related to the imprint API endpoint.
 """
+
 from __future__ import annotations
 
 import logging

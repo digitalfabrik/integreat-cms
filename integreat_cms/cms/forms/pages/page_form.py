@@ -24,6 +24,7 @@ from .parent_field_widget import ParentFieldWidget
 logger = logging.getLogger(__name__)
 
 
+# pylint: disable=too-many-ancestors
 class PageForm(CustomModelForm, CustomTreeNodeForm):
     """
     Form for creating and modifying page objects
@@ -104,9 +105,9 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
 
         # Set the initial value for the mirrored page region
         if self.instance.mirrored_page:
-            self.fields[
-                "mirrored_page_region"
-            ].initial = self.instance.mirrored_page.region_id
+            self.fields["mirrored_page_region"].initial = (
+                self.instance.mirrored_page.region_id
+            )
 
         # Let mirrored page queryset be empty per default and only fill it if a region is selected
         mirrored_page_queryset = Page.objects.none()

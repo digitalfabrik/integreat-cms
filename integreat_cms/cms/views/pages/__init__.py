@@ -1,6 +1,7 @@
 """
 This package contains all views related to pages
 """
+
 from __future__ import annotations
 
 from .page_actions import (

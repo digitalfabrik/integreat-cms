@@ -1,6 +1,7 @@
 """
 Helper functions for the XLIFF serializer
 """
+
 from __future__ import annotations
 
 import datetime

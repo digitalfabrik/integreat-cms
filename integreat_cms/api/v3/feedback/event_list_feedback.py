@@ -1,6 +1,7 @@
 """
 APIv3 endpoint for the events (list)
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

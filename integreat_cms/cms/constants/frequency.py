@@ -2,6 +2,7 @@
 This module contains all constants representing the frequency of an :class:`~integreat_cms.cms.models.events.event.Event`'s
 :class:`~integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule`.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

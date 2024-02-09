@@ -1,6 +1,7 @@
 """
 This module contains view actions related to pages.
 """
+
 from __future__ import annotations
 
 import json
@@ -170,14 +171,16 @@ def preview_page_ajax(
             data={
                 "title": page_translation.title,
                 "page_translation": page_translation.content,
-                "mirrored_translation": mirrored_translation.content
-                if mirrored_translation
-                else "",
+                "mirrored_translation": (
+                    mirrored_translation.content if mirrored_translation else ""
+                ),
                 "mirrored_page_first": page.mirrored_page_first,
-                "right_to_left": page_translation.language.text_direction
-                == text_directions.RIGHT_TO_LEFT
-                if page_translation
-                else False,
+                "right_to_left": (
+                    page_translation.language.text_direction
+                    == text_directions.RIGHT_TO_LEFT
+                    if page_translation
+                    else False
+                ),
             }
         )
     raise Http404("Translation of the given page could not be found")
@@ -742,6 +745,7 @@ def get_page_order_table_ajax(
         {
             "page": page,
             "siblings": siblings,
+            "can_edit_page": request.user.has_perm("cms.change_page_object", page),
         },
     )
 

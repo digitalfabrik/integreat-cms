@@ -1,6 +1,7 @@
 """
 This modules contains the config for the view tests
 """
+
 from __future__ import annotations
 
 import json

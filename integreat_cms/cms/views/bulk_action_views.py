@@ -1,6 +1,7 @@
 """
 This module contains the base view for bulk actions
 """
+
 from __future__ import annotations
 
 import logging

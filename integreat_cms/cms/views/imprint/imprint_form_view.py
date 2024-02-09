@@ -247,15 +247,15 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
                 "imprint": imprint_instance,
                 "language": language,
                 # Languages for tab view
-                "languages": region.active_languages
-                if imprint_instance
-                else [language],
+                "languages": (
+                    region.active_languages if imprint_instance else [language]
+                ),
                 "side_by_side_language_options": self.get_side_by_side_language_options(
                     region, language, imprint_instance
                 ),
-                "translation_states": imprint_instance.translation_states
-                if imprint_instance
-                else [],
+                "translation_states": (
+                    imprint_instance.translation_states if imprint_instance else []
+                ),
                 "lock_key": lock_key,
             },
         )

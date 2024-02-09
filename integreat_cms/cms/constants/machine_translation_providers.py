@@ -1,6 +1,7 @@
 """
 This module contains the available machine translation providers
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

@@ -1,6 +1,7 @@
 """
 This module contains helpers for the TextLab API client
 """
+
 from __future__ import annotations
 
 import logging

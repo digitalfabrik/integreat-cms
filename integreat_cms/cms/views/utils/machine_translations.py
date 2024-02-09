@@ -1,6 +1,7 @@
 """
 This module contains the generalized function to build the AJAX call for the machine translation popup
 """
+
 from __future__ import annotations
 
 import json
@@ -80,9 +81,11 @@ def build_json_for_machine_translation(
         else:
             content_data = {
                 "id": content.id,
-                "title": source_translation.title
-                if source_translation
-                else content.best_translation.title,
+                "title": (
+                    source_translation.title
+                    if source_translation
+                    else content.best_translation.title
+                ),
                 "words": words,
                 "hix": False,
             }

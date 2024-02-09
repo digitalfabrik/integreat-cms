@@ -1,6 +1,7 @@
 """
 This module contains the states a translation can have
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

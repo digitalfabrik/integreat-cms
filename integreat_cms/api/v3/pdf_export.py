@@ -3,12 +3,14 @@ View to return PDF document containing the requested pages.
 Single pages may be requested by url parameter, if no parameter is included all pages
 related to the current region and language will be returned.
 """
+
 from __future__ import annotations
 
 import logging
 from typing import TYPE_CHECKING
 
 from django.http import Http404
+from django.views.decorators.cache import never_cache
 
 from ...cms.models import Page
 from ...cms.utils.pdf_utils import generate_pdf
@@ -21,6 +23,7 @@ logger = logging.getLogger(__name__)
 
 
 @json_response
+@never_cache
 # pylint: disable=unused-argument
 def pdf_export(
     request: HttpRequest, region_slug: str, language_slug: str

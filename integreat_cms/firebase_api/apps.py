@@ -1,6 +1,7 @@
 """
 Configuration of the Firebase API app
 """
+
 from __future__ import annotations
 
 import logging

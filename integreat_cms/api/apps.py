@@ -1,6 +1,7 @@
 """
 Meta information about the Integreat CMS API app
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

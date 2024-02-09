@@ -2,6 +2,7 @@
 This module contains string representations of permission levels for machine
 translations, used by :class:`~integreat_cms.cms.models.regions.region.Region`.
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

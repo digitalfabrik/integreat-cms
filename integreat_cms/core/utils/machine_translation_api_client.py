@@ -1,6 +1,7 @@
 """
 This module contains utilities for machine translation API clients
 """
+
 from __future__ import annotations
 
 import logging

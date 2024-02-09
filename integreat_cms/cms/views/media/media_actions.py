@@ -1,6 +1,7 @@
 """
 This module contains view actions for media related objects.
 """
+
 from __future__ import annotations
 
 import logging
@@ -513,6 +514,7 @@ def delete_directory_ajax(
     directory = get_object_or_404(
         Directory.objects.filter(region=region), id=request.POST.get("id")
     )
+    serialized = directory.serialize()
 
     try:
         directory.delete()
@@ -541,7 +543,7 @@ def delete_directory_ajax(
                     ),
                 }
             ],
-            "directory": directory.serialize(),
+            "directory": serialized,
         }
     )
 

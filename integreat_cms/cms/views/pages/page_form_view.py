@@ -111,7 +111,7 @@ class PageFormView(
                         status_message = _("The last changes were saved automatically.")
                         action = _("discard")
                     else:
-                        status_message = _("The latest changes are pending review.")
+                        status_message = _("The latest changes are pending approval.")
                         action = _("reject")
                     # If the user has the permission to reject/discard, show another message
                     if request.user.has_perm("cms.publish_page_object", page):
@@ -454,9 +454,9 @@ class PageFormView(
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
-                "translation_states": page_instance.translation_states
-                if page_instance
-                else [],
+                "translation_states": (
+                    page_instance.translation_states if page_instance else []
+                ),
             },
         )
 

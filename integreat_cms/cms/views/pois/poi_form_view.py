@@ -1,6 +1,7 @@
 """
 A view representing an instance of a point of interest. POIs can be created or updated via this view.
 """
+
 from __future__ import annotations
 
 import logging
@@ -261,8 +262,8 @@ class POIFormView(
                 # Languages for tab view
                 "languages": region.active_languages if poi_instance else [language],
                 "url_link": url_link,
-                "translation_states": poi_instance.translation_states
-                if poi_instance
-                else [],
+                "translation_states": (
+                    poi_instance.translation_states if poi_instance else []
+                ),
             },
         )

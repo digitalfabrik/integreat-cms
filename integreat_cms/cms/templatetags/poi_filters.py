@@ -1,6 +1,7 @@
 """
 This is a collection of tags and filters for points of interest (:class:`~integreat_cms.cms.models.pois.poi.POI`).
 """
+
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

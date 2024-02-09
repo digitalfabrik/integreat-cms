@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  shellcheck: circleci/shellcheck@3.1.2
+  shellcheck: circleci/shellcheck@3.2.0
 jobs:
   pip-install:
     docker:
@@ -205,6 +205,16 @@ jobs:
       - run:
           name: Lint static CSS, JS & YAML files
           command: npx eslint .
+  shellcheck:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - shellcheck/install:
+          version: 0.9.0
+      - shellcheck/check:
+          dir: ./tools
+          external_sources: true
   webpack:
     docker:
       - image: "cimg/node:lts"
@@ -653,9 +663,7 @@ workflows:
       - eslint:
           requires:
             - npm-install
-      - shellcheck/check:
-          dir: ./tools
-          external_sources: true
+      - shellcheck:
           filters:
             branches:
               ignore: main
