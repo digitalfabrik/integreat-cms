@@ -37,18 +37,22 @@ def change_publication_status(
     if request.user.is_superuser or request.user.is_staff:
         for content in selected_content:
             if translation := content.get_translation(language_slug):
-                translation.status = desired_status
-                translation.pk = None
-                translation.version += 1
-                if desired_status == status.DRAFT:
-                    translation.all_versions.update(status=desired_status)
-                translation.save()
-                messages.success(
-                    request,
-                    _('The status of "{}" was successfully changed to "{}".').format(
-                        translation, _(status_translation[desired_status])
-                    ),
-                )
+                if translation.status != desired_status:
+                    translation.links.all().delete()
+                    translation.status = desired_status
+                    translation.pk = None
+                    translation.version += 1
+                    if desired_status == status.DRAFT:
+                        translation.all_versions.filter(status=status.PUBLIC).update(
+                            status=status.DRAFT
+                        )
+                    translation.save()
+                    messages.success(
+                        request,
+                        _(
+                            'The status of "{}" was successfully changed to "{}".'
+                        ).format(translation, _(status_translation[desired_status])),
+                    )
             else:
                 language = Language.objects.filter(slug=language_slug).first()
                 messages.warning(
