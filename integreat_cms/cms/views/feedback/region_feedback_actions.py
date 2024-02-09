@@ -9,12 +9,15 @@ from typing import TYPE_CHECKING
 
 from cacheops import invalidate_model, invalidate_obj
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
+from tablib import Dataset
 
 from ...decorators import permission_required
 from ...models import Feedback
+from .feedback_resource import FeedbackResource
 
 if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponseRedirect
@@ -170,3 +173,39 @@ def delete_region_feedback(
     messages.success(request, _("Feedback was successfully deleted"))
 
     return redirect("region_feedback", region_slug=region_slug)
+
+
+# pylint: disable=unused-argument
+@require_POST
+@permission_required("cms.view_feedback")
+def export_region_feedback(
+    request: HttpRequest,
+    region_slug: str,
+) -> HttpResponse:
+    """
+    Export a list of feedback items (to CSV)
+
+    :param request: Object representing the user call
+    :param region_slug: The slug of the current region
+    :return: Response with CSV file
+    """
+    selected_ids = request.POST.getlist("selected_ids[]")
+    selected_feedback = Feedback.objects.filter(
+        id__in=selected_ids, region=request.region, is_technical=False
+    )
+
+    resource = FeedbackResource()
+    dataset = Dataset()
+
+    headers = resource.export().headers
+    dataset.headers = headers
+
+    for obj in selected_feedback:
+        data = resource.export_resource(obj)
+        dataset.append(data)
+
+    response = HttpResponse(dataset.csv, content_type="text/csv")
+    response["Content-Disposition"] = (
+        f'attachment; filename="Integreat_{request.region}_feedback.csv"'
+    )
+    return response

@@ -119,6 +119,10 @@ intersphinx_mapping: Final[dict[str, tuple[str, str | None]]] = {
     "twine": ("https://twine.readthedocs.io/en/latest/", None),
     "wsgi": ("https://wsgi.readthedocs.io/en/latest/", None),
     "xhtml2pdf": ("https://xhtml2pdf.readthedocs.io/en/latest/", None),
+    "django-import-export": (
+        "https://django-import-export.readthedocs.io/en/latest/",
+        None,
+    ),
 }
 #: The intersphinx request timeout in seconds
 intersphinx_timeout: Final[int] = 5
