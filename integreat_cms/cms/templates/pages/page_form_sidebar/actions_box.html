@@ -37,7 +37,7 @@
         <label>
             {% translate "Restore page" %}
         </label>
-        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
+        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-5"
              role="alert">
             <p>
                 {% blocktranslate count counter=page.explicitly_archived_ancestors|length trimmed %}
@@ -69,7 +69,7 @@
             </button>
         {% else %}
             {% with page.mirroring_pages.all.prefetch_translations as mirroring_pages %}
-                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
+                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-5"
                      role="alert">
                     <p>
                         {% translate "You cannot archive a page which is embedded as live content from another page." %}
@@ -115,7 +115,7 @@
         </label>
         {% if not page.is_leaf %}
             {% with page.get_descendants.prefetch_translations as descendants %}
-                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-5"
+                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-5"
                      role="alert">
                     <p>
                         {% translate "You cannot delete a page which has subpages." %}
@@ -136,7 +136,7 @@
             {% endwith %}
         {% elif page.mirroring_pages.exists %}
             {% with page.mirroring_pages.all.prefetch_translations as mirroring_pages %}
-                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-500 px-4 py-3 mb-2"
+                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-2"
                      role="alert">
                     <p>
                         {% translate "This page cannot be deleted because it was embedded as live content from another page." %}
