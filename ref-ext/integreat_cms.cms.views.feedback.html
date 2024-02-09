@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-01-31T17:27:47+00:00" />
+    <meta property="article:modified_time" content="2024-02-09T13:24:26+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Feedback &mdash; integreat-cms 2024.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -2042,12 +2042,487 @@ template rendered with the given context.</p>
 </dd></dl>
 
 </section>
+<section id="module-integreat_cms.cms.views.feedback.feedback_resource">
+<span id="feedback-resource"></span><h2>Feedback Resource<a class="headerlink" href="#module-integreat_cms.cms.views.feedback.feedback_resource" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.feedback.feedback_resource.</span></span><span class="sig-name descname"><span class="pre">FeedbackResource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/feedback_resource.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://django-import-export.readthedocs.io/en/latest/api_resources.html#import_export.resources.ModelResource" title="(in django-import-export v3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelResource</span></code></a></p>
+<p>This is the Resource class that connects to the django-import-export library</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.DEFAULT_RESOURCE_FIELD">
+<span class="sig-name descname"><span class="pre">DEFAULT_RESOURCE_FIELD</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/fields.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.DEFAULT_RESOURCE_FIELD" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference external" href="https://django-import-export.readthedocs.io/en/latest/api_fields.html#import_export.fields.Field" title="(in django-import-export v3.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Field</span></code></a></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.WIDGETS_MAP">
+<span class="sig-name descname"><span class="pre">WIDGETS_MAP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'AutoField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.IntegerWidget'&gt;,</span> <span class="pre">'BigAutoField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.IntegerWidget'&gt;,</span> <span class="pre">'BigIntegerField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.IntegerWidget'&gt;,</span> <span class="pre">'BooleanField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.BooleanWidget'&gt;,</span> <span class="pre">'CharField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.CharWidget'&gt;,</span> <span class="pre">'DateField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.DateWidget'&gt;,</span> <span class="pre">'DateTimeField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.DateTimeWidget'&gt;,</span> <span class="pre">'DecimalField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.DecimalWidget'&gt;,</span> <span class="pre">'DurationField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.DurationWidget'&gt;,</span> <span class="pre">'FloatField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.FloatWidget'&gt;,</span> <span class="pre">'ForeignKey':</span> <span class="pre">'get_fk_widget',</span> <span class="pre">'IntegerField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.IntegerWidget'&gt;,</span> <span class="pre">'JSONField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.JSONWidget'&gt;,</span> <span class="pre">'ManyToManyField':</span> <span class="pre">'get_m2m_widget',</span> <span class="pre">'NullBooleanField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.BooleanWidget'&gt;,</span> <span class="pre">'OneToOneField':</span> <span class="pre">'get_fk_widget',</span> <span class="pre">'PositiveIntegerField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.IntegerWidget'&gt;,</span> <span class="pre">'PositiveSmallIntegerField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.IntegerWidget'&gt;,</span> <span class="pre">'SmallAutoField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.IntegerWidget'&gt;,</span> <span class="pre">'SmallIntegerField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.IntegerWidget'&gt;,</span> <span class="pre">'TimeField':</span> <span class="pre">&lt;class</span> <span class="pre">'import_export.widgets.TimeWidget'&gt;}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/feedback_resource.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.WIDGETS_MAP" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L292"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.__init__" title="Link to this definition"></a></dt>
+<dd><dl class="simple">
+<dt>kwargs:</dt><dd><p>An optional dict of kwargs.
+Subclasses can use kwargs to pass dynamic values to enhance import / exports.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.after_delete_instance">
+<span class="sig-name descname"><span class="pre">after_delete_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L565"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.after_delete_instance" title="Link to this definition"></a></dt>
+<dd><p>Override to add additional logic. Does nothing by default.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.after_export">
+<span class="sig-name descname"><span class="pre">after_export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1051"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.after_export" title="Link to this definition"></a></dt>
+<dd><p>Override to add additional logic. Does nothing by default.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.after_import">
+<span class="sig-name descname"><span class="pre">after_import</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using_transactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1356"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.after_import" title="Link to this definition"></a></dt>
+<dd><p>Reset the SQL sequences after new objects are imported</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.after_import_instance">
+<span class="sig-name descname"><span class="pre">after_import_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L727"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.after_import_instance" title="Link to this definition"></a></dt>
+<dd><p>Override to add additional logic. Does nothing by default.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.after_import_row">
+<span class="sig-name descname"><span class="pre">after_import_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L714"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.after_import_row" title="Link to this definition"></a></dt>
+<dd><p>Override to add additional logic. Does nothing by default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row</strong> – A <code class="docutils literal notranslate"><span class="pre">dict</span></code> of the import row.</p></li>
+<li><p><strong>row_result</strong> – A <code class="docutils literal notranslate"><span class="pre">RowResult</span></code> instance.
+References the persisted <code class="docutils literal notranslate"><span class="pre">instance</span></code> as an attribute.</p></li>
+<li><p><strong>row_number</strong> – The row number from the dataset.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.after_save_instance">
+<span class="sig-name descname"><span class="pre">after_save_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using_transactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L537"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.after_save_instance" title="Link to this definition"></a></dt>
+<dd><p>Override to add additional logic. Does nothing by default.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.before_delete_instance">
+<span class="sig-name descname"><span class="pre">before_delete_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L559"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.before_delete_instance" title="Link to this definition"></a></dt>
+<dd><p>Override to add additional logic. Does nothing by default.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.before_export">
+<span class="sig-name descname"><span class="pre">before_export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1045"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.before_export" title="Link to this definition"></a></dt>
+<dd><p>Override to add additional logic. Does nothing by default.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.before_import">
+<span class="sig-name descname"><span class="pre">before_import</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using_transactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L696"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.before_import" title="Link to this definition"></a></dt>
+<dd><p>Override to add additional logic. Does nothing by default.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.before_import_row">
+<span class="sig-name descname"><span class="pre">before_import_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row_number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L708"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.before_import_row" title="Link to this definition"></a></dt>
+<dd><p>Override to add additional logic. Does nothing by default.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.before_save_instance">
+<span class="sig-name descname"><span class="pre">before_save_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using_transactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L531"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.before_save_instance" title="Link to this definition"></a></dt>
+<dd><p>Override to add additional logic. Does nothing by default.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.bulk_create">
+<span class="sig-name descname"><span class="pre">bulk_create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using_transactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_errors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L416"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.bulk_create" title="Link to this definition"></a></dt>
+<dd><p>Creates objects by calling <code class="docutils literal notranslate"><span class="pre">bulk_create</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.bulk_delete">
+<span class="sig-name descname"><span class="pre">bulk_delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using_transactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_errors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L456"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.bulk_delete" title="Link to this definition"></a></dt>
+<dd><p>Deletes objects by filtering on a list of instances to be deleted,
+then calling <code class="docutils literal notranslate"><span class="pre">delete()</span></code> on the entire queryset.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.bulk_update">
+<span class="sig-name descname"><span class="pre">bulk_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">using_transactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_errors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L435"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.bulk_update" title="Link to this definition"></a></dt>
+<dd><p>Updates objects by calling <code class="docutils literal notranslate"><span class="pre">bulk_update</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.delete_instance">
+<span class="sig-name descname"><span class="pre">delete_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using_transactions</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L543"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.delete_instance" title="Link to this definition"></a></dt>
+<dd><p>Calls <code class="xref py py-meth docutils literal notranslate"><span class="pre">instance.delete()</span></code> as long as <code class="docutils literal notranslate"><span class="pre">dry_run</span></code> is not set.
+If <code class="docutils literal notranslate"><span class="pre">use_bulk</span></code> then instances are appended to a list for bulk import.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.export">
+<span class="sig-name descname"><span class="pre">export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1108"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.export" title="Link to this definition"></a></dt>
+<dd><p>Exports a resource.
+:returns: Dataset object.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.export_field">
+<span class="sig-name descname"><span class="pre">export_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1063"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.export_field" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.export_resource">
+<span class="sig-name descname"><span class="pre">export_resource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1075"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.export_resource" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.field_from_django_field">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">field_from_django_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">django_field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">readonly</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1326"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.field_from_django_field" title="Link to this definition"></a></dt>
+<dd><p>Returns a Resource Field instance for the given Django model field.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.fields">
+<span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{'category':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Category&gt;,</span> <span class="pre">'comment':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Comment&gt;,</span> <span class="pre">'created_date':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Date&gt;,</span> <span class="pre">'language_name':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Language&gt;,</span> <span class="pre">'rating':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Rating&gt;,</span> <span class="pre">'read_by_username':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Read</span> <span class="pre">by&gt;,</span> <span class="pre">'referring_to':</span> <span class="pre">&lt;import_export.fields.Field:</span> <span class="pre">Feedback</span> <span class="pre">on&gt;}</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/feedback_resource.py#L11"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.filter_export">
+<span class="sig-name descname"><span class="pre">filter_export</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1057"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.filter_export" title="Link to this definition"></a></dt>
+<dd><p>Override to filter an export queryset.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.for_delete">
+<span class="sig-name descname"><span class="pre">for_delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L618"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.for_delete" title="Link to this definition"></a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">row</span></code> importing should delete instance.</p>
+<p>Default implementation returns <code class="docutils literal notranslate"><span class="pre">False</span></code>.
+Override this method to handle deletion.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_bulk_update_fields">
+<span class="sig-name descname"><span class="pre">get_bulk_update_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L408"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_bulk_update_fields" title="Link to this definition"></a></dt>
+<dd><p>Returns the fields to be included in calls to bulk_update().
+<code class="docutils literal notranslate"><span class="pre">import_id_fields</span></code> are removed because <cite>id</cite> fields cannot be supplied to
+bulk_update().</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_chunk_size">
+<span class="sig-name descname"><span class="pre">get_chunk_size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L351"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_chunk_size" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_db_connection_name">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_db_connection_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L338"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_db_connection_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_diff_class">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_diff_class</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L331"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_diff_class" title="Link to this definition"></a></dt>
+<dd><p>Returns the class used to display the diff for an imported instance.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_diff_headers">
+<span class="sig-name descname"><span class="pre">get_diff_headers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L690"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_diff_headers" title="Link to this definition"></a></dt>
+<dd><p>Diff representation headers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_display_name">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_display_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1377"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_display_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_error_result_class">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_error_result_class</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L324"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_error_result_class" title="Link to this definition"></a></dt>
+<dd><p>Returns the class used to store an error resulting from an import.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_export_fields">
+<span class="sig-name descname"><span class="pre">get_export_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1072"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_export_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_export_headers">
+<span class="sig-name descname"><span class="pre">get_export_headers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1078"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_export_headers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_export_order">
+<span class="sig-name descname"><span class="pre">get_export_order</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1041"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_export_order" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_field_name">
+<span class="sig-name descname"><span class="pre">get_field_name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L364"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_field_name" title="Link to this definition"></a></dt>
+<dd><p>Returns the field name for a given field.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_fields">
+<span class="sig-name descname"><span class="pre">get_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L357"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_fields" title="Link to this definition"></a></dt>
+<dd><p>Returns fields sorted according to
+<a class="reference external" href="https://django-import-export.readthedocs.io/en/latest/api_resources.html#import_export.resources.ResourceOptions.export_order" title="(in django-import-export v3.3)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">export_order</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_fk_widget">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_fk_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1267"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_fk_widget" title="Link to this definition"></a></dt>
+<dd><p>Prepare widget for fk and o2o fields</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_import_fields">
+<span class="sig-name descname"><span class="pre">get_import_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L579"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_import_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_import_id_fields">
+<span class="sig-name descname"><span class="pre">get_import_id_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L404"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_import_id_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_instance">
+<span class="sig-name descname"><span class="pre">get_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/feedback_resource.py#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_instance" title="Link to this definition"></a></dt>
+<dd><p>See <a class="reference external" href="https://django-import-export.readthedocs.io/en/latest/api_resources.html#import_export.resources.Resource.get_instance" title="(in django-import-export v3.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">import_export.resources.Resource.get_instance()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a>) – </p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_m2m_widget">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_m2m_widget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1258"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_m2m_widget" title="Link to this definition"></a></dt>
+<dd><p>Prepare widget for m2m field</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_or_init_instance">
+<span class="sig-name descname"><span class="pre">get_or_init_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance_loader</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L394"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_or_init_instance" title="Link to this definition"></a></dt>
+<dd><p>Either fetches an already existing instance or initializes a new one.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_queryset">
+<span class="sig-name descname"><span class="pre">get_queryset</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1343"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_queryset" title="Link to this definition"></a></dt>
+<dd><p>Returns a queryset of all objects for this model. Override this if you
+want to limit the returned queryset.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_result_class">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_result_class</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L310"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_result_class" title="Link to this definition"></a></dt>
+<dd><p>Returns the class used to store the result of an import.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_row_result_class">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_row_result_class</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L317"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_row_result_class" title="Link to this definition"></a></dt>
+<dd><p>Returns the class used to store the result of a row import.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_use_transactions">
+<span class="sig-name descname"><span class="pre">get_use_transactions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L345"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_use_transactions" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_user_visible_fields">
+<span class="sig-name descname"><span class="pre">get_user_visible_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1088"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_user_visible_fields" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_user_visible_headers">
+<span class="sig-name descname"><span class="pre">get_user_visible_headers</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1082"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.get_user_visible_headers" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.handle_import_error">
+<span class="sig-name descname"><span class="pre">handle_import_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L733"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.handle_import_error" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.import_data">
+<span class="sig-name descname"><span class="pre">import_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/feedback_resource.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.import_data" title="Link to this definition"></a></dt>
+<dd><p>See <a class="reference external" href="https://django-import-export.readthedocs.io/en/latest/api_resources.html#import_export.resources.Resource.import_data" title="(in django-import-export v3.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">import_export.resources.Resource.import_data()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a>) – </p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.import_data_inner">
+<span class="sig-name descname"><span class="pre">import_data_inner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raise_errors</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using_transactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">collect_failed_rows</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rollback_on_validation_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L916"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.import_data_inner" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.import_field">
+<span class="sig-name descname"><span class="pre">import_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_m2m</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L571"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.import_field" title="Link to this definition"></a></dt>
+<dd><p>Calls <a class="reference external" href="https://django-import-export.readthedocs.io/en/latest/api_fields.html#import_export.fields.Field.save" title="(in django-import-export v3.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">import_export.fields.Field.save()</span></code></a> if <code class="docutils literal notranslate"><span class="pre">Field.attribute</span></code>
+is specified, and <code class="docutils literal notranslate"><span class="pre">Field.column_name</span></code> is found in <code class="docutils literal notranslate"><span class="pre">data</span></code>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.import_obj">
+<span class="sig-name descname"><span class="pre">import_obj</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L582"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.import_obj" title="Link to this definition"></a></dt>
+<dd><p>Traverses every field in this Resource and calls
+<a class="reference external" href="https://django-import-export.readthedocs.io/en/latest/api_resources.html#import_export.resources.Resource.import_field" title="(in django-import-export v3.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">import_field()</span></code></a>. If
+<code class="docutils literal notranslate"><span class="pre">import_field()</span></code> results in a <code class="docutils literal notranslate"><span class="pre">ValueError</span></code> being raised for
+one of more fields, those errors are captured and reraised as a single,
+multi-field ValidationError.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.import_row">
+<span class="sig-name descname"><span class="pre">import_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/feedback_resource.py#L58"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.import_row" title="Link to this definition"></a></dt>
+<dd><p>See <a class="reference external" href="https://django-import-export.readthedocs.io/en/latest/api_resources.html#import_export.resources.Resource.import_row" title="(in django-import-export v3.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">import_export.resources.Resource.import_row()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a>) – </p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.init_instance">
+<span class="sig-name descname"><span class="pre">init_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1350"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.init_instance" title="Link to this definition"></a></dt>
+<dd><p>Initializes a new Django model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.iter_queryset">
+<span class="sig-name descname"><span class="pre">iter_queryset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1091"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.iter_queryset" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.save_instance">
+<span class="sig-name descname"><span class="pre">save_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/feedback_resource.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.save_instance" title="Link to this definition"></a></dt>
+<dd><p>See <a class="reference external" href="https://django-import-export.readthedocs.io/en/latest/api_resources.html#import_export.resources.Resource.save_instance" title="(in django-import-export v3.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">import_export.resources.Resource.save_instance()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a>) – </p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><em>Any</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.save_m2m">
+<span class="sig-name descname"><span class="pre">save_m2m</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">using_transactions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dry_run</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L600"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.save_m2m" title="Link to this definition"></a></dt>
+<dd><p>Saves m2m fields.</p>
+<p>Model instance need to have a primary key value before
+a many-to-many relationship can be used.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.skip_row">
+<span class="sig-name descname"><span class="pre">skip_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">original</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">row</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">import_validation_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L627"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.skip_row" title="Link to this definition"></a></dt>
+<dd><p>Returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="docutils literal notranslate"><span class="pre">row</span></code> importing should be skipped.</p>
+<p>Default implementation returns <code class="docutils literal notranslate"><span class="pre">False</span></code> unless skip_unchanged == True
+and skip_diff == False.</p>
+<p>If skip_diff is True, then no comparisons can be made because <code class="docutils literal notranslate"><span class="pre">original</span></code>
+will be None.</p>
+<p>When left unspecified, skip_diff and skip_unchanged both default to <code class="docutils literal notranslate"><span class="pre">False</span></code>,
+and rows are never skipped.</p>
+<p>By default, rows are not skipped if validation errors have been detected
+during import.  You can change this behavior and choose to ignore validation
+errors by overriding this method.</p>
+<p>Override this method to handle skipping rows meeting certain
+conditions.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">super</span></code> if you want to preserve default handling while overriding</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">YourResource</span><span class="p">(</span><span class="n">ModelResource</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">skip_row</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">original</span><span class="p">,</span>
+                 <span class="n">row</span><span class="p">,</span> <span class="n">import_validation_errors</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1"># Add code here</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">skip_row</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">original</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span>
+                                <span class="n">import_validation_errors</span><span class="o">=</span><span class="n">import_validation_errors</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.validate_instance">
+<span class="sig-name descname"><span class="pre">validate_instance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">import_validation_errors</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">validate_unique</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L473"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.validate_instance" title="Link to this definition"></a></dt>
+<dd><p>Takes any validation errors that were raised by
+<a class="reference external" href="https://django-import-export.readthedocs.io/en/latest/api_resources.html#import_export.resources.Resource.import_obj" title="(in django-import-export v3.3)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">import_obj()</span></code></a>, and combines them
+with validation errors raised by the instance’s <code class="docutils literal notranslate"><span class="pre">full_clean()</span></code>
+method. The combined errors are then re-raised as single, multi-field
+ValidationError.</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">clean_model_instances</span></code> option is False, the instances’s
+<code class="docutils literal notranslate"><span class="pre">full_clean()</span></code> method is not called, and only the errors raised by
+<code class="docutils literal notranslate"><span class="pre">import_obj()</span></code> are re-raised.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.widget_from_django_field">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">widget_from_django_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default=&lt;class</span> <span class="pre">'import_export.widgets.Widget'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1285"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.widget_from_django_field" title="Link to this definition"></a></dt>
+<dd><p>Returns the widget that would likely be associated with each
+Django type.</p>
+<p>Includes mapping of Postgres Array field. In the case that
+psycopg2 is not installed, we consume the error and process the field
+regardless.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.widget_kwargs_for_field">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">widget_kwargs_for_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">field_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/import_export/resources.py#L1317"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.widget_kwargs_for_field" title="Link to this definition"></a></dt>
+<dd><p>Returns widget kwargs for given field_name.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="module-integreat_cms.cms.views.feedback.region_feedback_actions">
 <span id="region-feedback-actions"></span><h2>Region Feedback Actions<a class="headerlink" href="#module-integreat_cms.cms.views.feedback.region_feedback_actions" title="Link to this heading"></a></h2>
 <p>This module contains action methods for feedback items (archive, restore, …)</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.region_feedback_actions.archive_region_feedback">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">archive_region_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/region_feedback_actions.py#L95"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.region_feedback_actions.archive_region_feedback" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">archive_region_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/region_feedback_actions.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.region_feedback_actions.archive_region_feedback" title="Link to this definition"></a></dt>
 <dd><p>Archive a list of feedback items</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2067,7 +2542,7 @@ template rendered with the given context.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.region_feedback_actions.delete_region_feedback">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">delete_region_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/region_feedback_actions.py#L149"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.region_feedback_actions.delete_region_feedback" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">delete_region_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/region_feedback_actions.py#L152"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.region_feedback_actions.delete_region_feedback" title="Link to this definition"></a></dt>
 <dd><p>Delete a list of feedback items</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2086,8 +2561,28 @@ template rendered with the given context.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.region_feedback_actions.export_region_feedback">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">export_region_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/region_feedback_actions.py#L179"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.region_feedback_actions.export_region_feedback" title="Link to this definition"></a></dt>
+<dd><p>Export a list of feedback items (to CSV)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – Object representing the user call</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The slug of the current region</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Response with CSV file</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.region_feedback_actions.mark_region_feedback_as_read">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">mark_region_feedback_as_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/region_feedback_actions.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.region_feedback_actions.mark_region_feedback_as_read" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">mark_region_feedback_as_read</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/region_feedback_actions.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.region_feedback_actions.mark_region_feedback_as_read" title="Link to this definition"></a></dt>
 <dd><p>Set read flag for a list of feedback items</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2107,7 +2602,7 @@ template rendered with the given context.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.region_feedback_actions.mark_region_feedback_as_unread">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">mark_region_feedback_as_unread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/region_feedback_actions.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.region_feedback_actions.mark_region_feedback_as_unread" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">mark_region_feedback_as_unread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/region_feedback_actions.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.region_feedback_actions.mark_region_feedback_as_unread" title="Link to this definition"></a></dt>
 <dd><p>Unset read flag for a list of feedback items</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2127,7 +2622,7 @@ template rendered with the given context.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.views.feedback.region_feedback_actions.restore_region_feedback">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">restore_region_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/region_feedback_actions.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.region_feedback_actions.restore_region_feedback" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.feedback.region_feedback_actions.</span></span><span class="sig-name descname"><span class="pre">restore_region_feedback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/feedback/region_feedback_actions.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.feedback.region_feedback_actions.restore_region_feedback" title="Link to this definition"></a></dt>
 <dd><p>Restore a list of feedback items</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2305,7 +2800,7 @@ template rendered with the given context.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jan 31, 2024.
+      <span class="lastupdated">Last updated on Feb 09, 2024.
       </span></p>
   </div>
 
