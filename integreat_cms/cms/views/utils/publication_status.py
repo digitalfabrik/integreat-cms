@@ -1,5 +1,5 @@
 """
-This file contains the helper function to change the translation file
+This file contains the helper function to change the publication status of translations
 """
 
 from __future__ import annotations
@@ -17,14 +17,14 @@ if TYPE_CHECKING:
     from django.http import HttpRequest
 
 
-def change_translation_status(
+def change_publication_status(
     request: HttpRequest,
     selected_content: QuerySet,
     language_slug: str,
     desired_status: str,
 ) -> None:
     """
-    Helper function to change the translation status
+    Helper function to change the publication status
 
     :param request: The current request
     :param selected_content: The current queryset

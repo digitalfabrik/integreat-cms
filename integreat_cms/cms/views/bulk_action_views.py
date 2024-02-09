@@ -20,7 +20,7 @@ from django.views.generic.list import MultipleObjectMixin
 from ..constants import status
 from ..models import Page
 from ..utils.stringify_list import iter_to_string
-from .utils.translation_status import change_translation_status
+from .utils.publication_status import change_publication_status
 
 if TYPE_CHECKING:
     from typing import Any
@@ -373,7 +373,7 @@ class BulkPublishingView(BulkActionView):
         :param \**kwargs: The supplied keyword arguments
         :return: The redirect
         """
-        change_translation_status(
+        change_publication_status(
             request, self.get_queryset(), kwargs["language_slug"], status.PUBLIC
         )
         return super().post(request, *args, **kwargs)
@@ -393,7 +393,7 @@ class BulkDraftingView(BulkActionView):
         :param \**kwargs: The supplied keyword arguments
         :return: The redirect
         """
-        change_translation_status(
+        change_publication_status(
             request, self.get_queryset(), kwargs["language_slug"], status.DRAFT
         )
         return super().post(request, *args, **kwargs)
