@@ -278,6 +278,9 @@ def replace_links(
                         logger.debug(
                             "Replacing %r with %r in %r", url, fixed_url, translation
                         )
+                new_translation.content = fix_content_link_encoding(
+                    new_translation.content
+                )
                 if new_translation.content != translation.content and commit:
                     save_new_version(translation, new_translation, user)
     # Wait until all post-save signals have been processed
