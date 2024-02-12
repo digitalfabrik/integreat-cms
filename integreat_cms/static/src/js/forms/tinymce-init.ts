@@ -229,7 +229,7 @@ window.addEventListener("load", () => {
                     });
                 });
                 // Create an event every time the content changes
-                editor.on("keyup", () =>
+                editor.on("keyup undo redo", () =>
                     document.querySelectorAll("[data-content-changed]").forEach((element) => {
                         element.dispatchEvent(new Event("contentChanged"));
                     })
