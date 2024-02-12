@@ -7,9 +7,6 @@ from django import forms
 from django.core.validators import EmailValidator, URLValidator
 from django.utils.translation import gettext_lazy as _
 
-if TYPE_CHECKING:
-    from django.core.validators import URLValidator
-
 logger = logging.getLogger(__name__)
 
 
@@ -19,7 +16,7 @@ class LinkField(forms.URLField):
     """
 
     #: Disable the default URL validator
-    default_validators: list[URLValidator] = []
+    default_validators: list[URLValidator | EmailValidator] = []
     #: Whether to skip the validation URL fragments in URLField.to_python()
     skip_url_fragment_validation: bool = True
 
@@ -36,10 +33,8 @@ class LinkField(forms.URLField):
                 "Value %r is a mailto or tel link, skipping to_python() of URLField.",
                 value,
             )
-            value = super(forms.URLField, self).to_python(value)
-        else:
-            value = super().to_python(value)
-        return value
+            return super(forms.URLField, self).to_python(value)
+        return super().to_python(value)
 
     def clean(self, value: str) -> str:
         """
@@ -58,14 +53,12 @@ class LinkField(forms.URLField):
             )
             self.validators.append(EmailValidator())
             self.error_messages["invalid"] = _("Enter a valid email address.")
-            value = f"mailto:{super().clean(email)}"
-        else:
-            if not value.startswith("tel:"):
-                logger.debug("Value %r is a normal link, enforcing URLValidator", value)
-                self.validators.append(URLValidator())
-                self.skip_url_fragment_validation = False
-            value = super().clean(value)
-        return value
+            return f"mailto:{super().clean(email)}"
+        if not value.startswith("tel:"):
+            logger.debug("Value %r is a normal link, enforcing URLValidator", value)
+            self.validators.append(URLValidator(schemes=["http", "https"]))
+            self.skip_url_fragment_validation = False
+        return super().clean(value)
 
 
 class EditUrlForm(forms.Form):

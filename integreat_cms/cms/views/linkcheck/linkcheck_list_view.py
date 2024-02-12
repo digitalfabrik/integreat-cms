@@ -21,7 +21,7 @@ from lxml.html import rewrite_links
 
 from ...decorators import permission_required
 from ...forms.linkcheck.edit_url_form import EditUrlForm
-from ...utils.linkcheck_utils import filter_urls, get_urls
+from ...utils.linkcheck_utils import filter_urls, fix_content_link_encoding, get_urls
 
 if TYPE_CHECKING:
     from typing import Any
@@ -170,6 +170,9 @@ class LinkcheckListView(ListView):
                     new_translation.content = rewrite_links(
                         new_translation.content,
                         partial(self.replace_link, self.instance.url, new_url),
+                    )
+                    new_translation.content = fix_content_link_encoding(
+                        new_translation.content
                     )
                     # Save translation with replaced content as new minor version
                     new_translation.id = None
