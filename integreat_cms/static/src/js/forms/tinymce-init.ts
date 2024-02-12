@@ -76,7 +76,7 @@ window.addEventListener("load", () => {
                 },
                 icon: {
                     title: "Icons",
-                    items: "pin www email call clock idea group contact",
+                    items: "pin www email call clock idea group contact speech",
                 },
                 format: {
                     title: "Format",
@@ -175,6 +175,7 @@ window.addEventListener("load", () => {
                 addIcon(editor, tinymceConfig, "idea", "meta+alt+6");
                 addIcon(editor, tinymceConfig, "group", "meta+alt+7");
                 addIcon(editor, tinymceConfig, "contact", "meta+alt+8");
+                addIcon(editor, tinymceConfig, "speech", "meta+alt+9");
                 /* eslint-disable-next-line @typescript-eslint/no-var-requires, global-require */
                 editor.ui.registry.addIcon("no-translate", parseSvg(require(`../../svg/no-translate.svg`)));
                 editor.ui.registry.addButton("notranslate", {
@@ -213,6 +214,9 @@ window.addEventListener("load", () => {
                 });
                 editor.shortcuts.add("meta+alt+8", "Add contact person icon", () => {
                     insertIcon(editor, tinymceConfig, "contact");
+                });
+                editor.shortcuts.add("meta+alt+9", "Add speech bubble icon", () => {
+                    insertIcon(editor, tinymceConfig, "speech");
                 });
                 document.querySelectorAll("[data-content-changed]").forEach((element) => {
                     element.dispatchEvent(new Event("tinyMCEInitialized"));
