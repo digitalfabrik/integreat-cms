@@ -8120,7 +8120,7 @@ msgstr "Die folgenden {} wurden erfolgreich wiederhergestellt: {}"
 msgid "Back to the form"
 msgstr "Zurück zum Formular"
 
-#: cms/views/content_version_view.py
+#: cms/views/content_version_view.py cms/views/pages/page_revision_view.py
 msgid "You cannot restore versions of this page because it is archived."
 msgstr ""
 "Sie können Versionen dieser Seite nicht bearbeiten, weil sie archiviert ist."
@@ -8133,7 +8133,7 @@ msgstr "Link zum {}"
 msgid "The version {} does not exist."
 msgstr "Die Version {} existiert nicht."
 
-#: cms/views/content_version_view.py
+#: cms/views/content_version_view.py cms/views/pages/page_revision_view.py
 msgid "You cannot reject changes if there is no version to return to."
 msgstr ""
 "Sie können keine Änderungen ablehnen, wenn es keine Version gibt, zu der Sie "
@@ -8144,16 +8144,16 @@ msgstr ""
 msgid "No changes detected, but date refreshed"
 msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
-#: cms/views/content_version_view.py
+#: cms/views/content_version_view.py cms/views/pages/page_revision_view.py
 msgid "No changes detected, but status changed to published"
 msgstr "Keine Änderungen vorgenommen, aber Status zu veröffentlicht geändert"
 
-#: cms/views/content_version_view.py
+#: cms/views/content_version_view.py cms/views/pages/page_revision_view.py
 msgid "This version is identical to the current version of this translation."
 msgstr ""
 "Diese Version ist identisch mit der aktuellen Version dieser Übersetzung."
 
-#: cms/views/content_version_view.py
+#: cms/views/content_version_view.py cms/views/pages/page_revision_view.py
 msgid "The version was successfully restored"
 msgstr "Die Version wurde erfolgreich wiederhergestellt"
 
@@ -8739,57 +8739,6 @@ msgid "The page \"{page}\" was successfully moved."
 msgstr "Die Seite \"{page}\" wurde erfolgreich verschoben."
 
 #: cms/views/pages/page_actions.py
-msgid ""
-"Page-specific permissions cannot be granted to users who do not have "
-"permission to view pages (e.g event managers)."
-msgstr ""
-"Seitenspezifische Berechtigungen können nicht an Benutzer:innen vergeben "
-"werden, die keine Seiten sehen dürfen (z.B. Terminplaner:innen)."
-
-#: cms/views/pages/page_actions.py
-msgid "Information: The user \"{}\" has this permission already."
-msgstr "Information: \"{}\" hat diese Berechtigung bereits"
-
-#: cms/views/pages/page_actions.py
-msgid "Success: The user \"{}\" can now edit this page."
-msgstr "Erfolg: \"{}\" kann diese Seite nun bearbeiten"
-
-#: cms/views/pages/page_actions.py
-msgid "Success: The user \"{}\" can now publish this page."
-msgstr "Erfolg: \"{}\" kann dieses Seite nun veröffentlichen"
-
-#: cms/views/pages/page_actions.py
-msgid "An error has occurred. Please contact an administrator."
-msgstr ""
-"Ein Fehler ist aufgetreten. Bitte kontaktieren Sie eine:n Administrator:in."
-
-#: cms/views/pages/page_actions.py
-msgid ""
-"Information: The user \"{}\" has been removed from the authors of this page, "
-"but has the implicit permission to edit this page anyway."
-msgstr ""
-"Information: Die Berechtigung von \"{}\" um diese Seite zu bearbeiten wurde "
-"entfernt, aber es besteht weiterhin die Berechtigung, die Seite zu "
-"bearbeiten."
-
-#: cms/views/pages/page_actions.py
-msgid "Success: The user \"{}\" cannot edit this page anymore."
-msgstr "Erfolg: \"{}\" kann diese Seite nun nicht mehr bearbeiten"
-
-#: cms/views/pages/page_actions.py
-msgid ""
-"Information: The user \"{}\" has been removed from the editors of this page, "
-"but has the implicit permission to publish this page anyway."
-msgstr ""
-"Information: Die Berechtigung von \"{}\" um diese Seite zu bearbeiten wurde "
-"entfernt, aber es besteht weiterhin die Berechtigung, die Seite zu "
-"bearbeiten."
-
-#: cms/views/pages/page_actions.py
-msgid "Success: The user \"{}\" cannot publish this page anymore."
-msgstr "Erfolg: \"{}\" kann diese Seite nun nicht mehr veröffentlichen"
-
-#: cms/views/pages/page_actions.py
 msgid "Marked all translations of this page as up-to-date"
 msgstr "Alle Übersetzungen dieser Seite als aktuell markiert."
 
@@ -8930,6 +8879,63 @@ msgstr ""
 #: cms/views/pages/page_form_view.py
 msgid "Page \"{}\" was successfully created"
 msgstr "Seite \"{}\" wurde erfolgreich erstellt"
+
+#: cms/views/pages/page_permission_actions.py
+msgid "An error has occurred. Please contact an administrator."
+msgstr ""
+"Ein Fehler ist aufgetreten. Bitte kontaktieren Sie eine:n Administrator:in."
+
+#: cms/views/pages/page_permission_actions.py
+msgid ""
+"Page-specific permissions cannot be granted to users who do not have "
+"permission to view pages (e.g event managers)."
+msgstr ""
+"Seitenspezifische Berechtigungen können nicht an Benutzer:innen vergeben "
+"werden, die keine Seiten sehen dürfen (z.B. Terminplaner:innen)."
+
+#: cms/views/pages/page_permission_actions.py
+msgid "Information: The user \"{}\" has this permission already."
+msgstr "Information: \"{}\" hat diese Berechtigung bereits"
+
+#: cms/views/pages/page_permission_actions.py
+msgid "Success: The user \"{}\" can now edit this page."
+msgstr "Erfolg: \"{}\" kann diese Seite nun bearbeiten"
+
+#: cms/views/pages/page_permission_actions.py
+msgid "Success: The user \"{}\" cannot edit this page anymore."
+msgstr "Erfolg: \"{}\" kann diese Seite nun nicht mehr bearbeiten"
+
+#: cms/views/pages/page_permission_actions.py
+msgid ""
+"Information: The user \"{}\" has been removed from the authors of this page, "
+"but has the implicit permission to edit this page anyway."
+msgstr ""
+"Information: Die Berechtigung von \"{}\" um diese Seite zu bearbeiten wurde "
+"entfernt, aber es besteht weiterhin die Berechtigung, die Seite zu "
+"bearbeiten."
+
+#: cms/views/pages/page_permission_actions.py
+msgid "Success: The user \"{}\" can now publish this page."
+msgstr "Erfolg: \"{}\" kann dieses Seite nun veröffentlichen"
+
+#: cms/views/pages/page_permission_actions.py
+msgid "Success: The user \"{}\" cannot publish this page anymore."
+msgstr "Erfolg: \"{}\" kann diese Seite nun nicht mehr veröffentlichen"
+
+#: cms/views/pages/page_permission_actions.py
+msgid ""
+"Information: The user \"{}\" has been removed from the editors of this page, "
+"but has the implicit permission to publish this page anyway."
+msgstr ""
+"Information: Die Berechtigung von \"{}\" um diese Seite zu bearbeiten wurde "
+"entfernt, aber es besteht weiterhin die Berechtigung, die Seite zu "
+"bearbeiten."
+
+#: cms/views/pages/page_revision_view.py
+msgid "You don't have the permission to restore versions of this page."
+msgstr ""
+"Sie haben nicht die nötige Berechtigung, um Versionen dieser Seite "
+"wiederherzustellen."
 
 #: cms/views/pages/page_tree_view.py
 msgid "You can edit only those pages: "
@@ -9751,11 +9757,6 @@ msgstr ""
 
 #~ msgid "Restore and publish this version"
 #~ msgstr "Diese Version wiederherstellen und veröffentlichen"
-
-#~ msgid "You don't have the permission to restore versions of this page."
-#~ msgstr ""
-#~ "Sie haben nicht die nötige Berechtigung, um Versionen dieser Seite "
-#~ "wiederherzustellen."
 
 #~ msgid "You don't have the permission restore revisions of the imprint."
 #~ msgstr ""
