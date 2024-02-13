@@ -22,6 +22,9 @@ export INTEGREAT_CMS_DEEPL_AUTH_KEY="dummy"
 # Disable linkcheck listeners during testing
 export INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS=1
 
+# Disable background tasks during testing
+export INTEGREAT_CMS_BACKGROUND_TASKS_ENABLED=0
+
 TESTS=()
 
 # Parse given command line arguments

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+import threading
 import time
 from copy import deepcopy
 from typing import TYPE_CHECKING
@@ -15,6 +16,8 @@ from django.utils.translation import gettext_lazy as _
 from django.utils.translation import override
 from linkcheck.listeners import disable_listeners, tasks_queue
 from linkcheck.models import Link
+
+from integreat_cms.cms.utils.linkcheck_utils import replace_links
 
 from ....gvz_api.utils import GvzRegion
 from ....matomo_api.matomo_api_client import MatomoException
@@ -266,8 +269,9 @@ class RegionForm(CustomModelForm):
                     duplicate_imprint(source_region, region)
             # Duplicate media content
             duplicate_media(source_region, region)
-            # Create links for the most recent versions of all translations manually
-            find_links(region)
+
+            # Create links for the most recent versions of all translations manually and replace internal links
+            create_and_replace_links_async(source_region, region)
 
         return region
 
@@ -813,6 +817,29 @@ def duplicate_media(source_region: Region, target_region: Region) -> None:
     # TODO: implement duplication of all media files
 
 
+def create_and_replace_links_async(source_region: Region, region: Region) -> None:
+    """
+    Create all links for the latest versions of the region's page translations, then replace all links in the content.
+    This is run as a background task.
+
+
+    :param source_region: The region with the slug of the to be replaced links
+    :type source_region: ~integreat_cms.cms.models.regions.region.Region
+
+    :param region: The region in which the links should be replaced and created
+    :type region: ~integreat_cms.cms.models.regions.region.Region
+    """
+
+    def create_and_update_links() -> None:
+        find_links(region)
+        replace_internal_links(source_region, region)
+
+    t = threading.Thread(target=create_and_update_links, daemon=True)
+    t.start()
+    if not settings.BACKGROUND_TASKS_ENABLED:
+        t.join()
+
+
 def find_links(region: Region) -> None:
     """
     Find all link objects in the latest versions of the region's page translations
@@ -834,3 +861,18 @@ def find_links(region: Region) -> None:
     logger.debug(
         "Found links: %r", Link.objects.filter(Q(page_translation__page__region=region))
     )
+
+
+def replace_internal_links(source_region: Region, region: Region) -> None:
+    """
+    Replace all internal link objects with the latest versions of the region's page translations
+
+    :param source_region: The region with the slug of the to be replaced links
+    :type source_region: ~integreat_cms.cms.models.regions.region.Region
+
+    :param region: The region in which the links should be replaced
+    :type region: ~integreat_cms.cms.models.regions.region.Region
+    """
+    old_link = f"{settings.WEBAPP_URL}/{source_region.slug}/"
+    new_link = f"{settings.WEBAPP_URL}/{region.slug}/"
+    replace_links(old_link, new_link, region=region, link_types=["internal"])
