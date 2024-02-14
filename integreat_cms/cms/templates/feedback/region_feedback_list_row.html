@@ -1,0 +1,77 @@
+{% load i18n %}
+<tr class="border-t border-solid border-gray-200 hover:bg-gray-200 {% if not feedback.read %}bg-yellow-100 border-yellow-200 hover:border-gray-200{% endif %}">
+    <td class="py-3 pl-4 pr-2 {% if not feedback.read %}border-l-4 border-yellow-400{% endif %}">
+        <input type="checkbox"
+               name="selected_ids[]"
+               value="{{ feedback.id }}"
+               form="bulk-action-form"
+               class="bulk-select-item" />
+    </td>
+    <td class="pr-2 whitespace-nowrap">
+        {{ feedback.category }}
+    </td>
+    <td class="pr-2 truncate max-w-[75px] 2xl:max-w-[200px]"
+        title="{{ feedback.object_name }}">
+        {% if feedback.object_url %}
+            <a href="{{ feedback.object_url }}" class="hover:underline">{{ feedback.object_name }}</a>
+        {% else %}
+            <div class="table-cell-truncate">
+                <span class="table-cell-content">{{ feedback.object_name }}</span>
+                <a class="copy-search-btn btn-icon inline"
+                   data-copy-to-clipboard="{{ feedback.object_name }}"
+                   title="{% translate "Copy to clipboard" %}">
+                    <i icon-name="copy"></i>
+                    <i icon-name="check" class="hidden text-green-500"></i>
+                </a>
+                <a class="toggle-table-cell">
+                    <i icon-name="chevron-down" class="more"></i>
+                    <i icon-name="chevron-up" class="less"></i>
+                </a>
+            </div>
+        {% endif %}
+    </td>
+    <td class="pr-2">
+        {{ feedback.language.translated_name }}
+    </td>
+    <td class="pr-2 max-w-[75px] xl:max-w-[200px] 2xl:max-w-[300px] 3xl:max-w-[500px] 4xl:max-w-[800px]"
+        title="{{ feedback.comment }}">
+        {% if not feedback.comment %}
+            <i icon-name="minus" class="pr-1"></i>
+        {% else %}
+            <div class="table-cell-truncate">
+                <span class="table-cell-content">{{ feedback.comment }}</span>
+                <a class="toggle-table-cell">
+                    <i icon-name="chevron-down" class="more"></i>
+                    <i icon-name="chevron-up" class="less"></i>
+                </a>
+            </div>
+        {% endif %}
+    </td>
+    <td class="pr-2 rating">
+        {% if feedback.rating == True %}
+            <i icon-name="thumbs-up" class="pr-1"></i>
+        {% elif feedback.rating == False %}
+            <i icon-name="thumbs-down" class="pr-1"></i>
+        {% elif feedback.rating == None %}
+            <i icon-name="minus" class="pr-1"></i>
+        {% endif %}
+    </td>
+    <td class="pr-2 rating">
+        <span class="{% if not feedback.rating_sum_positive %}invisible{% endif %}">
+            <i icon-name="thumbs-up" class="pr-1"></i> {{ feedback.rating_sum_positive }}
+        </span>
+        <span class="{% if not feedback.rating_sum_negative %}invisible{% endif %}">
+            <i icon-name="thumbs-down" class="pl-1"></i> {{ feedback.rating_sum_negative }}
+        </span>
+    </td>
+    <td class="pr-2">
+        {% if feedback.read_by.email %}
+            <a href="mailto:{{ feedback.read_by.email }}" class="hover:underline">{{ feedback.read_by.full_user_name }}</a>
+        {% else %}
+            {{ feedback.read_by.full_user_name }}
+        {% endif %}
+    </td>
+    <td class="pr-2 text-right whitespace-nowrap">
+        {{ feedback.created_date }}
+    </td>
+</tr>
