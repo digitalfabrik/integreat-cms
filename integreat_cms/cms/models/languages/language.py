@@ -109,12 +109,21 @@ class Language(AbstractBaseModel):
             _("This is used in exported PDFs."),
         ),
     )
-    socialmedia_webapp_title = models.CharField(
-        max_length=250,
-        blank=True,
-        verbose_name=_("Socialmedia title of the WebApp"),
+    social_media_webapp_title = models.CharField(
+        max_length=100,
+        blank=False,
+        default=settings.BRANDING_TITLE,
+        verbose_name=_("Social media title of the WebApp"),
         help_text=_(
-            "Displayed title of the WebApp in the search results and on socialmedia pages."
+            "Displayed title of the WebApp in the search results and on social media pages (max 100 characters)."
+        ),
+    )
+    social_media_webapp_description = models.TextField(
+        max_length=200,
+        blank=True,
+        verbose_name=_("Social media description"),
+        help_text=_(
+            "Displayed description of the WebApp in the search results and on social media pages (max 200 characters)."
         ),
     )
     message_content_not_available = models.CharField(

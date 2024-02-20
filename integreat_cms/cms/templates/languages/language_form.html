@@ -113,13 +113,21 @@
                         </h3>
                     </div>
                     <div class="w-full p-4">
-                        <label for="{{ form.socialmedia_webapp_title.id_for_label }}"
+                        <label for="{{ form.social_media_webapp_title.id_for_label }}"
                                class="font-bold block mt-4 mb-2 cursor-pointer">
-                            {{ form.socialmedia_webapp_title.label }}
+                            {{ form.social_media_webapp_title.label }}
                         </label>
-                        {% render_field form.socialmedia_webapp_title|add_error_class:"border-red-500" %}
+                        {% render_field form.social_media_webapp_title|add_error_class:"border-red-500" %}
                         <div class="mb-2 text-s text-gray-600">
-                            {{ form.socialmedia_webapp_title.help_text }}
+                            {{ form.social_media_webapp_title.help_text }}
+                        </div>
+                        <label for="{{ form.social_media_webapp_description.id_for_label }}"
+                               class="font-bold block mt-4 mb-2 cursor-pointer">
+                            {{ form.social_media_webapp_description.label }}
+                        </label>
+                        {% render_field form.social_media_webapp_description rows="2"|add_error_class:"border-red-500" %}
+                        <div class="mb-2 text-s text-gray-600">
+                            {{ form.social_media_webapp_description.help_text }}
                         </div>
                         <label for="{{ form.table_of_contents.id_for_label }}"
                                class="font-bold block mt-4 mb-2 cursor-pointer">

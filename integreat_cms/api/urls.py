@@ -8,6 +8,7 @@ from typing import TYPE_CHECKING
 
 from django.urls import include, path, re_path
 
+from ..core import settings
 from .v3.events import events
 from .v3.feedback import (
     event_feedback,
@@ -37,7 +38,14 @@ from .v3.pages import (
 from .v3.pdf_export import pdf_export
 from .v3.push_notifications import sent_push_notifications
 from .v3.regions import region_by_slug, regions
-from .v3.socialmedia_headers import socialmedia_headers
+from .v3.social_media_headers import (
+    event_social_media_headers,
+    location_social_media_headers,
+    news_social_media_headers,
+    page_social_media_headers,
+    region_social_media_headers,
+    root_social_media_headers,
+)
 
 if TYPE_CHECKING:
     from typing import Final
@@ -130,12 +138,79 @@ region_api_urlpatterns: list[URLPattern] = [
     path("<slug:region_slug>/", region_by_slug, name="region_by_slug"),
 ]
 
-socialmedia_api_urlpatterns = [
-    path("", socialmedia_headers, name="root_socialmedia_headers"),
+social_media_prefix = "social"
+
+social_media_api_urlpatterns = [
+    path("", root_social_media_headers, name="social_root"),
+    *map(
+        lambda reserved: path(
+            f"{reserved}/",
+            include(
+                [
+                    path(f"", root_social_media_headers, name="social_root_reserved"),
+                    path(
+                        f"<slug:language_slug>/",
+                        root_social_media_headers,
+                        name="social_root_reserved_default_language",
+                    ),
+                ]
+            ),
+        ),
+        settings.RESERVED_REGION_SLUGS,
+    ),
     path(
-        "<path:path>",
-        socialmedia_headers,
-        name="socialmedia_headers",
+        "<slug:social_region_slug>", region_social_media_headers, name="social_region"
+    ),
+    path(
+        "<slug:region_slug>/",
+        region_social_media_headers,
+        name="social_region_default_language",
+    ),
+    path(
+        "<slug:region_slug>/<slug:language_slug>/",
+        include(
+            [
+                path("", region_social_media_headers, name="social_region"),
+                path(
+                    "news/local/",
+                    region_social_media_headers,
+                    name="social_region_reserved_local_news",
+                ),
+                re_path(
+                    r"^news/tunews/[\w-]+/$",
+                    region_social_media_headers,
+                    name="social_region_reserved_tunews",
+                ),
+                *map(
+                    lambda reserved: path(
+                        reserved,
+                        region_social_media_headers,
+                        name=f"social_region_reserved_{reserved}",
+                    ),
+                    settings.RESERVED_REGION_PAGE_PATTERNS,
+                ),
+                path(
+                    "events/<slug:slug>/",
+                    event_social_media_headers,
+                    name="social_region_event_page",
+                ),
+                path(
+                    "news/local/<slug:slug>/",
+                    news_social_media_headers,
+                    name="social_region_local_news_page",
+                ),
+                path(
+                    "locations/<slug:slug>/",
+                    location_social_media_headers,
+                    name="social_region_location_page",
+                ),
+                path(
+                    "<path:path>/",
+                    page_social_media_headers,
+                    name="social_region_content",
+                ),
+            ]
+        ),
     ),
 ]
 
@@ -143,7 +218,7 @@ socialmedia_api_urlpatterns = [
 urlpatterns: list[URLPattern] = [
     path("api/v3/regions/", include(region_api_urlpatterns)),
     path("wp-json/extensions/v3/sites/", include(region_api_urlpatterns)),
-    path("api/v3/social/", include(socialmedia_api_urlpatterns)),
+    path("api/v3/social/", include(social_media_api_urlpatterns)),
     path(
         "api/v3/<slug:region_slug>/",
         include(

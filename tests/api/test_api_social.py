@@ -33,7 +33,6 @@ def test_api_result(
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param django_assert_num_queries: The fixture providing the query assertion
     :param endpoint: The url of the new Django pattern
-    :param wp_endpoint: The legacy url of the wordpress endpoint pattern
     :param expected_result: The path to the json file that contains the expected result
     :param expected_code: The expected HTTP status code
     :param expected_queries: The expected number of SQL queries
@@ -43,6 +42,8 @@ def test_api_result(
         response = client.get(endpoint, format="html")
     print(response.headers)
     assert response.status_code == expected_code
+    if not expected_result:
+        return
     with open(expected_result, encoding="utf-8") as f:
         result = json.load(f)
         template_context = response.context.dicts[3]
