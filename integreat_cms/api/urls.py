@@ -147,11 +147,15 @@ social_media_api_urlpatterns = [
             f"{reserved}/",
             include(
                 [
-                    path(f"", root_social_media_headers, name="social_root_reserved"),
+                    path(
+                        f"",
+                        root_social_media_headers,
+                        name=f"social_root_reserved_{reserved}",
+                    ),
                     path(
                         f"<slug:language_slug>/",
                         root_social_media_headers,
-                        name="social_root_reserved_default_language",
+                        name=f"social_root_reserved_default_language_{reserved}",
                     ),
                 ]
             ),
