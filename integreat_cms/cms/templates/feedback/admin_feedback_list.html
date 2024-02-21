@@ -32,174 +32,102 @@
             {% include "feedback/_admin_feedback_filter_form.html" %}
         </div>
     {% endwith %}
-    <form id="bulk-action-form" method="post">
-        {% csrf_token %}
+    <div class="table-listing">
+        <form id="bulk-action-form" method="post">
+            {% csrf_token %}
+        </form>
         <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white"
                data-enable-row-checkbox-toggle>
-            <tr class="border-b border-solid border-gray-200">
-                <th class="text-sm text-left uppercase py-3 pr-2"
-                    style="padding-left: 10px"
-                    title="{% translate "Select all" %}">
-                    <input type="checkbox" id="bulk-select-all" />
-                </th>
-                <th class="text-sm text-left uppercase py-3 pr-2">
-                    {% translate "Category" %}
-                </th>
-                <th class="text-sm text-left uppercase py-3 pr-2">
-                    {% translate "Feedback on" %}
-                </th>
-                <th class="text-sm text-left uppercase py-3 pr-2">
-                    {% translate "Language" %}
-                </th>
-                <th class="text-sm text-left uppercase py-3 pr-2">
-                    {% translate "Comment" %}
-                </th>
-                <th class="text-sm text-left uppercase py-3 pr-2">
-                    {% translate "Rating" %}
-                </th>
-                <th class="text-sm text-left uppercase py-3 pr-2">
-                    {% translate "Rating" %} ({% translate "overall" %})
-                </th>
-                <th class="text-sm text-left uppercase py-3 pr-2">
-                    {% translate "Region" %}
-                </th>
-                <th class="text-sm text-left uppercase py-3 pr-2">
-                    {% translate "Marked as read by" %}
-                </th>
-                <th class="text-sm text-right uppercase py-3 pr-2">
-                    {% translate "Date" %}
-                </th>
-            </tr>
-            {% for feedback in admin_feedback %}
-                <tr class="border-t border-solid border-gray-200 hover:bg-gray-200 {% if not feedback.read %}bg-yellow-100 border-yellow-200 hover:border-gray-200{% endif %}">
-                    <td class="py-3 {% if not feedback.read %}border-l-4 border-yellow-400{% endif %}"
-                        style="padding-left: {% if feedback.read %}10{% else %}8{% endif %}px">
-                        <input type="checkbox"
-                               name="selected_ids[]"
-                               value="{{ feedback.id }}"
-                               class="bulk-select-item" />
-                    </td>
-                    <td class="pr-2 whitespace-nowrap">
-                        {{ feedback.category }}
-                    </td>
-                    <td class="pr-2 truncate max-w-[75px] 2xl:max-w-[200px]"
-                        title="{{ feedback.object_name }}">
-                        {% if feedback.object_url %}
-                            <a href="{{ feedback.object_url }}" class="hover:underline">{{ feedback.object_name }}</a>
-                        {% else %}
-                            <div class="table-cell-truncate">
-                                <span class="table-cell-content">{{ feedback.object_name }}</span>
-                                <a class="copy-search-btn btn-icon inline"
-                                   data-copy-to-clipboard="{{ feedback.object_name }}"
-                                   title="{% translate "Copy to clipboard" %}">
-                                    <i icon-name="copy"></i>
-                                    <i icon-name="check" class="hidden text-green-500"></i>
-                                </a>
-                                <a class="toggle-table-cell">
-                                    <i icon-name="chevron-down" class="more"></i>
-                                    <i icon-name="chevron-up" class="less"></i>
-                                </a>
-                            </div>
-                        {% endif %}
-                    </td>
-                    <td class="pr-2">
-                        {{ feedback.language.translated_name }}
-                    </td>
-                    <td class="pr-2 max-w-[75px] xl:max-w-[200px] 2xl:max-w-[300px] 3xl:max-w-[500px] 4xl:max-w-[800px]"
-                        title="{{ feedback.comment }}">
-                        {% if not feedback.comment %}
-                            <i icon-name="minus" class="pr-1"></i>
-                        {% else %}
-                            <div class="table-cell-truncate">
-                                <span class="table-cell-content">{{ feedback.comment }}</span>
-                                <a class="toggle-table-cell">
-                                    <i icon-name="chevron-down" class="more"></i>
-                                    <i icon-name="chevron-up" class="less"></i>
-                                </a>
-                            </div>
-                        {% endif %}
-                    </td>
-                    <td class="pr-2">
-                        {% if feedback.rating == True %}
-                            <i icon-name="thumbs-up" class="pr-1"></i>
-                        {% elif feedback.rating == False %}
-                            <i icon-name="thumbs-down" class="pr-1"></i>
-                        {% elif feedback.rating == None %}
-                            <i icon-name="minus" class="pr-1"></i>
-                        {% endif %}
-                    </td>
-                    <td class="pr-2">
-                        <span class="{% if not feedback.rating_sum_positive %}invisible{% endif %}">
-                            <i icon-name="thumbs-up" class="pr-1"></i> {{ feedback.rating_sum_positive }}
-                        </span>
-                        <span class="{% if not feedback.rating_sum_negative %}invisible{% endif %}">
-                            <i icon-name="thumbs-down" class="pl-1"></i> {{ feedback.rating_sum_negative }}
-                        </span>
-                    </td>
-                    <td class="pr-2">
-                        <a href="{% url 'dashboard' region_slug=feedback.region.slug %}"
-                           class="hover:underline">
-                            {{ feedback.region.get_administrative_division_display }} {{ feedback.region.name }}
-                        </a>
-                    </td>
-                    <td class="pr-2">
-                        {% if feedback.read_by.email %}
-                            <a href="mailto:{{ feedback.read_by.email }}" class="hover:underline">{{ feedback.read_by.full_user_name }}</a>
-                        {% else %}
-                            {{ feedback.read_by.full_user_name }}
-                        {% endif %}
-                    </td>
-                    <td class="pr-2 text-right whitespace-nowrap">
-                        {{ feedback.created_date }}
-                    </td>
+            <thead>
+                <tr class="border-b border-solid border-gray-200">
+                    <th class="py-3 pl-4 pr-2 min">
+                        <input form="bulk-action-form"
+                               type="checkbox"
+                               id="bulk-select-all"
+                               title="{% translate "Select all" %}" />
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Category" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Feedback on" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Language" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Comment" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Rating" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Rating" %} ({% translate "overall" %})
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Region" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "Marked as read by" %}
+                    </th>
+                    <th class="text-sm text-right uppercase py-3 pr-2">
+                        {% translate "Date" %}
+                    </th>
                 </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="9" class="px-2 py-3 text-center">
-                        {% if filter_form.has_changed %}
-                            {% translate "No technical feedback found with these filters." %}
-                        {% else %}
-                            {% translate "No technical feedback available yet." %}
-                        {% endif %}
-                    </td>
-                </tr>
-            {% endfor %}
+            </thead>
+            <tbody>
+                {% if admin_feedback %}
+                    {% for feedback in admin_feedback %}
+                        {% include "feedback/admin_feedback_list_row.html" with admin_feedback=admin_feedback %}
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="9" class="px-2 py-3 text-center">
+                            {% if filter_form.has_changed %}
+                                {% translate "No feedback found with these filters." %}
+                            {% else %}
+                                {% translate "No feedback available yet." %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
         </table>
-        {% if admin_feedback %}
-            <div class="pt-2 px-2">
-                <div class="inline">
-                    <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Feedback entries selected" %}</span>
-                </div>
+    </div>
+    {% if admin_feedback %}
+        <div class="pt-2 px-2">
+            <div class="inline">
+                <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Feedback entries selected" %}</span>
+            </div>
+        </div>
+    {% endif %}
+    <div class="flex flex-col">
+        {% if perms.cms.change_feedback %}
+            <div class="flex self-start gap-2 mt-2">
+                <select id="bulk-action">
+                    <option>
+                        {% translate "Select bulk action" %}
+                    </option>
+                    <option data-bulk-action="{% url 'mark_admin_feedback_as_read' %}">
+                        {% translate "Mark as read" %}
+                    </option>
+                    <option data-bulk-action="{% url 'mark_admin_feedback_as_unread' %}">
+                        {% translate "Mark as unread" %}
+                    </option>
+                    <option data-bulk-action="{% url 'archive_admin_feedback' %}">
+                        {% translate "Archive" %}
+                    </option>
+                    {% if perms.cms.delete_feedback %}
+                        <option data-bulk-action="{% url 'delete_admin_feedback' %}">
+                            {% translate "Delete" %}
+                        </option>
+                    {% endif %}
+                </select>
+                <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
+                    {% translate "Execute" %}
+                </button>
             </div>
         {% endif %}
-        <div class="flex flex-col">
-            {% include "pagination.html" with chunk=admin_feedback %}
-            {% if perms.cms.change_feedback %}
-                <div class="flex self-start gap-2 mt-2">
-                    <select id="bulk-action">
-                        <option>
-                            {% translate "Select bulk action" %}
-                        </option>
-                        <option data-bulk-action="{% url 'mark_admin_feedback_as_read' %}">
-                            {% translate "Mark as read" %}
-                        </option>
-                        <option data-bulk-action="{% url 'mark_admin_feedback_as_unread' %}">
-                            {% translate "Mark as unread" %}
-                        </option>
-                        <option data-bulk-action="{% url 'archive_admin_feedback' %}">
-                            {% translate "Archive" %}
-                        </option>
-                        {% if perms.cms.delete_feedback %}
-                            <option data-bulk-action="{% url 'delete_admin_feedback' %}">
-                                {% translate "Delete" %}
-                            </option>
-                        {% endif %}
-                    </select>
-                    <button id="bulk-action-execute" class="btn" disabled>
-                        {% translate "Execute" %}
-                    </button>
-                </div>
-            {% endif %}
-        </div>
-    </form>
+        {% include "pagination.html" with chunk=admin_feedback %}
+    </div>
 {% endblock content %}
