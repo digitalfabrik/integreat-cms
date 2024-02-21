@@ -11,7 +11,11 @@ from typing import TYPE_CHECKING
 
 import aiohttp
 from django.conf import settings
+from django.contrib import messages
+from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext_lazy
 
+from ..cms.utils.stringify_list import iter_to_string
 from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
 from ..core.utils.machine_translation_provider import MachineTranslationProvider
 from .utils import TranslationHelper
@@ -174,5 +178,48 @@ class SummAiApiClient(MachineTranslationApiClient):
         loop.run_until_complete(self.translate_text_fields(loop, text_fields))
 
         # Commit changes to the database
+        successes = []
+        errors = []
         for translation_helper in translation_helpers:
-            translation_helper.commit(easy_german)
+            if TYPE_CHECKING:
+                assert translation_helper.german_translation
+
+            if translation_helper.commit(easy_german):
+                successes.append(translation_helper.german_translation.title)
+            else:
+                errors.append(translation_helper.german_translation.title)
+
+        if translation_helpers:
+            meta = type(translation_helpers[0].object_instance)._meta
+            model_name = meta.verbose_name.title()
+            model_name_plural = meta.verbose_name_plural
+        else:
+            model_name = model_name_plural = ""
+
+        if successes:
+            messages.success(
+                self.request,
+                ngettext_lazy(
+                    "{model_name} {object_names} has been successfully translated into Easy German.",
+                    "The following {model_name_plural} have been successfully translated into Easy German: {object_names}",
+                    len(successes),
+                ).format(
+                    model_name=model_name,
+                    model_name_plural=model_name_plural,
+                    object_names=iter_to_string(successes),
+                ),
+            )
+
+        if errors:
+            messages.error(
+                self.request,
+                ngettext_lazy(
+                    "{model_name} {object_names} could not be automatically translated into Easy German.",
+                    "The following {model_name_plural} could not be automatically translated into Easy German: {object_names}",
+                    len(errors),
+                ).format(
+                    model_name=model_name,
+                    model_name_plural=model_name_plural,
+                    object_names=iter_to_string(errors),
+                ),
+            )

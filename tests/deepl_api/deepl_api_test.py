@@ -28,6 +28,7 @@ from integreat_cms.cms.models import (
     Region,
 )
 from integreat_cms.cms.models.pois.poi import get_default_opening_hours
+from integreat_cms.cms.utils.stringify_list import iter_to_string
 
 from ..conftest import (
     ANONYMOUS,
@@ -184,12 +185,12 @@ def test_deepl_bulk_mt_pages(
         page_translations = get_content_translations(
             Page, selected_ids, SOURCE_LANGUAGE_SLUG, TARGET_LANGUAGE_SLUG
         )
+        # Check that the success message are present
+        assert_message_in_log(
+            'SUCCESS  The following pages have successfully been translated (German ➜ English): "Über die App Integreat Augsburg", "Willkommen in Augsburg" and "Kontakt zu App Team Augsburg"',
+            caplog,
+        )
         for page_translation in page_translations:
-            # Check that the success message are present
-            assert_message_in_log(
-                f'SUCCESS  Page "{page_translation[SOURCE_LANGUAGE_SLUG]}" has successfully been translated (German ➜ English).',
-                caplog,
-            )
             # Check that the page translation exists and really has the correct content
             assert page_translation[TARGET_LANGUAGE_SLUG].machine_translated is True
             assert (
@@ -487,15 +488,15 @@ def test_deepl_bulk_mt_exceeds_limit(
         Page, selected_ids, SOURCE_LANGUAGE_SLUG, TARGET_LANGUAGE_SLUG
     )
 
+    # Check for a failure message
+    translations_str = iter_to_string(
+        [t[SOURCE_LANGUAGE_SLUG].title for t in page_translations]
+    )
+    assert_message_in_log(
+        f"ERROR    The following pages could not be translated because they would exceed the remaining budget of 0 words: {translations_str}",
+        caplog,
+    )
     for page_translation in page_translations:
-        # Check for a failure message
-        translation_word_count = get_word_count(
-            [page_translation[SOURCE_LANGUAGE_SLUG]]
-        )
-        assert_message_in_log(
-            f"ERROR    Translation from German to English not possible: translation of {translation_word_count} words would exceed the remaining budget of 0 words.",
-            caplog,
-        )
         assert (
             page_translation[TARGET_LANGUAGE_SLUG] is None
             or page_translation[TARGET_LANGUAGE_SLUG].machine_translated is False
@@ -640,7 +641,7 @@ def test_deepl_bulk_mt_up_to_date_and_ready_for_mt(
         # Check for a failure message if translation was already up-to-date
         if poi_translation[SOURCE_LANGUAGE_SLUG].poi_id == up_to_date_poi_id:
             assert_message_in_log(
-                f"ERROR    There already is an up-to-date translation for {poi_translation[TARGET_LANGUAGE_SLUG].title}",
+                f'ERROR    There already is an up-to-date translation for "{poi_translation[TARGET_LANGUAGE_SLUG].title}"',
                 caplog,
             )
             assert poi_translation[TARGET_LANGUAGE_SLUG].machine_translated is False

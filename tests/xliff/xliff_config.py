@@ -17,7 +17,7 @@ XLIFF_IMPORTS: Final[list[tuple[dict[str, int | str], dict[str, int | str]]]] = 
             "file": "augsburg_de_en_1_2_willkommen.xliff",
             "title": "Updated title",
             "content": "<p>Updated content</p>",
-            "message": 'SUCCESS  Page "Updated title" was imported successfully.',
+            "message": 'SUCCESS  Pages "Updated title" and "Updated title" (Title in German: "Willkommen in Augsburg") were imported successfully.',
         },
         {
             "id": 2,
@@ -25,7 +25,7 @@ XLIFF_IMPORTS: Final[list[tuple[dict[str, int | str], dict[str, int | str]]]] = 
             "expected_file": "augsburg_de_en_2_1_willkommen-in-augsburg.xliff",
             "title": "Updated title",
             "content": "<p>Updated content</p>",
-            "message": 'SUCCESS  Page "Updated title" was imported successfully.',
+            "message": 'SUCCESS  Pages "Updated title" and "Updated title" (Title in German: "Willkommen in Augsburg") were imported successfully.',
         },
     ),
     (
@@ -34,14 +34,14 @@ XLIFF_IMPORTS: Final[list[tuple[dict[str, int | str], dict[str, int | str]]]] = 
             "file": "augsburg_de_en_1_2_willkommen_unchanged.xliff",
             "title": "Welcome",
             "content": "<p>Welcome to Augsburg</p>",
-            "message": 'INFO     Page "Welcome" was imported without changes.',
+            "message": 'INFO     Pages "Welcome" and "City Map" were imported without changes.',
         },
         {
             "id": 5,
             "file": "augsburg_de_en_5_1_stadtplan_unchanged.xliff",
             "title": "City Map",
             "content": "<p>These changes were saved automatically</p>",
-            "message": 'INFO     Page "City Map" was imported without changes.',
+            "message": 'INFO     Pages "Welcome" and "City Map" were imported without changes.',
         },
     ),
     (
