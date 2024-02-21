@@ -14,8 +14,6 @@ from urllib.error import URLError
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
-from lxml.etree import LxmlError
-from lxml.html import fromstring, tostring
 
 from ....api.decorators import json_response
 from ....textlab_api.textlab_api_client import TextlabClient
@@ -28,37 +26,6 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 MAX_TEXT_LENGTH: Final[int] = 100_000
-
-
-def normalize_text(text: str) -> str:
-    """
-    Normalize the text to eliminate differences in HIX value calculation
-
-    :param text: Text for hix value calculation
-    :return: Normalized version of the text
-    """
-
-    try:
-        root = fromstring(text)
-
-        # Remove paragraphs without text (e.g. empty paragraphs or with an image only)
-        for node in list(root):
-            node_text = node.text_content()
-            if not node_text or not node_text.strip():
-                node.getparent().remove(node)
-
-        # If there is only one paragraph left, remove the root div tag
-        nodes = list(root)
-        if root.tag == "div" and len(nodes) == 1:
-            root = nodes[0]
-
-        text = tostring(root, encoding="unicode", pretty_print=True).strip()
-
-    except LxmlError:
-        pass
-
-    # Replace all line breaks with \r\n, because Textlab API returns different HIX value depending on the line break character
-    return "\r\n".join(text.splitlines())
 
 
 class CacheMeIfYouCan(Exception):
@@ -78,10 +45,13 @@ def lookup_hix_score_helper(text: str) -> float | None:
     :param text: The text to calculate the hix score for
     :return: The score for the given text
     """
+    # Replace all line breaks with <br> because Textlab API returns different HIX value depending on the line break character
+    normalized_text = "<br>".join(text.splitlines())
+
     try:
         return TextlabClient(
             settings.TEXTLAB_API_USERNAME, settings.TEXTLAB_API_KEY
-        ).benchmark(normalize_text(text))
+        ).benchmark(normalized_text)
     except (URLError, OSError) as e:
         logger.warning("HIX benchmark API call failed: %r", e)
         raise CacheMeIfYouCan from e
