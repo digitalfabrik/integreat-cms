@@ -53,6 +53,8 @@ def test_duplicate_regions(
             "longitude": 1,
             "latitude": 1,
             "duplicated_region": 1,
+            "duplication_pbo_behavior": "activate_missing",
+            "zammad_url": "https://zammad-test.example.com",
             "timezone": "Europe/Berlin",
             "mt_renewal_month": 6,
         },
@@ -127,10 +129,10 @@ def test_duplicate_regions(
         "number_all_urls": 17,
         "number_email_urls": 0,
         "number_ignored_urls": 0,
-        "number_invalid_urls": 10,
+        "number_invalid_urls": 9,
         "number_phone_urls": 0,
         "number_unchecked_urls": 0,
-        "number_valid_urls": 7,
+        "number_valid_urls": 8,
     }, "Links should be cloned into the new region"
 
     # Check if internal links have been cloned
