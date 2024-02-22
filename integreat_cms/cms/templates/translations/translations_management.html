@@ -18,40 +18,10 @@
             {% endif %}
         </div>
         <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
-            <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+            <div class="rounded row-span-2 border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="p-4 rounded bg-water-500">
                     <h3 class="heading font-bold text-black">
-                        <i icon-name="bot" class="mr-2"></i> {% translate "Machine Translation" %}
-                    </h3>
-                </div>
-                <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
-                    <div>
-                        <!-- Options related to the type of content which can be machine translated -->
-                        <label>
-                            {% trans "Automatic translations" %}
-                        </label>
-                        <div class="help-text">
-                            {% translate "Automatically machine translate the following types of content:" %}
-                        </div>
-                        <label for="{{ form.machine_translate_pages.id_for_label }}">
-                            {{ form.machine_translate_pages.label }}
-                        </label>
-                        {% render_field form.machine_translate_pages|add_error_class:"border-red-500" %}
-                        <label for="{{ form.machine_translate_events.id_for_label }}">
-                            {{ form.machine_translate_events.label }}
-                        </label>
-                        {% render_field form.machine_translate_events|add_error_class:"border-red-500" %}
-                        <label for="{{ form.machine_translate_pois.id_for_label }}">
-                            {{ form.machine_translate_pois.label }}
-                        </label>
-                        {% render_field form.machine_translate_pois|add_error_class:"border-red-500" %}
-                    </div>
-                </div>
-            </div>
-            <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
-                <div class="p-4 rounded bg-water-500">
-                    <h3 class="heading font-bold text-black">
-                        <i icon-name="flag" class="mr-2"></i> {{ form.machine_translatable_languages.label }}
+                        <i icon-name="flag" class="mr-2"></i> {% translate "Select provider" %}
                     </h3>
                 </div>
                 <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
@@ -69,13 +39,21 @@
                             </div>
                         </div>
                     {% else %}
-                        {% if form.machine_translatable_languages.field.queryset.exists %}
-                            <div>
-                                <div class="help-text mt-4">
-                                    {{ form.machine_translatable_languages.help_text }}
-                                </div>
-                                {% render_field form.machine_translatable_languages %}
+                        {% if form.get_language_fields %}
+                            <label>
+                                {% translate "Select provider" %}
+                            </label>
+                            <div class="border-none help-text !m-0">
+                                {% translate "Please select which translation provider you prefer to use for the given language:" %}
                             </div>
+                            {% for language_field in form.get_language_fields %}
+                                <div class="border-none">
+                                    <label for="{{ language_field.label }}">
+                                        {{ language_field.label }}
+                                    </label>
+                                    {{ language_field }}
+                                </div>
+                            {% endfor %}
                         {% endif %}
                         {% if form.unavailable_languages %}
                             <div>
@@ -88,6 +66,36 @@
                             </div>
                         {% endif %}
                     {% endif %}
+                </div>
+            </div>
+            <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                <div class="p-4 rounded bg-water-500">
+                    <h3 class="heading font-bold text-black">
+                        <i icon-name="bot" class="mr-2"></i> {% translate "Machine Translation" %}
+                    </h3>
+                </div>
+                <div class="px-4 pb-4 divide-y divide-gray-200 space-y-4">
+                    <div>
+                        <!-- Options related to the type of content which can be machine translated -->
+                        <label>
+                            {% translate "Automatic translations" %}
+                        </label>
+                        <div class="help-text">
+                            {% translate "Automatically machine translate the following types of content:" %}
+                        </div>
+                        <label for="{{ form.machine_translate_pages.id_for_label }}">
+                            {{ form.machine_translate_pages.label }}
+                        </label>
+                        {% render_field form.machine_translate_pages|add_error_class:"border-red-500" %}
+                        <label for="{{ form.machine_translate_events.id_for_label }}">
+                            {{ form.machine_translate_events.label }}
+                        </label>
+                        {% render_field form.machine_translate_events|add_error_class:"border-red-500" %}
+                        <label for="{{ form.machine_translate_pois.id_for_label }}">
+                            {{ form.machine_translate_pois.label }}
+                        </label>
+                        {% render_field form.machine_translate_pois|add_error_class:"border-red-500" %}
+                    </div>
                 </div>
             </div>
             <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
