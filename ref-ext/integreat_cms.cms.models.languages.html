@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-02-13T16:23:45+00:00" />
+    <meta property="article:modified_time" content="2024-02-22T18:19:33+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Languages &mdash; integreat-cms 2024.2.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -2406,6 +2406,7 @@ identified by the root node. The base functionality inherits from the package <a
 <li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v4.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
 <li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v4.2)"><em>DateTimeField</em></a>) – Modification date</p></li>
 <li><p><strong>machine_translation_enabled</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v4.2)"><em>BooleanField</em></a>) – Machine translatable. Enable or disable machine translations into this language</p></li>
+<li><p><strong>preferred_mt_provider</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><em>CharField</em></a>) – Machine translation provider. Preferred provider for translations into this language</p></li>
 </ul>
 </dd>
 </dl>
@@ -2974,6 +2975,12 @@ Caches the result in the object itself to help in loops.</p>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_preferred_mt_provider_display">
+<span class="sig-name descname"><span class="pre">get_preferred_mt_provider_display</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field=&lt;django.db.models.CharField:</span> <span class="pre">preferred_mt_provider&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/functools.py#L386"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_preferred_mt_provider_display" title="Link to this definition"></a></dt>
+<dd><p>Shows the label of the <a class="reference internal" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.preferred_mt_provider" title="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.preferred_mt_provider"><code class="xref py py-attr docutils literal notranslate"><span class="pre">preferred_mt_provider</span></code></a>. See <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/instances/#django.db.models.Model.get_FOO_display" title="(in Django v4.2)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_FOO_display()</span></code></a> for more information.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_prev_sibling">
 <span class="sig-name descname"><span class="pre">get_prev_sibling</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/treebeard/models.py#L297"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_prev_sibling" title="Link to this definition"></a></dt>
 <dd><dl class="field-list simple">
@@ -3032,7 +3039,7 @@ sibling.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_repr">
-<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L137"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_repr" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_repr</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L150"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_repr" title="Link to this definition"></a></dt>
 <dd><p>This overwrites the default Django <code class="docutils literal notranslate"><span class="pre">__repr__()</span></code> method which would return <code class="docutils literal notranslate"><span class="pre">&lt;LanguageTreeNode:</span> <span class="pre">LanguageTreeNode</span> <span class="pre">object</span> <span class="pre">(id)&gt;</span></code>.
 It is used for logging.</p>
 <dl class="field-list simple">
@@ -3260,7 +3267,7 @@ relative to another node.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.mt_provider">
 <span class="sig-name descname"><span class="pre">mt_provider</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.mt_provider" title="Link to this definition"></a></dt>
-<dd><p>Return the machine translation provider if it exists, or <code class="docutils literal notranslate"><span class="pre">None</span></code> otherwise</p>
+<dd><p>Return the preferred machine translation provider if valid, or the first available provider, or <code class="docutils literal notranslate"><span class="pre">None</span></code></p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The MT provider for this target language</p>
@@ -3328,6 +3335,18 @@ relative to another node.</p>
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.pk">
 <em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pk</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.pk" title="Link to this definition"></a></dt>
 <dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.preferred_mt_provider">
+<span class="sig-name descname"><span class="pre">preferred_mt_provider</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/languages/language_tree_node.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.preferred_mt_provider" title="Link to this definition"></a></dt>
+<dd><p>Type: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">CharField</span></code></a></p>
+<p>Machine translation provider. Preferred provider for translations into this language</p>
+<p>Choices:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">DeepL</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SUMM.AI</span></code></p></li>
+</ul>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.prepare_database_save">
@@ -3507,7 +3526,7 @@ failed.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Feb 13, 2024.
+      <span class="lastupdated">Last updated on Feb 22, 2024.
       </span></p>
   </div>
 
