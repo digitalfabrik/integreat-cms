@@ -8,13 +8,11 @@ from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
-from lxml.html import Element
 
 if TYPE_CHECKING:
     from typing import Literal
     from ...models import Event
 
-from ...utils.tinymce_icon_utils import get_icon_html
 from ..abstract_content_translation import AbstractContentTranslation
 from ..decorators import modify_fields
 
@@ -85,23 +83,12 @@ class EventTranslation(AbstractContentTranslation):
             },
         )
 
-    @cached_property
-    def link_title(self) -> Element | str:
+    @staticmethod
+    def default_icon() -> str | None:
         """
-        This property returns the html that should be used as a title for a link to this translation
-
-        :return: The link content
+        :return: The default icon that should be used for this content translation type, or ``None`` for no icon
         """
-        img = get_icon_html("clock")
-
-        if icon := self.event.icon:
-            if thumbnail := icon.thumbnail_url:
-                img = Element("img")
-                img.set("style", "height:15px;")
-                img.set("src", thumbnail)
-
-        img.tail = self.title
-        return img
+        return "clock"
 
     class Meta:
         #: The verbose name of the model

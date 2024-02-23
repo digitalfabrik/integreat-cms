@@ -10,6 +10,8 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
+from ..utils.tinymce_icon_utils import get_icon_html, make_icon
+
 if TYPE_CHECKING:
     from typing import Any, Literal
     from django.db.models.query import QuerySet
@@ -540,6 +542,13 @@ class AbstractContentTranslation(AbstractBaseModel):
             or self.rounded_hix_score >= settings.HIX_REQUIRED_FOR_MT
         )
 
+    @staticmethod
+    def default_icon() -> str | None:
+        """
+        Returns the default icon that should be used for this content translation type, or None for no icon
+        """
+        return None
+
     @cached_property
     def link_title(self) -> Element | str:
         """
@@ -547,6 +556,18 @@ class AbstractContentTranslation(AbstractBaseModel):
 
         :return: The link content
         """
+        foreign_object = self.foreign_object
+        if icon := getattr(foreign_object, "icon", None):
+            if url := icon.thumbnail_url:
+                img = make_icon(url)
+                img.tail = self.title
+                return img
+
+        if icon_name := self.default_icon():
+            img = get_icon_html(icon_name)
+            img.tail = self.title
+            return img
+
         return escape(str(self))
 
     def __str__(self) -> str:
