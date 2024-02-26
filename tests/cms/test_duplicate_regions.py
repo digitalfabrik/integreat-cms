@@ -54,7 +54,7 @@ def test_duplicate_regions(
             "latitude": 1,
             "duplicated_region": 1,
             "timezone": "Europe/Berlin",
-            "deepl_renewal_month": 6,
+            "mt_renewal_month": 6,
         },
     )
     print(response.headers)

@@ -2117,8 +2117,8 @@ msgid "Timezone area"
 msgstr "Region der Zeitzone"
 
 #: cms/forms/regions/region_form.py
-msgid "DeepL budget year start differs from renewal date"
-msgstr "Unterjähriger Start des DeepL Abrechnungszeitraums"
+msgid "Budget year start differs from the renewal date"
+msgstr "Unterjähriger Start des Abrechnungszeitraums"
 
 #: cms/forms/regions/region_form.py
 msgid "Enable to set an add-on starting date differing from the renewal date."
@@ -2153,9 +2153,12 @@ msgid "The provided access token is invalid."
 msgstr "Das eingegebene Zugangstoken ist ungültig."
 
 #: cms/forms/regions/region_form.py
-msgid "Please provide a valid DeepL budget year start date."
+msgid ""
+"Please provide a valid budget year start date for foreign language "
+"translation."
 msgstr ""
-"Bitte geben Sie ein gültiges Startdatum für den DeepL Abrechnungszeitraum an."
+"Bitte geben Sie ein gültiges Startdatum für den Abrechnungszeitraum der "
+"Fremdsprachenübersetzung an."
 
 #: cms/forms/regions/region_form.py
 msgid ""
@@ -3804,16 +3807,16 @@ msgstr ""
 "Ob automatische Übersetzungen in Leichte Sprache mit SUMM.AI aktiviert sind"
 
 #: cms/models/regions/region.py
-msgid "DeepL credits renewal date"
-msgstr "DeepL Credits Zurücksetzungsdatum"
+msgid "Credits renewal date for foreign language translation"
+msgstr "Credits Zurücksetzungsdatum für Fremdsprachenübersetzung"
 
 #: cms/models/regions/region.py
 msgid "Budget usage will be reset on the 1st of the month"
 msgstr "Das Budget wird zum 1. des angegebenen Monats zurückgesetzt"
 
 #: cms/models/regions/region.py
-msgid "DeepL add-on package booked"
-msgstr "DeepL Add-On Paket gebucht"
+msgid "Add-on package for foreign languages booked"
+msgstr "Add-On Paket für Fremdsprachenübersetzung gebucht"
 
 #: cms/models/regions/region.py
 msgid ""
@@ -3824,16 +3827,17 @@ msgstr ""
 "den {} kostenlosen."
 
 #: cms/models/regions/region.py
-msgid "DeepL budget year start date"
-msgstr "Startdatum des DeepL Add-On Pakets"
+msgid "Budget year start date for foreign language translation"
+msgstr ""
+"Unterjähriger Start des Abrechnungszeitraums für Fremdsprachenübersetzung"
 
 #: cms/models/regions/region.py
 msgid "Month from which the add-on package was booked"
 msgstr "Monat ab welchem das Add-On Paket gebucht wurde"
 
 #: cms/models/regions/region.py
-msgid "used DeepL budget"
-msgstr "verbrauchtes DeepL budget"
+msgid "used budget"
+msgstr "verbrauchtes Budget"
 
 #: cms/models/regions/region.py cms/templates/_base.html
 #: cms/templates/organizations/organization_form.html
@@ -7196,8 +7200,8 @@ msgid "Currently HIX is globally deactivated"
 msgstr "Derzeit ist HIX global deaktiviert"
 
 #: cms/templates/regions/region_form.html
-msgid "DeepL machine translation"
-msgstr "DeepL Übersetzungen"
+msgid "Foreign language machine translation"
+msgstr "Maschinelle Übersetzungen für Fremdsprachen verwalten"
 
 #: cms/templates/regions/region_form.html
 msgid "Current total budget"
@@ -9479,9 +9483,11 @@ msgid_plural ""
 "The publication status of the following {model_name_plural} is already "
 "\"{changed_status}\": {object_names}"
 msgstr[0] ""
-"Der Veröffentlichungsstatus von {model_name} {object_names} ist bereits \"{changed_status}\""
+"Der Veröffentlichungsstatus von {model_name} {object_names} ist bereits "
+"\"{changed_status}\""
 msgstr[1] ""
-"Der Veröffentlichungsstatus der folgenden {model_name_plural} ist bereits \"{changed_status}\": {object_names}"
+"Der Veröffentlichungsstatus der folgenden {model_name_plural} ist bereits "
+"\"{changed_status}\": {object_names}"
 
 #: cms/views/utils/publication_status.py
 #, python-brace-format
@@ -9493,11 +9499,13 @@ msgid_plural ""
 "changed to \"{changed_status}\", because they don't have a translation in "
 "{language}: {object_names}"
 msgstr[0] ""
-"Der Veröffentlichungsstatus von {model_name} {object_names} konnte nicht zu \"{changed_status}\" geändert werden, " 
-"weil es keine Übersetztung in {language} gibt." 
+"Der Veröffentlichungsstatus von {model_name} {object_names} konnte nicht zu "
+"\"{changed_status}\" geändert werden, weil es keine Übersetztung in "
+"{language} gibt."
 msgstr[1] ""
-"Der Veröffentlichungsstatus der folgenden {model_name_plural} konnte nicht zu \"{changed_status}\" geändert werden, "
-"weil es keine Übersetztung in {language} gibt: {object_names}." 
+"Der Veröffentlichungsstatus der folgenden {model_name_plural} konnte nicht "
+"zu \"{changed_status}\" geändert werden, weil es keine Übersetztung in "
+"{language} gibt: {object_names}."
 
 #: core/apps.py
 msgid "Core"
@@ -9520,6 +9528,7 @@ msgid "DeepL API"
 msgstr "DeepL API"
 
 #: deepl_api/deepl_api_client.py
+#: google_translate_api/google_translate_api_client.py
 #, python-brace-format
 msgid ""
 "{model_name} {object_names} has successfully been translated "
@@ -9535,6 +9544,7 @@ msgstr[1] ""
 "({source_language} ➜ {target_language}): {object_names}"
 
 #: deepl_api/deepl_api_client.py
+#: google_translate_api/google_translate_api_client.py
 #, python-brace-format
 msgid ""
 "{model_name} {object_names} could not be translated because its source "
@@ -9550,6 +9560,7 @@ msgstr[1] ""
 "Quell-Übersetzung fehlen: {object_names}"
 
 #: deepl_api/deepl_api_client.py
+#: google_translate_api/google_translate_api_client.py
 #, python-brace-format
 msgid ""
 "{model_name} {object_names} could not be translated because it would exceed "
@@ -9567,6 +9578,7 @@ msgstr[1] ""
 "Wörtern übersteigen würde: {object_names}"
 
 #: deepl_api/deepl_api_client.py
+#: google_translate_api/google_translate_api_client.py
 #, python-brace-format
 msgid ""
 "{model_name} {object_names} could not be translated because its HIX score is "
@@ -9585,6 +9597,7 @@ msgstr[1] ""
 "Mindestwert: {min_required}): {object_names}"
 
 #: deepl_api/deepl_api_client.py
+#: google_translate_api/google_translate_api_client.py
 #, python-brace-format
 msgid "{model_name} {object_names} could not be translated automatically."
 msgid_plural ""
@@ -9599,6 +9612,10 @@ msgstr[1] ""
 #: firebase_api/apps.py
 msgid "Firebase API"
 msgstr "Firebase API"
+
+#: google_translate_api/apps.py
+msgid "Google Translate API"
+msgstr "Google Translate API"
 
 #: gvz_api/apps.py
 msgid "GVZ API"
@@ -9796,6 +9813,26 @@ msgstr ""
 
 #~ msgid "Allow machine translations into the following languages:"
 #~ msgstr "Folgende Sprachen maschinell übersetzen:"
+#~ msgid "No source translation could be found for {} \"{}\"."
+#~ msgstr "Es konnte kein Quelltext für {} \"{}\" gefunden werden."
+
+#~ msgid "{} \"{}\" has successfully been translated ({} ➜ {})."
+#~ msgstr "{} \"{}\" wurde erfolgreich übersetzt ({} ➜ {})"
+
+#~ msgid "{} \"{}\" could not be translated automatically."
+#~ msgstr "{} \"{}\" konnte nicht automatisch übersetzt werden."
+
+#~ msgid "DeepL credits renewal date"
+#~ msgstr "DeepL Credits Zurücksetzungsdatum"
+
+#~ msgid "DeepL add-on package booked"
+#~ msgstr "DeepL Add-On Paket gebucht"
+
+#~ msgid "DeepL budget year start date"
+#~ msgstr "Startdatum des DeepL Add-On Pakets"
+
+#~ msgid "DeepL machine translation"
+#~ msgstr "DeepL Übersetzungen"
 
 #~ msgid "The selected {} \"{}\" was successfully restored"
 #~ msgstr "Die ausgewählten {} \"{}\" wurden erfolgreich wiederhergestellt"

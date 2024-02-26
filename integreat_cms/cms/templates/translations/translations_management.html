@@ -108,24 +108,24 @@
                     <div>
                         <div id="budget-graph-container">
                             <canvas id="budget-graph"
-                                    data-budget-used="{{ request.region.deepl_budget_used }}"
-                                    data-budget-total="{{ request.region.deepl_budget }}"></canvas>
+                                    data-budget-used="{{ request.region.mt_budget_used }}"
+                                    data-budget-total="{{ request.region.mt_budget }}"></canvas>
                         </div>
                         <div class="text-center font-bold">
                             <p>
                                 {% translate "Available credits" %}
                             </p>
                             <p>
-                                {{ request.region.deepl_budget_remaining|intcomma }} {% translate "words" %}
+                                {{ request.region.mt_budget_remaining|intcomma }} {% translate "words" %}
                             </p>
                         </div>
                         <p>
-                            {% blocktranslate trimmed with used=request.region.deepl_budget_used|intcomma total=request.region.deepl_budget|intcomma %}
+                            {% blocktranslate trimmed with used=request.region.mt_budget_used|intcomma total=request.region.mt_budget|intcomma %}
                                 {{ used }} of {{ total }} words used so far
                             {% endblocktranslate %}
                         </p>
-                        <p id="deepl-renewal-date"
-                           data-renewal-month="{{ request.region.deepl_renewal_month }}">
+                        <p id="mt-renewal-date"
+                           data-renewal-month="{{ request.region.mt_renewal_month }}">
                             {% translate "Next reset date:" %}
                         </p>
                     </div>

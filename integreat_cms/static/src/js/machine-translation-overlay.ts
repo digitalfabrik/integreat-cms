@@ -177,7 +177,7 @@ const addMachineTranslationOverlayEventListeners = () => {
     // add event listeners to overlay
     const overlay = document.getElementById("machine-translation-overlay");
     const provider = document.getElementById("machine-translation-option")?.getAttribute("data-mt-provider");
-    if (overlay && provider === "DeepL") {
+    if (overlay && (provider === "DeepL" || provider === "Google Translate")) {
         // Set listener for bulk action execute button.
         document.getElementById("bulk-action-execute")?.addEventListener("click", (event) => {
             const machineTranslationOptionIndex = (

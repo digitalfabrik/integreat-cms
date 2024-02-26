@@ -201,7 +201,7 @@ def test_deepl_bulk_mt_pages(
                 page_translation[TARGET_LANGUAGE_SLUG].content
                 == "<p>This is your translation from DeepL</p>"
             )
-        # Check that used DeepL budget value in the region has been increased to the number of translated words
+        # Check that used MT budget value in the region has been increased to the number of translated words
         translated_word_count = get_word_count(
             [
                 page_translation[SOURCE_LANGUAGE_SLUG]
@@ -209,7 +209,7 @@ def test_deepl_bulk_mt_pages(
             ]
         )
         assert (
-            Region.objects.get(slug=REEGION_SLUG).deepl_budget_used
+            Region.objects.get(slug=REEGION_SLUG).mt_budget_used
             == translated_word_count
         )
 
@@ -306,7 +306,7 @@ def test_deepl_bulk_mt_pois(
                     == "This is your translation from DeepL"
                 )
 
-        # Check that used DeepL budget value in the region has been increased to the number of translated words
+        # Check that used MT budget value in the region has been increased to the number of translated words
         translated_word_count = get_word_count(
             [
                 poi_translation[SOURCE_LANGUAGE_SLUG]
@@ -314,7 +314,7 @@ def test_deepl_bulk_mt_pois(
             ]
         )
         assert (
-            Region.objects.get(slug=REEGION_SLUG).deepl_budget_used
+            Region.objects.get(slug=REEGION_SLUG).mt_budget_used
             == translated_word_count
         )
 
@@ -406,7 +406,7 @@ def test_deepl_bulk_mt_events(
                 == "<p>This is your translation from DeepL</p>"
             )
 
-        # Check that used DeepL budget value in the region has been increased to the number of translated words
+        # Check that used MT budget value in the region has been increased to the number of translated words
         translated_word_count = get_word_count(
             [
                 event_translation[SOURCE_LANGUAGE_SLUG]
@@ -414,7 +414,7 @@ def test_deepl_bulk_mt_events(
             ]
         )
         assert (
-            Region.objects.get(slug=REEGION_SLUG).deepl_budget_used
+            Region.objects.get(slug=REEGION_SLUG).mt_budget_used
             == translated_word_count
         )
 
@@ -455,7 +455,7 @@ def test_deepl_bulk_mt_exceeds_limit(
     setup_deepl_supported_languages(["de"], ["en-gb", "en-us"])
 
     # Setup available translation credits to 0
-    settings.DEEPL_CREDITS_FREE = 0
+    settings.MT_CREDITS_FREE = 0
 
     # Log the user in
     client, _role = login_role_user
@@ -734,11 +734,9 @@ def test_deepl_page_automatic_translation(
     assert target_translation.machine_translated is True
     assert target_translation.title == "This is your translation from DeepL"
     assert target_translation.content == "<p>This is your translation from DeepL</p>"
-    # Check that used DeepL budget value in the region has been increased to the number of translated words
+    # Check that used MT budget value in the region has been increased to the number of translated words
     translated_word_count = get_word_count([source_translation])
-    assert (
-        Region.objects.get(slug=REEGION_SLUG).deepl_budget_used == translated_word_count
-    )
+    assert Region.objects.get(slug=REEGION_SLUG).mt_budget_used == translated_word_count
 
 
 @pytest.mark.django_db
@@ -820,11 +818,9 @@ def test_deepl_event_automatic_translation(
     assert target_translation.machine_translated is True
     assert target_translation.title == "This is your translation from DeepL"
     assert target_translation.content == "<p>This is your translation from DeepL</p>"
-    # Check that used DeepL budget value in the region has been increased to the number of translated words
+    # Check that used MT budget value in the region has been increased to the number of translated words
     translated_word_count = get_word_count([source_translation])
-    assert (
-        Region.objects.get(slug=REEGION_SLUG).deepl_budget_used == translated_word_count
-    )
+    assert Region.objects.get(slug=REEGION_SLUG).mt_budget_used == translated_word_count
 
 
 @pytest.mark.django_db
@@ -911,11 +907,9 @@ def test_deepl_poi_automatic_translation(
     assert target_translation.machine_translated is True
     assert target_translation.title == "This is your translation from DeepL"
     assert target_translation.content == "<p>This is your translation from DeepL</p>"
-    # Check that used DeepL budget value in the region has been increased to the number of translated words
+    # Check that used MT budget value in the region has been increased to the number of translated words
     translated_word_count = get_word_count([source_translation])
-    assert (
-        Region.objects.get(slug=REEGION_SLUG).deepl_budget_used == translated_word_count
-    )
+    assert Region.objects.get(slug=REEGION_SLUG).mt_budget_used == translated_word_count
 
 
 @pytest.mark.django_db
