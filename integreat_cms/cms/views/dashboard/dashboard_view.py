@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING
 
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
-from django.db.models import Subquery
+from django.db.models import Q, Subquery
 from django.utils import translation
 from django.views.generic import TemplateView
 
@@ -195,11 +195,16 @@ class DashboardView(TemplateView, ChatContextMixin):
             days=settings.OUTDATED_THRESHOLD_DAYS
         )
 
-        outdated_pages = PageTranslation.objects.filter(
-            language__slug=self.request.region.default_language.slug,
-            id__in=self.latest_version_ids,
-            last_updated__lte=outdated_threshold_date.date(),
-        ).order_by("last_updated")
+        outdated_pages = (
+            PageTranslation.objects.filter(
+                language__slug=self.request.region.default_language.slug,
+                id__in=self.latest_version_ids,
+                last_updated__lte=outdated_threshold_date.date(),
+                status=status.PUBLIC,
+            )
+            .order_by("last_updated")
+            .exclude(Q(content="") & Q(page__mirrored_page=None))
+        )
 
         days_since_last_updated = (
             (datetime.now() - most_outdated_page.last_updated.replace(tzinfo=None)).days

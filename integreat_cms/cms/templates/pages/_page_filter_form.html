@@ -32,6 +32,13 @@
                 {{ filter_form.translation_status.label }}
             </label>
             {% render_field filter_form.translation_status %}
+            <label class="mt-4 mb-0">
+                {% translate "Content" %}
+            </label>
+            {% render_field filter_form.exclude_pages_without_content %}
+            <label for="{{ filter_form.exclude_pages_without_content.id_for_label }}">
+                {{ filter_form.exclude_pages_without_content.label }}
+            </label>
         </div>
     </div>
     <div class="flex justify-end gap-4">
