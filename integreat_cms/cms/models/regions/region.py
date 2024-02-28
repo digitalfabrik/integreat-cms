@@ -457,11 +457,14 @@ class Region(AbstractBaseModel):
     @cached_property
     def language_tree(self) -> list[LanguageTreeNode]:
         """
-        This property returns a QuerySet of all
+        This property returns a list of all
         :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode` objects of this region.
 
-        :return: A QuerySet of all active language tree nodes of this region
+        :return: A list of all language tree nodes of this region
         """
+        # Prevent ValueError for unsaved regions
+        if not self.pk:
+            return []
         try:
             # Try to get the prefetched language tree
             return self.prefetched_language_tree_nodes
