@@ -40,7 +40,7 @@ def test_directory_path(
         assert response.status_code == 200
         # Check contents in the response
         assert "Test Directory" in response.content.decode("utf-8")
-        assert not "Empty Directory" in response.content.decode("utf-8")
+        assert "Empty Directory" not in response.content.decode("utf-8")
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error
         assert response.status_code == 302
@@ -73,7 +73,7 @@ def test_get_directory_content(
         assert response.status_code == 200
         # Check contents in the response
         assert "Test Logo" in response.content.decode("utf-8")
-        assert not "Test Logo 2" in response.content.decode("utf-8")
+        assert "Test Logo 2" not in response.content.decode("utf-8")
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error
         assert response.status_code == 302
@@ -433,7 +433,7 @@ def test_get_file_usages(
         assert response.status_code == 200
         # Check contents in the response
         assert "Test Organization" in response.content.decode("utf-8")
-        assert not "Welcome" in response.content.decode("utf-8")
+        assert "Welcome" not in response.content.decode("utf-8")
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error
         assert response.status_code == 302
@@ -467,7 +467,7 @@ def test_get_search_result(
         # Check contents in the response
         assert "Test Directory" in response.content.decode("utf-8")
         assert "Test Logo" in response.content.decode("utf-8")
-        assert not "Empty Directory" in response.content.decode("utf-8")
+        assert "Empty Directory" not in response.content.decode("utf-8")
 
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error

@@ -24,7 +24,7 @@ def get_depth_in(node: Page, pageset: PageQuerySet) -> int:
     :param pageset: The pages (all pages or pages chosen by filter)
     :return: the depth of node within the tree/pages in pageset
     """
-    if not node.parent in pageset:
+    if node.parent not in pageset:
         return 0
     return node.depth - get_highest_anscentor_in(node, pageset).depth
 

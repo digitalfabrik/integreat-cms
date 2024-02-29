@@ -99,7 +99,7 @@ def modify_mfa_authenticated(function: Callable) -> Callable:
         :param \**kwargs: The supplied kwargs
         :return: the decorated function
         """
-        if not "modify_mfa_authentication_time" in request.session or request.session[
+        if "modify_mfa_authentication_time" not in request.session or request.session[
             "modify_mfa_authentication_time"
         ] < (time.time() - 5 * 60):
             request.session["mfa_redirect_url"] = request.path
