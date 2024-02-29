@@ -457,6 +457,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.summ_ai_api.html">SUMM.AI API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.summ_ai_api.html#summ-ai-test">SUMM.AI Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.summ_ai_api.html#utils">Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.xliff.html">XLIFF</a><ul>
@@ -1026,6 +1027,9 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_HTML_TAGS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_HTML_TAGS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_INHERITED_FIELDS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_INHERITED_FIELDS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_IS_INITIAL"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_IS_INITIAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_MAX_CONCURRENT_REQUESTS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_MAX_CONCURRENT_REQUESTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_MAX_RETRIES"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_MAX_RETRIES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_RATE_LIMIT_COOLDOWN"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_RATE_LIMIT_COOLDOWN</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_SEPARATOR"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_SEPARATOR</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_TEST_MODE"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_TEST_MODE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_TEXT_FIELDS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_TEXT_FIELDS</span></code></a></li>
@@ -1194,7 +1198,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.summ_ai_api_client">SUMM.AI API Client</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient"><code class="docutils literal notranslate"><span class="pre">SummAiApiClient</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException"><code class="docutils literal notranslate"><span class="pre">SummAiException</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.summ_ai_provider">SUMM.AI Provider</a><ul>
@@ -1204,8 +1207,14 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.utils">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLField"><code class="docutils literal notranslate"><span class="pre">HTMLField</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLSegment"><code class="docutils literal notranslate"><span class="pre">HTMLSegment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException"><code class="docutils literal notranslate"><span class="pre">SummAiException</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError"><code class="docutils literal notranslate"><span class="pre">SummAiInvalidJSONError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded"><code class="docutils literal notranslate"><span class="pre">SummAiRateLimitingExceeded</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError"><code class="docutils literal notranslate"><span class="pre">SummAiRuntimeError</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField"><code class="docutils literal notranslate"><span class="pre">TextField</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TranslationHelper"><code class="docutils literal notranslate"><span class="pre">TranslationHelper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.worker"><code class="docutils literal notranslate"><span class="pre">worker()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1402,12 +1411,34 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.summ_ai_api.html">SUMM.AI API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#module-tests.summ_ai_api.summ_ai_test">SUMM.AI Test</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.broken_fake_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">broken_fake_summ_ai_server()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.enable_summ_api"><code class="docutils literal notranslate"><span class="pre">enable_summ_api()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.fake_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">fake_summ_ai_server()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.get_changed_pages"><code class="docutils literal notranslate"><span class="pre">get_changed_pages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.attempts"><code class="docutils literal notranslate"><span class="pre">attempts</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_auto_translate_easy_german"><code class="docutils literal notranslate"><span class="pre">test_auto_translate_easy_german()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_check_rate_limit_exceeded"><code class="docutils literal notranslate"><span class="pre">test_check_rate_limit_exceeded()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_missing_translation"><code class="docutils literal notranslate"><span class="pre">test_missing_translation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_hit_rate_limit"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_hit_rate_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_max_retries"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_max_retries()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_normal_deque"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_normal_deque()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_summ_ai_error_handling"><code class="docutils literal notranslate"><span class="pre">test_summ_ai_error_handling()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_ddos_defense"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_ddos_defense()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_hit_rate_limit"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_hit_rate_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_internal_server_error"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_internal_server_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_successful_translation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_forbidden"><code class="docutils literal notranslate"><span class="pre">test_translate_text_forbidden()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_with_empty_text_field"><code class="docutils literal notranslate"><span class="pre">test_translate_text_with_empty_text_field()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_unexpected_html"><code class="docutils literal notranslate"><span class="pre">test_unexpected_html()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_validate_response_invalid"><code class="docutils literal notranslate"><span class="pre">test_validate_response_invalid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_validate_response_valid"><code class="docutils literal notranslate"><span class="pre">test_validate_response_valid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_worker"><code class="docutils literal notranslate"><span class="pre">test_worker()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#module-tests.summ_ai_api.utils">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRegion"><code class="docutils literal notranslate"><span class="pre">MockedRegion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRequest"><code class="docutils literal notranslate"><span class="pre">MockedRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.enable_summ_api"><code class="docutils literal notranslate"><span class="pre">enable_summ_api()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.get_changed_pages"><code class="docutils literal notranslate"><span class="pre">get_changed_pages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.make_mock_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">make_mock_summ_ai_server()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.make_mock_summ_ai_server_rate_limited"><code class="docutils literal notranslate"><span class="pre">make_mock_summ_ai_server_rate_limited()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.make_rogue_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">make_rogue_summ_ai_server()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -3259,6 +3290,9 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_HTML_TAGS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_HTML_TAGS</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_INHERITED_FIELDS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_INHERITED_FIELDS</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_IS_INITIAL"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_IS_INITIAL</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_MAX_CONCURRENT_REQUESTS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_MAX_CONCURRENT_REQUESTS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_MAX_RETRIES"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_MAX_RETRIES</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_RATE_LIMIT_COOLDOWN"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_RATE_LIMIT_COOLDOWN</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_SEPARATOR"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_SEPARATOR</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_TEST_MODE"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_TEST_MODE</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_TEXT_FIELDS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_TEXT_FIELDS</span></code></a></li>
@@ -3808,6 +3842,8 @@
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.summ_ai_api_client">SUMM.AI API Client</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient"><code class="docutils literal notranslate"><span class="pre">SummAiApiClient</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.__init__"><code class="docutils literal notranslate"><span class="pre">SummAiApiClient.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.check_internal_server_error"><code class="docutils literal notranslate"><span class="pre">SummAiApiClient.check_internal_server_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.check_rate_limit_exceeded"><code class="docutils literal notranslate"><span class="pre">SummAiApiClient.check_rate_limit_exceeded()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.check_usage"><code class="docutils literal notranslate"><span class="pre">SummAiApiClient.check_usage()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.form_class"><code class="docutils literal notranslate"><span class="pre">SummAiApiClient.form_class</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.region"><code class="docutils literal notranslate"><span class="pre">SummAiApiClient.region</span></code></a></li>
@@ -3816,13 +3852,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.translate_queryset"><code class="docutils literal notranslate"><span class="pre">SummAiApiClient.translate_queryset()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.translate_text_field"><code class="docutils literal notranslate"><span class="pre">SummAiApiClient.translate_text_field()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.translate_text_fields"><code class="docutils literal notranslate"><span class="pre">SummAiApiClient.translate_text_fields()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException"><code class="docutils literal notranslate"><span class="pre">SummAiException</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException.__init__"><code class="docutils literal notranslate"><span class="pre">SummAiException.__init__()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException.add_note"><code class="docutils literal notranslate"><span class="pre">SummAiException.add_note()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException.args"><code class="docutils literal notranslate"><span class="pre">SummAiException.args</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException.with_traceback"><code class="docutils literal notranslate"><span class="pre">SummAiException.with_traceback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.validate_response"><code class="docutils literal notranslate"><span class="pre">SummAiApiClient.validate_response()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -3864,6 +3894,59 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLSegment.translated_text"><code class="docutils literal notranslate"><span class="pre">HTMLSegment.translated_text</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.__init__"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.abort"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.abort()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.append"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.append()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.appendleft"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.appendleft()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.clear"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.clear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.completed"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.completed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.copy"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.copy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.count"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.extend"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.extend()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.extendleft"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.extendleft()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.hit_rate_limit"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.hit_rate_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.index"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.insert"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.last_rate_limit"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.last_rate_limit</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.max_retries"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.max_retries</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.maxlen"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.maxlen</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.pop"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.pop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.popleft"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.popleft()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.remove"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.remove()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.reverse"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.reverse()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.rotate"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.rotate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.wait_time"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue.wait_time</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException"><code class="docutils literal notranslate"><span class="pre">SummAiException</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException.__init__"><code class="docutils literal notranslate"><span class="pre">SummAiException.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException.add_note"><code class="docutils literal notranslate"><span class="pre">SummAiException.add_note()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException.args"><code class="docutils literal notranslate"><span class="pre">SummAiException.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException.with_traceback"><code class="docutils literal notranslate"><span class="pre">SummAiException.with_traceback()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError"><code class="docutils literal notranslate"><span class="pre">SummAiInvalidJSONError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError.__init__"><code class="docutils literal notranslate"><span class="pre">SummAiInvalidJSONError.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError.add_note"><code class="docutils literal notranslate"><span class="pre">SummAiInvalidJSONError.add_note()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError.args"><code class="docutils literal notranslate"><span class="pre">SummAiInvalidJSONError.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError.with_traceback"><code class="docutils literal notranslate"><span class="pre">SummAiInvalidJSONError.with_traceback()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded"><code class="docutils literal notranslate"><span class="pre">SummAiRateLimitingExceeded</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded.__init__"><code class="docutils literal notranslate"><span class="pre">SummAiRateLimitingExceeded.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded.add_note"><code class="docutils literal notranslate"><span class="pre">SummAiRateLimitingExceeded.add_note()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded.args"><code class="docutils literal notranslate"><span class="pre">SummAiRateLimitingExceeded.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded.with_traceback"><code class="docutils literal notranslate"><span class="pre">SummAiRateLimitingExceeded.with_traceback()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError"><code class="docutils literal notranslate"><span class="pre">SummAiRuntimeError</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError.__init__"><code class="docutils literal notranslate"><span class="pre">SummAiRuntimeError.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError.add_note"><code class="docutils literal notranslate"><span class="pre">SummAiRuntimeError.add_note()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError.args"><code class="docutils literal notranslate"><span class="pre">SummAiRuntimeError.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError.with_traceback"><code class="docutils literal notranslate"><span class="pre">SummAiRuntimeError.with_traceback()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField"><code class="docutils literal notranslate"><span class="pre">TextField</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField.__init__"><code class="docutils literal notranslate"><span class="pre">TextField.__init__()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField.exception"><code class="docutils literal notranslate"><span class="pre">TextField.exception</span></code></a></li>
@@ -3881,6 +3964,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TranslationHelper.valid"><code class="docutils literal notranslate"><span class="pre">TranslationHelper.valid</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.worker"><code class="docutils literal notranslate"><span class="pre">worker()</span></code></a></li>
 </ul>
 </li>
 </ul>

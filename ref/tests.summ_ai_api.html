@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-02-26T09:08:53+00:00" />
+    <meta property="article:modified_time" content="2024-02-29T11:18:02+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SUMM.AI API &mdash; integreat-cms 2024.2.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -457,6 +457,7 @@
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">SUMM.AI API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#summ-ai-test">SUMM.AI Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#utils">Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.xliff.html">XLIFF</a><ul>
@@ -1026,6 +1027,9 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_HTML_TAGS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_HTML_TAGS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_INHERITED_FIELDS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_INHERITED_FIELDS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_IS_INITIAL"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_IS_INITIAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_MAX_CONCURRENT_REQUESTS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_MAX_CONCURRENT_REQUESTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_MAX_RETRIES"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_MAX_RETRIES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_RATE_LIMIT_COOLDOWN"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_RATE_LIMIT_COOLDOWN</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_SEPARATOR"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_SEPARATOR</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_TEST_MODE"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_TEST_MODE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_TEXT_FIELDS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_TEXT_FIELDS</span></code></a></li>
@@ -1194,7 +1198,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.summ_ai_api_client">SUMM.AI API Client</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient"><code class="docutils literal notranslate"><span class="pre">SummAiApiClient</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException"><code class="docutils literal notranslate"><span class="pre">SummAiException</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.summ_ai_provider">SUMM.AI Provider</a><ul>
@@ -1204,8 +1207,14 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.utils">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLField"><code class="docutils literal notranslate"><span class="pre">HTMLField</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLSegment"><code class="docutils literal notranslate"><span class="pre">HTMLSegment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException"><code class="docutils literal notranslate"><span class="pre">SummAiException</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError"><code class="docutils literal notranslate"><span class="pre">SummAiInvalidJSONError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded"><code class="docutils literal notranslate"><span class="pre">SummAiRateLimitingExceeded</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError"><code class="docutils literal notranslate"><span class="pre">SummAiRuntimeError</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField"><code class="docutils literal notranslate"><span class="pre">TextField</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TranslationHelper"><code class="docutils literal notranslate"><span class="pre">TranslationHelper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.worker"><code class="docutils literal notranslate"><span class="pre">worker()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1402,12 +1411,34 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html">SUMM.AI API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#module-tests.summ_ai_api.summ_ai_test">SUMM.AI Test</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.broken_fake_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">broken_fake_summ_ai_server()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.enable_summ_api"><code class="docutils literal notranslate"><span class="pre">enable_summ_api()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.fake_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">fake_summ_ai_server()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.get_changed_pages"><code class="docutils literal notranslate"><span class="pre">get_changed_pages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.attempts"><code class="docutils literal notranslate"><span class="pre">attempts</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_auto_translate_easy_german"><code class="docutils literal notranslate"><span class="pre">test_auto_translate_easy_german()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_check_rate_limit_exceeded"><code class="docutils literal notranslate"><span class="pre">test_check_rate_limit_exceeded()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_missing_translation"><code class="docutils literal notranslate"><span class="pre">test_missing_translation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_hit_rate_limit"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_hit_rate_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_max_retries"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_max_retries()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_normal_deque"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_normal_deque()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_summ_ai_error_handling"><code class="docutils literal notranslate"><span class="pre">test_summ_ai_error_handling()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_ddos_defense"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_ddos_defense()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_hit_rate_limit"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_hit_rate_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_internal_server_error"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_internal_server_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_successful_translation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_forbidden"><code class="docutils literal notranslate"><span class="pre">test_translate_text_forbidden()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_with_empty_text_field"><code class="docutils literal notranslate"><span class="pre">test_translate_text_with_empty_text_field()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_unexpected_html"><code class="docutils literal notranslate"><span class="pre">test_unexpected_html()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_validate_response_invalid"><code class="docutils literal notranslate"><span class="pre">test_validate_response_invalid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_validate_response_valid"><code class="docutils literal notranslate"><span class="pre">test_validate_response_valid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_worker"><code class="docutils literal notranslate"><span class="pre">test_worker()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#module-tests.summ_ai_api.utils">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRegion"><code class="docutils literal notranslate"><span class="pre">MockedRegion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRequest"><code class="docutils literal notranslate"><span class="pre">MockedRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.enable_summ_api"><code class="docutils literal notranslate"><span class="pre">enable_summ_api()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.get_changed_pages"><code class="docutils literal notranslate"><span class="pre">get_changed_pages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.make_mock_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">make_mock_summ_ai_server()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.make_mock_summ_ai_server_rate_limited"><code class="docutils literal notranslate"><span class="pre">make_mock_summ_ai_server_rate_limited()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.make_rogue_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">make_rogue_summ_ai_server()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1841,24 +1872,302 @@
 <h2>SUMM.AI Test<a class="headerlink" href="#summ-ai-test" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">broken_fake_summ_ai_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BaseRequest</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Response</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L189"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Create fake responses which simulate the SUMM.AI API server</p>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_auto_translate_easy_german</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">login_role_user_async</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">AsyncClient</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aiohttp_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caplog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogCaptureFixture</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L316"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This test checks whether the SUMM.AI API client works as expected</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>request</strong> (<em>BaseRequest</em>) – The request</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>login_role_user_async</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><em>AsyncClient</em><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
+<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
+<li><p><strong>aiohttp_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev129+gc967d50)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+</ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The response</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>Response</em></p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">enable_summ_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L59"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_check_rate_limit_exceeded</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caplog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogCaptureFixture</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L571"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test for check_rate_limit_exceeded method. Tests if return is True when
+response-status = 429 (too many requests) or 529 (site overloaded),
+otherwise False</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The Django settings</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev129+gc967d50)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_missing_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aiohttp_raw_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L555"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test correct handling for a json response without the translated_text key by SUMM.AI.
+Tests if SummAiRuntimeError is raised when invalid JSON is sent as response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – </p></li>
+<li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_patient_task_queue_hit_rate_limit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L641"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test for PatientTaskQueue Class. It tests that when the maximum number of parallel requests
+to the summ_ai_api has been exceeded (rate limit exceeded), a defined time is waited until the next task object is returned via __anext__().</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_patient_task_queue_max_retries</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L696"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test for PatientTaskQueue Class. Tests that it stops early
+when requests are not successful after a cooldown, resulting in another cooldown repeatedly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_patient_task_queue_normal_deque</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L619"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test for PatientTaskQueue Class. Tests that a first-in/first out (fifo) deque-queue is built from a task-list
+Checks that __anext__() removes one element each from the queue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_summ_ai_error_handling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">login_role_user_async</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">AsyncClient</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aiohttp_raw_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caplog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogCaptureFixture</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L408"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This test checks whether the error handling of the SUMM.AI API client works as expected.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>login_role_user_async</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><em>AsyncClient</em><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
+<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
+<li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev129+gc967d50)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_translate_text_field_ddos_defense</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aiohttp_raw_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caplog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogCaptureFixture</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>see <a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation" title="tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation"><code class="xref py py-func docutils literal notranslate"><span class="pre">test_translate_text_field_successful_translation()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – </p></li>
+<li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – </p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_translate_text_field_hit_rate_limit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aiohttp_raw_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caplog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogCaptureFixture</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L156"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>see <a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation" title="tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation"><code class="xref py py-func docutils literal notranslate"><span class="pre">test_translate_text_field_successful_translation()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – </p></li>
+<li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – </p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_translate_text_field_internal_server_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aiohttp_raw_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caplog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogCaptureFixture</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L208"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>see <a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation" title="tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation"><code class="xref py py-func docutils literal notranslate"><span class="pre">test_translate_text_field_successful_translation()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – </p></li>
+<li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – </p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_translate_text_field_successful_translation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aiohttp_raw_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caplog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogCaptureFixture</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The Django settings</p></li>
+<li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev129+gc967d50)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_translate_text_forbidden</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aiohttp_raw_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caplog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogCaptureFixture</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L246"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>tests 403 response
+see <a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation" title="tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation"><code class="xref py py-func docutils literal notranslate"><span class="pre">test_translate_text_field_successful_translation()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – </p></li>
+<li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – </p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_translate_text_with_empty_text_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aiohttp_raw_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caplog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogCaptureFixture</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L287"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>see <a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation" title="tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation"><code class="xref py py-func docutils literal notranslate"><span class="pre">test_translate_text_field_successful_translation()</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – </p></li>
+<li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – </p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_unexpected_html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aiohttp_raw_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L512"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test correct handling for an unexpected HTML response by SUMM.AI.
+Tests if SummAiInvalidJSONError is raised when unexpected HTML is sent as response.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – </p></li>
+<li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_validate_response_invalid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L497"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test for validate_response method.
+Should throw exception when ‘translated_text’ is not found in request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_validate_response_valid</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L480"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test for validate_response method.
+Should return True when ‘translated_text’ is found in request.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_worker</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Test that the worker properly works through tasks from the
+PatientTaskQueue, returning the results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="utils">
+<h2>Utils<a class="headerlink" href="#utils" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">MockedRequest</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/utils.py#L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Helper class mocking request, used for creating a SummAiApiclient instance. Region-property is needed therefore.</p>
+<dl class="field-list simple">
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/utils.py#L134"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">enable_summ_api</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/utils.py#L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Enable SUMM.AI in the test region</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1872,24 +2181,7 @@
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">fake_summ_ai_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">BaseRequest</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Response</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Create fake responses which simulate the SUMM.AI API server</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>request</strong> (<em>BaseRequest</em>) – The request</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The response</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><em>Response</em></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">get_changed_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L71"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">get_changed_pages</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/utils.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Load the changed pages with the specified ids from the database</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1902,45 +2194,62 @@
 <dd class="field-even"><p>The changed pages</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, Any]]</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a>]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_auto_translate_easy_german</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">login_role_user_async</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">AsyncClient</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aiohttp_raw_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caplog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogCaptureFixture</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L99"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This test checks whether the SUMM.AI API client works as expected</p>
+<span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">make_mock_summ_ai_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.11)"><span class="pre">Callable</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/utils.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Creates a mock of SummAiServer-(Response)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>login_role_user_async</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><em>AsyncClient</em><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
-<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
-<li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev130+g73edefd)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>response_data</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – data that mocked server returns</p></li>
+<li><p><strong>status</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – http status code that mocked server returns (default = 200)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Request handler for mocked SummAiServer</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.11)"><em>Callable</em></a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_summ_ai_error_handling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">login_role_user_async</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><span class="pre">AsyncClient</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">settings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">SettingsWrapper</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aiohttp_raw_server</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">caplog</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">LogCaptureFixture</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L205"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>This test checks whether the error handling of the SUMM.AI API client works as expected</p>
+<span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">make_mock_summ_ai_server_rate_limited</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Application</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/utils.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Creates a mock of SUMM.AI server with rate limiting</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Mocked SUMM.AI server with rate limiting</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Application</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">make_rogue_summ_ai_server</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">200</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.11)"><span class="pre">Callable</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/utils.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Creates a mock of SummAiServer-(Response)
+that can return any text as response (not just JSON)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>login_role_user_async</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><em>AsyncClient</em><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="../ref-ext/tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
-<li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
-<li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev130+g73edefd)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>response_text</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – text that mocked server returns</p></li>
+<li><p><strong>status</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – http status code that mocked server returns (default = 200)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Request handler for mocked SummAiServer</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/collections.abc.html#collections.abc.Callable" title="(in Python v3.11)"><em>Callable</em></a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1963,7 +2272,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Feb 26, 2024.
+      <span class="lastupdated">Last updated on Feb 29, 2024.
       </span></p>
   </div>
 

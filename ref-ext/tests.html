@@ -457,6 +457,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.summ_ai_api.html">SUMM.AI API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.summ_ai_api.html#summ-ai-test">SUMM.AI Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.summ_ai_api.html#utils">Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.xliff.html">XLIFF</a><ul>
@@ -1026,6 +1027,9 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_HTML_TAGS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_HTML_TAGS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_INHERITED_FIELDS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_INHERITED_FIELDS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_IS_INITIAL"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_IS_INITIAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_MAX_CONCURRENT_REQUESTS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_MAX_CONCURRENT_REQUESTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_MAX_RETRIES"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_MAX_RETRIES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_RATE_LIMIT_COOLDOWN"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_RATE_LIMIT_COOLDOWN</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_SEPARATOR"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_SEPARATOR</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_TEST_MODE"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_TEST_MODE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_TEXT_FIELDS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_TEXT_FIELDS</span></code></a></li>
@@ -1194,7 +1198,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.summ_ai_api_client">SUMM.AI API Client</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient"><code class="docutils literal notranslate"><span class="pre">SummAiApiClient</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException"><code class="docutils literal notranslate"><span class="pre">SummAiException</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.summ_ai_provider">SUMM.AI Provider</a><ul>
@@ -1204,8 +1207,14 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.utils">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLField"><code class="docutils literal notranslate"><span class="pre">HTMLField</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLSegment"><code class="docutils literal notranslate"><span class="pre">HTMLSegment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException"><code class="docutils literal notranslate"><span class="pre">SummAiException</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError"><code class="docutils literal notranslate"><span class="pre">SummAiInvalidJSONError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded"><code class="docutils literal notranslate"><span class="pre">SummAiRateLimitingExceeded</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError"><code class="docutils literal notranslate"><span class="pre">SummAiRuntimeError</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField"><code class="docutils literal notranslate"><span class="pre">TextField</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TranslationHelper"><code class="docutils literal notranslate"><span class="pre">TranslationHelper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.worker"><code class="docutils literal notranslate"><span class="pre">worker()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1402,12 +1411,34 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.summ_ai_api.html">SUMM.AI API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#module-tests.summ_ai_api.summ_ai_test">SUMM.AI Test</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.broken_fake_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">broken_fake_summ_ai_server()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.enable_summ_api"><code class="docutils literal notranslate"><span class="pre">enable_summ_api()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.fake_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">fake_summ_ai_server()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.get_changed_pages"><code class="docutils literal notranslate"><span class="pre">get_changed_pages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.attempts"><code class="docutils literal notranslate"><span class="pre">attempts</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_auto_translate_easy_german"><code class="docutils literal notranslate"><span class="pre">test_auto_translate_easy_german()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_check_rate_limit_exceeded"><code class="docutils literal notranslate"><span class="pre">test_check_rate_limit_exceeded()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_missing_translation"><code class="docutils literal notranslate"><span class="pre">test_missing_translation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_hit_rate_limit"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_hit_rate_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_max_retries"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_max_retries()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_normal_deque"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_normal_deque()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_summ_ai_error_handling"><code class="docutils literal notranslate"><span class="pre">test_summ_ai_error_handling()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_ddos_defense"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_ddos_defense()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_hit_rate_limit"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_hit_rate_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_internal_server_error"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_internal_server_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_successful_translation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_forbidden"><code class="docutils literal notranslate"><span class="pre">test_translate_text_forbidden()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_with_empty_text_field"><code class="docutils literal notranslate"><span class="pre">test_translate_text_with_empty_text_field()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_unexpected_html"><code class="docutils literal notranslate"><span class="pre">test_unexpected_html()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_validate_response_invalid"><code class="docutils literal notranslate"><span class="pre">test_validate_response_invalid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_validate_response_valid"><code class="docutils literal notranslate"><span class="pre">test_validate_response_valid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_worker"><code class="docutils literal notranslate"><span class="pre">test_worker()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#module-tests.summ_ai_api.utils">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRegion"><code class="docutils literal notranslate"><span class="pre">MockedRegion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRequest"><code class="docutils literal notranslate"><span class="pre">MockedRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.enable_summ_api"><code class="docutils literal notranslate"><span class="pre">enable_summ_api()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.get_changed_pages"><code class="docutils literal notranslate"><span class="pre">get_changed_pages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.make_mock_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">make_mock_summ_ai_server()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.make_mock_summ_ai_server_rate_limited"><code class="docutils literal notranslate"><span class="pre">make_mock_summ_ai_server_rate_limited()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.make_rogue_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">make_rogue_summ_ai_server()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1834,7 +1865,7 @@
              
   <section id="module-tests">
 <span id="tests"></span><h1>Tests<a class="headerlink" href="#module-tests" title="Link to this heading"></a></h1>
-<p>We use <a class="reference external" href="https://docs.pytest.org/en/latest/index.html" title="(in pytest v0.1.dev130+g73edefd)"><span class="xref std std-doc">pytest</span></a> to validate that the functionality of the cms works as expected.</p>
+<p>We use <a class="reference external" href="https://docs.pytest.org/en/latest/index.html" title="(in pytest v0.1.dev129+gc967d50)"><span class="xref std std-doc">pytest</span></a> to validate that the functionality of the cms works as expected.</p>
 <p>In addition, we use the following plugins:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/index.html" title="(in pytest-cov v4.1.0)"><span class="xref std std-doc">pytest-cov</span></a>: This plugin produces coverage reports.</p></li>
@@ -2060,12 +2091,40 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tests.summ_ai_api.html">SUMM.AI API</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tests.summ_ai_api.html#module-tests.summ_ai_api.summ_ai_test">SUMM.AI Test</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.broken_fake_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">broken_fake_summ_ai_server()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.enable_summ_api"><code class="docutils literal notranslate"><span class="pre">enable_summ_api()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.fake_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">fake_summ_ai_server()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.get_changed_pages"><code class="docutils literal notranslate"><span class="pre">get_changed_pages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.attempts"><code class="docutils literal notranslate"><span class="pre">attempts</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_auto_translate_easy_german"><code class="docutils literal notranslate"><span class="pre">test_auto_translate_easy_german()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_check_rate_limit_exceeded"><code class="docutils literal notranslate"><span class="pre">test_check_rate_limit_exceeded()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_missing_translation"><code class="docutils literal notranslate"><span class="pre">test_missing_translation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_hit_rate_limit"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_hit_rate_limit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_max_retries"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_max_retries()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_normal_deque"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_normal_deque()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_summ_ai_error_handling"><code class="docutils literal notranslate"><span class="pre">test_summ_ai_error_handling()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_ddos_defense"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_ddos_defense()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_hit_rate_limit"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_hit_rate_limit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_internal_server_error"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_internal_server_error()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_successful_translation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_forbidden"><code class="docutils literal notranslate"><span class="pre">test_translate_text_forbidden()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_with_empty_text_field"><code class="docutils literal notranslate"><span class="pre">test_translate_text_with_empty_text_field()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_unexpected_html"><code class="docutils literal notranslate"><span class="pre">test_unexpected_html()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_validate_response_invalid"><code class="docutils literal notranslate"><span class="pre">test_validate_response_invalid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_validate_response_valid"><code class="docutils literal notranslate"><span class="pre">test_validate_response_valid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_worker"><code class="docutils literal notranslate"><span class="pre">test_worker()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tests.summ_ai_api.html#module-tests.summ_ai_api.utils">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRegion"><code class="docutils literal notranslate"><span class="pre">MockedRegion</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRegion.__init__"><code class="docutils literal notranslate"><span class="pre">MockedRegion.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRequest"><code class="docutils literal notranslate"><span class="pre">MockedRequest</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRequest.__init__"><code class="docutils literal notranslate"><span class="pre">MockedRequest.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.enable_summ_api"><code class="docutils literal notranslate"><span class="pre">enable_summ_api()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.get_changed_pages"><code class="docutils literal notranslate"><span class="pre">get_changed_pages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.make_mock_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">make_mock_summ_ai_server()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.make_mock_summ_ai_server_rate_limited"><code class="docutils literal notranslate"><span class="pre">make_mock_summ_ai_server_rate_limited()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#tests.summ_ai_api.utils.make_rogue_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">make_rogue_summ_ai_server()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -2292,7 +2351,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The expected message</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev130+g73edefd)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev129+gc967d50)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -2310,7 +2369,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
 <dd><p>Assert that no error messages were shown to the user</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev130+g73edefd)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
+<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev129+gc967d50)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/exceptions.html#AssertionError" title="(in Python v3.11)"><strong>AssertionError</strong></a> – When the the logs contains error messages</p>
@@ -2327,7 +2386,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
 <dd><p>Get all errors from the messages framework</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev130+g73edefd)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
+<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev129+gc967d50)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The list of error messages that were shown to the user</p>
@@ -2344,7 +2403,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
 <dd><p>Get all logs from the messages framework</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev130+g73edefd)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
+<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev129+gc967d50)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The list of messages that were shown to the user</p>

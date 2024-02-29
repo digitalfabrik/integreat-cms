@@ -453,6 +453,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/tests.summ_ai_api.html">SUMM.AI API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.summ_ai_api.html#summ-ai-test">SUMM.AI Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/tests.summ_ai_api.html#utils">Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/tests.xliff.html">XLIFF</a><ul>
@@ -1022,6 +1023,9 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_HTML_TAGS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_HTML_TAGS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_INHERITED_FIELDS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_INHERITED_FIELDS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_IS_INITIAL"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_IS_INITIAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_MAX_CONCURRENT_REQUESTS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_MAX_CONCURRENT_REQUESTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_MAX_RETRIES"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_MAX_RETRIES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_RATE_LIMIT_COOLDOWN"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_RATE_LIMIT_COOLDOWN</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_SEPARATOR"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_SEPARATOR</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_TEST_MODE"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_TEST_MODE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_TEXT_FIELDS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_TEXT_FIELDS</span></code></a></li>
@@ -1190,7 +1194,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.summ_ai_api_client">SUMM.AI API Client</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient"><code class="docutils literal notranslate"><span class="pre">SummAiApiClient</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException"><code class="docutils literal notranslate"><span class="pre">SummAiException</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.summ_ai_provider">SUMM.AI Provider</a><ul>
@@ -1200,8 +1203,14 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.utils">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLField"><code class="docutils literal notranslate"><span class="pre">HTMLField</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLSegment"><code class="docutils literal notranslate"><span class="pre">HTMLSegment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException"><code class="docutils literal notranslate"><span class="pre">SummAiException</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError"><code class="docutils literal notranslate"><span class="pre">SummAiInvalidJSONError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded"><code class="docutils literal notranslate"><span class="pre">SummAiRateLimitingExceeded</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError"><code class="docutils literal notranslate"><span class="pre">SummAiRuntimeError</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField"><code class="docutils literal notranslate"><span class="pre">TextField</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TranslationHelper"><code class="docutils literal notranslate"><span class="pre">TranslationHelper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.worker"><code class="docutils literal notranslate"><span class="pre">worker()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1398,12 +1407,34 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html">SUMM.AI API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#module-tests.summ_ai_api.summ_ai_test">SUMM.AI Test</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.broken_fake_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">broken_fake_summ_ai_server()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.enable_summ_api"><code class="docutils literal notranslate"><span class="pre">enable_summ_api()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.fake_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">fake_summ_ai_server()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.get_changed_pages"><code class="docutils literal notranslate"><span class="pre">get_changed_pages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.attempts"><code class="docutils literal notranslate"><span class="pre">attempts</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_auto_translate_easy_german"><code class="docutils literal notranslate"><span class="pre">test_auto_translate_easy_german()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_check_rate_limit_exceeded"><code class="docutils literal notranslate"><span class="pre">test_check_rate_limit_exceeded()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_missing_translation"><code class="docutils literal notranslate"><span class="pre">test_missing_translation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_hit_rate_limit"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_hit_rate_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_max_retries"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_max_retries()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_normal_deque"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_normal_deque()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_summ_ai_error_handling"><code class="docutils literal notranslate"><span class="pre">test_summ_ai_error_handling()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_ddos_defense"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_ddos_defense()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_hit_rate_limit"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_hit_rate_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_internal_server_error"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_internal_server_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_successful_translation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_forbidden"><code class="docutils literal notranslate"><span class="pre">test_translate_text_forbidden()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_with_empty_text_field"><code class="docutils literal notranslate"><span class="pre">test_translate_text_with_empty_text_field()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_unexpected_html"><code class="docutils literal notranslate"><span class="pre">test_unexpected_html()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_validate_response_invalid"><code class="docutils literal notranslate"><span class="pre">test_validate_response_invalid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_validate_response_valid"><code class="docutils literal notranslate"><span class="pre">test_validate_response_valid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_worker"><code class="docutils literal notranslate"><span class="pre">test_worker()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#module-tests.summ_ai_api.utils">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRegion"><code class="docutils literal notranslate"><span class="pre">MockedRegion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRequest"><code class="docutils literal notranslate"><span class="pre">MockedRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.enable_summ_api"><code class="docutils literal notranslate"><span class="pre">enable_summ_api()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.get_changed_pages"><code class="docutils literal notranslate"><span class="pre">get_changed_pages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.make_mock_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">make_mock_summ_ai_server()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.make_mock_summ_ai_server_rate_limited"><code class="docutils literal notranslate"><span class="pre">make_mock_summ_ai_server_rate_limited()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.make_rogue_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">make_rogue_summ_ai_server()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -2542,13 +2573,21 @@
 </li>
         <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.__init__">(integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException.__init__">(integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException method)</a>
-</li>
         <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_provider.SummAiProvider.__init__">(integreat_cms.summ_ai_api.summ_ai_provider.SummAiProvider method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLField.__init__">(integreat_cms.summ_ai_api.utils.HTMLField method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLSegment.__init__">(integreat_cms.summ_ai_api.utils.HTMLSegment method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.__init__">(integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException.__init__">(integreat_cms.summ_ai_api.utils.SummAiException method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError.__init__">(integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded.__init__">(integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError.__init__">(integreat_cms.summ_ai_api.utils.SummAiRuntimeError method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField.__init__">(integreat_cms.summ_ai_api.utils.TextField method)</a>
 </li>
@@ -2581,6 +2620,10 @@
         <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_reset_deepl_budget.datetime_not_first_day.__init__">(tests.core.management.commands.test_reset_deepl_budget.datetime_not_first_day method)</a>
 </li>
         <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.__init__">(tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient method)</a>
+</li>
+        <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRegion.__init__">(tests.summ_ai_api.utils.MockedRegion method)</a>
+</li>
+        <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRequest.__init__">(tests.summ_ai_api.utils.MockedRequest method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -2685,6 +2728,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.aaggregate">(integreat_cms.cms.models.users.user.CustomUserManager method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.abort">abort() (integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_base_model.AbstractBaseModel">AbstractBaseModel (class in integreat_cms.cms.models.abstract_base_model)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.abstract_base_page.AbstractBasePage">AbstractBasePage (class in integreat_cms.cms.models.pages.abstract_base_page)</a>
@@ -3324,7 +3369,13 @@
 </li>
         <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoException.add_note">(integreat_cms.matomo_api.matomo_api_client.MatomoException method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException.add_note">(integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException method)</a>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException.add_note">(integreat_cms.summ_ai_api.utils.SummAiException method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError.add_note">(integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded.add_note">(integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError.add_note">(integreat_cms.summ_ai_api.utils.SummAiRuntimeError method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.forms.chat.html#integreat_cms.cms.forms.chat.chat_message_form.ChatMessageForm.add_prefix">add_prefix() (integreat_cms.cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
@@ -4041,6 +4092,10 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.roles.APP_TEAM_PERMISSIONS">APP_TEAM_PERMISSIONS (in module integreat_cms.cms.constants.roles)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.append">append() (integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.appendleft">appendleft() (integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.wsgi.application">application() (in module integreat_cms.core.wsgi)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.events.html#integreat_cms.cms.forms.events.event_filter_form.EventFilterForm.apply">apply() (integreat_cms.cms.forms.events.event_filter_form.EventFilterForm method)</a>
@@ -4356,7 +4411,13 @@
 </li>
         <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoException.args">(integreat_cms.matomo_api.matomo_api_client.MatomoException attribute)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException.args">(integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException attribute)</a>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException.args">(integreat_cms.summ_ai_api.utils.SummAiException attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError.args">(integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded.args">(integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError.args">(integreat_cms.summ_ai_api.utils.SummAiRuntimeError attribute)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzRegion.as_dict">as_dict() (integreat_cms.gvz_api.utils.GvzRegion method)</a>
@@ -5025,6 +5086,8 @@
 </li>
       <li><a href="ref-ext/tests.html#tests.utils.assert_no_error_messages">assert_no_error_messages() (in module tests.utils)</a>
 </li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.attempts">attempts (in module tests.summ_ai_api.summ_ai_test)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.months.AUGUST">AUGUST (in module integreat_cms.cms.constants.months)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet.aupdate">aupdate() (integreat_cms.cms.models.abstract_content_model.ContentQuerySet method)</a>
@@ -5311,10 +5374,10 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.event_feedback.EventFeedback.best_event_translation">best_event_translation (integreat_cms.cms.models.feedback.event_feedback.EventFeedback attribute)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzApiWrapper.best_match">best_match() (integreat_cms.gvz_api.utils.GvzApiWrapper method)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ref-ext/integreat_cms.gvz_api.html#integreat_cms.gvz_api.utils.GvzApiWrapper.best_match">best_match() (integreat_cms.gvz_api.utils.GvzApiWrapper method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.page_feedback.PageFeedback.best_page_translation">best_page_translation (integreat_cms.cms.models.feedback.page_feedback.PageFeedback attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.poi_feedback.POIFeedback.best_poi_translation">best_poi_translation (integreat_cms.cms.models.feedback.poi_feedback.POIFeedback attribute)</a>
@@ -5348,8 +5411,6 @@
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.BRANDING">BRANDING (in module integreat_cms.core.settings)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.BRANDING_TITLE">BRANDING_TITLE (in module integreat_cms.core.settings)</a>
-</li>
-      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.broken_fake_summ_ai_server">broken_fake_summ_ai_server() (in module tests.summ_ai_api.summ_ai_test)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.html#integreat_cms.cms.forms.icon_widget.IconWidget.build_attrs">build_attrs() (integreat_cms.cms.forms.icon_widget.IconWidget method)</a>
 
@@ -5799,6 +5860,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.internal_link_checker.check_internal">check_internal() (in module integreat_cms.cms.utils.internal_link_checker)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.check_internal_server_error">check_internal_server_error() (integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient static method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.duplicate_pages.Command.check_migrations">check_migrations() (integreat_cms.core.management.commands.duplicate_pages.Command method)</a>
 
       <ul>
@@ -5832,6 +5895,8 @@
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.internal_link_checker.check_offer_link">check_offer_link() (in module integreat_cms.cms.utils.internal_link_checker)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.check_password">check_password() (integreat_cms.cms.models.users.user.User method)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.check_rate_limit_exceeded">check_rate_limit_exceeded() (integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient static method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.account_activation_token_generator.AccountActivationTokenGenerator.check_token">check_token() (integreat_cms.cms.utils.account_activation_token_generator.AccountActivationTokenGenerator method)</a>
 </li>
@@ -6261,6 +6326,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.poi_categories.html#integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet.cleaned_data">cleaned_data (integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet property)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.clear">clear() (integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.roles.CMS_TEAM">CMS_TEAM (in module integreat_cms.cms.constants.roles)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.roles.CMS_TEAM_PERMISSIONS">CMS_TEAM_PERMISSIONS (in module integreat_cms.cms.constants.roles)</a>
@@ -6336,6 +6403,8 @@
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.COMPANY">COMPANY (in module integreat_cms.core.settings)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.COMPANY_URL">COMPANY_URL (in module integreat_cms.core.settings)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.completed">completed() (integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet.complex_filter">complex_filter() (integreat_cms.cms.models.abstract_content_model.ContentQuerySet method)</a>
 
@@ -6659,6 +6728,8 @@
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.copy">(integreat_cms.cms.models.events.event.Event method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.copy">(integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
+</li>
       </ul></li>
       <li><a href="documentation.html#conf.copyright">copyright (in module conf)</a>
 </li>
@@ -6688,6 +6759,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.RegionManager.count">(integreat_cms.cms.models.regions.region.RegionManager method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.count">(integreat_cms.cms.models.users.user.CustomUserManager method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.count">(integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI.country">country (integreat_cms.cms.models.pois.poi.POI attribute)</a>
@@ -7968,7 +8041,7 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.organization_field.OrganizationField.empty_values">empty_values (integreat_cms.cms.forms.users.organization_field.OrganizationField attribute)</a>
 </li>
-      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.enable_summ_api">enable_summ_api() (in module tests.summ_ai_api.summ_ai_test)</a>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.enable_summ_api">enable_summ_api() (in module tests.summ_ai_api.utils)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_provider.MachineTranslationProvider.enabled">enabled (integreat_cms.core.utils.machine_translation_provider.MachineTranslationProvider attribute)</a>
 
@@ -8248,10 +8321,10 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event_translation.EventTranslation.MultipleObjectsReturned">EventTranslation.MultipleObjectsReturned</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.forms.events.html#integreat_cms.cms.forms.events.event_translation_form.EventTranslationForm">EventTranslationForm (class in integreat_cms.cms.forms.events.event_translation_form)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.EventTranslationLinklist">EventTranslationLinklist (class in integreat_cms.cms.linklists)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.events.html#integreat_cms.cms.views.events.event_version_view.EventVersionView">EventVersionView (class in integreat_cms.cms.views.events.event_version_view)</a>
@@ -8385,6 +8458,10 @@
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportMultiLanguageXliffView">ExportMultiLanguageXliffView (class in integreat_cms.cms.views.pages.page_bulk_actions)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.ExportXliffView">ExportXliffView (class in integreat_cms.cms.views.pages.page_bulk_actions)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.extend">extend() (integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.extendleft">extendleft() (integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
 </li>
       <li><a href="documentation.html#conf.extensions">extensions (in module conf)</a>
 </li>
@@ -8624,8 +8701,6 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.fake_summ_ai_server">fake_summ_ai_server() (in module tests.summ_ai_api.summ_ai_test)</a>
-</li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.translation_status.FALLBACK">FALLBACK (in module integreat_cms.cms.constants.translation_status)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.AbstractContentModel.fallback_translations_enabled">fallback_translations_enabled (integreat_cms.cms.models.abstract_content_model.AbstractContentModel property)</a>
@@ -9902,7 +9977,7 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.get_cached_descendants">(integreat_cms.cms.models.pages.page.Page method)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.get_changed_pages">get_changed_pages() (in module tests.summ_ai_api.summ_ai_test)</a>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.get_changed_pages">get_changed_pages() (in module tests.summ_ai_api.utils)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification.PushNotification.get_channel_display">get_channel_display() (integreat_cms.cms.models.push_notifications.push_notification.PushNotification method)</a>
 </li>
@@ -13726,6 +13801,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.history">history (integreat_cms.cms.models.chat.chat_message.ChatMessage attribute)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.hit_rate_limit">hit_rate_limit() (integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.hix_enabled">hix_enabled (integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation attribute)</a>
 
       <ul>
@@ -14506,6 +14583,8 @@
         <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.xliff2_serializer.Serializer.indent">(integreat_cms.xliff.xliff2_serializer.Serializer method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.index">index() (integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.feedback.html#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.init_instance">init_instance() (integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.feedback_ratings.INITIAL">INITIAL (in module integreat_cms.cms.constants.feedback_ratings)</a>
@@ -14570,6 +14649,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.users.html#integreat_cms.cms.forms.users.organization_field.OrganizationFieldWidget.input_type">(integreat_cms.cms.forms.users.organization_field.OrganizationFieldWidget attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.insert">insert() (integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.INSTALLED_APPS">INSTALLED_APPS (in module integreat_cms.core.settings)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.linkcheck.html#integreat_cms.cms.views.linkcheck.linkcheck_list_view.LinkcheckListView.instance">instance (integreat_cms.cms.views.linkcheck.linkcheck_list_view.LinkcheckListView attribute)</a>
@@ -16211,6 +16292,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.analytics.html#module-integreat_cms.cms.views.analytics.app_size_view">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.views.analytics.translation_coverage_view
 
@@ -16218,8 +16301,6 @@
         <li><a href="ref-ext/integreat_cms.cms.views.analytics.html#module-integreat_cms.cms.views.analytics.translation_coverage_view">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.views.authentication
 
@@ -18427,6 +18508,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.last_name">last_name (integreat_cms.cms.models.users.user.User attribute)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.last_rate_limit">last_rate_limit (integreat_cms.summ_ai_api.utils.PatientTaskQueue attribute)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.position.LAST_SIBLING">LAST_SIBLING (in module integreat_cms.cms.constants.position)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation.last_updated">last_updated (integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation attribute)</a>
@@ -18845,7 +18928,13 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation.major_version">(integreat_cms.cms.models.pois.poi_translation.POITranslation attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.make_mock_summ_ai_server">make_mock_summ_ai_server() (in module tests.summ_ai_api.utils)</a>
+</li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.make_mock_summ_ai_server_rate_limited">make_mock_summ_ai_server_rate_limited() (in module tests.summ_ai_api.utils)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.make_random_password">make_random_password() (integreat_cms.cms.models.users.user.CustomUserManager method)</a>
+</li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.make_rogue_summ_ai_server">make_rogue_summ_ai_server() (in module tests.summ_ai_api.utils)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.account_activation_token_generator.AccountActivationTokenGenerator.make_token">make_token() (integreat_cms.cms.utils.account_activation_token_generator.AccountActivationTokenGenerator method)</a>
 </li>
@@ -18934,6 +19023,10 @@
       <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoException">MatomoException</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.MAX_EVENT_DURATION">MAX_EVENT_DURATION (in module integreat_cms.core.settings)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.max_retries">max_retries (integreat_cms.summ_ai_api.utils.PatientTaskQueue attribute)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.maxlen">maxlen (integreat_cms.summ_ai_api.utils.PatientTaskQueue attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.months.MAY">MAY (in module integreat_cms.cms.constants.months)</a>
 </li>
@@ -19151,6 +19244,10 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_form.PageForm.mk_indent">(integreat_cms.cms.forms.pages.page_form.PageForm static method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRegion">MockedRegion (class in tests.summ_ai_api.utils)</a>
+</li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRequest">MockedRequest (class in tests.summ_ai_api.utils)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification.PushNotification.mode">mode (integreat_cms.cms.models.push_notifications.push_notification.PushNotification attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.poi_categories.html#integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet.model">model (integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet attribute)</a>
@@ -20274,6 +20371,8 @@
         <li><a href="ref-ext/tests.summ_ai_api.html#module-tests.summ_ai_api">tests.summ_ai_api</a>
 </li>
         <li><a href="ref-ext/tests.summ_ai_api.html#module-tests.summ_ai_api.summ_ai_test">tests.summ_ai_api.summ_ai_test</a>
+</li>
+        <li><a href="ref-ext/tests.summ_ai_api.html#module-tests.summ_ai_api.utils">tests.summ_ai_api.utils</a>
 </li>
         <li><a href="ref-ext/tests.html#module-tests.utils">tests.utils</a>
 </li>
@@ -21864,6 +21963,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation.path">(integreat_cms.cms.models.pois.poi_translation.POITranslation method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue">PatientTaskQueue (class in integreat_cms.summ_ai_api.utils)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.pattern_name">pattern_name (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
 
       <ul>
@@ -22448,6 +22549,10 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.polymorphic_query_multiline_output">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.pop">pop() (integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.popleft">popleft() (integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.feedback_ratings.POSITIVE">POSITIVE (in module integreat_cms.cms.constants.feedback_ratings)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.postal_code.POST">POST (in module integreat_cms.cms.constants.postal_code)</a>
@@ -24205,7 +24310,11 @@
       <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.user_filters.remaining_regions">remaining_regions() (in module integreat_cms.cms.templatetags.user_filters)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.content_filters.remove">remove() (in module integreat_cms.cms.templatetags.content_filters)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.remove">(integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.forms.chat.html#integreat_cms.cms.forms.chat.chat_message_form.ChatMessageForm.render">render() (integreat_cms.cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 
       <ul>
@@ -24793,6 +24902,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.CustomUserManager.reverse">(integreat_cms.cms.models.users.user.CustomUserManager method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.reverse">(integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
+</li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.status.REVIEW">REVIEW (in module integreat_cms.cms.constants.status)</a>
 </li>
@@ -24831,6 +24942,8 @@
       <li><a href="ref-ext/tests.html#tests.conftest.ROOT">ROOT (in module tests.conftest)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.ROOT_URLCONF">ROOT_URLCONF (in module integreat_cms.core.settings)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.rotate">rotate() (integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.auth.WPBCryptPasswordHasher.rounds">rounds (integreat_cms.cms.auth.WPBCryptPasswordHasher attribute)</a>
 </li>
@@ -26142,6 +26255,12 @@
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_IS_INITIAL">SUMM_AI_IS_INITIAL (in module integreat_cms.core.settings)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_MAX_CONCURRENT_REQUESTS">SUMM_AI_MAX_CONCURRENT_REQUESTS (in module integreat_cms.core.settings)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_MAX_RETRIES">SUMM_AI_MAX_RETRIES (in module integreat_cms.core.settings)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_RATE_LIMIT_COOLDOWN">SUMM_AI_RATE_LIMIT_COOLDOWN (in module integreat_cms.core.settings)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_SEPARATOR">SUMM_AI_SEPARATOR (in module integreat_cms.core.settings)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_TEST_MODE">SUMM_AI_TEST_MODE (in module integreat_cms.core.settings)</a>
@@ -26154,9 +26273,15 @@
 </li>
       <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.apps.SummAiApiConfig">SummAiApiConfig (class in integreat_cms.summ_ai_api.apps)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException">SummAiException</a>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException">SummAiException</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError">SummAiInvalidJSONError</a>
 </li>
       <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_provider.SummAiProvider">SummAiProvider (class in integreat_cms.summ_ai_api.summ_ai_provider)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded">SummAiRateLimitingExceeded</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError">SummAiRuntimeError</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.weekdays.SUNDAY">SUNDAY (in module integreat_cms.cms.constants.weekdays)</a>
 </li>
@@ -27222,6 +27347,8 @@
 </li>
       <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_internal_link_checker.test_check_internal_valid">test_check_internal_valid() (in module tests.cms.utils.test_internal_link_checker)</a>
 </li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_check_rate_limit_exceeded">test_check_rate_limit_exceeded() (in module tests.summ_ai_api.summ_ai_test)</a>
+</li>
       <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.test_client_throws_exception_when_fcm_disabled">test_client_throws_exception_when_fcm_disabled() (tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient method)</a>
 </li>
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_media_library.test_create_directory">test_create_directory() (in module tests.cms.test_media_library)</a>
@@ -27346,6 +27473,8 @@
 </li>
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_login.test_login_success">test_login_success() (in module tests.cms.test_login)</a>
 </li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_missing_translation">test_missing_translation() (in module tests.summ_ai_api.summ_ai_test)</a>
+</li>
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_media_library.test_move_file">test_move_file() (in module tests.cms.test_media_library)</a>
 </li>
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_language.test_move_language_node">test_move_language_node() (in module tests.cms.test_language)</a>
@@ -27355,6 +27484,12 @@
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_reset_deepl_budget.test_not_first_day">test_not_first_day() (in module tests.core.management.commands.test_reset_deepl_budget)</a>
 </li>
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_page_filters.test_page_filters">test_page_filters() (in module tests.cms.test_page_filters)</a>
+</li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_hit_rate_limit">test_patient_task_queue_hit_rate_limit() (in module tests.summ_ai_api.summ_ai_test)</a>
+</li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_max_retries">test_patient_task_queue_max_retries() (in module tests.summ_ai_api.summ_ai_test)</a>
+</li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_normal_deque">test_patient_task_queue_normal_deque() (in module tests.summ_ai_api.summ_ai_test)</a>
 </li>
       <li><a href="ref-ext/tests.pdf.html#tests.pdf.test_pdf_export.test_pdf_export">test_pdf_export() (in module tests.pdf.test_pdf_export)</a>
 </li>
@@ -27402,9 +27537,27 @@
 </li>
       <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_translation_utils.test_translate_link">test_translate_link() (in module tests.cms.utils.test_translation_utils)</a>
 </li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_ddos_defense">test_translate_text_field_ddos_defense() (in module tests.summ_ai_api.summ_ai_test)</a>
+</li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_hit_rate_limit">test_translate_text_field_hit_rate_limit() (in module tests.summ_ai_api.summ_ai_test)</a>
+</li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_internal_server_error">test_translate_text_field_internal_server_error() (in module tests.summ_ai_api.summ_ai_test)</a>
+</li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation">test_translate_text_field_successful_translation() (in module tests.summ_ai_api.summ_ai_test)</a>
+</li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_forbidden">test_translate_text_forbidden() (in module tests.summ_ai_api.summ_ai_test)</a>
+</li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_with_empty_text_field">test_translate_text_with_empty_text_field() (in module tests.summ_ai_api.summ_ai_test)</a>
+</li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_unexpected_html">test_unexpected_html() (in module tests.summ_ai_api.summ_ai_test)</a>
+</li>
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_language.test_update_language_node">test_update_language_node() (in module tests.cms.test_language)</a>
 </li>
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_media_library.test_upload_file">test_upload_file() (in module tests.cms.test_media_library)</a>
+</li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_validate_response_invalid">test_validate_response_invalid() (in module tests.summ_ai_api.summ_ai_test)</a>
+</li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_validate_response_valid">test_validate_response_valid() (in module tests.summ_ai_api.summ_ai_test)</a>
 </li>
       <li><a href="ref-ext/tests.cms.views.html#tests.cms.views.test_view_redirect.test_view_redirect">test_view_redirect() (in module tests.cms.views.test_view_redirect)</a>
 </li>
@@ -27439,6 +27592,8 @@
       <li><a href="ref-ext/tests.cms.views.status_code.html#tests.cms.views.status_code.test_view_status_code_8.test_view_status_code_8">test_view_status_code_8() (in module tests.cms.views.status_code.test_view_status_code_8)</a>
 </li>
       <li><a href="ref-ext/tests.cms.views.status_code.html#tests.cms.views.status_code.test_view_status_code_9.test_view_status_code_9">test_view_status_code_9() (in module tests.cms.views.status_code.test_view_status_code_9)</a>
+</li>
+      <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_worker">test_worker() (in module tests.summ_ai_api.summ_ai_test)</a>
 </li>
       <li><a href="ref-ext/tests.xliff.html#tests.xliff.xliff_test.test_xliff_export">test_xliff_export() (in module tests.xliff.xliff_test)</a>
 </li>
@@ -27906,6 +28061,13 @@
 
       <ul>
         <li><a href="ref-ext/tests.summ_ai_api.html#module-tests.summ_ai_api.summ_ai_test">module</a>
+</li>
+      </ul></li>
+      <li>
+    tests.summ_ai_api.utils
+
+      <ul>
+        <li><a href="ref-ext/tests.summ_ai_api.html#module-tests.summ_ai_api.utils">module</a>
 </li>
       </ul></li>
       <li>
@@ -28891,6 +29053,8 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.feedback.html#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource.validate_instance">validate_instance() (integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource method)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.validate_response">validate_response() (integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient class method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.forms.chat.html#integreat_cms.cms.forms.chat.chat_message_form.ChatMessageForm.validate_unique">validate_unique() (integreat_cms.cms.forms.chat.chat_message_form.ChatMessageForm method)</a>
 
       <ul>
@@ -29481,6 +29645,8 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.wait_time">wait_time (integreat_cms.summ_ai_api.utils.PatientTaskQueue attribute)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.WEBAPP_URL">WEBAPP_URL (in module integreat_cms.core.settings)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.sitemap.html#integreat_cms.sitemap.sitemaps.WebappSitemap">WebappSitemap (class in integreat_cms.sitemap.sitemaps)</a>
@@ -29676,12 +29842,20 @@
 </li>
         <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoException.with_traceback">(integreat_cms.matomo_api.matomo_api_client.MatomoException method)</a>
 </li>
-        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException.with_traceback">(integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException method)</a>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException.with_traceback">(integreat_cms.summ_ai_api.utils.SummAiException method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError.with_traceback">(integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded.with_traceback">(integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError.with_traceback">(integreat_cms.summ_ai_api.utils.SummAiRuntimeError method)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.templatetags.html#integreat_cms.cms.templatetags.text_filters.words">words() (in module integreat_cms.cms.templatetags.text_filters)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.worker">worker() (in module integreat_cms.summ_ai_api.utils)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.weekdays.WORKING_DAYS">WORKING_DAYS (in module integreat_cms.cms.constants.weekdays)</a>
 </li>

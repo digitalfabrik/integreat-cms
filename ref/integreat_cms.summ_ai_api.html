@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-02-26T09:08:53+00:00" />
+    <meta property="article:modified_time" content="2024-02-29T11:18:02+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SUMM.AI API &mdash; integreat-cms 2024.2.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -457,6 +457,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.summ_ai_api.html">SUMM.AI API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#summ-ai-test">SUMM.AI Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.summ_ai_api.html#utils">Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.xliff.html">XLIFF</a><ul>
@@ -1026,6 +1027,9 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_HTML_TAGS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_HTML_TAGS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_INHERITED_FIELDS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_INHERITED_FIELDS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_IS_INITIAL"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_IS_INITIAL</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_MAX_CONCURRENT_REQUESTS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_MAX_CONCURRENT_REQUESTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_MAX_RETRIES"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_MAX_RETRIES</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_RATE_LIMIT_COOLDOWN"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_RATE_LIMIT_COOLDOWN</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_SEPARATOR"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_SEPARATOR</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_TEST_MODE"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_TEST_MODE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SUMM_AI_TEXT_FIELDS"><code class="docutils literal notranslate"><span class="pre">SUMM_AI_TEXT_FIELDS</span></code></a></li>
@@ -1194,7 +1198,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.summ_ai_api_client">SUMM.AI API Client</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient"><code class="docutils literal notranslate"><span class="pre">SummAiApiClient</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException"><code class="docutils literal notranslate"><span class="pre">SummAiException</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.summ_ai_provider">SUMM.AI Provider</a><ul>
@@ -1204,8 +1207,14 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#module-integreat_cms.summ_ai_api.utils">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLField"><code class="docutils literal notranslate"><span class="pre">HTMLField</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLSegment"><code class="docutils literal notranslate"><span class="pre">HTMLSegment</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue"><code class="docutils literal notranslate"><span class="pre">PatientTaskQueue</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException"><code class="docutils literal notranslate"><span class="pre">SummAiException</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError"><code class="docutils literal notranslate"><span class="pre">SummAiInvalidJSONError</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded"><code class="docutils literal notranslate"><span class="pre">SummAiRateLimitingExceeded</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError"><code class="docutils literal notranslate"><span class="pre">SummAiRuntimeError</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField"><code class="docutils literal notranslate"><span class="pre">TextField</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TranslationHelper"><code class="docutils literal notranslate"><span class="pre">TranslationHelper</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.worker"><code class="docutils literal notranslate"><span class="pre">worker()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1402,12 +1411,34 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html">SUMM.AI API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#module-tests.summ_ai_api.summ_ai_test">SUMM.AI Test</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.broken_fake_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">broken_fake_summ_ai_server()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.enable_summ_api"><code class="docutils literal notranslate"><span class="pre">enable_summ_api()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.fake_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">fake_summ_ai_server()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.get_changed_pages"><code class="docutils literal notranslate"><span class="pre">get_changed_pages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.attempts"><code class="docutils literal notranslate"><span class="pre">attempts</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_auto_translate_easy_german"><code class="docutils literal notranslate"><span class="pre">test_auto_translate_easy_german()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_check_rate_limit_exceeded"><code class="docutils literal notranslate"><span class="pre">test_check_rate_limit_exceeded()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_missing_translation"><code class="docutils literal notranslate"><span class="pre">test_missing_translation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_hit_rate_limit"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_hit_rate_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_max_retries"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_max_retries()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_normal_deque"><code class="docutils literal notranslate"><span class="pre">test_patient_task_queue_normal_deque()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_summ_ai_error_handling"><code class="docutils literal notranslate"><span class="pre">test_summ_ai_error_handling()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_ddos_defense"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_ddos_defense()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_hit_rate_limit"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_hit_rate_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_internal_server_error"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_internal_server_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_field_successful_translation"><code class="docutils literal notranslate"><span class="pre">test_translate_text_field_successful_translation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_forbidden"><code class="docutils literal notranslate"><span class="pre">test_translate_text_forbidden()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_translate_text_with_empty_text_field"><code class="docutils literal notranslate"><span class="pre">test_translate_text_with_empty_text_field()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_unexpected_html"><code class="docutils literal notranslate"><span class="pre">test_unexpected_html()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_validate_response_invalid"><code class="docutils literal notranslate"><span class="pre">test_validate_response_invalid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_validate_response_valid"><code class="docutils literal notranslate"><span class="pre">test_validate_response_valid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_worker"><code class="docutils literal notranslate"><span class="pre">test_worker()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#module-tests.summ_ai_api.utils">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRegion"><code class="docutils literal notranslate"><span class="pre">MockedRegion</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRequest"><code class="docutils literal notranslate"><span class="pre">MockedRequest</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.enable_summ_api"><code class="docutils literal notranslate"><span class="pre">enable_summ_api()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.get_changed_pages"><code class="docutils literal notranslate"><span class="pre">get_changed_pages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.make_mock_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">make_mock_summ_ai_server()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.make_mock_summ_ai_server_rate_limited"><code class="docutils literal notranslate"><span class="pre">make_mock_summ_ai_server_rate_limited()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.make_rogue_summ_ai_server"><code class="docutils literal notranslate"><span class="pre">make_rogue_summ_ai_server()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1875,7 +1906,7 @@
 <p>This module contains the API client to interact with the SUMM.AI API</p>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.summ_ai_api_client.</span></span><span class="sig-name descname"><span class="pre">SummAiApiClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ModelFormMetaclass</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/summ_ai_api_client.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.summ_ai_api_client.</span></span><span class="sig-name descname"><span class="pre">SummAiApiClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ModelFormMetaclass</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/summ_ai_api_client.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient" title="integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">MachineTranslationApiClient</span></code></a></p>
 <p>SUMM.AI API client to get German pages in Easy German language.</p>
 <dl class="field-list simple">
@@ -1888,7 +1919,7 @@
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ModelFormMetaclass</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/summ_ai_api_client.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ModelFormMetaclass</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/summ_ai_api_client.py#L52"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Constructor initializes the class variables</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -1907,9 +1938,49 @@ subclass of the current content type</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">translate_queryset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><span class="pre">Page</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/summ_ai_api_client.py#L144"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Translate a queryset of content objects from German into Easy German.</p>
-<p>To increase the speed of the translations, all operations are parallelized.</p>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_internal_server_error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/summ_ai_api_client.py#L302"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Checks if we got a HTTP 500 error</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>response_status</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The response-status form SummAiApi-Request</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>False (if the response_status is not 500)</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError" title="integreat_cms.summ_ai_api.utils.SummAiRuntimeError"><strong>SummAiRuntimeError</strong></a> – If the response_status is 500</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">check_rate_limit_exceeded</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/summ_ai_api_client.py#L318"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Checks if the limit of requests was exceeded (triggered by response_status=429 or 529) and logs this occurrence</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>response_status</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The response-status form SummAiApi-Request</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>False (if the response_status is neither 429 nor 529)</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded" title="integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded"><strong>SummAiRateLimitingExceeded</strong></a> – If the response_status is 429 or 529</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">translate_queryset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">queryset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><span class="pre">Page</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/summ_ai_api_client.py#L195"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Translate a queryset of content objects from German into Easy German.
+To increase the speed of the translations, all operations are parallelized.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -1925,7 +1996,7 @@ subclass of the current content type</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">translate_text_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ClientSession</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField" title="integreat_cms.summ_ai_api.utils.TextField"><span class="pre">TextField</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField" title="integreat_cms.summ_ai_api.utils.TextField"><span class="pre">TextField</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/summ_ai_api_client.py#L68"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">translate_text_field</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ClientSession</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField" title="integreat_cms.summ_ai_api.utils.TextField"><span class="pre">TextField</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField" title="integreat_cms.summ_ai_api.utils.TextField"><span class="pre">TextField</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/summ_ai_api_client.py#L72"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Uses <a class="reference external" href="https://docs.aiohttp.org/en/stable/client_reference.html#aiohttp.ClientSession.post" title="(in aiohttp v3.9)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">aiohttp.ClientSession.post()</span></code></a> to perform an asynchronous POST request to the SUMM.AI API.
 After the translation is finished, the processing is delegated to the specific textfield’s
 <a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField.translate" title="integreat_cms.summ_ai_api.utils.TextField.translate"><code class="xref py py-meth docutils literal notranslate"><span class="pre">translate()</span></code></a>.</p>
@@ -1943,11 +2014,31 @@ After the translation is finished, the processing is delegated to the specific t
 <dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField" title="integreat_cms.summ_ai_api.utils.TextField">TextField</a></p>
 </dd>
 </dl>
+<p>Note that <a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.worker" title="integreat_cms.summ_ai_api.utils.worker"><code class="xref py py-func docutils literal notranslate"><span class="pre">worker()</span></code></a> currently not only counts <a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded" title="integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded"><code class="xref py py-class docutils literal notranslate"><span class="pre">SummAiRateLimitingExceeded</span></code></a>
+but also <a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError" title="integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError"><code class="xref py py-class docutils literal notranslate"><span class="pre">SummAiInvalidJSONError</span></code></a> as a rate limit hit and enqueues the task again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError" title="integreat_cms.summ_ai_api.utils.SummAiRuntimeError"><strong>SummAiRuntimeError</strong></a> – If text_field is none or text is empty</p></li>
+<li><p><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError" title="integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError"><strong>SummAiInvalidJSONError</strong></a> – Invalid JSON response returned by the API</p></li>
+<li><p><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded" title="integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded"><strong>SummAiRateLimitingExceeded</strong></a> – If query runs into rate limit (429 or 529 response)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>session</strong> (<em>ClientSession</em>) – </p></li>
+<li><p><strong>text_field</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField" title="integreat_cms.summ_ai_api.utils.TextField"><em>TextField</em></a>) – </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField" title="integreat_cms.summ_ai_api.utils.TextField">TextField</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">translate_text_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AbstractEventLoop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField" title="integreat_cms.summ_ai_api.utils.TextField"><span class="pre">TextField</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField" title="integreat_cms.summ_ai_api.utils.TextField"><span class="pre">TextField</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/summ_ai_api_client.py#L119"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">translate_text_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">AbstractEventLoop</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text_fields</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField" title="integreat_cms.summ_ai_api.utils.TextField"><span class="pre">TextField</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">chain</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField" title="integreat_cms.summ_ai_api.utils.TextField"><span class="pre">TextField</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/summ_ai_api_client.py#L144"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Translate a list of text fields from German into Easy German.
 Create an async task
 <a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.translate_text_field" title="integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient.translate_text_field"><code class="xref py py-meth docutils literal notranslate"><span class="pre">translate_text_field()</span></code></a>
@@ -1963,18 +2054,34 @@ for each entry.</p>
 <dd class="field-even"><p>The list of completed text fields</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField" title="integreat_cms.summ_ai_api.utils.TextField">TextField</a>]</p>
+<dd class="field-odd"><p>chain[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[<a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField" title="integreat_cms.summ_ai_api.utils.TextField">TextField</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">response_data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">response_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/summ_ai_api_client.py#L278"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Checks if translated text is found in SummAiApi-response</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>response_data</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>) – The response-data from SummAiApi</p></li>
+<li><p><strong>response_status</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The response-status form SummAiApi-Request</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True or False</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRuntimeError" title="integreat_cms.summ_ai_api.utils.SummAiRuntimeError"><strong>SummAiRuntimeError</strong></a> – The response doesn’t contain the field translated_text.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)">bool</a></p>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="py exception">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.summ_ai_api_client.</span></span><span class="sig-name descname"><span class="pre">SummAiException</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/summ_ai_api_client.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/exceptions.html#Exception" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
-<p>Custom Exception class for errors during interaction with SUMM.AI</p>
 </dd></dl>
 
 </section>
@@ -1987,7 +2094,7 @@ for each entry.</p>
 <p>The provider for SUMM.AI machine translations</p>
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">api_client</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/summ_ai_api_client.py#L43"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">api_client</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/summ_ai_api_client.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The API client class for this provider</p>
 <p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient" title="integreat_cms.summ_ai_api.summ_ai_api_client.SummAiApiClient"><code class="xref py py-class docutils literal notranslate"><span class="pre">SummAiApiClient</span></code></a></p>
 </dd></dl>
@@ -2036,7 +2143,7 @@ for each entry.</p>
 <p>This module contains helpers for the SUMM.AI API client</p>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">HTMLField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><span class="pre">PageTranslation</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">HTMLField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><span class="pre">PageTranslation</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L151"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A class for more complex HTML fields which are splitted into segments</p>
 <dl class="field-list simple">
@@ -2049,7 +2156,7 @@ for each entry.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><span class="pre">PageTranslation</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L134"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><span class="pre">PageTranslation</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Parse the HTML string into an lxml tree object and split into segments</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2067,7 +2174,7 @@ for each entry.</p>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exception</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException" title="integreat_cms.summ_ai_api.summ_ai_api_client.SummAiException"><span class="pre">SummAiException</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">exception</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException" title="integreat_cms.summ_ai_api.utils.SummAiException"><span class="pre">SummAiException</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L151"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Check if any of the segments experienced an error</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -2078,25 +2185,25 @@ for each entry.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">html</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.1.0)"><span class="pre">HtmlElement</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">html</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.1.0)"><span class="pre">HtmlElement</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L151"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The current HTML stream</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L151"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The name of the corresponding model field</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">segments</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.1.0)"><span class="pre">HtmlElement</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">segments</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.1.0)"><span class="pre">HtmlElement</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L151"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The list of HTML segments</p>
 </dd></dl>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">translated_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L122"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">translated_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L151"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Assemble the content of the HTML segments into a HTML string again</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -2109,7 +2216,7 @@ for each entry.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">HTMLSegment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">segment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.1.0)"><span class="pre">HtmlElement</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">HTMLSegment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">segment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.1.0)"><span class="pre">HtmlElement</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField" title="integreat_cms.summ_ai_api.utils.TextField"><code class="xref py py-class docutils literal notranslate"><span class="pre">TextField</span></code></a></p>
 <p>A class for translatable HTML segments</p>
 <dl class="field-list simple">
@@ -2119,7 +2226,7 @@ for each entry.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">segment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.1.0)"><span class="pre">HtmlElement</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L87"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">segment</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.1.0)"><span class="pre">HtmlElement</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L116"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Convert the lxml tree element to a flat text string.
 Preserve &lt;br&gt; tags as new lines characters.
 Remove all inner tags but keep their text content.
@@ -2136,13 +2243,13 @@ Unescape all special HTML entities into unicode characters.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">segment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.1.0)"><span class="pre">HtmlElement</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L78"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">segment</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.1.0)"><span class="pre">HtmlElement</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L107"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The current HTML segment</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translated_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L105"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translated_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L134"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Translate the current HTML segment and create new sub elements for line breaks</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2158,7 +2265,134 @@ Unescape all special HTML entities into unicode characters.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">TextField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><span class="pre">PageTranslation</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">PatientTaskQueue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tasks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_retries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abort_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L383"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/collections.html#collections.deque" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">deque</span></code></a>, <a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Generic" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<p>A ‘patient’ task queue which only hands out sleep tasks after a task was reported as failed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>last_rate_limit</strong> – The UNIX timestamp when the last rate limited request occurred</p></li>
+<li><p><strong>wait_time</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Seconds to wait after running into the rate limit before sending the next requests</p></li>
+<li><p><strong>max_retries</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Maximum amount of retries for a string to translate before giving up</p></li>
+<li><p><strong>tasks</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>[</em><em>T</em><em>]</em>) – List of request tasks</p></li>
+<li><p><strong>abort_function</strong> (<em>Callable</em><em> | </em><em>None</em>) – Function to call for each unfinished task if the queue is aborted</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tasks</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">T</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wait_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">30.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_retries</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">abort_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L403"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Constructor initializes the class variables</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tasks</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>[</em><em>T</em><em>]</em>) – List of request tasks</p></li>
+<li><p><strong>wait_time</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – Waiting time until start next request in seconds</p></li>
+<li><p><strong>max_retries</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – Maximum retries before giving up</p></li>
+<li><p><strong>abort_function</strong> (<em>Callable</em><em> | </em><em>None</em>) – Function to call for each unfinished task if the queue is aborted.
+Takes two arguments: The task (<a class="reference external" href="https://docs.python.org/3.11/library/asyncio-future.html#asyncio.Future" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">asyncio.Future</span></code></a>) and the reason given (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>).
+Can be <cite>None</cite> instead to do nothing.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">abort</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Aborted'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L521"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Abort the Queue, handling unfinished task according to the supplied abort function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>reason</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The reason why the queue was aborted that is to be handed to the supplied abort function.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">completed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L508"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>A task was completed, reset the retry counter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>task</strong> (<em>T</em>) – The task that failed because of the rate limiting</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">hit_rate_limit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L467"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>A task hit the rate limit, so wait a bit and reschedule the task</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>task</strong> (<em>T</em>) – The task that failed because of the rate limiting</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">last_rate_limit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L383"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The UNIX timestamp when the last rate limited request occurred</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">max_retries</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">5</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L383"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Maximum amount of retries for a string to translate before giving up</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">wait_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">30.0</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L383"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Seconds to wait after running into the rate limit before sending the next requests</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">SummAiException</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L42"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/exceptions.html#Exception" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Base class for custom SUMM.AI exceptions</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">SummAiInvalidJSONError</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException" title="integreat_cms.summ_ai_api.utils.SummAiException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SummAiException</span></code></a></p>
+<p>Custom Exception class for faulty responses from SUMM.AI</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">SummAiRateLimitingExceeded</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L48"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException" title="integreat_cms.summ_ai_api.utils.SummAiException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SummAiException</span></code></a></p>
+<p>Custom Exception class for running into rate limit in SUMM.AI</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">SummAiRuntimeError</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiException" title="integreat_cms.summ_ai_api.utils.SummAiException"><code class="xref py py-class docutils literal notranslate"><span class="pre">SummAiException</span></code></a></p>
+<p>Custom Exception class for any other errors during interaction with SUMM.AI</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">TextField</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><span class="pre">PageTranslation</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>A class for simple text fields</p>
 <dl class="field-list simple">
@@ -2171,7 +2405,7 @@ Unescape all special HTML entities into unicode characters.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><span class="pre">PageTranslation</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L51"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation" title="integreat_cms.cms.models.pages.page_translation.PageTranslation"><span class="pre">PageTranslation</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Constructor initializes the class variables</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2189,25 +2423,25 @@ Unescape all special HTML entities into unicode characters.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">exception</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/exceptions.html#Exception" title="(in Python v3.11)"><span class="pre">Exception</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">exception</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/exceptions.html#Exception" title="(in Python v3.11)"><span class="pre">Exception</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The exception which occurred during translation, if any</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The name of the corresponding model field</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The source text</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translated_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L60"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">translate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">translated_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L89"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Translate the text of the current text field</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2221,7 +2455,7 @@ Unescape all special HTML entities into unicode characters.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">translated_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L37"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">translated_text</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>The translated text</p>
 </dd></dl>
 
@@ -2229,7 +2463,7 @@ Unescape all special HTML entities into unicode characters.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">TranslationHelper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ModelFormMetaclass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><span class="pre">Page</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">TranslationHelper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ModelFormMetaclass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><span class="pre">Page</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L211"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Custom helper class for interaction with SUMM.AI</p>
 <dl class="field-list simple">
@@ -2247,7 +2481,7 @@ Unescape all special HTML entities into unicode characters.</p>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ModelFormMetaclass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><span class="pre">Page</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L198"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">form_class</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ModelFormMetaclass</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">object_instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><span class="pre">Page</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L227"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Constructor initializes the class variables</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2266,7 +2500,7 @@ subclass of the current content type</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">commit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">easy_german</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><span class="pre">Language</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L276"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">commit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">easy_german</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language" title="integreat_cms.cms.models.languages.language.Language"><span class="pre">Language</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L305"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Save the translated changes to the database</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2283,7 +2517,7 @@ subclass of the current content type</p></li>
 
 <dl class="py property">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLField" title="integreat_cms.summ_ai_api.utils.HTMLField"><span class="pre">HTMLField</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField" title="integreat_cms.summ_ai_api.utils.TextField"><span class="pre">TextField</span></a><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">fields</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLField" title="integreat_cms.summ_ai_api.utils.HTMLField"><span class="pre">HTMLField</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.TextField" title="integreat_cms.summ_ai_api.utils.TextField"><span class="pre">TextField</span></a><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L211"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Get all fields of this helper instance</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -2294,7 +2528,7 @@ subclass of the current content type</p></li>
 
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_text_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLSegment" title="integreat_cms.summ_ai_api.utils.HTMLSegment"><span class="pre">HTMLSegment</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L246"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">get_text_fields</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.HTMLSegment" title="integreat_cms.summ_ai_api.utils.HTMLSegment"><span class="pre">HTMLSegment</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L275"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Get all text fields of this helper instance
 (all native <code class="xref py py-attr docutils literal notranslate"><span class="pre">text_fields</span></code>
 combined with all segments of all
@@ -2311,10 +2545,35 @@ combined with all segments of all
 
 <dl class="py attribute">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">valid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-name descname"><span class="pre">valid</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L211"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Wether or not the translation was successful</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">worker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/asyncio-eventloop.html#asyncio.AbstractEventLoop" title="(in Python v3.11)"><span class="pre">asyncio.AbstractEventLoop</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">task_generator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue" title="integreat_cms.summ_ai_api.utils.PatientTaskQueue"><span class="pre">PatientTaskQueue</span></a><span class="p"><span class="pre">[</span></span><span class="pre">partial</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/summ_ai_api/utils.py#L534"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Continuously gets a task from the queue and executes it.
+Stops once no more tasks are available.
+This form makes it easy to always have at most n concurrent tasks
+as well as intermittent wait times through the task generator.</p>
+<p>Catches <a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded" title="integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded"><code class="xref py py-class docutils literal notranslate"><span class="pre">SummAiRateLimitingExceeded</span></code></a> and <a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError" title="integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError"><code class="xref py py-class docutils literal notranslate"><span class="pre">SummAiInvalidJSONError</span></code></a> and counts them as rate limit hits in order enqueue them again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>loop</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/asyncio-eventloop.html#asyncio.AbstractEventLoop" title="(in Python v3.11)"><em>asyncio.AbstractEventLoop</em></a>) – The asyncio event loop to execute tasks in</p></li>
+<li><p><strong>task_generator</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue" title="integreat_cms.summ_ai_api.utils.PatientTaskQueue"><em>PatientTaskQueue</em></a><em>[</em><em>partial</em><em>]</em>) – Queue to execute tasks from</p></li>
+<li><p><strong>identifier</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – Identifyer of the worker (for logging purposes)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of task-results</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)">list</a>[Any]</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -2335,7 +2594,7 @@ combined with all segments of all
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Feb 26, 2024.
+      <span class="lastupdated">Last updated on Feb 29, 2024.
       </span></p>
   </div>
 
