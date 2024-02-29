@@ -243,9 +243,7 @@ class OfferSitemap(WebappSitemap):
         :param item: Objects passed from items() method
         :return: The absolute path of the given offer object
         """
-        return "/" + "/".join(
-            [self.region.slug, self.language.slug, "offers", item.slug]
-        )
+        return f"/{self.region.slug}/{self.language.slug}/offers/{item.slug}"
 
     def sitemap_alternates(self, obj: OfferTemplate) -> list[dict[str, str]]:
         """

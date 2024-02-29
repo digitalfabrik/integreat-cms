@@ -337,5 +337,5 @@ class SummAiApiClient(MachineTranslationApiClient):
                 "SUMM.AI translation is waiting for %ss because the rate limit has been exceeded",
                 settings.SUMM_AI_RATE_LIMIT_COOLDOWN,
             )
-            raise SummAiRateLimitingExceeded()
+            raise SummAiRateLimitingExceeded
         return False
