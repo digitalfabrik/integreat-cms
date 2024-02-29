@@ -211,8 +211,17 @@ nitpick_ignore: list[tuple[str, str]] = [
     ("py:class", "requests_mock.mocker.Mocker"),
     ("py:class", "webauthn.WebAuthnUser"),
     ("py:class", "xml.dom.minidom.Element"),
+    ("py:class", "django.contrib.auth.context_processors.PermWrapper"),
     ("py:func", "django.contrib.sitemaps.Sitemap._urls"),
     ("py:func", "django.utils.text.capfirst"),
+    # Wrong docstrings in the CPython source of collections.queue
+    ("py:class", "-- reverse *IN PLACE*"),
+    ("py:class", "integer -- return first index of value."),
+    ("py:class", "integer -- return number of occurrences of value"),
+    ("py:class", "-- insert object before index"),
+    ("py:class", "-- remove first occurrence of value."),
+    ("py:class", "-- size of D in memory, in bytes"),
+    ("py:class", "-- return a reverse iterator over the deque"),
 ]
 #: A list of prefixes that are ignored for sorting the Python module index
 modindex_common_prefix: Final[list[str]] = ["integreat_cms"]

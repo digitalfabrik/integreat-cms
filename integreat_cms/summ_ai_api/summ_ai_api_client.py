@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import asyncio
 import logging
+from functools import partial
 from itertools import chain
 from typing import TYPE_CHECKING
 
@@ -18,26 +19,29 @@ from django.utils.translation import ngettext_lazy
 from ..cms.utils.stringify_list import iter_to_string
 from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
 from ..core.utils.machine_translation_provider import MachineTranslationProvider
-from .utils import TranslationHelper
+from .utils import (
+    HTMLSegment,
+    PatientTaskQueue,
+    SummAiInvalidJSONError,
+    SummAiRateLimitingExceeded,
+    SummAiRuntimeError,
+    TextField,
+    TranslationHelper,
+    worker,
+)
 
 if TYPE_CHECKING:
     from asyncio import AbstractEventLoop
-    from typing import Iterator
+    from collections.abc import Callable
+    from typing import Any, Iterator
 
     from aiohttp import ClientSession
     from django.forms.models import ModelFormMetaclass
     from django.http import HttpRequest
 
     from ..cms.models.pages.page import Page
-    from .utils import TextField
 
 logger = logging.getLogger(__name__)
-
-
-class SummAiException(Exception):
-    """
-    Custom Exception class for errors during interaction with SUMM.AI
-    """
 
 
 class SummAiApiClient(MachineTranslationApiClient):
@@ -76,10 +80,27 @@ class SummAiApiClient(MachineTranslationApiClient):
         :param session: The session object which is used for the request
         :param text_field: The text field to be translated
         :return: The modified text field containing the translated text
+
+        Note that :func:`~integreat_cms.summ_ai_api.utils.worker` currently not only counts :class:`~integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded`
+        but also :class:`~integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError` as a rate limit hit and enqueues the task again.
+
+        :raises SummAiRuntimeError: If text_field is none or text is empty
+        :raises SummAiInvalidJSONError: Invalid JSON response returned by the API
+        :raises SummAiRateLimitingExceeded: If query runs into rate limit (429 or 529 response)
         """
+
         logger.debug("Translating %r", text_field)
         # Use test region for development
         user = settings.TEST_REGION_SLUG if settings.DEBUG else self.region.slug
+        if (
+            text_field is None
+            or (isinstance(text_field, TextField) and not text_field.text)
+            or (isinstance(text_field, HTMLSegment) and text_field.segment is None)
+        ):
+            # This is normally filtered out before this function is called,
+            # something must have gone wrong.
+            # Raise an exception without immediately catching it!
+            raise SummAiRuntimeError("Field to translate is None or empty")
         try:
             async with session.post(
                 settings.SUMM_AI_API_URL,
@@ -93,20 +114,24 @@ class SummAiApiClient(MachineTranslationApiClient):
                 },
             ) as response:
                 # Wait for the response
-                response_data = await response.json()
-                # Check whether the text was translated successfully
-                if "translated_text" not in response_data:
-                    if "error" in response_data:
-                        raise SummAiException(
-                            f"API error: {response.status} - {response_data['error']}"
-                        )
-                    raise SummAiException(
-                        f"Unexpected API result: {response.status} - {response_data!r}"
+                try:
+                    response_data = await response.json()
+                except aiohttp.ContentTypeError as e:
+                    logger.error(
+                        "SUMM.AI API %s response failed to parse as JSON: %s: %s",
+                        response.status,
+                        type(e),
+                        e,
                     )
-                # Let the field handle the translated text
-                text_field.translate(response_data["translated_text"])
-                return text_field
-        except (aiohttp.ClientError, asyncio.TimeoutError, SummAiException) as e:
+                    raise SummAiInvalidJSONError(
+                        f"API delivered invalid JSON: {response.status} - {await response.text()}"
+                    ) from e
+                if self.validate_response(response_data, response.status):
+                    # Let the field handle the translated text
+                    text_field.translate(response_data["translated_text"])
+                    # If text is not in response, validate_response()
+                    # will raise exceptions - so we don't need an else branch.
+        except (aiohttp.ClientError, asyncio.TimeoutError, SummAiRuntimeError) as e:
             logger.error(
                 "SUMM.AI translation of %r failed because of %s: %s",
                 text_field,
@@ -118,7 +143,7 @@ class SummAiApiClient(MachineTranslationApiClient):
 
     async def translate_text_fields(
         self, loop: AbstractEventLoop, text_fields: Iterator[TextField]
-    ) -> list[TextField]:
+    ) -> chain[list[TextField]]:
         """
         Translate a list of text fields from German into Easy German.
         Create an async task
@@ -129,27 +154,53 @@ class SummAiApiClient(MachineTranslationApiClient):
         :param text_fields: The text fields to be translated
         :returns: The list of completed text fields
         """
+
         # Set a custom SUMM.AI timeout
         timeout = aiohttp.ClientTimeout(total=60 * settings.SUMM_AI_TIMEOUT)
         async with aiohttp.ClientSession(timeout=timeout) as session:
             # Create tasks for each text field
             tasks = [
-                loop.create_task(self.translate_text_field(session, text_field))
+                # translate_text_field() gives us a coroutine that can be executed
+                # asynchronously as a task. If we have to repeat the task
+                # (e.g. if we run into rate limiting and have to resend the request),
+                # we need a NEW coroutine object.
+                # For that case, we a representation of our function which can be
+                # evaluated when needed, giving a new coroutine for the task each time.
+                partial(self.translate_text_field, session, text_field)
                 for text_field in text_fields
             ]
+
+            # If the translation is aborted, set the exception field
+            # to both signal that this wasn't translated and to display a reason why
+            def abort_function(task: partial, reason: Any) -> None:
+                # Retrieve field from arguments to translate_text_field()
+                field = task.args[1]
+                # Set the exception
+                field.exception = f"Machine translation aborted: {reason}"
+
+            # A "patient" task queue which only hands out sleep tasks after a task was reported as failed
+            task_generator = PatientTaskQueue(tasks, abort_function=abort_function)
+
             # Wait for all tasks to finish and collect the results
-            # (the results are sorted in the order the tasks were created)
-            return await asyncio.gather(*tasks)
+            worker_results = await asyncio.gather(
+                *[
+                    worker(loop, task_generator, str(i))
+                    for i in range(settings.SUMM_AI_MAX_CONCURRENT_REQUESTS)
+                ]
+            )
+            # Put all results in one single list
+            all_results = chain(worker_results)
+            return all_results
 
     def translate_queryset(self, queryset: list[Page], language_slug: str) -> None:
         """
         Translate a queryset of content objects from German into Easy German.
-
         To increase the speed of the translations, all operations are parallelized.
 
         :param queryset: The queryset which should be translated
         :param language_slug: The target language slug to translate into
         """
+
         # Make sure both languages exist
         self.request.region.get_language_or_404(settings.SUMM_AI_GERMAN_LANGUAGE_SLUG)
         easy_german = self.request.region.get_language_or_404(
@@ -223,3 +274,61 @@ class SummAiApiClient(MachineTranslationApiClient):
                     object_names=iter_to_string(errors),
                 ),
             )
+
+    @classmethod
+    def validate_response(cls, response_data: dict, response_status: int) -> bool:
+        """
+        Checks if translated text is found in SummAiApi-response
+
+        :param response_data: The response-data from SummAiApi
+        :param response_status: The response-status form SummAiApi-Request
+        :returns: True or False
+
+        :raises SummAiRuntimeError: The response doesn't contain the field translated_text.
+        """
+        cls.check_internal_server_error(response_status)
+        cls.check_rate_limit_exceeded(response_status)
+
+        if "translated_text" not in response_data:
+            if "error" in response_data:
+                raise SummAiRuntimeError(
+                    f"API error: {response_status} - {response_data['error']}"
+                )
+            raise SummAiRuntimeError(
+                f"Unexpected API result: {response_status} - {response_data!r}"
+            )
+        return True
+
+    @staticmethod
+    def check_internal_server_error(response_status: int) -> bool:
+        """
+        Checks if we got a HTTP 500 error
+
+        :param response_status: The response-status form SummAiApi-Request
+
+        :returns: False (if the response_status is not 500)
+
+        :raises SummAiRuntimeError: If the response_status is 500
+        """
+        if response_status == 500:
+            logger.error("SUMM.AI API has internal server error")
+            raise SummAiRuntimeError("API has internal server error")
+        return False
+
+    @staticmethod
+    def check_rate_limit_exceeded(response_status: int) -> bool:
+        """
+        Checks if the limit of requests was exceeded (triggered by response_status=429 or 529) and logs this occurrence
+
+        :param response_status: The response-status form SummAiApi-Request
+        :returns: False (if the response_status is neither 429 nor 529)
+
+        :raises SummAiRateLimitingExceeded: If the response_status is 429 or 529
+        """
+        if response_status in (429, 529):
+            logger.error(
+                "SUMM.AI translation is waiting for %ss because the rate limit has been exceeded",
+                settings.SUMM_AI_RATE_LIMIT_COOLDOWN,
+            )
+            raise SummAiRateLimitingExceeded()
+        return False
