@@ -125,7 +125,6 @@ def repair_tree(
     mptt_fixer = MPTTFixer()
 
     if page_id:
-        # show tree of selected page
         try:
             page = Page.objects.get(id=page_id)
         except Page.DoesNotExist as e:
@@ -138,7 +137,6 @@ def repair_tree(
         action = "Fixing" if commit else "Detecting problems in"
         printer.print(f"{action} tree with id {root_node.tree_id}...")
         for tree_node in mptt_fixer.get_fixed_tree_of_page(root_node.pk):
-            # the first node is always the root node
             print_changed_fields(
                 Page.objects.get(id=tree_node.pk), tree_node.lft, tree_node.rgt, printer
             )
@@ -197,7 +195,6 @@ class MPTTFixer:
         self.broken_nodes: list[Page] = list(
             Page.objects.all().order_by("tree_id", "lft")
         )
-        # Dictionaries keep the insert order as of Python 3.7
         self.fixed_nodes: dict[int, Page] = {}
         self.fix_root_nodes()
         self.fix_child_nodes()
@@ -226,7 +223,6 @@ class MPTTFixer:
                 parent = self.fixed_nodes[node.parent_id]
                 node.fixed_children = []
                 node = self.calculate_lft_rgt(node, parent)
-                # append fixed node to tree and update ancestors lft/rgt
                 self.fixed_nodes[node.pk] = node
                 self.fixed_nodes[parent.pk].fixed_children.append(node.pk)
                 self.update_ancestors_rgt(node.pk)
@@ -237,12 +233,10 @@ class MPTTFixer:
         to the right of existing nodes.
         """
         if not parent.fixed_children:
-            # first child node, use lft of parent to calculate node lft/rgt
             node.lft = parent.lft + 1
             node.rgt = node.lft + 1
             node.depth = parent.depth + 1
         else:
-            # parent has fixed_children. Get right-most sibling and continue lft from there.
             left_sibling = self.fixed_nodes[parent.fixed_children[-1]]
             node.lft = left_sibling.rgt + 1
             node.rgt = node.lft + 1
