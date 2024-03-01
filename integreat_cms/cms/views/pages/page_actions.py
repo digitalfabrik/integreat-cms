@@ -11,6 +11,7 @@ import time
 import uuid
 from typing import TYPE_CHECKING
 
+from db_mutex import DBMutexError, DBMutexTimeoutError
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -219,7 +220,6 @@ def get_page_content_ajax(
 
 @require_POST
 @permission_required("cms.delete_page")
-@transaction.atomic
 @tree_mutex
 def delete_page(
     request: HttpRequest, page_id: int, region_slug: str, language_slug: str
@@ -418,7 +418,6 @@ def upload_xliff(
 
 @require_POST
 @permission_required("cms.change_page")
-@transaction.atomic
 @tree_mutex
 def move_page(
     request: HttpRequest,

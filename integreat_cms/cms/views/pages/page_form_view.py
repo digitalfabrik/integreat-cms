@@ -239,7 +239,6 @@ class PageFormView(
         )
 
     # pylint: disable=too-many-statements
-    @transaction.atomic
     @tree_mutex
     def post(
         self, request: HttpRequest, *args: Any, **kwargs: Any
