@@ -5,6 +5,9 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+    """
+    Add (deferrable) contraints for the page tree
+    """
 
     dependencies = [
         ("cms", "0088_rename_mt_related_fields"),

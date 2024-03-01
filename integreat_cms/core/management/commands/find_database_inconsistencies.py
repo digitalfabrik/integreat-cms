@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 import logging
-from argparse import ArgumentTypeError
 from typing import TYPE_CHECKING
 
-from django.db.models import F, OuterRef, Q, Subquery
+from django.db.models import OuterRef, Q, Subquery
 
 from ....cms.models import (
     EventTranslation,
@@ -69,15 +68,13 @@ class Command(LogCommand):
                 )
             )
             if len(inconsistencies):
-                self.print_error(f"Oh oh, there are tree inconsistencies!")
+                self.print_error("Oh oh, there are tree inconsistencies!")
                 for i in inconsistencies:
-                    lft = inconsistencies.filter(tree_id=i.tree_id, rgt=i.lft).first()
-                    if lft:
+                    if (lft := inconsistencies.filter(tree_id=i.tree_id, rgt=i.lft).first()):
                         self.print_error(
                             f"{i!r} has the same lft value ({i.lft}) as the rgt of {lft!r}"
                         )
-                    rgt = inconsistencies.filter(tree_id=i.tree_id, lft=i.rgt).first()
-                    if rgt:
+                    if (rgt := inconsistencies.filter(tree_id=i.tree_id, lft=i.rgt).first()):
                         self.print_error(
                             f"{i!r} has the same rgt value ({i.rgt}) as the lft of {rgt!r}"
                         )
@@ -115,10 +112,6 @@ class Command(LogCommand):
     def handle(self, *args: Any, **options: Any) -> None:
         r"""
         Try to run the command
-
-        :param \*args: The supplied arguments
-        :param model: The model to check
-        :param \**options: The supplied keyword options
         """
         self.find_missing_versions()
         self.find_tree_inconsistencies()

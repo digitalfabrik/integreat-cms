@@ -138,7 +138,7 @@ def repair_tree(
 
     for root_node in root_nodes:
         action = "Fixing" if commit else "Detecting problems in"
-        printer.print(f"{action} tree with id {root_node.tree_id}...")
+        printer.print("%s tree with id {root_node.tree_id}...", action)
         for tree_node in mptt_fixer.get_fixed_tree_of_page(root_node.pk):
             print_changed_fields(
                 Page.objects.get(id=tree_node.pk), tree_node.lft, tree_node.rgt, printer
@@ -156,28 +156,30 @@ def print_changed_fields(
     Check whether the tree fields are correct
     """
     printer.write(printer.bold(f"Page {tree_node.id}:"))
-    printer.success(f"\tparent_id: {tree_node.parent_id}")
+    printer.success("\tparent_id: %i", tree_node.parent_id)
     if not tree_node.parent or tree_node.tree_id == tree_node.parent.tree_id:
-        printer.success(f"\ttree_id: {tree_node.tree_id}")
+        printer.success("\ttree_id: {tree_node.tree_id}")
     else:
-        printer.error(f"\ttree_id: {tree_node.tree_id} → {tree_node.parent.tree_id}")
+        printer.error("\ttree_id: %i → %i", tree_node.tree_id, tree_node.parent.tree_id)
     if tree_node.parent_id:
         if tree_node.depth == tree_node.parent.depth + 1:
-            printer.success(f"\tdepth: {tree_node.depth}")
+            printer.success("\tdepth: %i", tree_node.depth)
         else:
-            printer.error(f"\tdepth: {tree_node.depth} → {tree_node.parent.depth + 1}")
+            printer.error(
+                "\tdepth: %i → %i", tree_node.depth, tree_node.parent.depth + 1
+            )
     elif tree_node.depth == 1:
-        printer.success(f"\tdepth: {tree_node.depth}")
+        printer.success("\tdepth: %i", tree_node.depth)
     else:
-        printer.error(f"\tdepth: {tree_node.depth} → 1")
+        printer.error("\tdepth: %i → 1", tree_node.depth)
     if tree_node.lft == left:
-        printer.success(f"\tlft: {tree_node.lft}")
+        printer.success("\tlft: %i", tree_node.lft)
     else:
-        printer.error(f"\tlft: {tree_node.lft} → {left}")
+        printer.error("\tlft: %i → %i", tree_node.lft, left)
     if tree_node.rgt == right:
-        printer.success(f"\trgt: {tree_node.rgt}")
+        printer.success("\trgt: %i", tree_node.rgt)
     else:
-        printer.error(f"\trgt: {tree_node.rgt} → {right}")
+        printer.error("\trgt: %i → %i", tree_node.rgt, right)
 
 
 class MPTTFixer:

@@ -3,9 +3,6 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-from django.core.management.base import CommandError
-
-from ....cms.models import Page
 from ....cms.utils.repair_tree import Printer, repair_tree
 from ..log_command import LogCommand
 
@@ -41,15 +38,10 @@ class Command(LogCommand):
             help="Whether changes should be written to the database",
         )
 
+    # pylint: disable=arguments-differ
     def handle(self, *args: Any, page_id: int, commit: bool, **options: Any) -> None:
-        r"""
+        """
         Try to run the command
-
-        :param \*args: The supplied arguments
-        :param page_id: The page ID (node) of a broken tree
-        :param commit: Whether changes should be written to the database
-        :param \**options: The supplied keyword options
-        :raises ~django.core.management.base.CommandError: When the input is invalid
         """
         printer = Printer(self.print_info, self.print_error, self.print_success)
         printer.bold = self.bold

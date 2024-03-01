@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 
 from cacheops import invalidate_model, invalidate_obj
 from django.conf import settings
-from django.contrib.postgres.fields import RangeOperators
 from django.db import models
 from django.db.models import CheckConstraint, Deferrable, F, Q, UniqueConstraint
 from django.utils.functional import cached_property

@@ -35,7 +35,7 @@ from ...decorators import permission_required
 from ...forms import PageForm
 from ...models import Page, PageTranslation, Region
 from ...utils.file_utils import extract_zip_archive
-from ...utils.repair_tree import Printer, repair_tree
+from ...utils.repair_tree import repair_tree
 from ...utils.tree_mutex import tree_mutex
 
 if TYPE_CHECKING:
@@ -451,7 +451,7 @@ def move_page(
         page = Page.objects.get(id=page_id)
         try:
             page.save()
-        except IntegrityError as e:
+        except IntegrityError:
             logger.warning(
                 "First IntegrityError while moving %r – waiting 1s and trying again…",
                 page,
@@ -459,7 +459,7 @@ def move_page(
             time.sleep(1)
             try:
                 page.save()
-            except IntegrityError as e:
+            except IntegrityError:
                 logger.warning(
                     "Second IntegrityError while moving %r – repairing tree and trying again…",
                     page,
