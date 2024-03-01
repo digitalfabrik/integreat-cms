@@ -41,7 +41,6 @@ class Command(LogCommand):
             help="Whether changes should be written to the database",
         )
 
-    # pylint: disable=arguments-differ
     def handle(self, *args: Any, page_id: int, commit: bool, **options: Any) -> None:
         r"""
         Try to run the command
