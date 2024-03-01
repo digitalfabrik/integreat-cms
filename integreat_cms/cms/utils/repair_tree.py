@@ -122,6 +122,9 @@ class Printer:
 def repair_tree(
     page_id: int = 0, commit: bool = False, printer: Printer = Printer()
 ) -> None:
+    """
+    Fix the tree for a given page or all trees.
+    """
     mptt_fixer = MPTTFixer()
 
     if page_id:
@@ -151,11 +154,6 @@ def print_changed_fields(
 ) -> None:
     """
     Check whether the tree fields are correct
-
-    :param tree_node: The current node
-    :param left: The new left value of the node
-    :param right: The new right value of the node
-    :return: Whether the tree fields of the node are valid
     """
     printer.write(printer.bold(f"Page {tree_node.id}:"))
     printer.success(f"\tparent_id: {tree_node.parent_id}")
@@ -184,7 +182,7 @@ def print_changed_fields(
 
 class MPTTFixer:
     """
-    eats all nodes and coughs out fixed LFT, RGT and depth values. Uses the parent field
+    Gets ALL nodes and coughs out fixed LFT, RGT and depth values. Uses the parent field
     to fix hierarchy and sorts siblings by (potentially inconsistent) lft.
     """
 
@@ -281,10 +279,7 @@ class MPTTFixer:
         get all nodes of page tree, either identfied by one page or the (new) tree ID.
         get all trees if no key is provided.
         """
-        if node_id is not None:
-            tree_id = self.fixed_nodes[node_id].tree_id
-        else:
-            tree_id = None
+        tree_id = self.fixed_nodes[node_id].tree_id if node_id is not None else None
         for node in self.fixed_nodes.values():
             if tree_id is None or node.tree_id == tree_id:
                 yield node
