@@ -97,7 +97,7 @@ def get_directory_content_ajax(
         Q(region=region) | Q(region__isnull=True, is_hidden=False), parent=directory
     )
 
-    result = list(map(lambda d: d.serialize(), list(directories) + list(media_files)))
+    result = [d.serialize() for d in list(directories) + list(media_files)]
 
     return JsonResponse({"data": result})
 
@@ -122,7 +122,7 @@ def get_query_search_results_ajax(
 
     media_files = MediaFile.search(region, query)
     directories = Directory.search(region, query)
-    result = list(map(lambda d: d.serialize(), list(directories) + list(media_files)))
+    result = [d.serialize() for d in list(directories) + list(media_files)]
 
     logger.debug("Media library search results: %r", result)
     return JsonResponse({"data": result})
@@ -171,7 +171,7 @@ def get_unused_media_files_ajax(
         Q(region=request.region) | Q(region__isnull=True, is_hidden=False)
     ).filter_unused()
 
-    result = list(map(lambda d: d.serialize(), unused_media_files))
+    result = [d.serialize() for d in unused_media_files]
 
     return JsonResponse({"data": result})
 

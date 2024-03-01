@@ -100,7 +100,7 @@ def test_worker() -> None:
 
     result = loop.run_until_complete(worker(loop, task_generator, "0-test"))
 
-    assert set(result) == set(["1", "2", "3", "4", "5"])
+    assert set(result) == {"1", "2", "3", "4", "5"}
 
 
 async def test_translate_text_field_successful_translation(
@@ -231,10 +231,7 @@ async def test_translate_text_field_internal_server_error(
     await my_api_client.translate_text_field(session, text_field)
 
     errors = tuple(
-        map(
-            lambda record: record.message,
-            filter(lambda record: record.levelname == "ERROR", caplog.records),
-        )
+        (record.message for record in caplog.records if record.levelname == "ERROR")
     )
     assert (
         "SUMM.AI translation of <TextField (text: ein Text)> failed because of <class 'integreat_cms.summ_ai_api.utils.SummAiRuntimeError'>: API has internal server error"
@@ -271,10 +268,7 @@ async def test_translate_text_forbidden(
     await my_api_client.translate_text_field(session, text_field)
 
     errors = tuple(
-        map(
-            lambda record: record.message,
-            filter(lambda record: record.levelname == "ERROR", caplog.records),
-        )
+        (record.message for record in caplog.records if record.levelname == "ERROR")
     )
     assert len(errors) >= 1
     assert (
@@ -597,10 +591,7 @@ def test_check_rate_limit_exceeded(
         )
 
     errors = tuple(
-        map(
-            lambda record: record.message,
-            filter(lambda record: record.levelname == "ERROR", caplog.records),
-        )
+        (record.message for record in caplog.records if record.levelname == "ERROR")
     )
     assert len(errors) >= 2
     assert (

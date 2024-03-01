@@ -504,7 +504,7 @@ def extract_pn_details(
     if sort_for_region is not None:
         act = sort_for_region.active_languages
         all_languages = sorted(
-            list(all_languages),
+            all_languages,
             key=lambda x: act.index(x) if x in act else 1,
         )
     disable_edit = bool(

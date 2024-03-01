@@ -59,9 +59,9 @@ class LanguageTreeNode(AbstractTreeNode):
     )
     preferred_mt_provider = models.CharField(
         max_length=255,
-        choices=map(
-            lambda provider: (provider.name, provider.name),
-            machine_translation_providers.CHOICES,
+        choices=(
+            (provider.name, provider.name)
+            for provider in machine_translation_providers.CHOICES
         ),
         default=next(iter(machine_translation_providers.CHOICES)).name,
         verbose_name=_("machine translation provider"),
