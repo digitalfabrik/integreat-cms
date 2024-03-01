@@ -13,13 +13,21 @@ from treebeard.models import Node
 LOCK_SECONDS = 10
 INTERVAL = 0.5
 
+
 def build_monkeypatched_cursor_func(using=DEFAULT_DB_ALIAS):
+    """
+    patch upstream transaction to expose the database cursor
+    """
     connection = transaction.get_connection(using=using)
+
     def get_monkeypatch_cursor(cls, action):
         print(f"someone is getting our monkeypatched cursor ({using})! {cls}, {action}")
         return connection.cursor()
+
     return get_monkeypatch_cursor
 
+
+# pylint: disable=protected-access
 get_old_cursor_func = Node._get_database_cursor
 
 
@@ -28,6 +36,7 @@ def tree_mutex(func):
     define decorator that acts as a mutex
     """
 
+    # pylint: disable=protected-access
     @wraps(func)
     def innermost_function(*args, **kwargs):
         """
@@ -40,23 +49,20 @@ def tree_mutex(func):
         timeout = time.time() + LOCK_SECONDS
         while time.time() < timeout:
             if cache.get_or_set(lock_name, uuid, LOCK_SECONDS) == uuid:
-                print(f"  Acquired {lock_name} as {uuid}.")
-                # Use not as decorator but as context manager so we can make sure the same identifier is used by treebeard
                 with transaction.atomic(using=DEFAULT_DB_ALIAS, durable=True):
                     old_cursor_func = Node._get_database_cursor
-                    # Patch treebeard database cursor
-                    Node._get_database_cursor = build_monkeypatched_cursor_func(DEFAULT_DB_ALIAS)
-                    # Run the actual function
+                    Node._get_database_cursor = build_monkeypatched_cursor_func(
+                        DEFAULT_DB_ALIAS
+                    )
                     value = func(*args, **kwargs)
-                    # Restore old cursor function
                     Node._get_database_cursor = old_cursor_func
-                    #Node._get_database_cursor = get_old_cursor_func
-                    # Release the mutex
                     print(f"  Releasing {lock_name} ({uuid})")
                     cache.delete(lock_name)
                     return value
             else:
-                print(f"  Failed to acquire {lock_name} as {uuid}: {mutex} present. Waiting {INTERVAL}s…")
+                print(
+                    f"  Failed to acquire {lock_name} as {uuid}: MUTEX_{classname}_TREE present. Waiting {INTERVAL}s…"
+                )
                 time.sleep(INTERVAL)
         raise TimeoutError("Failed to acquire {classname} lock")
 

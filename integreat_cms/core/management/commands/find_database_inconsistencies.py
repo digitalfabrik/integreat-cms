@@ -70,11 +70,15 @@ class Command(LogCommand):
             if len(inconsistencies):
                 self.print_error("Oh oh, there are tree inconsistencies!")
                 for i in inconsistencies:
-                    if (lft := inconsistencies.filter(tree_id=i.tree_id, rgt=i.lft).first()):
+                    if lft := inconsistencies.filter(
+                        tree_id=i.tree_id, rgt=i.lft
+                    ).first():
                         self.print_error(
                             f"{i!r} has the same lft value ({i.lft}) as the rgt of {lft!r}"
                         )
-                    if (rgt := inconsistencies.filter(tree_id=i.tree_id, lft=i.rgt).first()):
+                    if rgt := inconsistencies.filter(
+                        tree_id=i.tree_id, lft=i.rgt
+                    ).first():
                         self.print_error(
                             f"{i!r} has the same rgt value ({i.rgt}) as the lft of {rgt!r}"
                         )

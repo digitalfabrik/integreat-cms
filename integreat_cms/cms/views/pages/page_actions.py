@@ -11,7 +11,6 @@ import time
 import uuid
 from typing import TYPE_CHECKING
 
-from db_mutex import DBMutexError, DBMutexTimeoutError
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
