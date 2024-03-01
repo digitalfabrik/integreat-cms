@@ -1,6 +1,7 @@
 """
 This module contains a custom decorator for db / redis mutexes
 """
+
 import time
 from functools import wraps
 from uuid import uuid4

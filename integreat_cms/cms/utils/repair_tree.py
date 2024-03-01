@@ -1,11 +1,12 @@
 """
 This module contains utilities to repair or detect inconsistencies in a tree
 """
+
 from __future__ import annotations
-from collections.abc import Callable
-from typing import Generator
 
 import logging
+from collections.abc import Callable
+from typing import Generator
 
 from django.db import transaction
 
