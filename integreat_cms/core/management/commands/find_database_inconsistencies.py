@@ -112,7 +112,6 @@ class Command(LogCommand):
                     f"✔ All versions of model {model.__name__} are consistent."
                 )
 
-    # pylint: disable=arguments-differ
     def handle(self, *args: Any, **options: Any) -> None:
         r"""
         Try to run the command
