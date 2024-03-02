@@ -115,7 +115,7 @@ class Printer:
         self._write = new
 
 
-@tree_mutex
+@tree_mutex("page")
 def repair_tree(
     page_id: int = 0, commit: bool = False, printer: Printer = Printer()
 ) -> None:

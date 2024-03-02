@@ -3,7 +3,6 @@ This module contains a custom decorator for db / redis mutexes
 """
 
 import time
-from functools import wraps
 from uuid import uuid4
 
 from django.core.cache import cache
@@ -31,39 +30,43 @@ def build_monkeypatched_cursor_func(using=DEFAULT_DB_ALIAS):
 get_old_cursor_func = Node._get_database_cursor
 
 
-def tree_mutex(func):
+def tree_mutex(classname):
     """
-    define decorator that acts as a mutex
+    Collect decorator argument
     """
 
-    # pylint: disable=protected-access
-    @wraps(func)
-    def innermost_function(*args, **kwargs):
+    def wrap(func):
         """
-        mutex logic
+        define decorator that acts as a mutex
         """
-        # TODO: get name of model that is used with the mutex
-        classname = "page"
-        lock_name = f"MUTEX_{classname}_TREE"
-        uuid = uuid4()
-        timeout = time.time() + LOCK_SECONDS
-        while time.time() < timeout:
-            if cache.get_or_set(lock_name, uuid, LOCK_SECONDS) == uuid:
-                with transaction.atomic(using=DEFAULT_DB_ALIAS, durable=True):
-                    old_cursor_func = Node._get_database_cursor
-                    Node._get_database_cursor = build_monkeypatched_cursor_func(
-                        DEFAULT_DB_ALIAS
+
+        # pylint: disable=protected-access
+        def innermost_function(*args, **kwargs):
+            """
+            mutex logic
+            """
+            lock_name = f"MUTEX_{classname}_TREE"
+            uuid = uuid4()
+            timeout = time.time() + LOCK_SECONDS
+            while time.time() < timeout:
+                if cache.get_or_set(lock_name, uuid, LOCK_SECONDS) == uuid:
+                    with transaction.atomic(using=DEFAULT_DB_ALIAS, durable=True):
+                        old_cursor_func = Node._get_database_cursor
+                        Node._get_database_cursor = build_monkeypatched_cursor_func(
+                            DEFAULT_DB_ALIAS
+                        )
+                        value = func(*args, **kwargs)
+                        Node._get_database_cursor = old_cursor_func
+                        print(f"  Releasing {lock_name} ({uuid})")
+                        cache.delete(lock_name)
+                        return value
+                else:
+                    print(
+                        f"  Failed to acquire {lock_name} as {uuid}: MUTEX_{classname}_TREE present. Waiting {INTERVAL}s…"
                     )
-                    value = func(*args, **kwargs)
-                    Node._get_database_cursor = old_cursor_func
-                    print(f"  Releasing {lock_name} ({uuid})")
-                    cache.delete(lock_name)
-                    return value
-            else:
-                print(
-                    f"  Failed to acquire {lock_name} as {uuid}: MUTEX_{classname}_TREE present. Waiting {INTERVAL}s…"
-                )
-                time.sleep(INTERVAL)
-        raise TimeoutError("Failed to acquire {classname} lock")
+                    time.sleep(INTERVAL)
+            raise TimeoutError("Failed to acquire {classname} lock")
 
-    return innermost_function
+        return innermost_function
+
+    return wrap
