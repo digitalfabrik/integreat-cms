@@ -49,16 +49,16 @@ logger = logging.getLogger(__name__)
 
 
 @keep_lazy_text
-def format_deepl_help_text(help_text: Promise) -> str:
+def format_mt_help_text(help_text: Promise) -> str:
     """
     Helper function to lazily format help text with number separators
 
-    :param help_text: DeepL field help text to format
+    :param help_text: MT field help text to format
     :return: formatted help text
     """
     return help_text.format(
-        floatformat(settings.DEEPL_CREDITS_ADDON, "g"),
-        floatformat(settings.DEEPL_CREDITS_FREE, "g"),
+        floatformat(settings.MT_CREDITS_ADDON, "g"),
+        floatformat(settings.MT_CREDITS_FREE, "g"),
     )
 
 
@@ -360,35 +360,35 @@ class Region(AbstractBaseModel):
         ),
     )
 
-    deepl_renewal_month = models.PositiveIntegerField(
+    mt_renewal_month = models.PositiveIntegerField(
         choices=months.CHOICES,
         default=months.JANUARY,
-        verbose_name=_("DeepL credits renewal date"),
+        verbose_name=_("Credits renewal date for foreign language translation"),
         help_text=_("Budget usage will be reset on the 1st of the month"),
     )
 
-    deepl_addon_booked = models.BooleanField(
+    mt_addon_booked = models.BooleanField(
         default=False,
-        verbose_name=_("DeepL add-on package booked"),
-        help_text=format_deepl_help_text(
+        verbose_name=_("Add-on package for foreign languages booked"),
+        help_text=format_mt_help_text(
             _(
                 "This makes {} translation credits available to the region in addition to the {} free ones."
             )
         ),
     )
 
-    deepl_midyear_start_month = models.PositiveIntegerField(
+    mt_midyear_start_month = models.PositiveIntegerField(
         default=None,
         blank=True,
         null=True,
         choices=months.CHOICES,
-        verbose_name=_("DeepL budget year start date"),
+        verbose_name=_("Budget year start date for foreign language translation"),
         help_text=_("Month from which the add-on package was booked"),
     )
 
-    deepl_budget_used = models.PositiveIntegerField(
+    mt_budget_used = models.PositiveIntegerField(
         default=0,
-        verbose_name=_("used DeepL budget"),
+        verbose_name=_("used budget"),
     )
 
     machine_translate_pages = models.PositiveIntegerField(
@@ -457,11 +457,14 @@ class Region(AbstractBaseModel):
     @cached_property
     def language_tree(self) -> list[LanguageTreeNode]:
         """
-        This property returns a QuerySet of all
+        This property returns a list of all
         :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode` objects of this region.
 
-        :return: A QuerySet of all active language tree nodes of this region
+        :return: A list of all language tree nodes of this region
         """
+        # Prevent ValueError for unsaved regions
+        if not self.pk:
+            return []
         try:
             # Try to get the prefetched language tree
             return self.prefetched_language_tree_nodes
@@ -751,35 +754,33 @@ class Region(AbstractBaseModel):
         return self.imprints.first()
 
     @property
-    def deepl_budget(self) -> int:
+    def mt_budget(self) -> int:
         """
         Calculate the maximum translation credit budget (number of words)
 
-        :return: The region's total DeepL budget
+        :return: The region's total MT budget
         """
         # All regions which did not book the add-on get the free credits
-        if not self.deepl_addon_booked:
-            return settings.DEEPL_CREDITS_FREE
+        if not self.mt_addon_booked:
+            return settings.MT_CREDITS_FREE
         # All regions which did book the add-on, but not mid-year, get the add-on credits
-        if not self.deepl_midyear_start_month:
-            return settings.DEEPL_CREDITS_ADDON + settings.DEEPL_CREDITS_FREE
+        if not self.mt_midyear_start_month:
+            return settings.MT_CREDITS_ADDON + settings.MT_CREDITS_FREE
         # All regions which booked the add-on in mid-year get a fraction of the add-on credits
         # Calculate how many months lie between the renewal month and the start month of the add-on
-        months_difference = self.deepl_renewal_month - self.deepl_midyear_start_month
+        months_difference = self.mt_renewal_month - self.mt_midyear_start_month
         # Calculate the available fraction of the add-on
         multiplier = (months_difference % 12) / 12
-        return int(
-            multiplier * settings.DEEPL_CREDITS_ADDON + settings.DEEPL_CREDITS_FREE
-        )
+        return int(multiplier * settings.MT_CREDITS_ADDON + settings.MT_CREDITS_FREE)
 
     @property
-    def deepl_budget_remaining(self) -> int:
+    def mt_budget_remaining(self) -> int:
         """
         Calculate the remaining translation credit budget (number of words)
 
-        :return: The region's remaining DeepL budget
+        :return: The region's remaining MT budget
         """
-        return max(0, self.deepl_budget - self.deepl_budget_used)
+        return max(0, self.mt_budget - self.mt_budget_used)
 
     @cached_property
     def backend_edit_link(self) -> str:

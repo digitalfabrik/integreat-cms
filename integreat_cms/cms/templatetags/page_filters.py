@@ -18,11 +18,11 @@ register = template.Library()
 @register.simple_tag
 def get_depth_in(node: Page, pageset: PageQuerySet) -> int:
     """
-    This tag returns the depth of node whithin the tree/pages in pageset.
+    This tag returns the depth of node within the tree/pages in pageset.
 
     :param node : the page
     :param pageset: The pages (all pages or pages chosen by filter)
-    :return: the depth of node whithin the tree/pages in pageset
+    :return: the depth of node within the tree/pages in pageset
     """
     if not node.parent in pageset:
         return 0
@@ -31,11 +31,11 @@ def get_depth_in(node: Page, pageset: PageQuerySet) -> int:
 
 def get_highest_anscentor_in(node: Page, pageset: PageQuerySet) -> Page:
     """
-    This tag returns the highest (farthest) anscestor of node whithin the tree/pages in pageset.
+    This tag returns the highest (farthest) ancestor of node within the tree/pages in pageset.
 
     :param node : the page
     :param pageset: The pages (all pages or pages chosen by filter)
-    :return: the highest (farthest) anscestor of node whithin the tree/pages in pageset
+    :return: the highest (farthest) ancestor of node within the tree/pages in pageset
     """
     if node.parent in pageset:
         return get_highest_anscentor_in(node.parent, pageset)

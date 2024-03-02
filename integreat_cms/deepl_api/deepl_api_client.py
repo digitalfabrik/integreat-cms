@@ -9,9 +9,10 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
 from django.db import transaction
-from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext_lazy
 
+from ..cms.utils.stringify_list import iter_to_string
 from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
 from ..core.utils.machine_translation_provider import MachineTranslationProvider
 from ..textlab_api.utils import check_hix_score
@@ -21,13 +22,9 @@ if TYPE_CHECKING:
     from django.http import HttpRequest
 
     from integreat_cms.cms.models.events.event import Event
-    from integreat_cms.cms.models.events.event_translation import EventTranslation
     from integreat_cms.cms.models.languages.language import Language
     from integreat_cms.cms.models.pages.page import Page
-    from integreat_cms.cms.models.pages.page_translation import PageTranslation
     from integreat_cms.cms.models.pois.poi import POI
-    from integreat_cms.cms.models.pois.poi_translation import POITranslation
-    from integreat_cms.cms.models.regions.region import Region
 
 logger = logging.getLogger(__name__)
 
@@ -57,7 +54,6 @@ class DeepLApiClient(MachineTranslationApiClient):
         self.translator = deepl.Translator(
             auth_key=settings.DEEPL_AUTH_KEY, server_url=settings.DEEPL_API_URL
         )
-        self.translatable_attributes = ["title", "content", "meta_description"]
 
     @staticmethod
     def get_target_language_key(target_language: Language) -> str:
@@ -73,40 +69,7 @@ class DeepLApiClient(MachineTranslationApiClient):
                 return code
         return ""
 
-    def check_usage(
-        self,
-        region: Region,
-        source_translation: EventTranslation | (PageTranslation | POITranslation),
-    ) -> tuple[bool, int]:
-        """
-        This function checks if the attempted translation would exceed the region's word limit
-
-        :param region: region for which to check usage
-        :param source_translation: single content object
-        :return: translation would exceed limit, region budget, attempted translation word count
-        """
-        # Gather content to be translated and calculate total word count
-        attributes = [
-            getattr(source_translation, attr, None)
-            for attr in self.translatable_attributes
-        ]
-        content_to_translate = [
-            unescape(strip_tags(attr)) for attr in attributes if attr
-        ]
-
-        content_to_translate_str = " ".join(content_to_translate)
-        for char in "-;:,;!?\n":
-            content_to_translate_str = content_to_translate_str.replace(char, " ")
-        word_count = len(content_to_translate_str.split())
-
-        # Check if translation would exceed DeepL usage limit
-        region.refresh_from_db()
-        # Allow up to DEEPL_SOFT_MARGIN more words than the actual limit
-        word_count_leeway = max(1, word_count - settings.DEEPL_SOFT_MARGIN)
-        translation_exceeds_limit = region.deepl_budget_remaining < word_count_leeway
-
-        return (translation_exceeds_limit, word_count)
-
+    # pylint: disable=too-many-locals, too-many-branches, too-many-statements
     def translate_queryset(
         self, queryset: list[Event] | (list[Page] | list[POI]), language_slug: str
     ) -> None:
@@ -130,21 +93,28 @@ class DeepLApiClient(MachineTranslationApiClient):
 
             target_language_key = self.get_target_language_key(target_language)
 
+            failed_changes_because_no_source_translation = []
+            failed_changes_because_exceeds_limit = []
+            failed_changes_because_insufficient_hix_score = []
+            failed_changes_generic_error = []
+            successful_changes = []
+
             for content_object in queryset:
                 source_translation = content_object.get_translation(
                     source_language.slug
                 )
                 if not source_translation:
-                    messages.error(
-                        self.request,
-                        _('No source translation could be found for {} "{}".').format(
-                            type(content_object)._meta.verbose_name.title(),
-                            content_object.best_translation.title,
-                        ),
+                    failed_changes_because_no_source_translation.append(
+                        content_object.best_translation.title
                     )
                     continue
 
-                if not check_hix_score(self.request, source_translation):
+                if not check_hix_score(
+                    self.request, source_translation, show_message=False
+                ):
+                    failed_changes_because_insufficient_hix_score.append(
+                        source_translation.title
+                    )
                     continue
 
                 existing_target_translation = content_object.get_translation(
@@ -157,16 +127,8 @@ class DeepLApiClient(MachineTranslationApiClient):
                     word_count,
                 ) = self.check_usage(region, source_translation)
                 if translation_exceeds_limit:
-                    messages.error(
-                        self.request,
-                        _(
-                            "Translation from {} to {} not possible: translation of {} words would exceed the remaining budget of {} words."
-                        ).format(
-                            source_language,
-                            target_language,
-                            word_count,
-                            region.deepl_budget_remaining,
-                        ),
+                    failed_changes_because_exceeds_limit.append(
+                        source_translation.title
                     )
                     continue
 
@@ -185,7 +147,7 @@ class DeepLApiClient(MachineTranslationApiClient):
                     if hasattr(source_translation, attr) and getattr(
                         source_translation, attr
                     ):
-                        # data has to be unescaped for DeepL to recognize Umlaute
+                        # data has to be unescaped for DeepL to recognize umlauts
                         data[attr] = self.translator.translate_text(
                             unescape(getattr(source_translation, attr)),
                             source_lang=source_language.slug,
@@ -202,7 +164,7 @@ class DeepLApiClient(MachineTranslationApiClient):
                         source_translation.foreign_field(): content_object,
                     },
                 )
-                # Validate event translation
+                # Validate content translation
                 if content_translation_form.is_valid():
                     content_translation_form.save()
                     # Revert "currently in translation" value of all versions
@@ -220,29 +182,102 @@ class DeepLApiClient(MachineTranslationApiClient):
                         "Successfully translated for: %r",
                         content_translation_form.instance,
                     )
-                    messages.success(
-                        self.request,
-                        _('{} "{}" has successfully been translated ({} ➜ {}).').format(
-                            type(content_object)._meta.verbose_name.title(),
-                            source_translation.title,
-                            source_language,
-                            target_language,
-                        ),
-                    )
+                    successful_changes.append(source_translation.title)
                 else:
                     logger.error(
                         "Automatic translation for %r could not be created because of %r",
                         content_object,
                         content_translation_form.errors,
                     )
-                    messages.error(
-                        self.request,
-                        _('{} "{}" could not be translated automatically.').format(
-                            type(content_object)._meta.verbose_name.title(),
-                            source_translation.title,
-                        ),
-                    )
+                    failed_changes_generic_error.append(source_translation.title)
 
                 # Update remaining DeepL usage for the region
-                region.deepl_budget_used += word_count
+                region.mt_budget_used += word_count
                 region.save()
+
+            if queryset:
+                meta = type(queryset[0])._meta
+                model_name = meta.verbose_name.title()
+                model_name_plural = meta.verbose_name_plural
+            else:
+                model_name = model_name_plural = ""
+
+            if successful_changes:
+                messages.success(
+                    self.request,
+                    ngettext_lazy(
+                        "{model_name} {object_names} has successfully been translated ({source_language} ➜ {target_language}).",
+                        "The following {model_name_plural} have successfully been translated ({source_language} ➜ {target_language}): {object_names}",
+                        len(successful_changes),
+                    ).format(
+                        model_name=model_name,
+                        model_name_plural=model_name_plural,
+                        source_language=source_language,
+                        target_language=target_language,
+                        object_names=iter_to_string(successful_changes),
+                    ),
+                )
+
+            if failed_changes_because_no_source_translation:
+                messages.error(
+                    self.request,
+                    ngettext_lazy(
+                        "{model_name} {object_names} could not be translated because its source translation is missing.",
+                        "The following {model_name_plural} could not be translated because their source translations are missing: {object_names}",
+                        len(failed_changes_because_exceeds_limit),
+                    ).format(
+                        model_name=model_name,
+                        model_name_plural=model_name_plural,
+                        object_names=iter_to_string(
+                            failed_changes_because_no_source_translation
+                        ),
+                    ),
+                )
+
+            if failed_changes_because_exceeds_limit:
+                messages.error(
+                    self.request,
+                    ngettext_lazy(
+                        "{model_name} {object_names} could not be translated because it would exceed the remaining budget of {remaining_budget} words.",
+                        "The following {model_name_plural} could not be translated because they would exceed the remaining budget of {remaining_budget} words: {object_names}",
+                        len(failed_changes_because_exceeds_limit),
+                    ).format(
+                        model_name=model_name,
+                        model_name_plural=model_name_plural,
+                        remaining_budget=region.mt_budget_remaining,
+                        object_names=iter_to_string(
+                            failed_changes_because_exceeds_limit
+                        ),
+                    ),
+                )
+
+            if failed_changes_because_insufficient_hix_score:
+                messages.error(
+                    self.request,
+                    ngettext_lazy(
+                        "{model_name} {object_names} could not be translated because its HIX score is too low for machine translation (minimum required: {min_required}).",
+                        "The following {model_name_plural} could not be translated because their HIX score is too low for machine translation (minimum required: {min_required}): {object_names}",
+                        len(failed_changes_because_insufficient_hix_score),
+                    ).format(
+                        model_name=model_name,
+                        model_name_plural=model_name_plural,
+                        min_required=settings.HIX_REQUIRED_FOR_MT,
+                        object_names=iter_to_string(
+                            failed_changes_because_insufficient_hix_score
+                        ),
+                    ),
+                )
+
+            if failed_changes_generic_error:
+                messages.error(
+                    self.request,
+                    ngettext_lazy(
+                        "{model_name} {object_names} could not be translated automatically.",
+                        "The following {model_name_plural} could not translated automatically: {object_names}",
+                        len(failed_changes_generic_error),
+                    ).format(
+                        model_name=model_name,
+                        model_name_plural=model_name_plural,
+                        object_names=iter_to_string(failed_changes_generic_error),
+                    ),
+                )

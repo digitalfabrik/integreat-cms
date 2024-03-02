@@ -2,8 +2,8 @@ window.addEventListener("load", () => {
     // event handler to toggle form fields
     const toggleables = [
         ["id_statistics_enabled", "statistics-toggle-div"],
-        ["id_deepl_addon_booked", "deepl-toggle-div"],
-        ["id_deepl_midyear_start_enabled", "deepl-renewal-toggle-div"],
+        ["id_mt_addon_booked", "mt-toggle-div"],
+        ["id_mt_midyear_start_enabled", "mt-renewal-toggle-div"],
         ["id_automatic_translation", "language-options"],
         ["id_schedule_send", "push_notification_schedule"],
         ["id_is_template", "push_notification_template_name"],

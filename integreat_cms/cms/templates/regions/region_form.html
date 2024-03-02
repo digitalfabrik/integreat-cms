@@ -311,9 +311,9 @@
                     {% endif %}
                 </div>
                 <div>
-                    <!-- Options related to DeepL machine translation -->
+                    <!-- Options related to foreign language machine translation -->
                     <label>
-                        {% trans "DeepL machine translation" %}
+                        {% trans "Foreign language machine translation" %}
                     </label>
                     {% if form.instance.id %}
                         <div class="max-w-xs">
@@ -322,7 +322,7 @@
                                     {% trans "Current total budget" %}:
                                 </label>
                                 <p>
-                                    {{ form.instance.deepl_budget|intcomma }}
+                                    {{ form.instance.mt_budget|intcomma }}
                                 </p>
                             </div>
                             <div class="flex flex-wrap justify-between">
@@ -330,7 +330,7 @@
                                     {% trans "Already consumed" %}:
                                 </label>
                                 <p>
-                                    {{ form.instance.deepl_budget_used|intcomma }}
+                                    {{ form.instance.mt_budget_used|intcomma }}
                                 </p>
                             </div>
                             <div class="flex flex-wrap justify-between">
@@ -338,44 +338,44 @@
                                     {% trans "Remaining words" %}:
                                 </label>
                                 <p>
-                                    {{ form.instance.deepl_budget_remaining|intcomma }}
+                                    {{ form.instance.mt_budget_remaining|intcomma }}
                                 </p>
                             </div>
                         </div>
                     {% endif %}
-                    <label for="{{ form.deepl_renewal_month.id_for_label }}" class="secondary">
-                        {{ form.deepl_renewal_month.label }}
+                    <label for="{{ form.mt_renewal_month.id_for_label }}" class="secondary">
+                        {{ form.mt_renewal_month.label }}
                     </label>
-                    {% render_field form.deepl_renewal_month %}
+                    {% render_field form.mt_renewal_month %}
                     <div class="help-text">
-                        {{ form.deepl_renewal_month.help_text }}
+                        {{ form.mt_renewal_month.help_text }}
                     </div>
-                    {% render_field form.deepl_addon_booked %}
-                    <label for="{{ form.deepl_addon_booked.id_for_label }}" class="secondary">
-                        {{ form.deepl_addon_booked.label }}
+                    {% render_field form.mt_addon_booked %}
+                    <label for="{{ form.mt_addon_booked.id_for_label }}" class="secondary">
+                        {{ form.mt_addon_booked.label }}
                     </label>
                     <div class="help-text">
-                        {{ form.deepl_addon_booked.help_text }}
+                        {{ form.mt_addon_booked.help_text }}
                     </div>
-                    <div id="deepl-toggle-div"
-                         {% if not form.instance.deepl_addon_booked %}class="hidden"{% endif %}>
-                        {% render_field form.deepl_midyear_start_enabled %}
-                        <label for="{{ form.deepl_midyear_start_enabled.id_for_label }}"
+                    <div id="mt-toggle-div"
+                         {% if not form.instance.mt_addon_booked %}class="hidden"{% endif %}>
+                        {% render_field form.mt_midyear_start_enabled %}
+                        <label for="{{ form.mt_midyear_start_enabled.id_for_label }}"
                                class="secondary">
-                            {{ form.deepl_midyear_start_enabled.label }}
+                            {{ form.mt_midyear_start_enabled.label }}
                         </label>
                         <div class="help-text">
-                            {{ form.deepl_midyear_start_enabled.help_text }}
+                            {{ form.mt_midyear_start_enabled.help_text }}
                         </div>
-                        <div id="deepl-renewal-toggle-div"
-                             {% if not form.instance.deepl_midyear_start_enabled %}class="hidden"{% endif %}>
-                            <label for="{{ form.deepl_midyear_start_month.id_for_label }}"
+                        <div id="mt-renewal-toggle-div"
+                             {% if not form.instance.mt_midyear_start_enabled %}class="hidden"{% endif %}>
+                            <label for="{{ form.mt_midyear_start_month.id_for_label }}"
                                    class="secondary">
-                                {{ form.deepl_midyear_start_month.label }}
+                                {{ form.mt_midyear_start_month.label }}
                             </label>
-                            {% render_field form.deepl_midyear_start_month %}
+                            {% render_field form.mt_midyear_start_month %}
                             <div class="help-text">
-                                {{ form.deepl_midyear_start_month.help_text }}
+                                {{ form.mt_midyear_start_month.help_text }}
                             </div>
                         </div>
                     </div>

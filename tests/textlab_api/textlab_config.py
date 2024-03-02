@@ -8,8 +8,8 @@ TEXTLAB_NORMALIZE_TEXT = [
         "<p><strong>One</strong> paragraph</p>",
     ),
     (
-        "<p>One paragraph</p><p>&nbsp;&nbsp;</p><p>&nbsp;</p>",
-        "<p>One paragraph</p>",
+        "<p><strong>One</strong> paragraph</p><p>&nbsp;&nbsp;</p><p>&nbsp;</p>",
+        "<p><strong>One</strong> paragraph</p>",
     ),
     (
         "<div><p>One paragraph</p></div>",
@@ -56,7 +56,7 @@ TEXTLAB_NORMALIZE_TEXT = [
         '<p><a href="some.url">Some link</a></p>',
     ),
     (
-        '<div><p>Some image</p><p><a href="some.image"><img src="some.image" alt=""></a></p></div>',
+        '<div><p>Some image</p><p><a href="some.image"><img src="some.image" alt=""></a></p><p>&nbsp;</p></div>',
         "<p>Some image</p>",
     ),
     (

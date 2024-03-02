@@ -42,7 +42,7 @@ def normalize_text(text: str) -> str:
         root = fromstring(text)
 
         # Remove paragraphs without text (e.g. empty paragraphs or with an image only)
-        for node in root.iter():
+        for node in list(root):
             node_text = node.text_content()
             if not node_text or not node_text.strip():
                 node.getparent().remove(node)

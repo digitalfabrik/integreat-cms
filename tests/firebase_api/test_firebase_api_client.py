@@ -237,12 +237,10 @@ class TestFirebaseApiClient:
         pns = FirebaseApiClient(notification)
         pns.send_all()
 
-        assert targets == set(
-            [
-                "/topics/augsburg-en-news",
-                "/topics/augsburg-de-news",
-            ]
-        )
+        assert targets == {
+            "/topics/augsburg-en-news",
+            "/topics/augsburg-de-news",
+        }
 
     @pytest.mark.django_db
     def test_multiple_regions_notification_send(
@@ -266,11 +264,9 @@ class TestFirebaseApiClient:
         pns = FirebaseApiClient(notification)
         pns.send_all()
 
-        assert targets == set(
-            [
-                "/topics/nurnberg-en-news",
-                "/topics/nurnberg-de-news",
-                "/topics/augsburg-en-news",
-                "/topics/augsburg-de-news",
-            ]
-        )
+        assert targets == {
+            "/topics/nurnberg-en-news",
+            "/topics/nurnberg-de-news",
+            "/topics/augsburg-en-news",
+            "/topics/augsburg-de-news",
+        }

@@ -4,10 +4,13 @@ This module contains helpers for the SUMM.AI API client
 
 from __future__ import annotations
 
+import asyncio
 import itertools
 import logging
+import time
+from collections import deque
 from html import unescape
-from typing import TYPE_CHECKING
+from typing import Generic, TYPE_CHECKING, TypeVar
 
 from django.conf import settings
 from django.contrib import messages
@@ -16,7 +19,10 @@ from lxml.etree import strip_tags, SubElement
 from lxml.html import fromstring, HtmlElement, tostring
 
 if TYPE_CHECKING:
+    from collections.abc import Callable
     from django.forms.models import ModelFormMetaclass
+    from functools import partial
+    from typing import Any
 
     from ..cms.models import (
         Language,
@@ -26,12 +32,35 @@ if TYPE_CHECKING:
     from django.http import HttpRequest
     from ..cms.models.abstract_content_model import AbstractContentModel
     from ..cms.models.abstract_content_translation import AbstractContentTranslation
-    from .summ_ai_api_client import SummAiException
 
 from ..cms.constants import status
 from ..cms.utils.translation_utils import gettext_many_lazy as __
 
 logger = logging.getLogger(__name__)
+
+
+class SummAiException(Exception):
+    """
+    Base class for custom SUMM.AI exceptions
+    """
+
+
+class SummAiRateLimitingExceeded(SummAiException):
+    """
+    Custom Exception class for running into rate limit in SUMM.AI
+    """
+
+
+class SummAiRuntimeError(SummAiException):
+    """
+    Custom Exception class for any other errors during interaction with SUMM.AI
+    """
+
+
+class SummAiInvalidJSONError(SummAiException):
+    """
+    Custom Exception class for faulty responses from SUMM.AI
+    """
 
 
 class TextField:
@@ -273,31 +302,20 @@ class TranslationHelper:
         )
         return text_fields
 
-    def commit(self, easy_german: Language) -> None:
+    def commit(self, easy_german: Language) -> bool:
         """
         Save the translated changes to the database
 
         :param easy_german: The language object of Easy German
+        :return: Whether the commit was successful
         """
         if not self.valid:
-            return
+            return False
         if TYPE_CHECKING:
             assert self.german_translation
         # Check whether any of the fields returned an error
         if any(field.exception for field in self.fields):
-            messages.error(
-                self.request,
-                __(
-                    _(
-                        '{} "{}" could not be automatically translated into Easy German.'
-                    ).format(
-                        type(self.object_instance)._meta.verbose_name.title(),
-                        self.german_translation.title,
-                    ),
-                    _("Please try again later or contact an administrator."),
-                ),
-            )
-            return
+            return False
         # Initialize form to create new translation object
         existing_target_translation = self.object_instance.get_translation(
             settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG
@@ -330,16 +348,7 @@ class TranslationHelper:
                 self.object_instance,
                 content_translation_form.errors,
             )
-            messages.error(
-                self.request,
-                _(
-                    '{} "{}" could not be automatically translated into Easy German.'
-                ).format(
-                    type(self.object_instance)._meta.verbose_name.title(),
-                    self.german_translation.title,
-                ),
-            )
-            return
+            return False
         # Save new translation
         content_translation_form.save()
         # Revert "currently in translation" value of all versions
@@ -357,13 +366,7 @@ class TranslationHelper:
             "Successfully translated %r into Easy German",
             content_translation_form.instance,
         )
-        messages.success(
-            self.request,
-            _('{} "{}" has been successfully translated into Easy German.').format(
-                type(self.object_instance)._meta.verbose_name.title(),
-                self.german_translation.title,
-            ),
-        )
+        return True
 
     def __repr__(self) -> str:
         """
@@ -372,3 +375,191 @@ class TranslationHelper:
         :return: The canonical string representation of the translation helper
         """
         return f"<TranslationHelper (translation: {self.german_translation!r})>"
+
+
+T = TypeVar("T")
+
+
+class PatientTaskQueue(deque, Generic[T]):
+    """
+    A 'patient' task queue which only hands out sleep tasks after a task was reported as failed.
+
+    :param last_rate_limit: The UNIX timestamp when the last rate limited request occurred
+    :param wait_time: Seconds to wait after running into the rate limit before sending the next requests
+    :param max_retries: Maximum amount of retries for a string to translate before giving up
+    :param tasks: List of request tasks
+    :param abort_function: Function to call for each unfinished task if the queue is aborted
+    """
+
+    #: The UNIX timestamp when the last rate limited request occurred
+    last_rate_limit: float | None = None
+
+    #: Seconds to wait after running into the rate limit before sending the next requests
+    wait_time: float = settings.SUMM_AI_RATE_LIMIT_COOLDOWN
+
+    #: Maximum amount of retries for a string to translate before giving up
+    max_retries: int = settings.SUMM_AI_MAX_RETRIES
+
+    def __init__(
+        self,
+        tasks: list[T],
+        wait_time: float = settings.SUMM_AI_RATE_LIMIT_COOLDOWN,
+        max_retries: int = settings.SUMM_AI_MAX_RETRIES,
+        abort_function: Callable | None = None,
+    ) -> None:
+        """
+        Constructor initializes the class variables
+
+        :param tasks: List of request tasks
+        :param wait_time: Waiting time until start next request in seconds
+        :param max_retries: Maximum retries before giving up
+        :param abort_function: Function to call for each unfinished task if the queue is aborted.
+                               Takes two arguments: The task (:class:`asyncio.Future`) and the reason given (:class:`str`).
+                               Can be `None` instead to do nothing.
+        """
+        super().__init__(tasks)
+        self.wait_time = wait_time
+        self.max_retries = max_retries
+        self.retries = 0
+        self.abort_function = abort_function
+        # Whether queue processing was aborted
+        self._aborted = False
+        # Tasks handed out to workers. If we get a report about a task that completed or hit the rate limit and it's not in this list,
+        # or if all workers finish and this list is not empty, something went wrong.
+        self._in_progress: list[T] = []
+
+    def __aiter__(self) -> PatientTaskQueue[T]:
+        return self
+
+    async def __anext__(self) -> T:
+        """
+        Checks if the queue processing should wait.
+        Ejects the next task or goes to sleep until the end of the waiting time.
+
+        :returns: a task of the queue
+        """
+        if self._aborted:
+            raise StopAsyncIteration
+
+        now: float = time.time()
+        if (
+            self.last_rate_limit is not None
+            and (wait_time_remaining := self.wait_time - (now - self.last_rate_limit))
+            > 0
+        ):
+            # Bail out early when the queue is empty
+            if not self:
+                raise StopAsyncIteration
+            # If we are currently waiting out a rate limit,
+            # sleep for the remaining time before handing out the next task.
+            logger.debug(
+                "PatientTaskQueue hit rate limit previously (blocking for another %ss)",
+                wait_time_remaining,
+            )
+            await asyncio.sleep(wait_time_remaining)
+        try:
+            task = self.popleft()
+            self._in_progress.append(task)
+            return task
+        except IndexError as e:
+            raise StopAsyncIteration from e
+
+    def hit_rate_limit(self, task: T) -> None:
+        """
+        A task hit the rate limit, so wait a bit and reschedule the task
+
+        :param task: The task that failed because of the rate limiting
+        """
+        assert (
+            task in self._in_progress
+        ), f"PatientTaskQueue: Failed task not known as in progress: {task}"
+
+        # Only save current timestamp if this is the first failed request reported
+        if (
+            self.last_rate_limit is None
+            or time.time() - self.last_rate_limit > self.wait_time
+        ):
+            self.last_rate_limit = time.time()
+            self.retries += 1
+            logger.debug(
+                "PatientTaskQueue hit rate limit during %r (blocking for %ss, %s/%s retries)",
+                task,
+                self.wait_time,
+                self.retries - 1,
+                self.max_retries,
+            )
+        else:
+            logger.debug(
+                "PatientTaskQueue hit rate limit during %r (already known, %s/%ss elapsed)",
+                task,
+                time.time() - self.last_rate_limit,
+                self.wait_time,
+            )
+
+        # Reschedule the failed task
+        self._in_progress.remove(task)
+        self.appendleft(task)
+
+        if self.retries > self.max_retries and not self._aborted:
+            self.abort(
+                f"Retried tasks a consecutive {self.max_retries} times. Giving up."
+            )
+
+    def completed(self, task: T) -> None:
+        """
+        A task was completed, reset the retry counter
+
+        :param task: The task that failed because of the rate limiting
+        """
+        assert (
+            task in self._in_progress
+        ), f"PatientTaskQueue: Completed task not known as in progress: {task}"
+
+        self.retries = 0
+        self._in_progress.remove(task)
+
+    def abort(self, reason: str = "Aborted") -> None:
+        """
+        Abort the Queue, handling unfinished task according to the supplied abort function.
+
+        :param reason: The reason why the queue was aborted that is to be handed to the supplied abort function.
+        """
+        self._aborted = True
+        logger.debug("PatientTaskQueue aborted: %s", reason)
+        if self.abort_function:
+            for unfinished_task in list(self) + self._in_progress:
+                self.abort_function(unfinished_task, reason)
+
+
+async def worker(
+    loop: asyncio.AbstractEventLoop,
+    task_generator: PatientTaskQueue[partial],
+    identifier: str,
+) -> list[Any]:
+    """
+    Continuously gets a task from the queue and executes it.
+    Stops once no more tasks are available.
+    This form makes it easy to always have at most n concurrent tasks
+    as well as intermittent wait times through the task generator.
+
+    Catches :class:`~integreat_cms.summ_ai_api.utils.SummAiRateLimitingExceeded` and :class:`~integreat_cms.summ_ai_api.utils.SummAiInvalidJSONError` and counts them as rate limit hits in order enqueue them again.
+
+    :param loop: The asyncio event loop to execute tasks in
+    :param task_generator: Queue to execute tasks from
+    :param identifier: Identifyer of the worker (for logging purposes)
+    :returns: A list of task-results
+    """
+    logger.debug("Worker #%s initialized", identifier)
+
+    completed: list[Any] = []
+    async for task in task_generator:
+        try:
+            result = await loop.create_task(task())
+        except (SummAiRateLimitingExceeded, SummAiInvalidJSONError):
+            task_generator.hit_rate_limit(task)
+        else:
+            task_generator.completed(task)
+            completed.append(result)
+
+    logger.debug("Worker #%s completed %s tasks", identifier, len(completed))
+    return completed

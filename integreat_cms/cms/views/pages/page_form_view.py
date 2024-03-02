@@ -402,12 +402,20 @@ class PageFormView(
 
             # Add the success message and redirect to the edit page
             if not page_instance:
-                messages.success(
-                    request,
-                    _('Page "{}" was successfully created').format(
-                        page_translation_form.instance.title
-                    ),
-                )
+                if page_translation_form.instance.status == status.REVIEW:
+                    messages.success(
+                        request,
+                        _(
+                            'Page "{}" was successfully created and submitted for approval'
+                        ).format(page_translation_form.instance.title),
+                    )
+                else:
+                    messages.success(
+                        request,
+                        _('Page "{}" was successfully created').format(
+                            page_translation_form.instance.title
+                        ),
+                    )
             elif (
                 not page_form.has_changed() and not page_translation_form.has_changed()
             ):

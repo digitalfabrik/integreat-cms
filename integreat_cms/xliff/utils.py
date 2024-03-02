@@ -22,12 +22,14 @@ from django.db import IntegrityError, transaction
 from django.forms.models import model_to_dict
 from django.utils.html import format_html, format_html_join
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext_lazy
 from linkcheck import update_lock
 
 from ..cms.constants import text_directions
 from ..cms.forms import PageTranslationForm
 from ..cms.models import Page, PageTranslation
 from ..cms.utils.file_utils import create_zip_archive
+from ..cms.utils.stringify_list import iter_to_string
 from ..cms.utils.translation_utils import gettext_many_lazy as __
 
 if TYPE_CHECKING:
@@ -387,9 +389,13 @@ def xliff_import_confirm(
     :param request: The current request (used for error messages)
     :param xliff_dir: The directory containing the xliff files
     :param machine_translated: A flag indicating the import was marked as machine translated
-    :return: A dict containing data about the imported xliff files
+    :return: Whether the import was successful
     """
     success = True
+
+    successful_imports = []
+    imports_without_changes = []
+
     # Acquire linkcheck lock to avoid race conditions between post_save signal and links.delete()
     with update_lock:
         # Iterate over all xliff files
@@ -473,12 +479,7 @@ def xliff_import_confirm(
                                 xliff_file,
                                 request.user,
                             )
-                            messages.success(
-                                request,
-                                _("Page {} was imported successfully.").format(
-                                    page_translation.readable_title
-                                ),
-                            )
+                            successful_imports.append(page_translation.readable_title)
                         else:
                             logger.info(
                                 "%r of XLIFF file %r was imported without changes by %r",
@@ -486,12 +487,29 @@ def xliff_import_confirm(
                                 xliff_file,
                                 request.user,
                             )
-                            messages.info(
-                                request,
-                                _("Page {} was imported without changes.").format(
-                                    page_translation.readable_title
-                                ),
+                            imports_without_changes.append(
+                                page_translation.readable_title
                             )
+
+    if successful_imports:
+        messages.success(
+            request,
+            ngettext_lazy(
+                "Page {} was imported successfully.",
+                "Pages {} were imported successfully.",
+                len(successful_imports),
+            ).format(iter_to_string(successful_imports, quotation_char="")),
+        )
+
+    if imports_without_changes:
+        messages.info(
+            request,
+            ngettext_lazy(
+                "Page {} was imported without changes.",
+                "Pages {} were imported without changes.",
+                len(imports_without_changes),
+            ).format(iter_to_string(imports_without_changes, quotation_char="")),
+        )
 
     return success
 

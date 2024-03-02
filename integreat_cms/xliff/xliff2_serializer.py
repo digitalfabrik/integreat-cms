@@ -44,7 +44,7 @@ class Serializer(base_serializer.Serializer):
         :return: The serialized XLIFF string
         """
         # Get all language objects of the given page translations
-        language_set = set(map(lambda p: p.language, queryset))
+        language_set = {p.language for p in queryset}
         logger.debug("XLIFF 2.0 serialization for languages %r", language_set)
         if not language_set:
             raise base.SerializationError("No page translations given to serialize.")
@@ -56,7 +56,7 @@ class Serializer(base_serializer.Serializer):
             )
 
         # Get all region objects of the given page translations
-        region_set = set(map(lambda p: p.page.region, queryset))
+        region_set = {p.page.region for p in queryset}
         logger.debug("XLIFF 2.0 serialization for regions %r", region_set)
         # Check if all given translations are of the same region
         if len(region_set) != 1:

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+import threading
 import time
 from copy import deepcopy
 from typing import TYPE_CHECKING
@@ -16,12 +17,14 @@ from django.utils.translation import override
 from linkcheck.listeners import disable_listeners, tasks_queue
 from linkcheck.models import Link
 
+from integreat_cms.cms.utils.linkcheck_utils import replace_links
+
 from ....gvz_api.utils import GvzRegion
 from ....matomo_api.matomo_api_client import MatomoException
 from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ...constants import status
 from ...models import LanguageTreeNode, OfferTemplate, Page, PageTranslation, Region
-from ...models.regions.region import format_deepl_help_text
+from ...models.regions.region import format_mt_help_text
 from ...utils.slug_utils import generate_unique_slug_helper
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..custom_model_form import CustomModelForm
@@ -115,12 +118,12 @@ class RegionForm(CustomModelForm):
         required=False,
     )
 
-    deepl_midyear_start_enabled = forms.BooleanField(
+    mt_midyear_start_enabled = forms.BooleanField(
         required=False,
-        label=_("DeepL budget year start differs from renewal date"),
+        label=_("Budget year start differs from the renewal date"),
         help_text=__(
             _("Enable to set an add-on starting date differing from the renewal date."),
-            format_deepl_help_text(
+            format_mt_help_text(
                 _("Budget will be set as a monthly fraction of {} credits")
             ),
         ),
@@ -179,9 +182,9 @@ class RegionForm(CustomModelForm):
             "fallback_translations_enabled",
             "summ_ai_enabled",
             "hix_enabled",
-            "deepl_renewal_month",
-            "deepl_addon_booked",
-            "deepl_midyear_start_month",
+            "mt_renewal_month",
+            "mt_addon_booked",
+            "mt_midyear_start_month",
             "zammad_url",
         ]
         #: The widgets which are used in this form
@@ -210,8 +213,8 @@ class RegionForm(CustomModelForm):
             self.fields["summ_ai_enabled"].disabled = True
         if not settings.TEXTLAB_API_ENABLED and not self.instance.hix_enabled:
             self.fields["hix_enabled"].disabled = True
-        self.fields["deepl_midyear_start_enabled"].initial = (
-            self.instance.deepl_midyear_start_month is not None
+        self.fields["mt_midyear_start_enabled"].initial = (
+            self.instance.mt_midyear_start_month is not None
         )
         self.disabled_offer_options = (
             OfferTemplate.objects.filter(pages__region=self.instance)
@@ -266,8 +269,9 @@ class RegionForm(CustomModelForm):
                     duplicate_imprint(source_region, region)
             # Duplicate media content
             duplicate_media(source_region, region)
-            # Create links for the most recent versions of all translations manually
-            find_links(region)
+
+            # Create links for the most recent versions of all translations manually and replace internal links
+            create_and_replace_links_async(source_region, region)
 
         return region
 
@@ -302,21 +306,23 @@ class RegionForm(CustomModelForm):
         else:
             cleaned_data["matomo_id"] = None
 
-        # If DeepL budget year differs from renewal date is set, make sure a budget year start date is set
+        # If MT budget year differs from renewal date is set, make sure a budget year start date is set
         if (
-            cleaned_data["deepl_midyear_start_enabled"]
-            and cleaned_data["deepl_midyear_start_month"] is None
+            cleaned_data["mt_midyear_start_enabled"]
+            and cleaned_data["mt_midyear_start_month"] is None
         ):
             self.add_error(
-                "deepl_midyear_start_month",
-                _("Please provide a valid DeepL budget year start date."),
+                "mt_midyear_start_month",
+                _(
+                    "Please provide a valid budget year start date for foreign language translation."
+                ),
             )
         elif (
-            not cleaned_data["deepl_midyear_start_enabled"]
-            or cleaned_data["deepl_midyear_start_month"]
-            == cleaned_data["deepl_renewal_month"]
+            not cleaned_data["mt_midyear_start_enabled"]
+            or cleaned_data["mt_midyear_start_month"]
+            == cleaned_data["mt_renewal_month"]
         ):
-            cleaned_data["deepl_midyear_start_month"] = None
+            cleaned_data["mt_midyear_start_month"] = None
 
         # Re-combine all offers and make sure no non-disableable offers have been disabled
         if not cleaned_data["zammad_url"]:
@@ -813,6 +819,29 @@ def duplicate_media(source_region: Region, target_region: Region) -> None:
     # TODO: implement duplication of all media files
 
 
+def create_and_replace_links_async(source_region: Region, region: Region) -> None:
+    """
+    Create all links for the latest versions of the region's page translations, then replace all links in the content.
+    This is run as a background task.
+
+
+    :param source_region: The region with the slug of the to be replaced links
+    :type source_region: ~integreat_cms.cms.models.regions.region.Region
+
+    :param region: The region in which the links should be replaced and created
+    :type region: ~integreat_cms.cms.models.regions.region.Region
+    """
+
+    def create_and_update_links() -> None:
+        find_links(region)
+        replace_internal_links(source_region, region)
+
+    t = threading.Thread(target=create_and_update_links, daemon=True)
+    t.start()
+    if not settings.BACKGROUND_TASKS_ENABLED:
+        t.join()
+
+
 def find_links(region: Region) -> None:
     """
     Find all link objects in the latest versions of the region's page translations
@@ -834,3 +863,18 @@ def find_links(region: Region) -> None:
     logger.debug(
         "Found links: %r", Link.objects.filter(Q(page_translation__page__region=region))
     )
+
+
+def replace_internal_links(source_region: Region, region: Region) -> None:
+    """
+    Replace all internal link objects with the latest versions of the region's page translations
+
+    :param source_region: The region with the slug of the to be replaced links
+    :type source_region: ~integreat_cms.cms.models.regions.region.Region
+
+    :param region: The region in which the links should be replaced
+    :type region: ~integreat_cms.cms.models.regions.region.Region
+    """
+    old_link = f"{settings.WEBAPP_URL}/{source_region.slug}/"
+    new_link = f"{settings.WEBAPP_URL}/{region.slug}/"
+    replace_links(old_link, new_link, region=region, link_types=["internal"])
