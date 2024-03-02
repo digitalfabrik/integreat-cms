@@ -17,7 +17,7 @@ INTERVAL = 0.5
 # pylint: disable=unsubscriptable-object
 def build_monkeypatched_cursor_func(
     using: str = DEFAULT_DB_ALIAS,
-) -> classmethod[Any, [str], None]:
+) -> "classmethod[Any, [str], None]":
     """
     patch upstream transaction to expose the database cursor
     """
