@@ -361,6 +361,8 @@ exclude_also = [
 [tool.djlint]
 profile="django"
 line_break_after_multiline_tag=true
+# exclude invalid html files until this is resolved https://github.com/djlint/djLint/issues/703
+exclude = "social_media_headers.html"
 
 [tool.isort]
 profile = "black"

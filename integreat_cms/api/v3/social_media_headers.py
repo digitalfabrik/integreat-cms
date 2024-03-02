@@ -73,9 +73,8 @@ def region_social_media_headers(
     This is also used as a fallback for any routes in a region, where no content can be found.
 
     :param request: The request that has been sent to the Django Server
-    :param social_region_slug: The region the request refers to
+    :param region_slug: The region the request refers to
     :param language_slug: The current language
-    :param path: The path to the page
     :return: HTML social meta headers required by social media platforms
     """
     region = request.region
@@ -107,7 +106,7 @@ def get_region_title(region: Region, page_title: str) -> str:
     return f"{page_title} - {region.name} | {settings.BRANDING_TITLE}"
 
 
-# pylint: disable=unused-argument
+# pylint: disable=unused-argument, fixme
 def event_social_media_headers(
     request: HttpRequest, region_slug: str, language_slug: str, slug: str
 ) -> HttpResponse:
@@ -206,7 +205,7 @@ def location_social_media_headers(
     )
 
 
-# pylint: disable=unused-argument
+# pylint: disable=unused-argument, fixme
 def page_social_media_headers(
     request: HttpRequest, region_slug: str, language_slug: str, path: str
 ) -> HttpResponse:

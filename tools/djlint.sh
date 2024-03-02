@@ -10,6 +10,5 @@ require_installed
 
 # Run djlint
 echo "Starting code formatting with djlint..." | print_info
-# exclude invalid html files until this is resolved https://github.com/djlint/djLint/issues/703
-djlint --reformat --quiet --lint "${PACKAGE_DIR}" --exclude social_media_headers.html
+djlint --reformat --quiet --lint "${PACKAGE_DIR}"
 echo "✔ Code formatting finished" | print_success
