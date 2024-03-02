@@ -32,3 +32,6 @@ class TestRepairTree:
         assert child1_page.rgt == 3
         assert child2_page.lft == 4
         assert child2_page.rgt == 5
+        child2_page.delete()
+        child1_page.delete()
+        root_page.delete()
