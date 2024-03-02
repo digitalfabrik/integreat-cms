@@ -19,17 +19,17 @@ SITEMAPS: Final[list[tuple[str, str, int]]] = [
     (
         "/augsburg/de/sitemap.xml",
         "tests/sitemap/expected-sitemaps/sitemap-augsburg-de.xml",
-        142,
+        147,
     ),
     (
         "/augsburg/en/sitemap.xml",
         "tests/sitemap/expected-sitemaps/sitemap-augsburg-en.xml",
-        128,
+        133,
     ),
     (
         "/augsburg/ar/sitemap.xml",
         "tests/sitemap/expected-sitemaps/sitemap-augsburg-ar.xml",
-        104,
+        111,
     ),
     (
         "/augsburg/fa/sitemap.xml",

@@ -121,7 +121,7 @@ API_ENDPOINTS: Final[list[tuple[str, str, str, int, int]]] = [
         "/augsburg/de/wp-json/extensions/v3/children/",
         "tests/api/expected-outputs/augsburg_de_children.json",
         200,
-        13,
+        14,
     ),
     (
         "/api/v3/augsburg/de/children/?depth=3&url=/augsburg/de/behörden-und-beratung/behörden/",
@@ -142,7 +142,7 @@ API_ENDPOINTS: Final[list[tuple[str, str, str, int, int]]] = [
         "/augsburg/de/wp-json/extensions/v3/children/?depth=2",
         "tests/api/expected-outputs/augsburg_de_children_depth_2.json",
         200,
-        13,
+        14,
     ),
     (
         "/api/v3/augsburg/de/events/",

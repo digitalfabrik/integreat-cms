@@ -25,6 +25,14 @@ SUMM_AI_ENABLED = True
 DEEPL_AUTH_KEY = "dummy"
 #: Enable manually because existing setting derives from the unset env var
 DEEPL_ENABLED = True
+#: Set dummy Google Translate credential path
+GOOGLE_APPLICATION_CREDENTIALS = "dummy"
+#: Set dummy Google project ID
+GOOGLE_PROJECT_ID = "dummy"
+#: Enable manually because existing setting derives from the unset env var
+GOOGLE_TRANSLATE_ENABLED = True
+#: Use debug logging on CircleCI
+LOG_LEVEL = "DEBUG"
 #: Disable linkcheck listeners on CircleCI
 LINKCHECK_DISABLE_LISTENERS = True
 # Disable background tasks during testing
