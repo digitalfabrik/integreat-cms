@@ -44,12 +44,10 @@ class TranslationLanguageOptions:
         """
         :attr:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.mt_providers` as list of tuples for :attr:`django.forms.ChoiceField.choices`
         """
-        return list(
-            map(
-                lambda provider: (provider.name, provider.name),
-                self.language_tree_node.mt_providers,
-            )
-        )
+        return [
+            (provider.name, provider.name)
+            for provider in self.language_tree_node.mt_providers
+        ]
 
     @property
     def providers(self) -> dict[str, MachineTranslationProviderType]:

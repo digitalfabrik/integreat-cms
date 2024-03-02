@@ -84,7 +84,7 @@ class Command(LogCommand):
         else:
             regions = Region.objects.filter(slug__in=region_slugs)
             if len(regions) != len(region_slugs):
-                diff = set(region_slugs) - set(region.slug for region in regions)
+                diff = set(region_slugs) - {region.slug for region in regions}
                 raise CommandError(f"The following regions do not exist: {diff}")
 
         # Disable linkcheck listeners to prevent links to be created for outdated translations
