@@ -23,7 +23,7 @@ def build_monkeypatched_cursor_func(using=DEFAULT_DB_ALIAS):
         print(f"someone is getting our monkeypatched cursor ({using})! {cls}, {action}")
         return connection.cursor()
 
-    return get_monkeypatch_cursor
+    return classmethod(get_monkeypatch_cursor)
 
 
 # pylint: disable=protected-access

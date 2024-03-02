@@ -154,7 +154,7 @@ def print_changed_fields(
     Check whether the tree fields are correct
     """
     printer.write(printer.bold(f"Page {tree_node.id}:"))
-    printer.success("\tparent_id: %i", tree_node.parent_id)
+    printer.success("\tparent_id: %s", tree_node.parent_id)
     if not tree_node.parent or tree_node.tree_id == tree_node.parent.tree_id:
         printer.success("\ttree_id: {tree_node.tree_id}")
     else:
@@ -212,7 +212,8 @@ class MPTTFixer:
         """
         Get all remaining (child) nodes, add add them to the new/fixed tree
         """
-        while node := self.broken_child_nodes.popleft():
+        while self.broken_child_nodes:
+            node = self.broken_child_nodes.popleft()
             if node.parent_id not in self.fixed_nodes:
                 self.broken_child_nodes.append(node)
                 continue
