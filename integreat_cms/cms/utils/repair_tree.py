@@ -9,7 +9,7 @@ from collections.abc import Callable
 from typing import Generator
 
 from ..models import Page
-from ..utils.tree_mutex import tree_mutex
+from .tree_mutex import tree_mutex
 
 logger = logging.getLogger(__name__)
 
