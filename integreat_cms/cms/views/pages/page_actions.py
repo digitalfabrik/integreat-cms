@@ -45,7 +45,6 @@ logger = logging.getLogger(__name__)
 
 
 @require_POST
-@transaction.atomic
 @tree_mutex("page")
 def archive_page(
     request: HttpRequest, page_id: int, region_slug: str, language_slug: str
@@ -92,7 +91,6 @@ def archive_page(
 
 
 @require_POST
-@transaction.atomic
 @tree_mutex("page")
 def restore_page(
     request: HttpRequest, page_id: int, region_slug: str, language_slug: str

@@ -22,6 +22,7 @@ from ..constants import status
 from ..models import Page
 from ..utils.stringify_list import iter_to_string
 from .utils.publication_status import change_publication_status
+from .utils.tree_mutex import tree_mutex
 
 if TYPE_CHECKING:
     from typing import Any
@@ -260,6 +261,7 @@ class BulkArchiveView(BulkActionView):
     Bulk action for restoring multiple objects at once
     """
 
+    @tree_mutex("page")
     def post(
         self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponseRedirect:
@@ -341,6 +343,7 @@ class BulkRestoreView(BulkActionView):
     Bulk action for restoring multiple objects at once
     """
 
+    @tree_mutex("page")
     def post(
         self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponseRedirect:
