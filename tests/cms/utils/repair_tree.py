@@ -20,8 +20,12 @@ class TestRepairTree:
 
         # "created_date", "lft", "rgt", "tree_id", "depth", "parent_id", "region_id", "explicitly_archi..., "api_token", "hix_ignore"
         root_page = Page(region=region, lft=2, rgt=6, tree_id=999, depth=0)
-        child1_page = Page(region=region, lft=1, rgt=4, tree_id=999, depth=1, parent=root_page)
-        child2_page = Page(region=region, lft=4, rgt=5, tree_id=999, depth=1, parent=root_page)
+        child1_page = Page(
+            region=region, lft=1, rgt=4, tree_id=999, depth=1, parent=root_page
+        )
+        child2_page = Page(
+            region=region, lft=4, rgt=5, tree_id=999, depth=1, parent=root_page
+        )
 
         root_page.save()
         child1_page.save()
@@ -33,10 +37,10 @@ class TestRepairTree:
         child1_page = Page.objects.get(pk=child1_page.pk)
         child2_page = Page.objects.get(pk=child2_page.pk)
 
-        assert root_page.lft == 2 # intentional mistake, should be 1
+        assert root_page.lft == 2  # intentional mistake, should be 1
         assert root_page.rgt == 6
-        assert child1_page.lft == 1 # intentional mistake, should be 2
-        assert child1_page.rgt == 4 # intentional mistake, should be 3
+        assert child1_page.lft == 1  # intentional mistake, should be 2
+        assert child1_page.rgt == 4  # intentional mistake, should be 3
         assert child2_page.lft == 4
         assert child2_page.rgt == 5
 
@@ -47,6 +51,7 @@ class TestRepairTree:
         child1_page = Page.objects.get(pk=child1_page.pk)
         child2_page = Page.objects.get(pk=child2_page.pk)
 
+        # Actual asserts ensuring the fix was successful
         assert root_page.lft == 1
         assert root_page.rgt == 6
         assert child1_page.lft == 2
