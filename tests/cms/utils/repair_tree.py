@@ -14,7 +14,7 @@ class TestRepairTree:
     Test whether to_ical_rrule_string function is calculating the rrule correctly
     """
 
-    @pytest.mark.django_db
+    @pytest.mark.django_db(transaction=True)
     def test_repair_tree(self, load_test_data: None) -> None:
         region = Region.objects.get(slug="augsburg")
 
