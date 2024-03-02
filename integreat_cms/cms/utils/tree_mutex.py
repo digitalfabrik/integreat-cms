@@ -58,16 +58,20 @@ def tree_mutex(classname: str) -> Callable[[Callable[P, R]], Callable[P, R]]:
                 if (
                     active_lock := cache.get_or_set(lock_name, uuid, LOCK_SECONDS)
                 ) == uuid:
-                    with transaction.atomic(using=DEFAULT_DB_ALIAS, durable=True):
-                        old_cursor_func = Node._get_database_cursor
-                        Node._get_database_cursor = build_monkeypatched_cursor_func(
-                            DEFAULT_DB_ALIAS
+                    try:
+                        with transaction.atomic(using=DEFAULT_DB_ALIAS, durable=True):
+                            old_cursor_func = Node._get_database_cursor
+                            Node._get_database_cursor = build_monkeypatched_cursor_func(
+                                DEFAULT_DB_ALIAS
+                            )
+                            value = func(*args, **kwargs)
+                            Node._get_database_cursor = old_cursor_func
+                            return value
+                    finally:
+                        print(
+                            f"  Releasing {lock_name} after {time.time() - (timeout - LOCK_SECONDS)}s ({uuid})"
                         )
-                        value = func(*args, **kwargs)
-                        Node._get_database_cursor = old_cursor_func
-                        print(f"  Releasing {lock_name} ({uuid})")
                         cache.delete(lock_name)
-                        return value
                 else:
                     print(
                         f"  Failed to acquire {lock_name} as {uuid}: MUTEX_{classname}_TREE present ({active_lock}). Waiting {INTERVAL}s…"
