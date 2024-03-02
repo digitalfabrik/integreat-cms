@@ -6,8 +6,7 @@ from __future__ import annotations
 
 import logging
 from collections import deque
-from collections.abc import Callable
-from typing import Generator
+from typing import Any, Callable, Iterable
 
 from ..models import Page
 from .tree_mutex import tree_mutex
@@ -22,9 +21,11 @@ class Printer:
 
     def __init__(
         self,
-        print_func: Callable[[str], None] | None = None,
-        error: Callable[[str], None] | None = None,
-        success: Callable[[str], None] | None = None,
+        print_func: Callable[[str, *Any], None] | None = None,
+        error: Callable[[str, *Any], None] | None = None,
+        success: Callable[[str, *Any], None] | None = None,
+        write: Callable[[str, *Any], None] | None = None,
+        bold: Callable[[str, *Any], str] | None = None,
     ) -> None:
         """
         Map passed print functions to internal attributes
@@ -32,11 +33,11 @@ class Printer:
         self._print = print_func
         self._error = error
         self._success = success
-        self._write = None
-        self._bold = None
+        self._write = write
+        self._bold = bold
 
     @property
-    def print(self) -> Callable[[str], None]:
+    def print(self) -> Callable[[str, *Any], None]:
         """
         Return regular print w/o coloring
         """
@@ -45,14 +46,14 @@ class Printer:
         return self._print
 
     @print.setter
-    def print(self, new: Callable[[str], None]) -> None:
+    def print(self, new: Callable[[str, *Any], None]) -> None:
         """
         Print w/o styling
         """
         self._print = new
 
     @property
-    def error(self) -> Callable[[str], None]:
+    def error(self) -> Callable[[str, *Any], None]:
         """
         Return error print function
         """
@@ -61,14 +62,14 @@ class Printer:
         return self._error
 
     @error.setter
-    def error(self, new: Callable[[str], None]) -> None:
+    def error(self, new: Callable[[str, *Any], None] | None) -> None:
         """
         Set print function with error styling
         """
         self._error = new
 
     @property
-    def success(self) -> Callable[[str], None]:
+    def success(self) -> Callable[[str, *Any], None]:
         """
         Return success print function
         """
@@ -77,30 +78,34 @@ class Printer:
         return self._success
 
     @success.setter
-    def success(self, new: Callable[[str], None]) -> None:
+    def success(self, new: Callable[[str, *Any], None] | None) -> None:
         """
         Set print function with success styling
         """
         self._success = new
 
     @property
-    def bold(self) -> Callable[[str], None]:
+    def bold(self) -> Callable[[str, *Any], str]:
         """
         Return bold print function
         """
         if not self._bold:
-            return lambda x: x
+
+            def identity(t: str, *args: *Any) -> str:
+                return t
+
+            return identity
         return self._bold
 
     @bold.setter
-    def bold(self, new: Callable[[str], None]) -> None:
+    def bold(self, new: Callable[[str, *Any], str] | None) -> None:
         """
         Set print function for bold font
         """
         self._bold = new
 
     @property
-    def write(self) -> Callable[[str], None]:
+    def write(self) -> Callable[[str, *Any], None]:
         """
         Return write function w/o new line
         """
@@ -109,7 +114,7 @@ class Printer:
         return self._write
 
     @write.setter
-    def write(self, new: Callable[[str], None]) -> None:
+    def write(self, new: Callable[[str, *Any], None] | None) -> None:
         """
         Set write function w/o new line
         """
@@ -124,6 +129,7 @@ def repair_tree(
     Fix the tree for a given page or all trees.
     """
     mptt_fixer = MPTTFixer()
+    root_nodes: Iterable
 
     if page_id:
         try:
@@ -136,7 +142,7 @@ def repair_tree(
 
     for root_node in root_nodes:
         action = "Fixing" if commit else "Detecting problems in"
-        printer.print("%s tree with id {root_node.tree_id}...", action)
+        printer.print("%s tree with id %i...", action, root_node.tree_id)
         for tree_node in mptt_fixer.get_fixed_tree_of_page(root_node.pk):
             print_changed_fields(
                 Page.objects.get(id=tree_node.pk), tree_node.lft, tree_node.rgt, printer
@@ -153,7 +159,7 @@ def print_changed_fields(
     """
     Check whether the tree fields are correct
     """
-    printer.write(printer.bold(f"Page {tree_node.id}:"))
+    printer.write(printer.bold("Page %s:", tree_node.id))
     printer.success("\tparent_id: %s", tree_node.parent_id)
     if not tree_node.parent or tree_node.tree_id == tree_node.parent.tree_id:
         printer.success("\ttree_id: {tree_node.tree_id}")
@@ -190,8 +196,8 @@ class MPTTFixer:
         """
         Creates a fixed tree when initializing class but does not save results
         """
-        self.broken_root_nodes: list[Page] = list(Page.objects.filter(parent=None))
-        self.broken_child_nodes: list[Page] = deque(Page.objects.exclude(parent=None))
+        self.broken_root_nodes: Iterable[Page] = list(Page.objects.filter(parent=None))
+        self.broken_child_nodes: deque[Page] = deque(Page.objects.exclude(parent=None))
         self.fixed_nodes: dict[int, Page] = {}
         self.fix_root_nodes()
         self.fix_child_nodes()
@@ -250,7 +256,7 @@ class MPTTFixer:
             self.fixed_nodes[node.parent_id].rgt = node.rgt + 1
             node = self.fixed_nodes[node.parent_id]
 
-    def get_fixed_root_nodes(self) -> Generator[Page]:
+    def get_fixed_root_nodes(self) -> Iterable[Page]:
         """
         Return a list of all fixed root nodes
         """
@@ -267,13 +273,13 @@ class MPTTFixer:
             page = self.fixed_nodes[page.parent_id]
         return page
 
-    def get_fixed_tree_nodes(self) -> [Page]:
+    def get_fixed_tree_nodes(self) -> Iterable[Page]:
         """
         Yield all page tree nodes
         """
         return self.fixed_nodes.values()
 
-    def get_fixed_tree_of_page(self, node_id: int = None) -> Generator[Page]:
+    def get_fixed_tree_of_page(self, node_id: int | None = None) -> Iterable[Page]:
         """
         get all nodes of page tree, either identfied by one page or the (new) tree ID.
         get all trees if no key is provided.

@@ -238,7 +238,7 @@ class PageFormView(
         )
 
     # pylint: disable=too-many-statements
-    @tree_mutex
+    @tree_mutex("page")
     def post(
         self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponseRedirect:

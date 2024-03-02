@@ -3,6 +3,7 @@ This module contains a custom decorator for db / redis mutexes
 """
 
 import time
+from typing import Any, Callable, ParamSpec, Type, TypeVar
 from uuid import uuid4
 
 from django.core.cache import cache
@@ -13,13 +14,16 @@ LOCK_SECONDS = 10
 INTERVAL = 0.5
 
 
-def build_monkeypatched_cursor_func(using=DEFAULT_DB_ALIAS):
+# pylint: disable=unsubscriptable-object
+def build_monkeypatched_cursor_func(
+    using: str = DEFAULT_DB_ALIAS,
+) -> classmethod[Any, [str], None]:
     """
     patch upstream transaction to expose the database cursor
     """
     connection = transaction.get_connection(using=using)
 
-    def get_monkeypatch_cursor(cls, action):
+    def get_monkeypatch_cursor(cls: Type, action: str) -> None:
         print(f"someone is getting our monkeypatched cursor ({using})! {cls}, {action}")
         return connection.cursor()
 
@@ -29,19 +33,22 @@ def build_monkeypatched_cursor_func(using=DEFAULT_DB_ALIAS):
 # pylint: disable=protected-access
 get_old_cursor_func = Node._get_database_cursor
 
+R = TypeVar("R")
+P = ParamSpec("P")
 
-def tree_mutex(classname):
+
+def tree_mutex(classname: str) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
     Collect decorator argument
     """
 
-    def wrap(func):
+    def wrap(func: Callable[P, R]) -> Callable[P, R]:
         """
         define decorator that acts as a mutex
         """
 
         # pylint: disable=protected-access
-        def innermost_function(*args, **kwargs):
+        def innermost_function(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             mutex logic
             """
