@@ -6,7 +6,7 @@ from __future__ import annotations
 
 import logging
 from collections import deque
-from typing import Any, Callable, Iterable
+from typing import Any, Callable, Iterable, Tuple
 
 from ..models import Page
 from .tree_mutex import tree_mutex
@@ -21,11 +21,11 @@ class Printer:
 
     def __init__(
         self,
-        print_func: Callable[[str, *Any], None] | None = None,
-        error: Callable[[str, *Any], None] | None = None,
-        success: Callable[[str, *Any], None] | None = None,
-        write: Callable[[str, *Any], None] | None = None,
-        bold: Callable[[str, *Any], str] | None = None,
+        print_func: Callable[[str, *Tuple[Any, ...]], None] | None = None,
+        error: Callable[[str, *Tuple[Any, ...]], None] | None = None,
+        success: Callable[[str, *Tuple[Any, ...]], None] | None = None,
+        write: Callable[[str, *Tuple[Any, ...]], None] | None = None,
+        bold: Callable[[str, *Tuple[Any, ...]], str] | None = None,
     ) -> None:
         """
         Map passed print functions to internal attributes
@@ -37,7 +37,7 @@ class Printer:
         self._bold = bold
 
     @property
-    def print(self) -> Callable[[str, *Any], None]:
+    def print(self) -> Callable[[str, *Tuple[Any, ...]], None]:
         """
         Return regular print w/o coloring
         """
@@ -46,14 +46,14 @@ class Printer:
         return self._print
 
     @print.setter
-    def print(self, new: Callable[[str, *Any], None]) -> None:
+    def print(self, new: Callable[[str, *Tuple[Any, ...]], None]) -> None:
         """
         Print w/o styling
         """
         self._print = new
 
     @property
-    def error(self) -> Callable[[str, *Any], None]:
+    def error(self) -> Callable[[str, *Tuple[Any, ...]], None]:
         """
         Return error print function
         """
@@ -62,14 +62,14 @@ class Printer:
         return self._error
 
     @error.setter
-    def error(self, new: Callable[[str, *Any], None] | None) -> None:
+    def error(self, new: Callable[[str, *Tuple[Any, ...]], None] | None) -> None:
         """
         Set print function with error styling
         """
         self._error = new
 
     @property
-    def success(self) -> Callable[[str, *Any], None]:
+    def success(self) -> Callable[[str, *Tuple[Any, ...]], None]:
         """
         Return success print function
         """
@@ -78,34 +78,34 @@ class Printer:
         return self._success
 
     @success.setter
-    def success(self, new: Callable[[str, *Any], None] | None) -> None:
+    def success(self, new: Callable[[str, *Tuple[Any, ...]], None] | None) -> None:
         """
         Set print function with success styling
         """
         self._success = new
 
     @property
-    def bold(self) -> Callable[[str, *Any], str]:
+    def bold(self) -> Callable[[str, *Tuple[Any, ...]], str]:
         """
         Return bold print function
         """
         if not self._bold:
 
-            def identity(t: str, *args: *Any) -> str:
+            def identity(t: str, *args: * Tuple[Any, ...]) -> str:
                 return t
 
             return identity
         return self._bold
 
     @bold.setter
-    def bold(self, new: Callable[[str, *Any], str] | None) -> None:
+    def bold(self, new: Callable[[str, *Tuple[Any, ...]], str] | None) -> None:
         """
         Set print function for bold font
         """
         self._bold = new
 
     @property
-    def write(self) -> Callable[[str, *Any], None]:
+    def write(self) -> Callable[[str, *Tuple[Any, ...]], None]:
         """
         Return write function w/o new line
         """
@@ -114,7 +114,7 @@ class Printer:
         return self._write
 
     @write.setter
-    def write(self, new: Callable[[str, *Any], None] | None) -> None:
+    def write(self, new: Callable[[str, *Tuple[Any, ...]], None] | None) -> None:
         """
         Set write function w/o new line
         """
