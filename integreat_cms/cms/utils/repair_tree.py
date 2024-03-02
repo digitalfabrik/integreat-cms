@@ -218,14 +218,13 @@ class MPTTFixer:
         """
         Get all remaining (child) nodes, add add them to the new/fixed tree
         """
-        for node in self.broken_nodes:
-            if node.parent_id:
-                parent = self.fixed_nodes[node.parent_id]
-                node.fixed_children = []
-                node = self.calculate_lft_rgt(node, parent)
-                self.fixed_nodes[node.pk] = node
-                self.fixed_nodes[parent.pk].fixed_children.append(node.pk)
-                self.update_ancestors_rgt(node.pk)
+        for node in self.broken_child_nodes:
+            parent = self.fixed_nodes[node.parent_id]
+            node.fixed_children = []
+            node = self.calculate_lft_rgt(node, parent)
+            self.fixed_nodes[node.pk] = node
+            self.fixed_nodes[parent.pk].fixed_children.append(node.pk)
+            self.update_ancestors_rgt(node.pk)
 
     def calculate_lft_rgt(self, node: Page, parent: Page) -> Page:
         """
