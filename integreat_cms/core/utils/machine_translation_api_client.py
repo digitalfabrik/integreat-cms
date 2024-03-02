@@ -6,11 +6,9 @@ from __future__ import annotations
 
 import logging
 from abc import ABC, abstractmethod
-from html import unescape
 from typing import TYPE_CHECKING
 
 from django.conf import settings
-from django.utils.html import strip_tags
 
 if TYPE_CHECKING:
     from django.db.models.query import QuerySet
@@ -26,6 +24,8 @@ if TYPE_CHECKING:
         POITranslation,
         Region,
     )
+
+from .word_count import word_count
 
 logger = logging.getLogger(__name__)
 
@@ -88,27 +88,16 @@ class MachineTranslationApiClient(ABC):
         :param source_translation: single content object
         :return: translation would exceed limit, region budget, attempted translation word count
         """
-        # Gather content to be translated and calculate total word count
-        attributes = [
-            getattr(source_translation, attr, None)
-            for attr in self.translatable_attributes
-        ]
-        content_to_translate = [
-            unescape(strip_tags(attr)) for attr in attributes if attr
-        ]
 
-        content_to_translate_str = " ".join(content_to_translate)
-        for char in "-;:,;!?\n":
-            content_to_translate_str = content_to_translate_str.replace(char, " ")
-        word_count = len(content_to_translate_str.split())
+        words = word_count(source_translation)
 
         # Check if translation would exceed MT usage limit
         region.refresh_from_db()
         # Allow up to MT_SOFT_MARGIN more words than the actual limit
-        word_count_leeway = max(1, word_count - settings.MT_SOFT_MARGIN)
+        word_count_leeway = max(1, words - settings.MT_SOFT_MARGIN)
         translation_exceeds_limit = region.mt_budget_remaining < word_count_leeway
 
-        return (translation_exceeds_limit, word_count)
+        return (translation_exceeds_limit, words)
 
     def __str__(self) -> str:
         """

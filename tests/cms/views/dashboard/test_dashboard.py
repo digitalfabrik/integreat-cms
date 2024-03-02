@@ -153,7 +153,7 @@ def test_number_of_outdated_pages_is_correct(
     login_role_user: tuple[Client, str],
 ) -> None:
     client, role = login_role_user
-    expected_number_of_pages = 10
+    expected_number_of_pages = 11
 
     pages = reverse(
         "pages",
