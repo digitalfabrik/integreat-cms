@@ -117,7 +117,7 @@ class Printer:
 
 @tree_mutex("page")
 def repair_tree(
-    page_id: int = 0, commit: bool = False, printer: Printer = Printer()
+    page_id: int | None = None, commit: bool = False, printer: Printer = Printer()
 ) -> None:
     """
     Fix the tree for a given page or all trees.
