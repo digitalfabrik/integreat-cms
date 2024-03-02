@@ -5,6 +5,7 @@ This module contains utilities to repair or detect inconsistencies in a tree
 from __future__ import annotations
 
 import logging
+from collections import deque
 from collections.abc import Callable
 from typing import Generator
 
@@ -192,7 +193,7 @@ class MPTTFixer:
         self.broken_root_nodes: list[Page] = list(
             Page.objects.filter(parent=None)
         )
-        self.broken_child_nodes: list[Page] = list(
+        self.broken_child_nodes: list[Page] = deque(
             Page.objects.exclude(parent=None)
         )
         self.fixed_nodes: dict[int, Page] = {}
@@ -215,7 +216,10 @@ class MPTTFixer:
         """
         Get all remaining (child) nodes, add add them to the new/fixed tree
         """
-        for node in self.broken_child_nodes:
+        while node := self.broken_child_nodes.popleft():
+            if node.parent_id not in self.fixed_nodes:
+                self.broken_child_nodes.append(node)
+                continue
             parent = self.fixed_nodes[node.parent_id]
             node.fixed_children = []
             node = self.calculate_lft_rgt(node, parent)
