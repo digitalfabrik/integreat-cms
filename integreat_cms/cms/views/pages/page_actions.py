@@ -15,7 +15,6 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
-from django.db import transaction
 from django.db.utils import IntegrityError
 from django.http import (
     Http404,

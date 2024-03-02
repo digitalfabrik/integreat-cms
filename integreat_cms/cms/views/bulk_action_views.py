@@ -21,8 +21,8 @@ from django.views.generic.list import MultipleObjectMixin
 from ..constants import status
 from ..models import Page
 from ..utils.stringify_list import iter_to_string
-from .utils.publication_status import change_publication_status
 from ..utils.tree_mutex import tree_mutex
+from .utils.publication_status import change_publication_status
 
 if TYPE_CHECKING:
     from typing import Any

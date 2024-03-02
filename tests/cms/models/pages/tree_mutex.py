@@ -40,5 +40,3 @@ class TestCreatingIcalRule:
         test_event.recurrence_rule = recurrence_rule
         ical_rrule = recurrence_rule.to_ical_rrule_string()
         assert ical_rrule == "DTSTART:20200101T113000\nRRULE:FREQ=YEARLY"
-
-

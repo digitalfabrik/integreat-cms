@@ -190,12 +190,8 @@ class MPTTFixer:
         """
         Creates a fixed tree when initializing class but does not save results
         """
-        self.broken_root_nodes: list[Page] = list(
-            Page.objects.filter(parent=None)
-        )
-        self.broken_child_nodes: list[Page] = deque(
-            Page.objects.exclude(parent=None)
-        )
+        self.broken_root_nodes: list[Page] = list(Page.objects.filter(parent=None))
+        self.broken_child_nodes: list[Page] = deque(Page.objects.exclude(parent=None))
         self.fixed_nodes: dict[int, Page] = {}
         self.fix_root_nodes()
         self.fix_child_nodes()
