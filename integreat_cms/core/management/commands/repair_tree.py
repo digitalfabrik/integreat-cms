@@ -43,7 +43,9 @@ class Command(LogCommand):
         """
         Try to run the command
         """
-        printer = Printer(self.print_info, self.print_error, self.print_success)
-        printer.bold = self.bold
-        printer.write = self.stdout.write
+        printer = Printer(
+            print_func=logger.info,
+            error=logger.error,
+            success=logger.success,
+        )
         return repair_tree(page_id, commit, printer=printer)
