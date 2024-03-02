@@ -11,7 +11,7 @@ from django.db import DEFAULT_DB_ALIAS, transaction
 from treebeard.models import Node
 
 LOCK_SECONDS = 10
-INTERVAL = 0.5
+INTERVAL = 0.1
 
 
 def build_monkeypatched_cursor_func(
@@ -55,7 +55,8 @@ def tree_mutex(classname: str) -> Callable[[Callable[P, R]], Callable[P, R]]:
             uuid = uuid4()
             timeout = time.time() + LOCK_SECONDS
             while time.time() < timeout:
-                if cache.get_or_set(lock_name, uuid, LOCK_SECONDS) == uuid:
+                active_lock = cache.get_or_set(lock_name, uuid, LOCK_SECONDS)
+                if active_lock == uuid:
                     with transaction.atomic(using=DEFAULT_DB_ALIAS, durable=True):
                         old_cursor_func = Node._get_database_cursor
                         Node._get_database_cursor = build_monkeypatched_cursor_func(
@@ -68,10 +69,10 @@ def tree_mutex(classname: str) -> Callable[[Callable[P, R]], Callable[P, R]]:
                         return value
                 else:
                     print(
-                        f"  Failed to acquire {lock_name} as {uuid}: MUTEX_{classname}_TREE present. Waiting {INTERVAL}s…"
+                        f"  Failed to acquire {lock_name} as {uuid}: MUTEX_{classname}_TREE present ({active_lock}). Waiting {INTERVAL}s…"
                     )
                     time.sleep(INTERVAL)
-            raise TimeoutError("Failed to acquire {classname} lock")
+            raise TimeoutError(f"Failed to acquire {classname} lock")
 
         return innermost_function
 
