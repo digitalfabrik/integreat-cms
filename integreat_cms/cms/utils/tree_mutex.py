@@ -55,8 +55,7 @@ def tree_mutex(classname: str) -> Callable[[Callable[P, R]], Callable[P, R]]:
             uuid = uuid4()
             timeout = time.time() + LOCK_SECONDS
             while time.time() < timeout:
-                active_lock = cache.get_or_set(lock_name, uuid, LOCK_SECONDS)
-                if active_lock == uuid:
+                if (active_lock := cache.get_or_set(lock_name, uuid, LOCK_SECONDS)) == uuid:
                     with transaction.atomic(using=DEFAULT_DB_ALIAS, durable=True):
                         old_cursor_func = Node._get_database_cursor
                         Node._get_database_cursor = build_monkeypatched_cursor_func(
