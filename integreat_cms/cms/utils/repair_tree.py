@@ -203,16 +203,13 @@ class MPTTFixer:
         """
         extract root nodes and reset lft + rgt values
         """
-        tree_counter = 1
-        for node in self.broken_nodes:
-            if not node.parent_id:
-                node.lft = 1
-                node.rgt = 2
-                node.depth = 1
-                node.fixed_children = []
-                node.tree_id = tree_counter
-                tree_counter = tree_counter + 1
-                self.fixed_nodes[node.pk] = node
+        for tree_counter, node in enumerate(self.broken_root_nodes, 1):
+            node.lft = 1
+            node.rgt = 2
+            node.depth = 1
+            node.fixed_children = []
+            node.tree_id = tree_counter
+            self.fixed_nodes[node.pk] = node
 
     def fix_child_nodes(self) -> None:
         """
