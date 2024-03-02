@@ -14,7 +14,6 @@ LOCK_SECONDS = 10
 INTERVAL = 0.5
 
 
-# pylint: disable=unsubscriptable-object
 def build_monkeypatched_cursor_func(
     using: str = DEFAULT_DB_ALIAS,
 ) -> "classmethod[Any, [str], None]":
