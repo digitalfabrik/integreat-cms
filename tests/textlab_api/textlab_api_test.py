@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import pytest
+from django.http import HttpResponse
 from django.test.client import Client
 from django.urls import reverse
 
@@ -28,6 +29,39 @@ def test_normalize_text(
     Test for the text normalization function that is applied before sending text to the TextLab API
     """
     assert output == normalize_text(input)
+
+
+def update_page_content(
+    login_role_user: tuple[Client, str],
+    title: str,
+    content: str,
+    hix_ignore: bool = False
+) -> tuple[str, HttpResponse]:
+    
+    # Log the user in
+    client, _role = login_role_user
+
+    # Update page content
+    edit_page = reverse(
+        "edit_page",
+        kwargs={
+            "region_slug": "augsburg",
+            "language_slug": "de",
+            "page_id": 2,
+        },
+    )
+    edit_page_data = {
+        "title": title,
+        "content": content,
+        "mirrored_page_region": "",
+        "_ref_node_id": 3,
+        "_position": "right",
+        "status": status.PUBLIC,
+    }
+    if hix_ignore:
+        edit_page_data["hix_ignore"] = "on"
+
+    return (edit_page, client.post(edit_page, edit_page_data))
 
 
 @pytest.mark.django_db
@@ -58,29 +92,7 @@ def test_hix_score_update(
     # Enable Textlab in the test region
     Region.objects.filter(slug="augsburg").update(hix_enabled=True)
 
-    # Log the user in
-    client, _role = login_role_user
-
-    # Update page content
-    edit_page = reverse(
-        "edit_page",
-        kwargs={
-            "region_slug": "augsburg",
-            "language_slug": "de",
-            "page_id": 2,
-        },
-    )
-
-    edit_page_data = {
-        "title": "Willkommen in Augsburg",
-        "content": "Neuer Inhalt",
-        "mirrored_page_region": "",
-        "_ref_node_id": 3,
-        "_position": "right",
-        "status": status.PUBLIC,
-    }
-
-    response = client.post(edit_page, edit_page_data)
+    edit_page, response = update_page_content(login_role_user, "Willkommen in Augsburg", "Neuer Inhalt")
 
     assert response.status_code == 302
     assert response.headers.get("Location") == edit_page
@@ -110,7 +122,7 @@ def test_hix_disable_on_region(
     # Setup a mocked Textlab API server with dummy responses
     httpserver.expect_request("/user/login").respond_with_json({"token": "dummy"})
     httpserver.expect_request("/benchmark/5").respond_with_json(
-        {"formulaHix": 0.0}, status=500
+        {"formulaHix": 20.0}, status=200
     )
 
     # Redirect call aimed at the Textlab API to the fake server
@@ -119,29 +131,7 @@ def test_hix_disable_on_region(
     # Disable Textlab in the test region
     Region.objects.filter(slug="augsburg").update(hix_enabled=False)
 
-    # Log the user in
-    client, _role = login_role_user
-
-    # Update page content
-    edit_page = reverse(
-        "edit_page",
-        kwargs={
-            "region_slug": "augsburg",
-            "language_slug": "de",
-            "page_id": 2,
-        },
-    )
-
-    edit_page_data = {
-        "title": "Willkommen in Augsburg",
-        "content": "Neuer Inhalt",
-        "mirrored_page_region": "",
-        "_ref_node_id": 3,
-        "_position": "right",
-        "status": status.PUBLIC,
-    }
-
-    response = client.post(edit_page, edit_page_data)
+    edit_page, response = update_page_content(login_role_user, "Willkommen in Augsburg", "Neuer Inhalt")
 
     assert response.status_code == 302
     assert response.headers.get("Location") == edit_page
@@ -180,35 +170,12 @@ def test_ignore_hix_on_page(
     # Enable Textlab in the test region
     Region.objects.filter(slug="augsburg").update(hix_enabled=True)
 
-    # Log the user in
-    client, _role = login_role_user
-
-    # Update page content
-    edit_page = reverse(
-        "edit_page",
-        kwargs={
-            "region_slug": "augsburg",
-            "language_slug": "de",
-            "page_id": 2,
-        },
-    )
-
-    edit_page_data = {
-        "title": "Willkommen in Augsburg",
-        "content": "Neuer Inhalt",
-        "mirrored_page_region": "",
-        "_ref_node_id": 3,
-        "_position": "right",
-        "status": status.PUBLIC,
-        "hix_ignore": "on",
-    }
-
-    response = client.post(edit_page, edit_page_data)
+    edit_page, response = update_page_content(login_role_user, "Willkommen in Augsburg", "Neuer Inhalt", True)
 
     assert response.status_code == 302
     assert response.headers.get("Location") == edit_page
 
-    # Check the updated HIX score
+    # Check that the HIX score has not been updated
     page_translation = Page.objects.get(id=2).get_translation("de")
 
     assert page_translation.hix_score == None
@@ -242,34 +209,12 @@ def test_hix_page_content_empty(
     # Enable Textlab in the test region
     Region.objects.filter(slug="augsburg").update(hix_enabled=True)
 
-    # Log the user in
-    client, _role = login_role_user
-
-    # Update page content
-    edit_page = reverse(
-        "edit_page",
-        kwargs={
-            "region_slug": "augsburg",
-            "language_slug": "de",
-            "page_id": 2,
-        },
-    )
-
-    edit_page_data = {
-        "title": "Willkommen in Augsburg",
-        "content": "",
-        "mirrored_page_region": "",
-        "_ref_node_id": 3,
-        "_position": "right",
-        "status": status.PUBLIC,
-    }
-
-    response = client.post(edit_page, edit_page_data)
+    edit_page, response = update_page_content(login_role_user, "Willkommen in Augsburg", "")
 
     assert response.status_code == 302
     assert response.headers.get("Location") == edit_page
 
-    # Check the updated HIX score
+    # Check that the HIX score has not been updated
     page_translation = Page.objects.get(id=2).get_translation("de")
 
     assert page_translation.hix_score == None
@@ -303,37 +248,15 @@ def test_hix_no_content_changes(
     # Enable Textlab in the test page
     Region.objects.filter(slug="augsburg").update(hix_enabled=True)
 
-    # Log the user in
-    client, _role = login_role_user
-
-    # Update page content
-    edit_page = reverse(
-        "edit_page",
-        kwargs={
-            "region_slug": "augsburg",
-            "language_slug": "de",
-            "page_id": 2,
-        },
-    )
-
     content_before_change = Page.objects.get(id=2).get_translation("de").content
     assert content_before_change != ""
 
-    edit_page_data = {
-        "title": "Neuer Titel",
-        "content": content_before_change,
-        "mirrored_page_region": "",
-        "_ref_node_id": 3,
-        "_position": "right",
-        "status": status.PUBLIC,
-    }
-
-    response = client.post(edit_page, edit_page_data)
+    edit_page, response = update_page_content(login_role_user, "Neuer Titel", content_before_change)
 
     assert response.status_code == 302
     assert response.headers.get("Location") == edit_page
 
-    # Check the updated HIX score
+    # Check that the HIX score has not been updated
     page_translation = Page.objects.get(id=2).get_translation("de")
 
     assert page_translation.hix_score == None
@@ -367,34 +290,12 @@ def test_hix_response_400(
     # Enable Textlab in the test region
     Region.objects.filter(slug="augsburg").update(hix_enabled=True)
 
-    # Log the user in
-    client, _role = login_role_user
-
-    # Update page content
-    edit_page = reverse(
-        "edit_page",
-        kwargs={
-            "region_slug": "augsburg",
-            "language_slug": "de",
-            "page_id": 2,
-        },
-    )
-
-    edit_page_data = {
-        "title": "Willkommen in Augsburg",
-        "content": "Neuer Inhalt",
-        "mirrored_page_region": "",
-        "_ref_node_id": 3,
-        "_position": "right",
-        "status": status.PUBLIC,
-    }
-
-    response = client.post(edit_page, edit_page_data)
+    edit_page, response = update_page_content(login_role_user, "Willkommen in Augsburg", "Neuer Inhalt")
 
     assert response.status_code == 302
     assert response.headers.get("Location") == edit_page
 
-    # Check the updated HIX score
+    # Check that the HIX score has not been updated
     page_translation = Page.objects.get(id=2).get_translation("de")
 
     assert page_translation.hix_score == None
