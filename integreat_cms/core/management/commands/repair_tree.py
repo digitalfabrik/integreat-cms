@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-from ....cms.utils.repair_tree import Printer, repair_tree
+from ....cms.utils.repair_tree import repair_tree
 from ..log_command import LogCommand
 
 if TYPE_CHECKING:
@@ -43,9 +43,6 @@ class Command(LogCommand):
         """
         Try to run the command
         """
-        printer = Printer(
-            print_func=logger.info,
-            error=logger.error,
-            success=logger.success,
-        )
-        return repair_tree(page_id, commit, printer=printer)
+        self.set_logging_stream()
+
+        return repair_tree(page_id, commit)

@@ -14,116 +14,9 @@ from .tree_mutex import tree_mutex
 logger = logging.getLogger(__name__)
 
 
-class Printer:
-    """
-    Select printer for stdout or log file
-    """
-
-    def __init__(
-        self,
-        print_func: Callable[[str, *Tuple[Any, ...]], None] | None = None,
-        error: Callable[[str, *Tuple[Any, ...]], None] | None = None,
-        success: Callable[[str, *Tuple[Any, ...]], None] | None = None,
-        write: Callable[[str, *Tuple[Any, ...]], None] | None = None,
-        bold: Callable[[str, *Tuple[Any, ...]], str] | None = None,
-    ) -> None:
-        """
-        Map passed print functions to internal attributes
-        """
-        self._print = print_func
-        self._error = error
-        self._success = success
-        self._write = write
-        self._bold = bold
-
-    @property
-    def print(self) -> Callable[[str, *Tuple[Any, ...]], None]:
-        """
-        Return regular print w/o coloring
-        """
-        if not self._print:
-            return logger.debug
-        return self._print
-
-    @print.setter
-    def print(self, new: Callable[[str, *Tuple[Any, ...]], None]) -> None:
-        """
-        Print w/o styling
-        """
-        self._print = new
-
-    @property
-    def error(self) -> Callable[[str, *Tuple[Any, ...]], None]:
-        """
-        Return error print function
-        """
-        if not self._error:
-            return self.print
-        return self._error
-
-    @error.setter
-    def error(self, new: Callable[[str, *Tuple[Any, ...]], None] | None) -> None:
-        """
-        Set print function with error styling
-        """
-        self._error = new
-
-    @property
-    def success(self) -> Callable[[str, *Tuple[Any, ...]], None]:
-        """
-        Return success print function
-        """
-        if not self._success:
-            return self.print
-        return self._success
-
-    @success.setter
-    def success(self, new: Callable[[str, *Tuple[Any, ...]], None] | None) -> None:
-        """
-        Set print function with success styling
-        """
-        self._success = new
-
-    @property
-    def bold(self) -> Callable[[str, *Tuple[Any, ...]], str]:
-        """
-        Return bold print function
-        """
-        if not self._bold:
-
-            def identity(t: str, *args: * Tuple[Any, ...]) -> str:
-                return t
-
-            return identity
-        return self._bold
-
-    @bold.setter
-    def bold(self, new: Callable[[str, *Tuple[Any, ...]], str] | None) -> None:
-        """
-        Set print function for bold font
-        """
-        self._bold = new
-
-    @property
-    def write(self) -> Callable[[str, *Tuple[Any, ...]], None]:
-        """
-        Return write function w/o new line
-        """
-        if not self._write:
-            return self.print
-        return self._write
-
-    @write.setter
-    def write(self, new: Callable[[str, *Tuple[Any, ...]], None] | None) -> None:
-        """
-        Set write function w/o new line
-        """
-        self._write = new
-
-
 @tree_mutex("page")
 def repair_tree(
-    page_id: int | None = None, commit: bool = False, printer: Printer = Printer()
+    page_id: int | None = None, commit: bool = False
 ) -> None:
     """
     Fix the tree for a given page or all trees.
@@ -142,10 +35,10 @@ def repair_tree(
 
     for root_node in root_nodes:
         action = "Fixing" if commit else "Detecting problems in"
-        printer.print("%s tree with id %i...", action, root_node.tree_id)
+        logger.info("%s tree with id %i...", action, root_node.tree_id)
         for tree_node in mptt_fixer.get_fixed_tree_of_page(root_node.pk):
             print_changed_fields(
-                Page.objects.get(id=tree_node.pk), tree_node.lft, tree_node.rgt, printer
+                Page.objects.get(id=tree_node.pk), tree_node.lft, tree_node.rgt
             )
 
     if commit:
@@ -154,36 +47,36 @@ def repair_tree(
 
 
 def print_changed_fields(
-    tree_node: Page, left: int, right: int, printer: Printer = Printer()
+    tree_node: Page, left: int, right: int
 ) -> None:
     """
     Check whether the tree fields are correct
     """
-    printer.write(printer.bold("Page %s:"), tree_node.id)
-    printer.success("\tparent_id: %s", tree_node.parent_id)
+    logger.info("Page %s:", tree_node.id)
+    logger.success("\tparent_id: %s", tree_node.parent_id)
     if not tree_node.parent or tree_node.tree_id == tree_node.parent.tree_id:
-        printer.success("\ttree_id: %i", tree_node.tree_id)
+        logger.success("\ttree_id: %i", tree_node.tree_id)
     else:
-        printer.error("\ttree_id: %i → %i", tree_node.tree_id, tree_node.parent.tree_id)
+        logger.error("\ttree_id: %i → %i", tree_node.tree_id, tree_node.parent.tree_id)
     if tree_node.parent_id:
         if tree_node.depth == tree_node.parent.depth + 1:
-            printer.success("\tdepth: %i", tree_node.depth)
+            logger.success("\tdepth: %i", tree_node.depth)
         else:
-            printer.error(
+            logger.error(
                 "\tdepth: %i → %i", tree_node.depth, tree_node.parent.depth + 1
             )
     elif tree_node.depth == 1:
-        printer.success("\tdepth: %i", tree_node.depth)
+        logger.success("\tdepth: %i", tree_node.depth)
     else:
-        printer.error("\tdepth: %i → 1", tree_node.depth)
+        logger.error("\tdepth: %i → 1", tree_node.depth)
     if tree_node.lft == left:
-        printer.success("\tlft: %i", tree_node.lft)
+        logger.success("\tlft: %i", tree_node.lft)
     else:
-        printer.error("\tlft: %i → %i", tree_node.lft, left)
+        logger.error("\tlft: %i → %i", tree_node.lft, left)
     if tree_node.rgt == right:
-        printer.success("\trgt: %i", tree_node.rgt)
+        logger.success("\trgt: %i", tree_node.rgt)
     else:
-        printer.error("\trgt: %i → %i", tree_node.rgt, right)
+        logger.error("\trgt: %i → %i", tree_node.rgt, right)
 
 
 class MPTTFixer:
