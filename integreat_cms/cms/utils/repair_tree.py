@@ -159,10 +159,10 @@ def print_changed_fields(
     """
     Check whether the tree fields are correct
     """
-    printer.write(printer.bold("Page %s:", tree_node.id))
+    printer.write(printer.bold("Page %s:"), tree_node.id)
     printer.success("\tparent_id: %s", tree_node.parent_id)
     if not tree_node.parent or tree_node.tree_id == tree_node.parent.tree_id:
-        printer.success("\ttree_id: {tree_node.tree_id}")
+        printer.success("\ttree_id: %i", tree_node.tree_id)
     else:
         printer.error("\ttree_id: %i → %i", tree_node.tree_id, tree_node.parent.tree_id)
     if tree_node.parent_id:
