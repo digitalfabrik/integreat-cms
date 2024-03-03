@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import time
 from typing import TYPE_CHECKING
 
 import pytest
@@ -82,11 +83,16 @@ def test_hix_score_update(
     :param settings: The fixture providing the django settings
     :param httpserver: The fixture providing the dummy http server
     """
+    text_api_requests_count = 0
+
+    def handler(request: Request) -> Response:
+        nonlocal text_api_requests_count
+        text_api_requests_count += 1
+        return Response(json.dumps({"formulaHix": 15.48920568}), status=200)
+
     # Setup a mocked Textlab API server with dummy responses
     httpserver.expect_request("/user/login").respond_with_json({"token": "dummy"})
-    httpserver.expect_request("/benchmark/5").respond_with_json(
-        {"formulaHix": 15.48920568}
-    )
+    httpserver.expect_request("/benchmark/5").respond_with_handler(handler)
 
     # Redirect call aimed at the Textlab API to the fake server
     settings.TEXTLAB_API_URL = f"http://localhost:{httpserver.port}"
@@ -105,6 +111,8 @@ def test_hix_score_update(
     page_translation = Page.objects.get(id=2).get_translation("de")
 
     assert page_translation.hix_score == 15.48920568
+    assert text_api_requests_count == 1
+    time.sleep(1)
 
 
 @pytest.mark.django_db
@@ -126,8 +134,9 @@ def test_hix_disable_on_region(
     text_api_requests_count = 0
 
     def handler(request: Request) -> Response:
+        nonlocal text_api_requests_count
         text_api_requests_count += 1
-        return Response(json.dumps({"formulaHix": 20.0}, status=200, indent=4))
+        return Response(json.dumps({"formulaHix": 20.0}), status=200)
 
     # Setup a mocked Textlab API server with dummy responses
     httpserver.expect_request("/user/login").respond_with_json({"token": "dummy"})
@@ -151,6 +160,8 @@ def test_hix_disable_on_region(
 
     assert page_translation.hix_score == None
     assert text_api_requests_count == 0
+    time.sleep(1)
+
 
 
 @pytest.mark.django_db
@@ -172,8 +183,9 @@ def test_ignore_hix_on_page(
     text_api_requests_count = 0
 
     def handler(request: Request) -> Response:
+        nonlocal text_api_requests_count
         text_api_requests_count += 1
-        return Response(json.dumps({"message": "Error occurred"}, status=500, indent=4))
+        return Response(json.dumps({"message": "Error occurred"}), status=200)
 
     # Setup a mocked Textlab API server with dummy responses
     httpserver.expect_request("/user/login").respond_with_json({"token": "dummy"})
@@ -197,6 +209,7 @@ def test_ignore_hix_on_page(
 
     assert page_translation.hix_score == None
     assert text_api_requests_count == 0
+    time.sleep(1)
 
 
 @pytest.mark.django_db
@@ -218,8 +231,9 @@ def test_hix_page_content_empty(
     text_api_requests_count = 0
 
     def handler(request: Request) -> Response:
+        nonlocal text_api_requests_count
         text_api_requests_count += 1
-        return Response(json.dumps({"message": "Error occurred"}, status=500, indent=4))
+        return Response(json.dumps({"message": "Error occurred"}), status=500)
 
     # Setup a mocked Textlab API server with dummy responses
     httpserver.expect_request("/user/login").respond_with_json({"token": "dummy"})
@@ -243,6 +257,7 @@ def test_hix_page_content_empty(
 
     assert page_translation.hix_score == None
     assert text_api_requests_count == 0
+    time.sleep(1)
 
 
 @pytest.mark.django_db
@@ -264,8 +279,9 @@ def test_hix_no_content_changes(
     text_api_requests_count = 0
 
     def handler(request: Request) -> Response:
+        nonlocal text_api_requests_count
         text_api_requests_count += 1
-        return Response(json.dumps({"message": "Error occurred"}, status=500, indent=4))
+        return Response(json.dumps({"message": "Error occurred"}), status=505)
 
     # Setup a mocked Textlab API server with dummy responses
     httpserver.expect_request("/user/login").respond_with_json({"token": "dummy"})
@@ -291,7 +307,9 @@ def test_hix_no_content_changes(
     page_translation = Page.objects.get(id=2).get_translation("de")
 
     assert page_translation.hix_score == None
+    assert page_translation.content == content_before_change
     assert text_api_requests_count == 0
+    time.sleep(1)
 
 
 @pytest.mark.django_db
@@ -333,3 +351,5 @@ def test_hix_response_400(
     page_translation = Page.objects.get(id=2).get_translation("de")
 
     assert page_translation.hix_score == None
+    time.sleep(1)
+
