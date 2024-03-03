@@ -195,16 +195,12 @@ def export_region_feedback(
     )
 
     resource = FeedbackResource()
-    dataset = Dataset()
+    dataset = Dataset(
+        (resource.export_resource(obj) for obj in selected_feedback),
+        headers=resource.export().headers,
+    )
 
-    headers = resource.export().headers
-    dataset.headers = headers
-
-    for obj in selected_feedback:
-        data = resource.export_resource(obj)
-        dataset.append(data)
-
-    response = HttpResponse(dataset.csv, content_type="text/csv")
+    response = HttpResponse(dataset.export("csv"), content_type="text/csv")
     response["Content-Disposition"] = (
         f'attachment; filename="Integreat_{request.region}_feedback.csv"'
     )
