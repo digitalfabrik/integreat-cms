@@ -112,7 +112,6 @@ def test_hix_score_update(
 
     assert page_translation.hix_score == 15.48920568
     assert text_api_requests_count == 1
-    time.sleep(1)
 
 
 @pytest.mark.django_db
@@ -149,7 +148,7 @@ def test_hix_disable_on_region(
     Region.objects.filter(slug="augsburg").update(hix_enabled=False)
 
     edit_page, response = update_page_content(
-        login_role_user, "Willkommen in Augsburg1", "Neuer Inhalt"
+        login_role_user, "Willkommen in Augsburg", "Neuer Inhalt1"
     )
 
     assert response.status_code == 302
@@ -160,8 +159,6 @@ def test_hix_disable_on_region(
 
     assert page_translation.hix_score == None
     assert text_api_requests_count == 0
-    time.sleep(1)
-
 
 
 @pytest.mark.django_db
@@ -198,7 +195,7 @@ def test_ignore_hix_on_page(
     Region.objects.filter(slug="augsburg").update(hix_enabled=True)
 
     edit_page, response = update_page_content(
-        login_role_user, "Willkommen in Augsburg2", "Neuer Inhalt", True
+        login_role_user, "Willkommen in Augsburg", "Neuer Inhalt2", True
     )
 
     assert response.status_code == 302
@@ -209,7 +206,6 @@ def test_ignore_hix_on_page(
 
     assert page_translation.hix_score == None
     assert text_api_requests_count == 0
-    time.sleep(1)
 
 
 @pytest.mark.django_db
@@ -246,7 +242,7 @@ def test_hix_page_content_empty(
     Region.objects.filter(slug="augsburg").update(hix_enabled=True)
 
     edit_page, response = update_page_content(
-        login_role_user, "Willkommen in Augsburg3", ""
+        login_role_user, "Willkommen in Augsburg", ""
     )
 
     assert response.status_code == 302
@@ -257,7 +253,6 @@ def test_hix_page_content_empty(
 
     assert page_translation.hix_score == None
     assert text_api_requests_count == 0
-    time.sleep(1)
 
 
 @pytest.mark.django_db
@@ -281,7 +276,7 @@ def test_hix_no_content_changes(
     def handler(request: Request) -> Response:
         nonlocal text_api_requests_count
         text_api_requests_count += 1
-        return Response(json.dumps({"message": "Error occurred"}), status=505)
+        return Response(json.dumps({"message": "Error occurred"}), status=500)
 
     # Setup a mocked Textlab API server with dummy responses
     httpserver.expect_request("/user/login").respond_with_json({"token": "dummy"})
@@ -309,7 +304,6 @@ def test_hix_no_content_changes(
     assert page_translation.hix_score == None
     assert page_translation.content == content_before_change
     assert text_api_requests_count == 0
-    time.sleep(1)
 
 
 @pytest.mark.django_db
@@ -341,7 +335,7 @@ def test_hix_response_400(
     Region.objects.filter(slug="augsburg").update(hix_enabled=True)
 
     edit_page, response = update_page_content(
-        login_role_user, "Willkommen in Augsburg4", "Neuer Inhalt"
+        login_role_user, "Willkommen in Augsburg", "Neuer Inhalt3"
     )
 
     assert response.status_code == 302
@@ -351,5 +345,3 @@ def test_hix_response_400(
     page_translation = Page.objects.get(id=2).get_translation("de")
 
     assert page_translation.hix_score == None
-    time.sleep(1)
-
