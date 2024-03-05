@@ -6,23 +6,24 @@ from __future__ import annotations
 
 import logging
 from collections import deque
-from typing import Any, Callable, Iterable, Tuple
+from typing import Iterable
 
 from ..models import Page
+from .shadow_instance import ShadowInstance
 from .tree_mutex import tree_mutex
-
-logger = logging.getLogger(__name__)
 
 
 @tree_mutex("page")
 def repair_tree(
-    page_id: int | None = None, commit: bool = False
+    page_id: int | None = None, commit: bool = False, logging_name: str = __name__
 ) -> None:
     """
     Fix the tree for a given page or all trees.
     """
+    logger = logging.getLogger(logging_name)
+
     mptt_fixer = MPTTFixer()
-    root_nodes: Iterable
+    root_nodes: Iterable[ShadowInstance[Page]]
 
     if page_id:
         try:
@@ -35,48 +36,39 @@ def repair_tree(
 
     for root_node in root_nodes:
         action = "Fixing" if commit else "Detecting problems in"
-        logger.info("%s tree with id %i...", action, root_node.tree_id)
+        logger.info(
+            "%s tree with id %i... (%r)",
+            action,
+            root_node.tree_id__original,
+            root_node.instance,
+        )
         for tree_node in mptt_fixer.get_fixed_tree_of_page(root_node.pk):
-            print_changed_fields(
-                Page.objects.get(id=tree_node.pk), tree_node.lft, tree_node.rgt
-            )
+            print_changed_fields(tree_node, logging_name=logging_name)
 
     if commit:
         for page in mptt_fixer.get_fixed_tree_nodes():
+            page.apply_changes()
             page.save()
 
 
 def print_changed_fields(
-    tree_node: Page, left: int, right: int
+    tree_node: ShadowInstance[Page], logging_name: str = __name__
 ) -> None:
     """
     Check whether the tree fields are correct
     """
+    logger = logging.getLogger(logging_name)
+
+    diff = tree_node.changed_attributes
+
     logger.info("Page %s:", tree_node.id)
-    logger.success("\tparent_id: %s", tree_node.parent_id)
-    if not tree_node.parent or tree_node.tree_id == tree_node.parent.tree_id:
-        logger.success("\ttree_id: %i", tree_node.tree_id)
-    else:
-        logger.error("\ttree_id: %i → %i", tree_node.tree_id, tree_node.parent.tree_id)
-    if tree_node.parent_id:
-        if tree_node.depth == tree_node.parent.depth + 1:
-            logger.success("\tdepth: %i", tree_node.depth)
+    logger.success("\tparent_id: %s", tree_node.parent_id)  # type: ignore[attr-defined]
+
+    for name in ["tree_id", "depth", "lft", "rgt"]:
+        if name in diff:
+            logger.error("\t%s: %i → %i", name, diff[name]["old"], diff[name]["new"])
         else:
-            logger.error(
-                "\tdepth: %i → %i", tree_node.depth, tree_node.parent.depth + 1
-            )
-    elif tree_node.depth == 1:
-        logger.success("\tdepth: %i", tree_node.depth)
-    else:
-        logger.error("\tdepth: %i → 1", tree_node.depth)
-    if tree_node.lft == left:
-        logger.success("\tlft: %i", tree_node.lft)
-    else:
-        logger.error("\tlft: %i → %i", tree_node.lft, left)
-    if tree_node.rgt == right:
-        logger.success("\trgt: %i", tree_node.rgt)
-    else:
-        logger.error("\trgt: %i → %i", tree_node.rgt, right)
+            logger.success("\t%s: %i", name, getattr(tree_node, name))  # type: ignore[attr-defined]
 
 
 class MPTTFixer:
@@ -85,13 +77,19 @@ class MPTTFixer:
     to fix hierarchy and sorts siblings by (potentially inconsistent) lft.
     """
 
+    logger = logging.getLogger(__name__)
+
     def __init__(self) -> None:
         """
         Creates a fixed tree when initializing class but does not save results
         """
-        self.broken_root_nodes: Iterable[Page] = list(Page.objects.filter(parent=None))
-        self.broken_child_nodes: deque[Page] = deque(Page.objects.exclude(parent=None))
-        self.fixed_nodes: dict[int, Page] = {}
+        self.broken_root_nodes: Iterable[ShadowInstance[Page]] = list(
+            map(ShadowInstance, Page.objects.filter(parent=None))
+        )
+        self.broken_child_nodes: deque[ShadowInstance[Page]] = deque(
+            map(ShadowInstance, Page.objects.exclude(parent=None))
+        )
+        self.fixed_nodes: dict[int, ShadowInstance[Page]] = {}
         self.fix_root_nodes()
         self.fix_child_nodes()
 
@@ -123,7 +121,9 @@ class MPTTFixer:
             self.fixed_nodes[parent.pk].fixed_children.append(node.pk)
             self.update_ancestors_rgt(node.pk)
 
-    def calculate_lft_rgt(self, node: Page, parent: Page) -> Page:
+    def calculate_lft_rgt(
+        self, node: ShadowInstance[Page], parent: ShadowInstance[Page]
+    ) -> ShadowInstance[Page]:
         """
         add a new node to the existing MPTT structure. As we sorted by lft, we always add
         to the right of existing nodes.
@@ -149,7 +149,7 @@ class MPTTFixer:
             self.fixed_nodes[node.parent_id].rgt = node.rgt + 1
             node = self.fixed_nodes[node.parent_id]
 
-    def get_fixed_root_nodes(self) -> Iterable[Page]:
+    def get_fixed_root_nodes(self) -> Iterable[ShadowInstance[Page]]:
         """
         Return a list of all fixed root nodes
         """
@@ -157,7 +157,7 @@ class MPTTFixer:
             if node.parent is None:
                 yield node
 
-    def get_fixed_root_node(self, page_id: int) -> Page:
+    def get_fixed_root_node(self, page_id: int) -> ShadowInstance[Page]:
         """
         Travel up ancestors of a page until we get the root node
         """
@@ -166,13 +166,15 @@ class MPTTFixer:
             page = self.fixed_nodes[page.parent_id]
         return page
 
-    def get_fixed_tree_nodes(self) -> Iterable[Page]:
+    def get_fixed_tree_nodes(self) -> Iterable[ShadowInstance[Page]]:
         """
         Yield all page tree nodes
         """
         return self.fixed_nodes.values()
 
-    def get_fixed_tree_of_page(self, node_id: int | None = None) -> Iterable[Page]:
+    def get_fixed_tree_of_page(
+        self, node_id: int | None = None
+    ) -> Iterable[ShadowInstance[Page]]:
         """
         get all nodes of page tree, either identfied by one page or the (new) tree ID.
         get all trees if no key is provided.

@@ -18,7 +18,6 @@ class TestRepairTree:
     def test_repair_tree(self, load_test_data: None) -> None:
         region = Region.objects.get(slug="augsburg")
 
-        # "created_date", "lft", "rgt", "tree_id", "depth", "parent_id", "region_id", "explicitly_archi..., "api_token", "hix_ignore"
         root_page = Page(region=region, lft=2, rgt=6, tree_id=999, depth=0)
         child1_page = Page(
             region=region, lft=1, rgt=4, tree_id=999, depth=1, parent=root_page

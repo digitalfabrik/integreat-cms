@@ -45,4 +45,4 @@ class Command(LogCommand):
         """
         self.set_logging_stream()
 
-        return repair_tree(page_id, commit)
+        return repair_tree(page_id, commit, logging_name=logger.name)
