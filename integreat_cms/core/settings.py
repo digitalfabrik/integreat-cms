@@ -162,7 +162,7 @@ if BRANDING not in AVAILABLE_BRANDINGS:
 BRANDING_TITLE: Final[str] = AVAILABLE_BRANDINGS[BRANDING]
 
 #: Social media preview image
-SOCIAL_PREVIEW_IMAGE = os.environ.get(
+SOCIAL_PREVIEW_IMAGE: Final[str] = os.environ.get(
     "INTEGREAT_SOCIAL_PREVIEW_IMAGE",
     f"static/logos/{BRANDING}/social-media-preview.png",
 )

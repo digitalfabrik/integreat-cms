@@ -138,12 +138,10 @@ region_api_urlpatterns: list[URLPattern] = [
     path("<slug:region_slug>/", region_by_slug, name="region_by_slug"),
 ]
 
-social_media_prefix = "social"
-
 social_media_api_urlpatterns = [
     path("", root_social_media_headers, name="social_root"),
-    *map(
-        lambda reserved: path(
+    *(
+        path(
             f"{reserved}/",
             include(
                 [
@@ -159,11 +157,8 @@ social_media_api_urlpatterns = [
                     ),
                 ]
             ),
-        ),
-        settings.RESERVED_REGION_SLUGS,
-    ),
-    path(
-        "<slug:social_region_slug>", region_social_media_headers, name="social_region"
+        )
+        for reserved in settings.RESERVED_REGION_SLUGS
     ),
     path(
         "<slug:region_slug>/",
@@ -185,13 +180,13 @@ social_media_api_urlpatterns = [
                     region_social_media_headers,
                     name="social_region_reserved_tunews",
                 ),
-                *map(
-                    lambda reserved: path(
-                        reserved,
+                *(
+                    path(
+                        f"{reserved}/",
                         region_social_media_headers,
                         name=f"social_region_reserved_{reserved}",
-                    ),
-                    settings.RESERVED_REGION_PAGE_PATTERNS,
+                    )
+                    for reserved in settings.RESERVED_REGION_PAGE_PATTERNS
                 ),
                 path(
                     "events/<slug:slug>/",

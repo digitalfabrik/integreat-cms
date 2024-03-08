@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
             model_name="language",
             name="social_media_webapp_title",
             field=models.CharField(
-                default="Integreat",
+                blank=True,
                 help_text="Displayed title of the WebApp in the search results and on social media pages (max 100 characters).",
                 max_length=100,
                 verbose_name="Social media title of the WebApp",

@@ -111,8 +111,7 @@ class Language(AbstractBaseModel):
     )
     social_media_webapp_title = models.CharField(
         max_length=100,
-        blank=False,
-        default=settings.BRANDING_TITLE,
+        blank=True,
         verbose_name=_("Social media title of the WebApp"),
         help_text=_(
             "Displayed title of the WebApp in the search results and on social media pages (max 100 characters)."

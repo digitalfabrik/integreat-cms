@@ -78,7 +78,7 @@ def region_social_media_headers(
     :return: HTML social meta headers required by social media platforms
     """
     region = request.region
-    language = region.get_language_or_404(language_slug)
+    language = region.get_language_or_404(language_slug, only_active=True)
 
     title = f"{region.name} | {settings.BRANDING_TITLE}"
     url = site_url(request)
