@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from cacheops import invalidate_obj
-from django.conf import settings
 from django.core.validators import MinLengthValidator
 from django.db import models
 

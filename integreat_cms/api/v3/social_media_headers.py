@@ -14,15 +14,11 @@ from django.http import Http404
 from django.shortcuts import render
 from django.utils.html import strip_tags
 
-from integreat_cms.cms.models.events.event_translation import EventTranslation
-from integreat_cms.cms.models.languages.language import Language
-from integreat_cms.cms.models.pois.poi_translation import POITranslation
-from integreat_cms.cms.models.push_notifications.push_notification_translation import (
+from ...cms.models.languages.language import Language
+from ...cms.models.push_notifications.push_notification_translation import (
     PushNotificationTranslation,
 )
-from integreat_cms.cms.models.regions.region import Region
-
-from ...cms.models import PageTranslation
+from ...cms.models.regions.region import Region
 from ...cms.utils.internal_link_utils import (
     get_public_translation_for_webapp_link_parts,
 )
