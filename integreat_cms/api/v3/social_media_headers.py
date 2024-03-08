@@ -7,6 +7,7 @@ from __future__ import annotations
 import logging
 from html import unescape
 from typing import TYPE_CHECKING
+from urllib.parse import unquote
 
 from django.conf import settings
 from django.http import Http404
@@ -22,6 +23,9 @@ from integreat_cms.cms.models.push_notifications.push_notification_translation i
 from integreat_cms.cms.models.regions.region import Region
 
 from ...cms.models import PageTranslation
+from ...cms.utils.internal_link_utils import (
+    get_public_translation_for_webapp_link_parts,
+)
 
 if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponse
@@ -123,9 +127,9 @@ def event_social_media_headers(
     language = region.get_language_or_404(language_slug, only_active=True)
 
     if not (
-        event_translation := EventTranslation.search(
-            region, language.slug, slug
-        ).first()
+        event_translation := get_public_translation_for_webapp_link_parts(
+            region.slug, language_slug, ["events", slug]
+        )
     ):
         raise Http404("Event not found in this region with this language.")
 
@@ -190,9 +194,9 @@ def location_social_media_headers(
     language = region.get_language_or_404(language_slug, only_active=True)
 
     if not (
-        location_translation := POITranslation.search(
-            region, language.slug, slug
-        ).first()
+        location_translation := get_public_translation_for_webapp_link_parts(
+            region.slug, language_slug, ["locations", slug]
+        )
     ):
         raise Http404("POI not found in this region with this language.")
 
@@ -221,8 +225,11 @@ def page_social_media_headers(
     region = request.region
     language = region.get_language_or_404(language_slug, only_active=True)
 
+    path_parts = unquote(path).strip("/").split("/")
     if not (
-        page_translation := PageTranslation.search(region, language.slug, path).first()
+        page_translation := get_public_translation_for_webapp_link_parts(
+            region.slug, language_slug, path_parts
+        )
     ):
         raise Http404("Page not found in this region with this language.")
 

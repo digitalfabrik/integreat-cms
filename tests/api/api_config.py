@@ -566,7 +566,7 @@ API_SOCIAL_ENDPOINTS: Final[list[tuple[str, str | None, int, int]]] = [
         "/api/v3/social/augsburg/de/willkommen/",
         "tests/api/expected-outputs/augsburg_de_social_page.json",
         200,
-        6,
+        5,
     ),
     (
         "/api/v3/social/augsburg/de/non-existing/",
@@ -578,13 +578,13 @@ API_SOCIAL_ENDPOINTS: Final[list[tuple[str, str | None, int, int]]] = [
         "/api/v3/social/augsburg/de/events/test-veranstaltung/",
         "tests/api/expected-outputs/augsburg_de_social_event.json",
         200,
-        6,
+        5,
     ),
     (
         "/api/v3/social/augsburg/de/locations/test-ort/",
         "tests/api/expected-outputs/augsburg_de_social_location.json",
         200,
-        6,
+        5,
     ),
     (
         "/api/v3/social/augsburg/de/news/local/1/",
