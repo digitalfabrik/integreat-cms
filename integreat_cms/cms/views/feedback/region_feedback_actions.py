@@ -7,6 +7,7 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
+import magic
 from cacheops import invalidate_model, invalidate_obj
 from django.contrib import messages
 from django.http import HttpResponse
@@ -14,6 +15,7 @@ from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
 from tablib import Dataset
+from tablib.formats import registry as format_registry
 
 from ...decorators import permission_required
 from ...models import Feedback
@@ -181,13 +183,15 @@ def delete_region_feedback(
 def export_region_feedback(
     request: HttpRequest,
     region_slug: str,
+    file_format: str,
 ) -> HttpResponse:
     """
-    Export a list of feedback items (to CSV)
+    Export a list of feedback items
 
     :param request: Object representing the user call
     :param region_slug: The slug of the current region
-    :return: Response with CSV file
+    :param file_format: The export format
+    :return: Response with file
     """
     selected_ids = request.POST.getlist("selected_ids[]")
     selected_feedback = Feedback.objects.filter(
@@ -204,8 +208,13 @@ def export_region_feedback(
         data = resource.export_resource(obj)
         dataset.append(data)
 
-    response = HttpResponse(dataset.csv, content_type="text/csv")
+    if file_format in (f.title for f in format_registry.formats()):
+        blob = getattr(dataset, file_format)
+        mime = magic.from_buffer(blob, mime=True)
+        response = HttpResponse(blob, content_type=mime)
+    else:
+        raise ValueError(f"Unknown export format {file_format}")
     response["Content-Disposition"] = (
-        f'attachment; filename="Integreat_{request.region}_feedback.csv"'
+        f'attachment; filename="Integreat_{request.region}_feedback.{file_format}'
     )
     return response
