@@ -258,11 +258,11 @@ TEXTLAB_API_URL: Final[str] = os.environ.get(
 )
 
 #: Key for the Textlab API
-TEXTLAB_API_KEY: Final[str | None] = os.environ.get("INTEGREAT_CMS_TEXTLAB_API_KEY")
+TEXTLAB_API_KEY: str | None = os.environ.get("INTEGREAT_CMS_TEXTLAB_API_KEY")
 
 #: Whether the Textlab API is enabled.
 #: This is ``True`` if :attr:`~integreat_cms.core.settings.TEXTLAB_API_KEY` is set, ``False`` otherwise.
-TEXTLAB_API_ENABLED: Final[bool] = bool(TEXTLAB_API_KEY)
+TEXTLAB_API_ENABLED: bool = bool(TEXTLAB_API_KEY)
 
 #: Username for the Textlab API
 TEXTLAB_API_USERNAME: Final[str] = os.environ.get(

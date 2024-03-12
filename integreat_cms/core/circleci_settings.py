@@ -25,6 +25,10 @@ SUMM_AI_ENABLED = True
 DEEPL_AUTH_KEY = "dummy"
 #: Enable manually because existing setting derives from the unset env var
 DEEPL_ENABLED = True
+#: Set dummy Textlab key to test automatic translations via Textlab API
+TEXTLAB_API_KEY = "dummy"
+#: Enable manually because existing setting derives from the unset env var
+TEXTLAB_API_ENABLED = True
 #: Use debug logging on CircleCI
 LOG_LEVEL = "DEBUG"
 #: Disable linkcheck listeners on CircleCI
