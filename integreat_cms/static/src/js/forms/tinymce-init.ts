@@ -56,7 +56,14 @@ const toggleNoTranslate = (editor: Editor) => {
     }
 };
 
-export const getContent = (): string => tinymce.activeEditor.getContent();
+export const getContent = (args: object = {}): string => {
+    const defaultArgs = { source_view: true };
+    return tinymce.activeEditor.getContent({ ...{ defaultArgs }, ...args });
+};
+
+export const editors = tinymce.editors;
+
+export const isActuallyDirty = (editor: Editor) => editor.startContent !== editor.getContent({ source_view: true });
 
 /**
  * This file initializes the tinymce editor.
@@ -89,6 +96,7 @@ window.addEventListener("load", () => {
             },
             link_title: false,
             autosave_interval: "120s",
+            autosave_ask_before_unload: false, // We implement that ourselves
             forced_root_block: true,
             plugins: "code fullscreen autosave preview media image lists directionality wordcount hr charmap paste",
             external_plugins: {
