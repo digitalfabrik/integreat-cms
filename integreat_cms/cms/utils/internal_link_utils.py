@@ -10,13 +10,12 @@ from urllib.parse import unquote, urlparse
 
 from django.conf import settings
 
+from ..constants import status
 from ..models import (
-    Event,
-    ImprintPage,
+    EventTranslation,
     ImprintPageTranslation,
-    Page,
     PageTranslation,
-    POI,
+    POITranslation,
 )
 
 if TYPE_CHECKING:
@@ -114,30 +113,26 @@ def get_public_translation_for_webapp_link(
         # Return early if the language slug is not different
         return None
 
-    object_type = {"events": Event, "locations": POI, "disclaimer": ImprintPage}.get(
-        path, Page
-    )
+    object_type, foreign_object = {
+        "events": (EventTranslation, "event"),
+        "locations": (POITranslation, "poi"),
+        "disclaimer": (ImprintPageTranslation, "page"),
+    }.get(path, (PageTranslation, "page"))
     filter_args = {
-        "region__slug": region_slug,
-        "translations__language__slug": language_slug,
+        f"{foreign_object}__region__slug": region_slug,
+        "language__slug": language_slug,
+        "status": status.PUBLIC,
     }
-    if object_type != ImprintPage:
-        filter_args["translations__slug"] = object_slug
+    if object_type != ImprintPageTranslation:
+        filter_args[f"{foreign_object}__translations__slug"] = object_slug
 
-    if not (instances := object_type.objects.filter(**filter_args).distinct()):
-        # Not a correct url to one of the supported object types
-        return None
+    instances = (
+        object_type.objects.filter(**filter_args)
+        .select_related("language", f"{foreign_object}__region")
+        .order_by("-version")
+    )
 
-    if len(instances) > 1:
-        logger.warning(
-            "Violated uniqueness constraint for %s, %s, %s",
-            region_slug,
-            language_slug,
-            object_slug,
-        )
-
-    instance = instances[0]
-    return instance.get_public_translation(language_slug)
+    return instances.first()
 
 
 def get_public_translation_for_short_link(

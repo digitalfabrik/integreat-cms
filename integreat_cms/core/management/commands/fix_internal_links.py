@@ -1,16 +1,27 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+import time
+from collections import defaultdict
+from copy import deepcopy
+from functools import partial
+from typing import DefaultDict, TYPE_CHECKING
 from urllib.parse import unquote
 
 from django.contrib.auth import get_user_model
 from django.core.management.base import CommandError
+from linkcheck.listeners import tasks_queue
 from linkcheck.models import Url
+from lxml.html import rewrite_links
 
 from ....cms.models import Region
+from ....cms.models.abstract_content_translation import AbstractContentTranslation
 from ....cms.utils import internal_link_utils
-from ....cms.utils.linkcheck_utils import replace_links
+from ....cms.utils.linkcheck_utils import (
+    fix_content_link_encoding,
+    get_region_links,
+    save_new_version,
+)
 from ..log_command import LogCommand
 
 if TYPE_CHECKING:
@@ -78,7 +89,7 @@ class Command(LogCommand):
             help="Whether changes should be written to the database",
         )
 
-    # pylint: disable=arguments-differ
+    # pylint: disable=arguments-differ, too-many-locals
     def handle(
         self, *args: Any, region_slug: str, username: str, commit: bool, **options: Any
     ) -> None:
@@ -97,7 +108,16 @@ class Command(LogCommand):
         region = get_region(region_slug) if region_slug else None
         user = get_user(username) if username else None
 
-        for url in Url.objects.all():
+        translation_updates: DefaultDict[AbstractContentTranslation, dict[str, str]] = (
+            defaultdict(dict)
+        )
+
+        query = Url.objects.all()
+        if region:
+            region_links = get_region_links(region)
+            query = Url.objects.filter(links__in=region_links).distinct()
+
+        for url in query:
             if not url.internal:
                 continue
             source_translation = internal_link_utils.get_public_translation_for_link(
@@ -106,25 +126,69 @@ class Command(LogCommand):
             if not source_translation:
                 continue
 
-            for link in url.links.all():
+            for link in url.links.all().prefetch_related("content_object__language"):
                 target_language_slug = link.content_object.language.slug
-                if target_translation := source_translation.foreign_object.get_public_translation(
-                    target_language_slug
-                ):
-                    target_url = target_translation.full_url
-                    source_url = unquote(url.url)
-                    if target_url.strip("/") != source_url.strip("/"):
-                        replace_links(
-                            source_url,
-                            target_url,
-                            region=region,
-                            partial_match=False,
-                            language=target_translation.language,
-                            user=user,
-                            commit=commit,
+                target_translation = source_translation
+                if target_language_slug != source_translation.language.slug:
+                    target_translation = (
+                        source_translation.foreign_object.get_public_translation(
+                            target_language_slug
                         )
+                    )
+
+                target_url = target_translation.full_url
+                source_url = unquote(url.url)
+                if target_url.strip("/") != source_url.strip("/"):
+                    logger.debug(
+                        "%r: %r -> %r", link.content_object, source_url, target_url
+                    )
+                    translation_updates[link.content_object][source_url] = target_url
+
+        # Now perform all updates
+        for translation, url_updates in translation_updates.items():
+            replace_links_of_translation(translation, url_updates, user, commit)
+
+        # Wait until all post-save signals have been processed
+        logger.debug("Waiting for linkcheck listeners to update link database...")
+        time.sleep(0.1)
+        tasks_queue.join()
 
         if commit:
             logger.success("✔ Successfully finished fixing broken internal links.")  # type: ignore[attr-defined]
         else:
             logger.info("✔ Finished dry-run of fixing broken internal links.")
+
+
+def replace_links_of_translation(
+    translation: AbstractContentTranslation,
+    rules: dict[str, str],
+    user: Any | None,
+    commit: bool,
+) -> None:
+    """
+    Replaces links on a single translation
+
+    :param translation: The translation to modify
+    :param rules: The rules how to replace the links. The keys are the old urls and the values are the new urls
+    :param user: The user that should be credited for this action
+    :param commit: Whether to write to the database
+    """
+    new_translation = deepcopy(translation)
+    new_translation.content = fix_content_link_encoding(
+        rewrite_links(new_translation.content, partial(replace_link_helper, rules))
+    )
+    logger.debug(
+        "Replacing %r link(s) in %r: %r", len(rules), new_translation, rules.keys()
+    )
+    if commit:
+        save_new_version(translation, new_translation, user)
+
+
+def replace_link_helper(rules: dict[str, str], link: str) -> str:
+    """
+    Helper function to update a link according to the given rules
+    :param rules: A dict where the keys are the old urls and the values are the new urls
+    :param link: The link to replace according to the rules
+    :return: Returns the updated link if a matching rules is found, otherwise returns it unmodified
+    """
+    return rules.get(link, link)
