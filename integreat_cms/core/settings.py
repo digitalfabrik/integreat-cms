@@ -285,6 +285,11 @@ TEXTLAB_API_BULK_COOL_DOWN_PERIOD: Final[float] = float(
     os.environ.get("INTEGREAT_CMS_TEXTLAB_API_BULK_COOL_DOWN_PERIOD", 60)
 )
 
+#: Which text type / benchmark id to default to
+TEXTLAB_API_DEFAULT_BENCHMARK_ID: Final[int] = int(
+    os.environ.get("INTEGREAT_CMS_TEXTLAB_API_DEFAULT_BENCHMARK_ID", 420)
+)
+
 #: The minimum HIX score required for machine translation
 HIX_REQUIRED_FOR_MT: Final[float] = float(
     os.environ.get("INTEGREAT_CMS_HIX_REQUIRED_FOR_MT", 15.0)
