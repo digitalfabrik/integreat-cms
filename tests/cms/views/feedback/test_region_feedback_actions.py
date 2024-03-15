@@ -262,7 +262,9 @@ def test_csv_export_feedback(
 ) -> None:
     client, role = login_role_user
 
-    csv_export = reverse("export_region_feedback", kwargs=region_slug_param)
+    csv_export = reverse(
+        "export_region_feedback", kwargs={**region_slug_param, "file_format": "csv"}
+    )
     csv_to_export_ids = [7, 8]
     response = client.post(csv_export, data={"selected_ids[]": csv_to_export_ids})
 

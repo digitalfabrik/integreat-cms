@@ -119,7 +119,7 @@
                             {% translate "Delete" %}
                         </option>
                     {% endif %}
-                    <option data-bulk-action="{% url 'export_region_feedback' region_slug=request.region.slug %}">
+                    <option data-bulk-action="{% url 'export_region_feedback' region_slug=request.region.slug file_format='csv' %}">
                         {% translate "Export to CSV" %}
                     </option>
                 </select>

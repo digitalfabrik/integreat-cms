@@ -191,7 +191,9 @@
                                     {% endif %}
                                 {% endif %}
                             </p>
-                            {% render_field push_notification_form.regions class+="max-h-52 overflow-scroll"|add_error_class:"border-red-500" %}
+                            <div class="max-h-52 overflow-y-auto">
+                                {% render_field push_notification_form.regions|add_error_class:"border-red-500" %}
+                            </div>
                             {% if push_notification_form.regions|length == 1 and not_accessible_regions_warning %}
                                 <p class="pt-6">
                                     <i icon-name="x" class="text-red-500 align-text-top"></i>

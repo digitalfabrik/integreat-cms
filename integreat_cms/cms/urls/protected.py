@@ -1334,7 +1334,7 @@ urlpatterns: list[URLPattern] = [
                                 name="delete_region_feedback",
                             ),
                             path(
-                                "export/",
+                                "export/<str:file_format>/",
                                 feedback.export_region_feedback,
                                 name="export_region_feedback",
                             ),
