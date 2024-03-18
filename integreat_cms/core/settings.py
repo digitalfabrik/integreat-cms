@@ -74,6 +74,7 @@ RESERVED_REGION_SLUGS: Final[list[str]] = [
     "main-disclaimer",
     "jpal",
     "not-found",
+    "consent",
 ]
 
 #: Reserved region page patterns
