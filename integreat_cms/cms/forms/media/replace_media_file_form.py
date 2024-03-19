@@ -11,7 +11,8 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from ...constants import allowed_media
-from ...models import MediaFile
+from ...models import MediaFile, User
+from ...utils.linkcheck_utils import replace_links
 from ...utils.media_utils import generate_thumbnail
 from ..custom_model_form import CustomModelForm
 
@@ -46,6 +47,7 @@ class ReplaceMediaFileForm(CustomModelForm):
 
     def __init__(
         self,
+        user: User | None = None,
         data: QueryDict | None = None,
         files: MultiValueDict | None = None,
         instance: MediaFile | None = None,
@@ -70,10 +72,13 @@ class ReplaceMediaFileForm(CustomModelForm):
         self.fields["file_size"].required = False
         self.fields["last_modified"].required = False
 
+        self.original_file_url = instance.url
         self.original_file_path = instance.file.path
         self.original_thumbnail_path = (
             instance.thumbnail.path if instance.thumbnail else None
         )
+
+        self.user = user
 
     def clean(self) -> dict:
         """
@@ -130,15 +135,31 @@ class ReplaceMediaFileForm(CustomModelForm):
         return cleaned_data
 
     def save(self, commit: bool = True) -> MediaFile:
-        # Remove old file
-        try:
-            os.remove(self.original_file_path)
-            logger.debug("Removed old file %r", self.original_file_path)
-        except FileNotFoundError:
-            logger.debug("The file %r could not be removed", self.original_file_path)
-        # Remove old thumbnail
-        if self.original_thumbnail_path:
-            os.remove(self.original_thumbnail_path)
-            logger.debug("Removed old thumbnail %r", self.original_thumbnail_path)
+        if commit:
+            # Remove old file
+            try:
+                os.remove(self.original_file_path)
+                logger.debug("Removed old file %r", self.original_file_path)
+            except FileNotFoundError:
+                logger.debug(
+                    "The file %r could not be removed", self.original_file_path
+                )
+            # Remove old thumbnail
+            if self.original_thumbnail_path:
+                os.remove(self.original_thumbnail_path)
+                logger.debug("Removed old thumbnail %r", self.original_thumbnail_path)
 
-        return super().save(commit=commit)
+        result = super().save(commit=commit)
+
+        # Update the file url in content
+        new_url = self.instance.url
+        assert self.original_file_url
+        replace_links(
+            self.original_file_url,
+            new_url,
+            commit=commit,
+            user=self.user,
+            region=self.instance.region,
+        )
+
+        return result
