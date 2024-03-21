@@ -89,9 +89,13 @@ class BaseInlinePOICategoryTranslationFormSet(BaseInlineFormSet):
             # Get the relative index of all extra forms
             rel_index = index - self.initial_form_count()
             # Get all remaining languages
-            languages = Language.objects.exclude(
-                id__in=self.instance.translations.values_list("language__id", flat=True)
-            )
+            languages = Language.objects.all()
+            if self.instance.id:
+                languages = Language.objects.exclude(
+                    id__in=self.instance.translations.values_list(
+                        "language__id", flat=True
+                    )
+                )
             # Assign the language to the form with this index
             kwargs["additional_instance_attributes"] = {
                 "language": languages[rel_index]
