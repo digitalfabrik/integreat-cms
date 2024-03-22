@@ -200,7 +200,7 @@ def export_region_feedback(
 
     resource = FeedbackResource()
     dataset = Dataset(
-        (resource.export_resource(obj) for obj in selected_feedback),
+        *(resource.export_resource(obj) for obj in selected_feedback),
         headers=resource.export().headers,
     )
 
