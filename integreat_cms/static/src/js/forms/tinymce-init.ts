@@ -233,7 +233,7 @@ window.addEventListener("load", () => {
                     });
                 });
                 // Create an event every time the content changes
-                editor.on("keyup undo redo", () =>
+                editor.on("keyup undo redo paste pastetext cut", () =>
                     document.querySelectorAll("[data-content-changed]").forEach((element) => {
                         element.dispatchEvent(new Event("contentChanged"));
                     })
