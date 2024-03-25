@@ -578,7 +578,7 @@ MESSAGE_LOGGING_ENABLED: bool = bool(
 )
 
 #: Logging configuration dictionary (see :setting:`django:LOGGING`)
-LOGGING: Final[dict[str, Any]] = {
+LOGGING: dict[str, Any] = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {

@@ -303,6 +303,12 @@ jobs:
           paths:
             - cc-test-reporter
             - coverage
+      - run:
+          name: Copy CMS log
+          command: cp integreat_cms/integreat-cms.log integreat-cms.log
+          when: on_fail
+      - store_artifacts:
+          path: integreat-cms.log
   upload-test-coverage:
     docker:
       - image: cimg/base:stable
