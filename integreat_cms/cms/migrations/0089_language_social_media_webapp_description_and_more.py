@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ("cms", "0086_alter_fields_for_django_4"),
+        ("cms", "0088_rename_mt_related_fields"),
     ]
 
     operations = [
