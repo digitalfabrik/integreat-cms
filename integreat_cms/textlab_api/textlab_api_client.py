@@ -43,15 +43,25 @@ class TextlabClient:
         response = self.post_request("/user/login", data)
         self.token = response["token"]
 
-    def benchmark(self, text: str) -> float | None:
+    def benchmark(
+        self, text: str, text_type: int = settings.TEXTLAB_API_DEFAULT_BENCHMARK_ID
+    ) -> float | None:
         """
         Retrieves the hix score of the given text.
 
         :param text: The text to calculate the score for
+        :param text_type: The id of the text type ("Textsorte") or, in terms of the api, benchmark to query.
+            A benchmark is a pre-defined set of modules producing various metrics.
+            They can have threshold/target values, depending on the type of text the benchmark is trying to represent.
+            The available text types activated for the logged in account can be queried by sending a simple
+            GET request to the ``/benchmark`` endpoint, complete with all metrics that get included for it.
+            You can find the not so helpful API "documentation" here: https://comlab-ulm.github.io/swagger-V8/
+            But since for now we are only interested in the HIX score anyway, we just use the benchmark
+            "Letter Demo Integreat" with ID ``420`` by default.
         :return: The score, or None if an error occurred
         """
         data = {"text": unescape(text), "locale_name": "de_DE"}
-        path = "/benchmark/5"
+        path = f"/benchmark/{text_type}"
         response = self.post_request(path, data, self.token)
         return response.get("formulaHix")
 

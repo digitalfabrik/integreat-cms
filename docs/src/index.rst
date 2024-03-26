@@ -43,11 +43,15 @@ Project Architecture / Reference
   - :doc:`ref/integreat_cms.api`: This app provides wrapper functions around all API routes and classes mapping the cms models to API JSON responses.
   - :doc:`ref/integreat_cms.cms`: This app contains all database models, views, forms and templates forming the content management system for backend users.
   - :doc:`ref/integreat_cms.core`: This is the project’s main app which contains all configuration files.
+  - :doc:`ref/integreat_cms.deepl_api`: This app provides wrapper functions around the DeepL API for providing translations.
   - :doc:`ref/integreat_cms.firebase_api`: This app provides wrapper functions around the Firebase API to send push notifications.
+  - :doc:`ref/integreat_cms.google_translate_api`: This app provides wrapper functions around the Google Cloud Translate API for providing translations.
   - :doc:`ref/integreat_cms.gvz_api`: This app provides wrapper functions around our Gemeindeverzeichnis API to automatically import coordinates and region aliases.
+  - :doc:`ref/integreat_cms.matomo_api`: This app provides wrapper functions around the Matomo API, for gathering statistics like those in the region dashboard.
   - :doc:`ref/integreat_cms.nominatim_api`: This app provides wrapper functions around our Nominatim API to automatically import region bounding boxes.
   - :doc:`ref/integreat_cms.sitemap`: This app dynamically generates a sitemap.xml for the webapp.
   - :doc:`ref/integreat_cms.summ_ai_api`: This app provides wrapper functions around the SUMM.AI API for automatic translations into Easy German.
+  - :doc:`ref/integreat_cms.textlab_api`: This app provides wrapper functions around the Textlab API to evaluate texts and determine their HIX value.
   - :doc:`ref/integreat_cms.xliff`: This app allows (de-)serialization of translations from/to XLIFF (XML Localization Interchange File Format) for standardised exchange with translation agencies.
 
 * :doc:`ref/tests`: This app contains all tests to verify integreat-cms works as intended
