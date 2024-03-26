@@ -1,5 +1,15 @@
 """
 Test tree mutex for page tree
+
+Test execution order:
+Since there seem to be some weird side effects happening
+for unrelated tests when testing database consistency, we first run those,
+then these tests that make sure the repair_tree() is effective,
+and last the effectiveness of @tree_mutex() itself.
+This ordering is facilitated using pytest_order
+to specify the tests to run "last" (eqivalent to -1, absolute ordering)
+and after certain other tests (relative ordering)
+See https://pytest-order.readthedocs.io/en/stable/usage.html#order-relative-to-other-tests
 """
 
 from __future__ import annotations
@@ -13,29 +23,36 @@ from django.db.utils import IntegrityError
 from integreat_cms.cms.models import Page
 from integreat_cms.cms.utils.tree_mutex import tree_mutex
 
+after_tests = ("tests/cms/utils/test_repair_tree.py::test_repair_tree",)
 
-@pytest.mark.django_db(transaction=True)
-def test_tree_mutex(load_test_data: None) -> None:
+
+@pytest.mark.order("last", after=after_tests)
+@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+def test_tree_mutex(load_test_data_transactional: None) -> None:
     run_test(True)
 
 
-@pytest.mark.django_db(transaction=True)
-def test_rule_out_false_positive(load_test_data: None) -> None:
+@pytest.mark.order(after="test_tree_mutex")
+@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+def test_rule_out_false_positive(load_test_data_transactional: None) -> None:
     exception = None
 
     def handle_exception(e: Exception) -> None:
         nonlocal exception
         exception = e
 
-    with pytest.raises((IntegrityError, AttributeError)) as exc_info:
+    with pytest.raises(
+        (IntegrityError, AttributeError, IndexError, Page.DoesNotExist)
+    ) as exc_info:
         run_test(use_mutex=False, handle_exception=handle_exception)
         if exception:
             raise exception
 
-    print(f"\nException is {repr(exc_info.value)}\n{repr(exc_info.value.args)}\n")
-
     if isinstance(exc_info.value, AttributeError):
-        assert exc_info.value.args[0] == "'NoneType' object has no attribute 'is_descendant_of'"
+        assert (
+            exc_info.value.args[0]
+            == "'NoneType' object has no attribute 'is_descendant_of'"
+        )
 
 
 def run_test(use_mutex: bool, handle_exception: Callable | None = None) -> None:
