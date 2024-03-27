@@ -199,14 +199,10 @@ def export_region_feedback(
     )
 
     resource = FeedbackResource()
-    dataset = Dataset()
-
-    headers = resource.export().headers
-    dataset.headers = headers
-
-    for obj in selected_feedback:
-        data = resource.export_resource(obj)
-        dataset.append(data)
+    dataset = Dataset(
+        *(resource.export_resource(obj) for obj in selected_feedback),
+        headers=resource.export().headers,
+    )
 
     if file_format in (f.title for f in format_registry.formats()):
         blob = getattr(dataset, file_format)
