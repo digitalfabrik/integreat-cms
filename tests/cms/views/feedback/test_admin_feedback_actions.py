@@ -92,7 +92,7 @@ def test_mark_admin_feedback_as_unread(
 
         # Check that feedback has been marked as unread by the user in the database
         feedback = Feedback.objects.get(id=test_feedback_id)
-        assert feedback.read_by == None
+        assert feedback.read_by is None
 
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error
@@ -135,7 +135,7 @@ def test_archive_admin_feedback(
 
         # Check that feedback has been archived by the user in the database
         feedback = Feedback.objects.get(id=test_feedback_id)
-        assert feedback.archived == True
+        assert feedback.archived is True
 
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error
@@ -178,7 +178,7 @@ def test_restore_admin_feedback(
 
         # Check that feedback has been restored by the user in the database
         feedback = Feedback.objects.get(id=test_feedback_id)
-        assert feedback.archived == False
+        assert feedback.archived is False
 
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error

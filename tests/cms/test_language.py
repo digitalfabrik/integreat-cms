@@ -23,7 +23,7 @@ def test_create_new_language_node(
     parent = region.language_tree_root
 
     # Check the new language does not exist in the region
-    assert not new_language in region.languages
+    assert new_language not in region.languages
 
     next_url = url = reverse(
         "new_languagetreenode", kwargs={"region_slug": region.slug}
