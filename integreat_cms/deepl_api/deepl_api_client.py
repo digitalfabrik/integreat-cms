@@ -5,6 +5,7 @@ from html import unescape
 from typing import TYPE_CHECKING
 
 import deepl
+from deepl.exceptions import DeepLException
 from django.apps import apps
 from django.conf import settings
 from django.contrib import messages
@@ -147,13 +148,23 @@ class DeepLApiClient(MachineTranslationApiClient):
                     if hasattr(source_translation, attr) and getattr(
                         source_translation, attr
                     ):
-                        # data has to be unescaped for DeepL to recognize umlauts
-                        data[attr] = self.translator.translate_text(
-                            unescape(getattr(source_translation, attr)),
-                            source_lang=source_language.slug,
-                            target_lang=target_language_key,
-                            tag_handling="html",
-                        )
+                        try:
+                            # data has to be unescaped for DeepL to recognize Umlaute
+                            data[attr] = self.translator.translate_text(
+                                unescape(getattr(source_translation, attr)),
+                                source_lang=source_language.slug,
+                                target_lang=target_language_key,
+                                tag_handling="html",
+                            )
+                        except DeepLException as e:
+                            messages.error(
+                                self.request,
+                                _(
+                                    "A problem with DeepL API has occurred. Please contact an administrator."
+                                ),
+                            )
+                            logger.error(e)
+                            return
 
                 content_translation_form = self.form_class(
                     data=data,
