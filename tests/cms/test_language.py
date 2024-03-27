@@ -7,6 +7,10 @@ from django.urls import reverse
 
 from integreat_cms.cms.models import Language, LanguageTreeNode, Region
 from tests.conftest import ANONYMOUS, HIGH_PRIV_STAFF_ROLES
+from tests.mt_api.deepl_api_test import setup_deepl_supported_languages
+from tests.mt_api.google_translate_api_test import (
+    setup_google_translate_supported_languages,
+)
 
 
 @pytest.mark.django_db
@@ -17,8 +21,8 @@ def test_create_new_language_node(
     # Log the user in
     client, role = login_role_user
 
-    region = Region.objects.filter(slug="nurnberg").first()
     # Ukrainian will be used for the test because the region Nürnberg does not have it.
+    region = Region.objects.filter(slug="nurnberg").first()
     new_language = Language.objects.filter(slug="uk").first()
     parent = region.language_tree_root
 
@@ -50,6 +54,17 @@ def test_create_new_language_node(
         )
         # Verify now both Augsburg and Nürnberg have a language node with Ukrainian
         assert LanguageTreeNode.objects.filter(language=new_language).count() == 2
+
+        # Set up DeepL and Google Translate, and check DeepL is selected as default
+        setup_deepl_supported_languages(["de"], ["uk"])
+        setup_google_translate_supported_languages(["de"], ["uk"])
+        assert (
+            LanguageTreeNode.objects.filter(region=region, language=new_language)
+            .first()
+            .mt_provider.name
+            == "DeepL"
+        )
+
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error
         assert response.status_code == 302
