@@ -92,7 +92,7 @@ class SummAiApiClient(MachineTranslationApiClient):
         logger.debug("Translating %r", text_field)
         # Use test region for development
         user = settings.TEST_REGION_SLUG if settings.DEBUG else self.region.slug
-        # Set the language level to "plain" if the region prefers Plain German and it is a bulk action
+        # Set the language level to "plain" if the region prefers Plain German
         output_language_level = (
             "plain"
             if self.request.region.slug in settings.SUMM_AI_PLAIN_GERMAN_REGIONS
