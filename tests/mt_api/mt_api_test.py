@@ -195,7 +195,7 @@ def test_bulk_mt(
     "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
-def test_deepl_bulk_mt_exceeds_limit(
+def test_bulk_mt_exceeds_limit(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
@@ -281,7 +281,7 @@ def test_deepl_bulk_mt_exceeds_limit(
     "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
-def test_deepl_bulk_mt_up_to_date(
+def test_bulk_mt_up_to_date(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
@@ -354,7 +354,7 @@ def test_deepl_bulk_mt_up_to_date(
     "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
-def test_deepl_bulk_mt_up_to_date_and_ready_for_mt(
+def test_bulk_mt_up_to_date_and_ready_for_mt(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
@@ -453,7 +453,7 @@ def test_deepl_bulk_mt_up_to_date_and_ready_for_mt(
     "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
-def test_deepl_page_automatic_translation(
+def test_page_automatic_translation(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
@@ -665,7 +665,7 @@ def test_deepl_event_automatic_translation(
     "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
-def test_deepl_poi_automatic_translation(
+def test_poi_automatic_translation(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
@@ -770,7 +770,7 @@ def test_deepl_poi_automatic_translation(
     "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
-def test_deepl_bulk_mt_no_source_language(
+def test_bulk_mt_no_source_language(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     provider_language_combination: tuple[str, str, str],
