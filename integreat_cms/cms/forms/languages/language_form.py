@@ -30,6 +30,8 @@ class LanguageForm(CustomModelForm):
             "native_name",
             "text_direction",
             "table_of_contents",
+            "social_media_webapp_title",
+            "social_media_webapp_description",
             "primary_country_code",
             "secondary_country_code",
             "message_content_not_available",
