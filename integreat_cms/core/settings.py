@@ -1011,6 +1011,14 @@ SUMM_AI_IS_INITIAL: Final[bool] = bool(
     strtobool(os.environ.get("INTEGREAT_CMS_SUMM_AI_IS_INITIAL", "True"))
 )
 
+# Slugs of regions that prefer Plain German over Easy German in the management command
+SUMM_AI_PLAIN_GERMAN_REGIONS: Final[list[str]] = [
+    x.strip()
+    for x in os.environ.get(
+        "INTEGREAT_CMS_SUMM_AI_PLAIN_GERMAN_REGIONS", ""
+    ).splitlines()
+]
+
 
 ################
 # STATIC FILES #

@@ -92,6 +92,12 @@ class SummAiApiClient(MachineTranslationApiClient):
         logger.debug("Translating %r", text_field)
         # Use test region for development
         user = settings.TEST_REGION_SLUG if settings.DEBUG else self.region.slug
+        # Set the language level to "plain" if the region prefers Plain German
+        output_language_level = (
+            "plain"
+            if self.request.region.slug in settings.SUMM_AI_PLAIN_GERMAN_REGIONS
+            else "easy"
+        )
         if (
             text_field is None
             or (isinstance(text_field, TextField) and not text_field.text)
@@ -111,6 +117,7 @@ class SummAiApiClient(MachineTranslationApiClient):
                     "separator": settings.SUMM_AI_SEPARATOR,
                     "is_test": settings.SUMM_AI_TEST_MODE,
                     "is_initial": settings.SUMM_AI_IS_INITIAL,
+                    "output_language_level": output_language_level,
                 },
             ) as response:
                 # Wait for the response
@@ -164,7 +171,7 @@ class SummAiApiClient(MachineTranslationApiClient):
                 # asynchronously as a task. If we have to repeat the task
                 # (e.g. if we run into rate limiting and have to resend the request),
                 # we need a NEW coroutine object.
-                # For that case, we a representation of our function which can be
+                # For that case, we need a representation of our function which can be
                 # evaluated when needed, giving a new coroutine for the task each time.
                 partial(self.translate_text_field, session, text_field)
                 for text_field in text_fields
