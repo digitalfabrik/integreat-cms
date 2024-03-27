@@ -7,6 +7,7 @@ are used to determine the file system path to which the files should be uploaded
 from __future__ import annotations
 
 import logging
+import time
 from os.path import splitext
 from time import strftime
 from typing import TYPE_CHECKING
@@ -41,6 +42,7 @@ def upload_path(instance: MediaFile, filename: str) -> str:
     """
     This function calculates the path for a file which is uploaded to the media library.
     It contains the region id, the current year and month as subdirectories and the filename.
+    It also contains the current epoch time to make sure that no path will be used twice.
     It is just the provisionally requested path for the media storage.
     If it already exists, Django will automatically append a random string to make sure the file name is unique.
 
@@ -48,21 +50,11 @@ def upload_path(instance: MediaFile, filename: str) -> str:
     :param filename: The filename of media library object
     :return: The upload path of the file
     """
-    # If the instance already exists in the database, make sure the upload path doesn't change
-    if instance.id:
-        original_instance = MediaFile.objects.get(id=instance.id)
-        if original_instance.file:
-            logger.debug(
-                "%r already exists in the database, keeping original upload path: %r",
-                instance,
-                original_instance.file.name,
-            )
-            return original_instance.file.name
-
     # If the media file is uploaded to a specific region, prepend a region id subdirectory
     subdirectory = f"regions/{instance.region.id}" if instance.region else "global"
     # Calculate the remaining upload path
-    path = f"{subdirectory}/{strftime('%Y/%m')}/{filename}"
+    path = f"{subdirectory}/{strftime('%Y/%m')}/{int(time.time())}_{filename}"
+
     logger.debug("Upload path for media file %r: %r", instance.file, path)
     return path
 
@@ -82,17 +74,6 @@ def upload_path_thumbnail(instance: MediaFile, filename: str) -> str:
     :param filename: The (unused) initial filename of thumbnail
     :return: The upload path of the thumbnail
     """
-    # If the instance already exists in the database, make sure the upload path doesn't change
-    if instance.id:
-        original_instance = MediaFile.objects.get(id=instance.id)
-        if original_instance.thumbnail:
-            logger.debug(
-                "%r already exists in the database, keeping original thumbnail upload path: %r",
-                instance,
-                original_instance.thumbnail.name,
-            )
-            return original_instance.thumbnail.name
-
     # Derive the thumbnail name from the original file name
     name, extension = splitext(instance.file.name)
     path = f"{name}_thumbnail{extension}"

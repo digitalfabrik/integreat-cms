@@ -228,14 +228,12 @@ def save_new_version(
     logger.debug("Created new translation version %r", new_translation)
 
 
-# pylint: disable=too-many-locals,too-many-arguments
+# pylint: disable=too-many-locals
 def replace_links(
     search: str,
     replace: str,
     *,
-    partial_match: bool = True,
     region: Region | None = None,
-    language: Language | None = None,
     user: User | None = None,
     commit: bool = True,
     link_types: list[str] | None = None,
@@ -245,9 +243,7 @@ def replace_links(
 
     :param search: The (partial) URL to search
     :param replace: The (partial) URL to replace
-    :param partial_match: Whether to also replace links that only match partially
     :param region: Optionally limit the replacement to one region (``None`` means a global replacement)
-    :param language: Optionally limit the replacement to one language (``None`` means a replacement for all languages)
     :param user: The creator of the replaced translations
     :param commit: Whether changes should be written to the database
     :param link_types: Which kind of links should be replaced
@@ -267,8 +263,6 @@ def replace_links(
             filters = {}
             if region:
                 filters[f"{model.foreign_field()}__region"] = region
-            if language:
-                filters["language"] = language
 
             for translation in model.objects.filter(**filters).distinct(
                 model.foreign_field(), "language"
@@ -276,17 +270,11 @@ def replace_links(
                 new_translation = deepcopy(translation)
                 for link in translation.links.select_related("url"):
                     url = link.url.url
-                    should_replace = (
-                        search in url
-                        if partial_match
-                        else search.strip("/") == url.strip("/")
-                    )
-                    if should_replace and (
+                    should_replace = search in url and (
                         not link_types or link.url.type in link_types
-                    ):
-                        fixed_url = (
-                            url.replace(search, replace) if partial_match else replace
-                        )
+                    )
+                    if should_replace:
+                        fixed_url = url.replace(search, replace)
                         new_translation.content = rewrite_links(
                             new_translation.content,
                             partial(replace_link_helper, url, fixed_url),
