@@ -4,6 +4,7 @@ or when the user clicks the permalinks edit button */
 
 import { getCsrfToken } from "../utils/csrf-token";
 import { copyToClipboard } from "../copy-clipboard";
+import SubmissionPrevention from "./prevent-premature-submission";
 
 const slugify = async (url: string, data: any) => {
     const response = await fetch(url, {
@@ -44,12 +45,14 @@ window.addEventListener("load", () => {
         (document.querySelector('[for="id_title"]') as HTMLElement)?.dataset?.slugifyUrl
     ) {
         document.getElementById("id_title").addEventListener("focusout", ({ target }) => {
+            const submissionLock = new SubmissionPrevention(".no-premature-submission");
             const currentTitle = (target as HTMLInputElement).value;
             const url = (document.querySelector('[for="id_title"]') as HTMLElement).dataset.slugifyUrl;
             slugify(url, { title: currentTitle }).then((response) => {
                 /* on success write response to both slug field and permalink */
                 slugField.value = response.unique_slug;
                 updatePermalink(response.unique_slug);
+                submissionLock.release();
             });
         });
     }
