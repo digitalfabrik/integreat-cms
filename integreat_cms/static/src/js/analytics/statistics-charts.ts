@@ -201,6 +201,17 @@ window.addEventListener("load", async () => {
             datasets: [],
         },
         options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        usePointStyle: true,
+                        pointStyleWidth: 18,
+                    },
+                },
+                tooltip: {
+                    usePointStyle: true,
+                },
+            },
             scales: {
                 y: {
                     beginAtZero: true,

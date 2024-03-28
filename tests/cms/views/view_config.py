@@ -835,6 +835,7 @@ VIEWS: ViewConfig = [
                     "table_of_contents": "Inhaltsverzeichnis",
                     "social_media_webapp_title": "Integreat | Web-App | Lokale Informationen für dich",
                     "primary_country_code": "de",
+                    "language_color": "#FF4500",
                     "message_content_not_available": "Foo1",
                     "message_partial_live_content_not_available": "Foo2",
                 },
