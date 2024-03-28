@@ -12,7 +12,7 @@ import aiohttp
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
-from ..cms.constants import colors, matomo_periods
+from ..cms.constants import colors, language_color, matomo_periods
 
 if TYPE_CHECKING:
     import sys
@@ -210,7 +210,7 @@ class MatomoApiClient:
                 "datasets": [
                     {
                         "label": _("Total Accesses"),
-                        "borderColor": colors.DEFAULT,
+                        "backgroundColor": colors.DEFAULT,
                         "data": list(dataset.values()),
                     }
                 ],
@@ -325,7 +325,7 @@ class MatomoApiClient:
         # (in Django, database queries cannot be executed in async functions without more ado)
         languages = list(self.languages)
         # Convert colors to cycle to make sure it doesn't run out of elements if there are more languages than colors
-        color_cycle = cycle(colors.CHOICES)
+        color_cycle = cycle(language_color.COLORS)
 
         # Initialize async event loop
         loop = asyncio.new_event_loop()
@@ -355,7 +355,14 @@ class MatomoApiClient:
                 [
                     {
                         "label": language.translated_name,
-                        "borderColor": next(color_cycle),
+                        "backgroundColor": next(
+                            (
+                                color
+                                for color, lang in color_cycle
+                                if lang == language.english_name
+                            ),
+                            None,
+                        ),
                         "data": list(dataset.values()),
                     }
                     # zip aggregates two lists into tuples, e.g. zip([1,2,3], [4,5,6])=[(1,4), (2,5), (3,6)]
@@ -366,7 +373,7 @@ class MatomoApiClient:
                 + [
                     {
                         "label": _("Offline Accesses"),
-                        "borderColor": next(color_cycle),
+                        "backgroundColor": colors.DEFAULT,
                         "data": list(offline_downloads.values()),
                     }
                 ]
@@ -374,7 +381,7 @@ class MatomoApiClient:
                 + [
                     {
                         "label": _("WebApp Accesses"),
-                        "borderColor": next(color_cycle),
+                        "backgroundColor": colors.DEFAULT,
                         "data": list(webapp_downloads.values()),
                     }
                 ]
@@ -382,7 +389,7 @@ class MatomoApiClient:
                 + [
                     {
                         "label": _("Total Accesses"),
-                        "borderColor": colors.DEFAULT,
+                        "backgroundColor": colors.DEFAULT,
                         "data": list(total_visits.values()),
                     }
                 ],
