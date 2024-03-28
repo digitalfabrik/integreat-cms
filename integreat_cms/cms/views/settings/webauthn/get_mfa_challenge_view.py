@@ -45,7 +45,7 @@ class GetMfaChallengeView(View):
         make_credential_options = generate_registration_options(
             rp_name="Integreat",
             rp_id=settings.HOSTNAME,
-            user_id=str(user.id),
+            user_id=user.webauthn_id,
             user_name=user.username,
             user_display_name=user.first_name + " " + user.last_name,
         )

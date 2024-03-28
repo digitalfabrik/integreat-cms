@@ -13,6 +13,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+from webauthn.helpers import generate_user_handle
 
 if TYPE_CHECKING:
     from datetime import datetime
@@ -139,6 +140,7 @@ class User(AbstractUser, AbstractBaseModel):
             "Enable this option to activate the passwordless login routine for this account"
         ),
     )
+    webauthn_id = models.BinaryField(default=generate_user_handle)
 
     #: Custom model manager for user objects
     objects = CustomUserManager()
