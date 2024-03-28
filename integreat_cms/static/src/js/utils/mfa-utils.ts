@@ -22,9 +22,13 @@ type CredentialResponseFromServer = {
     };
 };
 
-// Based on https://github.com/duo-labs/py_webauthn/blob/master/flask_demo/static/js/webauthn.js
+// Based on https://github.com/MasterKale/SimpleWebAuthn/blob/master/packages/browser/src/helpers/bufferToBase64URLString.ts
 export const b64enc = (buf: Uint8Array) =>
     base64js.fromByteArray(buf).replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, "");
+
+// Based on https://github.com/MasterKale/SimpleWebAuthn/blob/master/packages/browser/src/helpers/base64URLStringToBuffer.ts
+const b64dec = (b64url: string) =>
+    Uint8Array.from(atob(b64url.replace(/-/g, "+").replace(/_/g, "/")), (c) => c.charCodeAt(0));
 
 const b64RawEnc = (buf: Uint8Array) => base64js.fromByteArray(buf).replace(/\+/g, "-").replace(/\//g, "_");
 
@@ -79,11 +83,9 @@ export const transformAssertionForServer = (newAssertion: PublicKeyCredential) =
 
 export const transformCredentialCreateOptions = (credentialCreateOptionsFromServer: CredentialResponseFromServer) => {
     const { challenge, user } = credentialCreateOptionsFromServer;
-    const userIdData = Uint8Array.from(credentialCreateOptionsFromServer.user.id, (c) => c.charCodeAt(0));
 
-    const challengeData = Uint8Array.from(atob(challenge.replace(/-/g, "+").replace(/_/g, "/")), (c) =>
-        c.charCodeAt(0)
-    );
+    const userIdData = b64dec(user.id);
+    const challengeData = b64dec(challenge);
 
     const transformedCredentialCreateOptions = {
         ...credentialCreateOptionsFromServer,
