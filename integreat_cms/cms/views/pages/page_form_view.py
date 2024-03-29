@@ -1,3 +1,10 @@
+"""
+.. warning::
+    Any action modifying the database with treebeard should use ``@tree_mutex(MODEL_NAME)`` from ``integreat_cms.cms.utils.tree_mutex``
+    as a decorator instead of ``@transaction.atomic`` to force treebeard to actually use transactions.
+    Otherwise, the data WILL get corrupted during concurrent treebeard calls!
+"""
+
 from __future__ import annotations
 
 import logging
@@ -6,7 +13,6 @@ from typing import TYPE_CHECKING
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
-from django.db import transaction
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -19,6 +25,7 @@ from ...forms import PageForm, PageTranslationForm
 from ...models import PageTranslation
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
+from ...utils.tree_mutex import tree_mutex
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
 from .page_context_mixin import PageContextMixin
@@ -237,7 +244,7 @@ class PageFormView(
             },
         )
 
-    @transaction.atomic
+    @tree_mutex("page")
     def post(
         self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponseRedirect:

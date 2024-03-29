@@ -1,3 +1,10 @@
+"""
+.. warning::
+    Any action modifying the database with treebeard should use ``@tree_mutex(MODEL_NAME)`` from ``integreat_cms.cms.utils.tree_mutex``
+    as a decorator instead of ``@transaction.atomic`` to force treebeard to actually use transactions.
+    Otherwise, the data WILL get corrupted during concurrent treebeard calls!
+"""
+
 from __future__ import annotations
 
 import logging
@@ -7,6 +14,7 @@ from django.urls import reverse
 
 from ...forms import LanguageTreeNodeForm
 from ...models import EventTranslation, PageTranslation, POITranslation
+from ...utils.tree_mutex import tree_mutex
 from ..form_views import CustomCreateView, CustomUpdateView
 
 if TYPE_CHECKING:
@@ -50,6 +58,16 @@ class LanguageTreeNodeCreateView(CustomCreateView):
         kwargs["region"] = self.request.region
         return kwargs
 
+    @tree_mutex("languagetreenode")
+    # type: ignore[no-untyped-def]
+    def get(self, *args, **kwargs):
+        return super().post(*args, **kwargs)
+
+    @tree_mutex("languagetreenode")
+    # type: ignore[no-untyped-def]
+    def post(self, *args, **kwargs):
+        return super().post(*args, **kwargs)
+
 
 class LanguageTreeNodeUpdateView(CustomUpdateView):
     """
@@ -75,3 +93,13 @@ class LanguageTreeNodeUpdateView(CustomUpdateView):
                     else:
                         translation.links.all().delete()
         return response
+
+    @tree_mutex("languagetreenode")
+    # type: ignore[no-untyped-def]
+    def get(self, *args, **kwargs):
+        return super().post(*args, **kwargs)
+
+    @tree_mutex("languagetreenode")
+    # type: ignore[no-untyped-def]
+    def post(self, *args, **kwargs):
+        return super().post(*args, **kwargs)
