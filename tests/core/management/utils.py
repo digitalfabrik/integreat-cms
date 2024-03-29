@@ -24,8 +24,8 @@ def get_command_output(command: str, *args: str, **kwargs: Any) -> tuple[str, st
     call_command(
         command,
         *args,
+        **kwargs,
         stdout=out,
         stderr=err,
-        **kwargs,
     )
     return out.getvalue(), err.getvalue()
