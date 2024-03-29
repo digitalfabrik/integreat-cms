@@ -12,6 +12,7 @@ from ...models import (
     PageTranslation,
     POITranslation,
 )
+from ...utils.tree_mutex import tree_mutex
 from ..bulk_action_views import BulkUpdateBooleanFieldView
 
 if TYPE_CHECKING:
@@ -53,6 +54,7 @@ class LanguageTreeBulkActionView(BulkUpdateBooleanFieldView):
             "Subclasses of LanguageTreeBulkActionView must provide an 'action' attribute"
         )
 
+    @tree_mutex("languagetreenode")
     def post(
         self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponseRedirect:
