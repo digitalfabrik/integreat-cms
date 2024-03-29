@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import logging
 import os
+import time
 import uuid
 from typing import TYPE_CHECKING
 
@@ -31,6 +32,7 @@ from ...decorators import permission_required
 from ...forms import PageForm
 from ...models import Page, PageTranslation, Region
 from ...utils.file_utils import extract_zip_archive
+from ...utils.repair_tree import repair_tree
 from ...utils.tree_mutex import tree_mutex
 
 if TYPE_CHECKING:
@@ -440,7 +442,32 @@ def move_page(
         # Call the save method on the (reloaded) node in order to trigger possible signal handlers etc.
         # (The move()-method executes raw sql which might cause problems if the instance isn't fetched again)
         page = Page.objects.get(id=page_id)
-        page.save()
+        try:
+            page.save()
+        except IntegrityError:
+            logger.warning(
+                "First IntegrityError while moving %r – waiting 1s and trying again…",
+                page,
+            )
+            time.sleep(1)
+            try:
+                page.save()
+            except IntegrityError:
+                logger.warning(
+                    "Second IntegrityError while moving %r – repairing tree and trying again…",
+                    page,
+                )
+                repair_tree(page_id, commit=True)
+                try:
+                    page.save()
+                except IntegrityError as e:
+                    messages.error(
+                        request,
+                        _(
+                            "Error while saving page. Someone else probably moved another page at the same time."
+                        ),
+                    )
+                    logger.exception(e)
         logger.debug(
             "%r moved to %r of %r by %r",
             page,
@@ -458,8 +485,6 @@ def move_page(
         ValueError,
         InvalidPosition,
         InvalidMoveToDescendant,
-        TimeoutError,
-        IntegrityError,
     ) as e:
         messages.error(request, e)
         logger.exception(e)
