@@ -10,8 +10,10 @@ from typing import Iterable
 
 from ..models import Page
 from .shadow_instance import ShadowInstance
+from .tree_mutex import tree_mutex
 
 
+@tree_mutex("page")
 def repair_tree(
     page_id: int | None = None, commit: bool = False, logging_name: str = __name__
 ) -> None:

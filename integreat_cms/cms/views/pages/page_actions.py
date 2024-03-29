@@ -9,11 +9,10 @@ import os
 import uuid
 from typing import TYPE_CHECKING
 
-from db_mutex import DBMutexError, DBMutexTimeoutError
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
-from django.db import transaction
+from django.db.utils import IntegrityError
 from django.http import (
     Http404,
     HttpResponse,
@@ -32,6 +31,7 @@ from ...decorators import permission_required
 from ...forms import PageForm
 from ...models import Page, PageTranslation, Region
 from ...utils.file_utils import extract_zip_archive
+from ...utils.tree_mutex import tree_mutex
 
 if TYPE_CHECKING:
     from django.http import HttpRequest
@@ -40,6 +40,7 @@ logger = logging.getLogger(__name__)
 
 
 @require_POST
+@tree_mutex("page")
 def archive_page(
     request: HttpRequest, page_id: int, region_slug: str, language_slug: str
 ) -> HttpResponseRedirect:
@@ -85,6 +86,7 @@ def archive_page(
 
 
 @require_POST
+@tree_mutex("page")
 def restore_page(
     request: HttpRequest, page_id: int, region_slug: str, language_slug: str
 ) -> HttpResponseRedirect:
@@ -210,7 +212,7 @@ def get_page_content_ajax(
 
 @require_POST
 @permission_required("cms.delete_page")
-@transaction.atomic
+@tree_mutex("page")
 def delete_page(
     request: HttpRequest, page_id: int, region_slug: str, language_slug: str
 ) -> HttpResponseRedirect:
@@ -408,7 +410,7 @@ def upload_xliff(
 
 @require_POST
 @permission_required("cms.change_page")
-@transaction.atomic
+@tree_mutex("page")
 def move_page(
     request: HttpRequest,
     region_slug: str,
@@ -456,8 +458,8 @@ def move_page(
         ValueError,
         InvalidPosition,
         InvalidMoveToDescendant,
-        DBMutexTimeoutError,
-        DBMutexError,
+        TimeoutError,
+        IntegrityError,
     ) as e:
         messages.error(request, e)
         logger.exception(e)

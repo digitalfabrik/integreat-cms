@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
-from django.db import transaction
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -19,6 +18,7 @@ from ...forms import PageForm, PageTranslationForm
 from ...models import PageTranslation
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
+from ...utils.tree_mutex import tree_mutex
 from ..media.media_context_mixin import MediaContextMixin
 from ..mixins import ContentEditLockMixin
 from .page_context_mixin import PageContextMixin
@@ -238,7 +238,7 @@ class PageFormView(
         )
 
     # pylint: disable=too-many-statements
-    @transaction.atomic
+    @tree_mutex("page")
     def post(
         self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponseRedirect:
