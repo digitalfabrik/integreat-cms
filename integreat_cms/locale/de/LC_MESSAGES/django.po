@@ -7975,6 +7975,14 @@ msgid "Cannot generate slug from {}."
 msgstr "Slug kann nicht aus dem {} abgeleitet werden."
 
 #: cms/utils/stringify_list.py
+msgid "and 1 other"
+msgstr "und 1 weitere"
+
+#: cms/utils/stringify_list.py
+msgid "and {} others"
+msgstr "und {} weitere"
+
+#: cms/utils/stringify_list.py
 msgid "and"
 msgstr "und"
 
@@ -8793,57 +8801,6 @@ msgid "The page \"{page}\" was successfully moved."
 msgstr "Die Seite \"{page}\" wurde erfolgreich verschoben."
 
 #: cms/views/pages/page_actions.py
-msgid ""
-"Page-specific permissions cannot be granted to users who do not have "
-"permission to view pages (e.g event managers)."
-msgstr ""
-"Seitenspezifische Berechtigungen können nicht an Benutzer:innen vergeben "
-"werden, die keine Seiten sehen dürfen (z.B. Terminplaner:innen)."
-
-#: cms/views/pages/page_actions.py
-msgid "Information: The user \"{}\" has this permission already."
-msgstr "Information: \"{}\" hat diese Berechtigung bereits"
-
-#: cms/views/pages/page_actions.py
-msgid "Success: The user \"{}\" can now edit this page."
-msgstr "Erfolg: \"{}\" kann diese Seite nun bearbeiten"
-
-#: cms/views/pages/page_actions.py
-msgid "Success: The user \"{}\" can now publish this page."
-msgstr "Erfolg: \"{}\" kann dieses Seite nun veröffentlichen"
-
-#: cms/views/pages/page_actions.py
-msgid "An error has occurred. Please contact an administrator."
-msgstr ""
-"Ein Fehler ist aufgetreten. Bitte kontaktieren Sie eine:n Administrator:in."
-
-#: cms/views/pages/page_actions.py
-msgid ""
-"Information: The user \"{}\" has been removed from the authors of this page, "
-"but has the implicit permission to edit this page anyway."
-msgstr ""
-"Information: Die Berechtigung von \"{}\" um diese Seite zu bearbeiten wurde "
-"entfernt, aber es besteht weiterhin die Berechtigung, die Seite zu "
-"bearbeiten."
-
-#: cms/views/pages/page_actions.py
-msgid "Success: The user \"{}\" cannot edit this page anymore."
-msgstr "Erfolg: \"{}\" kann diese Seite nun nicht mehr bearbeiten"
-
-#: cms/views/pages/page_actions.py
-msgid ""
-"Information: The user \"{}\" has been removed from the editors of this page, "
-"but has the implicit permission to publish this page anyway."
-msgstr ""
-"Information: Die Berechtigung von \"{}\" um diese Seite zu bearbeiten wurde "
-"entfernt, aber es besteht weiterhin die Berechtigung, die Seite zu "
-"bearbeiten."
-
-#: cms/views/pages/page_actions.py
-msgid "Success: The user \"{}\" cannot publish this page anymore."
-msgstr "Erfolg: \"{}\" kann diese Seite nun nicht mehr veröffentlichen"
-
-#: cms/views/pages/page_actions.py
 msgid "Marked all translations of this page as up-to-date"
 msgstr "Alle Übersetzungen dieser Seite als aktuell markiert."
 
@@ -8988,6 +8945,57 @@ msgstr "Seite \"{}\" wurde erfolgreich erstellt und zur Freigabe vorgelegt"
 #: cms/views/pages/page_form_view.py
 msgid "Page \"{}\" was successfully created"
 msgstr "Seite \"{}\" wurde erfolgreich erstellt"
+
+#: cms/views/pages/page_permission_actions.py
+msgid "An error has occurred. Please contact an administrator."
+msgstr ""
+"Ein Fehler ist aufgetreten. Bitte kontaktieren Sie eine:n Administrator:in."
+
+#: cms/views/pages/page_permission_actions.py
+msgid ""
+"Page-specific permissions cannot be granted to users who do not have "
+"permission to view pages (e.g event managers)."
+msgstr ""
+"Seitenspezifische Berechtigungen können nicht an Benutzer:innen vergeben "
+"werden, die keine Seiten sehen dürfen (z.B. Terminplaner:innen)."
+
+#: cms/views/pages/page_permission_actions.py
+msgid "Information: The user \"{}\" has this permission already."
+msgstr "Information: \"{}\" hat diese Berechtigung bereits."
+
+#: cms/views/pages/page_permission_actions.py
+msgid "Success: The user \"{}\" can now edit this page."
+msgstr "Erfolg: \"{}\" kann diese Seite nun bearbeiten."
+
+#: cms/views/pages/page_permission_actions.py
+msgid "Success: The user \"{}\" cannot edit this page anymore."
+msgstr "Erfolg: \"{}\" kann diese Seite nun nicht mehr bearbeiten."
+
+#: cms/views/pages/page_permission_actions.py
+msgid ""
+"Information: The user \"{}\" has been removed from the authors of this page, "
+"but has the implicit permission to edit this page anyway."
+msgstr ""
+"Information: Die Berechtigung von \"{}\" um diese Seite zu bearbeiten wurde "
+"entfernt, aber es besteht weiterhin die Berechtigung, die Seite zu "
+"bearbeiten."
+
+#: cms/views/pages/page_permission_actions.py
+msgid "Success: The user \"{}\" can now publish this page."
+msgstr "Erfolg: \"{}\" kann dieses Seite nun veröffentlichen."
+
+#: cms/views/pages/page_permission_actions.py
+msgid "Success: The user \"{}\" cannot publish this page anymore."
+msgstr "Erfolg: \"{}\" kann diese Seite nun nicht mehr veröffentlichen."
+
+#: cms/views/pages/page_permission_actions.py
+msgid ""
+"Information: The user \"{}\" has been removed from the editors of this page, "
+"but has the implicit permission to publish this page anyway."
+msgstr ""
+"Information: Die Berechtigung von \"{}\" um diese Seite zu bearbeiten wurde "
+"entfernt, aber es besteht weiterhin die Berechtigung, die Seite zu "
+"bearbeiten."
 
 #: cms/views/pages/page_tree_view.py
 msgid "You can edit only those pages: "
@@ -9528,6 +9536,12 @@ msgid "DeepL API"
 msgstr "DeepL API"
 
 #: deepl_api/deepl_api_client.py
+msgid "A problem with DeepL API has occurred. Please contact an administrator."
+msgstr ""
+"Ein Fehler mit DeepL API ist aufgetreten. Bitte kontaktieren Sie eine:n "
+"Administrator:in."
+
+#: deepl_api/deepl_api_client.py
 #: google_translate_api/google_translate_api_client.py
 #, python-brace-format
 msgid ""
@@ -9808,11 +9822,34 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "The API URL is incorrect. Please contact an administrator."
+#~ msgstr ""
+#~ "Die API-URL ist inkorrekt. Bitte kontaktieren Sie einen Administrator."
+
+#~ msgid "The content is too large."
+#~ msgstr "Der Inhalt ist zu groß."
+
+#~ msgid "Too many request. Please try again later."
+#~ msgstr "Zu viele Anfragen. Bitte versuchen Sie es später erneut."
+
+#~ msgid "The DeepL budget has been exceeded."
+#~ msgstr "Das DeepL-Budget wurde überschritten."
+
+#~ msgid "German (Plain)"
+#~ msgstr "Deutsch (leicht)"
+
+#~ msgid ""
+#~ "Machine translate %(content_type)s via %(provider)s to German (Plain)"
+#~ msgstr ""
+#~ "%(content_type)s maschinell via %(provider)s auf Deutsch (einfach) "
+#~ "übersetzen"
+
 #~ msgid "Language Selection"
 #~ msgstr "Sprachauswahl"
 
 #~ msgid "Allow machine translations into the following languages:"
 #~ msgstr "Folgende Sprachen maschinell übersetzen:"
+
 #~ msgid "No source translation could be found for {} \"{}\"."
 #~ msgstr "Es konnte kein Quelltext für {} \"{}\" gefunden werden."
 
@@ -9833,6 +9870,11 @@ msgstr ""
 
 #~ msgid "DeepL machine translation"
 #~ msgstr "DeepL Übersetzungen"
+
+#~ msgid "You don't have the permission to restore versions of this page."
+#~ msgstr ""
+#~ "Sie haben nicht die nötige Berechtigung, um Versionen dieser Seite "
+#~ "wiederherzustellen."
 
 #~ msgid "The selected {} \"{}\" was successfully restored"
 #~ msgstr "Die ausgewählten {} \"{}\" wurden erfolgreich wiederhergestellt"
@@ -9958,11 +10000,6 @@ msgstr ""
 
 #~ msgid "Restore and publish this version"
 #~ msgstr "Diese Version wiederherstellen und veröffentlichen"
-
-#~ msgid "You don't have the permission to restore versions of this page."
-#~ msgstr ""
-#~ "Sie haben nicht die nötige Berechtigung, um Versionen dieser Seite "
-#~ "wiederherzustellen."
 
 #~ msgid "You don't have the permission restore revisions of the imprint."
 #~ msgstr ""

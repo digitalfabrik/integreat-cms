@@ -74,6 +74,7 @@ RESERVED_REGION_SLUGS: Final[list[str]] = [
     "main-disclaimer",
     "jpal",
     "not-found",
+    "consent",
 ]
 
 #: Reserved region page patterns
@@ -283,6 +284,11 @@ TEXTLAB_API_BULK_WAITING_TIME: Final[float] = float(
 #: How many seconds we should wait after finishing a region in the bulk management command
 TEXTLAB_API_BULK_COOL_DOWN_PERIOD: Final[float] = float(
     os.environ.get("INTEGREAT_CMS_TEXTLAB_API_BULK_COOL_DOWN_PERIOD", 60)
+)
+
+#: Which text type / benchmark id to default to
+TEXTLAB_API_DEFAULT_BENCHMARK_ID: Final[int] = int(
+    os.environ.get("INTEGREAT_CMS_TEXTLAB_API_DEFAULT_BENCHMARK_ID", 420)
 )
 
 #: The minimum HIX score required for machine translation
@@ -577,7 +583,7 @@ MESSAGE_LOGGING_ENABLED: bool = bool(
 )
 
 #: Logging configuration dictionary (see :setting:`django:LOGGING`)
-LOGGING: Final[dict[str, Any]] = {
+LOGGING: dict[str, Any] = {
     "version": 1,
     "disable_existing_loggers": False,
     "formatters": {
@@ -1004,6 +1010,14 @@ SUMM_AI_HTML_TAGS: Final[list[str]] = ["p", "li"]
 SUMM_AI_IS_INITIAL: Final[bool] = bool(
     strtobool(os.environ.get("INTEGREAT_CMS_SUMM_AI_IS_INITIAL", "True"))
 )
+
+# Slugs of regions that prefer Plain German over Easy German in the management command
+SUMM_AI_PLAIN_GERMAN_REGIONS: Final[list[str]] = [
+    x.strip()
+    for x in os.environ.get(
+        "INTEGREAT_CMS_SUMM_AI_PLAIN_GERMAN_REGIONS", ""
+    ).splitlines()
+]
 
 
 ################

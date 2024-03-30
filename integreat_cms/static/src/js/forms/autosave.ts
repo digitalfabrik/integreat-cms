@@ -21,6 +21,10 @@ export const autosaveEditor = async () => {
     formData.append("status", "AUTO_SAVE");
     // Override minor edit field to keep translation status
     formData.set("minor_edit", "on");
+    // Do not create or update automatic translations on autosave
+    formData.delete("automatic_translation");
+    formData.delete("mt_translations_to_create");
+    formData.delete("mt_translations_to_update");
     // Show auto save remark
     const autoSaveNote = document.getElementById("auto-save");
     autoSaveNote.classList.remove("hidden");
@@ -39,7 +43,7 @@ export const autosaveEditor = async () => {
     // Set the form action to the url of the server response to make sure new pages aren't created multiple times
     form.action = data.url;
 
-    // mark the content as saved
+    // Mark the content as saved
     document.querySelectorAll("[data-unsaved-warning]").forEach((element) => {
         element.dispatchEvent(new Event("autosave"));
     });
