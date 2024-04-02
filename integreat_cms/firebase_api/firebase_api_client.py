@@ -47,7 +47,7 @@ class FirebaseApiClient:
         self.prepared_pnts = []
         self.primary_pnt = PushNotificationTranslation.objects.get(
             push_notification=push_notification,
-            language=push_notification.regions.first().default_language,
+            language=push_notification.default_language,
         )
         if self.primary_pnt.title:
             self.prepared_pnts.append(self.primary_pnt)
