@@ -1098,3 +1098,97 @@ Body:
       "rating": 'up' | 'down' | null, // up- or downvote (either comment or rating is required)
       "category": String | null,      // comment category ("Technisches Feedback" or null; any other string is treated like null)
    }
+
+Chat
+====
+
+This endpoint provides chat functionality for Integreat app users.
+
+REQUEST
+~~~~~~~
+
+.. code:: http
+
+   GET /api/v3/{region_slug}/is_chat_enabled/ HTTP/2
+
+RESPONSE
+~~~~~~~~
+
+.. code:: javascript
+
+   {
+      "is_chat_enabled": Boolean,   // whether chat functionality is enabled for the requesting region
+   }
+
+REQUEST
+~~~~~~~
+
+.. code:: http
+
+    GET /api/v3/{region_slug}/{language_slug}/chat/{device_id}/ HTTP/2
+
+.. code:: http
+
+    GET /api/v3/{region_slug}/{language_slug}/chat/{device_id}/{attachment_id}/ HTTP/2
+
+.. code:: http
+
+   POST /api/v3/{region_slug}/{language_slug}/chat/{device_id}/ HTTP/2
+   Content-Type: multipart/formdata
+
+Body:
+
+.. code:: javascript
+
+   {
+      "message": String,               // message the user wishes to send (required)
+      "force_new": Boolean,            // whether to force a new chat instead of continuing existing  (optional)
+   }
+
+
+RESPONSE
+~~~~~~~~
+
+The response to ``POST``-ing to the endpoint is a single object representing
+the message as it is stored in Zammad.
+
+.. code:: javascript
+
+   {
+      "id": Number,                    // message id
+      "body": String,                  // the actual message content
+      "user_is_author": Boolean,       // true if the user sent the message, false otherwise
+      "attachments": [],               // will always be an empty list
+   }
+
+The response to ``GET``-ing the endpoint without an ``attachment_id`` is a list containing all chat messages.
+
+.. code:: javascript
+
+   {
+      "messages" : [                   // A list containing the chat messages
+         "id": Number,                 // message id
+         "body": String,               // the actual HTML-formatted message content
+         "user_is_author": Boolean,    // true if the user sent the message, false otherwise
+         "attachments": [              // A list containing attachments. Will be sent even if empty
+            {
+               "filename": String,     // The name of the file. May be empty
+               "size": String,         // The size of the file in kilobytes as a string. May be empty
+               "Content-Type": String, // The mimetype of the file. May be empty
+               "id": String,           // A 64-character UID. Only field guaranteed to exist
+            },
+         ],
+      ],
+   }
+
+In case an error occurs during communication with the Zammad backend,
+it will be passed along in the following format, together with a matching HTTP status code.
+
+.. code:: javascript
+
+   {
+      "error": String,                // error message
+   }
+
+The response to ``GET``-ing the endpoint with an ``attachment_id`` is either the (binary) file or an error in the format specified above.
+

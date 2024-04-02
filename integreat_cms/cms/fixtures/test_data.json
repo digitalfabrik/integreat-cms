@@ -1,5 +1,21 @@
 [
   {
+    "model": "cms.attachmentmap",
+    "pk": 1,
+    "fields": {
+      "user_chat": 1,
+      "random_hash": "exampleRandomHash",
+      "article_id": 1,
+      "attachment_id": 1,
+      "mime_type": "application/json"
+    }
+  },
+  {
+    "model": "cms.userchat",
+    "pk": 1,
+    "fields": { "device_id": "exampleDeviceID", "zammad_id": 1, "most_recent_hits": "" }
+  },
+  {
     "model": "cms.offertemplate",
     "pk": 1,
     "fields": {
@@ -130,6 +146,8 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "zammad_url": "https://zammad.example.com",
+      "zammad_access_token": "dummytoken",
+      "zammad_chat_handlers": "handler@example.com",
       "offers": [3, 2, 1, 5]
     }
   },
@@ -179,6 +197,8 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
       "offers": [3, 4, 2]
     }
   },
@@ -228,6 +248,8 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
       "offers": []
     }
   },
@@ -277,6 +299,8 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
       "offers": []
     }
   },
@@ -326,6 +350,8 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
       "offers": [1]
     }
   },
@@ -375,6 +401,8 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
       "offers": []
     }
   },
@@ -1438,7 +1466,9 @@
       "last_updated": "2022-03-05T10:31:33.130Z"
     }
   },
+  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "attachmentmap" } },
   { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "chatmessage" } },
+  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "userchat" } },
   { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "offertemplate" } },
   { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "region" } },
   { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "directory" } },
@@ -2152,6 +2182,22 @@
   {
     "model": "auth.permission",
     "fields": {
+      "name": "Can delete attachment map",
+      "content_type": ["cms", "attachmentmap"],
+      "codename": "delete_attachmentmap"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change attachment map",
+      "content_type": ["cms", "attachmentmap"],
+      "codename": "change_attachmentmap"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
       "name": "Can delete chat message",
       "content_type": ["cms", "chatmessage"],
       "codename": "delete_chatmessage"
@@ -2164,6 +2210,14 @@
       "content_type": ["cms", "chatmessage"],
       "codename": "change_chatmessage"
     }
+  },
+  {
+    "model": "auth.permission",
+    "fields": { "name": "Can delete user chat", "content_type": ["cms", "userchat"], "codename": "delete_userchat" }
+  },
+  {
+    "model": "auth.permission",
+    "fields": { "name": "Can change user chat", "content_type": ["cms", "userchat"], "codename": "change_userchat" }
   },
   {
     "model": "auth.permission",

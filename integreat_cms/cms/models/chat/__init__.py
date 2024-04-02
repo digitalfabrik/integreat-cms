@@ -1,3 +1,3 @@
 """
-This package contains all models for the author chat
+This package contains all models for the author and user chats
 """

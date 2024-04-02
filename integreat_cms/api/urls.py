@@ -9,6 +9,7 @@ from typing import TYPE_CHECKING
 from django.urls import include, path, re_path
 
 from ..core import settings
+from .v3.chat import user_chat
 from .v3.events import events
 from .v3.feedback import (
     event_feedback,
@@ -131,6 +132,8 @@ content_api_urlpatterns: list[URLPattern] = [
             ]
         ),
     ),
+    path("chat/<slug:device_id>/", user_chat.chat, name="chat"),
+    path("chat/<slug:device_id>/<slug:attachment_id>/", user_chat.chat, name="chat"),
 ]
 
 region_api_urlpatterns: list[URLPattern] = [
@@ -225,6 +228,11 @@ urlpatterns: list[URLPattern] = [
                 path("languages/", languages, name="languages"),
                 path("offers/", offers, name="offers"),
                 path("extras/", offers, name="offers"),
+                path(
+                    "is_chat_enabled/",
+                    user_chat.is_chat_enabled,
+                    name="is_chat_enabled",
+                ),
                 path("<slug:language_slug>/", include(content_api_urlpatterns)),
             ]
         ),

@@ -44,6 +44,7 @@ def settings_processor(request: HttpRequest) -> dict[str, Any]:
         "TEXTLAB_API_LANGUAGES": settings.TEXTLAB_API_LANGUAGES,
         "TEXTLAB_API_ENABLED": settings.TEXTLAB_API_ENABLED,
         "TEST": settings.TEST,
+        "USER_CHAT_TICKET_GROUP": settings.USER_CHAT_TICKET_GROUP,
     }
 
 
