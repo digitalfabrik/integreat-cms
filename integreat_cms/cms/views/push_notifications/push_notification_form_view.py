@@ -234,7 +234,14 @@ class PushNotificationFormView(TemplateView):
             ],
         )
         # Make title of default language required
-        pnt_formset[0].fields["title"].required = True
+        default_language = region.language_tree_root
+        assert default_language
+        default_language_form = [
+            form
+            for form in pnt_formset
+            if form.instance.language.slug == default_language.slug
+        ][0]
+        default_language_form.fields["title"].required = True
 
         if details["disable_edit"]:
             not_accessible_regions_warning = __(
