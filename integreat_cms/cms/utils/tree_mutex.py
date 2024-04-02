@@ -3,8 +3,11 @@ This module contains a custom decorator for db / redis mutexes
 """
 
 import functools
+import threading
 import time
-from typing import Any, Callable, ParamSpec, Type, TypeVar
+import traceback
+from contextlib import contextmanager
+from typing import Callable, Generator, ParamSpec, Type, TypeVar
 from uuid import uuid4
 
 from django.core.cache import cache
@@ -17,25 +20,47 @@ LOCK_SECONDS = 10
 INTERVAL = 0.1
 
 
-def build_monkeypatched_cursor_func(
+# pylint: disable=protected-access
+@contextmanager
+def monkeypatch_cursor_func(
     using: str = DEFAULT_DB_ALIAS,
-) -> "classmethod[Any, [str], None]":
+    ensure_thread: int | None = None,
+    ensure_context: traceback.FrameSummary | None = None,
+) -> Generator[None, None, None]:
     """
-    Ger connection for upstream transaction and
-    build alternative :meth:`treebeard.models.Node._get_database_cursor` that returns its cursor instead.
+    Get connection for upstream transaction and
+    set alternative :meth:`treebeard.models.Node._get_database_cursor` that returns its cursor instead.
+    Ensures that this is being called from within the same thread and context, otherwise still return original value.
     """
     connection = transaction.get_connection(using=using)
+    if ensure_thread is None:
+        ensure_thread = threading.get_ident()
+    if ensure_context is None:
+        ensure_context = traceback.extract_stack(limit=1)[0]
+    original_get_database_cursor = Node._get_database_cursor
 
-    def get_monkeypatch_cursor(cls: Type, action: str) -> None:
+    def monkeypatched_get_cursor(cls: Type, action: str) -> None:
         """
         A fake classmethod to overwrite :meth:`treebeard.models.Node._get_database_cursor` with.
         Gets the cursor for the currend django connection instead,
         allowing treebeard to be forced to use database transactions.
+        Return the original value if not called from the same thread and inside the original function call.
         """
-        print(f"someone is getting our monkeypatched cursor ({using})! {cls}, {action}")
-        return connection.cursor()
+        print(
+            f"someone is getting our monkeypatched db cursor ({using})! {cls}, {action}"
+        )
+        if (
+            ensure_thread == threading.get_ident()
+            and ensure_context in traceback.extract_stack()
+        ):
+            return connection.cursor(action)
+        return original_get_database_cursor(action)
 
-    return classmethod(get_monkeypatch_cursor)
+    Node._get_database_cursor = classmethod(monkeypatched_get_cursor)
+    try:
+        yield None
+    finally:
+        Node._get_database_cursor = original_get_database_cursor
 
 
 # pylint: disable=protected-access
@@ -69,7 +94,6 @@ def tree_mutex(classname: str) -> Callable[[Callable[P, R]], Callable[P, R]]:
         The outer function :func:`tree_mutex` is necessary to get the ``classname`` variable.
         """
 
-        # pylint: disable=protected-access
         @functools.wraps(func)
         def innermost_function(*args: P.args, **kwargs: P.kwargs) -> R:
             """
@@ -83,19 +107,19 @@ def tree_mutex(classname: str) -> Callable[[Callable[P, R]], Callable[P, R]]:
             lock_name = f"MUTEX_{classname.upper()}_TREE"
             uuid = uuid4()
             timeout = time.time() + LOCK_SECONDS
+            stack_frame = traceback.extract_stack(limit=1)[0]
             while time.time() < timeout:
                 if (
                     active_lock := cache.get_or_set(lock_name, uuid, LOCK_SECONDS)
                 ) == uuid:
                     try:
                         with transaction.atomic(using=DEFAULT_DB_ALIAS, durable=True):
-                            old_cursor_func = Node._get_database_cursor
-                            Node._get_database_cursor = build_monkeypatched_cursor_func(
-                                DEFAULT_DB_ALIAS
-                            )
-                            value = func(*args, **kwargs)
-                            Node._get_database_cursor = old_cursor_func
-                            return value
+                            with monkeypatch_cursor_func(
+                                using=DEFAULT_DB_ALIAS,
+                                ensure_thread=threading.get_ident(),
+                                ensure_context=stack_frame,
+                            ):
+                                return func(*args, **kwargs)
                     finally:
                         print(
                             f"  Releasing {lock_name} after {time.time() - (timeout - LOCK_SECONDS)}s ({uuid})"
@@ -103,10 +127,10 @@ def tree_mutex(classname: str) -> Callable[[Callable[P, R]], Callable[P, R]]:
                         cache.delete(lock_name)
                 else:
                     print(
-                        f"  Failed to acquire {lock_name} as {uuid}: MUTEX_{classname}_TREE present ({active_lock}). Waiting {INTERVAL}s…"
+                        f"  Failed to acquire {lock_name} as {uuid}: held by {active_lock}. Waiting {INTERVAL}s…"
                     )
                     time.sleep(INTERVAL)
-            raise TimeoutError(f"Failed to acquire {classname} lock")
+            raise TimeoutError(f"Failed to acquire lock {lock_name}")
 
         return innermost_function
 

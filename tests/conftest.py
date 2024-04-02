@@ -24,7 +24,7 @@ from integreat_cms.cms.constants.roles import (
 )
 
 if TYPE_CHECKING:
-    from typing import Final
+    from typing import Final, Generator
 
     from _pytest.fixtures import SubRequest
     from pytest_django.plugin import _DatabaseBlocker  # type: ignore[attr-defined]

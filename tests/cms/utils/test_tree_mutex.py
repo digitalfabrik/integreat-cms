@@ -53,12 +53,6 @@ def test_rule_out_false_positive(load_test_data_transactional: None) -> None:
     If this test fails with an exception not expected and you can prove that it is indicative of
     treebeard shooting itself in the foot, please add the exception as expected!
     """
-    exception = None
-
-    def handle_exception(e: Exception) -> None:
-        nonlocal exception
-        exception = e
-
     with pytest.raises(
         (
             IntegrityError,
@@ -68,9 +62,7 @@ def test_rule_out_false_positive(load_test_data_transactional: None) -> None:
             InvalidMoveToDescendant,
         )
     ) as exc_info:
-        run_test(use_mutex=False, handle_exception=handle_exception)
-        if exception:
-            raise exception  # pylint: disable-msg=E0702
+        run_test(use_mutex=False)
 
     if isinstance(exc_info.value, AttributeError):
         assert (
@@ -79,7 +71,7 @@ def test_rule_out_false_positive(load_test_data_transactional: None) -> None:
         )
 
 
-def run_test(use_mutex: bool, handle_exception: Callable | None = None) -> None:
+def run_test(use_mutex: bool) -> None:
     """
     Start two :func:`five_ten_five` tests in parallel, in separate threads.
     These each constantly move their "contestant" page back and forth.
@@ -87,6 +79,12 @@ def run_test(use_mutex: bool, handle_exception: Callable | None = None) -> None:
     as their code bypasses Djangos Object-Relationional Mapper (ORM),
     directly running raw SQL commands, without database transactions.
     """
+    exception = None
+
+    def handle_exception(e: Exception) -> None:
+        nonlocal exception
+        exception = e
+
     one = Thread(
         target=five_ten_five,
         kwargs={
@@ -111,6 +109,10 @@ def run_test(use_mutex: bool, handle_exception: Callable | None = None) -> None:
     one.join()
     two.join()
     print("joined threads!")
+
+    if exception:
+        # Raise the exception from the child thread here in the main thread
+        raise exception  # pylint: disable-msg=E0702
 
 
 def five_ten_five(
