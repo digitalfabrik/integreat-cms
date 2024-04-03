@@ -52,11 +52,13 @@ LEISURE: Final = "leisure"
 MEDIA: Final = "media"
 MEDICAL_AID: Final = "medical_aid"
 MEETING_POINT: Final = "meeting_point"
+MENTAL_HEALTH: Final = "mental_health"
 MOBILITY: Final = "mobility"
 OFFICE: Final = "office"
 OTHER: Final = "other"
 OTHER_HELP: Final = "other_help"
 SERVICE: Final = "service"
+SHELTER: Final = "shelter"
 SHOPPING: Final = "shopping"
 STRUCTURE: Final = "structure"
 
@@ -73,11 +75,13 @@ ICONS: Final = [
     (MEDIA, _("Media")),
     (MEDICAL_AID, _("Medical aid")),
     (MEETING_POINT, _("Meeting point")),
+    (MENTAL_HEALTH, _("Mental Health")),
     (MOBILITY, _("Mobility")),
     (OFFICE, _("Office")),
     (OTHER, _("Other")),
     (OTHER_HELP, _("Other help")),
     (SERVICE, _("Service")),
+    (SHELTER, _("Shelter")),
     (SHOPPING, _("Shopping")),
     (STRUCTURE, _("Structure")),
 ]

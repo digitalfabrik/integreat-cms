@@ -44,6 +44,7 @@ def transform_location_category(
             settings.BASE_URL
             + static(f"/svg/poi-category-icons/{location_category.icon}.svg")
         ),
+        "icon_color": location_category.icon + "_" + location_category.color,
     }
 
 
