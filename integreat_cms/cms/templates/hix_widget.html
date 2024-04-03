@@ -16,18 +16,6 @@
                 <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
             </div>
         </div>
-        <label>
-            {% translate "Improve the understandability of the page content" %}
-        </label>
-        <div {% if not request.user.expert_mode %}class="hidden"{% endif %}>
-            {% render_field page_form.hix_ignore %}
-            <label for="{{ page_form.hix_ignore.id_for_label }}" class="secondary">
-                {{ page_form.hix_ignore.label }}
-            </label>
-            <div class="help-text">
-                {{ page_form.hix_ignore.help_text }}
-            </div>
-        </div>
         {% if not request.user.expert_mode and page_form.instance.hix_ignore %}
             <div class="help-text">
                 {% translate "HIX value calculation is disabled for this page." %}
@@ -35,27 +23,39 @@
         {% endif %}
         <div id="hix-block"
              class="{% if page_form.instance.hix_ignore %}hidden{% endif %}">
+            <div class="help-text mt-2">
+                {% translate "Improve the understandability of the page here:" %}
+            </div>
             <div id="hix-container"
                  data-content-changed
                  data-initial-hix-score="{{ page_translation_form.instance.hix_score|unlocalize }}">
-                <canvas id="hix-chart"></canvas>
+                <div id="hix-bar">
+                    <span id="hix-bar-fill">
+                        <div id="hix-value">
+                            HIX
+                        </div>
+                    </span>
+                </div>
             </div>
-            <div class="mb-2">
-                <div data-hix-state="updated" class="bg-green-400 rounded p-2 hidden">
-                    <i icon-name="check-circle"></i>
-                    {% translate "HIX value is up to date." %}
+            <div class="mt-2 mb-2 pb-2 pt-2">
+                <div data-hix-state="updated" class="text-gray-800 hidden">
+                    <i icon-name="check-circle" class="text-green-400 size-6 pr-1"></i>
+                    {% translate "HIX value is up to date" %}
                 </div>
-                <div data-hix-state="outdated" class="bg-yellow-400 rounded p-2 hidden">
-                    <i icon-name="alert-circle"></i>
-                    {% translate "HIX value is outdated." %}
+                <div data-hix-state="outdated"
+                     class="text-gray-800 bg-yellow-300 rounded p-3 hidden">
+                    <i icon-name="alert-circle" class="size-6 pr-1"></i>
+                    {% translate "HIX value is outdated" %}
                 </div>
-                <div data-hix-state="error" class="bg-red-400 rounded p-2 hidden">
-                    <i icon-name="alert-triangle"></i>
+                <div data-hix-state="error"
+                     class="text-gray-800 bg-red-300 rounded p-3 hidden">
+                    <i icon-name="alert-triangle" class="size-6 pr-1"></i>
                     {% translate "HIX value could not be calculated." %} {% translate "Please try again later." %}
                 </div>
-                <div data-hix-state="no-content" class="bg-blue-400 rounded p-2 hidden">
-                    <i icon-name="info"></i>
-                    {% translate "There is no page content." %}
+                <div data-hix-state="no-content"
+                     class="text-gray-800 bg-blue-300 rounded p-3 hidden">
+                    <i icon-name="info" class="size-6 pr-1"></i>
+                    {% translate "There is no page content" %}
                 </div>
             </div>
             <button id="btn-update-hix-value"
@@ -64,11 +64,21 @@
                 <i icon-name="refresh-ccw"></i>
                 {% translate "Update" %}
             </button>
+            <label class="secondary">
+                {% translate "HIX value unexpectedly bad?" %}
+            </label>
             <div class="help-text mt-2">
-                {% translate "Easy words and short sentences can increase the text understandability." %}
-                <br />
-                {% translate "Find more information about this" %}
+                {% translate "Editorial tips and possible reasons can be found " %}
                 <a href="{% translate "https://wiki.tuerantuer.org/write-texts" %}" rel="nooperner noreferrer" target="_blank" class="text-blue-500 underline">{% translate "here" %}</a>.
+            </div>
+        </div>
+        <div {% if not request.user.expert_mode %}class="hidden"{% endif %}>
+            {% render_field page_form.hix_ignore %}
+            <label for="{{ page_form.hix_ignore.id_for_label }}" class="secondary">
+                {{ page_form.hix_ignore.label }}
+            </label>
+            <div class="help-text">
+                {{ page_form.hix_ignore.help_text }}
             </div>
         </div>
     </div>
