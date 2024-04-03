@@ -127,10 +127,11 @@ class PushNotification(AbstractBaseModel):
 
         :return: The "best" translation of a push notification for displaying in the backend
         """
+        backend_translation = self.backend_translation
         return (
-            self.backend_translation
-            or self.default_translation
-            or self.translations.first()
+            backend_translation
+            if backend_translation and backend_translation.title
+            else (self.default_translation or self.translations.first())
         )
 
     @cached_property
