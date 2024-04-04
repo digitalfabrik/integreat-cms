@@ -169,15 +169,15 @@ window.addEventListener("load", () => {
             element_format: "html",
             entity_encoding: "raw",
             setup: (editor: Editor) => {
-                addIcon(editor, tinymceConfig, "pin", "meta+alt+1", "location");
-                addIcon(editor, tinymceConfig, "www", "meta+alt+2", "link to the website");
-                addIcon(editor, tinymceConfig, "email", "meta+alt+3", "email address");
-                addIcon(editor, tinymceConfig, "call", "meta+alt+4", "phone number");
-                addIcon(editor, tinymceConfig, "clock", "meta+alt+5", "opening hours");
-                addIcon(editor, tinymceConfig, "idea", "meta+alt+6", "a small advice");
-                addIcon(editor, tinymceConfig, "group", "meta+alt+7", "a group of people");
-                addIcon(editor, tinymceConfig, "contact", "meta+alt+8", "contact person");
-                addIcon(editor, tinymceConfig, "speech", "meta+alt+9", "spoken languages");
+                addIcon(editor, tinymceConfig, "pin", "meta+alt+1", "");
+                addIcon(editor, tinymceConfig, "www", "meta+alt+2", "");
+                addIcon(editor, tinymceConfig, "email", "meta+alt+3", "");
+                addIcon(editor, tinymceConfig, "call", "meta+alt+4", "");
+                addIcon(editor, tinymceConfig, "clock", "meta+alt+5", "");
+                addIcon(editor, tinymceConfig, "idea", "meta+alt+6", "");
+                addIcon(editor, tinymceConfig, "group", "meta+alt+7", "");
+                addIcon(editor, tinymceConfig, "contact", "meta+alt+8", "");
+                addIcon(editor, tinymceConfig, "speech", "meta+alt+9", "");
                 /* eslint-disable-next-line @typescript-eslint/no-var-requires, global-require */
                 editor.ui.registry.addIcon("no-translate", parseSvg(require(`../../svg/no-translate.svg`)));
                 editor.ui.registry.addButton("notranslate", {
