@@ -413,6 +413,11 @@ function require_database {
 
         # Set default settings for other dev tools, e.g. testing
         export DJANGO_SETTINGS_MODULE="integreat_cms.core.settings"
+    elif command -v pg-start > /dev/null; then
+        # Execute the database reset script provided by the flake.nix file
+        pg-start
+        # Import test data
+        bash "${DEV_TOOL_DIR}/loadtestdata.sh"
     else
         # Set docker settings
         export DJANGO_SETTINGS_MODULE="integreat_cms.core.docker_settings"
