@@ -356,7 +356,7 @@ def delete_file_ajax(
     )
 
     # Check if the media file is in use
-    if media_file.is_used:
+    if not media_file.is_deletable:
         return JsonResponse(
             {
                 "messages": [
