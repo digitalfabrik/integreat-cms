@@ -9,7 +9,7 @@ import json
 import logging
 from functools import lru_cache
 from typing import TYPE_CHECKING
-from urllib.error import URLError
+from urllib.error import HTTPError
 
 from django.conf import settings
 from django.http import JsonResponse
@@ -34,6 +34,24 @@ class CacheMeIfYouCan(Exception):
     """
 
 
+def log_hix_error_message(error: OSError) -> None:
+    """
+    Logging of error details returned by the TextLab API
+    """
+    error_message = f"HIX benchmark API call failed: '{error}'"
+
+    if isinstance(error, HTTPError):
+        error_response = error.fp.read().decode("utf-8")
+        try:
+            data = json.loads(error_response)
+            if "message" in data:
+                error_message = error_message + " - " + data["message"]
+        except ValueError:
+            pass
+
+    logger.warning(error_message)
+
+
 @lru_cache(maxsize=512)
 def lookup_hix_score_helper(text: str) -> float | None:
     """
@@ -52,8 +70,8 @@ def lookup_hix_score_helper(text: str) -> float | None:
         return TextlabClient(
             settings.TEXTLAB_API_USERNAME, settings.TEXTLAB_API_KEY
         ).benchmark(normalized_text)
-    except (URLError, OSError) as e:
-        logger.warning("HIX benchmark API call failed: %r", e)
+    except OSError as e:
+        log_hix_error_message(e)
         raise CacheMeIfYouCan from e
 
 
