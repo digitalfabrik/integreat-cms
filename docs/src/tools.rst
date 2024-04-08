@@ -101,6 +101,10 @@ Run tests and generate coverage report with :github-source:`tools/test.sh`::
   Notice that if none are specified, we automatically pass ``--quiet``
   and run tests on multiple CPUs using xdist, resulting in much shorter wait times.
 
+If tests comparing the contents of PDF files fail repeatedly despite you not touching anything related to it, you can try to prune the PDF cache::
+
+    ./tools/prune_pdf_cache.sh
+
 
 .. _management-command-tool:
 
