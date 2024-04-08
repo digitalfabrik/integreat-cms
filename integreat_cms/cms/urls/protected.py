@@ -362,9 +362,7 @@ urlpatterns: list[URLPattern] = [
                             ),
                             path(
                                 "delete/",
-                                delete_views.CustomDeleteView.as_view(
-                                    model=POICategory,
-                                ),
+                                poi_categories.POICategoryDeleteView.as_view(),
                                 name="delete_poicategory",
                             ),
                         ]
