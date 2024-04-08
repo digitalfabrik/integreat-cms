@@ -104,6 +104,8 @@ if [[ -n "${KW_EXPR}" ]] || [[ -n "${MARKER}" ]] || (( ${#TESTS[@]} )); then
     TEST_MESSAGE=" in ${TEST_MESSAGE}"
 fi
 
+"$(dirname "${BASH_SOURCE[0]}")/prune_pdf_cache.sh"
+
 echo -e "Running all tests${TEST_MESSAGE}${CHANGED_MESSAGE}..." | print_info
 deescalate_privileges pytest "${PYTEST_ARGS[@]}"
 echo "✔ Tests successfully completed " | print_success
