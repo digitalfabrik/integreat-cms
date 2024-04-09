@@ -32,6 +32,22 @@ jobs:
           paths:
             - .venv
             - integreat_cms.egg-info
+  pre-commit:
+    docker:
+      - image: cimg/python:3.11.7
+    resource_class: large
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Enable virtual environment
+          command: echo "source .venv/bin/activate" >> $BASH_ENV
+      - run:
+          name: Run pre-commit on all files
+          command: |
+            pip install pre-commit
+            SKIP=eslint,translations pre-commit run --all-files
   black:
     docker:
       - image: cimg/python:3.11.7
@@ -651,6 +667,9 @@ workflows:
                 - /.*-publish-dev-package/
           requires:
             - build-dev-package
+      - pre-commit:
+          requires:
+            - pip-install
       - black:
           requires:
             - pip-install
