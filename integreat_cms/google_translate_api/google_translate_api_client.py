@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-from html import unescape
 from typing import TYPE_CHECKING
 
 from django.apps import apps
@@ -159,13 +158,16 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                     ):
                         # data has to be unescaped to recognize Umlaute
                         if settings.GOOGLE_TRANSLATE_VERSION == "Advanced":
+                            mime_type = (
+                                "text/html" if attr == "content" else "text/plain"
+                            )
                             parent = settings.GOOGLE_PARENT_PARAM
                             request = translate_v3.TranslateTextRequest(
-                                contents=[unescape(getattr(source_translation, attr))],
+                                contents=[getattr(source_translation, attr)],
                                 parent=parent,
                                 target_language_code=target_language_key,
                                 source_language_code=source_language.slug,
-                                mime_type="text/html",
+                                mime_type=mime_type,
                             )
                             data[attr] = (
                                 self.translator_v3.translate_text(request=request)
@@ -173,11 +175,12 @@ class GoogleTranslateApiClient(MachineTranslationApiClient):
                                 .translated_text
                             )
                         else:
+                            format_ = "html" if attr == "content" else "text"
                             data[attr] = self.translator_v2.translate(
-                                values=[unescape(getattr(source_translation, attr))],
+                                values=[getattr(source_translation, attr)],
                                 target_language=target_language_key,
                                 source_language=source_language.slug,
-                                format_="html",
+                                format_=format_,
                             )[0]["translatedText"]
 
                 content_translation_form = self.form_class(
