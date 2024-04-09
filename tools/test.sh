@@ -19,6 +19,9 @@ export INTEGREAT_CMS_SUMM_AI_API_KEY="dummy"
 # Set dummy key to enable DeepL during testing
 export INTEGREAT_CMS_DEEPL_AUTH_KEY="dummy"
 
+# Set dummy key to enable Textlab during testing
+export INTEGREAT_CMS_TEXTLAB_API_KEY="dummy"
+
 # Disable linkcheck listeners during testing
 export INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS=1
 
