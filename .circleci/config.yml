@@ -1,7 +1,5 @@
 version: 2.1
 
-orbs:
-  shellcheck: circleci/shellcheck@3.2.0
 jobs:
   pip-install:
     docker:
@@ -32,10 +30,10 @@ jobs:
           paths:
             - .venv
             - integreat_cms.egg-info
-  black:
+  pre-commit:
     docker:
       - image: cimg/python:3.11.7
-    resource_class: small
+    resource_class: large
     steps:
       - checkout
       - attach_workspace:
@@ -44,36 +42,10 @@ jobs:
           name: Enable virtual environment
           command: echo "source .venv/bin/activate" >> $BASH_ENV
       - run:
-          name: Check black code style
-          command: black --check .
-  djlint:
-    docker:
-      - image: cimg/python:3.11.7
-    resource_class: small
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - run:
-          name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
-      - run:
-          name: Check formatting of Django templates
-          command: djlint --check --lint integreat_cms
-  isort:
-    docker:
-      - image: cimg/python:3.11.7
-    resource_class: small
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - run:
-          name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
-      - run:
-          name: Check isort code style
-          command: isort --check .
+          name: Run pre-commit on all files
+          command: |
+            pip install pre-commit
+            SKIP=eslint,translations pre-commit run --all-files
   pylint:
     docker:
       - image: cimg/python:3.11.7
@@ -85,33 +57,6 @@ jobs:
       - run:
           name: Run pylint
           command: ./tools/pylint.sh
-  ruff:
-    docker:
-      - image: cimg/python:3.11.7
-    resource_class: small
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - run:
-          name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
-      - run:
-          name: Run ruff
-          command: |
-            ruff check
-            # ruff format
-  mypy:
-    docker:
-      - image: cimg/python:3.11.7
-    resource_class: small
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - run:
-          name: Run my[py]
-          command: ./tools/mypy.sh
   check-release-notes:
     docker:
       - image: cimg/python:3.11.7
@@ -199,17 +144,6 @@ jobs:
           root: .
           paths:
             - node_modules
-  prettier:
-    docker:
-      - image: "cimg/node:lts"
-    resource_class: small
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - run:
-          name: Check formatting of CSS & JS files
-          command: npx prettier --check .
   eslint:
     docker:
       - image: "cimg/node:lts"
@@ -221,16 +155,6 @@ jobs:
       - run:
           name: Lint static CSS, JS & YAML files
           command: npx eslint .
-  shellcheck:
-    docker:
-      - image: cimg/base:stable
-    steps:
-      - checkout
-      - shellcheck/install:
-          version: 0.9.0
-      - shellcheck/check:
-          dir: ./tools
-          external_sources: true
   webpack:
     docker:
       - image: "cimg/node:lts"
@@ -606,9 +530,6 @@ workflows:
           filters:
             branches:
               ignore: main
-      - prettier:
-          requires:
-            - npm-install
       - webpack:
           requires:
             - npm-install
@@ -667,31 +588,15 @@ workflows:
                 - /.*-publish-dev-package/
           requires:
             - build-dev-package
-      - black:
-          requires:
-            - pip-install
-      - djlint:
-          requires:
-            - pip-install
-      - isort:
+      - pre-commit:
           requires:
             - pip-install
       - pylint:
           requires:
             - pip-install
-      - ruff:
-          requires:
-            - pip-install
-      - mypy:
-          requires:
-            - pip-install
       - eslint:
           requires:
             - npm-install
-      - shellcheck:
-          filters:
-            branches:
-              ignore: main
       - build-documentation:
           requires:
             - pip-install
