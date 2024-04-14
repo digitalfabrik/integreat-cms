@@ -85,6 +85,22 @@ jobs:
       - run:
           name: Run pylint
           command: ./tools/pylint.sh
+  ruff:
+    docker:
+      - image: cimg/python:3.11.7
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Enable virtual environment
+          command: echo "source .venv/bin/activate" >> $BASH_ENV
+      - run:
+          name: Run ruff
+          command: |
+            ruff check
+            # ruff format
   mypy:
     docker:
       - image: cimg/python:3.11.7
@@ -661,6 +677,9 @@ workflows:
           requires:
             - pip-install
       - pylint:
+          requires:
+            - pip-install
+      - ruff:
           requires:
             - pip-install
       - mypy:

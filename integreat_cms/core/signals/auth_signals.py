@@ -48,7 +48,7 @@ def user_logged_in_callback(
 # pylint: disable=unused-argument
 @receiver(user_logged_out)
 def user_logged_out_callback(
-    sender: ModelBase, request: HttpRequest | HttpRequest, user: User, **kwargs: Any
+    sender: ModelBase, request: HttpRequest, user: User, **kwargs: Any
 ) -> None:
     r"""
     Log a logout event
