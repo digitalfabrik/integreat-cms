@@ -38,7 +38,6 @@ const addIcon = (editor: Editor, tinymceConfig: HTMLElement, name: string, alt: 
     editor.ui.registry.addIcon(name, parseSvg(require(`../../svg/${name}.svg`)));
     editor.ui.registry.addMenuItem(name, {
         text: tinymceConfig.getAttribute(`data-${name}-icon-text`),
-        alt: tinymceConfig.getAttribute(`data-${name}-icon-alt`),
         icon: name,
         shortcut,
         onAction: () => {
