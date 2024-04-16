@@ -10,7 +10,6 @@ if TYPE_CHECKING:
     from django.db.models.base import ModelBase
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
-    from pytest_httpserver.httpserver import HTTPServer
 
 import pytest
 from django.apps import apps
@@ -29,6 +28,7 @@ from integreat_cms.cms.models import (
 )
 from integreat_cms.cms.models.pois.poi import get_default_opening_hours
 from integreat_cms.cms.utils.stringify_list import iter_to_string
+from tests.mock import MockServer
 
 from ..conftest import (
     ANONYMOUS,
@@ -46,13 +46,15 @@ SOURCE_LANGUAGE_SLUG: Final[str] = "de"
 TARGET_LANGUAGE_SLUG: Final[str] = "en"
 
 
-def setup_fake_deepl_api_server(httpserver: HTTPServer) -> None:
+def setup_fake_deepl_api_server(mock_server: MockServer) -> None:
     """
     Setup a mocked DeepL API server with dummy response
 
-    :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
+    :param mock_server: The fixture providing the mock http server for faking the DeepL API server
     """
-    httpserver.expect_request("/v2/translate").respond_with_json(
+    mock_server.configure(
+        "/v2/translate",
+        200,
         {
             "translations": [
                 {
@@ -60,7 +62,7 @@ def setup_fake_deepl_api_server(httpserver: HTTPServer) -> None:
                     "text": "This is your translation from DeepL",
                 }
             ]
-        }
+        },
     )
 
 
@@ -129,7 +131,7 @@ def test_deepl_bulk_mt_pages(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
-    httpserver: HTTPServer,
+    mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -138,17 +140,17 @@ def test_deepl_bulk_mt_pages(
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
     :param settings: The fixture providing the django settings
-    :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
+    :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
     :param caplog: The :fixture:`caplog` fixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
 
     # Setup a mocked DeepL API server with dummy response
-    setup_fake_deepl_api_server(httpserver)
+    setup_fake_deepl_api_server(mock_server)
 
     # Redirect call aimed at the DeepL API to the fake server
-    settings.DEEPL_API_URL = f"http://localhost:{httpserver.port}"
+    settings.DEEPL_API_URL = f"http://localhost:{mock_server.port}"
 
     # Setup DeepL API supported languages
     setup_deepl_supported_languages(["de"], ["en-gb", "en-us"])
@@ -230,7 +232,7 @@ def test_deepl_bulk_mt_pois(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
-    httpserver: HTTPServer,
+    mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -239,17 +241,17 @@ def test_deepl_bulk_mt_pois(
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
     :param settings: The fixture providing the django settings
-    :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
+    :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
     :param caplog: The :fixture:`caplog` fixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
 
     # Setup a mocked DeepL API server with dummy response
-    setup_fake_deepl_api_server(httpserver)
+    setup_fake_deepl_api_server(mock_server)
 
     # Redirect call aimed at the DeepL API to the fake server
-    settings.DEEPL_API_URL = f"http://localhost:{httpserver.port}"
+    settings.DEEPL_API_URL = f"http://localhost:{mock_server.port}"
 
     # Setup DeepL API supported languages
     setup_deepl_supported_languages(["de"], ["en-gb", "en-us"])
@@ -335,7 +337,7 @@ def test_deepl_bulk_mt_events(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
-    httpserver: HTTPServer,
+    mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -344,17 +346,17 @@ def test_deepl_bulk_mt_events(
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
     :param settings: The fixture providing the django settings
-    :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
+    :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
     :param caplog: The :fixture:`caplog` fixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
 
     # Setup a mocked DeepL API server with dummy response
-    setup_fake_deepl_api_server(httpserver)
+    setup_fake_deepl_api_server(mock_server)
 
     # Redirect call aimed at the DeepL API to the fake server
-    settings.DEEPL_API_URL = f"http://localhost:{httpserver.port}"
+    settings.DEEPL_API_URL = f"http://localhost:{mock_server.port}"
 
     # Setup DeepL API supported languages
     setup_deepl_supported_languages(["de"], ["en-gb", "en-us"])
@@ -574,7 +576,7 @@ def test_deepl_bulk_mt_up_to_date_and_ready_for_mt(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
-    httpserver: HTTPServer,
+    mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -583,17 +585,17 @@ def test_deepl_bulk_mt_up_to_date_and_ready_for_mt(
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
     :param settings: The fixture providing the django settings
-    :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
+    :param mock_server: The fixture providing the dummy http server used for faking the DeepL API server
     :param caplog: The :fixture:`caplog` fixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
 
     # Setup a mocked DeepL API server with dummy response
-    setup_fake_deepl_api_server(httpserver)
+    setup_fake_deepl_api_server(mock_server)
 
     # Redirect call aimed at the DeepL API to the fake server
-    settings.DEEPL_API_URL = f"http://localhost:{httpserver.port}"
+    settings.DEEPL_API_URL = f"http://localhost:{mock_server.port}"
 
     # Setup DeepL API supported languages
     setup_deepl_supported_languages(["de"], ["en-gb", "en-us"])
@@ -663,7 +665,7 @@ def test_deepl_page_automatic_translation(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
-    httpserver: HTTPServer,
+    mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -672,17 +674,17 @@ def test_deepl_page_automatic_translation(
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
     :param settings: The fixture providing the django settings
-    :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
+    :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
     :param caplog: The :fixture:`caplog` fixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
 
     # Setup a mocked DeepL API server with dummy response
-    setup_fake_deepl_api_server(httpserver)
+    setup_fake_deepl_api_server(mock_server)
 
     # Redirect call aimed at the DeepL API to the fake server
-    settings.DEEPL_API_URL = f"http://localhost:{httpserver.port}"
+    settings.DEEPL_API_URL = f"http://localhost:{mock_server.port}"
 
     # Setup DeepL API supported languages
     setup_deepl_supported_languages(["de"], ["en-gb", "en-us"])
@@ -747,7 +749,7 @@ def test_deepl_event_automatic_translation(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
-    httpserver: HTTPServer,
+    mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -756,17 +758,17 @@ def test_deepl_event_automatic_translation(
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
     :param settings: The fixture providing the django settings
-    :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
+    :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
     :param caplog: The :fixture:`caplog` fixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
 
     # Setup a mocked DeepL API server with dummy response
-    setup_fake_deepl_api_server(httpserver)
+    setup_fake_deepl_api_server(mock_server)
 
     # Redirect call aimed at the DeepL API to the fake server
-    settings.DEEPL_API_URL = f"http://localhost:{httpserver.port}"
+    settings.DEEPL_API_URL = f"http://localhost:{mock_server.port}"
 
     # Setup DeepL API supported languages
     setup_deepl_supported_languages(["de"], ["en-gb", "en-us"])
@@ -831,7 +833,7 @@ def test_deepl_poi_automatic_translation(
     load_test_data: None,
     login_role_user: tuple[Client, str],
     settings: SettingsWrapper,
-    httpserver: HTTPServer,
+    mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -840,17 +842,17 @@ def test_deepl_poi_automatic_translation(
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
     :param settings: The fixture providing the django settings
-    :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
+    :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
     :param caplog: The :fixture:`caplog` fixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
 
     # Setup a mocked DeepL API server with dummy response
-    setup_fake_deepl_api_server(httpserver)
+    setup_fake_deepl_api_server(mock_server)
 
     # Redirect call aimed at the DeepL API to the fake server
-    settings.DEEPL_API_URL = f"http://localhost:{httpserver.port}"
+    settings.DEEPL_API_URL = f"http://localhost:{mock_server.port}"
 
     # Setup DeepL API supported languages
     setup_deepl_supported_languages(["de"], ["en-gb", "en-us"])
@@ -1062,7 +1064,7 @@ def test_deepl_bulk_mt_api_error(
     login_role_user: tuple[Client, str],
     error: int,
     settings: SettingsWrapper,
-    httpserver: HTTPServer,
+    mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:
     """
@@ -1072,17 +1074,17 @@ def test_deepl_bulk_mt_api_error(
     :param login_role_user: The fixture providing the http client and the current role (see :meth:`~tests.conftest.login_role_user`)
     :param error: The error status to test
     :param settings: The fixture providing the django settings
-    :param httpserver: The fixture providing the dummy http server used for faking the DeepL API server
+    :param mock_server: The fixture providing the mock http server used for faking the DeepL API server
     :param caplog: The :fixture:`caplog` fixture
     """
     # Test for english messages
     settings.LANGUAGE_CODE = "en"
 
     # Setup a mocked DeepL API server with dummy response
-    httpserver.expect_request("/v2/translate").respond_with_data("Error", status=error)
+    mock_server.configure("/v2/translate", error, {"error": "Error occured"})
 
     # Redirect call aimed at the DeepL API to the fake server
-    settings.DEEPL_API_URL = f"http://localhost:{httpserver.port}"
+    settings.DEEPL_API_URL = f"http://localhost:{mock_server.port}"
 
     # Setup DeepL API supported languages
     setup_deepl_supported_languages(["de"], ["en-gb", "en-us"])

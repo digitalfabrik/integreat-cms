@@ -10,6 +10,7 @@ import pytest
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test.client import AsyncClient, Client
+from pytest_httpserver.httpserver import HTTPServer
 
 from integreat_cms.cms.constants.roles import (
     APP_TEAM,
@@ -22,6 +23,7 @@ from integreat_cms.cms.constants.roles import (
     OBSERVER,
     SERVICE_TEAM,
 )
+from tests.mock import MockServer
 
 if TYPE_CHECKING:
     from typing import Final
@@ -125,3 +127,8 @@ def login_role_user_async(
             user = get_user_model().objects.get(username=request.param.lower())
             async_client.force_login(user)
     return async_client, request.param
+
+
+@pytest.fixture(scope="function")
+def mock_server(httpserver: HTTPServer) -> MockServer:
+    return MockServer(httpserver)
