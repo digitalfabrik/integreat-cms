@@ -341,7 +341,7 @@ function cleanup_docker_container {
 }
 
 function ensure_webpack_bundle_exists {
-    if [ ! -d "${PACKAGE_DIR}/static/dist/" ] || [ ! "$(ls -A ${PACKAGE_DIR}/static/dist/ 2>/dev/null)" ]; then
+    if [ ! -d "${PACKAGE_DIR}/static/dist/" ] || [ ! "$(ls -A "${PACKAGE_DIR}"/static/dist/ 2>/dev/null)" ]; then
         echo "Building webpack bundle..." | print_info
         npm run build > /dev/null
     fi
