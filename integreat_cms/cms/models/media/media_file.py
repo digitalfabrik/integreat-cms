@@ -277,7 +277,7 @@ class MediaFile(AbstractBaseModel):
         """
         usage_counts = [
             self.past_event_usages.count(),
-            len(self.icon_usages),
+            (len(self.icon_usages) + self.content_usages.count()),
             self.events.count(),
         ]
 
