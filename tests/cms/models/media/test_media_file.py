@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 import pytest
 from django.utils import timezone
 
-from integreat_cms.cms.models import Event, MediaFile, Organization, Region
+from integreat_cms.cms.models import Event, MediaFile, Organization, Region, EventTranslation, Language
 
 
 class TestMediaFile:
@@ -186,3 +186,57 @@ class TestMediaFile:
         )
 
         assert not file.is_deletable
+
+    @pytest.mark.django_db
+    def test_is_not_deletable_if_used_as_within_translation_of_upcoming_event(self) -> None:
+        region = Region.objects.create(name="Testregion")
+
+        file = MediaFile.objects.create(
+            file="bielefeld_stadtmarke.png",
+            thumbnail="bielefeld_stadtmarke.png",
+            file_size=1024,
+            type="PNG",
+            name="Example File",
+            alt_text="This is an example file",
+            last_modified=datetime(2024, 4, 11, 10, 30, 0),
+            is_hidden=False,
+        )
+
+        upcoming_event = Event.objects.create(
+            start=timezone.now() + timedelta(days=1),
+            end=timezone.now() + timedelta(days=2),
+            region=region,
+        )
+
+        german_language = Language.objects.create(slug="de", bcp47_tag="de", native_name="Deutsch", english_name="German", text_direction="ltr", primary_country_code="DE", table_of_contents="Inhaltsverzeichnis")
+
+        EventTranslation.objects.create(event=upcoming_event, language=german_language, content=f'<p><img src="http://localhost:8000/media/{file.file}"></p>')
+
+        assert not file.is_deletable
+
+    @pytest.mark.django_db
+    def test_is_deletable_if_used_in_translation_of_past_event(self) -> None:
+        region = Region.objects.create(name="Testregion")
+
+        file = MediaFile.objects.create(
+            file="bielefeld_stadtmarke.png",
+            thumbnail="bielefeld_stadtmarke.png",
+            file_size=1024,
+            type="PNG",
+            name="Example File",
+            alt_text="This is an example file",
+            last_modified=datetime(2024, 4, 11, 10, 30, 0),
+            is_hidden=False,
+        )
+
+        past_event = Event.objects.create(
+            start=timezone.now() - timedelta(days=2),
+            end=timezone.now() - timedelta(days=1),
+            region=region,
+        )
+
+        german_language = Language.objects.create(slug="de", bcp47_tag="de", native_name="Deutsch", english_name="German", text_direction="ltr", primary_country_code="DE", table_of_contents="Inhaltsverzeichnis")
+
+        EventTranslation.objects.create(event=past_event, language=german_language, content=f'<p><img src="http://localhost:8000/media/{file.file}"></p>')
+
+        assert file.past_event_usages.count() == 1 and file.is_deletable
