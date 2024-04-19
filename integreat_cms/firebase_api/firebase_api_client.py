@@ -3,9 +3,11 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
+import google.auth
 import requests
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from google.oauth2 import service_account
 
 from ..cms.constants import push_notifications as pnt_const
 from ..cms.forms.push_notifications.push_notification_translation_form import (
@@ -55,17 +57,17 @@ class FirebaseApiClient:
 
         if not settings.FCM_ENABLED:
             raise ImproperlyConfigured("Push notifications are disabled")
-        self.auth_key = settings.FCM_KEY
 
         if settings.DEBUG:
             # Prevent sending PNs to actual users in development
             try:
-                self.region = Region.objects.get(slug=settings.TEST_REGION_SLUG)
+                self.regions = [Region.objects.get(slug=settings.TEST_REGION_SLUG)]
             except Region.DoesNotExist as e:
                 raise ImproperlyConfigured(
                     f"The system runs with DEBUG=True but the region with TEST_REGION_SLUG={settings.TEST_REGION_SLUG} does not exist."
                 ) from e
-        self.regions = push_notification.regions.all()
+        else:
+            self.regions = push_notification.regions.all()
 
     def load_secondary_pnts(self) -> None:
         """
@@ -110,28 +112,35 @@ class FirebaseApiClient:
         :param region: The region for which to send the prepared push notification translation
         :return: Response of the :mod:`requests` library
         """
+        # In debug mode, pass `validate_only`: True, to avoid messages actually being sent
         payload = {
-            "to": f"/topics/{region.slug}-{pnt.language.slug}-{self.push_notification.channel}",
-            "notification": {"title": pnt.title, "body": pnt.text},
-            "data": {
-                "news_id": str(pnt.id),
-                "city_code": region.slug,
-                "language_code": pnt.language.slug,
-                "group": self.push_notification.channel,
-            },
-            "apns": {
-                "headers": {"apns-priority": "5"},
-            },
-            "android": {
-                "ttl": "86400s",
-            },
-            "payload": {
-                "aps": {
-                    "category": "NEW_MESSAGE_CATEGORY",
-                }
+            "validate_only": settings.DEBUG,
+            "message": {
+                "topic": f"{region.slug}-{pnt.language.slug}-{self.push_notification.channel}",
+                "notification": {"title": pnt.title, "body": pnt.text},
+                "data": {
+                    "news_id": str(pnt.id),
+                    "city_code": region.slug,
+                    "language_code": pnt.language.slug,
+                    "group": self.push_notification.channel,
+                },
+                "apns": {
+                    "headers": {"apns-priority": "5"},
+                    "payload": {
+                        "aps": {
+                            "category": "NEW_MESSAGE_CATEGORY",
+                        }
+                    },
+                },
+                "android": {
+                    "ttl": "86400s",
+                },
             },
         }
-        headers = {"Authorization": f"key={self.auth_key}"}
+        headers = {
+            "Authorization": f"Bearer {self._get_access_token()}",
+            "Content-Type": "application/json; UTF-8",
+        }
         return requests.post(
             self.fcm_url,
             json=payload,
@@ -151,10 +160,8 @@ class FirebaseApiClient:
                 if pnt.language in region.active_languages:
                     res = self.send_pn(pnt, region)
                     if res.status_code == 200:
-                        if "message_id" in res.json():
-                            logger.info(
-                                "%r sent, FCM id: %r", pnt, res.json()["message_id"]
-                            )
+                        if name := res.json().get("name"):
+                            logger.info("%r sent, FCM id: %r", pnt, name)
                         else:
                             logger.warning(
                                 "%r sent, but unexpected API response: %r",
@@ -170,3 +177,19 @@ class FirebaseApiClient:
                             res.text,
                         )
         return status
+
+    @staticmethod
+    def _get_access_token() -> str:
+        """
+        Retrieve a valid access token that can be used to authorize requests.
+        This function is taken from https://github.com/firebase/quickstart-python/blob/2c68e7c5020f4dbb072cca4da03dba389fbbe4ec/messaging/messaging.py#L26-L35
+
+        :return: Access token
+        """
+        credentials = service_account.Credentials.from_service_account_file(
+            settings.FCM_CREDENTIALS,
+            scopes=["https://www.googleapis.com/auth/firebase.messaging"],
+        )
+        request = google.auth.transport.requests.Request()
+        credentials.refresh(request)
+        return credentials.token
