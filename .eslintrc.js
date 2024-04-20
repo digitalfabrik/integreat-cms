@@ -1,4 +1,4 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
     env: {
@@ -6,17 +6,17 @@ module.exports = {
         browser: true,
     },
     settings: {
-        'import/resolver': {
+        "import/resolver": {
             node: {
-                paths: ['src'],
-                extensions: ['.js', '.jsx', '.ts', '.d.ts', '.tsx'],
+                paths: ["src"],
+                extensions: [".js", ".jsx", ".ts", ".d.ts", ".tsx"],
             },
             typescript: {
-                project: './tsconfig.json',
+                project: "./tsconfig.json",
             },
             alias: {
-                map: [['~', path.resolve(__dirname, './src')]],
-                extensions: ['.js', '.jsx', '.ts', '.d.ts', '.tsx'],
+                map: [["~", path.resolve(__dirname, "./src")]],
+                extensions: [".js", ".jsx", ".ts", ".d.ts", ".tsx"],
             },
         },
     },
