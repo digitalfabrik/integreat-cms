@@ -107,6 +107,14 @@ class PushNotification(AbstractBaseModel):
         return self.translations.filter(language__slug=get_language()).first()
 
     @property
+    def default_language(self) -> Language:
+        """
+        This property returns the default language of this push notification
+        :return: The default language of the first region
+        """
+        return self.regions.first().default_language
+
+    @property
     def default_translation(self) -> PushNotificationTranslation:
         """
         This function returns the translation of this push notification in the region's default language.
@@ -115,9 +123,7 @@ class PushNotification(AbstractBaseModel):
 
         :return: The default translation of a push notification
         """
-        return self.translations.filter(
-            language=self.regions.first().default_language
-        ).first()
+        return self.translations.filter(language=self.default_language).first()
 
     @property
     def best_translation(self) -> PushNotificationTranslation:

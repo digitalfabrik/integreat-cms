@@ -145,8 +145,6 @@ class PushNotificationFormView(TemplateView):
                 if language not in existing_languages
             ],
         )
-        # Make title of default language required
-        pnt_formset[0].fields["title"].required = True
 
         if details["disable_edit"]:
             # Mark fields disabled when push notification was already sent
@@ -167,7 +165,6 @@ class PushNotificationFormView(TemplateView):
             },
         )
 
-    # pylint: disable=too-many-branches, too-many-statements
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Save and show form for creating or editing a push notification. Send push notification
@@ -233,52 +230,9 @@ class PushNotificationFormView(TemplateView):
                 if language not in existing_languages
             ],
         )
-        # Make title of default language required
-        pnt_formset[0].fields["title"].required = True
 
-        if details["disable_edit"]:
-            not_accessible_regions_warning = __(
-                _(
-                    "This news is also assigned to regions you don't have access to: {}."
-                ).format(", ".join(map(str, details["other_regions"]))),
-                _("Thus you cannot edit or delete this news."),
-                _(
-                    "Please ask the one responsible for all of these regions or contact an administrator."
-                ),
-            )
-            messages.error(
-                request,
-                not_accessible_regions_warning,
-            )
-        elif not pn_form.is_valid():
-            # Add error messages
-            pn_form.add_error_messages(request)
-        elif not pnt_formset.is_valid():
-            # Add non-form errors
-            for error in pnt_formset.non_form_errors():
-                messages.error(request, _(error))
-            # Add form error messages
-            for form in pnt_formset:
-                if not form.is_valid():
-                    form.add_error_messages(request)
-        elif set(pn_form.cleaned_data["regions"]).difference(request.available_regions):
-            logger.warning(
-                "%r is not allowed to post news to %r (allowed regions: %r)",
-                request.user,
-                pn_form.cleaned_data["regions"],
-                request.available_regions,
-            )
-            raise PermissionDenied
-        else:
-            # Redirect when everything went well and render the form directly when an error happens
-            success = True
-            # Save forms
-            pnt_formset.instance = pn_form.save()
-            if not push_notification_instance:
-                for form in pnt_formset:
-                    form.instance.push_notification = pnt_formset.instance
-            pnt_formset.save()
-
+        if validate_forms(request, details, pn_form, pnt_formset):
+            save_forms(push_notification_instance, pn_form, pnt_formset)
             # Add the success message
             action = _("updated") if push_notification_instance else _("created")
             if pn_form.instance.is_template:
@@ -293,6 +247,8 @@ class PushNotificationFormView(TemplateView):
                     request,
                     _('News "{}" was successfully {}').format(pn_form.instance, action),
                 )
+
+            success = True
 
             if "submit_draft" in request.POST:
                 pn_form.instance.draft = True
@@ -342,6 +298,88 @@ class PushNotificationFormView(TemplateView):
                 "languages": details["all_languages"],
             },
         )
+
+
+def validate_forms(
+    request: HttpRequest,
+    details: dict,
+    pn_form: PushNotificationForm,
+    pnt_formset: Any,
+) -> bool:
+    """
+    Validates the forms and returns `True` iff no errors occurred.
+    :param request: The request
+    :param details: The push notification details
+    :param pn_form: The push notification form
+    :param pnt_formset: The push notification translation formset
+    :return: whether verification was successful
+    """
+    if details["disable_edit"]:
+        not_accessible_regions_warning = __(
+            _(
+                "This news is also assigned to regions you don't have access to: {}."
+            ).format(", ".join(map(str, details["other_regions"]))),
+            _("Thus you cannot edit or delete this news."),
+            _(
+                "Please ask the one responsible for all of these regions or contact an administrator."
+            ),
+        )
+        messages.error(
+            request,
+            not_accessible_regions_warning,
+        )
+        return False
+
+    if not pn_form.is_valid():
+        # Add error messages
+        pn_form.add_error_messages(request)
+        return False
+
+    # Make the title of the default language of each region required.
+    # This guarantees that there is always a push notification in the default language available, even if the regions
+    # of the push notification get changed later on.
+    pn_regions = pn_form.cleaned_data["regions"]
+    required_languages = {region.default_language.id for region in pn_regions}
+    for form in pnt_formset:
+        if int(form["language"].value()) in required_languages:
+            form.fields["title"].required = True
+
+    if not pnt_formset.is_valid():
+        # Add non-form errors
+        for error in pnt_formset.non_form_errors():
+            messages.error(request, _(error))
+        # Add form error messages
+        for form in pnt_formset:
+            if not form.is_valid():
+                form.add_error_messages(request)
+        return False
+
+    if set(pn_regions).difference(request.available_regions):
+        logger.warning(
+            "%r is not allowed to post news to %r (allowed regions: %r)",
+            request.user,
+            pn_regions,
+            request.available_regions,
+        )
+        raise PermissionDenied
+
+    return True
+
+
+def save_forms(
+    instance: PushNotification, pn_form: PushNotificationForm, pnt_formset: Any
+) -> None:
+    """
+    Saves the forms
+    :param instance: The push notification instance
+    :param pn_form: The push notification form
+    :param pnt_formset: The push notification translation formset
+    """
+    pnt_formset.instance = pn_form.save()
+    if not instance:
+        for form in pnt_formset:
+            form.instance.push_notification = pnt_formset.instance
+    pnt_formset.save()
 
 
 def create_from_template(
