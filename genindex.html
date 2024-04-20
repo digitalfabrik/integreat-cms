@@ -468,6 +468,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/tests.html#conftest">Conftest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ref/tests.html#mock">Mock</a></li>
 <li class="toctree-l2"><a class="reference internal" href="ref/tests.html#utils">Utils</a></li>
 </ul>
 </li>
@@ -1480,7 +1481,17 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.load_test_data_transactional"><code class="docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.login_role_user"><code class="docutils literal notranslate"><span class="pre">login_role_user()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.login_role_user_async"><code class="docutils literal notranslate"><span class="pre">login_role_user_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.mock_server"><code class="docutils literal notranslate"><span class="pre">mock_server()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.pytest_plugins"><code class="docutils literal notranslate"><span class="pre">pytest_plugins</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ref-ext/tests.html#module-tests.mock">Mock</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.mock.MockServer"><code class="docutils literal notranslate"><span class="pre">MockServer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.html#tests.mock.MockServer.__init__"><code class="docutils literal notranslate"><span class="pre">MockServer.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.html#tests.mock.MockServer.configure"><code class="docutils literal notranslate"><span class="pre">MockServer.configure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.html#tests.mock.MockServer.port"><code class="docutils literal notranslate"><span class="pre">MockServer.port</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/tests.html#module-tests.utils">Utils</a><ul>
@@ -2639,6 +2650,8 @@
         <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_reset_deepl_budget.datetime_not_first_day.__init__">(tests.core.management.commands.test_reset_deepl_budget.datetime_not_first_day method)</a>
 </li>
         <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.__init__">(tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient method)</a>
+</li>
+        <li><a href="ref-ext/tests.html#tests.mock.MockServer.__init__">(tests.mock.MockServer method)</a>
 </li>
         <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRegion.__init__">(tests.summ_ai_api.utils.MockedRegion method)</a>
 </li>
@@ -6480,6 +6493,8 @@
         <li><a href="documentation.html#module-conf">module</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/tests.html#tests.mock.MockServer.configure">configure() (tests.mock.MockServer method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.context_processors.constants_processor">constants_processor() (in module integreat_cms.core.context_processors)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet.contains">contains() (integreat_cms.cms.models.abstract_content_model.ContentQuerySet method)</a>
@@ -19461,9 +19476,13 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_form.PageForm.mk_indent">(integreat_cms.cms.forms.pages.page_form.PageForm static method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/tests.html#tests.conftest.mock_server">mock_server() (in module tests.conftest)</a>
+</li>
       <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRegion">MockedRegion (class in tests.summ_ai_api.utils)</a>
 </li>
       <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRequest">MockedRequest (class in tests.summ_ai_api.utils)</a>
+</li>
+      <li><a href="ref-ext/tests.html#tests.mock.MockServer">MockServer (class in tests.mock)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification.PushNotification.mode">mode (integreat_cms.cms.models.push_notifications.push_notification.PushNotification attribute)</a>
 </li>
@@ -20576,6 +20595,8 @@
         <li><a href="ref-ext/tests.firebase_api.html#module-tests.firebase_api">tests.firebase_api</a>
 </li>
         <li><a href="ref-ext/tests.firebase_api.html#module-tests.firebase_api.test_firebase_api_client">tests.firebase_api.test_firebase_api_client</a>
+</li>
+        <li><a href="ref-ext/tests.html#module-tests.mock">tests.mock</a>
 </li>
         <li><a href="ref-ext/tests.pdf.html#module-tests.pdf">tests.pdf</a>
 </li>
@@ -22787,6 +22808,8 @@
       <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.pop">pop() (integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.popleft">popleft() (integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
+</li>
+      <li><a href="ref-ext/tests.html#tests.mock.MockServer.port">port (tests.mock.MockServer property)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.feedback_ratings.POSITIVE">POSITIVE (in module integreat_cms.cms.constants.feedback_ratings)</a>
 </li>
@@ -28347,6 +28370,13 @@
 
       <ul>
         <li><a href="ref-ext/tests.firebase_api.html#module-tests.firebase_api.test_firebase_api_client">module</a>
+</li>
+      </ul></li>
+      <li>
+    tests.mock
+
+      <ul>
+        <li><a href="ref-ext/tests.html#module-tests.mock">module</a>
 </li>
       </ul></li>
       <li>
