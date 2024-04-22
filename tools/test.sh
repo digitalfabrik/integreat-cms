@@ -11,6 +11,9 @@ CODE_COVERAGE_DIR="${BASE_DIR:?}/htmlcov"
 rm -rf "${CODE_COVERAGE_DIR}"
 
 require_installed
+
+ensure_webpack_bundle_exists
+
 require_database
 
 # Set dummy key to enable SUMM.AI during testing

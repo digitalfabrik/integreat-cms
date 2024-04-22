@@ -340,6 +340,15 @@ function cleanup_docker_container {
     fi
 }
 
+function ensure_webpack_bundle_exists {
+    if [ ! -d "${PACKAGE_DIR}/static/dist/" ] || [ ! "$(ls -A "${PACKAGE_DIR}"/static/dist/ 2>/dev/null)" ]; then
+        echo "Building webpack bundle..." | print_info
+        npm run build > /dev/null
+    fi
+
+    echo "✔ Webpack bundle is in place" | print_success
+}
+
 # This function makes sure a postgres database docker container is running
 function ensure_docker_container_running {
     # Make sure script has the permission to run docker
