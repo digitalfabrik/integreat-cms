@@ -1,14 +1,12 @@
 from __future__ import annotations
 
 import json
-import time
 from typing import TYPE_CHECKING
 
 import pytest
 from django.http import HttpResponse
 from django.test.client import Client
 from django.urls import reverse
-from werkzeug.wrappers import Request, Response
 
 from integreat_cms.cms.constants import status
 from integreat_cms.cms.constants.roles import EDITOR
@@ -20,7 +18,6 @@ from tests.mock import MockServer
 if TYPE_CHECKING:
     from django.test.client import Client
     from pytest_django.fixtures import SettingsWrapper
-    from pytest_httpserver.httpserver import HTTPServer
 
 
 def update_page_content(
@@ -69,7 +66,15 @@ def test_hix_score_update(
     """
     # Setup a mocked Textlab API server with dummy responses
     mock_server.configure("/user/login", 200, {"token": "dummy"})
-    mock_server.configure("/benchmark/420", 200, {"formulaHix": 15.48920568})
+    mock_server.configure(
+        "/benchmark/420",
+        200,
+        {
+            "formulaHix": 15.48920568,
+            "moreSentencesInClauses": [1, 2, 3],
+            "moreSentencesInWords": [],
+        },
+    )
 
     # Redirect call aimed at the Textlab API to the fake server
     settings.TEXTLAB_API_URL = f"http://localhost:{mock_server.port}"
@@ -88,6 +93,15 @@ def test_hix_score_update(
     page_translation = Page.objects.get(id=2).get_translation("de")
 
     assert page_translation.hix_score == 15.48920568
+    assert json.loads(page_translation.hix_feedback) == [
+        {"category": "nested-sentences", "result": [1, 2, 3]},
+        {"category": "long-sentences", "result": []},
+        {"category": "long-words", "result": []},
+        {"category": "passive-voice-sentences", "result": []},
+        {"category": "infinitive-constructions", "result": []},
+        {"category": "nominal-sentences", "result": []},
+        {"category": "future-tense-sentences", "result": []},
+    ]
     assert mock_server.requests_counter == 2
 
 
@@ -128,6 +142,7 @@ def test_hix_disable_on_region(
     page_translation = Page.objects.get(id=2).get_translation("de")
 
     assert page_translation.hix_score is None
+    assert page_translation.hix_feedback is None
     assert mock_server.requests_counter == 0
 
 
@@ -149,7 +164,7 @@ def test_ignore_hix_on_page(
 
     # Setup a mocked Textlab API server with dummy responses
     mock_server.configure("/user/login", 200, {"token": "dummy"})
-    mock_server.configure("/benchmark/420", 200, {"message": "Error occurred"})
+    mock_server.configure("/benchmark/420", 200, {"formulaHix": 20.0})
 
     # Redirect call aimed at the Textlab API to the fake server
     settings.TEXTLAB_API_URL = f"http://localhost:{mock_server.port}"
@@ -168,6 +183,7 @@ def test_ignore_hix_on_page(
     page_translation = Page.objects.get(id=2).get_translation("de")
 
     assert page_translation.hix_score is None
+    assert page_translation.hix_feedback is None
     assert mock_server.requests_counter == 0
 
 
@@ -189,7 +205,7 @@ def test_hix_page_content_empty(
 
     # Setup a mocked Textlab API server with dummy responses
     mock_server.configure("/user/login", 200, {"token": "dummy"})
-    mock_server.configure("/benchmark/420", 500, {"message": "Error occurred"})
+    mock_server.configure("/benchmark/420", 200, {"formulaHix": 20.0})
 
     # Redirect call aimed at the Textlab API to the fake server
     settings.TEXTLAB_API_URL = f"http://localhost:{mock_server.port}"
@@ -208,6 +224,7 @@ def test_hix_page_content_empty(
     page_translation = Page.objects.get(id=2).get_translation("de")
 
     assert page_translation.hix_score is None
+    assert page_translation.hix_feedback is None
     assert mock_server.requests_counter == 0
 
 
@@ -229,7 +246,7 @@ def test_hix_no_content_changes(
 
     # Setup a mocked Textlab API server with dummy responses
     mock_server.configure("/user/login", 200, {"token": "dummy"})
-    mock_server.configure("/benchmark/420", 500, {"message": "Error occurred"})
+    mock_server.configure("/benchmark/420", 200, {"formulaHix": 20.0})
 
     # Redirect call aimed at the Textlab API to the fake server
     settings.TEXTLAB_API_URL = f"http://localhost:{mock_server.port}"
@@ -237,20 +254,17 @@ def test_hix_no_content_changes(
     # Enable Textlab in the test region
     Region.objects.filter(slug="augsburg").update(hix_enabled=True)
 
-    # Setting HIX score initial value
-    initial_hix_score = 11
-    PageTranslation.objects.filter(page__id=2, language__slug="de").update(
-        hix_score=initial_hix_score
-    )
+    # Save data from the previous version of the translation
+    previous_translation = Page.objects.get(id=2).get_translation("de")
 
-    # Check initial page properties
-    page_translation = Page.objects.get(id=2).get_translation("de")
-    content_before_change = page_translation.content
-    assert content_before_change != ""
-    assert page_translation.latest_version.hix_score == initial_hix_score
+    previous_hix_score = previous_translation.hix_score
+    previous_hix_feedback = previous_translation.hix_feedback
+
+    previous_content = previous_translation.content
+    assert previous_content != ""
 
     edit_page, response = update_page_content(
-        admin_client, "Neuer Titel", content_before_change
+        admin_client, "Neuer Titel", previous_content
     )
 
     assert response.status_code == 302
@@ -259,8 +273,10 @@ def test_hix_no_content_changes(
     # Check that the HIX score has been copied from the previous version
     page_translation = Page.objects.get(id=2).get_translation("de")
 
-    assert page_translation.hix_score == initial_hix_score
-    assert page_translation.content == content_before_change
+    assert page_translation.hix_score == previous_hix_score
+    assert json.loads(page_translation.hix_feedback) == json.loads(
+        previous_hix_feedback
+    )
     assert mock_server.requests_counter == 0
 
 
@@ -300,3 +316,4 @@ def test_hix_response_400(
     page_translation = Page.objects.get(id=2).get_translation("de")
 
     assert page_translation.hix_score is None
+    assert page_translation.hix_feedback is None

@@ -28,7 +28,8 @@
             </div>
             <div id="hix-container"
                  data-content-changed
-                 data-initial-hix-score="{{ page_translation_form.instance.rounded_hix_score }}">
+                 data-initial-hix-score="{{ page_translation_form.instance.rounded_hix_score }}"
+                 data-initial-hix-feedback="{{ page_translation_form.instance.hix_feedback }}">
                 <div id="hix-bar">
                     <span id="hix-bar-fill">
                         <div id="hix-value">
@@ -64,7 +65,59 @@
                 <i icon-name="refresh-ccw"></i>
                 {% translate "Update" %}
             </button>
-            <label class="secondary">
+            <div id="hix-feedback" class="hidden">
+                <label class="secondary">
+                    {% translate "For review:" %}
+                </label>
+                <div hix-feedback-category="nested-sentences"
+                     class="help-text mt-2 hidden">
+                    <i icon-name="bar-chart-big" class="size-6 pr-1"></i>
+                    {% translate "The text contains" %}
+                    <span class="font-bold"></span>
+                    <span class="font-bold">{% translate "nested sentences" %}</span>
+                </div>
+                <div hix-feedback-category="long-sentences" class="help-text mt-2 hidden">
+                    <i icon-name="bar-chart-big" class="size-6 pr-1"></i>
+                    {% translate "The text contains" %}
+                    <span class="font-bold"></span>
+                    <span class="font-bold">{% translate "sentences that are too long" %}</span>
+                </div>
+                <div hix-feedback-category="long-words" class="help-text mt-2 hidden">
+                    <i icon-name="bar-chart-big" class="size-6 pr-1"></i>
+                    {% translate "The text contains" %}
+                    <span class="font-bold"></span>
+                    <span class="font-bold">{% translate "words that are too long" %}</span>
+                </div>
+                <div hix-feedback-category="passive-voice-sentences"
+                     class="help-text mt-2 hidden">
+                    <i icon-name="bar-chart-big" class="size-6 pr-1"></i>
+                    {% translate "The text contains" %}
+                    <span class="font-bold"></span>
+                    <span class="font-bold">{% translate "sentences in passive voice" %}</span>
+                </div>
+                <div hix-feedback-category="infinitive-constructions"
+                     class="help-text mt-2 hidden">
+                    <i icon-name="bar-chart-big" class="size-6 pr-1"></i>
+                    {% translate "The text contains" %}
+                    <span class="font-bold"></span>
+                    <span class="font-bold">{% translate "infinitive constructions" %}</span>
+                </div>
+                <div hix-feedback-category="nominal-sentences"
+                     class="help-text mt-2 hidden">
+                    <i icon-name="bar-chart-big" class="size-6 pr-1"></i>
+                    {% translate "The text contains" %}
+                    <span class="font-bold"></span>
+                    <span class="font-bold">{% translate "sentences in nominal style" %}</span>
+                </div>
+                <div hix-feedback-category="future-tense-sentences"
+                     class="help-text mt-2 hidden">
+                    <i icon-name="bar-chart-big" class="size-6 pr-1"></i>
+                    {% translate "The text contains" %}
+                    <span class="font-bold"></span>
+                    <span class="font-bold">{% translate "sentences in the future tense" %}</span>
+                </div>
+            </div>
+            <label class="secondary pt-2">
                 {% translate "HIX value unexpectedly bad?" %}
             </label>
             <div class="help-text mt-2">

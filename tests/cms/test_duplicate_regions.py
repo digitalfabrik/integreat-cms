@@ -106,10 +106,12 @@ def test_duplicate_regions(
             source_page_translations, target_pages_translations
         ):
             source_page_translation_dict = model_to_dict(
-                source_page_translation, exclude=["id", "page", "status"]
+                source_page_translation,
+                exclude=["id", "page", "status", "hix_score", "hix_feedback"],
             )
             target_page_translation_dict = model_to_dict(
-                target_page_translation, exclude=["id", "page", "status"]
+                target_page_translation,
+                exclude=["id", "page", "status", "hix_score", "hix_feedback"],
             )
             assert source_page_translation_dict == target_page_translation_dict
             assert target_page_translation.status == status.DRAFT
