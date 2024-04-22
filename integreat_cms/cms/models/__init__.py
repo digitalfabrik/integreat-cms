@@ -6,6 +6,7 @@ Please refer to :mod:`django.db.models` for general information about Django mod
 from __future__ import annotations
 
 from .chat.chat_message import ChatMessage
+from .chat.user_chat import UserChat
 from .events.event import Event
 from .events.event_translation import EventTranslation
 from .events.recurrence_rule import RecurrenceRule
