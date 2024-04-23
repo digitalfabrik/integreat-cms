@@ -8,10 +8,16 @@ from datetime import datetime, timedelta
 
 import pytest
 from django.utils import timezone
-
-from integreat_cms.cms.models import Event, MediaFile, Organization, Region, EventTranslation, Language
-
 from linkcheck.utils import find_all_links
+
+from integreat_cms.cms.models import (
+    Event,
+    EventTranslation,
+    Language,
+    MediaFile,
+    Organization,
+    Region,
+)
 
 
 class TestMediaFile:
@@ -190,7 +196,9 @@ class TestMediaFile:
         assert not file.is_deletable
 
     @pytest.mark.django_db
-    def test_is_not_deletable_if_used_as_within_translation_of_upcoming_event(self) -> None:
+    def test_is_not_deletable_if_used_as_within_translation_of_upcoming_event(
+        self,
+    ) -> None:
         region = Region.objects.create(name="Testregion")
 
         file = MediaFile.objects.create(
@@ -210,9 +218,21 @@ class TestMediaFile:
             region=region,
         )
 
-        german_language = Language.objects.create(slug="de", bcp47_tag="de", native_name="Deutsch", english_name="German", text_direction="ltr", primary_country_code="DE", table_of_contents="Inhaltsverzeichnis")
+        german_language = Language.objects.create(
+            slug="de",
+            bcp47_tag="de",
+            native_name="Deutsch",
+            english_name="German",
+            text_direction="ltr",
+            primary_country_code="DE",
+            table_of_contents="Inhaltsverzeichnis",
+        )
 
-        EventTranslation.objects.create(event=upcoming_event, language=german_language, content=f'<p><img src="http://localhost:8000/media/{file.file}"></p>')
+        EventTranslation.objects.create(
+            event=upcoming_event,
+            language=german_language,
+            content=f'<p><img src="http://localhost:8000/media/{file.file}"></p>',
+        )
 
         find_all_links()
 
@@ -239,9 +259,21 @@ class TestMediaFile:
             region=region,
         )
 
-        german_language = Language.objects.create(slug="de", bcp47_tag="de", native_name="Deutsch", english_name="German", text_direction="ltr", primary_country_code="DE", table_of_contents="Inhaltsverzeichnis")
+        german_language = Language.objects.create(
+            slug="de",
+            bcp47_tag="de",
+            native_name="Deutsch",
+            english_name="German",
+            text_direction="ltr",
+            primary_country_code="DE",
+            table_of_contents="Inhaltsverzeichnis",
+        )
 
-        EventTranslation.objects.create(event=past_event, language=german_language, content=f'<p><img src="http://localhost:8000/media/{file.file}"></p>')
+        EventTranslation.objects.create(
+            event=past_event,
+            language=german_language,
+            content=f'<p><img src="http://localhost:8000/media/{file.file}"></p>',
+        )
 
         find_all_links()
 
