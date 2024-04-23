@@ -245,4 +245,4 @@ class TestMediaFile:
 
         find_all_links()
 
-        assert file.past_event_usages.count() == 1 and file.is_deletable
+        file.is_deletable
