@@ -16,6 +16,7 @@ from integreat_cms.cms.models import (
     Language,
     MediaFile,
     Organization,
+    RecurrenceRule,
     Region,
 )
 
@@ -278,3 +279,103 @@ class TestMediaFile:
         find_all_links()
 
         file.is_deletable
+
+    @pytest.mark.django_db
+    def test_is_deletable_when_used_in_translation_of_event_which_rrule_ended(
+        self,
+    ) -> None:
+        region = Region.objects.create(name="Testregion")
+
+        file = MediaFile.objects.create(
+            file="bielefeld_stadtmarke.png",
+            thumbnail="bielefeld_stadtmarke.png",
+            file_size=1024,
+            type="PNG",
+            name="Example File",
+            alt_text="This is an example file",
+            last_modified=datetime(2024, 4, 11, 10, 30, 0),
+            is_hidden=False,
+        )
+
+        daily_rrule = RecurrenceRule.objects.create(
+            interval=1,
+            frequency="DAILY",
+            weekdays_for_weekly=[0],
+            recurrence_end_date=timezone.now() - timedelta(days=1),
+        )
+
+        past_event = Event.objects.create(
+            start=timezone.now() - timedelta(days=10, hours=22),
+            end=timezone.now() - timedelta(days=10, hours=23),
+            region=region,
+            recurrence_rule=daily_rrule,
+        )
+
+        german_language = Language.objects.create(
+            slug="de",
+            bcp47_tag="de",
+            native_name="Deutsch",
+            english_name="German",
+            text_direction="ltr",
+            primary_country_code="DE",
+            table_of_contents="Inhaltsverzeichnis",
+        )
+
+        EventTranslation.objects.create(
+            event=past_event,
+            language=german_language,
+            content=f'<p><img src="http://localhost:8000/media/{file.file}"></p>',
+        )
+
+        find_all_links()
+
+        assert file.is_deletable
+
+    @pytest.mark.django_db
+    def test_is_not_deletable_when_used_in_translation_of_recurring_event(self) -> None:
+        region = Region.objects.create(name="Testregion")
+
+        file = MediaFile.objects.create(
+            file="bielefeld_stadtmarke.png",
+            thumbnail="bielefeld_stadtmarke.png",
+            file_size=1024,
+            type="PNG",
+            name="Example File",
+            alt_text="This is an example file",
+            last_modified=datetime(2024, 4, 11, 10, 30, 0),
+            is_hidden=False,
+        )
+
+        daily_rrule = RecurrenceRule.objects.create(
+            interval=1,
+            frequency="DAILY",
+            weekdays_for_weekly=[0],
+            recurrence_end_date=timezone.now() + timedelta(days=1),
+        )
+
+        recurring_event = Event.objects.create(
+            start=timezone.now() - timedelta(days=10, hours=22),
+            end=timezone.now() - timedelta(days=10, hours=23),
+            region=region,
+            recurrence_rule=daily_rrule,
+        )
+
+        german_language = Language.objects.create(
+            slug="de",
+            bcp47_tag="de",
+            native_name="Deutsch",
+            english_name="German",
+            text_direction="ltr",
+            primary_country_code="DE",
+            table_of_contents="Inhaltsverzeichnis",
+        )
+
+        EventTranslation.objects.create(
+            event=recurring_event,
+            language=german_language,
+            content=f'<p><img src="http://localhost:8000/media/{file.file}"></p>',
+        )
+
+        find_all_links()
+
+        assert not file.is_deletable
