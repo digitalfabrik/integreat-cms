@@ -220,7 +220,7 @@ class TestMediaFile:
         )
 
         german_language = Language.objects.create(
-            slug="de",
+            slug="de-testing",
             bcp47_tag="de",
             native_name="Deutsch",
             english_name="German",
@@ -261,7 +261,7 @@ class TestMediaFile:
         )
 
         german_language = Language.objects.create(
-            slug="de",
+            slug="de-testing",
             bcp47_tag="de",
             native_name="Deutsch",
             english_name="German",
@@ -312,7 +312,7 @@ class TestMediaFile:
         )
 
         german_language = Language.objects.create(
-            slug="de",
+            slug="de-testing",
             bcp47_tag="de",
             native_name="Deutsch",
             english_name="German",
@@ -361,7 +361,7 @@ class TestMediaFile:
         )
 
         german_language = Language.objects.create(
-            slug="de",
+            slug="de-testing",
             bcp47_tag="de",
             native_name="Deutsch",
             english_name="German",
