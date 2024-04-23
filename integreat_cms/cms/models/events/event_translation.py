@@ -11,6 +11,7 @@ from linkcheck.models import Link
 
 if TYPE_CHECKING:
     from typing import Literal
+
     from ...models import Event
 
 from ..abstract_content_translation import AbstractContentTranslation

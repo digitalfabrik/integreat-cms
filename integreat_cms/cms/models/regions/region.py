@@ -14,9 +14,8 @@ from django.template.defaultfilters import floatformat
 from django.urls import reverse
 from django.utils import timezone as django_timezone
 from django.utils.functional import cached_property, keep_lazy_text
-from django.utils.translation import gettext
+from django.utils.translation import gettext, override
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import override
 
 if TYPE_CHECKING:
     from datetime import datetime
@@ -25,11 +24,11 @@ if TYPE_CHECKING:
     from django.utils.functional import Promise
     from django.utils.safestring import SafeString
 
+    from ...nominatim_api.utils import BoundingBox
     from ..languages.language import Language
     from ..languages.language_tree_node import LanguageTreeNode
     from ..pages.imprint_page import ImprintPage
     from ..pages.page import PageQuerySet
-    from ...nominatim_api.utils import BoundingBox
 
 from django.utils.safestring import mark_safe
 

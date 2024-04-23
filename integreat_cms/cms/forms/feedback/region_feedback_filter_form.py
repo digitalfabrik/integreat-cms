@@ -8,8 +8,8 @@ from django.utils.text import capfirst
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
-    from ..models.feedback.feedback import CascadeDeletePolymorphicQuerySet
     from ..models import Region
+    from ..models.feedback.feedback import CascadeDeletePolymorphicQuerySet
 
 from ...constants import feedback_ratings, feedback_read_status
 from ...models import Feedback, Language

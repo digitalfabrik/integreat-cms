@@ -12,6 +12,7 @@ from django.templatetags.static import static
 
 if TYPE_CHECKING:
     from typing import Any
+
     from django.http import HttpRequest
 
 from ...cms.models import POICategory

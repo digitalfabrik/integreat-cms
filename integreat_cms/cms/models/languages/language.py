@@ -8,6 +8,7 @@ from django.db import models
 
 if TYPE_CHECKING:
     from typing import Any
+
     from django.db.models.query import QuerySet
 
 from django.utils import timezone

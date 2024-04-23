@@ -4,11 +4,12 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import Any
+
+    from _pytest.logging import LogCaptureFixture
     from pytest_django.fixtures import SettingsWrapper
     from requests_mock.mocker import Mocker
     from requests_mock.request import _RequestObjectProxy
     from requests_mock.response import _Context
-    from _pytest.logging import LogCaptureFixture
 
 import pytest
 from django.core.exceptions import ImproperlyConfigured

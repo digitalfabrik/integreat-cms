@@ -11,6 +11,7 @@ from linkcheck.models import Link
 
 if TYPE_CHECKING:
     from typing import Literal
+
     from .pois.poi import POI
 
 from ...utils.translation_utils import gettext_many_lazy as __

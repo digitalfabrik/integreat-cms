@@ -6,10 +6,11 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import Any, Final
-    from pytest_django.fixtures import SettingsWrapper
-    from django.db.models.base import ModelBase
+
     from _pytest.logging import LogCaptureFixture
+    from django.db.models.base import ModelBase
     from django.test.client import Client
+    from pytest_django.fixtures import SettingsWrapper
 
 import pytest
 from django.apps import apps

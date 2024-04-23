@@ -8,6 +8,7 @@ from django.dispatch import receiver
 
 if TYPE_CHECKING:
     from typing import Any
+
     from integreat_cms.cms.models.pages.page_translation import PageTranslation
 
 from ...cms.models import PageTranslation

@@ -14,11 +14,12 @@ from django.utils.functional import cached_property
 if TYPE_CHECKING:
     from datetime import datetime
 
+    from django.db.models.query import QuerySet
     from django.utils.functional import Promise
     from django.utils.safestring import SafeString
-    from django.db.models.query import QuerySet
-    from ..regions.region import Region
+
     from ..language.language import Language
+    from ..regions.region import Region
 
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _

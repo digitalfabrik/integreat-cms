@@ -3,8 +3,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Any
     from collections.abc import Callable
+    from typing import Any
+
     from django.http import HttpRequest
 
 from django.conf import settings
