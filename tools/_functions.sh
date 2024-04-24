@@ -37,6 +37,8 @@ SCRIPT_PATH="${DEV_TOOL_DIR}/${SCRIPT_NAME}"
 SCRIPT_ARGS=("$@")
 # The verbosity of the output (can be one of {0,1,2,3})
 SCRIPT_VERBOSITY="1"
+# Unset LC_COLLATE to make sorting deterministic and reproducible
+LC_COLLATE=""
 
 # This function prints the given input lines in red color
 function print_error {
