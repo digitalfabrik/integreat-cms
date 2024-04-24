@@ -34,6 +34,6 @@ Publish package
 
 You can publish the package to a python repository like e.g. `PyPI <https://pypi.org/>`__ with :doc:`twine:index`::
 
-    twine upload ./dist/integreat-cms-*.tar.gz
+    twine upload ./dist/integreat_cms-*.tar.gz
 
 See the :doc:`Twine documentation <twine:index>` for all configuration options of this command.
