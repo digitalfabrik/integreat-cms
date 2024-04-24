@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     from .regions.region import Region
 
 from ..constants import status, translation_status
+from ..utils.round_hix_score import round_hix_score
 from ..utils.translation_utils import gettext_many_lazy as __
 from .abstract_base_model import AbstractBaseModel
 from .languages.language import Language
@@ -518,6 +519,13 @@ class AbstractContentTranslation(AbstractBaseModel):
         return self.foreign_object.hix_ignore
 
     @cached_property
+    def rounded_hix_score(self) -> float | None:
+        """
+        return rounded-up hix_score
+        """
+        return round_hix_score(self.hix_score)
+
+    @cached_property
     def hix_sufficient_for_mt(self) -> bool:
         """
         Whether this translation has a sufficient HIX value for machine translations.
@@ -525,7 +533,10 @@ class AbstractContentTranslation(AbstractBaseModel):
 
         :return: Wether the HIX value is sufficient for MT
         """
-        return self.hix_score is None or self.hix_score >= settings.HIX_REQUIRED_FOR_MT
+        return (
+            self.hix_score is None
+            or self.rounded_hix_score >= settings.HIX_REQUIRED_FOR_MT
+        )
 
     def __str__(self) -> str:
         """

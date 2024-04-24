@@ -6,11 +6,8 @@ let initialHixValue: number = null;
 
 /* Display the HIX value using a bar chart */
 const updateHixBar = (value: number, setOutdated: boolean) => {
-    const roundedHixValue = Math.round(value * 100) / 100;
-
     const hixValue = document.getElementById("hix-value") as HTMLElement;
-    hixValue.textContent = `HIX ${roundedHixValue}`;
-
+    hixValue.textContent = `HIX ${value}`;
     const hixMaxValue = 20;
     const hixThresholdGood = 15;
     const hixThresholdOk = 7;
@@ -19,7 +16,7 @@ const updateHixBar = (value: number, setOutdated: boolean) => {
     let backgroundColor;
     if (setOutdated) {
         backgroundColor = "rgb(16, 111, 254, 0.3)";
-    } else if (value > hixThresholdGood) {
+    } else if (value >= hixThresholdGood) {
         backgroundColor = "rgb(74, 222, 128)";
     } else if (value > hixThresholdOk) {
         backgroundColor = "rgb(250, 204, 21)";
@@ -28,7 +25,7 @@ const updateHixBar = (value: number, setOutdated: boolean) => {
     }
 
     const hixBarFill = document.getElementById("hix-bar-fill") as HTMLElement;
-    const style = `width:${(roundedHixValue / hixMaxValue) * 100}%;background-color:${backgroundColor};`;
+    const style = `width:${(value / hixMaxValue) * 100}%;background-color:${backgroundColor};`;
     hixBarFill.setAttribute("style", style);
 };
 
@@ -114,7 +111,6 @@ window.addEventListener("load", async () => {
         const mtForm = document.getElementById("machine-translation-form");
         const hixScoreWarning = document.getElementById("hix-score-warning");
         const minimumHix = parseFloat(mtForm?.dataset.minimumHix);
-
         if (hixValue && hixValue < minimumHix) {
             hixScoreWarning?.classList.remove("hidden");
             toggleMTCheckboxes(true);

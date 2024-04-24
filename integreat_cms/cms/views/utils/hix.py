@@ -17,6 +17,7 @@ from django.views.decorators.http import require_POST
 
 from ....api.decorators import json_response
 from ....textlab_api.textlab_api_client import TextlabClient
+from ...utils.round_hix_score import round_hix_score
 
 if TYPE_CHECKING:
     from typing import Final
@@ -94,5 +95,5 @@ def get_hix_score(request: HttpRequest, region_slug: str) -> JsonResponse:
         return JsonResponse({"error": f"Invalid text: '{text}'"})
 
     if score := lookup_hix_score(text):
-        return JsonResponse({"score": score})
+        return JsonResponse({"score": round_hix_score(score)})
     return JsonResponse({"error": "Could not retrieve hix score"})
