@@ -12,6 +12,6 @@ require_installed
 
 # Run ruff
 echo "Starting code linting and formatting with ruff..." | print_info
-ruff check --fix "${BASE_DIR}"
+ruff check "${BASE_DIR}"
 # ruff format "${BASE_DIR}"
 echo "✔ Code formatting finished" | print_success
