@@ -260,6 +260,39 @@ class MediaFile(AbstractBaseModel):
         return Link.objects.filter(url__url=self.url).distinct("object_id")
 
     @cached_property
+    def past_event_usages(self) -> QuerySet:
+        """
+        Count in how many past events this file is used
+
+        :return: count of usages in past events
+        """
+        return self.events.filter(end__lt=timezone.now().date())
+
+    @cached_property
+    def is_only_used_in_past_events(self) -> QuerySet:
+        """
+        Check if a media file is used in past events only
+
+        :return: if a media file is only used in past events
+        """
+        usage_counts = [
+            self.past_event_usages.count(),
+            (len(self.icon_usages) + self.content_usages.count()),
+            self.events.count(),
+        ]
+
+        return all(c == usage_counts[0] for c in usage_counts)
+
+    @cached_property
+    def is_deletable(self) -> bool:
+        """
+        Check if a media file deletable
+
+        :return: Whether a file is deletable
+        """
+        return not self.is_used or self.is_only_used_in_past_events
+
+    @cached_property
     def is_embedded(self) -> bool:
         """
         Check if a media file is embedded in the content
@@ -337,7 +370,7 @@ class MediaFile(AbstractBaseModel):
             "lastModified": localize(timezone.localtime(self.last_modified)),
             "isGlobal": not self.region,
             "isHidden": self.is_hidden,
-            "deletable": not self.is_used,
+            "deletable": self.is_deletable,
         }
 
     @classmethod
