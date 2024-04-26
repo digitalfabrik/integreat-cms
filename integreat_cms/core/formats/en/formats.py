@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from typing import Final
 
-#: The default formatting to use for displaying datetime fields in any part of the system when using the German locale.
+#: The default formatting to use for displaying datetime fields in any part of the system when using the English locale.
 DATETIME_FORMAT: Final[str] = "d.m.Y, H:i"
 
 #: The short formatting to use for displaying datetime fields when the time is irrelevant
