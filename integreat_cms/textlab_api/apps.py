@@ -4,8 +4,8 @@ import logging
 from typing import TYPE_CHECKING
 from urllib.error import URLError
 
-from django.conf import settings
 from django.apps import AppConfig, apps
+from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 from .textlab_api_client import TextlabClient
