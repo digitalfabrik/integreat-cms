@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-04-26T18:12:11+00:00" />
+    <meta property="article:modified_time" content="2024-04-27T21:03:09+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tests &mdash; integreat-cms 2024.3.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -292,6 +292,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/integreat_cms.core.html">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.formats.html">Formats</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.formats.de.html">De</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.formats.en.html">En</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.management.html">Management</a><ul>
@@ -835,6 +836,7 @@
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.html">Core</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.formats.html">Formats</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.formats.de.html">De</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.formats.en.html">En</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.management.html">Management</a><ul>
@@ -1885,7 +1887,7 @@
              
   <section id="module-tests">
 <span id="tests"></span><h1>Tests<a class="headerlink" href="#module-tests" title="Link to this heading"></a></h1>
-<p>We use <a class="reference external" href="https://docs.pytest.org/en/latest/index.html" title="(in pytest v0.1.dev79+g4eb8b6d)"><span class="xref std std-doc">pytest</span></a> to validate that the functionality of the cms works as expected.</p>
+<p>We use <a class="reference external" href="https://docs.pytest.org/en/latest/index.html" title="(in pytest v0.1.dev85+g835765c)"><span class="xref std std-doc">pytest</span></a> to validate that the functionality of the cms works as expected.</p>
 <p>In addition, we use the following plugins:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://pytest-cov.readthedocs.io/en/latest/index.html" title="(in pytest-cov v5.0.0)"><span class="xref std std-doc">pytest-cov</span></a>: This plugin produces coverage reports.</p></li>
@@ -2434,7 +2436,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The expected message</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev79+g4eb8b6d)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev85+g835765c)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
@@ -2452,7 +2454,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
 <dd><p>Assert that no error messages were shown to the user</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev79+g4eb8b6d)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
+<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev85+g835765c)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/exceptions.html#AssertionError" title="(in Python v3.11)"><strong>AssertionError</strong></a> – When the the logs contains error messages</p>
@@ -2469,7 +2471,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
 <dd><p>Get all errors from the messages framework</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev79+g4eb8b6d)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
+<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev85+g835765c)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The list of error messages that were shown to the user</p>
@@ -2486,7 +2488,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
 <dd><p>Get all logs from the messages framework</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev79+g4eb8b6d)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
+<dd class="field-odd"><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v0.1.dev85+g835765c)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The list of messages that were shown to the user</p>
@@ -2515,7 +2517,7 @@ an <code class="xref py py-class docutils literal notranslate"><span class="pre"
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Apr 26, 2024.
+      <span class="lastupdated">Last updated on Apr 27, 2024.
       </span></p>
   </div>
 
