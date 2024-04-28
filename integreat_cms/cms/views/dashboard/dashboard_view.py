@@ -61,6 +61,10 @@ class DashboardView(TemplateView, ChatContextMixin):
                     "get_broken_links_ajax",
                     kwargs={"region_slug": self.request.region.slug},
                 ),
+                "translation_coverage_ajax": reverse(
+                    "get_translation_coverage_ajax",
+                    kwargs={"region_slug": self.request.region.slug},
+                ),
             }
         )
 
@@ -242,3 +246,31 @@ class DashboardView(TemplateView, ChatContextMixin):
             "drafted_pages": drafted_pages,
             "single_drafted_page": single_drafted_page,
         }
+
+    @json_response
+    # pylint: disable=unused-argument, disable=no-self-argument
+    def get_translation_coverage_context(
+        request: HttpRequest, region_slug: str
+    ) -> JsonResponse:
+        r"""
+        Extend context by info on translation coverage of pages
+
+        :return: Dictionary containing the context for translation coverage of pages in a region
+        """
+        non_archived_pages = request.region.non_archived_pages
+        language_count = len(request.region.languages)
+        possible_translations = non_archived_pages.count() * language_count
+
+        all_translations = PageTranslation.objects.filter(
+            page__in=non_archived_pages
+        ).only("pk")
+        non_outdated_translations = sum(
+            1 for translation in all_translations if not translation.is_outdated
+        )
+
+        return JsonResponse(
+            data={
+                "number_of_missing_or_outdated_translations": possible_translations
+                - non_outdated_translations
+            }
+        )
