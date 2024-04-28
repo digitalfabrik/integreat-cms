@@ -13,7 +13,8 @@ from django.views.generic import TemplateView
 
 from ....api.decorators import json_response
 from ...constants import status
-from ...models import Feedback, PageTranslation
+from ...constants.translation_status import OUTDATED
+from ...models import Feedback, LanguageTreeNode, Page, PageTranslation
 from ...utils.linkcheck_utils import filter_urls
 from ...views.utils.hix import get_translation_under_hix_threshold
 from ..chat.chat_context_mixin import ChatContextMixin
@@ -69,7 +70,11 @@ class DashboardView(TemplateView, ChatContextMixin):
         context.update(self.get_unread_feedback_context())
         context.update(self.get_low_hix_value_context())
         context.update(self.get_outdated_pages_context())
+<<<<<<< HEAD
         context.update(self.get_drafted_pages())
+=======
+        context.update(self.get_translation_coverage_context())
+>>>>>>> 390d03668 (Add translation coverage row to dashboard)
 
         return context
 
@@ -241,3 +246,32 @@ class DashboardView(TemplateView, ChatContextMixin):
             "drafted_pages": drafted_pages,
             "single_drafted_page": single_drafted_page,
         }
+
+    def get_translation_coverage_context(
+        self,
+    ) -> dict[str, QuerySet | PageTranslation | datetime | int | None]:
+        if not self.request.region.default_language:
+            return {}
+
+        languages = LanguageTreeNode.objects.filter(region=self.request.region).exclude(
+            language=self.request.region.default_language
+        )
+
+        pages_in_region = Page.objects.filter(region=self.request.region)
+        possible_translations = languages.count() * pages_in_region.count()
+
+        published_foreign_translations = (
+            PageTranslation.objects
+            .select_related("language")
+            .order_by("page__id", "language__id", "-version")
+            .distinct("page__id", "language__id")
+            .filter(page__region__slug=self.request.region.slug, 
+                    minor_edit=False)
+            .exclude(language=self.request.region.default_language)
+            .all()
+        )
+
+        number_of_missing_or_outdated_translations = (
+            possible_translations - published_foreign_translations.count()
+        )
+        return {"number_of_missing_or_outdated_translations": number_of_missing_or_outdated_translations}
