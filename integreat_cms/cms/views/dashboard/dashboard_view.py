@@ -11,7 +11,8 @@ from django.utils import translation
 from django.views.generic import TemplateView
 
 from ...constants import status
-from ...models import Feedback, PageTranslation
+from ...constants.translation_status import OUTDATED
+from ...models import Feedback, LanguageTreeNode, Page, PageTranslation
 from ...utils.linkcheck_utils import filter_urls
 from ..chat.chat_context_mixin import ChatContextMixin
 
@@ -66,6 +67,7 @@ class DashboardView(TemplateView, ChatContextMixin):
         # context.update(self.get_broken_links_context())
         context.update(self.get_low_hix_value_context())
         context.update(self.get_outdated_pages_context())
+        context.update(self.get_translation_coverage_context())
 
         return context
 
@@ -215,3 +217,32 @@ class DashboardView(TemplateView, ChatContextMixin):
             "days_since_last_updated": days_since_last_updated,
             "outdated_threshold_date": outdated_threshold_date_str,
         }
+
+    def get_translation_coverage_context(
+        self,
+    ) -> dict[str, QuerySet | PageTranslation | datetime | int | None]:
+        if not self.request.region.default_language:
+            return {}
+
+        languages = LanguageTreeNode.objects.filter(region=self.request.region).exclude(
+            language=self.request.region.default_language
+        )
+
+        pages_in_region = Page.objects.filter(region=self.request.region)
+        possible_translations = languages.count() * pages_in_region.count()
+
+        published_foreign_translations = (
+            PageTranslation.objects
+            .select_related("language")
+            .order_by("page__id", "language__id", "-version")
+            .distinct("page__id", "language__id")
+            .filter(page__region__slug=self.request.region.slug, 
+                    minor_edit=False)
+            .exclude(language=self.request.region.default_language)
+            .all()
+        )
+
+        number_of_missing_or_outdated_translations = (
+            possible_translations - published_foreign_translations.count()
+        )
+        return {"number_of_missing_or_outdated_translations": number_of_missing_or_outdated_translations}
