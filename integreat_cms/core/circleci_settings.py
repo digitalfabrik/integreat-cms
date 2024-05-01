@@ -9,6 +9,8 @@ For the full list of settings and their values, see :doc:`django:ref/settings`.
 # pylint: disable=unused-wildcard-import
 from __future__ import annotations
 
+import sys
+
 from .settings import *
 
 #: Set a dummy secret key for CircleCI build even if it's not in debug mode
@@ -25,6 +27,10 @@ SUMM_AI_ENABLED = True
 DEEPL_AUTH_KEY = "dummy"
 #: Enable manually because existing setting derives from the unset env var
 DEEPL_ENABLED = True
+#: Set dummy Textlab key to test automatic translations via Textlab API
+TEXTLAB_API_KEY = "dummy"
+#: Enable manually because existing setting derives from the unset env var
+TEXTLAB_API_ENABLED = True
 #: Disable linkcheck listeners on CircleCI
 LINKCHECK_DISABLE_LISTENERS = True
 # Disable background tasks during testing

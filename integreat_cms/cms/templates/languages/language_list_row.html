@@ -25,10 +25,10 @@
         {{ language.get_text_direction_display }}
     </td>
     <td class="pr-2">
-        {{ language.created_date }}
+        {{ language.created_date|date:"SHORT_DATE_FORMAT" }}
     </td>
     <td class="pr-2">
-        {{ language.last_updated }}
+        {{ language.last_updated|date:"SHORT_DATE_FORMAT" }}
     </td>
     <td class="pr-2 text-right">
         {{ language.language_tree_nodes.count }}

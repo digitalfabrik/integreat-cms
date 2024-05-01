@@ -52,6 +52,12 @@ class PageFilterForm(CustomFilterForm):
         initial=[key for (key, val) in translation_status.CHOICES],
         required=False,
     )
+
+    exclude_pages_without_content = forms.BooleanField(
+        label=_("Exclude pages without content"),
+        required=False,
+    )
+
     query = forms.CharField(required=False)
 
     def __init__(self, **kwargs: Any) -> None:
@@ -84,6 +90,8 @@ class PageFilterForm(CustomFilterForm):
                 pages = self.filter_by_start_date(pages, language_slug)
             if "date_to" in self.changed_data:
                 pages = self.filter_by_end_date(pages, language_slug)
+            if "exclude_pages_without_content" in self.changed_data:
+                pages = self.filter_by_pages_with_content(pages, language_slug)
         return pages
 
     def filter_by_query(self, pages: list[Page], language_slug: str) -> list[Page]:
@@ -172,5 +180,21 @@ class PageFilterForm(CustomFilterForm):
         for page in pages:
             translation = page.get_translation(language_slug)
             if translation and translation.last_updated.date() <= selected_end_date:
+                filtered_pages.append(page)
+        return filtered_pages
+
+    def filter_by_pages_with_content(
+        self, pages: list[Page], language_slug: str
+    ) -> list[Page]:
+        """
+        Filter only by pages that have content (including empty pages with live content)
+        :param pages: The list of pages
+        :param language_slug: The slug of the current language
+        :return: pages that have content
+        """
+        filtered_pages = []
+        for page in pages:
+            translation = page.get_translation(language_slug)
+            if translation and (len(translation.content) > 0 or page.mirrored_page):
                 filtered_pages.append(page)
         return filtered_pages

@@ -1,50 +1,35 @@
-import {
-    Chart,
-    ChartConfiguration,
-    CategoryScale,
-    LinearScale,
-    Tooltip,
-    DoughnutController,
-    ArcElement,
-    Title,
-} from "chart.js";
-
 import { getContent } from "../forms/tinymce-init";
 import { getCsrfToken } from "../utils/csrf-token";
 
-// Register all components that are being used - the others will be excluded from the final webpack build
-// See https://www.chartjs.org/docs/latest/getting-started/integration.html#bundlers-webpack-rollup-etc for details
-Chart.register(DoughnutController, ArcElement, CategoryScale, LinearScale, Tooltip, Title);
-
 let initialContent: string = null;
+let initialHixValue: number = null;
 
-const updateChart = (chart: Chart, value: number) => {
+/* Display the HIX value using a bar chart */
+const updateHixBar = (value: number, setOutdated: boolean) => {
+    const roundedHixValue = Math.round(value * 100) / 100;
+
+    const hixValue = document.getElementById("hix-value") as HTMLElement;
+    hixValue.textContent = `HIX ${roundedHixValue}`;
+
     const hixMaxValue = 20;
     const hixThresholdGood = 15;
     const hixThresholdOk = 7;
 
-    chart.data.datasets.forEach((dataset) => {
-        // Set new data
-        /* eslint-disable-next-line no-param-reassign */
-        dataset.data = [value, hixMaxValue - value];
+    // Set color based on HIX value or use a separate color for outdated HIX
+    let backgroundColor;
+    if (setOutdated) {
+        backgroundColor = "rgb(16, 111, 254, 0.3)";
+    } else if (value > hixThresholdGood) {
+        backgroundColor = "rgb(74, 222, 128)";
+    } else if (value > hixThresholdOk) {
+        backgroundColor = "rgb(250, 204, 21)";
+    } else {
+        backgroundColor = "rgb(239, 68, 68)";
+    }
 
-        // Set color based on HIX value
-        let backgroundColor;
-        if (value > hixThresholdGood) {
-            backgroundColor = "rgb(74, 222, 128)";
-        } else if (value > hixThresholdOk) {
-            backgroundColor = "rgb(250, 204, 21)";
-        } else {
-            backgroundColor = "rgb(239, 68, 68)";
-        }
-        /* eslint-disable-next-line no-param-reassign */
-        dataset.backgroundColor = [backgroundColor, "rgb(220, 220, 220)"];
-    });
-    // Set Title to current HIX value
-    const roundedHixValue = (Math.round(value * 100) / 100).toString();
-    /* eslint-disable-next-line no-param-reassign */
-    chart.options.plugins.title.text = ["HIX", roundedHixValue];
-    chart.update();
+    const hixBarFill = document.getElementById("hix-bar-fill") as HTMLElement;
+    const style = `width:${(roundedHixValue / hixMaxValue) * 100}%;background-color:${backgroundColor};`;
+    hixBarFill.setAttribute("style", style);
 };
 
 /* Show a label based on a state defined in hix_widget.html.
@@ -92,7 +77,7 @@ const getHixValue = async () => {
     })
         .then((response) => response.json())
         .then((json) => {
-            const labelState = json.error ? "error" : "updated";
+            const labelState = json.error || json.score === "undefined" ? "error" : "updated";
             setHixLabelState(labelState);
             result = json.score;
             if (!json.error) {
@@ -104,45 +89,9 @@ const getHixValue = async () => {
 
 window.addEventListener("load", async () => {
     // If the page has no diagram, do nothing
-    if (!document.getElementById("hix-chart")) {
+    if (!document.getElementById("hix-bar")) {
         return;
     }
-
-    // Define dummy data for empty default chart.
-    const dummyData = {
-        datasets: [
-            {
-                data: [0, 0],
-                backgroundColor: ["", ""],
-                circumference: 180,
-                rotation: -90,
-            },
-        ],
-    };
-
-    const chart: Chart = new Chart("hix-chart", {
-        type: "doughnut",
-        data: dummyData,
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: "HIX",
-                    position: "bottom",
-                    padding: {
-                        top: -100,
-                    },
-                    font: {
-                        size: 24,
-                    },
-                },
-            },
-            responsive: true,
-            cutout: "80%",
-            maintainAspectRatio: false,
-            hover: { mode: null },
-        },
-    } as ChartConfiguration);
 
     const toggleMTCheckboxes = (disabled: boolean) => {
         const checkboxes: NodeListOf<HTMLInputElement> = document.querySelectorAll(
@@ -183,12 +132,15 @@ window.addEventListener("load", async () => {
             return;
         }
 
-        const initialHixValue =
+        const hixValue =
             parseFloat(document.getElementById("hix-container").dataset.initialHixScore) || (await getHixValue());
 
-        setHixLabelState("updated");
-        updateChart(chart, initialHixValue);
-        toggleMTAvailability(initialHixValue);
+        if (hixValue != null) {
+            initialHixValue = hixValue;
+            setHixLabelState("updated");
+            updateHixBar(initialHixValue, false);
+            toggleMTAvailability(initialHixValue);
+        }
     };
 
     // Set listener, that checks, if tinyMCE content has changed to update the
@@ -207,6 +159,7 @@ window.addEventListener("load", async () => {
                 }
                 return "updated";
             })();
+            updateHixBar(initialHixValue, labelState === "outdated");
             return setHixLabelState(labelState);
         });
     });
@@ -215,9 +168,13 @@ window.addEventListener("load", async () => {
     document.getElementById("btn-update-hix-value").addEventListener("click", async (event) => {
         document.getElementById("hix-loading")?.classList.remove("hidden");
         event.preventDefault();
-        const newHixValue = await getHixValue();
-        updateChart(chart, newHixValue);
-        toggleMTAvailability(newHixValue);
+
+        const hixValue = await getHixValue();
+        if (hixValue != null) {
+            initialHixValue = hixValue;
+            updateHixBar(initialHixValue, false);
+            toggleMTAvailability(initialHixValue);
+        }
     });
 
     const toggleHixIgnore = async () => {

@@ -99,9 +99,7 @@ def minor_edit_label(region: Region, language: Language) -> Promise:
     language_node = region.language_node_by_slug[language.slug]
     if language_node.is_leaf():
         return _("Implications on the translation status")
-    if language_node.is_root():
-        return _("Implications on other translations")
-    return _("Implications on the status of this and other translations")
+    return _("Implications on translations")
 
 
 @register.simple_tag

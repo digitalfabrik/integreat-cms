@@ -195,14 +195,16 @@ BACKGROUND_TASKS_ENABLED = bool(
 ##############################################################
 
 #: FCM API Url
-FCM_URL: Final[str] = "https://fcm.googleapis.com/fcm/send"
+FCM_URL: Final[str] = (
+    "https://fcm.googleapis.com/v1/projects/integreat-2020/messages:send"
+)
 
-#: Authentication token for the Firebase API. This needs to be set for a correct usage of the messages feature.
-FCM_KEY: str | None = os.environ.get("INTEGREAT_CMS_FCM_KEY")
+#: Path to the saved credential json file
+FCM_CREDENTIALS: Final[str | None] = os.environ.get("INTEGREAT_CMS_FCM_CREDENTIALS")
 
 #: Whether push notifications via Firebase are enabled.
 #: This is ``True`` if :attr:`~integreat_cms.core.settings.FCM_KEY` is set, ``False`` otherwise.
-FCM_ENABLED: bool = bool(FCM_KEY)
+FCM_ENABLED: bool = bool(FCM_CREDENTIALS)
 
 #: The available push notification channels
 FCM_CHANNELS: Final[tuple[tuple[str, Promise], ...]] = (("news", _("News")),)
@@ -259,11 +261,11 @@ TEXTLAB_API_URL: Final[str] = os.environ.get(
 )
 
 #: Key for the Textlab API
-TEXTLAB_API_KEY: Final[str | None] = os.environ.get("INTEGREAT_CMS_TEXTLAB_API_KEY")
+TEXTLAB_API_KEY: str | None = os.environ.get("INTEGREAT_CMS_TEXTLAB_API_KEY")
 
 #: Whether the Textlab API is enabled.
 #: This is ``True`` if :attr:`~integreat_cms.core.settings.TEXTLAB_API_KEY` is set, ``False`` otherwise.
-TEXTLAB_API_ENABLED: Final[bool] = bool(TEXTLAB_API_KEY)
+TEXTLAB_API_ENABLED: bool = bool(TEXTLAB_API_KEY)
 
 #: Username for the Textlab API
 TEXTLAB_API_USERNAME: Final[str] = os.environ.get(

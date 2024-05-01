@@ -13,10 +13,10 @@
         {{ offer_template.url }}
     </td>
     <td class="pr-2">
-        {{ offer_template.last_updated }}
+        {{ offer_template.last_updated|date:"SHORT_DATE_FORMAT" }}
     </td>
     <td class="pr-2">
-        {{ offer_template.created_date }}
+        {{ offer_template.created_date|date:"SHORT_DATE_FORMAT" }}
     </td>
     <td class="pr-2 text-right">
         {{ offer_template.regions.count }}

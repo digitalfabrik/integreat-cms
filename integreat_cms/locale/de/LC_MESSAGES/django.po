@@ -1170,6 +1170,15 @@ msgstr "Deutsch (leicht)"
 msgid "Amharic"
 msgstr "Amharisch"
 
+#: cms/constants/duplicate_pbo_behaviors.py
+msgid "Activate all required offers, regardless of choices above"
+msgstr "Aktiviere alle benötigten Angebote, unabhängig von obiger Auswahl"
+
+#: cms/constants/duplicate_pbo_behaviors.py
+msgid "Discard offer embeddings from offers not activated manually"
+msgstr ""
+"Ignoriere Einbindungen von Angeboten, die nicht manuell aktiviert wurden"
+
 #: cms/constants/events_time_range.py
 msgid "Custom time range"
 msgstr "Individueller Zeitraum"
@@ -1423,6 +1432,10 @@ msgid "Meeting point"
 msgstr "Treffpunkt"
 
 #: cms/constants/poicategory.py
+msgid "Mental Health"
+msgstr "Psychische Gesundheit"
+
+#: cms/constants/poicategory.py
 msgid "Mobility"
 msgstr "Mobilität"
 
@@ -1441,6 +1454,10 @@ msgstr "Sonstige Hilfen"
 #: cms/constants/poicategory.py
 msgid "Service"
 msgstr "Dienstleistung"
+
+#: cms/constants/poicategory.py
+msgid "Shelter"
+msgstr "Notunterkünfte"
 
 #: cms/constants/poicategory.py
 msgid "Shopping"
@@ -1999,6 +2016,10 @@ msgstr "Alle"
 msgid "Translation status"
 msgstr "Übersetzungsstatus"
 
+#: cms/forms/pages/page_filter_form.py
+msgid "Exclude pages without content"
+msgstr "Seiten ohne Inhalt ausschließen"
+
 #: cms/forms/pages/page_form.py
 msgid "Authors"
 msgstr "Autor:innen"
@@ -2113,6 +2134,20 @@ msgstr ""
 "geklont und nicht auf Entwurf gesetzt."
 
 #: cms/forms/regions/region_form.py
+msgid "Page based offers cloning behavior"
+msgstr "Klonverhalten für seitenbasierte Angebote"
+
+#: cms/forms/regions/region_form.py
+msgid ""
+"Decide whether offers which have not been activated but are required for "
+"embedded content should be auto-activated, or their embeddings be ignored "
+"during cloning."
+msgstr ""
+"Festlegen, ob Angebote die nicht aktiviert wurden aber für eingebettete "
+"Inhalte benötigt werden automatisch aktiviert werden sollen, oder ob solche "
+"Einbettungen ignoriert werden sollen."
+
+#: cms/forms/regions/region_form.py
 msgid "Timezone area"
 msgstr "Region der Zeitzone"
 
@@ -2175,6 +2210,10 @@ msgid ""
 msgstr ""
 "Die Koordinaten konnten nicht automatisch abgerufen werden, bitte füllen Sie "
 "das Feld manuell aus."
+
+#: cms/forms/regions/region_form.py
+msgid "Please choose a behavior for cloning embedded offers."
+msgstr "Bitte wählen Sie ein Klonverhalten für eingebettete Angebote."
 
 #: cms/forms/regions/region_form.py
 msgid "'{}' is already selected as administrative division."
@@ -4091,7 +4130,8 @@ msgstr "Feedback"
 msgid "Broken Links"
 msgstr "Fehlerhafte Links"
 
-#: cms/templates/_base.html cms/templates/pages/_page_xliff_import_diff.html
+#: cms/templates/_base.html cms/templates/pages/_page_filter_form.html
+#: cms/templates/pages/_page_xliff_import_diff.html
 msgid "Content"
 msgstr "Inhalt"
 
@@ -4325,8 +4365,20 @@ msgid "Link"
 msgstr "Link"
 
 #: cms/templates/_tinymce_config.html
+msgid "Link to the website"
+msgstr "Link zur Webseite"
+
+#: cms/templates/_tinymce_config.html
+msgid "Email Address"
+msgstr "E-Mail-Adresse"
+
+#: cms/templates/_tinymce_config.html
 msgid "Phone"
 msgstr "Telefon"
+
+#: cms/templates/_tinymce_config.html
+msgid "Phone Number"
+msgstr "Telefonnummer"
 
 #: cms/templates/_tinymce_config.html
 msgid "Opening Hours"
@@ -4337,8 +4389,16 @@ msgid "Hint"
 msgstr "Tipp"
 
 #: cms/templates/_tinymce_config.html
+msgid "A small advice"
+msgstr "Ein kleiner Hinweis"
+
+#: cms/templates/_tinymce_config.html
 msgid "Group"
 msgstr "Gruppe"
+
+#: cms/templates/_tinymce_config.html
+msgid "A group of people"
+msgstr "Eine Gruppe von Personen"
 
 #: cms/templates/_tinymce_config.html
 msgid "Contact Person"
@@ -5598,37 +5658,36 @@ msgid "Text understandability"
 msgstr "Textverständlichkeit"
 
 #: cms/templates/hix_widget.html
-msgid "Improve the understandability of the page content"
-msgstr "Verbessern Sie die Textverständlichkeit der Seite"
-
-#: cms/templates/hix_widget.html
 msgid "HIX value calculation is disabled for this page."
 msgstr "Die Berechnung der HIX-Werte ist für diese Seite deaktiviert."
 
 #: cms/templates/hix_widget.html
-msgid "HIX value is up to date."
-msgstr "Der HIX-Wert ist aktuell."
+msgid "Improve the understandability of the page here:"
+msgstr "Verbessern Sie hier die Textverständlichkeit der Seite:"
 
 #: cms/templates/hix_widget.html
-msgid "HIX value is outdated."
-msgstr "Der HIX-Wert ist veraltet."
+msgid "HIX value is up to date"
+msgstr "Der HIX-Wert ist aktuell"
+
+#: cms/templates/hix_widget.html
+msgid "HIX value is outdated"
+msgstr "Der HIX-Wert ist veraltet"
 
 #: cms/templates/hix_widget.html
 msgid "HIX value could not be calculated."
 msgstr "Der HIX-Wert konnte nicht berechnet werden."
 
 #: cms/templates/hix_widget.html
-msgid "There is no page content."
-msgstr "Es gibt keinen Seiteninhalt."
+msgid "There is no page content"
+msgstr "Es gibt keinen Seiteninhalt"
 
 #: cms/templates/hix_widget.html
-msgid "Easy words and short sentences can increase the text understandability."
-msgstr ""
-"Einfache Wörter und kurze Sätze können die Textverständlichkeit verbessern."
+msgid "HIX value unexpectedly bad?"
+msgstr "HIX-Wert unerwartet schlecht?"
 
 #: cms/templates/hix_widget.html
-msgid "Find more information about this"
-msgstr "Mehr Informationen finden Sie"
+msgid "Editorial tips and possible reasons can be found "
+msgstr "Redaktionelle Tipps und mögliche Gründe finden Sie "
 
 #: cms/templates/hix_widget.html
 msgid "https://wiki.tuerantuer.org/write-texts"
@@ -5759,8 +5818,8 @@ msgstr "Noch nicht gespeichert"
 
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
 #: cms/templatetags/content_filters.py
-msgid "Implications on other translations"
-msgstr "Auswirkungen auf andere Übersetzungen"
+msgid "Implications on translations"
+msgstr "Auswirkungen auf Übersetzungen"
 
 #: cms/templates/languages/language_form.html
 #, python-format
@@ -6805,6 +6864,7 @@ msgid "No POI categories available yet."
 msgstr "Noch keine POI Kategorien vorhanden."
 
 #: cms/templates/poicategories/poicategory_list_row.html
+#: cms/views/poi_categories/poi_category_form_view.py
 msgid ""
 "You cannot delete a location category that is used in at least one location."
 msgstr ""
@@ -7854,10 +7914,6 @@ msgstr "Kein:e Administrator:in"
 #: cms/templatetags/content_filters.py
 msgid "Implications on the translation status"
 msgstr "Auswirkungen auf den Übersetzungsstatus"
-
-#: cms/templatetags/content_filters.py
-msgid "Implications on the status of this and other translations"
-msgstr "Auswirkungen auf den Status dieser und anderer Übersetzungen"
 
 #: cms/templatetags/content_filters.py
 msgid "Tick if this edit should not change the status of this translation."
@@ -9224,6 +9280,22 @@ msgstr ""
 "kontaktieren Sie eine:n Administrator:in."
 
 #: cms/views/push_notifications/push_notification_form_view.py
+msgid "updated"
+msgstr "aktualisiert"
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid "created"
+msgstr "erstellt"
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid "Template \"{}\" was successfully {}"
+msgstr "Vorlage \"{}\" wurde erfolgreich {}"
+
+#: cms/views/push_notifications/push_notification_form_view.py
+msgid "News \"{}\" was successfully {}"
+msgstr "Nachricht \"{}\" wurde erfolgreich {}"
+
+#: cms/views/push_notifications/push_notification_form_view.py
 msgid "This news is also assigned to regions you don't have access to: {}."
 msgstr ""
 "Diese Nachricht ist auch Regionen zugewiesen, auf die Sie keinen Zugriff "
@@ -9240,22 +9312,6 @@ msgid ""
 msgstr ""
 "Bitte wenden Sie sich an denjenigen, der für all diese Regionen zuständig "
 "ist oder kontaktieren Sie eine:n Administrator:in."
-
-#: cms/views/push_notifications/push_notification_form_view.py
-msgid "updated"
-msgstr "aktualisiert"
-
-#: cms/views/push_notifications/push_notification_form_view.py
-msgid "created"
-msgstr "erstellt"
-
-#: cms/views/push_notifications/push_notification_form_view.py
-msgid "Template \"{}\" was successfully {}"
-msgstr "Vorlage \"{}\" wurde erfolgreich {}"
-
-#: cms/views/push_notifications/push_notification_form_view.py
-msgid "News \"{}\" was successfully {}"
-msgstr "Nachricht \"{}\" wurde erfolgreich {}"
 
 #: cms/views/push_notifications/push_notification_form_view.py
 msgid "News \"{}\" is not a template"
@@ -9821,6 +9877,15 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Find more information about this"
+#~ msgstr "Mehr Informationen finden Sie"
+
+#~ msgid ""
+#~ "Easy words and short sentences can increase the text understandability."
+#~ msgstr ""
+#~ "Einfache Wörter und kurze Sätze können die Textverständlichkeit "
+#~ "verbessern."
 
 #~ msgid "The API URL is incorrect. Please contact an administrator."
 #~ msgstr ""

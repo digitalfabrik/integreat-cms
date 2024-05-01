@@ -167,7 +167,7 @@ class RecurrenceRule(AbstractBaseModel):
         i = 0
         end_date = self.recurrence_end_date or date.max
         while True:
-            for _ in advance():
+            for _recurrence in advance():
                 if next_recurrence > end_date:
                     return
                 if not i % self.interval:

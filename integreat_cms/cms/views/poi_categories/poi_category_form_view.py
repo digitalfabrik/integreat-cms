@@ -5,6 +5,8 @@ from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.db.models import ProtectedError
+from django.http import HttpResponseRedirect
 from django.shortcuts import reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, UpdateView
@@ -14,12 +16,13 @@ from django.views.generic.edit import ModelFormMixin
 
 from ...forms import poi_category_translation_formset_factory, POICategoryForm
 from ...models import Language, POICategory
+from ..delete_views import CustomDeleteView
 from ..mixins import ModelTemplateResponseMixin
 
 if TYPE_CHECKING:
     from typing import Any
 
-    from django.http import HttpRequest, HttpResponseRedirect
+    from django.http import HttpRequest
 
     from integreat_cms.cms.forms.poi_categories.poi_category_translation_form import (
         BaseInlinePOICategoryTranslationFormSet,
@@ -244,3 +247,37 @@ class POICategoryUpdateView(POICategoryMixin, UpdateView):
                 ),
             )
         return super().form_valid(form)
+
+
+class POICategoryDeleteView(CustomDeleteView):
+    """
+    A view that deletes an existing
+    :class:`~integreat_cms.cms.models.poi_categories.poi_category.POICategory`
+    object or adds a helpful message on failure and redirects back to the list view.
+    """
+
+    model = POICategory
+
+    def post(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
+        r"""
+        Attempt to delete the :class:`~integreat_cms.cms.models.poi_categories.poi_category.POICategory`
+        object and add a helpful message and redirect back to the list view on failure.
+
+        :param request: The current request
+        :param \*args: The supplied arguments
+        :param \**kwargs: The supplied keyword arguments
+
+        :return: The redirect
+        """
+        try:
+            return super().post(request, *args, **kwargs)
+        except ProtectedError:
+            messages.error(
+                request,
+                _(
+                    "You cannot delete a location category that is used in at least one location."
+                ),
+            )
+            return HttpResponseRedirect(reverse("poicategories"))

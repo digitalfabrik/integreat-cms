@@ -55,6 +55,7 @@ dependencies = [
     "django-widget-tweaks",
     "feedparser",
     "geopy",
+    "google-auth",
     "google-cloud-translate",
     "idna",
     "ipython",
@@ -82,6 +83,7 @@ dev = [
     "build",
     "bumpver",
     "djlint",
+    "freezegun",
     "isort",
     "looseversion",
     "mypy",
@@ -99,6 +101,7 @@ dev = [
     "pytest-testmon<=1.4.5",
     "pytest-xdist",
     "requests-mock",
+    "ruff",
     "shellcheck-py",
     "sphinx",
     "sphinx-last-updated-by-git",
@@ -121,6 +124,7 @@ pinned = [
     "asttokens==2.4.1",
     "attrs==23.2.0",
     "bcrypt==4.1.2",
+    "cachetools==5.3.3",
     "cbor2==5.6.1",
     "certifi==2024.2.2",
     "cffi==1.16.0",
@@ -151,7 +155,13 @@ pinned = [
     "funcy==2.0",
     "geographiclib==2.0",
     "geopy==2.4.1",
+    "google-api-core==2.18.0",
+    "googleapis-common-protos==1.63.0",
+    "google-auth==2.29.0",
+    "google-cloud-core==2.4.1",
     "google-cloud-translate==3.15.0",
+    "grpcio==1.62.2",
+    "grpcio-status==1.62.2",
     "html5lib==1.1",
     "idna==3.6",
     "ipython==8.21.0",
@@ -170,10 +180,14 @@ pinned = [
     "pexpect==4.9.0",
     "pillow==10.2.0",
     "prompt-toolkit==3.0.43",
+    "protobuf==4.25.3",
+    "proto-plus==1.23.0",
     "psycopg==3.1.18",
     "psycopg-binary==3.1.18",
     "ptyprocess==0.7.0",
     "pure-eval==0.2.2",
+    "pyasn1==0.6.0",
+    "pyasn1_modules==0.4.0",
     "pycparser==2.21",
     "pydantic==2.6.1",
     "pydantic_core==2.16.2",
@@ -234,6 +248,7 @@ dev-pinned = [
     "EditorConfig==0.12.3",
     "execnet==2.0.2",
     "filelock==3.13.1",
+    "freezegun==1.4.0",
     "html-tag-names==0.1.2",
     "html-void-elements==0.1.0",
     "icdiff==2.0.7",
@@ -287,6 +302,7 @@ dev-pinned = [
     "requests-toolbelt==1.0.0",
     "rfc3986==2.0.0",
     "rich==13.7.0",
+    "ruff==0.3.5",
     "SecretStorage==3.3.3",
     "shellcheck-py==0.9.0.6",
     "snowballstemmer==2.2.0",
@@ -426,3 +442,115 @@ disallow_untyped_defs = true
 ignore_missing_imports = true
 warn_redundant_casts = true
 strict_equality = true
+
+[tool.ruff]
+line-length = 279
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+  "A",      # flake8-builtins
+  "AIR",    # Airflow
+  "ASYNC",  # flake8-async
+  "BLE",    # flake8-blind-except
+  "C4",   # flake8-comprehensions
+  "C90",    # McCabe cyclomatic complexity
+  "DJ",     # flake8-django
+  "E",      # pycodestyle
+  "EXE",    # flake8-executable
+  "F",      # Pyflakes
+  "FA",     # flake8-future-annotations
+  "FIX",    # flake8-fixme
+  "FLY",    # flynt
+  "G",      # flake8-logging-format
+  "ICN",    # flake8-import-conventions
+  "INP",    # flake8-no-pep420
+  "INT",    # flake8-gettext
+  "ISC",    # flake8-implicit-str-concat
+  "LOG",    # flake8-logging
+  "NPY",    # NumPy-specific rules
+  "PD",     # pandas-vet
+  "PERF",   # Perflint
+  "PGH",    # pygrep-hooks
+  "PIE",    # flake8-pie
+  "PL",     # Pylint
+  "PYI",    # flake8-pyi
+  "RSE",    # flake8-raise
+  "SLOT",   # flake8-slots
+  "T10",    # flake8-debugger
+  "TRIO",   # flake8-trio
+  "W",      # pycodestyle
+  "YTT",    # flake8-2020
+  # "ANN",  # flake8-annotations
+  # "ARG",  # flake8-unused-arguments
+  # "B",    # flake8-bugbear
+  # "COM",  # flake8-commas
+  # "CPY",  # flake8-copyright
+  # "D",    # pydocstyle
+  # "DTZ",  # flake8-datetimez
+  # "EM",   # flake8-errmsg
+  # "ERA",  # eradicate
+  # "FBT",  # flake8-boolean-trap
+  # "FURB", # refurb
+  # "I",    # isort
+  # "N",    # pep8-naming
+  # "PT",   # flake8-pytest-style
+  # "PTH",  # flake8-use-pathlib
+  # "Q",    # flake8-quotes
+  # "RET",  # flake8-return
+  # "RUF",  # Ruff-specific rules
+  # "S",    # flake8-bandit
+  # "SIM",  # flake8-simplify
+  # "SLF",  # flake8-self
+  # "T20",  # flake8-print
+  # "TCH",  # flake8-type-checking
+  # "TD",   # flake8-todos
+  # "TID",  # flake8-tidy-imports
+  # "TRY",  # tryceratops
+  # "UP",   # pyupgrade
+]
+ignore = [
+  "F401",
+  "INP001",
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 23  # default is 10
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401", "F403"]
+"docs/src/conf.py" = ["A001"]
+"integreat_cms/api/v3/*" = ["PERF401"]
+"integreat_cms/cms/forms/custom_model_form.py" = ["G003", "PERF401"]
+"integreat_cms/cms/forms/linkcheck/link_replace_form.py" = ["W605"]
+"integreat_cms/cms/forms/pages/page_form.py" = ["PLR5501"]
+"integreat_cms/cms/forms/regions/region_form.py" = ["FIX002"]
+"integreat_cms/cms/models/abstract_base_model.py" = ["BLE001", "DJ012"]
+"integreat_cms/cms/models/poi_categories/poi_category.py" = ["DJ001"]
+"integreat_cms/cms/models/push_notifications/push_notification.py" = ["DJ001"]
+"integreat_cms/cms/models/users/user.py" = ["DJ001"]
+"integreat_cms/cms/views/*" = ["PIE804"]
+"integreat_cms/cms/views/analytics/app_size_view.py" = ["FIX002"]
+"integreat_cms/core/*_settings.py" = ["F403"]
+"integreat_cms/core/circleci_settings.py" = ["F405"]
+"integreat_cms/core/management/commands/find_large_files.py" = ["G004"]
+"integreat_cms/core/sphinx_settings.py" = ["F405"]
+"integreat_cms/google_translate_api/apps.py" = ["BLE001"]
+"integreat_cms/google_translate_api/google_translate_api_client.py" = ["BLE001"]
+"integreat_cms/nominatim_api/nominatim_api_client.py" = ["PERF401"]
+"tests/*" = ["S101"]
+"tests/core/management/commands/test_summ_ai_bulk.py" = ["FIX002"]
+"tests/deepl_api/deepl_api_test.py" = ["PIE804"]
+"tests/pdf/test_pdf_export.py" = ["PLW2901"]
+"tests/summ_ai_api/summ_ai_test.py" = ["PLW0603"]
+"tests/textlab_api/textlab_api_test.py" = ["A002"]
+
+[tool.ruff.lint.pylint]
+allow-magic-value-types = ["float", "int", "str"]
+max-args = 8  # default is 5
+max-bool-expr = 5  # default is 5
+max-branches = 22  # default is 12
+max-locals = 15  # default is 15
+max-positional-args = 5  # default is 5
+max-returns = 12  # default is 6
+max-statements = 64  # default is 50

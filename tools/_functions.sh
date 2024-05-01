@@ -12,8 +12,22 @@ if [[ "$*" == *"--verbose"* ]]; then
     set -vx
 fi
 
-# The Port on which the Integreat CMS development server should be started (do not use 9000 since this is used for webpack)
-INTEGREAT_CMS_PORT=8000
+# The port on which the Integreat CMS development server should be started (do not use 9000 since this is used for webpack)
+if [[ -z "${INTEGREAT_CMS_PORT}" ]]; then
+    INTEGREAT_CMS_PORT=8000
+fi
+# The port on which the non-Docker PostgreSQL server is expected to be running
+if [[ -z "${INTEGREAT_CMS_DB_PORT}" ]]; then
+    INTEGREAT_CMS_DB_PORT=5432
+fi
+# The port on which the Redis instance is expected to be running
+if [[ -z "${INTEGREAT_CMS_REDIS_PORT}" ]]; then
+    INTEGREAT_CMS_REDIS_PORT=6379
+fi
+# The port on which Docker will listen for connections
+if [[ -z "${INTEGREAT_CMS_DOCKER_LISTEN_PORT}" ]]; then
+    INTEGREAT_CMS_DOCKER_LISTEN_PORT=5433
+fi
 # The name of the used database docker container
 DOCKER_CONTAINER_NAME="integreat_django_postgres"
 # Write the path to the redis socket into this file if you want to use the unix socket connection for your dev redis cache
@@ -305,7 +319,7 @@ function create_docker_container {
     echo "Creating new PostgreSQL database docker container..." | print_info
     mkdir -p "${BASE_DIR}/.postgres"
     # Run new container
-    docker run -d --name "${DOCKER_CONTAINER_NAME}" -e "POSTGRES_USER=integreat" -e "POSTGRES_PASSWORD=password" -e "POSTGRES_DB=integreat" -v "${BASE_DIR}/.postgres:/var/lib/postgresql" -p 5433:5432 postgres > /dev/null
+    docker run -d --name "${DOCKER_CONTAINER_NAME}" -e "POSTGRES_USER=integreat" -e "POSTGRES_PASSWORD=password" -e "POSTGRES_DB=integreat" -v "${BASE_DIR}/.postgres:/var/lib/postgresql" -p "${INTEGREAT_CMS_DOCKER_LISTEN_PORT}":"${INTEGREAT_CMS_DB_PORT}" postgres > /dev/null
     wait_for_docker_container
     echo "✔ Created database container" | print_success
     # Set up exit trap to stop docker container when script ends
@@ -340,6 +354,15 @@ function cleanup_docker_container {
     fi
 }
 
+function ensure_webpack_bundle_exists {
+    if [ ! -d "${PACKAGE_DIR}/static/dist/" ] || [ ! "$(ls -A "${PACKAGE_DIR}"/static/dist/ 2>/dev/null)" ]; then
+        echo "Building webpack bundle..." | print_info
+        npm run build > /dev/null
+    fi
+
+    echo "✔ Webpack bundle is in place" | print_success
+}
+
 # This function makes sure a postgres database docker container is running
 function ensure_docker_container_running {
     # Make sure script has the permission to run docker
@@ -366,7 +389,7 @@ function ensure_docker_container_running {
 # This function makes sure a database is available
 function require_database {
     # Check if local postgres server is running
-    if nc -z localhost 5432; then
+    if nc -z localhost "${INTEGREAT_CMS_DB_PORT}"; then
         ensure_not_root
         echo "✔ Running PostgreSQL database detected" | print_success
         # Migrate database
@@ -386,7 +409,7 @@ function require_database {
 function configure_redis_cache {
     # Check if local Redis server is running
     echo "Checking if local Redis server is running..." | print_info
-    if nc -z localhost 6379; then
+    if nc -z localhost "${INTEGREAT_CMS_REDIS_PORT}"; then
         # Enable redis cache if redis server is running
         export INTEGREAT_CMS_REDIS_CACHE=1
         # Check if enhanced connection via unix socket is available (write the location into $REDIS_SOCKET_LOCATION)
@@ -396,7 +419,7 @@ function configure_redis_cache {
             export INTEGREAT_CMS_REDIS_UNIX_SOCKET
             echo "✔ Running Redis server on socket $INTEGREAT_CMS_REDIS_UNIX_SOCKET detected. Caching enabled." | print_success
         else
-            echo "✔ Running Redis server on port 6379 detected. Caching enabled." | print_success
+            echo "✔ Running Redis server on port ${INTEGREAT_CMS_REDIS_PORT} detected. Caching enabled." | print_success
         fi
     else
         echo "❌No Redis server detected. Falling back to local-memory cache." | print_warning

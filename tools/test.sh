@@ -11,6 +11,9 @@ CODE_COVERAGE_DIR="${BASE_DIR:?}/htmlcov"
 rm -rf "${CODE_COVERAGE_DIR}"
 
 require_installed
+
+ensure_webpack_bundle_exists
+
 require_database
 
 # Set dummy key to enable SUMM.AI during testing
@@ -18,6 +21,9 @@ export INTEGREAT_CMS_SUMM_AI_API_KEY="dummy"
 
 # Set dummy key to enable DeepL during testing
 export INTEGREAT_CMS_DEEPL_AUTH_KEY="dummy"
+
+# Set dummy key to enable Textlab during testing
+export INTEGREAT_CMS_TEXTLAB_API_KEY="dummy"
 
 # Disable linkcheck listeners during testing
 export INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS=1
@@ -103,6 +109,8 @@ if [[ -n "${KW_EXPR}" ]] || [[ -n "${MARKER}" ]] || (( ${#TESTS[@]} )); then
     TEST_MESSAGE=$(join_by ", " "${MESSAGES[@]}")
     TEST_MESSAGE=" in ${TEST_MESSAGE}"
 fi
+
+"$(dirname "${BASH_SOURCE[0]}")/prune_pdf_cache.sh"
 
 echo -e "Running all tests${TEST_MESSAGE}${CHANGED_MESSAGE}..." | print_info
 deescalate_privileges pytest "${PYTEST_ARGS[@]}"

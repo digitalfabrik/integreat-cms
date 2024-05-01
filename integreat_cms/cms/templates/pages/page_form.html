@@ -187,11 +187,11 @@
                 <div id="left-sidebar-column"
                      class="md:mr-4 md:w-full 3xl:mr-0 md:mt-0 sm:block md:flex sm:mt-4 flex-wrap flex-col 4xl:mr-4"
                      {% if request.user.distribute_sidebar_boxes %}data-enable-automatic-sidebar-distribution{% endif %}>
-                    {% if language.slug in TEXTLAB_API_LANGUAGES and request.region.hix_enabled and TEXTLAB_API_ENABLED %}
-                        {% include "../hix_widget.html" with box_id="hix-widget" %}
-                    {% endif %}
                     {% if page %}
                         {% include "./page_form_sidebar/minor_edit_box.html" with box_id="page-minor-edit" %}
+                    {% endif %}
+                    {% if language.slug in TEXTLAB_API_LANGUAGES and request.region.hix_enabled and TEXTLAB_API_ENABLED %}
+                        {% include "../hix_widget.html" with box_id="hix-widget" %}
                     {% endif %}
                     {% include "./page_form_sidebar/settings_box.html" with box_id="page-setting" %}
                 </div>
