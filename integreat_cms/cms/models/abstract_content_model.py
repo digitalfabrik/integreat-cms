@@ -188,6 +188,8 @@ class AbstractContentModel(AbstractBaseModel):
         :param \**filters: Additional filters to be applied on the translations (e.g. by status)
         :return: The prefetched translations by language slug
         """
+        if not self.id:
+            return {}
         try:
             # Try to get the prefetched translations (which are already distinct per language)
             prefetched_translations = getattr(self, attr)
@@ -506,7 +508,8 @@ class AbstractContentModel(AbstractBaseModel):
         :return: The canonical string representation of the content object
         """
         class_name = type(self).__name__
-        return f"<{class_name} (id: {self.id}, region: {self.region.slug}, slug: {self.best_translation.slug})>"
+        translation_slug = f", slug: {self.best_translation.slug}" if self.id else ""
+        return f"<{class_name} (id: {self.id}, region: {self.region.slug}{translation_slug})>"
 
     class Meta:
         #: This model is an abstract base class
