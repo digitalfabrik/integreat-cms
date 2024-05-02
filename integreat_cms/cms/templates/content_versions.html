@@ -56,7 +56,7 @@
                  data-date="{{ translation.last_updated }}"
                  data-editor="{% firstof translation.creator deleted_user_text %}"
                  data-status="{{ translation.status }}"
-                 data-hix="{{ translation.hix_score|floatformat:2 }}">
+                 data-hix="{{ translation.rounded_hix_score }}">
                 <div class="flex justify-between">
                     <span>
                         <label class="inline-block">
@@ -84,7 +84,7 @@
                                 <label class="inline-block">
                                     {% translate "HIX score" %}:
                                 </label>
-                                {{ translation.hix_score|floatformat:2 }}
+                                {{ translation.rounded_hix_score }}
                             </span>
                         {% endif %}
                         <label class="inline-block">
