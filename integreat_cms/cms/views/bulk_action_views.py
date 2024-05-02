@@ -468,8 +468,5 @@ class CancelTranslationProcess(BulkActionView):
         language_slug = kwargs["language_slug"]
         for content_object in self.get_queryset():
             cancel_translation_process_ajax(request, region_slug=content_object.region, language_slug=language_slug, page_id=content_object.id)
-            #if self.get_queryset().model is Page and content_object.currently_in_translation:
-                #page_translation = content_object.get_translation(language_slug)
-                #page_translation.all_versions.update(currently_in_translation=False)
 
         return super().post(request, *args, **kwargs)
