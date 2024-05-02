@@ -7,15 +7,19 @@ from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ngettext_lazy
 from django.views.decorators.cache import never_cache
 from django.views.generic.list import MultipleObjectMixin
 
 from ....xliff.utils import pages_to_xliff_file
+from ...constants import translation_status
 from ...models import Page
 from ...utils.pdf_utils import generate_pdf
+from ...utils.stringify_list import iter_to_string
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
 from ..bulk_action_views import BulkActionView
+from .page_actions import cancel_translation_process_ajax
 
 if TYPE_CHECKING:
     from typing import Any
@@ -182,4 +186,85 @@ class ExportMultiLanguageXliffView(PageBulkActionMixin, BulkActionView):
             )
 
         # Let the base view handle the redirect
+        return super().post(request, *args, **kwargs)
+
+
+class CancelTranslationProcess(PageBulkActionMixin, BulkActionView):
+    """
+    Bulk action to cancel translation process
+    """
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        r"""
+        Function to cancel the translation process for multiple pages of the current language at once
+
+        :param request: The current request
+        :param \*args: The supplied arguments
+        :param \**kwargs: The supplied keyword arguments
+        :return: The redirect
+        """
+
+        language_slug = kwargs["language_slug"]
+        not_in_translation = []
+        cancel_successful = []
+        cancel_failed = []
+
+        for content_object in self.get_queryset():
+            if (
+                not content_object.get_translation_state(language_slug)
+                == translation_status.IN_TRANSLATION
+            ):
+                not_in_translation.append(content_object.best_translation.title)
+            else:
+                cancelation_response = cancel_translation_process_ajax(
+                    request,
+                    region_slug=content_object.region,
+                    language_slug=language_slug,
+                    page_id=content_object.id,
+                )
+                if cancelation_response.status_code == 200:
+                    cancel_successful.append(content_object.best_translation.title)
+                if cancelation_response.status_code == 404:
+                    cancel_failed.append(content_object.best_translation.title)
+
+        if not_in_translation:
+            messages.success(
+                request,
+                ngettext_lazy(
+                    "{model_name} {object_names} was not in translation process.",
+                    "The following {model_name_plural} were not in translation process: {object_names}",
+                    len(not_in_translation),
+                ).format(
+                    model_name=self.model._meta.verbose_name.title(),
+                    model_name_plural=self.model._meta.verbose_name_plural,
+                    object_names=iter_to_string(not_in_translation),
+                ),
+            )
+        if cancel_successful:
+            messages.success(
+                request,
+                ngettext_lazy(
+                    "Translation process was successfully cancelled for {model_name} {object_names}.",
+                    "Translation process was successfully cancelled for the following {model_name_plural}: {object_names}",
+                    len(cancel_successful),
+                ).format(
+                    model_name=self.model._meta.verbose_name.title(),
+                    model_name_plural=self.model._meta.verbose_name_plural,
+                    object_names=iter_to_string(cancel_successful),
+                ),
+            )
+
+        if cancel_failed:
+            messages.error(
+                request,
+                ngettext_lazy(
+                    "Translation process could not be successfully cancelled for {model_name} {object_names}.",
+                    "Translation process could not be successfully cancelled for the following {model_name_plural}: {object_names}",
+                    len(cancel_failed),
+                ).format(
+                    model_name=self.model._meta.verbose_name.title(),
+                    model_name_plural=self.model._meta.verbose_name_plural,
+                    object_names=iter_to_string(cancel_failed),
+                ),
+            )
         return super().post(request, *args, **kwargs)

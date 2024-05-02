@@ -6746,7 +6746,7 @@ msgstr "Neue Seite erstellen"
 msgid "Translation in progress"
 msgstr "Übersetzung wird durchgeführt"
 
-#: cms/templates/pages/page_form.html
+#: cms/templates/pages/page_form.html cms/templates/pages/page_tree.html
 msgid "Cancel translation process"
 msgstr "Übersetzungsprozess abbrechen"
 
@@ -9243,6 +9243,14 @@ msgid "Page was successfully deleted"
 msgstr "Seite wurde erfolgreich gelöscht"
 
 #: cms/views/pages/page_actions.py
+msgid "Page \"{}\" does not have a translation for language \"{}\""
+msgstr "Die Seite \"{}\" hat keine Übersetzung für die Sprache \"{}\""
+
+#: cms/views/pages/page_actions.py
+msgid "Cancelled translation process for page \"{}\" and language \"{}\""
+msgstr "Übersetzungsprozess für Seite \"{}\" und Sprache \"{}\" abgebrochen"
+
+#: cms/views/pages/page_actions.py
 msgid "File \"{}\" is neither a ZIP archive nor an XLIFF file."
 msgstr "Die Datei \"{}\" ist weder ein ZIP-Archiv noch eine XLIFF-Datei."
 
@@ -9293,6 +9301,47 @@ msgid "XLIFF file for translation to selected languages successfully created."
 msgstr ""
 "XLIFF Datei für die Übersetzung in die ausgewählten Sprachen wurde "
 "erfolgreich erstellt."
+
+#: cms/views/pages/page_bulk_actions.py
+#, python-brace-format
+msgid "{model_name} {object_names} was not in translation process."
+msgid_plural ""
+"The following {model_name_plural} were not in translation process: "
+"{object_names}"
+msgstr[0] "{model_name} {object_names} war nicht im Übersetzungsprozess"
+msgstr[1] ""
+"Die folgenden {model_name_plural} waren nicht im Übersetzungsprozess: "
+"{object_names}"
+
+#: cms/views/pages/page_bulk_actions.py
+#, python-brace-format
+msgid ""
+"Translation process was successfully cancelled for {model_name} "
+"{object_names}."
+msgid_plural ""
+"Translation process was successfully cancelled for the following "
+"{model_name_plural}: {object_names}"
+msgstr[0] ""
+"Der Übersetzungsprozess für {model_name} {object_names} wurde erfolgreich "
+"abgebrochen."
+msgstr[1] ""
+"Der Übersetzungsprozess für die folgenden {model_name_plural} wurde "
+"erfolgreich abgebrochen: {object_names}."
+
+#: cms/views/pages/page_bulk_actions.py
+#, python-brace-format
+msgid ""
+"Translation process could not be successfully cancelled for {model_name} "
+"{object_names}."
+msgid_plural ""
+"Translation process could not be successfully cancelled for the following "
+"{model_name_plural}: {object_names}"
+msgstr[0] ""
+"Der Übersetzungsprozess konnte nicht erfolgreich abgebrochen werden für die "
+"{model_name} {object_names}."
+msgstr[1] ""
+"Der Übersetzungsprozess für die folgenden {model_name_plural} wurde "
+"erfolgreich abgebrochen: {object_names}"
 
 #: cms/views/pages/page_context_mixin.py
 msgid "Please confirm that you really want to archive this page"
@@ -10299,6 +10348,11 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "\"{} {}\" was not in translation process."
+#~ msgid_plural "The following \"{}\" were not in translation process: \"{}\""
+#~ msgstr[0] "\"{} {}\" war nicht im Überestzungsprozess"
+#~ msgstr[1] "Die folgenden\"{} {}\" waren nicht im Übersetzungsprozess"
+
 #~ msgid "Contents"
 #~ msgstr "Inhalte"
 
@@ -10307,6 +10361,16 @@ msgstr ""
 
 #~ msgid "Loading process for this row is still ongoing."
 #~ msgstr "Der Ladevorgang für diese Zeile ist noch nicht abgeschlossen."
+
+#~ msgid ""
+#~ "Cancelled translation process for page \"{page}\" and language "
+#~ "\"{page_translation.language}\""
+#~ msgstr ""
+#~ "Überestzungsprozess für Seite \"{page}\" und Sprache \"{page_translation."
+#~ "language}\" abgebrochen"
+
+#~ msgid "You cannot translate into the default language"
+#~ msgstr "Sie können nicht in die Standard-Sprache übersetzen"
 
 #~ msgid "Find more information about this"
 #~ msgstr "Mehr Informationen finden Sie"
@@ -10737,9 +10801,6 @@ msgstr ""
 
 #~ msgid "File is hidden:"
 #~ msgstr "Datei ist verborgen:"
-
-#~ msgid "You cannot translate into the default language"
-#~ msgstr "Sie können nicht in die Standard-Sprache übersetzen"
 
 #~ msgid "Barrier free"
 #~ msgstr "Barrierefrei"
@@ -12362,9 +12423,6 @@ msgstr ""
 
 #~ msgid "POI Translation was successfully created and published."
 #~ msgstr "POI Übersetzung wurde erfolgreich erstellt und veröffentlicht."
-
-#~ msgid "POI Translation was successfully created."
-#~ msgstr "POI Übersetzung wurde erfolgreich erstellt."
 
 #~ msgid "POI Translation was successfully published."
 #~ msgstr "POI Übersetzung wurde erfolgreich veröffentlicht."

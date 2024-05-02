@@ -133,6 +133,7 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
 
         # Filter pages according to given filters, if any
         pages = filter_form.apply(pages, language_slug)
+
         return render(
             request,
             self.template_name,
@@ -147,5 +148,11 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
                 "filter_form": filter_form,
                 "XLIFF_EXPORT_VERSION": settings.XLIFF_EXPORT_VERSION,
                 "hix_threshold": settings.HIX_REQUIRED_FOR_MT,
+                "has_pages_in_translation": PageTranslation.objects.filter(
+                    page__in=request.region.non_archived_pages,
+                    language=language,
+                    currently_in_translation=True,
+                ).count()
+                > 0,
             },
         )

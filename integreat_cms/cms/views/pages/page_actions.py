@@ -289,7 +289,9 @@ def cancel_translation_process_ajax(
     if not (page_translation := page.get_translation(language_slug)):
         return JsonResponse(
             {
-                "error": f"Page {page} does not have a translation for language '{language_slug}'"
+                "error": _(
+                    'Page "{}" does not have a translation for language "{}"'
+                ).format(page, language_slug)
             },
             status=404,
         )
@@ -301,7 +303,9 @@ def cancel_translation_process_ajax(
     translation_state = page.get_translation_state(language_slug)
     return JsonResponse(
         {
-            "success": f"Cancelled translation process for page {page} and language {page_translation.language}",
+            "success": _(
+                'Cancelled translation process for page "{}" and language "{}"'
+            ).format(page, page_translation.language),
             "languageSlug": page_translation.language.slug,
             "translationState": translation_state,
         }
