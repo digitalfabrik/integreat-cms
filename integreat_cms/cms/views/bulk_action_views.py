@@ -451,3 +451,23 @@ class BulkDraftingView(BulkActionView):
             request, self.get_queryset(), kwargs["language_slug"], status.DRAFT
         )
         return super().post(request, *args, **kwargs)
+
+
+class BulkCancelTranslationProcessView(BulkActionView):
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        r"""
+        Function to cancel the translation process for all pages of the current language at once
+
+        :param request: The current request
+        :param \*args: The supplied arguments
+        :param \**kwargs: The supplied keyword arguments
+        :return: The redirect
+        """
+        language_slug = kwargs["language_slug"]
+        pages = kwargs["pages"]
+        for page in pages:
+            page_translation = page.get_translation(language_slug)
+            page_translation.all_versions.update(currently_in_translation=False)
+
+        return super().post(request, *args, **kwargs)
