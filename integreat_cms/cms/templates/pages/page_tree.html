@@ -244,17 +244,11 @@
                             Draft {{ content_type }}
                         {% endblocktranslate %}
                     </option>
-                    {% for page in pages %}
-                        {% for other_language, other_status in page.translation_states.values %}
-                            {% if other_language.slug == language.slug %}
-                                {% if other_status == translation_status.IN_TRANSLATION %}
-                                    <option data-bulk-action="{% url 'bulk_cancel_translation_process' region_slug=request.region.slug language_slug=language.slug %}">
-                                        {% translate "Reset translation status" %}
-                                    </option>
-                                {% endif %}
-                            {% endif %}
-                        {% endfor %}
-                    {% endfor %}
+                    {% if has_pages_in_translation %}
+                        <option data-bulk-action="{% url 'bulk_cancel_translation_process' region_slug=request.region.slug language_slug=language.slug %}">
+                            {% translate "Reset translation status" %}
+                        </option>
+                    {% endif %}
                 {% endif %}
             </select>
             <button id="bulk-action-execute" class="btn" disabled>
