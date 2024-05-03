@@ -12,8 +12,8 @@
           enctype="multipart/form-data"
           data-unsaved-warning>
         {% csrf_token %}
-        <div class="w-full flex flex-wrap justify-between mb-4">
-            <h1 class="heading overflow-hidden text-ellipsis">
+        <div class="flex flex-wrap justify-between w-full mb-4">
+            <h1 class="overflow-hidden heading text-ellipsis">
                 {% if poi_form.instance.id %}
                     {% if poi_translation_form.instance.id %}
                         {% with poi_translation_form.instance.title as poi_title %}
@@ -33,7 +33,7 @@
                 {% endif %}
             </h1>
             {% if not poi_form.instance.archived and perms.cms.change_poi %}
-                <div class="flex flex-wrap gap-4 ml-auto mr-0 items-center">
+                <div class="flex flex-wrap items-center gap-4 ml-auto mr-0">
                     {% include "generic_auto_save_note.html" with form_instance=poi_translation_form.instance %}
                     <button name="status" value="{{ DRAFT }}" class="btn btn-outline">
                         {% translate "Save as draft" %}
@@ -52,11 +52,11 @@
             {% endif %}
         </div>
         <div class="pt-4 lg:pt-0 3xl:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_816px] gap-4">
-            <div class="col-span-2 3xl:col-span-1 flex flex-wrap flex-col">
+            <div class="flex flex-col flex-wrap col-span-2 3xl:col-span-1">
                 {% include "_form_language_tabs.html" with target="edit_poi" instance=poi_form.instance content_field="poi_id" %}
-                <div class="flex flex-wrap flex-col gap-4">
-                    <div class="flex flex-col flex-auto w-full rounded border border-blue-500 bg-white shadow-2xl">
-                        <div class="flex flex-col w-full p-4 flex-auto">
+                <div class="flex flex-col flex-wrap gap-4">
+                    <div class="flex flex-col flex-auto w-full bg-white border border-blue-500 rounded shadow-2xl">
+                        <div class="flex flex-col flex-auto w-full p-4">
                             <div class="flex justify-between">
                                 <label for="{{ poi_translation_form.title.id_for_label }}"
                                        data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='poi' %}{% if poi_form.instance.id %}?model_id={{ poi_form.instance.id }}{% endif %}">
@@ -64,7 +64,7 @@
                                 </label>
                                 {% if poi_translation_form.instance.id %}
                                     <div class="grid grid-cols-2 text-left">
-                                        <div class="font-bold pr-2">
+                                        <div class="pr-2 font-bold">
                                             {% translate "Version" %}:
                                         </div>
                                         <div>
@@ -72,7 +72,7 @@
                                             (<a href="{% url 'poi_versions' poi_id=poi_form.instance.id region_slug=request.region.slug language_slug=language.slug %}"
    class="text-blue-500 hover:underline">{% translate "Show" %}</a>)
                                         </div>
-                                        <div class="font-bold pr-2">
+                                        <div class="pr-2 font-bold">
                                             {% translate "Publication status" %}:
                                         </div>
                                         <div>
@@ -107,16 +107,16 @@
                                     <i icon-name="copy"></i>
                                     <i icon-name="check" class="hidden text-green-500"></i>
                                 </a>
-                                <div class="slug-field hidden">
+                                <div class="hidden slug-field">
                                     <label for="{{ poi_translation_form.slug.id_for_label }}">
                                         {{ url_link }}
                                     </label>
                                     {% render_field poi_translation_form.slug|add_error_class:"slug-error" %}
                                 </div>
-                                <a id="save-slug-btn" class="ml-2 btn-icon hidden">
+                                <a id="save-slug-btn" class="hidden ml-2 btn-icon">
                                     <i icon-name="save"></i>
                                 </a>
-                                <a id="restore-slug-btn" class="ml-2 btn-icon hidden">
+                                <a id="restore-slug-btn" class="hidden ml-2 btn-icon">
                                     <i icon-name="x-circle"></i>
                                 </a>
                             </div>
@@ -127,15 +127,15 @@
                         </div>
                     </div>
                     {% if request.region.seo_enabled %}
-                        <div class="col-span-2 3xl:col-span-1 flex flex-wrap flex-col">
-                            <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
-                                <div class="rounded p-4 bg-water-500">
-                                    <h3 class="heading font-bold text-black">
+                        <div class="flex flex-col flex-wrap col-span-2 3xl:col-span-1">
+                            <div class="bg-white border border-blue-500 border-solid rounded shadow-2xl">
+                                <div class="p-4 rounded bg-water-500">
+                                    <h3 class="font-bold text-black heading">
                                         <i icon-name="search" class="pb-1"></i>
                                         {% translate "SEO section" %}
                                     </h3>
                                 </div>
-                                <div class="px-4 pb-4 divide-y divide-gray-200 space-y-2">
+                                <div class="px-4 pb-4 space-y-2 divide-y divide-gray-200">
                                     <div>
                                         <label for="{{ poi_translation_form.meta_description.id_for_label }}"
                                                class="secondary">
@@ -162,11 +162,13 @@
                     {% include "./poi_form_sidebar/position_box.html" with box_id="poi-position" %}
                 </div>
                 <div id="right-sidebar-column"
-                     class="3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col md:w-full">
+                     class="flex flex-col flex-wrap 3xl:col-end-3 4xl:col-end-auto md:w-full">
                     {% include "./poi_form_sidebar/contact_box.html" with box_id="poi-contact" %}
                     {% include "./poi_form_sidebar/opening_hours_box.html" with box_id="poi-opening-hours" no_padding=True %}
                     {% include "./poi_form_sidebar/category_box.html" with box_id="poi-category" %}
                     {% include "./poi_form_sidebar/icon_box.html" with box_id="poi-icon" %}
+                    {% include "./poi_form_sidebar/organization_box.html" with box_id="poi-organization" %}
+                    {% include "./poi_form_sidebar/barrier_free_box.html" with box_id="poi-barrier-free" %}
                     {% if poi_form.instance.id and perms.cms.change_poi %}
                         {% include "./poi_form_sidebar/action_box.html" with box_id="poi-action" %}
                     {% endif %}
