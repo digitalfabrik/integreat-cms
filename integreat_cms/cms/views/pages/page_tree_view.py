@@ -17,7 +17,6 @@ from ...forms import PageFilterForm
 from ...models import Page, PageTranslation
 from ..mixins import MachineTranslationContextMixin
 from .page_context_mixin import PageContextMixin
-from ...constants import translation_status
 
 if TYPE_CHECKING:
     from typing import Any
@@ -142,13 +141,6 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
         # Filter pages according to given filters, if any
         pages = filter_form.apply(pages, language_slug)
 
-        # Check if pages of the selected language are currently in translation
-        has_pages_in_translation = False
-        for page in pages:
-            if page.get_translation_state(language_slug=language_slug) == translation_status.IN_TRANSLATION:
-                has_pages_in_translation = True
-                break
-
         return render(
             request,
             self.template_name,
@@ -163,6 +155,11 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
                 "filter_form": filter_form,
                 "XLIFF_EXPORT_VERSION": settings.XLIFF_EXPORT_VERSION,
                 "hix_threshold": settings.HIX_REQUIRED_FOR_MT,
-                "has_pages_in_translation": has_pages_in_translation,
+                "has_pages_in_translation": PageTranslation.objects.filter(
+                    page__in=request.region.non_archived_pages,
+                    language=language,
+                    currently_in_translation=True,
+                ).count()
+                > 0,
             },
         )
