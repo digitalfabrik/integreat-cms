@@ -17,7 +17,6 @@ from ...forms import PageFilterForm
 from ...models import Page, PageTranslation
 from ..mixins import MachineTranslationContextMixin
 from .page_context_mixin import PageContextMixin
-from ...constants import translation_status
 
 if TYPE_CHECKING:
     from typing import Any
