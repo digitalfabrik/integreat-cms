@@ -467,7 +467,7 @@ jobs:
             echo "Current production version: ${CURRENT_VERSION}"
             # Bump version to current alpha version if it is newer
             # Attention: exit(True) in Python means exit(1) which is False in Bash :)
-            if python -c "from looseversion import LooseVersion; exit(LooseVersion('${CURRENT_VERSION}') > LooseVersion('${CURRENT_ALPHA_VERSION}'))"; then
+            if python -c "from bumpver.version import parse_version; exit(parse_version('${CURRENT_VERSION}') > parse_version('${CURRENT_ALPHA_VERSION}'))"; then
               echo "Bump to the currently existing version"
               bumpver update -n --set-version="${CURRENT_ALPHA_VERSION}" --no-commit
             fi
