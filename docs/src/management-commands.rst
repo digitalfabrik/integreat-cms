@@ -113,6 +113,22 @@ Set the hix value for all pages for which it is missing::
 * ``REGION_SLUGS``: The slugs of the regions to process, separated by a space. If none are given, every region will be processed
 
 
+``import_pois_from_csv``
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+Import POIs into the CMS database from a ``.csv`` file::
+
+    integreat-cms-cli import_pois_from_csv CSV_FILE REGION_SLUG USERNAME
+
+**Arguments:**
+
+* ``CSV_FILE``: Import all POIs inside the ``CSV_FILE``
+* ``REGION_SLUG``: The ``REGION_SLUG`` of the target region where the POIs should be imported to
+* ``USERNAME``: Associate any new created translations with ``USERNAME``
+
+For the format and required columns of the ``.csv`` file, have a look at the :github-source:`tests/core/management/commands/assets/pois_to_import.csv` file.
+
+
 ``replace_links``
 ~~~~~~~~~~~~~~~~~
 
