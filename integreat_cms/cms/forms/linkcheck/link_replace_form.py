@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from django import forms
+from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 from ...constants.linkcheck import LINK_TYPES
@@ -18,11 +19,13 @@ class LinkReplaceForm(forms.Form):
     """
 
     search = forms.CharField(
-        label=_("Search"), max_length=64, help_text=_("Enter old link to be replaced")
+        label=_("Search"),
+        max_length=settings.LINKCHECK_MAX_URL_LENGTH,
+        help_text=_("Enter old link to be replaced"),
     )
     replace = forms.CharField(
         label=_("Replace"),
-        max_length=64,
+        max_length=settings.LINKCHECK_MAX_URL_LENGTH,
         help_text=_("Enter new link to replace the old link with"),
     )
     link_types = forms.MultipleChoiceField(
