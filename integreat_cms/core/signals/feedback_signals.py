@@ -61,7 +61,12 @@ def feedback_create_handler(sender: ModelBase, **kwargs: Any) -> None:
     :param sender: The class of the feedback that was deleted
     :param \**kwargs: The supplied keyword arguments
     """
-    if (instance := kwargs.get("instance")) and (
-        feedback_ptr := getattr(instance, "feedback_ptr", None)
-    ):
-        invalidate_obj(feedback_ptr)
+    try:
+        if (instance := kwargs.get("instance")) and (
+            feedback_ptr := getattr(instance, "feedback_ptr", None)
+        ):
+            invalidate_obj(feedback_ptr)
+    except Feedback.DoesNotExist:
+        # When installing fixtures, the related feedback might not yet be initialized.
+        # In that case cache invalidation is not necessary though
+        pass
