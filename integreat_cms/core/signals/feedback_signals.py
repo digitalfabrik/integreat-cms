@@ -23,6 +23,7 @@ from ...cms.models import (
     RegionFeedback,
     SearchResultFeedback,
 )
+from ..utils.decorators import disable_for_loaddata
 
 if TYPE_CHECKING:
     from typing import Any
@@ -53,6 +54,7 @@ def feedback_delete_handler(sender: ModelBase, **kwargs: Any) -> None:
 @receiver(post_save, sender=OfferListFeedback)
 @receiver(post_save, sender=RegionFeedback)
 @receiver(post_save, sender=SearchResultFeedback)
+@disable_for_loaddata
 # pylint: disable=unused-argument
 def feedback_create_handler(sender: ModelBase, **kwargs: Any) -> None:
     r"""
