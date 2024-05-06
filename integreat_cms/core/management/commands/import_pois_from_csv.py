@@ -132,7 +132,16 @@ class Command(LogCommand):
                     else []
                 ),
                 "allDay": strtobool(poi[f"{day}_all_day"]),
-                "closed": strtobool(poi[f"{day}_closed"]),
+                "closed": (
+                    strtobool(poi[f"{day}_closed"])
+                    if poi[f"{day}_closed"]
+                    else not (
+                        poi[f"{day}_start"]
+                        or poi[f"{day}_end"]
+                        or poi[f"{day}_all_day"]
+                        or poi[f"{day}_appointment_only"]
+                    )
+                ),
                 "appointmentOnly": strtobool(poi[f"{day}_appointment_only"]),
             }
             for day in [
