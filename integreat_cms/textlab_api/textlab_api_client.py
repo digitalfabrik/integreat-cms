@@ -15,6 +15,19 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
+# Mapping between fields in Textlab API response containing feedback data
+# and the corresponding category names used in the CMS
+textlab_api_feedback_categories = {
+    "moreSentencesInClauses": "nested-sentences",
+    "moreSentencesInWords": "long-sentences",
+    "moreWordsInLetters": "long-words",
+    "countPassiveVoiceInSentence": "passive-voice-sentences",
+    "countInfinitiveConstructions": "infinitive-constructions",
+    "countNominalStyle": "nominal-sentences",
+    "countFutureTenseInSentence": "future-tense-sentences",
+}
+
+
 class TextlabClient:
     """
     Client for the textlab api.
@@ -45,7 +58,7 @@ class TextlabClient:
 
     def benchmark(
         self, text: str, text_type: int = settings.TEXTLAB_API_DEFAULT_BENCHMARK_ID
-    ) -> float | None:
+    ) -> dict:
         """
         Retrieves the hix score of the given text.
 
@@ -63,7 +76,16 @@ class TextlabClient:
         data = {"text": unescape(text), "locale_name": "de_DE"}
         path = f"/benchmark/{text_type}"
         response = self.post_request(path, data, self.token)
-        return response.get("formulaHix")
+
+        feedback_details = [
+            {"category": cms_name, "result": response.get(textlab_name, [])}
+            for textlab_name, cms_name in textlab_api_feedback_categories.items()
+        ]
+
+        return {
+            "score": response.get("formulaHix"),
+            "feedback": feedback_details,
+        }
 
     @staticmethod
     def post_request(

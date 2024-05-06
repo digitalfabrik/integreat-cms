@@ -23,4 +23,8 @@ class PageTranslationForm(MachineTranslationForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = PageTranslation
         #: The fields of the model which should be handled by this form
-        fields = MachineTranslationForm.Meta.fields + ["slug", "hix_score"]
+        fields = MachineTranslationForm.Meta.fields + [
+            "slug",
+            "hix_score",
+            "hix_feedback",
+        ]
