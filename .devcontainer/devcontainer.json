@@ -1,0 +1,33 @@
+{
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "charliermarsh.ruff",
+        "batisteo.vscode-django",
+        "ms-vscode.vscode-typescript-next",
+        "ms-python.vscode-pylance"
+      ],
+      "settings": {
+        "[python]": {
+          "editor.formatOnSave": true,
+          "editor.defaultFormatter": "charliermarsh.ruff",
+          "editor.codeActionsOnSave": {
+            "source.fixAll": "always",
+            "source.organizeImports": "always"
+          }
+        },
+        "python.testing.unittestEnabled": false,
+        "python.testing.pytestEnabled": false,
+        "ruff.enable": true,
+        "ruff.lint.args": ["--config=${workspaceFolder}/pyproject.toml", "--fix"],
+        "ruff.format.args": ["--config=${workspaceFolder}/pyproject.toml", "--preview"]
+      }
+    }
+  },
+  "postCreateCommand": "./tools/install.sh --python python3.11 && ./tools/migrate.sh && ./tools/loadtestdata.sh",
+  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}"
+}
