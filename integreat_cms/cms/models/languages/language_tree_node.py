@@ -22,8 +22,8 @@ if TYPE_CHECKING:
 class LanguageTreeNode(AbstractTreeNode):
     """
     Data model representing a region's language tree. Each tree node is a single object instance and the whole tree is
-    identified by the root node. The base functionality inherits from the package `django-mptt
-    <https://django-mptt.readthedocs.io/en/latest/index.html>`_ (Modified Preorder Tree Traversal).
+    identified by the root node. The base functionality inherits from the package `django-treebeard
+    <https://django-treebeard.readthedocs.io/en/latest/>`.
     """
 
     language = models.ForeignKey(
