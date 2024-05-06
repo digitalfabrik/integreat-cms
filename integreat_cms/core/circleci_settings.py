@@ -15,8 +15,8 @@ from .settings import *
 
 #: Set a dummy secret key for CircleCI build even if it's not in debug mode
 SECRET_KEY = "dummy"
-#: Set dummy key to test push notifications
-FCM_KEY = "dummy"
+#: Set dummy credentials path to test push notifications
+FCM_CREDENTIALS = "dummy"
 #: Enable manually because existing setting derives from the unset env var
 FCM_ENABLED = True
 #: Set dummy SUMM.AI API key to test translations into Easy German

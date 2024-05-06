@@ -200,10 +200,10 @@ FCM_URL: Final[str] = (
 )
 
 #: Path to the saved credential json file
-FCM_CREDENTIALS: Final[str | None] = os.environ.get("INTEGREAT_CMS_FCM_CREDENTIALS")
+FCM_CREDENTIALS: str | None = os.environ.get("INTEGREAT_CMS_FCM_CREDENTIALS")
 
 #: Whether push notifications via Firebase are enabled.
-#: This is ``True`` if :attr:`~integreat_cms.core.settings.FCM_KEY` is set, ``False`` otherwise.
+#: This is ``True`` if :attr:`~integreat_cms.core.settings.FCM_CREDENTIALS` is set, ``False`` otherwise.
 FCM_ENABLED: bool = bool(FCM_CREDENTIALS)
 
 #: The available push notification channels
