@@ -62,6 +62,11 @@ def test_save_page_translation(
         },
     )
 
+    # The most straightforward approach to check if the system has detected changes
+    # would be asserting the alert. However, decoding the json_messages cookie and formulating the
+    # test assertion can be quite intricate and support for the messages framework in testing
+    # scenarios begins from Django version 5.0 onwards.
+
     assert response.status_code == 302
     assert get_latest_test_content() == "<p>test</p>"
 
