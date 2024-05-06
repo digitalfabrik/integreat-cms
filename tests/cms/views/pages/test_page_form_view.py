@@ -27,6 +27,13 @@ def test_save_page_translation(
     german_language = Language.objects.get(slug="de")
     page = Page.objects.create(region=region, lft=1, rgt=2, tree_id=1, depth=1)
 
+    def get_latest_test_content():
+        return (
+            PageTranslation.objects.filter(slug="my-test-page")
+            .latest("version")
+            .content
+        )
+
     PageTranslation.objects.create(
         page=page,
         slug="testcase",
@@ -56,6 +63,7 @@ def test_save_page_translation(
     )
 
     assert response.status_code == 302
+    assert get_latest_test_content() == "<p>test</p>"
 
     response = client.post(
         url,
@@ -70,9 +78,4 @@ def test_save_page_translation(
     )
 
     assert response.status_code == 302
-
-    mutated_translation = PageTranslation.objects.get(slug="testcase")
-
-    print(PageTranslation.objects.filter(content="test123").count())
-
-    assert mutated_translation.content == "test123"
+    assert get_latest_test_content() == "<p>test123</p>"
