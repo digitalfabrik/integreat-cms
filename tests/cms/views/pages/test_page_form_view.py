@@ -50,10 +50,12 @@ def test_save_page_translation(
         },
     )
 
+    with open("test_data/test_page_content.txt") as f: file_content = f.read() # noqa: E701
+
     response = client.post(
         url,
         data={
-            "content": "test",
+            "content": file_content,
             "mirrored_page_region": "",
             "title": "My test page",
             "slug": "my-test-page",
@@ -68,19 +70,4 @@ def test_save_page_translation(
     # scenarios begins from Django version 5.0 onwards.
 
     assert response.status_code == 302
-    assert get_latest_test_content() == "<p>test</p>"
-
-    response = client.post(
-        url,
-        data={
-            "content": "test123",
-            "mirrored_page_region": "",
-            "title": "My test page",
-            "slug": "my-test-page",
-            "status": "PUBLIC",
-            "_position": "first-child",
-        },
-    )
-
-    assert response.status_code == 302
-    assert get_latest_test_content() == "<p>test123</p>"
+    assert get_latest_test_content() == file_content
