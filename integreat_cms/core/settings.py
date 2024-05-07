@@ -195,8 +195,9 @@ BACKGROUND_TASKS_ENABLED = bool(
 ##############################################################
 
 #: FCM API Url
-FCM_URL: Final[str] = (
-    "https://fcm.googleapis.com/v1/projects/integreat-2020/messages:send"
+FCM_URL: Final[str] = os.environ.get(
+    "INTEGREAT_CMS_FCM_URL",
+    "https://fcm.googleapis.com/v1/projects/integreat-2020/messages:send",
 )
 
 #: Path to the saved credential json file
