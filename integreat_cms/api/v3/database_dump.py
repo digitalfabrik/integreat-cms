@@ -1,10 +1,10 @@
 from django.core.exceptions import PermissionDenied
 from django.http import FileResponse, HttpRequest
 
-from integreat_cms.data_dump.dump import dump_data
+from integreat_cms.database_dump.dump import dump_database
 
 
-def database(request: HttpRequest) -> FileResponse:
+def database_dump(request: HttpRequest) -> FileResponse:
     """
     Creates a database dump and serializes it as json.
 
@@ -16,4 +16,4 @@ def database(request: HttpRequest) -> FileResponse:
             f"{request.user} does not have permission to generate a database dump (You might need to log in first)"
         )
 
-    return FileResponse(dump_data(), content_type="application/json")
+    return FileResponse(dump_database(), content_type="application/json")

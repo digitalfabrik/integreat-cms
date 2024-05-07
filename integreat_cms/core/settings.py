@@ -85,7 +85,7 @@ RESERVED_REGION_PAGE_PATTERNS: Final[list[str]] = [
     "locations",
     "offers",
     "search",
-    "database",
+    "database_dump",
 ]
 
 #: URL to the Integreat Website
@@ -345,7 +345,7 @@ INSTALLED_APPS: Final[list[str]] = [
     # Installed custom apps
     "integreat_cms.cms",
     "integreat_cms.core",
-    "integreat_cms.data_dump",
+    "integreat_cms.database_dump",
     "integreat_cms.deepl_api",
     "integreat_cms.google_translate_api",
     "integreat_cms.firebase_api",

@@ -11,12 +11,12 @@ if TYPE_CHECKING:
     from django.utils.functional import Promise
 
 
-class DataDump(AppConfig):
+class DatabaseDump(AppConfig):
     """
     This app adds functionality for dumping data from the cms into a file
     """
 
     #: Full Python path to the application
-    name: Final[str] = "integreat_cms.data_dump"
+    name: Final[str] = "integreat_cms.database_dump"
     #: Human-readable name for the application
-    verbose_name: Final[Promise] = _("Data dump")
+    verbose_name: Final[Promise] = _("Database dump")

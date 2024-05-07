@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING
 
 from django.urls import include, path, re_path
 
-from .v3.database import database
+from .v3.database_dump import database_dump
 from .v3.events import events
 from .v3.feedback import (
     event_feedback,
@@ -132,7 +132,7 @@ region_api_urlpatterns: list[URLPattern] = [
 
 #: The url patterns of this module (see :doc:`django:topics/http/urls`)
 urlpatterns: list[URLPattern] = [
-    path("api/v3/database", database, name="database"),
+    path("api/v3/database_dump", database_dump, name="database_dump"),
     path("api/v3/regions/", include(region_api_urlpatterns)),
     path("wp-json/extensions/v3/sites/", include(region_api_urlpatterns)),
     path(

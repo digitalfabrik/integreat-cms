@@ -11,10 +11,10 @@ MODEL_CONFIGURATION: dict[tuple[str, str], dict] = {
 }
 
 
-def dump_data() -> str:
+def dump_database() -> str:
     """
-    Creates a data dump including all objects related to the given models.
-    :return: A data dump of these objects serialized
+    Creates a database dump including all objects related to the given models.
+    :return: A database dump of these objects serialized
     """
     objects = []
     for (app_name, model_name), overwrites in MODEL_CONFIGURATION.items():
