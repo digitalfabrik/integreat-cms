@@ -884,11 +884,11 @@ urlpatterns: list[URLPattern] = [
                                             name="draft_multiple_pages",
                                         ),
                                         path(
-                                            "bulk-cancel-translation/",
-                                            bulk_action_views.BulkCancelTranslationProcessView.as_view(
+                                            "bulk-cancel-translation-process/",
+                                            bulk_action_views.CancelTranslationProcess.as_view(
                                                 model=Page,
                                             ),
-                                            name="bulk_cancel_translation_process",
+                                            name="cancel_translation_process",
                                         ),
                                         path(
                                             "<int:page_id>/",
