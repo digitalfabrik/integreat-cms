@@ -453,7 +453,7 @@ class BulkDraftingView(BulkActionView):
         return super().post(request, *args, **kwargs)
 
 
-class BulkCancelTranslationProcessView(BulkActionView):
+class CancelTranslationProcess(BulkActionView):
 
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
