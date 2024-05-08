@@ -31,6 +31,12 @@ DEEPL_ENABLED = True
 TEXTLAB_API_KEY = "dummy"
 #: Enable manually because existing setting derives from the unset env var
 TEXTLAB_API_ENABLED = True
+#: Set dummy Google Translate credential path
+GOOGLE_APPLICATION_CREDENTIALS = "dummy"
+#: Set dummy Google project ID
+GOOGLE_PROJECT_ID = "dummy"
+#: Enable manually because existing setting derives from the unset env var
+GOOGLE_TRANSLATE_ENABLED = True
 #: Disable linkcheck listeners on CircleCI
 LINKCHECK_DISABLE_LISTENERS = True
 # Disable background tasks during testing
