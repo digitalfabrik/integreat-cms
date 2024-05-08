@@ -319,6 +319,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#machine-translation-api-client">Machine Translation API Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#machine-translation-provider">Machine Translation Provider</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#strtobool">Strtobool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#word-count">Word Count</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.html#apps">Apps</a></li>
@@ -437,12 +438,16 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="tests.deepl_api.html">Deepl API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="tests.deepl_api.html#deepl-api-test">Deepl API Test</a></li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="tests.firebase_api.html">Firebase API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.firebase_api.html#test-firebase-api-client">Test Firebase API Client</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tests.mt_api.html">Mt API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#deepl-api-test">Deepl API Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#google-translate-api-test">Google Translate API Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#mt-api-test">Mt API Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#mt-provider-assignment-test">Mt Provider Assignment Test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.mt_api.html#utils">Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.pdf.html">PDF</a><ul>
@@ -864,6 +869,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_api_client">Machine Translation API Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_provider">Machine Translation Provider</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.strtobool">Strtobool</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.utils.html#module-integreat_cms.core.utils.word_count">Word Count</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.apps">Apps</a><ul>
@@ -879,6 +885,9 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.DEEPL_ENABLED"><code class="docutils literal notranslate"><span class="pre">DEEPL_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.FCM_ENABLED"><code class="docutils literal notranslate"><span class="pre">FCM_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.FCM_KEY"><code class="docutils literal notranslate"><span class="pre">FCM_KEY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.GOOGLE_APPLICATION_CREDENTIALS"><code class="docutils literal notranslate"><span class="pre">GOOGLE_APPLICATION_CREDENTIALS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.GOOGLE_PROJECT_ID"><code class="docutils literal notranslate"><span class="pre">GOOGLE_PROJECT_ID</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.GOOGLE_TRANSLATE_ENABLED"><code class="docutils literal notranslate"><span class="pre">GOOGLE_TRANSLATE_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.LINKCHECK_DISABLE_LISTENERS"><code class="docutils literal notranslate"><span class="pre">LINKCHECK_DISABLE_LISTENERS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.LOGGING"><code class="docutils literal notranslate"><span class="pre">LOGGING</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.LOG_LEVEL"><code class="docutils literal notranslate"><span class="pre">LOG_LEVEL</span></code></a></li>
@@ -1368,31 +1377,52 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.deepl_api.html">Deepl API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#module-tests.deepl_api.deepl_api_test">Deepl API Test</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#tests.deepl_api.deepl_api_test.get_content_translations"><code class="docutils literal notranslate"><span class="pre">get_content_translations()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#tests.deepl_api.deepl_api_test.get_word_count"><code class="docutils literal notranslate"><span class="pre">get_word_count()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#tests.deepl_api.deepl_api_test.setup_deepl_supported_languages"><code class="docutils literal notranslate"><span class="pre">setup_deepl_supported_languages()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#tests.deepl_api.deepl_api_test.setup_fake_deepl_api_server"><code class="docutils literal notranslate"><span class="pre">setup_fake_deepl_api_server()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_bulk_mt_api_error"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_mt_api_error()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_bulk_mt_events"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_mt_events()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_bulk_mt_exceeds_limit"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_mt_exceeds_limit()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_bulk_mt_no_source_language"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_mt_no_source_language()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_bulk_mt_no_target_language"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_mt_no_target_language()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_bulk_mt_pages"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_mt_pages()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_bulk_mt_pois"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_mt_pois()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_bulk_mt_up_to_date"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_mt_up_to_date()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_bulk_mt_up_to_date_and_ready_for_mt"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_mt_up_to_date_and_ready_for_mt()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_event_automatic_translation"><code class="docutils literal notranslate"><span class="pre">test_deepl_event_automatic_translation()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_page_automatic_translation"><code class="docutils literal notranslate"><span class="pre">test_deepl_page_automatic_translation()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.deepl_api.html#tests.deepl_api.deepl_api_test.test_deepl_poi_automatic_translation"><code class="docutils literal notranslate"><span class="pre">test_deepl_poi_automatic_translation()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.firebase_api.html">Firebase API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.firebase_api.html#module-tests.firebase_api.test_firebase_api_client">Test Firebase API Client</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient"><code class="docutils literal notranslate"><span class="pre">TestFirebaseApiClient</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.mt_api.html">Mt API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.mt_api.html#module-tests.mt_api.deepl_api_test">Deepl API Test</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.deepl_api_test.setup_deepl_supported_languages"><code class="docutils literal notranslate"><span class="pre">setup_deepl_supported_languages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.deepl_api_test.setup_fake_deepl_api_server"><code class="docutils literal notranslate"><span class="pre">setup_fake_deepl_api_server()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.deepl_api_test.test_deepl_bulk_mt_api_error"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_mt_api_error()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.mt_api.html#module-tests.mt_api.google_translate_api_test">Google Translate API Test</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.google_translate_api_test.FakeClient"><code class="docutils literal notranslate"><span class="pre">FakeClient</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.google_translate_api_test.setup_fake_google_translate_api"><code class="docutils literal notranslate"><span class="pre">setup_fake_google_translate_api()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.google_translate_api_test.setup_google_translate_supported_languages"><code class="docutils literal notranslate"><span class="pre">setup_google_translate_supported_languages()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.google_translate_api_test.test_google_translate_error"><code class="docutils literal notranslate"><span class="pre">test_google_translate_error()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.mt_api.html#module-tests.mt_api.mt_api_test">Mt API Test</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.mt_setup"><code class="docutils literal notranslate"><span class="pre">mt_setup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_automatic_translation"><code class="docutils literal notranslate"><span class="pre">test_automatic_translation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_bulk_mt"><code class="docutils literal notranslate"><span class="pre">test_bulk_mt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_bulk_mt_exceeds_limit"><code class="docutils literal notranslate"><span class="pre">test_bulk_mt_exceeds_limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_bulk_mt_no_source_language"><code class="docutils literal notranslate"><span class="pre">test_bulk_mt_no_source_language()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_bulk_mt_up_to_date"><code class="docutils literal notranslate"><span class="pre">test_bulk_mt_up_to_date()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_bulk_mt_up_to_date_and_ready_for_mt"><code class="docutils literal notranslate"><span class="pre">test_bulk_mt_up_to_date_and_ready_for_mt()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_deepl_bulk_mt_no_target_language"><code class="docutils literal notranslate"><span class="pre">test_deepl_bulk_mt_no_target_language()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.mt_api.html#module-tests.mt_api.mt_provider_assignment_test">Mt Provider Assignment Test</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_provider_assignment_test.check_mt_provider"><code class="docutils literal notranslate"><span class="pre">check_mt_provider()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_provider_assignment_test.test_both_providers_available"><code class="docutils literal notranslate"><span class="pre">test_both_providers_available()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_provider_assignment_test.test_change_to_not_supporting_provider"><code class="docutils literal notranslate"><span class="pre">test_change_to_not_supporting_provider()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_provider_assignment_test.test_change_to_supporting_provider"><code class="docutils literal notranslate"><span class="pre">test_change_to_supporting_provider()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_provider_assignment_test.test_no_available_provider"><code class="docutils literal notranslate"><span class="pre">test_no_available_provider()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_provider_assignment_test.test_only_deepl_available"><code class="docutils literal notranslate"><span class="pre">test_only_deepl_available()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.mt_provider_assignment_test.test_only_google_translate_available"><code class="docutils literal notranslate"><span class="pre">test_only_google_translate_available()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.mt_api.html#module-tests.mt_api.utils">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.utils.get_content_translations"><code class="docutils literal notranslate"><span class="pre">get_content_translations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.utils.get_english_name"><code class="docutils literal notranslate"><span class="pre">get_english_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.mt_api.html#tests.mt_api.utils.get_word_count"><code class="docutils literal notranslate"><span class="pre">get_word_count()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -2421,6 +2451,7 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.utils.html#machine-translation-api-client">Machine Translation API Client</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.utils.html#machine-translation-provider">Machine Translation Provider</a></li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.utils.html#strtobool">Strtobool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.utils.html#word-count">Word Count</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.html#apps">Apps</a></li>
