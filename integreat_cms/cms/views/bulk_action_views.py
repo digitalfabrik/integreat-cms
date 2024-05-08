@@ -22,6 +22,7 @@ from ..constants import status
 from ..models import Page
 from ..utils.stringify_list import iter_to_string
 from .utils.publication_status import change_publication_status
+from .pages.page_actions import cancel_translation_process_ajax
 
 if TYPE_CHECKING:
     from typing import Any
@@ -465,9 +466,10 @@ class CancelTranslationProcess(BulkActionView):
         :return: The redirect
         """
         language_slug = kwargs["language_slug"]
-        pages = kwargs["pages"]
-        for page in pages:
-            page_translation = page.get_translation(language_slug)
-            page_translation.all_versions.update(currently_in_translation=False)
+        for content_object in self.get_queryset():
+            cancel_translation_process_ajax(request, region_slug=content_object.region, language_slug=language_slug, page_id=content_object.id)
+            #if self.get_queryset().model is Page and content_object.currently_in_translation:
+                #page_translation = content_object.get_translation(language_slug)
+                #page_translation.all_versions.update(currently_in_translation=False)
 
         return super().post(request, *args, **kwargs)
