@@ -58,6 +58,35 @@
             rng.setEndAfter(container);
         }
     };
+    const convertToInternational = (phoneNumber) => {
+        const phoneNumberCleaned = phoneNumber.replace(/[-/]/g, "");
+
+        let phoneNumberCallable;
+        let phoneNumberBody;
+        let countryCode = "+49";
+
+        /* eslint-disable no-magic-numbers */
+        /* eslint-disable-next-line @typescript-eslint/switch-exhaustiveness-check */
+        switch (true) {
+            case phoneNumber.startsWith("00"):
+                phoneNumberCallable = `+${phoneNumberCleaned.substring(2)}`;
+                phoneNumberBody = phoneNumberCleaned.substring(4);
+                countryCode = `+${phoneNumberCleaned.substring(2, 4)}`;
+                break;
+            case phoneNumberCleaned.startsWith("0"):
+                phoneNumberCallable = `${countryCode}${phoneNumberCleaned.substring(1)}`;
+                phoneNumberBody = phoneNumberCleaned.substring(1);
+                break;
+            case phoneNumberCleaned.startsWith("+"):
+                phoneNumberCallable = phoneNumberCleaned;
+                phoneNumberBody = phoneNumberCleaned.substring(3);
+                countryCode = phoneNumberCleaned.substring(0, 3);
+                break;
+        }
+        /* eslint-enable no-magic-numbers */
+
+        return [`${countryCode} (0) ${phoneNumberBody}`, `tel:${phoneNumberCallable}`];
+    };
     const parseCurrentLine = (editor, endOffset, delimiter) => {
         let end;
         let endContainer;
@@ -135,7 +164,7 @@
         }
         text = rng.toString().trim();
         const matches = text.match(autoLinkPattern);
-        const phoneMatches = text.match("(0[0-9/]{6,20})");
+        const phoneMatches = text.match(/(0|\+)[0-9\-/]{6,20}/);
         const protocol = getDefaultLinkProtocol(editor);
         if (matches) {
             if (matches[1] === "www.") {
@@ -152,12 +181,13 @@
             editor.selection.moveToBookmark(bookmark);
             editor.nodeChanged();
         } else if (phoneMatches) {
-            phoneMatches[1] = `tel:${phoneMatches[1]}`;
+            const [prettyPrintedNumber, callableNumber] = convertToInternational(phoneMatches[0]);
             bookmark = editor.selection.getBookmark();
             editor.selection.setRng(rng);
-            editor.execCommand("createlink", false, phoneMatches[1]);
+            editor.execCommand("createlink", false, callableNumber);
             if (defaultLinkTarget !== false) {
                 editor.dom.setAttrib(editor.selection.getNode(), "target", defaultLinkTarget);
+                editor.selection.setContent(prettyPrintedNumber);
             }
             editor.selection.moveToBookmark(bookmark);
             editor.nodeChanged();
