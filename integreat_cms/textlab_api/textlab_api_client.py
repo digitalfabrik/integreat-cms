@@ -9,23 +9,12 @@ from urllib.request import Request, urlopen
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
+from .utils import format_hix_feedback
+
 if TYPE_CHECKING:
     from typing import Any
 
 logger = logging.getLogger(__name__)
-
-
-# Mapping between fields in Textlab API response containing feedback data
-# and the corresponding category names used in the CMS
-textlab_api_feedback_categories = {
-    "moreSentencesInClauses": "nested-sentences",
-    "moreSentencesInWords": "long-sentences",
-    "moreWordsInLetters": "long-words",
-    "countPassiveVoiceInSentence": "passive-voice-sentences",
-    "countInfinitiveConstructions": "infinitive-constructions",
-    "countNominalStyle": "nominal-sentences",
-    "countFutureTenseInSentence": "future-tense-sentences",
-}
 
 
 class TextlabClient:
@@ -77,10 +66,7 @@ class TextlabClient:
         path = f"/benchmark/{text_type}"
         response = self.post_request(path, data, self.token)
 
-        feedback_details = [
-            {"category": cms_name, "result": response.get(textlab_name, [])}
-            for textlab_name, cms_name in textlab_api_feedback_categories.items()
-        ]
+        feedback_details = format_hix_feedback(response)
 
         return {
             "score": response.get("formulaHix"),

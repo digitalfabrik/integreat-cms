@@ -86,9 +86,9 @@ const updateHixFeedback = (hixFeedback: string) => {
         const feedbackEntry = feedbackJson.find((item: { category: string }) => item.category === categoryName);
         const feedbackResult = feedbackEntry ? feedbackEntry.result : [];
 
-        if (feedbackResult.length > 0) {
+        if (feedbackResult > 0) {
             const categoryCount = feedbackSection.querySelector("span");
-            categoryCount.textContent = feedbackResult.length;
+            categoryCount.textContent = feedbackResult;
             feedbackSection.classList.remove("hidden");
             feedbackCount += 1;
         } else {
