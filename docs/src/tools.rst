@@ -124,11 +124,11 @@ with :github-source:`tools/integreat-cms-cli`::
 Code Quality
 ============
 
-(Deprecated) Automatically apply our python style with :github-source:`tools/black.sh`::
+Automatically apply our python style with :github-source:`tools/black.sh`::
 
     ./tools/black.sh
 
-Automatically apply our python style with :github-source:`tools/ruff.sh`::
+Automatically run python linting with :github-source:`tools/ruff.sh`::
 
     ./tools/ruff.sh
 
