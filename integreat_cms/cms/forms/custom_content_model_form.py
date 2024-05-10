@@ -10,7 +10,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 from lxml.etree import LxmlError
-from lxml.html import fromstring, tostring
+from lxml.html import fragment_fromstring, tostring
 
 from ..constants import status
 from ..models import MediaFile
@@ -109,7 +109,7 @@ class CustomContentModelForm(CustomModelForm):
         :return: The valid content
         """
         try:
-            content = fromstring(self.cleaned_data["content"])
+            content = fragment_fromstring(self.cleaned_data["content"])
         except LxmlError:
             # The content is not guaranteed to be valid html, for example it may be empty
             return self.cleaned_data["content"]

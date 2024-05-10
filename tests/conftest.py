@@ -105,6 +105,25 @@ def login_role_user(
     return client, request.param
 
 
+@pytest.fixture(scope="session")
+def login_root_user(
+    load_test_data: None, django_db_blocker: _DatabaseBlocker
+) -> Client:
+    """
+    Get the root user and force a login.
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param django_db_blocker: The fixture providing the database blocker
+    :return: The http client and the current role
+    """
+    client = Client()
+
+    with django_db_blocker.unblock():
+        user = get_user_model().objects.get(username="root")
+        client.force_login(user)
+
+    return client
+
+
 # pylint: disable=redefined-outer-name
 @pytest.fixture(scope="session", params=ALL_ROLES)
 def login_role_user_async(
