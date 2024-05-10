@@ -14,20 +14,21 @@ from integreat_cms.cms.models import Language, Page, PageTranslation, Region
 
 
 @pytest.mark.django_db
-def test_save_page_translation(
+def test_page_form_view_does_not_mutate_valid_html(
     load_test_data: None,
     login_root_user: tuple[Client, str],
     caplog: LogCaptureFixture,
 ) -> None:
     # Log the user in
-    client = login_root_user
+    client, _ = login_root_user
 
     # Get a region that already exists and has active languages
     region = Region.objects.get(slug="testumgebung")
     german_language = Language.objects.get(slug="de")
     page = Page.objects.create(region=region, lft=1, rgt=2, tree_id=1, depth=1)
+    content = "<p>line1\r\nline2<p>"
 
-    def get_latest_test_content():
+    def get_latest_test_content() -> str:
         return (
             PageTranslation.objects.filter(slug="my-test-page")
             .latest("version")
@@ -38,7 +39,7 @@ def test_save_page_translation(
         page=page,
         slug="testcase",
         language=german_language,
-        content="<p>testcase</p>",
+        content=content,
     )
 
     url = reverse(
@@ -50,12 +51,10 @@ def test_save_page_translation(
         },
     )
 
-    with open("test_data/test_page_content.txt") as f: file_content = f.read() # noqa: E701
-
     response = client.post(
         url,
         data={
-            "content": file_content,
+            "content": content,
             "mirrored_page_region": "",
             "title": "My test page",
             "slug": "my-test-page",
@@ -70,4 +69,5 @@ def test_save_page_translation(
     # scenarios begins from Django version 5.0 onwards.
 
     assert response.status_code == 302
-    assert get_latest_test_content() == file_content
+
+    assert get_latest_test_content() == content
