@@ -63,23 +63,15 @@ def monkeypatch_cursor_func(
         Node._get_database_cursor = original_get_database_cursor
 
 
-# pylint: disable=protected-access
-get_old_cursor_func = Node._get_database_cursor
-
 R = TypeVar("R")
 P = ParamSpec("P")
 
 
-def tree_mutex(classname: str) -> Callable[[Callable[P, R]], Callable[P, R]]:
+def cache_based_lock(classname: str) -> Callable[[Callable[P, R]], Callable[P, R]]:
     """
-    A decorator to prevent treebeard from screwing up the database.
-    In addition to implementing a mutex,
-    we use :func:`django.db.transaction.atomic`
-    and monkey patch :meth:`treebeard.models.Node._get_database_cursor`
-    to actually use djangos database cursor and force it into db transactions that way.
-
-    The lock is implemented using a :func:`~uuid.uuid4` with :func:`django.core.cache.backends.base.BaseCache.get_or_set`,
-    while separate locks are maintained per class.
+    A decorator implementing a lock using the cache.
+    We use a :func:`~uuid.uuid4` with :func:`django.core.cache.backends.base.BaseCache.get_or_set`.
+    Separate locks are maintained per class.
     This allows page trees to be locked separately from POIs etc.,
     but requires strict conformance to always specify the exact ``classname`` when using the decorator.
     If there is a typo, there will be no indication at server startup, and collisions and data corruption may occur.
@@ -91,35 +83,26 @@ def tree_mutex(classname: str) -> Callable[[Callable[P, R]], Callable[P, R]]:
     def wrap(func: Callable[P, R]) -> Callable[P, R]:
         """
         This is the actual decorator that takes ``func`` and returns a function with the same signature.
-        The outer function :func:`tree_mutex` is necessary to get the ``classname`` variable.
+        The outer function :func:`cache_based_lock` is necessary to get the ``classname`` variable.
         """
 
         @functools.wraps(func)
         def innermost_function(*args: P.args, **kwargs: P.kwargs) -> R:
             """
             The function replacing the decorated function.
-            Acquire the lock, invoke :func:`django.db.transaction.atomic`,
-            monkey patch :meth:`treebeard.models.Node._get_database_cursor` to get djangos db cursor
-            and finally call the decorated ``func``.
+            Acquire the lock and then call the decorated ``func``.
 
             :raises TimeoutError: When the lock wasn't available after ``LOCK_SECONDS`` s, trying every ``INTERVAL`` s.
             """
-            lock_name = f"MUTEX_{classname.upper()}_TREE"
+            lock_name = f"LOCK_{classname.upper()}"
             uuid = uuid4()
             timeout = time.time() + LOCK_SECONDS
-            stack_frame = traceback.extract_stack(limit=1)[0]
             while time.time() < timeout:
                 if (
                     active_lock := cache.get_or_set(lock_name, uuid, LOCK_SECONDS)
                 ) == uuid:
                     try:
-                        with transaction.atomic(using=DEFAULT_DB_ALIAS, durable=True):
-                            with monkeypatch_cursor_func(
-                                using=DEFAULT_DB_ALIAS,
-                                ensure_thread=threading.get_ident(),
-                                ensure_context=stack_frame,
-                            ):
-                                return func(*args, **kwargs)
+                        return func(*args, **kwargs)
                     finally:
                         print(
                             f"  Releasing {lock_name} after {time.time() - (timeout - LOCK_SECONDS)}s ({uuid})"
@@ -131,6 +114,49 @@ def tree_mutex(classname: str) -> Callable[[Callable[P, R]], Callable[P, R]]:
                     )
                     time.sleep(INTERVAL)
             raise TimeoutError(f"Failed to acquire lock {lock_name}")
+
+        return innermost_function
+
+    return wrap
+
+
+def tree_mutex(classname: str) -> Callable[[Callable[P, R]], Callable[P, R]]:
+    """
+    A decorator to prevent treebeard from screwing up the database.
+    Extending :func:`cache_based_lock`,
+    we use :func:`django.db.transaction.atomic`
+    and monkey patch :meth:`treebeard.models.Node._get_database_cursor`
+    to actually use djangos database cursor and force it into db transactions that way.
+
+    Allows page trees to be locked separately from POIs etc.,
+    but requires strict conformance to always specify the exact ``classname`` when using the decorator.
+    If there is a typo, there will be no indication at server startup, and collisions and data corruption may occur.
+    For more information, see :func:`cache_based_lock`.
+    """
+
+    def wrap(func: Callable[P, R]) -> Callable[P, R]:
+        """
+        This is the actual decorator that takes ``func`` and returns a function with the same signature.
+        The outer function :func:`tree_mutex` is necessary to get the ``classname`` variable.
+        """
+
+        @cache_based_lock(f"{classname}_TREE")
+        @functools.wraps(func)
+        def innermost_function(*args: P.args, **kwargs: P.kwargs) -> R:
+            """
+            The function replacing the decorated function.
+            Invoke :func:`django.db.transaction.atomic`,
+            monkey patch :meth:`treebeard.models.Node._get_database_cursor` to get djangos db cursor
+            and finally call the decorated ``func``.
+            """
+            stack_frame = traceback.extract_stack(limit=1)[0]
+            with transaction.atomic(using=DEFAULT_DB_ALIAS, durable=True):
+                with monkeypatch_cursor_func(
+                    using=DEFAULT_DB_ALIAS,
+                    ensure_thread=threading.get_ident(),
+                    ensure_context=stack_frame,
+                ):
+                    return func(*args, **kwargs)
 
         return innermost_function
 
