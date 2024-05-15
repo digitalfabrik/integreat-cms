@@ -136,7 +136,7 @@ class TranslationsManagementForm(CustomModelForm):
 
         # Iterate over all machine translatable languages and toggle them based on the checkbox value
         for lang, language_options in self.languages_dict.items():
-            if provider_name := self.uncleaned_data[lang]:
+            if provider_name := self.uncleaned_data.get(lang, None):
                 if provider_name in language_options.providers:
                     language_options.language_tree_node.preferred_mt_provider = (
                         language_options.providers[provider_name]
