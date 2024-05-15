@@ -182,13 +182,13 @@ class GvzRegion:
         api = GvzApiWrapper()
         self.ags = region_ags
         if (
-            not region_name
+            region_name
             and not region_ags
             and (best_match := api.best_match(region_name, region_type))
         ):
             self.ags = best_match["ags"]
 
-        self.name: str = ""
+        self.name: str = "" if not region_name else region_name
         self.longitude = None
         self.latitude = None
         self.child_coordinates = {}
@@ -196,7 +196,8 @@ class GvzRegion:
         if self.ags and (details := api.get_details(self.ags)):
             self.id = details["id"]
             self.ags = details["ags"]
-            self.name = details["name"]
+            if not self.name:
+                self.name = details["name"]
             self.longitude = details["longitude"]
             self.latitude = details["latitude"]
             self.child_coordinates = api.get_child_coordinates(details["children"])
