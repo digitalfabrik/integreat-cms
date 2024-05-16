@@ -66,6 +66,7 @@ class DashboardView(TemplateView, ChatContextMixin):
         # context.update(self.get_broken_links_context())
         context.update(self.get_low_hix_value_context())
         context.update(self.get_outdated_pages_context())
+        context.update(self.get_drafted_pages())
 
         return context
 
@@ -225,4 +226,23 @@ class DashboardView(TemplateView, ChatContextMixin):
             "most_outdated_page": most_outdated_page,
             "days_since_last_updated": days_since_last_updated,
             "outdated_threshold_date": outdated_threshold_date_str,
+        }
+
+    def get_drafted_pages(
+        self,
+    ) -> dict[str, QuerySet]:
+        r"""
+        Extend context by info on drafted pages
+
+        :return: Dictionary containing the context for drafted pages for one region.
+        """
+        drafted_pages = PageTranslation.objects.filter(
+            id__in=self.latest_version_ids,
+            status=status.DRAFT,
+            language__slug=self.request.region.default_language.slug,
+        )
+        single_drafted_page = drafted_pages.first()
+        return {
+            "drafted_pages": drafted_pages,
+            "single_drafted_page": single_drafted_page,
         }

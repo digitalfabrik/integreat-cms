@@ -240,3 +240,62 @@ def assert_button_leads_to_valid_page(client: Client) -> None:
     )
     response = client.get(target_page)
     assert response.status_code == 200
+
+
+@pytest.mark.parametrize(
+    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR], indirect=True
+)
+@pytest.mark.django_db
+def test_number_of_drafted_pages_is_correct(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+) -> None:
+    client, role = login_role_user
+    expected_number_of_pages = 1
+
+    pages = reverse(
+        "pages",
+        kwargs={"region_slug": "augsburg", "language_slug": "de"},
+    )
+
+    dashboard = reverse(
+        "dashboard",
+        kwargs={"region_slug": "augsburg"},
+    )
+
+    response = client.get(dashboard)
+
+    assert response.status_code == 200
+    match = re.search(
+        rf'<a href="{pages}\?(|[^"]+&)status=DRAFT(|&[^"]+)"[^<>]*>Seiten im Entwurf</a>\s*<span>\(Insgesamt ([0-9]+)\)</span>',
+        response.content.decode("utf-8"),
+    )
+    assert match, "Number of drafted pages not displayed"
+    assert (
+        int(match.group(3)) == expected_number_of_pages
+    ), "Wrong number of pages displayed as outdated"
+
+
+@pytest.mark.parametrize(
+    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR], indirect=True
+)
+@pytest.mark.django_db
+def test_single_drafted_page_is_correct(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+) -> None:
+    client, role = login_role_user
+
+    dashboard = reverse(
+        "dashboard",
+        kwargs={"region_slug": "augsburg"},
+    )
+
+    response = client.get(dashboard)
+
+    assert response.status_code == 200
+    match = re.search(
+        r"Die Seite <b>Über die App Integreat Augsburg</b> liegt nur im Entwurf vor.",
+        response.content.decode("utf-8"),
+    )
+    assert match, "Not updated message missing"
