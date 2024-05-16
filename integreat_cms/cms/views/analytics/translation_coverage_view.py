@@ -148,7 +148,7 @@ class TranslationCoverageView(TemplateView):
 
         # Get the number of translations which are not ready for MT
         not_ready_for_mt_count = sum(
-            pt.hix_score < settings.HIX_REQUIRED_FOR_MT
+            pt.rounded_hix_score < settings.HIX_REQUIRED_FOR_MT
             for pt in hix_translations_with_score
         )
 
