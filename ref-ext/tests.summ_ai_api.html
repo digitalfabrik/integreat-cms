@@ -411,6 +411,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.cms.utils.html">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.utils.html#test-internal-link-checker">Test Internal Link Checker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.utils.html#test-rounded-hix-value">Test Rounded Hix Value</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.utils.html#test-slug-utils">Test Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.utils.html#test-translation-utils">Test Translation Utils</a></li>
 </ul>
@@ -1320,6 +1321,7 @@
 <li class="toctree-l2"><a class="reference internal" href="tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.cms.utils.html">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#module-tests.cms.utils.test_internal_link_checker">Test Internal Link Checker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#module-tests.cms.utils.test_rounded_hix_value">Test Rounded Hix Value</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#module-tests.cms.utils.test_slug_utils">Test Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#module-tests.cms.utils.test_translation_utils">Test Translation Utils</a></li>
 </ul>
@@ -1940,7 +1942,7 @@
 <li><p><strong>login_role_user_async</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><em>AsyncClient</em><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
 <li><p><strong>aiohttp_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.3.0.dev42+gfa1d5be)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.3.0.dev45+gfdf3aa3)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -1959,7 +1961,7 @@ otherwise False</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The Django settings</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.3.0.dev42+gfa1d5be)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.3.0.dev45+gfdf3aa3)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2032,7 +2034,7 @@ Checks that __anext__() removes one element each from the queue</p>
 <li><p><strong>login_role_user_async</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><em>AsyncClient</em><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
 <li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.3.0.dev42+gfa1d5be)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.3.0.dev45+gfdf3aa3)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2103,7 +2105,7 @@ Checks that __anext__() removes one element each from the queue</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The Django settings</p></li>
 <li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.3.0.dev42+gfa1d5be)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.3.0.dev45+gfdf3aa3)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
