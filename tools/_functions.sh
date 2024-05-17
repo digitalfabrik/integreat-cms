@@ -181,9 +181,9 @@ function require_installed {
             INTEGREAT_CMS_DEBUG=1
             export INTEGREAT_CMS_DEBUG
             # Set dummy FCM key to test functionality
-            if [[ -z "${INTEGREAT_CMS_FCM_KEY}" ]]; then
-                INTEGREAT_CMS_FCM_KEY="dummy"
-                export INTEGREAT_CMS_FCM_KEY
+            if [[ -z "${INTEGREAT_CMS_FCM_CREDENTIALS}" ]]; then
+                INTEGREAT_CMS_FCM_CREDENTIALS="dummy"
+                export INTEGREAT_CMS_FCM_CREDENTIALS
             fi
         fi
     fi
