@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-05-16T15:12:55+00:00" />
+    <meta property="article:modified_time" content="2024-05-17T09:48:59+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core &mdash; integreat-cms 2024.5.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -884,8 +884,8 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#module-integreat_cms.core.circleci_settings">Circleci Settings</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.DEEPL_AUTH_KEY"><code class="docutils literal notranslate"><span class="pre">DEEPL_AUTH_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.DEEPL_ENABLED"><code class="docutils literal notranslate"><span class="pre">DEEPL_ENABLED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.FCM_CREDENTIALS"><code class="docutils literal notranslate"><span class="pre">FCM_CREDENTIALS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.FCM_ENABLED"><code class="docutils literal notranslate"><span class="pre">FCM_ENABLED</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.FCM_KEY"><code class="docutils literal notranslate"><span class="pre">FCM_KEY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.GOOGLE_APPLICATION_CREDENTIALS"><code class="docutils literal notranslate"><span class="pre">GOOGLE_APPLICATION_CREDENTIALS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.GOOGLE_PROJECT_ID"><code class="docutils literal notranslate"><span class="pre">GOOGLE_PROJECT_ID</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.GOOGLE_TRANSLATE_ENABLED"><code class="docutils literal notranslate"><span class="pre">GOOGLE_TRANSLATE_ENABLED</span></code></a></li>
@@ -2094,14 +2094,14 @@ For the full list of settings and their values, see <a class="reference external
 
 <dl class="py data">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.circleci_settings.</span></span><span class="sig-name descname"><span class="pre">FCM_ENABLED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/circleci_settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Enable manually because existing setting derives from the unset env var</p>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.circleci_settings.</span></span><span class="sig-name descname"><span class="pre">FCM_CREDENTIALS</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'dummy'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/circleci_settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Set dummy credentials path to test push notifications</p>
 </dd></dl>
 
 <dl class="py data">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.circleci_settings.</span></span><span class="sig-name descname"><span class="pre">FCM_KEY</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'dummy'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/circleci_settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Set dummy key to test push notifications</p>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.circleci_settings.</span></span><span class="sig-name descname"><span class="pre">FCM_ENABLED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/circleci_settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Enable manually because existing setting derives from the unset env var</p>
 </dd></dl>
 
 <dl class="py data">
@@ -2137,7 +2137,7 @@ For the full list of settings and their values, see <a class="reference external
 <span class="w">    </span><span class="s1">&#39;filters&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="s1">&#39;only_stdout&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.CallbackFilter&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7fb76edfb740</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7f4743c89c60</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="s1">&#39;formatters&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
@@ -2815,7 +2815,7 @@ This is used for explicit TLS connections, generally on port 587.
 
 <dl class="py data">
 <dt class="sig sig-object py">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">FCM_CREDENTIALS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">FCM_CREDENTIALS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Path to the saved credential json file</p>
 </dd></dl>
 
@@ -2823,7 +2823,7 @@ This is used for explicit TLS connections, generally on port 587.
 <dt class="sig sig-object py">
 <span class="sig-prename descclassname"><span class="pre">integreat_cms.core.settings.</span></span><span class="sig-name descname"><span class="pre">FCM_ENABLED</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/settings.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Whether push notifications via Firebase are enabled.
-This is <code class="docutils literal notranslate"><span class="pre">True</span></code> if <code class="xref py py-attr docutils literal notranslate"><span class="pre">FCM_KEY</span></code> is set, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
+This is <code class="docutils literal notranslate"><span class="pre">True</span></code> if <a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_CREDENTIALS" title="integreat_cms.core.settings.FCM_CREDENTIALS"><code class="xref py py-attr docutils literal notranslate"><span class="pre">FCM_CREDENTIALS</span></code></a> is set, <code class="docutils literal notranslate"><span class="pre">False</span></code> otherwise.</p>
 </dd></dl>
 
 <dl class="py data">
@@ -3094,7 +3094,7 @@ to determine whether a link is internal.</p>
 <span class="w">    </span><span class="s1">&#39;filters&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="s1">&#39;only_stdout&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.CallbackFilter&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7fb78450cea0</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7f47619b0ea0</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="s1">&#39;require_debug_false&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.RequireDebugFalse&#39;</span><span class="p">},</span>
 <span class="w">        </span><span class="s1">&#39;require_debug_true&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.RequireDebugTrue&#39;</span><span class="p">},</span>
@@ -3988,7 +3988,7 @@ python frameworks (in our case Django).</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on May 16, 2024.
+      <span class="lastupdated">Last updated on May 17, 2024.
       </span></p>
   </div>
 
