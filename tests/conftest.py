@@ -26,7 +26,7 @@ from integreat_cms.cms.constants.roles import (
 from tests.mock import MockServer
 
 if TYPE_CHECKING:
-    from typing import Final
+    from typing import Final, Generator
 
     from _pytest.fixtures import SubRequest
     from pytest_django.plugin import _DatabaseBlocker  # type: ignore[attr-defined]

@@ -6,14 +6,14 @@ from __future__ import annotations
 
 import logging
 import os
+import time
 import uuid
 from typing import TYPE_CHECKING
 
-from db_mutex import DBMutexError, DBMutexTimeoutError
 from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
-from django.db import transaction
+from django.db.utils import IntegrityError
 from django.http import (
     Http404,
     HttpResponse,
@@ -32,6 +32,8 @@ from ...decorators import permission_required
 from ...forms import PageForm
 from ...models import Page, PageTranslation, Region
 from ...utils.file_utils import extract_zip_archive
+from ...utils.repair_tree import repair_tree
+from ...utils.tree_mutex import tree_mutex
 
 if TYPE_CHECKING:
     from django.http import HttpRequest
@@ -40,6 +42,7 @@ logger = logging.getLogger(__name__)
 
 
 @require_POST
+@tree_mutex("page")
 def archive_page(
     request: HttpRequest, page_id: int, region_slug: str, language_slug: str
 ) -> HttpResponseRedirect:
@@ -85,6 +88,7 @@ def archive_page(
 
 
 @require_POST
+@tree_mutex("page")
 def restore_page(
     request: HttpRequest, page_id: int, region_slug: str, language_slug: str
 ) -> HttpResponseRedirect:
@@ -210,7 +214,7 @@ def get_page_content_ajax(
 
 @require_POST
 @permission_required("cms.delete_page")
-@transaction.atomic
+@tree_mutex("page")
 def delete_page(
     request: HttpRequest, page_id: int, region_slug: str, language_slug: str
 ) -> HttpResponseRedirect:
@@ -408,7 +412,7 @@ def upload_xliff(
 
 @require_POST
 @permission_required("cms.change_page")
-@transaction.atomic
+@tree_mutex("page")
 def move_page(
     request: HttpRequest,
     region_slug: str,
@@ -438,7 +442,32 @@ def move_page(
         # Call the save method on the (reloaded) node in order to trigger possible signal handlers etc.
         # (The move()-method executes raw sql which might cause problems if the instance isn't fetched again)
         page = Page.objects.get(id=page_id)
-        page.save()
+        try:
+            page.save()
+        except IntegrityError:
+            logger.warning(
+                "First IntegrityError while moving %r – waiting 1s and trying again…",
+                page,
+            )
+            time.sleep(1)
+            try:
+                page.save()
+            except IntegrityError:
+                logger.warning(
+                    "Second IntegrityError while moving %r – repairing tree and trying again…",
+                    page,
+                )
+                repair_tree(page_id, commit=True)
+                try:
+                    page.save()
+                except IntegrityError as e:
+                    messages.error(
+                        request,
+                        _(
+                            "Error while saving page. Someone else probably moved another page at the same time."
+                        ),
+                    )
+                    logger.exception(e)
         logger.debug(
             "%r moved to %r of %r by %r",
             page,
@@ -456,8 +485,6 @@ def move_page(
         ValueError,
         InvalidPosition,
         InvalidMoveToDescendant,
-        DBMutexTimeoutError,
-        DBMutexError,
     ) as e:
         messages.error(request, e)
         logger.exception(e)
