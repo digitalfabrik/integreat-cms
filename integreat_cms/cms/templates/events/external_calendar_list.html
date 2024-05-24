@@ -1,0 +1,47 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% block content %}
+    <div class="table-header">
+        <div class="flex flex-wrap justify-between">
+            <h1 class="heading">
+                {% translate "Import external calendars" %}
+            </h1>
+            {% if perms.cms.change_event %}
+                <a href="{% url 'new_external_calendar' region_slug=request.region.slug %}"
+                   class="btn">{% translate "Add new calendar" %}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="table-listing">
+        <table class="w-full mt-4 bg-white border border-gray-200 border-solid rounded shadow">
+            <thead>
+                <tr class="border-b border-gray-200 border-solid">
+                    <th class="px-2 py-3 text-sm text-left uppercase">
+                        {% translate "Name" %}
+                    </th>
+                    <th class="px-2 py-3 text-sm text-left uppercase">
+                        {% translate "URL" %}
+                    </th>
+                    <th class="px-2 py-3 text-sm text-left uppercase">
+                        {%  translate "Imported events" %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for calendar in external_calendars %}
+                    {% include "events/external_calendar_list_row.html" %}
+                {% empty %}
+                    <tr>
+                        <td colspan="6" class="px-4 py-3">
+                            {% translate "No external calendars available yet." %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include "../generic_confirmation_dialog.html" %}
+    {% include "pagination.html" with chunk=page_obj %}
+{% endblock content %}

@@ -782,6 +782,40 @@ urlpatterns: list[URLPattern] = [
                     ),
                 ),
                 path(
+                    "external-calendars/",
+                    include(
+                        [
+                            path(
+                                "",
+                                events.ExternalCalendarList.as_view(),
+                                name="external_calendar_list",
+                            ),
+                            path(
+                                "new/",
+                                events.ExternalCalendarFormView.as_view(),
+                                name="new_external_calendar",
+                            ),
+                            path(
+                                "<int:calendar_id>/",
+                                include(
+                                    [
+                                        path(
+                                            "edit/",
+                                            events.ExternalCalendarFormView.as_view(),
+                                            name="edit_external_calendar",
+                                        ),
+                                        path(
+                                            "delete/",
+                                            events.delete_external_calendar,
+                                            name="delete_external_calendar",
+                                        ),
+                                    ]
+                                ),
+                            ),
+                        ]
+                    ),
+                ),
+                path(
                     "pages/",
                     include(
                         [

@@ -16,7 +16,7 @@ from django.views.decorators.http import require_POST
 
 from ...constants import status
 from ...decorators import permission_required
-from ...models import POITranslation, Region
+from ...models import ExternalCalendar, POITranslation, Region
 
 if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
@@ -192,5 +192,30 @@ def search_poi_ajax(request: HttpRequest, region_slug: str) -> HttpResponse:
             "poi_query_result": poi_query_result,
             "create_poi_option": create_poi_option,
             "region": region,
+        },
+    )
+
+
+@require_POST
+@permission_required("cms.delete_external_calendar")
+def delete_external_calendar(
+    request: HttpRequest, calendar_id: int, region_slug: str
+) -> HttpResponseRedirect:
+    """
+    Delete external calendar
+
+    :param request: The current request
+    :param calendar_id: The id of the calendar that should be deleted
+    :param region_slug: The slug of the current region
+    :return: A redirection to the :class:`~integreat_cms.cms.views.events.external_calendars.ExternalCalendarList`
+    """
+    calendar = ExternalCalendar.objects.get(id=calendar_id)
+    logger.info("%r deleted by %r", calendar, request.user)
+    calendar.delete()
+    messages.success(request, _("External calendar was successfully deleted"))
+    return redirect(
+        "external_calendar_list",
+        **{
+            "region_slug": region_slug,
         },
     )

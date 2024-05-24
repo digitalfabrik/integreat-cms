@@ -2411,9 +2411,9 @@ msgid "The new passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
 #: cms/models/abstract_content_model.py cms/models/abstract_tree_node.py
-#: cms/models/feedback/feedback.py cms/models/media/directory.py
-#: cms/models/media/media_file.py cms/models/regions/region.py
-#: cms/models/users/organization.py
+#: cms/models/events/external_calendar.py cms/models/feedback/feedback.py
+#: cms/models/media/directory.py cms/models/media/media_file.py
+#: cms/models/regions/region.py cms/models/users/organization.py
 msgid "region"
 msgstr "Region"
 
@@ -2581,6 +2581,14 @@ msgstr "Icon"
 msgid "archived"
 msgstr "archiviert"
 
+#: cms/models/events/event.py cms/models/events/external_calendar.py
+msgid "external calendar"
+msgstr "Externer Kalender"
+
+#: cms/models/events/event.py
+msgid "The id of this event in the external calendar"
+msgstr "Die ID dieses Events im externen Kalender"
+
 #: cms/models/events/event.py
 msgid "copy"
 msgstr "Kopie"
@@ -2613,6 +2621,30 @@ msgstr "Veranstaltungs-Übersetzung"
 #: cms/models/events/event_translation.py
 msgid "event translations"
 msgstr "Veranstaltungs-Übersetzungen"
+
+#: cms/models/events/external_calendar.py
+msgid "calendar name"
+msgstr "Name des Kalenders"
+
+#: cms/models/events/external_calendar.py cms/models/offers/offer_template.py
+#: cms/templates/_tinymce_config.html
+#: cms/templates/events/external_calendar_list.html
+#: cms/templates/linkcheck/links_by_filter.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/views/media/media_context_mixin.py
+msgid "URL"
+msgstr "URL"
+
+#: cms/models/events/external_calendar.py
+msgid ""
+"The tag that events need to have to get imported (Leave blank to import all "
+"events)"
+msgstr ""
+"Die Kategorie, der ein Event zugeordnet sein muss, um importiert zu werden (Leer lassen, um alle Veranstaltungen zu importieren)"
+
+#: cms/models/events/external_calendar.py
+msgid "external calendars"
+msgstr "Externe Kalender"
 
 #: cms/models/events/recurrence_rule.py
 msgid "frequency"
@@ -3061,13 +3093,6 @@ msgstr ""
 #: cms/models/offers/offer_template.py
 msgid "thumbnail URL"
 msgstr "Vorschaubild-URL"
-
-#: cms/models/offers/offer_template.py cms/templates/_tinymce_config.html
-#: cms/templates/linkcheck/links_by_filter.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/views/media/media_context_mixin.py
-msgid "URL"
-msgstr "URL"
 
 #: cms/models/offers/offer_template.py
 msgid "This will be an external API endpoint in most cases."
@@ -4162,6 +4187,10 @@ msgstr "Maschinelle Übersetzungen"
 #: cms/templates/_base.html
 msgid "Organizations"
 msgstr "Organisationen"
+
+#: cms/templates/_base.html
+msgid "Import calendar"
+msgstr "Kalender importieren"
 
 #: cms/templates/_base.html
 msgid "Users"
@@ -5533,6 +5562,77 @@ msgstr ""
 msgid "Copy event"
 msgstr "Veranstaltung kopieren"
 
+#: cms/templates/events/external_calendar_form.html
+#, python-format
+msgid "Edit external calendar \"%(calendar)s\""
+msgstr "Externen Kalender \"%(calendar)s\" bearbeiten"
+
+#: cms/templates/events/external_calendar_form.html
+msgid "Add new external calendar"
+msgstr "Neuen externen Kalender hinzufügen"
+
+#: cms/templates/events/external_calendar_form.html
+#: cms/templates/organizations/organization_form.html
+#: cms/templates/organizations/organization_list_row.html
+msgid "Delete organization"
+msgstr "Organisation löschen"
+
+#: cms/templates/events/external_calendar_form.html
+#: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
+#: cms/templates/languagetreenodes/languagetreenode_list.html
+#: cms/templates/organizations/organization_form.html
+msgid "Delete"
+msgstr "Löschen"
+
+#: cms/templates/events/external_calendar_form.html
+#: cms/templates/languages/language_form.html
+#: cms/templates/linkcheck/link_list_row.html
+#: cms/templates/offertemplates/offertemplate_form.html
+#: cms/templates/organizations/organization_form.html
+#: cms/templates/poicategories/poicategory_form.html
+#: cms/templates/regions/region_form.html cms/templates/roles/role_form.html
+#: cms/templates/translations/translations_management.html
+#: cms/templates/users/region_user_form.html cms/templates/users/user_form.html
+#: cms/views/pois/poi_context_mixin.py
+msgid "Save"
+msgstr "Speichern"
+
+#: cms/templates/events/external_calendar_form.html
+msgid "New external calendar"
+msgstr "Neuer externer Kalender"
+
+#: cms/templates/events/external_calendar_list.html
+msgid "Import external calendars"
+msgstr "Externen Kalender importieren"
+
+#: cms/templates/events/external_calendar_list.html
+msgid "Add new calendar"
+msgstr "Neuen Kalender hinzufügen"
+
+#: cms/templates/events/external_calendar_list.html
+#: cms/templates/languages/language_form.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/poicategories/poicategory_list.html
+#: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
+msgid "Name"
+msgstr "Name"
+
+#: cms/templates/events/external_calendar_list.html
+msgid "Imported events"
+msgstr "Importierte Termine"
+
+#: cms/templates/events/external_calendar_list.html
+msgid "No external calendars available yet."
+msgstr "Noch keine externen Kalender vorhanden."
+
+#: cms/templates/events/external_calendar_list_row.html
+msgid "Delete calendar"
+msgstr "Externen Kalender löschen"
+
 #: cms/templates/feedback/_feedback_widget.html
 msgid "Unread technical feedback"
 msgstr "Ungelesenes technisches Feedback"
@@ -5630,15 +5730,6 @@ msgstr "Als ungelesen markieren"
 #: cms/templates/feedback/region_feedback_list.html
 msgid "Archive"
 msgstr "Archivieren"
-
-#: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
-#: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
-#: cms/templates/languagetreenodes/languagetreenode_list.html
-#: cms/templates/organizations/organization_form.html
-msgid "Delete"
-msgstr "Löschen"
 
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list_archived.html
@@ -5888,26 +5979,6 @@ msgstr "Sprache \"%(translated_language_name)s\" bearbeiten"
 #: cms/templates/languages/language_form.html
 msgid "Create new language"
 msgstr "Neue Sprache erstellen"
-
-#: cms/templates/languages/language_form.html
-#: cms/templates/linkcheck/link_list_row.html
-#: cms/templates/offertemplates/offertemplate_form.html
-#: cms/templates/organizations/organization_form.html
-#: cms/templates/poicategories/poicategory_form.html
-#: cms/templates/regions/region_form.html cms/templates/roles/role_form.html
-#: cms/templates/translations/translations_management.html
-#: cms/templates/users/region_user_form.html cms/templates/users/user_form.html
-#: cms/views/pois/poi_context_mixin.py
-msgid "Save"
-msgstr "Speichern"
-
-#: cms/templates/languages/language_form.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/templates/organizations/organization_list.html
-#: cms/templates/poicategories/poicategory_list.html
-#: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
-msgid "Name"
-msgstr "Name"
 
 #: cms/templates/languages/language_form.html
 msgid "Identifier"
@@ -6335,11 +6406,6 @@ msgstr "Organisation \"%(organization_name)s\" bearbeiten"
 #: cms/templates/organizations/organization_form.html
 msgid "Create new organization"
 msgstr "Neue Organisation erstellen"
-
-#: cms/templates/organizations/organization_form.html
-#: cms/templates/organizations/organization_list_row.html
-msgid "Delete organization"
-msgstr "Organisation löschen"
 
 #: cms/templates/organizations/organization_form.html
 msgid "Name in "
@@ -8394,6 +8460,10 @@ msgstr "Veranstaltung wurde erfolgreich wiederhergestellt"
 msgid "Event was successfully deleted"
 msgstr "Veranstaltung wurde erfolgreich gelöscht"
 
+#: cms/views/events/event_actions.py
+msgid "External calendar was successfully deleted"
+msgstr "Externer Kalendar \"{}\" wurde erfolgreich gelöscht"
+
 #: cms/views/events/event_context_mixin.py
 msgid "Please confirm that you really want to archive this event"
 msgstr "Bitte bestätigen Sie, dass dieses Event archiviert werden soll."
@@ -8423,6 +8493,13 @@ msgstr "Alle Übersetzungen dieses Events werden gelöscht."
 msgid "You cannot edit this event because it is archived."
 msgstr ""
 "Sie können diese Veranstaltung nicht bearbeiten, weil sie archiviert ist."
+
+#: cms/views/events/event_form_view.py
+msgid ""
+"You cannot edit this event because it was imported from an external calendar."
+msgstr ""
+"Sie können diese Veranstaltung nicht bearbeiten, weil sie von einem externen "
+"Kalender importiert worden ist."
 
 #: cms/views/events/event_form_view.py
 msgid "You don't have the permission to edit events."
@@ -8473,6 +8550,31 @@ msgstr ""
 msgid "Back to the event form"
 msgstr "Zurück zum Veranstaltungs-Formular"
 
+#: cms/views/events/external_calendar_form_view.py
+msgid "Please confirm that you really want to delete this external calendar"
+msgstr ""
+"Bitte bestätigen Sie, dass dieser externer Kalendar gelöscht werden soll"
+
+#: cms/views/events/external_calendar_form_view.py cms/views/form_views.py
+#: cms/views/imprint/imprint_sbs_view.py cms/views/pages/page_sbs_view.py
+#: cms/views/poi_categories/poi_category_form_view.py
+#: cms/views/roles/role_form_view.py cms/views/settings/user_settings_view.py
+#: cms/views/users/region_user_form_view.py cms/views/users/user_form_view.py
+msgid "No changes made"
+msgstr "Keine Änderungen vorgenommen"
+
+#: cms/views/events/external_calendar_form_view.py
+msgid "External calendar \"{}\" was successfully created"
+msgstr "Veranstaltung \"{}\" wurde erfolgreich erstellt"
+
+#: cms/views/events/external_calendar_form_view.py
+msgid "External calendar \"{}\" was successfully saved"
+msgstr "Rolle \"{}\" wurde erfolgreich gespeichert"
+
+#: cms/views/events/external_calendar_list_view.py
+msgid "Please confirm that you really want to delete this calendar"
+msgstr "Bitte bestätigen Sie, dass dieser Kalendar gelöscht werden soll"
+
 #: cms/views/feedback/admin_feedback_actions.py
 #: cms/views/feedback/region_feedback_actions.py
 msgid "Feedback was successfully marked as read"
@@ -8501,14 +8603,6 @@ msgstr "Feedback wurde erfolgreich gelöscht"
 #: cms/views/feedback/feedback_resource.py
 msgid "Read by"
 msgstr "Gelesen von"
-
-#: cms/views/form_views.py cms/views/imprint/imprint_sbs_view.py
-#: cms/views/pages/page_sbs_view.py
-#: cms/views/poi_categories/poi_category_form_view.py
-#: cms/views/roles/role_form_view.py cms/views/settings/user_settings_view.py
-#: cms/views/users/region_user_form_view.py cms/views/users/user_form_view.py
-msgid "No changes made"
-msgstr "Keine Änderungen vorgenommen"
 
 #: cms/views/form_views.py cms/views/poi_categories/poi_category_form_view.py
 msgid "{} \"{}\" was successfully saved"
@@ -10844,9 +10938,6 @@ msgstr ""
 #~ msgid "upcoming events"
 #~ msgstr "Zukünftige Termine"
 
-#~ msgid "past events"
-#~ msgstr "Vergangene Termine"
-
 #~ msgid "Event is not public."
 #~ msgstr "Veranstaltung ist nicht veröffentlicht."
 
@@ -11318,9 +11409,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Erlaube keine ungültigen SSL-Zertifikate bei der Interaktion mit der "
 #~ "Matomo API"
-
-#~ msgid "Calendar week"
-#~ msgstr "Kalenderwoche"
 
 #~ msgid "Month view"
 #~ msgstr "Monatsansicht"

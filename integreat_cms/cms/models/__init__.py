@@ -8,6 +8,7 @@ from __future__ import annotations
 from .chat.chat_message import ChatMessage
 from .events.event import Event
 from .events.event_translation import EventTranslation
+from .events.external_calendar import ExternalCalendar
 from .events.recurrence_rule import RecurrenceRule
 from .feedback.event_feedback import EventFeedback
 from .feedback.event_list_feedback import EventListFeedback

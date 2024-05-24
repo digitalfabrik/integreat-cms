@@ -190,6 +190,9 @@ BACKGROUND_TASKS_ENABLED = bool(
     strtobool(os.environ.get("INTEGREAT_CMS_BACKGROUND_TASKS_ENABLED", "True"))
 )
 
+#: The tag that events from external calendars need to get imported
+EXTERNAL_CALENDAR_TAG: Final[str] = BRANDING
+
 ##############################################################
 # Firebase Push Notifications (Firebase Cloud Messaging FCM) #
 ##############################################################

@@ -1,0 +1,68 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+    {% load static %}
+    {% load widget_tweaks %}
+    <form method="post" data-unsaved-warning>
+        {% csrf_token %}
+        <div class="flex flex-wrap mb-4">
+            <div class="flex flex-col flex-wrap justify-center w-3/5">
+                <h1 class="heading">
+                    {% if external_calendar_form.instance.id %}
+                        {% blocktranslate trimmed with calendar=external_calendar_form.instance %}
+                            Edit external calendar "{{ calendar }}"
+                        {% endblocktranslate %}
+                    {% else %}
+                        {% translate "Add new external calendar" %}
+                    {% endif %}
+                </h1>
+            </div>
+            <div class="flex justify-end w-2/5">
+                <div class="flex flex-wrap justify-between gap-4">
+                    {% if external_calendar_form.instance.id and perms.cms.delete_external_calendar %}
+                        <div class="flex flex-wrap gap-4">
+                            <button title="{% translate "Delete organization" %}"
+                                    class="btn confirmation-button btn-red"
+                                    data-confirmation-title="{{ delete_dialog_title }}"
+                                    data-confirmation-text="{{ delete_dialog_text }}"
+                                    data-confirmation-subject="{{ form.name.value }}"
+                                    data-action="{% url "delete_external_calendar" region_slug=request.region.slug calendar_id=external_calendar_form.instance.id %}">
+                                <i icon-name="trash-2" class="mr-2"></i>
+                                {% translate "Delete" %}
+                            </button>
+                        </div>
+                    {% endif %}
+                    <button class="btn">
+                        {% translate "Save" %}
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-wrap">
+            <div class="w-full">
+                <div class="w-full mb-4 bg-white border border-blue-500 border-solid rounded shadow-2xl">
+                    <div class="w-full p-4 rounded bg-water-500">
+                        <h3 class="font-bold text-black heading">
+                            <i icon-name="calendar-plus" class="mr-2"></i> {% translate "New external calendar" %}
+                        </h3>
+                    </div>
+                    <div class="px-4 pb-4">
+                        <label for="{{ external_calendar_form.name.id_for_label }}">
+                            {{ external_calendar_form.name.label }}
+                        </label>
+                        {% render_field external_calendar_form.name %}
+                        <label for="{{ external_calendar_form.url.id_for_label }}">
+                            {{ external_calendar_form.url.label }}
+                        </label>
+                        {% render_field external_calendar_form.url %}
+                        <label for="{{ external_calendar_form.url.import_filter_tag }}">
+                            {{ external_calendar_form.import_filter_tag.label }}
+                        </label>
+                        {% render_field external_calendar_form.import_filter_tag %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    {% include "../generic_confirmation_dialog.html" %}
+{% endblock content %}

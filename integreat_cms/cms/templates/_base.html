@@ -4,10 +4,10 @@
 {% load base_filters %}
 {% block raw_content %}
     <div id="popup-overlay"
-         class="fixed inset-0 opacity-75 bg-gray-800 hidden">
+         class="fixed inset-0 hidden bg-gray-800 opacity-75">
     </div>
     {% if TEST %}
-        <div class="fixed h-6 top-0 inset-x-0 text-center tracking-wide z-50 bg-red-400">
+        <div class="fixed inset-x-0 top-0 z-50 h-6 tracking-wide text-center bg-red-400">
             <span class="font-bold">
                 <i icon-name="alert-triangle" class="pb-1"></i>
                 {% translate "This is a test system." %}
@@ -20,7 +20,7 @@
             <a href="{% url 'admin:index' %}"
                target="_blank"
                rel="noopener noreferrer"
-               class="hidden lg:block relative px-2 pt-4 text-gray-800 hover:bg-gray-200 border-r border-gray-400">
+               class="relative hidden px-2 pt-4 text-gray-800 border-r border-gray-400 lg:block hover:bg-gray-200">
                 <i icon-name="sliders"></i>
                 {% translate "Django Admin" %}
             </a>
@@ -28,7 +28,7 @@
         <a href="{% url 'public:wiki_redirect' %}"
            target="_blank"
            rel="noopener noreferrer"
-           class="hidden lg:block relative px-2 pt-4 text-gray-900 hover:bg-gray-200 border-r border-gray-400">
+           class="relative hidden px-2 pt-4 text-gray-900 border-r border-gray-400 lg:block hover:bg-gray-200">
             <img class="inline-block"
                  alt="logo"
                  fill="none"
@@ -38,7 +38,7 @@
             {% translate "Documentation (Wiki)" %}
         </a>
         <div id="region-selector"
-             class="relative p-4 cursor-pointer text-gray-800 hover:bg-gray-200 border-r border-gray-400">
+             class="relative p-4 text-gray-800 border-r border-gray-400 cursor-pointer hover:bg-gray-200">
             <div class="truncate">
                 {% if request.region %}
                     {% if request.quick_access_regions or user.is_superuser or user.is_staff %}
@@ -62,7 +62,7 @@
                 {% endif %}
             </div>
             <div id="region-list"
-                 class="absolute hidden shadow rounded-b top-full right-0 bg-gray-200">
+                 class="absolute right-0 hidden bg-gray-200 rounded-b shadow top-full">
                 {% for region in request.quick_access_regions %}
                     <a href="{% url 'dashboard' region_slug=region.slug %}"
                        class="block px-4 py-3 text-gray-800 hover:bg-gray-300">
@@ -73,7 +73,7 @@
                 {% if user.is_superuser or user.is_staff %}
                     {% if request.region %}
                         <a href="{% url 'admin_dashboard' %}"
-                           class="block px-4 py-3 text-gray-800 hover:bg-gray-300 rounded-b">
+                           class="block px-4 py-3 text-gray-800 rounded-b hover:bg-gray-300">
                             <i icon-name="layout-grid"></i>
                             {% translate "Network Management" %}
                         </a>
@@ -89,27 +89,27 @@
                 <i icon-name="chevron-down"></i>
             </span>
             <div id="user-menu"
-                 class="absolute hidden shadow rounded-b top-full right-0 bg-gray-200">
+                 class="absolute right-0 hidden bg-gray-200 rounded-b shadow top-full">
                 <a href="{% if request.region %}{% url 'user_settings' region_slug=request.region.slug %}{% else %}{% url 'user_settings' %}{% endif %}"
                    class="block px-4 py-3 text-gray-800 hover:bg-gray-400">
                     <i icon-name="settings"></i>
                     {% translate "Account Settings" %}
                 </a>
                 <a href="{% url 'public:logout' %}"
-                   class="block px-4 py-3 text-gray-800 hover:bg-gray-400 rounded-b">
+                   class="block px-4 py-3 text-gray-800 rounded-b hover:bg-gray-400">
                     <i icon-name="log-out" class="text-red-500"></i>
                     {% translate "Log out" %}
                 </a>
             </div>
         </div>
         <div id="mobile-menu"
-             class="flex flex-col justify-center p-4 lg:hidden border-l border-gray-400 cursor-pointer hover:bg-gray-200">
+             class="flex flex-col justify-center p-4 border-l border-gray-400 cursor-pointer lg:hidden hover:bg-gray-200">
             <i icon-name="menu"></i>
         </div>
     </header>
     <nav id="primary-navigation"
          class="w-72 {% if TEST %}testing{% else %}h-full{% endif %}  fixed left-0 inset-y-0 text-gray-200 bg-gray-700 z-50 transform -translate-x-full lg:translate-x-0 motion-safe:transition-transform">
-        <div class="w-full p-1 h-14 bg-gray-800">
+        <div class="w-full p-1 bg-gray-800 h-14">
             <a href="{% url 'public:region_selection' %}">
                 <div class="h-full w-full bg-{{ BRANDING }}-logo-white hover:bg-{{ BRANDING }}-logo-hover bg-contain ml-2 bg-no-repeat">
                 </div>
@@ -124,7 +124,7 @@
                 </a>
                 <!-- Analytics Section -->
                 {% if request.region.statistics_enabled and perms.cms.view_statistics or perms.cms.view_translation_report or perms.cms.view_feedback or perms.cms.view_broken_links %}
-                    <div class="min-h-3 pl-2">
+                    <div class="pl-2 min-h-3">
                         <p class="font-bold">
                             {% translate "Analytics" %}
                         </p>
@@ -159,7 +159,7 @@
                     {% endif %}
                 {% endif %}
                 <!-- Content Section -->
-                <div class="min-h-3 pl-2">
+                <div class="pl-2 min-h-3">
                     <p class="font-bold">
                         {% translate "Content" %}
                     </p>
@@ -213,7 +213,7 @@
                 {% get_mt_visibility request.region perms as show_mt_section %}
                 {% if show_mt_section or perms.cms.view_user or perms.cms.view_languagetreenode %}
                     <!-- Settings Section-->
-                    <div class="min-h-3 pl-2">
+                    <div class="pl-2 min-h-3">
                         <p class="font-bold">
                             {% translate "Settings" %}
                         </p>
@@ -231,6 +231,13 @@
                        class="{% if current_menu_item == 'organizations' %} active{% endif %}">
                         <i icon-name="umbrella"></i>
                         {% translate "Organizations" %}
+                    </a>
+                {% endif %}
+                {% if perms.cms.view_external_calendar %}
+                    <a href="{% url 'external_calendar_list' region_slug=request.region.slug %}"
+                       class="{% if current_menu_item == 'external_calendar_list' %} active{% endif %}">
+                        <i icon-name="calendar-plus"></i>
+                        {% translate "Import calendar" %}
                     </a>
                 {% endif %}
                 {% if perms.cms.view_user %}
@@ -313,7 +320,7 @@
                 {% endif %}
             {% endif %}
         </div>
-        <div class="p-2 text-center absolute inset-x-0 bottom-0 bg-gray-600">
+        <div class="absolute inset-x-0 bottom-0 p-2 text-center bg-gray-600">
             <a href="{% if request.region %}{% url "release_notes" region_slug=request.region.slug %}{% else %}{% url "release_notes" %}{% endif %}"
                class="hover:underline">{% translate "Version" %}: {{ version }}</a>
         </div>
