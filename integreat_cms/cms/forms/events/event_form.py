@@ -74,6 +74,8 @@ class EventForm(CustomModelForm):
             "end",
             "icon",
             "location",
+            "external_calendar",
+            "external_event_id",
         ]
         #: The widgets which are used in this form
         widgets = {
@@ -109,6 +111,8 @@ class EventForm(CustomModelForm):
             self.fields["is_all_day"].initial = self.instance.is_all_day
             self.fields["is_recurring"].initial = self.instance.is_recurring
             self.fields["has_not_location"].initial = not self.instance.has_location
+            self.fields["external_calendar"].initial = self.instance.external_calendar.pk if self.instance.external_calendar else None
+            self.fields["external_event_id"].required = self.instance.external_event_id
 
     def clean(self) -> dict[str, Any]:
         """

@@ -165,6 +165,7 @@ APP_TEAM_PERMISSIONS: Final[list[str]] = MARKETING_TEAM_PERMISSIONS + [
 
 #: The permissions of the service team
 SERVICE_TEAM_PERMISSIONS: Final[list[str]] = APP_TEAM_PERMISSIONS + [
+    "change_external_calendar",
     "change_language",
     "change_languagetreenode",
     "change_offertemplate",
@@ -174,6 +175,7 @@ SERVICE_TEAM_PERMISSIONS: Final[list[str]] = APP_TEAM_PERMISSIONS + [
     "delete_chatmessage",
     "delete_directory",
     "delete_event",
+    "delete_external_calendar",
     "delete_feedback",
     "delete_imprintpage",
     "delete_languagetreenode",
@@ -187,6 +189,7 @@ SERVICE_TEAM_PERMISSIONS: Final[list[str]] = APP_TEAM_PERMISSIONS + [
     "delete_user",
     "grant_page_permissions",
     "manage_translations",
+    "view_external_calendar",
 ]
 
 #: The permissions of the cms team

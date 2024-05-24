@@ -16,6 +16,7 @@ from ..abstract_content_model import AbstractContentModel, ContentQuerySet
 from ..media.media_file import MediaFile
 from ..pois.poi import POI
 from .event_translation import EventTranslation
+from .external_calendar import ExternalCalendar
 from .recurrence_rule import RecurrenceRule
 
 if TYPE_CHECKING:
@@ -110,6 +111,21 @@ class Event(AbstractContentModel):
         null=True,
     )
     archived = models.BooleanField(default=False, verbose_name=_("archived"))
+
+    external_calendar = models.ForeignKey(
+        ExternalCalendar,
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+        related_name="events",
+        verbose_name=_("external calendar"),
+    )
+
+    external_event_id = models.CharField(
+        max_length=255,
+        blank=True,
+        verbose_name=_("The id of this event in the external calendar"),
+    )
 
     #: The default manager
     objects = EventQuerySet.as_manager()

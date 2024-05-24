@@ -162,7 +162,7 @@
           data-unsaved-warning>
     </form>
     {{ media_config_data|json_script:"media_config_data" }}
-    {% if not perms.cms.change_event or event_form.instance.id and event_form.instance.archived %}
+    {% if disabled %}
         {% include "../_tinymce_config.html" with readonly=1 %}
     {% else %}
         {% include "../_tinymce_config.html" %}
