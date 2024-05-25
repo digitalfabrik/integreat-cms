@@ -11,8 +11,8 @@ from django.http import JsonResponse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import View
 from webauthn import base64url_to_bytes, verify_authentication_response
+from webauthn.helpers import parse_authentication_credential_json
 from webauthn.helpers.exceptions import InvalidAuthenticationResponse
-from webauthn.helpers.structs import AuthenticationCredential
 
 if TYPE_CHECKING:
     from django.http import HttpRequest
@@ -47,7 +47,9 @@ class WebAuthnVerifyView(View):
 
         try:
             authentication_verification = verify_authentication_response(
-                credential=AuthenticationCredential.parse_raw(request.body),
+                credential=parse_authentication_credential_json(
+                    json.loads(request.body)
+                ),
                 expected_challenge=base64url_to_bytes(challenge),
                 expected_rp_id=settings.HOSTNAME,
                 expected_origin=settings.BASE_URL,
