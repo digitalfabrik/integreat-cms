@@ -316,6 +316,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.core.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.utils.html#decorators">Decorators</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.utils.html#machine-translation-api-client">Machine Translation API Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.utils.html#machine-translation-provider">Machine Translation Provider</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.core.utils.html#strtobool">Strtobool</a></li>
@@ -867,6 +868,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.utils.html">Utils</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#module-integreat_cms.core.utils.decorators">Decorators</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_api_client">Machine Translation API Client</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_provider">Machine Translation Provider</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#module-integreat_cms.core.utils.strtobool">Strtobool</a></li>
@@ -2108,6 +2110,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="integreat_cms.core.utils.html">Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.utils.html#module-integreat_cms.core.utils.decorators">Decorators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.decorators.disable_for_loaddata"><code class="docutils literal notranslate"><span class="pre">disable_for_loaddata()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.core.utils.html#module-integreat_cms.core.utils.machine_translation_api_client">Machine Translation API Client</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient"><code class="docutils literal notranslate"><span class="pre">MachineTranslationApiClient</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.utils.html#integreat_cms.core.utils.machine_translation_api_client.MachineTranslationApiClient.__init__"><code class="docutils literal notranslate"><span class="pre">MachineTranslationApiClient.__init__()</span></code></a></li>
@@ -2379,7 +2385,7 @@ For the full list of settings and their values, see <a class="reference external
 <span class="w">    </span><span class="s1">&#39;filters&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="s1">&#39;only_stdout&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.CallbackFilter&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7f222ef9b060</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7f0e7375b560</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">    </span><span class="p">},</span>
 <span class="w">    </span><span class="s1">&#39;formatters&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
@@ -3508,7 +3514,7 @@ to determine whether a link is internal.</p>
 <span class="w">    </span><span class="s1">&#39;filters&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">        </span><span class="s1">&#39;only_stdout&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
 <span class="w">            </span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.CallbackFilter&#39;</span><span class="p">,</span>
-<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7f2243df49a0</span><span class="o">&gt;</span><span class="p">,</span>
+<span class="w">            </span><span class="s1">&#39;callback&#39;</span><span class="o">:</span><span class="w"> </span><span class="o">&lt;</span><span class="kd">function</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">lambda</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">at</span><span class="w"> </span><span class="mh">0x7f0e7faa89a0</span><span class="o">&gt;</span><span class="p">,</span>
 <span class="w">        </span><span class="p">},</span>
 <span class="w">        </span><span class="s1">&#39;require_debug_false&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.RequireDebugFalse&#39;</span><span class="p">},</span>
 <span class="w">        </span><span class="s1">&#39;require_debug_true&#39;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s1">&#39;()&#39;</span><span class="o">:</span><span class="w"> </span><span class="s1">&#39;django.utils.log.RequireDebugTrue&#39;</span><span class="p">},</span>
