@@ -7,6 +7,8 @@ from typing import TYPE_CHECKING
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
 
+from ..utils.decorators import disable_for_loaddata
+
 if TYPE_CHECKING:
     from typing import Any
     from integreat_cms.cms.models.pages.page_translation import PageTranslation
@@ -18,6 +20,7 @@ logger = logging.getLogger(__name__)
 
 
 @receiver(pre_save, sender=PageTranslation)
+@disable_for_loaddata
 def page_translation_save_handler(instance: PageTranslation, **kwargs: Any) -> None:
     r"""
     Calculates a hix store for a page translation before saving
