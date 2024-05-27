@@ -23,6 +23,7 @@ from ...cms.models import (
     RegionFeedback,
     SearchResultFeedback,
 )
+from ..utils.decorators import disable_for_loaddata
 
 if TYPE_CHECKING:
     from typing import Any
@@ -53,6 +54,7 @@ def feedback_delete_handler(sender: ModelBase, **kwargs: Any) -> None:
 @receiver(post_save, sender=OfferListFeedback)
 @receiver(post_save, sender=RegionFeedback)
 @receiver(post_save, sender=SearchResultFeedback)
+@disable_for_loaddata
 # pylint: disable=unused-argument
 def feedback_create_handler(sender: ModelBase, **kwargs: Any) -> None:
     r"""
@@ -61,12 +63,7 @@ def feedback_create_handler(sender: ModelBase, **kwargs: Any) -> None:
     :param sender: The class of the feedback that was deleted
     :param \**kwargs: The supplied keyword arguments
     """
-    try:
-        if (instance := kwargs.get("instance")) and (
-            feedback_ptr := getattr(instance, "feedback_ptr", None)
-        ):
-            invalidate_obj(feedback_ptr)
-    except Feedback.DoesNotExist:
-        # When installing fixtures, the related feedback might not yet be initialized.
-        # In that case cache invalidation is not necessary though
-        pass
+    if (instance := kwargs.get("instance")) and (
+        feedback_ptr := getattr(instance, "feedback_ptr", None)
+    ):
+        invalidate_obj(feedback_ptr)
