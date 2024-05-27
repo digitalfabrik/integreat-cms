@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ("cms", "0089_add_poicategory_icons"),
+        ("cms", "0091_user_webauthn_id"),
     ]
 
     operations = [
