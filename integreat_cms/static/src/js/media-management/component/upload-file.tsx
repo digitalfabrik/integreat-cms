@@ -13,8 +13,8 @@ type Props = {
     directory: Directory;
     setUploadFile: StateUpdater<boolean>;
     apiEndpoints: MediaApiPaths;
-    allowedMediaTypes: string;
     mediaTranslations: any;
+    mediaTypes: any;
     submitForm: (event: Event, successCallback: () => void) => any;
     /* eslint-disable-next-line react/no-unused-prop-types */
     isLoading: boolean;
@@ -25,8 +25,8 @@ const UploadFile = ({
     directory,
     setUploadFile,
     apiEndpoints,
-    allowedMediaTypes,
     mediaTranslations,
+    mediaTypes,
     submitForm,
     refreshState,
 }: Props) => {
@@ -42,7 +42,7 @@ const UploadFile = ({
             headers: { "X-CSRFToken": getCsrfToken() },
             dictDefaultMessage: mediaTranslations.text_upload_area,
             dictInvalidFileType: `${mediaTranslations.text_error_invalid_file_type} ${mediaTranslations.text_allowed_media_types}`,
-            acceptedFiles: allowedMediaTypes,
+            acceptedFiles: `${mediaTypes.allowedMediaTypes}`,
             parallelUploads: 1,
         });
         dropZone.on("queuecomplete", () => {

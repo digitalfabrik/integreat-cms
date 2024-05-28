@@ -35,7 +35,7 @@ export type LibraryProps = {
     mediaTranslations: any;
     globalEdit?: boolean;
     expertMode?: boolean;
-    allowedMediaTypes?: string;
+    mediaTypes: any;
     selectionMode?: boolean;
     onlyImage?: boolean;
     selectMedia?: (file: File) => any;
@@ -62,9 +62,9 @@ const Library = ({
     sidebarFileState,
     apiEndpoints,
     mediaTranslations,
+    mediaTypes,
     globalEdit,
     expertMode,
-    allowedMediaTypes,
     selectionMode,
     onlyImage,
     showMessage,
@@ -320,7 +320,7 @@ const Library = ({
                             directory={directory}
                             mediaTranslations={mediaTranslations}
                             apiEndpoints={apiEndpoints}
-                            allowedMediaTypes={allowedMediaTypes}
+                            mediaTypes={mediaTypes}
                             submitForm={submitForm}
                             setUploadFile={setUploadFile}
                             isLoading={isLoading}
