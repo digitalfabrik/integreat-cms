@@ -66,14 +66,13 @@ window.addEventListener("load", () => {
     if (recurrenceEndData) {
         recurrenceEndData.addEventListener("click", ({ target }) => {
             const recurrenceEnd = document.getElementById("recurrence-end");
-            if ((target as HTMLInputElement).checked){
+            if ((target as HTMLInputElement).checked) {
                 const dateInputField = recurrenceEnd.querySelector("input");
                 dateInputField.required = true;
                 if (!dateInputField.getAttribute("value")) {
                     dateInputField.value = "";
                 }
-            }
-            else{
+            } else {
                 const dateInputField = recurrenceEnd.querySelector("input");
                 dateInputField.removeAttribute("required");
                 if (!dateInputField.getAttribute("value")) {
