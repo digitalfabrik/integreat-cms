@@ -73,6 +73,8 @@ rm -rf .venv.tmp
 
 # Install updated versions in the real venv
 if [[ -d ".venv" ]]; then
+    # Activate virtual environment
+    source .venv/bin/activate
     # shellcheck disable=SC2102
     pip install -e .[dev-pinned,pinned]
 else
