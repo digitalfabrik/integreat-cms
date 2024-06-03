@@ -13,7 +13,7 @@ repos:
       - id: mixed-line-ending
       - id: trailing-whitespace
         args: ["--markdown-linebreak-ext=md,markdown"]
-        exclude: .github/PULL_REQUEST_TEMPLATE.md
+        exclude: .github/PULL_REQUEST_TEMPLATE.md|tests/cms/views/dashboard/expected_output/chat.html
       - id: no-commit-to-branch
         args: [--branch, main, --branch, develop]
   - repo: https://github.com/astral-sh/ruff-pre-commit
@@ -37,7 +37,7 @@ repos:
     rev: v1.34.1
     hooks:
       - id: djlint-django
-        args: [--reformat, --lint]
+        args: [--reformat, --lint, --exclude, tests/cms/views/dashboard/expected_output]
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: v9.0.0-alpha.2
     hooks:
