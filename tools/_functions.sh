@@ -310,10 +310,21 @@ function migrate_database {
 
 # This function waits for the docker database container
 function wait_for_docker_container {
+    # Set flags based on operating system because the t flag does not work on macOS
+    if [[ "$(uname)" == "Darwin" ]]; then
+        DOCKER_EXEC_FLAGS="-i"
+    else
+        DOCKER_EXEC_FLAGS="-it"
+    fi
+
+    echo "Waiting for Docker container ${DOCKER_CONTAINER_NAME} to be ready..."
     # Wait until container is ready and accepts database connections
-    until docker exec -it "${DOCKER_CONTAINER_NAME}" psql -U integreat -d integreat -c "select 1" > /dev/null 2>&1; do
+    until docker exec ${DOCKER_EXEC_FLAGS} "${DOCKER_CONTAINER_NAME}" psql -U integreat -d integreat -c "select 1" > /dev/null 2>&1; do
+        echo "Container not ready yet, sleeping..."
         sleep 0.1
     done
+
+    echo "Docker container ${DOCKER_CONTAINER_NAME} is ready!"
 }
 
 # This function creates a new postgres database docker container
