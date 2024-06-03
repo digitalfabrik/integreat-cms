@@ -317,14 +317,14 @@ function wait_for_docker_container {
         DOCKER_EXEC_FLAGS="-it"
     fi
 
-    echo "Waiting for Docker container ${DOCKER_CONTAINER_NAME} to be ready..."
+    echo "Waiting for Docker container ${DOCKER_CONTAINER_NAME} to be ready..." | print_info
     # Wait until container is ready and accepts database connections
     until docker exec ${DOCKER_EXEC_FLAGS} "${DOCKER_CONTAINER_NAME}" psql -U integreat -d integreat -c "select 1" > /dev/null 2>&1; do
-        echo "Container not ready yet, sleeping..."
+        echo "Container not ready yet, sleeping..." | print_info
         sleep 0.1
     done
 
-    echo "Docker container ${DOCKER_CONTAINER_NAME} is ready!"
+    echo "Docker container ${DOCKER_CONTAINER_NAME} is ready!" | print_success
 }
 
 # This function creates a new postgres database docker container
