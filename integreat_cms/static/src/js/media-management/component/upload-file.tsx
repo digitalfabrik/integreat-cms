@@ -14,7 +14,7 @@ type Props = {
     setUploadFile: StateUpdater<boolean>;
     apiEndpoints: MediaApiPaths;
     mediaTranslations: any;
-    mediaTypes: any;
+    mediaTypes: { allowedMediaTypes: string };
     submitForm: (event: Event, successCallback: () => void) => any;
     /* eslint-disable-next-line react/no-unused-prop-types */
     isLoading: boolean;

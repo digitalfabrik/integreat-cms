@@ -82,7 +82,7 @@ type Props = {
     onlyImage?: boolean;
     globalEdit?: boolean;
     expertMode?: boolean;
-    mediaTypes: any;
+    mediaTypes: { allowedMediaTypes: string };
     selectionMode?: boolean;
     selectMedia?: (file: File) => any;
     canDeleteFile: boolean;

@@ -13,7 +13,7 @@ type Props = {
     selectMedia: (file: File) => any;
     apiEndpoints: MediaApiPaths;
     mediaTranslations: any;
-    mediaTypes: any;
+    mediaTypes: { allowedMediaTypes: string };
     canDeleteFile: boolean;
     canReplaceFile: boolean;
     canDeleteDirectory: boolean;

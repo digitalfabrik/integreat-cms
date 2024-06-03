@@ -35,7 +35,7 @@ export type LibraryProps = {
     mediaTranslations: any;
     globalEdit?: boolean;
     expertMode?: boolean;
-    mediaTypes: any;
+    mediaTypes: { allowedMediaTypes: string };
     selectionMode?: boolean;
     onlyImage?: boolean;
     selectMedia?: (file: File) => any;
