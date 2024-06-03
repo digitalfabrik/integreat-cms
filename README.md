@@ -58,10 +58,6 @@ A known limitation exists where certain versions of Visual Studio Code (VSCode) 
 
 For more information, refer to [this issue](https://github.com/microsoft/vscode-remote-release/issues/1729) in the VSCode Remote Extension repository.
 
-##### Test discovery 
-
-Testing is not yet fully integrated into our Visual Studio Code Container, but we provide convenient task definitions to facilitate testing. For example, you can simply type `task current python test` and hit enter to run the current Python test file. Take a look at the `.vscode/tasks.json` for more helpful tasks and extend this file as needed.
-
 ##### Docker permissions
 
 The user must be in the docker group on linux, VSCode does not allow to optionally enter sudo password.
