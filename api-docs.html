@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-02-13T16:23:45+00:00" />
+    <meta property="article:modified_time" content="2024-06-05T16:58:00+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API Documentation &mdash; integreat-cms 2024.5.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -116,6 +116,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.api.v3.html#pdf-export">PDF Export</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.api.v3.html#push-notifications">Push Notifications</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.api.v3.html#regions">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.api.v3.html#social-media-headers">Social Media Headers</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.api.html#apps">Apps</a></li>
@@ -407,6 +408,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.api.html#test-api-feedback">Test API Feedback</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.api.html#test-api-push-page">Test API Push Page</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.api.html#test-api-result">Test API Result</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/tests.api.html#test-api-social">Test API Social</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/tests.cms.html">CMS</a><ul>
@@ -494,114 +496,119 @@
 <li class="toctree-l3"><a class="reference internal" href="#id2">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#languages">Languages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#social-media">Social Media</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id3">REQUEST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id4">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#offers-extras">Offers / Extras</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#languages">Languages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id5">REQUEST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id6">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#pages">Pages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#offers-extras">Offers / Extras</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id7">REQUEST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id8">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#locations">Locations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pages">Pages</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id9">REQUEST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id10">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#location-categories">Location Categories</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#locations">Locations</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id11">REQUEST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id12">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#events">Events</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#location-categories">Location Categories</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id13">REQUEST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id14">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#single-page">Single Page</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#events">Events</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id15">REQUEST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id16">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#page-children">Page Children</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#single-page">Single Page</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id17">REQUEST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id18">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#page-parents">Page Parents</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#page-children">Page Children</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id19">REQUEST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id20">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#pdf">PDF</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#page-parents">Page Parents</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id21">REQUEST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id22">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#fcm">FCM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#pdf">PDF</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id23">REQUEST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id24">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#imprint-disclaimer">Imprint / Disclaimer</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fcm">FCM</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id25">REQUEST</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id26">Response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id26">RESPONSE</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#push-page-content">Push Page Content</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#imprint-disclaimer">Imprint / Disclaimer</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id27">REQUEST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id28">Response</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#push-page-content">Push Page Content</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id29">REQUEST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id30">Response</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#feedback">Feedback</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#legacy-endpoint-for-page-event-disclaimer">Legacy-Endpoint for Page/Event/Disclaimer</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id29">REQUEST</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#categories">Categories</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id30">REQUEST</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#page">Page</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id31">REQUEST</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#poi">POI</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#categories">Categories</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id32">REQUEST</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#event">Event</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#page">Page</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id33">REQUEST</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#id34">Events</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#poi">POI</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id34">REQUEST</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#event">Event</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id35">REQUEST</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#imprint-page">Imprint Page</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id36">REQUEST</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#map">Map</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id36">Events</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id37">REQUEST</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#search">Search</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#imprint-page">Imprint Page</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id38">REQUEST</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#offers">Offers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#map">Map</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id39">REQUEST</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#offer">Offer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#search">Search</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#id40">REQUEST</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#offers">Offers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id41">REQUEST</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#offer">Offer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id42">REQUEST</a></li>
 </ul>
 </li>
 </ul>
@@ -629,6 +636,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.pdf_export">PDF Export</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.push_notifications">Push Notifications</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.regions">Regions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.social_media_headers">Social Media Headers</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.api.html#module-integreat_cms.api.apps">Apps</a><ul>
@@ -1036,6 +1044,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SERVER_EMAIL"><code class="docutils literal notranslate"><span class="pre">SERVER_EMAIL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SHORT_LINKS_URL"><code class="docutils literal notranslate"><span class="pre">SHORT_LINKS_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SITE_DOMAIN"><code class="docutils literal notranslate"><span class="pre">SITE_DOMAIN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.SOCIAL_PREVIEW_IMAGE"><code class="docutils literal notranslate"><span class="pre">SOCIAL_PREVIEW_IMAGE</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.STATICFILES_DIRS"><code class="docutils literal notranslate"><span class="pre">STATICFILES_DIRS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.STATICFILES_FINDERS"><code class="docutils literal notranslate"><span class="pre">STATICFILES_FINDERS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.STATIC_ROOT"><code class="docutils literal notranslate"><span class="pre">STATIC_ROOT</span></code></a></li>
@@ -1316,6 +1325,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.api.html#module-tests.api.test_api_result">Test API Result</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_result.test_api_result"><code class="docutils literal notranslate"><span class="pre">test_api_result()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.api.html#module-tests.api.test_api_social">Test API Social</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_social.test_api_result"><code class="docutils literal notranslate"><span class="pre">test_api_result()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1736,84 +1749,85 @@
 <li class="toctree-l2"><a class="reference internal" href="release-notes.html#id5">2024.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release-notes.html#id6">2024.2.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release-notes.html#id7">2024.1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id8">2023.12.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id9">2023.11.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id10">2023.10.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id11">2023.10.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id12">2023.10.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id13">2023.9.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id14">2023.9.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id15">2023.8.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id16">2023.7.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id17">2023.7.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id18">2023.7.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id19">2023.5.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id20">2023.5.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id21">2023.5.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id22">2023.5.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id23">2023.5.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id24">2023.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id25">2023.4.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id26">2023.4.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id27">2023.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id28">2023.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id29">2023.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id30">2023.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id31">2023.2.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id32">2023.2.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id33">2023.2.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id34">2023.1.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id35">2023.1.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id36">2023.1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id37">2022.12.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id38">2022.12.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id39">2022.12.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id40">2022.12.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id41">2022.11.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id42">2022.11.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id43">2022.11.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id44">2022.11.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id45">2022.11.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id46">2022.10.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id47">2022.10.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id48">2022.10.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id49">2022.9.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id50">2022.9.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id51">2022.9.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id52">2022.9.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id53">2022.9.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id54">2022.9.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id55">2022.8.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id56">2022.8.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id57">2022.8.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id58">2022.8.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id59">2022.7.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id60">2022.6.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id61">2022.6.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id62">2022.6.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id63">2022.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id64">2022.5.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id65">2022.5.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id66">2022.5.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id67">2022.5.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id68">2022.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id69">2022.4.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id70">2022.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id71">2022.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id72">2022.3.6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id73">2022.3.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id74">2022.3.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id75">2022.3.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id76">2022.3.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id77">2022.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id78">2022.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id79">2022.2.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id80">2022.2.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id81">2022.2.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id82">2022.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id8">unreleased</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id9">2023.12.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id10">2023.11.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id11">2023.10.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id12">2023.10.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id13">2023.10.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id14">2023.9.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id15">2023.9.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id16">2023.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id17">2023.7.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id18">2023.7.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id19">2023.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id20">2023.5.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id21">2023.5.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id22">2023.5.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id23">2023.5.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id24">2023.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id25">2023.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id26">2023.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id27">2023.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id28">2023.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id29">2023.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id30">2023.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id31">2023.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id32">2023.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id33">2023.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id34">2023.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id35">2023.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id36">2023.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id37">2023.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id38">2022.12.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id39">2022.12.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id40">2022.12.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id41">2022.12.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id42">2022.11.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id43">2022.11.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id44">2022.11.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id45">2022.11.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id46">2022.11.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id47">2022.10.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id48">2022.10.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id49">2022.10.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id50">2022.9.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id51">2022.9.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id52">2022.9.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id53">2022.9.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id54">2022.9.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id55">2022.9.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id56">2022.8.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id57">2022.8.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id58">2022.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id59">2022.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id60">2022.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id61">2022.6.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id62">2022.6.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id63">2022.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id64">2022.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id65">2022.5.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id66">2022.5.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id67">2022.5.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id68">2022.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id69">2022.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id70">2022.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id71">2022.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id72">2022.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id73">2022.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id74">2022.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id75">2022.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id76">2022.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id77">2022.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id78">2022.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id79">2022.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id80">2022.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id81">2022.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id82">2022.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id83">2022.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="release-notes.html#beta">2022.2.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id83">2021.12.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id84">2021.11.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id84">2021.12.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-notes.html#id85">2021.11.0-beta</a></li>
 </ul>
 </li>
 </ul>
@@ -2007,12 +2021,42 @@
 <p>A single object following the layout of <a class="reference internal" href="#api-regions"><span class="std std-ref">Regions</span></a></p>
 </section>
 </section>
+<section id="social-media">
+<h2>Social Media<a class="headerlink" href="#social-media" title="Link to this heading"></a></h2>
+<p>Get social media headers for a frontend url</p>
+<section id="id3">
+<h3>REQUEST<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<p>Get the social media headers for a frontend url.
+The absolute url is the <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/What_is_a_URL#path_to_resource">path to resource</a> of the frontent url</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/social/{absolute_url}/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+</pre></div>
+</div>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/social/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>RESPONSE<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<p>Rendered HTML that contains social media headers describing the object of the given url.
+Please keep in mind that the response contains partial <code class="docutils literal notranslate"><span class="pre">&lt;html&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;head&gt;</span></code> tags to allow the response to contain a language attribute in the root tag.
+This needs to be equalized in the server-side include e.g. as follows:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="cm">&lt;!-- Nginx Server Side Include template for dynamic social media previews --&gt;</span>
+<span class="cm">&lt;!--# if expr=&quot;$render_title = yes&quot; --&gt;</span>
+<span class="cm">&lt;!--# include virtual=&quot;/proxy/socialmeta/$request_uri&quot; --&gt;</span>
+<span class="cm">&lt;!--# else --&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="cm">&lt;!--# endif --&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
 <section id="languages">
 <h2>Languages<a class="headerlink" href="#languages" title="Link to this heading"></a></h2>
 <p>Get all available languages of a region
 (this endpoint is deprecated, you can directly use the <code class="docutils literal notranslate"><span class="pre">languages</span></code> attribute of the region response)</p>
-<section id="id3">
-<h3>REQUEST<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<section id="id5">
+<h3>REQUEST<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/languages/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2021,8 +2065,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id4">
-<h3>RESPONSE<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<section id="id6">
+<h3>RESPONSE<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span>
@@ -2040,8 +2084,8 @@
 <section id="offers-extras">
 <h2>Offers / Extras<a class="headerlink" href="#offers-extras" title="Link to this heading"></a></h2>
 <p>Get all enabled offers (also called extras) for a specific region</p>
-<section id="id5">
-<h3>REQUEST<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<section id="id7">
+<h3>REQUEST<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <p>The language slug, if specified, will be ignored</p>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{offers/extras}/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
@@ -2051,8 +2095,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id6">
-<h3>RESPONSE<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<section id="id8">
+<h3>RESPONSE<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">  </span><span class="p">{</span>
 <span class="w">    </span><span class="s2">&quot;name&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">         </span><span class="c1">// name of offer</span>
@@ -2070,8 +2114,8 @@
 <section id="pages">
 <span id="api-pages"></span><h2>Pages<a class="headerlink" href="#pages" title="Link to this heading"></a></h2>
 <p>Get all non-archived pages of a region</p>
-<section id="id7">
-<h3>REQUEST<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<section id="id9">
+<h3>REQUEST<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/pages/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2080,8 +2124,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id8">
-<h3>RESPONSE<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<section id="id10">
+<h3>RESPONSE<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">   </span><span class="p">{</span>
 <span class="w">      </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span><span class="w">                 </span><span class="c1">// The id of the page</span>
@@ -2135,8 +2179,8 @@
 <section id="locations">
 <h2>Locations<a class="headerlink" href="#locations" title="Link to this heading"></a></h2>
 <p>Get all location translations of a region</p>
-<section id="id9">
-<h3>REQUEST<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<section id="id11">
+<h3>REQUEST<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/locations/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2145,8 +2189,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id10">
-<h3>RESPONSE<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<section id="id12">
+<h3>RESPONSE<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">   </span><span class="p">{</span>
 <span class="w">      </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span><span class="w">                   </span><span class="c1">// The id of this location</span>
@@ -2226,8 +2270,8 @@
 <section id="location-categories">
 <h2>Location Categories<a class="headerlink" href="#location-categories" title="Link to this heading"></a></h2>
 <p>Get all location categories</p>
-<section id="id11">
-<h3>REQUEST<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<section id="id13">
+<h3>REQUEST<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/location-categories/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2236,8 +2280,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id12">
-<h3>RESPONSE<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<section id="id14">
+<h3>RESPONSE<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">   </span><span class="p">{</span>
 <span class="w">      </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="p">,</span><span class="w">        </span><span class="c1">// The id of the category</span>
@@ -2255,8 +2299,8 @@
 <section id="events">
 <h2>Events<a class="headerlink" href="#events" title="Link to this heading"></a></h2>
 <p>Get events for this region</p>
-<section id="id13">
-<h3>REQUEST<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<section id="id15">
+<h3>REQUEST<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/events/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2265,8 +2309,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id14">
-<h3>RESPONSE<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<section id="id16">
+<h3>RESPONSE<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
 <span class="w">   </span><span class="p">{</span>
 <span class="w">      </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">               </span><span class="c1">// The id of this event, null if this is a recurrence of an event</span>
@@ -2323,8 +2367,8 @@
 <section id="single-page">
 <h2>Single Page<a class="headerlink" href="#single-page" title="Link to this heading"></a></h2>
 <p>Get a single page translation</p>
-<section id="id15">
-<h3>REQUEST<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<section id="id17">
+<h3>REQUEST<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/page/?id={page_id}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2339,8 +2383,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id16">
-<h3>RESPONSE<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<section id="id18">
+<h3>RESPONSE<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
 <p>A single object following the layout of <a class="reference internal" href="#api-pages"><span class="std std-ref">Pages</span></a></p>
 </section>
 </section>
@@ -2349,8 +2393,8 @@
 <p>Get the child pages of a specific page, or the child pages for all root pages in the region.
 If the id and url parameters are left out, the page children of all root pages will be returned.
 If the depth parameter is left out, only the direct children (depth 1) will be returned</p>
-<section id="id17">
-<h3>REQUEST<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<section id="id19">
+<h3>REQUEST<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/children/?id={page_id}&amp;depth={depth}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2365,8 +2409,8 @@ If the depth parameter is left out, only the direct children (depth 1) will be r
 </pre></div>
 </div>
 </section>
-<section id="id18">
-<h3>RESPONSE<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
+<section id="id20">
+<h3>RESPONSE<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
 <p>Returns a list of pages, as defined at <a class="reference internal" href="#api-pages"><span class="std std-ref">Pages</span></a>.
 This contains the queried page(s).</p>
 </section>
@@ -2374,8 +2418,8 @@ This contains the queried page(s).</p>
 <section id="page-parents">
 <h2>Page Parents<a class="headerlink" href="#page-parents" title="Link to this heading"></a></h2>
 <p>Get all parents for a specific page</p>
-<section id="id19">
-<h3>REQUEST<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
+<section id="id21">
+<h3>REQUEST<a class="headerlink" href="#id21" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/parents/?id={page_id}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2390,8 +2434,8 @@ This contains the queried page(s).</p>
 </pre></div>
 </div>
 </section>
-<section id="id20">
-<h3>RESPONSE<a class="headerlink" href="#id20" title="Link to this heading"></a></h3>
+<section id="id22">
+<h3>RESPONSE<a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
 <p>Returns a list of pages, as defined at <a class="reference internal" href="#api-pages"><span class="std std-ref">Pages</span></a>.
 This does not contain the queried page.</p>
 </section>
@@ -2400,8 +2444,8 @@ This does not contain the queried page.</p>
 <h2>PDF<a class="headerlink" href="#pdf" title="Link to this heading"></a></h2>
 <p>Export page translations as pdf.
 If the url parameter is left out, a pdf containing all root pages of the region will be returned</p>
-<section id="id21">
-<h3>REQUEST<a class="headerlink" href="#id21" title="Link to this heading"></a></h3>
+<section id="id23">
+<h3>REQUEST<a class="headerlink" href="#id23" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/pdf/?url={page_url}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2413,16 +2457,16 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 </pre></div>
 </div>
 </section>
-<section id="id22">
-<h3>RESPONSE<a class="headerlink" href="#id22" title="Link to this heading"></a></h3>
+<section id="id24">
+<h3>RESPONSE<a class="headerlink" href="#id24" title="Link to this heading"></a></h3>
 <p>A redirect to the pdf url</p>
 </section>
 </section>
 <section id="fcm">
 <h2>FCM<a class="headerlink" href="#fcm" title="Link to this heading"></a></h2>
 <p>Get all sent push notifications for this region</p>
-<section id="id23">
-<h3>REQUEST<a class="headerlink" href="#id23" title="Link to this heading"></a></h3>
+<section id="id25">
+<h3>REQUEST<a class="headerlink" href="#id25" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/fcm/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2431,8 +2475,8 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 </pre></div>
 </div>
 </section>
-<section id="id24">
-<h3>RESPONSE<a class="headerlink" href="#id24" title="Link to this heading"></a></h3>
+<section id="id26">
+<h3>RESPONSE<a class="headerlink" href="#id26" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">   </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">            </span><span class="c1">// The id of the push notification translation</span>
 <span class="w">   </span><span class="s2">&quot;title&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">         </span><span class="c1">// The title of the push notification in the given language</span>
@@ -2448,8 +2492,8 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 <section id="imprint-disclaimer">
 <h2>Imprint / Disclaimer<a class="headerlink" href="#imprint-disclaimer" title="Link to this heading"></a></h2>
 <p>Get the imprint (Also named disclaimer) for the given region in the given language</p>
-<section id="id25">
-<h3>REQUEST<a class="headerlink" href="#id25" title="Link to this heading"></a></h3>
+<section id="id27">
+<h3>REQUEST<a class="headerlink" href="#id27" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/{imprint,disclaimer}/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2458,8 +2502,8 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 </pre></div>
 </div>
 </section>
-<section id="id26">
-<h3>Response<a class="headerlink" href="#id26" title="Link to this heading"></a></h3>
+<section id="id28">
+<h3>Response<a class="headerlink" href="#id28" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">   </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Number</span><span class="w">              </span><span class="c1">// The id of the imprint</span>
 <span class="w">   </span><span class="s2">&quot;url&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">            </span><span class="c1">// The url of the imprint</span>
@@ -2488,8 +2532,8 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 <section id="push-page-content">
 <h2>Push Page Content<a class="headerlink" href="#push-page-content" title="Link to this heading"></a></h2>
 <p>Update a page translation</p>
-<section id="id27">
-<h3>REQUEST<a class="headerlink" href="#id27" title="Link to this heading"></a></h3>
+<section id="id29">
+<h3>REQUEST<a class="headerlink" href="#id29" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/pushpage</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
 </pre></div>
@@ -2507,8 +2551,8 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 </pre></div>
 </div>
 </section>
-<section id="id28">
-<h3>Response<a class="headerlink" href="#id28" title="Link to this heading"></a></h3>
+<section id="id30">
+<h3>Response<a class="headerlink" href="#id30" title="Link to this heading"></a></h3>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">   </span><span class="s2">&quot;status&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w"> </span><span class="c1">// &quot;success&quot;, &quot;error&quot;, &quot;denied&quot;</span>
 <span class="p">}</span>
@@ -2523,8 +2567,8 @@ If the url parameter is left out, a pdf containing all root pages of the region 
 <p>This is a legacy endpoint. Use the endpoints for page, event, imprint
 page resp. Feedback about a single page, event or imprint (also
 called “disclaimer”)</p>
-<section id="id29">
-<h4>REQUEST<a class="headerlink" href="#id29" title="Link to this heading"></a></h4>
+<section id="id31">
+<h4>REQUEST<a class="headerlink" href="#id31" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2548,8 +2592,8 @@ called “disclaimer”)</p>
 <section id="categories">
 <h3>Categories<a class="headerlink" href="#categories" title="Link to this heading"></a></h3>
 <p>Feedback for regions</p>
-<section id="id30">
-<h4>REQUEST<a class="headerlink" href="#id30" title="Link to this heading"></a></h4>
+<section id="id32">
+<h4>REQUEST<a class="headerlink" href="#id32" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/categories</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2572,8 +2616,8 @@ called “disclaimer”)</p>
 <section id="page">
 <h3>Page<a class="headerlink" href="#page" title="Link to this heading"></a></h3>
 <p>Feedback about a single page</p>
-<section id="id31">
-<h4>REQUEST<a class="headerlink" href="#id31" title="Link to this heading"></a></h4>
+<section id="id33">
+<h4>REQUEST<a class="headerlink" href="#id33" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/page</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2597,8 +2641,8 @@ called “disclaimer”)</p>
 <section id="poi">
 <h3>POI<a class="headerlink" href="#poi" title="Link to this heading"></a></h3>
 <p>Feedback about a point of interest</p>
-<section id="id32">
-<h4>REQUEST<a class="headerlink" href="#id32" title="Link to this heading"></a></h4>
+<section id="id34">
+<h4>REQUEST<a class="headerlink" href="#id34" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/poi</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2622,8 +2666,8 @@ called “disclaimer”)</p>
 <section id="event">
 <h3>Event<a class="headerlink" href="#event" title="Link to this heading"></a></h3>
 <p>Feedback about an event</p>
-<section id="id33">
-<h4>REQUEST<a class="headerlink" href="#id33" title="Link to this heading"></a></h4>
+<section id="id35">
+<h4>REQUEST<a class="headerlink" href="#id35" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/event</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2644,11 +2688,11 @@ called “disclaimer”)</p>
 </div>
 </section>
 </section>
-<section id="id34">
-<h3>Events<a class="headerlink" href="#id34" title="Link to this heading"></a></h3>
+<section id="id36">
+<h3>Events<a class="headerlink" href="#id36" title="Link to this heading"></a></h3>
 <p>Feedback about the event list (E.g. missing events)</p>
-<section id="id35">
-<h4>REQUEST<a class="headerlink" href="#id35" title="Link to this heading"></a></h4>
+<section id="id37">
+<h4>REQUEST<a class="headerlink" href="#id37" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/events</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2672,8 +2716,8 @@ called “disclaimer”)</p>
 <section id="imprint-page">
 <h3>Imprint Page<a class="headerlink" href="#imprint-page" title="Link to this heading"></a></h3>
 <p>Feedback about an imprint page</p>
-<section id="id36">
-<h4>REQUEST<a class="headerlink" href="#id36" title="Link to this heading"></a></h4>
+<section id="id38">
+<h4>REQUEST<a class="headerlink" href="#id38" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/imprint-page</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2696,8 +2740,8 @@ called “disclaimer”)</p>
 <section id="map">
 <h3>Map<a class="headerlink" href="#map" title="Link to this heading"></a></h3>
 <p>Feedback about the map (E.g. missing points of interest)</p>
-<section id="id37">
-<h4>REQUEST<a class="headerlink" href="#id37" title="Link to this heading"></a></h4>
+<section id="id39">
+<h4>REQUEST<a class="headerlink" href="#id39" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/map</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2720,8 +2764,8 @@ called “disclaimer”)</p>
 <section id="search">
 <h3>Search<a class="headerlink" href="#search" title="Link to this heading"></a></h3>
 <p>Feedback about a search result</p>
-<section id="id38">
-<h4>REQUEST<a class="headerlink" href="#id38" title="Link to this heading"></a></h4>
+<section id="id40">
+<h4>REQUEST<a class="headerlink" href="#id40" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/search</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2745,8 +2789,8 @@ called “disclaimer”)</p>
 <section id="offers">
 <h3>Offers<a class="headerlink" href="#offers" title="Link to this heading"></a></h3>
 <p>Feedback about the offer list (E.g. missing offers)</p>
-<section id="id39">
-<h4>REQUEST<a class="headerlink" href="#id39" title="Link to this heading"></a></h4>
+<section id="id41">
+<h4>REQUEST<a class="headerlink" href="#id41" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/{offers,extras}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2769,8 +2813,8 @@ called “disclaimer”)</p>
 <section id="offer">
 <h3>Offer<a class="headerlink" href="#offer" title="Link to this heading"></a></h3>
 <p>Feedback to a specific offer (also called “extra”)</p>
-<section id="id40">
-<h4>REQUEST<a class="headerlink" href="#id40" title="Link to this heading"></a></h4>
+<section id="id42">
+<h4>REQUEST<a class="headerlink" href="#id42" title="Link to this heading"></a></h4>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/feedback/{offer,extra}</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 <span class="na">Content-Type</span><span class="o">:</span> <span class="l">multipart/form-data or application/x-www-form-urlencoded</span>
 </pre></div>
@@ -2809,7 +2853,7 @@ called “disclaimer”)</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Feb 13, 2024.
+      <span class="lastupdated">Last updated on Jun 05, 2024.
       </span></p>
   </div>
 
