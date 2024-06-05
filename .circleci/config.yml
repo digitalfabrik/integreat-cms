@@ -210,6 +210,17 @@ jobs:
       - run:
           name: Check formatting of CSS & JS files
           command: npx prettier --check .
+  vitest:
+    docker:
+      - image: "cimg/node:lts"
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run frontend tests
+          command: npm run test
   eslint:
     docker:
       - image: "cimg/node:lts"
@@ -607,6 +618,9 @@ workflows:
             branches:
               ignore: main
       - prettier:
+          requires:
+            - npm-install
+      - vitest:
           requires:
             - npm-install
       - webpack:
