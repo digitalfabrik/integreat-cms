@@ -480,6 +480,8 @@ class CancelTranslationProcess(BulkActionView):
             if "error" in cancelation_response.content:
                 messages.error(request=request, message=cancelation_response["error"])
             elif "succes" in cancelation_response.content:
-                messages.success(request=request, message=cancelation_response["success"])
+                messages.success(
+                    request=request, message=cancelation_response["success"]
+                )
 
         return super().post(request, *args, **kwargs)
