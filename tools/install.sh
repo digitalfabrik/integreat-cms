@@ -54,7 +54,7 @@ if [[ ! -x "$(command -v pip3)" ]]; then
     echo "Pip for Python3 is not installed. Please install python3-pip manually and run this script again."  | print_error
     exit 1
 fi
-# Check if postgres instance is running on host system or database backend is installed 
+# Check if postgres instance is running on host system or database backend is installed
 if ! { [[ -x "$(command -v docker)" ]] || [[ -x "$(command -v psql)" ]] || nc -z localhost 5432 > /dev/null 2>&1; }; then
     echo "In order to run the database, you need either Docker (recommended) or PostgreSQL. Please install at least one of them manually and run this script again."
     exit 1
