@@ -378,6 +378,8 @@ exclude_also = [
 [tool.djlint]
 profile="django"
 line_break_after_multiline_tag=true
+# exclude invalid html files until this is resolved https://github.com/djlint/djLint/issues/703
+exclude = "integreat_cms/api/v3/templates/"
 
 [tool.isort]
 profile = "black"
@@ -522,6 +524,7 @@ max-complexity = 23  # default is 10
 "__init__.py" = ["F401", "F403"]
 "docs/src/conf.py" = ["A001"]
 "integreat_cms/api/v3/*" = ["PERF401"]
+"integreat_cms/api/v3/social_media_headers.py" = ["FIX002"]
 "integreat_cms/cms/forms/custom_model_form.py" = ["G003", "PERF401"]
 "integreat_cms/cms/forms/linkcheck/link_replace_form.py" = ["W605"]
 "integreat_cms/cms/forms/pages/page_form.py" = ["PLR5501"]
