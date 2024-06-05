@@ -458,20 +458,28 @@ class CancelTranslationProcess(BulkActionView):
 
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
-        Function to cancel the translation process for all pages of the current language at once
+        Function to cancel the translation process for multiple pages of the current language at once
 
         :param request: The current request
         :param \*args: The supplied arguments
         :param \**kwargs: The supplied keyword arguments
         :return: The redirect
         """
+        cancelation_succeed = []
+        cancalation_failed = []
+        cancelation_not_possible_bc_not_in_translation = []
         language_slug = kwargs["language_slug"]
+
         for content_object in self.get_queryset():
-            cancel_translation_process_ajax(
+            cancelation_response = cancel_translation_process_ajax(
                 request,
                 region_slug=content_object.region,
                 language_slug=language_slug,
                 page_id=content_object.id,
             )
+            if "error" in cancelation_response.content:
+                messages.error(request=request, message=cancelation_response["error"])
+            elif "succes" in cancelation_response.content:
+                messages.success(request=request, message=cancelation_response["success"])
 
         return super().post(request, *args, **kwargs)
