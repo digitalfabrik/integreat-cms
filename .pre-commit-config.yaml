@@ -64,6 +64,14 @@ repos:
         types_or: [python, html]
         language: script
         pass_filenames: false
+  - repo: local
+    hooks:
+      - id: frontend-tests
+        name: frontend-tests
+        description: Run frontend tests
+        entry: tools/vitest.sh
+        language: script
+        pass_filenames: false
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.8.0
     hooks:
