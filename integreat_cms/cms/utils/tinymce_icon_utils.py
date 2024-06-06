@@ -1,6 +1,7 @@
 """
 This file contains utilities related to icons in the tinymce editor
 """
+
 from __future__ import annotations
 
 from django.conf import settings

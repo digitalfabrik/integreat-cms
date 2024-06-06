@@ -1,6 +1,7 @@
 """
 This file contains utility functions for recognizing and modifying internal links
 """
+
 from __future__ import annotations
 
 import logging
