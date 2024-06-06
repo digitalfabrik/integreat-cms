@@ -626,6 +626,12 @@ RESPONSE
       "timestamp": String,     // Deprecated field
       "last_updated": String,  // The date&time when the push notification was last updated
       "channel": String,       // The channel the push notification was sent to (e.g. "News")
+      "available_languages": [           // The available languages of the push notification
+            "<language_slug>": {
+               "id": Number | null,           // The id of the translation
+            },
+            ...
+         ]
    }
 
 
