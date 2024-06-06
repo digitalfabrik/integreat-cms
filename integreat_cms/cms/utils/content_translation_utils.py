@@ -4,7 +4,9 @@ This file contains utility functions for content translations.
 from __future__ import annotations
 
 import logging
+import operator
 from copy import deepcopy
+from functools import reduce
 from html import unescape
 from typing import TYPE_CHECKING
 from urllib.parse import unquote, urlparse
@@ -97,7 +99,7 @@ def get_cleaned_content(content_str: str, language_slug: str) -> str:
         relative_url = urlparse(image.attrib["src"]).path
         # Remove media url prefix if exists
         if relative_url.startswith(settings.MEDIA_URL):
-            relative_url = relative_url[len(settings.MEDIA_URL) :]
+            relative_url = relative_url[len(settings.MEDIA_URL):]
         # Check whether media file exists in database
         media_file = MediaFile.objects.filter(
             Q(file=relative_url) | Q(thumbnail=relative_url)
@@ -112,7 +114,7 @@ def get_cleaned_content(content_str: str, language_slug: str) -> str:
 
 
 def update_links_to(
-    content_translation: AbstractContentTranslation, user: User | None
+        content_translation: AbstractContentTranslation, user: User | None
 ) -> None:
     """
     Updates all content translations with links that point to the given translation.
@@ -122,7 +124,7 @@ def update_links_to(
     :param user: The user who should be responsible for updating the links
     """
     for outdated_content_translation in get_referencing_translations(
-        content_translation
+            content_translation
     ):
         # Assert that the related translation is not archived
         # Note that this should not be possible, since links to archived pages get deleted
@@ -148,7 +150,7 @@ def update_links_to(
 
 
 def get_referencing_translations(
-    content_translation: AbstractContentTranslation,
+        content_translation: AbstractContentTranslation,
 ) -> set[AbstractContentTranslation]:
     """
     Returns a list of content translations that link to the given translation
@@ -160,7 +162,12 @@ def get_referencing_translations(
 
     public_translation = content_translation.public_version
 
-    urls = (url for url in Url.objects.all() if url.internal)
+    translation_slugs = set(content_translation.all_versions.values_list("slug", flat=True))
+    translation_ids = set(content_translation.all_versions.values_list("id", flat=True))
+    logger.debug("Collecting links that contain %s or %s", translation_slugs, translation_ids)
+    filter_query = reduce(operator.or_, (Q(url__contains=slug) for slug in translation_slugs))
+    filter_query = filter_query | reduce(operator.or_, (Q(url__contains=str(uid)) for uid in translation_ids))
+    urls = (url for url in Url.objects.filter(filter_query) if url.internal)
     for url in urls:
         if linked_translation := get_public_translation_for_link(url.url):
             if linked_translation != public_translation:
