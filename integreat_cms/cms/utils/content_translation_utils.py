@@ -178,6 +178,7 @@ def get_referencing_translations(
 
     public_translation = content_translation.public_version
 
+    # To avoid searching every single url, filter for urls that contain a slug or id that the content translation has used
     translation_slugs = set(
         content_translation.all_versions.values_list("slug", flat=True)
     )
@@ -191,6 +192,7 @@ def get_referencing_translations(
     filter_query = filter_query | reduce(
         operator.or_, (Q(url__contains=str(uid)) for uid in translation_ids)
     )
+
     urls = (url for url in Url.objects.filter(filter_query) if url.internal)
     for url in urls:
         if linked_translation := get_public_translation_for_link(url.url):
