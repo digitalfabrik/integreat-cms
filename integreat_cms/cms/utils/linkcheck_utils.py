@@ -36,14 +36,12 @@ logger = logging.getLogger(__name__)
 def get_urls(
     region_slug: str | None = None,
     url_ids: Any | None = None,
-    prefetch_content_objects: bool = True,
 ) -> list[Url] | QuerySet[Url]:
     """
     Collect all the urls which appear in the latest versions of the contents of the region, filtered by ID or region if given.
 
     :param region_slug: The slug of the current region
     :param url_ids: The list of requested url ids
-    :param prefetch_content_objects: Whether or not content objects should be prefetched
     :return: The list (or queryset) of urls
     """
     urls = Url.objects.all()
@@ -54,8 +52,6 @@ def get_urls(
         region = Region.objects.get(slug=region_slug)
         region_links = get_region_links(region)
 
-        if prefetch_content_objects:
-            region_links = region_links.prefetch_related("content_object__language")
         # Prefetch all link objects of the requested region
         urls = (
             urls.filter(links__in=region_links)
@@ -68,8 +64,6 @@ def get_urls(
                 )
             )
         )
-    elif prefetch_content_objects:
-        urls = urls.prefetch_related("links__content_object")
     # Filter out ignored URL types
     if settings.LINKCHECK_IGNORED_URL_TYPES:
         urls = [
@@ -124,7 +118,7 @@ def get_url_count(region_slug: str | None = None) -> dict[str, int]:
     :param region_slug: The slug of the current region
     :return: A dictionary containing the counters of all remaining urls
     """
-    _, count_dict = filter_urls(region_slug=region_slug, prefetch_content_objects=False)
+    _, count_dict = filter_urls(region_slug=region_slug)
     return count_dict
 
 
@@ -132,7 +126,6 @@ def get_url_count(region_slug: str | None = None) -> dict[str, int]:
 def filter_urls(
     region_slug: str | None = None,
     url_filter: str | None = None,
-    prefetch_content_objects: bool = True,
 ) -> tuple[list[Url], dict[str, int]]:
     """
     Filter all urls of one region by the given category
@@ -140,12 +133,9 @@ def filter_urls(
     :param region_slug: The slug of the current region
     :param url_filter: Which urls should be returned (one of ``valid``, ``invalid``, ``ignored``, ``unchecked``).
                         If parameter is not in these choices or omitted, all urls are returned by default.
-    :param prefetch_content_objects: Whether or not content objects should be prefetched
     :return: A tuple of the requested urls and a dict containing the counters of all remaining urls
     """
-    urls = get_urls(
-        region_slug=region_slug, prefetch_content_objects=prefetch_content_objects
-    )
+    urls = get_urls(region_slug=region_slug)
     # Split url lists into their respective categories
     ignored_urls, valid_urls, invalid_urls, email_links, phone_links, unchecked_urls = (
         [] for _ in range(6)
