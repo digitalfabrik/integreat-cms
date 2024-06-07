@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # This script can be used to format the python code according to the black code style.
 
 # Import utility functions
@@ -7,6 +6,9 @@
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 require_installed
+
+# Run black as a pre-commit hook
+run_as_precommit "black" "$@"
 
 # Run black
 echo "Starting code formatting with black..." | print_info
