@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 
 if TYPE_CHECKING:
     from typing import Any
+
     from ...models import Region
 
 from ...models import Organization

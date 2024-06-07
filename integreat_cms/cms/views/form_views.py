@@ -15,9 +15,11 @@ from django.views.generic.edit import BaseCreateView, BaseUpdateView, ModelFormM
 
 if TYPE_CHECKING:
     from typing import Any
-    from django.http import HttpResponse, HttpResponseRedirect
-    from ..forms.custom_model_form import CustomModelForm
+
     from django.db.models.base import ModelBase
+    from django.http import HttpResponse, HttpResponseRedirect
+
+    from ..forms.custom_model_form import CustomModelForm
 
 from .media import MediaContextMixin
 from .mixins import ModelConfirmationContextMixin, ModelTemplateResponseMixin

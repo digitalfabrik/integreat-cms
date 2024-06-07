@@ -8,6 +8,7 @@ from django.db.models.fields import BLANK_CHOICE_DASH
 
 if TYPE_CHECKING:
     from django.db.models.query import QuerySet
+
     from ...models import User
 
 from django.utils.translation import gettext_lazy as _

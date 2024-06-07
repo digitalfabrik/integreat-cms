@@ -11,6 +11,7 @@ from ..utils.decorators import disable_for_loaddata
 
 if TYPE_CHECKING:
     from typing import Any
+
     from integreat_cms.cms.models.pages.page_translation import PageTranslation
 
 from ...cms.models import PageTranslation

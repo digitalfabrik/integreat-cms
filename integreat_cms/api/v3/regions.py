@@ -10,6 +10,7 @@ from django.http import Http404, JsonResponse
 
 if TYPE_CHECKING:
     from typing import Any
+
     from django.http import HttpRequest
 
 from ...cms.constants import region_status

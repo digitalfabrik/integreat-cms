@@ -256,7 +256,6 @@ dev-pinned = [
     "imagesize==1.4.1",
     "importlib_metadata==7.1.0",
     "iniconfig==2.0.0",
-    "isort==5.13.2",
     "jaraco.classes==3.4.0",
     "jaraco.context==5.3.0",
     "jaraco.functools==4.0.1",
@@ -382,10 +381,6 @@ line_break_after_multiline_tag=true
 # exclude invalid html files until this is resolved https://github.com/djlint/djLint/issues/703
 exclude = "integreat_cms/api/v3/templates/"
 
-[tool.isort]
-profile = "black"
-order_by_type = false
-
 [tool.pylint.main]
 jobs = 0
 load-plugins = [
@@ -453,6 +448,7 @@ target-version = "py311"
 
 [tool.ruff.lint]
 select = [
+  "I",      # isort
   "A",      # flake8-builtins
   "AIR",    # Airflow
   "ASYNC",  # flake8-async
@@ -496,7 +492,6 @@ select = [
   # "ERA",  # eradicate
   # "FBT",  # flake8-boolean-trap
   # "FURB", # refurb
-  # "I",    # isort
   # "N",    # pep8-naming
   # "PT",   # flake8-pytest-style
   # "PTH",  # flake8-use-pathlib
@@ -520,6 +515,9 @@ ignore = [
 
 [tool.ruff.lint.mccabe]
 max-complexity = 23  # default is 10
+
+[tool.ruff.lint.isort]
+order-by-type = false
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401", "F403"]

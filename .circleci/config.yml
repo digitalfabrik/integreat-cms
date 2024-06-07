@@ -60,20 +60,6 @@ jobs:
       - run:
           name: Check formatting of Django templates
           command: djlint --check --lint integreat_cms
-  isort:
-    docker:
-      - image: cimg/python:3.11.7
-    resource_class: small
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - run:
-          name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
-      - run:
-          name: Check isort code style
-          command: isort --check .
   pylint:
     docker:
       - image: cimg/python:3.11.7
@@ -685,9 +671,6 @@ workflows:
           requires:
             - pip-install
       - djlint:
-          requires:
-            - pip-install
-      - isort:
           requires:
             - pip-install
       - pylint:

@@ -11,7 +11,9 @@ from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
     from typing import Any, Literal
+
     from django.db.models.query import QuerySet
+
     from .abstract_content_model import AbstractContentModel
     from .regions.region import Region
 
