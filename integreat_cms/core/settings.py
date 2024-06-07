@@ -161,6 +161,11 @@ if BRANDING not in AVAILABLE_BRANDINGS:
 #: The readable title of the branding
 BRANDING_TITLE: Final[str] = AVAILABLE_BRANDINGS[BRANDING]
 
+#: Social media preview image
+SOCIAL_PREVIEW_IMAGE: Final[str] = os.environ.get(
+    "INTEGREAT_SOCIAL_PREVIEW_IMAGE",
+    f"static/logos/{BRANDING}/social-media-preview.png",
+)
 
 #: The default bounding box for regions with indistinct borders
 DEFAULT_BOUNDING_BOX: Final[BoundingBox] = BoundingBox(
@@ -418,7 +423,7 @@ ROOT_URLCONF: Final[str] = "integreat_cms.core.urls"
 TEMPLATES: Final[list[dict[str, str | list | bool | dict[str, list[str] | bool]]]] = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "api/v3/templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [

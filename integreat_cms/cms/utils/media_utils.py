@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import logging
 from io import BytesIO
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.core.files.uploadedfile import InMemoryUploadedFile
@@ -39,14 +40,16 @@ def generate_thumbnail(
         image = Image.open(original_image)
         # Save format, as this information will be lost when resizing the image
         image_format = image.format
+        if TYPE_CHECKING:
+            assert image_format
         if crop:
             # Get minimum of original size of the image because ImageOps.fit would otherwise increase the image size
             size = min(image.width, image.height, size)
             # Resize and crop the image into a square of at most the specified size.
-            image = ImageOps.fit(image, (size, size), method=Image.LANCZOS)
+            image = ImageOps.fit(image, (size, size), method=Image.LANCZOS)  # type: ignore[attr-defined]
         else:
             # Resize the image so that the longer side is at most the specified size
-            image.thumbnail((size, size), resample=Image.LANCZOS)
+            image.thumbnail((size, size), resample=Image.LANCZOS)  # type: ignore[attr-defined]
         # Write PIL image to BytesIO buffer
         buffer = BytesIO()
         # Use optimize option to reduce the image size. Higher quality parameter reduces compression
