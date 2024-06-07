@@ -370,6 +370,21 @@ function ensure_webpack_bundle_exists {
     echo "✔ Webpack bundle is in place" | print_success
 }
 
+function ensure_node_modules_exist {
+    if [ ! -d "node_modules" ]; then
+        echo "Missing node_modules - running npm install..." | print_info
+
+        if ! npm install > /dev/null 2>&1; then
+            echo "Error during npm install" | print_error
+            exit 1
+        fi
+
+        echo "✔ npm install completed successfully" | print_success
+    else
+        echo "✔ node_modules is in place" | print_info
+    fi
+}
+
 # This function makes sure a postgres database docker container is running
 function ensure_docker_container_running {
     # Make sure script has the permission to run docker
