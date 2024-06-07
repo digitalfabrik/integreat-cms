@@ -371,7 +371,7 @@ function ensure_webpack_bundle_exists {
 }
 
 function ensure_node_modules_exist {
-    if [ ! -d "node_modules" ]; then
+    if [ ! -d "${BASE_DIR}/node_modules" ]; then
         echo "Missing node_modules - running npm install..." | print_info
 
         if ! npm install > /dev/null 2>&1; then
