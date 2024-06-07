@@ -29,10 +29,11 @@ const parseSvg = (svgUrl: string): string => atob(svgUrl.replace("data:image/svg
 
 const insertIcon = (editor: Editor, tinymceConfig: HTMLElement, name: string): void => {
     const icon = tinymceConfig.getAttribute(`data-${name}-icon-src`);
-    editor.insertContent(`<img src="${icon}" style="width:15px; height:15px">`);
+    const alt = tinymceConfig.getAttribute(`data-${name}-icon-alt`);
+    editor.insertContent(`<img src="${icon}" alt="${alt}" style="width:15px; height:15px">`);
 };
 /* This function adds an icon which can be inserted in the content */
-const addIcon = (editor: Editor, tinymceConfig: HTMLElement, name: string, shortcut: string): void => {
+const addIcon = (editor: Editor, tinymceConfig: HTMLElement, name: string, alt: string, shortcut: string): void => {
     /* eslint-disable-next-line @typescript-eslint/no-var-requires, global-require, import/no-dynamic-require */
     editor.ui.registry.addIcon(name, parseSvg(require(`../../svg/${name}.svg`)));
     editor.ui.registry.addMenuItem(name, {
@@ -167,15 +168,15 @@ window.addEventListener("load", () => {
             element_format: "html",
             entity_encoding: "raw",
             setup: (editor: Editor) => {
-                addIcon(editor, tinymceConfig, "pin", "meta+alt+1");
-                addIcon(editor, tinymceConfig, "www", "meta+alt+2");
-                addIcon(editor, tinymceConfig, "email", "meta+alt+3");
-                addIcon(editor, tinymceConfig, "call", "meta+alt+4");
-                addIcon(editor, tinymceConfig, "clock", "meta+alt+5");
-                addIcon(editor, tinymceConfig, "idea", "meta+alt+6");
-                addIcon(editor, tinymceConfig, "group", "meta+alt+7");
-                addIcon(editor, tinymceConfig, "contact", "meta+alt+8");
-                addIcon(editor, tinymceConfig, "speech", "meta+alt+9");
+                addIcon(editor, tinymceConfig, "pin", "meta+alt+1", "");
+                addIcon(editor, tinymceConfig, "www", "meta+alt+2", "");
+                addIcon(editor, tinymceConfig, "email", "meta+alt+3", "");
+                addIcon(editor, tinymceConfig, "call", "meta+alt+4", "");
+                addIcon(editor, tinymceConfig, "clock", "meta+alt+5", "");
+                addIcon(editor, tinymceConfig, "idea", "meta+alt+6", "");
+                addIcon(editor, tinymceConfig, "group", "meta+alt+7", "");
+                addIcon(editor, tinymceConfig, "contact", "meta+alt+8", "");
+                addIcon(editor, tinymceConfig, "speech", "meta+alt+9", "");
                 /* eslint-disable-next-line @typescript-eslint/no-var-requires, global-require */
                 editor.ui.registry.addIcon("no-translate", parseSvg(require(`../../svg/no-translate.svg`)));
                 editor.ui.registry.addButton("notranslate", {

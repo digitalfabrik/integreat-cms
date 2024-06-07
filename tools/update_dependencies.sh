@@ -53,12 +53,12 @@ source .venv.tmp/bin/activate
 # Install package locally (without the pinned extra, so the newest available versions are installed)
 pip install -e .
 # Parse the newly installed versions
-PINNED_VERSIONS=$(pip freeze --exclude-editable --local | sort)
+PINNED_VERSIONS=$(pip freeze --all --exclude-editable --local | sort)
 PINNED_VERSIONS_TOML=$(echo "${PINNED_VERSIONS}" | format_pyproject_toml)
 # Now also install dev dependencies
 pip install -e .[dev]
 # Parse the newly installed versions
-PINNED_VERSIONS_ALL=$(pip freeze --exclude-editable --local | sort)
+PINNED_VERSIONS_ALL=$(pip freeze --all --exclude-editable --local | sort)
 # Only consider packages that were not already pinned in the normal dependencies
 PINNED_DEV_VERSIONS=$(comm -3 <(echo "${PINNED_VERSIONS_ALL}") <(echo "${PINNED_VERSIONS}"))
 PINNED_DEV_VERSIONS_TOML=$(echo "${PINNED_DEV_VERSIONS}" | format_pyproject_toml)
@@ -73,6 +73,8 @@ rm -rf .venv.tmp
 
 # Install updated versions in the real venv
 if [[ -d ".venv" ]]; then
+    # Activate virtual environment
+    source .venv/bin/activate
     # shellcheck disable=SC2102
     pip install -e .[dev-pinned,pinned]
 else

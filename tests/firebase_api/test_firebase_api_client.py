@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
+from unittest.mock import patch
 
 if TYPE_CHECKING:
     from typing import Any
@@ -27,13 +28,35 @@ class TestFirebaseApiClient:
     """
 
     #: A set of response-data for the mocking-function
-    #: according to https://fcm.googleapis.com/fcm/send
+    #: Google does not really document what errors are possible
     response_mock_data = {
-        "200_success": {"message_id": 1, "reason": "", "status_code": 200},
-        "200_no_message_id": {"reason": "", "status_code": 200},
-        "401_invalid_key": {"reason": "invalid key", "status_code": 401},
-        "404": {"reason": "", "status_code": 404},
+        "200_success": {
+            "name": "projects/integreat-2020/messages/1",
+            "status_code": 200,
+        },
+        "200_no_name": {"status_code": 200},
+        "401_invalid_key": {
+            "error": {
+                "message": "Request had invalid authentication credentials.",
+                "code": 401,
+            },
+            "status_code": 401,
+        },
+        "404": {"error": {"code": 404}, "status_code": 404},
     }
+
+    def __init__(self) -> None:
+        self.patch: Any = None
+
+    def setup_method(self) -> None:
+        self.patch = patch.object(
+            FirebaseApiClient, "_get_access_token", return_value="secret access token"
+        )
+        self.patch.start()
+
+    def teardown_method(self) -> None:
+        self.patch.stop()
+        self.patch = None
 
     @pytest.mark.django_db
     def test_client_throws_exception_when_fcm_disabled(
@@ -117,7 +140,9 @@ class TestFirebaseApiClient:
             settings, requests_mock, self.response_mock_data["200_success"]
         )
         for record in caplog.records:
-            assert "sent, FCM id: 1" in record.message
+            assert (
+                "sent, FCM id: 'projects/integreat-2020/messages/1'" in record.message
+            )
         assert status
 
     @pytest.mark.django_db
@@ -130,7 +155,7 @@ class TestFirebaseApiClient:
     ) -> None:
         """
         Tests firebase-api-response handling,
-        test a partial successful api call - HTTP 200 but no message_id in response
+        test a partial successful api call - HTTP 200 but no message name in response
 
         :param settings: The Django settings
         :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
@@ -138,7 +163,7 @@ class TestFirebaseApiClient:
         :param caplog: Fixture for asserting log messages in tests (see :fixture:`pytest:caplog`)
         """
         status = self.send_all_with_mocked_response(
-            settings, requests_mock, self.response_mock_data["200_no_message_id"]
+            settings, requests_mock, self.response_mock_data["200_no_name"]
         )
         for record in caplog.records:
             assert "sent, but unexpected API response" in record.message
@@ -223,10 +248,8 @@ class TestFirebaseApiClient:
     ) -> None:
         targets = set()
 
-        def evaluate_request(
-            request: _RequestObjectProxy, context: _Context
-        ) -> dict[str, Any]:
-            targets.add(request.json()["to"])
+        def evaluate_request(request: _RequestObjectProxy, context: _Context) -> object:
+            targets.add(request.json()["message"]["topic"])
             return self.response_mock_data["200_success"]
 
         requests_mock.post(settings.FCM_URL, json=evaluate_request, status_code=200)
@@ -239,8 +262,8 @@ class TestFirebaseApiClient:
         pns.send_all()
 
         assert targets == {
-            "/topics/augsburg-en-news",
-            "/topics/augsburg-de-news",
+            "augsburg-en-news",
+            "augsburg-de-news",
         }
 
     @pytest.mark.django_db
@@ -249,10 +272,8 @@ class TestFirebaseApiClient:
     ) -> None:
         targets = set()
 
-        def evaluate_request(
-            request: _RequestObjectProxy, context: _Context
-        ) -> dict[str, Any]:
-            targets.add(request.json()["to"])
+        def evaluate_request(request: _RequestObjectProxy, context: _Context) -> object:
+            targets.add(request.json()["message"]["topic"])
             return self.response_mock_data["200_success"]
 
         requests_mock.post(settings.FCM_URL, json=evaluate_request, status_code=200)
@@ -266,8 +287,8 @@ class TestFirebaseApiClient:
         pns.send_all()
 
         assert targets == {
-            "/topics/nurnberg-en-news",
-            "/topics/nurnberg-de-news",
-            "/topics/augsburg-en-news",
-            "/topics/augsburg-de-news",
+            "nurnberg-en-news",
+            "nurnberg-de-news",
+            "augsburg-en-news",
+            "augsburg-de-news",
         }

@@ -1,0 +1,37 @@
+{% extends "../_todo_dashboard_row.html" %}
+{% load i18n %}
+{% block todo_dashboard_icon %}
+    notepad-text-dashed
+{% endblock todo_dashboard_icon %}
+{% block todo_dashboard_title_link %}
+    {% url 'pages' region_slug=request.region.slug language_slug=default_language_slug %}?status=DRAFT
+{% endblock todo_dashboard_title_link %}
+{% block todo_dashboard_title %}
+    {% translate "Drafted pages" %}
+{% endblock todo_dashboard_title %}
+{% block todo_dashboard_number %}
+    {% with total=drafted_pages|length %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock todo_dashboard_number %}
+{% block todo_dashboard_description %}
+    {% if drafted_pages %}
+        {% blocktranslate trimmed %}
+            The page <b>{{ single_drafted_page }}</b> was saved as draft. User can't see your drafted pages. Please don't forget to publish the page once it's ready.
+        {% endblocktranslate %}
+    {% else %}
+        {% blocktranslate trimmed %}
+            At the moment there is no drafted page. Good job!
+        {% endblocktranslate %}
+    {% endif %}
+{% endblock todo_dashboard_description %}
+{% block todo_dashboard_button_link %}
+    {% if drafted_pages %}
+        <a class="btn !rounded-full"
+           href="{% url 'edit_page' region_slug=request.region.slug language_slug=default_language_slug page_id=single_drafted_page.page_id %}">
+            {% translate "Go to page" %}
+        </a>
+    {% else %}
+        <i class="w-8 h-8 text-green-500" icon-name="check-circle-2"></i>
+    {% endif %}
+{% endblock todo_dashboard_button_link %}

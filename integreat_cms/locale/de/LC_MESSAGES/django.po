@@ -2016,6 +2016,10 @@ msgstr "Alle"
 msgid "Translation status"
 msgstr "Übersetzungsstatus"
 
+#: cms/forms/pages/page_filter_form.py
+msgid "Exclude pages without content"
+msgstr "Seiten ohne Inhalt ausschließen"
+
 #: cms/forms/pages/page_form.py
 msgid "Authors"
 msgstr "Autor:innen"
@@ -3291,6 +3295,10 @@ msgid "HIX score"
 msgstr "HIX-Wert"
 
 #: cms/models/pages/page_translation.py
+msgid "HIX feedback"
+msgstr "HIX-Feedback"
+
+#: cms/models/pages/page_translation.py
 msgid "Live content"
 msgstr "Live-Inhalt"
 
@@ -4126,7 +4134,8 @@ msgstr "Feedback"
 msgid "Broken Links"
 msgstr "Fehlerhafte Links"
 
-#: cms/templates/_base.html cms/templates/pages/_page_xliff_import_diff.html
+#: cms/templates/_base.html cms/templates/pages/_page_filter_form.html
+#: cms/templates/pages/_page_xliff_import_diff.html
 msgid "Content"
 msgstr "Inhalt"
 
@@ -4360,8 +4369,20 @@ msgid "Link"
 msgstr "Link"
 
 #: cms/templates/_tinymce_config.html
+msgid "Link to the website"
+msgstr "Link zur Webseite"
+
+#: cms/templates/_tinymce_config.html
+msgid "Email Address"
+msgstr "E-Mail-Adresse"
+
+#: cms/templates/_tinymce_config.html
 msgid "Phone"
 msgstr "Telefon"
+
+#: cms/templates/_tinymce_config.html
+msgid "Phone Number"
+msgstr "Telefonnummer"
 
 #: cms/templates/_tinymce_config.html
 msgid "Opening Hours"
@@ -4372,8 +4393,16 @@ msgid "Hint"
 msgstr "Tipp"
 
 #: cms/templates/_tinymce_config.html
+msgid "A small advice"
+msgstr "Ein kleiner Hinweis"
+
+#: cms/templates/_tinymce_config.html
 msgid "Group"
 msgstr "Gruppe"
+
+#: cms/templates/_tinymce_config.html
+msgid "A group of people"
+msgstr "Eine Gruppe von Personen"
 
 #: cms/templates/_tinymce_config.html
 msgid "Contact Person"
@@ -4914,6 +4943,7 @@ msgid "At the moment there are no automatically saved pages. Good job!"
 msgstr "Aktuell gibt es keine automatisch gespeicherte Seite. Gute Arbeit!"
 
 #: cms/templates/dashboard/todo_dashboard_rows/_automatically_saved_pages_row.html
+#: cms/templates/dashboard/todo_dashboard_rows/_drafted_pages_row.html
 #: cms/templates/dashboard/todo_dashboard_rows/_low_hix_row.html
 #: cms/templates/dashboard/todo_dashboard_rows/_outdated_pages_row.html
 #: cms/templates/dashboard/todo_dashboard_rows/_unreviewed_pages_row.html
@@ -4941,6 +4971,24 @@ msgstr "Aktuell gibt es keine fehlerhaften Links. Gute Arbeit!"
 #: cms/templates/dashboard/todo_dashboard_rows/_broken_links_row.html
 msgid "Go to link"
 msgstr "Zum Link"
+
+#: cms/templates/dashboard/todo_dashboard_rows/_drafted_pages_row.html
+msgid "Drafted pages"
+msgstr "Seiten im Entwurf"
+
+#: cms/templates/dashboard/todo_dashboard_rows/_drafted_pages_row.html
+#, python-format
+msgid ""
+"The page <b>%(single_drafted_page)s</b> was saved as draft. User can't see "
+"your drafted pages. Please don't forget to publish the page once it's ready."
+msgstr ""
+"Die Seite <b>%(single_drafted_page)s</b> liegt nur im Entwurf vor. Nutzer:"
+"innen können die Inhalte nicht sehen. Bitte vergessen Sie nicht, die Seite "
+"zu veröffentlichen, sobald diese fertig ist."
+
+#: cms/templates/dashboard/todo_dashboard_rows/_drafted_pages_row.html
+msgid "At the moment there is no drafted page. Good job!"
+msgstr "Aktuell gibt es keine Seiten im Entwurf. Gute Arbeit!"
 
 #: cms/templates/dashboard/todo_dashboard_rows/_low_hix_row.html
 msgid "Pages with low hix score"
@@ -5657,6 +5705,42 @@ msgid "There is no page content"
 msgstr "Es gibt keinen Seiteninhalt"
 
 #: cms/templates/hix_widget.html
+msgid "For review:"
+msgstr "Zur Überprüfung:"
+
+#: cms/templates/hix_widget.html
+msgid "The text contains"
+msgstr "Der Text enthält"
+
+#: cms/templates/hix_widget.html
+msgid "nested sentences"
+msgstr "Schachtelsätze"
+
+#: cms/templates/hix_widget.html
+msgid "sentences that are too long"
+msgstr "Sätze, die zu lang sind"
+
+#: cms/templates/hix_widget.html
+msgid "words that are too long"
+msgstr "Wörter, die zu lang sind"
+
+#: cms/templates/hix_widget.html
+msgid "sentences in passive voice"
+msgstr "Sätze im Passiv"
+
+#: cms/templates/hix_widget.html
+msgid "infinitive constructions"
+msgstr "Infinitiv-Konstruktionen"
+
+#: cms/templates/hix_widget.html
+msgid "sentences in nominal style"
+msgstr "Sätze im Nominalstil"
+
+#: cms/templates/hix_widget.html
+msgid "sentences in the future tense"
+msgstr "Sätze im Futur"
+
+#: cms/templates/hix_widget.html
 msgid "HIX value unexpectedly bad?"
 msgstr "HIX-Wert unerwartet schlecht?"
 
@@ -5793,8 +5877,8 @@ msgstr "Noch nicht gespeichert"
 
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
 #: cms/templatetags/content_filters.py
-msgid "Implications on other translations"
-msgstr "Auswirkungen auf andere Übersetzungen"
+msgid "Implications on translations"
+msgstr "Auswirkungen auf Übersetzungen"
 
 #: cms/templates/languages/language_form.html
 #, python-format
@@ -7891,10 +7975,6 @@ msgid "Implications on the translation status"
 msgstr "Auswirkungen auf den Übersetzungsstatus"
 
 #: cms/templatetags/content_filters.py
-msgid "Implications on the status of this and other translations"
-msgstr "Auswirkungen auf den Status dieser und anderer Übersetzungen"
-
-#: cms/templatetags/content_filters.py
 msgid "Tick if this edit should not change the status of this translation."
 msgstr ""
 "Kreuzen Sie an, wenn diese Änderung den Status dieser Übersetzung nicht "
@@ -9665,6 +9745,14 @@ msgstr "Firebase API"
 #: google_translate_api/apps.py
 msgid "Google Translate API"
 msgstr "Google Translate API"
+
+#: google_translate_api/google_translate_api_client.py
+msgid ""
+"A problem with Google Translate API has occurred. Please contact an "
+"administrator."
+msgstr ""
+"Ein Fehler mit Google Translate API ist aufgetreten. Bitte kontaktieren Sie "
+"eine:n Administrator:in."
 
 #: gvz_api/apps.py
 msgid "GVZ API"

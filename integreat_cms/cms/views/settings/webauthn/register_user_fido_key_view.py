@@ -12,7 +12,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView
 from webauthn import base64url_to_bytes, verify_registration_response
-from webauthn.helpers.structs import RegistrationCredential
+from webauthn.helpers import parse_registration_credential_json
 
 from ....decorators import modify_mfa_authenticated
 from ....models import FidoKey
@@ -53,7 +53,7 @@ class RegisterUserFidoKeyView(CreateView):
         json_data = json.loads(request.body)
 
         webauthn_registration_response = verify_registration_response(
-            credential=RegistrationCredential.parse_raw(request.body),
+            credential=parse_registration_credential_json(json.loads(request.body)),
             expected_rp_id=settings.HOSTNAME,
             expected_origin=settings.BASE_URL,
             expected_challenge=base64url_to_bytes(

@@ -15,6 +15,8 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
+from integreat_cms.cms.utils.round_hix_score import round_hix_score
+
 from ....api.decorators import json_response
 from ....textlab_api.textlab_api_client import TextlabClient
 
@@ -35,7 +37,7 @@ class CacheMeIfYouCan(Exception):
 
 
 @lru_cache(maxsize=512)
-def lookup_hix_score_helper(text: str) -> float | None:
+def lookup_hix_score_helper(text: str) -> dict:
     """
     This function returns the hix score for the given text.
     It either performs an api request or returns the value from cache,
@@ -57,7 +59,7 @@ def lookup_hix_score_helper(text: str) -> float | None:
         raise CacheMeIfYouCan from e
 
 
-def lookup_hix_score(text: str) -> float | None:
+def lookup_hix_score(text: str) -> dict | None:
     """
     This function returns the hix score for the given text.
     It either performs an api request or returns the value from cache.
@@ -93,6 +95,12 @@ def get_hix_score(request: HttpRequest, region_slug: str) -> JsonResponse:
         logger.warning("Received invalid text: %r", text)
         return JsonResponse({"error": f"Invalid text: '{text}'"})
 
-    if score := lookup_hix_score(text):
-        return JsonResponse({"score": score})
+    if response := lookup_hix_score(text):
+        return JsonResponse(
+            {
+                "score": round_hix_score(response.get("score")),
+                "feedback": response.get("feedback"),
+            }
+        )
+
     return JsonResponse({"error": "Could not retrieve hix score"})

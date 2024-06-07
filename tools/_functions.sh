@@ -12,8 +12,22 @@ if [[ "$*" == *"--verbose"* ]]; then
     set -vx
 fi
 
-# The Port on which the Integreat CMS development server should be started (do not use 9000 since this is used for webpack)
-INTEGREAT_CMS_PORT=8000
+# The port on which the Integreat CMS development server should be started (do not use 9000 since this is used for webpack)
+if [[ -z "${INTEGREAT_CMS_PORT}" ]]; then
+    INTEGREAT_CMS_PORT=8000
+fi
+# The port on which the non-Docker PostgreSQL server is expected to be running
+if [[ -z "${INTEGREAT_CMS_DB_PORT}" ]]; then
+    INTEGREAT_CMS_DB_PORT=5432
+fi
+# The port on which the Redis instance is expected to be running
+if [[ -z "${INTEGREAT_CMS_REDIS_PORT}" ]]; then
+    INTEGREAT_CMS_REDIS_PORT=6379
+fi
+# The port on which Docker will listen for connections
+if [[ -z "${INTEGREAT_CMS_DOCKER_LISTEN_PORT}" ]]; then
+    INTEGREAT_CMS_DOCKER_LISTEN_PORT=5433
+fi
 # The name of the used database docker container
 DOCKER_CONTAINER_NAME="integreat_django_postgres"
 # Write the path to the redis socket into this file if you want to use the unix socket connection for your dev redis cache
@@ -37,6 +51,8 @@ SCRIPT_PATH="${DEV_TOOL_DIR}/${SCRIPT_NAME}"
 SCRIPT_ARGS=("$@")
 # The verbosity of the output (can be one of {0,1,2,3})
 SCRIPT_VERBOSITY="1"
+# Unset LC_COLLATE to make sorting deterministic and reproducible
+LC_COLLATE=""
 
 # This function prints the given input lines in red color
 function print_error {
@@ -165,9 +181,9 @@ function require_installed {
             INTEGREAT_CMS_DEBUG=1
             export INTEGREAT_CMS_DEBUG
             # Set dummy FCM key to test functionality
-            if [[ -z "${INTEGREAT_CMS_FCM_KEY}" ]]; then
-                INTEGREAT_CMS_FCM_KEY="dummy"
-                export INTEGREAT_CMS_FCM_KEY
+            if [[ -z "${INTEGREAT_CMS_FCM_CREDENTIALS}" ]]; then
+                INTEGREAT_CMS_FCM_CREDENTIALS="dummy"
+                export INTEGREAT_CMS_FCM_CREDENTIALS
             fi
         fi
     fi
@@ -294,10 +310,15 @@ function migrate_database {
 
 # This function waits for the docker database container
 function wait_for_docker_container {
+    echo "Waiting for Docker container ${DOCKER_CONTAINER_NAME} to be ready..." | print_info
+
     # Wait until container is ready and accepts database connections
-    until docker exec -it "${DOCKER_CONTAINER_NAME}" psql -U integreat -d integreat -c "select 1" > /dev/null 2>&1; do
+    until docker exec "${DOCKER_CONTAINER_NAME}" psql -U integreat -d integreat -c "select 1" > /dev/null 2>&1; do
+        echo "Container not ready yet, sleeping..." | print_info
         sleep 0.1
     done
+
+    echo "Docker container ${DOCKER_CONTAINER_NAME} is ready!" | print_success
 }
 
 # This function creates a new postgres database docker container
@@ -305,7 +326,7 @@ function create_docker_container {
     echo "Creating new PostgreSQL database docker container..." | print_info
     mkdir -p "${BASE_DIR}/.postgres"
     # Run new container
-    docker run -d --name "${DOCKER_CONTAINER_NAME}" -e "POSTGRES_USER=integreat" -e "POSTGRES_PASSWORD=password" -e "POSTGRES_DB=integreat" -v "${BASE_DIR}/.postgres:/var/lib/postgresql" -p 5433:5432 postgres > /dev/null
+    docker run -d --name "${DOCKER_CONTAINER_NAME}" -e "POSTGRES_USER=integreat" -e "POSTGRES_PASSWORD=password" -e "POSTGRES_DB=integreat" -v "${BASE_DIR}/.postgres:/var/lib/postgresql" -p "${INTEGREAT_CMS_DOCKER_LISTEN_PORT}":"${INTEGREAT_CMS_DB_PORT}" postgres > /dev/null
     wait_for_docker_container
     echo "✔ Created database container" | print_success
     # Set up exit trap to stop docker container when script ends
@@ -375,7 +396,7 @@ function ensure_docker_container_running {
 # This function makes sure a database is available
 function require_database {
     # Check if local postgres server is running
-    if nc -z localhost 5432; then
+    if nc -z localhost "${INTEGREAT_CMS_DB_PORT}"; then
         ensure_not_root
         echo "✔ Running PostgreSQL database detected" | print_success
         # Migrate database
@@ -395,7 +416,7 @@ function require_database {
 function configure_redis_cache {
     # Check if local Redis server is running
     echo "Checking if local Redis server is running..." | print_info
-    if nc -z localhost 6379; then
+    if nc -z localhost "${INTEGREAT_CMS_REDIS_PORT}"; then
         # Enable redis cache if redis server is running
         export INTEGREAT_CMS_REDIS_CACHE=1
         # Check if enhanced connection via unix socket is available (write the location into $REDIS_SOCKET_LOCATION)
@@ -405,7 +426,7 @@ function configure_redis_cache {
             export INTEGREAT_CMS_REDIS_UNIX_SOCKET
             echo "✔ Running Redis server on socket $INTEGREAT_CMS_REDIS_UNIX_SOCKET detected. Caching enabled." | print_success
         else
-            echo "✔ Running Redis server on port 6379 detected. Caching enabled." | print_success
+            echo "✔ Running Redis server on port ${INTEGREAT_CMS_REDIS_PORT} detected. Caching enabled." | print_success
         fi
     else
         echo "❌No Redis server detected. Falling back to local-memory cache." | print_warning

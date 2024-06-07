@@ -4,7 +4,7 @@
     file-search
 {% endblock todo_dashboard_icon %}
 {% block todo_dashboard_title_link %}
-    {% url 'pages' region_slug=request.region.slug language_slug=default_language_slug %}?date_to={{ outdated_threshold_date }}
+    {% url 'pages' region_slug=request.region.slug language_slug=default_language_slug %}?date_to={{ outdated_threshold_date }}&exclude_pages_without_content=on&status=PUBLIC
 {% endblock todo_dashboard_title_link %}
 {% block todo_dashboard_title %}
     {% translate "Outdated pages" %}
@@ -32,6 +32,6 @@
             {% translate "Go to page" %}
         </a>
     {% else %}
-        <i class="h-8 w-8 text-green-500" icon-name="check-circle-2"></i>
+        <i class="w-8 h-8 text-green-500" icon-name="check-circle-2"></i>
     {% endif %}
 {% endblock todo_dashboard_button_link %}

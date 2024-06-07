@@ -8,7 +8,7 @@
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 # Check if local postgres server is running
-if nc -w1 localhost 5432; then
+if nc -w1 localhost "${INTEGREAT_CMS_DB_PORT}"; then
 
     echo "Please delete and re-create your database manually, typically like this:
 

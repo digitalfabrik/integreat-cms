@@ -49,7 +49,7 @@ old_urls = [
     "https://integreat.app/augsburg/de/willkommen/",
     "https://integreat.app/augsburg/de/events/test-veranstaltung/",
     "https://integreat.app/augsburg/de/locations/test-ort/",
-    "http://localhost:8000/s/p/96/",
+    "http://localhost:8000/s/p/94/",
 ]
 
 new_urls = [

@@ -12,36 +12,59 @@
 
 This content management system helps local integration experts to provide multilingual information for newcomers.
 
-## TL;DR
+## Development Setup
 
-### Prerequisites
-
-Following packages are required before installing the project (install them with your package manager):
-
-* `npm` version 7 or later
-* `nodejs` version 18 or later
-* `python3` version 3.11 or later
-* `python3-pip` (Debian-based distributions) / `python-pip` (Arch-based distributions)
-* `python3-venv` (only on Debian-based distributions)
-* `gettext` to use the translation features
-* Either `postgresql` **or** `docker` to run a local database server
-
-### Installation
+This section provides a brief overview of setting up the development environment. We support various environments: you can set up everything locally using your preferred package manager, use it as a devcontainer, or utilize the nix-flake ([coming soon](https://github.com/digitalfabrik/integreat-cms/pull/2730)). Please clone the repository with the following snippet before starting to 
+setup your development environment.
 
 ````
 git clone git@github.com:digitalfabrik/integreat-cms.git
 cd integreat-cms
-./tools/install.sh
 ````
+
+### Local Setup
+
+To configure your development environment on your system, please follow these steps carefully.
+
+1. Ensure that the following packages are installed alongside your preferred IDE:
+   - `npm` version 7 or later
+   - `nodejs` version 18 or later
+   - `python3` version 3.11 or later
+   - `python3-pip` (Debian-based distributions) / `python-pip` (Arch-based distributions)
+   - `python3-venv` (only on Debian-based distributions)
+   - `gettext` for translation features
+   - Either `postgresql` **or** `docker` to run a local database server
+2. Execute `tools/install.sh` to download all dependencies.
+3. Execute `tools/migrate.sh` to apply all database schema migrations.
+4. Optionally, run `tools/loadtestdata.sh` to apply a predefined set of test data.
+
+### Devcontainer
+
+To configure your development container, please follow these steps carefully.
+
+1. Make sure you have Docker and VSCode (not VSCodium) installed on your machine.
+2. Open the project in VSCode.
+3. If you're opening VSCode for the first time, you'll be prompted to install the ["Dev Containers" extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers). Click "Install" to proceed.
+4. Open the command palette (Ctrl + Shift + P or Cmd + Shift + P on macOS) and search for "> Remote-Containers: Open Folder in Container".
+5. VSCode will open the project in a new container, install all further required tools and load the testdata.
+
+#### Known Limitations
+
+The perfect is the enemy of the good; thus, this section illuminates aspects of our evolving development setup.
+
+##### Sharing git username and email
+
+A known limitation exists where certain versions of Visual Studio Code (VSCode) may not copy the user's `.gitconfig` file correctly into the Devcontainer environment. In such cases, when you attempt to commit changes within the Devcontainer, you may be prompted to enter your Git username and email every time. This can be inconvenient and disrupt the workflow. However, there is a workaround for this issue. You can resolve it by appending the content of your personal `.gitconfig` file, located at `$HOME/.gitconfig`, to the end of the repository-specific `.git/config` file, which in this case would be `integreat-cms/.git/config`. By doing so, you ensure that the necessary Git configuration settings are correctly applied within the Devcontainer environment, allowing for a smoother development experience.
+
+For more information, refer to [this issue](https://github.com/microsoft/vscode-remote-release/issues/1729) in the VSCode Remote Extension repository.
+
+##### Docker permissions
+
+The user must be in the docker group on linux, VSCode does not allow to optionally enter sudo password.
 
 ### Run development server
 
-````
-./tools/run.sh
-````
-
-* Go to your browser and open the URL `http://localhost:8000`
-* Default user is "root" with password "root1234".
+Run the development server using `/tools/run.sh`, then open your browser and go to `http://localhost:8000`. The default login credentials are username: "root" and password: "root1234".
 
 ## Documentation
 

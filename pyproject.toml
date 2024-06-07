@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "integreat-cms"
 description = "Content Management System for the Integreat App"
-version = "2024.3.2"
+version = "2024.5.0"
 authors = [{name = "Tür an Tür – Digitalfabrik gGmbH", email = "tech@integreat-app.de"}]
 readme = "README.md"
 requires-python = ">=3.11"
@@ -55,6 +55,7 @@ dependencies = [
     "django-widget-tweaks",
     "feedparser",
     "geopy",
+    "google-auth",
     "google-cloud-translate",
     "idna",
     "ipython",
@@ -71,7 +72,7 @@ dependencies = [
     "requests",
     "rules",
     "six",
-    "webauthn==1.11.1",
+    "webauthn",
     "xhtml2pdf==0.2.8",
     "reportlab<4.0.0",
 ]
@@ -83,6 +84,8 @@ dev = [
     "bumpver",
     "djlint",
     "looseversion",
+    "freezegun",
+    "isort",
     "mypy",
     "pre-commit",
     "pyjwt",
@@ -121,12 +124,13 @@ pinned = [
     "asttokens==2.4.1",
     "attrs==23.2.0",
     "bcrypt==4.1.2",
+    "cachetools==5.3.3",
     "cbor2==5.6.1",
     "certifi==2024.2.2",
     "cffi==1.16.0",
     "charset-normalizer==3.3.2",
     "click==8.1.7",
-    "cryptography==42.0.2",
+    "cryptography==42.0.5",
     "cssselect2==0.7.0",
     "decorator==5.1.1",
     "deepl==1.17.0",
@@ -151,7 +155,13 @@ pinned = [
     "funcy==2.0",
     "geographiclib==2.0",
     "geopy==2.4.1",
+    "google-api-core==2.18.0",
+    "googleapis-common-protos==1.63.0",
+    "google-auth==2.29.0",
+    "google-cloud-core==2.4.1",
     "google-cloud-translate==3.15.0",
+    "grpcio==1.62.2",
+    "grpcio-status==1.62.2",
     "html5lib==1.1",
     "idna==3.6",
     "ipython==8.21.0",
@@ -169,11 +179,16 @@ pinned = [
     "parso==0.8.3",
     "pexpect==4.9.0",
     "pillow==10.2.0",
+    "pip==24.0",
     "prompt-toolkit==3.0.43",
+    "protobuf==4.25.3",
+    "proto-plus==1.23.0",
     "psycopg==3.1.18",
     "psycopg-binary==3.1.18",
     "ptyprocess==0.7.0",
     "pure-eval==0.2.2",
+    "pyasn1==0.6.0",
+    "pyasn1_modules==0.4.0",
     "pycparser==2.21",
     "pydantic==2.6.1",
     "pydantic_core==2.16.2",
@@ -195,6 +210,7 @@ pinned = [
     "requests==2.31.0",
     "rpds-py==0.17.1",
     "rules==3.3",
+    "setuptools==65.5.0",
     "sgmllib3k==1.0.0",
     "six==1.16.0",
     "sqlparse==0.4.4",
@@ -209,7 +225,7 @@ pinned = [
     "uritools==4.0.2",
     "urllib3==2.2.0",
     "wcwidth==0.2.13",
-    "webauthn==1.11.1",
+    "webauthn==2.1.0",
     "webencodings==0.5.1",
     "xhtml2pdf==0.2.8",
     "xlrd==2.0.1",
@@ -234,6 +250,7 @@ dev-pinned = [
     "EditorConfig==0.12.3",
     "execnet==2.0.2",
     "filelock==3.13.1",
+    "freezegun==1.4.0",
     "html-tag-names==0.1.2",
     "html-void-elements==0.1.0",
     "icdiff==2.0.7",
@@ -328,7 +345,7 @@ license-files = ["LICENSE", "NOTICE.md"]
 include = ["integreat_cms*"]
 
 [tool.bumpver]
-current_version = "2024.3.2"
+current_version = "2024.5.0"
 version_pattern = "YYYY.MM.INC0[-TAG]"
 commit_message = """
 Bump version to {new_version}

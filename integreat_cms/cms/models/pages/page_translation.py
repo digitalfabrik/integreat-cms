@@ -56,6 +56,12 @@ class PageTranslation(AbstractBasePageTranslation):
         verbose_name=_("HIX score"),
     )
 
+    hix_feedback = models.JSONField(
+        null=True,
+        blank=True,
+        verbose_name=_("HIX feedback"),
+    )
+
     @cached_property
     def ancestor_path(self) -> str:
         """

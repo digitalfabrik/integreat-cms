@@ -305,7 +305,7 @@ def replace_file_ajax(
     )
 
     media_file_form = ReplaceMediaFileForm(
-        data=request.POST, instance=media_file, files=request.FILES
+        user=request.user, data=request.POST, instance=media_file, files=request.FILES
     )
 
     if not media_file_form.is_valid():
@@ -356,7 +356,7 @@ def delete_file_ajax(
     )
 
     # Check if the media file is in use
-    if media_file.is_used:
+    if not media_file.is_deletable:
         return JsonResponse(
             {
                 "messages": [

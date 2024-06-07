@@ -17,7 +17,7 @@
 {% block todo_dashboard_description %}
     {% if pages_under_hix_threshold %}
         {% with worst_page=pages_under_hix_threshold.0 %}
-            {% blocktranslate trimmed with worst_page_hix=worst_page.hix_score|floatformat:2 %}
+            {% blocktranslate trimmed with worst_page_hix=worst_page.rounded_hix_score %}
                 The page <b>{{ worst_page }}</b> has a HIX score of {{ worst_page_hix }}. Please adjust the hix score of this page to be able to machine translate it.
             {% endblocktranslate %}
         {% endwith %}
