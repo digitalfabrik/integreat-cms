@@ -473,3 +473,24 @@ function join_by {
         printf %s "$f" "${@/#/$d}"
     fi
 }
+
+# This function checks if the flag "--as-precommit" was set, and if so,
+# runs the specified pre-commit hook against all changed files
+function run_as_precommit {
+    local command="$1"
+    shift
+
+    for arg in "$@"; do
+        if [[ "$arg" == "--as-precommit" ]]; then
+            FILES=$(git diff --cached --name-only --diff-filter=ACMR | sed 's| |\\ |g')
+            [ -z "$FILES" ] && exit 0
+
+            while IFS= read -r file; do
+                eval "$command \"$file\""
+                git add "$file"
+            done <<< "$FILES"
+
+            exit 0
+        fi
+    done
+}
