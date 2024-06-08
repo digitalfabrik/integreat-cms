@@ -14,6 +14,7 @@ from treebeard.ns_tree import NS_Node
 
 if TYPE_CHECKING:
     from typing import Any
+
     from treebeard.ns_tree import NS_NodeQuerySet
 
 from ..constants import position

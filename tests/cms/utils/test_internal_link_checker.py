@@ -17,7 +17,7 @@ VALID_INTERNAL_LINKS: list[str] = [
     "https://integreat.app/augsburg/ar/events/test-veranstaltung",
     "https://integreat.app/augsburg/de/locations",
     "https://integreat.app/augsburg/de/locations/test-ort",
-    "https://integreat.app/augsburg/ar/locations/test-ort",
+    "https://integreat.app/augsburg/fa/locations/test-ort",
     "https://integreat.app/augsburg/de/news/local",
     "https://integreat.app/augsburg/de/news/local/1",
     "https://integreat.app/augsburg/de/news/tu-news",

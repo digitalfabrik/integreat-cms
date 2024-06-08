@@ -161,6 +161,11 @@ if BRANDING not in AVAILABLE_BRANDINGS:
 #: The readable title of the branding
 BRANDING_TITLE: Final[str] = AVAILABLE_BRANDINGS[BRANDING]
 
+#: Social media preview image
+SOCIAL_PREVIEW_IMAGE: Final[str] = os.environ.get(
+    "INTEGREAT_SOCIAL_PREVIEW_IMAGE",
+    f"static/logos/{BRANDING}/social-media-preview.png",
+)
 
 #: The default bounding box for regions with indistinct borders
 DEFAULT_BOUNDING_BOX: Final[BoundingBox] = BoundingBox(
@@ -195,15 +200,16 @@ BACKGROUND_TASKS_ENABLED = bool(
 ##############################################################
 
 #: FCM API Url
-FCM_URL: Final[str] = (
-    "https://fcm.googleapis.com/v1/projects/integreat-2020/messages:send"
+FCM_URL: Final[str] = os.environ.get(
+    "INTEGREAT_CMS_FCM_URL",
+    "https://fcm.googleapis.com/v1/projects/integreat-2020/messages:send",
 )
 
 #: Path to the saved credential json file
-FCM_CREDENTIALS: Final[str | None] = os.environ.get("INTEGREAT_CMS_FCM_CREDENTIALS")
+FCM_CREDENTIALS: str | None = os.environ.get("INTEGREAT_CMS_FCM_CREDENTIALS")
 
 #: Whether push notifications via Firebase are enabled.
-#: This is ``True`` if :attr:`~integreat_cms.core.settings.FCM_KEY` is set, ``False`` otherwise.
+#: This is ``True`` if :attr:`~integreat_cms.core.settings.FCM_CREDENTIALS` is set, ``False`` otherwise.
 FCM_ENABLED: bool = bool(FCM_CREDENTIALS)
 
 #: The available push notification channels
@@ -417,7 +423,7 @@ ROOT_URLCONF: Final[str] = "integreat_cms.core.urls"
 TEMPLATES: Final[list[dict[str, str | list | bool | dict[str, list[str] | bool]]]] = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "api/v3/templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -914,20 +920,20 @@ DEEPL_ENABLED: bool = bool(DEEPL_AUTH_KEY)
 ############################################
 
 #: Version of Google Translate, either Basic or Advanced
-GOOGLE_TRANSLATE_VERSION: Final[str] = os.environ.get(
+GOOGLE_TRANSLATE_VERSION: str = os.environ.get(
     "INTEGREAT_CMS_GOOGLE_TRANSLATE_VERSION", "Basic"
 )
 
 #: Path to the saved credential json file
-GOOGLE_APPLICATION_CREDENTIALS: Final[str | None] = os.environ.get(
+GOOGLE_APPLICATION_CREDENTIALS: str | None = os.environ.get(
     "INTEGREAT_CMS_GOOGLE_CREDENTIALS"
 )
 
 #: Google project id
-GOOGLE_PROJECT_ID: Final[str | None] = os.environ.get("INTEGREAT_CMS_GOOGLE_PROJECT_ID")
+GOOGLE_PROJECT_ID: str | None = os.environ.get("INTEGREAT_CMS_GOOGLE_PROJECT_ID")
 
 #: Location for google translate. Default to "global". This must be non-global for custom glossaries.
-GOOGLE_TRANSLATE_LOCATION: Final[str] = os.environ.get(
+GOOGLE_TRANSLATE_LOCATION: str = os.environ.get(
     "INTEGREAT_CMS_GOOGLE_TRANSLATE_LOCATION", "global"
 )
 

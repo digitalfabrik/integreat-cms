@@ -8,6 +8,7 @@ import requests
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from google.oauth2 import service_account
+from requests.exceptions import RequestException
 
 from ..cms.constants import push_notifications as pnt_const
 from ..cms.forms.push_notifications.push_notification_translation_form import (
@@ -16,7 +17,6 @@ from ..cms.forms.push_notifications.push_notification_translation_form import (
 from ..cms.models import Region
 
 if TYPE_CHECKING:
-    from requests.models import Response
 
     from ..cms.models.push_notifications.push_notification import PushNotification
 
@@ -104,13 +104,13 @@ class FirebaseApiClient:
                 return False
         return True
 
-    def send_pn(self, pnt: PushNotificationTranslation, region: Region) -> Response:
+    def send_pn(self, pnt: PushNotificationTranslation, region: Region) -> bool:
         """
         Send single push notification translation
 
         :param pnt: The prepared push notification translation to be sent
         :param region: The region for which to send the prepared push notification translation
-        :return: Response of the :mod:`requests` library
+        :return: whether the push notification was sent successfully
         """
         # In debug mode, pass `validate_only`: True, to avoid messages actually being sent
         payload = {
@@ -141,12 +141,27 @@ class FirebaseApiClient:
             "Authorization": f"Bearer {self._get_access_token()}",
             "Content-Type": "application/json; UTF-8",
         }
-        return requests.post(
-            self.fcm_url,
-            json=payload,
-            headers=headers,
-            timeout=settings.DEFAULT_REQUEST_TIMEOUT,
-        )
+
+        try:
+            response = requests.post(
+                self.fcm_url,
+                json=payload,
+                headers=headers,
+                timeout=settings.DEFAULT_REQUEST_TIMEOUT,
+            )
+            if response.status_code == 200 and response.json().get("name"):
+                logger.info("%r sent, FCM id: %r", pnt, response.json().get("name"))
+                return True
+
+            logger.warning(
+                "%r sent, but unexpected API response: %r",
+                pnt,
+                response.json(),
+            )
+            return False
+        except RequestException as e:
+            logger.error(e)
+            return False
 
     def send_all(self) -> bool:
         """
@@ -158,24 +173,8 @@ class FirebaseApiClient:
         for pnt in self.prepared_pnts:
             for region in self.regions:
                 if pnt.language in region.active_languages:
-                    res = self.send_pn(pnt, region)
-                    if res.status_code == 200:
-                        if name := res.json().get("name"):
-                            logger.info("%r sent, FCM id: %r", pnt, name)
-                        else:
-                            logger.warning(
-                                "%r sent, but unexpected API response: %r",
-                                pnt,
-                                res.json(),
-                            )
-                    else:
+                    if not self.send_pn(pnt, region):
                         status = False
-                        logger.error(
-                            "Received invalid response from FCM for %r, status: %r, body: %r",
-                            pnt,
-                            res.status_code,
-                            res.text,
-                        )
         return status
 
     @staticmethod

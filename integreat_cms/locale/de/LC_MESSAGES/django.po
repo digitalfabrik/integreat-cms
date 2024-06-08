@@ -2889,6 +2889,28 @@ msgid "This is used in exported PDFs."
 msgstr "Dies wird in exportierten PDFs verwendet."
 
 #: cms/models/languages/language.py
+msgid "Social media title of the WebApp"
+msgstr "Titel der Web-App im SEO Kontext"
+
+#: cms/models/languages/language.py
+msgid ""
+"Displayed title of the WebApp in the search results and on social media "
+"pages (max 100 characters)."
+msgstr ""
+"Angezeigter Titel der Wep-App in Suchergebnissen und auf sozialen Medien (max. 100 Zeichen)."
+
+#: cms/models/languages/language.py
+msgid "Social media description"
+msgstr "Meta-Beschreibung"
+
+#: cms/models/languages/language.py
+msgid ""
+"Displayed description of the WebApp in the search results and on social "
+"media pages (max 200 characters)."
+msgstr ""
+"Angezeigte Beschreibung der Wep-App in Suchergebnissen und auf sozialen Medien (max. 200 Zeichen)."
+
+#: cms/models/languages/language.py
 msgid ""
 "\"This page does not exist in the selected language. It is however available "
 "in these languages:\" in this language"
@@ -3293,6 +3315,10 @@ msgstr "Inhalt der Seite"
 #: cms/models/pages/page_translation.py cms/templates/content_versions.html
 msgid "HIX score"
 msgstr "HIX-Wert"
+
+#: cms/models/pages/page_translation.py
+msgid "HIX feedback"
+msgstr "HIX-Feedback"
 
 #: cms/models/pages/page_translation.py
 msgid "Live content"
@@ -4939,6 +4965,7 @@ msgid "At the moment there are no automatically saved pages. Good job!"
 msgstr "Aktuell gibt es keine automatisch gespeicherte Seite. Gute Arbeit!"
 
 #: cms/templates/dashboard/todo_dashboard_rows/_automatically_saved_pages_row.html
+#: cms/templates/dashboard/todo_dashboard_rows/_drafted_pages_row.html
 #: cms/templates/dashboard/todo_dashboard_rows/_low_hix_row.html
 #: cms/templates/dashboard/todo_dashboard_rows/_outdated_pages_row.html
 #: cms/templates/dashboard/todo_dashboard_rows/_unreviewed_pages_row.html
@@ -4966,6 +4993,24 @@ msgstr "Aktuell gibt es keine fehlerhaften Links. Gute Arbeit!"
 #: cms/templates/dashboard/todo_dashboard_rows/_broken_links_row.html
 msgid "Go to link"
 msgstr "Zum Link"
+
+#: cms/templates/dashboard/todo_dashboard_rows/_drafted_pages_row.html
+msgid "Drafted pages"
+msgstr "Seiten im Entwurf"
+
+#: cms/templates/dashboard/todo_dashboard_rows/_drafted_pages_row.html
+#, python-format
+msgid ""
+"The page <b>%(single_drafted_page)s</b> was saved as draft. User can't see "
+"your drafted pages. Please don't forget to publish the page once it's ready."
+msgstr ""
+"Die Seite <b>%(single_drafted_page)s</b> liegt nur im Entwurf vor. Nutzer:"
+"innen können die Inhalte nicht sehen. Bitte vergessen Sie nicht, die Seite "
+"zu veröffentlichen, sobald diese fertig ist."
+
+#: cms/templates/dashboard/todo_dashboard_rows/_drafted_pages_row.html
+msgid "At the moment there is no drafted page. Good job!"
+msgstr "Aktuell gibt es keine Seiten im Entwurf. Gute Arbeit!"
 
 #: cms/templates/dashboard/todo_dashboard_rows/_low_hix_row.html
 msgid "Pages with low hix score"
@@ -5680,6 +5725,42 @@ msgstr "Der HIX-Wert konnte nicht berechnet werden."
 #: cms/templates/hix_widget.html
 msgid "There is no page content"
 msgstr "Es gibt keinen Seiteninhalt"
+
+#: cms/templates/hix_widget.html
+msgid "For review:"
+msgstr "Zur Überprüfung:"
+
+#: cms/templates/hix_widget.html
+msgid "The text contains"
+msgstr "Der Text enthält"
+
+#: cms/templates/hix_widget.html
+msgid "nested sentences"
+msgstr "Schachtelsätze"
+
+#: cms/templates/hix_widget.html
+msgid "sentences that are too long"
+msgstr "Sätze, die zu lang sind"
+
+#: cms/templates/hix_widget.html
+msgid "words that are too long"
+msgstr "Wörter, die zu lang sind"
+
+#: cms/templates/hix_widget.html
+msgid "sentences in passive voice"
+msgstr "Sätze im Passiv"
+
+#: cms/templates/hix_widget.html
+msgid "infinitive constructions"
+msgstr "Infinitiv-Konstruktionen"
+
+#: cms/templates/hix_widget.html
+msgid "sentences in nominal style"
+msgstr "Sätze im Nominalstil"
+
+#: cms/templates/hix_widget.html
+msgid "sentences in the future tense"
+msgstr "Sätze im Futur"
 
 #: cms/templates/hix_widget.html
 msgid "HIX value unexpectedly bad?"
@@ -9686,6 +9767,14 @@ msgstr "Firebase API"
 #: google_translate_api/apps.py
 msgid "Google Translate API"
 msgstr "Google Translate API"
+
+#: google_translate_api/google_translate_api_client.py
+msgid ""
+"A problem with Google Translate API has occurred. Please contact an "
+"administrator."
+msgstr ""
+"Ein Fehler mit Google Translate API ist aufgetreten. Bitte kontaktieren Sie "
+"eine:n Administrator:in."
 
 #: gvz_api/apps.py
 msgid "GVZ API"

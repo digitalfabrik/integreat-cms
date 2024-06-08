@@ -15,8 +15,8 @@ from .settings import *
 
 #: Set a dummy secret key for CircleCI build even if it's not in debug mode
 SECRET_KEY = "dummy"
-#: Set dummy key to test push notifications
-FCM_KEY = "dummy"
+#: Set dummy credentials path to test push notifications
+FCM_CREDENTIALS = "dummy"
 #: Enable manually because existing setting derives from the unset env var
 FCM_ENABLED = True
 #: Set dummy SUMM.AI API key to test translations into Easy German
@@ -31,6 +31,12 @@ DEEPL_ENABLED = True
 TEXTLAB_API_KEY = "dummy"
 #: Enable manually because existing setting derives from the unset env var
 TEXTLAB_API_ENABLED = True
+#: Set dummy Google Translate credential path
+GOOGLE_APPLICATION_CREDENTIALS = "dummy"
+#: Set dummy Google project ID
+GOOGLE_PROJECT_ID = "dummy"
+#: Enable manually because existing setting derives from the unset env var
+GOOGLE_TRANSLATE_ENABLED = True
 #: Disable linkcheck listeners on CircleCI
 LINKCHECK_DISABLE_LISTENERS = True
 # Disable background tasks during testing

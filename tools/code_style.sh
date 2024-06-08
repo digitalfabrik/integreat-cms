@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script can be used to runs all of our code style tools: isort, djlint, black, pylint, eslint and prettier
+# This script can be used to runs all of our code style tools: ruff, djlint, black, pylint, eslint and prettier
 
 # Import utility functions
 # shellcheck source=./tools/_functions.sh
@@ -9,8 +9,8 @@ source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 require_installed
 ensure_not_root
 
-# Run isort
-bash "${DEV_TOOL_DIR}/isort.sh"
+# Run ruff
+bash "${DEV_TOOL_DIR}/ruff.sh"
 
 # Run black
 bash "${DEV_TOOL_DIR}/black.sh"

@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
     from typing import Literal
+
     from .abstract_base_page import AbstractBasePage
 
 from ..abstract_content_translation import AbstractContentTranslation

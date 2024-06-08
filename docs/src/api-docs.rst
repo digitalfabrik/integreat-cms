@@ -102,6 +102,43 @@ RESPONSE
 A single object following the layout of :ref:`api_regions`
 
 
+Social Media
+============
+
+Get social media headers for a frontend url
+
+REQUEST
+~~~~~~~
+
+Get the social media headers for a frontend url.
+The absolute url is the `path to resource <https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/What_is_a_URL#path_to_resource>`_ of the frontent url
+
+.. code:: http
+
+   GET /api/v3/social/{absolute_url}/ HTTP/2
+
+.. code:: http
+
+   GET /api/v3/social/ HTTP/2
+
+RESPONSE
+~~~~~~~~
+
+Rendered HTML that contains social media headers describing the object of the given url.
+Please keep in mind that the response contains partial ``<html>`` and ``<head>`` tags to allow the response to contain a language attribute in the root tag.
+This needs to be equalized in the server-side include e.g. as follows:
+
+.. code:: html
+
+    <!-- Nginx Server Side Include template for dynamic social media previews -->
+    <!--# if expr="$render_title = yes" -->
+    <!--# include virtual="/proxy/socialmeta/$request_uri" -->
+    <!--# else -->
+    <html>
+        <head>
+    <!--# endif -->
+
+
 Languages
 =========
 
@@ -626,6 +663,12 @@ RESPONSE
       "timestamp": String,     // Deprecated field
       "last_updated": String,  // The date&time when the push notification was last updated
       "channel": String,       // The channel the push notification was sent to (e.g. "News")
+      "available_languages": [           // The available languages of the push notification
+            "<language_slug>": {
+               "id": Number | null,           // The id of the translation
+            },
+            ...
+         ]
    }
 
 

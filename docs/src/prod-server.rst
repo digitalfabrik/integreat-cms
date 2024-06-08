@@ -69,7 +69,7 @@ Integreat CMS Package
         [integreat-cms]
 
         SECRET_KEY = <your-secret-key>
-        FCM_KEY = <your-firebase-key>
+        FCM_CREDENTIALS = <path-your-firebase-credentials-file>
         BASE_URL = https://cms.integreat-app.de
         LOGFILE = /var/integreat-cms.log
 

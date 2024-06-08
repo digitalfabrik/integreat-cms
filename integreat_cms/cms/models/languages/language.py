@@ -8,6 +8,7 @@ from django.db import models
 
 if TYPE_CHECKING:
     from typing import Any
+
     from django.db.models.query import QuerySet
 
 from django.utils import timezone
@@ -106,6 +107,22 @@ class Language(AbstractBaseModel):
         help_text=__(
             _('The native name for "Table of contents" in this language.'),
             _("This is used in exported PDFs."),
+        ),
+    )
+    social_media_webapp_title = models.CharField(
+        max_length=100,
+        blank=True,
+        verbose_name=_("Social media title of the WebApp"),
+        help_text=_(
+            "Displayed title of the WebApp in the search results and on social media pages (max 100 characters)."
+        ),
+    )
+    social_media_webapp_description = models.TextField(
+        max_length=200,
+        blank=True,
+        verbose_name=_("Social media description"),
+        help_text=_(
+            "Displayed description of the WebApp in the search results and on social media pages (max 200 characters)."
         ),
     )
     message_content_not_available = models.CharField(

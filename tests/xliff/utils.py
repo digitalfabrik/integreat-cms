@@ -8,9 +8,7 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     import sys
-    from typing import Any, Literal, TypedDict
-
-    from typing import NotRequired
+    from typing import Any, Literal, NotRequired, TypedDict
 
     from _pytest.logging import LogCaptureFixture
 

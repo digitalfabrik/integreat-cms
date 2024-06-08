@@ -66,6 +66,7 @@ class DashboardView(TemplateView, ChatContextMixin):
         # context.update(self.get_broken_links_context())
         context.update(self.get_low_hix_value_context())
         context.update(self.get_outdated_pages_context())
+        context.update(self.get_drafted_pages())
 
         return context
 
@@ -160,7 +161,7 @@ class DashboardView(TemplateView, ChatContextMixin):
             "relevant_url": invalid_url,
         }
 
-    def get_low_hix_value_context(self) -> dict[str, QuerySet]:
+    def get_low_hix_value_context(self) -> dict[str, list[PageTranslation]]:
         r"""
         Extend context by info on pages with low hix value
 
@@ -169,12 +170,18 @@ class DashboardView(TemplateView, ChatContextMixin):
         if not settings.TEXTLAB_API_ENABLED or not self.request.region.hix_enabled:
             return {}
 
-        translations_under_hix_threshold = PageTranslation.objects.filter(
+        translations = PageTranslation.objects.filter(
             language__slug__in=settings.TEXTLAB_API_LANGUAGES,
             id__in=self.latest_version_ids,
             page__hix_ignore=False,
             hix_score__lt=settings.HIX_REQUIRED_FOR_MT,
         )
+
+        translations_under_hix_threshold = [
+            translation
+            for translation in translations
+            if not translation.hix_sufficient_for_mt
+        ]
 
         return {
             "pages_under_hix_threshold": translations_under_hix_threshold,
@@ -219,4 +226,23 @@ class DashboardView(TemplateView, ChatContextMixin):
             "most_outdated_page": most_outdated_page,
             "days_since_last_updated": days_since_last_updated,
             "outdated_threshold_date": outdated_threshold_date_str,
+        }
+
+    def get_drafted_pages(
+        self,
+    ) -> dict[str, QuerySet]:
+        r"""
+        Extend context by info on drafted pages
+
+        :return: Dictionary containing the context for drafted pages for one region.
+        """
+        drafted_pages = PageTranslation.objects.filter(
+            id__in=self.latest_version_ids,
+            status=status.DRAFT,
+            language__slug=self.request.region.default_language.slug,
+        )
+        single_drafted_page = drafted_pages.first()
+        return {
+            "drafted_pages": drafted_pages,
+            "single_drafted_page": single_drafted_page,
         }

@@ -51,6 +51,8 @@ SCRIPT_PATH="${DEV_TOOL_DIR}/${SCRIPT_NAME}"
 SCRIPT_ARGS=("$@")
 # The verbosity of the output (can be one of {0,1,2,3})
 SCRIPT_VERBOSITY="1"
+# Unset LC_COLLATE to make sorting deterministic and reproducible
+LC_COLLATE=""
 
 # This function prints the given input lines in red color
 function print_error {
@@ -179,9 +181,9 @@ function require_installed {
             INTEGREAT_CMS_DEBUG=1
             export INTEGREAT_CMS_DEBUG
             # Set dummy FCM key to test functionality
-            if [[ -z "${INTEGREAT_CMS_FCM_KEY}" ]]; then
-                INTEGREAT_CMS_FCM_KEY="dummy"
-                export INTEGREAT_CMS_FCM_KEY
+            if [[ -z "${INTEGREAT_CMS_FCM_CREDENTIALS}" ]]; then
+                INTEGREAT_CMS_FCM_CREDENTIALS="dummy"
+                export INTEGREAT_CMS_FCM_CREDENTIALS
             fi
         fi
     fi
@@ -308,10 +310,15 @@ function migrate_database {
 
 # This function waits for the docker database container
 function wait_for_docker_container {
+    echo "Waiting for Docker container ${DOCKER_CONTAINER_NAME} to be ready..." | print_info
+
     # Wait until container is ready and accepts database connections
-    until docker exec -it "${DOCKER_CONTAINER_NAME}" psql -U integreat -d integreat -c "select 1" > /dev/null 2>&1; do
+    until docker exec "${DOCKER_CONTAINER_NAME}" psql -U integreat -d integreat -c "select 1" > /dev/null 2>&1; do
+        echo "Container not ready yet, sleeping..." | print_info
         sleep 0.1
     done
+
+    echo "Docker container ${DOCKER_CONTAINER_NAME} is ready!" | print_success
 }
 
 # This function creates a new postgres database docker container

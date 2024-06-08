@@ -121,7 +121,7 @@ API_ENDPOINTS: Final[list[tuple[str, str, str, int, int]]] = [
         "/augsburg/de/wp-json/extensions/v3/children/",
         "tests/api/expected-outputs/augsburg_de_children.json",
         200,
-        13,
+        14,
     ),
     (
         "/api/v3/augsburg/de/children/?depth=3&url=/augsburg/de/behörden-und-beratung/behörden/",
@@ -142,7 +142,7 @@ API_ENDPOINTS: Final[list[tuple[str, str, str, int, int]]] = [
         "/augsburg/de/wp-json/extensions/v3/children/?depth=2",
         "tests/api/expected-outputs/augsburg_de_children_depth_2.json",
         200,
-        13,
+        14,
     ),
     (
         "/api/v3/augsburg/de/events/",
@@ -540,5 +540,110 @@ API_FEEDBACK_ERRORS: Final[
         {"region_slug": "augsburg", "language_slug": "de"},
         {"rating": "down"},
         {"code": 400, "error": "Search query is required."},
+    ),
+]
+
+API_SOCIAL_ENDPOINTS: Final[list[tuple[str, str | None, int, int]]] = [
+    (
+        "/api/v3/social/",
+        "tests/api/expected-outputs/social.html",
+        200,
+        1,
+    ),
+    (
+        "/api/v3/social/landing/",
+        "tests/api/expected-outputs/social_landing.html",
+        200,
+        1,
+    ),
+    (
+        "/api/v3/social/landing/de/",
+        "tests/api/expected-outputs/social_landing_de.html",
+        200,
+        1,
+    ),
+    (
+        "/api/v3/social/landing/en/",
+        "tests/api/expected-outputs/social_landing_en.html",
+        200,
+        1,
+    ),
+    (
+        "/api/v3/social/landing/non-existing/",
+        "tests/api/expected-outputs/social_landing_non-existing.html",
+        404,
+        1,
+    ),
+    (
+        "/api/v3/social/augsburg/",
+        "tests/api/expected-outputs/social_augsburg.html",
+        200,
+        2,
+    ),
+    (
+        "/api/v3/social/augsburg/de/",
+        "tests/api/expected-outputs/social_augsburg_de.html",
+        200,
+        2,
+    ),
+    (
+        "/api/v3/social/augsburg/non-existing/",
+        "tests/api/expected-outputs/social_augsburg_non-existing.html",
+        404,
+        2,
+    ),
+    (
+        "/api/v3/social/augsburg/de/willkommen/",
+        "tests/api/expected-outputs/social_augsburg_de_page.html",
+        200,
+        3,
+    ),
+    (
+        "/api/v3/social/augsburg/de/behörden-und-beratung/behörden/gesundheitsamt/",
+        "tests/api/expected-outputs/social_augsburg_de_child_page.html",
+        200,
+        6,
+    ),
+    (
+        "/api/v3/social/augsburg/de/non-existing/",
+        "tests/api/expected-outputs/social_augsburg_de_page_non-existing.html",
+        404,
+        3,
+    ),
+    (
+        "/api/v3/social/augsburg/de/events/test-veranstaltung/",
+        "tests/api/expected-outputs/social_augsburg_de_event.html",
+        200,
+        3,
+    ),
+    (
+        "/api/v3/social/augsburg/de/events/non-existing/",
+        "tests/api/expected-outputs/social_augsburg_de_event_non-existing.html",
+        404,
+        3,
+    ),
+    (
+        "/api/v3/social/augsburg/de/locations/test-ort/",
+        "tests/api/expected-outputs/social_augsburg_de_location.html",
+        200,
+        3,
+    ),
+    (
+        "/api/v3/social/augsburg/de/locations/non-existing/",
+        "tests/api/expected-outputs/social_augsburg_de_location_non-existing.html",
+        404,
+        3,
+    ),
+    (
+        "/api/v3/social/augsburg/de/news/local/1/",
+        "tests/api/expected-outputs/social_augsburg_de_pn.html",
+        200,
+        7,
+    ),
+    (
+        "/api/v3/social/augsburg/de/news/local/0/",
+        "tests/api/expected-outputs/social_augsburg_de_pn_non-existing.html",
+        404,
+        3,
     ),
 ]

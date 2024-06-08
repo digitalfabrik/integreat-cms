@@ -60,20 +60,6 @@ jobs:
       - run:
           name: Check formatting of Django templates
           command: djlint --check --lint integreat_cms
-  isort:
-    docker:
-      - image: cimg/python:3.11.7
-    resource_class: small
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - run:
-          name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
-      - run:
-          name: Check isort code style
-          command: isort --check .
   pylint:
     docker:
       - image: cimg/python:3.11.7
@@ -210,6 +196,17 @@ jobs:
       - run:
           name: Check formatting of CSS & JS files
           command: npx prettier --check .
+  vitest:
+    docker:
+      - image: "cimg/node:lts"
+    resource_class: small
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run frontend tests
+          command: npm run test
   eslint:
     docker:
       - image: "cimg/node:lts"
@@ -467,7 +464,7 @@ jobs:
             echo "Current production version: ${CURRENT_VERSION}"
             # Bump version to current alpha version if it is newer
             # Attention: exit(True) in Python means exit(1) which is False in Bash :)
-            if python -c "from looseversion import LooseVersion; exit(LooseVersion('${CURRENT_VERSION}') > LooseVersion('${CURRENT_ALPHA_VERSION}'))"; then
+            if python -c "from bumpver.version import parse_version; exit(parse_version('${CURRENT_VERSION}') > parse_version('${CURRENT_ALPHA_VERSION}'))"; then
               echo "Bump to the currently existing version"
               bumpver update -n --set-version="${CURRENT_ALPHA_VERSION}" --no-commit
             fi
@@ -609,6 +606,9 @@ workflows:
       - prettier:
           requires:
             - npm-install
+      - vitest:
+          requires:
+            - npm-install
       - webpack:
           requires:
             - npm-install
@@ -671,9 +671,6 @@ workflows:
           requires:
             - pip-install
       - djlint:
-          requires:
-            - pip-install
-      - isort:
           requires:
             - pip-install
       - pylint:

@@ -24,6 +24,9 @@ export INTEGREAT_CMS_DEEPL_AUTH_KEY="dummy"
 
 # Set dummy key to enable Textlab during testing
 export INTEGREAT_CMS_TEXTLAB_API_KEY="dummy"
+# Set Google credentials and project ID to enable Google Translate during testing
+export INTEGREAT_CMS_GOOGLE_CREDENTIALS="dummy.json"
+export INTEGREAT_CMS_GOOGLE_PROJECT_ID="dummy"
 
 # Disable linkcheck listeners during testing
 export INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS=1

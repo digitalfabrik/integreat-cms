@@ -1,7 +1,7 @@
 ---
 name: "Feature request \U0001F4A1"
 about: Suggest an idea for this project
-labels: feature
+labels: ':bulb: feature'
 
 ---
 

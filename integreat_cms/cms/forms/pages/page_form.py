@@ -9,6 +9,7 @@ from django.db.models import Q
 
 if TYPE_CHECKING:
     from typing import Any
+
     from django.db.models.query import QuerySet
 
 from django.utils.translation import gettext_lazy as _
