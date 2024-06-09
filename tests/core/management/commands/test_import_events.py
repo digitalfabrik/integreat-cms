@@ -3,7 +3,7 @@ from __future__ import annotations
 import pytest
 from pytest_httpserver import HTTPServer
 
-from integreat_cms.cms.models import Event, EventTranslation, ExternalCalendar, Region
+from integreat_cms.cms.models import EventTranslation, ExternalCalendar, Region
 
 from ..utils import get_command_output
 
@@ -35,7 +35,7 @@ def serve(server: HTTPServer, file: str) -> str:
     :param file: The file to serve
     :return: The url of the served file
     """
-    with open(file, "r") as f:
+    with open(file, "r", encoding="utf-8") as f:
         server.expect_oneshot_request("/get_calendar").respond_with_data(f.read())
     return server.url_for("/get_calendar")
 
@@ -59,7 +59,7 @@ def test_import_without_calendars() -> None:
     """
     Tests that the import command does not fail if no external calendars are configured
     """
-    out, err = get_command_output("import_events")
+    _, err = get_command_output("import_events")
     assert not err
 
 
@@ -82,7 +82,7 @@ def test_import_successful(
         event__region=calendar.region, title__in=event_names
     ).exists(), "Event should not exist before import"
 
-    out, err = get_command_output("import_events")
+    _, err = get_command_output("import_events")
     assert not err
 
     assert all(
@@ -160,7 +160,7 @@ def test_import_corrupted_event(httpserver: HTTPServer, load_test_data: None) ->
     calendar_url = serve(httpserver, CALENDAR_CORRUPTED)
     setup_calendar(calendar_url)
 
-    out, err = get_command_output("import_events")
+    _, err = get_command_output("import_events")
     assert "Could not import event because it does not have a required field: " in err
 
 

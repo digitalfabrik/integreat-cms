@@ -4,7 +4,6 @@ from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.models.events.external_calendar import ExternalCalendar
-
 from tests.conftest import ANONYMOUS, CMS_TEAM, ROOT, SERVICE_TEAM
 
 

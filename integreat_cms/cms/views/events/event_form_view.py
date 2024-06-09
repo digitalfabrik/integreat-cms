@@ -76,7 +76,10 @@ class EventFormView(
         elif event_instance and event_instance.external_calendar:
             disabled = True
             messages.warning(
-                request, _("You cannot edit this event because it was imported from an external calendar.")
+                request,
+                _(
+                    "You cannot edit this event because it was imported from an external calendar."
+                ),
             )
         elif not request.user.has_perm("cms.change_event"):
             disabled = True
@@ -124,7 +127,7 @@ class EventFormView(
                 "translation_states": (
                     event_instance.translation_states if event_instance else []
                 ),
-                "disabled": disabled
+                "disabled": disabled,
             },
         )
 
