@@ -160,7 +160,7 @@ const closeMachineTranslationOverlay = (overlay: HTMLElement) => {
     overlay.classList.remove("flex");
 };
 
-const toggleOptionalText = (trigger: HTMLElement, optionalText: HTMLElement) => {
+export const toggleOptionalText = (trigger: HTMLElement, optionalText: HTMLElement) => {
     // function to toggle optional text
     trigger.addEventListener("click", () => {
         optionalText.classList.toggle("hidden");
