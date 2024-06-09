@@ -372,7 +372,7 @@ function ensure_webpack_bundle_exists {
 
 function ensure_node_modules_exist {
     if [ ! -d "${BASE_DIR}/node_modules" ]; then
-        echo "Missing node_modules - please run ./tools/install.sh" | print_info
+        echo "Missing node_modules - please run ./tools/install.sh" | print_error
         exit 1
     else
         echo "✔ node_modules is in place" | print_info
