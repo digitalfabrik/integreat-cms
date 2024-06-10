@@ -40,9 +40,11 @@
                 <h3 class="heading font-bold text-black">
                     {% if form.instance.id %}
                         <span class="fp fp-rounded fp-{{ form.instance.language.primary_country_code }} text-[24px] align-bottom"></span>
-                        {% if form.instance.language.secondary_country_code %}
+                        {% if form.instance.language.secondary_country_code and form.instance.language.language_color %}
                             <span class="fp fp-rounded fp-{{ form.instance.language.secondary_country_code }} text-[24px] align-bottom"></span>
                         {% endif %}
+                        <span class="fp rounded-full fp-{{ form.instance.language.language_color }} w-6 h-6 align-top"
+                              style="background-color: {{ form.instance.language.language_color }}"></span>
                     {% else %}
                         <i icon-name="flag"></i>
                     {% endif %}
