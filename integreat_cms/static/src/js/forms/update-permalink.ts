@@ -86,4 +86,22 @@ window.addEventListener("load", () => {
         slugField.value = currentSlug;
         toggleSlugMode();
     });
+
+    // This is used to slugify the title of the slug in target language
+    const slugifyStr = (str: string) => {
+        let trimmedStr = str.replace(/^\s+|\s+$/g, ""); // trim leading/trailing white space
+        let loweredCaseStr = trimmedStr.toLowerCase(); // convert string to lowercase
+        let slugStr = loweredCaseStr
+            .replace(/[^a-z0-9 -]/g, "") // remove any non-alphanumeric characters
+            .replace(/\s+/g, "-") // replace spaces with hyphens
+            .replace(/-+/g, "-"); // remove consecutive hyphens
+        return slugStr;
+    };
+    document.getElementById("target_translation_title")?.addEventListener("focusout", () => {
+        const targetLinkElement = document.getElementById("target_slug-link") as HTMLInputElement;
+        const targetTitleElement = (document.getElementById("target_translation_title") as HTMLInputElement).value
+            .trim()
+            .replace(/\s+/g, " ");
+        targetLinkElement.value = slugifyStr(targetTitleElement);
+    });
 });
