@@ -2,7 +2,9 @@ const toggleXliffBulkActionButton = () => {
     // Only activate button if at least one language item is selected
     const selectLanguages = <HTMLInputElement[]>Array.from(document.getElementsByClassName("bulk-select-language"));
     const multiLanguageXliffButton = document.getElementById("xliff-overlay-bulk-action-execute") as HTMLButtonElement;
-    multiLanguageXliffButton.disabled = !selectLanguages.some((el) => el.checked);
+    if (multiLanguageXliffButton) {
+        multiLanguageXliffButton.disabled = !selectLanguages.some((el) => el.checked);
+    }
 };
 
 const closeXliffExportOverlay = (overlay: HTMLElement) => {
