@@ -98,6 +98,7 @@ class Language(AbstractBaseModel):
         max_length=7,
         verbose_name=_("language color"),
         blank=False,
+        default="#000000",
         help_text=_(
             "This color is used to represent the color label of the chosen language"
         ),
