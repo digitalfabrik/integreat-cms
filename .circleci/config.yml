@@ -220,7 +220,7 @@ jobs:
           command: env
       - run:
           name: Lint static CSS, JS & YAML files
-          command: npx eslint .
+          command: DEBUG=typescript-estree:* npx eslint .
   shellcheck:
     docker:
       - image: cimg/base:stable
