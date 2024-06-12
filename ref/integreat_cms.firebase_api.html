@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-06-08T16:54:50+00:00" />
+    <meta property="article:modified_time" content="2024-06-12T13:36:29+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Firebase API &mdash; integreat-cms 2024.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -105,6 +105,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.v3.html">V3</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.chat.html">Chat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#events">Events</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.v3.html#imprint">Imprint</a></li>
@@ -405,6 +406,7 @@
 <li class="toctree-l1"><a class="reference internal" href="tests.html">Tests</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="tests.api.html">API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#api-config">API Config</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-api-chat">Test API Chat</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-api-feedback">Test API Feedback</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-api-push-page">Test API Push Page</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.api.html#test-api-result">Test API Result</a></li>
@@ -613,6 +615,13 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../api-docs.html#chat">Chat</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api-docs.html#id43">REQUEST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api-docs.html#id44">RESPONSE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api-docs.html#id45">REQUEST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api-docs.html#id46">RESPONSE</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -625,6 +634,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html">V3</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.chat.html">Chat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.events">Events</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.api.v3.html#module-integreat_cms.api.v3.imprint">Imprint</a></li>
@@ -1078,6 +1088,9 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_URL"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TEXTLAB_API_USERNAME"><code class="docutils literal notranslate"><span class="pre">TEXTLAB_API_USERNAME</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TIME_ZONE"><code class="docutils literal notranslate"><span class="pre">TIME_ZONE</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_TICKET_GROUP"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_TICKET_GROUP</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_WINDOW_LIMIT"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_WINDOW_LIMIT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USER_CHAT_WINDOW_MINUTES"><code class="docutils literal notranslate"><span class="pre">USER_CHAT_WINDOW_MINUTES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USE_I18N"><code class="docutils literal notranslate"><span class="pre">USE_I18N</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USE_L10N"><code class="docutils literal notranslate"><span class="pre">USE_L10N</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.USE_TZ"><code class="docutils literal notranslate"><span class="pre">USE_TZ</span></code></a></li>
@@ -1311,6 +1324,23 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.api_config">API Config</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.api_config.API_ENDPOINTS"><code class="docutils literal notranslate"><span class="pre">API_ENDPOINTS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.api_config.API_FEEDBACK_VIEWS"><code class="docutils literal notranslate"><span class="pre">API_FEEDBACK_VIEWS</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_api_chat">Test API Chat</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_create_attachment_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_create_attachment_success()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_first_chat"><code class="docutils literal notranslate"><span class="pre">test_api_chat_first_chat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_force_new_chat"><code class="docutils literal notranslate"><span class="pre">test_api_chat_force_new_chat()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_incorrect_chat_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_incorrect_chat_failure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_missing_attachment_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_missing_attachment_failure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_attachment_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_attachment_success()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_failure"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_messages_failure()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_get_messages_success"><code class="docutils literal notranslate"><span class="pre">test_api_chat_get_messages_success()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_incorrect_auth_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_incorrect_auth_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_missing_auth_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_missing_auth_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_ratelimiting"><code class="docutils literal notranslate"><span class="pre">test_api_chat_ratelimiting()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_send_message"><code class="docutils literal notranslate"><span class="pre">test_api_chat_send_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_is_chat_enabled_false"><code class="docutils literal notranslate"><span class="pre">test_api_is_chat_enabled_false()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.api.html#tests.api.test_api_chat.test_api_is_chat_enabled_true"><code class="docutils literal notranslate"><span class="pre">test_api_is_chat_enabled_true()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.api.html#module-tests.api.test_api_feedback">Test API Feedback</a><ul>
@@ -2092,7 +2122,7 @@ mode but the test region does not exist.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jun 08, 2024.
+      <span class="lastupdated">Last updated on Jun 12, 2024.
       </span></p>
   </div>
 
