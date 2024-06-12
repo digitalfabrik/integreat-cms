@@ -8,5 +8,5 @@ source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 # Run prettier
 echo "Starting code linting with eslint..." | print_info
-npx eslint .
+DEBUG=typescript-eslint:* ${BASE_DIR}/node_modules/.bin/eslint .
 echo "✔ Linting finished" | print_success
