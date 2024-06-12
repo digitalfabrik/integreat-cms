@@ -216,6 +216,9 @@ jobs:
       - attach_workspace:
           at: .
       - run:
+          name: Print envs for debug purposes
+          command: env
+      - run:
           name: Lint static CSS, JS & YAML files
           command: npx eslint .
   shellcheck:
