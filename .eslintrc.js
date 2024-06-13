@@ -33,6 +33,11 @@ module.exports = {
         "docs/",
         "package.json",
         "package-lock.json",
+        "**/css/",
+        "**/fonts/",
+        "**/images/",
+        "**/svg/",
+        "**/tinymce-plugins/",
     ],
 
     extends: [
@@ -46,6 +51,7 @@ module.exports = {
     parserOptions: {
         ecmaVersion: 6,
         sourceType: "module",
+        allowAutomaticSingleRunInference: true,
         project: "./tsconfig.json",
         ecmaFeatures: {
             jsx: true,
