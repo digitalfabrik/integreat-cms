@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from .chat.attachment_map import AttachmentMap
 from .chat.chat_message import ChatMessage
-from .chat.user_chat import UserChat
+from .chat.user_chat import ABTester, UserChat
 from .events.event import Event
 from .events.event_translation import EventTranslation
 from .events.recurrence_rule import RecurrenceRule

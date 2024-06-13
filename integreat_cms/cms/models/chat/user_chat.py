@@ -35,6 +35,40 @@ class UserChatManager(models.Manager):
         )
 
 
+class ABTester(AbstractBaseModel):
+    """
+    A helper model for keeping track of A/B testers for the chat feature
+    """
+
+    device_id = models.CharField(max_length=200)
+    region = models.ForeignKey("cms.Region", on_delete=models.CASCADE)
+    is_tester = models.BooleanField(default=False)
+
+    def __str__(self) -> str:
+        """
+        This overwrites the default Django :meth:`~django.db.models.Model.__str__` method which would return ``ABTester object (id)``.
+        It is used in the Django admin backend and as label for ModelChoiceFields.
+
+        :return: A readable string representation of the ab tester
+        """
+        return f"({self.pk}, {self.device_id}) is tester: {self.is_tester}"
+
+    def get_repr(self) -> str:
+        """
+        This overwrites the default Django ``__repr__()`` method which would return ``<ABTester: ABTester object (id)>``.
+        It is used for logging.
+
+        :return: The canonical string representation of the ab tester
+        """
+        return f"<ABTester (id: {self.id}, device_id: {self.device_id}, is_tester: {self.is_tester})>"
+
+    class Meta:
+        verbose_name = _("ab tester")
+        verbose_name_plural = _("ab testers")
+        ordering = ["-pk"]
+        default_permissions = ("delete", "change")
+
+
 class UserChat(AbstractBaseModel):
     """
     A model for a user (app) chat, mapping a device ID to a Zammad ticket ID

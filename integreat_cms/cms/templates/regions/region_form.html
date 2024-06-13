@@ -477,14 +477,14 @@
                     <div class="help-text">
                         {{ form.integreat_chat_enabled.help_text }}
                     </div>
-                    <label for="{{ form.zammad_url.id_for_zammad_url }}">
+                    <label for="{{ form.zammad_url.id_for_label }}">
                         {{ form.zammad_url.label }}
                     </label>
                     {% render_field form.zammad_url %}
                     <div class="help-text">
                         {{ form.zammad_url.help_text }}
                     </div>
-                    <label for="{{ form.zammad_url.id_for_zammad_access_token }}">
+                    <label for="{{ form.zammad_access_token.id_for_label }}">
                         {{ form.zammad_access_token.label }}
                     </label>
                     {% render_field form.zammad_access_token %}
@@ -494,12 +494,19 @@
                     <div class="help-text">
                         {{ form.zammad_access_token.help_text }} "{{ USER_CHAT_TICKET_GROUP }}"
                     </div>
-                    <label for="{{ form.zammad_url.id_for_zammad_chat_handlers }}">
+                    <label for="{{ form.zammad_chat_handlers.id_for_label }}">
                         {{ form.zammad_chat_handlers.label }}
                     </label>
                     {% render_field form.zammad_chat_handlers %}
                     <div class="help-text">
                         {{ form.zammad_chat_handlers.help_text }} "{{ USER_CHAT_TICKET_GROUP }}"
+                    </div>
+                    <label for="{{ form.chat_beta_tester_percentage.id_for_label }}">
+                        {{ form.chat_beta_tester_percentage.label }}
+                    </label>
+                    {% render_field form.chat_beta_tester_percentage %}
+                    <div class="help-text">
+                        {{ form.chat_beta_tester_percentage.help_text }}
                     </div>
                 </div>
                 <div>

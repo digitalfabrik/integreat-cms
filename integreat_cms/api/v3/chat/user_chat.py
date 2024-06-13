@@ -5,13 +5,14 @@ This module provides the API endpoints for the Integreat Chat API
 from __future__ import annotations
 
 import logging
+import random
 from typing import TYPE_CHECKING
 
 from django.http import HttpResponse, JsonResponse
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 
-from ....cms.models import AttachmentMap, UserChat
+from ....cms.models import ABTester, AttachmentMap, UserChat
 from ...decorators import json_response
 from .zammad_api import ZammadChatAPI
 
@@ -132,6 +133,34 @@ def send_message(
     return response_or_error(
         client.send_message(user_chat.zammad_id, request.POST.get("message"))  # type: ignore[union-attr]
     )
+
+
+@csrf_exempt
+@json_response
+# pylint: disable=unused-argument
+def is_chat_enabled_for_user(
+    request: HttpRequest, region_slug: str, device_id: str
+) -> JsonResponse:
+    """
+    Function to check if the chat feature is enabled for the given region and the given user.
+
+    :param request: Django request
+    :param region_slug: slug of a region
+    :param device_id: ID of the user attempting to use the chat
+    :return: JSON object according to APIv3 chat endpoint definition
+    """
+    if existing_user := ABTester.objects.filter(device_id=device_id).first():
+        return JsonResponse({"is_chat_enabled": existing_user.is_tester}, status=200)
+
+    is_enabled = bool(
+        request.region.zammad_url
+        and request.region.zammad_access_token
+        and random.random() < (0.01 * request.region.chat_beta_tester_percentage)
+    )
+    ABTester.objects.create(
+        device_id=device_id, region=request.region, is_tester=is_enabled
+    )
+    return JsonResponse({"is_chat_enabled": is_enabled}, status=200)
 
 
 @csrf_exempt
