@@ -96,7 +96,7 @@ class Command(LogCommand):
                 event.decoded("DESCRIPTION").decode("utf-8")
                 if "DESCRIPTION" in event
                 else ""
-            ),
+            ).replace("\n", "<br>"),
             language_slug=calendar.region.default_language.slug,
         )
         start = event.decoded("DTSTART")
