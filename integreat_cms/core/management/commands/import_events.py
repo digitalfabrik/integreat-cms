@@ -10,6 +10,7 @@ from cacheops import invalidate_model
 from ....cms.constants import status
 from ....cms.forms import EventForm, EventTranslationForm
 from ....cms.models import Event, EventTranslation, ExternalCalendar
+from ....cms.utils.content_translation_utils import get_cleaned_content
 from ..log_command import LogCommand
 
 if TYPE_CHECKING:
@@ -90,11 +91,13 @@ class Command(LogCommand):
         language = calendar.region.default_language
         event_id = event.decoded("UID").decode("utf-8")
         title = event.decoded("SUMMARY").decode("utf-8")
-        # TODO: When cleaning the form, we convert the content into html, which causes an event translation to always change
-        content = (
-            event.decoded("DESCRIPTION").decode("utf-8")
-            if "DESCRIPTION" in event
-            else ""
+        content = get_cleaned_content(
+            content_str=(
+                event.decoded("DESCRIPTION").decode("utf-8")
+                if "DESCRIPTION" in event
+                else ""
+            ),
+            language_slug=calendar.region.default_language.slug,
         )
         start = event.decoded("DTSTART")
         end = event.decoded("DTEND")
@@ -174,7 +177,7 @@ class Command(LogCommand):
             logger.error("Could not import event: %r", event_translation_form.errors)
             return event_id
 
-        # TODO: We could look at the sequence number of the ical event too, to see if it has changed.
+        # We could look at the sequence number of the ical event too, to see if it has changed.
         # If it hasn't, we don't need to create forms and can quickly skip it
         if event_form.has_changed() or event_translation_form.has_changed():
             event_translation = event_translation_form.save()
