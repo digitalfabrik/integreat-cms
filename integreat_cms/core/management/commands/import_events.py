@@ -102,12 +102,12 @@ class Command(LogCommand):
         start = event.decoded("DTSTART")
         end = event.decoded("DTEND")
         logger.debug(
-            "Event(event_id=%s, title=%s, start=%s, end=%s, content=%s)",
+            "Event(event_id=%s, title=%s, start=%s, end=%s, content=%s...)",
             event_id,
             title,
             start,
             end,
-            content,
+            content[:32],
         )
 
         # Skip this event if it does not have the required tag
