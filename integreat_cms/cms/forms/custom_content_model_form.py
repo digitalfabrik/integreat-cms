@@ -1,22 +1,14 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
-from urllib.parse import urlparse
 
 from django import forms
-from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-from lxml.etree import LxmlError
-from lxml.html import fromstring, tostring
 
 from ..constants import status
-from ..models import MediaFile
-from ..utils import internal_link_utils
 from ..utils.content_translation_utils import get_cleaned_content
-from ..utils.linkcheck_utils import fix_content_link_encoding
 from ..utils.slug_utils import generate_unique_slug_helper
 from .custom_model_form import CustomModelForm
 
@@ -99,7 +91,6 @@ class CustomContentModelForm(CustomModelForm):
 
         return cleaned_data
 
-    # pylint: disable=too-many-branches
     def clean_content(self) -> str:
         """
         Validate the content field (see :ref:`overriding-modelform-clean-method`) and applies changes

@@ -19,6 +19,7 @@ from ..utils.linkcheck_utils import fix_content_link_encoding
 logger = logging.getLogger(__name__)
 
 
+# pylint: disable=too-many-branches
 def get_cleaned_content(content_str: str, language_slug: str) -> str:
     """
     Validate the content and applies changes

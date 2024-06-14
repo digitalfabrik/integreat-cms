@@ -16,7 +16,6 @@ from ..log_command import LogCommand
 if TYPE_CHECKING:
     from typing import Any
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -58,8 +57,8 @@ class Command(LogCommand):
         calendar_events = set()
         for event in ical.walk("VEVENT"):
             try:
-                event_uid = self.import_event(calendar, event)
-                if event_uid is not None:
+
+                if (event_uid := self.import_event(calendar, event)) is not None:
                     calendar_events.add(event_uid)
             except KeyError as e:
                 logger.error(
@@ -77,8 +76,10 @@ class Command(LogCommand):
         )
         events_to_delete.delete()
 
+    # pylint: disable=too-many-locals
+    @staticmethod
     def import_event(
-        self, calendar: ExternalCalendar, event: icalendar.cal.Component
+        calendar: ExternalCalendar, event: icalendar.cal.Component
     ) -> str | None:
         """
         Imports an event from the external calendar
