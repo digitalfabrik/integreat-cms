@@ -13,6 +13,7 @@ type Props = {
     selectMedia: (file: File) => any;
     apiEndpoints: MediaApiPaths;
     mediaTranslations: any;
+    mediaTypes: { allowedMediaTypes: string };
     canDeleteFile: boolean;
     canReplaceFile: boolean;
     canDeleteDirectory: boolean;
@@ -22,6 +23,7 @@ const SelectMedia = ({
     cancel,
     onlyImage,
     selectMedia,
+    mediaTypes,
     apiEndpoints,
     mediaTranslations,
     canDeleteFile,
@@ -39,6 +41,7 @@ const SelectMedia = ({
                     selectMedia={selectMedia}
                     apiEndpoints={apiEndpoints}
                     mediaTranslations={mediaTranslations}
+                    mediaTypes={mediaTypes}
                     canDeleteFile={canDeleteFile}
                     canReplaceFile={canReplaceFile}
                     canDeleteDirectory={canDeleteDirectory}
