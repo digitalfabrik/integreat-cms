@@ -46,6 +46,7 @@ module.exports = {
     parserOptions: {
         ecmaVersion: 6,
         sourceType: "module",
+        EXPERIMENTAL_useProjectService: true,
         project: "./tsconfig.json",
         ecmaFeatures: {
             jsx: true,
