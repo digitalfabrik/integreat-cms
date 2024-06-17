@@ -199,12 +199,15 @@ class RegionForm(CustomModelForm):
             "mt_addon_booked",
             "mt_midyear_start_month",
             "zammad_url",
+            "zammad_access_token",
+            "zammad_chat_handlers",
         ]
         #: The widgets which are used in this form
         widgets = {
             "timezone": forms.Select(choices=get_timezone_choices()),
             "icon": IconWidget(),
             "offers": CheckboxSelectMultipleWithDisabled(),
+            "zammad_access_token": forms.PasswordInput(),
         }
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
@@ -577,6 +580,31 @@ class RegionForm(CustomModelForm):
                 "hix_enabled", _("No Textlab API key is set on this system.")
             )
         return cleaned_hix_enabled
+
+    def clean_zammad_url(self) -> str:
+        """
+        Validate the zammad_url field (see :ref:`overriding-modelform-clean-method`).
+
+        :return: The validated field
+        """
+        cleaned_zammad_url = self.cleaned_data["zammad_url"]
+        # Remove superfluous path parts
+        cleaned_zammad_url = cleaned_zammad_url.split("/api/v1")[0]
+        cleaned_zammad_url = cleaned_zammad_url.rstrip("/")
+        return cleaned_zammad_url
+
+    def clean_zammad_access_token(self) -> str:
+        """
+        Validate the zammad_access_token field (see :ref:`overriding-modelform-clean-method`).
+        If the value is empty, keep the original one.
+
+        :return: The validated field
+        """
+        return (
+            self.cleaned_data["zammad_access_token"]
+            if self.cleaned_data["zammad_access_token"]
+            else self.instance.zammad_access_token
+        )
 
     @staticmethod
     def autofill_bounding_box(cleaned_data: dict[str, Any]) -> dict[str, Any]:

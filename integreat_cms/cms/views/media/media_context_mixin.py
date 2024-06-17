@@ -105,6 +105,9 @@ class MediaContextMixin(ContextMixin):
                     map(str, dict(allowed_media.UPLOAD_CHOICES).values())
                 ),
             },
+            "mediaTypes": {
+                "allowedMediaTypes": ", ".join(dict(allowed_media.UPLOAD_CHOICES)),
+            },
             "expertMode": self.request.user.expert_mode,
             "allowedMediaTypes": ", ".join(dict(allowed_media.UPLOAD_CHOICES)),
             "canDeleteFile": self.request.user.has_perm("cms.delete_mediafile"),

@@ -1,5 +1,21 @@
 [
   {
+    "model": "cms.attachmentmap",
+    "pk": 1,
+    "fields": {
+      "user_chat": 1,
+      "random_hash": "exampleRandomHash",
+      "article_id": 1,
+      "attachment_id": 1,
+      "mime_type": "application/json"
+    }
+  },
+  {
+    "model": "cms.userchat",
+    "pk": 1,
+    "fields": { "device_id": "exampleDeviceID", "zammad_id": 1, "most_recent_hits": "" }
+  },
+  {
     "model": "cms.offertemplate",
     "pk": 1,
     "fields": {
@@ -130,6 +146,8 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "zammad_url": "https://zammad.example.com",
+      "zammad_access_token": "dummytoken",
+      "zammad_chat_handlers": "handler@example.com",
       "offers": [3, 2, 1, 5]
     }
   },
@@ -179,6 +197,8 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
       "offers": [3, 4, 2]
     }
   },
@@ -228,6 +248,8 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
       "offers": []
     }
   },
@@ -277,6 +299,8 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
       "offers": []
     }
   },
@@ -326,6 +350,8 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
       "offers": [1]
     }
   },
@@ -354,6 +380,57 @@
       "timezone": "Europe/Berlin",
       "created_date": "2023-09-26T12:00:00Z",
       "last_updated": "2023-09-26T12:00:00Z",
+      "statistics_enabled": false,
+      "seo_enabled": false,
+      "matomo_id": null,
+      "matomo_token": "",
+      "page_permissions_enabled": false,
+      "icon": null,
+      "chat_enabled": true,
+      "administrative_division_included": false,
+      "short_urls_enabled": false,
+      "external_news_enabled": false,
+      "fallback_translations_enabled": true,
+      "hix_enabled": false,
+      "summ_ai_enabled": false,
+      "mt_renewal_month": 0,
+      "mt_addon_booked": false,
+      "mt_midyear_start_month": null,
+      "mt_budget_used": 0,
+      "machine_translate_pages": 1,
+      "machine_translate_events": 1,
+      "machine_translate_pois": 1,
+      "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
+      "offers": []
+    }
+  },
+  {
+    "model": "cms.region",
+    "pk": 7,
+    "fields": {
+      "name": "Region without language",
+      "common_id": "",
+      "slug": "empty-region",
+      "status": "ARCHIVED",
+      "administrative_division": "RURAL_DISTRICT",
+      "aliases": {},
+      "custom_prefix": "",
+      "events_enabled": true,
+      "locations_enabled": true,
+      "push_notifications_enabled": true,
+      "latitude": 1.0,
+      "longitude": 1.0,
+      "longitude_min": 1.0,
+      "latitude_min": 1.0,
+      "longitude_max": 2.0,
+      "latitude_max": 2.0,
+      "postal_code": "00000",
+      "admin_mail": "empty@example.com",
+      "timezone": "Europe/Berlin",
+      "created_date": "2024-06-08T13:05:49.864Z",
+      "last_updated": "2024-06-08T13:06:00.798Z",
       "statistics_enabled": false,
       "seo_enabled": false,
       "matomo_id": null,
@@ -448,6 +525,7 @@
       "text_direction": "LEFT_TO_RIGHT",
       "primary_country_code": "de",
       "secondary_country_code": "",
+      "language_color": "#FF4500",
       "created_date": "2019-08-12T07:50:18.139Z",
       "last_updated": "2019-08-12T07:50:18.140Z",
       "table_of_contents": "Inhaltsverzeichnis",
@@ -467,6 +545,7 @@
       "english_name": "English",
       "text_direction": "LEFT_TO_RIGHT",
       "primary_country_code": "gb",
+      "language_color": "#17157D",
       "secondary_country_code": "us",
       "created_date": "2019-08-12T07:50:24.635Z",
       "last_updated": "2019-08-12T07:50:24.636Z",
@@ -488,6 +567,7 @@
       "text_direction": "RIGHT_TO_LEFT",
       "primary_country_code": "ab",
       "secondary_country_code": "",
+      "language_color": "#5894E3",
       "created_date": "2019-08-12T07:51:29.233Z",
       "last_updated": "2019-08-12T07:51:29.233Z",
       "table_of_contents": "محتويات",
@@ -508,6 +588,7 @@
       "text_direction": "RIGHT_TO_LEFT",
       "primary_country_code": "fs",
       "secondary_country_code": "",
+      "language_color": "#7F7F7F",
       "created_date": "2019-08-12T07:52:21.399Z",
       "last_updated": "2019-08-12T07:52:21.400Z",
       "table_of_contents": "محتویات",
@@ -526,6 +607,7 @@
       "native_name": "Español",
       "english_name": "Spanish",
       "text_direction": "LEFT_TO_RIGHT",
+      "language_color": "#FFE4F0",
       "primary_country_code": "es",
       "secondary_country_code": "",
       "created_date": "2019-08-12T07:52:21.399Z",
@@ -548,6 +630,7 @@
       "text_direction": "LEFT_TO_RIGHT",
       "primary_country_code": "de",
       "secondary_country_code": "",
+      "language_color": "#FFA500",
       "created_date": "2022-09-13T16:33:38.750Z",
       "last_updated": "2022-09-13T16:48:51.807Z",
       "table_of_contents": "Inhaltsverzeichnis",
@@ -570,6 +653,7 @@
       "secondary_country_code": "",
       "created_date": "2022-11-30T09:16:00Z",
       "last_updated": "2022-11-30T09:16:00Z",
+      "language_color": "#98DF8A",
       "table_of_contents": "Table of Contents",
       "social_media_webapp_title": "Integreat",
       "social_media_webapp_description": "",
@@ -588,6 +672,7 @@
       "text_direction": "LEFT_TO_RIGHT",
       "primary_country_code": "et",
       "secondary_country_code": "",
+      "language_color": "#2CA02C",
       "created_date": "2022-09-13T16:33:38.750Z",
       "last_updated": "2022-09-13T16:48:51.807Z",
       "table_of_contents": "ዝርዝር ሁኔታ",
@@ -608,6 +693,7 @@
       "text_direction": "LEFT_TO_RIGHT",
       "primary_country_code": "ua",
       "secondary_country_code": "",
+      "language_color": "#20B2AA",
       "created_date": "2022-09-13T16:33:38.750Z",
       "last_updated": "2022-09-13T16:48:51.807Z",
       "table_of_contents": "Зміст",
@@ -628,6 +714,7 @@
       "text_direction": "LEFT_TO_RIGHT",
       "primary_country_code": "gr",
       "secondary_country_code": "",
+      "language_color": "#FFD700",
       "created_date": "2022-09-13T16:33:38.750Z",
       "last_updated": "2022-09-13T16:48:51.807Z",
       "table_of_contents": "Πίνακας περιεχομένων",
@@ -1379,7 +1466,9 @@
       "last_updated": "2022-03-05T10:31:33.130Z"
     }
   },
+  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "attachmentmap" } },
   { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "chatmessage" } },
+  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "userchat" } },
   { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "offertemplate" } },
   { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "region" } },
   { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "directory" } },
@@ -2093,6 +2182,22 @@
   {
     "model": "auth.permission",
     "fields": {
+      "name": "Can delete attachment map",
+      "content_type": ["cms", "attachmentmap"],
+      "codename": "delete_attachmentmap"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
+      "name": "Can change attachment map",
+      "content_type": ["cms", "attachmentmap"],
+      "codename": "change_attachmentmap"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "fields": {
       "name": "Can delete chat message",
       "content_type": ["cms", "chatmessage"],
       "codename": "delete_chatmessage"
@@ -2105,6 +2210,14 @@
       "content_type": ["cms", "chatmessage"],
       "codename": "change_chatmessage"
     }
+  },
+  {
+    "model": "auth.permission",
+    "fields": { "name": "Can delete user chat", "content_type": ["cms", "userchat"], "codename": "delete_userchat" }
+  },
+  {
+    "model": "auth.permission",
+    "fields": { "name": "Can change user chat", "content_type": ["cms", "userchat"], "codename": "change_userchat" }
   },
   {
     "model": "auth.permission",

@@ -195,6 +195,21 @@
                             <div class="mb-2 text-s text-gray-600">
                                 {{ form.secondary_country_code.help_text }}
                             </div>
+                            <label for="{{ form.language_color.id_for_label }}" class="block mb-2">
+                                {{ form.language_color.label }}
+                            </label>
+                            <div class="flex my-2">
+                                <span class="language-color fp fp-{{ form.instance.language_color }} w-16 rounded-l {% if not form.instance.language_color %}hidden{% endif %}"
+                                      title="{{ form.instance.translated_name }}"
+                                      id="language-color-preview"
+                                      style="background-color: {{ form.instance.language_color }}"></span>
+                                <div class="flex-grow">
+                                    {% render_field form.language_color|add_error_class:"border-red-500" %}
+                                </div>
+                            </div>
+                            <div class="mb-2 text-s text-gray-600">
+                                {{ form.language_color.help_text }}
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from ...constants import language_color
 from ...models import Language
 from ..custom_model_form import CustomModelForm
 
@@ -34,6 +35,7 @@ class LanguageForm(CustomModelForm):
             "social_media_webapp_description",
             "primary_country_code",
             "secondary_country_code",
+            "language_color",
             "message_content_not_available",
             "message_partial_live_content_not_available",
         ]
@@ -56,6 +58,26 @@ class LanguageForm(CustomModelForm):
         self.fields["primary_country_code"].choices = sorted_language_choices
         self.fields["secondary_country_code"].choices = sorted_language_choices
 
+        # Make the language color field required
+        self.fields["language_color"].required = True
+
+        # Show unused colors first in the list, after them used colors with the assigned language name
+        used_colors = []
+        unused_colors = []
+        for color in language_color.COLORS:
+            color_code, name = color
+            if language := Language.objects.filter(language_color=color_code).first():
+                modified_name = name + " (" + language.translated_name + ")"
+                used_colors += [(color_code, modified_name)]
+            else:
+                unused_colors += [color]
+        used_colors = sorted(used_colors, key=lambda x: x[1])
+        unused_colors = sorted(unused_colors, key=lambda x: x[1])
+        self.fields["language_color"].choices = unused_colors + used_colors
+
+        if self.instance.language_color:
+            self.fields["language_color"].initial = self.instance.language_color
+
         # Make left border rounded if no flag is selected yet
         if not self.instance.primary_country_code:
             self.fields["primary_country_code"].widget.attrs[
@@ -65,3 +87,5 @@ class LanguageForm(CustomModelForm):
             self.fields["secondary_country_code"].widget.attrs[
                 "class"
             ] = "rounded-l border-l"
+        if not self.instance.language_color:
+            self.fields["language_color"].widget.attrs["class"] = "rounded-l border-l"

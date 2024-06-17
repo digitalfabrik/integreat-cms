@@ -1297,3 +1297,16 @@ DB_MUTEX_TTL_SECONDS: Final[int] = 60
 
 #: Days after which a page is considered to be outdated in the todo dashboard
 OUTDATED_THRESHOLD_DAYS: Final[int] = 365
+
+############
+# Chat API #
+############
+
+#: Size of the sliding window used for rate limiting
+USER_CHAT_WINDOW_MINUTES: Final[int] = 10
+
+#: Maximum number of requests users are allowed to send within WINDOW_MINUTES minutes
+USER_CHAT_WINDOW_LIMIT: Final[int] = 50
+
+#: Zammad ticket group used for Integreat chat messages
+USER_CHAT_TICKET_GROUP: Final[str] = "integreat-chat"

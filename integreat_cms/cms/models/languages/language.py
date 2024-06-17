@@ -16,7 +16,7 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
-from ...constants import countries, text_directions
+from ...constants import countries, language_color, text_directions
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_base_model import AbstractBaseModel
 from ..regions.region import Region
@@ -90,6 +90,17 @@ class Language(AbstractBaseModel):
         help_text=__(
             _("Another country with which this language is also associated."),
             _("This flag is used in the language switcher."),
+        ),
+    )
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.language_color`
+    language_color = models.CharField(
+        choices=language_color.COLORS,
+        max_length=7,
+        verbose_name=_("language color"),
+        blank=False,
+        default="#000000",
+        help_text=_(
+            "This color is used to represent the color label of the chosen language"
         ),
     )
     created_date = models.DateTimeField(

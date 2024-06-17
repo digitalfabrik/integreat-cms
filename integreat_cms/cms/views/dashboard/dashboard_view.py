@@ -236,6 +236,9 @@ class DashboardView(TemplateView, ChatContextMixin):
 
         :return: Dictionary containing the context for drafted pages for one region.
         """
+        if not self.request.region.default_language:
+            return {}
+
         drafted_pages = PageTranslation.objects.filter(
             id__in=self.latest_version_ids,
             status=status.DRAFT,

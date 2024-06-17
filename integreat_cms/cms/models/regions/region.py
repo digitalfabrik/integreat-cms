@@ -417,6 +417,24 @@ class Region(AbstractBaseModel):
             "URL pointing to this region's Zammad instance. Setting this enables Zammad form offers."
         ),
     )
+    zammad_access_token = models.CharField(
+        max_length=64,
+        blank=True,
+        default="",
+        verbose_name=_("Zammad access token"),
+        help_text=_(
+            'Access token for a Zammad user account. In Zammad, the account must be part of the "Agent" role and have full group permissions for the group:'
+        ),
+    )
+    zammad_chat_handlers = models.CharField(
+        max_length=1024,
+        blank=True,
+        default="",
+        verbose_name=_("Zammad chat handlers"),
+        help_text=_(
+            "Comma-separated email addresses of the accounts which should automatically be subscribed to new chat tickets. Note that these users must have full group permissions for the group:"
+        ),
+    )
 
     #: Custom model manager :class:`~integreat_cms.cms.models.regions.region.RegionManager` for region objects
     objects = RegionManager()
