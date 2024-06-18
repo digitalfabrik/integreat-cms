@@ -45,6 +45,11 @@ def transform_region(region: Region) -> dict[str, Any]:
         "tunews": region.external_news_enabled,
         "external_news": region.external_news_enabled,
         "languages": list(map(transform_language, region.visible_languages)),
+        "is_chat_enabled": bool(
+            region.integreat_chat_enabled
+            and region.zammad_url
+            and region.zammad_access_token
+        ),
     }
 
 

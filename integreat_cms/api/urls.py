@@ -228,11 +228,6 @@ urlpatterns: list[URLPattern] = [
                 path("languages/", languages, name="languages"),
                 path("offers/", offers, name="offers"),
                 path("extras/", offers, name="offers"),
-                path(
-                    "is_chat_enabled/",
-                    user_chat.is_chat_enabled,
-                    name="is_chat_enabled",
-                ),
                 path("<slug:language_slug>/", include(content_api_urlpatterns)),
             ]
         ),

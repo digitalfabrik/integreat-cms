@@ -198,6 +198,7 @@ class RegionForm(CustomModelForm):
             "mt_renewal_month",
             "mt_addon_booked",
             "mt_midyear_start_month",
+            "integreat_chat_enabled",
             "zammad_url",
             "zammad_access_token",
             "zammad_chat_handlers",
@@ -377,6 +378,17 @@ class RegionForm(CustomModelForm):
                 "offers",
                 _(
                     "Some offers could not be disabled, since they are currently embedded in at least one page."
+                ),
+            )
+
+        # Integreat Chat can only be enabled if Zammad URL and access key are set
+        if cleaned_data["integreat_chat_enabled"] and (
+            not cleaned_data["zammad_url"] or not cleaned_data["zammad_access_token"]
+        ):
+            self.add_error(
+                "integreat_chat_enabled",
+                _(
+                    "A Zammad URL and Access Token are required in order to enable the Integreat Chat."
                 ),
             )
 

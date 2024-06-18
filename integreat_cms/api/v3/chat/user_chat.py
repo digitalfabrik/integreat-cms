@@ -137,21 +137,6 @@ def send_message(
 @csrf_exempt
 @json_response
 # pylint: disable=unused-argument
-def is_chat_enabled(request: HttpRequest, region_slug: str) -> JsonResponse:
-    """
-    Function to check if the chat feature is enabled for the given region.
-
-    :param request: Django request
-    :param region_slug: slug of a region
-    :return: JSON object according to APIv3 chat endpoint definition
-    """
-    is_enabled = bool(request.region.zammad_url and request.region.zammad_access_token)
-    return JsonResponse({"is_chat_enabled": is_enabled}, status=200)
-
-
-@csrf_exempt
-@json_response
-# pylint: disable=unused-argument
 def chat(
     request: HttpRequest,
     region_slug: str,
@@ -170,7 +155,11 @@ def chat(
     :param attachment_id: ID of the requested attachment (optional)
     :return: JSON object according to APIv3 chat endpoint definition
     """
-    if not request.region.zammad_url or not request.region.zammad_access_token:
+    if (
+        not request.region.integreat_chat_enabled
+        or not request.region.zammad_url
+        or not request.region.zammad_access_token
+    ):
         return JsonResponse(
             {"error": "No chat server is configured for your region."},
             status=503,
