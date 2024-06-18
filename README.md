@@ -14,13 +14,23 @@ This content management system helps local integration experts to provide multil
 
 ## Development Setup
 
-This section provides a brief overview of setting up the development environment. We support various environments: you can set up everything locally using your preferred package manager, use it as a devcontainer, or utilize the nix-flake ([coming soon](https://github.com/digitalfabrik/integreat-cms/pull/2730)). Please clone the repository with the following snippet before starting to 
-setup your development environment.
+This section provides a brief overview of setting up the development environment.
+We support various environments: you can set up everything locally using your preferred package manager, use it as a devcontainer, or utilize the nix-flake.
+Please clone the repository with the following snippet before starting to set up your development environment.
 
 ````
 git clone git@github.com:digitalfabrik/integreat-cms.git
 cd integreat-cms
 ````
+
+### Choosing your setup method
+
+From the three provided development setup options, choose yours based on personal preference and familiarity with the used tools. If you are unsure, the following might help you make a decision.
+Please note that these are only suggestions.
+- using VSCode or PyCharm? → [Devcontainer](#devcontainer)
+- on NixOS, already using `nix` or do not want to install docker? → [Nix Flake](#nix-flake)
+- conflicting version of tools required on your system? → [Devcontainer](#devcontainer) or [Nix Flake](#nix-flake)
+- do not want to use additional tooling and have no conflicting tooling? → [Local Setup](#local-setup)
 
 ### Local Setup
 
@@ -61,6 +71,25 @@ For more information, refer to [this issue](https://github.com/microsoft/vscode-
 ##### Docker permissions
 
 The user must be in the docker group on linux, VSCode does not allow to optionally enter sudo password.
+
+### Nix Flake
+
+To configure your development environment through the provided nix flake, follow these steps carefully.
+
+1. Install `nix`. Depending on your distribution or operating system, multiple ways might be available to do this; one recommended way is to use the install script provided by [zero-to-nix.com](https://zero-to-nix.com/start/install):
+    ```bash
+    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+    ```
+2. Run `nix develop` inside your project directory. You should see `nix` pulling in the required dependencies for running the project.
+3. Execute `tools/install.sh` to download and install all project dependencies.
+
+Please note that closing the shell in which you ran `nix develop` will destroy your development environment,
+i.e. any time you want to work on the project again, you will need to execute `nix develop` beforehand,
+and then start your code editor (`code .`, `nvim`,...) from within that same shell.
+
+#### Known Limitations
+
+On MacOS, installing `libmagic` separately through `brew install libmagic` might be required.
 
 ### Run development server
 
