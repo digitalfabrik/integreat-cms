@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from datetime import timedelta
 from typing import TYPE_CHECKING
 
 from django.conf import settings
@@ -55,6 +56,8 @@ class Command(LogCommand):
             sent_date__isnull=True,
             draft=False,
             scheduled_send_date__lte=timezone.now(),
+            scheduled_send_date__gte=timezone.now()
+            - timedelta(hours=settings.NOTIFICATION_RETAIN_TIME_IN_HOURS),
         )
         if total := len(pending_push_notifications):
             for counter, push_notification in enumerate(pending_push_notifications):

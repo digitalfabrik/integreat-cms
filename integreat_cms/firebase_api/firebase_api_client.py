@@ -17,7 +17,6 @@ from ..cms.forms.push_notifications.push_notification_translation_form import (
 from ..cms.models import Region
 
 if TYPE_CHECKING:
-
     from ..cms.models.push_notifications.push_notification import PushNotification
 
 logger = logging.getLogger(__name__)
