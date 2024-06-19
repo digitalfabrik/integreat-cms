@@ -28,7 +28,7 @@
                 {{ page_translation_form.automatic_translation.label }}
             </label>
             <div id="hix-score-warning"
-                 class="hidden bg-yellow-100 border-l-4 border-yellow-500 text-orange-700  px-4 py-3 mb-2">
+                 class="hidden px-4 py-3 mb-2 text-orange-700 bg-yellow-100 border-l-4 border-yellow-500">
                 <p>
                     {% blocktranslate trimmed %}
                         Increase the HIX score to at least {{ minimum_hix }} to enable automatic translations.
@@ -38,7 +38,7 @@
             <div class="help-text">
                 {{ page_translation_form.automatic_translation.help_text }}
             </div>
-            <div id="language-options" class="pl-2 hidden">
+            <div id="language-options" class="hidden pl-2">
                 {% if page_translation_form.mt_translations_to_update.field.queryset.exists %}
                     <label for="{{ page_translation_form.mt_translations_to_update.id_for_label }}"
                            class="secondary">
@@ -52,6 +52,12 @@
                         {{ page_translation_form.mt_translations_to_create.label }}
                     </label>
                     {% render_field page_translation_form.mt_translations_to_create %}
+                    <div class="mt-4 font-bold">
+                        <input id="select-all-languages" type="checkbox" />
+                        <label for="select-all-languages">
+                            {% translate "Select all languages" %}
+                        </label>
+                    </div>
                 {% endif %}
             </div>
         </div>
