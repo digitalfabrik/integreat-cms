@@ -470,6 +470,13 @@
                 </div>
                 <div>
                     <!-- Options related to Zammad and the Chat API -->
+                    {% render_field form.integreat_chat_enabled %}
+                    <label for="{{ form.integreat_chat_enabled.id_for_label }}">
+                        {{ form.integreat_chat_enabled.label }}
+                    </label>
+                    <div class="help-text">
+                        {{ form.integreat_chat_enabled.help_text }}
+                    </div>
                     <label for="{{ form.zammad_url.id_for_zammad_url }}">
                         {{ form.zammad_url.label }}
                     </label>

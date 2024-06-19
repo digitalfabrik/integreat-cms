@@ -408,6 +408,12 @@ class Region(AbstractBaseModel):
         verbose_name=_("Locations"),
     )
 
+    integreat_chat_enabled = models.BooleanField(
+        default=False,
+        verbose_name=_("Enable Integreat Chat"),
+        help_text=_("Toggle the Integreat Chat on/off."),
+    )
+
     zammad_url = models.URLField(
         max_length=256,
         blank=True,

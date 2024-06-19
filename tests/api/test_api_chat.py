@@ -19,42 +19,6 @@ default_kwargs = {
 
 
 @pytest.mark.django_db
-def test_api_is_chat_enabled_true(load_test_data: None) -> None:
-    """
-    Check that regions with enabled chat return true
-
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    """
-    client = Client()
-    url = reverse(
-        "api:is_chat_enabled",
-        kwargs={"region_slug": "augsburg"},
-    )
-    response = client.get(url)
-
-    assert response.status_code == 200
-    assert response.json() == {"is_chat_enabled": True}
-
-
-@pytest.mark.django_db
-def test_api_is_chat_enabled_false(load_test_data: None) -> None:
-    """
-    Check that regions without enabled chat return false
-
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    """
-    client = Client()
-    url = reverse(
-        "api:is_chat_enabled",
-        kwargs={"region_slug": "artland"},
-    )
-    response = client.get(url)
-
-    assert response.status_code == 200
-    assert response.json() == {"is_chat_enabled": False}
-
-
-@pytest.mark.django_db
 def test_api_chat_missing_auth_error(load_test_data: None) -> None:
     """
     Check that missing auth information leads to an error

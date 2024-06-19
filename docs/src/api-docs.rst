@@ -76,7 +76,8 @@ RESPONSE
             "dir": String                // reading direction {"ltr"|"rtl"}
          },
          ...
-        ]
+        ],
+        "is_chat_enabled": Boolean,     // whether the Integreat Chat is enabled for the region
      },
      ...
    ]
@@ -1109,22 +1110,6 @@ REQUEST
 
 .. code:: http
 
-   GET /api/v3/{region_slug}/is_chat_enabled/ HTTP/2
-
-RESPONSE
-~~~~~~~~
-
-.. code:: javascript
-
-   {
-      "is_chat_enabled": Boolean,   // whether chat functionality is enabled for the requesting region
-   }
-
-REQUEST
-~~~~~~~
-
-.. code:: http
-
     GET /api/v3/{region_slug}/{language_slug}/chat/{device_id}/ HTTP/2
 
 .. code:: http
@@ -1191,4 +1176,3 @@ it will be passed along in the following format, together with a matching HTTP s
    }
 
 The response to ``GET``-ing the endpoint with an ``attachment_id`` is either the (binary) file or an error in the format specified above.
-
