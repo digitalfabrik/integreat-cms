@@ -455,6 +455,9 @@ class BulkDraftingView(BulkActionView):
 
 
 class CancelTranslationProcess(BulkActionView):
+    """
+    Bulk action to cancel translation process
+    """
 
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
