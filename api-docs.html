@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-06-17T12:21:27+00:00" />
+    <meta property="article:modified_time" content="2024-06-19T18:07:20+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API Documentation &mdash; integreat-cms 2024.6.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -618,8 +618,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#chat">Chat</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#id43">REQUEST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id44">RESPONSE</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id45">REQUEST</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id46">RESPONSE</a></li>
 </ul>
 </li>
 </ul>
@@ -1339,8 +1337,6 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_missing_auth_error"><code class="docutils literal notranslate"><span class="pre">test_api_chat_missing_auth_error()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_ratelimiting"><code class="docutils literal notranslate"><span class="pre">test_api_chat_ratelimiting()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_send_message"><code class="docutils literal notranslate"><span class="pre">test_api_chat_send_message()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_is_chat_enabled_false"><code class="docutils literal notranslate"><span class="pre">test_api_is_chat_enabled_false()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_is_chat_enabled_true"><code class="docutils literal notranslate"><span class="pre">test_api_is_chat_enabled_true()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.api.html#module-tests.api.test_api_feedback">Test API Feedback</a><ul>
@@ -2030,7 +2026,8 @@
 <span class="w">         </span><span class="s2">&quot;dir&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w">                </span><span class="c1">// reading direction {&quot;ltr&quot;|&quot;rtl&quot;}</span>
 <span class="w">      </span><span class="p">},</span>
 <span class="w">      </span><span class="p">...</span>
-<span class="w">     </span><span class="p">]</span>
+<span class="w">     </span><span class="p">],</span>
+<span class="w">     </span><span class="s2">&quot;is_chat_enabled&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">     </span><span class="c1">// whether the Integreat Chat is enabled for the region</span>
 <span class="w">  </span><span class="p">},</span>
 <span class="w">  </span><span class="p">...</span>
 <span class="p">]</span>
@@ -2879,20 +2876,6 @@ called “disclaimer”)</p>
 <p>This endpoint provides chat functionality for Integreat app users.</p>
 <section id="id43">
 <h3>REQUEST<a class="headerlink" href="#id43" title="Link to this heading"></a></h3>
-<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/is_chat_enabled/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
-</pre></div>
-</div>
-</section>
-<section id="id44">
-<h3>RESPONSE<a class="headerlink" href="#id44" title="Link to this heading"></a></h3>
-<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">   </span><span class="s2">&quot;is_chat_enabled&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">   </span><span class="c1">// whether chat functionality is enabled for the requesting region</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="id45">
-<h3>REQUEST<a class="headerlink" href="#id45" title="Link to this heading"></a></h3>
 <div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/v3/{region_slug}/{language_slug}/chat/{device_id}/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
 </pre></div>
 </div>
@@ -2911,8 +2894,8 @@ called “disclaimer”)</p>
 </pre></div>
 </div>
 </section>
-<section id="id46">
-<h3>RESPONSE<a class="headerlink" href="#id46" title="Link to this heading"></a></h3>
+<section id="id44">
+<h3>RESPONSE<a class="headerlink" href="#id44" title="Link to this heading"></a></h3>
 <p>The response to <code class="docutils literal notranslate"><span class="pre">POST</span></code>-ing to the endpoint is a single object representing
 the message as it is stored in Zammad.</p>
 <div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -2968,7 +2951,7 @@ it will be passed along in the following format, together with a matching HTTP s
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jun 17, 2024.
+      <span class="lastupdated">Last updated on Jun 19, 2024.
       </span></p>
   </div>
 
