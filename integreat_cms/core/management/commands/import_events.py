@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 
 import icalendar.cal
 from cacheops import invalidate_model
+from django.utils.translation import gettext_lazy as _
 
 from ....cms.constants import status
 from ....cms.forms import EventForm, EventTranslationForm
@@ -48,23 +49,32 @@ class Command(LogCommand):
 
         :param calendar: The calendar to import from
         """
+        errors: list[str] = []
+
         try:
             ical = calendar.load_ical()
         except IOError as e:
             logger.error("Could not import events from %s: %s", calendar, e)
+            errors.append(_("Could not access the url of this external calendar"))
             return
 
         calendar_events = set()
         for event in ical.walk("VEVENT"):
             try:
-
-                if (event_uid := self.import_event(calendar, event)) is not None:
+                if (
+                    event_uid := self.import_event(calendar, event, errors)
+                ) is not None:
                     calendar_events.add(event_uid)
             except KeyError as e:
                 logger.error(
                     "Could not import event because it does not have a required field: %s, missing field: %r",
                     event,
                     e,
+                )
+                errors.append(
+                    _(
+                        "Could not import event because it is missing a required field: {}"
+                    ).format(e)
                 )
                 continue
 
@@ -76,16 +86,24 @@ class Command(LogCommand):
         )
         events_to_delete.delete()
 
+        if errors:
+            calendar.errors = "\n".join(errors)
+        else:
+            calendar.errors = ""
+
+        calendar.save()
+
     # pylint: disable=too-many-locals
     @staticmethod
     def import_event(
-        calendar: ExternalCalendar, event: icalendar.cal.Component
+        calendar: ExternalCalendar, event: icalendar.cal.Component, errors: list[str]
     ) -> str | None:
         """
         Imports an event from the external calendar
 
         :param calendar: The calendar to import from
         :param event: The event that should be imported
+        :param errors: A list to which errors will be logged
 
         :return: The uid of the event
         """
@@ -157,6 +175,9 @@ class Command(LogCommand):
         )
         if not event_form.is_valid():
             logger.error("Could not import event: %r", event_form.errors)
+            errors.append(
+                _("Could not import '{}': {}").format(title, event_form.errors)
+            )
             return event_id
 
         event = event_form.save()
@@ -176,6 +197,11 @@ class Command(LogCommand):
         )
         if not event_translation_form.is_valid():
             logger.error("Could not import event: %r", event_translation_form.errors)
+            errors.append(
+                _("Could not import '{}': {}").format(
+                    title, event_translation_form.errors
+                )
+            )
             return event_id
 
         # We could look at the sequence number of the ical event too, to see if it has changed.

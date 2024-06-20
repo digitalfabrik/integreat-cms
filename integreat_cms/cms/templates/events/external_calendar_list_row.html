@@ -15,6 +15,18 @@
     <td>
         <a href="{% url 'edit_external_calendar' region_slug=request.region.slug calendar_id=calendar.id %}"
            class="block px-2 py-3 text-gray-800">
+            {% if calendar.errors %}
+                <div class="text-red-500">
+                    {{ calendar.errors | safe }}
+                </div>
+            {% else %}
+                <i icon-name="check" class="text-green-500"></i>
+            {% endif %}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_external_calendar' region_slug=request.region.slug calendar_id=calendar.id %}"
+           class="block px-2 py-3 text-gray-800">
             {{ calendar.events.count }}
         </a>
     </td>

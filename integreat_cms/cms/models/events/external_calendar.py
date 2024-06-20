@@ -26,6 +26,7 @@ class ExternalCalendar(AbstractBaseModel):
             "The tag that events need to have to get imported (Leave blank to import all events)"
         ),
     )
+    errors = models.CharField(verbose_name=_("import errors"), default="", blank=True)
 
     def __str__(self) -> str:
         """

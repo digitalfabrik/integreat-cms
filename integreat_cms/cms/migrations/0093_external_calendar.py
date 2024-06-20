@@ -90,6 +90,12 @@ class Migration(migrations.Migration):
                         verbose_name="region",
                     ),
                 ),
+                (
+                    "errors",
+                    models.CharField(
+                        blank=True, default="", verbose_name="import errors"
+                    ),
+                ),
             ],
             options={
                 "verbose_name": "external calendar",

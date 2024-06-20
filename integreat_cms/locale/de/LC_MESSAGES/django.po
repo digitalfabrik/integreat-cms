@@ -1869,6 +1869,7 @@ msgstr "Kategorie"
 
 #: cms/forms/feedback/region_feedback_filter_form.py
 #: cms/templates/events/event_list_archived.html
+#: cms/templates/events/external_calendar_list.html
 #: cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html
 #: cms/templates/linkcheck/links_by_filter.html
@@ -2640,7 +2641,12 @@ msgid ""
 "The tag that events need to have to get imported (Leave blank to import all "
 "events)"
 msgstr ""
-"Die Kategorie, der ein Event zugeordnet sein muss, um importiert zu werden (Leer lassen, um alle Veranstaltungen zu importieren)"
+"Die Kategorie, der ein Event zugeordnet sein muss, um importiert zu werden "
+"(Leer lassen, um alle Veranstaltungen zu importieren)"
+
+#: cms/models/events/external_calendar.py
+msgid "import errors"
+msgstr "Importfehler"
 
 #: cms/models/events/external_calendar.py
 msgid "external calendars"
@@ -2929,7 +2935,8 @@ msgid ""
 "Displayed title of the WebApp in the search results and on social media "
 "pages (max 100 characters)."
 msgstr ""
-"Angezeigter Titel der Wep-App in Suchergebnissen und auf sozialen Medien (max. 100 Zeichen)."
+"Angezeigter Titel der Wep-App in Suchergebnissen und auf sozialen Medien "
+"(max. 100 Zeichen)."
 
 #: cms/models/languages/language.py
 msgid "Social media description"
@@ -2940,7 +2947,8 @@ msgid ""
 "Displayed description of the WebApp in the search results and on social "
 "media pages (max 200 characters)."
 msgstr ""
-"Angezeigte Beschreibung der Wep-App in Suchergebnissen und auf sozialen Medien (max. 200 Zeichen)."
+"Angezeigte Beschreibung der Wep-App in Suchergebnissen und auf sozialen "
+"Medien (max. 200 Zeichen)."
 
 #: cms/models/languages/language.py
 msgid ""
@@ -9749,6 +9757,19 @@ msgstr[1] ""
 #: core/apps.py
 msgid "Core"
 msgstr "Core"
+
+#: core/management/commands/import_events.py
+msgid "Could not access the url of this external calendar"
+msgstr "Auf die URL dieses externen Kalenders konnte nicht zugegriffen werden"
+
+#: core/management/commands/import_events.py
+msgid "Could not import event because it is missing a required field: {}"
+msgstr ""
+"Ein Event konnte nicht importiert werden, da ein erforderliches Feld fehlt: {}"
+
+#: core/management/commands/import_events.py
+msgid "Could not import '{}': {}"
+msgstr "'{}' konnte nicht importiert werden: {}"
 
 #: core/settings.py
 msgid "German"
