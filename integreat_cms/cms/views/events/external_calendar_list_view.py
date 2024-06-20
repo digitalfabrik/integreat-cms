@@ -13,7 +13,7 @@ if TYPE_CHECKING:
     from typing import Any
 
 
-@method_decorator(permission_required("auth.change_external_calendar"), name="get")
+@method_decorator(permission_required("cms.change_externalcalendar"), name="get")
 class ExternalCalendarList(TemplateView):
     """
     View for external calendars in regions.

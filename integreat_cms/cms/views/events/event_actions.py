@@ -197,7 +197,7 @@ def search_poi_ajax(request: HttpRequest, region_slug: str) -> HttpResponse:
 
 
 @require_POST
-@permission_required("cms.delete_external_calendar")
+@permission_required("cms.delete_externalcalendar")
 def delete_external_calendar(
     request: HttpRequest, calendar_id: int, region_slug: str
 ) -> HttpResponseRedirect:

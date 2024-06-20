@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-@method_decorator(permission_required("auth.change_external_calendar"), name="post")
+@method_decorator(permission_required("cms.change_externalcalendar"), name="post")
 class ExternalCalendarFormView(TemplateView):
     """
     Form view for new external calendars in a region.
