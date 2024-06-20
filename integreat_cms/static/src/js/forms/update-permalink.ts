@@ -87,21 +87,15 @@ window.addEventListener("load", () => {
         toggleSlugMode();
     });
 
-    // This is used to slugify the title of the slug in target language
-    const slugifyStr = (str: string) => {
-        const trimmedStr = str.replace(/^\s+|\s+$/g, ""); // trim leading/trailing white space
-        const loweredCaseStr = trimmedStr.toLowerCase(); // convert string to lowercase
-        const slugStr = loweredCaseStr
-            .replace(/[^a-z0-9 -]/g, "") // remove any non-alphanumeric characters
-            .replace(/\s+/g, "-") // replace spaces with hyphens
-            .replace(/-+/g, "-"); // remove consecutive hyphens
-        return slugStr;
-    };
+    // This is used to slugify the title of the slug in target language in the page_sbs template
     document.getElementById("target_translation_title")?.addEventListener("focusout", () => {
+        const targetTitleElement = (document.getElementById("target_translation_title") as HTMLInputElement).value;
         const targetLinkElement = document.getElementById("target_slug-link") as HTMLInputElement;
-        const targetTitleElement = (document.getElementById("target_translation_title") as HTMLInputElement).value
-            .trim()
-            .replace(/\s+/g, " ");
-        targetLinkElement.value = slugifyStr(targetTitleElement);
+        const url = (document.querySelector('[for="id_slug"]') as HTMLElement).dataset.slugifyUrl;
+        slugify(url, { title: targetTitleElement }).then((response) => {
+            /* on success write response to both slug field and permalink */
+            targetLinkElement.value = response.unique_slug;
+            updatePermalink(response.unique_slug);
+        });
     });
 });
