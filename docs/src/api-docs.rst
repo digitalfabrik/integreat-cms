@@ -1110,6 +1110,22 @@ REQUEST
 
 .. code:: http
 
+   GET /api/v3/{region_slug}/{device_id}/is_chat_enabled/ HTTP/2
+
+RESPONSE
+~~~~~~~~
+
+.. code:: javascript
+
+   {
+      "is_chat_enabled": Boolean,   // whether chat functionality is enabled for the requesting user
+   }
+
+REQUEST
+~~~~~~~
+
+.. code:: http
+
     GET /api/v3/{region_slug}/{language_slug}/chat/{device_id}/ HTTP/2
 
 .. code:: http

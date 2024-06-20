@@ -202,6 +202,7 @@ class RegionForm(CustomModelForm):
             "zammad_url",
             "zammad_access_token",
             "zammad_chat_handlers",
+            "chat_beta_tester_percentage",
         ]
         #: The widgets which are used in this form
         widgets = {

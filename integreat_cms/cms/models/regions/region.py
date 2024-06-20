@@ -442,6 +442,16 @@ class Region(AbstractBaseModel):
         ),
     )
 
+    chat_beta_tester_percentage = models.IntegerField(
+        default=0,
+        blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        verbose_name=_("Chat beta tester percentage"),
+        help_text=_(
+            "Percentage of users selected as beta testers for the Integreat Chat feature"
+        ),
+    )
+
     #: Custom model manager :class:`~integreat_cms.cms.models.regions.region.RegionManager` for region objects
     objects = RegionManager()
 
