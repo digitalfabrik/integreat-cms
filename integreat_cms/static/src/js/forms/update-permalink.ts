@@ -89,13 +89,14 @@ window.addEventListener("load", () => {
 
     // This is used to slugify the title of the slug in target language in the page_sbs template
     document.getElementById("target_translation_title")?.addEventListener("focusout", () => {
+        const submissionLock = new SubmissionPrevention(".no-premature-submission");
         const targetTitleElement = (document.getElementById("target_translation_title") as HTMLInputElement).value;
         const targetLinkElement = document.getElementById("target_slug-link") as HTMLInputElement;
-        const url = (document.querySelector('[for="id_slug"]') as HTMLElement).dataset.slugifyUrl;
-        slugify(url, { title: targetTitleElement }).then((response) => {
+        const dataset = (document.querySelector('[for="id_slug"]') as HTMLElement).dataset;
+        slugify(dataset.slugifyUrl, { title: targetTitleElement, model_id: dataset.modelId }).then((response) => {
             /* on success write response to both slug field and permalink */
             targetLinkElement.value = response.unique_slug;
             updatePermalink(response.unique_slug);
-        });
+        }).finally(() => submissionLock.release());
     });
 });
