@@ -9,7 +9,7 @@ import datetime
 import logging
 
 import icalendar.cal
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as _
 
 from integreat_cms.cms.constants import status
 from integreat_cms.cms.forms import EventForm, EventTranslationForm
@@ -135,6 +135,12 @@ def _import_events(calendar: ExternalCalendar, errors: list[str]) -> None:
     except IOError as e:
         logger.error("Could not import events from %s: %s", calendar, e)
         errors.append(_("Could not access the url of this external calendar"))
+        return
+    except ValueError as e:
+        logger.error("Malformed calendar %s: %s", calendar, e)
+        errors.append(
+            _("The data provided by the url of this external calendar are invalid")
+        )
         return
 
     calendar_events = set()

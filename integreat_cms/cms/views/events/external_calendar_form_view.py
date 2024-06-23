@@ -12,6 +12,7 @@ from django.views.generic import TemplateView
 from ...decorators import permission_required
 from ...forms import ExternalCalendarForm
 from ...models.events.external_calendar import ExternalCalendar
+from ...utils.external_calendar_utils import import_events
 
 if TYPE_CHECKING:
     from typing import Any
@@ -76,6 +77,20 @@ class ExternalCalendarFormView(TemplateView):
             external_calendar_form.add_error_messages(request)
         elif not external_calendar_form.has_changed():
             messages.info(request, _("No changes made"))
+
+            import_events(external_calendar_form.instance)
+            if external_calendar_form.instance.errors:
+                messages.error(
+                    request,
+                    _(
+                        "An error occurred while importing events from this external calendar"
+                    ),
+                )
+            else:
+                messages.success(
+                    request,
+                    _("Successfully imported events from this external calendar"),
+                )
         else:
             external_calendar_form.instance.region = self.request.region
             external_calendar_form.save()
@@ -93,6 +108,21 @@ class ExternalCalendarFormView(TemplateView):
                         external_calendar_form.instance
                     ),
                 )
+
+            import_events(external_calendar_form.instance)
+            if external_calendar_form.instance.errors:
+                messages.error(
+                    request,
+                    _(
+                        "An error occurred while importing events from this external calendar"
+                    ),
+                )
+            else:
+                messages.success(
+                    request,
+                    _("Successfully imported events from this external calendar"),
+                )
+
             return redirect(
                 "edit_external_calendar",
                 region_slug=self.request.region.slug,

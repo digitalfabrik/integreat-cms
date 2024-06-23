@@ -40,6 +40,7 @@ class ExternalCalendar(AbstractBaseModel):
         Loads the url and creates an icalendar
         :return: The Icalendar returned by the url
         :raises OSError: If the url cannot be loaded
+        :raises ValueError: If the data are not valid icalendar format
         """
         response = requests.get(self.url, timeout=60)
         if response.status_code != 200:

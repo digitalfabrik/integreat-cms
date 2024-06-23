@@ -33,7 +33,11 @@
                         </div>
                     {% endif %}
                     <button class="btn">
-                        {% translate "Save" %}
+                        {% if external_calendar_form.instance.id %}
+                            {% translate "Update & Import" %}
+                        {% else %}
+                            {% translate "Save" %}
+                        {% endif %}
                     </button>
                 </div>
             </div>
