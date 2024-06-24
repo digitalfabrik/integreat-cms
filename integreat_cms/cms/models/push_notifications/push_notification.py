@@ -4,6 +4,7 @@ The model for the push notification
 
 from __future__ import annotations
 
+from datetime import datetime, timedelta
 from typing import TYPE_CHECKING
 
 from django.conf import settings
@@ -14,8 +15,6 @@ from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
-    from datetime import datetime
-
     from django.db.models.query import QuerySet
 
     from .push_notification_translation import PushNotificationTranslation
@@ -150,6 +149,22 @@ class PushNotification(AbstractBaseModel):
         if not self.scheduled_send_date:
             return None
         return timezone.localtime(self.scheduled_send_date)
+
+    @cached_property
+    def is_overdue(self) -> bool:
+        """
+        This property returns whether the notification is overdue based on the retain time setting and
+        scheduled_send_date. This method only works for scheduled notifications.
+
+        :return: True if the message is overdue, False otherwise
+        """
+        if not self.scheduled_send_date:
+            return False
+
+        retention_time = timezone.now() - timedelta(
+            hours=settings.NOTIFICATION_RETAIN_TIME_IN_HOURS
+        )
+        return timezone.localtime(self.scheduled_send_date) <= retention_time
 
     def __str__(self) -> str:
         """
