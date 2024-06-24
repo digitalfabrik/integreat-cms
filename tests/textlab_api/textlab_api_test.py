@@ -49,6 +49,88 @@ def update_page_content(
     return (edit_page, admin_client.post(edit_page, edit_page_data))
 
 
+# This is a faked HIX feedback to be used in the next test
+dummy_hix_result = {
+    "formulaHix": 15.48920568,
+    "moreSentencesInClauses": [1, 2, 3],
+    "moreSentencesInWords": [],
+    "dataTerms": {
+        "1289": {
+            "category": {
+                "category_type": "negative",
+                "description": {
+                    "de": "Abkürzungen erschweren den Lesefluss und werden häufig auch nicht verstanden.",
+                    "en": "Abbreviations make it harder to read and understand your text.<br>Tip: Try to use abbreviations spraringly. <br>If you need to use lesser known abbreviations, explain them to your readers.",
+                },
+                "id": 1289,
+                "locale_name": "de_DE",
+                "name": {
+                    "de": "Abkürzungen",
+                    "en": "Abbreviations for Cockpit Integreat",
+                },
+                "settings": {},
+            },
+            "result": [
+                {
+                    "length": [1],
+                    "position": [136],
+                    "priority": 6,
+                    "replacement": [
+                        {
+                            "description": "",
+                            "global_visible": 1,
+                            "id": 309900,
+                            "lemma": ["Jahrhundert"],
+                            "settings": {},
+                            "tag": ["NN"],
+                            "wordcount": 1,
+                            "words": ["Jahrhundert"],
+                        }
+                    ],
+                    "term": {
+                        "check_words": 1,
+                        "description": "Verwenden Sie so wenige Abkürzungen im Text wie möglich.|Nicht alle Abkürzungen sind Ihren Lesern bekannt.",
+                        "lemma": ["Jh.{0,1}"],
+                        "settings": {"syllcount": 2},
+                        "tag": [""],
+                        "term_id": 143,
+                        "wordcount": 1,
+                        "words": ["Jh.{0,1}"],
+                    },
+                },
+                {
+                    "length": [1, 1],
+                    "position": [353, 355],
+                    "priority": 6,
+                    "replacement": [
+                        {
+                            "description": "",
+                            "global_visible": 1,
+                            "id": 369,
+                            "lemma": ["<unknown>", "<unknown>", "<unknown>"],
+                            "settings": {},
+                            "tag": ["NE", "NE", "NN"],
+                            "wordcount": 3,
+                            "words": ["Frequently", "Asked", "Questions"],
+                        }
+                    ],
+                    "term": {
+                        "check_words": 1,
+                        "description": "Verwenden Sie so wenige Abkürzungen im Text wie möglich.|Nicht alle Abkürzungen sind Ihren Lesern bekannt.",
+                        "lemma": ["<unknown>"],
+                        "settings": {"syllcount": 2},
+                        "tag": ["NE"],
+                        "term_id": 368,
+                        "wordcount": 1,
+                        "words": ["FAQ"],
+                    },
+                },
+            ],
+        },
+    },
+}
+
+
 @pytest.mark.django_db
 def test_hix_score_update(
     load_test_data: None,
@@ -69,11 +151,7 @@ def test_hix_score_update(
     mock_server.configure(
         "/benchmark/420",
         200,
-        {
-            "formulaHix": 15.48920568,
-            "moreSentencesInClauses": [1, 2, 3],
-            "moreSentencesInWords": [],
-        },
+        dummy_hix_result,
     )
 
     # Redirect call aimed at the Textlab API to the fake server
@@ -94,13 +172,14 @@ def test_hix_score_update(
 
     assert page_translation.hix_score == 15.48920568
     assert json.loads(page_translation.hix_feedback) == [
-        {"category": "nested-sentences", "result": [1, 2, 3]},
-        {"category": "long-sentences", "result": []},
-        {"category": "long-words", "result": []},
-        {"category": "passive-voice-sentences", "result": []},
-        {"category": "infinitive-constructions", "result": []},
-        {"category": "nominal-sentences", "result": []},
-        {"category": "future-tense-sentences", "result": []},
+        {"category": "nested-sentences", "result": 3},
+        {"category": "long-sentences", "result": 0},
+        {"category": "long-words", "result": 0},
+        {"category": "passive-voice-sentences", "result": 0},
+        {"category": "infinitive-constructions", "result": 0},
+        {"category": "nominal-sentences", "result": 0},
+        {"category": "future-tense-sentences", "result": 0},
+        {"category": "abbreviations", "result": 3},
     ]
     assert mock_server.requests_counter == 2
 
