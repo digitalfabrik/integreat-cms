@@ -16,11 +16,14 @@ from integreat_cms.cms.forms import EventForm, EventTranslationForm
 from integreat_cms.cms.models import EventTranslation, ExternalCalendar
 from integreat_cms.cms.utils.content_translation_utils import get_cleaned_content
 
-logger = logging.getLogger(__name__)
 
-
+# pylint: disable=too-many-instance-attributes
 @dataclasses.dataclass(frozen=True, kw_only=True)
 class IcalEventData:
+    """
+    Stores data extracted from ical events
+    """
+
     event_id: str
     title: str
     content: str
@@ -38,12 +41,14 @@ class IcalEventData:
         event: icalendar.cal.Component,
         language_slug: str,
         external_calendar_id: int,
+        logger: logging.Logger,
     ) -> IcalEventData:
         """
         Reads an ical event and constructs an instance of this class from it
         :param event: The ical event
         :param language_slug: The slug of the language of this event
         :param external_calendar_id: The id of the external calendar of this event
+        :param logger: The logger to use
         :return: An instance of IcalEventData
         """
         event_id = event.decoded("UID").decode("utf-8")
@@ -105,16 +110,17 @@ class IcalEventData:
         return {"title": self.title, "status": status.PUBLIC, "content": self.content}
 
 
-def import_events(calendar: ExternalCalendar) -> None:
+def import_events(calendar: ExternalCalendar, logger: logging.Logger) -> None:
     """
     Imports events from this calendar and sets or clears the errors field of the calendar
 
     :param calendar: The external calendar
+    :param logger: The logger to use
     """
 
     errors: list[str] = []
 
-    _import_events(calendar, errors)
+    _import_events(calendar, errors, logger)
 
     if errors:
         calendar.errors = "\n".join(errors)
@@ -124,11 +130,14 @@ def import_events(calendar: ExternalCalendar) -> None:
     calendar.save()
 
 
-def _import_events(calendar: ExternalCalendar, errors: list[str]) -> None:
+def _import_events(
+    calendar: ExternalCalendar, errors: list[str], logger: logging.Logger
+) -> None:
     """
     Imports events from this calendar and sets or clears the errors field of the calendar
 
     :param calendar: The external calendar
+    :param logger: The logger to use
     """
     try:
         ical = calendar.load_ical()
@@ -146,7 +155,7 @@ def _import_events(calendar: ExternalCalendar, errors: list[str]) -> None:
     calendar_events = set()
     for event in ical.walk("VEVENT"):
         try:
-            if (event_uid := import_event(calendar, event, errors)) is not None:
+            if (event_uid := import_event(calendar, event, errors, logger)) is not None:
                 calendar_events.add(event_uid)
         except KeyError as e:
             logger.error(
@@ -169,7 +178,10 @@ def _import_events(calendar: ExternalCalendar, errors: list[str]) -> None:
 
 
 def import_event(
-    calendar: ExternalCalendar, event: icalendar.cal.Component, errors: list[str]
+    calendar: ExternalCalendar,
+    event: icalendar.cal.Component,
+    errors: list[str],
+    logger: logging.Logger,
 ) -> str | None:
     """
     Imports an event from the external calendar
@@ -177,19 +189,22 @@ def import_event(
     :param calendar: The external calendar
     :param event: The event that should be imported
     :param errors: A list to which errors will be logged
+    :param logger: The logger to use
 
     :return: The uid of the event
     """
     language = calendar.region.default_language
 
-    event_data = IcalEventData.from_ical_event(event, language.slug, calendar.pk)
+    event_data = IcalEventData.from_ical_event(
+        event, language.slug, calendar.pk, logger
+    )
 
     # Skip this event if it does not have the required tag
     if calendar.import_filter_tag and not any(
         category == calendar.import_filter_tag for category in event_data.categories
     ):
         logger.info(
-            "Skipping event %s with tags: %s",
+            "Skipping event %s with tags: [%s]",
             event_data.title,
             ", ".join(event_data.categories),
         )

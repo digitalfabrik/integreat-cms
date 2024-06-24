@@ -181,7 +181,7 @@ def test_import_event_without_tags(
 
     out, err = get_command_output("import_events")
     assert not err
-    assert f"Skipping event {CALENDAR_V1_EVENT_NAME} without tags" in out
+    assert f"Skipping event {CALENDAR_V1_EVENT_NAME} with tags: []" in out
 
 
 @pytest.mark.django_db
@@ -202,7 +202,7 @@ def test_import_event_with_wrong_tag(
     out, err = get_command_output("import_events")
     assert not err
     assert (
-        f"Skipping event {CALENDAR_WRONG_CATEGORY_EVENT_NAME} with tags: {CALENDAR_WRONG_CATEGORY_TAG}"
+        f"Skipping event {CALENDAR_WRONG_CATEGORY_EVENT_NAME} with tags: [{CALENDAR_WRONG_CATEGORY_TAG}]"
         in out
     )
 

@@ -78,7 +78,7 @@ class ExternalCalendarFormView(TemplateView):
         elif not external_calendar_form.has_changed():
             messages.info(request, _("No changes made"))
 
-            import_events(external_calendar_form.instance)
+            import_events(external_calendar_form.instance, logger)
             if external_calendar_form.instance.errors:
                 messages.error(
                     request,
@@ -109,7 +109,7 @@ class ExternalCalendarFormView(TemplateView):
                     ),
                 )
 
-            import_events(external_calendar_form.instance)
+            import_events(external_calendar_form.instance, logger)
             if external_calendar_form.instance.errors:
                 messages.error(
                     request,
