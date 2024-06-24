@@ -56,6 +56,7 @@ class MatomoApiClient:
 
         :param region: The region this Matomo API Manager connects to
         """
+        self.region_slug = region.slug
         self.region_name = region.name
         self.matomo_token = region.matomo_token
         self.matomo_id = region.matomo_id
@@ -246,7 +247,7 @@ class MatomoApiClient:
                     self.fetch(
                         session,
                         **query_params,
-                        segment=f"pageUrl=@/{language.slug}/wp-json/extensions/v3/",
+                        segment=f"pageUrl=@/{language.slug}/wp-json/extensions/v3/,pageUrl=@/api/v3/{self.region_slug}/{language.slug}/",
                     )
                 )
                 for language in languages
@@ -257,7 +258,7 @@ class MatomoApiClient:
                     self.fetch(
                         session,
                         **query_params,
-                        segment="pageUrl=@/wp-json/extensions/v3/pages",
+                        segment="pageUrl=@/wp-json/extensions/v3/pages,pageUrl=$/pages/",
                     ),
                 )
             )
@@ -265,9 +266,7 @@ class MatomoApiClient:
             tasks.append(
                 loop.create_task(
                     self.fetch(
-                        session,
-                        **query_params,
-                        segment="pageUrl=@/wp-json/extensions/v3/children",
+                        session, **query_params, segment="pageUrl=@/children/?depth"
                     ),
                 )
             )
