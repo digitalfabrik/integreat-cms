@@ -1,21 +1,14 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
-from urllib.parse import urlparse
 
 from django import forms
-from django.conf import settings
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
-from lxml.etree import LxmlError
-from lxml.html import fromstring, tostring
 
 from ..constants import status
-from ..models import MediaFile
-from ..utils import internal_link_utils
-from ..utils.linkcheck_utils import fix_content_link_encoding
+from ..utils.content_utils import clean_content
 from ..utils.slug_utils import generate_unique_slug_helper
 from .custom_model_form import CustomModelForm
 
@@ -98,104 +91,17 @@ class CustomContentModelForm(CustomModelForm):
 
         return cleaned_data
 
-    # pylint: disable=too-many-branches, too-many-locals
     def clean_content(self) -> str:
         """
         Validate the content field (see :ref:`overriding-modelform-clean-method`) and applies changes
-        to ``<img>``- and ``<a>``-Tags to match the guidelines.
+        to any element to match the guidelines.
 
         :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the text content
 
         :return: The valid content
         """
-        try:
-            content = fromstring(self.cleaned_data["content"])
-        except LxmlError:
-            # The content is not guaranteed to be valid html, for example it may be empty
-            return self.cleaned_data["content"]
-
-        # Convert heading 1 to heading 2
-        for heading in content.iter("h1"):
-            heading.tag = "h2"
-            self.logger.debug(
-                "Replaced heading 1 with heading 2: %r",
-                tostring(heading, encoding="unicode"),
-            )
-
-        # Convert pre and code tags to p tags
-        for monospaced in content.iter("pre", "code"):
-            tag_type = monospaced.tag
-            monospaced.tag = "p"
-            self.logger.debug(
-                "Replaced %r tag with p tag: %r",
-                tag_type,
-                tostring(monospaced, encoding="unicode"),
-            )
-
-        # Set link-external as class for external links
-        for link in content.iter("a"):
-            if href := link.get("href"):
-                is_external = not any(url in href for url in settings.INTERNAL_URLS)
-                if "link-external" not in link.classes and is_external:
-                    link.classes.add("link-external")
-                    self.logger.debug(
-                        "Added class 'link-external' to %r",
-                        tostring(link, encoding="unicode"),
-                    )
-                elif "link-external" in link.classes and not is_external:
-                    link.classes.remove("link-external")
-                    self.logger.debug(
-                        "Removed class 'link-external' from %r",
-                        tostring(link, encoding="unicode"),
-                    )
-
-        # Remove external links
-        for link in content.iter("a"):
-            link.attrib.pop("target", None)
-            self.logger.debug(
-                "Removed target attribute from link: %r",
-                tostring(link, encoding="unicode"),
-            )
-
-        # Update internal links
-        for link in content.iter("a"):
-            if href := link.attrib.get("href"):
-                if translation := internal_link_utils.update_link_language(
-                    href, link.text, self.instance.language.slug
-                ):
-                    translated_url, translated_text = translation
-                    link.set("href", translated_url)
-                    # translated_text might be None if the link tag consists of other tags instead of plain text
-                    if translated_text:
-                        link.text = translated_text
-                    self.logger.debug(
-                        "Updated link url from %s to %s", href, translated_url
-                    )
-
-        # Scan for media files in content and replace alt texts
-        for image in content.iter("img"):
-            if src := image.attrib.get("src"):
-                self.logger.debug("Image tag found in content (src: %s)", src)
-                # Remove host
-                relative_url = urlparse(src).path
-                # Remove media url prefix if exists
-                if relative_url.startswith(settings.MEDIA_URL):
-                    relative_url = relative_url[len(settings.MEDIA_URL) :]
-                # Check whether media file exists in database
-                media_file = MediaFile.objects.filter(
-                    Q(file=relative_url) | Q(thumbnail=relative_url)
-                ).first()
-                # Replace alternative text
-                if media_file and media_file.alt_text:
-                    self.logger.debug(
-                        "Image alt text replaced: %r", media_file.alt_text
-                    )
-                    image.attrib["alt"] = media_file.alt_text
-            else:
-                self.logger.warning("Empty img tag was found.")
-
-        content_str = tostring(content, encoding="unicode", with_tail=False)
-        return fix_content_link_encoding(content_str)
+        content = self.cleaned_data["content"]
+        return clean_content(content, language_slug=self.instance.language.slug)
 
     def clean_slug(self) -> str:
         """
