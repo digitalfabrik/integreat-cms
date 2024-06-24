@@ -524,6 +524,18 @@ urlpatterns: list[URLPattern] = [
                     "ajax/",
                     include(
                         [
+                            path(
+                                "dashboard/",
+                                include(
+                                    [
+                                        path(
+                                            "broken-links/",
+                                            dashboard.DashboardView.get_broken_links_context,
+                                            name="get_broken_links_ajax",
+                                        )
+                                    ]
+                                ),
+                            ),
                             path("", include(media_ajax_urlpatterns)),
                             path(
                                 "<slug:language_slug>/",
