@@ -41,10 +41,14 @@
                     <div class="flex flex-wrap gap-4 ml-auto mr-0 items-center">
                         {% include "generic_auto_save_note.html" with form_instance=event_form.instance %}
                         {% if perms.cms.publish_event %}
-                            <button name="status" value="{{ DRAFT }}" class="btn btn-outline">
+                            <button name="status"
+                                    value="{{ DRAFT }}"
+                                    class="btn btn-outline no-premature-submission">
                                 {% translate "Save as draft" %}
                             </button>
-                            <button name="status" value="{{ PUBLIC }}" class="btn">
+                            <button name="status"
+                                    value="{{ PUBLIC }}"
+                                    class="btn no-premature-submission">
                                 {% if event_translation_form.instance.status == PUBLIC %}
                                     {% translate "Update" %}
                                 {% else %}
@@ -52,7 +56,9 @@
                                 {% endif %}
                             </button>
                         {% else %}
-                            <button name="status" value="{{ REVIEW }}" class="btn">
+                            <button name="status"
+                                    value="{{ REVIEW }}"
+                                    class="btn no-premature-submission">
                                 {% translate "Submit for approval" %}
                             </button>
                         {% endif %}
@@ -67,7 +73,8 @@
                     <div class="w-full p-4 flex flex-col flex-auto">
                         <div class="flex justify-between">
                             <label for="{{ event_translation_form.title.id_for_label }}"
-                                   data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='event' %}{% if event_form.instance.id %}?model_id={{ event_form.instance.id }}{% endif %}">
+                                   data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='event' %}"
+                                   {% if event_form.instance.id %}data-model-id="{{ event_form.instance.id }}"{% endif %}>
                                 {{ event_translation_form.title.label }}
                             </label>
                             {% if event_translation_form.instance.id %}

@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib import messages
-from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.html import format_html, format_html_join
@@ -14,7 +13,7 @@ from django.views.generic import TemplateView
 
 from ...decorators import permission_required
 from ...forms import PageFilterForm
-from ...models import Page, PageTranslation
+from ...models import PageTranslation
 from ..mixins import MachineTranslationContextMixin
 from .page_context_mixin import PageContextMixin
 
@@ -89,13 +88,7 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
             )
 
         if not request.user.has_perm("cms.change_page"):
-            access_granted_pages = Page.objects.filter(
-                Q(authors=request.user) | Q(editors=request.user)
-            ).filter(region=request.region)
-            if request.user.organization:
-                access_granted_pages = access_granted_pages.union(
-                    Page.objects.filter(organization=request.user.organization)
-                )
+            access_granted_pages = request.user.access_granted_pages(request.region)
             if len(access_granted_pages) > 0:
                 messages.info(
                     request,

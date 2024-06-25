@@ -52,10 +52,14 @@
                     </button>
                     {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
                     {% if can_publish_page %}
-                        <button name="status" value="{{ DRAFT }}" class="btn btn-outline">
+                        <button name="status"
+                                value="{{ DRAFT }}"
+                                class="btn btn-outline no-premature-submission">
                             {% translate "Save as draft" %}
                         </button>
-                        <button name="status" value="{{ PUBLIC }}" class="btn whitespace-nowrap">
+                        <button name="status"
+                                value="{{ PUBLIC }}"
+                                class="btn whitespace-nowrap no-premature-submission">
                             {% if page_translation_form.instance.status == PUBLIC %}
                                 {% translate "Update" %}
                             {% else %}
@@ -63,7 +67,9 @@
                             {% endif %}
                         </button>
                     {% elif can_edit_page %}
-                        <button name="status" value="{{ REVIEW }}" class="btn">
+                        <button name="status"
+                                value="{{ REVIEW }}"
+                                class="btn no-premature-submission">
                             {% translate "Submit for approval" %}
                         </button>
                     {% endif %}
@@ -92,7 +98,8 @@
                         {% endif %}
                         <div class="flex justify-between mr-2">
                             <label for="{{ page_translation_form.title.id_for_label }}"
-                                   data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='page' %}{% if page_form.instance.id %}?model_id={{ page_form.instance.id }}{% endif %}">
+                                   data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='page' %}"
+                                   {% if page_form.instance.id %}data-model-id="{{ page_form.instance.id }}"{% endif %}>
                                 {{ page_translation_form.title.label }}
                             </label>
                             {% if page_translation_form.instance.id %}
