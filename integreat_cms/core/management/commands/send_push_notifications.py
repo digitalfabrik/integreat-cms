@@ -57,7 +57,7 @@ class Command(LogCommand):
             draft=False,
             scheduled_send_date__lte=timezone.now(),
             scheduled_send_date__gte=timezone.now()
-            - timedelta(hours=settings.NOTIFICATION_RETAIN_TIME_IN_HOURS),
+            - timedelta(hours=settings.FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS),
         )
         if total := len(pending_push_notifications):
             for counter, push_notification in enumerate(pending_push_notifications):

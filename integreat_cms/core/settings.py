@@ -227,6 +227,11 @@ assert (
     not 60 % FCM_SCHEDULE_INTERVAL_MINUTES
 ), "Interval must be <= 60 and a divisor of 60"
 
+#: Duration (in hours) that we retain pending push notifications for retry attempts before discarding them
+FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS: Final[int] = int(
+    os.environ.get("INTEGREAT_CMS_NOTIFICATION_RETAIN_TIME_IN_HOURS", 24)
+)
+
 ###########
 # GVZ API #
 ###########
@@ -1310,8 +1315,3 @@ USER_CHAT_WINDOW_LIMIT: Final[int] = 50
 
 #: Zammad ticket group used for Integreat chat messages
 USER_CHAT_TICKET_GROUP: Final[str] = "integreat-chat"
-
-#: Duration (in hours) that we retain pending push notifications for retry attempts before discarding them
-NOTIFICATION_RETAIN_TIME_IN_HOURS: Final[int] = int(
-    os.environ.get("INTEGREAT_CMS_NOTIFICATION_RETAIN_TIME_IN_HOURS", 24)
-)

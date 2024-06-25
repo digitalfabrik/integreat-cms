@@ -162,7 +162,7 @@ class PushNotification(AbstractBaseModel):
             return False
 
         retention_time = timezone.now() - timedelta(
-            hours=settings.NOTIFICATION_RETAIN_TIME_IN_HOURS
+            hours=settings.FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS
         )
         return timezone.localtime(self.scheduled_send_date) <= retention_time
 
