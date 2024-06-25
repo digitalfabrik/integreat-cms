@@ -55,6 +55,9 @@ done
 # The default pytests args we use
 PYTEST_ARGS=("--disable-warnings" "--color=yes")
 
+# Ignore ui tests bc they run separate from the unit tests
+PYTEST_ARGS+=("--ignore=ui_tests")
+
 if [[ -n "${VERBOSITY}" ]]; then
     PYTEST_ARGS+=("$VERBOSITY")
 else

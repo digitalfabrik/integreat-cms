@@ -303,7 +303,7 @@ jobs:
           command: integreat-cms-cli migrate --settings=integreat_cms.core.circleci_settings
       - run:
           name: Run tests
-          command: pytest --circleci-parallelize --disable-warnings --cov=integreat_cms --cov-report xml --junitxml=test-results/junit.xml  --ds=integreat_cms.core.circleci_settings
+          command: pytest --circleci-parallelize --disable-warnings --cov=integreat_cms --ignore=ui_tests --cov-report xml --junitxml=test-results/junit.xml  --ds=integreat_cms.core.circleci_settings
       - run:
           name: Format test coverage
           command: ./cc-test-reporter format-coverage -t coverage.py -o "coverage/codeclimate.$CIRCLE_NODE_INDEX.json"
@@ -316,6 +316,40 @@ jobs:
           paths:
             - cc-test-reporter
             - coverage
+      - run:
+          name: Copy CMS log
+          command: cp integreat_cms/integreat-cms.log integreat-cms.log
+          when: on_fail
+      - store_artifacts:
+          path: integreat-cms.log
+  ui-test:
+    docker:
+      - image: cimg/python:3.11.7
+        environment:
+          DJANGO_ALLOW_ASYNC_UNSAFE: True
+      - image: cimg/postgres:14.1
+        environment:
+          POSTGRES_USER: integreat
+          POSTGRES_DB: integreat
+          POSTGRES_PASSWORD: password
+    resource_class: large
+    parallelism: 16
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Enable virtual environment
+          command: echo "source .venv/bin/activate" >> $BASH_ENV
+      - run:
+          name: Install playwright dependencies
+          command: playwright install --with-deps
+      - run:
+          name: Migrate database
+          command: integreat-cms-cli migrate --settings=integreat_cms.core.circleci_settings
+      - run:
+          name: Run tests
+          command: pytest --disable-warnings --cov=integreat_cms --junitxml=test-results/junit.xml  --ds=integreat_cms.core.circleci_settings ui_tests
       - run:
           name: Copy CMS log
           command: cp integreat_cms/integreat-cms.log integreat-cms.log
@@ -626,6 +660,11 @@ workflows:
             - webpack
             - compile-translations
             - setup-test-reporter
+      - ui-test:
+          requires:
+            - pip-install
+            - webpack
+            - compile-translations
       - upload-test-coverage:
           context: codeclimate
           requires:
