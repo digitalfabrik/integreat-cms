@@ -51,14 +51,27 @@ class Command(LogCommand):
                     f"The system runs with DEBUG=True but the region with TEST_REGION_SLUG={settings.TEST_REGION_SLUG} does not exist."
                 ) from e
 
-        pending_push_notifications = PushNotification.objects.filter(
+        retain_time = settings.FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS
+
+        scheduled_push_notifications = PushNotification.objects.filter(
             scheduled_send_date__isnull=False,
             sent_date__isnull=True,
             draft=False,
             scheduled_send_date__lte=timezone.now(),
-            scheduled_send_date__gte=timezone.now()
-            - timedelta(hours=settings.FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS),
+            scheduled_send_date__gte=timezone.now() - timedelta(hours=retain_time),
         )
+
+        failed_push_notifications = PushNotification.objects.filter(
+            draft=False,
+            sent_date__isnull=True,
+            scheduled_send_date__isnull=True,
+            created_date__gte=timezone.now() - timedelta(hours=retain_time),
+        )
+
+        pending_push_notifications = list(failed_push_notifications) + list(
+            scheduled_push_notifications
+        )
+
         if total := len(pending_push_notifications):
             for counter, push_notification in enumerate(pending_push_notifications):
                 self.send_push_notification(counter, total, push_notification)
