@@ -32,6 +32,18 @@ class TestSendPushNotification:
     Test that cover the send_push_notification management command and its filter mechanisms
     """
 
+    patch: Any = None
+
+    def setup_method(self) -> None:
+        self.patch = patch.object(
+            FirebaseApiClient, "_get_access_token", return_value="secret access token"
+        )
+        self.patch.start()
+
+    def teardown_method(self) -> None:
+        self.patch.stop()
+        self.patch = None
+
     @pytest.mark.django_db
     def test_push_notifications_disabled(self, settings: SettingsWrapper) -> None:
         """
@@ -58,18 +70,6 @@ class TestSendPushNotification:
             str(exc_info.value)
             == f"The system runs with DEBUG=True but the region with TEST_REGION_SLUG={settings.TEST_REGION_SLUG} does not exist."
         )
-
-    patch: Any = None
-
-    def setup_method(self) -> None:
-        self.patch = patch.object(
-            FirebaseApiClient, "_get_access_token", return_value="secret access token"
-        )
-        self.patch.start()
-
-    def teardown_method(self) -> None:
-        self.patch.stop()
-        self.patch = None
 
     @pytest.mark.django_db
     def test_ignore_overdue_notification(
