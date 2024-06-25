@@ -97,7 +97,7 @@ class CustomContentModelForm(CustomModelForm):
     def clean_content(self) -> str:
         """
         Validate the content field (see :ref:`overriding-modelform-clean-method`) and applies changes
-        to ``<h1>``, ``<pre>``, ``<code>``, ``<img>``- and ``<a>``-Tags to match the guidelines.
+        to any element to match the guidelines.
 
         :raises ~django.core.exceptions.ValidationError: When a heading 1 (``<h1>``) is used in the text content
 

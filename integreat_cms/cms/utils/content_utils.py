@@ -19,7 +19,7 @@ def clean_content(content: HtmlElement, language_slug: str) -> None:
     convert_heading(content)
     convert_monospaced_tags(content)
     update_links(content, language_slug)
-    process_images(content)
+    fix_alt_texts(content)
 
 
 def convert_heading(content: HtmlElement) -> None:
@@ -59,69 +59,67 @@ def update_links(content: HtmlElement, language_slug: str) -> None:
     :param content: The content whose links should be updated
     :param language_slug: Slug of the current language
     """
-    set_classes_for_links(content)
-    remove_target_attribute(content)
-    update_internal_links(content, language_slug)
+    for link in content.iter("a"):
+        set_classes_for_links(link)
+        remove_target_attribute(link)
+        update_internal_links(link, language_slug)
 
 
-def set_classes_for_links(content: HtmlElement) -> None:
+def set_classes_for_links(link: HtmlElement) -> None:
     """
     Set class ``link-external`` for links
 
-    :param content: the body of content of which the link classes should be adjusted.
+    :param link: the link which classes should be adjusted.
     """
-    for link in content.iter("a"):
-        if href := link.get("href"):
-            is_external = not any(url in href for url in settings.INTERNAL_URLS)
-            if "link-external" not in link.classes and is_external:
-                link.classes.add("link-external")
-                logging.debug(
-                    "Added class 'link-external' to %r",
-                    tostring(link, encoding="unicode"),
-                )
-            elif "link-external" in link.classes and not is_external:
-                link.classes.remove("link-external")
-                logging.debug(
-                    "Removed class 'link-external' from %r",
-                    tostring(link, encoding="unicode"),
-                )
+    if href := link.get("href"):
+        is_external = not any(url in href for url in settings.INTERNAL_URLS)
+        if "link-external" not in link.classes and is_external:
+            link.classes.add("link-external")
+            logging.debug(
+                "Added class 'link-external' to %r",
+                tostring(link, encoding="unicode"),
+            )
+        elif "link-external" in link.classes and not is_external:
+            link.classes.remove("link-external")
+            logging.debug(
+                "Removed class 'link-external' from %r",
+                tostring(link, encoding="unicode"),
+            )
 
 
-def remove_target_attribute(content: HtmlElement) -> None:
+def remove_target_attribute(link: HtmlElement) -> None:
     """
     Removes the target attribute of links if these links are external links
 
-    :param content: the body of content of which the link targets should be removed
+    :param link: links whose targets should be removed
     """
-    for link in content.iter("a"):
-        link.attrib.pop("target", None)
-        logging.debug(
-            "Removed target attribute from link: %r",
-            tostring(link, encoding="unicode"),
-        )
+    link.attrib.pop("target", None)
+    logging.debug(
+        "Removed target attribute from link: %r",
+        tostring(link, encoding="unicode"),
+    )
 
 
-def update_internal_links(content: HtmlElement, language_slug: str) -> None:
+def update_internal_links(link: HtmlElement, language_slug: str) -> None:
     """
     Updates internal links by adding the language slug of the translation
 
-    :param content: the body of content of which the internal links should be updated
+    :param link: link which should be checked for an internal link and then be updated
     :param language_slug: Slug of the current language
     """
-    for link in content.iter("a"):
-        if href := link.attrib.get("href"):
-            if translation := internal_link_utils.update_link_language(
-                href, link.text, language_slug
-            ):
-                translated_url, translated_text = translation
-                link.set("href", translated_url)
-                # translated_text might be None if the link tag consists of other tags instead of plain text
-                if translated_text:
-                    link.text = translated_text
-                logging.debug("Updated link url from %s to %s", href, translated_url)
+    if href := link.attrib.get("href"):
+        if translation := internal_link_utils.update_link_language(
+            href, link.text, language_slug
+        ):
+            translated_url, translated_text = translation
+            link.set("href", translated_url)
+            # translated_text might be None if the link tag consists of other tags instead of plain text
+            if translated_text:
+                link.text = translated_text
+            logging.debug("Updated link url from %s to %s", href, translated_url)
 
 
-def process_images(content: HtmlElement) -> None:
+def fix_alt_texts(content: HtmlElement) -> None:
     """
     This function processes images by scanning for media files and replacing alt texts.
 
