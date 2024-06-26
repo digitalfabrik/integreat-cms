@@ -94,10 +94,8 @@ def transform_event_translation(
         ),
         "thumbnail": event.icon.url if event.icon else None,
         "location": transform_poi(event.location),
-        "location_url": (
-            settings.BASE_URL + poi_translation.get_absolute_url()
-            if poi_translation
-            else None
+        "location_path": (
+            poi_translation.get_absolute_url() if poi_translation else None
         ),
         "event": transform_event(event, recurrence_date),
         "hash": None,
