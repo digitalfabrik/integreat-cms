@@ -82,6 +82,56 @@ const addBorderToLastTab = (languageSwitcherList: HTMLElement) => {
     }
 };
 
+const hideTranslationStatus = (tab: HTMLElement) => {
+    const translationStatus = tab.querySelector(".translation-status");
+    if (translationStatus) {
+        translationStatus.classList.add("hidden");
+    }
+};
+
+const hideLanguageName = (tab: HTMLElement) => {
+    const languageName = (tab as HTMLElement).querySelector(".language-name");
+    if (languageName) {
+        languageName.classList.add("hidden");
+    }
+};
+
+const showTranslationStatus = (tab: HTMLElement) => {
+    const translationStatus = tab.querySelector(".translation-status");
+    if (translationStatus) {
+        if (translationStatus.classList.contains("hidden")) {
+            translationStatus.classList.remove("hidden");
+        }
+    }
+};
+
+const showLanguageName = (tab: HTMLElement) => {
+    const languageName = (tab as HTMLElement).querySelector(".language-name");
+    if (languageName) {
+        if (languageName.classList.contains("hidden")) {
+            languageName.classList.remove("hidden");
+        }
+    }
+};
+
+const hideLanguageNames = () => {
+    const languageSwitcherList = document.getElementById("language-switcher-list");
+    const tabsInSwitcher = Array.from(languageSwitcherList.children);
+    tabsInSwitcher.forEach((tab) => {
+        hideTranslationStatus(tab as HTMLElement);
+        hideLanguageName(tab as HTMLElement);
+    });
+};
+
+const showLanguageNames = () => {
+    const languageSwitcherList = document.getElementById("language-switcher-list");
+    const tabsInSwitcher = Array.from(languageSwitcherList.children);
+    tabsInSwitcher.forEach((tab) => {
+        showLanguageName(tab as HTMLElement);
+        showTranslationStatus(tab as HTMLElement);
+    });
+};
+
 const renderLanguageTabs = () => {
     const globeElement = document.getElementById("language-switcher-globe");
     const textElement = document.getElementById("language-switcher-text");
@@ -96,6 +146,7 @@ const renderLanguageTabs = () => {
 
     hideElement(globeElement);
     showElement(textElement);
+    showLanguageNames();
 
     const tabs = Array.from(tabWrapper.children).concat(Array.from(languageSwitcherList.children));
     const availableWidth = calculateAvailableWidth(tabWrapper, languageSwitcherListElement);
@@ -118,6 +169,7 @@ const renderLanguageTabs = () => {
     if (isButtonTooWide(tabs[0], languageSwitcher, tabWrapper)) {
         showElement(globeElement);
         hideElement(textElement);
+        hideLanguageNames();
     }
 
     toggleLanguageSwitcherVisibility(languageSwitcherListElement, tabCount, tabs.length);
