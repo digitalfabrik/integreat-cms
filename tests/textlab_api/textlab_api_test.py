@@ -9,9 +9,7 @@ from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.constants import status
-from integreat_cms.cms.constants.roles import EDITOR
 from integreat_cms.cms.models.pages.page import Page
-from integreat_cms.cms.models.pages.page_translation import PageTranslation
 from integreat_cms.cms.models.regions.region import Region
 from tests.mock import MockServer
 
@@ -46,7 +44,256 @@ def update_page_content(
     if hix_ignore:
         edit_page_data["hix_ignore"] = "on"
 
-    return (edit_page, admin_client.post(edit_page, edit_page_data))
+    return edit_page, admin_client.post(edit_page, edit_page_data)
+
+
+def create_page(
+    admin_client: Client,
+    title: str,
+    content: str,
+    hix_ignore: bool = False,
+) -> HttpResponse:
+
+    new_page = reverse(
+        "new_page",
+        kwargs={
+            "region_slug": "augsburg",
+            "language_slug": "de",
+        },
+    )
+    new_page_data = {
+        "title": title,
+        "content": content,
+        "mirrored_page_region": "",
+        "_ref_node_id": 4,
+        "_position": "right",
+        "status": status.PUBLIC,
+    }
+    if hix_ignore:
+        new_page_data["hix_ignore"] = "on"
+
+    return admin_client.post(new_page, new_page_data)
+
+
+@pytest.mark.django_db
+def test_hix_score_create(
+    load_test_data: None,
+    admin_client: Client,
+    settings: SettingsWrapper,
+    mock_server: MockServer,
+) -> None:
+    """
+    Check that the HIX score is requested and saved when the page translation is created
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param admin_client: The fixture providing the http client
+    :param settings: The fixture providing the django settings
+    :param mock_server: The fixture providing the dummy http server
+    """
+    # Setup a mocked Textlab API server with dummy responses
+    mock_server.configure("/user/login", 200, {"token": "dummy"})
+    mock_server.configure(
+        "/benchmark/420",
+        200,
+        {
+            "formulaHix": 15.12345678,
+            "moreSentencesInClauses": [4, 5, 6],
+            "moreSentencesInWords": [],
+        },
+    )
+
+    # Redirect call aimed at the Textlab API to the fake server
+    settings.TEXTLAB_API_URL = f"http://localhost:{mock_server.port}"
+
+    # Enable Textlab in the test region
+    Region.objects.filter(slug="augsburg").update(hix_enabled=True)
+
+    response = create_page(
+        admin_client,
+        "Test title: test_hix_score_create",
+        "test_hix_score_create: Neuer Inhalt",
+    )
+
+    assert response.status_code == 302
+
+    # Check the saved HIX score
+    page_translation = Page.objects.latest("created_date").get_translation("de")
+
+    assert page_translation.hix_score == 15.12345678
+    assert json.loads(page_translation.hix_feedback) == [
+        {"category": "nested-sentences", "result": 3},
+        {"category": "long-sentences", "result": 0},
+        {"category": "long-words", "result": 0},
+        {"category": "passive-voice-sentences", "result": 0},
+        {"category": "infinitive-constructions", "result": 0},
+        {"category": "nominal-sentences", "result": 0},
+        {"category": "future-tense-sentences", "result": 0},
+        {"category": "abbreviations", "result": 0},
+    ]
+    assert mock_server.requests_counter == 2
+
+
+@pytest.mark.django_db
+def test_hix_score_create_content_empty(
+    load_test_data: None,
+    admin_client: Client,
+    settings: SettingsWrapper,
+    mock_server: MockServer,
+) -> None:
+    """
+    Check that the HIX score is not requested on page create when hix is enabled and page content is empty.
+    No request to TextLab API is expected.
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param admin_client: The fixture providing the http client
+    :param settings: The fixture providing the django settings
+    :param mock_server: The fixture providing the dummy http server
+    """
+    # Setup a mocked Textlab API server with dummy responses
+    mock_server.configure("/user/login", 200, {"token": "dummy"})
+    mock_server.configure("/benchmark/420", 200, {"formulaHix": 15.48920568})
+
+    # Redirect call aimed at the Textlab API to the fake server
+    settings.TEXTLAB_API_URL = f"http://localhost:{mock_server.port}"
+
+    # Enable Textlab in the test region
+    Region.objects.filter(slug="augsburg").update(hix_enabled=True)
+
+    response = create_page(admin_client, "Willkommen in Augsburg", "")
+
+    assert response.status_code == 302
+
+    # Check the saved HIX score
+    page_translation = Page.objects.latest("created_date").get_translation("de")
+
+    assert page_translation.hix_score is None
+    assert page_translation.hix_feedback is None
+    assert mock_server.requests_counter == 0
+
+
+@pytest.mark.django_db
+def test_ignore_hix_on_page_create(
+    load_test_data: None,
+    admin_client: Client,
+    settings: SettingsWrapper,
+    mock_server: MockServer,
+) -> None:
+    """
+    Check that the HIX score is not requested on page create when hix is enabled for region but ignored on page
+    No request to TextLab API is expected.
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param admin_client: The fixture providing the http client
+    :param settings: The fixture providing the django settings
+    :param mock_server: The fixture providing the dummy http server
+    """
+    # Setup a mocked Textlab API server with dummy responses
+    mock_server.configure("/user/login", 200, {"token": "dummy"})
+    mock_server.configure("/benchmark/420", 200, {"formulaHix": 15.48920568})
+
+    # Redirect call aimed at the Textlab API to the fake server
+    settings.TEXTLAB_API_URL = f"http://localhost:{mock_server.port}"
+
+    # Enable Textlab in the test region
+    Region.objects.filter(slug="augsburg").update(hix_enabled=True)
+
+    response = create_page(
+        admin_client,
+        "Test title: test_ignore_hix_on_page_create",
+        "test_ignore_hix_on_page_create: Neuer Inhalt",
+        hix_ignore=True,
+    )
+
+    assert response.status_code == 302
+
+    # Check the saved HIX score
+    page_translation = Page.objects.latest("created_date").get_translation("de")
+
+    assert page_translation.hix_score is None
+    assert page_translation.hix_feedback is None
+    assert mock_server.requests_counter == 0
+
+
+@pytest.mark.django_db
+def test_hix_disabled_on_region_on_page_create(
+    load_test_data: None,
+    admin_client: Client,
+    settings: SettingsWrapper,
+    mock_server: MockServer,
+) -> None:
+    """
+    Check that the HIX score is not requested on page create when hix is disabled for region
+    No request to TextLab API is expected.
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param admin_client: The fixture providing the http client
+    :param settings: The fixture providing the django settings
+    :param mock_server: The fixture providing the dummy http server
+    """
+    # Setup a mocked Textlab API server with dummy responses
+    mock_server.configure("/user/login", 200, {"token": "dummy"})
+    mock_server.configure("/benchmark/420", 200, {"formulaHix": 15.48920568})
+
+    # Redirect call aimed at the Textlab API to the fake server
+    settings.TEXTLAB_API_URL = f"http://localhost:{mock_server.port}"
+
+    # Disable Textlab in the test region
+    Region.objects.filter(slug="augsburg").update(hix_enabled=False)
+
+    response = create_page(
+        admin_client,
+        "Test title: test_hix_disabled_on_region_on_page_create",
+        "test_hix_disabled_on_region_on_page_create: Neuer Inhalt",
+    )
+
+    assert response.status_code == 302
+
+    # Check the saved HIX score
+    page_translation = Page.objects.latest("created_date").get_translation("de")
+
+    assert page_translation.hix_score is None
+    assert page_translation.hix_feedback is None
+    assert mock_server.requests_counter == 0
+
+
+@pytest.mark.django_db
+def test_hix_response_400_on_page_create(
+    load_test_data: None,
+    admin_client: Client,
+    settings: SettingsWrapper,
+    mock_server: MockServer,
+) -> None:
+    """
+    Check that the HIX score is not saved on page create when hix is enabled but the Textlab API returns status 400
+
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    :param admin_client: The fixture providing the http client
+    :param settings: The fixture providing the django settings
+    :param mock_server: The fixture providing the dummy http server
+    """
+    # Setup a mocked Textlab API server with dummy responses
+    mock_server.configure("/user/login", 400, {"token": "dummy"})
+
+    # Redirect call aimed at the Textlab API to the fake server
+    settings.TEXTLAB_API_URL = f"http://localhost:{mock_server.port}"
+
+    # Enable Textlab in the test region
+    Region.objects.filter(slug="augsburg").update(hix_enabled=True)
+
+    response = create_page(
+        admin_client,
+        "Test title: test_hix_response_400_on_page_create",
+        "test_hix_response_400_on_page_create: Neuer Inhalt",
+    )
+
+    assert response.status_code == 302
+
+    # Check the saved HIX score
+    page_translation = Page.objects.latest("created_date").get_translation("de")
+
+    assert page_translation.hix_score is None
+    assert page_translation.hix_feedback is None
+    assert mock_server.requests_counter == 1
 
 
 # This is a faked HIX feedback to be used in the next test
@@ -226,14 +473,15 @@ def test_hix_disable_on_region(
 
 
 @pytest.mark.django_db
-def test_ignore_hix_on_page(
+def test_ignore_hix_on_page_update(
     load_test_data: None,
     admin_client: Client,
     settings: SettingsWrapper,
     mock_server: MockServer,
 ) -> None:
     """
-    Check that the HIX score is not updated when hix is disabled at the page level (hix_ignore=True). No request to TextLab API is expected.
+    Check that the HIX score is not updated when hix is disabled at the page level (hix_ignore=True).
+    No request to TextLab API is expected.
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param admin_client: The fixture providing the http client
@@ -274,7 +522,8 @@ def test_hix_page_content_empty(
     mock_server: MockServer,
 ) -> None:
     """
-    Check that the HIX score is not updated when hix is enabled on page level and page content is empty. No request to TextLab API is expected.
+    Check that the HIX score is not updated when hix is enabled on page level and page content is empty.
+    No request to TextLab API is expected.
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param admin_client: The fixture providing the http client
@@ -315,7 +564,8 @@ def test_hix_no_content_changes(
     mock_server: MockServer,
 ) -> None:
     """
-    Check that the HIX score is copied from the previous translation version if the page content is not changed. No request to TextLab API is expected.
+    Check that the HIX score is copied from the previous translation version if the page content is not changed.
+    No request to TextLab API is expected.
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param admin_client: The fixture providing the http client
@@ -360,7 +610,7 @@ def test_hix_no_content_changes(
 
 
 @pytest.mark.django_db
-def test_hix_response_400(
+def test_hix_response_400_on_page_update(
     load_test_data: None,
     admin_client: Client,
     settings: SettingsWrapper,
@@ -396,3 +646,4 @@ def test_hix_response_400(
 
     assert page_translation.hix_score is None
     assert page_translation.hix_feedback is None
+    assert mock_server.requests_counter == 2
