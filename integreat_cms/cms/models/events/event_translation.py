@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
+from django.db.models import Q
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
@@ -12,7 +13,9 @@ from linkcheck.models import Link
 if TYPE_CHECKING:
     from typing import Literal
 
-    from ...models import Event
+    from django.db.models import QuerySet
+
+    from ...models import Event, Region
 
 from ..abstract_content_translation import AbstractContentTranslation
 from ..decorators import modify_fields
@@ -83,6 +86,29 @@ class EventTranslation(AbstractContentTranslation):
                 "region_slug": self.event.region.slug,
             },
         )
+
+    @classmethod
+    def search(cls, region: Region, language_slug: str, query: str) -> QuerySet:
+        """
+        Searches for all content translations which match the given `query` in their title or slug.
+        :param region: The current region
+        :param language_slug: The language slug
+        :param query: The query string used for filtering the content translations
+        :return: A query for all matching objects
+        """
+        queryset = super().search(region, language_slug, query)
+
+        if region.fallback_translations_enabled:
+            default_language_queryset = (
+                super()
+                .search(region, region.default_language.slug, query)
+                .exclude(event__translations__language__slug=language_slug)
+            )
+            queryset = cls.objects.filter(
+                Q(id__in=queryset) | Q(id__in=default_language_queryset)
+            )
+
+        return queryset
 
     class Meta:
         #: The verbose name of the model
