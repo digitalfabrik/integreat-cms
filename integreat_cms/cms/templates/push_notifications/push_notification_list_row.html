@@ -50,6 +50,8 @@
     <td class="pl-2 pr-4 whitespace-nowrap">
         {% if push_notification.sent_date %}
             <i icon-name="check" class="text-green-500 align-text-top"></i> {{ push_notification.sent_date }}
+        {% elif push_notification.is_overdue %}
+            <i icon-name="x" class="text-red-500 align-text-top"></i> {% translate "Message is overdue and will not be sent" %}
         {% else %}
             <i icon-name="x" class="text-red-500 align-text-top"></i> {% translate "Message not sent yet" %}
         {% endif %}
