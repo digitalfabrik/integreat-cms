@@ -982,6 +982,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_CREDENTIALS"><code class="docutils literal notranslate"><span class="pre">FCM_CREDENTIALS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_ENABLED"><code class="docutils literal notranslate"><span class="pre">FCM_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_HISTORY_DAYS"><code class="docutils literal notranslate"><span class="pre">FCM_HISTORY_DAYS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS"><code class="docutils literal notranslate"><span class="pre">FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_SCHEDULE_INTERVAL_MINUTES"><code class="docutils literal notranslate"><span class="pre">FCM_SCHEDULE_INTERVAL_MINUTES</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_URL"><code class="docutils literal notranslate"><span class="pre">FCM_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FORMAT_MODULE_PATH"><code class="docutils literal notranslate"><span class="pre">FORMAT_MODULE_PATH</span></code></a></li>
@@ -2760,6 +2761,8 @@
         <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.xliff2_serializer.Serializer.__init__">(integreat_cms.xliff.xliff2_serializer.Serializer method)</a>
 </li>
         <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_reset_deepl_budget.datetime_not_first_day.__init__">(tests.core.management.commands.test_reset_deepl_budget.datetime_not_first_day method)</a>
+</li>
+        <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_send_push_notifications.TestSendPushNotification.__init__">(tests.core.management.commands.test_send_push_notifications.TestSendPushNotification method)</a>
 </li>
         <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.__init__">(tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient method)</a>
 </li>
@@ -9176,6 +9179,8 @@
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_HISTORY_DAYS">FCM_HISTORY_DAYS (in module integreat_cms.core.settings)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS">FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS (in module integreat_cms.core.settings)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_SCHEDULE_INTERVAL_MINUTES">FCM_SCHEDULE_INTERVAL_MINUTES (in module integreat_cms.core.settings)</a>
 </li>
@@ -18764,6 +18769,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation.is_outdated">(integreat_cms.cms.models.pois.poi_translation.POITranslation attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.models.push_notifications.html#integreat_cms.cms.models.push_notifications.push_notification.PushNotification.is_overdue">is_overdue (integreat_cms.cms.models.push_notifications.push_notification.PushNotification attribute)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.is_page_author">is_page_author() (in module integreat_cms.cms.rules)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.html#integreat_cms.cms.rules.is_page_editor">is_page_editor() (in module integreat_cms.cms.rules)</a>
@@ -22794,6 +22801,8 @@
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.events_time_range.PAST">PAST (in module integreat_cms.cms.constants.events_time_range)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.past_event_usages">past_event_usages (integreat_cms.cms.models.media.media_file.MediaFile attribute)</a>
+</li>
+      <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_send_push_notifications.TestSendPushNotification.patch">patch (tests.core.management.commands.test_send_push_notifications.TestSendPushNotification attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.patch">patch() (integreat_cms.cms.views.bulk_action_views.BulkActionView method)</a>
 
@@ -26871,8 +26880,12 @@
 </li>
       <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.google_translate_api_test.setup_google_translate_supported_languages">setup_google_translate_supported_languages() (in module tests.mt_api.google_translate_api_test)</a>
 </li>
-      <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.setup_method">setup_method() (tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient method)</a>
+      <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_send_push_notifications.TestSendPushNotification.setup_method">setup_method() (tests.core.management.commands.test_send_push_notifications.TestSendPushNotification method)</a>
+
+      <ul>
+        <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.setup_method">(tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient method)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.core.formats.de.html#integreat_cms.core.formats.de.formats.SHORT_DATE_FORMAT">SHORT_DATE_FORMAT (in module integreat_cms.core.formats.de.formats)</a>
 
       <ul>
@@ -27505,8 +27518,12 @@
         <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.xliff2_serializer.Serializer.target_language">(integreat_cms.xliff.xliff2_serializer.Serializer attribute)</a>
 </li>
       </ul></li>
-      <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.teardown_method">teardown_method() (tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient method)</a>
+      <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_send_push_notifications.TestSendPushNotification.teardown_method">teardown_method() (tests.core.management.commands.test_send_push_notifications.TestSendPushNotification method)</a>
+
+      <ul>
+        <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.teardown_method">(tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient method)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.events.html#integreat_cms.cms.views.events.event_list_view.EventListView.template">template (integreat_cms.cms.views.events.event_list_view.EventListView attribute)</a>
 
       <ul>
@@ -28633,6 +28650,8 @@
 </li>
       <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_hix_bulk.test_hix_bulk_textlab_api_disabled">test_hix_bulk_textlab_api_disabled() (in module tests.core.management.commands.test_hix_bulk)</a>
 </li>
+      <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_send_push_notifications.TestSendPushNotification.test_ignore_overdue_notification">test_ignore_overdue_notification() (tests.core.management.commands.test_send_push_notifications.TestSendPushNotification method)</a>
+</li>
       <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.test_is_invalid_when_no_title">test_is_invalid_when_no_title() (tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient method)</a>
 </li>
       <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.test_is_invalid_when_no_translation">test_is_invalid_when_no_translation() (tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient method)</a>
@@ -28673,9 +28692,9 @@
 </li>
       <li><a href="ref-ext/tests.cms.views.html#tests.cms.views.test_public_view_status_code.test_public_view_status_code">test_public_view_status_code() (in module tests.cms.views.test_public_view_status_code)</a>
 </li>
-      <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_send_push_notifications.test_push_notifications_disabled">test_push_notifications_disabled() (in module tests.core.management.commands.test_send_push_notifications)</a>
+      <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_send_push_notifications.TestSendPushNotification.test_push_notifications_disabled">test_push_notifications_disabled() (tests.core.management.commands.test_send_push_notifications.TestSendPushNotification method)</a>
 </li>
-      <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_send_push_notifications.test_push_notifications_nonexisting_testregion">test_push_notifications_nonexisting_testregion() (in module tests.core.management.commands.test_send_push_notifications)</a>
+      <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_send_push_notifications.TestSendPushNotification.test_push_notifications_nonexisting_testregion">test_push_notifications_nonexisting_testregion() (tests.core.management.commands.test_send_push_notifications.TestSendPushNotification method)</a>
 </li>
       <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.test_region_notification_send">test_region_notification_send() (tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient method)</a>
 </li>
@@ -29353,6 +29372,8 @@
         <li><a href="ref-ext/tests.xliff.html#module-tests.xliff.xliff_test">module</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_send_push_notifications.TestSendPushNotification">TestSendPushNotification (class in tests.core.management.commands.test_send_push_notifications)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.chat_message.ChatMessage.text">text (integreat_cms.cms.models.chat.chat_message.ChatMessage attribute)</a>
 
       <ul>
