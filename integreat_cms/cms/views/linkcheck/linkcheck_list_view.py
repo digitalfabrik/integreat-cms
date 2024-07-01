@@ -208,7 +208,6 @@ class LinkcheckListView(ListView):
         selected_urls = get_urls(
             region_slug=request.region.slug,
             url_ids=request.POST.getlist("selected_ids[]"),
-            prefetch_content_objects=False,
         )
 
         if action == "ignore":
