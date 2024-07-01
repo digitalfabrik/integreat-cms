@@ -23,7 +23,7 @@
 {% block todo_dashboard_description %}
     <div class="hidden todo-message">
         {% blocktranslate trimmed %}
-            The page <b></b> has a broken link. Please replace it by a functional link.
+            The page {# djlint:off #}<b></b>{# djlint:on #} has a broken link. Please replace it by a functional link.
         {% endblocktranslate %}
     </div>
     <div class="hidden success-message">
@@ -39,8 +39,7 @@
 {% endblock todo_dashboard_description %}
 {% block todo_dashboard_button_link %}
     <div class="hidden todo-button">
-        <a class="btn !rounded-full"
-           href="">
+        <a class="btn !rounded-full" href="">
             {% translate "Go to link" %}
         </a>
     </div>

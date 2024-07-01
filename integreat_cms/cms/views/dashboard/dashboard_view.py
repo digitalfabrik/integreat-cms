@@ -60,7 +60,10 @@ class DashboardView(TemplateView, ChatContextMixin):
                 "feed_url": settings.RSS_FEED_URLS.get(
                     language_slug, settings.DEFAULT_RSS_FEED_URL
                 ),
-                "broken_link_ajax": reverse("get_broken_links_ajax", kwargs={"region_slug": self.request.region.slug})
+                "broken_link_ajax": reverse(
+                    "get_broken_links_ajax",
+                    kwargs={"region_slug": self.request.region.slug},
+                ),
             }
         )
 
@@ -161,11 +164,14 @@ class DashboardView(TemplateView, ChatContextMixin):
             invalid_url.region_links[0].content_object if invalid_url else None
         )
 
-        edit_url = reverse('edit_url', kwargs={
-            "region_slug": request.region.slug,
-            "url_filter": 'invalid',
-            "url_id" : invalid_url.pk
-        })
+        edit_url = reverse(
+            "edit_url",
+            kwargs={
+                "region_slug": request.region.slug,
+                "url_filter": "invalid",
+                "url_id": invalid_url.pk,
+            },
+        )
 
         return JsonResponse(
             data={
