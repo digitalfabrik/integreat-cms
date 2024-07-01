@@ -149,7 +149,13 @@ class ZammadChatAPI:
         :param chat: UserChat instance for the relevant Zammad ticket
         """
         response = self._parse_response(
-            self._attempt_call(self.client.ticket.articles, chat.zammad_id)
+            [
+                article
+                for article in self._attempt_call(
+                    self.client.ticket.articles, chat.zammad_id
+                )
+                if not article.get("internal")
+            ]
         )
 
         for message in response:
