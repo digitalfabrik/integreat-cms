@@ -76,19 +76,33 @@ const updateHixStateLabel = (state: string) => {
  * Display the HIX feedback details
  */
 const updateHixFeedback = (hixFeedback: string) => {
-    const feedbackSections = document.querySelectorAll("[hix-feedback-category]");
-    const feedbackJson = JSON.parse(hixFeedback);
-
     let feedbackCount = 0;
+    let feedbackJson: any;
+    const feedbackContainer = document.getElementById("hix-feedback");
+
+    try {
+        feedbackJson = JSON.parse(hixFeedback);
+    } catch (error) {
+        feedbackContainer.classList.add("hidden");
+        console.error("Invalid HIX feedback", error);
+        return;
+    }
+
+    const feedbackSections = document.querySelectorAll("[hix-feedback-category]");
 
     feedbackSections.forEach((feedbackSection) => {
         const categoryName = feedbackSection.getAttribute("hix-feedback-category");
         const feedbackEntry = feedbackJson.find((item: { category: string }) => item.category === categoryName);
-        const feedbackResult = feedbackEntry ? feedbackEntry.result : [];
+        let feedbackResult = feedbackEntry ? feedbackEntry.result : [] || Number;
 
-        if (feedbackResult.length > 0) {
+        // Cast array into number if HIX feedback is in the old format
+        if (feedbackResult instanceof Array) {
+            feedbackResult = feedbackResult.length;
+        }
+
+        if (feedbackResult > 0) {
             const categoryCount = feedbackSection.querySelector("span");
-            categoryCount.textContent = feedbackResult.length;
+            categoryCount.textContent = feedbackResult;
             feedbackSection.classList.remove("hidden");
             feedbackCount += 1;
         } else {
@@ -96,7 +110,6 @@ const updateHixFeedback = (hixFeedback: string) => {
         }
     });
 
-    const feedbackContainer = document.getElementById("hix-feedback");
     if (feedbackCount === 0) {
         feedbackContainer.classList.add("hidden");
     } else {

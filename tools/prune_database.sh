@@ -8,16 +8,22 @@
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 # Check if local postgres server is running
-if nc -w1 localhost "${INTEGREAT_CMS_DB_PORT}"; then
+if nc -z -w1 localhost "${INTEGREAT_CMS_DB_PORT}"; then
 
-    echo "Please delete and re-create your database manually, typically like this:
+    if command -v pg-reset > /dev/null; then
+        # Execute the database reset script provided by the flake.nix file
+        pg-reset
+        pg-stop
+    else
+        echo "Please delete and re-create your database manually, typically like this:
 
-    user@host$ su postgres
-    postgres@host$ psql
+        user@host$ su postgres
+        postgres@host$ psql
 
-    > DROP DATABASE integreat;
-    > CREATE DATABASE integreat;
-" | print_info
+        > DROP DATABASE integreat;
+        > CREATE DATABASE integreat;
+        " | print_info
+    fi
 
 else
 

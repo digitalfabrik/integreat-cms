@@ -56,6 +56,7 @@ class MatomoApiClient:
 
         :param region: The region this Matomo API Manager connects to
         """
+        self.region_slug = region.slug
         self.region_name = region.name
         self.matomo_token = region.matomo_token
         self.matomo_id = region.matomo_id
@@ -246,7 +247,7 @@ class MatomoApiClient:
                     self.fetch(
                         session,
                         **query_params,
-                        segment=f"pageUrl=@/{language.slug}/wp-json/extensions/v3/",
+                        segment=f"pageUrl=@/{language.slug}/wp-json/extensions/v3/,pageUrl=@/api/v3/{self.region_slug}/{language.slug}/",
                     )
                 )
                 for language in languages
@@ -257,7 +258,7 @@ class MatomoApiClient:
                     self.fetch(
                         session,
                         **query_params,
-                        segment="pageUrl=@/wp-json/extensions/v3/pages",
+                        segment="pageUrl=@/wp-json/extensions/v3/pages,pageUrl=$/pages/",
                     ),
                 )
             )
@@ -265,9 +266,7 @@ class MatomoApiClient:
             tasks.append(
                 loop.create_task(
                     self.fetch(
-                        session,
-                        **query_params,
-                        segment="pageUrl=@/wp-json/extensions/v3/children",
+                        session, **query_params, segment="pageUrl=@/children/?depth"
                     ),
                 )
             )
@@ -353,6 +352,7 @@ class MatomoApiClient:
                     {
                         "label": language.translated_name,
                         "backgroundColor": language.language_color,
+                        "borderColor": language.language_color,
                         "data": list(dataset.values()),
                     }
                     # zip aggregates two lists into tuples, e.g. zip([1,2,3], [4,5,6])=[(1,4), (2,5), (3,6)]
@@ -364,6 +364,7 @@ class MatomoApiClient:
                     {
                         "label": _("Offline Accesses"),
                         "backgroundColor": language_color.OFFLINE_ACCESS,
+                        "borderColor": language_color.OFFLINE_ACCESS,
                         "data": list(offline_downloads.values()),
                     }
                 ]
@@ -372,6 +373,7 @@ class MatomoApiClient:
                     {
                         "label": _("WebApp Accesses"),
                         "backgroundColor": language_color.WEB_APP_ACCESS,
+                        "borderColor": language_color.WEB_APP_ACCESS,
                         "data": list(webapp_downloads.values()),
                     }
                 ]
@@ -380,6 +382,7 @@ class MatomoApiClient:
                     {
                         "label": _("Total Accesses"),
                         "backgroundColor": language_color.TOTAL_ACCESS,
+                        "borderColor": language_color.TOTAL_ACCESS,
                         "data": list(total_visits.values()),
                     }
                 ],

@@ -408,6 +408,12 @@ class Region(AbstractBaseModel):
         verbose_name=_("Locations"),
     )
 
+    integreat_chat_enabled = models.BooleanField(
+        default=False,
+        verbose_name=_("Enable Integreat Chat"),
+        help_text=_("Toggle the Integreat Chat on/off."),
+    )
+
     zammad_url = models.URLField(
         max_length=256,
         blank=True,
@@ -433,6 +439,16 @@ class Region(AbstractBaseModel):
         verbose_name=_("Zammad chat handlers"),
         help_text=_(
             "Comma-separated email addresses of the accounts which should automatically be subscribed to new chat tickets. Note that these users must have full group permissions for the group:"
+        ),
+    )
+
+    chat_beta_tester_percentage = models.IntegerField(
+        default=0,
+        blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        verbose_name=_("Chat beta tester percentage"),
+        help_text=_(
+            "Percentage of users selected as beta testers for the Integreat Chat feature"
         ),
     )
 

@@ -39,31 +39,39 @@ def slugify_ajax(
         "page": "cms.change_page",
         "poi": "cms.change_poi",
     }[model_type]
-    if not request.user.has_perms((required_permission,)):
-        raise PermissionDenied
-
-    json_data = json.loads(request.body)
-    form_title = slugify(json_data["title"], allow_unicode=True)
-    region = request.region
-    language = region.get_language_or_404(language_slug, only_active=True)
-    model_id = request.GET.get("model_id")
 
     managers = {
         "event": EventTranslation,
         "page": PageTranslation,
         "poi": POITranslation,
     }
+
+    json_data = json.loads(request.body)
+    language = request.region.get_language_or_404(language_slug, only_active=True)
+    model_id = json_data.get("model_id")
+
     manager = managers[model_type].objects
     object_instance = manager.filter(
         **{model_type: model_id, "language": language}
     ).first()
 
+    if not (
+        request.user.has_perms((required_permission,))
+        or (
+            model_type == "page"
+            and object_instance.page
+            in request.user.access_granted_pages(request.region)
+        )
+    ):
+        raise PermissionDenied
+
+    form_title = slugify(json_data["title"], allow_unicode=True)
     kwargs: SlugKwargs = {
         "slug": form_title,
         "manager": manager,
         "object_instance": object_instance,
         "foreign_model": model_type,
-        "region": region,
+        "region": request.region,
         "language": language,
     }
     unique_slug = generate_unique_slug(**kwargs)
