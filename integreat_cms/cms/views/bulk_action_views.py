@@ -21,6 +21,7 @@ from django.views.generic.list import MultipleObjectMixin
 from ..constants import status
 from ..models import Page
 from ..utils.stringify_list import iter_to_string
+from .pages.page_actions import cancel_translation_process_ajax
 from .utils.publication_status import change_publication_status
 
 if TYPE_CHECKING:
@@ -450,4 +451,31 @@ class BulkDraftingView(BulkActionView):
         change_publication_status(
             request, self.get_queryset(), kwargs["language_slug"], status.DRAFT
         )
+        return super().post(request, *args, **kwargs)
+
+
+class CancelTranslationProcess(BulkActionView):
+    """
+    Bulk action to cancel translation process
+    """
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        r"""
+        Function to cancel the translation process for multiple pages of the current language at once
+
+        :param request: The current request
+        :param \*args: The supplied arguments
+        :param \**kwargs: The supplied keyword arguments
+        :return: The redirect
+        """
+
+        language_slug = kwargs["language_slug"]
+
+        for content_object in self.get_queryset():
+            cancel_translation_process_ajax(
+                request,
+                region_slug=content_object.region,
+                language_slug=language_slug,
+                page_id=content_object.id,
+            )
         return super().post(request, *args, **kwargs)
