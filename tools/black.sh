@@ -8,6 +8,9 @@ source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 require_installed
 
+# Run black as a pre-commit hook
+run_as_precommit "black --quiet --force-exclude '.*(?<!\.py)$'" "$@"
+
 # Run black
 echo "Starting code formatting with black..." | print_info
 black "${BASE_DIR}"

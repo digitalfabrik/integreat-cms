@@ -8,6 +8,9 @@
 # shellcheck source=./tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
+# Run ruff as a pre-commit hook
+run_as_precommit "ruff check --force-exclude" "$@"
+
 require_installed
 
 # Run ruff

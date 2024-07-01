@@ -6,6 +6,9 @@
 # shellcheck source=./tools/_functions.sh
 source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
+# Run djlint as a pre-commit hook
+run_as_precommit "djlint --profile=django -e=html --reformat --quiet --lint" "$@"
+
 require_installed
 
 # Run djlint
