@@ -22,13 +22,13 @@
             .content {
                 padding-bottom: 30px;
             }
-            {% if language.slug == "zh-CN" %}
-                html, body {
+            {% if language.slug == "zh" %}
+                html, body, pdftoc {
                     font-family: "Noto Sans SC", sans-serif;
                 }
-            {% elif language.slug == "am" %}
+            {% elif language.slug == "am" or language.slug == "ti" %}
                 html, body, pdftoc {
-                font-family: "Noto Sans Ethiopic", sans-serif;
+                    font-family: "Noto Sans Ethiopic", sans-serif;
                 }
             {% elif language.slug == "el" %}
                 html, body, pdftoc {
