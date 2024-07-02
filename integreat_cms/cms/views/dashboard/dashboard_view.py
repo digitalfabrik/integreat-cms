@@ -150,7 +150,7 @@ class DashboardView(TemplateView, ChatContextMixin):
     @json_response
     # pylint: disable=unused-argument
     def get_broken_links_context(
-        request: HttpRequest, region_slug: str
+        self, request: HttpRequest, region_slug: str
     ) -> JsonResponse:
         r"""
         Extend context by info on broken links

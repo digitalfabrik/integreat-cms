@@ -22,9 +22,11 @@
 {% endblock todo_dashboard_number %}
 {% block todo_dashboard_description %}
     <div class="hidden todo-message">
+        {# djlint:off #}
         {% blocktranslate trimmed %}
-            The page {# djlint:off #}<b></b>{# djlint:on #} has a broken link. Please replace it by a functional link.
+            The page <b></b> has a broken link. Please replace it by a functional link.
         {% endblocktranslate %}
+        {# djlint:on #}
     </div>
     <div class="hidden success-message">
         {% blocktranslate trimmed %}
