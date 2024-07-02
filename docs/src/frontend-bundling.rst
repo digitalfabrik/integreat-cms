@@ -37,5 +37,6 @@ For the conventions of fonts to be used for different content languages, see htt
 * Right-to-left alphabets: ``Lateef``
 * Chinese alphabet: ``Noto Sans SC``
 * Amharic alphabet: ``Noto Sans Ethiopic``
+* Georgian alphabet: ``Noto Sans Georgian``
 
 Unfortunately, xhtml2pdf does not support ``Lateef`` (yet), so at the moment we have to rely on ``DejaVu Sans`` as fallback for the PDF rendering of right-to-left alphabets.
