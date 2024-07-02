@@ -1,15 +1,24 @@
 {% load i18n %}
-<div class="flex justify-between border-t-2 border-zinc-600 p-4 w-full">
+{% load tagifnotempty %}
+<div class="flex justify-between w-full p-4 border-t-2 border-zinc-600"
+     {% filter tagifnotempty:'data-url' %}
+     {% block todo_dashboard_ajax_url %}
+     {% endblock todo_dashboard_ajax_url %}
+     {% endfilter %}
+     {% filter tagifnotempty:'id' %}
+     {% block todo_dashboard_id %}
+     {% endblock todo_dashboard_id %}
+     {% endfilter %}>
     <div class="flex items-center basis-full">
         <div class="mr-6">
-            <i class="h-8 w-8"
+            <i class="w-8 h-8"
                icon-name="{% spaceless %}{% block todo_dashboard_icon %}{% endblock todo_dashboard_icon %}{% endspaceless %}"></i>
         </div>
         <div>
             {# djlint:off #}<a href="{% spaceless %}{% block todo_dashboard_title_link %}{% endblock todo_dashboard_title_link %}{% endspaceless %}"
-            class="text-blue-500 font-bold underline">{% spaceless %}{% block todo_dashboard_title %}{% endblock todo_dashboard_title %}{% endspaceless %}</a>{# djlint:on #}
+            class="font-bold text-blue-500 underline">{% spaceless %}{% block todo_dashboard_title %}{% endblock todo_dashboard_title %}{% endspaceless %}</a>{# djlint:on #}
             {% block todo_dashboard_number %}
-                <span>({% translate "in total" %} {{ total }})</span>
+                <span class="total-results">({% translate "in total" %} <span>{{ total }}</span>)</span>
             {% endblock todo_dashboard_number %}
             <p>
                 {% block todo_dashboard_description %}
@@ -17,7 +26,7 @@
             </p>
         </div>
     </div>
-    <div class="flex items-center text-center whitespace-nowrap ml-6 justify-center w-48">
+    <div class="flex items-center justify-center w-48 ml-6 text-center whitespace-nowrap">
         {% block todo_dashboard_button_link %}
         {% endblock todo_dashboard_button_link %}
     </div>

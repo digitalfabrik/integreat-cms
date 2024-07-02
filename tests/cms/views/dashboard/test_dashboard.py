@@ -169,7 +169,7 @@ def test_number_of_outdated_pages_is_correct(
 
     assert response.status_code == 200
     match = re.search(
-        rf'<a href="{pages}\?(|[^"]+&)exclude_pages_without_content=on(|&[^"]+)"[^<>]*>Veraltete Seiten</a>\s*<span>\(Insgesamt ([0-9]+)\)</span>',
+        rf'<a href="{pages}\?(|[^"]+&)exclude_pages_without_content=on(|&[^"]+)"[^<>]*>Veraltete Seiten</a>\s*<span[^>]*>\(Insgesamt <span>([0-9]+)</span>\)</span>',
         response.content.decode("utf-8"),
     )
     assert match, "Number of outdated pages not displayed"
@@ -267,7 +267,7 @@ def test_number_of_drafted_pages_is_correct(
 
     assert response.status_code == 200
     match = re.search(
-        rf'<a href="{pages}\?(|[^"]+&)status=DRAFT(|&[^"]+)"[^<>]*>Seiten im Entwurf</a>\s*<span>\(Insgesamt ([0-9]+)\)</span>',
+        rf'<a href="{pages}\?(|[^"]+&)status=DRAFT(|&[^"]+)"[^<>]*>Seiten im Entwurf</a>\s*<span[^>]*>\(Insgesamt <span>([0-9]+)</span>\)</span>',
         response.content.decode("utf-8"),
     )
     assert match, "Number of drafted pages not displayed"
