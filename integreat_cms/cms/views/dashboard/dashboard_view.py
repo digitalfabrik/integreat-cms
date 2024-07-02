@@ -70,7 +70,6 @@ class DashboardView(TemplateView, ChatContextMixin):
         context.update(self.get_unreviewed_pages_context())
         context.update(self.get_automatically_saved_pages())
         context.update(self.get_unread_feedback_context())
-        # context.update(self.get_broken_links_context())
         context.update(self.get_low_hix_value_context())
         context.update(self.get_outdated_pages_context())
         context.update(self.get_drafted_pages())
@@ -148,9 +147,9 @@ class DashboardView(TemplateView, ChatContextMixin):
         }
 
     @json_response
-    # pylint: disable=unused-argument
+    # pylint: disable=unused-argument, disable=no-self-argument
     def get_broken_links_context(
-        self, request: HttpRequest, region_slug: str
+        request: HttpRequest, region_slug: str
     ) -> JsonResponse:
         r"""
         Extend context by info on broken links
