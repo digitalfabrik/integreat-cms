@@ -93,10 +93,12 @@ window.addEventListener("load", () => {
         const targetTitleElement = (document.getElementById("target_translation_title") as HTMLInputElement).value;
         const targetLinkElement = document.getElementById("target_slug-link") as HTMLInputElement;
         const dataset = (document.querySelector('[for="id_slug"]') as HTMLElement).dataset;
-        slugify(dataset.slugifyUrl, { title: targetTitleElement, model_id: dataset.modelId }).then((response) => {
-            /* on success write response to both slug field and permalink */
-            targetLinkElement.value = response.unique_slug;
-            updatePermalink(response.unique_slug);
-        }).finally(() => submissionLock.release());
+        slugify(dataset.slugifyUrl, { title: targetTitleElement, model_id: dataset.modelId })
+            .then((response) => {
+                /* on success write response to both slug field and permalink */
+                targetLinkElement.value = response.unique_slug;
+                updatePermalink(response.unique_slug);
+            })
+            .finally(() => submissionLock.release());
     });
 });
