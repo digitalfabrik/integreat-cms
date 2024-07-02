@@ -27,6 +27,7 @@ import "./js/copy-clipboard";
 import "./js/bulk-actions";
 import "./js/conditional-fields";
 import "./js/confirmation-popups";
+import "./js/language-tabs";
 import "./js/machine-translation-overlay";
 import "./js/revisions";
 import "./js/search-query";
