@@ -1,6 +1,6 @@
-# Keep GitHub Actions up to date with GitHub's Dependabot.
-# https://docs.github.com/en/code-security/dependabot/working-with-dependabot/keeping-your-actions-up-to-date-with-dependabot
-# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file#package-ecosystem
+# Keep dependencies up to date with GitHub's Dependabot.
+# https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/about-dependabot-version-updates
+
 version: 2
 updates:
   - package-ecosystem: github-actions
@@ -8,6 +8,33 @@ updates:
     groups:
       github-actions:
         patterns:
-          - "*" # Group all Actions updates into a single larger pull request
+          - "*"
     schedule:
-      interval: weekly
+      interval: monthly
+
+  - package-ecosystem: npm
+    directory: "/"
+    groups:
+      frontend:
+        patterns:
+          - "*"
+    schedule:
+      interval: monthly
+
+  - package-ecosystem: pip
+    directory: "/"
+    groups:
+      python:
+        patterns:
+          - "*"
+    schedule:
+      interval: monthly
+
+  - package-ecosystem: devcontainers
+    directory: "/"
+    groups:
+      devcontainers:
+        patterns:
+          - "*"
+    schedule:
+      interval: monthly
