@@ -59,14 +59,12 @@ class CustomUserManager(UserManager):
     username={"verbose_name": _("username")},
     is_active={
         "help_text": _(
-            "Designates whether this account should be treated as active. "
-            "Unselect this instead of deleting accounts."
+            "Designates whether this account should be treated as active. Unselect this instead of deleting accounts."
         )
     },
     is_superuser={
         "help_text": _(
-            "Designates that this account has all permissions "
-            "without explicitly assigning them."
+            "Designates that this account has all permissions without explicitly assigning them."
         )
     },
 )
@@ -102,8 +100,7 @@ class User(AbstractUser, AbstractBaseModel):
         default=False,
         verbose_name=_("experienced user"),
         help_text=_(
-            "Enable this option to display additional features like XLIFF import/export, page filtering, "
-            "mirrored pages, page-based permissions and status information for broken links"
+            "Enable this option to display additional features like XLIFF import/export, page filtering, mirrored pages, page-based permissions and status information for broken links"
         ),
     )
     page_tree_tutorial_seen = models.BooleanField(
@@ -118,8 +115,7 @@ class User(AbstractUser, AbstractBaseModel):
         verbose_name=_("automatically distribute sidebar boxes"),
         help_text=__(
             _(
-                "Enable this option to automatically distribute the boxes in "
-                "the sidebar of forms to make the best use of screen space."
+                "Enable this option to automatically distribute the boxes in the sidebar of forms to make the best use of screen space."
             ),
             _(
                 "This only affects screen resolutions where the boxes are displayed in two columns."
@@ -173,6 +169,15 @@ class User(AbstractUser, AbstractBaseModel):
             if len(regions) == 1:
                 return regions[0]
         return None
+
+    @cached_property
+    def has_totp(self) -> bool:
+        """
+        If the user has totp configured
+
+        :return: True if the user has totp configured, False otherwise
+        """
+        return self.totp_key is not None
 
     @property
     def full_user_name(self) -> str:

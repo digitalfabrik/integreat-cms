@@ -46,4 +46,23 @@
             </form>
         {% endif %}
     </td>
+    <td class="pr-4">
+        {% if user.has_fido_keys and user.has_totp %}
+            <span title="{% translate "Multi-Factor-Authentication (TOTP + FIDO2)" %}">
+                <i icon-name="check" class="text-green-500"></i>
+            </span>
+        {% elif user.has_fido_keys %}
+            <span title="{% translate "2-Factor-Authentication (FIDO2)" %}">
+                <i icon-name="check" class="text-green-500"></i>
+            </span>
+        {% elif user.has_totp %}
+            <span title="{% translate "2-Factor-Authentication (TOTP)" %}">
+                <i icon-name="check" class="text-green-500"></i>
+            </span>
+        {% else %}
+            <span title="{% translate "Account security can be enhanced by configuring a second factor. Please consider setting up TOTP or FIDO2 to add an additional layer of protection to your account." %}">
+                <i icon-name="x" class="text-red-500"></i>
+            </span>
+        {% endif %}
+    </td>
 </tr>
