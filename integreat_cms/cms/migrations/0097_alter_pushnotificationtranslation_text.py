@@ -4,6 +4,9 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+    """
+    Change max_length of push notification content field from 250 to 500
+    """
 
     dependencies = [
         ("cms", "0096_chat_beta_testing"),
