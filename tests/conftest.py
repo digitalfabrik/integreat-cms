@@ -31,7 +31,6 @@ if TYPE_CHECKING:
     from _pytest.fixtures import SubRequest
     from pytest_django.plugin import _DatabaseBlocker  # type: ignore[attr-defined]
 
-
 #: A role identifier for superusers
 ROOT: Final = "ROOT"
 #: A role identifier for anonymous users
