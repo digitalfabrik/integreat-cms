@@ -3,6 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from cacheops import invalidate_obj
+from django.conf import settings
 from django.core.validators import MinLengthValidator
 from django.db import models
 
@@ -191,6 +192,15 @@ class Language(AbstractBaseModel):
             language_tree_nodes__active=True,
             language_tree_nodes__visible=True,
         )
+
+    @cached_property
+    def can_be_pdf_exported(self) -> bool:
+        """
+        Returns whether PDF export is allowed for the language
+
+        :return: whether PDF export is allowed for the language
+        """
+        return self.slug not in settings.PDF_DEACTIVATED_LANGUAGES
 
     def save(self, *args: Any, **kwargs: Any) -> None:
         r"""
