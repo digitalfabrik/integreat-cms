@@ -4,7 +4,8 @@
 {% load model_tags %}
 {% load widget_tweaks %}
 {% load linkcheck_filters %}
-{% object_translation_has_view_perm request.user url.region_links.0.content_object as show_source_link %}
+{% load url_tags %}
+{% object_translation_has_view_perm request.user content_object as show_source_link %}
 <tbody class="hover:bg-gray-100">
     <tr class="border-t border-gray-200 text-gray-800"
         {% if url.id == view.kwargs.url_id %}id="replace-url"{% endif %}>
@@ -65,28 +66,30 @@
                 </a>
             </div>
         </td>
-        <td class="pr-2 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
-            title="{{ url.region_links.0.text }}">
-            <div class="table-cell-truncate">
-                <span class="table-cell-content">{{ url.region_links.0.text }}</span>
-                <a class="toggle-table-cell">
-                    <i icon-name="chevron-down" class="more"></i>
-                    <i icon-name="chevron-up" class="less"></i>
-                </a>
-            </div>
-        </td>
+        {% with link_text=url.region_links.0.text %}
+            <td class="pr-2 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
+                title="{{ link_text }}">
+                <div class="table-cell-truncate">
+                    <span class="table-cell-content">{{ link_text }}</span>
+                    <a class="toggle-table-cell">
+                        <i icon-name="chevron-down" class="more"></i>
+                        <i icon-name="chevron-up" class="less"></i>
+                    </a>
+                </div>
+            </td>
+        {% endwith %}
         <td class="pr-2 max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]">
             <div class="table-cell-truncate">
                 {% spaceless %}
                     <span class="table-cell-content">
                         {% if show_source_link %}
-                            <a href="{{ url.region_links.0.content_object.backend_edit_link }}"
+                            <a href="{{ content_object.backend_edit_link }}"
                                title="{% translate "Go to source" %}"
                                class="hover:underline">
-                                <span>{{ url.region_links.0.content_object.title }}</span>
+                                <span>{{ content_object.title }}</span>
                             </a>
                         {% else %}
-                            <span>{{ url.region_links.0.content_object.title }}</span>
+                            <span>{{ content_object.title }}</span>
                         {% endif %}
                     </span>
                 {% endspaceless %}
@@ -100,8 +103,8 @@
             {{ url.region_links|length }}
         </td>
         <td class="text-right pr-4">
-            <a title="{% translate "Replace URL globally" %}"
-               href="{% url 'edit_url' url_id=url.id url_filter=view.kwargs.url_filter region_slug=request.region.slug %}{{ pagination_params }}#replace-url"
+            <a title="{% if request.region %}{% translate "Replace URL centrally in the current region" %}{% else %}{% translate "Replace URL globally in all the regions" %}{% endif %}"
+               href="{% url_for_current_region 'edit_url' request url_id=url.id url_filter=view.kwargs.url_filter %}{{ pagination_params }}#replace-url"
                class="btn-icon">
                 <i icon-name="pen-square"></i>
             </a>
@@ -112,7 +115,7 @@
             <td colspan="10">
                 <div class="flex gap-2 p-2">
                     {% render_field edit_url_form.url|add_error_class:"border-red-500" type="url" form="edit-url-form" %}
-                    <a href="{% url 'linkcheck' url_filter=view.kwargs.url_filter region_slug=request.region.slug %}{{ pagination_params }}"
+                    <a href="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %}{{ pagination_params }}"
                        class="btn btn-red">{% translate "Cancel" %}</a>
                     <button type="submit" form="edit-url-form" class="btn">
                         {% translate "Save" %}

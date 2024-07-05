@@ -269,6 +269,13 @@
                     <i icon-name="layout-grid"></i>
                     {% translate "Admin Dashboard" %}
                 </a>
+                {% if perms.cms.view_broken_links %}
+                    <a href="{% url 'linkcheck_landing' %}"
+                       class="{% if current_menu_item == 'linkcheck' %} active{% endif %}">
+                        <i icon-name="link"></i>
+                        {% translate "Broken Links" %}
+                    </a>
+                {% endif %}
                 {% if perms.cms.view_region %}
                     <a href="{% url 'regions' %}"
                        class="{% if current_menu_item == 'regions' %} active{% endif %}">
