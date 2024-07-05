@@ -101,7 +101,11 @@
         </td>
         <td class="text-right pr-4">
             <a title="{% translate "Replace URL globally" %}"
-               href="{% url 'edit_url' url_id=url.id url_filter=view.kwargs.url_filter region_slug=request.region.slug %}{{ pagination_params }}#replace-url"
+               href="{% if request.region.slug %}
+                        {% url 'edit_url' url_id=url.id url_filter=view.kwargs.url_filter region_slug=request.region.slug %}{{ pagination_params }}#replace-url
+                    {% else %}
+                        {% url 'edit_url' url_id=url.id url_filter=view.kwargs.url_filter %}{{ pagination_params }}#replace-url
+                    {% endif %}"
                class="btn-icon">
                 <i icon-name="pen-square"></i>
             </a>
@@ -112,7 +116,11 @@
             <td colspan="10">
                 <div class="flex gap-2 p-2">
                     {% render_field edit_url_form.url|add_error_class:"border-red-500" type="url" form="edit-url-form" %}
-                    <a href="{% url 'linkcheck' url_filter=view.kwargs.url_filter region_slug=request.region.slug %}{{ pagination_params }}"
+                    <a href="{% if request.region.slug %}
+                                {% url 'linkcheck' url_filter=view.kwargs.url_filter region_slug=request.region.slug %}{{ pagination_params }}
+                            {% else %}
+                                {% url 'linkcheck' url_filter=view.kwargs.url_filter %}{{ pagination_params }}
+                            {% endif %}"
                        class="btn btn-red">{% translate "Cancel" %}</a>
                     <button type="submit" form="edit-url-form" class="btn">
                         {% translate "Save" %}

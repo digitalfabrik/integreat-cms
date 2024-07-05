@@ -237,6 +237,45 @@ urlpatterns: list[URLPattern] = [
         name="admin_dashboard",
     ),
     path(
+        "linkcheck/",
+        include(
+            [
+                path(
+                    "",
+                    linkcheck.LinkcheckRedirectView.as_view(),
+                    name="linkcheck_landing",
+                ),
+                path(
+                    "stats",
+                    linkcheck.LinkcheckStatsView.as_view(),
+                    name="linkcheck_stats",
+                ),
+                path(
+                    "<slug:url_filter>/",
+                    include(
+                        [
+                            path(
+                                "",
+                                linkcheck.LinkcheckListView.as_view(),
+                                name="linkcheck",
+                            ),
+                            path(
+                                "<int:url_id>/",
+                                linkcheck.LinkcheckListView.as_view(),
+                                name="edit_url",
+                            ),
+                        ]
+                    ),
+                ),
+                path(
+                    "search_and_replace_link",
+                    linkcheck.LinkReplaceView.as_view(),
+                    name="search_and_replace_link",
+                ),
+            ]
+        ),
+    ),
+    path(
         "regions/",
         include(
             [
