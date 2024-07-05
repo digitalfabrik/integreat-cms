@@ -48,22 +48,22 @@ def get_urls(
     if url_ids is not None:
         # If the results should be limited to specific ids, filter the queryset
         urls = urls.filter(id__in=url_ids)
-    if region_slug:
-        region = Region.objects.get(slug=region_slug)
-        region_links = get_region_links(region)
 
-        # Prefetch all link objects of the requested region
-        urls = (
-            urls.filter(links__in=region_links)
-            .distinct()
-            .prefetch_related(
-                Prefetch(
-                    "links",
-                    queryset=region_links,
-                    to_attr="region_links",
-                )
+    region = Region.objects.get(slug=region_slug) if region_slug else None
+    region_links = get_region_links(region)
+
+    # Prefetch all link objects of the requested region
+    urls = (
+        urls.filter(links__in=region_links)
+        .distinct()
+        .prefetch_related(
+            Prefetch(
+                "links",
+                queryset=region_links,
+                to_attr="region_links",
             )
         )
+    )
 
     # Filter out ignored URL types
     if settings.LINKCHECK_IGNORED_URL_TYPES:
@@ -74,34 +74,40 @@ def get_urls(
     return urls
 
 
-def get_region_links(region: Region) -> QuerySet:
+def get_region_links(region: Region| None) -> QuerySet:
     """
     Returns the links of translations of the given region
     :param region: The region
     :return: A query containing the relevant links
     """
-    latest_pagetranslation_versions = Subquery(
-        PageTranslation.objects.filter(
-            page__id__in=Subquery(region.non_archived_pages.values("pk")),
+    if region:
+        latest_pagetranslation_versions = Subquery(
+            PageTranslation.objects.filter(
+                page__id__in=Subquery(region.non_archived_pages.values("pk")),
+            )
+            .distinct("page__id", "language__id")
+            .values_list("pk", flat=True)
         )
-        .distinct("page__id", "language__id")
-        .values_list("pk", flat=True)
-    )
-    latest_poitranslation_versions = Subquery(
-        POITranslation.objects.filter(poi__region=region)
-        .distinct("poi__id", "language__id")
-        .values_list("pk", flat=True)
-    )
-    latest_eventtranslation_versions = Subquery(
-        EventTranslation.objects.filter(event__region=region)
-        .distinct("event__id", "language__id")
-        .values_list("pk", flat=True)
-    )
-    latest_imprinttranslation_versions = Subquery(
-        ImprintPageTranslation.objects.filter(page__region=region)
-        .distinct("page__id", "language__id")
-        .values_list("pk", flat=True)
-    )
+        latest_poitranslation_versions = Subquery(
+            POITranslation.objects.filter(poi__region=region)
+            .distinct("poi__id", "language__id")
+            .values_list("pk", flat=True)
+        )
+        latest_eventtranslation_versions = Subquery(
+            EventTranslation.objects.filter(event__region=region)
+            .distinct("event__id", "language__id")
+            .values_list("pk", flat=True)
+        )
+        latest_imprinttranslation_versions = Subquery(
+            ImprintPageTranslation.objects.filter(page__region=region)
+            .distinct("page__id", "language__id")
+            .values_list("pk", flat=True)
+        )
+    else:
+        latest_pagetranslation_versions = PageTranslation.objects.distinct("page__id", "language__id").values_list("pk", flat=True)
+        latest_poitranslation_versions = POITranslation.objects.distinct("poi__id", "language__id").values_list("pk", flat=True)
+        latest_eventtranslation_versions = EventTranslation.objects.distinct("event__id", "language__id").values_list("pk", flat=True)
+        latest_imprinttranslation_versions = ImprintPageTranslation.objects.distinct("page__id", "language__id").values_list("pk", flat=True)
     # Get all link objects of the requested region
     region_links = Link.objects.filter(
         Q(page_translation__id__in=latest_pagetranslation_versions)
