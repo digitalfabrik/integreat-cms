@@ -64,11 +64,13 @@ def get_urls(
                 )
             )
         )
+
     # Filter out ignored URL types
     if settings.LINKCHECK_IGNORED_URL_TYPES:
-        urls = [
+        return [
             url for url in urls if url.type not in settings.LINKCHECK_IGNORED_URL_TYPES
         ]
+
     return urls
 
 
