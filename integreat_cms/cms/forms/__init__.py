@@ -9,6 +9,7 @@ from .chat.chat_message_form import ChatMessageForm
 from .events.event_filter_form import EventFilterForm
 from .events.event_form import EventForm
 from .events.event_translation_form import EventTranslationForm
+from .events.external_calendar_form import ExternalCalendarForm
 from .events.recurrence_rule_form import RecurrenceRuleForm
 from .feedback.admin_feedback_filter_form import AdminFeedbackFilterForm
 from .feedback.region_feedback_filter_form import RegionFeedbackFilterForm

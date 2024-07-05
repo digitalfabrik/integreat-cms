@@ -36,34 +36,32 @@
                     {% translate "Create new event" %}
                 {% endif %}
             </h1>
-            {% if perms.cms.change_event %}
-                {% if not event_form.instance.id or not event_form.instance.archived %}
-                    <div class="flex flex-wrap gap-4 ml-auto mr-0 items-center">
-                        {% include "generic_auto_save_note.html" with form_instance=event_form.instance %}
-                        {% if perms.cms.publish_event %}
-                            <button name="status"
-                                    value="{{ DRAFT }}"
-                                    class="btn btn-outline no-premature-submission">
-                                {% translate "Save as draft" %}
-                            </button>
-                            <button name="status"
-                                    value="{{ PUBLIC }}"
-                                    class="btn no-premature-submission">
-                                {% if event_translation_form.instance.status == PUBLIC %}
-                                    {% translate "Update" %}
-                                {% else %}
-                                    {% translate "Publish" %}
-                                {% endif %}
-                            </button>
-                        {% else %}
-                            <button name="status"
-                                    value="{{ REVIEW }}"
-                                    class="btn no-premature-submission">
-                                {% translate "Submit for approval" %}
-                            </button>
-                        {% endif %}
-                    </div>
-                {% endif %}
+            {% if not disabled %}
+                <div class="flex flex-wrap gap-4 ml-auto mr-0 items-center">
+                    {% include "generic_auto_save_note.html" with form_instance=event_form.instance %}
+                    {% if perms.cms.publish_event %}
+                        <button name="status"
+                                value="{{ DRAFT }}"
+                                class="btn btn-outline no-premature-submission">
+                            {% translate "Save as draft" %}
+                        </button>
+                        <button name="status"
+                                value="{{ PUBLIC }}"
+                                class="btn no-premature-submission">
+                            {% if event_translation_form.instance.status == PUBLIC %}
+                                {% translate "Update" %}
+                            {% else %}
+                                {% translate "Publish" %}
+                            {% endif %}
+                        </button>
+                    {% else %}
+                        <button name="status"
+                                value="{{ REVIEW }}"
+                                class="btn no-premature-submission">
+                            {% translate "Submit for approval" %}
+                        </button>
+                    {% endif %}
+                </div>
             {% endif %}
         </div>
         <div class="3xl:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_816px] gap-4">
@@ -169,7 +167,7 @@
           data-unsaved-warning>
     </form>
     {{ media_config_data|json_script:"media_config_data" }}
-    {% if not perms.cms.change_event or event_form.instance.id and event_form.instance.archived %}
+    {% if disabled %}
         {% include "../_tinymce_config.html" with readonly=1 %}
     {% else %}
         {% include "../_tinymce_config.html" %}

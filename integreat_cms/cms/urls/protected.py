@@ -35,6 +35,7 @@ from ..views import (
     dashboard,
     delete_views,
     events,
+    external_calendars,
     feedback,
     form_views,
     imprint,
@@ -59,7 +60,6 @@ from ..views import (
 
 if TYPE_CHECKING:
     from django.urls.resolvers import URLPattern
-
 
 #: The media library ajax url patterns are reused twice (for the admin media library and the region media library)
 media_ajax_urlpatterns: list[URLPattern] = [
@@ -790,6 +790,40 @@ urlpatterns: list[URLPattern] = [
                                 name="translations_management",
                             ),
                         ],
+                    ),
+                ),
+                path(
+                    "external-calendars/",
+                    include(
+                        [
+                            path(
+                                "",
+                                external_calendars.ExternalCalendarList.as_view(),
+                                name="external_calendar_list",
+                            ),
+                            path(
+                                "new/",
+                                external_calendars.ExternalCalendarFormView.as_view(),
+                                name="new_external_calendar",
+                            ),
+                            path(
+                                "<int:calendar_id>/",
+                                include(
+                                    [
+                                        path(
+                                            "edit/",
+                                            external_calendars.ExternalCalendarFormView.as_view(),
+                                            name="edit_external_calendar",
+                                        ),
+                                        path(
+                                            "delete/",
+                                            external_calendars.delete_external_calendar,
+                                            name="delete_external_calendar",
+                                        ),
+                                    ]
+                                ),
+                            ),
+                        ]
                     ),
                 ),
                 path(
