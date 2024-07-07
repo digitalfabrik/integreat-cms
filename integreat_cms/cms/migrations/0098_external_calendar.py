@@ -40,7 +40,7 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ("cms", "0092_social_media_fields"),
+        ("cms", "0097_alter_pushnotificationtranslation_text"),
     ]
 
     operations = [
