@@ -63,6 +63,7 @@ class Command(LogCommand):
 
         failed_push_notifications = PushNotification.objects.filter(
             draft=False,
+            is_template=False
             sent_date__isnull=True,
             scheduled_send_date__isnull=True,
             created_date__gte=timezone.now() - timedelta(hours=retain_time),
