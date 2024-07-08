@@ -6,9 +6,12 @@ from typing import TYPE_CHECKING
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator
+from django.db import models
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
+
+from integreat_cms.cms.models import FidoKey
 
 from ...decorators import permission_required
 from ...forms import UserFilterForm
@@ -45,6 +48,11 @@ class UserListView(TemplateView):
         users = (
             get_user_model()
             .objects.select_related("organization")
+            .annotate(
+                has_fido_keys=models.Exists(
+                    FidoKey.objects.filter(user=models.OuterRef("pk"))
+                )
+            )
             .prefetch_related("groups__role")
             .order_by("username")
         )
