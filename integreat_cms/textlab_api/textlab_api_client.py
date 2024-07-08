@@ -95,5 +95,6 @@ class TextlabClient:
         if auth_token:
             request.add_header("authorization", f"Bearer {auth_token}")
         request.add_header("Content-Type", "application/json")
+        request.add_header("User-Agent", "")
         with urlopen(request) as response:
             return json.loads(response.read().decode("utf-8"))
