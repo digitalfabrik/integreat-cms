@@ -43,8 +43,7 @@
                 <div class="w-full rounded border border-blue-500 bg-white flex flex-col flex-auto">
                     <div class="w-full p-4 flex flex-col flex-auto">
                         <div class="flex justify-between mr-2">
-                            <label for="{{ page_translation_form.title.id_for_label }}"
-                                   data-slugify-url="{% url 'slugify_ajax' region_slug=request.region.slug language_slug=language.slug model_type='page' %}{% if page_form.instance.id %}?model_id={{ page_form.instance.id }}{% endif %}">
+                            <label for="{{ page_translation_form.title.id_for_label }}">
                                 {{ imprint_translation_form.title.label }}
                             </label>
                             {% if imprint_translation_form.instance.id %}

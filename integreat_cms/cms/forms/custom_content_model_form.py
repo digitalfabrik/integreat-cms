@@ -98,7 +98,7 @@ class CustomContentModelForm(CustomModelForm):
 
         return cleaned_data
 
-    # pylint: disable=too-many-branches
+    # pylint: disable=too-many-branches, too-many-locals
     def clean_content(self) -> str:
         """
         Validate the content field (see :ref:`overriding-modelform-clean-method`) and applies changes
@@ -174,22 +174,25 @@ class CustomContentModelForm(CustomModelForm):
 
         # Scan for media files in content and replace alt texts
         for image in content.iter("img"):
-            self.logger.debug(
-                "Image tag found in content (src: %s)", image.attrib["src"]
-            )
-            # Remove host
-            relative_url = urlparse(image.attrib["src"]).path
-            # Remove media url prefix if exists
-            if relative_url.startswith(settings.MEDIA_URL):
-                relative_url = relative_url[len(settings.MEDIA_URL) :]
-            # Check whether media file exists in database
-            media_file = MediaFile.objects.filter(
-                Q(file=relative_url) | Q(thumbnail=relative_url)
-            ).first()
-            # Replace alternative text
-            if media_file and media_file.alt_text:
-                self.logger.debug("Image alt text replaced: %r", media_file.alt_text)
-                image.attrib["alt"] = media_file.alt_text
+            if src := image.attrib.get("src"):
+                self.logger.debug("Image tag found in content (src: %s)", src)
+                # Remove host
+                relative_url = urlparse(src).path
+                # Remove media url prefix if exists
+                if relative_url.startswith(settings.MEDIA_URL):
+                    relative_url = relative_url[len(settings.MEDIA_URL) :]
+                # Check whether media file exists in database
+                media_file = MediaFile.objects.filter(
+                    Q(file=relative_url) | Q(thumbnail=relative_url)
+                ).first()
+                # Replace alternative text
+                if media_file and media_file.alt_text:
+                    self.logger.debug(
+                        "Image alt text replaced: %r", media_file.alt_text
+                    )
+                    image.attrib["alt"] = media_file.alt_text
+            else:
+                self.logger.warning("Empty img tag was found.")
 
         content_str = tostring(content, encoding="unicode", with_tail=False)
         return fix_content_link_encoding(content_str)

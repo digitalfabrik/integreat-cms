@@ -12,11 +12,15 @@ from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
+    from typing import Any
+
     from django.http import HttpRequest
 
     from integreat_cms.cms.models.events.event_translation import EventTranslation
     from integreat_cms.cms.models.pages.page_translation import PageTranslation
     from integreat_cms.cms.models.pois.poi_translation import POITranslation
+
+import jmespath
 
 logger = logging.getLogger(__name__)
 
@@ -66,3 +70,46 @@ def check_hix_score(
         source_translation,
     )
     return True
+
+
+# Mapping between fields in Textlab API response containing feedback data
+# and the corresponding category names used in the CMS
+textlab_api_feedback_categories = {
+    "moreSentencesInClauses": "nested-sentences",
+    "moreSentencesInWords": "long-sentences",
+    "moreWordsInLetters": "long-words",
+    "countPassiveVoiceInSentence": "passive-voice-sentences",
+    "countInfinitiveConstructions": "infinitive-constructions",
+    "countNominalStyle": "nominal-sentences",
+    "countFutureTenseInSentence": "future-tense-sentences",
+    'dataTerms."1289".result': "abbreviations",
+}
+
+
+def format_hix_feedback(response: dict) -> list[dict[str, Any]]:
+    """
+    Format HIX feedback from Textlab so it can be well handled in the front end
+
+    :param response: The response from the Textlab
+
+    :return: count for each feedback category
+    """
+    feedback_details = []
+
+    for textlab_name, cms_name in textlab_api_feedback_categories.items():
+        raw_result = jmespath.search(textlab_name, response) or []
+        result = 0
+        if "dataTerms" in textlab_name and len(raw_result) > 0:
+            for item in raw_result:
+                result += len(item.get("length"))
+        else:
+            result = len(raw_result)
+
+        feedback_details += [
+            {
+                "category": cms_name,
+                "result": result,
+            }
+        ]
+
+    return feedback_details

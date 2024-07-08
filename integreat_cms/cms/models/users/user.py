@@ -26,6 +26,7 @@ from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_base_model import AbstractBaseModel
 from ..chat.chat_message import ChatMessage
 from ..decorators import modify_fields
+from ..pages.page import Page
 from ..regions.region import Region
 from .organization import Organization
 
@@ -208,6 +209,19 @@ class User(AbstractUser, AbstractBaseModel):
             self.chat_last_visited.strftime("%Y-%m-%d %H:%M:%S"),
         )
         return previous_chat_last_visited
+
+    def access_granted_pages(self, region: Region) -> QuerySet[Page]:
+        """
+        Get a list of all pages the user has been given explicit rights to edit
+        """
+        access_granted_pages = Page.objects.filter(
+            models.Q(authors=self) | models.Q(editors=self)
+        ).filter(region=region)
+        if self.organization:
+            access_granted_pages = access_granted_pages.union(
+                Page.objects.filter(organization=self.organization)
+            )
+        return access_granted_pages
 
     def __str__(self) -> str:
         """

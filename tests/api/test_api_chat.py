@@ -9,7 +9,7 @@ from django.test.client import Client
 from django.urls import reverse
 from requests.exceptions import HTTPError
 
-from integreat_cms.cms.models import AttachmentMap, UserChat
+from integreat_cms.cms.models import ABTester, AttachmentMap, UserChat
 
 default_kwargs = {
     "region_slug": "augsburg",
@@ -19,39 +19,23 @@ default_kwargs = {
 
 
 @pytest.mark.django_db
-def test_api_is_chat_enabled_true(load_test_data: None) -> None:
+def test_api_is_chat_enabled_for_user(load_test_data: None) -> None:
     """
-    Check that regions with enabled chat return true
+    Check that whether a user is chat beta tester is stored in the DB
 
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     client = Client()
     url = reverse(
-        "api:is_chat_enabled",
-        kwargs={"region_slug": "augsburg"},
+        "api:is_chat_enabled_for_user",
+        kwargs={"region_slug": "augsburg", "device_id": "ab_tester"},
     )
     response = client.get(url)
+    db_entry = ABTester.objects.filter(device_id="ab_tester").first()
 
+    assert db_entry is not None
     assert response.status_code == 200
-    assert response.json() == {"is_chat_enabled": True}
-
-
-@pytest.mark.django_db
-def test_api_is_chat_enabled_false(load_test_data: None) -> None:
-    """
-    Check that regions without enabled chat return false
-
-    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
-    """
-    client = Client()
-    url = reverse(
-        "api:is_chat_enabled",
-        kwargs={"region_slug": "artland"},
-    )
-    response = client.get(url)
-
-    assert response.status_code == 200
-    assert response.json() == {"is_chat_enabled": False}
+    assert response.json() == {"is_chat_enabled": db_entry.is_tester}
 
 
 @pytest.mark.django_db

@@ -601,6 +601,7 @@ VIEWS: ViewConfig = [
                 json.dumps(
                     {
                         "title": "Slugify event",
+                        "model_id": 1,
                     }
                 ),
             ),
@@ -615,6 +616,7 @@ VIEWS: ViewConfig = [
                 json.dumps(
                     {
                         "title": "Slugify poi",
+                        "model_id": 4,
                     }
                 ),
             ),
@@ -629,6 +631,7 @@ VIEWS: ViewConfig = [
                 json.dumps(
                     {
                         "title": "Slugify page",
+                        "model_id": 1,
                     }
                 ),
             ),

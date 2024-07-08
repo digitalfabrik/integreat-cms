@@ -76,7 +76,8 @@ RESPONSE
             "dir": String                // reading direction {"ltr"|"rtl"}
          },
          ...
-        ]
+        ],
+        "is_chat_enabled": Boolean,     // whether the Integreat Chat is enabled for the region
      },
      ...
    ]
@@ -476,7 +477,7 @@ RESPONSE
             "latitude": Number | null,      // The latitude of this location
             "longitude": Number | null,     // The longitude of this location
          },
-         "location_url": String | null,     // The url to the location for this event translation
+         "location_path": String | null,     // The path to the location for this event translation
          "event": {
             "id": Number | null,            // The id of this event. Null if this is a recurrence of an event
             "start": String,                // The start date&time of this event
@@ -1109,7 +1110,7 @@ REQUEST
 
 .. code:: http
 
-   GET /api/v3/{region_slug}/is_chat_enabled/ HTTP/2
+   GET /api/v3/{region_slug}/{device_id}/is_chat_enabled/ HTTP/2
 
 RESPONSE
 ~~~~~~~~
@@ -1117,7 +1118,7 @@ RESPONSE
 .. code:: javascript
 
    {
-      "is_chat_enabled": Boolean,   // whether chat functionality is enabled for the requesting region
+      "is_chat_enabled": Boolean,   // whether chat functionality is enabled for the requesting user
    }
 
 REQUEST
@@ -1191,4 +1192,3 @@ it will be passed along in the following format, together with a matching HTTP s
    }
 
 The response to ``GET``-ing the endpoint with an ``attachment_id`` is either the (binary) file or an error in the format specified above.
-
