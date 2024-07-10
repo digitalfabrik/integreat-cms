@@ -4,16 +4,17 @@ from datetime import datetime, timedelta
 from typing import TYPE_CHECKING
 from unittest.mock import patch
 
-import requests
-
-if TYPE_CHECKING:
-    from typing import Any
-
 import pytest
+import requests
 from django.core.management import call_command
 from django.core.management.base import CommandError
 from pytest_django.fixtures import SettingsWrapper
 from requests_mock.mocker import Mocker
+
+from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
+
+if TYPE_CHECKING:
+    from typing import Any
 
 from integreat_cms.cms.models import (
     Language,
@@ -22,7 +23,6 @@ from integreat_cms.cms.models import (
     PushNotificationTranslation,
     Region,
 )
-from integreat_cms.firebase_api.firebase_api_client import FirebaseApiClient
 
 from ..utils import get_command_output
 
@@ -36,7 +36,9 @@ class TestSendPushNotification:
 
     def setup_method(self) -> None:
         self.patch = patch.object(
-            FirebaseApiClient, "_get_access_token", return_value="secret access token"
+            FirebaseSecurityService,
+            "get_messaging_access_token",
+            return_value="secret access token",
         )
         self.patch.start()
 

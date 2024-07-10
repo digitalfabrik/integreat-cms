@@ -205,6 +205,12 @@ FCM_URL: Final[str] = os.environ.get(
     "https://fcm.googleapis.com/v1/projects/integreat-2020/messages:send",
 )
 
+#: FCM Data API Url
+FCM_DATA_URL: Final[str] = os.environ.get(
+    "INTEGREAT_CMS_FCM_DATA_URL",
+    "https://fcmdata.googleapis.com/v1beta1/projects/integreat-2020/androidApps/1:164298278764:android:3fc1f67f3883df306fd549/deliveryData",
+)
+
 #: Path to the saved credential json file
 FCM_CREDENTIALS: str | None = os.environ.get("INTEGREAT_CMS_FCM_CREDENTIALS")
 
