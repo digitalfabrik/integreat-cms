@@ -1,13 +1,11 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING
-from unittest.mock import patch
 
 import pytest
 from django.core.exceptions import ImproperlyConfigured
 
 from integreat_cms.firebase_api.firebase_data_client import FirebaseDataClient
-from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
 
 if TYPE_CHECKING:
     from typing import Any
@@ -197,29 +195,19 @@ class TestFirebaseDataClient:
         ]
     }
 
-    patch: Any = None
-
-    def setup_method(self) -> None:
-        self.patch = patch.object(
-            FirebaseSecurityService,
-            "get_data_access_token",
-            return_value="secret access token",
-        )
-        self.patch.start()
-
-    def teardown_method(self) -> None:
-        self.patch.stop()
-        self.patch = None
-
     @pytest.mark.django_db
     def test_client_throws_exception_when_fcm_disabled(
-        self, settings: SettingsWrapper, load_test_data: None
+        self,
+        settings: SettingsWrapper,
+        load_test_data: None,
+        mock_firebase_credentials: None,
     ) -> None:
         """
         Tests that an ImproperlyConfigured exception is thrown, if firebase API is disabled in settings
 
         :param settings: The Django settings
         :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+        :param mock_firebase_credentials: The mock Firebase credentials
         """
         settings.FCM_ENABLED = False
 
@@ -228,7 +216,11 @@ class TestFirebaseDataClient:
 
     @pytest.mark.django_db
     def test_avg_per_region(
-        self, settings: SettingsWrapper, load_test_data: None, requests_mock: Mocker
+        self,
+        settings: SettingsWrapper,
+        load_test_data: None,
+        requests_mock: Mocker,
+        mock_firebase_credentials: None,
     ) -> None:
         settings.FCM_DATA_URL = self.endpoint_mock_url
         settings.FCM_ENABLED = True
@@ -249,7 +241,11 @@ class TestFirebaseDataClient:
 
     @pytest.mark.django_db
     def test_without_analytics_labels(
-        self, settings: SettingsWrapper, load_test_data: None, requests_mock: Mocker
+        self,
+        settings: SettingsWrapper,
+        load_test_data: None,
+        requests_mock: Mocker,
+        mock_firebase_credentials: None,
     ) -> None:
         settings.FCM_DATA_URL = self.endpoint_mock_url
         settings.FCM_ENABLED = True
@@ -267,7 +263,11 @@ class TestFirebaseDataClient:
 
     @pytest.mark.django_db
     def test_cache_hit(
-        self, settings: SettingsWrapper, load_test_data: None, requests_mock: Mocker
+        self,
+        settings: SettingsWrapper,
+        load_test_data: None,
+        requests_mock: Mocker,
+        mock_firebase_credentials: None,
     ) -> None:
         settings.FCM_DATA_URL = self.endpoint_mock_url
         settings.FCM_ENABLED = True
