@@ -135,6 +135,7 @@ class FirebaseApiClient:
                 "android": {
                     "ttl": "86400s",
                 },
+                "fcm_options": {"analytics_label": region.slug},
             },
         }
         headers = {
