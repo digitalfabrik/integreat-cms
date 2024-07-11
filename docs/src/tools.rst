@@ -63,6 +63,10 @@ Delete all database content with :github-source:`tools/prune_database.sh`::
 
     ./tools/prune_database.sh
 
+Load database dump with :github-source:`tools/prune_database.sh`::
+
+    ./tools/load_database_dump.sh
+
 
 .. _translations:
 
