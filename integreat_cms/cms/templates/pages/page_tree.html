@@ -193,12 +193,19 @@
                         </option>
                     {% endif %}
                 {% endif %}
-                <option id="pdf-export-option"
-                        data-bulk-action="{% url 'export_pdf' region_slug=request.region.slug language_slug=language.slug %}"
-                        data-target="_blank"
-                        data-language-slug="{{ language.slug }}">
-                    {% translate "Export published pages as PDF" %}
-                </option>
+                {% if language.can_be_pdf_exported %}
+                    <option id="pdf-export-option"
+                            data-bulk-action="{% url 'export_pdf' region_slug=request.region.slug language_slug=language.slug %}"
+                            data-target="_blank"
+                            data-language-slug="{{ language.slug }}">
+                        {% translate "Export published pages as PDF" %}
+                    </option>
+                {% else %}
+                    <option disabled
+                            title="{% translate "Currently PDF-Export is not available in this language." %}">
+                        {% translate "Export published pages as PDF" %}
+                    </option>
+                {% endif %}
                 {% if request.user.expert_mode %}
                     {% with language_translated_name=language.translated_name %}
                         {% blocktranslate trimmed asvar xliff_export_public %}
