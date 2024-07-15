@@ -9,6 +9,7 @@ from linkcheck import Linklist
 from .models import (
     Event,
     EventTranslation,
+    ImprintPageTranslation,
     LanguageTreeNode,
     Page,
     PageTranslation,
@@ -77,6 +78,14 @@ class PageTranslationLinklist(ActiveLanguageLinklist):
         return objects.distinct("page__pk", "language__pk")
 
 
+class ImprintTranslationLinklist(ActiveLanguageLinklist):
+    """
+    Class for selecting the ImprintPageTranslation model for linkchecks
+    """
+
+    model: ModelBase = ImprintPageTranslation
+
+
 class NonArchivedLinkList(ActiveLanguageLinklist):
     """
     Class for excluding archived events and locations
@@ -136,4 +145,5 @@ linklists = {
     "PageTranslations": PageTranslationLinklist,
     "EventTranslations": EventTranslationLinklist,
     "POITranslations": POITranslationLinklist,
+    "ImprintPageTranslations": ImprintTranslationLinklist,
 }
