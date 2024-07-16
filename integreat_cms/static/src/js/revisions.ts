@@ -4,44 +4,35 @@
 
 import HtmlDiff from "htmldiff-js";
 
-// function to update the revision info and hide/show the current revision diff
-const handleRevisionSliderInput = ({ target }: Event) => {
-    const revisionInfo = document.getElementById("revision-info");
-    // The current revision
-    const currentRevision = Number.parseInt((target as HTMLInputElement).value, 10);
-    // The total number of revisions
-    const numRevisions = Number.parseInt((target as HTMLInputElement).max, 10);
-    // The percentage of the current slider position (left = 0%, right = 100%)
-    // If numRevisions == 1, the division results in NaN and the part || 0 converts this case to 0%
-    const position = ((currentRevision - 1) / (numRevisions - 1)) * 100 || 0;
-    // The revision element
-    const revisionElement = document.getElementById(`revision-${currentRevision}`);
-    // Update the revision info box
-    document.getElementById("revision-number").textContent = currentRevision.toString();
-    document.getElementById("revision-editor").textContent = revisionElement.dataset.editor;
-    document.getElementById("revision-date").textContent = revisionElement.dataset.date;
-    const revisionHix = document.getElementById("revision-hix");
-    if (revisionHix) {
-        revisionHix.textContent = revisionElement.dataset.hix || "-";
-    }
-    // Calculate position of revision info box to make sure it stays within the area of the slider position
-    revisionInfo.style.left = `calc(${position}% + (${
-        revisionInfo.offsetWidth / 2 - (position * revisionInfo.offsetWidth) / 100
-    }px))`;
-    // Hide all other revisions
-    document.querySelectorAll(".revision-wrapper").forEach((node) => {
-        node.classList.add("hidden");
-    });
-    // Show the current revision diff
-    document.getElementById(`revision-${currentRevision}`).classList.remove("hidden");
-    // Hide/show the desired buttons
+const calculateTooltipPositions = (target: Element, tooltip: Element, lastItem: Element) => {
+    const targetRect = target.getBoundingClientRect();
+    const lastItemRect = lastItem.getBoundingClientRect();
+    const tooltipRect = tooltip.getBoundingClientRect();
+
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+    const tooltipWidth = tooltipRect.width;
+
+    const timelineItemPadding = 6;
+    const additionalItemOffset = 24;
+
+    const exceedsBoundary = targetRect.left + tooltipWidth > lastItemRect.right;
+
+    const lastItemOffset = exceedsBoundary ? tooltipWidth - additionalItemOffset : 0;
+
+    const tooltipX = targetRect.left - lastItemOffset;
+    const tooltipY = targetRect.bottom + scrollTop + timelineItemPadding;
+
+    return [`${tooltipY}px`, `${tooltipX}px`];
+};
+
+const toggleActionButtonVisibility = (revision: number, revisionCount: number, revisionElement: HTMLElement) => {
     document.querySelectorAll(".action-buttons button").forEach((button) => {
-        if (
-            // Show a button if the status is equivalent
-            (button as HTMLElement).dataset.status === revisionElement.dataset.status &&
-            // And make sure that when the current revision is the latest revision, the data-max is present on the button
-            (currentRevision === numRevisions) !== ((button as HTMLElement).dataset.max === undefined)
-        ) {
+        const buttonHtml = button as HTMLElement;
+        const equivalentStatus = buttonHtml.dataset.status === revisionElement.dataset.status;
+        const dataMaxPresentIfLatestRevision = (revision === revisionCount) !== (buttonHtml.dataset.max === undefined);
+
+        if (equivalentStatus && dataMaxPresentIfLatestRevision) {
             button.classList.remove("hidden");
         } else {
             button.classList.add("hidden");
@@ -68,14 +59,54 @@ window.addEventListener("load", () => {
         }
     });
 
-    const revisionSlider = document.getElementById("revision-slider");
-    if (revisionSlider) {
-        // Add event handler for slider input
-        document.getElementById("revision-slider").addEventListener("input", (event) => {
-            event.preventDefault();
-            handleRevisionSliderInput(event);
+    const timelineItems = document.querySelectorAll(".timeline-item");
+
+    const revisionCount = Array.from(timelineItems).length;
+    const lastTimelineItem = Array.from(timelineItems)[revisionCount - 1];
+
+    const tooltip = document.getElementById("tooltip");
+    const versionLine = document.getElementById("version-text");
+    const authorLine = document.getElementById("author-text");
+    const dateLine = document.getElementById("date-text");
+    const hixLine = document.getElementById("hix-text");
+
+    timelineItems.forEach((item) => {
+        item.addEventListener("click", () => {
+            const revision = Number(item.getAttribute("data-number"));
+
+            document.querySelectorAll(".timeline-item").forEach((it) => {
+                it.classList.remove("active");
+            });
+
+            item.classList.add("active");
+
+            document.querySelectorAll(".revision-wrapper").forEach((node) => {
+                node.classList.add("hidden");
+            });
+
+            document.getElementById(`revision-${revision}`).classList.remove("hidden");
+
+            const revisionElement = document.getElementById(`revision-${revision}`);
+
+            versionLine.textContent = revision.toString();
+            authorLine.textContent = revisionElement.dataset.editor;
+            dateLine.textContent = revisionElement.dataset.date;
+
+            if (hixLine) {
+                hixLine.textContent = revisionElement.dataset.hix || "-";
+            }
+
+            tooltip.classList.remove("hidden");
+
+            const [top, left] = calculateTooltipPositions(item, tooltip, lastTimelineItem);
+
+            tooltip.style.top = top;
+            tooltip.style.left = left;
+
+            toggleActionButtonVisibility(revision, revisionCount, revisionElement);
         });
-        // Simulate initial input after page load
-        revisionSlider.dispatchEvent(new Event("input"));
-    }
+    });
+
+    // Simulate initial input after page load
+    lastTimelineItem.dispatchEvent(new Event("click"));
 });

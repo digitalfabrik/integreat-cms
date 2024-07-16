@@ -509,35 +509,30 @@ datalist option {
     font-weight: bolder;
 }
 
-/* Page Revision Slider */
-#revision-slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 15px;
-    border-radius: 5px;
+.timeline-item {
+    cursor: pointer;
     background: #e2e8f0;
-    outline: none;
-    opacity: 0.7;
+}
 
-    &::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 25px;
-        height: 25px;
-        border: 0;
-        border-radius: 50%;
-        background: #4299e1;
-        cursor: pointer;
-    }
+.timeline-item.active {
+    background: #4299e1 !important;
+    color: white !important;
+}
 
-    &::-moz-range-thumb {
-        width: 25px;
-        height: 25px;
-        border: 0;
-        border-radius: 50%;
-        background: #4299e1;
-        cursor: pointer;
-    }
+.revision-tooltip {
+    background: #4299e1;
+}
+
+#version-history::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background-color: #e2e8f0;
+    transform: translateY(-50%);
+    z-index: 1;
 }
 
 /* Page revision slider info box */
