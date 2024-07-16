@@ -20,8 +20,6 @@ if TYPE_CHECKING:
     from integreat_cms.cms.models.pages.page_translation import PageTranslation
     from integreat_cms.cms.models.pois.poi_translation import POITranslation
 
-import jmespath
-
 logger = logging.getLogger(__name__)
 
 
@@ -82,34 +80,46 @@ textlab_api_feedback_categories = {
     "countInfinitiveConstructions": "infinitive-constructions",
     "countNominalStyle": "nominal-sentences",
     "countFutureTenseInSentence": "future-tense-sentences",
-    'dataTerms."1289".result': "abbreviations",
 }
 
 
 def format_hix_feedback(response: dict) -> list[dict[str, Any]]:
     """
-    Format HIX feedback from Textlab so it can be well handled in the front end
+    Format HIX feedback from Textlab, so it can be well handled in the front end
 
     :param response: The response from the Textlab
 
     :return: count for each feedback category
     """
-    feedback_details = []
+    feedback_details = [
+        {"category": cms_name, "result": response.get(textlab_name)}
+        for textlab_name, cms_name in textlab_api_feedback_categories.items()
+    ]
 
-    for textlab_name, cms_name in textlab_api_feedback_categories.items():
-        raw_result = jmespath.search(textlab_name, response) or []
-        result = 0
-        if "dataTerms" in textlab_name and len(raw_result) > 0:
-            for item in raw_result:
-                result += len(item.get("length"))
-        else:
-            result = len(raw_result)
-
-        feedback_details += [
-            {
-                "category": cms_name,
-                "result": result,
-            }
-        ]
-
+    feedback_details.append(
+        {
+            "category": "abbreviations",
+            "result": sum(
+                len(i.get("length"))
+                for i in dict_path(response, ["dataTerms", "1289", "result"])
+            ),
+        }
+    )
     return feedback_details
+
+
+def dict_path(data: dict, path: list[str]) -> Any:
+    """
+    Resolves a path in the given data dictionary and returns the value
+    :param data: The data dictionary to get the value from
+    :param path: The path to lookup
+    :return: The result of the lookup in the dictionary
+    """
+    match path:
+        case []:
+            return data
+        case [first, *rest]:
+            value = data.get(first)
+            if not value:
+                return value
+            return dict_path(value, rest)
