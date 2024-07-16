@@ -50,7 +50,7 @@ Cross-referencing
 =================
 
 Whenever you want to reference another module, class or function inside a static documentation page or within a
-docstring, use the according :doc:`sphinx:usage/restructuredtext/domains` and have a look at :ref:`sphinx:python-roles`.
+docstring, use the according :doc:`sphinx:usage/domains/index` and have a look at :ref:`sphinx:python-xref-roles`.
 
 Example:
 ``:class:`~integreat_cms.cms.models.regions.region.Region``` becomes :class:`~integreat_cms.cms.models.regions.region.Region`
