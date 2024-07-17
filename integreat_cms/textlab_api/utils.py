@@ -92,17 +92,17 @@ def format_hix_feedback(response: dict) -> list[dict[str, Any]]:
     :return: count for each feedback category
     """
     feedback_details = [
-        {"category": cms_name, "result": response.get(textlab_name)}
+        {"category": cms_name, "result": len(response.get(textlab_name, []))}
         for textlab_name, cms_name in textlab_api_feedback_categories.items()
     ]
 
+    abbreviations_total = 0
+    if abbreviations := dict_path(response, ["dataTerms", "1289", "result"]):
+        abbreviations_total = sum(len(i.get("length")) for i in abbreviations)
     feedback_details.append(
         {
             "category": "abbreviations",
-            "result": sum(
-                len(i.get("length"))
-                for i in dict_path(response, ["dataTerms", "1289", "result"])
-            ),
+            "result": abbreviations_total,
         }
     )
     return feedback_details
