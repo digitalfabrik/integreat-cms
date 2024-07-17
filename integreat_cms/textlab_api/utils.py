@@ -119,7 +119,6 @@ def dict_path(data: dict, path: list[str]) -> Any:
         case []:
             return data
         case [first, *rest]:
-            value = data.get(first)
-            if not value:
+            if not (value := data.get(first)):
                 return value
             return dict_path(value, rest)
