@@ -1250,6 +1250,12 @@ PDF_ROOT: Final[str] = os.environ.get(
 PDF_URL: Final[str] = "/pdf/"
 
 
+#: Slugs of languages for which PDF export should be deactivated
+PDF_DEACTIVATED_LANGUAGES: Final[str | list[str]] = os.environ.get(
+    "INTEGREAT_CMS_PDF_DEACTIVATED_LANGUAGES", []
+)
+
+
 #######################
 # XLIFF SERIALIZATION #
 #######################

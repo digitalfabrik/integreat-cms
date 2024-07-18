@@ -5,10 +5,12 @@
 {% get_current_language as LANGUAGE_CODE %}
 {% get_files 'editor_content' 'js' as editor_content_js_files %}
 {% get_files 'editor_content' 'css' as editor_content_css_files %}
-{% if language.slug == 'zh-CN' %}
+{% if language.slug == 'zh' %}
     {% firstof "body { font-family: 'Noto Sans SC', sans-serif; }" as font_style %}
-{% elif language.slug == 'am' %}
+{% elif language.slug == 'am' or language.slug == 'ti' %}
     {% firstof "body { font-family: 'Noto Sans Ethiopic', sans-serif; }" as font_style %}
+{% elif language.slug == 'ka' %}
+    {% firstof "body { font-family: 'Noto Sans Georgian', sans-serif; }" as font_style %}
 {% elif right_to_left %}
     {% firstof "body { font-family: 'Lateef', sans-serif; font-size: 1.2rem; }" as font_style %}
 {% else %}

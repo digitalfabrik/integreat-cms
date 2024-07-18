@@ -22,18 +22,25 @@
             .content {
                 padding-bottom: 30px;
             }
-            {% if language.slug == "zh-CN" %}
-                html, body {
+            {% if language.slug == "zh" %}
+                html, body, pdftoc {
                     font-family: "Noto Sans SC", sans-serif;
                 }
-            {% elif language.slug == "am" %}
+                .content {
+                    -pdf-word-wrap: CJK;
+                }
+            {% elif language.slug == "am" or language.slug == "ti" %}
                 html, body, pdftoc {
-                font-family: "Noto Sans Ethiopic", sans-serif;
+                    font-family: "Noto Sans Ethiopic", sans-serif;
                 }
             {% elif language.slug == "el" %}
                 html, body, pdftoc {
                     font-family: "Open Sans", sans-serif;
                 }
+            {% elif language.slug == "ka" %}
+                html, body, pdftoc {
+                font-family: "Noto Sans Georgian", sans-serif;
+            }
             {% elif right_to_left %}
                 html, body {
                     font-family: "DejaVu", sans-serif;
