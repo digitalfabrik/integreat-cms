@@ -16,14 +16,17 @@ from ...constants.translation_status import (
     UP_TO_DATE,
 )
 from ...decorators import permission_required
-from ...models import PageTranslation
+from ...views.utils.hix import (
+    get_translation_under_hix_threshold,
+    get_translations_relevant_to_hix,
+)
 
 if TYPE_CHECKING:
     from typing import Any
 
     from django.db.models.query import QuerySet
 
-    from ..models import Language
+    from ...models import Language
 
 logger = logging.getLogger(__name__)
 
@@ -122,39 +125,23 @@ class TranslationCoverageView(TemplateView):
 
         :return: The HIX context dictionary
         """
-        if not settings.TEXTLAB_API_ENABLED:
-            return {}
-
-        # Get the current region
-        region = self.request.region
-        if not region.hix_enabled:
-            return {}
-
-        # Get all pages of this region which are considered for the HIX value
-        hix_pages = region.get_pages().filter(hix_ignore=False)
-
-        # Get the latest versions of the page translations for these pages
-        hix_translations = PageTranslation.objects.filter(
-            language__slug__in=settings.TEXTLAB_API_LANGUAGES, page__in=hix_pages
-        ).distinct("page_id", "language_id")
-
-        # Get all hix translations where the score is set
-        hix_translations_with_score = [pt for pt in hix_translations if pt.hix_score]
-
-        # Get the worst n pages
-        worst_hix_translations = sorted(
-            hix_translations_with_score, key=lambda pt: pt.hix_score
+        # We want to calculate page translations with hix_score=None, but not show them
+        # That's why we have to exclude them here.
+        relevant_translations = (
+            get_translations_relevant_to_hix(self.request.region)
+            .exclude(hix_score=None)
+            .prefetch_related("page")
         )
 
-        # Get the number of translations which are not ready for MT
-        not_ready_for_mt_count = sum(
-            pt.rounded_hix_score < settings.HIX_REQUIRED_FOR_MT
-            for pt in hix_translations_with_score
-        )
+        translations_under_hix_threshold = get_translation_under_hix_threshold(
+            self.request.region
+        ).count()
+
+        total_count = get_translations_relevant_to_hix(self.request.region).count()
 
         return {
-            "worst_hix_translations": worst_hix_translations,
+            "worst_hix_translations": relevant_translations,
             "hix_threshold": settings.HIX_REQUIRED_FOR_MT,
-            "ready_for_mt_count": len(hix_translations) - not_ready_for_mt_count,
-            "total_count": len(hix_translations),
+            "ready_for_mt_count": total_count - translations_under_hix_threshold,
+            "total_count": total_count,
         }
