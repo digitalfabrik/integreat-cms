@@ -37,9 +37,9 @@ after_tests = (
 def test_tree_mutex(load_test_data_transactional: None) -> None:
     """
     Check whether :func:`~integreat_cms.cms.utils.tree_mutex.tree_mutex` is actually preventing collisions.
-    See :func:`run_test` for details.
+    See :func:`run_mutex_test` for details.
     """
-    run_test(True)
+    run_mutex_test(use_mutex=True)
 
 
 @pytest.mark.order("last", after=after_tests + ("test_tree_mutex",))
@@ -48,7 +48,7 @@ def test_rule_out_false_positive(load_test_data_transactional: None) -> None:
     """
     Rule out that :func:`~integreat_cms.cms.utils.tree_mutex.tree_mutex` is just doing nothing and :func:`test_tree_mutex`
     only succeeded because the system magically worked without it.
-    Provoke and expect a variety of possible exceptions using :func:`run_test`.
+    Provoke and expect a variety of possible exceptions using :func:`run_mutex_test`.
 
     If this test fails with an exception not expected and you can prove that it is indicative of
     treebeard shooting itself in the foot, please add the exception as expected!
@@ -62,7 +62,7 @@ def test_rule_out_false_positive(load_test_data_transactional: None) -> None:
             InvalidMoveToDescendant,
         )
     ) as exc_info:
-        run_test(use_mutex=False)
+        run_mutex_test(use_mutex=False)
 
     if isinstance(exc_info.value, AttributeError):
         assert (
@@ -71,7 +71,7 @@ def test_rule_out_false_positive(load_test_data_transactional: None) -> None:
         )
 
 
-def run_test(use_mutex: bool) -> None:
+def run_mutex_test(use_mutex: bool) -> None:
     """
     Start two :func:`five_ten_five` tests in parallel, in separate threads.
     These each constantly move their "contestant" page back and forth.
