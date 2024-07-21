@@ -10,6 +10,8 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
 
+    from integreat_cms.cms.models.abstract_tree_node import AbstractTreeNode
+
 
 def get_messages(caplog: LogCaptureFixture) -> list[str]:
     """
@@ -64,3 +66,20 @@ def assert_message_in_log(message: str, caplog: LogCaptureFixture) -> None:
         f"The following message: \n\n{message}\n\nwas not found in the message log:\n\n"
         + ("\n".join(messages) if messages else "empty message log.")
     )
+
+
+def find_free_tree_id(model: type[AbstractTreeNode]) -> int:
+    """
+    Find a free tree id for the model to prevent collisions.
+
+    :param model: The model class to find a free tree_id for
+    """
+    highest_id = (
+        model.objects.values_list("tree_id", flat=True)
+        .distinct()
+        .order_by("-tree_id")
+        .first()
+    )
+    if highest_id is None:
+        return 1
+    return highest_id + 1

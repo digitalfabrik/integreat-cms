@@ -24,6 +24,7 @@ from integreat_cms.cms.models import (
 )
 from integreat_cms.firebase_api.firebase_api_client import FirebaseApiClient
 
+from ....utils import find_free_tree_id
 from ..utils import get_command_output
 
 
@@ -107,7 +108,12 @@ class TestSendPushNotification:
         region = Region.objects.create(name="unit-test-region")
 
         LanguageTreeNode.objects.create(
-            language=german_language, lft=1, rgt=2, tree_id=1, depth=1, region=region
+            language=german_language,
+            lft=1,
+            rgt=2,
+            tree_id=find_free_tree_id(LanguageTreeNode),
+            depth=1,
+            region=region,
         )
 
         push_notification = PushNotification.objects.create(
