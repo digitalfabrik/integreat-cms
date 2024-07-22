@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-07-03T15:20:35+00:00" />
+    <meta property="article:modified_time" content="2024-07-22T16:35:52+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CMS &mdash; integreat-cms 2024.7.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -847,6 +847,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#module-integreat_cms.cms.linklists">Linklists</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.ActiveLanguageLinklist"><code class="docutils literal notranslate"><span class="pre">ActiveLanguageLinklist</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.EventTranslationLinklist"><code class="docutils literal notranslate"><span class="pre">EventTranslationLinklist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.ImprintTranslationLinklist"><code class="docutils literal notranslate"><span class="pre">ImprintTranslationLinklist</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.NonArchivedLinkList"><code class="docutils literal notranslate"><span class="pre">NonArchivedLinkList</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.POITranslationLinklist"><code class="docutils literal notranslate"><span class="pre">POITranslationLinklist</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.PageTranslationLinklist"><code class="docutils literal notranslate"><span class="pre">PageTranslationLinklist</span></code></a></li>
@@ -2569,12 +2570,12 @@ If not, the PermissionDenied exception is raised.</p>
 <h2>Linklists<a class="headerlink" href="#linklists" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">ActiveLanguageLinklist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">ActiveLanguageLinklist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Linklist</span></code></p>
 <p>Base class for content translation link lists</p>
 <dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filter_callable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QuerySet</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QuerySet</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filter_callable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QuerySet</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QuerySet</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L31"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Get only translations in active languages</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2593,12 +2594,12 @@ If not, the PermissionDenied exception is raised.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">EventTranslationLinklist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L103"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">EventTranslationLinklist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L112"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.NonArchivedLinkList" title="integreat_cms.cms.linklists.NonArchivedLinkList"><code class="xref py py-class docutils literal notranslate"><span class="pre">NonArchivedLinkList</span></code></a></p>
 <p>Class for selecting the EventTranslation model for link checks</p>
 <dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filter_callable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QuerySet</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QuerySet</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L110"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filter_callable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QuerySet</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QuerySet</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L119"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Get only translations of upcoming events in active languages</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2623,12 +2624,25 @@ If not, the PermissionDenied exception is raised.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">NonArchivedLinkList</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">ImprintTranslationLinklist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L81"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.ActiveLanguageLinklist" title="integreat_cms.cms.linklists.ActiveLanguageLinklist"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActiveLanguageLinklist</span></code></a></p>
+<p>Class for selecting the ImprintPageTranslation model for linkchecks</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/pages/imprint_page_translation.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation" title="integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImprintPageTranslation</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">NonArchivedLinkList</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L89"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.ActiveLanguageLinklist" title="integreat_cms.cms.linklists.ActiveLanguageLinklist"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActiveLanguageLinklist</span></code></a></p>
 <p>Class for excluding archived events and locations</p>
 <dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filter_callable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QuerySet</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QuerySet</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L85"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filter_callable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QuerySet</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QuerySet</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L94"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Get only latest translations for non-archived events/locations in active languages</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2647,7 +2661,7 @@ If not, the PermissionDenied exception is raised.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">POITranslationLinklist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L127"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">POITranslationLinklist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.NonArchivedLinkList" title="integreat_cms.cms.linklists.NonArchivedLinkList"><code class="xref py py-class docutils literal notranslate"><span class="pre">NonArchivedLinkList</span></code></a></p>
 <p>Class for selecting the POITranslation model for link checks</p>
 <dl class="py attribute">
@@ -2660,12 +2674,12 @@ If not, the PermissionDenied exception is raised.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">PageTranslationLinklist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.linklists.</span></span><span class="sig-name descname"><span class="pre">PageTranslationLinklist</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L55"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.html#integreat_cms.cms.linklists.ActiveLanguageLinklist" title="integreat_cms.cms.linklists.ActiveLanguageLinklist"><code class="xref py py-class docutils literal notranslate"><span class="pre">ActiveLanguageLinklist</span></code></a></p>
 <p>Class for selecting the PageTranslation model for link checks</p>
 <dl class="py method">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filter_callable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QuerySet</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QuerySet</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L61"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">filter_callable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">objects</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">QuerySet</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">QuerySet</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/linklists.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Get only latest versions for non-archived pages in active languages</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2852,7 +2866,7 @@ If not, the PermissionDenied exception is raised.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 03, 2024.
+      <span class="lastupdated">Last updated on Jul 22, 2024.
       </span></p>
   </div>
 
