@@ -93,9 +93,8 @@ class LinkcheckListView(ListView):
 
         :return: The QuerySet of the filtered urls
         """
-        region = self.kwargs.get("region_slug") or None
         urls, count_dict = filter_urls(
-            region, self.kwargs.get("url_filter")
+            self.kwargs.get("region_slug"), self.kwargs.get("url_filter")
         )
         self.extra_context.update(count_dict)
         return urls

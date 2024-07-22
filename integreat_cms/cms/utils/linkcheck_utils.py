@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 from urllib.parse import ParseResult, unquote, urlparse
 
 from django.conf import settings
-from django.db.models import Prefetch, Q, QuerySet, Subquery
+from django.db.models import Prefetch, Q, QuerySet, Subquery, Count
 from linkcheck import update_lock
 from linkcheck.listeners import tasks_queue
 from linkcheck.models import Link, Url
@@ -32,7 +32,6 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-
 def get_urls(
     region_slug: str | None = None,
     url_ids: Any | None = None,
@@ -48,22 +47,28 @@ def get_urls(
     if url_ids is not None:
         # If the results should be limited to specific ids, filter the queryset
         urls = urls.filter(id__in=url_ids)
+    if region_slug:
+        region = Region.objects.get(slug=region_slug)
+        region_links = get_region_links(region)
 
-    region = Region.objects.get(slug=region_slug) if region_slug else None
-    region_links = get_region_links(region)
-
-    # Prefetch all link objects of the requested region
-    urls = (
-        urls.filter(links__in=region_links)
-        .distinct()
-        .prefetch_related(
-            Prefetch(
-                "links",
-                queryset=region_links,
-                to_attr="region_links",
+        # Prefetch all link objects of the requested region
+        urls = (
+            urls.filter(links__in=region_links)
+            .distinct()
+            .prefetch_related(
+                Prefetch(
+                    "links",
+                    queryset=region_links,
+                    to_attr="region_links",
+                )
             )
         )
-    )
+    else:
+        urls = urls.prefetch_related(Prefetch("links", to_attr="region_links"))
+
+    # Annotate with number of links that are not ignored.
+    # If there is any link that is not ignored, the url is also not ignored.
+    urls = urls.annotate(non_ignored_links = Count("links", filter=Q(links__ignore=False)))
 
     # Filter out ignored URL types
     if settings.LINKCHECK_IGNORED_URL_TYPES:
@@ -74,40 +79,34 @@ def get_urls(
     return urls
 
 
-def get_region_links(region: Region| None) -> QuerySet:
+def get_region_links(region: Region) -> QuerySet:
     """
     Returns the links of translations of the given region
     :param region: The region
     :return: A query containing the relevant links
     """
-    if region:
-        latest_pagetranslation_versions = Subquery(
-            PageTranslation.objects.filter(
-                page__id__in=Subquery(region.non_archived_pages.values("pk")),
-            )
-            .distinct("page__id", "language__id")
-            .values_list("pk", flat=True)
+    latest_pagetranslation_versions = Subquery(
+        PageTranslation.objects.filter(
+            page__id__in=Subquery(region.non_archived_pages.values("pk")),
         )
-        latest_poitranslation_versions = Subquery(
-            POITranslation.objects.filter(poi__region=region)
-            .distinct("poi__id", "language__id")
-            .values_list("pk", flat=True)
-        )
-        latest_eventtranslation_versions = Subquery(
-            EventTranslation.objects.filter(event__region=region)
-            .distinct("event__id", "language__id")
-            .values_list("pk", flat=True)
-        )
-        latest_imprinttranslation_versions = Subquery(
-            ImprintPageTranslation.objects.filter(page__region=region)
-            .distinct("page__id", "language__id")
-            .values_list("pk", flat=True)
-        )
-    else:
-        latest_pagetranslation_versions = PageTranslation.objects.distinct("page__id", "language__id").values_list("pk", flat=True)
-        latest_poitranslation_versions = POITranslation.objects.distinct("poi__id", "language__id").values_list("pk", flat=True)
-        latest_eventtranslation_versions = EventTranslation.objects.distinct("event__id", "language__id").values_list("pk", flat=True)
-        latest_imprinttranslation_versions = ImprintPageTranslation.objects.distinct("page__id", "language__id").values_list("pk", flat=True)
+        .distinct("page__id", "language__id")
+        .values_list("pk", flat=True)
+    )
+    latest_poitranslation_versions = Subquery(
+        POITranslation.objects.filter(poi__region=region)
+        .distinct("poi__id", "language__id")
+        .values_list("pk", flat=True)
+    )
+    latest_eventtranslation_versions = Subquery(
+        EventTranslation.objects.filter(event__region=region)
+        .distinct("event__id", "language__id")
+        .values_list("pk", flat=True)
+    )
+    latest_imprinttranslation_versions = Subquery(
+        ImprintPageTranslation.objects.filter(page__region=region)
+        .distinct("page__id", "language__id")
+        .values_list("pk", flat=True)
+    )
     # Get all link objects of the requested region
     region_links = Link.objects.filter(
         Q(page_translation__id__in=latest_pagetranslation_versions)
@@ -149,8 +148,8 @@ def filter_urls(
         [] for _ in range(6)
     )
     for url in urls:
-        links = url.region_links if region_slug else url.links.all()
-        if all(link.ignore for link in links):
+        url_ignored = url.non_ignored_links == 0
+        if url_ignored:
             ignored_urls.append(url)
         elif url.status:
             valid_urls.append(url)
