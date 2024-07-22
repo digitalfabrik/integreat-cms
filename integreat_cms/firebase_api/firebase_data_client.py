@@ -1,38 +1,15 @@
 import logging
 from collections import defaultdict
-from datetime import datetime
-from typing import Any, Dict
+from typing import Any
 
 import requests
 from django.conf import settings
+from django.core.cache import cache
 from django.core.exceptions import ImproperlyConfigured
 
 from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
 
 logger = logging.getLogger(__name__)
-
-
-# pylint: disable=too-few-public-methods
-class FirebaseDataCache:
-    """
-    Cache for the Firebase Cloud Messaging Data API Client
-    """
-
-    def __init__(self) -> None:
-        """
-        Initialize empty cache
-        """
-        self.data: Dict[Any, float | int] | None = None
-        self.timestamp: datetime | None = None
-
-    def is_valid(self) -> bool:
-        """
-        :return: Whether the cache contains a valid entry from today
-        """
-        if self.timestamp is None:
-            return False
-
-        return datetime.now().date() == self.timestamp.date()
 
 
 # pylint: disable=too-few-public-methods
@@ -57,16 +34,13 @@ class FirebaseDataClient:
 
         self.endpoint_url = settings.FCM_DATA_URL
 
-        self.cache = FirebaseDataCache()
-
     def get_notification_statistics_per_region(self) -> dict[Any, float | int]:
         """
         Load messaging statistics and calculate the average sent messages per region within the returned timespan
         """
 
-        # Check if cached data is valid for today
-        if self.cache.data is not None and self.cache.is_valid():
-            return self.cache.data
+        if (cached_data := cache.get("firebase_data")) is not None:
+            return cached_data
 
         headers = {
             "Authorization": f"Bearer {FirebaseSecurityService.get_data_access_token()}",
@@ -101,8 +75,10 @@ class FirebaseDataClient:
             for label, data in label_totals.items()
         }
 
-        # Update cache
-        self.cache.data = averages
-        self.cache.timestamp = datetime.now()
+        cache.set(
+            "firebase_data",
+            averages,
+            60 * 60 * 24 * 7,
+        )
 
         return averages
