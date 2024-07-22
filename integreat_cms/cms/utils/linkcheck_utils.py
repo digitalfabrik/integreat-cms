@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 from urllib.parse import ParseResult, unquote, urlparse
 
 from django.conf import settings
-from django.db.models import Prefetch, Q, QuerySet, Subquery, Count
+from django.db.models import Prefetch, Q, QuerySet, Subquery, Exists, OuterRef
 from linkcheck import update_lock
 from linkcheck.listeners import tasks_queue
 from linkcheck.models import Link, Url
@@ -66,7 +66,8 @@ def get_urls(
 
     # Annotate with number of links that are not ignored.
     # If there is any link that is not ignored, the url is also not ignored.
-    urls = urls.annotate(non_ignored_links = Count("links", filter=Q(links__ignore=False)))
+    non_ignored_links = Link.objects.filter(url=OuterRef("pk"), ignore=False)
+    urls = urls.annotate(has_non_ignored_links=Exists(non_ignored_links))
 
     # Filter out ignored URL types
     if settings.LINKCHECK_IGNORED_URL_TYPES:
@@ -148,8 +149,7 @@ def filter_urls(
     for url in urls:
         if region_slug is None:
             url.region_links = url.links.all()
-        url_ignored = url.non_ignored_links == 0
-        if url_ignored:
+        if not url.has_non_ignored_links:
             ignored_urls.append(url)
         elif url.status:
             valid_urls.append(url)
