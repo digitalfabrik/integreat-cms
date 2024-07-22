@@ -4,24 +4,29 @@
 
 import HtmlDiff from "htmldiff-js";
 
-const calculateTooltipPositions = (target: Element, tooltip: Element, lastItem: Element) => {
+const calculateTooltipPositions = (target: Element, tooltip: Element) => {
     const targetRect = target.getBoundingClientRect();
-    const lastItemRect = lastItem.getBoundingClientRect();
     const tooltipRect = tooltip.getBoundingClientRect();
 
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const viewportWidth = window.innerWidth;
 
     const tooltipWidth = tooltipRect.width;
 
-    const timelineItemPadding = 6;
-    const additionalItemOffset = 24;
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
-    const exceedsBoundary = targetRect.left + tooltipWidth > lastItemRect.right;
+    const verticalOffset = 10;
+    const horizontalOffset = 10;
 
-    const lastItemOffset = exceedsBoundary ? tooltipWidth - additionalItemOffset : 0;
+    let tooltipX = targetRect.left;
+    const tooltipY = targetRect.bottom + scrollTop + verticalOffset;
 
-    const tooltipX = targetRect.left - lastItemOffset;
-    const tooltipY = targetRect.bottom + scrollTop + timelineItemPadding;
+    if (tooltipX + tooltipWidth > viewportWidth) {
+        tooltipX = targetRect.right - tooltipWidth - horizontalOffset; // Tooltip auf der rechten Seite des Ziels ausrichten
+    }
+
+    if (tooltipX < horizontalOffset) {
+        tooltipX = horizontalOffset; // Tooltip innerhalb der linken Bildschirmgrenze platzieren
+    }
 
     return [`${tooltipY}px`, `${tooltipX}px`];
 };
@@ -38,6 +43,16 @@ const toggleActionButtonVisibility = (revision: number, revisionCount: number, r
             button.classList.add("hidden");
         }
     });
+};
+
+const repositionTooltip = () => {
+    const tooltip = document.getElementById("tooltip");
+    const currentTimelineItem = document.querySelector(".timeline-item.active");
+
+    const [top, left] = calculateTooltipPositions(currentTimelineItem, tooltip);
+
+    tooltip.style.top = top;
+    tooltip.style.left = left;
 };
 
 window.addEventListener("load", () => {
@@ -60,6 +75,11 @@ window.addEventListener("load", () => {
     });
 
     const timelineItems = document.querySelectorAll(".timeline-item");
+    const versionHistory = document.getElementById("version-history");
+
+    if (versionHistory) {
+        versionHistory.scrollLeft = versionHistory.scrollWidth;
+    }
 
     const revisionCount = Array.from(timelineItems).length;
     const lastTimelineItem = Array.from(timelineItems)[revisionCount - 1];
@@ -98,7 +118,7 @@ window.addEventListener("load", () => {
 
             tooltip.classList.remove("hidden");
 
-            const [top, left] = calculateTooltipPositions(item, tooltip, lastTimelineItem);
+            const [top, left] = calculateTooltipPositions(item, tooltip);
 
             tooltip.style.top = top;
             tooltip.style.left = left;
@@ -109,4 +129,75 @@ window.addEventListener("load", () => {
 
     // Simulate initial input after page load
     lastTimelineItem.dispatchEvent(new Event("click"));
+
+    // Check if an element is within the visible range of its container
+    const isElementInView = (element: HTMLElement, container: HTMLElement) => {
+        const containerRect = container.getBoundingClientRect();
+        const elementRect = element.getBoundingClientRect();
+        return elementRect.left >= containerRect.left && elementRect.right <= containerRect.right;
+    };
+
+    let previousScrollLeft = 0;
+
+    const autoSelectTimelineItem = () => {
+        const versionHistory = document.getElementById("version-history");
+        if (!versionHistory) {
+            console.warn("Element with id 'version-history' not found.");
+            return;
+        }
+
+        const activeItem: HTMLElement | null = versionHistory.querySelector(".timeline-item.active");
+        if (!activeItem) {
+            console.warn("Active timeline item not found.");
+            return;
+        }
+
+        const allItems: HTMLElement[] = Array.from(versionHistory.querySelectorAll(".timeline-item"));
+        const currentIndex = allItems.indexOf(activeItem);
+
+        if (currentIndex === -1) {
+            console.warn("Active item is not in the list of timeline items.");
+            return;
+        }
+
+        let targetItem: HTMLElement | undefined;
+
+        if (versionHistory.scrollLeft > previousScrollLeft) {
+            // Scrolling right
+            if (currentIndex < allItems.length - 1) {
+                targetItem = allItems[currentIndex + 1];
+            }
+        } else if (versionHistory.scrollLeft < previousScrollLeft) {
+            // Scrolling left
+            if (currentIndex > 0) {
+                targetItem = allItems[currentIndex - 1];
+            }
+        }
+
+        if (targetItem) {
+            if (isElementInView(targetItem, versionHistory)) {
+                // If the target item is in view, select it
+                targetItem.click();
+            } else {
+                // Prevent further scrolling until the target item is visible
+                // Monitor for when the target item comes into view
+                const observer = new MutationObserver(() => {
+                    if (isElementInView(targetItem, versionHistory)) {
+                        targetItem.click();
+                        observer.disconnect();
+                    }
+                });
+
+                observer.observe(versionHistory, { childList: true, subtree: true });
+            }
+        }
+
+        // Update the previous scroll position
+        previousScrollLeft = versionHistory.scrollLeft;
+
+        repositionTooltip();
+    };
+
+    // Listen to scroll event even when content is scrolled to an end
+    versionHistory.addEventListener("scroll", autoSelectTimelineItem);
 });

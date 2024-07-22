@@ -16,11 +16,11 @@
     </div>
     <form method="post" action="{{ versions_url }}">
         {% csrf_token %}
-        <div class="w-4/5 m-auto mb-28">
+        <div class="w-full m-auto mb-28">
             <div id="version-history"
-                 class="relative w-full flex justify-between items-center font-mono">
+                 class=" w-full flex items-center font-mono overflow-x-scroll gap-16">
                 {% for translation in translations reversed %}
-                    <div class="z-10 w-8 h-8 rounded-full flex items-center justify-center timeline-item"
+                    <div class="z-10 w-8 h-8 rounded-full flex items-center justify-center timeline-item flex-shrink-0"
                          data-number="{{ translation.version }}">
                         {{ translation.version }}
                     </div>
