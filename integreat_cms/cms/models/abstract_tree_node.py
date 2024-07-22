@@ -10,7 +10,7 @@ from django.db import models
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from treebeard.exceptions import InvalidPosition
-from treebeard.ns_tree import NS_Node
+from treebeard.ns_tree import NS_Node, NS_NodeManager
 
 if TYPE_CHECKING:
     from typing import Any
@@ -23,11 +23,55 @@ from .abstract_base_model import AbstractBaseModel
 logger = logging.getLogger(__name__)
 
 
+class AbstractTreeNodeManager(NS_NodeManager):
+    """
+    Custom manager adding a stdout message to ``AbstractTreeNode.objects.create()``
+    """
+
+    def create(self, *args, **kwargs):  # type: ignore[no-untyped-def]
+        """
+        Create an object. Direct use is discouraged, use :meth:`treebeard.models.Node.add_root`,
+        :meth:`treebeard.models.Node.add_child` or :meth:`treebeard.models.Node.add_sibling` instead.
+        """
+        obj = super().create(*args, **kwargs)
+        mptt_props = ("lft", "rgt", "tree_id", "depth")
+        positions = (
+            "first-child",
+            "last-child",
+            "left",
+            "right",
+            "first-sibling",
+            "last-sibling",
+        )
+        arguments = list(args) + [
+            f"{k}={repr(v)}" for k, v in kwargs.items() if k not in mptt_props
+        ]
+
+        BOLD = "\033[1m"
+        RESET = "\033[0m"
+
+        def b(string):  # type: ignore[no-untyped-def]
+            return f"{BOLD}{string}{RESET}"
+
+        print(
+            f"""
+#### {BOLD}Don't use {obj.__class__.__name__}.objects.create().{RESET} To avoid collisions from manually setting {b('lft')}, {b('rgt')}, {b('tree_id')} and {b('depth')} please use one of the following:
+     {obj.__class__.__name__}{b('.add_root(')}{', '.join(arguments)})
+     some_parent_node{b('.add_child(')}{', '.join(arguments)})
+     some_sibling_node{BOLD}.add_sibling(pos={' | '.join([repr(p) for p in positions])},{RESET}  {', '.join(arguments)})
+     More details at https://django-treebeard.readthedocs.io/en/latest/api.html#treebeard.models.Node.add_root
+        """
+        )
+        return obj
+
+
 # pylint: disable=attribute-defined-outside-init
 class AbstractTreeNode(NS_Node, AbstractBaseModel):
     """
     Abstract data model representing a tree node within a region.
     """
+
+    objects = AbstractTreeNodeManager()
 
     # This field isn't strictly necessary since the hierarchical data is already contained in the lft & rgt fields
     # However, it facilitates some tree operations.
