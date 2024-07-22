@@ -63,8 +63,6 @@ def get_urls(
                 )
             )
         )
-    else:
-        urls = urls.prefetch_related(Prefetch("links", to_attr="region_links"))
 
     # Annotate with number of links that are not ignored.
     # If there is any link that is not ignored, the url is also not ignored.
@@ -148,6 +146,8 @@ def filter_urls(
         [] for _ in range(6)
     )
     for url in urls:
+        if region_slug is None:
+            url.region_links = url.links.all()
         url_ignored = url.non_ignored_links == 0
         if url_ignored:
             ignored_urls.append(url)
