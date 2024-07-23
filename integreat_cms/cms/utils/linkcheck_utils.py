@@ -9,6 +9,7 @@ from typing import TYPE_CHECKING
 from urllib.parse import ParseResult, unquote, urlparse
 
 from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
 from django.db.models import Prefetch, Q, QuerySet, Subquery, Exists, OuterRef, Case, When, Value, Count, F
 from linkcheck import update_lock
 from linkcheck.listeners import tasks_queue
@@ -118,11 +119,15 @@ def get_region_links(region: Region) -> QuerySet:
         .values_list("pk", flat=True)
     )
     # Get all link objects of the requested region
+    page_t = ContentType.objects.get_for_model(PageTranslation)
+    imprint_t = ContentType.objects.get_for_model(ImprintPageTranslation)
+    event_t = ContentType.objects.get_for_model(EventTranslation)
+    poi_t = ContentType.objects.get_for_model(POITranslation)
     region_links = Link.objects.filter(
-        Q(page_translation__id__in=latest_pagetranslation_versions)
-        | Q(imprint_translation__id__in=latest_imprinttranslation_versions)
-        | Q(event_translation__id__in=latest_eventtranslation_versions)
-        | Q(poi_translation__id__in=latest_poitranslation_versions)
+        Q(object_id__in=latest_pagetranslation_versions, content_type=page_t)
+        | Q(object_id__in=latest_imprinttranslation_versions, content_type=imprint_t)
+        | Q(object_id__in=latest_eventtranslation_versions, content_type=event_t)
+        | Q(object_id__in=latest_poitranslation_versions, content_type=poi_t)
     ).order_by("id")
 
     return region_links
