@@ -4,94 +4,6 @@
 
 import HtmlDiff from "htmldiff-js";
 
-const calculateTooltipPositions = (target: Element, tooltip: Element) => {
-    const targetRect = target.getBoundingClientRect();
-    const tooltipRect = tooltip.getBoundingClientRect();
-
-    const viewportWidth = window.innerWidth;
-    const tooltipWidth = tooltipRect.width;
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-
-    const verticalOffset = 10;
-    const horizontalOffset = 10;
-
-    // Berechne die Breite der rechten Icons
-    const rightIcon = document.querySelector(".flex-shrink-0.px-4:last-child") as HTMLElement;
-    const rightIconWidth = rightIcon ? rightIcon.getBoundingClientRect().width : 0;
-
-    // Berechne die verfügbare Breite für die Tooltip-Positionierung
-    const availableWidth = viewportWidth - rightIconWidth;
-
-    // Berechne die Tooltip-Positionen
-    let tooltipX = targetRect.left;
-    const tooltipY = targetRect.bottom + scrollTop + verticalOffset;
-
-    if (tooltipX + tooltipWidth > availableWidth) {
-        tooltipX = targetRect.right - tooltipWidth - horizontalOffset;
-    }
-
-    if (tooltipX < horizontalOffset) {
-        tooltipX = horizontalOffset;
-    }
-
-    return [`${tooltipY}px`, `${tooltipX}px`];
-};
-
-const toggleActionButtonVisibility = (revision: number, revisionCount: number) => {
-    const revisionElement = document.getElementById(`revision-${revision}`);
-
-    document.querySelectorAll(".action-buttons button").forEach((button) => {
-        const buttonHtml = button as HTMLElement;
-        const equivalentStatus = buttonHtml.dataset.status === revisionElement.dataset.status;
-        const dataMaxPresentIfLatestRevision = (revision === revisionCount) !== (buttonHtml.dataset.max === undefined);
-
-        if (equivalentStatus && dataMaxPresentIfLatestRevision) {
-            button.classList.remove("hidden");
-        } else {
-            button.classList.add("hidden");
-        }
-    });
-};
-
-const repositionTooltip = () => {
-    const tooltip = document.getElementById("tooltip");
-    const currentTimelineItem = document.querySelector(".timeline-item.active");
-
-    const [top, left] = calculateTooltipPositions(currentTimelineItem, tooltip);
-
-    tooltip.style.top = top;
-    tooltip.style.left = left;
-};
-
-const toggleVersionHistoryControls = () => {
-    const timelineItems = document.querySelectorAll(".timeline-item");
-
-    const firstItem = timelineItems[0];
-    const lastItem = timelineItems[timelineItems.length - 1];
-
-    const prevButton = document.getElementById("button-prev");
-    const nextButton = document.getElementById("button-next");
-
-    const firstItemActive = firstItem.classList.contains("active");
-    const lastItemActive = lastItem.classList.contains("active");
-
-    if (firstItemActive) {
-        prevButton.classList.add("disabled");
-        prevButton.classList.remove("enabled");
-    } else {
-        prevButton.classList.remove("disabled");
-        prevButton.classList.add("enabled");
-    }
-
-    if (lastItemActive) {
-        nextButton.classList.add("disabled");
-        nextButton.classList.remove("enabled");
-    } else {
-        nextButton.classList.remove("disabled");
-        nextButton.classList.add("enabled");
-    }
-};
-
 window.addEventListener("load", () => {
     // Iterate over revisions and calculate diff
     document.querySelectorAll(".revision-plain").forEach((revision) => {
@@ -126,6 +38,92 @@ window.addEventListener("load", () => {
     const authorLine = document.getElementById("author-text");
     const dateLine = document.getElementById("date-text");
     const hixLine = document.getElementById("hix-text");
+
+    const calculateTooltipPositions = (target: Element, tooltip: Element) => {
+        const targetRect = target.getBoundingClientRect();
+        const tooltipRect = tooltip.getBoundingClientRect();
+
+        const viewportWidth = window.innerWidth;
+        const tooltipWidth = tooltipRect.width;
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+        const verticalOffset = 10;
+        const horizontalOffset = 10;
+
+        const rightIcon = document.getElementById("button-next") as HTMLElement;
+        const rightIconWidth = rightIcon ? rightIcon.getBoundingClientRect().width : 0;
+
+        const availableWidth = viewportWidth - rightIconWidth;
+
+        let tooltipX = targetRect.left;
+        const tooltipY = targetRect.bottom + scrollTop + verticalOffset;
+
+        if (tooltipX + tooltipWidth > availableWidth) {
+            tooltipX = targetRect.right - tooltipWidth - horizontalOffset;
+        }
+
+        if (tooltipX < horizontalOffset) {
+            tooltipX = horizontalOffset;
+        }
+
+        return [`${tooltipY}px`, `${tooltipX}px`];
+    };
+
+    const toggleActionButtonVisibility = (revision: number, revisionCount: number) => {
+        const revisionElement = document.getElementById(`revision-${revision}`);
+
+        document.querySelectorAll(".action-buttons button").forEach((button) => {
+            const buttonHtml = button as HTMLElement;
+            const equivalentStatus = buttonHtml.dataset.status === revisionElement.dataset.status;
+            const dataMaxPresentIfLatestRevision =
+                (revision === revisionCount) !== (buttonHtml.dataset.max === undefined);
+
+            if (equivalentStatus && dataMaxPresentIfLatestRevision) {
+                button.classList.remove("hidden");
+            } else {
+                button.classList.add("hidden");
+            }
+        });
+    };
+
+    const repositionTooltip = () => {
+        const tooltip = document.getElementById("tooltip");
+        const currentTimelineItem = document.querySelector(".timeline-item.active");
+
+        const [top, left] = calculateTooltipPositions(currentTimelineItem, tooltip);
+
+        tooltip.style.top = top;
+        tooltip.style.left = left;
+    };
+
+    const toggleVersionHistoryControls = () => {
+        const timelineItems = document.querySelectorAll(".timeline-item");
+
+        const firstItem = timelineItems[0];
+        const lastItem = timelineItems[timelineItems.length - 1];
+
+        const prevButton = document.getElementById("button-prev");
+        const nextButton = document.getElementById("button-next");
+
+        const firstItemActive = firstItem.classList.contains("active");
+        const lastItemActive = lastItem.classList.contains("active");
+
+        if (firstItemActive) {
+            prevButton.classList.add("disabled");
+            prevButton.classList.remove("enabled");
+        } else {
+            prevButton.classList.remove("disabled");
+            prevButton.classList.add("enabled");
+        }
+
+        if (lastItemActive) {
+            nextButton.classList.add("disabled");
+            nextButton.classList.remove("enabled");
+        } else {
+            nextButton.classList.remove("disabled");
+            nextButton.classList.add("enabled");
+        }
+    };
 
     const updateActiveTimelineItem = (item: Element) => {
         const revision = Number(item.getAttribute("data-number"));
@@ -223,35 +221,6 @@ window.addEventListener("load", () => {
         }
     };
 
-    // Event-Listener für Timeline-Items hinzufügen
-    document.querySelectorAll(".timeline-item").forEach((item) => {
-        item.addEventListener("click", () => {
-            updateActiveTimelineItem(item);
-        });
-    });
-
-    // Event-Listener für Vorherige/Nächste Schaltflächen hinzufügen
-    document.getElementById("button-next").addEventListener("click", () => {
-        selectNextTimelineItem();
-    });
-
-    document.getElementById("button-prev").addEventListener("click", () => {
-        selectPrevTimelineItem();
-    });
-
-    document.addEventListener("keydown", (event) => {
-        if (event.key === "ArrowRight") {
-            event.preventDefault();
-            selectNextTimelineItem();
-        } else if (event.key === "ArrowLeft") {
-            event.preventDefault();
-            selectPrevTimelineItem();
-        }
-    });
-
-    // Simulate initial input after page load
-    lastTimelineItem.dispatchEvent(new Event("click"));
-
     // Check if an element is within the visible range of its container
     const isElementInView = (element: HTMLElement, container: HTMLElement) => {
         const containerRect = container.getBoundingClientRect();
@@ -320,6 +289,32 @@ window.addEventListener("load", () => {
         repositionTooltip();
     };
 
-    // Listen to scroll event even when content is scrolled to an end
+    document.querySelectorAll(".timeline-item").forEach((item) => {
+        item.addEventListener("click", () => {
+            updateActiveTimelineItem(item);
+        });
+    });
+
+    document.getElementById("button-next").addEventListener("click", () => {
+        selectNextTimelineItem();
+    });
+
+    document.getElementById("button-prev").addEventListener("click", () => {
+        selectPrevTimelineItem();
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight") {
+            event.preventDefault();
+            selectNextTimelineItem();
+        } else if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            selectPrevTimelineItem();
+        }
+    });
+
     versionHistory.addEventListener("scroll", autoSelectTimelineItem);
+
+    // Move initial position to the very end of the timeline
+    lastTimelineItem.dispatchEvent(new Event("click"));
 });
