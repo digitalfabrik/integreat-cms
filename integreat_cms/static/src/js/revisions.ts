@@ -9,29 +9,37 @@ const calculateTooltipPositions = (target: Element, tooltip: Element) => {
     const tooltipRect = tooltip.getBoundingClientRect();
 
     const viewportWidth = window.innerWidth;
-
     const tooltipWidth = tooltipRect.width;
-
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
 
     const verticalOffset = 10;
     const horizontalOffset = 10;
 
+    // Berechne die Breite der rechten Icons
+    const rightIcon = document.querySelector(".flex-shrink-0.px-4:last-child") as HTMLElement;
+    const rightIconWidth = rightIcon ? rightIcon.getBoundingClientRect().width : 0;
+
+    // Berechne die verfügbare Breite für die Tooltip-Positionierung
+    const availableWidth = viewportWidth - rightIconWidth;
+
+    // Berechne die Tooltip-Positionen
     let tooltipX = targetRect.left;
     const tooltipY = targetRect.bottom + scrollTop + verticalOffset;
 
-    if (tooltipX + tooltipWidth > viewportWidth) {
-        tooltipX = targetRect.right - tooltipWidth - horizontalOffset; // Tooltip auf der rechten Seite des Ziels ausrichten
+    if (tooltipX + tooltipWidth > availableWidth) {
+        tooltipX = targetRect.right - tooltipWidth - horizontalOffset;
     }
 
     if (tooltipX < horizontalOffset) {
-        tooltipX = horizontalOffset; // Tooltip innerhalb der linken Bildschirmgrenze platzieren
+        tooltipX = horizontalOffset;
     }
 
     return [`${tooltipY}px`, `${tooltipX}px`];
 };
 
-const toggleActionButtonVisibility = (revision: number, revisionCount: number, revisionElement: HTMLElement) => {
+const toggleActionButtonVisibility = (revision: number, revisionCount: number) => {
+    const revisionElement = document.getElementById(`revision-${revision}`);
+
     document.querySelectorAll(".action-buttons button").forEach((button) => {
         const buttonHtml = button as HTMLElement;
         const equivalentStatus = buttonHtml.dataset.status === revisionElement.dataset.status;
@@ -53,6 +61,35 @@ const repositionTooltip = () => {
 
     tooltip.style.top = top;
     tooltip.style.left = left;
+};
+
+const toggleVersionHistoryControls = () => {
+    const timelineItems = document.querySelectorAll(".timeline-item");
+
+    const firstItem = timelineItems[0];
+    const lastItem = timelineItems[timelineItems.length - 1];
+
+    const prevButton = document.getElementById("button-prev");
+    const nextButton = document.getElementById("button-next");
+
+    const firstItemActive = firstItem.classList.contains("active");
+    const lastItemActive = lastItem.classList.contains("active");
+
+    if (firstItemActive) {
+        prevButton.classList.add("disabled");
+        prevButton.classList.remove("enabled");
+    } else {
+        prevButton.classList.remove("disabled");
+        prevButton.classList.add("enabled");
+    }
+
+    if (lastItemActive) {
+        nextButton.classList.add("disabled");
+        nextButton.classList.remove("enabled");
+    } else {
+        nextButton.classList.remove("disabled");
+        nextButton.classList.add("enabled");
+    }
 };
 
 window.addEventListener("load", () => {
@@ -90,41 +127,116 @@ window.addEventListener("load", () => {
     const dateLine = document.getElementById("date-text");
     const hixLine = document.getElementById("hix-text");
 
+    const updateActiveTimelineItem = (item: Element) => {
+        const revision = Number(item.getAttribute("data-number"));
+
+        document.querySelectorAll(".timeline-item").forEach((it) => {
+            it.classList.remove("active");
+        });
+
+        item.classList.add("active");
+
+        document.querySelectorAll(".revision-wrapper").forEach((node) => {
+            node.classList.add("hidden");
+        });
+
+        const revisionElement = document.getElementById(`revision-${revision}`);
+        revisionElement.classList.remove("hidden");
+
+        versionLine.textContent = revision.toString();
+        authorLine.textContent = revisionElement.dataset.editor;
+        dateLine.textContent = revisionElement.dataset.date;
+
+        if (hixLine) {
+            hixLine.textContent = revisionElement.dataset.hix || "-";
+        }
+
+        tooltip.classList.remove("hidden");
+
+        const [top, left] = calculateTooltipPositions(item, tooltip);
+
+        tooltip.style.top = top;
+        tooltip.style.left = left;
+
+        toggleActionButtonVisibility(revision, revisionCount);
+
+        toggleVersionHistoryControls();
+    };
+
     timelineItems.forEach((item) => {
         item.addEventListener("click", () => {
             const revision = Number(item.getAttribute("data-number"));
 
-            document.querySelectorAll(".timeline-item").forEach((it) => {
-                it.classList.remove("active");
-            });
+            updateActiveTimelineItem(item);
 
-            item.classList.add("active");
+            toggleActionButtonVisibility(revision, revisionCount);
 
-            document.querySelectorAll(".revision-wrapper").forEach((node) => {
-                node.classList.add("hidden");
-            });
-
-            document.getElementById(`revision-${revision}`).classList.remove("hidden");
-
-            const revisionElement = document.getElementById(`revision-${revision}`);
-
-            versionLine.textContent = revision.toString();
-            authorLine.textContent = revisionElement.dataset.editor;
-            dateLine.textContent = revisionElement.dataset.date;
-
-            if (hixLine) {
-                hixLine.textContent = revisionElement.dataset.hix || "-";
-            }
-
-            tooltip.classList.remove("hidden");
-
-            const [top, left] = calculateTooltipPositions(item, tooltip);
-
-            tooltip.style.top = top;
-            tooltip.style.left = left;
-
-            toggleActionButtonVisibility(revision, revisionCount, revisionElement);
+            toggleVersionHistoryControls();
         });
+    });
+
+    const scrollToElement = (element: Element, container: HTMLElement) => {
+        const containerRect = container.getBoundingClientRect();
+        const elementRect = element.getBoundingClientRect();
+
+        const containerScrollLeft = container.scrollLeft;
+        const containerWidth = container.clientWidth;
+        const elementWidth = element.clientWidth;
+
+        const scrollLeft = elementRect.left - containerRect.left + containerScrollLeft;
+        const scrollRight = scrollLeft + elementWidth;
+        const containerRight = containerScrollLeft + containerWidth;
+
+        if (scrollLeft < containerScrollLeft) {
+            // eslint-disable-next-line no-param-reassign
+            container.scrollLeft += scrollLeft - containerScrollLeft;
+        } else if (scrollRight > containerRight) {
+            // eslint-disable-next-line no-param-reassign
+            container.scrollLeft += scrollRight - containerRight;
+        }
+    };
+
+    const selectNextTimelineItem = () => {
+        const activeItem = document.querySelector(".timeline-item.active");
+        if (!activeItem) {
+            return;
+        }
+
+        const nextItem = activeItem.nextElementSibling;
+        if (nextItem && nextItem.classList.contains("timeline-item")) {
+            updateActiveTimelineItem(nextItem);
+
+            scrollToElement(nextItem, versionHistory);
+        }
+    };
+
+    const selectPrevTimelineItem = () => {
+        const activeItem = document.querySelector(".timeline-item.active");
+        if (!activeItem) {
+            return;
+        }
+
+        const prevItem = activeItem.previousElementSibling;
+        if (prevItem && prevItem.classList.contains("timeline-item")) {
+            updateActiveTimelineItem(prevItem);
+            scrollToElement(prevItem, versionHistory);
+        }
+    };
+
+    // Event-Listener für Timeline-Items hinzufügen
+    document.querySelectorAll(".timeline-item").forEach((item) => {
+        item.addEventListener("click", () => {
+            updateActiveTimelineItem(item);
+        });
+    });
+
+    // Event-Listener für Vorherige/Nächste Schaltflächen hinzufügen
+    document.getElementById("button-next").addEventListener("click", () => {
+        selectNextTimelineItem();
+    });
+
+    document.getElementById("button-prev").addEventListener("click", () => {
+        selectPrevTimelineItem();
     });
 
     // Simulate initial input after page load
