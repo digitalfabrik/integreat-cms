@@ -9,7 +9,7 @@ from typing import TYPE_CHECKING
 from urllib.parse import ParseResult, unquote, urlparse
 
 from django.conf import settings
-from django.db.models import Prefetch, Q, QuerySet, Subquery, Exists, OuterRef
+from django.db.models import Prefetch, Q, QuerySet, Subquery, Exists, OuterRef, Case, When, Value, Count, F
 from linkcheck import update_lock
 from linkcheck.listeners import tasks_queue
 from linkcheck.models import Link, Url
@@ -31,6 +31,7 @@ if TYPE_CHECKING:
     from ..models import Region, User
 
 logger = logging.getLogger(__name__)
+
 
 def get_urls(
     region_slug: str | None = None,
@@ -63,17 +64,27 @@ def get_urls(
                 )
             )
         )
+    else:
+        urls = urls.prefetch_related(Prefetch("links", to_attr="region_links"))
 
     # Annotate with number of links that are not ignored.
     # If there is any link that is not ignored, the url is also not ignored.
     non_ignored_links = Link.objects.filter(url=OuterRef("pk"), ignore=False)
     urls = urls.annotate(has_non_ignored_links=Exists(non_ignored_links))
 
+    urls = urls.annotate(url_status=Case(
+        When(has_non_ignored_links=False, then=Value("ignored")),
+        When(status=True, then=Value("valid")),
+        When(status=False, then=Value("invalid")),
+        When(url__startswith="mailto:", then=Value("email")),
+        When(url__startswith="tel:", then=Value("phone")),
+        When(last_checked__isnull=True, then=Value("unchecked")),
+        default=Value("error")
+    ))
+
     # Filter out ignored URL types
     if settings.LINKCHECK_IGNORED_URL_TYPES:
-        return [
-            url for url in urls if url.type not in settings.LINKCHECK_IGNORED_URL_TYPES
-        ]
+        return urls.exclude(url_status__in=settings.LINKCHECK_IGNORED_URL_TYPES)
 
     return urls
 
@@ -142,55 +153,23 @@ def filter_urls(
     :return: A tuple of the requested urls and a dict containing the counters of all remaining urls
     """
     urls = get_urls(region_slug=region_slug)
-    # Split url lists into their respective categories
-    ignored_urls, valid_urls, invalid_urls, email_links, phone_links, unchecked_urls = (
-        [] for _ in range(6)
-    )
-    for url in urls:
-        if region_slug is None:
-            url.region_links = url.links.all()
-        if not url.has_non_ignored_links:
-            ignored_urls.append(url)
-        elif url.status:
-            valid_urls.append(url)
-        elif url.status is False:
-            # Explicitly check for False, because status is None means unchecked
-            invalid_urls.append(url)
-        elif url.type == "mailto":
-            email_links.append(url)
-        elif url.type == "phone":
-            phone_links.append(url)
-        elif not url.last_checked:
-            unchecked_urls.append(url)
-        else:
-            raise NotImplementedError(
-                f"Url {url!r} does not fit into any of the defined categories"
-            )
+
     # Pass the number of urls to a dict which can be used as extra template context
-    count_dict = {
-        "number_all_urls": len(urls),
-        "number_valid_urls": len(valid_urls),
-        "number_unchecked_urls": len(unchecked_urls),
-        "number_ignored_urls": len(ignored_urls),
-        "number_invalid_urls": len(invalid_urls),
-    }
+    aggregate_kwargs = dict(
+        number_all_urls=Count("*"),
+        number_valid_urls=Count("url_status", filter=Q(url_status="valid")),
+        number_unchecked_urls=Count("url_status", filter=Q(url_status="unchecked")),
+        number_ignored_urls=Count("url_status", filter=Q(url_status="ignored")),
+        number_invalid_urls=Count("url_status", filter=Q(url_status="invalid")),
+    )
     if settings.LINKCHECK_EMAIL_ENABLED:
-        count_dict["number_email_urls"] = len(email_links)
+        aggregate_kwargs["number_email_urls"] = Count("url_status", filter=Q(url_status="email"))
     if settings.LINKCHECK_PHONE_ENABLED:
-        count_dict["number_phone_urls"] = len(phone_links)
-    # Return the requested urls
-    if url_filter == "valid":
-        urls = valid_urls
-    elif url_filter == "unchecked":
-        urls = unchecked_urls
-    elif url_filter == "ignored":
-        urls = ignored_urls
-    elif url_filter == "invalid":
-        urls = invalid_urls
-    elif url_filter == "email":
-        urls = email_links
-    elif url_filter == "phone":
-        urls = phone_links
+        aggregate_kwargs["number_phone_urls"] = Count("url_status", filter=Q(url_status="phone"))
+    count_dict = urls.aggregate(**aggregate_kwargs)
+
+    if url_filter:
+        urls = urls.filter(url_status=url_filter)
 
     return urls, count_dict
 
