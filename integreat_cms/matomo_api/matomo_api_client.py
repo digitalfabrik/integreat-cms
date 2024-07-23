@@ -211,6 +211,7 @@ class MatomoApiClient:
                     {
                         "label": _("Total Accesses"),
                         "backgroundColor": language_color.TOTAL_ACCESS,
+                        "borderColor": language_color.TOTAL_ACCESS,
                         "data": list(dataset.values()),
                     }
                 ],
