@@ -37,7 +37,7 @@ logger = logging.getLogger(__name__)
 def get_urls(
     region_slug: str | None = None,
     url_ids: Any | None = None,
-) -> list[Url] | QuerySet[Url]:
+) -> QuerySet[Url]:
     """
     Collect all the urls which appear in the latest versions of the contents of the region, filtered by ID or region if given.
 
@@ -148,7 +148,7 @@ def get_url_count(region_slug: str | None = None) -> dict[str, int]:
 def filter_urls(
     region_slug: str | None = None,
     url_filter: str | None = None,
-) -> tuple[list[Url], dict[str, int]]:
+) -> tuple[QuerySet, dict[str, int]]:
     """
     Filter all urls of one region by the given category
 
