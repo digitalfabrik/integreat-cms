@@ -239,6 +239,16 @@ window.addEventListener("load", () => {
         selectPrevTimelineItem();
     });
 
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowRight") {
+            event.preventDefault();
+            selectNextTimelineItem();
+        } else if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            selectPrevTimelineItem();
+        }
+    });
+
     // Simulate initial input after page load
     lastTimelineItem.dispatchEvent(new Event("click"));
 
