@@ -66,6 +66,16 @@ class POIForm(CustomModelForm):
             "icon": IconWidget(),
         }
 
+    def __init__(self, **kwargs: Any) -> None:
+        r"""
+        Initialize page form
+
+        :param \**kwargs: The supplied keyword arguments
+        """
+        super().__init__(**kwargs)
+
+        self.fields["organization"].queryset = self.instance.region.organizations.all()
+
     # pylint: disable=too-many-return-statements
     def clean_opening_hours(self) -> list[dict[str, Any]]:
         """
