@@ -85,15 +85,10 @@
                         <div class="p-4 rounded bg-water-500">
                             <h3 class="heading font-bold text-black">
                                 <i icon-name="layout" class="mr-2"></i>
-                                {% translate "Pages and locations" %}
+                                {% translate "Pages" %}
                             </h3>
                         </div>
                         <div class="table-listing w-full p-2">
-                            <div class="px-4">
-                                <label>
-                                    {% translate "Pages" %}
-                                </label>
-                            </div>
                             <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
                                 <thead>
                                     <tr class="border-b border-solid border-gray-200">
@@ -145,69 +140,6 @@
                                         <tr>
                                             <td colspan="2" class="px-4 py-3">
                                                 {% translate "This organization currently has no maintained pages." %}
-                                            </td>
-                                        </tr>
-                                    {% endfor %}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="table-listing w-full p-2">
-                            <div class="px-4">
-                                <label>
-                                    {% translate "Locations" %}
-                                </label>
-                            </div>
-                            <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
-                                <thead>
-                                    <tr class="border-b border-solid border-gray-200">
-                                        <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
-                                            {% translate "Name in " %} {{ region_default_language.translated_name }}
-                                        </th>
-                                        {% if region_default_language != backend_language %}
-                                            <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
-                                                {% translate "Name in " %} {{ backend_language.translated_name }}
-                                            </th>
-                                        {% endif %}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {% for poi in form.instance.pois.all %}
-                                        {% get_translation poi region_default_language.slug as poi_translation %}
-                                        {% get_translation poi backend_language.slug as backendlang_poi_translation %}
-                                        <tr class="border-b border-solid border-gray-200 hover:bg-gray-100">
-                                            {% if poi_translation %}
-                                                <td class="text-sm text-left py-3 pl-4 pr-2">
-                                                    <a href="{% url "edit_poi" poi_id=poi.id region_slug=request.region.slug language_slug=region_default_language.slug %}"
-                                                       class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
-                                                       title="{% translate "View location" %}">
-                                                        {{ poi_translation.title }}
-                                                    </a>
-                                                </td>
-                                            {% else %}
-                                                <td class="text-sm text-left py-3 pl-4 pr-2">
-                                                    <i>{% translate "Translation not available" %}</i>
-                                                </td>
-                                            {% endif %}
-                                            {% if region_default_language != backend_language %}
-                                                {% if backendlang_poi_translation %}
-                                                    <td class="text-sm text-left py-3 pl-4 pr-2">
-                                                        <a href="{% url 'edit_poi' poi_id=poi.id region_slug=request.region.slug language_slug=backend_language.slug %}"
-                                                           class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
-                                                           title="{% translate "View location" %}">
-                                                            {{ backendlang_poi_translation.title }}
-                                                        </a>
-                                                    </td>
-                                                {% else %}
-                                                    <td class="text-sm text-left py-3 pl-4 pr-2">
-                                                        <i>{% translate "Translation not available" %}</i>
-                                                    </td>
-                                                {% endif %}
-                                            {% endif %}
-                                        </tr>
-                                    {% empty %}
-                                        <tr>
-                                            <td colspan="2" class="px-4 py-3">
-                                                {% translate "This organization currently has no maintained locations." %}
                                             </td>
                                         </tr>
                                     {% endfor %}

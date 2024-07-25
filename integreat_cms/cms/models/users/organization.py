@@ -69,7 +69,7 @@ class Organization(AbstractBaseModel):
 
         :return: the current number of maintained pages of an organization object
         """
-        return self.pages.count() + self.pois.count()
+        return self.pages.count()
 
     @property
     def num_members(self) -> int:
