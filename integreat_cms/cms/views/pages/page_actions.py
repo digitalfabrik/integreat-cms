@@ -287,6 +287,10 @@ def cancel_translation_process_ajax(
     region = request.region
     page = get_object_or_404(region.pages, id=page_id)
     if not (page_translation := page.get_translation(language_slug)):
+        messages.error(
+            request,
+            f"Page {page} does not have a translation for the selected language",
+        )
         return JsonResponse(
             {
                 "error": f"Page {page} does not have a translation for language '{language_slug}'"
@@ -299,6 +303,10 @@ def cancel_translation_process_ajax(
         page_translation.all_versions.update(currently_in_translation=False)
     # Get new (respectively old) translation state
     translation_state = page.get_translation_state(language_slug)
+    messages.success(
+        request,
+        f"Cancelled translation process for page {page} and language {page_translation.language}",
+    )
     return JsonResponse(
         {
             "success": f"Cancelled translation process for page {page} and language {page_translation.language}",

@@ -16,6 +16,7 @@ from ...utils.pdf_utils import generate_pdf
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
 from ..bulk_action_views import BulkActionView
+from .page_actions import cancel_translation_process_ajax
 
 if TYPE_CHECKING:
     from typing import Any
@@ -182,4 +183,31 @@ class ExportMultiLanguageXliffView(PageBulkActionMixin, BulkActionView):
             )
 
         # Let the base view handle the redirect
+        return super().post(request, *args, **kwargs)
+
+
+class CancelTranslationProcess(PageBulkActionMixin, BulkActionView):
+    """
+    Bulk action to cancel translation process
+    """
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        r"""
+        Function to cancel the translation process for multiple pages of the current language at once
+
+        :param request: The current request
+        :param \*args: The supplied arguments
+        :param \**kwargs: The supplied keyword arguments
+        :return: The redirect
+        """
+
+        language_slug = kwargs["language_slug"]
+
+        for content_object in self.get_queryset():
+            cancel_translation_process_ajax(
+                request,
+                region_slug=content_object.region,
+                language_slug=language_slug,
+                page_id=content_object.id,
+            )
         return super().post(request, *args, **kwargs)
