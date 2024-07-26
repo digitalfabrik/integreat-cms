@@ -155,11 +155,11 @@ class PushNotificationFormView(TemplateView):
 
         firebase_data_client = FirebaseDataClient()
         try:
-            avg_accepted_notifications = (
-                firebase_data_client.get_notification_statistics_per_region()[
-                    request.region.slug
-                ]
-            )
+            avg_accepted_notifications = firebase_data_client.get_notification_statistics_per_region_and_language()[
+                request.region.slug
+            ][
+                "average"
+            ]
         except KeyError:
             avg_accepted_notifications = 0
 

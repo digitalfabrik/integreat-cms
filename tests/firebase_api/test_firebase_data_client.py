@@ -30,16 +30,34 @@ class TestFirebaseDataClient:
             {
                 "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
                 "date": {"year": 2024, "month": 7, "day": 5},
-                "analyticsLabel": "augsburg",
+                "analyticsLabel": "augsburg-de",
                 "data": {
-                    "countMessagesAccepted": "230",
-                    "countNotificationsAccepted": "204",
+                    "countMessagesAccepted": "425",
+                    "countNotificationsAccepted": "111",
                 },
             },
             {
                 "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
                 "date": {"year": 2024, "month": 7, "day": 5},
-                "analyticsLabel": "berlin",
+                "analyticsLabel": "augsburg-en",
+                "data": {
+                    "countMessagesAccepted": "631",
+                    "countNotificationsAccepted": "123",
+                },
+            },
+            {
+                "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
+                "date": {"year": 2024, "month": 7, "day": 5},
+                "analyticsLabel": "berlin-de",
+                "data": {
+                    "countMessagesAccepted": "430",
+                    "countNotificationsAccepted": "111",
+                },
+            },
+            {
+                "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
+                "date": {"year": 2024, "month": 7, "day": 5},
+                "analyticsLabel": "berlin-en",
                 "data": {
                     "countMessagesAccepted": "430",
                     "countNotificationsAccepted": "305",
@@ -48,7 +66,7 @@ class TestFirebaseDataClient:
             {
                 "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
                 "date": {"year": 2024, "month": 7, "day": 4},
-                "analyticsLabel": "augsburg",
+                "analyticsLabel": "augsburg-de",
                 "data": {
                     "countMessagesAccepted": "628",
                     "countNotificationsAccepted": "493",
@@ -58,7 +76,17 @@ class TestFirebaseDataClient:
             {
                 "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
                 "date": {"year": 2024, "month": 7, "day": 4},
-                "analyticsLabel": "berlin",
+                "analyticsLabel": "augsburg-en",
+                "data": {
+                    "countMessagesAccepted": "628",
+                    "countNotificationsAccepted": "493",
+                    "proxyNotificationInsightPercents": {"skippedUnsupported": 56},
+                },
+            },
+            {
+                "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
+                "date": {"year": 2024, "month": 7, "day": 4},
+                "analyticsLabel": "berlin-de",
                 "data": {
                     "countMessagesAccepted": "902",
                     "countNotificationsAccepted": "623",
@@ -67,7 +95,17 @@ class TestFirebaseDataClient:
             },
             {
                 "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
-                "analyticsLabel": "augsburg",
+                "date": {"year": 2024, "month": 7, "day": 4},
+                "analyticsLabel": "berlin-en",
+                "data": {
+                    "countMessagesAccepted": "902",
+                    "countNotificationsAccepted": "623",
+                    "proxyNotificationInsightPercents": {"skippedUnsupported": 55},
+                },
+            },
+            {
+                "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
+                "analyticsLabel": "augsburg-de",
                 "date": {"year": 2024, "month": 7, "day": 3},
                 "data": {
                     "countMessagesAccepted": "705",
@@ -77,7 +115,27 @@ class TestFirebaseDataClient:
             },
             {
                 "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
-                "analyticsLabel": "berlin",
+                "analyticsLabel": "augsburg-en",
+                "date": {"year": 2024, "month": 7, "day": 3},
+                "data": {
+                    "countMessagesAccepted": "705",
+                    "countNotificationsAccepted": "535",
+                    "proxyNotificationInsightPercents": {"skippedUnsupported": 56},
+                },
+            },
+            {
+                "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
+                "analyticsLabel": "berlin-de",
+                "date": {"year": 2024, "month": 7, "day": 3},
+                "data": {
+                    "countMessagesAccepted": "800",
+                    "countNotificationsAccepted": "32",
+                    "proxyNotificationInsightPercents": {"skippedUnsupported": 12},
+                },
+            },
+            {
+                "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
+                "analyticsLabel": "berlin-en",
                 "date": {"year": 2024, "month": 7, "day": 3},
                 "data": {
                     "countMessagesAccepted": "800",
@@ -88,19 +146,31 @@ class TestFirebaseDataClient:
             {
                 "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
                 "date": {"year": 2024, "month": 7, "day": 2},
-                "analyticsLabel": "augsburg",
+                "analyticsLabel": "augsburg-de",
                 "data": {},
             },
             {
                 "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
                 "date": {"year": 2024, "month": 7, "day": 2},
-                "analyticsLabel": "berlin",
+                "analyticsLabel": "augsburg-en",
+                "data": {},
+            },
+            {
+                "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
+                "date": {"year": 2024, "month": 7, "day": 2},
+                "analyticsLabel": "berlin-de",
+                "data": {},
+            },
+            {
+                "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
+                "date": {"year": 2024, "month": 7, "day": 2},
+                "analyticsLabel": "berlin-en",
                 "data": {},
             },
             {
                 "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
                 "date": {"year": 2024, "month": 7, "day": 1},
-                "analyticsLabel": "augsburg",
+                "analyticsLabel": "augsburg-de",
                 "data": {
                     "countMessagesAccepted": "627",
                     "countNotificationsAccepted": "474",
@@ -110,7 +180,27 @@ class TestFirebaseDataClient:
             {
                 "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
                 "date": {"year": 2024, "month": 7, "day": 1},
-                "analyticsLabel": "berlin",
+                "analyticsLabel": "augsburg-en",
+                "data": {
+                    "countMessagesAccepted": "627",
+                    "countNotificationsAccepted": "474",
+                    "proxyNotificationInsightPercents": {"skippedUnsupported": 73},
+                },
+            },
+            {
+                "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
+                "date": {"year": 2024, "month": 7, "day": 1},
+                "analyticsLabel": "berlin-de",
+                "data": {
+                    "countMessagesAccepted": "822",
+                    "countNotificationsAccepted": "512",
+                    "proxyNotificationInsightPercents": {"skippedUnsupported": 12},
+                },
+            },
+            {
+                "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
+                "date": {"year": 2024, "month": 7, "day": 1},
+                "analyticsLabel": "berlin-en",
                 "data": {
                     "countMessagesAccepted": "822",
                     "countNotificationsAccepted": "512",
@@ -120,25 +210,49 @@ class TestFirebaseDataClient:
             {
                 "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
                 "date": {"year": 2024, "month": 6, "day": 30},
-                "analyticsLabel": "augsburg",
+                "analyticsLabel": "augsburg-de",
                 "data": {},
             },
             {
                 "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
                 "date": {"year": 2024, "month": 6, "day": 30},
-                "analyticsLabel": "berlin",
+                "analyticsLabel": "augsburg-en",
+                "data": {},
+            },
+            {
+                "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
+                "date": {"year": 2024, "month": 6, "day": 30},
+                "analyticsLabel": "berlin-de",
+                "data": {},
+            },
+            {
+                "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
+                "date": {"year": 2024, "month": 6, "day": 30},
+                "analyticsLabel": "berlin-en",
                 "data": {},
             },
             {
                 "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
                 "date": {"year": 2024, "month": 6, "day": 29},
-                "analyticsLabel": "augsburg",
+                "analyticsLabel": "augsburg-de",
                 "data": {},
             },
             {
                 "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
                 "date": {"year": 2024, "month": 6, "day": 29},
-                "analyticsLabel": "berlin",
+                "analyticsLabel": "augsburg-en",
+                "data": {},
+            },
+            {
+                "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
+                "date": {"year": 2024, "month": 6, "day": 29},
+                "analyticsLabel": "berlin-de",
+                "data": {},
+            },
+            {
+                "appId": "1:164298278764:android:3fc1f67f3883df306fd549",
+                "date": {"year": 2024, "month": 6, "day": 29},
+                "analyticsLabel": "berlin-en",
                 "data": {},
             },
         ]
@@ -236,11 +350,11 @@ class TestFirebaseDataClient:
         )
 
         client = FirebaseDataClient()
-        response = client.get_notification_statistics_per_region()
+        response = client.get_notification_statistics_per_region_and_language()
 
         assert response == {
-            "augsburg": 426.5,
-            "berlin": 368.0,
+            "augsburg": {"average": 404.75, "languages": {"de": 403.25, "en": 406.25}},
+            "berlin": {"average": 343.75, "languages": {"de": 319.5, "en": 368.0}},
         }
 
     @pytest.mark.django_db
@@ -261,7 +375,7 @@ class TestFirebaseDataClient:
         )
 
         client = FirebaseDataClient()
-        response = client.get_notification_statistics_per_region()
+        response = client.get_notification_statistics_per_region_and_language()
 
         assert response == {}
 
@@ -284,7 +398,7 @@ class TestFirebaseDataClient:
 
         client = FirebaseDataClient()
 
-        client.get_notification_statistics_per_region()
-        client.get_notification_statistics_per_region()
+        client.get_notification_statistics_per_region_and_language()
+        client.get_notification_statistics_per_region_and_language()
 
         assert requests_mock.call_count == 1
