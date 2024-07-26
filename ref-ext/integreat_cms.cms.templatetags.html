@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-07-22T16:35:52+00:00" />
+    <meta property="article:modified_time" content="2024-07-26T13:01:23+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Templatetags &mdash; integreat-cms 2024.7.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -220,6 +220,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#poi-filters">POI Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#push-notification-filters">Push Notification Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#settings-tags">Settings Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#tagifnotempty">Tagifnotempty</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#text-filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#tree-filters">Tree Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.templatetags.html#url-tags">Url Tags</a></li>
@@ -763,6 +764,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.templatetags.poi_filters">POI Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.templatetags.push_notification_filters">Push Notification Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.templatetags.settings_tags">Settings Tags</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.templatetags.tagifnotempty">Tagifnotempty</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.templatetags.text_filters">Text Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.templatetags.tree_filters">Tree Filters</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.templatetags.url_tags">Url Tags</a></li>
@@ -2584,6 +2586,29 @@ objects.</p>
 </dd></dl>
 
 </section>
+<section id="module-integreat_cms.cms.templatetags.tagifnotempty">
+<span id="tagifnotempty"></span><h2>Tagifnotempty<a class="headerlink" href="#module-integreat_cms.cms.templatetags.tagifnotempty" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.templatetags.tagifnotempty.tagifnotempty">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.templatetags.tagifnotempty.</span></span><span class="sig-name descname"><span class="pre">tagifnotempty</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/utils/#django.utils.safestring.SafeString" title="(in Django v4.2)"><span class="pre">SafeString</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/utils/#django.utils.safestring.SafeString" title="(in Django v4.2)"><span class="pre">SafeString</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/templatetags/tagifnotempty.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.templatetags.tagifnotempty.tagifnotempty" title="Link to this definition"></a></dt>
+<dd><p>Helper function for template to display property if it’s not left empty
+:param value: url where that is being investigated
+:param args: properties that might be left empty
+:return: Correctly formatted properties</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/utils/#django.utils.safestring.SafeString" title="(in Django v4.2)"><em>SafeString</em></a>)</p></li>
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/utils/#django.utils.safestring.SafeString" title="(in Django v4.2)"><em>SafeString</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-integreat_cms.cms.templatetags.text_filters">
 <span id="text-filters"></span><h2>Text Filters<a class="headerlink" href="#module-integreat_cms.cms.templatetags.text_filters" title="Link to this heading"></a></h2>
 <p>This is a collection of tags and filters for strings.</p>
@@ -2729,7 +2754,7 @@ objects.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 22, 2024.
+      <span class="lastupdated">Last updated on Jul 26, 2024.
       </span></p>
   </div>
 
