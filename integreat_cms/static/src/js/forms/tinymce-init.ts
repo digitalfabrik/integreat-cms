@@ -52,6 +52,7 @@ const toggleNoTranslate = (editor: Editor) => {
     const val = tinymce.activeEditor.dom.getAttrib(tinymce.activeEditor.selection.getNode(), "translate", "yes");
     if (val === "no") {
         tinymce.activeEditor.dom.setAttrib(tinymce.activeEditor.selection.getNode(), "translate", null);
+        tinymce.activeEditor.dom.removeClass(tinymce.activeEditor.selection.getNode(), "notranslate");
     } else if (editor.selection.getContent().length > 0) {
         editor.selection.setContent(`<span class="notranslate" translate="no">${editor.selection.getContent()}</span>`);
     }
