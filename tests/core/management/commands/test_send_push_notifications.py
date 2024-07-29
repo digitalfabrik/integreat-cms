@@ -106,9 +106,7 @@ class TestSendPushNotification:
 
         region = Region.objects.create(name="unit-test-region")
 
-        LanguageTreeNode.objects.create(
-            language=german_language, lft=1, rgt=2, tree_id=1, depth=1, region=region
-        )
+        LanguageTreeNode.add_root(language=german_language, region=region)
 
         push_notification = PushNotification.objects.create(
             channel="default",
