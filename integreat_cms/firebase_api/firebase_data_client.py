@@ -4,7 +4,6 @@ from typing import Dict, Union
 
 import requests
 from django.conf import settings
-from django.core.cache import cache
 from django.core.exceptions import ImproperlyConfigured
 
 from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
@@ -130,17 +129,12 @@ class FirebaseDataClient:
         Fetches messaging statistics from the Firebase API and calculates the average number of notifications sent per region
         and per language within the returned timespan.
 
-        The data is cached to improve performance on subsequent requests.
-
         Returns:
             Dict[str, Dict[str, Union[float, Dict[str, float]]]]:
                 A dictionary where each key is a region and each value is another dictionary with:
                 - "average": The average number of notifications accepted per day in the region.
                 - "languages": A dictionary of languages within the region, with each language's average number of notifications.
         """
-        if (cached_data := cache.get("firebase_data")) is not None:
-            return cached_data
-
         headers = {
             "Authorization": f"Bearer {FirebaseSecurityService.get_data_access_token()}",
             "Content-Type": "application/json; UTF-8",
@@ -174,11 +168,5 @@ class FirebaseDataClient:
             }
             for region, region_data in regions.items()
         }
-
-        cache.set(
-            "firebase_data",
-            output,
-            60 * 60 * 24 * 7,
-        )
 
         return output
