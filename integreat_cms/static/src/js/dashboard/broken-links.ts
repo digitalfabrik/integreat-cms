@@ -16,7 +16,20 @@ const getContent = async (url: string): Promise<Content> => {
     return response.json();
 };
 
+const showAllTotalNumbers = () => {
+    const elements = document.querySelectorAll<HTMLElement>(".total-results");
+
+    elements.forEach((element) => {
+        if (!element.closest("#broken-links")) {
+            const el = element;
+            el.classList.remove("hidden");
+        }
+    });
+};
+
 window.addEventListener("load", async () => {
+    showAllTotalNumbers();
+
     const brokenLinksElement = document.getElementById("broken-links");
 
     if (!brokenLinksElement) {
