@@ -160,13 +160,6 @@
                                 {{ push_notification_form.schedule_send.label }}
                             </label>
                         </div>
-                        {% if push_notification_form.regions|length == 1 %}
-                            <span>
-                                {% blocktranslate trimmed %}
-                                    This region reached an average of {{ avg_accepted_notifications }} devices last week.
-                                {% endblocktranslate %}
-                            </span>
-                        {% endif %}
                         <div id="push_notification_schedule" class="hidden">
                             <label for="{{ push_notification_form.scheduled_send_date_day.id_for_label }}">
                                 {{ push_notification_form.scheduled_send_date_day.label }}

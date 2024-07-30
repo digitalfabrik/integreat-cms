@@ -18,7 +18,6 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
 from ....firebase_api.firebase_api_client import FirebaseApiClient
-from ....firebase_api.firebase_data_client import FirebaseDataClient
 from ...decorators import permission_required
 from ...forms import PushNotificationForm, PushNotificationTranslationForm
 from ...models import Language, PushNotification, PushNotificationTranslation
@@ -153,16 +152,6 @@ class PushNotificationFormView(TemplateView):
                 for field in formset.fields.values():
                     field.disabled = True
 
-        firebase_data_client = FirebaseDataClient()
-        try:
-            avg_accepted_notifications = firebase_data_client.get_notification_statistics_per_region_and_language()[
-                request.region.slug
-            ][
-                "average"
-            ]
-        except KeyError:
-            avg_accepted_notifications = 0
-
         return render(
             request,
             self.template_name,
@@ -173,7 +162,6 @@ class PushNotificationFormView(TemplateView):
                 "language": language,
                 "languages": details["all_languages"],
                 "not_accessible_regions_warning": not_accessible_regions_warning,
-                "avg_accepted_notifications": avg_accepted_notifications,
             },
         )
 
