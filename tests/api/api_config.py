@@ -16,7 +16,7 @@ API_ENDPOINTS: Final[list[tuple[str, str, str, int, int]]] = [
         "/wp-json/extensions/v3/sites/",
         "tests/api/expected-outputs/regions.json",
         200,
-        7,
+        8,
     ),
     (
         "/api/v3/regions/augsburg/",

@@ -472,6 +472,55 @@
     }
   },
   {
+    "model": "cms.region",
+    "pk": 8,
+    "fields": {
+      "name": "Berlin",
+      "common_id": "",
+      "slug": "berlin",
+      "status": "ACTIVE",
+      "administrative_division": "CITY",
+      "aliases": {},
+      "custom_prefix": "",
+      "events_enabled": true,
+      "locations_enabled": false,
+      "push_notifications_enabled": true,
+      "latitude": 13.404954,
+      "longitude": 52.520008,
+      "postal_code": "10115",
+      "admin_mail": "berlin@integreat-app.de",
+      "timezone": "Europe/Berlin",
+      "created_date": "2024-07-11T12:00:00Z",
+      "last_updated": "2024-07-11T12:00:00Z",
+      "statistics_enabled": false,
+      "seo_enabled": false,
+      "matomo_id": null,
+      "matomo_token": "",
+      "page_permissions_enabled": false,
+      "icon": null,
+      "chat_enabled": true,
+      "administrative_division_included": false,
+      "short_urls_enabled": false,
+      "external_news_enabled": false,
+      "fallback_translations_enabled": true,
+      "hix_enabled": false,
+      "summ_ai_enabled": false,
+      "mt_renewal_month": 0,
+      "mt_addon_booked": false,
+      "mt_midyear_start_month": null,
+      "mt_budget_used": 0,
+      "machine_translate_pages": 1,
+      "machine_translate_events": 1,
+      "machine_translate_pois": 1,
+      "integreat_chat_enabled": false,
+      "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
+      "chat_beta_tester_percentage": 0,
+      "offers": []
+    }
+  },
+  {
     "model": "cms.directory",
     "pk": 1,
     "fields": {
@@ -1261,6 +1310,25 @@
     }
   },
   {
+    "model": "cms.languagetreenode",
+    "pk": 18,
+    "fields": {
+      "lft": 1,
+      "rgt": 2,
+      "tree_id": 7,
+      "depth": 2,
+      "parent": null,
+      "region": 8,
+      "language": 2,
+      "visible": true,
+      "active": true,
+      "created_date": "2019-08-12T07:52:44.617Z",
+      "last_updated": "2019-08-12T07:52:44.629Z",
+      "machine_translation_enabled": true,
+      "preferred_mt_provider": "DeepL"
+    }
+  },
+  {
     "model": "cms.poicategorytranslation",
     "pk": 1,
     "fields": { "category": 1, "language": 1, "name": "Beratungsstelle" }
@@ -1384,6 +1452,21 @@
     }
   },
   {
+    "model": "cms.pushnotification",
+    "pk": 8,
+    "fields": {
+      "channel": "news",
+      "draft": false,
+      "sent_date": "2024-07-11T10:32:33.118Z",
+      "created_date": "2024-07-11T10:31:33.118Z",
+      "scheduled_send_date": null,
+      "mode": "USE_MAIN_LANGUAGE",
+      "is_template": false,
+      "template_name": null,
+      "regions": [1, 8]
+    }
+  },
+  {
     "model": "cms.pushnotificationtranslation",
     "pk": 1,
     "fields": {
@@ -1479,6 +1562,17 @@
       "text": "English translation without title",
       "language": 2,
       "push_notification": 7,
+      "last_updated": "2022-03-05T10:31:33.130Z"
+    }
+  },
+  {
+    "model": "cms.pushnotificationtranslation",
+    "pk": 10,
+    "fields": {
+      "title": "",
+      "text": "German message",
+      "language": 1,
+      "push_notification": 8,
       "last_updated": "2022-03-05T10:31:33.130Z"
     }
   },

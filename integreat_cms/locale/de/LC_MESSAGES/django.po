@@ -5170,17 +5170,19 @@ msgid "Broken links"
 msgstr "Fehlerhafte Links"
 
 #: cms/templates/dashboard/todo_dashboard_rows/_broken_links_row.html
-#, python-format
 msgid ""
-"The page <b>%(relevant_translation)s</b> has a broken link. Please replace "
-"it by a functional link."
+"The page <b></b> has a broken link. Please replace it by a functional link."
 msgstr ""
-"Auf der Seite <b>%(relevant_translation)s</b> befindet sich ein fehlerhafter "
-"Link. Tauschen Sie diesen bitte aus."
+"Auf der Seite <b></b> befindet sich ein fehlerhafter Link. Tauschen Sie "
+"diesen bitte aus."
 
 #: cms/templates/dashboard/todo_dashboard_rows/_broken_links_row.html
 msgid "At the moment there are no broken links. Good job!"
 msgstr "Aktuell gibt es keine fehlerhaften Links. Gute Arbeit!"
+
+#: cms/templates/dashboard/todo_dashboard_rows/_broken_links_row.html
+msgid "We are loading your broken links in the background. Please be patient."
+msgstr "Wir laden im Hintergrund gerade Ihre kaputten Links. Bitte haben Sie noch ein wenig Geduld."
 
 #: cms/templates/dashboard/todo_dashboard_rows/_broken_links_row.html
 msgid "Go to link"
@@ -7204,6 +7206,19 @@ msgid "Archive location"
 msgstr "Ort archivieren"
 
 #: cms/templates/pois/poi_form_sidebar/action_box.html
+msgid "You cannot archive a location which is referenced by an event."
+msgstr ""
+"Der Ort kann nicht archiviert werden, da er von einer Veranstaltung "
+"verwendet wird."
+
+#: cms/templates/pois/poi_form_sidebar/action_box.html
+msgid "To archive this location, you have to delete this event first:"
+msgid_plural "To archive this location, you have to delete these events first:"
+msgstr[0] "Löschen Sie zuerst diese Veranstaltung, um den Ort zu archivieren:"
+msgstr[1] ""
+"Löschen Sie zuerst diese Veranstaltungen, um den Ort zu archivieren:"
+
+#: cms/templates/pois/poi_form_sidebar/action_box.html
 msgid "Archive this location"
 msgstr "Diesen Ort archivieren"
 
@@ -7354,6 +7369,12 @@ msgid ""
 msgstr ""
 "Dieser Ort kann nicht in der Web-App geöffnet werden, weil er nicht "
 "veröffentlicht ist."
+
+#: cms/templates/pois/poi_list_row.html
+msgid "You cannot archive a location which is used by an event."
+msgstr ""
+"Der Ort kann nicht archiviert werden, da er von einer Veranstaltung "
+"verwendet wird."
 
 #: cms/templates/push_notifications/push_notification_form.html
 #, python-format
@@ -8539,6 +8560,21 @@ msgstr[1] ""
 
 #: cms/views/bulk_action_views.py
 #, python-brace-format
+msgid ""
+"Location {object_names} could not be archived because it is referenced by an "
+"event."
+msgid_plural ""
+"The following locations could not be archived because they were referenced "
+"by an event: {object_names}"
+msgstr[0] ""
+"Ort \"{object_names}\" kann nicht archiviert werden, da er von einer "
+"Veranstaltung verwendet wird."
+msgstr[1] ""
+"Die folgdenden Orten können nicht archiviert werden, da sie von einer "
+"Veranstaltung verwendet werden: \"{object_names}\""
+
+#: cms/views/bulk_action_views.py
+#, python-brace-format
 msgid "{model_name} {object_names} was successfully restored."
 msgid_plural ""
 "The following {model_name_plural} were successfully restored: {object_names}"
@@ -9403,6 +9439,12 @@ msgid "This XLIFF import is no longer available."
 msgstr "Dieser XLIFF Import ist nicht länger verfügbar."
 
 #: cms/views/pois/poi_actions.py
+msgid "This location cannot be archived because it is referenced by an event."
+msgstr ""
+"Dieser Ort kann nicht archiviert werden, da er von einer Veranstaltung "
+"verwendet wurde."
+
+#: cms/views/pois/poi_actions.py
 msgid "Location was successfully archived"
 msgstr "Ort wurde erfolgreich archiviert"
 
@@ -10220,6 +10262,9 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Loading process for this row is still ongoing."
+#~ msgstr "Der Ladevorgang für diese Zeile ist noch nicht abgeschlossen."
 
 #~ msgid "Find more information about this"
 #~ msgstr "Mehr Informationen finden Sie"

@@ -658,7 +658,7 @@ RESPONSE
 .. code:: javascript
 
    {
-      "id": String,            // The id of the push notification translation
+      "id": Number,            // The id of the push notification translation
       "title": String,         // The title of the push notification in the given language
       "message": String,       // The message of the push notification in the given language
       "timestamp": String,     // Deprecated field
