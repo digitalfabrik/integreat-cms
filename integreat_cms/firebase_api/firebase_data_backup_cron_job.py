@@ -1,4 +1,5 @@
 import logging
+from functools import cached_property
 
 from django_cron import CronJobBase, Schedule
 
@@ -20,9 +21,15 @@ class FirebaseDataBackupCronJob(CronJobBase):
     schedule = Schedule(run_at_times=RUN_AT_TIMES)
     code = "integreat_cms.firebase_data_backup_cron_job"
 
-    client = FirebaseDataClient()
-
     logger = logging.getLogger(__name__)
+
+    @cached_property
+    def client(self) -> FirebaseDataClient:
+        """
+        Lazy version of the firebase data client because otherwise the documentation build fails.
+        """
+
+        return FirebaseDataClient()
 
     def do(self) -> None:
         """
