@@ -180,7 +180,7 @@ class DashboardView(TemplateView, ChatContextMixin):
             data={
                 "broken_links": len(invalid_urls),
                 "relevant_translation": str(relevant_translation),
-                "edit_url": f"{edit_url}#replace-url" if len(edit_url) > 0 else "",
+                "edit_url": f"{edit_url}" if len(edit_url) > 0 else "",
             }
         )
 
