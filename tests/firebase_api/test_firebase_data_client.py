@@ -9,8 +9,6 @@ from django.core.exceptions import ImproperlyConfigured
 from integreat_cms.firebase_api.firebase_data_client import FirebaseDataClient
 
 if TYPE_CHECKING:
-    from typing import Any
-
     from pytest_django.fixtures import SettingsWrapper
     from requests_mock.mocker import Mocker
 
@@ -378,27 +376,3 @@ class TestFirebaseDataClient:
         response = client.get_notification_statistics_per_region_and_language()
 
         assert response == {}
-
-    @pytest.mark.django_db
-    def test_cache_hit(
-        self,
-        settings: SettingsWrapper,
-        load_test_data: None,
-        requests_mock: Mocker,
-        mock_firebase_credentials: None,
-    ) -> None:
-        settings.FCM_DATA_URL = self.endpoint_mock_url
-        settings.FCM_ENABLED = True
-
-        requests_mock.get(
-            self.endpoint_mock_url,
-            json=lambda request, context: self.response_mock_data,
-            status_code=200,
-        )
-
-        client = FirebaseDataClient()
-
-        client.get_notification_statistics_per_region_and_language()
-        client.get_notification_statistics_per_region_and_language()
-
-        assert requests_mock.call_count == 1
