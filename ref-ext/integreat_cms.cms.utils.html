@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-07-18T13:58:30+00:00" />
+    <meta property="article:modified_time" content="2024-07-31T14:58:21+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Utils &mdash; integreat-cms 2024.7.2 documentation</title>
+  <title>Utils &mdash; integreat-cms 2024.7.3 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
@@ -18,7 +18,7 @@
   
         <script src="../_static/jquery.js?v=5d32c60e"></script>
         <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../_static/documentation_options.js?v=f4895d66"></script>
+        <script src="../_static/documentation_options.js?v=50f1d97f"></script>
         <script src="../_static/doctools.js?v=9a2dae69"></script>
         <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/js/theme.js"></script>
@@ -235,6 +235,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#account-activation-token-generator">Account Activation Token Generator</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#content-edit-lock">Content Edit Lock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#content-translation-utils">Content Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#content-utils">Content Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#email-utils">Email Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#file-utils">File Utils</a></li>
@@ -248,6 +249,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#slug-utils">Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#stringify-list">Stringify List</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#text-utils">Text Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#tinymce-icon-utils">Tinymce Icon Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#totp-utils">Totp Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#translation-utils">Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#user-utils">User Utils</a></li>
@@ -780,6 +782,7 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.account_activation_token_generator">Account Activation Token Generator</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.content_edit_lock">Content Edit Lock</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.content_translation_utils">Content Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.content_utils">Content Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.email_utils">Email Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
@@ -793,6 +796,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.slug_utils">Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.stringify_list">Stringify List</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.text_utils">Text Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.tinymce_icon_utils">Tinymce Icon Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.totp_utils">Totp Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.translation_utils">Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.user_utils">User Utils</a></li>
@@ -1782,97 +1786,98 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release-notes.html">Release notes</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../release-notes.html#unreleased">unreleased</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id1">2024.7.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id2">2024.7.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id3">2024.7.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id4">2024.6.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id5">2024.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id6">2024.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id7">2024.3.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id8">2024.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id9">2024.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id10">2024.2.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id11">2024.2.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id12">2024.1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id13">unreleased</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id14">2023.12.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id15">2023.11.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id16">2023.10.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id17">2023.10.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id18">2023.10.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id19">2023.9.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id20">2023.9.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id21">2023.8.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id22">2023.7.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id23">2023.7.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id24">2023.7.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id25">2023.5.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id26">2023.5.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id27">2023.5.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id28">2023.5.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id29">2023.5.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id30">2023.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id31">2023.4.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id32">2023.4.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id33">2023.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id34">2023.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id35">2023.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id36">2023.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id37">2023.2.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id38">2023.2.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id39">2023.2.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id40">2023.1.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id41">2023.1.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id42">2023.1.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id43">2022.12.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id44">2022.12.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id45">2022.12.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id46">2022.12.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id47">2022.11.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id48">2022.11.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id49">2022.11.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id50">2022.11.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id51">2022.11.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id52">2022.10.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id53">2022.10.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id54">2022.10.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id55">2022.9.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id56">2022.9.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id57">2022.9.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id58">2022.9.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id59">2022.9.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id60">2022.9.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id61">2022.8.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id62">2022.8.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id63">2022.8.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id64">2022.8.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id65">2022.7.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id66">2022.6.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id67">2022.6.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id68">2022.6.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id69">2022.6.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id70">2022.5.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id71">2022.5.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id72">2022.5.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id73">2022.5.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id74">2022.5.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id75">2022.4.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id76">2022.4.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id77">2022.4.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id78">2022.3.6</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id79">2022.3.5</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id80">2022.3.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id81">2022.3.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id82">2022.3.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id83">2022.3.1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id84">2022.3.0</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id85">2022.2.4</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id86">2022.2.3</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id87">2022.2.2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id88">2022.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id1">2024.7.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id2">2024.7.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id3">2024.7.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id4">2024.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id5">2024.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id6">2024.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id7">2024.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id8">2024.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id9">2024.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id10">2024.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id11">2024.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id12">2024.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id13">2024.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id14">unreleased</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id15">2023.12.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id16">2023.11.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id17">2023.10.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id18">2023.10.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id19">2023.10.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id20">2023.9.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id21">2023.9.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id22">2023.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id23">2023.7.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id24">2023.7.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id25">2023.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id26">2023.5.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id27">2023.5.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id28">2023.5.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id29">2023.5.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id30">2023.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id31">2023.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id32">2023.4.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id33">2023.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id34">2023.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id35">2023.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id36">2023.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id37">2023.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id38">2023.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id39">2023.2.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id40">2023.2.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id41">2023.1.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id42">2023.1.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id43">2023.1.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id44">2022.12.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id45">2022.12.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id46">2022.12.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id47">2022.12.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id48">2022.11.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id49">2022.11.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id50">2022.11.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id51">2022.11.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id52">2022.11.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id53">2022.10.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id54">2022.10.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id55">2022.10.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id56">2022.9.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id57">2022.9.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id58">2022.9.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id59">2022.9.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id60">2022.9.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id61">2022.9.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id62">2022.8.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id63">2022.8.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id64">2022.8.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id65">2022.8.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id66">2022.7.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id67">2022.6.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id68">2022.6.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id69">2022.6.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id70">2022.6.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id71">2022.5.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id72">2022.5.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id73">2022.5.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id74">2022.5.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id75">2022.5.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id76">2022.4.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id77">2022.4.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id78">2022.4.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id79">2022.3.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id80">2022.3.5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id81">2022.3.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id82">2022.3.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id83">2022.3.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id84">2022.3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id85">2022.3.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id86">2022.2.4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id87">2022.2.3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id88">2022.2.2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id89">2022.2.1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../release-notes.html#beta">2022.2.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id89">2021.12.0-beta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id90">2021.11.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id90">2021.12.0-beta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../release-notes.html#id91">2021.11.0-beta</a></li>
 </ul>
 </li>
 </ul>
@@ -2145,11 +2150,50 @@ If it is not locked by the passed user, nothing will happen.</p>
 </dd></dl>
 
 </section>
+<section id="module-integreat_cms.cms.utils.content_translation_utils">
+<span id="content-translation-utils"></span><h2>Content Translation Utils<a class="headerlink" href="#module-integreat_cms.cms.utils.content_translation_utils" title="Link to this heading"></a></h2>
+<p>This file contains utility functions for content translations.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.content_translation_utils.get_referencing_translations">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_translation_utils.</span></span><span class="sig-name descname"><span class="pre">get_referencing_translations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content_translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#set" title="(in Python v3.11)"><span class="pre">set</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_translation_utils.py#L63"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_translation_utils.get_referencing_translations" title="Link to this definition"></a></dt>
+<dd><p>Returns a list of content translations that link to the given translation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>content_translation</strong> (<a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><em>AbstractContentTranslation</em></a>) – The <cite>content_translation</cite> for which links should be searched</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>All referencing content translations</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#set" title="(in Python v3.11)">set</a>[<a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation">AbstractContentTranslation</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.content_translation_utils.update_links_to">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_translation_utils.</span></span><span class="sig-name descname"><span class="pre">update_links_to</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content_translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><span class="pre">User</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_translation_utils.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_translation_utils.update_links_to" title="Link to this definition"></a></dt>
+<dd><p>Updates all content translations with links that point to the given translation.
+This fixes potentially outdated links.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>content_translation</strong> (<a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><em>AbstractContentTranslation</em></a>) – The content translation for which links that points to it should get updated</p></li>
+<li><p><strong>user</strong> (<a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><em>User</em></a><em> | </em><em>None</em>) – The user who should be responsible for updating the links</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-integreat_cms.cms.utils.content_utils">
 <span id="content-utils"></span><h2>Content Utils<a class="headerlink" href="#module-integreat_cms.cms.utils.content_utils" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.content_utils.clean_content">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_utils.</span></span><span class="sig-name descname"><span class="pre">clean_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_utils.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_utils.clean_content" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_utils.</span></span><span class="sig-name descname"><span class="pre">clean_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_utils.py#L17"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_utils.clean_content" title="Link to this definition"></a></dt>
 <dd><p>This is the super function to clean content</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2166,7 +2210,7 @@ If it is not locked by the passed user, nothing will happen.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.content_utils.convert_heading">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_utils.</span></span><span class="sig-name descname"><span class="pre">convert_heading</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.2.2)"><span class="pre">HtmlElement</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_utils.py#L36"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_utils.convert_heading" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_utils.</span></span><span class="sig-name descname"><span class="pre">convert_heading</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.2.2)"><span class="pre">HtmlElement</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_utils.py#L39"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_utils.convert_heading" title="Link to this definition"></a></dt>
 <dd><p>Converts every <code class="docutils literal notranslate"><span class="pre">h1</span></code> tag in the content to a <code class="docutils literal notranslate"><span class="pre">h2</span></code> for SEO purposes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2180,7 +2224,7 @@ If it is not locked by the passed user, nothing will happen.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.content_utils.convert_monospaced_tags">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_utils.</span></span><span class="sig-name descname"><span class="pre">convert_monospaced_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.2.2)"><span class="pre">HtmlElement</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_utils.py#L50"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_utils.convert_monospaced_tags" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_utils.</span></span><span class="sig-name descname"><span class="pre">convert_monospaced_tags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.2.2)"><span class="pre">HtmlElement</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_utils.py#L53"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_utils.convert_monospaced_tags" title="Link to this definition"></a></dt>
 <dd><p>Converts <code class="docutils literal notranslate"><span class="pre">pre</span></code> and <code class="docutils literal notranslate"><span class="pre">code</span></code> tags to <code class="docutils literal notranslate"><span class="pre">p</span></code> tags.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2194,7 +2238,7 @@ If it is not locked by the passed user, nothing will happen.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.content_utils.fix_alt_texts">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_utils.</span></span><span class="sig-name descname"><span class="pre">fix_alt_texts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.2.2)"><span class="pre">HtmlElement</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_utils.py#L133"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_utils.fix_alt_texts" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_utils.</span></span><span class="sig-name descname"><span class="pre">fix_alt_texts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.2.2)"><span class="pre">HtmlElement</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_utils.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_utils.fix_alt_texts" title="Link to this definition"></a></dt>
 <dd><p>This function processes images by scanning for media files and replacing alt texts.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2208,7 +2252,7 @@ If it is not locked by the passed user, nothing will happen.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.content_utils.mark_external_links">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_utils.</span></span><span class="sig-name descname"><span class="pre">mark_external_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.2.2)"><span class="pre">HtmlElement</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_utils.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_utils.mark_external_links" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_utils.</span></span><span class="sig-name descname"><span class="pre">mark_external_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.2.2)"><span class="pre">HtmlElement</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_utils.py#L82"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_utils.mark_external_links" title="Link to this definition"></a></dt>
 <dd><p>Set class <code class="docutils literal notranslate"><span class="pre">link-external</span></code> for links</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2222,7 +2266,7 @@ If it is not locked by the passed user, nothing will happen.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.content_utils.remove_target_attribute">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_utils.</span></span><span class="sig-name descname"><span class="pre">remove_target_attribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.2.2)"><span class="pre">HtmlElement</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_utils.py#L101"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_utils.remove_target_attribute" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_utils.</span></span><span class="sig-name descname"><span class="pre">remove_target_attribute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.2.2)"><span class="pre">HtmlElement</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_utils.py#L104"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_utils.remove_target_attribute" title="Link to this definition"></a></dt>
 <dd><p>Removes the target attribute of links if these links are external links</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2236,8 +2280,8 @@ If it is not locked by the passed user, nothing will happen.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.content_utils.update_internal_links">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_utils.</span></span><span class="sig-name descname"><span class="pre">update_internal_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.2.2)"><span class="pre">HtmlElement</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_utils.py#L114"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_utils.update_internal_links" title="Link to this definition"></a></dt>
-<dd><p>Updates internal links by adding the language slug of the translation</p>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_utils.</span></span><span class="sig-name descname"><span class="pre">update_internal_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.2.2)"><span class="pre">HtmlElement</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_utils.py#L117"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_utils.update_internal_links" title="Link to this definition"></a></dt>
+<dd><p>Fixes broken internal links</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -2253,7 +2297,7 @@ If it is not locked by the passed user, nothing will happen.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.content_utils.update_links">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_utils.</span></span><span class="sig-name descname"><span class="pre">update_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.2.2)"><span class="pre">HtmlElement</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_utils.py#L66"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_utils.update_links" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.content_utils.</span></span><span class="sig-name descname"><span class="pre">update_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://lxml.de/apidoc/lxml.html.html#lxml.html.HtmlElement" title="(in lxml v5.2.2)"><span class="pre">HtmlElement</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/content_utils.py#L69"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.content_utils.update_links" title="Link to this definition"></a></dt>
 <dd><p>Super method that gathers all methods related to updating links</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2527,17 +2571,14 @@ Fallback translations are also checked when they are enabled in the specific reg
 <p>This file contains utility functions for recognizing and modifying internal links</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.internal_link_utils.get_public_translation_for_link">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_utils.</span></span><span class="sig-name descname"><span class="pre">get_public_translation_for_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_utils.py#L70"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.internal_link_utils.get_public_translation_for_link" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_utils.</span></span><span class="sig-name descname"><span class="pre">get_public_translation_for_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_utils.py#L79"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.internal_link_utils.get_public_translation_for_link" title="Link to this definition"></a></dt>
 <dd><p>This function gets the public content translation object corresponding to the path of an internal url.
 If the url does not refer to any object, this function will return None.
 This function handles webapp links and short urls.
 If the language of the url is the same as <cite>current_language_slug</cite>, this function will return None.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The url</p></li>
-<li><p><strong>current_language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> | </em><em>None</em>) – A language slug that will cause the function to return early if contained in the url</p></li>
-</ul>
+<dd class="field-odd"><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The url</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The latest corresponding content translation</p>
@@ -2550,7 +2591,7 @@ If the language of the url is the same as <cite>current_language_slug</cite>, th
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.internal_link_utils.get_public_translation_for_short_link">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_utils.</span></span><span class="sig-name descname"><span class="pre">get_public_translation_for_short_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_utils.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.internal_link_utils.get_public_translation_for_short_link" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_utils.</span></span><span class="sig-name descname"><span class="pre">get_public_translation_for_short_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_utils.py#L153"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.internal_link_utils.get_public_translation_for_short_link" title="Link to this definition"></a></dt>
 <dd><p>Calculates the content object that corresponds to the short url path and returns its latest public translation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2567,14 +2608,11 @@ If the language of the url is the same as <cite>current_language_slug</cite>, th
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.internal_link_utils.get_public_translation_for_webapp_link">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_utils.</span></span><span class="sig-name descname"><span class="pre">get_public_translation_for_webapp_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_utils.py#L93"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.internal_link_utils.get_public_translation_for_webapp_link" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_utils.</span></span><span class="sig-name descname"><span class="pre">get_public_translation_for_webapp_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_utils.py#L97"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.internal_link_utils.get_public_translation_for_webapp_link" title="Link to this definition"></a></dt>
 <dd><p>Calculates the content object that corresponds to the webapp url path and returns its latest public translation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The url path, for example given the url ‘<a class="reference external" href="https://integreat.app/augsburg/de/willkommen/">https://integreat.app/augsburg/de/willkommen/</a>’ it would be ‘/augsburg/de/willkommen/’</p></li>
-<li><p><strong>current_language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em> | </em><em>None</em>) – A language slug that will cause the function to return early if contained in the url</p></li>
-</ul>
+<dd class="field-odd"><p><strong>path</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The url path, for example given the url ‘<a class="reference external" href="https://integreat.app/augsburg/de/willkommen/">https://integreat.app/augsburg/de/willkommen/</a>’ it would be ‘/augsburg/de/willkommen/’</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The latest corresponding content translation</p>
@@ -2587,7 +2625,7 @@ If the language of the url is the same as <cite>current_language_slug</cite>, th
 
 <dl class="py function">
 <dt class="sig sig-object py" id="integreat_cms.cms.utils.internal_link_utils.get_public_translation_for_webapp_link_parts">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_utils.</span></span><span class="sig-name descname"><span class="pre">get_public_translation_for_webapp_link_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_parts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_utils.py#L119"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.internal_link_utils.get_public_translation_for_webapp_link_parts" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_utils.</span></span><span class="sig-name descname"><span class="pre">get_public_translation_for_webapp_link_parts</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_parts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation" title="integreat_cms.cms.models.abstract_content_translation.AbstractContentTranslation"><span class="pre">AbstractContentTranslation</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_utils.py#L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.internal_link_utils.get_public_translation_for_webapp_link_parts" title="Link to this definition"></a></dt>
 <dd><p>Calculates the content translation that corresponds to the given path, region slug and language slug.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -2604,26 +2642,30 @@ If the language of the url is the same as <cite>current_language_slug</cite>, th
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="integreat_cms.cms.utils.internal_link_utils.update_link_language">
-<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_utils.</span></span><span class="sig-name descname"><span class="pre">update_link_language</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">current_link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">link_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_utils.py#L27"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.internal_link_utils.update_link_language" title="Link to this definition"></a></dt>
-<dd><p>Fixes the link, so that it points to the correct language.
-Returns a tuple of the translated url and (potentially) translated title.
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.internal_link_utils.update_link">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.internal_link_utils.</span></span><span class="sig-name descname"><span class="pre">update_link</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Element</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Element</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/internal_link_utils.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.internal_link_utils.update_link" title="Link to this definition"></a></dt>
+<dd><p>Fixes the internal link, if it is broken.
+This includes:</p>
+<ul class="simple">
+<li><p>Changing the link language to <cite>target_language_slug</cite></p></li>
+<li><p>Fixing the link path if any part of it points to an outdated version of a content translation</p></li>
+</ul>
+<p>Returns a tuple of the translated url and (potentially) modified title.
 For example, with current_link = ‘<a class="reference external" href="https://integreat.app/augsburg/de/willkommen/">https://integreat.app/augsburg/de/willkommen/</a>’ and language_slug = ‘en’
 a possible return value could be (’<a class="reference external" href="https://integreat.app/augsburg/en/welcome/">https://integreat.app/augsburg/en/welcome/</a>, ‘Welcome’).
 Note that the resulting link might refer to a fallback language and not the actual target language.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>current_link</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The link to the content translation</p></li>
-<li><p><strong>link_text</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The text of the link</p></li>
+<li><p><strong>link</strong> (<em>Element</em>) – The link to be updated</p></li>
 <li><p><strong>target_language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The language slug for the target translation</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>a tuple of (url, title) of the target translation, or None</p>
+<dd class="field-even"><p>a tuple of (url, innerHtml) of the target translation, or None</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, <a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a>] | None</p>
+<dd class="field-odd"><p>Optional[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, Element | <a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a>]]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3058,6 +3100,60 @@ as fallback (either <code class="docutils literal notranslate"><span class="pre"
 </dd></dl>
 
 </section>
+<section id="module-integreat_cms.cms.utils.tinymce_icon_utils">
+<span id="tinymce-icon-utils"></span><h2>Tinymce Icon Utils<a class="headerlink" href="#module-integreat_cms.cms.utils.tinymce_icon_utils" title="Link to this heading"></a></h2>
+<p>This file contains utilities related to icons in the tinymce editor</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.tinymce_icon_utils.get_icon_html">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.tinymce_icon_utils.</span></span><span class="sig-name descname"><span class="pre">get_icon_html</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icon_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Element</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/tinymce_icon_utils.py#L22"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.tinymce_icon_utils.get_icon_html" title="Link to this definition"></a></dt>
+<dd><p>Returns the html for the given icon</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>icon_name</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name of the icon</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The html</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>Element</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.tinymce_icon_utils.get_icon_url">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.tinymce_icon_utils.</span></span><span class="sig-name descname"><span class="pre">get_icon_url</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icon_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/tinymce_icon_utils.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.tinymce_icon_utils.get_icon_url" title="Link to this definition"></a></dt>
+<dd><p>Returns the url to the given icon svg</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>icon_name</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name of the icon</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the url path to the asset</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.tinymce_icon_utils.make_icon">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.tinymce_icon_utils.</span></span><span class="sig-name descname"><span class="pre">make_icon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">icon_url</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Element</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/tinymce_icon_utils.py#L32"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.tinymce_icon_utils.make_icon" title="Link to this definition"></a></dt>
+<dd><p>Construct a html element that display an image with the given url
+:param icon_url: The url to the icon
+:return: The html element</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>icon_url</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><em>Element</em></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-integreat_cms.cms.utils.totp_utils">
 <span id="totp-utils"></span><h2>Totp Utils<a class="headerlink" href="#module-integreat_cms.cms.utils.totp_utils" title="Link to this heading"></a></h2>
 <p>This module contains helper functions that are used within the TOTP registration and authentication.</p>
@@ -3210,7 +3306,7 @@ version and also attach the integreat logo.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 18, 2024.
+      <span class="lastupdated">Last updated on Jul 31, 2024.
       </span></p>
   </div>
 
