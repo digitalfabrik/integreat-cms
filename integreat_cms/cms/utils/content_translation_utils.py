@@ -74,9 +74,7 @@ def get_referencing_translations(
     public_translation = content_translation.public_version
 
     # To avoid searching every single url, filter for urls that contain a slug or id that the content translation has used
-    translation_slugs = set(
-        content_translation.all_versions.values_list("slug", flat=True)
-    )
+    translation_slugs = set(content_translation.get_all_used_slugs())
     translation_ids = set(content_translation.all_versions.values_list("id", flat=True))
     logger.debug(
         "Collecting links that contain %s or %s", translation_slugs, translation_ids

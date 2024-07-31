@@ -17,6 +17,8 @@ from ..utils.tinymce_icon_utils import get_icon_html, make_icon
 if TYPE_CHECKING:
     from typing import Any, Literal
 
+    from collections.abc import Iterable
+
     from django.db.models.query import QuerySet
     from lxml.html import Element
 
@@ -575,6 +577,12 @@ class AbstractContentTranslation(AbstractBaseModel):
             return img
 
         return escape(str(self))
+
+    def get_all_used_slugs(self) -> Iterable[str]:
+        """
+        :return: All slugs that have been used by at least on version of this translation
+        """
+        return self.all_versions.values_list("slug", flat=True)
 
     def __str__(self) -> str:
         """
