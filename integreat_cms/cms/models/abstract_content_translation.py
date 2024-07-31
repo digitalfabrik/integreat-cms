@@ -15,9 +15,8 @@ from linkcheck.listeners import disable_listeners
 from ..utils.tinymce_icon_utils import get_icon_html, make_icon
 
 if TYPE_CHECKING:
-    from typing import Any, Literal
-
     from collections.abc import Iterable
+    from typing import Any, Literal
 
     from django.db.models.query import QuerySet
     from lxml.html import Element
