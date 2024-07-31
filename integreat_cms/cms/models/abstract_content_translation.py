@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from html import escape
 from typing import TYPE_CHECKING
 
 from django.conf import settings
@@ -11,10 +12,14 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from linkcheck.listeners import disable_listeners
 
+from ..utils.tinymce_icon_utils import get_icon_html, make_icon
+
 if TYPE_CHECKING:
+    from collections.abc import Iterable
     from typing import Any, Literal
 
     from django.db.models.query import QuerySet
+    from lxml.html import Element
 
     from .abstract_content_model import AbstractContentModel
     from .regions.region import Region
@@ -537,12 +542,46 @@ class AbstractContentTranslation(AbstractBaseModel):
         Whether this translation has a sufficient HIX value for machine translations.
         If it is ``None``, machine translations are allowed by default.
 
-        :return: Wether the HIX value is sufficient for MT
+        :return: Whether the HIX value is sufficient for MT
         """
         return (
             self.hix_score is None
             or self.rounded_hix_score >= settings.HIX_REQUIRED_FOR_MT
         )
+
+    @staticmethod
+    def default_icon() -> str | None:
+        """
+        Returns the default icon that should be used for this content translation type, or None for no icon
+        """
+        return None
+
+    @cached_property
+    def link_title(self) -> Element | str:
+        """
+        This property returns the html that should be used as a title for a link to this translation
+
+        :return: The link content
+        """
+        foreign_object = self.foreign_object
+        if icon := getattr(foreign_object, "icon", None):
+            if url := icon.thumbnail_url:
+                img = make_icon(url)
+                img.tail = self.title
+                return img
+
+        if icon_name := self.default_icon():
+            img = get_icon_html(icon_name)
+            img.tail = self.title
+            return img
+
+        return escape(str(self))
+
+    def get_all_used_slugs(self) -> Iterable[str]:
+        """
+        :return: All slugs that have been used by at least on version of this translation
+        """
+        return self.all_versions.values_list("slug", flat=True)
 
     def __str__(self) -> str:
         """
