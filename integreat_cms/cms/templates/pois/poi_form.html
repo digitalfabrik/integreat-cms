@@ -170,7 +170,9 @@
                     {% include "./poi_form_sidebar/opening_hours_box.html" with box_id="poi-opening-hours" no_padding=True %}
                     {% include "./poi_form_sidebar/category_box.html" with box_id="poi-category" %}
                     {% include "./poi_form_sidebar/icon_box.html" with box_id="poi-icon" %}
-                    {% include "./poi_form_sidebar/organization_box.html" with box_id="poi-organization" %}
+                    {% if poi_form.organization.field.queryset.exists %}
+                        {% include "./poi_form_sidebar/organization_box.html" with box_id="poi-organization" %}
+                    {% endif %}
                     {% include "./poi_form_sidebar/barrier_free_box.html" with box_id="poi-barrier-free" %}
                     {% if poi_form.instance.id and perms.cms.change_poi %}
                         {% include "./poi_form_sidebar/action_box.html" with box_id="poi-action" %}
