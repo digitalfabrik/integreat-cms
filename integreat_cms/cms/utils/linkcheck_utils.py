@@ -14,6 +14,7 @@ from linkcheck.models import Link, Url
 from integreat_cms.cms.models import (
     EventTranslation,
     ImprintPageTranslation,
+    Organization,
     PageTranslation,
     POITranslation,
     Region,
@@ -97,12 +98,14 @@ def get_region_links(region: Region) -> QuerySet:
         .distinct("page__id", "language__id")
         .values_list("pk", flat=True)
     )
+    organizations = Organization.objects.filter(region=region, archived=False)
     # Get all link objects of the requested region
     region_links = Link.objects.filter(
         Q(page_translation__id__in=latest_pagetranslation_versions)
         | Q(imprint_translation__id__in=latest_imprinttranslation_versions)
         | Q(event_translation__id__in=latest_eventtranslation_versions)
         | Q(poi_translation__id__in=latest_poitranslation_versions)
+        | Q(organization__id__in=organizations)
     ).order_by("id")
 
     return region_links
@@ -205,12 +208,10 @@ def replace_links(
     :param link_types: Which kind of links should be replaced
     """
     log_replacement_is_starting(search, replace, region, user)
-    content_objects = find_target_url_per_translation(
-        search, replace, region, link_types
-    )
+    content_objects = find_target_url_per_content(search, replace, region, link_types)
     with update_lock:
-        for translation, urls_to_replace in content_objects.items():
-            translation.replace_urls(urls_to_replace, user, commit)
+        for content, urls_to_replace in content_objects.items():
+            content.replace_urls(urls_to_replace, user, commit)
 
     # Wait until all post-save signals have been processed
     logger.debug("Waiting for linkcheck listeners to update link database...")
@@ -219,7 +220,7 @@ def replace_links(
     logger.info("Finished replacing %r with %r in content links", search, replace)
 
 
-def find_target_url_per_translation(
+def find_target_url_per_content(
     search: str, replace: str, region: Region | None, link_types: list[str] | None
 ) -> dict[AbstractContentTranslation, dict[str, str]]:
     """

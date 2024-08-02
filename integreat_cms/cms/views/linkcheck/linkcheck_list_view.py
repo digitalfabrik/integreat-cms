@@ -154,13 +154,11 @@ class LinkcheckListView(ListView):
                 if TYPE_CHECKING:
                     assert self.instance
                 new_url = self.form.cleaned_data["url"]
-                # Get all current translations with the same url
-                translations = {
-                    link.content_object for link in self.instance.region_links
-                }
+                # Get all current contents with the same url
+                contents = {link.content_object for link in self.instance.region_links}
                 # Replace the old urls with the new urls in the content
-                for translation in translations:
-                    translation.replace_urls(
+                for content in contents:
+                    content.replace_urls(
                         {self.instance.url: new_url},
                         request.user,
                         True,
