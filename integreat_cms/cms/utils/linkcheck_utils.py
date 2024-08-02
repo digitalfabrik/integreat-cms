@@ -21,6 +21,7 @@ from integreat_cms.cms.models import (
     PageTranslation,
     POITranslation,
     Region,
+    Organization,
 )
 
 from ..models.abstract_content_translation import AbstractContentTranslation
@@ -108,6 +109,7 @@ def get_region_links(region: Region) -> QuerySet:
         | Q(imprint_translation__id__in=latest_imprinttranslation_versions)
         | Q(event_translation__id__in=latest_eventtranslation_versions)
         | Q(poi_translation__id__in=latest_poitranslation_versions)
+        | Q(organization__region=region)
     ).order_by("id")
 
     return region_links

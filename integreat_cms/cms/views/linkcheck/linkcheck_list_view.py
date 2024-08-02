@@ -21,6 +21,7 @@ from lxml.html import rewrite_links
 
 from ...decorators import permission_required
 from ...forms.linkcheck.edit_url_form import EditUrlForm
+from ...models.users.organization import Organization
 from ...utils.linkcheck_utils import filter_urls, fix_content_link_encoding, get_urls
 
 if TYPE_CHECKING:
@@ -164,21 +165,25 @@ class LinkcheckListView(ListView):
                 }
                 # Replace the old urls with the new urls in the content
                 for translation in translations:
-                    new_translation = deepcopy(translation)
-                    # Replace link in translation
-                    logger.debug("Replacing links of %r", new_translation)
-                    new_translation.content = rewrite_links(
-                        new_translation.content,
-                        partial(self.replace_link, self.instance.url, new_url),
-                    )
-                    new_translation.content = fix_content_link_encoding(
-                        new_translation.content
-                    )
-                    # Save translation with replaced content as new minor version
-                    new_translation.id = None
-                    new_translation.version += 1
-                    new_translation.minor_edit = True
-                    new_translation.save()
+                    if isinstance(translation, Organization):
+                        translation.website = new_url
+                        translation.save()
+                    else:
+                        new_translation = deepcopy(translation)
+                        # Replace link in translation
+                        logger.debug("Replacing links of %r", new_translation)
+                        new_translation.content = rewrite_links(
+                            new_translation.content,
+                            partial(self.replace_link, self.instance.url, new_url),
+                        )
+                        new_translation.content = fix_content_link_encoding(
+                            new_translation.content
+                        )
+                        # Save translation with replaced content as new minor version
+                        new_translation.id = None
+                        new_translation.version += 1
+                        new_translation.minor_edit = True
+                        new_translation.save()
                 if new_url.startswith("mailto:"):
                     messages.success(request, _("Email link was successfully replaced"))
                 elif new_url.startswith("tel:"):

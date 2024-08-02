@@ -14,6 +14,7 @@ from .models import (
     Page,
     PageTranslation,
     POITranslation,
+    Organization,
 )
 
 if TYPE_CHECKING:
@@ -141,9 +142,19 @@ class POITranslationLinklist(NonArchivedLinkList):
     model: ModelBase = POITranslation
 
 
+class OrganizationLinklist(Linklist):
+    """
+    Class for selecting the Organization model for link checks
+    """
+
+    model: ModelBase = Organization
+
+    url_fields = ["website"]
+
 linklists = {
     "PageTranslations": PageTranslationLinklist,
     "EventTranslations": EventTranslationLinklist,
     "POITranslations": POITranslationLinklist,
     "ImprintPageTranslations": ImprintTranslationLinklist,
+    "Organizations": OrganizationLinklist,
 }

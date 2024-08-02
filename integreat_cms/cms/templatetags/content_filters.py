@@ -17,6 +17,7 @@ from ..models import (
     EventTranslation,
     ImprintPageTranslation,
     Language,
+    Organization,
     PageTranslation,
     POITranslation,
 )
@@ -248,4 +249,6 @@ def object_translation_has_view_perm(
         return user.has_perm("cms.view_poi")
     if isinstance(obj, ImprintPageTranslation):
         return user.has_perm("cms.view_imprint")
+    if isinstance(obj, Organization):
+        return user.has_perm("cms.view:organization")
     raise ValueError(f"Invalid model: {type(obj)}")
