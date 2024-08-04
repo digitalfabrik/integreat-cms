@@ -171,7 +171,9 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             for page in mirrored_page_queryset.cache_tree(archived=False)
         ]
 
-        self.fields["organization"].queryset = self.instance.region.organizations.all()
+        self.fields["organization"].queryset = (
+            self.instance.region.organizations.filter(archived=False)
+        )
 
         # Set choices of parent and _ref_node_id fields manually to make use of cache_tree()
         logger.debug("Set choices for parent field:")
