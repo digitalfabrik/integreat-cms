@@ -7,7 +7,7 @@ const CLASS_ANCHOR_WHEN_SHOWN = [
     "hover:text-blue-500",
 ];
 
-const CLASS_ANCHOR_WHEN_HIDDEN = ["px-3", "py-2", "bg-white", "whitespace-nowrap", "hover:bg-water-500"];
+const CLASS_ANCHOR_WHEN_HIDDEN = ["px-3", "py-2", "flex", "bg-white", "whitespace-nowrap", "hover:bg-water-500"];
 const BUFFER = 20;
 
 const hideElement = (element: HTMLElement | null) => {
