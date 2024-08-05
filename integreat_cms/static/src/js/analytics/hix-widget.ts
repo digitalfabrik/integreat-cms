@@ -37,7 +37,7 @@ const updateHixBar = (score: number, setOutdated: boolean) => {
  * Display a label depending on the current HIX state
  * States are "updated", "outdated", "no-content" and "error"
  */
-const updateHixStateLabel = (state: string) => {
+const updateHixStateLabel = (state: "updated" | "outdated" | "no-content" | "error") => {
     document.querySelectorAll("[data-hix-state]").forEach((element) => {
         if (element.getAttribute("data-hix-state") === state) {
             element.classList.remove("hidden");
