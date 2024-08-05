@@ -10,9 +10,11 @@ const calculateBackgroundColor = (score: number, setOutdated: boolean): string =
 
     if (setOutdated) {
         return "rgb(16, 111, 254, 0.3)";
-    } if (score >= hixThresholdGood) {
+    }
+    if (score >= hixThresholdGood) {
         return "rgb(74, 222, 128)";
-    } if (score > hixThresholdOk) {
+    }
+    if (score > hixThresholdOk) {
         return "rgb(250, 204, 21)";
     }
     return "rgb(239, 68, 68)";
@@ -35,7 +37,6 @@ const updateHixBar = (score: number, setOutdated: boolean) => {
 
 /**
  * Display a label depending on the current HIX state
- * States are "updated", "outdated", "no-content" and "error"
  */
 const updateHixStateLabel = (state: "updated" | "outdated" | "no-content" | "error") => {
     document.querySelectorAll("[data-hix-state]").forEach((element) => {
