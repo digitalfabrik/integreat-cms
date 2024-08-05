@@ -20,7 +20,7 @@ from integreat_cms.cms.models.regions.region import Region
 from integreat_cms.cms.utils.round_hix_score import round_hix_score
 
 from ....api.decorators import json_response
-from ....textlab_api.textlab_api_client import TextlabClient
+from ....textlab_api.textlab_api_client import TextlabClient, TextlabResult
 
 if TYPE_CHECKING:
     from typing import Final
@@ -40,7 +40,7 @@ class CacheMeIfYouCan(Exception):
 
 
 @lru_cache(maxsize=512)
-def lookup_hix_score_helper(text: str) -> dict:
+def lookup_hix_score_helper(text: str) -> TextlabResult:
     """
     This function returns the hix score for the given text.
     It either performs an api request or returns the value from cache,
@@ -62,7 +62,7 @@ def lookup_hix_score_helper(text: str) -> dict:
         raise CacheMeIfYouCan from e
 
 
-def lookup_hix_score(text: str) -> dict | None:
+def lookup_hix_score(text: str) -> TextlabResult | None:
     """
     This function returns the hix score for the given text.
     It either performs an api request or returns the value from cache.

@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import logging
 from html import unescape
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, TypedDict
 from urllib.request import Request, urlopen
 
 from django.conf import settings
@@ -15,6 +15,11 @@ if TYPE_CHECKING:
     from typing import Any
 
 logger = logging.getLogger(__name__)
+
+
+class TextlabResult(TypedDict):
+    score: float | None
+    feedback: list[dict[str, Any]]
 
 
 class TextlabClient:
@@ -47,7 +52,7 @@ class TextlabClient:
 
     def benchmark(
         self, text: str, text_type: int = settings.TEXTLAB_API_DEFAULT_BENCHMARK_ID
-    ) -> dict:
+    ) -> TextlabResult:
         """
         Retrieves the hix score of the given text.
 
