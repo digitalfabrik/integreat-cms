@@ -18,6 +18,10 @@ logger = logging.getLogger(__name__)
 
 
 class TextlabResult(TypedDict):
+    """
+    The result that is returned from the textlab api via `benchmark`.
+    """
+
     score: float | None
     feedback: list[dict[str, Any]]
 
@@ -65,7 +69,7 @@ class TextlabClient:
             You can find the not so helpful API "documentation" here: https://comlab-ulm.github.io/swagger-V8/
             But since for now we are only interested in the HIX score anyway, we just use the benchmark
             "Letter Demo Integreat" with ID ``420`` by default.
-        :return: The score, or None if an error occurred
+        :return: The textlab result including score and feedback, or None if an error occurred
         """
         data = {"text": unescape(text), "locale_name": "de_DE"}
         path = f"/benchmark/{text_type}"
