@@ -128,6 +128,8 @@ window.addEventListener("load", () => {
     const updateActiveTimelineItem = (item: Element) => {
         const revision = Number(item.getAttribute("data-number"));
 
+        document.getElementsByName("revision")[0].setAttribute("value", revision.toString());
+
         document.querySelectorAll(".timeline-item").forEach((it) => {
             it.classList.remove("active");
         });

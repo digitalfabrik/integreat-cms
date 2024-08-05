@@ -8,6 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 
 from ..constants import status
+from ..utils.content_translation_utils import update_links_to
 from ..utils.content_utils import clean_content
 from ..utils.slug_utils import generate_unique_slug_helper
 from .custom_model_form import CustomModelForm
@@ -140,7 +141,18 @@ class CustomContentModelForm(CustomModelForm):
         self.instance.pk = None
 
         # Save CustomModelForm
-        return super().save(commit=commit)
+        result = super().save(commit=commit)
+
+        # Update links to this content translation
+        # Also update if the status got changed, since title or slug might have changed in a previous draft version
+        if (
+            commit
+            and self.instance.status == status.PUBLIC
+            and not {"title", "slug", "status"}.isdisjoint(self.changed_data)
+        ):
+            update_links_to(self.instance, self.instance.creator)
+
+        return result
 
     def add_success_message(self, request: HttpRequest) -> None:
         """

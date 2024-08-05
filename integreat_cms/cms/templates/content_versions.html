@@ -16,6 +16,7 @@
     </div>
     <form method="post" action="{{ versions_url }}">
         {% csrf_token %}
+        <input type="hidden" name="revision" value="" />
         <div class="w-full m-auto mb-28 flex items-center relative">
             <div id="button-prev" class="flex-shrink-0 px-4 version-history-control">
                 <i icon-name="chevron-left" class="w-5"></i>

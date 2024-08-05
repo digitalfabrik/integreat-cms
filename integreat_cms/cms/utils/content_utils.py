@@ -1,5 +1,6 @@
 import logging
-from urllib.parse import urlparse
+from html import unescape
+from urllib.parse import unquote, urlparse
 
 from django.conf import settings
 from django.db.models import Q
@@ -9,6 +10,8 @@ from lxml.html import fromstring, HtmlElement, tostring
 from ..models import MediaFile
 from ..utils import internal_link_utils
 from ..utils.linkcheck_utils import fix_content_link_encoding
+
+logger = logging.getLogger(__name__)
 
 
 def clean_content(content: str, language_slug: str) -> str:
@@ -41,7 +44,7 @@ def convert_heading(content: HtmlElement) -> None:
     """
     for heading in content.iter("h1"):
         heading.tag = "h2"
-        logging.debug(
+        logger.debug(
             "Replaced heading 1 with heading 2: %r",
             tostring(heading, encoding="unicode"),
         )
@@ -56,7 +59,7 @@ def convert_monospaced_tags(content: HtmlElement) -> None:
     for monospaced in content.iter("pre", "code"):
         tag_type = monospaced.tag
         monospaced.tag = "p"
-        logging.debug(
+        logger.debug(
             "Replaced %r tag with p tag: %r",
             tag_type,
             tostring(monospaced, encoding="unicode"),
@@ -86,13 +89,13 @@ def mark_external_links(link: HtmlElement) -> None:
         is_external = not any(url in href for url in settings.INTERNAL_URLS)
         if "link-external" not in link.classes and is_external:
             link.classes.add("link-external")
-            logging.debug(
+            logger.debug(
                 "Added class 'link-external' to %r",
                 tostring(link, encoding="unicode"),
             )
         elif "link-external" in link.classes and not is_external:
             link.classes.remove("link-external")
-            logging.debug(
+            logger.debug(
                 "Removed class 'link-external' from %r",
                 tostring(link, encoding="unicode"),
             )
@@ -105,7 +108,7 @@ def remove_target_attribute(link: HtmlElement) -> None:
     :param link: links whose targets should be removed
     """
     link.attrib.pop("target", None)
-    logging.debug(
+    logger.debug(
         "Removed target attribute from link: %r",
         tostring(link, encoding="unicode"),
     )
@@ -113,21 +116,26 @@ def remove_target_attribute(link: HtmlElement) -> None:
 
 def update_internal_links(link: HtmlElement, language_slug: str) -> None:
     """
-    Updates internal links by adding the language slug of the translation
+    Fixes broken internal links
 
     :param link: link which should be checked for an internal link and then be updated
     :param language_slug: Slug of the current language
     """
-    if href := link.attrib.get("href"):
-        if translation := internal_link_utils.update_link_language(
-            href, link.text, language_slug
-        ):
-            translated_url, translated_text = translation
-            link.set("href", translated_url)
-            # translated_text might be None if the link tag consists of other tags instead of plain text
-            if translated_text:
-                link.text = translated_text
-            logging.debug("Updated link url from %s to %s", href, translated_url)
+    if translation := internal_link_utils.update_link(link, language_slug):
+        new_url, new_html = translation
+        if new_url != unquote(link.get("href", "")):
+            link.set("href", new_url)
+            logger.debug("Updated link url from %s to %s", link.get("href"), new_url)
+
+        if new_html is not None:
+            logger.debug("Updated link text from %s to %s", link.text, new_html)
+            for child in link:
+                link.remove(child)
+            if isinstance(new_html, str):
+                link.text = unescape(new_html)
+            else:
+                link.text = ""
+                link.append(new_html)
 
 
 def fix_alt_texts(content: HtmlElement) -> None:
@@ -138,7 +146,7 @@ def fix_alt_texts(content: HtmlElement) -> None:
     """
     for image in content.iter("img"):
         if src := image.attrib.get("src"):
-            logging.debug("Image tag found in content (src: %s)", src)
+            logger.debug("Image tag found in content (src: %s)", src)
             # Remove host
             relative_url = urlparse(src).path
             # Remove media url prefix if exists
@@ -150,7 +158,7 @@ def fix_alt_texts(content: HtmlElement) -> None:
             ).first()
             # Replace alternative text
             if media_file and media_file.alt_text:
-                logging.debug("Image alt text replaced: %r", media_file.alt_text)
+                logger.debug("Image alt text replaced: %r", media_file.alt_text)
                 image.attrib["alt"] = media_file.alt_text
         else:
-            logging.warning("Empty img tag was found.")
+            logger.warning("Empty img tag was found.")
