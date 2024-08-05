@@ -20,7 +20,8 @@ class ExternalCalendar(AbstractBaseModel):
         verbose_name=_("region"),
         related_name="external_calendars",
     )
-    url = models.CharField(max_length=255, verbose_name=_("URL"))
+    url = models.URLField(max_length=250, verbose_name=_("URL"))
+
     import_filter_tag = models.CharField(
         max_length=255,
         blank=True,

@@ -71,7 +71,10 @@ class Migration(migrations.Migration):
                         default="", max_length=255, verbose_name="calendar name"
                     ),
                 ),
-                ("url", models.CharField(max_length=255, verbose_name="URL")),
+                (
+                    "url",
+                    models.URLField(max_length=250, verbose_name="URL"),
+                ),
                 (
                     "import_filter_tag",
                     models.CharField(
