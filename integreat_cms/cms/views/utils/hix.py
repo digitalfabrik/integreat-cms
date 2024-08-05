@@ -14,6 +14,8 @@ from urllib.error import URLError
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from lxml.etree import LxmlError
+from lxml.html import fromstring
 
 from integreat_cms.cms.models.pages.page_translation import PageTranslation
 from integreat_cms.cms.models.regions.region import Region
@@ -50,6 +52,19 @@ def lookup_hix_score_helper(text: str) -> TextlabResult:
     :param text: The text to calculate the hix score for
     :return: The score for the given text
     """
+    # If the html has no text, don't send a request to textlab and immediately return the `None` score,
+    # which indicates an empty page
+    try:
+        html = fromstring(text)
+        text_content = html.text_content()
+        if not text_content.strip():
+            return {
+                "score": None,
+                "feedback": [],
+            }
+    except LxmlError:
+        pass
+
     # Replace all line breaks with <br> because Textlab API returns different HIX value depending on the line break character
     normalized_text = "<br>".join(text.splitlines())
 
