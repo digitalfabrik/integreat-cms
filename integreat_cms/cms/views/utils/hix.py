@@ -52,8 +52,6 @@ def lookup_hix_score_helper(text: str) -> TextlabResult:
     :param text: The text to calculate the hix score for
     :return: The score for the given text
     """
-    # If the html has no text, don't send a request to textlab and immediately return the `None` score,
-    # which indicates an empty page
     try:
         html = fromstring(text)
         text_content = html.text_content()
