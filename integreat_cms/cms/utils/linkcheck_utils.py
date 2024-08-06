@@ -151,8 +151,7 @@ def filter_urls(
     for url in urls:
         if region_slug is None:
             url.region_links = url.links.all()
-        url_ignored = url.non_ignored_links == 0
-        if url_ignored:
+        if not url.non_ignored_links:
             ignored_urls.append(url)
         elif url.status:
             valid_urls.append(url)
