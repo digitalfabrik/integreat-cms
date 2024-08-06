@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import math
 from copy import deepcopy
-from operator import itemgetter
 from typing import TYPE_CHECKING
 
 import pytest
@@ -17,6 +16,7 @@ from integreat_cms.cms.models import (
     PageTranslation,
     Region,
 )
+from integreat_cms.cms.views.utils.hix import lookup_hix_score
 from integreat_cms.cms.utils.round_hix_score import round_hix_score
 from integreat_cms.cms.views.utils.hix import (
     get_translation_over_hix_threshold,
@@ -330,3 +330,11 @@ def test_versions_of_hix_page(settings: SettingsWrapper, dummy_region: Region) -
     assert set(get_translation_under_hix_threshold(dummy_region)) == {
         translation_3,
     }
+
+def test_skip_textlab_call_if_html_is_empty() -> None:
+    html = "<p>   </p>"
+
+    result = lookup_hix_score(html)
+
+    assert result is not None
+    assert result["score"] is None
