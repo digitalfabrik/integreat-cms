@@ -251,6 +251,8 @@ class DashboardView(TemplateView, ChatContextMixin):
 
         :return: Dictionary containing the context for translation coverage of pages in a region
         """
+        number_of_outdated_pages = 0
+
         if not self.request.region.default_language:
             return {}
 
@@ -270,9 +272,15 @@ class DashboardView(TemplateView, ChatContextMixin):
             .all()
         )
 
-        number_of_missing_or_outdated_translations = (
+        number_of_missing_translations = (
             possible_translations - published_foreign_translations.count()
         )
+
+        for pagetranslation in published_foreign_translations:
+            if pagetranslation.is_outdated:
+                number_of_outdated_pages += 1
+
         return {
-            "number_of_missing_or_outdated_translations": number_of_missing_or_outdated_translations
+            "number_of_missing_or_outdated_translations": number_of_missing_translations
+            + number_of_outdated_pages
         }
