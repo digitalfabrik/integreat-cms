@@ -91,5 +91,5 @@ class LinkReplaceView(TemplateView):
                 },
             )
         return redirect(
-                "linkcheck_landing",
-            )
+            "linkcheck_landing",
+        )
