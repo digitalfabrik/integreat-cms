@@ -2523,22 +2523,23 @@ msgid "The new passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
 #: cms/models/abstract_content_model.py cms/models/abstract_tree_node.py
-#: cms/models/feedback/feedback.py cms/models/media/directory.py
-#: cms/models/media/media_file.py cms/models/regions/region.py
-#: cms/models/users/organization.py
+#: cms/models/contact/contact.py cms/models/feedback/feedback.py
+#: cms/models/media/directory.py cms/models/media/media_file.py
+#: cms/models/regions/region.py cms/models/users/organization.py
 msgid "region"
 msgstr "Region"
 
-#: cms/models/abstract_content_model.py cms/models/feedback/feedback.py
-#: cms/models/languages/language.py cms/models/languages/language_tree_node.py
-#: cms/models/media/directory.py cms/models/offers/offer_template.py
+#: cms/models/abstract_content_model.py cms/models/contact/contact.py
+#: cms/models/feedback/feedback.py cms/models/languages/language.py
+#: cms/models/languages/language_tree_node.py cms/models/media/directory.py
+#: cms/models/offers/offer_template.py
 #: cms/models/push_notifications/push_notification.py
 #: cms/models/regions/region.py cms/models/users/organization.py
 #: cms/models/users/user_fido_key.py
 msgid "creation date"
 msgstr "Erstellungsdatum"
 
-#: cms/models/abstract_content_translation.py
+#: cms/models/abstract_content_translation.py cms/models/contact/contact.py
 #: cms/models/push_notifications/push_notification_translation.py
 msgid "title"
 msgstr "Titel"
@@ -2612,8 +2613,8 @@ msgstr ""
 "Kreuzen Sie an, wenn diese Änderung keine Aktualisierung der Übersetzungen "
 "in anderen Sprachen erfordert."
 
-#: cms/models/abstract_content_translation.py cms/models/languages/language.py
-#: cms/models/languages/language_tree_node.py
+#: cms/models/abstract_content_translation.py cms/models/contact/contact.py
+#: cms/models/languages/language.py cms/models/languages/language_tree_node.py
 #: cms/models/offers/offer_template.py
 #: cms/models/push_notifications/push_notification_translation.py
 #: cms/models/regions/region.py cms/models/users/organization.py
@@ -2690,6 +2691,47 @@ msgstr "Nutzer-Chat"
 msgid "user chats"
 msgstr "Nutzer-Chats"
 
+#: cms/models/contact/contact.py cms/models/media/directory.py
+#: cms/models/media/media_file.py cms/models/offers/offer_template.py
+#: cms/models/regions/region.py cms/models/users/organization.py
+#: cms/models/users/role.py
+msgid "name"
+msgstr "Name"
+
+#: cms/models/contact/contact.py
+msgid "POI"
+msgstr "Ort"
+
+#: cms/models/contact/contact.py cms/models/pois/poi.py
+msgid "email address"
+msgstr "E-Mail-Adresse"
+
+#: cms/models/contact/contact.py cms/models/pois/poi.py
+msgid "phone number"
+msgstr "Telefonnummer"
+
+#: cms/models/contact/contact.py cms/models/pois/poi.py
+#: cms/models/users/organization.py
+msgid "website"
+msgstr "Webseite"
+
+#: cms/models/contact/contact.py cms/models/events/event.py
+#: cms/models/feedback/feedback.py cms/models/pois/poi.py
+msgid "archived"
+msgstr "archiviert"
+
+#: cms/models/contact/contact.py cms/models/pois/poi.py
+msgid "Whether or not the location is read-only and hidden in the API."
+msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
+
+#: cms/models/contact/contact.py
+msgid "contact"
+msgstr "Kontakt"
+
+#: cms/models/contact/contact.py
+msgid "contacts"
+msgstr "Kontakte"
+
 #: cms/models/events/event.py cms/models/pois/poi.py
 #: cms/models/pois/poi_translation.py
 msgid "location"
@@ -2711,11 +2753,6 @@ msgstr "Wiederholungs-Regel"
 #: cms/models/poi_categories/poi_category.py cms/models/pois/poi.py
 msgid "icon"
 msgstr "Icon"
-
-#: cms/models/events/event.py cms/models/feedback/feedback.py
-#: cms/models/pois/poi.py
-msgid "archived"
-msgstr "archiviert"
 
 #: cms/models/events/event.py
 msgid "copy"
@@ -3135,12 +3172,6 @@ msgstr "Sprach-Knoten"
 #: cms/models/languages/language_tree_node.py
 msgid "language tree nodes"
 msgstr "Sprach-Knoten"
-
-#: cms/models/media/directory.py cms/models/media/media_file.py
-#: cms/models/offers/offer_template.py cms/models/regions/region.py
-#: cms/models/users/organization.py cms/models/users/role.py
-msgid "name"
-msgstr "Name"
 
 #: cms/models/media/directory.py cms/models/media/media_file.py
 msgid "parent directory"
@@ -3563,22 +3594,6 @@ msgstr "Kreuzen Sie an, wenn dieser Ort auf der Karte gezeigt werden soll."
 msgid "The best results are achieved with images in 16:9 aspect ratio."
 msgstr ""
 "Die besten Ergebnisse erzielen Sie mit Bildern im Seitenverhältnis 16:9."
-
-#: cms/models/pois/poi.py
-msgid "Whether or not the location is read-only and hidden in the API."
-msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
-
-#: cms/models/pois/poi.py cms/models/users/organization.py
-msgid "website"
-msgstr "Webseite"
-
-#: cms/models/pois/poi.py
-msgid "email address"
-msgstr "E-Mail-Adresse"
-
-#: cms/models/pois/poi.py
-msgid "phone number"
-msgstr "Telefonnummer"
 
 #: cms/models/pois/poi.py
 msgid "temporarily closed"
@@ -7247,7 +7262,8 @@ msgstr "Ort löschen"
 #: cms/templates/pois/poi_form_sidebar/action_box.html
 msgid "You cannot delete a location which is referenced by an event."
 msgstr ""
-"Der Ort kann nicht gelöscht werden, da er von einer Veranstaltung verwendet wird."
+"Der Ort kann nicht gelöscht werden, da er von einer Veranstaltung verwendet "
+"wird."
 
 #: cms/templates/pois/poi_form_sidebar/action_box.html
 msgid "To delete this location, you have to delete this event first:"
@@ -10772,9 +10788,6 @@ msgstr ""
 
 #~ msgid "Duplicate page translation in XLIFF, skipping"
 #~ msgstr "Doppelte Übersetzung in XLIFF, überspringe"
-
-#~ msgid "POIs"
-#~ msgstr "POIs"
 
 #~ msgid ""
 #~ "To further protect your account you can add additional authentication "
