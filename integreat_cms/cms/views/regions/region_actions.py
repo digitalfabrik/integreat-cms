@@ -16,7 +16,7 @@ from django.views.decorators.http import require_POST
 from linkcheck.listeners import disable_listeners
 
 from ...decorators import permission_required
-from ...models import Page, PushNotification, Region
+from ...models import Contact, Page, PushNotification, Region
 
 if TYPE_CHECKING:
     from typing import Any
@@ -51,7 +51,7 @@ def delete_region(
         messages.error(
             request,
             format_html(
-                "{}<ul class='list-disc pl-4'>{}</ul>",
+                "{}<ul class='pl-4 list-disc'>{}</ul>",
                 _(
                     "Region could not be deleted, because the following pages are mirrored in other regions:"
                 ),
@@ -96,6 +96,8 @@ def delete_region(
     region.events.update(location=None)
     # Prevent ProtectedError when media files get deleted before their usages as organization logo
     region.organizations.all().delete()
+    # Prevent ProtectedError when location gets deleted before their contacts
+    Contact.objects.filter(poi__region=region).delete()
     # Prevent IntegrityError when multiple feedback objects exist
     region.feedback.all().delete()
     # Disable linkchecking while deleting this region
