@@ -90,7 +90,7 @@ def mt_setup(
 content_role_id_combination = [
     (
         Page,
-        PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR],
+        PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
         [28],
     ),
     (
@@ -154,7 +154,22 @@ def test_bulk_mt(
         response = client.post(machine_translation, data={"selected_ids[]": ids})
         print(response.headers)
 
-        if role in entitled_roles:
+        if role == AUTHOR and content_type == Page:
+            assert response.status_code == 302
+            tree = reverse(
+                content_type._meta.default_related_name,
+                kwargs={
+                    "region_slug": REGION_SLUG,
+                    "language_slug": target_language_slug,
+                },
+            )
+            assert response.headers.get("Location") == tree
+            assert_message_in_log(
+                "ERROR    Machine translations are not allowed for the current user or content type",
+                caplog,
+            )
+
+        elif role in entitled_roles:
             # If the role should be allowed to access the view, we expect a successful result
             assert response.status_code == 302
             tree = reverse(
@@ -218,7 +233,7 @@ def test_bulk_mt(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_bulk_mt_exceeds_limit(
@@ -299,7 +314,7 @@ def test_bulk_mt_exceeds_limit(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_bulk_mt_up_to_date(
@@ -367,7 +382,7 @@ def test_bulk_mt_up_to_date(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_bulk_mt_up_to_date_and_ready_for_mt(
@@ -457,7 +472,7 @@ def test_bulk_mt_up_to_date_and_ready_for_mt(
 content_role_id_data_combination = [
     (
         Page,
-        PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR],
+        PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
         4,
         {
             "title": "Neuer Titel",
@@ -564,11 +579,7 @@ def test_automatic_translation(
             + create_or_update: Language.objects.filter(slug=target_language_slug)
             .first()
             .id,
-            "status": (
-                status.REVIEW
-                if content_type is Page and role is AUTHOR
-                else status.PUBLIC
-            ),
+            "status": status.PUBLIC,
         }
     )
 
@@ -580,7 +591,16 @@ def test_automatic_translation(
             **{"data": data},  # noqa: PIE804
         )
 
-        if role in entitled_roles:
+        if role == AUTHOR and content_type == Page:
+            target_language_id = (
+                Language.objects.filter(slug=target_language_slug).first().id
+            )
+            assert_message_in_log(
+                f"ERROR    Update existing translations:: Select a valid choice. {target_language_id} is not one of the available choices.",
+                caplog,
+            )
+
+        elif role in entitled_roles:
             # If the role should be allowed to access the view, we expect a successful result
             translations = get_content_translations(
                 content_type, [content_id], source_language_slug, target_language_slug
@@ -623,7 +643,7 @@ def test_automatic_translation(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_bulk_mt_no_source_language(
@@ -698,7 +718,7 @@ def test_bulk_mt_no_source_language(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_deepl_bulk_mt_no_target_language(

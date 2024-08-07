@@ -49,7 +49,12 @@ class SummAiApiClient(MachineTranslationApiClient):
     SUMM.AI API client to get German pages in Easy German language.
     """
 
-    def __init__(self, request: HttpRequest, form_class: ModelFormMetaclass) -> None:
+    def __init__(
+        self,
+        request: HttpRequest,
+        form_class: ModelFormMetaclass,
+        content: Page | None = None,
+    ) -> None:
         """
         Constructor initializes the class variables
 
@@ -59,7 +64,7 @@ class SummAiApiClient(MachineTranslationApiClient):
         """
         super().__init__(request, form_class)
         if not MachineTranslationProvider.is_permitted(
-            request.region, request.user, form_class._meta.model
+            request.region, request.user, form_class._meta.model, content
         ):
             raise RuntimeError(
                 f'Machine translations are disabled for content type "{form_class._meta.model}" and {request.user!r}.'

@@ -35,7 +35,12 @@ class DeepLApiClient(MachineTranslationApiClient):
     DeepL API client to automatically translate selected objects.
     """
 
-    def __init__(self, request: HttpRequest, form_class: ModelFormMetaclass) -> None:
+    def __init__(
+        self,
+        request: HttpRequest,
+        form_class: ModelFormMetaclass,
+        content: Page | None = None,
+    ) -> None:
         """
         Initialize the DeepL client
 
@@ -45,7 +50,7 @@ class DeepLApiClient(MachineTranslationApiClient):
         """
         super().__init__(request, form_class)
         if not MachineTranslationProvider.is_permitted(
-            request.region, request.user, form_class._meta.model
+            request.region, request.user, form_class._meta.model, content
         ):
             raise RuntimeError(
                 f'Machine translations are disabled for content type "{form_class._meta.model}" and {request.user!r}.'

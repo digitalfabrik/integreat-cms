@@ -139,7 +139,10 @@ class MachineTranslationProvider(metaclass=MachineTranslationProviderType):
 
     @staticmethod
     def is_permitted(
-        region: Region, user: SimpleLazyObject, content_type: ModelBase
+        region: Region,
+        user: SimpleLazyObject,
+        content_type: ModelBase,
+        content: Page | None = None,
     ) -> bool:
         """
         Checks if a machine translation is permitted, i.e. if for the
@@ -149,11 +152,11 @@ class MachineTranslationProvider(metaclass=MachineTranslationProviderType):
         :param region: The current region
         :param user: The current user
         :param content_type: The content model which should be translated
+        :param content: The content which should be translated
         :return: Whether the translation is permitted
         """
         foreign_field = content_type.foreign_field()
         mt_perms_setting = getattr(region, f"machine_translate_{foreign_field}s")
-        required_perm = f"cms.change_{foreign_field}"
 
         if mt_perms_setting == mt_perms.NO_ONE:
             logger.debug(
@@ -173,7 +176,19 @@ class MachineTranslationProvider(metaclass=MachineTranslationProviderType):
             )
             return False
 
-        if not user.has_perm(required_perm):
+        if (
+            foreign_field == "page"
+            and not content
+            and not user.has_perm("cms.publish_page")
+        ) or (content and not user.has_perm("cms.publish_page_object", content)):
+            logger.debug(
+                "Machine translations are only permitted for content type %r for users with the publish permission.",
+                content_type,
+            )
+            return False
+
+        required_perm = f"cms.change_{foreign_field}"
+        if not foreign_field == "page" and not user.has_perm(required_perm):
             logger.debug(
                 "Machine translations are only permitted for content type %r in %r for users with the permission %r.",
                 content_type,

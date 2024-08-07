@@ -13,7 +13,9 @@ import pytest
 from django.apps import apps
 from django.urls import reverse
 
-from ..conftest import AUTHOR, EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
+from integreat_cms.cms.models import Page
+
+from ..conftest import EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 from ..utils import assert_message_in_log
 
 if TYPE_CHECKING:
@@ -60,7 +62,10 @@ class FakeClient:
 
 
 def setup_fake_google_translate_api(  # type: ignore[no-untyped-def]
-    self, request: HttpRequest, form_class: ModelFormMetaclass
+    self,
+    request: HttpRequest,
+    form_class: ModelFormMetaclass,
+    content: Page | None = None,
 ) -> None:
     """
     Setup a fake for Google Translate API
@@ -68,6 +73,7 @@ def setup_fake_google_translate_api(  # type: ignore[no-untyped-def]
     :param request: The current request
     :param form_class: The :class:`~integreat_cms.cms.forms.custom_content_model_form.CustomContentModelForm`
                        subclass of the current content type
+    :param content: The content which should be translated
     """
 
     self.request = request
@@ -80,7 +86,7 @@ def setup_fake_google_translate_api(  # type: ignore[no-untyped-def]
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
 )
 def test_google_translate_error(
     login_role_user: tuple[Client, str],

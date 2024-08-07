@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 from ...core.utils.machine_translation_provider import MachineTranslationProvider
 from ...textlab_api.utils import check_hix_score
-from ..models import LanguageTreeNode
+from ..models import LanguageTreeNode, PageTranslation
 from .custom_content_model_form import CustomContentModelForm
 
 logger = logging.getLogger(__name__)
@@ -63,8 +63,13 @@ class MachineTranslationForm(CustomContentModelForm):
             )
             return
 
+        content = (
+            self.instance.page
+            if self._meta.model == PageTranslation and self.instance.id
+            else None
+        )
         if not MachineTranslationProvider.is_permitted(
-            self.request.region, self.request.user, self._meta.model
+            self.request.region, self.request.user, self._meta.model, content
         ):
             return
 
@@ -134,6 +139,9 @@ class MachineTranslationForm(CustomContentModelForm):
         language_nodes = self.cleaned_data["mt_translations_to_create"].union(
             self.cleaned_data["mt_translations_to_update"]
         )
+        content = (
+            self.instance.page if isinstance(self.instance, PageTranslation) else None
+        )
         if commit and language_nodes and check_hix_score(self.request, self.instance):
             for language_node in language_nodes:
                 logger.debug(
@@ -143,7 +151,7 @@ class MachineTranslationForm(CustomContentModelForm):
                     self.instance,
                 )
                 api_client = language_node.mt_provider.api_client(
-                    self.request, type(self)
+                    self.request, type(self), content
                 )
                 # Invalidate cached property to take new version into account
                 self.instance.foreign_object.invalidate_cached_translations()
