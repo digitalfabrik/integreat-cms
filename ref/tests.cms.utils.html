@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-08-05T07:10:06+00:00" />
+    <meta property="article:modified_time" content="2024-08-07T12:20:56+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2024.8.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -420,6 +420,7 @@
 <li class="toctree-l2 current"><a class="reference internal" href="tests.cms.html">CMS</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#test-content-utils">Test Content Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test-disable-hix-post-save-signal">Test Disable Hix Post Save Signal</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#test-internal-link-checker">Test Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#test-rounded-hix-value">Test Rounded Hix Value</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#test-slug-utils">Test Slug Utils</a></li>
@@ -1379,6 +1380,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.cms.html">CMS</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.cms.utils.html">Utils</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_content_utils">Test Content Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_disable_hix_post_save_signal">Test Disable Hix Post Save Signal</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_internal_link_checker">Test Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_rounded_hix_value">Test Rounded Hix Value</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_slug_utils">Test Slug Utils</a></li>
@@ -1598,6 +1600,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref-ext/tests.html#module-tests.utils">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.utils.assert_message_in_log"><code class="docutils literal notranslate"><span class="pre">assert_message_in_log()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.utils.assert_no_error_messages"><code class="docutils literal notranslate"><span class="pre">assert_no_error_messages()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.utils.disable_hix_post_save_signal"><code class="docutils literal notranslate"><span class="pre">disable_hix_post_save_signal()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.utils.get_error_messages"><code class="docutils literal notranslate"><span class="pre">get_error_messages()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.html#tests.utils.get_messages"><code class="docutils literal notranslate"><span class="pre">get_messages()</span></code></a></li>
 </ul>
@@ -1997,6 +2000,26 @@
 <section id="test-content-utils">
 <h2>Test Content Utils<a class="headerlink" href="#test-content-utils" title="Link to this heading"></a></h2>
 </section>
+<section id="test-disable-hix-post-save-signal">
+<h2>Test Disable Hix Post Save Signal<a class="headerlink" href="#test-disable-hix-post-save-signal" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_disable_hix_post_save_signal.</span></span><span class="sig-name descname"><span class="pre">dummy_region</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">django_db_setup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">django_db_blocker</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_DatabaseBlocker</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><span class="pre">Region</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_disable_hix_post_save_signal.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Fixture to create a dummy region, along with a dummy language.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>django_db_setup</strong> (<em>None</em>)</p></li>
+<li><p><strong>django_db_blocker</strong> (<em>_DatabaseBlocker</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region">Region</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="test-internal-link-checker">
 <h2>Test Internal Link Checker<a class="headerlink" href="#test-internal-link-checker" title="Link to this heading"></a></h2>
 <dl class="py function">
@@ -2189,7 +2212,7 @@ text while preserving the link tags</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 05, 2024.
+      <span class="lastupdated">Last updated on Aug 07, 2024.
       </span></p>
   </div>
 
