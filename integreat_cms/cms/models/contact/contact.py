@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from ..abstract_base_model import AbstractBaseModel
@@ -15,9 +16,6 @@ class Contact(AbstractBaseModel):
     title = models.CharField(max_length=200, verbose_name=_("title"))
     name = models.CharField(max_length=200, verbose_name=_("name"))
     poi = models.ForeignKey(POI, on_delete=models.PROTECT, verbose_name=_("POI"))
-    region = models.ForeignKey(
-        Region, on_delete=models.CASCADE, verbose_name=_("region")
-    )
     email = models.EmailField(
         blank=True,
         verbose_name=_("email address"),
@@ -38,6 +36,15 @@ class Contact(AbstractBaseModel):
     created_date = models.DateTimeField(
         default=timezone.now, verbose_name=_("creation date")
     )
+
+    @cached_property
+    def region(self) -> Region:
+        """
+        Returns the region this contact belongs to
+
+        :return: Region this contact belongs to
+        """
+        return self.poi.region
 
     def __str__(self) -> str:
         """

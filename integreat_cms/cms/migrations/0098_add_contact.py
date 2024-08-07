@@ -71,14 +71,6 @@ class Migration(migrations.Migration):
                         verbose_name="POI",
                     ),
                 ),
-                (
-                    "region",
-                    models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
-                        to="cms.region",
-                        verbose_name="region",
-                    ),
-                ),
             ],
             options={
                 "verbose_name": "contact",
