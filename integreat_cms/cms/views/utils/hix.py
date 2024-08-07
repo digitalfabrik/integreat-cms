@@ -15,6 +15,8 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 
+from integreat_cms.cms.models.pages.page_translation import PageTranslation
+from integreat_cms.cms.models.regions.region import Region
 from integreat_cms.cms.utils.round_hix_score import round_hix_score
 
 from ....api.decorators import json_response
@@ -23,6 +25,7 @@ from ....textlab_api.textlab_api_client import TextlabClient
 if TYPE_CHECKING:
     from typing import Final
 
+    from django.db.models.query import QuerySet
     from django.http import HttpRequest
 
 logger = logging.getLogger(__name__)
@@ -104,3 +107,54 @@ def get_hix_score(request: HttpRequest, region_slug: str) -> JsonResponse:
         )
 
     return JsonResponse({"error": "Could not retrieve hix score"})
+
+
+def get_translations_relevant_to_hix(region: Region) -> QuerySet:
+    """
+    Get page translations for a region sorted by hix score.
+
+    :param region: The region for which to get all of the translations
+    """
+    if not settings.TEXTLAB_API_ENABLED or not region.hix_enabled:
+        return PageTranslation.objects.none()
+
+    return PageTranslation.objects.filter(
+        id__in=(
+            PageTranslation.objects.filter(
+                language__slug__in=settings.TEXTLAB_API_LANGUAGES,
+                page__in=region.get_pages().filter(hix_ignore=False),
+            ).distinct("page_id", "language_id")
+        )
+    ).order_by("hix_score")
+
+
+HIX_ROUNDING_PRECISION = 0.01
+ACTUAL_RAW_HIX_SCORE_THRESHOLD = (
+    settings.HIX_REQUIRED_FOR_MT - HIX_ROUNDING_PRECISION / 2
+)
+
+
+def get_translation_under_hix_threshold(
+    region: Region,
+) -> QuerySet:
+    """
+    Filter page translations which are under the hix threshold
+
+    :param region: The region for which to get all of the translations
+    """
+    return get_translations_relevant_to_hix(
+        region=region,
+    ).filter(hix_score__lt=ACTUAL_RAW_HIX_SCORE_THRESHOLD)
+
+
+def get_translation_over_hix_threshold(
+    region: Region,
+) -> QuerySet:
+    """
+    Filter page translations which are over the hix threshold
+
+    :param region: The region for which to get all of the translations
+    """
+    return get_translations_relevant_to_hix(region=region).filter(
+        hix_score__gte=ACTUAL_RAW_HIX_SCORE_THRESHOLD
+    )
