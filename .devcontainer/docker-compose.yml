@@ -2,11 +2,15 @@ version: "3.8"
 
 services:
   devcontainer:
+    env_file: ./.env
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
       - ..:/workspace:cached
+      - type: bind
+        source: ${INTEGREAT_CMS_CONFIG:-}
+        target: /etc/integreat-cms.ini
     network_mode: service:db
     depends_on:
       - db
