@@ -1,0 +1,65 @@
+{% load i18n %}
+{% load content_filters %}
+<div class="table-listing w-full px-4 pb-4">
+    <div>
+        <label>
+            {{ table_title }}
+        </label>
+    </div>
+    <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+        <thead>
+            <tr class="border-b border-solid border-gray-200">
+                <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                    {% translate "Name in " %} {{ region_default_language.translated_name }}
+                </th>
+                {% if region_default_language != backend_language %}
+                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                        {% translate "Name in " %} {{ backend_language.translated_name }}
+                    </th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for content in contents %}
+                {% get_translation content region_default_language.slug as content_translation %}
+                {% get_translation content backend_language.slug as backendlang_content_translation %}
+                <tr class="border-b border-solid border-gray-200 hover:bg-gray-100">
+                    {% if content_translation %}
+                        <td class="text-sm text-left py-3 pl-4 pr-2">
+                            <a href="{{ content_translation.backend_edit_link }}"
+                               class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
+                               title="{% translate "View content" %}">
+                                {{ content_translation.title }}
+                            </a>
+                        </td>
+                    {% else %}
+                        <td class="text-sm text-left py-3 pl-4 pr-2">
+                            <i>{% translate "Translation not available" %}</i>
+                        </td>
+                    {% endif %}
+                    {% if region_default_language != backend_language %}
+                        {% if backendlang_content_translation %}
+                            <td class="text-sm text-left py-3 pl-4 pr-2">
+                                <a href="{{ backendlang_content_translation.backend_edit_link }}"
+                                   class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
+                                   title="{% translate "View content" %}">
+                                    {{ backendlang_content_translation.title }}
+                                </a>
+                            </td>
+                        {% else %}
+                            <td class="text-sm text-left py-3 pl-4 pr-2">
+                                <i>{% translate "Translation not available" %}</i>
+                            </td>
+                        {% endif %}
+                    {% endif %}
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2" class="px-4 py-3">
+                        {% trans no_content_message %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

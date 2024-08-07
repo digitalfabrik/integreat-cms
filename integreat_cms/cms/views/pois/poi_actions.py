@@ -42,10 +42,15 @@ def archive_poi(
     """
     poi = POI.objects.get(id=poi_id)
 
-    poi.archive()
-
-    logger.debug("%r archived by %r", poi, request.user)
-    messages.success(request, _("Location was successfully archived"))
+    if poi.events.count() > 0:
+        messages.error(
+            request,
+            _("This location cannot be archived because it is referenced by an event."),
+        )
+    else:
+        poi.archive()
+        logger.debug("%r archived by %r", poi, request.user)
+        messages.success(request, _("Location was successfully archived"))
 
     return redirect(
         "pois",

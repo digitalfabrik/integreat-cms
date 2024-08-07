@@ -4,7 +4,6 @@ import asyncio
 import logging
 import re
 from datetime import date, datetime
-from itertools import cycle
 from typing import TYPE_CHECKING
 from urllib.parse import urlencode
 
@@ -12,7 +11,7 @@ import aiohttp
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
-from ..cms.constants import colors, matomo_periods
+from ..cms.constants import language_color, matomo_periods
 
 if TYPE_CHECKING:
     import sys
@@ -57,6 +56,7 @@ class MatomoApiClient:
 
         :param region: The region this Matomo API Manager connects to
         """
+        self.region_slug = region.slug
         self.region_name = region.name
         self.matomo_token = region.matomo_token
         self.matomo_id = region.matomo_id
@@ -210,7 +210,8 @@ class MatomoApiClient:
                 "datasets": [
                     {
                         "label": _("Total Accesses"),
-                        "borderColor": colors.DEFAULT,
+                        "backgroundColor": language_color.TOTAL_ACCESS,
+                        "borderColor": language_color.TOTAL_ACCESS,
                         "data": list(dataset.values()),
                     }
                 ],
@@ -247,7 +248,7 @@ class MatomoApiClient:
                     self.fetch(
                         session,
                         **query_params,
-                        segment=f"pageUrl=@/{language.slug}/wp-json/extensions/v3/",
+                        segment=f"pageUrl=@/{language.slug}/wp-json/extensions/v3/,pageUrl=@/api/v3/{self.region_slug}/{language.slug}/",
                     )
                 )
                 for language in languages
@@ -258,7 +259,7 @@ class MatomoApiClient:
                     self.fetch(
                         session,
                         **query_params,
-                        segment="pageUrl=@/wp-json/extensions/v3/pages",
+                        segment="pageUrl=@/wp-json/extensions/v3/pages,pageUrl=$/pages/",
                     ),
                 )
             )
@@ -266,9 +267,7 @@ class MatomoApiClient:
             tasks.append(
                 loop.create_task(
                     self.fetch(
-                        session,
-                        **query_params,
-                        segment="pageUrl=@/wp-json/extensions/v3/children",
+                        session, **query_params, segment="pageUrl=@/children/?depth"
                     ),
                 )
             )
@@ -324,8 +323,6 @@ class MatomoApiClient:
         # Convert languages to a list to force an evaluation in the sync function
         # (in Django, database queries cannot be executed in async functions without more ado)
         languages = list(self.languages)
-        # Convert colors to cycle to make sure it doesn't run out of elements if there are more languages than colors
-        color_cycle = cycle(colors.CHOICES)
 
         # Initialize async event loop
         loop = asyncio.new_event_loop()
@@ -355,7 +352,8 @@ class MatomoApiClient:
                 [
                     {
                         "label": language.translated_name,
-                        "borderColor": next(color_cycle),
+                        "backgroundColor": language.language_color,
+                        "borderColor": language.language_color,
                         "data": list(dataset.values()),
                     }
                     # zip aggregates two lists into tuples, e.g. zip([1,2,3], [4,5,6])=[(1,4), (2,5), (3,6)]
@@ -366,7 +364,8 @@ class MatomoApiClient:
                 + [
                     {
                         "label": _("Offline Accesses"),
-                        "borderColor": next(color_cycle),
+                        "backgroundColor": language_color.OFFLINE_ACCESS,
+                        "borderColor": language_color.OFFLINE_ACCESS,
                         "data": list(offline_downloads.values()),
                     }
                 ]
@@ -374,7 +373,8 @@ class MatomoApiClient:
                 + [
                     {
                         "label": _("WebApp Accesses"),
-                        "borderColor": next(color_cycle),
+                        "backgroundColor": language_color.WEB_APP_ACCESS,
+                        "borderColor": language_color.WEB_APP_ACCESS,
                         "data": list(webapp_downloads.values()),
                     }
                 ]
@@ -382,7 +382,8 @@ class MatomoApiClient:
                 + [
                     {
                         "label": _("Total Accesses"),
-                        "borderColor": colors.DEFAULT,
+                        "backgroundColor": language_color.TOTAL_ACCESS,
+                        "borderColor": language_color.TOTAL_ACCESS,
                         "data": list(total_visits.values()),
                     }
                 ],

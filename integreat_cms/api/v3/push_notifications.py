@@ -57,11 +57,16 @@ def transform_notification(pnt: PushNotificationTranslation) -> dict[str, Any]:
     :param pnt: A push notification translation
     :return: data necessary for API
     """
+    available_languages_dict = {
+        translation.language.slug: {"id": translation.id}
+        for translation in pnt.push_notification.translations.all()
+    }
     return {
-        "id": str(pnt.pk),
+        "id": pnt.pk,
         "title": pnt.get_title(),
         "message": pnt.get_text(),
         "timestamp": pnt.last_updated,  # deprecated field in the future
         "last_updated": timezone.localtime(pnt.last_updated),
         "channel": pnt.push_notification.channel,
+        "available_languages": available_languages_dict,
     }

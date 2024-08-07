@@ -27,6 +27,7 @@ import "./js/copy-clipboard";
 import "./js/bulk-actions";
 import "./js/conditional-fields";
 import "./js/confirmation-popups";
+import "./js/language-tabs";
 import "./js/machine-translation-overlay";
 import "./js/revisions";
 import "./js/search-query";
@@ -36,6 +37,7 @@ import "./js/forms/update-permalink";
 import "./js/forms/distribute-sidebar-boxes";
 
 import "./js/languages/country-flag-fields";
+import "./js/languages/language-color-fields";
 
 import "./js/regions/conditional-fields";
 import "./js/regions/fake-disabled-checkboxes";
@@ -100,6 +102,7 @@ import "./js/pois/opening-hours/index";
 import "./js/menu";
 
 import "./js/poi-categories/poicategory-colors-icons";
+import "./js/dashboard/broken-links";
 
 // IE11: fetch
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */

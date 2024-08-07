@@ -280,6 +280,25 @@ VIEWS: ViewConfig = [
     ),
     (
         [
+            ("dashboard", STAFF_ROLES),
+            ("languagetreenodes", STAFF_ROLES),
+            ("media", STAFF_ROLES),
+            ("mediacenter_directory_path", STAFF_ROLES),
+            ("mediacenter_get_directory_content", STAFF_ROLES),
+            ("new_region_user", STAFF_ROLES),
+            ("region_feedback", STAFF_ROLES),
+            ("region_users", STAFF_ROLES),
+            ("organizations", STAFF_ROLES),
+            ("new_organization", STAFF_ROLES),
+            ("translation_coverage", STAFF_ROLES),
+            ("user_settings", STAFF_ROLES),
+            ("authenticate_modify_mfa", STAFF_ROLES),
+        ],
+        # The kwargs for these views
+        {"region_slug": "empty-region"},
+    ),
+    (
+        [
             ("sitemap:region_language", ALL_ROLES),
             ("archived_pages", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
             ("archived_pois", ROLES),
@@ -582,6 +601,7 @@ VIEWS: ViewConfig = [
                 json.dumps(
                     {
                         "title": "Slugify event",
+                        "model_id": 1,
                     }
                 ),
             ),
@@ -596,6 +616,7 @@ VIEWS: ViewConfig = [
                 json.dumps(
                     {
                         "title": "Slugify poi",
+                        "model_id": 4,
                     }
                 ),
             ),
@@ -610,6 +631,7 @@ VIEWS: ViewConfig = [
                 json.dumps(
                     {
                         "title": "Slugify page",
+                        "model_id": 1,
                     }
                 ),
             ),
@@ -814,7 +836,9 @@ VIEWS: ViewConfig = [
                     "bcp47_tag": "de-de",
                     "text_direction": "LEFT_TO_RIGHT",
                     "table_of_contents": "Inhaltsverzeichnis",
+                    "social_media_webapp_title": "Integreat | Web-App | Lokale Informationen für dich",
                     "primary_country_code": "de",
+                    "language_color": "#FF4500",
                     "message_content_not_available": "Foo1",
                     "message_partial_live_content_not_available": "Foo2",
                 },
@@ -1728,6 +1752,37 @@ REDIRECT_VIEWS: Final[RedirectViewConfig] = [
         ],
         # The kwargs for these views
         {"region_slug": "augsburg"},
+    ),
+    (
+        [
+            (
+                "pages",
+                STAFF_ROLES,
+                reverse("languagetreenodes", kwargs={"region_slug": "empty-region"}),
+            ),
+            (
+                "events",
+                STAFF_ROLES,
+                reverse("languagetreenodes", kwargs={"region_slug": "empty-region"}),
+            ),
+            (
+                "pois",
+                STAFF_ROLES,
+                reverse("languagetreenodes", kwargs={"region_slug": "empty-region"}),
+            ),
+            (
+                "push_notifications",
+                STAFF_ROLES,
+                reverse("languagetreenodes", kwargs={"region_slug": "empty-region"}),
+            ),
+            (
+                "edit_imprint",
+                STAFF_ROLES,
+                reverse("languagetreenodes", kwargs={"region_slug": "empty-region"}),
+            ),
+        ],
+        # The kwargs for these views
+        {"region_slug": "empty-region"},
     ),
     (
         [

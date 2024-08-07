@@ -12,6 +12,8 @@ from django.contrib import messages
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
+    from typing import Any
+
     from django.http import HttpRequest
 
     from integreat_cms.cms.models.events.event_translation import EventTranslation
@@ -66,3 +68,57 @@ def check_hix_score(
         source_translation,
     )
     return True
+
+
+# Mapping between fields in Textlab API response containing feedback data
+# and the corresponding category names used in the CMS
+textlab_api_feedback_categories = {
+    "moreSentencesInClauses": "nested-sentences",
+    "moreSentencesInWords": "long-sentences",
+    "moreWordsInLetters": "long-words",
+    "countPassiveVoiceInSentence": "passive-voice-sentences",
+    "countInfinitiveConstructions": "infinitive-constructions",
+    "countNominalStyle": "nominal-sentences",
+    "countFutureTenseInSentence": "future-tense-sentences",
+}
+
+
+def format_hix_feedback(response: dict) -> list[dict[str, Any]]:
+    """
+    Format HIX feedback from Textlab, so it can be well handled in the front end
+
+    :param response: The response from the Textlab
+
+    :return: count for each feedback category
+    """
+    feedback_details = [
+        {"category": cms_name, "result": len(response.get(textlab_name, []))}
+        for textlab_name, cms_name in textlab_api_feedback_categories.items()
+    ]
+
+    abbreviations_total = 0
+    if abbreviations := dict_path(response, ["dataTerms", "1289", "result"]):
+        abbreviations_total = sum(len(i.get("length")) for i in abbreviations)
+    feedback_details.append(
+        {
+            "category": "abbreviations",
+            "result": abbreviations_total,
+        }
+    )
+    return feedback_details
+
+
+def dict_path(data: dict, path: list[str]) -> Any:
+    """
+    Resolves a path in the given data dictionary and returns the value
+    :param data: The data dictionary to get the value from
+    :param path: The path to lookup
+    :return: The result of the lookup in the dictionary
+    """
+    match path:
+        case []:
+            return data
+        case [first, *rest]:
+            if not (value := data.get(first)):
+                return value
+            return dict_path(value, rest)

@@ -161,6 +161,11 @@ if BRANDING not in AVAILABLE_BRANDINGS:
 #: The readable title of the branding
 BRANDING_TITLE: Final[str] = AVAILABLE_BRANDINGS[BRANDING]
 
+#: Social media preview image
+SOCIAL_PREVIEW_IMAGE: Final[str] = os.environ.get(
+    "INTEGREAT_SOCIAL_PREVIEW_IMAGE",
+    f"static/logos/{BRANDING}/social-media-preview.png",
+)
 
 #: The default bounding box for regions with indistinct borders
 DEFAULT_BOUNDING_BOX: Final[BoundingBox] = BoundingBox(
@@ -221,6 +226,11 @@ FCM_SCHEDULE_INTERVAL_MINUTES: Final[int] = int(
 assert (
     not 60 % FCM_SCHEDULE_INTERVAL_MINUTES
 ), "Interval must be <= 60 and a divisor of 60"
+
+#: Duration (in hours) that we retain pending push notifications for retry attempts before discarding them
+FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS: Final[int] = int(
+    os.environ.get("INTEGREAT_CMS_NOTIFICATION_RETAIN_TIME_IN_HOURS", 24)
+)
 
 ###########
 # GVZ API #
@@ -418,7 +428,7 @@ ROOT_URLCONF: Final[str] = "integreat_cms.core.urls"
 TEMPLATES: Final[list[dict[str, str | list | bool | dict[str, list[str] | bool]]]] = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, "api/v3/templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -1240,6 +1250,12 @@ PDF_ROOT: Final[str] = os.environ.get(
 PDF_URL: Final[str] = "/pdf/"
 
 
+#: Slugs of languages for which PDF export should be deactivated
+PDF_DEACTIVATED_LANGUAGES: Final[str | list[str]] = os.environ.get(
+    "INTEGREAT_CMS_PDF_DEACTIVATED_LANGUAGES", []
+)
+
+
 #######################
 # XLIFF SERIALIZATION #
 #######################
@@ -1292,3 +1308,16 @@ DB_MUTEX_TTL_SECONDS: Final[int] = 60
 
 #: Days after which a page is considered to be outdated in the todo dashboard
 OUTDATED_THRESHOLD_DAYS: Final[int] = 365
+
+############
+# Chat API #
+############
+
+#: Size of the sliding window used for rate limiting
+USER_CHAT_WINDOW_MINUTES: Final[int] = 10
+
+#: Maximum number of requests users are allowed to send within WINDOW_MINUTES minutes
+USER_CHAT_WINDOW_LIMIT: Final[int] = 50
+
+#: Zammad ticket group used for Integreat chat messages
+USER_CHAT_TICKET_GROUP: Final[str] = "integreat-chat"

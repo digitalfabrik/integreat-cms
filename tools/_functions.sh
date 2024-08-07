@@ -370,6 +370,15 @@ function ensure_webpack_bundle_exists {
     echo "✔ Webpack bundle is in place" | print_success
 }
 
+function ensure_node_modules_exist {
+    if [ ! -d "${BASE_DIR}/node_modules" ]; then
+        echo "Missing node_modules - please run ./tools/install.sh" | print_error
+        exit 1
+    else
+        echo "✔ node_modules is in place" | print_info
+    fi
+}
+
 # This function makes sure a postgres database docker container is running
 function ensure_docker_container_running {
     # Make sure script has the permission to run docker
@@ -404,6 +413,11 @@ function require_database {
 
         # Set default settings for other dev tools, e.g. testing
         export DJANGO_SETTINGS_MODULE="integreat_cms.core.settings"
+    elif command -v pg-start > /dev/null; then
+        # Execute the database reset script provided by the flake.nix file
+        pg-start
+        # Import test data
+        bash "${DEV_TOOL_DIR}/loadtestdata.sh"
     else
         # Set docker settings
         export DJANGO_SETTINGS_MODULE="integreat_cms.core.docker_settings"

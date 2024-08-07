@@ -124,13 +124,13 @@ with :github-source:`tools/integreat-cms-cli`::
 Code Quality
 ============
 
-Automatically sort python import statements with :github-source:`tools/isort.sh`::
-
-    ./tools/isort.sh
-
 Automatically apply our python style with :github-source:`tools/black.sh`::
 
     ./tools/black.sh
+
+Automatically run python linting with :github-source:`tools/ruff.sh`::
+
+    ./tools/ruff.sh
 
 Automatically apply our CSS/JS style with :github-source:`tools/prettier.sh`::
 

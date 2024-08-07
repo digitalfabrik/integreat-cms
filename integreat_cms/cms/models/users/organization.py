@@ -64,12 +64,12 @@ class Organization(AbstractBaseModel):
         return f"<Organization (id: {self.id}, slug: {self.slug}, region: {self.region.slug})>"
 
     @property
-    def num_pages(self) -> int:
+    def num_contents(self) -> int:
         """
 
         :return: the current number of maintained pages of an organization object
         """
-        return self.pages.count()
+        return self.pages.count() + self.pois.count()
 
     @property
     def num_members(self) -> int:

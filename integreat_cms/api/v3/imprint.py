@@ -14,6 +14,7 @@ from django.utils.html import strip_tags
 
 if TYPE_CHECKING:
     from typing import Any
+
     from django.http import HttpRequest
 
     from ...cms.models.pages.imprint_page_translation import ImprintPageTranslation

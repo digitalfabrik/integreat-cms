@@ -12,8 +12,8 @@ from typing import TYPE_CHECKING
 from django import forms
 
 if TYPE_CHECKING:
-    from ..models.events.event import EventQuerySet
     from ..models import Region
+    from ..models.events.event import EventQuerySet
 
 from ...constants import all_day, events_time_range, recurrence
 from ...models import EventTranslation

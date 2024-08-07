@@ -7,6 +7,7 @@ from django.db import models
 
 if TYPE_CHECKING:
     from typing import Any
+
     from django.db.models.base import ModelBase
 
 from django.utils.translation import gettext_lazy as _

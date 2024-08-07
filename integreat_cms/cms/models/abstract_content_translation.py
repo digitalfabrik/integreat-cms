@@ -1,17 +1,26 @@
 from __future__ import annotations
 
+import logging
+from html import escape
 from typing import TYPE_CHECKING
 
 from django.conf import settings
-from django.db import models
+from django.db import models, transaction
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+from linkcheck.listeners import disable_listeners
+
+from ..utils.tinymce_icon_utils import get_icon_html, make_icon
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable
     from typing import Any, Literal
+
     from django.db.models.query import QuerySet
+    from lxml.html import Element
+
     from .abstract_content_model import AbstractContentModel
     from .regions.region import Region
 
@@ -20,6 +29,8 @@ from ..utils.round_hix_score import round_hix_score
 from ..utils.translation_utils import gettext_many_lazy as __
 from .abstract_base_model import AbstractBaseModel
 from .languages.language import Language
+
+logger = logging.getLogger(__name__)
 
 
 # pylint: disable=too-many-public-methods
@@ -531,12 +542,46 @@ class AbstractContentTranslation(AbstractBaseModel):
         Whether this translation has a sufficient HIX value for machine translations.
         If it is ``None``, machine translations are allowed by default.
 
-        :return: Wether the HIX value is sufficient for MT
+        :return: Whether the HIX value is sufficient for MT
         """
         return (
             self.hix_score is None
             or self.rounded_hix_score >= settings.HIX_REQUIRED_FOR_MT
         )
+
+    @staticmethod
+    def default_icon() -> str | None:
+        """
+        Returns the default icon that should be used for this content translation type, or None for no icon
+        """
+        return None
+
+    @cached_property
+    def link_title(self) -> Element | str:
+        """
+        This property returns the html that should be used as a title for a link to this translation
+
+        :return: The link content
+        """
+        foreign_object = self.foreign_object
+        if icon := getattr(foreign_object, "icon", None):
+            if url := icon.thumbnail_url:
+                img = make_icon(url)
+                img.tail = self.title
+                return img
+
+        if icon_name := self.default_icon():
+            img = get_icon_html(icon_name)
+            img.tail = self.title
+            return img
+
+        return escape(str(self))
+
+    def get_all_used_slugs(self) -> Iterable[str]:
+        """
+        :return: All slugs that have been used by at least on version of this translation
+        """
+        return self.all_versions.values_list("slug", flat=True)
 
     def __str__(self) -> str:
         """
@@ -578,6 +623,62 @@ class AbstractContentTranslation(AbstractBaseModel):
         if kwargs.pop("update_timestamp", True):
             self.last_updated = timezone.now()
         super().save(*args, **kwargs)
+
+    @transaction.atomic
+    def cleanup_autosaves(self) -> None:
+        """
+        Delete all ``AUTO_SAVE`` translations older than the second last manual save
+        and renumber all affected versions to be continuous.
+        """
+        logger.debug("Cleaning up old autosaves")
+
+        try:
+            second_last_manual_save = (
+                self.foreign_object.translations.filter(language=self.language).exclude(
+                    status=status.AUTO_SAVE
+                )
+            )[1]
+
+            delete_auto_saves = list(
+                self.foreign_object.translations.filter(
+                    language=self.language,
+                    status=status.AUTO_SAVE,
+                    version__lt=second_last_manual_save.version,
+                )
+            )
+
+        except IndexError:
+            delete_auto_saves = []
+
+        if not delete_auto_saves:
+            logger.debug("Nothing to clean up")
+            return
+
+        logger.debug("Deleting autosaves: %r", delete_auto_saves)
+        first_deleted_version = delete_auto_saves[-1].version
+        self.foreign_object.translations.filter(
+            id__in=[t.id for t in delete_auto_saves]
+        ).delete()
+
+        # Get all versions which have now outdated version numbers and lock the database rows
+        remaining_versions = (
+            self.foreign_object.translations.select_for_update()
+            .filter(language=self.language, version__gt=first_deleted_version)
+            .order_by("version")
+        )
+        logger.debug("Remaining versions: %r", remaining_versions)
+
+        # Disable linkcheck listeners to prevent links to be created for outdated versions
+        with disable_listeners():
+            # Make version numbers continuous
+            for new_version, translation in enumerate(
+                remaining_versions, start=first_deleted_version
+            ):
+                logger.debug("Fixing version %s → %s", translation.version, new_version)
+                translation.version = new_version
+                if new_version == 1:
+                    translation.minor_edit = False
+                translation.save(update_timestamp=False)
 
     class Meta:
         #: This model is an abstract base class

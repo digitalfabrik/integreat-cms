@@ -11,12 +11,12 @@ window.addEventListener("load", () => {
                 document.querySelectorAll(".time-field").forEach((node) => {
                     // get plain javascript object of time input field
                     const timeInputField = node.querySelector("input");
-                    // only change behaviour when value is empty
+                    // remove required attribute
+                    timeInputField.removeAttribute("required");
+                    // check if value is empty
                     if (!timeInputField.getAttribute("value")) {
                         // remove empty value attribute because it is no valid time value'
                         timeInputField.removeAttribute("value");
-                        // remove required attribute
-                        timeInputField.removeAttribute("required");
                     }
                     // hide input field
                     node.classList.add("hidden");
@@ -25,12 +25,16 @@ window.addEventListener("load", () => {
                 document.querySelectorAll(".time-field").forEach((node) => {
                     // show input field
                     node.classList.remove("hidden");
-                    // clear value
-                    /* eslint-disable-next-line no-param-reassign */
-                    node.querySelector("input").value = "";
+                    // get plain javascript object of time input field
+                    const timeInputField = node.querySelector("input");
                     // make field required
                     /* eslint-disable-next-line no-param-reassign */
-                    node.querySelector("input").required = true;
+                    timeInputField.required = true;
+                    if (!timeInputField.getAttribute("value")) {
+                        // clear value
+                        /* eslint-disable-next-line no-param-reassign */
+                        timeInputField.value = "";
+                    }
                 });
             }
         });
@@ -62,6 +66,19 @@ window.addEventListener("load", () => {
     if (recurrenceEndData) {
         recurrenceEndData.addEventListener("click", ({ target }) => {
             const recurrenceEnd = document.getElementById("recurrence-end");
+            if ((target as HTMLInputElement).checked) {
+                const dateInputField = recurrenceEnd.querySelector("input");
+                dateInputField.required = true;
+                if (!dateInputField.getAttribute("value")) {
+                    dateInputField.value = "";
+                }
+            } else {
+                const dateInputField = recurrenceEnd.querySelector("input");
+                dateInputField.removeAttribute("required");
+                if (!dateInputField.getAttribute("value")) {
+                    dateInputField.removeAttribute("value");
+                }
+            }
             recurrenceEnd.classList.toggle("hidden", !(target as HTMLInputElement).checked);
         });
     }

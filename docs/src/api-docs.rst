@@ -76,7 +76,8 @@ RESPONSE
             "dir": String                // reading direction {"ltr"|"rtl"}
          },
          ...
-        ]
+        ],
+        "is_chat_enabled": Boolean,     // whether the Integreat Chat is enabled for the region
      },
      ...
    ]
@@ -100,6 +101,43 @@ RESPONSE
 ~~~~~~~~
 
 A single object following the layout of :ref:`api_regions`
+
+
+Social Media
+============
+
+Get social media headers for a frontend url
+
+REQUEST
+~~~~~~~
+
+Get the social media headers for a frontend url.
+The absolute url is the `path to resource <https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/What_is_a_URL#path_to_resource>`_ of the frontent url
+
+.. code:: http
+
+   GET /api/v3/social/{absolute_url}/ HTTP/2
+
+.. code:: http
+
+   GET /api/v3/social/ HTTP/2
+
+RESPONSE
+~~~~~~~~
+
+Rendered HTML that contains social media headers describing the object of the given url.
+Please keep in mind that the response contains partial ``<html>`` and ``<head>`` tags to allow the response to contain a language attribute in the root tag.
+This needs to be equalized in the server-side include e.g. as follows:
+
+.. code:: html
+
+    <!-- Nginx Server Side Include template for dynamic social media previews -->
+    <!--# if expr="$render_title = yes" -->
+    <!--# include virtual="/proxy/socialmeta/$request_uri" -->
+    <!--# else -->
+    <html>
+        <head>
+    <!--# endif -->
 
 
 Languages
@@ -439,7 +477,7 @@ RESPONSE
             "latitude": Number | null,      // The latitude of this location
             "longitude": Number | null,     // The longitude of this location
          },
-         "location_url": String | null,     // The url to the location for this event translation
+         "location_path": String | null,     // The path to the location for this event translation
          "event": {
             "id": Number | null,            // The id of this event. Null if this is a recurrence of an event
             "start": String,                // The start date&time of this event
@@ -620,12 +658,18 @@ RESPONSE
 .. code:: javascript
 
    {
-      "id": String,            // The id of the push notification translation
+      "id": Number,            // The id of the push notification translation
       "title": String,         // The title of the push notification in the given language
       "message": String,       // The message of the push notification in the given language
       "timestamp": String,     // Deprecated field
       "last_updated": String,  // The date&time when the push notification was last updated
       "channel": String,       // The channel the push notification was sent to (e.g. "News")
+      "available_languages": [           // The available languages of the push notification
+            "<language_slug>": {
+               "id": Number | null,           // The id of the translation
+            },
+            ...
+         ]
    }
 
 
@@ -1055,3 +1099,96 @@ Body:
       "rating": 'up' | 'down' | null, // up- or downvote (either comment or rating is required)
       "category": String | null,      // comment category ("Technisches Feedback" or null; any other string is treated like null)
    }
+
+Chat
+====
+
+This endpoint provides chat functionality for Integreat app users.
+
+REQUEST
+~~~~~~~
+
+.. code:: http
+
+   GET /api/v3/{region_slug}/{device_id}/is_chat_enabled/ HTTP/2
+
+RESPONSE
+~~~~~~~~
+
+.. code:: javascript
+
+   {
+      "is_chat_enabled": Boolean,   // whether chat functionality is enabled for the requesting user
+   }
+
+REQUEST
+~~~~~~~
+
+.. code:: http
+
+    GET /api/v3/{region_slug}/{language_slug}/chat/{device_id}/ HTTP/2
+
+.. code:: http
+
+    GET /api/v3/{region_slug}/{language_slug}/chat/{device_id}/{attachment_id}/ HTTP/2
+
+.. code:: http
+
+   POST /api/v3/{region_slug}/{language_slug}/chat/{device_id}/ HTTP/2
+   Content-Type: multipart/formdata
+
+Body:
+
+.. code:: javascript
+
+   {
+      "message": String,               // message the user wishes to send (required)
+      "force_new": Boolean,            // whether to force a new chat instead of continuing existing  (optional)
+   }
+
+
+RESPONSE
+~~~~~~~~
+
+The response to ``POST``-ing to the endpoint is a single object representing
+the message as it is stored in Zammad.
+
+.. code:: javascript
+
+   {
+      "id": Number,                    // message id
+      "body": String,                  // the actual message content
+      "user_is_author": Boolean,       // true if the user sent the message, false otherwise
+      "attachments": [],               // will always be an empty list
+   }
+
+The response to ``GET``-ing the endpoint without an ``attachment_id`` is a list containing all chat messages.
+
+.. code:: javascript
+
+   {
+      "messages" : [                   // A list containing the chat messages
+         "id": Number,                 // message id
+         "body": String,               // the actual HTML-formatted message content
+         "user_is_author": Boolean,    // true if the user sent the message, false otherwise
+         "attachments": [              // A list containing attachments. Will be sent even if empty
+            {
+               "filename": String,     // The name of the file. May be empty
+               "size": String,         // The size of the file in kilobytes as a string. May be empty
+               "Content-Type": String, // The mimetype of the file. May be empty
+               "id": String,           // A 64-character UID. Only field guaranteed to exist
+            },
+         ],
+      ],
+   }
+
+In case an error occurs during communication with the Zammad backend,
+it will be passed along in the following format, together with a matching HTTP status code.
+
+.. code:: javascript
+
+   {
+      "error": String,                // error message
+   }
+
+The response to ``GET``-ing the endpoint with an ``attachment_id`` is either the (binary) file or an error in the format specified above.

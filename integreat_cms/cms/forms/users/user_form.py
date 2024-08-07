@@ -13,6 +13,7 @@ from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
     from typing import Any
+
     from ...models import User
 
 from ...models import Role

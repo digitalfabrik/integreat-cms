@@ -19,7 +19,7 @@ from django.views.generic import RedirectView
 from django.views.generic.list import MultipleObjectMixin
 
 from ..constants import status
-from ..models import Page
+from ..models import Page, POI
 from ..utils.stringify_list import iter_to_string
 from .utils.publication_status import change_publication_status
 
@@ -274,11 +274,14 @@ class BulkArchiveView(BulkActionView):
         archive_successful = []
         archive_unchanged = []
         archive_failed_because_embedded = []
+        archive_failed_because_event_reference = []
 
         for content_object in self.get_queryset():
             title = content_object.best_translation.title
             if self.model is Page and content_object.mirroring_pages.exists():
                 archive_failed_because_embedded.append(title)
+            elif self.model is POI and content_object.events.count() > 0:
+                archive_failed_because_event_reference.append(title)
             elif content_object.archived:
                 archive_unchanged.append(title)
             else:
@@ -330,6 +333,18 @@ class BulkArchiveView(BulkActionView):
                     len(archive_failed_because_embedded),
                 ).format(
                     object_names=iter_to_string(archive_failed_because_embedded),
+                ),
+            )
+
+        if archive_failed_because_event_reference:
+            messages.error(
+                request,
+                ngettext_lazy(
+                    "Location {object_names} could not be archived because it is referenced by an event.",
+                    "The following locations could not be archived because they were referenced by an event: {object_names}",
+                    len(archive_failed_because_event_reference),
+                ).format(
+                    object_names=iter_to_string(archive_failed_because_event_reference),
                 ),
             )
 

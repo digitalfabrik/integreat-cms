@@ -12,8 +12,9 @@ from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
     from typing import Any, Iterator
-    from .languages.language import Language
+
     from .abstract_content_translation import AbstractContentTranslation
+    from .languages.language import Language
 
 from ..constants import status, translation_status
 from ..utils.content_edit_lock import get_locking_user

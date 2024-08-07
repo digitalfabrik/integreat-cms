@@ -198,13 +198,18 @@ class RegionForm(CustomModelForm):
             "mt_renewal_month",
             "mt_addon_booked",
             "mt_midyear_start_month",
+            "integreat_chat_enabled",
             "zammad_url",
+            "zammad_access_token",
+            "zammad_chat_handlers",
+            "chat_beta_tester_percentage",
         ]
         #: The widgets which are used in this form
         widgets = {
             "timezone": forms.Select(choices=get_timezone_choices()),
             "icon": IconWidget(),
             "offers": CheckboxSelectMultipleWithDisabled(),
+            "zammad_access_token": forms.PasswordInput(),
         }
 
     def __init__(self, *args: Any, **kwargs: Any) -> None:
@@ -374,6 +379,17 @@ class RegionForm(CustomModelForm):
                 "offers",
                 _(
                     "Some offers could not be disabled, since they are currently embedded in at least one page."
+                ),
+            )
+
+        # Integreat Chat can only be enabled if Zammad URL and access key are set
+        if cleaned_data["integreat_chat_enabled"] and (
+            not cleaned_data["zammad_url"] or not cleaned_data["zammad_access_token"]
+        ):
+            self.add_error(
+                "integreat_chat_enabled",
+                _(
+                    "A Zammad URL and Access Token are required in order to enable the Integreat Chat."
                 ),
             )
 
@@ -577,6 +593,31 @@ class RegionForm(CustomModelForm):
                 "hix_enabled", _("No Textlab API key is set on this system.")
             )
         return cleaned_hix_enabled
+
+    def clean_zammad_url(self) -> str:
+        """
+        Validate the zammad_url field (see :ref:`overriding-modelform-clean-method`).
+
+        :return: The validated field
+        """
+        cleaned_zammad_url = self.cleaned_data["zammad_url"]
+        # Remove superfluous path parts
+        cleaned_zammad_url = cleaned_zammad_url.split("/api/v1")[0]
+        cleaned_zammad_url = cleaned_zammad_url.rstrip("/")
+        return cleaned_zammad_url
+
+    def clean_zammad_access_token(self) -> str:
+        """
+        Validate the zammad_access_token field (see :ref:`overriding-modelform-clean-method`).
+        If the value is empty, keep the original one.
+
+        :return: The validated field
+        """
+        return (
+            self.cleaned_data["zammad_access_token"]
+            if self.cleaned_data["zammad_access_token"]
+            else self.instance.zammad_access_token
+        )
 
     @staticmethod
     def autofill_bounding_box(cleaned_data: dict[str, Any]) -> dict[str, Any]:

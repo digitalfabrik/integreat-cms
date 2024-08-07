@@ -14,9 +14,8 @@ from django.template.defaultfilters import floatformat
 from django.urls import reverse
 from django.utils import timezone as django_timezone
 from django.utils.functional import cached_property, keep_lazy_text
-from django.utils.translation import gettext
+from django.utils.translation import gettext, override
 from django.utils.translation import gettext_lazy as _
-from django.utils.translation import override
 
 if TYPE_CHECKING:
     from datetime import datetime
@@ -25,11 +24,11 @@ if TYPE_CHECKING:
     from django.utils.functional import Promise
     from django.utils.safestring import SafeString
 
+    from ...nominatim_api.utils import BoundingBox
     from ..languages.language import Language
     from ..languages.language_tree_node import LanguageTreeNode
     from ..pages.imprint_page import ImprintPage
     from ..pages.page import PageQuerySet
-    from ...nominatim_api.utils import BoundingBox
 
 from django.utils.safestring import mark_safe
 
@@ -409,6 +408,12 @@ class Region(AbstractBaseModel):
         verbose_name=_("Locations"),
     )
 
+    integreat_chat_enabled = models.BooleanField(
+        default=False,
+        verbose_name=_("Enable Integreat Chat"),
+        help_text=_("Toggle the Integreat Chat on/off."),
+    )
+
     zammad_url = models.URLField(
         max_length=256,
         blank=True,
@@ -416,6 +421,34 @@ class Region(AbstractBaseModel):
         verbose_name=_("Zammad-URL"),
         help_text=_(
             "URL pointing to this region's Zammad instance. Setting this enables Zammad form offers."
+        ),
+    )
+    zammad_access_token = models.CharField(
+        max_length=64,
+        blank=True,
+        default="",
+        verbose_name=_("Zammad access token"),
+        help_text=_(
+            'Access token for a Zammad user account. In Zammad, the account must be part of the "Agent" role and have full group permissions for the group:'
+        ),
+    )
+    zammad_chat_handlers = models.CharField(
+        max_length=1024,
+        blank=True,
+        default="",
+        verbose_name=_("Zammad chat handlers"),
+        help_text=_(
+            "Comma-separated email addresses of the accounts which should automatically be subscribed to new chat tickets. Note that these users must have full group permissions for the group:"
+        ),
+    )
+
+    chat_beta_tester_percentage = models.IntegerField(
+        default=0,
+        blank=True,
+        validators=[MinValueValidator(0), MaxValueValidator(100)],
+        verbose_name=_("Chat beta tester percentage"),
+        help_text=_(
+            "Percentage of users selected as beta testers for the Integreat Chat feature"
         ),
     )
 

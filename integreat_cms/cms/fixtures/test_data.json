@@ -1,5 +1,21 @@
 [
   {
+    "model": "cms.attachmentmap",
+    "pk": 1,
+    "fields": {
+      "user_chat": 1,
+      "random_hash": "exampleRandomHash",
+      "article_id": 1,
+      "attachment_id": 1,
+      "mime_type": "application/json"
+    }
+  },
+  {
+    "model": "cms.userchat",
+    "pk": 1,
+    "fields": { "device_id": "exampleDeviceID", "zammad_id": 1, "most_recent_hits": "" }
+  },
+  {
     "model": "cms.offertemplate",
     "pk": 1,
     "fields": {
@@ -129,7 +145,11 @@
       "machine_translate_pages": 1,
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
+      "integreat_chat_enabled": true,
       "zammad_url": "https://zammad.example.com",
+      "zammad_access_token": "dummytoken",
+      "zammad_chat_handlers": "handler@example.com",
+      "chat_beta_tester_percentage": 50,
       "offers": [3, 2, 1, 5]
     }
   },
@@ -178,7 +198,11 @@
       "machine_translate_pages": 1,
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
+      "integreat_chat_enabled": false,
       "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
+      "chat_beta_tester_percentage": 0,
       "offers": [3, 4, 2]
     }
   },
@@ -227,7 +251,11 @@
       "machine_translate_pages": 1,
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
+      "integreat_chat_enabled": false,
       "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
+      "chat_beta_tester_percentage": 0,
       "offers": []
     }
   },
@@ -276,7 +304,11 @@
       "machine_translate_pages": 1,
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
+      "integreat_chat_enabled": false,
       "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
+      "chat_beta_tester_percentage": 0,
       "offers": []
     }
   },
@@ -325,7 +357,11 @@
       "machine_translate_pages": 1,
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
+      "integreat_chat_enabled": false,
       "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
+      "chat_beta_tester_percentage": 0,
       "offers": [1]
     }
   },
@@ -374,7 +410,113 @@
       "machine_translate_pages": 1,
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
+      "integreat_chat_enabled": false,
       "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
+      "chat_beta_tester_percentage": 0,
+      "offers": []
+    }
+  },
+  {
+    "model": "cms.region",
+    "pk": 7,
+    "fields": {
+      "name": "Region without language",
+      "common_id": "",
+      "slug": "empty-region",
+      "status": "ARCHIVED",
+      "administrative_division": "RURAL_DISTRICT",
+      "aliases": {},
+      "custom_prefix": "",
+      "events_enabled": true,
+      "locations_enabled": true,
+      "push_notifications_enabled": true,
+      "latitude": 1.0,
+      "longitude": 1.0,
+      "longitude_min": 1.0,
+      "latitude_min": 1.0,
+      "longitude_max": 2.0,
+      "latitude_max": 2.0,
+      "postal_code": "00000",
+      "admin_mail": "empty@example.com",
+      "timezone": "Europe/Berlin",
+      "created_date": "2024-06-08T13:05:49.864Z",
+      "last_updated": "2024-06-08T13:06:00.798Z",
+      "statistics_enabled": false,
+      "seo_enabled": false,
+      "matomo_id": null,
+      "matomo_token": "",
+      "page_permissions_enabled": false,
+      "icon": null,
+      "chat_enabled": true,
+      "administrative_division_included": false,
+      "short_urls_enabled": false,
+      "external_news_enabled": false,
+      "fallback_translations_enabled": true,
+      "hix_enabled": false,
+      "summ_ai_enabled": false,
+      "mt_renewal_month": 0,
+      "mt_addon_booked": false,
+      "mt_midyear_start_month": null,
+      "mt_budget_used": 0,
+      "machine_translate_pages": 1,
+      "machine_translate_events": 1,
+      "machine_translate_pois": 1,
+      "integreat_chat_enabled": false,
+      "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
+      "chat_beta_tester_percentage": 0,
+      "offers": []
+    }
+  },
+  {
+    "model": "cms.region",
+    "pk": 8,
+    "fields": {
+      "name": "Berlin",
+      "common_id": "",
+      "slug": "berlin",
+      "status": "ACTIVE",
+      "administrative_division": "CITY",
+      "aliases": {},
+      "custom_prefix": "",
+      "events_enabled": true,
+      "locations_enabled": false,
+      "push_notifications_enabled": true,
+      "latitude": 13.404954,
+      "longitude": 52.520008,
+      "postal_code": "10115",
+      "admin_mail": "berlin@integreat-app.de",
+      "timezone": "Europe/Berlin",
+      "created_date": "2024-07-11T12:00:00Z",
+      "last_updated": "2024-07-11T12:00:00Z",
+      "statistics_enabled": false,
+      "seo_enabled": false,
+      "matomo_id": null,
+      "matomo_token": "",
+      "page_permissions_enabled": false,
+      "icon": null,
+      "chat_enabled": true,
+      "administrative_division_included": false,
+      "short_urls_enabled": false,
+      "external_news_enabled": false,
+      "fallback_translations_enabled": true,
+      "hix_enabled": false,
+      "summ_ai_enabled": false,
+      "mt_renewal_month": 0,
+      "mt_addon_booked": false,
+      "mt_midyear_start_month": null,
+      "mt_budget_used": 0,
+      "machine_translate_pages": 1,
+      "machine_translate_events": 1,
+      "machine_translate_pois": 1,
+      "integreat_chat_enabled": false,
+      "zammad_url": "",
+      "zammad_access_token": "",
+      "zammad_chat_handlers": "",
+      "chat_beta_tester_percentage": 0,
       "offers": []
     }
   },
@@ -448,9 +590,12 @@
       "text_direction": "LEFT_TO_RIGHT",
       "primary_country_code": "de",
       "secondary_country_code": "",
+      "language_color": "#FF4500",
       "created_date": "2019-08-12T07:50:18.139Z",
       "last_updated": "2019-08-12T07:50:18.140Z",
       "table_of_contents": "Inhaltsverzeichnis",
+      "social_media_webapp_title": "Integreat | Web-App | Lokale Informationen für Dich",
+      "social_media_webapp_description": "",
       "message_content_not_available": "Die Seite existiert nicht in der ausgewählten Sprache. Sie ist aber in diesen Sprachen verfügbar:",
       "message_partial_live_content_not_available": "Ein Teil der Seite existiert nicht in der ausgewählten Sprache. Er ist aber in diesen Sprachen verfügbar:"
     }
@@ -466,9 +611,12 @@
       "text_direction": "LEFT_TO_RIGHT",
       "primary_country_code": "gb",
       "secondary_country_code": "us",
+      "language_color": "#17157D",
       "created_date": "2019-08-12T07:50:24.635Z",
       "last_updated": "2019-08-12T07:50:24.636Z",
       "table_of_contents": "Table of Contents",
+      "social_media_webapp_title": "Integreat",
+      "social_media_webapp_description": "Integreat is your digital companion for Germany. Here you can find local information, advice centres and services.",
       "message_content_not_available": "This page does not exist in the selected language. It is however available in these languages:",
       "message_partial_live_content_not_available": "Part of the page does not exist in the selected language. It is however available in these languages:"
     }
@@ -484,9 +632,12 @@
       "text_direction": "RIGHT_TO_LEFT",
       "primary_country_code": "ab",
       "secondary_country_code": "",
+      "language_color": "#5894E3",
       "created_date": "2019-08-12T07:51:29.233Z",
       "last_updated": "2019-08-12T07:51:29.233Z",
       "table_of_contents": "محتويات",
+      "social_media_webapp_title": "Integreat",
+      "social_media_webapp_description": "",
       "message_content_not_available": "This page does not exist in the selected language. It is however available in these languages:",
       "message_partial_live_content_not_available": "Part of the page does not exist in the selected language. It is however available in these languages:"
     }
@@ -502,9 +653,12 @@
       "text_direction": "RIGHT_TO_LEFT",
       "primary_country_code": "fs",
       "secondary_country_code": "",
+      "language_color": "#7F7F7F",
       "created_date": "2019-08-12T07:52:21.399Z",
       "last_updated": "2019-08-12T07:52:21.400Z",
       "table_of_contents": "محتویات",
+      "social_media_webapp_title": "Integreat",
+      "social_media_webapp_description": "",
       "message_content_not_available": "This page does not exist in the selected language. It is however available in these languages:",
       "message_partial_live_content_not_available": "Part of the page does not exist in the selected language. It is however available in these languages:"
     }
@@ -520,9 +674,12 @@
       "text_direction": "LEFT_TO_RIGHT",
       "primary_country_code": "es",
       "secondary_country_code": "",
+      "language_color": "#FFE4F0",
       "created_date": "2019-08-12T07:52:21.399Z",
       "last_updated": "2019-08-12T07:52:21.400Z",
       "table_of_contents": "Índice de contenidos",
+      "social_media_webapp_title": "Integreat",
+      "social_media_webapp_description": "",
       "message_content_not_available": "This page does not exist in the selected language. It is however available in these languages:",
       "message_partial_live_content_not_available": "Part of the page does not exist in the selected language. It is however available in these languages:"
     }
@@ -538,9 +695,12 @@
       "text_direction": "LEFT_TO_RIGHT",
       "primary_country_code": "de",
       "secondary_country_code": "",
+      "language_color": "#FFA500",
       "created_date": "2022-09-13T16:33:38.750Z",
       "last_updated": "2022-09-13T16:48:51.807Z",
       "table_of_contents": "Inhaltsverzeichnis",
+      "social_media_webapp_title": "Integreat",
+      "social_media_webapp_description": "",
       "message_content_not_available": "Diese Sprache gibt es nicht. Es gibt aber diese Sprachen:",
       "message_partial_live_content_not_available": "Ein Teil von der Seite ist nicht in Ihrer Sprache. Der Teil ist aber in diesen Sprachen verfügbar:"
     }
@@ -556,9 +716,12 @@
       "text_direction": "LEFT_TO_RIGHT",
       "primary_country_code": "at",
       "secondary_country_code": "",
+      "language_color": "#98DF8A",
       "created_date": "2022-11-30T09:16:00Z",
       "last_updated": "2022-11-30T09:16:00Z",
       "table_of_contents": "Table of Contents",
+      "social_media_webapp_title": "Integreat",
+      "social_media_webapp_description": "",
       "message_content_not_available": "Diese Sprache gibt es nicht. Es gibt aber diese Sprachen:",
       "message_partial_live_content_not_available": "Ein Teil von der Seite ist nicht in Ihrer Sprache. Der Teil ist aber in diesen Sprachen verfügbar:"
     }
@@ -574,9 +737,12 @@
       "text_direction": "LEFT_TO_RIGHT",
       "primary_country_code": "et",
       "secondary_country_code": "",
+      "language_color": "#2CA02C",
       "created_date": "2022-09-13T16:33:38.750Z",
       "last_updated": "2022-09-13T16:48:51.807Z",
       "table_of_contents": "ዝርዝር ሁኔታ",
+      "social_media_webapp_title": "Integreat",
+      "social_media_webapp_description": "",
       "message_content_not_available": "ይህ ቋንቋ የለም። ግን እነዚህ ቋንቋዎች አሉ-",
       "message_partial_live_content_not_available": "የገጹ ክፍል በእርስዎ ቋንቋ አይደለም። ሆኖም፣ ክፍሉ በነዚህ ቋንቋዎች ይገኛል።"
     }
@@ -592,9 +758,12 @@
       "text_direction": "LEFT_TO_RIGHT",
       "primary_country_code": "ua",
       "secondary_country_code": "",
+      "language_color": "#20B2AA",
       "created_date": "2022-09-13T16:33:38.750Z",
       "last_updated": "2022-09-13T16:48:51.807Z",
       "table_of_contents": "Зміст",
+      "social_media_webapp_title": "Integreat",
+      "social_media_webapp_description": "",
       "message_content_not_available": "Ця сторінка не існує вибраною мовою. Однак він доступний такими мовами:",
       "message_partial_live_content_not_available": "Частина сторінки не існує вибраною мовою. Однак він доступний такими мовами:"
     }
@@ -610,9 +779,12 @@
       "text_direction": "LEFT_TO_RIGHT",
       "primary_country_code": "gr",
       "secondary_country_code": "",
+      "language_color": "#FFD700",
       "created_date": "2022-09-13T16:33:38.750Z",
       "last_updated": "2022-09-13T16:48:51.807Z",
       "table_of_contents": "Πίνακας περιεχομένων",
+      "social_media_webapp_title": "Integreat",
+      "social_media_webapp_description": "",
       "message_content_not_available": "Αυτή η γλώσσα δεν υπάρχει. Αλλά υπάρχουν αυτές οι γλώσσες:",
       "message_partial_live_content_not_available": "Μέρος της σελίδας δεν είναι στη γλώσσα σας. Ωστόσο, το μέρος είναι διαθέσιμο σε αυτές τις γλώσσες:"
     }
@@ -1138,6 +1310,25 @@
     }
   },
   {
+    "model": "cms.languagetreenode",
+    "pk": 18,
+    "fields": {
+      "lft": 1,
+      "rgt": 2,
+      "tree_id": 7,
+      "depth": 2,
+      "parent": null,
+      "region": 8,
+      "language": 2,
+      "visible": true,
+      "active": true,
+      "created_date": "2019-08-12T07:52:44.617Z",
+      "last_updated": "2019-08-12T07:52:44.629Z",
+      "machine_translation_enabled": true,
+      "preferred_mt_provider": "DeepL"
+    }
+  },
+  {
     "model": "cms.poicategorytranslation",
     "pk": 1,
     "fields": { "category": 1, "language": 1, "name": "Beratungsstelle" }
@@ -1261,6 +1452,21 @@
     }
   },
   {
+    "model": "cms.pushnotification",
+    "pk": 8,
+    "fields": {
+      "channel": "news",
+      "draft": false,
+      "sent_date": "2024-07-11T10:32:33.118Z",
+      "created_date": "2024-07-11T10:31:33.118Z",
+      "scheduled_send_date": null,
+      "mode": "USE_MAIN_LANGUAGE",
+      "is_template": false,
+      "template_name": null,
+      "regions": [1, 8]
+    }
+  },
+  {
     "model": "cms.pushnotificationtranslation",
     "pk": 1,
     "fields": {
@@ -1359,49 +1565,320 @@
       "last_updated": "2022-03-05T10:31:33.130Z"
     }
   },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "chatmessage" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "offertemplate" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "region" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "directory" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "mediafile" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "poicategory" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "language" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "poitranslation" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "organization" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "poi" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "eventtranslation" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "recurrencerule" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "event" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "feedback" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "eventfeedback" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "eventlistfeedback" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "imprintpagetranslation" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "imprintpage" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "imprintpagefeedback" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "mapfeedback" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "offerfeedback" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "offerlistfeedback" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "pagetranslation" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "pagefeedback" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "poifeedback" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "regionfeedback" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "searchresultfeedback" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "languagetreenode" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "page" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "poicategorytranslation" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "pushnotification" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "pushnotificationtranslation" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "role" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "user" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "cms", "model": "fidokey" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "auth", "model": "permission" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "auth", "model": "group" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "contenttypes", "model": "contenttype" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "sessions", "model": "session" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "db_mutex", "model": "dbmutex" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "linkcheck", "model": "url" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "linkcheck", "model": "link" } },
-  { "model": "contenttypes.contenttype", "fields": { "app_label": "admin", "model": "logentry" } },
+  {
+    "model": "cms.pushnotificationtranslation",
+    "pk": 10,
+    "fields": {
+      "title": "",
+      "text": "German message",
+      "language": 1,
+      "push_notification": 8,
+      "last_updated": "2022-03-05T10:31:33.130Z"
+    }
+  },
+  { "model": "cms.role", "pk": 1, "fields": { "name": "MANAGEMENT", "group": ["MANAGEMENT"], "staff_role": false } },
+  { "model": "cms.role", "pk": 2, "fields": { "name": "EDITOR", "group": ["EDITOR"], "staff_role": false } },
+  {
+    "model": "cms.role",
+    "pk": 3,
+    "fields": { "name": "EVENT_MANAGER", "group": ["EVENT_MANAGER"], "staff_role": false }
+  },
+  { "model": "cms.role", "pk": 4, "fields": { "name": "SERVICE_TEAM", "group": ["SERVICE_TEAM"], "staff_role": true } },
+  { "model": "cms.role", "pk": 5, "fields": { "name": "CMS_TEAM", "group": ["CMS_TEAM"], "staff_role": true } },
+  { "model": "cms.role", "pk": 6, "fields": { "name": "APP_TEAM", "group": ["APP_TEAM"], "staff_role": true } },
+  {
+    "model": "cms.role",
+    "pk": 7,
+    "fields": { "name": "MARKETING_TEAM", "group": ["MARKETING_TEAM"], "staff_role": true }
+  },
+  { "model": "cms.role", "pk": 8, "fields": { "name": "AUTHOR", "group": ["AUTHOR"], "staff_role": false } },
+  { "model": "cms.role", "pk": 9, "fields": { "name": "OBSERVER", "group": ["OBSERVER"], "staff_role": false } },
+  {
+    "model": "cms.user",
+    "fields": {
+      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "root",
+      "first_name": "Root",
+      "last_name": "User",
+      "email": "root@root.root",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2019-11-13T09:21:34.960Z",
+      "organization": null,
+      "chat_last_visited": "0001-01-01T00:00:00Z",
+      "expert_mode": true,
+      "page_tree_tutorial_seen": true,
+      "distribute_sidebar_boxes": false,
+      "totp_key": null,
+      "passwordless_authentication_enabled": false,
+      "webauthn_id": "a8J6PIhMgYFmrXsFnQ3BthrFCSqv7zt2aek833jtr5b2NCU+BUqJT8SwHg9vWfjX0H5Y0KQwO9PD4lF3jP/Q+A==",
+      "groups": [["CMS_TEAM"]],
+      "user_permissions": [],
+      "regions": []
+    }
+  },
+  {
+    "model": "cms.user",
+    "fields": {
+      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "management",
+      "first_name": "Region",
+      "last_name": "Manager",
+      "email": "management@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-11-13T09:21:34.960Z",
+      "organization": null,
+      "chat_last_visited": "0001-01-01T00:00:00Z",
+      "expert_mode": true,
+      "page_tree_tutorial_seen": true,
+      "distribute_sidebar_boxes": false,
+      "totp_key": null,
+      "passwordless_authentication_enabled": false,
+      "webauthn_id": "S11+5Wui5+9XilRDlG+eE9dKRqWgPlNh+p9dsNC0RnIq9x8Q1CDEkaWEcQNTJLsvNOhFmuC9l5WHZQodeG87zQ==",
+      "groups": [["MANAGEMENT"]],
+      "user_permissions": [],
+      "regions": [1]
+    }
+  },
+  {
+    "model": "cms.user",
+    "fields": {
+      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "editor",
+      "first_name": "Region",
+      "last_name": "Editor",
+      "email": "editor@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-11-13T09:21:34.960Z",
+      "organization": null,
+      "chat_last_visited": "0001-01-01T00:00:00Z",
+      "expert_mode": true,
+      "page_tree_tutorial_seen": true,
+      "distribute_sidebar_boxes": false,
+      "totp_key": null,
+      "passwordless_authentication_enabled": false,
+      "webauthn_id": "KEpV5WVYVhy6UPE32rKfgr4tq6OrneIrJsjoMZq4ksyNRLjDSRU4c3mNUm9TJVqZoVrxytDB3gxNXV2GQwO8gQ==",
+      "groups": [["EDITOR"]],
+      "user_permissions": [],
+      "regions": [1]
+    }
+  },
+  {
+    "model": "cms.user",
+    "fields": {
+      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "event_manager",
+      "first_name": "Region Event",
+      "last_name": "Manager",
+      "email": "event@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-11-13T09:21:34.960Z",
+      "organization": null,
+      "chat_last_visited": "0001-01-01T00:00:00Z",
+      "expert_mode": true,
+      "page_tree_tutorial_seen": true,
+      "distribute_sidebar_boxes": false,
+      "totp_key": null,
+      "passwordless_authentication_enabled": false,
+      "webauthn_id": "FsLeb3hXPD+/kuJBORnOyGlGNV30nWLJFhP4fhaNnVZlgztNjHHkMg6qulqGZUkeevxW+k8URhM3XBZGLAHDMQ==",
+      "groups": [["EVENT_MANAGER"]],
+      "user_permissions": [],
+      "regions": [1]
+    }
+  },
+  {
+    "model": "cms.user",
+    "fields": {
+      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "service_team",
+      "first_name": "Service Team",
+      "last_name": "Member",
+      "email": "service@example.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2019-11-13T09:21:34.960Z",
+      "organization": null,
+      "chat_last_visited": "0001-01-01T00:00:00Z",
+      "expert_mode": true,
+      "page_tree_tutorial_seen": true,
+      "distribute_sidebar_boxes": false,
+      "totp_key": null,
+      "passwordless_authentication_enabled": false,
+      "webauthn_id": "nTTgEXfShe8KXNdoCZ3Ht29RAiMke4SYiXkZbb1y5F+WRVnF2ujncrzpAbN38w5imwrIus4fh2LTHfRyRi9R4Q==",
+      "groups": [["SERVICE_TEAM"]],
+      "user_permissions": [],
+      "regions": []
+    }
+  },
+  {
+    "model": "cms.user",
+    "fields": {
+      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "cms_team",
+      "first_name": "CMS Team",
+      "last_name": "Member",
+      "email": "cms@example.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2019-11-13T09:21:34.960Z",
+      "organization": null,
+      "chat_last_visited": "0001-01-01T00:00:00Z",
+      "expert_mode": true,
+      "page_tree_tutorial_seen": true,
+      "distribute_sidebar_boxes": false,
+      "totp_key": null,
+      "passwordless_authentication_enabled": false,
+      "webauthn_id": "Syx2vbWu5A4ozn2ZPTlpUYkNJs0yfI2JLuf9+nBJAhy9rlCDoeq9ZkQOUPH41ljLKtnJByWIuMaFzNu6aEzjNQ==",
+      "groups": [["CMS_TEAM"]],
+      "user_permissions": [],
+      "regions": []
+    }
+  },
+  {
+    "model": "cms.user",
+    "fields": {
+      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "app_team",
+      "first_name": "App Team",
+      "last_name": "Member",
+      "email": "app@example.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2019-11-13T09:21:34.960Z",
+      "organization": null,
+      "chat_last_visited": "0001-01-01T00:00:00Z",
+      "expert_mode": true,
+      "page_tree_tutorial_seen": true,
+      "distribute_sidebar_boxes": false,
+      "totp_key": null,
+      "passwordless_authentication_enabled": false,
+      "webauthn_id": "zz4sd19sXq0oS5PnkB9W9VLNCf9osjYN5ePA053GE6rBl7i4Z5OI/68I2Vi3i2r2uRQj2qpQpSXsXFizTlBwkw==",
+      "groups": [["APP_TEAM"]],
+      "user_permissions": [],
+      "regions": []
+    }
+  },
+  {
+    "model": "cms.user",
+    "fields": {
+      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "marketing_team",
+      "first_name": "Marketing Team",
+      "last_name": "Member",
+      "email": "marketing@example.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2019-11-13T09:21:34.960Z",
+      "organization": null,
+      "chat_last_visited": "0001-01-01T00:00:00Z",
+      "expert_mode": true,
+      "page_tree_tutorial_seen": true,
+      "distribute_sidebar_boxes": false,
+      "totp_key": null,
+      "passwordless_authentication_enabled": false,
+      "webauthn_id": "IZDY0olK2/xyYurO1SQ1GMvtaD4JaPa9n7eVR+xuduUaPQqq9U3AdJi0k0rIjBAHS6TQM2f0paeRIPu0tZwd4Q==",
+      "groups": [["MARKETING_TEAM"]],
+      "user_permissions": [],
+      "regions": []
+    }
+  },
+  {
+    "model": "cms.user",
+    "fields": {
+      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "author",
+      "first_name": "Region",
+      "last_name": "Author",
+      "email": "author@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-11-13T09:21:34.960Z",
+      "organization": null,
+      "chat_last_visited": "0001-01-01T00:00:00Z",
+      "expert_mode": true,
+      "page_tree_tutorial_seen": true,
+      "distribute_sidebar_boxes": false,
+      "totp_key": null,
+      "passwordless_authentication_enabled": false,
+      "webauthn_id": "fjH8nyA7PBgd43/srtFBLSYKk2QVP8phQ1ZZnbQmk1ikcaP7DCABe/HKF6p+bIK9vT3yMX587zfqReJNj90x7g==",
+      "groups": [["AUTHOR"]],
+      "user_permissions": [],
+      "regions": [1]
+    }
+  },
+  {
+    "model": "cms.user",
+    "fields": {
+      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "observer",
+      "first_name": "Region",
+      "last_name": "Observer",
+      "email": "observer@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-11-13T09:21:34.960Z",
+      "organization": null,
+      "chat_last_visited": "0001-01-01T00:00:00Z",
+      "expert_mode": true,
+      "page_tree_tutorial_seen": true,
+      "distribute_sidebar_boxes": false,
+      "totp_key": null,
+      "passwordless_authentication_enabled": false,
+      "webauthn_id": "oNhRR26p9FQ180MXV5i9Z59bv4oYxVz5308ycwkTgJK/b9B5HtXBSvtRQijFoJ9mPm47QsiR+UGBPQBVITcohQ==",
+      "groups": [["OBSERVER"]],
+      "user_permissions": [],
+      "regions": [1]
+    }
+  },
+  {
+    "model": "cms.user",
+    "fields": {
+      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "management_artland",
+      "first_name": "Artland",
+      "last_name": "Manager",
+      "email": "management_artland@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2019-11-13T09:21:34.960Z",
+      "organization": null,
+      "chat_last_visited": "0001-01-01T00:00:00Z",
+      "expert_mode": true,
+      "page_tree_tutorial_seen": true,
+      "distribute_sidebar_boxes": false,
+      "totp_key": null,
+      "passwordless_authentication_enabled": false,
+      "webauthn_id": "UrIS9eRcRyudMHOWnpnZdc8vnlfINs5xLWGj+lrlqmLOQ3/VltvejS5mRthNrcD1pUDKVXzT2GV2PKCi6wlmjg==",
+      "groups": [["MANAGEMENT"]],
+      "user_permissions": [],
+      "regions": [4]
+    }
+  },
   {
     "model": "linkcheck.url",
     "pk": 1,
@@ -2070,1137 +2547,6 @@
       "ignore": false
     }
   },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can delete chat message",
-      "content_type": ["cms", "chatmessage"],
-      "codename": "delete_chatmessage"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can change chat message",
-      "content_type": ["cms", "chatmessage"],
-      "codename": "change_chatmessage"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can change offer template",
-      "content_type": ["cms", "offertemplate"],
-      "codename": "change_offertemplate"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can delete offer template",
-      "content_type": ["cms", "offertemplate"],
-      "codename": "delete_offertemplate"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can view offer template",
-      "content_type": ["cms", "offertemplate"],
-      "codename": "view_offertemplate"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can change region", "content_type": ["cms", "region"], "codename": "change_region" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can delete region", "content_type": ["cms", "region"], "codename": "delete_region" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view region", "content_type": ["cms", "region"], "codename": "view_region" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can add media directory", "content_type": ["cms", "directory"], "codename": "add_directory" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can change media directory",
-      "content_type": ["cms", "directory"],
-      "codename": "change_directory"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can delete media directory",
-      "content_type": ["cms", "directory"],
-      "codename": "delete_directory"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view media directory", "content_type": ["cms", "directory"], "codename": "view_directory" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can change media file", "content_type": ["cms", "mediafile"], "codename": "change_mediafile" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can delete media file", "content_type": ["cms", "mediafile"], "codename": "delete_mediafile" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view media file", "content_type": ["cms", "mediafile"], "codename": "view_mediafile" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can upload media file", "content_type": ["cms", "mediafile"], "codename": "upload_mediafile" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can replace media file",
-      "content_type": ["cms", "mediafile"],
-      "codename": "replace_mediafile"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can change location category",
-      "content_type": ["cms", "poicategory"],
-      "codename": "change_poicategory"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can delete location category",
-      "content_type": ["cms", "poicategory"],
-      "codename": "delete_poicategory"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can view location category",
-      "content_type": ["cms", "poicategory"],
-      "codename": "view_poicategory"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can change language", "content_type": ["cms", "language"], "codename": "change_language" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can delete language", "content_type": ["cms", "language"], "codename": "delete_language" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view language", "content_type": ["cms", "language"], "codename": "view_language" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can change organization",
-      "content_type": ["cms", "organization"],
-      "codename": "change_organization"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can delete organization",
-      "content_type": ["cms", "organization"],
-      "codename": "delete_organization"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can view organization",
-      "content_type": ["cms", "organization"],
-      "codename": "view_organization"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can change location", "content_type": ["cms", "poi"], "codename": "change_poi" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can delete location", "content_type": ["cms", "poi"], "codename": "delete_poi" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view location", "content_type": ["cms", "poi"], "codename": "view_poi" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can change event", "content_type": ["cms", "event"], "codename": "change_event" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can delete event", "content_type": ["cms", "event"], "codename": "delete_event" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view event", "content_type": ["cms", "event"], "codename": "view_event" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can publish events", "content_type": ["cms", "event"], "codename": "publish_event" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can change feedback", "content_type": ["cms", "feedback"], "codename": "change_feedback" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can delete feedback", "content_type": ["cms", "feedback"], "codename": "delete_feedback" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view feedback", "content_type": ["cms", "feedback"], "codename": "view_feedback" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can change imprint", "content_type": ["cms", "imprintpage"], "codename": "change_imprintpage" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can delete imprint", "content_type": ["cms", "imprintpage"], "codename": "delete_imprintpage" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view imprint", "content_type": ["cms", "imprintpage"], "codename": "view_imprintpage" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can change language tree node",
-      "content_type": ["cms", "languagetreenode"],
-      "codename": "change_languagetreenode"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can delete language tree node",
-      "content_type": ["cms", "languagetreenode"],
-      "codename": "delete_languagetreenode"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can view language tree node",
-      "content_type": ["cms", "languagetreenode"],
-      "codename": "view_languagetreenode"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can change page", "content_type": ["cms", "page"], "codename": "change_page" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can delete page", "content_type": ["cms", "page"], "codename": "delete_page" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view page", "content_type": ["cms", "page"], "codename": "view_page" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can publish page", "content_type": ["cms", "page"], "codename": "publish_page" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can grant page permission",
-      "content_type": ["cms", "page"],
-      "codename": "grant_page_permissions"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can change location category translation",
-      "content_type": ["cms", "poicategorytranslation"],
-      "codename": "change_poicategorytranslation"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can delete location category translation",
-      "content_type": ["cms", "poicategorytranslation"],
-      "codename": "delete_poicategorytranslation"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can view location category translation",
-      "content_type": ["cms", "poicategorytranslation"],
-      "codename": "view_poicategorytranslation"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can change push notification",
-      "content_type": ["cms", "pushnotification"],
-      "codename": "change_pushnotification"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can delete push notification",
-      "content_type": ["cms", "pushnotification"],
-      "codename": "delete_pushnotification"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can view push notification",
-      "content_type": ["cms", "pushnotification"],
-      "codename": "view_pushnotification"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can send push notification",
-      "content_type": ["cms", "pushnotification"],
-      "codename": "send_push_notification"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can change user", "content_type": ["cms", "user"], "codename": "change_user" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can delete user", "content_type": ["cms", "user"], "codename": "delete_user" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view user", "content_type": ["cms", "user"], "codename": "view_user" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "view_translation_report",
-      "content_type": ["cms", "user"],
-      "codename": "view_translation_report"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "view_broken_links", "content_type": ["cms", "user"], "codename": "view_broken_links" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "view_statistics", "content_type": ["cms", "user"], "codename": "view_statistics" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "manage_translations", "content_type": ["cms", "user"], "codename": "manage_translations" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can add permission", "content_type": ["auth", "permission"], "codename": "add_permission" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can change permission",
-      "content_type": ["auth", "permission"],
-      "codename": "change_permission"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can delete permission",
-      "content_type": ["auth", "permission"],
-      "codename": "delete_permission"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view permission", "content_type": ["auth", "permission"], "codename": "view_permission" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can add group", "content_type": ["auth", "group"], "codename": "add_group" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can change group", "content_type": ["auth", "group"], "codename": "change_group" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can delete group", "content_type": ["auth", "group"], "codename": "delete_group" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view group", "content_type": ["auth", "group"], "codename": "view_group" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can add content type",
-      "content_type": ["contenttypes", "contenttype"],
-      "codename": "add_contenttype"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can change content type",
-      "content_type": ["contenttypes", "contenttype"],
-      "codename": "change_contenttype"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can delete content type",
-      "content_type": ["contenttypes", "contenttype"],
-      "codename": "delete_contenttype"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": {
-      "name": "Can view content type",
-      "content_type": ["contenttypes", "contenttype"],
-      "codename": "view_contenttype"
-    }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can add session", "content_type": ["sessions", "session"], "codename": "add_session" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can change session", "content_type": ["sessions", "session"], "codename": "change_session" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can delete session", "content_type": ["sessions", "session"], "codename": "delete_session" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view session", "content_type": ["sessions", "session"], "codename": "view_session" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can add db mutex", "content_type": ["db_mutex", "dbmutex"], "codename": "add_dbmutex" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can change db mutex", "content_type": ["db_mutex", "dbmutex"], "codename": "change_dbmutex" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can delete db mutex", "content_type": ["db_mutex", "dbmutex"], "codename": "delete_dbmutex" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view db mutex", "content_type": ["db_mutex", "dbmutex"], "codename": "view_dbmutex" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can add url", "content_type": ["linkcheck", "url"], "codename": "add_url" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can change url", "content_type": ["linkcheck", "url"], "codename": "change_url" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can delete url", "content_type": ["linkcheck", "url"], "codename": "delete_url" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view url", "content_type": ["linkcheck", "url"], "codename": "view_url" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can add link", "content_type": ["linkcheck", "link"], "codename": "add_link" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can change link", "content_type": ["linkcheck", "link"], "codename": "change_link" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can delete link", "content_type": ["linkcheck", "link"], "codename": "delete_link" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view link", "content_type": ["linkcheck", "link"], "codename": "view_link" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can add log entry", "content_type": ["admin", "logentry"], "codename": "add_logentry" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can change log entry", "content_type": ["admin", "logentry"], "codename": "change_logentry" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can delete log entry", "content_type": ["admin", "logentry"], "codename": "delete_logentry" }
-  },
-  {
-    "model": "auth.permission",
-    "fields": { "name": "Can view log entry", "content_type": ["admin", "logentry"], "codename": "view_logentry" }
-  },
-  {
-    "model": "auth.group",
-    "fields": {
-      "name": "MANAGEMENT",
-      "permissions": [
-        ["change_chatmessage", "cms", "chatmessage"],
-        ["add_directory", "cms", "directory"],
-        ["change_directory", "cms", "directory"],
-        ["delete_directory", "cms", "directory"],
-        ["view_directory", "cms", "directory"],
-        ["change_event", "cms", "event"],
-        ["publish_event", "cms", "event"],
-        ["view_event", "cms", "event"],
-        ["change_feedback", "cms", "feedback"],
-        ["delete_feedback", "cms", "feedback"],
-        ["view_feedback", "cms", "feedback"],
-        ["change_imprintpage", "cms", "imprintpage"],
-        ["view_imprintpage", "cms", "imprintpage"],
-        ["change_mediafile", "cms", "mediafile"],
-        ["delete_mediafile", "cms", "mediafile"],
-        ["replace_mediafile", "cms", "mediafile"],
-        ["upload_mediafile", "cms", "mediafile"],
-        ["view_mediafile", "cms", "mediafile"],
-        ["change_organization", "cms", "organization"],
-        ["delete_organization", "cms", "organization"],
-        ["view_organization", "cms", "organization"],
-        ["change_page", "cms", "page"],
-        ["grant_page_permissions", "cms", "page"],
-        ["publish_page", "cms", "page"],
-        ["view_page", "cms", "page"],
-        ["change_poi", "cms", "poi"],
-        ["view_poi", "cms", "poi"],
-        ["change_pushnotification", "cms", "pushnotification"],
-        ["send_push_notification", "cms", "pushnotification"],
-        ["view_pushnotification", "cms", "pushnotification"],
-        ["change_user", "cms", "user"],
-        ["manage_translations", "cms", "user"],
-        ["view_broken_links", "cms", "user"],
-        ["view_statistics", "cms", "user"],
-        ["view_translation_report", "cms", "user"],
-        ["view_user", "cms", "user"]
-      ]
-    }
-  },
-  {
-    "model": "auth.group",
-    "fields": {
-      "name": "EDITOR",
-      "permissions": [
-        ["add_directory", "cms", "directory"],
-        ["change_directory", "cms", "directory"],
-        ["view_directory", "cms", "directory"],
-        ["change_event", "cms", "event"],
-        ["publish_event", "cms", "event"],
-        ["view_event", "cms", "event"],
-        ["change_mediafile", "cms", "mediafile"],
-        ["replace_mediafile", "cms", "mediafile"],
-        ["upload_mediafile", "cms", "mediafile"],
-        ["view_mediafile", "cms", "mediafile"],
-        ["change_page", "cms", "page"],
-        ["publish_page", "cms", "page"],
-        ["view_page", "cms", "page"],
-        ["change_poi", "cms", "poi"],
-        ["view_poi", "cms", "poi"],
-        ["view_broken_links", "cms", "user"],
-        ["view_translation_report", "cms", "user"]
-      ]
-    }
-  },
-  {
-    "model": "auth.group",
-    "fields": {
-      "name": "EVENT_MANAGER",
-      "permissions": [
-        ["add_directory", "cms", "directory"],
-        ["change_directory", "cms", "directory"],
-        ["view_directory", "cms", "directory"],
-        ["change_event", "cms", "event"],
-        ["publish_event", "cms", "event"],
-        ["view_event", "cms", "event"],
-        ["change_mediafile", "cms", "mediafile"],
-        ["replace_mediafile", "cms", "mediafile"],
-        ["upload_mediafile", "cms", "mediafile"],
-        ["view_mediafile", "cms", "mediafile"],
-        ["change_poi", "cms", "poi"],
-        ["view_poi", "cms", "poi"]
-      ]
-    }
-  },
-  {
-    "model": "auth.group",
-    "fields": {
-      "name": "SERVICE_TEAM",
-      "permissions": [
-        ["change_chatmessage", "cms", "chatmessage"],
-        ["delete_chatmessage", "cms", "chatmessage"],
-        ["add_directory", "cms", "directory"],
-        ["change_directory", "cms", "directory"],
-        ["delete_directory", "cms", "directory"],
-        ["view_directory", "cms", "directory"],
-        ["change_event", "cms", "event"],
-        ["delete_event", "cms", "event"],
-        ["publish_event", "cms", "event"],
-        ["view_event", "cms", "event"],
-        ["change_feedback", "cms", "feedback"],
-        ["delete_feedback", "cms", "feedback"],
-        ["view_feedback", "cms", "feedback"],
-        ["change_imprintpage", "cms", "imprintpage"],
-        ["delete_imprintpage", "cms", "imprintpage"],
-        ["view_imprintpage", "cms", "imprintpage"],
-        ["change_language", "cms", "language"],
-        ["view_language", "cms", "language"],
-        ["change_languagetreenode", "cms", "languagetreenode"],
-        ["delete_languagetreenode", "cms", "languagetreenode"],
-        ["view_languagetreenode", "cms", "languagetreenode"],
-        ["change_mediafile", "cms", "mediafile"],
-        ["delete_mediafile", "cms", "mediafile"],
-        ["replace_mediafile", "cms", "mediafile"],
-        ["upload_mediafile", "cms", "mediafile"],
-        ["view_mediafile", "cms", "mediafile"],
-        ["change_offertemplate", "cms", "offertemplate"],
-        ["delete_offertemplate", "cms", "offertemplate"],
-        ["view_offertemplate", "cms", "offertemplate"],
-        ["change_organization", "cms", "organization"],
-        ["delete_organization", "cms", "organization"],
-        ["view_organization", "cms", "organization"],
-        ["change_page", "cms", "page"],
-        ["delete_page", "cms", "page"],
-        ["grant_page_permissions", "cms", "page"],
-        ["publish_page", "cms", "page"],
-        ["view_page", "cms", "page"],
-        ["change_poi", "cms", "poi"],
-        ["delete_poi", "cms", "poi"],
-        ["view_poi", "cms", "poi"],
-        ["change_poicategory", "cms", "poicategory"],
-        ["delete_poicategory", "cms", "poicategory"],
-        ["view_poicategory", "cms", "poicategory"],
-        ["change_pushnotification", "cms", "pushnotification"],
-        ["delete_pushnotification", "cms", "pushnotification"],
-        ["send_push_notification", "cms", "pushnotification"],
-        ["view_pushnotification", "cms", "pushnotification"],
-        ["change_region", "cms", "region"],
-        ["delete_region", "cms", "region"],
-        ["view_region", "cms", "region"],
-        ["change_user", "cms", "user"],
-        ["delete_user", "cms", "user"],
-        ["manage_translations", "cms", "user"],
-        ["view_broken_links", "cms", "user"],
-        ["view_statistics", "cms", "user"],
-        ["view_translation_report", "cms", "user"],
-        ["view_user", "cms", "user"]
-      ]
-    }
-  },
-  {
-    "model": "auth.group",
-    "fields": {
-      "name": "CMS_TEAM",
-      "permissions": [
-        ["change_chatmessage", "cms", "chatmessage"],
-        ["delete_chatmessage", "cms", "chatmessage"],
-        ["add_directory", "cms", "directory"],
-        ["change_directory", "cms", "directory"],
-        ["delete_directory", "cms", "directory"],
-        ["view_directory", "cms", "directory"],
-        ["change_event", "cms", "event"],
-        ["delete_event", "cms", "event"],
-        ["publish_event", "cms", "event"],
-        ["view_event", "cms", "event"],
-        ["change_feedback", "cms", "feedback"],
-        ["delete_feedback", "cms", "feedback"],
-        ["view_feedback", "cms", "feedback"],
-        ["change_imprintpage", "cms", "imprintpage"],
-        ["delete_imprintpage", "cms", "imprintpage"],
-        ["view_imprintpage", "cms", "imprintpage"],
-        ["change_language", "cms", "language"],
-        ["view_language", "cms", "language"],
-        ["change_languagetreenode", "cms", "languagetreenode"],
-        ["delete_languagetreenode", "cms", "languagetreenode"],
-        ["view_languagetreenode", "cms", "languagetreenode"],
-        ["change_mediafile", "cms", "mediafile"],
-        ["delete_mediafile", "cms", "mediafile"],
-        ["replace_mediafile", "cms", "mediafile"],
-        ["upload_mediafile", "cms", "mediafile"],
-        ["view_mediafile", "cms", "mediafile"],
-        ["change_offertemplate", "cms", "offertemplate"],
-        ["delete_offertemplate", "cms", "offertemplate"],
-        ["view_offertemplate", "cms", "offertemplate"],
-        ["change_organization", "cms", "organization"],
-        ["delete_organization", "cms", "organization"],
-        ["view_organization", "cms", "organization"],
-        ["change_page", "cms", "page"],
-        ["delete_page", "cms", "page"],
-        ["grant_page_permissions", "cms", "page"],
-        ["publish_page", "cms", "page"],
-        ["view_page", "cms", "page"],
-        ["change_poi", "cms", "poi"],
-        ["delete_poi", "cms", "poi"],
-        ["view_poi", "cms", "poi"],
-        ["change_poicategory", "cms", "poicategory"],
-        ["delete_poicategory", "cms", "poicategory"],
-        ["view_poicategory", "cms", "poicategory"],
-        ["change_pushnotification", "cms", "pushnotification"],
-        ["delete_pushnotification", "cms", "pushnotification"],
-        ["send_push_notification", "cms", "pushnotification"],
-        ["view_pushnotification", "cms", "pushnotification"],
-        ["change_region", "cms", "region"],
-        ["delete_region", "cms", "region"],
-        ["view_region", "cms", "region"],
-        ["change_user", "cms", "user"],
-        ["delete_user", "cms", "user"],
-        ["manage_translations", "cms", "user"],
-        ["view_broken_links", "cms", "user"],
-        ["view_statistics", "cms", "user"],
-        ["view_translation_report", "cms", "user"],
-        ["view_user", "cms", "user"]
-      ]
-    }
-  },
-  {
-    "model": "auth.group",
-    "fields": {
-      "name": "APP_TEAM",
-      "permissions": [
-        ["change_chatmessage", "cms", "chatmessage"],
-        ["add_directory", "cms", "directory"],
-        ["change_directory", "cms", "directory"],
-        ["view_directory", "cms", "directory"],
-        ["change_event", "cms", "event"],
-        ["publish_event", "cms", "event"],
-        ["view_event", "cms", "event"],
-        ["change_feedback", "cms", "feedback"],
-        ["view_feedback", "cms", "feedback"],
-        ["change_imprintpage", "cms", "imprintpage"],
-        ["view_imprintpage", "cms", "imprintpage"],
-        ["view_language", "cms", "language"],
-        ["view_languagetreenode", "cms", "languagetreenode"],
-        ["change_mediafile", "cms", "mediafile"],
-        ["delete_mediafile", "cms", "mediafile"],
-        ["replace_mediafile", "cms", "mediafile"],
-        ["upload_mediafile", "cms", "mediafile"],
-        ["view_mediafile", "cms", "mediafile"],
-        ["view_offertemplate", "cms", "offertemplate"],
-        ["view_organization", "cms", "organization"],
-        ["change_page", "cms", "page"],
-        ["publish_page", "cms", "page"],
-        ["view_page", "cms", "page"],
-        ["change_poi", "cms", "poi"],
-        ["view_poi", "cms", "poi"],
-        ["view_poicategory", "cms", "poicategory"],
-        ["change_pushnotification", "cms", "pushnotification"],
-        ["send_push_notification", "cms", "pushnotification"],
-        ["view_pushnotification", "cms", "pushnotification"],
-        ["change_region", "cms", "region"],
-        ["view_region", "cms", "region"],
-        ["view_broken_links", "cms", "user"],
-        ["view_statistics", "cms", "user"],
-        ["view_translation_report", "cms", "user"],
-        ["view_user", "cms", "user"]
-      ]
-    }
-  },
-  {
-    "model": "auth.group",
-    "fields": {
-      "name": "MARKETING_TEAM",
-      "permissions": [
-        ["change_chatmessage", "cms", "chatmessage"],
-        ["view_directory", "cms", "directory"],
-        ["view_event", "cms", "event"],
-        ["view_feedback", "cms", "feedback"],
-        ["view_imprintpage", "cms", "imprintpage"],
-        ["view_language", "cms", "language"],
-        ["view_languagetreenode", "cms", "languagetreenode"],
-        ["view_mediafile", "cms", "mediafile"],
-        ["view_offertemplate", "cms", "offertemplate"],
-        ["view_organization", "cms", "organization"],
-        ["view_page", "cms", "page"],
-        ["view_poi", "cms", "poi"],
-        ["view_poicategory", "cms", "poicategory"],
-        ["view_pushnotification", "cms", "pushnotification"],
-        ["view_region", "cms", "region"],
-        ["view_broken_links", "cms", "user"],
-        ["view_statistics", "cms", "user"],
-        ["view_translation_report", "cms", "user"],
-        ["view_user", "cms", "user"]
-      ]
-    }
-  },
-  {
-    "model": "auth.group",
-    "fields": {
-      "name": "AUTHOR",
-      "permissions": [
-        ["add_directory", "cms", "directory"],
-        ["change_directory", "cms", "directory"],
-        ["view_directory", "cms", "directory"],
-        ["change_event", "cms", "event"],
-        ["publish_event", "cms", "event"],
-        ["view_event", "cms", "event"],
-        ["change_mediafile", "cms", "mediafile"],
-        ["replace_mediafile", "cms", "mediafile"],
-        ["upload_mediafile", "cms", "mediafile"],
-        ["view_mediafile", "cms", "mediafile"],
-        ["change_page", "cms", "page"],
-        ["view_page", "cms", "page"],
-        ["change_poi", "cms", "poi"],
-        ["view_poi", "cms", "poi"]
-      ]
-    }
-  },
-  {
-    "model": "auth.group",
-    "fields": {
-      "name": "OBSERVER",
-      "permissions": [
-        ["add_directory", "cms", "directory"],
-        ["change_directory", "cms", "directory"],
-        ["view_directory", "cms", "directory"],
-        ["view_event", "cms", "event"],
-        ["change_mediafile", "cms", "mediafile"],
-        ["upload_mediafile", "cms", "mediafile"],
-        ["view_mediafile", "cms", "mediafile"],
-        ["view_page", "cms", "page"],
-        ["view_poi", "cms", "poi"]
-      ]
-    }
-  },
-  {
-    "model": "cms.user",
-    "fields": {
-      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
-      "last_login": null,
-      "is_superuser": true,
-      "username": "root",
-      "first_name": "Root",
-      "last_name": "User",
-      "email": "root@root.root",
-      "is_staff": true,
-      "is_active": true,
-      "date_joined": "2019-11-13T09:21:34.960Z",
-      "organization": null,
-      "chat_last_visited": "0001-01-01T00:00:00Z",
-      "expert_mode": true,
-      "page_tree_tutorial_seen": true,
-      "distribute_sidebar_boxes": false,
-      "totp_key": null,
-      "passwordless_authentication_enabled": false,
-      "webauthn_id": "a8J6PIhMgYFmrXsFnQ3BthrFCSqv7zt2aek833jtr5b2NCU+BUqJT8SwHg9vWfjX0H5Y0KQwO9PD4lF3jP/Q+A==",
-      "groups": [["CMS_TEAM"]],
-      "user_permissions": [],
-      "regions": []
-    }
-  },
-  {
-    "model": "cms.user",
-    "fields": {
-      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "management",
-      "first_name": "Region",
-      "last_name": "Manager",
-      "email": "management@example.com",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2019-11-13T09:21:34.960Z",
-      "organization": null,
-      "chat_last_visited": "0001-01-01T00:00:00Z",
-      "expert_mode": true,
-      "page_tree_tutorial_seen": true,
-      "distribute_sidebar_boxes": false,
-      "totp_key": null,
-      "passwordless_authentication_enabled": false,
-      "webauthn_id": "S11+5Wui5+9XilRDlG+eE9dKRqWgPlNh+p9dsNC0RnIq9x8Q1CDEkaWEcQNTJLsvNOhFmuC9l5WHZQodeG87zQ==",
-      "groups": [["MANAGEMENT"]],
-      "user_permissions": [],
-      "regions": [1]
-    }
-  },
-  {
-    "model": "cms.user",
-    "fields": {
-      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "editor",
-      "first_name": "Region",
-      "last_name": "Editor",
-      "email": "editor@example.com",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2019-11-13T09:21:34.960Z",
-      "organization": null,
-      "chat_last_visited": "0001-01-01T00:00:00Z",
-      "expert_mode": true,
-      "page_tree_tutorial_seen": true,
-      "distribute_sidebar_boxes": false,
-      "totp_key": null,
-      "passwordless_authentication_enabled": false,
-      "webauthn_id": "KEpV5WVYVhy6UPE32rKfgr4tq6OrneIrJsjoMZq4ksyNRLjDSRU4c3mNUm9TJVqZoVrxytDB3gxNXV2GQwO8gQ==",
-      "groups": [["EDITOR"]],
-      "user_permissions": [],
-      "regions": [1]
-    }
-  },
-  {
-    "model": "cms.user",
-    "fields": {
-      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "event_manager",
-      "first_name": "Region Event",
-      "last_name": "Manager",
-      "email": "event@example.com",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2019-11-13T09:21:34.960Z",
-      "organization": null,
-      "chat_last_visited": "0001-01-01T00:00:00Z",
-      "expert_mode": true,
-      "page_tree_tutorial_seen": true,
-      "distribute_sidebar_boxes": false,
-      "totp_key": null,
-      "passwordless_authentication_enabled": false,
-      "webauthn_id": "FsLeb3hXPD+/kuJBORnOyGlGNV30nWLJFhP4fhaNnVZlgztNjHHkMg6qulqGZUkeevxW+k8URhM3XBZGLAHDMQ==",
-      "groups": [["EVENT_MANAGER"]],
-      "user_permissions": [],
-      "regions": [1]
-    }
-  },
-  {
-    "model": "cms.user",
-    "fields": {
-      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "service_team",
-      "first_name": "Service Team",
-      "last_name": "Member",
-      "email": "service@example.com",
-      "is_staff": true,
-      "is_active": true,
-      "date_joined": "2019-11-13T09:21:34.960Z",
-      "organization": null,
-      "chat_last_visited": "0001-01-01T00:00:00Z",
-      "expert_mode": true,
-      "page_tree_tutorial_seen": true,
-      "distribute_sidebar_boxes": false,
-      "totp_key": null,
-      "passwordless_authentication_enabled": false,
-      "webauthn_id": "nTTgEXfShe8KXNdoCZ3Ht29RAiMke4SYiXkZbb1y5F+WRVnF2ujncrzpAbN38w5imwrIus4fh2LTHfRyRi9R4Q==",
-      "groups": [["SERVICE_TEAM"]],
-      "user_permissions": [],
-      "regions": []
-    }
-  },
-  {
-    "model": "cms.user",
-    "fields": {
-      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "cms_team",
-      "first_name": "CMS Team",
-      "last_name": "Member",
-      "email": "cms@example.com",
-      "is_staff": true,
-      "is_active": true,
-      "date_joined": "2019-11-13T09:21:34.960Z",
-      "organization": null,
-      "chat_last_visited": "0001-01-01T00:00:00Z",
-      "expert_mode": true,
-      "page_tree_tutorial_seen": true,
-      "distribute_sidebar_boxes": false,
-      "totp_key": null,
-      "passwordless_authentication_enabled": false,
-      "webauthn_id": "Syx2vbWu5A4ozn2ZPTlpUYkNJs0yfI2JLuf9+nBJAhy9rlCDoeq9ZkQOUPH41ljLKtnJByWIuMaFzNu6aEzjNQ==",
-      "groups": [["CMS_TEAM"]],
-      "user_permissions": [],
-      "regions": []
-    }
-  },
-  {
-    "model": "cms.user",
-    "fields": {
-      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "app_team",
-      "first_name": "App Team",
-      "last_name": "Member",
-      "email": "app@example.com",
-      "is_staff": true,
-      "is_active": true,
-      "date_joined": "2019-11-13T09:21:34.960Z",
-      "organization": null,
-      "chat_last_visited": "0001-01-01T00:00:00Z",
-      "expert_mode": true,
-      "page_tree_tutorial_seen": true,
-      "distribute_sidebar_boxes": false,
-      "totp_key": null,
-      "passwordless_authentication_enabled": false,
-      "webauthn_id": "zz4sd19sXq0oS5PnkB9W9VLNCf9osjYN5ePA053GE6rBl7i4Z5OI/68I2Vi3i2r2uRQj2qpQpSXsXFizTlBwkw==",
-      "groups": [["APP_TEAM"]],
-      "user_permissions": [],
-      "regions": []
-    }
-  },
-  {
-    "model": "cms.user",
-    "fields": {
-      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "marketing_team",
-      "first_name": "Marketing Team",
-      "last_name": "Member",
-      "email": "marketing@example.com",
-      "is_staff": true,
-      "is_active": true,
-      "date_joined": "2019-11-13T09:21:34.960Z",
-      "organization": null,
-      "chat_last_visited": "0001-01-01T00:00:00Z",
-      "expert_mode": true,
-      "page_tree_tutorial_seen": true,
-      "distribute_sidebar_boxes": false,
-      "totp_key": null,
-      "passwordless_authentication_enabled": false,
-      "webauthn_id": "IZDY0olK2/xyYurO1SQ1GMvtaD4JaPa9n7eVR+xuduUaPQqq9U3AdJi0k0rIjBAHS6TQM2f0paeRIPu0tZwd4Q==",
-      "groups": [["MARKETING_TEAM"]],
-      "user_permissions": [],
-      "regions": []
-    }
-  },
-  {
-    "model": "cms.user",
-    "fields": {
-      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "author",
-      "first_name": "Region",
-      "last_name": "Author",
-      "email": "author@example.com",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2019-11-13T09:21:34.960Z",
-      "organization": null,
-      "chat_last_visited": "0001-01-01T00:00:00Z",
-      "expert_mode": true,
-      "page_tree_tutorial_seen": true,
-      "distribute_sidebar_boxes": false,
-      "totp_key": null,
-      "passwordless_authentication_enabled": false,
-      "webauthn_id": "fjH8nyA7PBgd43/srtFBLSYKk2QVP8phQ1ZZnbQmk1ikcaP7DCABe/HKF6p+bIK9vT3yMX587zfqReJNj90x7g==",
-      "groups": [["AUTHOR"]],
-      "user_permissions": [],
-      "regions": [1]
-    }
-  },
-  {
-    "model": "cms.user",
-    "fields": {
-      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "observer",
-      "first_name": "Region",
-      "last_name": "Observer",
-      "email": "observer@example.com",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2019-11-13T09:21:34.960Z",
-      "organization": null,
-      "chat_last_visited": "0001-01-01T00:00:00Z",
-      "expert_mode": true,
-      "page_tree_tutorial_seen": true,
-      "distribute_sidebar_boxes": false,
-      "totp_key": null,
-      "passwordless_authentication_enabled": false,
-      "webauthn_id": "oNhRR26p9FQ180MXV5i9Z59bv4oYxVz5308ycwkTgJK/b9B5HtXBSvtRQijFoJ9mPm47QsiR+UGBPQBVITcohQ==",
-      "groups": [["OBSERVER"]],
-      "user_permissions": [],
-      "regions": [1]
-    }
-  },
-  {
-    "model": "cms.user",
-    "fields": {
-      "password": "pbkdf2_sha256$150000$6GBOYJT9gM6Z$fUrVoa16jJuWcG5G/cEjEGUZ14e9DWJAus8ygWHN4nk=",
-      "last_login": null,
-      "is_superuser": false,
-      "username": "management_artland",
-      "first_name": "Artland",
-      "last_name": "Manager",
-      "email": "management_artland@example.com",
-      "is_staff": false,
-      "is_active": true,
-      "date_joined": "2019-11-13T09:21:34.960Z",
-      "organization": null,
-      "chat_last_visited": "0001-01-01T00:00:00Z",
-      "expert_mode": true,
-      "page_tree_tutorial_seen": true,
-      "distribute_sidebar_boxes": false,
-      "totp_key": null,
-      "passwordless_authentication_enabled": false,
-      "webauthn_id": "UrIS9eRcRyudMHOWnpnZdc8vnlfINs5xLWGj+lrlqmLOQ3/VltvejS5mRthNrcD1pUDKVXzT2GV2PKCi6wlmjg==",
-      "groups": [["MANAGEMENT"]],
-      "user_permissions": [],
-      "regions": [4]
-    }
-  },
-  { "model": "cms.role", "pk": 1, "fields": { "name": "MANAGEMENT", "group": ["MANAGEMENT"], "staff_role": false } },
-  { "model": "cms.role", "pk": 2, "fields": { "name": "EDITOR", "group": ["EDITOR"], "staff_role": false } },
-  {
-    "model": "cms.role",
-    "pk": 3,
-    "fields": { "name": "EVENT_MANAGER", "group": ["EVENT_MANAGER"], "staff_role": false }
-  },
-  { "model": "cms.role", "pk": 4, "fields": { "name": "SERVICE_TEAM", "group": ["SERVICE_TEAM"], "staff_role": true } },
-  { "model": "cms.role", "pk": 5, "fields": { "name": "CMS_TEAM", "group": ["CMS_TEAM"], "staff_role": true } },
-  { "model": "cms.role", "pk": 6, "fields": { "name": "APP_TEAM", "group": ["APP_TEAM"], "staff_role": true } },
-  {
-    "model": "cms.role",
-    "pk": 7,
-    "fields": { "name": "MARKETING_TEAM", "group": ["MARKETING_TEAM"], "staff_role": true }
-  },
-  { "model": "cms.role", "pk": 8, "fields": { "name": "AUTHOR", "group": ["AUTHOR"], "staff_role": false } },
-  { "model": "cms.role", "pk": 9, "fields": { "name": "OBSERVER", "group": ["OBSERVER"], "staff_role": false } },
   {
     "model": "cms.page",
     "pk": 1,

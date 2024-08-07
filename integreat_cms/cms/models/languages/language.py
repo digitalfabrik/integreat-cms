@@ -3,11 +3,13 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from cacheops import invalidate_obj
+from django.conf import settings
 from django.core.validators import MinLengthValidator
 from django.db import models
 
 if TYPE_CHECKING:
     from typing import Any
+
     from django.db.models.query import QuerySet
 
 from django.utils import timezone
@@ -15,7 +17,7 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
-from ...constants import countries, text_directions
+from ...constants import countries, language_color, text_directions
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_base_model import AbstractBaseModel
 from ..regions.region import Region
@@ -91,6 +93,17 @@ class Language(AbstractBaseModel):
             _("This flag is used in the language switcher."),
         ),
     )
+    #: Manage choices in :mod:`~integreat_cms.cms.constants.language_color`
+    language_color = models.CharField(
+        choices=language_color.COLORS,
+        max_length=7,
+        verbose_name=_("language color"),
+        blank=False,
+        default="#000000",
+        help_text=_(
+            "This color is used to represent the color label of the chosen language"
+        ),
+    )
     created_date = models.DateTimeField(
         default=timezone.now,
         verbose_name=_("creation date"),
@@ -106,6 +119,22 @@ class Language(AbstractBaseModel):
         help_text=__(
             _('The native name for "Table of contents" in this language.'),
             _("This is used in exported PDFs."),
+        ),
+    )
+    social_media_webapp_title = models.CharField(
+        max_length=100,
+        blank=True,
+        verbose_name=_("Social media title of the WebApp"),
+        help_text=_(
+            "Displayed title of the WebApp in the search results and on social media pages (max 100 characters)."
+        ),
+    )
+    social_media_webapp_description = models.TextField(
+        max_length=200,
+        blank=True,
+        verbose_name=_("Social media description"),
+        help_text=_(
+            "Displayed description of the WebApp in the search results and on social media pages (max 200 characters)."
         ),
     )
     message_content_not_available = models.CharField(
@@ -163,6 +192,15 @@ class Language(AbstractBaseModel):
             language_tree_nodes__active=True,
             language_tree_nodes__visible=True,
         )
+
+    @cached_property
+    def can_be_pdf_exported(self) -> bool:
+        """
+        Returns whether PDF export is allowed for the language
+
+        :return: whether PDF export is allowed for the language
+        """
+        return self.slug not in settings.PDF_DEACTIVATED_LANGUAGES
 
     def save(self, *args: Any, **kwargs: Any) -> None:
         r"""

@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
     from typing import Any
+
     from treebeard.ns_tree import NS_NodeQuerySet
 
     from ..models import EventTranslation, PageTranslation, POITranslation
@@ -27,7 +28,9 @@ class MachineTranslationForm(CustomContentModelForm):
     """
 
     mt_translations_to_create = forms.ModelMultipleChoiceField(
-        widget=forms.CheckboxSelectMultiple(),
+        widget=forms.CheckboxSelectMultiple(
+            attrs={"class": "bulk-select-language", "name": "selected_language_slugs[]"}
+        ),
         queryset=LanguageTreeNode.objects.none(),
         required=False,
         label=_("Create new translations:"),

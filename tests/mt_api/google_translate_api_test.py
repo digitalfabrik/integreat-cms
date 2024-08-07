@@ -4,9 +4,10 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import Final
-    from pytest_django.fixtures import SettingsWrapper
+
     from _pytest.logging import LogCaptureFixture
     from django.test.client import Client
+    from pytest_django.fixtures import SettingsWrapper
 
 import pytest
 from django.apps import apps

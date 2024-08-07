@@ -24,7 +24,7 @@ class PushNotificationTranslation(AbstractBaseModel):
 
     title = models.CharField(max_length=250, blank=True, verbose_name=_("title"))
     text = models.TextField(
-        max_length=250,
+        max_length=500,
         blank=True,
         verbose_name=_("content"),
     )

@@ -104,8 +104,8 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
             else:
                 # Keep track of all skipped pages
                 skipped_pages.append(page)
-        logger.debug("Cached result: %r", result)
-        logger.debug("Skipped pages: %r", skipped_pages)
+        logger.debug("Cached pages: %r", len(result))
+        logger.debug("Skipped pages: %r", len(skipped_pages))
         return list(result.values())
 
 

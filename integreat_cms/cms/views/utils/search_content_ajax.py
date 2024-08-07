@@ -8,6 +8,7 @@ from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from lxml.html import tostring
 
 from ...constants import status
 from ...models import (
@@ -35,18 +36,35 @@ MAX_RESULT_COUNT: int = 20
 
 
 def format_object_translation(
-    object_translation: AbstractContentTranslation, typ: Literal["page", "event", "poi"]
+    object_translation: AbstractContentTranslation,
+    typ: Literal["page", "event", "poi"],
+    target_language_slug: str,
 ) -> dict:
     """
     Formats the [poi/event/page]-translation as json
 
     :param object_translation: A translation object which has a title and a permalink
     :param typ: The type of this object
+    :param target_language_slug: The slug that the object translation should ideally have
     :return: A dictionary with the title, path, url and type of the translation object
     """
+    if object_translation.language.slug != target_language_slug:
+        object_translation = object_translation.foreign_object.get_public_translation(
+            target_language_slug
+        )
+    if isinstance(object_translation.link_title, str):
+        html_title = object_translation.link_title
+        text_title = object_translation.link_title
+    else:
+        html_title = tostring(object_translation.link_title).decode("utf-8")
+        text_title = (
+            object_translation.link_title.text_content()
+            + object_translation.link_title.tail
+        )
     return {
-        "title": object_translation.title,
         "path": object_translation.path(),
+        "title": text_title,
+        "html_title": html_title,
         "url": f"{settings.WEBAPP_URL}{object_translation.get_absolute_url()}",
         "type": typ,
     }
@@ -99,7 +117,8 @@ def search_content_ajax(
             .select_related("event__region", "language")
         )
         results.extend(
-            format_object_translation(obj, "event") for obj in event_translations
+            format_object_translation(obj, "event", language_slug)
+            for obj in event_translations
         )
 
     if "feedback" in object_types:
@@ -130,7 +149,9 @@ def search_content_ajax(
                 query.lower() in page_translation.slug
                 or query.lower() in page_translation.title.lower()
             ):
-                results.append(format_object_translation(page_translation, "page"))
+                results.append(
+                    format_object_translation(page_translation, "page", language_slug)
+                )
 
     if "poi" in object_types:
         if TYPE_CHECKING:
@@ -144,7 +165,8 @@ def search_content_ajax(
             .select_related("poi__region", "language")
         )
         results.extend(
-            format_object_translation(obj, "poi") for obj in poi_translations
+            format_object_translation(obj, "poi", language_slug)
+            for obj in poi_translations
         )
 
     if "push_notification" in object_types:

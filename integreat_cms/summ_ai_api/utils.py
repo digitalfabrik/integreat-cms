@@ -20,16 +20,17 @@ from lxml.html import fromstring, HtmlElement, tostring
 
 if TYPE_CHECKING:
     from collections.abc import Callable
-    from django.forms.models import ModelFormMetaclass
     from functools import partial
     from typing import Any
+
+    from django.forms.models import ModelFormMetaclass
+    from django.http import HttpRequest
 
     from ..cms.models import (
         Language,
         Page,
         PageTranslation,
     )
-    from django.http import HttpRequest
     from ..cms.models.abstract_content_model import AbstractContentModel
     from ..cms.models.abstract_content_translation import AbstractContentTranslation
 
