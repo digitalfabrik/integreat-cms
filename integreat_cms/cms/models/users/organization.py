@@ -79,6 +79,13 @@ class Organization(AbstractBaseModel):
         self.archived = True
         self.save()
 
+    def restore(self) -> None:
+        """
+        Restores the organization
+        """
+        self.archived = False
+        self.save()
+
     @property
     def num_members(self) -> int:
         """

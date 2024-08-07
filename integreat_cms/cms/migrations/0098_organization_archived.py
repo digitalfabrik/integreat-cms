@@ -4,6 +4,9 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+    """
+    Add field for archiving an organization.
+    """
 
     dependencies = [
         ("cms", "0097_alter_pushnotificationtranslation_text"),

@@ -44,6 +44,7 @@ from ..views import (
     linkcheck,
     list_views,
     media,
+    organizations,
     pages,
     poi_categories,
     pois,
@@ -1032,14 +1033,12 @@ urlpatterns: list[URLPattern] = [
                         [
                             path(
                                 "",
-                                list_views.ModelListView.as_view(model=Organization),
+                                organizations.OrganizationListView.as_view(),
                                 name="organizations",
                             ),
                             path(
                                 "new/",
-                                form_views.CustomCreateView.as_view(
-                                    form_class=OrganizationForm
-                                ),
+                                organizations.OrganizationListView.as_view(),
                                 name="new_organization",
                             ),
                             path(
@@ -1059,6 +1058,23 @@ urlpatterns: list[URLPattern] = [
                                                 model=Organization,
                                             ),
                                             name="delete_organization",
+                                        ),
+                                        path(
+                                            "archived/",
+                                            organizations.OrganizationListView.as_view(
+                                                archived=True
+                                            ),
+                                            name="organizations_archived",
+                                        ),
+                                        path(
+                                            "archive/",
+                                            organizations.archive,
+                                            name="archive_organization",
+                                        ),
+                                        path(
+                                            "restore/",
+                                            organizations.restore,
+                                            name="restore_organization",
                                         ),
                                     ]
                                 ),

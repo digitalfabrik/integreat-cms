@@ -5645,6 +5645,7 @@ msgstr "Wiederholung"
 #: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/offertemplates/offertemplate_list.html
 #: cms/templates/organizations/organization_list.html
+#: cms/templates/organizations/organization_list_archived.html
 #: cms/templates/pages/page_tree.html
 #: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
 #: cms/templates/pois/poi_list_archived.html cms/templates/roles/role_list.html
@@ -6140,6 +6141,7 @@ msgstr "Speichern"
 #: cms/templates/languages/language_form.html
 #: cms/templates/offertemplates/offertemplate_list.html
 #: cms/templates/organizations/organization_list.html
+#: cms/templates/organizations/organization_list_archived.html
 #: cms/templates/poicategories/poicategory_list.html
 #: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
 msgid "Name"
@@ -6599,6 +6601,7 @@ msgstr "Zur Zeit werden von dieser Organisation keine Orte verwaltet."
 
 #: cms/templates/organizations/organization_form.html
 #: cms/templates/organizations/organization_list.html
+#: cms/templates/organizations/organization_list_archived.html
 msgid "Members"
 msgstr "Mitglieder"
 
@@ -6612,6 +6615,10 @@ msgid "This organization currently has no members."
 msgstr "Diese Organisation hat zur Zeit keine Mitglieder."
 
 #: cms/templates/organizations/organization_list.html
+msgid "Archived organizations"
+msgstr "Archivierte Orte"
+
+#: cms/templates/organizations/organization_list.html
 msgid "Manage Organizations"
 msgstr "Organisationen"
 
@@ -6620,14 +6627,17 @@ msgid "Create organization"
 msgstr "Organisation erstellen"
 
 #: cms/templates/organizations/organization_list.html
+#: cms/templates/organizations/organization_list_archived.html
 msgid "Maintained contents"
 msgstr "Anzahl an verwalteten Inhalten"
 
 #: cms/templates/organizations/organization_list.html
+#: cms/templates/organizations/organization_list_archived.html
 msgid "Logo"
 msgstr "Logo"
 
 #: cms/templates/organizations/organization_list.html
+#: cms/templates/organizations/organization_list_archived.html
 msgid "Website"
 msgstr "Webseite"
 
@@ -6635,9 +6645,26 @@ msgstr "Webseite"
 msgid "No organizations available yet."
 msgstr "Noch keine Organisationen vorhanden."
 
+#: cms/templates/organizations/organization_list_archived.html
+msgid "Archived Organizations"
+msgstr "Archivierte Orte"
+
+#: cms/templates/organizations/organization_list_archived.html
+msgid "No archived organizations."
+msgstr "Archivierte Orte"
+
+#: cms/templates/organizations/organization_list_archived_row.html
 #: cms/templates/organizations/organization_list_row.html
 msgid "To website"
 msgstr "Zur Webseite"
+
+#: cms/templates/organizations/organization_list_archived_row.html
+msgid "Restore organization"
+msgstr "Organisation wiederherstellen"
+
+#: cms/templates/organizations/organization_list_row.html
+msgid "Archive organization"
+msgstr "Ort archivieren"
 
 #: cms/templates/pages/_page_order_table.html
 msgid "Change the position of the page with drag & drop."
@@ -9203,6 +9230,30 @@ msgstr "Es ist ein Fehler aufgetreten."
 msgid "Please confirm that you really want to delete this {}"
 msgstr "Bitte bestätigen Sie, dass diese {} gelöscht werden soll"
 
+#: cms/views/organizations/organization_actions.py
+msgid "Organization was successfully archived"
+msgstr "Organisation wurde erfolgreich archiviert"
+
+#: cms/views/organizations/organization_actions.py
+msgid "Organization was successfully restored"
+msgstr "Organisation wurde erfolgreich archiviert"
+
+#: cms/views/organizations/organization_content_mixin.py
+msgid "Please confirm that you really want to archive this organization"
+msgstr "Bitte bestätigen Sie, dass diese Organisation archiviert werden soll."
+
+#: cms/views/organizations/organization_content_mixin.py
+msgid "Please confirm that you really want to restore this organization"
+msgstr "Bitte bestätigen Sie, dass diese Organisation wiederhergestellt werden soll"
+
+#: cms/views/organizations/organization_form_view.py
+msgid "You cannot edit this organization because it is archived."
+msgstr "Sie können diese Organisation nicht bearbeiten, da er archiviert ist."
+
+#: cms/views/organizations/organization_form_view.py
+msgid "You don't have the permission to edit organizations."
+msgstr "Sie haben nicht die nötige Berechtigung, um Organizationen zu bearbeiten."
+
 #: cms/views/pages/page_actions.py
 msgid "Page was successfully archived"
 msgstr "Seite wurde erfolgreich archiviert"
@@ -10954,10 +11005,6 @@ msgstr ""
 #~ msgid "deleted"
 #~ msgstr "Löschen"
 
-#~ msgid "You don't have the permission to edit an organization."
-#~ msgstr ""
-#~ "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu bearbeiten."
-
 #~ msgid "edited"
 #~ msgstr "Bearbeiter"
 
@@ -10969,12 +11016,6 @@ msgstr ""
 
 #~ msgid "Contents"
 #~ msgstr "Inhalte"
-
-#~ msgid "Organization was successfully deleted"
-#~ msgstr "Organisation wurde erfolgreich gespeichert"
-
-#~ msgid "Organization \"{}\" was successfully created"
-#~ msgstr "Organisation \"{}\" wurde erfolgreich erstellt"
 
 #~ msgid "Organization \"{}\" saved without changes"
 #~ msgstr "Organisation \"{}\" wurde erfolgreich gespeichert"
@@ -11144,9 +11185,6 @@ msgstr ""
 #~ msgid "Please confirm that you really want to delete this offer template"
 #~ msgstr ""
 #~ "Bitte bestätigen Sie, dass diese Angebots-Vorlage gelöscht werden soll"
-
-#~ msgid "Please confirm that you really want to delete this organization"
-#~ msgstr "Bitte bestätigen Sie, dass diese Organisation gelöscht werden soll"
 
 #~ msgid ""
 #~ "This will update all pages and users that are part of this organization."
@@ -11788,13 +11826,6 @@ msgstr ""
 
 #~ msgid "Enter the role's name here"
 #~ msgstr "Name der Rolle hier eingeben"
-
-#~ msgid ""
-#~ "There was an error during the establishment of a connection. Please check "
-#~ "the region and the entered key."
-#~ msgstr ""
-#~ "Es gab einen Fehler mit der Verbindung zum Matomo Server. Bitte prüfen "
-#~ "Sie Ihre Einstellungen."
 
 #~ msgid ""
 #~ "The url you have entered is invalid. Please check the corresponding "
