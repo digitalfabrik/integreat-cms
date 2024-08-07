@@ -66,7 +66,7 @@ class Migration(migrations.Migration):
                 (
                     "poi",
                     models.ForeignKey(
-                        on_delete=django.db.models.deletion.CASCADE,
+                        on_delete=django.db.models.deletion.PROTECT,
                         to="cms.poi",
                         verbose_name="POI",
                     ),

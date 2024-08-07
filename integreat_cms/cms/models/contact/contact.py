@@ -14,7 +14,7 @@ class Contact(AbstractBaseModel):
 
     title = models.CharField(max_length=200, verbose_name=_("title"))
     name = models.CharField(max_length=200, verbose_name=_("name"))
-    poi = models.ForeignKey(POI, on_delete=models.CASCADE, verbose_name=_("POI"))
+    poi = models.ForeignKey(POI, on_delete=models.PROTECT, verbose_name=_("POI"))
     region = models.ForeignKey(
         Region, on_delete=models.CASCADE, verbose_name=_("region")
     )
