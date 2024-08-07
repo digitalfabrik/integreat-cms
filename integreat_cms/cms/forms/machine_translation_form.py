@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 from ...core.utils.machine_translation_provider import MachineTranslationProvider
 from ...textlab_api.utils import check_hix_score
-from ..models import LanguageTreeNode
+from ..models import LanguageTreeNode, PageTranslation
 from .custom_content_model_form import CustomContentModelForm
 
 logger = logging.getLogger(__name__)
@@ -63,8 +63,9 @@ class MachineTranslationForm(CustomContentModelForm):
             )
             return
 
+        content = self.instance.page if self._meta.model == PageTranslation else None
         if not MachineTranslationProvider.is_permitted(
-            self.request.region, self.request.user, self._meta.model
+            self.request.region, self.request.user, self._meta.model, content
         ):
             return
 
