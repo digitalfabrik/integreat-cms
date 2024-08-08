@@ -135,6 +135,9 @@ class MachineTranslationForm(CustomContentModelForm):
         language_nodes = self.cleaned_data["mt_translations_to_create"].union(
             self.cleaned_data["mt_translations_to_update"]
         )
+        content = (
+            self.instance.page if isinstance(self.instance, PageTranslation) else None
+        )
         if commit and language_nodes and check_hix_score(self.request, self.instance):
             for language_node in language_nodes:
                 logger.debug(
@@ -144,7 +147,7 @@ class MachineTranslationForm(CustomContentModelForm):
                     self.instance,
                 )
                 api_client = language_node.mt_provider.api_client(
-                    self.request, type(self)
+                    self.request, type(self), content
                 )
                 # Invalidate cached property to take new version into account
                 self.instance.foreign_object.invalidate_cached_translations()
