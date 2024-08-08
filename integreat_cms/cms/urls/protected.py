@@ -1042,6 +1042,13 @@ urlpatterns: list[URLPattern] = [
                                 name="new_organization",
                             ),
                             path(
+                                "archived/",
+                                organizations.OrganizationListView.as_view(
+                                    archived=True
+                                ),
+                                name="archived_organizations",
+                            ),
+                            path(
                                 "<slug>/",
                                 include(
                                     [
@@ -1054,13 +1061,6 @@ urlpatterns: list[URLPattern] = [
                                             "delete/",
                                             organizations.delete,
                                             name="delete_organization",
-                                        ),
-                                        path(
-                                            "archived/",
-                                            organizations.OrganizationListView.as_view(
-                                                archived=True
-                                            ),
-                                            name="organizations_archived",
                                         ),
                                         path(
                                             "archive/",

@@ -54,7 +54,12 @@ class OrganizationListView(TemplateView, OrganizationContextMixin):
         """
         region = request.region
 
-        organizations = Organization.objects.filter(region=region)
+        organizations = (
+            Organization.objects.filter(region=region, archived=True)
+            if self.archived
+            else Organization.objects.filter(region=region, archived=False)
+        )
+
         archived_count = Organization.objects.filter(
             region=region, archived=True
         ).count()
@@ -66,5 +71,6 @@ class OrganizationListView(TemplateView, OrganizationContextMixin):
                 "region_slug": region.slug,
                 "organizations": organizations,
                 "archived_count": archived_count,
+                "current_menu_item": "organizations",
             },
         )
