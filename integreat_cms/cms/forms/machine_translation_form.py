@@ -63,7 +63,7 @@ class MachineTranslationForm(CustomContentModelForm):
             )
             return
 
-        content = self.instance.page if self._meta.model == PageTranslation else None
+        content = self.instance.page if self._meta.model == PageTranslation and self.instance.id else None
         if not MachineTranslationProvider.is_permitted(
             self.request.region, self.request.user, self._meta.model, content
         ):
