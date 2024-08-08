@@ -14,13 +14,15 @@ from urllib.error import URLError
 from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from lxml.etree import LxmlError
+from lxml.html import fromstring
 
 from integreat_cms.cms.models.pages.page_translation import PageTranslation
 from integreat_cms.cms.models.regions.region import Region
 from integreat_cms.cms.utils.round_hix_score import round_hix_score
 
 from ....api.decorators import json_response
-from ....textlab_api.textlab_api_client import TextlabClient
+from ....textlab_api.textlab_api_client import TextlabClient, TextlabResult
 
 if TYPE_CHECKING:
     from typing import Final
@@ -40,7 +42,7 @@ class CacheMeIfYouCan(Exception):
 
 
 @lru_cache(maxsize=512)
-def lookup_hix_score_helper(text: str) -> dict:
+def lookup_hix_score_helper(text: str) -> TextlabResult:
     """
     This function returns the hix score for the given text.
     It either performs an api request or returns the value from cache,
@@ -50,6 +52,17 @@ def lookup_hix_score_helper(text: str) -> dict:
     :param text: The text to calculate the hix score for
     :return: The score for the given text
     """
+    try:
+        html = fromstring(text)
+        text_content = html.text_content()
+        if not text_content.strip():
+            return {
+                "score": None,
+                "feedback": [],
+            }
+    except LxmlError:
+        pass
+
     # Replace all line breaks with <br> because Textlab API returns different HIX value depending on the line break character
     normalized_text = "<br>".join(text.splitlines())
 
@@ -62,7 +75,7 @@ def lookup_hix_score_helper(text: str) -> dict:
         raise CacheMeIfYouCan from e
 
 
-def lookup_hix_score(text: str) -> dict | None:
+def lookup_hix_score(text: str) -> TextlabResult | None:
     """
     This function returns the hix score for the given text.
     It either performs an api request or returns the value from cache.
