@@ -10,9 +10,11 @@ const calculateBackgroundColor = (score: number, setOutdated: boolean): string =
 
     if (setOutdated) {
         return "rgb(16, 111, 254, 0.3)";
-    } else if (score >= hixThresholdGood) {
+    }
+    if (score >= hixThresholdGood) {
         return "rgb(74, 222, 128)";
-    } else if (score > hixThresholdOk) {
+    }
+    if (score > hixThresholdOk) {
         return "rgb(250, 204, 21)";
     }
     return "rgb(239, 68, 68)";
@@ -35,9 +37,8 @@ const updateHixBar = (score: number, setOutdated: boolean) => {
 
 /**
  * Display a label depending on the current HIX state
- * States are "updated", "outdated", "no-content" and "error"
  */
-const updateHixStateLabel = (state: string) => {
+const updateHixStateLabel = (state: "updated" | "outdated" | "no-content" | "error") => {
     document.querySelectorAll("[data-hix-state]").forEach((element) => {
         if (element.getAttribute("data-hix-state") === state) {
             element.classList.remove("hidden");
@@ -137,14 +138,19 @@ const getHixData = async (): Promise<[number?, string?]> => {
 
     const json = await response.json();
 
-    if (json.error || json.score === null) {
+    if (json.error) {
         updateHixStateLabel("error");
-        return [];
-    } else {
-        updateHixStateLabel("updated");
-        initialContent = sentContent;
-        return [json.score, JSON.stringify(json.feedback)];
+        return [null, null];
     }
+
+    if (json.score === null) {
+        updateHixStateLabel("no-content");
+        return [null, null];
+    }
+
+    updateHixStateLabel("updated");
+    initialContent = sentContent;
+    return [json.score, JSON.stringify(json.feedback)];
 };
 
 window.addEventListener("load", async () => {
@@ -198,10 +204,8 @@ window.addEventListener("load", async () => {
 
         if (!hixScore) {
             const response = await getHixData();
-            if (response != null) {
-                hixScore = response[0];
-                hixFeedback = response[1];
-            }
+            hixScore = response[0];
+            hixFeedback = response[1];
         }
 
         if (hixScore != null) {
@@ -210,6 +214,8 @@ window.addEventListener("load", async () => {
             updateHixBar(initialHixScore, false);
             updateHixFeedback(hixFeedback);
             updateMTAvailability(initialHixScore);
+        } else {
+            updateHixStateLabel("no-content");
         }
     };
 
@@ -227,10 +233,12 @@ window.addEventListener("load", async () => {
                 if (content !== initialContent) {
                     return "outdated";
                 }
-                return "updated";
+                return null;
             })();
-            updateHixBar(initialHixScore, labelState === "outdated");
-            return updateHixStateLabel(labelState);
+            if (labelState !== null) {
+                updateHixBar(initialHixScore, labelState === "outdated");
+                updateHixStateLabel(labelState);
+            }
         });
     });
 
@@ -243,7 +251,7 @@ window.addEventListener("load", async () => {
         const hixScore = response[0];
         const hixFeedback = response[1];
 
-        if (hixScore != null) {
+        if (hixScore !== null) {
             initialHixScore = hixScore;
             updateHixBar(initialHixScore, false);
             updateHixFeedback(hixFeedback);

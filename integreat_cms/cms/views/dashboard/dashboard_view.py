@@ -16,6 +16,7 @@ from ....api.decorators import json_response
 from ...constants import status
 from ...models import Feedback, PageTranslation
 from ...utils.linkcheck_utils import filter_urls
+from ...views.utils.hix import get_translation_under_hix_threshold
 from ..chat.chat_context_mixin import ChatContextMixin
 
 if TYPE_CHECKING:
@@ -190,25 +191,11 @@ class DashboardView(TemplateView, ChatContextMixin):
 
         :return: Dictionary containing the context for pages with low hix value
         """
-        if not settings.TEXTLAB_API_ENABLED or not self.request.region.hix_enabled:
-            return {}
-
-        translations = PageTranslation.objects.filter(
-            language__slug__in=settings.TEXTLAB_API_LANGUAGES,
-            id__in=self.latest_version_ids,
-            page__hix_ignore=False,
-            hix_score__lt=settings.HIX_REQUIRED_FOR_MT,
+        translations_under_hix_threshold = get_translation_under_hix_threshold(
+            self.request.region
         )
 
-        translations_under_hix_threshold = [
-            translation
-            for translation in translations
-            if not translation.hix_sufficient_for_mt
-        ]
-
-        return {
-            "pages_under_hix_threshold": translations_under_hix_threshold,
-        }
+        return {"pages_under_hix_threshold": translations_under_hix_threshold}
 
     def get_outdated_pages_context(
         self,

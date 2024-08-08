@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import logging
 from html import unescape
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, TypedDict
 from urllib.request import Request, urlopen
 
 from django.conf import settings
@@ -15,6 +15,15 @@ if TYPE_CHECKING:
     from typing import Any
 
 logger = logging.getLogger(__name__)
+
+
+class TextlabResult(TypedDict):
+    """
+    The result that is returned from the textlab api via `benchmark`.
+    """
+
+    score: float | None
+    feedback: list[dict[str, Any]]
 
 
 class TextlabClient:
@@ -47,7 +56,7 @@ class TextlabClient:
 
     def benchmark(
         self, text: str, text_type: int = settings.TEXTLAB_API_DEFAULT_BENCHMARK_ID
-    ) -> dict:
+    ) -> TextlabResult:
         """
         Retrieves the hix score of the given text.
 
@@ -60,7 +69,7 @@ class TextlabClient:
             You can find the not so helpful API "documentation" here: https://comlab-ulm.github.io/swagger-V8/
             But since for now we are only interested in the HIX score anyway, we just use the benchmark
             "Letter Demo Integreat" with ID ``420`` by default.
-        :return: The score, or None if an error occurred
+        :return: The textlab result including score and feedback, or None if an error occurred
         """
         data = {"text": unescape(text), "locale_name": "de_DE"}
         path = f"/benchmark/{text_type}"

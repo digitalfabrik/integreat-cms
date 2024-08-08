@@ -15,8 +15,8 @@ This content management system helps local integration experts to provide multil
 ## Development Setup
 
 This section provides a brief overview of setting up the development environment.
-We support various environments: you can set up everything locally using your preferred package manager, use it as a devcontainer, or utilize the nix-flake.
-Please clone the repository with the following snippet before starting to set up your development environment.
+We support various environments: you can set up everything locally using your preferred package manager, use it as a devcontainer, or utilize the nix-flake. Please clone the repository with the following snippet before starting to
+setup your development environment.
 
 ````
 git clone git@github.com:digitalfabrik/integreat-cms.git

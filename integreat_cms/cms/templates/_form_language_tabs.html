@@ -58,10 +58,10 @@
                                         <i icon-name="x"></i>
                                     </span>
                                 {% endif %}
-                                <span class="language-name">{{ other_language.translated_name }}</span>
-                                <span class="fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
+                                <span class="flex-grow language-name">{{ other_language.translated_name }}</span>
+                                <span class="flex-end w-8 fp fp-rounded fp-{{ other_language.primary_country_code }}"></span>
                                 {% if other_language.secondary_country_code %}
-                                    <span class="fp fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
+                                    <span class="fp ml-1 w-8 fp-rounded fp-{{ other_language.secondary_country_code }}"></span>
                                 {% endif %}
                                 {% if other_language != language %}
                                 </a>
@@ -74,14 +74,15 @@
         {% endfor %}
         {% if instance and sorted_translation_states|length > 4 %}
             <li class="z-10 ml-auto">
-                <div id="language-switcher" class="flex flex-col text-black">
+                <div id="language-switcher" class="relative flex flex-col text-black">
                     <div id="language-switcher-current"
-                         class="font-bold text-right bg-water-500 py-[calc(0.75rem+2px)] px-4 border-l border-t border-r border-blue-500 rounded-t cursor-default">
+                         class="flex font-bold text-right bg-water-500 py-[calc(0.75rem+2px)] px-4 border-l border-t border-r border-blue-500 rounded-t cursor-default">
                         <i id="language-switcher-globe" icon-name="globe" class="hidden"></i>
                         <span id="language-switcher-text">{% translate "Other Languages" %}</span>
                         <i icon-name="chevron-down"></i>
                     </div>
-                    <ul id="language-switcher-list" class="z-10 hidden h-0">
+                    <ul id="language-switcher-list"
+                        class="absolute bottom-0 right-0 z-10 hidden h-0">
                     </ul>
                 </div>
             </li>

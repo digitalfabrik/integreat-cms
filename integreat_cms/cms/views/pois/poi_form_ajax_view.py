@@ -33,7 +33,7 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
         :param \**kwargs: The supplied keyword arguments
         :return: The html template of a POI form
         """
-        poi_form = POIForm()
+        poi_form = POIForm(additional_instance_attributes={"region": request.region})
         poi_title = kwargs.get("poi_title")
         poi_translation_form = POITranslationForm(data={"title": poi_title})
 

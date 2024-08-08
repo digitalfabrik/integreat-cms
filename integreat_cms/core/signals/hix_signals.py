@@ -62,16 +62,10 @@ def page_translation_save_handler(instance: PageTranslation, **kwargs: Any) -> N
         return
 
     if data := lookup_hix_score(instance.content):
+        logger.debug("Storing hix score %s for %r", data["score"], instance)
+        instance.hix_score = data["score"]
 
-        if score := data.get("score"):
-            logger.debug("Storing hix score %s for %r", score, instance)
-            instance.hix_score = score
-
-            if feedback := data.get("feedback"):
-                instance.hix_feedback = json.dumps(feedback)
-
-        else:
-            logger.warning("Failed to retrieve the hix score for %r", instance)
-
+        if feedback := data.get("feedback"):
+            instance.hix_feedback = json.dumps(feedback)
     else:
         logger.warning("Failed to retrieve the hix data for %r", instance)
