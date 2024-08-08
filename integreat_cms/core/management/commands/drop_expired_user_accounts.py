@@ -37,6 +37,7 @@ class Command(LogCommand):
 
         num_users_to_delete = users_to_delete.count()
 
+        # pylint: disable=consider-using-assignment-expr
         if not num_users_to_delete:
             logger.info("No inactive users were found who need to be deleted.")
             return
