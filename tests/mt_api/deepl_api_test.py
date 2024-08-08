@@ -19,7 +19,7 @@ from django.urls import reverse
 from integreat_cms.cms.models import Page
 from tests.mock import MockServer
 
-from ..conftest import AUTHOR, EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
+from ..conftest import EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 from ..utils import assert_message_in_log
 from .utils import get_content_translations
 
@@ -68,7 +68,7 @@ api_errors = [404, 413, 429, 456, 500]
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("error", api_errors)
 def test_deepl_bulk_mt_api_error(

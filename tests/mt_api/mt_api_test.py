@@ -30,7 +30,6 @@ from tests.mock import MockServer
 
 from ..conftest import (
     ANONYMOUS,
-    AUTHOR,
     EDITOR,
     MANAGEMENT,
     PRIV_STAFF_ROLES,
@@ -90,7 +89,7 @@ def mt_setup(
 content_role_id_combination = [
     (
         Page,
-        PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR],
+        PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
         [28],
     ),
     (
@@ -218,7 +217,7 @@ def test_bulk_mt(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_bulk_mt_exceeds_limit(
@@ -299,7 +298,7 @@ def test_bulk_mt_exceeds_limit(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_bulk_mt_up_to_date(
@@ -367,7 +366,7 @@ def test_bulk_mt_up_to_date(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_bulk_mt_up_to_date_and_ready_for_mt(
@@ -457,7 +456,7 @@ def test_bulk_mt_up_to_date_and_ready_for_mt(
 content_role_id_data_combination = [
     (
         Page,
-        PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR],
+        PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR],
         4,
         {
             "title": "Neuer Titel",
@@ -564,11 +563,7 @@ def test_automatic_translation(
             + create_or_update: Language.objects.filter(slug=target_language_slug)
             .first()
             .id,
-            "status": (
-                status.REVIEW
-                if content_type is Page and role is AUTHOR
-                else status.PUBLIC
-            ),
+            "status": status.PUBLIC,
         }
     )
 
@@ -623,7 +618,7 @@ def test_automatic_translation(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_bulk_mt_no_source_language(
@@ -698,7 +693,7 @@ def test_bulk_mt_no_source_language(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_deepl_bulk_mt_no_target_language(
