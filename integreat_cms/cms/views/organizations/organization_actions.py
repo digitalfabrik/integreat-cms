@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 @require_POST
 @permission_required("cms.change_organization")
-def archive(request: HttpRequest, region_slug: str, slug: str) -> HttpResponseRedirect:
+def archive(request: HttpRequest, region_slug: str, organization_slug: str) -> HttpResponseRedirect:
     """
     Set archived flag for an organization
 
@@ -32,7 +32,7 @@ def archive(request: HttpRequest, region_slug: str, slug: str) -> HttpResponseRe
     :return: The rendered template response
     """
     region = request.region
-    organization = get_object_or_404(region.organizations, slug=slug)
+    organization = get_object_or_404(region.organizations, slug=organization_slug)
 
     organization.archive()
 
@@ -44,7 +44,7 @@ def archive(request: HttpRequest, region_slug: str, slug: str) -> HttpResponseRe
 
 @require_POST
 @permission_required("cms.change_organization")
-def restore(request: HttpRequest, region_slug: str, slug: str) -> HttpResponseRedirect:
+def restore(request: HttpRequest, region_slug: str, organization_slug: str) -> HttpResponseRedirect:
     """
     Remove archived flag for an organization
 
@@ -54,7 +54,7 @@ def restore(request: HttpRequest, region_slug: str, slug: str) -> HttpResponseRe
     :return: The rendered template response
     """
     region = request.region
-    organization = get_object_or_404(region.organizations, slug=slug)
+    organization = get_object_or_404(region.organizations, slug=organization_slug)
 
     organization.restore()
 
