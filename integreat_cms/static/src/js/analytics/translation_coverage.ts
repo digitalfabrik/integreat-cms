@@ -34,6 +34,9 @@ window.addEventListener("load", async () => {
                         display: true,
                         text: chart.getAttribute("data-chart-languages"),
                     },
+                    ticks: {
+                        autoSkip: false,
+                    },
                 },
             },
         },
