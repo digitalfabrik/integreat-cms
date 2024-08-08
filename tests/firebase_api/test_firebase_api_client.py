@@ -3,6 +3,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 from unittest.mock import patch
 
+import pytest
+from django.core.exceptions import ImproperlyConfigured
+
+from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
+
 if TYPE_CHECKING:
     from typing import Any
 
@@ -12,8 +17,6 @@ if TYPE_CHECKING:
     from requests_mock.request import _RequestObjectProxy
     from requests_mock.response import _Context
 
-import pytest
-from django.core.exceptions import ImproperlyConfigured
 
 from integreat_cms.cms.models import PushNotification, Region
 from integreat_cms.firebase_api.firebase_api_client import FirebaseApiClient
@@ -50,7 +53,9 @@ class TestFirebaseApiClient:
 
     def setup_method(self) -> None:
         self.patch = patch.object(
-            FirebaseApiClient, "_get_access_token", return_value="secret access token"
+            FirebaseSecurityService,
+            "get_messaging_access_token",
+            return_value="secret access token",
         )
         self.patch.start()
 

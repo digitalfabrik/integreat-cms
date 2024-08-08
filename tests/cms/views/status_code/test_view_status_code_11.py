@@ -23,5 +23,6 @@ def test_view_status_code_11(
     kwargs: dict[str, Any],
     post_data: dict[str, Any] | str,
     roles: list[str],
+    mock_firebase_credentials: None,
 ) -> None:
     check_view_status_code(login_role_user, caplog, view_name, kwargs, post_data, roles)

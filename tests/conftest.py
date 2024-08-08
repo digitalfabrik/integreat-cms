@@ -4,7 +4,8 @@ This module contains shared fixtures for pytest
 
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
+from typing import Generator, TYPE_CHECKING
+from unittest.mock import patch
 
 import pytest
 from django.contrib.auth import get_user_model
@@ -23,6 +24,7 @@ from integreat_cms.cms.constants.roles import (
     OBSERVER,
     SERVICE_TEAM,
 )
+from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
 from tests.mock import MockServer
 
 if TYPE_CHECKING:
@@ -132,3 +134,17 @@ def login_role_user_async(
 @pytest.fixture(scope="function")
 def mock_server(httpserver: HTTPServer) -> MockServer:
     return MockServer(httpserver)
+
+
+@pytest.fixture(scope="function")
+def mock_firebase_credentials() -> Generator[None, None, None]:
+    patch_obj = patch.object(
+        FirebaseSecurityService,
+        "_get_access_token",
+        return_value="secret access token",
+    )
+    patch_obj.start()
+
+    yield
+
+    patch_obj.stop()

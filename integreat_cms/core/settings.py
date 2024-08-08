@@ -205,6 +205,12 @@ FCM_URL: Final[str] = os.environ.get(
     "https://fcm.googleapis.com/v1/projects/integreat-2020/messages:send",
 )
 
+#: FCM Data API Url
+FCM_DATA_URL: Final[str] = os.environ.get(
+    "INTEGREAT_CMS_FCM_DATA_URL",
+    "https://fcmdata.googleapis.com/v1beta1/projects/integreat-2020/androidApps/1:164298278764:android:3fc1f67f3883df306fd549/deliveryData",
+)
+
 #: Path to the saved credential json file
 FCM_CREDENTIALS: str | None = os.environ.get("INTEGREAT_CMS_FCM_CREDENTIALS")
 
@@ -381,6 +387,7 @@ INSTALLED_APPS: Final[list[str]] = [
     "treebeard",
     "webpack_loader",
     "widget_tweaks",
+    "django_cron",
 ]
 
 #: Check whether redis is activated
@@ -1321,3 +1328,7 @@ USER_CHAT_WINDOW_LIMIT: Final[int] = 50
 
 #: Zammad ticket group used for Integreat chat messages
 USER_CHAT_TICKET_GROUP: Final[str] = "integreat-chat"
+
+CRON_CLASSES = [
+    "integreat_cms.firebase_api.firebase_data_backup_cron_job.FirebaseDataBackupCronJob",
+]
