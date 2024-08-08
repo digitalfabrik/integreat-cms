@@ -46,7 +46,7 @@
                 data-confirmation-title="{{ archive_dialog_title }}"
                 data-confirmation-text="{{ archive_dialog_text }}"
                 data-confirmation-subject="{{ organization.name }}"
-                data-action="">
+                data-action="{% url 'archive_organization' region_slug=request.region.slug slug=organization.slug %}">
             <i icon-name="archive"></i>
         </button>
         {% if perms.cms.delete_organization %}

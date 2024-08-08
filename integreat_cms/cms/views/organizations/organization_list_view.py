@@ -3,10 +3,7 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-from django.conf import settings
-from django.contrib import messages
-from django.core.paginator import Paginator
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
@@ -57,7 +54,6 @@ class OrganizationListView(TemplateView, OrganizationContextMixin):
         """
         region = request.region
 
-        # Get the organization instance, or 404 if it doesn't exist
         organizations = Organization.objects.filter(region=region)
         archived_count = Organization.objects.filter(
             region=region, archived=True

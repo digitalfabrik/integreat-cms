@@ -22,9 +22,7 @@ logger = logging.getLogger(__name__)
 
 @require_POST
 @permission_required("cms.change_organization")
-def archive(
-    request: HttpRequest, region_slug: str, organization_slug: str
-) -> HttpResponseRedirect:
+def archive(request: HttpRequest, region_slug: str, slug: str) -> HttpResponseRedirect:
     """
     Set archived flag for an organization
 
@@ -34,27 +32,19 @@ def archive(
     :return: The rendered template response
     """
     region = request.region
-    organization = get_object_or_404(region.organizations, slug=organization_slug)
+    organization = get_object_or_404(region.organizations, slug=slug)
 
     organization.archive()
 
     logger.debug("%r archived by %r", organization, request.user)
     messages.success(request, _("Organization was successfully archived"))
 
-    return redirect(
-        "organizations",
-        **{
-            "region_slug": region_slug,
-            "slug": organization_slug,
-        },
-    )
+    return redirect("organizations", region_slug=region_slug)
 
 
 @require_POST
 @permission_required("cms.change_organization")
-def restore(
-    request: HttpRequest, region_slug: str, organization_slug: str
-) -> HttpResponseRedirect:
+def restore(request: HttpRequest, region_slug: str, slug: str) -> HttpResponseRedirect:
     """
     Remove archived flag for an organization
 
@@ -64,17 +54,32 @@ def restore(
     :return: The rendered template response
     """
     region = request.region
-    organization = get_object_or_404(region.organizations, slug=organization_slug)
+    organization = get_object_or_404(region.organizations, slug=slug)
 
     organization.restore()
 
     logger.debug("%r restored by %r", organization, request.user)
     messages.success(request, _("Organization was successfully restored"))
 
-    return redirect(
-        "organizations",
-        **{
-            "region_slug": region_slug,
-            "slug": organization_slug,
-        },
-    )
+    return redirect("organizations", region_slug=region_slug)
+
+
+@require_POST
+@permission_required("cms.delete_organization")
+def delete(request: HttpRequest, region_slug: str, slug: str) -> HttpResponseRedirect:
+    """
+    Delete a single organization
+
+    :param request: Object representing the user call
+    :param region_slug: slug of the region which the organization belongs to
+    :param slug: current GUI slug
+    :return: The rendered template response
+    """
+    region = request.region
+    organization = get_object_or_404(region.organizations, slug=slug)
+
+    logger.info("%r deleted by %r", organization, request.user)
+
+    organization.delete()
+
+    return redirect("organizations", region_slug=region_slug)

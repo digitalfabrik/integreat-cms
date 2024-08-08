@@ -77,7 +77,6 @@ class OrganizationFormView(TemplateView, OrganizationContextMixin, MediaContextM
             },
         )
 
-    # pylint: disable=too-many-locals,too-many-branches
     def post(self, request: HttpRequest, **kwargs: Any) -> HttpResponse:
         r"""
         Save organization form for HTTP POST requests

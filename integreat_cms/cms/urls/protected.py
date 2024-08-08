@@ -1047,16 +1047,12 @@ urlpatterns: list[URLPattern] = [
                                     [
                                         path(
                                             "edit/",
-                                            form_views.CustomUpdateView.as_view(
-                                                form_class=OrganizationForm
-                                            ),
+                                            organizations.OrganizationListView.as_view(),
                                             name="edit_organization",
                                         ),
                                         path(
                                             "delete/",
-                                            delete_views.CustomDeleteView.as_view(
-                                                model=Organization,
-                                            ),
+                                            organizations.delete,
                                             name="delete_organization",
                                         ),
                                         path(
