@@ -15,7 +15,6 @@ from ..forms import (
     LanguageForm,
     LanguageTreeNodeForm,
     OfferTemplateForm,
-    OrganizationForm,
     PageTranslationForm,
     POITranslationForm,
     RegionForm,
@@ -24,7 +23,6 @@ from ..models import (
     Event,
     Language,
     OfferTemplate,
-    Organization,
     Page,
     POI,
     POICategory,
@@ -1038,7 +1036,7 @@ urlpatterns: list[URLPattern] = [
                             ),
                             path(
                                 "new/",
-                                organizations.OrganizationListView.as_view(),
+                                organizations.OrganizationFormView.as_view(),
                                 name="new_organization",
                             ),
                             path(
@@ -1054,7 +1052,7 @@ urlpatterns: list[URLPattern] = [
                                     [
                                         path(
                                             "edit/",
-                                            organizations.OrganizationListView.as_view(),
+                                            organizations.OrganizationFormView.as_view(),
                                             name="edit_organization",
                                         ),
                                         path(

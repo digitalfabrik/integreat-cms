@@ -1,26 +1,26 @@
 {% load i18n %}
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
     <td class="pl-2">
-        <a href="{% url 'edit_organization' region_slug=request.region.slug slug=organization.slug %}"
+        <a href="{% url 'edit_organization' region_slug=request.region.slug slug=organization.id %}"
            class="block py-3 px-2 text-gray-800">
             {{ organization.name }}
         </a>
     </td>
     <td>
-        <a href="{% url 'edit_organization' region_slug=request.region.slug slug=organization.slug %}"
+        <a href="{% url 'edit_organization' region_slug=request.region.slug slug=organization.id %}"
            class="block py-3 px-2 text-gray-800">
             {{ organization.num_members }}
         </a>
     </td>
     <td>
-        <a href="{% url 'edit_organization' region_slug=request.region.slug slug=organization.slug %}"
+        <a href="{% url 'edit_organization' region_slug=request.region.slug slug=organization.id %}"
            class="block py-3 px-2 text-gray-800">
             {{ organization.num_contents }}
         </a>
     </td>
     <td class="pr-2">
         {% if organization.icon %}
-            <a href="{% url 'edit_organization' region_slug=request.region.slug slug=organization.slug %}">
+            <a href="{% url 'edit_organization' region_slug=request.region.slug slug=organization.id %}">
                 {# djlint:off H006 #}
                 <img src="{{ organization.icon.url }}"
                      alt="{{ organization.icon.url }}"

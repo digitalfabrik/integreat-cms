@@ -74,6 +74,7 @@ class OrganizationFormView(TemplateView, OrganizationContextMixin, MediaContextM
             {
                 **self.get_context_data(**kwargs),
                 "organization_form": organization_form,
+                "current_menu_item": "organizations",
             },
         )
 
@@ -90,6 +91,7 @@ class OrganizationFormView(TemplateView, OrganizationContextMixin, MediaContextM
         organization_instance = Organization.objects.filter(
             id=kwargs.get("slug")
         ).first()
+
         if organization_instance and organization_instance.archived:
             return redirect(
                 "edit_organization",
@@ -98,13 +100,18 @@ class OrganizationFormView(TemplateView, OrganizationContextMixin, MediaContextM
                     "slug": organization_instance.slug,
                 },
             )
+
         organization_form = OrganizationForm(
             data=request.POST,
             files=request.FILES,
             instance=organization_instance,
+            additional_instance_attributes={
+                "region": region,
+            },
         )
 
-        organization_form.save()
+        if organization_form.is_valid():
+            organization_form.save()
 
         return render(
             request,
@@ -112,5 +119,6 @@ class OrganizationFormView(TemplateView, OrganizationContextMixin, MediaContextM
             {
                 **self.get_context_data(**kwargs),
                 "organization_form": organization_form,
+                "current_menu_item": "organizations",
             },
         )
