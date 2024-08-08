@@ -57,12 +57,8 @@ class OrganizationListView(TemplateView, OrganizationContextMixin):
         """
         region = request.region
 
-        organization_slug = kwargs.get("slug")
-
         # Get the organization instance, or 404 if it doesn't exist
-        organization = get_object_or_404(
-            Organization, slug=organization_slug, region=region
-        )
+        organizations = Organization.objects.filter(region=region)
         archived_count = Organization.objects.filter(
             region=region, archived=True
         ).count()
@@ -72,7 +68,7 @@ class OrganizationListView(TemplateView, OrganizationContextMixin):
             {
                 **self.get_context_data(**kwargs),
                 "region_slug": region.slug,
-                "slug": organization.slug,
+                "organizations": organizations,
                 "archived_count": archived_count,
             },
         )
