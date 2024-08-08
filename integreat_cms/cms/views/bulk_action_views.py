@@ -139,6 +139,10 @@ class BulkMachineTranslationView(BulkActionView):
                 ),
             )
             return super().post(request, *args, **kwargs)
+        if language_node.mt_provider.bulk_only_for_staff and not request.user.is_staff:
+            raise PermissionDenied(
+                f"Only staff users have the permission to bulk translate {self.form._meta.model._meta.model_name} via {language_node.mt_provider}"
+            )
         if not language_node.mt_provider.is_permitted(
             request.region, request.user, self.form._meta.model
         ):
@@ -149,10 +153,6 @@ class BulkMachineTranslationView(BulkActionView):
                 ).format(language_node),
             )
             return super().post(request, *args, **kwargs)
-        if language_node.mt_provider.bulk_only_for_staff and not request.user.is_staff:
-            raise PermissionDenied(
-                f"Only staff users have the permission to bulk translate {self.form._meta.model._meta.model_name} via {language_node.mt_provider}"
-            )
 
         to_translate = language_node.mt_provider.is_needed(
             request.region, self.get_queryset(), language_node
