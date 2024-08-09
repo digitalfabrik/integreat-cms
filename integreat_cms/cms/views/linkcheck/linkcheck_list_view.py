@@ -21,7 +21,12 @@ from lxml.html import rewrite_links
 
 from ...decorators import permission_required
 from ...forms.linkcheck.edit_url_form import EditUrlForm
-from ...utils.linkcheck_utils import filter_urls, fix_content_link_encoding, get_urls
+from ...utils.linkcheck_utils import (
+    filter_urls,
+    fix_content_link_encoding,
+    get_urls,
+    replace_links,
+)
 
 if TYPE_CHECKING:
     from typing import Any
@@ -104,10 +109,9 @@ class LinkcheckListView(ListView):
         Dispatch the view to either get() or post()
         """
         if edit_url_id := kwargs.pop("url_id", None):
+            region = request.region.slug if request.region else None
             try:
-                self.instance = get_urls(
-                    region_slug=request.region.slug, url_ids=[edit_url_id]
-                )[0]
+                self.instance = get_urls(region, url_ids=[edit_url_id])[0]
             except IndexError as e:
                 raise Http404("This URL does not exist") from e
             if request.POST:
@@ -158,44 +162,51 @@ class LinkcheckListView(ListView):
                 if TYPE_CHECKING:
                     assert self.instance
                 new_url = self.form.cleaned_data["url"]
-                # Get all current translations with the same url
-                translations = {
-                    link.content_object for link in self.instance.region_links
-                }
-                # Replace the old urls with the new urls in the content
-                for translation in translations:
-                    new_translation = deepcopy(translation)
-                    # Replace link in translation
-                    logger.debug("Replacing links of %r", new_translation)
-                    new_translation.content = rewrite_links(
-                        new_translation.content,
-                        partial(self.replace_link, self.instance.url, new_url),
-                    )
-                    new_translation.content = fix_content_link_encoding(
-                        new_translation.content
-                    )
-                    # Save translation with replaced content as new minor version
-                    new_translation.id = None
-                    new_translation.version += 1
-                    new_translation.minor_edit = True
-                    new_translation.save()
-                if new_url.startswith("mailto:"):
-                    messages.success(request, _("Email link was successfully replaced"))
-                elif new_url.startswith("tel:"):
-                    messages.success(
-                        request, _("Phone number link was successfully replaced")
+                if not request.region:
+                    replace_links(
+                        self.instance.url, new_url, user=request.user, commit=True
                     )
                 else:
-                    messages.success(request, _("URL was successfully replaced"))
-                # Add short delay to allow post_save signals to finish (to keep existing URL objects when deleting the old links)
-                time.sleep(0.5)
-                # Acquire linkcheck lock to avoid race conditions between post_save signal and links.delete()
-                with update_lock:
+                    # Get all current translations with the same url
+                    translations = {
+                        link.content_object for link in self.instance.region_links
+                    }
+                    # Replace the old urls with the new urls in the content
                     for translation in translations:
-                        # Delete now outdated link objects
-                        translation.links.all().delete()
-                # Add short delay to allow rechecking to be finished when page reloads
-                time.sleep(0.5)
+                        new_translation = deepcopy(translation)
+                        # Replace link in translation
+                        logger.debug("Replacing links of %r", new_translation)
+                        new_translation.content = rewrite_links(
+                            new_translation.content,
+                            partial(self.replace_link, self.instance.url, new_url),
+                        )
+                        new_translation.content = fix_content_link_encoding(
+                            new_translation.content
+                        )
+                        # Save translation with replaced content as new minor version
+                        new_translation.id = None
+                        new_translation.version += 1
+                        new_translation.minor_edit = True
+                        new_translation.save()
+                    if new_url.startswith("mailto:"):
+                        messages.success(
+                            request, _("Email link was successfully replaced")
+                        )
+                    elif new_url.startswith("tel:"):
+                        messages.success(
+                            request, _("Phone number link was successfully replaced")
+                        )
+                    else:
+                        messages.success(request, _("URL was successfully replaced"))
+                    # Add short delay to allow post_save signals to finish (to keep existing URL objects when deleting the old links)
+                    time.sleep(0.5)
+                    # Acquire linkcheck lock to avoid race conditions between post_save signal and links.delete()
+                    with update_lock:
+                        for translation in translations:
+                            # Delete now outdated link objects
+                            translation.links.all().delete()
+                    # Add short delay to allow rechecking to be finished when page reloads
+                    time.sleep(0.5)
             else:
                 # Show error messages
                 for field in self.form:
@@ -204,30 +215,32 @@ class LinkcheckListView(ListView):
                 # If the form is invalid, render the invalid form
                 return super().get(request, *args, **kwargs)
 
-        action = request.POST.get("action")
-        selected_urls = get_urls(
-            region_slug=request.region.slug,
-            url_ids=request.POST.getlist("selected_ids[]"),
-        )
+        if action := request.POST.get("action"):
+            region_slug = request.region.slug if request.region else None
+            selected_urls = get_urls(
+                region_slug=region_slug,
+                url_ids=request.POST.getlist("selected_ids[]"),
+            )
 
-        if action == "ignore":
-            for url in selected_urls:
-                Link.objects.filter(
-                    id__in=[link.id for link in url.region_links]
-                ).update(ignore=True)
-            messages.success(request, _("Links were successfully ignored"))
-        elif action == "unignore":
-            for url in selected_urls:
-                Link.objects.filter(
-                    id__in=[link.id for link in url.region_links]
-                ).update(ignore=False)
-            messages.success(request, _("Links were successfully unignored"))
-        elif action == "recheck":
-            for url in selected_urls:
-                url.check_url(external_recheck_interval=0)
-            messages.success(request, _("Links were successfully checked"))
-            # Add short delay to allow rechecking to be finished when page reloads
-            time.sleep(1)
+            if action == "ignore":
+                for url in selected_urls:
+                    Link.objects.filter(
+                        id__in=[link.id for link in url.region_links]
+                    ).update(ignore=True)
+                messages.success(request, _("Links were successfully ignored"))
+            elif action == "unignore":
+                for url in selected_urls:
+                    Link.objects.filter(
+                        id__in=[link.id for link in url.region_links]
+                    ).update(ignore=False)
+                messages.success(request, _("Links were successfully unignored"))
+            elif action == "recheck":
+                for url in selected_urls:
+                    url.check_url(external_recheck_interval=0)
+                messages.success(request, _("Links were successfully checked"))
+                # Add short delay to allow rechecking to be finished when page reloads
+                time.sleep(1)
+
         invalidate_model(Link)
         invalidate_model(Url)
         linkcheck_url = reverse("linkcheck", kwargs=kwargs)
