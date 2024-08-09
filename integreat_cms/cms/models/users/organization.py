@@ -44,6 +44,7 @@ class Organization(AbstractBaseModel):
     )
 
     website = models.URLField(max_length=250, verbose_name=_("website"))
+    archived = models.BooleanField(default=False, verbose_name=_("archived"))
 
     def __str__(self) -> str:
         """
@@ -70,6 +71,20 @@ class Organization(AbstractBaseModel):
         :return: the current number of maintained pages of an organization object
         """
         return self.pages.count() + self.pois.count()
+
+    def archive(self) -> None:
+        """
+        Archives the organizations
+        """
+        self.archived = True
+        self.save()
+
+    def restore(self) -> None:
+        """
+        Restores the organization
+        """
+        self.archived = False
+        self.save()
 
     @property
     def num_members(self) -> int:
