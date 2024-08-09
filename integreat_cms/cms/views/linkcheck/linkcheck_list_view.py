@@ -197,8 +197,9 @@ class LinkcheckListView(ListView):
                 # Acquire linkcheck lock to avoid race conditions between post_save signal and links.delete()
                 with update_lock:
                     for translation in translations:
-                        # Delete now outdated link objects
-                        translation.links.all().delete()
+                        if not isinstance(translation, Organization):
+                            # Delete now outdated link objects
+                            translation.links.all().delete()
                 # Add short delay to allow rechecking to be finished when page reloads
                 time.sleep(0.5)
             else:

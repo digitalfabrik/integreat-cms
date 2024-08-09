@@ -99,6 +99,9 @@ class Organization(AbstractBaseModel):
 
     @property
     def title(self) -> str:
+        """
+        This function return the name of organization. Alias for link list template.
+        """
         return self.name
 
     class Meta:

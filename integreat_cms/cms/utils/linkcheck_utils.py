@@ -8,6 +8,7 @@ from functools import partial
 from typing import TYPE_CHECKING
 from urllib.parse import ParseResult, unquote, urlparse
 
+from cacheops import invalidate_model
 from django.conf import settings
 from django.db.models import Prefetch, Q, QuerySet, Subquery
 from linkcheck import update_lock
@@ -18,10 +19,10 @@ from lxml.html import rewrite_links
 from integreat_cms.cms.models import (
     EventTranslation,
     ImprintPageTranslation,
+    Organization,
     PageTranslation,
     POITranslation,
     Region,
-    Organization,
 )
 
 from ..models.abstract_content_translation import AbstractContentTranslation
@@ -254,9 +255,22 @@ def replace_links(
         region_msg,
         user_msg,
     )
-    models = [PageTranslation, EventTranslation, POITranslation]
+    translation_models = [PageTranslation, EventTranslation, POITranslation]
+    other_models = [Organization]
     with update_lock:
-        for model in models:
+        for model in other_models:
+            objects = model.objects.all()
+            if region:
+                objects.filter(region=region)
+            for obj in objects:
+                url = obj.website
+                if search in url:
+                    obj.website = url.replace(search, replace)
+                    obj.save()
+                    invalidate_model(obj)
+
+    with update_lock:
+        for model in translation_models:
             filters = {}
             if region:
                 filters[f"{model.foreign_field()}__region"] = region
@@ -277,7 +291,10 @@ def replace_links(
                             partial(replace_link_helper, url, fixed_url),
                         )
                         logger.debug(
-                            "Replacing %r with %r in %r", url, fixed_url, translation
+                            "Replacing %r with %r in %r",
+                            url,
+                            fixed_url,
+                            translation,
                         )
                 new_translation.content = fix_content_link_encoding(
                     new_translation.content

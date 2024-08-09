@@ -11,10 +11,10 @@ from .models import (
     EventTranslation,
     ImprintPageTranslation,
     LanguageTreeNode,
+    Organization,
     Page,
     PageTranslation,
     POITranslation,
-    Organization,
 )
 
 if TYPE_CHECKING:
@@ -150,6 +150,7 @@ class OrganizationLinklist(Linklist):
     model: ModelBase = Organization
 
     url_fields = ["website"]
+
 
 linklists = {
     "PageTranslations": PageTranslationLinklist,
