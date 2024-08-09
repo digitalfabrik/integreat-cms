@@ -432,7 +432,7 @@ def test_get_file_usages(
     if role in STAFF_ROLES:
         assert response.status_code == 200
         # Check contents in the response
-        assert "Test Organization" in response.content.decode("utf-8")
+        assert "Nicht archivierte Organisation" in response.content.decode("utf-8")
         assert "Welcome" not in response.content.decode("utf-8")
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error
