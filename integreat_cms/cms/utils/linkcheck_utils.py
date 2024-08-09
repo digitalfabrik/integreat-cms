@@ -261,7 +261,7 @@ def replace_links(
         for model in other_models:
             objects = model.objects.all()
             if region:
-                objects.filter(region=region)
+                objects = objects.filter(region=region)
             for obj in objects:
                 url = obj.website
                 if search in url:
