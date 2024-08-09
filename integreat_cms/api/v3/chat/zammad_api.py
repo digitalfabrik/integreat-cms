@@ -144,14 +144,17 @@ class ZammadChatAPI:
     # pylint: disable=method-hidden
     def get_messages(self, chat: UserChat) -> dict[str, dict | list[dict]]:
         """
-        Get all messages for a given ticket
+        Get all non-internal messages for a given ticket
 
         :param chat: UserChat instance for the relevant Zammad ticket
         """
-        response = self._parse_response(
-            self._attempt_call(self.client.ticket.articles, chat.zammad_id)
-        )
+        raw_response = self._attempt_call(self.client.ticket.articles, chat.zammad_id)
+        if not isinstance(raw_response, list):
+            return self._parse_response(raw_response)  # type: ignore[return-value]
 
+        response = self._parse_response(
+            [article for article in raw_response if not article.get("internal")]
+        )
         for message in response:
             if "attachments" in message:
                 message["attachments"] = [
