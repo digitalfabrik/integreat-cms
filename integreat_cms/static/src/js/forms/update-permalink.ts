@@ -40,23 +40,25 @@ window.addEventListener("load", () => {
             .setAttribute("data-copy-to-clipboard", encodeURI(updatedLink.concat(currentSlug)));
     };
 
-    if (
-        document.getElementById("id_title") &&
-        (document.querySelector('[for="id_title"]') as HTMLElement)?.dataset?.slugifyUrl
-    ) {
-        document.getElementById("id_title").addEventListener("focusout", ({ target }) => {
+    document.querySelectorAll("#id_title").forEach((item) => {
+        item.addEventListener("focusout", ({ target }) => {
             const submissionLock = new SubmissionPrevention(".no-premature-submission");
             const currentTitle = (target as HTMLInputElement).value;
-            const dataset = (document.querySelector('[for="id_title"]') as HTMLElement).dataset;
-            slugify(dataset.slugifyUrl, { title: currentTitle, model_id: dataset.modelId })
-                .then((response) => {
-                    /* on success write response to both slug field and permalink */
-                    slugField.value = response.unique_slug;
-                    updatePermalink(response.unique_slug);
-                })
-                .finally(() => submissionLock.release());
+            const nodeList: NodeListOf<HTMLInputElement> = document.querySelectorAll(
+                '[for="id_title"],[for="id_slug"]'
+            );
+            for (const node of nodeList) {
+                const datasetItem = node.dataset;
+                slugify(datasetItem.slugifyUrl, { title: currentTitle, model_id: datasetItem.modelId })
+                    .then((response) => {
+                        /* on success write response to both slug field and permalink */
+                        slugField.value = response.unique_slug;
+                        updatePermalink(response.unique_slug);
+                    })
+                    .finally(() => submissionLock.release());
+            }
         });
-    }
+    });
 
     const toggleSlugMode = () => {
         // Toggle all permalink buttons (and the rendered link)
