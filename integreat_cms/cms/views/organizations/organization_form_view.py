@@ -113,6 +113,23 @@ class OrganizationFormView(TemplateView, OrganizationContextMixin, MediaContextM
         if organization_form.is_valid():
             organization_form.save()
 
+            if not organization_instance:
+                messages.success(
+                    request,
+                    _('Organization "{}" was successfully created').format(
+                        organization_form.instance
+                    ),
+                )
+            else:
+                messages.success(
+                    request,
+                    _('Organization "{}" was successfully saved').format(
+                        organization_form.instance
+                    ),
+                )
+        else:
+            organization_form.add_error_messages(request)
+
         return render(
             request,
             self.template_name,
