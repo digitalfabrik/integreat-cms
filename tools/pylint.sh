@@ -8,6 +8,9 @@ source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 require_installed
 
+# Run pylint as a pre-commit hook
+run_as_precommit "pylint --rcfile=pyproject.toml" "$@"
+
 # Run pylint
 echo "Starting code linting with pylint..." | print_info
 # Explicitly include cli which does not have a .py ending
