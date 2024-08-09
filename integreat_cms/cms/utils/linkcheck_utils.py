@@ -252,7 +252,7 @@ def replace_links(
         region_msg,
         user_msg,
     )
-    models = [PageTranslation, EventTranslation, POITranslation]
+    models = [PageTranslation, EventTranslation, POITranslation, ImprintPageTranslation]
     with update_lock:
         for model in models:
             filters = {}
