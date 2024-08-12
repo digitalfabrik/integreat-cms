@@ -34,6 +34,9 @@ class TestSendPushNotification:
 
     patch: Any = None
 
+    called_success = 0
+    called_error = 0
+
     def setup_method(self) -> None:
         self.patch = patch.object(
             FirebaseApiClient, "_get_access_token", return_value="secret access token"
@@ -43,6 +46,31 @@ class TestSendPushNotification:
     def teardown_method(self) -> None:
         self.patch.stop()
         self.patch = None
+
+    @pytest.fixture(autouse=True)
+    def reset_state(self) -> None:
+        self.called_error = 0
+        self.called_success = 0
+
+    def success_json_function(
+        self, _request: requests.PreparedRequest, _context: Any
+    ) -> dict[str, str | int]:
+        self.called_success += 1
+
+        return {
+            "name": "projects/integreat-2020/messages/1",
+            "status_code": 200,
+        }
+
+    def error_json_function(
+        self, _request: requests.PreparedRequest, _context: Any
+    ) -> dict[str, str | int]:
+        self.called_error += 1
+
+        return {
+            "name": "projects/integreat-2020/messages/1",
+            "status_code": 500,
+        }
 
     @pytest.mark.django_db
     def test_push_notifications_disabled(self, settings: SettingsWrapper) -> None:
@@ -75,22 +103,9 @@ class TestSendPushNotification:
     def test_ignore_overdue_notification(
         self, settings: SettingsWrapper, requests_mock: Mocker
     ) -> None:
-        called = 0
-
-        def json_func(
-            _request: requests.PreparedRequest, _context: Any
-        ) -> dict[str, str | int]:
-            nonlocal called
-            called += 1
-
-            return {
-                "name": "projects/integreat-2020/messages/1",
-                "status_code": 200,
-            }
-
         requests_mock.post(
             "https://fcm.googleapis.com/v1/projects/integreat-2020/messages:send",
-            json=json_func,
+            json=self.success_json_function,
             status_code=200,
         )
 
@@ -150,4 +165,63 @@ class TestSendPushNotification:
 
         call_command("send_push_notifications")
 
-        assert called == 1
+        assert self.called_success == 1
+
+    @pytest.mark.django_db
+    def test_retry_failed_notification(
+        self, settings: SettingsWrapper, requests_mock: Mocker
+    ) -> None:
+        requests_mock.post(
+            "https://fcm.googleapis.com/v1/projects/integreat-2020/messages:send",
+            json=self.error_json_function,
+            status_code=500,
+        )
+
+        german_language = Language.objects.create(
+            slug="de-test",
+            bcp47_tag="de",
+            native_name="Deutsch",
+            english_name="German",
+            text_direction="ltr",
+            primary_country_code="DE",
+            table_of_contents="Inhaltsverzeichnis",
+        )
+
+        region = Region.objects.create(name="unit-test-region")
+
+        LanguageTreeNode.objects.create(
+            language=german_language, lft=1, rgt=2, tree_id=1, depth=1, region=region
+        )
+
+        push_notification = PushNotification.objects.create(
+            channel="default",
+            draft=False,
+            sent_date=None,
+            mode="ONLY_AVAILABLE",
+            is_template=False,
+            template_name=None,
+        )
+
+        PushNotificationTranslation.objects.create(
+            title="Test Push Notification",
+            text="Test Push Notification",
+            push_notification=push_notification,
+            language=german_language,
+        )
+
+        push_notification.regions.add(region)
+        push_notification.save()
+
+        call_command("send_push_notifications")
+
+        assert self.called_error == 1
+
+        requests_mock.post(
+            "https://fcm.googleapis.com/v1/projects/integreat-2020/messages:send",
+            json=self.success_json_function,
+            status_code=200,
+        )
+
+        call_command("send_push_notifications")
+
+        assert self.called_success == 1
