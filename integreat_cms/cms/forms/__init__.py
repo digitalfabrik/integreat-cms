@@ -6,6 +6,7 @@ Please refer to :mod:`django.forms` for general information about Django forms (
 from __future__ import annotations
 
 from .chat.chat_message_form import ChatMessageForm
+from .contacts.contact_form import ContactForm
 from .events.event_filter_form import EventFilterForm
 from .events.event_form import EventForm
 from .events.event_translation_form import EventTranslationForm

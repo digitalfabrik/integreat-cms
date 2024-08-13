@@ -1,5 +1,5 @@
-import { createIconsAt } from "../utils/create-icons";
-import { getCsrfToken } from "../utils/csrf-token";
+import { createIconsAt } from "./utils/create-icons";
+import { getCsrfToken } from "./utils/csrf-token";
 
 const toggleContactInfo = (infoType: string, info: string) => {
     document.getElementById(infoType).textContent = `${info}`;
@@ -9,6 +9,13 @@ const toggleContactInfo = (infoType: string, info: string) => {
     } else {
         infoNotGivenMessage.classList.remove("hidden");
     }
+};
+
+const toggleContactFieldBox = (show: boolean) => {
+    const contactFieldsBox = document.getElementById("contact_fields");
+    contactFieldsBox?.classList.toggle("hidden", !show);
+    const contactUsageBox = document.getElementById("contact_usage");
+    contactUsageBox?.classList.toggle("hidden", !show);
 };
 
 const renderPoiData = (
@@ -42,6 +49,7 @@ const renderPoiData = (
         );
     document.getElementById("poi-query-result").classList.add("hidden");
     (document.getElementById("poi-query-input") as HTMLInputElement).value = "";
+    toggleContactFieldBox(true);
 };
 
 const hidePoiFormWidget = () => {
@@ -203,6 +211,7 @@ const removePoi = () => {
     document.getElementById("poi-address-container")?.classList.add("hidden");
     // Clear the poi form
     hidePoiFormWidget();
+    toggleContactFieldBox(false);
     console.debug("Removed POI data");
 };
 

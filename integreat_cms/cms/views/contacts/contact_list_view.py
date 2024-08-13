@@ -40,11 +40,11 @@ class ContactListView(TemplateView, ContactContextMixin):
         region = request.region
 
         contacts = Contact.objects.filter(
-            poi__region=region, archived=self.archived
-        ).select_related("poi")
+            location__region=region, archived=self.archived
+        ).select_related("location")
 
         archived_count = Contact.objects.filter(
-            poi__region=region, archived=True
+            location__region=region, archived=True
         ).count()
 
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))

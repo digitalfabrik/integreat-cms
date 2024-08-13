@@ -11,17 +11,24 @@
     {{ title }}
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
-    {% render_field form.has_not_location class+='inline-block' %}
-    <label class="secondary !inline"
-           for="{{ form.has_not_location.id_for_label }}">
-        {{ form.has_not_location.label }}
-    </label>
+    {% if current_menu_item == "events_form" %}
+        {% render_field form.has_not_location class+='inline-block' %}
+        <label class="secondary !inline"
+               for="{{ form.has_not_location.id_for_label }}">
+            {{ form.has_not_location.label }}
+        </label>
+    {% endif %}
+    {% if current_menu_item == "contacts" %}
+        <div class="help-text mt-4 font-bold">
+            {{ help_text }}
+        </div>
+    {% endif %}
     <div id="location-block"
          class="{% if form.has_not_location.value %}hidden{% endif %}">
         <label for="{{ form.location.id_for_label }}">
             {{ form.location.label }}
         </label>
-        {% translate "Name of event location" as poi_title_placeholder %}
+        {% translate "Name of location" as poi_title_placeholder %}
         <div class="relative my-2">
             <input id="poi-query-input"
                    type="search"
@@ -34,14 +41,16 @@
                    data-default-placeholder="{{ poi_title_placeholder }}" />
             <div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
                 <button id="poi-remove"
-                        title="{% translate "Remove location from event" %}"
+                        title="{% translate "Remove location" %}"
                         {% if form.disabled %}disabled{% endif %}>
                     <i icon-name="trash-2" class="h-5 w-5"></i>
                 </button>
             </div>
         </div>
         <p class="text-sm italic block mt-2 mb-2">
-            {% translate "Create an event location or start typing the name of an existing location. Only published locations can be set as event venues" %}.
+            {% if current_menu_item == "events_form" %}
+                {{ help_text }}
+            {% endif %}
         </p>
         <div class="relative" id="poi-query-result">
             {% include "_poi_query_result.html" %}

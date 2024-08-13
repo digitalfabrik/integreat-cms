@@ -97,7 +97,7 @@ def delete_region(
     # Prevent ProtectedError when media files get deleted before their usages as organization logo
     region.organizations.all().delete()
     # Prevent ProtectedError when location gets deleted before their contacts
-    Contact.objects.filter(poi__region=region).delete()
+    Contact.objects.filter(location__region=region).delete()
     # Prevent IntegrityError when multiple feedback objects exist
     region.feedback.all().delete()
     # Disable linkchecking while deleting this region
