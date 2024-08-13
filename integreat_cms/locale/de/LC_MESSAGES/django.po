@@ -2728,6 +2728,10 @@ msgid "Whether or not the location is read-only and hidden in the API."
 msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
 
 #: cms/models/contact/contact.py
+msgid "(Copy)"
+msgstr "(Kopie)"
+
+#: cms/models/contact/contact.py
 msgid "contact"
 msgstr "Kontakt"
 
@@ -4408,7 +4412,7 @@ msgstr "Inhalt"
 msgid "Media Library"
 msgstr "Medienbibliothek"
 
-#: cms/templates/_base.html
+#: cms/templates/_base.html cms/templates/contacts/contact_list.html
 msgid "Contacts"
 msgstr "Kontakte"
 
@@ -5151,6 +5155,126 @@ msgstr "Chat"
 msgid "Send message"
 msgstr "Nachricht abschicken"
 
+#: cms/templates/contacts/contact_list.html
+msgid "Archived Contacts"
+msgstr "Archivierte Kontakte"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Back to contacts"
+msgstr "Zurück zu Kontakte"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Archived contacts"
+msgstr "Archivierte Kontakte"
+
+#: cms/templates/contacts/contact_list.html
+#: cms/templates/pages/_page_xliff_import_diff.html
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "Title"
+msgstr "Titel"
+
+#: cms/templates/contacts/contact_list.html
+#: cms/templates/events/external_calendar_list.html
+#: cms/templates/languages/language_form.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/poicategories/poicategory_list.html
+#: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
+msgid "Name"
+msgstr "Name"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Name of related location"
+msgstr "Name des Veranstaltungsortes"
+
+#: cms/templates/contacts/contact_list.html
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Phone number"
+msgstr "Telefonnummer"
+
+#: cms/templates/contacts/contact_list.html
+#: cms/templates/organizations/organization_list.html
+msgid "Website"
+msgstr "Webseite"
+
+#: cms/templates/contacts/contact_list.html
+#: cms/templates/events/event_list.html
+#: cms/templates/events/event_list_archived.html
+#: cms/templates/languages/language_list.html
+#: cms/templates/linkcheck/links_by_filter.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/pages/page_tree.html
+#: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list_archived.html cms/templates/roles/role_list.html
+msgid "Options"
+msgstr "Optionen"
+
+#: cms/templates/contacts/contact_list.html
+msgid "No contacts available yet."
+msgstr "Noch keine Kontakte vorhanden."
+
+#: cms/templates/contacts/contact_list.html
+msgid "Contacts selected"
+msgstr "Kontakte ausgewählt"
+
+#: cms/templates/contacts/contact_list.html
+#: cms/templates/events/event_list.html
+#: cms/templates/events/event_list_archived.html
+#: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
+#: cms/templates/languagetreenodes/languagetreenode_list.html
+#: cms/templates/linkcheck/links_by_filter.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/pages/page_tree.html
+#: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list_archived.html
+msgid "Select bulk action"
+msgstr "Mehrfachaktion auswählen"
+
+#: cms/templates/contacts/contact_list.html
+#: cms/templates/events/event_list.html
+#: cms/templates/events/event_list_archived.html
+#: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
+#: cms/templates/languagetreenodes/languagetreenode_list.html
+#: cms/templates/linkcheck/links_by_filter.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/pages/_page_xliff_export_overlay.html
+#: cms/templates/pages/page_tree.html
+#: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list_archived.html
+msgid "Execute"
+msgstr "Ausführen"
+
+#: cms/templates/contacts/contact_list_row.html
+#: cms/templates/organizations/organization_list_row.html
+msgid "To website"
+msgstr "Zur Webseite"
+
+#: cms/templates/contacts/contact_list_row.html
+msgid "Restore contact"
+msgstr "Kontakt wiederherstellen"
+
+#: cms/templates/contacts/contact_list_row.html
+msgid "Copy contact"
+msgstr "Kontakt kopieren"
+
+#: cms/templates/contacts/contact_list_row.html
+msgid "Archive contact"
+msgstr "Kontakte archivieren"
+
+#: cms/templates/contacts/contact_list_row.html
+msgid "Delete contact"
+msgstr "Kontakt löschen"
+
 #: cms/templates/content_versions.html
 #, python-format
 msgid "\"Versions of %(content_title)s\""
@@ -5721,18 +5845,6 @@ msgid "External calendar"
 msgstr "Externer Kalender"
 
 #: cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
-#: cms/templates/languages/language_list.html
-#: cms/templates/linkcheck/links_by_filter.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/templates/organizations/organization_list.html
-#: cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
-#: cms/templates/pois/poi_list_archived.html cms/templates/roles/role_list.html
-msgid "Options"
-msgstr "Optionen"
-
-#: cms/templates/events/event_list.html
 msgid "No events found with these filters."
 msgstr "Keine Veranstaltungen mit diesen Filtern gefunden."
 
@@ -5743,21 +5855,6 @@ msgstr "Keine zukünftigen Veranstaltungen vorhanden."
 #: cms/templates/events/event_list.html
 msgid "Events selected"
 msgstr "Veranstaltungen ausgewählt"
-
-#: cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
-#: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
-#: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
-#: cms/templates/languagetreenodes/languagetreenode_list.html
-#: cms/templates/linkcheck/links_by_filter.html
-#: cms/templates/organizations/organization_list.html
-#: cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
-#: cms/templates/pois/poi_list_archived.html
-msgid "Select bulk action"
-msgstr "Mehrfachaktion auswählen"
 
 #: cms/templates/events/event_list.html
 msgid "Archive events"
@@ -5795,22 +5892,6 @@ msgstr ""
 #, python-format
 msgid "Machine translate %(content_type)s to %(language)s"
 msgstr "%(content_type)s maschinell auf %(language)s übersetzen"
-
-#: cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
-#: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
-#: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
-#: cms/templates/languagetreenodes/languagetreenode_list.html
-#: cms/templates/linkcheck/links_by_filter.html
-#: cms/templates/organizations/organization_list.html
-#: cms/templates/pages/_page_xliff_export_overlay.html
-#: cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
-#: cms/templates/pois/poi_list_archived.html
-msgid "Execute"
-msgstr "Ausführen"
 
 #: cms/templates/events/event_list_archived.html
 msgid "Back to events"
@@ -5901,15 +5982,6 @@ msgstr "Neuer externer Kalender"
 #: cms/templates/events/external_calendar_list.html
 msgid "External calendars"
 msgstr "Externe Kalender"
-
-#: cms/templates/events/external_calendar_list.html
-#: cms/templates/languages/language_form.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/templates/organizations/organization_list.html
-#: cms/templates/poicategories/poicategory_list.html
-#: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
-msgid "Name"
-msgstr "Name"
 
 #: cms/templates/events/external_calendar_list.html
 msgid "Imported events"
@@ -6765,10 +6837,6 @@ msgid "Logo"
 msgstr "Logo"
 
 #: cms/templates/organizations/organization_list.html
-msgid "Website"
-msgstr "Webseite"
-
-#: cms/templates/organizations/organization_list.html
 msgid "No archived organizations."
 msgstr "Keine archivierten Organisationen."
 
@@ -6779,10 +6847,6 @@ msgstr "Noch keine Organisationen vorhanden."
 #: cms/templates/organizations/organization_list.html
 msgid "Organizations selected"
 msgstr "Organisationen ausgewählt"
-
-#: cms/templates/organizations/organization_list_row.html
-msgid "To website"
-msgstr "Zur Webseite"
 
 #: cms/templates/organizations/organization_list_row.html
 msgid "Restore organization"
@@ -6857,11 +6921,6 @@ msgstr "Quellcode"
 #: cms/templates/pages/_page_xliff_import_diff.html xliff/utils.py
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
-
-#: cms/templates/pages/_page_xliff_import_diff.html
-#: cms/templates/push_notifications/push_notification_list.html
-msgid "Title"
-msgstr "Titel"
 
 #: cms/templates/pages/page_form.html
 #, python-format
@@ -7391,6 +7450,18 @@ msgstr[1] ""
 "Löschen Sie zuerst diese Veranstaltungen, um den Ort zu archivieren:"
 
 #: cms/templates/pois/poi_form_sidebar/action_box.html
+msgid "You cannot archive a location which is referenced by a contact."
+msgstr ""
+"Der Ort kann nicht archiviert werden, da er von einem Kontakt verwendet wird."
+
+#: cms/templates/pois/poi_form_sidebar/action_box.html
+msgid "To archive this location, you have to delete this contact first:"
+msgid_plural ""
+"To archive this location, you have to delete these contacts first:"
+msgstr[0] "Löschen Sie zuerst diesen Kontakt, um den Ort zu archivieren:"
+msgstr[1] "Löschen Sie zuerst diese Kontakte, um den Ort zu archivieren:"
+
+#: cms/templates/pois/poi_form_sidebar/action_box.html
 msgid "Archive this location"
 msgstr "Diesen Ort archivieren"
 
@@ -7411,6 +7482,18 @@ msgid "To delete this location, you have to delete this event first:"
 msgid_plural "To delete this location, you have to delete these events first:"
 msgstr[0] "Löschen Sie zuerst diese Veranstaltung, um den Ort zu löschen:"
 msgstr[1] "Löschen Sie zuerst diese Veranstaltungen, um den Ort zu löschen:"
+
+#: cms/templates/pois/poi_form_sidebar/action_box.html
+msgid "You cannot delete a location which is referenced by a contact."
+msgstr ""
+"Der Ort kann nicht gelöscht werden, da er von einem Kontakt verwendet wird."
+
+#: cms/templates/pois/poi_form_sidebar/action_box.html
+msgid "To delete this location, you have to delete this contact first:"
+msgid_plural ""
+"To delete this location, you have to delete these contacts first:"
+msgstr[0] "Löschen Sie zuerst diesen Kontakt, um den Ort zu löschen:"
+msgstr[1] "Löschen Sie zuerst diese Kontakte, um den Ort zu löschen:"
 
 #: cms/templates/pois/poi_form_sidebar/action_box.html
 msgid "Delete this location"
@@ -7521,14 +7604,12 @@ msgid "No category assigned"
 msgstr "Keine Kategorie zugewiesen"
 
 #: cms/templates/pois/poi_list_archived_row.html
-#: cms/templates/pois/poi_list_row.html
 msgid "You cannot delete a location which is used by an event."
 msgstr ""
-"Der Ort kann nicht gelöscht werden, da er von einer Veranstaltung verwendet "
-"wird."
+"Der Ort kann nicht gelöscht werden, da er von einer Veranstaltung oder einem "
+"Kontakt verwendet wird."
 
 #: cms/templates/pois/poi_list_archived_row.html
-#: cms/templates/pois/poi_list_row.html
 msgid "This also involves archived events."
 msgstr "Dies betrifft auch archivierte Veranstaltungen."
 
@@ -7542,12 +7623,6 @@ msgid ""
 msgstr ""
 "Dieser Ort kann nicht in der Web-App geöffnet werden, weil er nicht "
 "veröffentlicht ist."
-
-#: cms/templates/pois/poi_list_row.html
-msgid "You cannot archive a location which is used by an event."
-msgstr ""
-"Der Ort kann nicht archiviert werden, da er von einer Veranstaltung "
-"verwendet wird."
 
 #: cms/templates/push_notifications/push_notification_form.html
 #, python-format
@@ -8753,16 +8828,16 @@ msgstr[1] ""
 #, python-brace-format
 msgid ""
 "Location {object_names} could not be archived because it is referenced by an "
-"event."
+"event or a contact."
 msgid_plural ""
 "The following locations could not be archived because they were referenced "
-"by an event: {object_names}"
+"by an event or a contact: {object_names}"
 msgstr[0] ""
 "Ort \"{object_names}\" kann nicht archiviert werden, da er von einer "
-"Veranstaltung verwendet wird."
+"Veranstaltung oder einem Kontakt verwendet wird."
 msgstr[1] ""
 "Die folgenden Orte können nicht archiviert werden, da sie von einer "
-"Veranstaltung verwendet werden: \"{object_names}\""
+"Veranstaltung oder einem Kontakt verwendet werden: \"{object_names}\""
 
 #: cms/views/bulk_action_views.py
 #, python-brace-format
@@ -8795,6 +8870,39 @@ msgstr[0] ""
 msgstr[1] ""
 "Die folgenden Seiten konnten nicht wiederhergestellt werden, weil mindestens "
 "eine übergeordnete Seite archiviert ist: {}"
+
+#: cms/views/contacts/contact_actions.py
+#, python-brace-format
+msgid "Contact {0} was successfully archived"
+msgstr "Kontakt {0} wurde erfolgreich archiviert"
+
+#: cms/views/contacts/contact_actions.py
+#, python-brace-format
+msgid "Contact {0} was successfully deleted"
+msgstr "Kontakt {0} wurde erfolgreich gelöscht."
+
+#: cms/views/contacts/contact_actions.py
+#, python-brace-format
+msgid "Contact {0} was successfully restored"
+msgstr "Kontakt {0} wurde erfolgreich wiederhergestellt"
+
+#: cms/views/contacts/contact_actions.py
+#, python-brace-format
+msgid "Contact {0} was successfully copied"
+msgstr "Kontakt {0} wurde erfolgreich kopiert"
+
+#: cms/views/contacts/contact_context_mixin.py
+msgid "Please confirm that you really want to archive this contact"
+msgstr "Bitte bestätigen Sie, dass dieser Kontakt archiviert werden soll."
+
+#: cms/views/contacts/contact_context_mixin.py
+msgid "Please confirm that you really want to restore this contact"
+msgstr ""
+"Bitte bestätigen Sie, dass dieser Kontakt wiederhergestellt werden soll"
+
+#: cms/views/contacts/contact_context_mixin.py
+msgid "Please confirm that you really want to delete this contact"
+msgstr "Bitte bestätigen Sie, dass dieser Kontakt gelöscht werden soll"
 
 #: cms/views/content_version_view.py
 msgid "Back to the form"
@@ -9805,14 +9913,14 @@ msgid "This XLIFF import is no longer available."
 msgstr "Dieser XLIFF Import ist nicht länger verfügbar."
 
 #: cms/views/pois/poi_actions.py
-msgid "This location cannot be archived because it is referenced by an event."
-msgstr ""
-"Dieser Ort kann nicht archiviert werden, da er von einer Veranstaltung "
-"verwendet wird."
-
-#: cms/views/pois/poi_actions.py
 msgid "Location was successfully archived"
 msgstr "Ort wurde erfolgreich archiviert"
+
+#: cms/views/pois/poi_actions.py
+msgid "This location cannot be archived because it is referenced by an event."
+msgstr ""
+"Dieser Ort kann nicht archiviert werden, da er von einer Veranstaltung oder "
+"einem Kontakt verwendet wird."
 
 #: cms/views/pois/poi_actions.py
 msgid "Location was successfully restored"
@@ -9821,6 +9929,12 @@ msgstr "Ort wurde erfolgreich wiederhergestellt"
 #: cms/views/pois/poi_actions.py
 msgid "Location was successfully deleted"
 msgstr "Ort wurde erfolgreich gelöscht"
+
+#: cms/views/pois/poi_actions.py
+msgid "Location couldn't be deleted as it's used by an event or contact"
+msgstr ""
+"Der Ort konnte nicht gelöscht werden, da er von einer Veranstaltung oder "
+"einem Kontakt verwendet wird"
 
 #: cms/views/pois/poi_actions.py
 msgid "Location service is disabled"
@@ -9942,6 +10056,24 @@ msgstr "Bitte bestätigen Sie, dass dieser Ort gelöscht werden soll"
 msgid "All translations of this location will also be deleted."
 msgstr "Alle Übersetzungen dieses Ortes werden gelöscht."
 
+#: cms/views/pois/poi_context_mixin.py
+msgid ""
+"You cannot archive a location which is used by an event or a contact. \n"
+"This also involves archived events and contacts"
+msgstr ""
+"Sie können keinen Ort archivieren, der von einer Veranstaltung oder einem "
+"Kontakt verwendet wird. \n"
+"Dies betrifft auch archivierte Veranstaltungen und Kontakte"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid ""
+"You cannot delete a location which is used by an event or a contact. \n"
+"This also involves archived events and contacts"
+msgstr ""
+"Sie können keinen Ort löschen, der von einer Veranstaltung oder einem "
+"Kontakt verwendet wird. \n"
+"Dies betrifft auch archivierte Veranstaltungen und Kontakte"
+
 #: cms/views/pois/poi_form_view.py
 msgid "You cannot edit this location because it is archived."
 msgstr "Sie können diesen Ort nicht bearbeiten, da er archiviert ist."
@@ -9979,7 +10111,7 @@ msgstr ""
 
 #: cms/views/pois/poi_version_view.py
 msgid "Back to the poi form"
-msgstr "Zurück zum Orts-Formular"
+msgstr "Zurück zum Formular"
 
 #: cms/views/push_notifications/push_notification_form_view.py
 #: cms/views/push_notifications/push_notification_list_view.py
@@ -10638,10 +10770,24 @@ msgstr ""
 #~ msgid "No phone number is provided."
 #~ msgstr "Keine Telefonnummer ist angegeben."
 
+#~ msgid "Back to the location form"
+#~ msgstr "Zurück zum Orts-Formular"
+
+#~ msgid "Name of related POI"
+#~ msgstr "Name des verlinkten Ortes"
+
+#~ msgid "You cannot archive a location which is used by an event."
+#~ msgstr ""
+#~ "Der Ort kann nicht archiviert werden, da er von einer Veranstaltung "
+#~ "verwendet wird."
+
 #~ msgid "\"{} {}\" was not in translation process."
 #~ msgid_plural "The following \"{}\" were not in translation process: \"{}\""
 #~ msgstr[0] "\"{} {}\" war nicht im Überestzungsprozess"
 #~ msgstr[1] "Die folgenden\"{} {}\" waren nicht im Übersetzungsprozess"
+
+#~ msgid "Manage Contacts"
+#~ msgstr "Kontakte verwalten"
 
 #~ msgid "Contents"
 #~ msgstr "Inhalte"
@@ -12163,9 +12309,6 @@ msgstr ""
 #~ msgid "Change icon"
 #~ msgstr "Icon ändern"
 
-#~ msgid "Restore icon"
-#~ msgstr "Icon wiederherstellen"
-
 #~ msgid "Integreat Backend"
 #~ msgstr "Integreat CMS"
 
@@ -12583,9 +12726,6 @@ msgstr ""
 
 #~ msgid "Yes, restore this POI now."
 #~ msgstr "Ja, diesen POI wiederherstellen."
-
-#~ msgid "Restore POI"
-#~ msgstr "POI Wiederherstellen"
 
 #~ msgid "Archive POI"
 #~ msgstr "POI archivieren"

@@ -1,0 +1,101 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <div class="table-header">
+        <div class="flex flex-wrap justify-between">
+            <h1 class="heading">
+                {% if is_archive %}
+                    {% translate "Archived Contacts" %}
+                {% else %}
+                    {% translate "Contacts" %}
+                {% endif %}
+            </h1>
+            <div class="justify-end">
+                {% if is_archive %}
+                    <a href="{% url 'contacts' region_slug=request.region.slug %}"
+                       class="font-bold text-sm text-gray-800 flex items-center gap-1 mb-2 hover:underline">
+                        <span><i icon-name="book-open" class="align-top h-5"></i> {% translate "Back to contacts" %}</span>
+                    </a>
+                {% else %}
+                    <a href="{% url 'archived_contacts' region_slug=request.region.slug %}"
+                       class="font-bold text-sm text-gray-800 flex items-center pb-3 hover:underline">
+                        <span>
+                            <i icon-name="archive" class="align-top h-5"></i>
+                            {% translate "Archived contacts" %}
+                            ({{ archived_count }})
+                        </span>
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="table-listing">
+            <form id="bulk-action-form" method="post">
+                {% csrf_token %}
+            </form>
+            <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+                <thead>
+                    <tr class="border-b border-solid border-gray-200">
+                        <th class="py-3 pl-4 min">
+                            <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 px-2">
+                            {% translate "Title" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 px-2">
+                            {% translate "Name" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 px-2">
+                            {% translate "Name of related location" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 px-2">
+                            {% translate "E-Mail" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 px-2">
+                            {% translate "Phone number" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 px-2">
+                            {% translate "Website" %}
+                        </th>
+                        <th class="text-sm text-left uppercase py-3 pr-4 min">
+                            {% translate "Options" %}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for contact in contacts %}
+                        {% include "contacts/contact_list_row.html" %}
+                    {% empty %}
+                        <tr>
+                            <td colspan="8" class="px-4 py-3">
+                                {% translate "No contacts available yet." %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% if contacts %}
+        <div class="pt-2 px-2">
+            <div class="inline">
+                <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Contacts selected" %}</span>
+            </div>
+        </div>
+    {% endif %}
+    {% if perms.cms.change_contact %}
+        <div class="flex flex-wrap gap-2 mt-4">
+            <select id="bulk-action" class="w-auto max-w-full">
+                <option>
+                    {% translate "Select bulk action" %}
+                </option>
+            </select>
+            <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
+                {% translate "Execute" %}
+            </button>
+        </div>
+    {% endif %}
+    {% include "../generic_confirmation_dialog.html" %}
+    {% url "contacts" as url %}
+    {% include "pagination.html" with chunk=contacts %}
+{% endblock content %}

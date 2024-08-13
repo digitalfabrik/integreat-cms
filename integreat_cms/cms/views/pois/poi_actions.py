@@ -42,15 +42,14 @@ def archive_poi(
     """
     poi = POI.objects.get(id=poi_id)
 
-    if poi.events.count() > 0:
+    if poi.archive():
+        logger.debug("%r archived by %r", poi, request.user)
+        messages.success(request, _("Location was successfully archived"))
+    else:
         messages.error(
             request,
             _("This location cannot be archived because it is referenced by an event."),
         )
-    else:
-        poi.archive()
-        logger.debug("%r archived by %r", poi, request.user)
-        messages.success(request, _("Location was successfully archived"))
 
     return redirect(
         "pois",
@@ -107,9 +106,15 @@ def delete_poi(
     """
 
     poi = POI.objects.get(id=poi_id)
-    logger.debug("%r deleted by %r", poi, request.user)
-    poi.delete()
-    messages.success(request, _("Location was successfully deleted"))
+    if poi.delete():
+        logger.info("%r deleted by %r", poi, request.user)
+        messages.success(request, _("Location was successfully deleted"))
+    else:
+        logger.info("%r couldn't be deleted by %r", poi, request.user)
+        messages.error(
+            request,
+            _("Location couldn't be deleted as it's used by an event or contact"),
+        )
 
     return redirect(
         "pois",

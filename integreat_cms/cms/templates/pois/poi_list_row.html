@@ -135,14 +135,10 @@
             </button>
         {% endif %}
         {% if perms.cms.change_poi %}
-            {% if poi.events.exists %}
-                {# djlint:off H023 #}
-                <button title="{% translate "You cannot archive a location which is used by an event." %}&#013;{% translate "This also involves archived events." %}"
-                        class="btn-icon"
-                        disabled>
+            {% if poi.is_used %}
+                <button title="{{ cannot_archive_title }}" class="btn-icon" disabled>
                     <i icon-name="archive"></i>
                 </button>
-                {# djlint:on #}
             {% else %}
                 <button title="{% translate "Archive location" %}"
                         class="confirmation-button btn-icon"
@@ -155,11 +151,8 @@
             {% endif %}
         {% endif %}
         {% if perms.cms.delete_poi %}
-            {% if poi.events.exists %}
-                {# djlint:off H023 #}
-                <button title="{% translate "You cannot delete a location which is used by an event." %}&#013;{% translate "This also involves archived events." %}"
-                        class="btn-icon"
-                        disabled>
+            {% if poi.is_used %}
+                <button title="{{ cannot_delete_title }}" class="btn-icon" disabled>
                     <i icon-name="trash-2"></i>
                 </button>
                 {# djlint:on #}
