@@ -33,3 +33,12 @@ CHOICES: Final[list[tuple[int, Promise]]] = [
     (FOURTH, _("Fourth week")),
     (LAST, _("Last week")),
 ]
+
+#: A mapping from our week constants to the expected rrule values
+WEEK_TO_RRULE_WEEK = {
+    FIRST: 1,
+    SECOND: 2,
+    THIRD: 3,
+    FOURTH: 4,
+    LAST: -1,
+}
