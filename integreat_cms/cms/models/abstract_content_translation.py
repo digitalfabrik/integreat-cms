@@ -441,11 +441,14 @@ class AbstractContentTranslation(AbstractBaseModel):
     def is_up_to_date(self) -> bool:
         """
         This property checks whether a translation is up to date.
-        A translation is considered up to date when it is not outdated and not being translated at the moment.
+        A translation is considered up to date when it is either explicitly set to up-to-date, or has been machine-translated.
 
         :return: Flag which indicates whether a translation is up to date
         """
-        return self.translation_state == translation_status.UP_TO_DATE
+        return self.translation_state in [
+            translation_status.UP_TO_DATE,
+            translation_status.MACHINE_TRANSLATED,
+        ]
 
     @cached_property
     def translation_state(self) -> str:
