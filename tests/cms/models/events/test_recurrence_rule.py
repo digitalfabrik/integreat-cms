@@ -8,6 +8,7 @@ import datetime
 from typing import TYPE_CHECKING
 from zoneinfo import ZoneInfo
 
+from integreat_cms.cms.constants import weekdays, weeks
 from integreat_cms.cms.models import Event, RecurrenceRule
 
 if TYPE_CHECKING:
@@ -63,7 +64,7 @@ class TestCreatingIcalRule:
         recurrence_rule = RecurrenceRule(
             frequency="WEEKLY",
             interval=1,
-            weekdays_for_weekly=[0, 1],
+            weekdays_for_weekly=[weekdays.MONDAY, weekdays.TUESDAY],
             weekday_for_monthly=None,
             week_for_monthly=None,
             recurrence_end_date=None,
@@ -77,12 +78,25 @@ class TestCreatingIcalRule:
             frequency="MONTHLY",
             interval=1,
             weekdays_for_weekly=None,
-            weekday_for_monthly=4,
-            week_for_monthly=1,
+            weekday_for_monthly=weekdays.FRIDAY,
+            week_for_monthly=weeks.FIRST,
             recurrence_end_date=None,
         )
         self.check_rrule(
             recurrence_rule, "DTSTART:20300101T113000\nRRULE:FREQ=MONTHLY;BYDAY=+1FR"
+        )
+
+    def test_api_rrule_last_week_in_month(self) -> None:
+        recurrence_rule = RecurrenceRule(
+            frequency="MONTHLY",
+            interval=1,
+            weekdays_for_weekly=None,
+            weekday_for_monthly=weekdays.WEDNESDAY,
+            week_for_monthly=weeks.LAST,
+            recurrence_end_date=None,
+        )
+        self.check_rrule(
+            recurrence_rule, "DTSTART:20300101T113000\nRRULE:FREQ=MONTHLY;BYDAY=-1WE"
         )
 
     def test_api_rrule_bimonthly_until(self) -> None:
@@ -90,8 +104,8 @@ class TestCreatingIcalRule:
             frequency="MONTHLY",
             interval=2,
             weekdays_for_weekly=None,
-            weekday_for_monthly=6,
-            week_for_monthly=1,
+            weekday_for_monthly=weekdays.SUNDAY,
+            week_for_monthly=weeks.FIRST,
             recurrence_end_date=datetime.date(2030, 10, 19),
         )
         self.check_rrule(
