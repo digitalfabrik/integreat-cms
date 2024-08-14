@@ -38,7 +38,7 @@ class FirebaseDataBackupCronJob(CronJobBase):
 
         self.logger.info("Backing up Firebase Cloud Messaging data...")
 
-        statistics = self.client.get_notification_statistics_per_region_and_language()
+        statistics = self.client.fetch_notification_statistics()
 
         for region, region_data in statistics.items():
             languages_data = region_data.get("languages", {})
