@@ -19,7 +19,7 @@ class FirebaseDataBackupCronJob(CronJobBase):
     RUN_AT_TIMES = ["04:00"]
 
     schedule = Schedule(run_at_times=RUN_AT_TIMES)
-    code = "integreat_cms.firebase_data_backup_cron_job"
+    code = "FirebaseDataBackupCronJob"
 
     logger = logging.getLogger(__name__)
 
