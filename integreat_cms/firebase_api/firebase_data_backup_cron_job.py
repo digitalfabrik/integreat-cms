@@ -46,7 +46,7 @@ class FirebaseDataBackupCronJob(CronJobBase):
                 for language, average_count in languages_data.items():
                     FirebaseStatistic.objects.update_or_create(
                         region=region,
-                        language=language,
+                        language_slug=language,
                         date=region_data["date"],
                         defaults={"count": average_count},
                     )

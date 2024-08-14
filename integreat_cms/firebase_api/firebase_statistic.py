@@ -10,7 +10,7 @@ class FirebaseStatistic(AbstractBaseModel):
 
     date = models.DateField()
     region = models.CharField(max_length=100)
-    language = models.CharField(max_length=2)
+    language_slug = models.CharField(max_length=2)
     count = models.IntegerField()
 
     def __str__(self) -> str:
