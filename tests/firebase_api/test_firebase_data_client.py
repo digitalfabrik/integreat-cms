@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import pytest
-from django.core.cache import cache
 from django.core.exceptions import ImproperlyConfigured
 
 from integreat_cms.firebase_api.firebase_data_client import FirebaseDataClient
@@ -17,9 +16,6 @@ class TestFirebaseDataClient:
     """
     Test for :class:`~integreat_cms.firebase_api.firebase_api_client.FirebaseDataClient`
     """
-
-    def teardown_method(self) -> None:
-        cache.delete("firebase_data")
 
     endpoint_mock_url = "https://fcmdata.googleapis.com/v1beta1/projects/integreat/androidApps/123456/deliveryData"
 
