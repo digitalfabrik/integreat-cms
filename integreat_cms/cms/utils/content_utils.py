@@ -9,7 +9,7 @@ from lxml.html import fromstring, HtmlElement, tostring
 
 from ..models import MediaFile
 from ..utils import internal_link_utils
-from ..utils.linkcheck_utils import fix_content_link_encoding
+from ..utils.link_utils import fix_content_link_encoding
 
 logger = logging.getLogger(__name__)
 
