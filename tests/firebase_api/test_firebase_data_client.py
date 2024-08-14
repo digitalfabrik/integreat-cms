@@ -348,11 +348,11 @@ class TestFirebaseDataClient:
         )
 
         client = FirebaseDataClient()
-        response = client.get_notification_statistics_per_region_and_language()
+        response = client.fetch_notification_statistics()
 
         assert response == {
-            "augsburg": {"average": 404.75, "languages": {"de": 403.25, "en": 406.25}},
-            "berlin": {"average": 343.75, "languages": {"de": 319.5, "en": 368.0}},
+            "augsburg": {"total": 3238, "languages": {"de": 1613, "en": 1625}},
+            "berlin": {"total": 2750, "languages": {"de": 1278, "en": 1472}},
         }
 
     @pytest.mark.django_db
@@ -373,6 +373,6 @@ class TestFirebaseDataClient:
         )
 
         client = FirebaseDataClient()
-        response = client.get_notification_statistics_per_region_and_language()
+        response = client.fetch_notification_statistics()
 
         assert response == {}
