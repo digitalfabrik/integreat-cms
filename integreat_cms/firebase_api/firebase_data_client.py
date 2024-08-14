@@ -26,7 +26,7 @@ class LanguageData:
         Initializes a new instance of LanguageData with zero total notifications and days.
         """
         self.total = 0
-        self.days = 0  # Keep track of the number of days
+        self.days = 0  # We need this to compute the average
 
     def add(self, count_accepted: int) -> None:
         """
