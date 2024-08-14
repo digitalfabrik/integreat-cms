@@ -13,7 +13,7 @@ from treebeard.exceptions import InvalidPosition
 from treebeard.ns_tree import NS_Node, NS_NodeManager
 
 if TYPE_CHECKING:
-    from typing import Any
+    from typing import Any, Self
 
     from treebeard.ns_tree import NS_NodeQuerySet
 
@@ -193,9 +193,7 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
             return siblings[idx + 1]
         return None
 
-    def get_cached_ancestors(
-        self, include_self: bool = False
-    ) -> list[AbstractTreeNode]:
+    def get_cached_ancestors(self, include_self: bool = False) -> list[Self]:
         """
         Get the cached ancestors of a specific node
 
@@ -210,7 +208,7 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         return self._cached_ancestors
 
     @cached_property
-    def cached_parent(self) -> AbstractTreeNode | None:
+    def cached_parent(self) -> Self | None:
         """
         Get the parent node of the current node object.
         Caches the result in the object itself to help in loops.
@@ -221,9 +219,7 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
             return None
         return self.get_cached_ancestors()[-1]
 
-    def get_cached_descendants(
-        self, include_self: bool = False
-    ) -> list[AbstractTreeNode]:
+    def get_cached_descendants(self, include_self: bool = False) -> list[Self]:
         """
         Get the cached descendants of a specific node
 
@@ -238,7 +234,7 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         return self._cached_descendants
 
     @cached_property
-    def cached_children(self) -> list[AbstractTreeNode]:
+    def cached_children(self) -> list[Self]:
         """
         Get all cached children
 
