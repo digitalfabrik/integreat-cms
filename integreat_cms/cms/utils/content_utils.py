@@ -31,6 +31,7 @@ def clean_content(content: str, language_slug: str) -> str:
     convert_monospaced_tags(content)
     update_links(content, language_slug)
     fix_alt_texts(content)
+    hide_anchor_tag_around_image(content)
 
     content_str = tostring(content, encoding="unicode", with_tail=False)
     return fix_content_link_encoding(content_str)
@@ -162,3 +163,47 @@ def fix_alt_texts(content: HtmlElement) -> None:
                 image.attrib["alt"] = media_file.alt_text
         else:
             logger.warning("Empty img tag was found.")
+
+
+def hide_anchor_tag_around_image(content: HtmlElement) -> None:
+    """
+    This function checks whether an image tag wrapped by an anchor tag has an empty alt tag, if so it hides anchor tag from screen-reader and tab-key
+
+    :param content: the content which has an anchor tag wrapped around an img tag
+    """
+
+    for anchor in content.iter("a"):
+        children = list(anchor.iterchildren())
+
+        # Check if the anchor tag has only img children and no other text content
+        if (
+            len(children) == 1
+            and (img := children[0]).tag == "img"
+            and not anchor.text_content().strip()
+        ):
+            if img.attrib.get("alt", ""):
+                if "aria-hidden" in anchor.attrib:
+                    del anchor.attrib["aria-hidden"]
+                    logger.debug(
+                        "Removed 'aria-hidden' from anchor: %r",
+                        tostring(anchor, encoding="unicode"),
+                    )
+                if "tabindex" in anchor.attrib:
+                    del anchor.attrib["tabindex"]
+                    logger.debug(
+                        "Removed 'tabindex' from anchor: %r",
+                        tostring(anchor, encoding="unicode"),
+                    )
+            else:
+                # Hide the anchor tag by setting aria-hidden attribute if the image alt text is empty
+                anchor.set("aria-hidden", "true")
+                logger.debug(
+                    "Set 'aria-hidden' to true for anchor: %r",
+                    tostring(anchor, encoding="unicode"),
+                )
+                # Unfocus the anchor tag from tab key
+                anchor.set("tabindex", "-1")
+                logger.debug(
+                    "Set 'tabindex' to -1 for anchor: %r",
+                    tostring(anchor, encoding="unicode"),
+                )
