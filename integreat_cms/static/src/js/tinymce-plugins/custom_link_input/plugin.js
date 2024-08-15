@@ -62,7 +62,10 @@ import { getCsrfToken } from "../../utils/csrf-token";
             const anchor = getAnchor();
             const initialText = anchor ? anchor.textContent : editor.selection.getContent({ format: "text" });
             const initialUrl = anchor ? anchor.getAttribute("href") : "";
-            const initialAutoUpdateValue = anchor ? anchor.getAttribute("data-integreat-auto-update") === "true" : true;
+            const initialAutoUpdateValue = anchor
+                ? anchor.getAttribute("data-integreat-auto-update") === "true"
+                : initialText === "";
+            let prevAutoupdateValue = initialAutoUpdateValue;
 
             const textDisabled = anchor ? anchor.children.length > 0 : false;
             let prevSearchText = "";
@@ -84,6 +87,19 @@ import { getCsrfToken } from "../../utils/csrf-token";
 
             const updateDialog = (api) => {
                 let data = api.getData();
+
+                if (data.autoupdate) {
+                    api.disable("text");
+                    if (!prevAutoupdateValue) {
+                        api.setData({
+                            url: "",
+                            text: "",
+                        });
+                    }
+                } else {
+                    api.enable("text");
+                }
+                prevAutoupdateValue = data.autoupdate;
 
                 let urlChangedBySearch = false;
                 // Check if the selected completion changed
@@ -107,11 +123,12 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     if (data.completions !== "") {
                         urlChangedBySearch = true;
                         api.setData({ url: data.completions });
-                        // if the text is not defined by the user, set it to the current completion item
-                        if (!data.text || (userData.text !== data.text && !textDisabled)) {
+                        // if the link should be automatically updated orthe text is not defined by the user,
+                        // set it to the current completion item
+                        if (data.autoupdate || !data.text || (userData.text !== data.text && !textDisabled)) {
                             api.setData({ text: currentCompletionText });
                         }
-                    } else {
+                    } else if (!data.autoupdate) {
                         // restore the original user data
                         api.setData({
                             url: userData.url,
@@ -268,11 +285,14 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     // Either insert a new link or update the existing one
                     const anchor = getAnchor();
                     if (!anchor) {
-                        editor.insertContent(`<a href=${realUrl} data-integreat-auto-update=${autoupdate}>${text}</a>`);
+                        editor.insertContent(
+                            `<a href=${realUrl}${autoupdate ? ' data-integreat-auto-update="true"' : ""}>${text}</a>`
+                        );
                     } else {
                         updateLink(editor, anchor, text, {
                             "href": realUrl,
-                            "data-integreat-auto-update": autoupdate,
+                            // If false, remove the attribute rather than writing it out to equal false
+                            "data-integreat-auto-update": autoupdate ? true : null,
                         });
                     }
                 },
