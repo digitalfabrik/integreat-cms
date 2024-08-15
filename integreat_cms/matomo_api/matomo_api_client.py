@@ -84,12 +84,15 @@ class MatomoApiClient:
         # Update with the custom params for this request
         query_params.update(kwargs)
 
+        def mask_token_auth(req_url: str) -> str:
+            return re.sub("&token_auth=[^&]+", "&token_auth=********", req_url)
+
         url = f"{settings.MATOMO_URL}/?{urlencode(query_params)}"
         logger.debug(
             "Requesting %r: %s",
             query_params.get("method"),
             # Mask auth token in log
-            re.sub(r"&token_auth=[^&]+", "&token_auth=********", url),
+            mask_token_auth(url),
         )
         try:
             async with session.get(url) as response:
@@ -101,7 +104,9 @@ class MatomoApiClient:
                     raise MatomoException(response_data["message"])
                 return response_data
         except aiohttp.ClientError as e:
-            raise MatomoException(str(e)) from e
+            raise MatomoException(
+                f"An error occurred {mask_token_auth(str(e))}"
+            ) from None
 
     async def get_matomo_id_async(self, **query_params: Any) -> list[int]:
         r"""
