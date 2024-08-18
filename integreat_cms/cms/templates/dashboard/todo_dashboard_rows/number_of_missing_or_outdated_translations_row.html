@@ -1,5 +1,11 @@
 {% extends "../_todo_dashboard_row.html" %}
 {% load i18n %}
+{% block todo_dashboard_ajax_url %}
+    {{ translation_coverage_ajax }}
+{% endblock todo_dashboard_ajax_url %}
+{% block todo_dashboard_id %}
+    translation-coverage
+{% endblock todo_dashboard_id %}
 {% block todo_dashboard_icon %}
     languages
 {% endblock todo_dashboard_icon %}
@@ -15,24 +21,33 @@
     {% endwith %}
 {% endblock todo_dashboard_number %}
 {% block todo_dashboard_description %}
-    {% if number_of_missing_or_outdated_translations > 0 %}
-        {% blocktranslate trimmed %}
-            Your pages currently have <b>{{ number_of_missing_or_outdated_translations }} pages </b>that have an outdated or no translation.
-            In order for the users to benefit from your content you should translate them or have them translated.
-        {% endblocktranslate %}
-    {% else %}
+    <div class="hidden todo-message">
+        {# djlint:off #}
+    {% blocktranslate trimmed %}
+        Your pages currently have <b></b> <b>pages</b> that have an outdated or no translation.
+        In order for the users to benefit from your content you should translate them or have them translated.
+    {% endblocktranslate %}
+        {# djlint:on #}
+    </div>
+    <div class="hidden success-message">
         {% blocktranslate trimmed %}
             At the moment all pages have up-to-date translations. Good job!
         {% endblocktranslate %}
-    {% endif %}
+    </div>
+    <div class="waiting-message">
+        {% blocktranslate trimmed %}
+            We are loading your outdated and missing translations in the background. Please be patient.
+        {% endblocktranslate %}
+    </div>
 {% endblock todo_dashboard_description %}
 {% block todo_dashboard_button_link %}
-    {% if outdated_pages %}
+    <div class="hidden todo-button">
         <a class="btn !rounded-full"
            href="{% url 'translation_coverage' region_slug=request.region.slug %}">
             {% translate "Go to <br> translation coverage" %}
         </a>
-    {% else %}
+    </div>
+    <div class="hidden success-icon">
         <i class="w-8 h-8 text-green-500" icon-name="check-circle-2"></i>
-    {% endif %}
+    </div>
 {% endblock todo_dashboard_button_link %}

@@ -61,6 +61,10 @@ class DashboardView(TemplateView, ChatContextMixin):
                     "get_broken_links_ajax",
                     kwargs={"region_slug": self.request.region.slug},
                 ),
+                "translation_coverage_ajax": reverse(
+                    "get_translation_coverage_ajax",
+                    kwargs={"region_slug": self.request.region.slug},
+                ),
             }
         )
 
@@ -70,7 +74,6 @@ class DashboardView(TemplateView, ChatContextMixin):
         context.update(self.get_low_hix_value_context())
         context.update(self.get_outdated_pages_context())
         context.update(self.get_drafted_pages())
-        context.update(self.get_translation_coverage_context())
 
         return context
 
@@ -243,9 +246,11 @@ class DashboardView(TemplateView, ChatContextMixin):
             "single_drafted_page": single_drafted_page,
         }
 
+    @json_response
+    # pylint: disable=unused-argument, disable=no-self-argument
     def get_translation_coverage_context(
-        self,
-    ) -> dict[str, QuerySet | PageTranslation | datetime | int | None]:
+        request: HttpRequest, region_slug: str
+    ) -> JsonResponse:
         r"""
         Extend context by info on translation coverage of pages
 
@@ -253,22 +258,22 @@ class DashboardView(TemplateView, ChatContextMixin):
         """
         number_of_outdated_pages = 0
 
-        if not self.request.region.default_language:
+        if not request.region.default_language:
             return {}
 
-        languages = LanguageTreeNode.objects.filter(region=self.request.region).exclude(
-            language=self.request.region.default_language
+        languages = LanguageTreeNode.objects.filter(region=request.region).exclude(
+            language=request.region.default_language
         )
 
-        pages_in_region = Page.objects.filter(region=self.request.region)
+        pages_in_region = Page.objects.filter(region=request.region)
         possible_translations = languages.count() * pages_in_region.count()
 
         published_foreign_translations = (
             PageTranslation.objects.select_related("language")
             .order_by("page__id", "language__id", "-version")
             .distinct("page__id", "language__id")
-            .filter(page__region__slug=self.request.region.slug, minor_edit=False)
-            .exclude(language=self.request.region.default_language)
+            .filter(page__region__slug=request.region.slug, minor_edit=False)
+            .exclude(language=request.region.default_language)
             .all()
         )
 
@@ -280,7 +285,9 @@ class DashboardView(TemplateView, ChatContextMixin):
             if pagetranslation.is_outdated:
                 number_of_outdated_pages += 1
 
-        return {
-            "number_of_missing_or_outdated_translations": number_of_missing_translations
-            + number_of_outdated_pages
-        }
+        return JsonResponse(
+            data={
+                "number_of_missing_or_outdated_translations": number_of_missing_translations
+                + number_of_outdated_pages
+            }
+        )
