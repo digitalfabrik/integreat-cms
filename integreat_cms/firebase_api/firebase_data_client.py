@@ -1,6 +1,6 @@
 import logging
-from collections import defaultdict
-from typing import Dict, Union
+from datetime import date
+from typing import Dict, List, Union
 
 import requests
 from django.conf import settings
@@ -35,16 +35,18 @@ class FirebaseDataClient:
 
     def fetch_notification_statistics(
         self,
-    ) -> Dict[str, Dict[str, Union[int, Dict[str, int]]]]:
+    ) -> List[Dict[str, Union[str, int]]]:
         """
-        Fetches messaging statistics from the Firebase API and calculates the total counts of notifications sent per region
-        and per language within the returned timespan.
+        Fetches messaging statistics from the Firebase API and calculates the counts of notifications sent per date,
+        per region, and per language within the returned timespan.
 
         Returns:
-            Dict[str, Dict[str, Union[int, Dict[str, int]]]]:
-                A dictionary where each key is a region and each value is another dictionary with:
-                - "total": The total number of notifications accepted in the region.
-                - "languages": A dictionary of languages within the region, with each language's total number of notifications.
+            List[Dict[str, Union[str, int]]]:
+                A list of dictionaries where each dictionary represents a FirebaseStatistic instance with keys:
+                - "date": The date of the notifications.
+                - "region": The region where notifications were sent.
+                - "language_slug": The language slug for the notifications.
+                - "count": The total number of notifications.
         """
         headers = {
             "Authorization": f"Bearer {FirebaseSecurityService.get_data_access_token()}",
@@ -58,23 +60,31 @@ class FirebaseDataClient:
         )
 
         if response.status_code != 200:
-            return {}
+            return []
 
         response_data = response.json().get("androidDeliveryData", [])
 
-        region_data: Dict[str, Dict[str, int]] = defaultdict(lambda: defaultdict(int))
+        statistics_list = []
 
         for item in response_data:
             if "countNotificationsAccepted" in item["data"]:
                 analytics_label = item.get("analyticsLabel")
+                date_info = item.get("date")
+
+                date_obj = date(
+                    date_info.get("year"), date_info.get("month"), date_info.get("day")
+                )
+
                 count_accepted = int(item["data"]["countNotificationsAccepted"])
                 if analytics_label:
                     region, language = analytics_label.split("-")
-                    region_data[region][language] += count_accepted
+                    statistics_list.append(
+                        {
+                            "date": date_obj,
+                            "region": region,
+                            "language_slug": language,
+                            "count": count_accepted,
+                        }
+                    )
 
-        output: Dict[str, Dict[str, Union[int, Dict[str, int]]]] = {
-            region: {"total": sum(languages.values()), "languages": languages}
-            for region, languages in region_data.items()
-        }
-
-        return output
+        return statistics_list

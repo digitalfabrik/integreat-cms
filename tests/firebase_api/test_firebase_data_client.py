@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import date
 from typing import TYPE_CHECKING
 
 import pytest
@@ -346,10 +347,104 @@ class TestFirebaseDataClient:
         client = FirebaseDataClient()
         response = client.fetch_notification_statistics()
 
-        assert response == {
-            "augsburg": {"total": 3238, "languages": {"de": 1613, "en": 1625}},
-            "berlin": {"total": 2750, "languages": {"de": 1278, "en": 1472}},
-        }
+        assert response == [
+            {
+                "date": date(2024, 7, 5),
+                "region": "augsburg",
+                "language_slug": "de",
+                "count": 111,
+            },
+            {
+                "date": date(2024, 7, 5),
+                "region": "augsburg",
+                "language_slug": "en",
+                "count": 123,
+            },
+            {
+                "date": date(2024, 7, 5),
+                "region": "berlin",
+                "language_slug": "de",
+                "count": 111,
+            },
+            {
+                "date": date(2024, 7, 5),
+                "region": "berlin",
+                "language_slug": "en",
+                "count": 305,
+            },
+            {
+                "date": date(2024, 7, 4),
+                "region": "augsburg",
+                "language_slug": "de",
+                "count": 493,
+            },
+            {
+                "date": date(2024, 7, 4),
+                "region": "augsburg",
+                "language_slug": "en",
+                "count": 493,
+            },
+            {
+                "date": date(2024, 7, 4),
+                "region": "berlin",
+                "language_slug": "de",
+                "count": 623,
+            },
+            {
+                "date": date(2024, 7, 4),
+                "region": "berlin",
+                "language_slug": "en",
+                "count": 623,
+            },
+            {
+                "date": date(2024, 7, 3),
+                "region": "augsburg",
+                "language_slug": "de",
+                "count": 535,
+            },
+            {
+                "date": date(2024, 7, 3),
+                "region": "augsburg",
+                "language_slug": "en",
+                "count": 535,
+            },
+            {
+                "date": date(2024, 7, 3),
+                "region": "berlin",
+                "language_slug": "de",
+                "count": 32,
+            },
+            {
+                "date": date(2024, 7, 3),
+                "region": "berlin",
+                "language_slug": "en",
+                "count": 32,
+            },
+            {
+                "date": date(2024, 7, 1),
+                "region": "augsburg",
+                "language_slug": "de",
+                "count": 474,
+            },
+            {
+                "date": date(2024, 7, 1),
+                "region": "augsburg",
+                "language_slug": "en",
+                "count": 474,
+            },
+            {
+                "date": date(2024, 7, 1),
+                "region": "berlin",
+                "language_slug": "de",
+                "count": 512,
+            },
+            {
+                "date": date(2024, 7, 1),
+                "region": "berlin",
+                "language_slug": "en",
+                "count": 512,
+            },
+        ]
 
     @pytest.mark.django_db
     def test_without_analytics_labels(
@@ -371,4 +466,4 @@ class TestFirebaseDataClient:
         client = FirebaseDataClient()
         response = client.fetch_notification_statistics()
 
-        assert response == {}
+        assert not response

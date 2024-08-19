@@ -14,7 +14,7 @@ class FirebaseStatistic(AbstractBaseModel):
     count = models.IntegerField()
 
     def __str__(self) -> str:
-        return f"{self.date} - {self.region} - {self.language} - {self.count}"
+        return f"{self.date} - {self.region} - {self.language_slug} - {self.count}"
 
     def get_repr(self) -> str:
         """
@@ -22,4 +22,6 @@ class FirebaseStatistic(AbstractBaseModel):
 
         :return: The canonical string representation of the firebase statistic
         """
-        return f"<FirebaseStatistic ({self.date} - {self.region} - {self.language})>"
+        return (
+            f"<FirebaseStatistic ({self.date} - {self.region} - {self.language_slug})>"
+        )

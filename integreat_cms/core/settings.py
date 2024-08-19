@@ -387,7 +387,6 @@ INSTALLED_APPS: Final[list[str]] = [
     "treebeard",
     "webpack_loader",
     "widget_tweaks",
-    "django_cron",
 ]
 
 #: Check whether redis is activated
@@ -1328,7 +1327,3 @@ USER_CHAT_WINDOW_LIMIT: Final[int] = 50
 
 #: Zammad ticket group used for Integreat chat messages
 USER_CHAT_TICKET_GROUP: Final[str] = "integreat-chat"
-
-CRON_CLASSES = [
-    "integreat_cms.firebase_api.firebase_data_backup_cron_job.FirebaseDataBackupCronJob",
-]
