@@ -36,7 +36,7 @@ class Command(LogCommand):
         logger.info("Backing up Firebase Cloud Messaging data...")
 
         statistics = self.client.fetch_notification_statistics()
-        print(statistics)
+
         for stat in statistics:
             FirebaseStatistic.objects.create(
                 date=stat["date"],
