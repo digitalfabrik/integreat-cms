@@ -319,6 +319,13 @@
                         {% translate "Location Categories" %}
                     </a>
                 {% endif %}
+                {% if perms.cms.view_evaluation %}
+                    <a href="{% url 'evaluation' %}"
+                       class="{% if current_menu_item == 'evaluation' %} active{% endif %}">
+                        <i icon-name="trending-up"></i>
+                        {% translate "Evaluation" %}
+                    </a>
+                {% endif %}
             {% endif %}
         </div>
         <div class="p-2 text-center absolute inset-x-0 bottom-0 bg-gray-600">

@@ -36,6 +36,7 @@ from ..views import (
     chat,
     dashboard,
     delete_views,
+    evaluation,
     events,
     feedback,
     form_views,
@@ -479,6 +480,7 @@ urlpatterns: list[URLPattern] = [
             ]
         ),
     ),
+    path("evaluation/", evaluation.EvaluationListView.as_view(), name="evaluation"),
     path("", include(user_settings_urlpatterns)),
     path(
         "ajax/",
