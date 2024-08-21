@@ -26,9 +26,8 @@ window.addEventListener("load", () => {
     const timelineItems = document.querySelectorAll(".timeline-item");
     const versionHistory = document.getElementById("version-history");
 
-    if (versionHistory) {
-        versionHistory.scrollLeft = versionHistory.scrollWidth;
-    }
+    const prevButton = document.getElementById("button-prev");
+    const nextButton = document.getElementById("button-next");
 
     const revisionCount = Array.from(timelineItems).length;
     const lastTimelineItem = Array.from(timelineItems)[revisionCount - 1];
@@ -101,9 +100,6 @@ window.addEventListener("load", () => {
 
         const firstItem = timelineItems[0];
         const lastItem = timelineItems[timelineItems.length - 1];
-
-        const prevButton = document.getElementById("button-prev");
-        const nextButton = document.getElementById("button-next");
 
         const firstItemActive = firstItem.classList.contains("active");
         const lastItemActive = lastItem.classList.contains("active");
@@ -297,13 +293,17 @@ window.addEventListener("load", () => {
         });
     });
 
-    document.getElementById("button-next").addEventListener("click", () => {
-        selectNextTimelineItem();
-    });
+    if (nextButton) {
+        nextButton.addEventListener("click", () => {
+            selectNextTimelineItem();
+        });
+    }
 
-    document.getElementById("button-prev").addEventListener("click", () => {
-        selectPrevTimelineItem();
-    });
+    if (prevButton) {
+        prevButton.addEventListener("click", () => {
+            selectPrevTimelineItem();
+        });
+    }
 
     document.addEventListener("keydown", (event) => {
         if (event.key === "ArrowRight") {
@@ -315,8 +315,13 @@ window.addEventListener("load", () => {
         }
     });
 
-    versionHistory.addEventListener("scroll", autoSelectTimelineItem);
+    if (versionHistory) {
+        versionHistory.scrollLeft = versionHistory.scrollWidth;
+        versionHistory.addEventListener("scroll", autoSelectTimelineItem);
+    }
 
     // Move initial position to the very end of the timeline
-    lastTimelineItem.dispatchEvent(new Event("click"));
+    if (lastTimelineItem) {
+        lastTimelineItem.dispatchEvent(new Event("click"));
+    }
 });
