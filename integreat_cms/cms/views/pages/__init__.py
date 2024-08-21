@@ -19,6 +19,7 @@ from .page_actions import (
     upload_xliff,
 )
 from .page_bulk_actions import (
+    CancelTranslationProcess,
     ExportMultiLanguageXliffView,
     ExportXliffView,
     GeneratePdfView,
