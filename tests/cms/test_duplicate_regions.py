@@ -57,6 +57,7 @@ def test_duplicate_regions(
             "zammad_url": "https://zammad-test.example.com",
             "timezone": "Europe/Berlin",
             "mt_renewal_month": 6,
+            "summ_ai_renewal_month": 6,
         },
     )
     print(response.headers)

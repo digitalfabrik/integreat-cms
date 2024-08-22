@@ -17,13 +17,11 @@ if TYPE_CHECKING:
 
     from ...cms.models import (
         Event,
-        EventTranslation,
         Page,
-        PageTranslation,
         POI,
-        POITranslation,
         Region,
     )
+    from ...cms.models.abstract_content_translation import AbstractContentTranslation
 
 from .word_count import word_count
 
@@ -79,16 +77,15 @@ class MachineTranslationApiClient(ABC):
     def check_usage(
         self,
         region: Region,
-        source_translation: EventTranslation | (PageTranslation | POITranslation),
+        source_translation: str | AbstractContentTranslation,
     ) -> tuple[bool, int]:
         """
         This function checks if the attempted translation would exceed the region's word limit
 
         :param region: region for which to check usage
         :param source_translation: single content object
-        :return: translation would exceed limit, region budget, attempted translation word count
+        :return: translation would exceed limit, word count of attempted translation
         """
-
         words = word_count(source_translation)
 
         # Check if translation would exceed MT usage limit

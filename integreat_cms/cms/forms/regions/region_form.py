@@ -24,7 +24,7 @@ from ....matomo_api.matomo_api_client import MatomoException
 from ....nominatim_api.nominatim_api_client import NominatimApiClient
 from ...constants import duplicate_pbo_behaviors, status
 from ...models import LanguageTreeNode, OfferTemplate, Page, PageTranslation, Region
-from ...models.regions.region import format_mt_help_text
+from ...models.regions.region import format_mt_help_text, format_summ_ai_help_text
 from ...utils.slug_utils import generate_unique_slug_helper
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..custom_model_form import CustomModelForm
@@ -131,6 +131,17 @@ class RegionForm(CustomModelForm):
         required=False,
     )
 
+    summ_ai_midyear_start_enabled = forms.BooleanField(
+        required=False,
+        label=_("Budget year start differs from the renewal date"),
+        help_text=__(
+            _("Enable to set starting date differing from the renewal date."),
+            format_summ_ai_help_text(
+                _("Budget will be set as a monthly fraction of {} credits")
+            ),
+        ),
+    )
+
     mt_midyear_start_enabled = forms.BooleanField(
         required=False,
         label=_("Budget year start differs from the renewal date"),
@@ -194,6 +205,9 @@ class RegionForm(CustomModelForm):
             "timezone",
             "fallback_translations_enabled",
             "summ_ai_enabled",
+            "summ_ai_renewal_month",
+            "summ_ai_midyear_start_enabled",
+            "summ_ai_midyear_start_month",
             "hix_enabled",
             "mt_renewal_month",
             "mt_addon_booked",
@@ -231,6 +245,9 @@ class RegionForm(CustomModelForm):
             self.fields["summ_ai_enabled"].disabled = True
         if not settings.TEXTLAB_API_ENABLED and not self.instance.hix_enabled:
             self.fields["hix_enabled"].disabled = True
+        self.fields["summ_ai_midyear_start_enabled"].initial = (
+            self.instance.summ_ai_midyear_start_month is not None
+        )
         self.fields["mt_midyear_start_enabled"].initial = (
             self.instance.mt_midyear_start_month is not None
         )
@@ -348,7 +365,25 @@ class RegionForm(CustomModelForm):
         else:
             cleaned_data["matomo_id"] = None
 
-        # If MT budget year differs from renewal date is set, make sure a budget year start date is set
+        # If Summ AI budget year differs from the set renewal date, make sure a budget year start date is set
+        if (
+            cleaned_data["summ_ai_midyear_start_enabled"]
+            and cleaned_data["summ_ai_midyear_start_month"] is None
+        ):
+            self.add_error(
+                "summ_ai_midyear_start_month",
+                _(
+                    "Please provide a valid budget year start date for simplified language translation."
+                ),
+            )
+        elif (
+            not cleaned_data["summ_ai_midyear_start_enabled"]
+            or cleaned_data["summ_ai_midyear_start_month"]
+            == cleaned_data["summ_ai_renewal_month"]
+        ):
+            cleaned_data["summ_ai_midyear_start_month"] = None
+
+        # If MT budget year differs from the set renewal date, make sure a budget year start date is set
         if (
             cleaned_data["mt_midyear_start_enabled"]
             and cleaned_data["mt_midyear_start_month"] is None
