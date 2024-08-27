@@ -22,8 +22,10 @@ SECOND: Final = 2
 THIRD: Final = 3
 #: Fourth week of the month
 FOURTH: Final = 4
-#: Last week of the month (either 4th or 5th)
-LAST: Final = 5
+#: Last week of the month
+LAST: Final = -1
+#: Second Last week of the month
+SECOND_LAST: Final = -2
 
 #: Choices to use these constants in a database field
 CHOICES: Final[list[tuple[int, Promise]]] = [
@@ -32,13 +34,5 @@ CHOICES: Final[list[tuple[int, Promise]]] = [
     (THIRD, _("Third week")),
     (FOURTH, _("Fourth week")),
     (LAST, _("Last week")),
+    (SECOND_LAST, _("Second last week")),
 ]
-
-#: A mapping from our week constants to the expected rrule values
-WEEK_TO_RRULE_WEEK = {
-    FIRST: 1,
-    SECOND: 2,
-    THIRD: 3,
-    FOURTH: 4,
-    LAST: -1,
-}

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import date, datetime, time, timedelta
+from functools import reduce
 from typing import TYPE_CHECKING
 
 from dateutil import rrule
@@ -86,7 +87,7 @@ class RecurrenceRule(AbstractBaseModel):
         """
         next_recurrence = start_date
 
-        def get_nth_weekday(month_date: date, weekday: int, n: int) -> date:
+        def get_nth_weekday(month_date: date, weekday: int, n: int) -> date | None:
             """
             Get the nth occurrence of a given weekday in a specific month
 
@@ -97,10 +98,18 @@ class RecurrenceRule(AbstractBaseModel):
             """
             month_date = month_date.replace(day=1)
             month_date += timedelta((weekday - month_date.weekday()) % 7)
-            n_th_occurrence = month_date + timedelta(weeks=n - 1)
-            # If the occurrence is not in the desired month (because the last week is 4 and not 5), retry with 4
+            if n < 0:
+                # Move past last occurence of date within month to properly count from the end
+                n_th_occurrence = month_date + timedelta(weeks=3)
+                while n_th_occurrence.month == month_date.month:
+                    n_th_occurrence += timedelta(weeks=1)
+                # We add the timedelta since n is already negative
+                n_th_occurrence += timedelta(weeks=n)
+            else:
+                n_th_occurrence = month_date + timedelta(weeks=n - 1)
+            # If the occurrence is not in the desired month we have no valid result
             if n_th_occurrence.month != month_date.month:
-                n_th_occurrence = month_date + timedelta(weeks=n - 2)
+                return None
             return n_th_occurrence
 
         def next_month(month_date: date) -> date:
@@ -139,15 +148,21 @@ class RecurrenceRule(AbstractBaseModel):
                 # advance to the next monday
                 next_recurrence += timedelta(days=7 - next_recurrence.weekday())
             elif self.frequency == frequency.MONTHLY:
-                next_recurrence = get_nth_weekday(
-                    next_recurrence, self.weekday_for_monthly, self.week_for_monthly
-                )
-                if next_recurrence < start_date:
-                    next_recurrence = get_nth_weekday(
-                        next_month(next_recurrence),
+                candidate = None
+                month_dif = 0
+                while candidate is None or candidate < start_date:
+                    candidate = get_nth_weekday(
+                        # Apply next_month() to original date month_dif times
+                        reduce(
+                            lambda x, _: next_month(x),
+                            range(month_dif),
+                            next_recurrence,
+                        ),
                         self.weekday_for_monthly,
                         self.week_for_monthly,
                     )
+                    month_dif += 1
+                next_recurrence = candidate
                 yield next_recurrence
                 next_recurrence = next_month(next_recurrence)
             elif self.frequency == frequency.YEARLY:
@@ -207,7 +222,7 @@ class RecurrenceRule(AbstractBaseModel):
         elif self.frequency == frequency.MONTHLY:
             kwargs["byweekday"] = rrule.weekday(
                 self.weekday_for_monthly,
-                weeks.WEEK_TO_RRULE_WEEK[self.week_for_monthly],
+                self.week_for_monthly,
             )
         if self.recurrence_end_date:
             kwargs["until"] = make_aware(
