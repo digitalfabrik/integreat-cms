@@ -154,3 +154,5 @@ def manually_invalidate_models(region: Region) -> None:
         invalidate_obj(poi)
     for push_notification in region.push_notifications.all():
         invalidate_obj(push_notification)
+    if region.imprint:
+        invalidate_obj(region.imprint)
