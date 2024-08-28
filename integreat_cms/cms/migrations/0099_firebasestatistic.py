@@ -7,7 +7,7 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ("cms", "0097_alter_pushnotificationtranslation_text"),
+        ("cms", "0098_add_contact"),
     ]
 
     operations = [
