@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-08-22T12:47:07+00:00" />
+    <meta property="article:modified_time" content="2024-08-28T08:11:19+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Models &mdash; integreat-cms 2024.8.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -191,6 +191,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.chat.html">Chat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.events.html">Events</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.languages.html">Languages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.media.html">Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.offers.html">Offers</a></li>
@@ -351,6 +352,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../ref/integreat_cms.firebase_api.html">Firebase API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.firebase_api.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.firebase_api.html#firebase-api-client">Firebase API Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.firebase_api.html#firebase-data-client">Firebase Data Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.firebase_api.html#firebase-security-service">Firebase Security Service</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/integreat_cms.google_translate_api.html">Google Translate API</a><ul>
@@ -452,6 +455,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.firebase_api.html">Firebase API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../ref/tests.firebase_api.html#test-firebase-api-client">Test Firebase API Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ref/tests.firebase_api.html#test-firebase-data-client">Test Firebase Data Client</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../ref/tests.mt_api.html">Mt API</a><ul>
@@ -738,6 +742,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html">Chat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html">Events</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.languages.html">Languages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.media.html">Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.offers.html">Offers</a></li>
@@ -995,6 +1000,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.EMAIL_USE_TLS"><code class="docutils literal notranslate"><span class="pre">EMAIL_USE_TLS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.FCM_CHANNELS"><code class="docutils literal notranslate"><span class="pre">FCM_CHANNELS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.FCM_CREDENTIALS"><code class="docutils literal notranslate"><span class="pre">FCM_CREDENTIALS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.FCM_DATA_URL"><code class="docutils literal notranslate"><span class="pre">FCM_DATA_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.FCM_ENABLED"><code class="docutils literal notranslate"><span class="pre">FCM_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.FCM_HISTORY_DAYS"><code class="docutils literal notranslate"><span class="pre">FCM_HISTORY_DAYS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS"><code class="docutils literal notranslate"><span class="pre">FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS</span></code></a></li>
@@ -1162,6 +1168,14 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.firebase_api.html#module-integreat_cms.firebase_api.firebase_api_client">Firebase API Client</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_api_client.FirebaseApiClient"><code class="docutils literal notranslate"><span class="pre">FirebaseApiClient</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.firebase_api.html#module-integreat_cms.firebase_api.firebase_data_client">Firebase Data Client</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_data_client.FirebaseDataClient"><code class="docutils literal notranslate"><span class="pre">FirebaseDataClient</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.firebase_api.html#module-integreat_cms.firebase_api.firebase_security_service">Firebase Security Service</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_security_service.FirebaseSecurityService"><code class="docutils literal notranslate"><span class="pre">FirebaseSecurityService</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1446,6 +1460,10 @@
 <li class="toctree-l4"><a class="reference internal" href="tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient"><code class="docutils literal notranslate"><span class="pre">TestFirebaseApiClient</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="tests.firebase_api.html#module-tests.firebase_api.test_firebase_data_client">Test Firebase Data Client</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="tests.firebase_api.html#tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient"><code class="docutils literal notranslate"><span class="pre">TestFirebaseDataClient</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="tests.mt_api.html">Mt API</a><ul>
@@ -1585,6 +1603,7 @@
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.load_test_data_transactional"><code class="docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.login_role_user"><code class="docutils literal notranslate"><span class="pre">login_role_user()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.login_role_user_async"><code class="docutils literal notranslate"><span class="pre">login_role_user_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.mock_firebase_credentials"><code class="docutils literal notranslate"><span class="pre">mock_firebase_credentials()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.mock_server"><code class="docutils literal notranslate"><span class="pre">mock_server()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="tests.html#tests.conftest.pytest_plugins"><code class="docutils literal notranslate"><span class="pre">pytest_plugins</span></code></a></li>
 </ul>
@@ -3652,6 +3671,49 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.unique_error_message"><code class="docutils literal notranslate"><span class="pre">SearchResultFeedback.unique_error_message()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.validate_constraints"><code class="docutils literal notranslate"><span class="pre">SearchResultFeedback.validate_constraints()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.validate_unique"><code class="docutils literal notranslate"><span class="pre">SearchResultFeedback.validate_unique()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.models.firebase.html">Firebase</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#module-integreat_cms.cms.models.firebase.firebase_statistic">Firebase Statistic</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.__init__"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.adelete"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.adelete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.arefresh_from_db"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.arefresh_from_db()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.asave"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.asave()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.check"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.clean"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.clean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.clean_fields"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.clean_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.count"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.date"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.date</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.date_error_message"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.date_error_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.delete"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.from_db"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.from_db()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.full_clean"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.full_clean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.get_constraints"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.get_constraints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.get_deferred_fields"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.get_deferred_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.get_model_name_plural"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.get_model_name_plural()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.get_next_by_date"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.get_next_by_date()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.get_previous_by_date"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.get_previous_by_date()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.get_repr"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.get_repr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.id"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.language_slug"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.language_slug</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.objects"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.objects</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.pk"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.pk</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.prepare_database_save"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.prepare_database_save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.refresh_from_db"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.refresh_from_db()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.region"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.save"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.save_base"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.save_base()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.serializable_value"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.serializable_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.unique_error_message"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.unique_error_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.validate_constraints"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.validate_constraints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.validate_unique"><code class="docutils literal notranslate"><span class="pre">FirebaseStatistic.validate_unique()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -8891,7 +8953,7 @@ cached results set to avoid multiple SELECT COUNT(*) calls.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNodeManager.creation_counter">
-<span class="sig-name descname"><span class="pre">creation_counter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">53</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNodeManager.creation_counter" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">creation_counter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">54</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNodeManager.creation_counter" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -9191,7 +9253,7 @@ thus be available in e.g. RunPython operations.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Aug 22, 2024.
+      <span class="lastupdated">Last updated on Aug 28, 2024.
       </span></p>
   </div>
 

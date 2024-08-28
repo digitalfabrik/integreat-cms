@@ -187,6 +187,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.chat.html">Chat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.events.html">Events</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.languages.html">Languages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.media.html">Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.models.offers.html">Offers</a></li>
@@ -347,6 +348,8 @@
 <li class="toctree-l2"><a class="reference internal" href="ref/integreat_cms.firebase_api.html">Firebase API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.firebase_api.html#apps">Apps</a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.firebase_api.html#firebase-api-client">Firebase API Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.firebase_api.html#firebase-data-client">Firebase Data Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/integreat_cms.firebase_api.html#firebase-security-service">Firebase Security Service</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/integreat_cms.google_translate_api.html">Google Translate API</a><ul>
@@ -448,6 +451,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/tests.firebase_api.html">Firebase API</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="ref/tests.firebase_api.html#test-firebase-api-client">Test Firebase API Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref/tests.firebase_api.html#test-firebase-data-client">Test Firebase Data Client</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref/tests.mt_api.html">Mt API</a><ul>
@@ -734,6 +738,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.chat.html">Chat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.events.html">Events</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.feedback.html">Feedback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.languages.html">Languages</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.media.html">Media</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.models.offers.html">Offers</a></li>
@@ -991,6 +996,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EMAIL_USE_TLS"><code class="docutils literal notranslate"><span class="pre">EMAIL_USE_TLS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_CHANNELS"><code class="docutils literal notranslate"><span class="pre">FCM_CHANNELS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_CREDENTIALS"><code class="docutils literal notranslate"><span class="pre">FCM_CREDENTIALS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_DATA_URL"><code class="docutils literal notranslate"><span class="pre">FCM_DATA_URL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_ENABLED"><code class="docutils literal notranslate"><span class="pre">FCM_ENABLED</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_HISTORY_DAYS"><code class="docutils literal notranslate"><span class="pre">FCM_HISTORY_DAYS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS"><code class="docutils literal notranslate"><span class="pre">FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS</span></code></a></li>
@@ -1158,6 +1164,14 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.firebase_api.html#module-integreat_cms.firebase_api.firebase_api_client">Firebase API Client</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_api_client.FirebaseApiClient"><code class="docutils literal notranslate"><span class="pre">FirebaseApiClient</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.firebase_api.html#module-integreat_cms.firebase_api.firebase_data_client">Firebase Data Client</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_data_client.FirebaseDataClient"><code class="docutils literal notranslate"><span class="pre">FirebaseDataClient</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/integreat_cms.firebase_api.html#module-integreat_cms.firebase_api.firebase_security_service">Firebase Security Service</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_security_service.FirebaseSecurityService"><code class="docutils literal notranslate"><span class="pre">FirebaseSecurityService</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -1442,6 +1456,10 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient"><code class="docutils literal notranslate"><span class="pre">TestFirebaseApiClient</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.firebase_api.html#module-tests.firebase_api.test_firebase_data_client">Test Firebase Data Client</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient"><code class="docutils literal notranslate"><span class="pre">TestFirebaseDataClient</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="ref-ext/tests.mt_api.html">Mt API</a><ul>
@@ -1581,6 +1599,7 @@
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.load_test_data_transactional"><code class="docutils literal notranslate"><span class="pre">load_test_data_transactional()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.login_role_user"><code class="docutils literal notranslate"><span class="pre">login_role_user()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.login_role_user_async"><code class="docutils literal notranslate"><span class="pre">login_role_user_async()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.mock_firebase_credentials"><code class="docutils literal notranslate"><span class="pre">mock_firebase_credentials()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.mock_server"><code class="docutils literal notranslate"><span class="pre">mock_server()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="ref-ext/tests.html#tests.conftest.pytest_plugins"><code class="docutils literal notranslate"><span class="pre">pytest_plugins</span></code></a></li>
 </ul>
@@ -2289,6 +2308,12 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.MultipleObjectsReturned.__init__">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.MultipleObjectsReturned method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.__init__">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.DoesNotExist.__init__">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.DoesNotExist method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.MultipleObjectsReturned.__init__">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.MultipleObjectsReturned method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.__init__">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.DoesNotExist.__init__">(integreat_cms.cms.models.languages.language.Language.DoesNotExist method)</a>
@@ -2657,6 +2682,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.__init__">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.__init__">(integreat_cms.core.management.commands.firebase_data_backup.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.__init__">(integreat_cms.core.management.commands.fix_internal_links.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.hix_bulk.Command.__init__">(integreat_cms.core.management.commands.hix_bulk.Command method)</a>
@@ -2700,6 +2727,10 @@
         <li><a href="ref-ext/integreat_cms.firebase_api.html#integreat_cms.firebase_api.apps.FirebaseApiConfig.__init__">(integreat_cms.firebase_api.apps.FirebaseApiConfig method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_api_client.FirebaseApiClient.__init__">(integreat_cms.firebase_api.firebase_api_client.FirebaseApiClient method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_data_client.FirebaseDataClient.__init__">(integreat_cms.firebase_api.firebase_data_client.FirebaseDataClient method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_security_service.FirebaseSecurityService.__init__">(integreat_cms.firebase_api.firebase_security_service.FirebaseSecurityService method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.google_translate_api.html#integreat_cms.google_translate_api.apps.GoogleTranslateApiClientConfig.__init__">(integreat_cms.google_translate_api.apps.GoogleTranslateApiClientConfig method)</a>
 </li>
@@ -2796,6 +2827,8 @@
         <li><a href="ref-ext/tests.core.management.commands.html#tests.core.management.commands.test_send_push_notifications.TestSendPushNotification.__init__">(tests.core.management.commands.test_send_push_notifications.TestSendPushNotification method)</a>
 </li>
         <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.__init__">(tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient method)</a>
+</li>
+        <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient.__init__">(tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient method)</a>
 </li>
         <li><a href="ref-ext/tests.html#tests.mock.MockServer.__init__">(tests.mock.MockServer method)</a>
 </li>
@@ -3111,6 +3144,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.add_arguments">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.add_arguments">(integreat_cms.core.management.commands.firebase_data_backup.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.add_arguments">(integreat_cms.core.management.commands.fix_internal_links.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.hix_bulk.Command.add_arguments">(integreat_cms.core.management.commands.hix_bulk.Command method)</a>
@@ -3138,6 +3173,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.add_base_argument">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.add_base_argument">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.add_base_argument">(integreat_cms.core.management.commands.firebase_data_backup.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.add_base_argument">(integreat_cms.core.management.commands.fix_internal_links.Command method)</a>
 </li>
@@ -3519,6 +3556,10 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.MultipleObjectsReturned.add_note">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.MultipleObjectsReturned method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.DoesNotExist.add_note">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.DoesNotExist method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.MultipleObjectsReturned.add_note">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.MultipleObjectsReturned method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.DoesNotExist.add_note">(integreat_cms.cms.models.languages.language.Language.DoesNotExist method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.MultipleObjectsReturned.add_note">(integreat_cms.cms.models.languages.language.Language.MultipleObjectsReturned method)</a>
@@ -3804,6 +3845,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.region_feedback.RegionFeedback.adelete">(integreat_cms.cms.models.feedback.region_feedback.RegionFeedback method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.adelete">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.adelete">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.adelete">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
@@ -4525,6 +4568,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.arefresh_from_db">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.arefresh_from_db">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.arefresh_from_db">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.arefresh_from_db">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
@@ -4642,6 +4687,10 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.DoesNotExist.args">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.DoesNotExist attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.MultipleObjectsReturned.args">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.MultipleObjectsReturned attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.DoesNotExist.args">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.DoesNotExist attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.MultipleObjectsReturned.args">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.MultipleObjectsReturned attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.DoesNotExist.args">(integreat_cms.cms.models.languages.language.Language.DoesNotExist attribute)</a>
 </li>
@@ -5365,6 +5414,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.asave">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.asave">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.asave">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.asave">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
@@ -5686,6 +5737,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.base_stealth_options">(integreat_cms.core.management.commands.find_large_files.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.base_stealth_options">(integreat_cms.core.management.commands.find_missing_versions.Command attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.base_stealth_options">(integreat_cms.core.management.commands.firebase_data_backup.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.base_stealth_options">(integreat_cms.core.management.commands.fix_internal_links.Command attribute)</a>
 </li>
@@ -6179,6 +6232,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.check">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback class method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.check">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic class method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.check">(integreat_cms.cms.models.languages.language.Language class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.check">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode class method)</a>
@@ -6235,6 +6290,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.check">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.check">(integreat_cms.core.management.commands.firebase_data_backup.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.check">(integreat_cms.core.management.commands.fix_internal_links.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.hix_bulk.Command.check">(integreat_cms.core.management.commands.hix_bulk.Command method)</a>
@@ -6276,6 +6333,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.check_migrations">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.check_migrations">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.check_migrations">(integreat_cms.core.management.commands.firebase_data_backup.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.check_migrations">(integreat_cms.core.management.commands.fix_internal_links.Command method)</a>
 </li>
@@ -6553,6 +6612,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.clean">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.clean">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.clean">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.clean">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
@@ -6669,6 +6730,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.clean_fields">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.clean_fields">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.clean_fields">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.clean_fields">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
@@ -6774,6 +6837,8 @@
         <li><a href="ref-ext/integreat_cms.textlab_api.html#integreat_cms.textlab_api.textlab_api_client.TextlabResult.clear">(integreat_cms.textlab_api.textlab_api_client.TextlabResult method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.client">client (integreat_cms.core.management.commands.firebase_data_backup.Command property)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.roles.CMS_TEAM">CMS_TEAM (in module integreat_cms.cms.constants.roles)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.roles.CMS_TEAM_PERMISSIONS">CMS_TEAM_PERMISSIONS (in module integreat_cms.cms.constants.roles)</a>
@@ -6802,6 +6867,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command">(class in integreat_cms.core.management.commands.find_large_files)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command">(class in integreat_cms.core.management.commands.find_missing_versions)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command">(class in integreat_cms.core.management.commands.firebase_data_backup)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command">(class in integreat_cms.core.management.commands.fix_internal_links)</a>
 </li>
@@ -7217,6 +7284,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.CORS_ORIGIN_ALLOW_ALL">CORS_ORIGIN_ALLOW_ALL (in module integreat_cms.core.settings)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.count">count (integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic attribute)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet.count">count() (integreat_cms.cms.models.abstract_content_model.ContentQuerySet method)</a>
 
       <ul>
@@ -7327,6 +7396,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.create_parser">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.create_parser">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.create_parser">(integreat_cms.core.management.commands.firebase_data_backup.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.create_parser">(integreat_cms.core.management.commands.fix_internal_links.Command method)</a>
 </li>
@@ -7531,6 +7602,8 @@
         <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.recurrence.DATATYPE">(in module integreat_cms.cms.constants.recurrence)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.date">date (integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic attribute)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_base_model.AbstractBaseModel.date_error_message">date_error_message() (integreat_cms.cms.models.abstract_base_model.AbstractBaseModel method)</a>
 
       <ul>
@@ -7575,6 +7648,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.region_feedback.RegionFeedback.date_error_message">(integreat_cms.cms.models.feedback.region_feedback.RegionFeedback method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.date_error_message">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.date_error_message">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.date_error_message">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
@@ -8061,6 +8136,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.region_feedback.RegionFeedback.delete">(integreat_cms.cms.models.feedback.region_feedback.RegionFeedback method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.delete">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.delete">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.delete">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
@@ -8675,6 +8752,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.endElementNS">endElementNS() (integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA method)</a>
 </li>
+      <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient.endpoint_mock_url">endpoint_mock_url (tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient attribute)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA.endPrefixMapping">endPrefixMapping() (integreat_cms.xliff.base_serializer.XMLGeneratorWithCDATA method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_permission_actions.MessageLevel.endswith">endswith() (integreat_cms.cms.views.pages.page_permission_actions.MessageLevel method)</a>
@@ -8973,6 +9052,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.execute">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.execute">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.execute">(integreat_cms.core.management.commands.firebase_data_backup.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.execute">(integreat_cms.core.management.commands.fix_internal_links.Command method)</a>
 </li>
@@ -9357,6 +9438,8 @@
         <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_CREDENTIALS">(in module integreat_cms.core.settings)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_DATA_URL">FCM_DATA_URL (in module integreat_cms.core.settings)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.circleci_settings.FCM_ENABLED">FCM_ENABLED (in module integreat_cms.core.circleci_settings)</a>
 
       <ul>
@@ -9452,6 +9535,8 @@
       <li><a href="ref-ext/integreat_cms.cms.views.feedback.html#integreat_cms.cms.views.feedback.feedback_resource.FeedbackResource">FeedbackResource (class in integreat_cms.cms.views.feedback.feedback_resource)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.matomo_api.html#integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch">fetch() (integreat_cms.matomo_api.matomo_api_client.MatomoApiClient method)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_data_client.FirebaseDataClient.fetch_notification_statistics">fetch_notification_statistics() (integreat_cms.firebase_api.firebase_data_client.FirebaseDataClient method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.fido_keys">fido_keys (integreat_cms.cms.models.users.user.User attribute)</a>
 </li>
@@ -9708,6 +9793,16 @@
       <li><a href="ref-ext/integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_api_client.FirebaseApiClient">FirebaseApiClient (class in integreat_cms.firebase_api.firebase_api_client)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.firebase_api.html#integreat_cms.firebase_api.apps.FirebaseApiConfig">FirebaseApiConfig (class in integreat_cms.firebase_api.apps)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_data_client.FirebaseDataClient">FirebaseDataClient (class in integreat_cms.firebase_api.firebase_data_client)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_security_service.FirebaseSecurityService">FirebaseSecurityService (class in integreat_cms.firebase_api.firebase_security_service)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic">FirebaseStatistic (class in integreat_cms.cms.models.firebase.firebase_statistic)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.DoesNotExist">FirebaseStatistic.DoesNotExist</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.MultipleObjectsReturned">FirebaseStatistic.MultipleObjectsReturned</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.weeks.FIRST">FIRST (in module integreat_cms.cms.constants.weeks)</a>
 </li>
@@ -10046,6 +10141,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.from_db">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback class method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.from_db">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic class method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.from_db">(integreat_cms.cms.models.languages.language.Language class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.from_db">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode class method)</a>
@@ -10253,6 +10350,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.region_feedback.RegionFeedback.full_clean">(integreat_cms.cms.models.feedback.region_feedback.RegionFeedback method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.full_clean">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.full_clean">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.full_clean">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
@@ -10780,6 +10879,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.get_constraints">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.get_constraints">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.get_constraints">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.get_constraints">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
@@ -11207,6 +11308,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page_translation.PageTranslation.get_current_translations">get_current_translations() (integreat_cms.cms.models.pages.page_translation.PageTranslation class method)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_security_service.FirebaseSecurityService.get_data_access_token">get_data_access_token() (integreat_cms.firebase_api.firebase_security_service.FirebaseSecurityService static method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode.get_database_vendor">get_database_vendor() (integreat_cms.cms.models.abstract_tree_node.AbstractTreeNode class method)</a>
 
       <ul>
@@ -11277,6 +11380,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.region_feedback.RegionFeedback.get_deferred_fields">(integreat_cms.cms.models.feedback.region_feedback.RegionFeedback method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.get_deferred_fields">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.get_deferred_fields">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.get_deferred_fields">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
@@ -12049,6 +12154,8 @@
         <li><a href="ref-ext/integreat_cms.api.v3.chat.html#integreat_cms.api.v3.chat.zammad_api.ZammadChatAPI.get_messages">(integreat_cms.api.v3.chat.zammad_api.ZammadChatAPI method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.firebase_api.html#integreat_cms.firebase_api.firebase_security_service.FirebaseSecurityService.get_messaging_access_token">get_messaging_access_token() (integreat_cms.firebase_api.firebase_security_service.FirebaseSecurityService static method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.mfa_utils.get_mfa_user">get_mfa_user() (in module integreat_cms.cms.utils.mfa_utils)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.get_mirrored_page_translation">get_mirrored_page_translation() (integreat_cms.cms.models.pages.page.Page method)</a>
@@ -12129,6 +12236,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.region_feedback.RegionFeedback.get_model_name_plural">(integreat_cms.cms.models.feedback.region_feedback.RegionFeedback class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.get_model_name_plural">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback class method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.get_model_name_plural">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.get_model_name_plural">(integreat_cms.cms.models.languages.language.Language class method)</a>
 </li>
@@ -12269,6 +12378,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.get_next_by_created_date">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.get_next_by_date">get_next_by_date() (integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.get_next_by_date_joined">get_next_by_date_joined() (integreat_cms.cms.models.users.user.User method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.get_next_by_end">get_next_by_end() (integreat_cms.cms.models.events.event.Event method)</a>
@@ -12861,6 +12972,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.get_previous_by_created_date">(integreat_cms.cms.models.users.organization.Organization method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.get_previous_by_date">get_previous_by_date() (integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.get_previous_by_date_joined">get_previous_by_date_joined() (integreat_cms.cms.models.users.user.User method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.get_previous_by_end">get_previous_by_end() (integreat_cms.cms.models.events.event.Event method)</a>
@@ -13375,6 +13488,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.region_feedback.RegionFeedback.get_repr">(integreat_cms.cms.models.feedback.region_feedback.RegionFeedback method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.get_repr">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.get_repr">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.get_repr">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
@@ -13902,6 +14017,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.get_version">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.get_version">(integreat_cms.core.management.commands.firebase_data_backup.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.get_version">(integreat_cms.core.management.commands.fix_internal_links.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.hix_bulk.Command.get_version">(integreat_cms.core.management.commands.hix_bulk.Command method)</a>
@@ -14053,6 +14170,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.handle">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.handle">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.handle">(integreat_cms.core.management.commands.firebase_data_backup.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.handle">(integreat_cms.core.management.commands.fix_internal_links.Command method)</a>
 </li>
@@ -14565,6 +14684,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.help">(integreat_cms.core.management.commands.find_large_files.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.help">(integreat_cms.core.management.commands.find_missing_versions.Command attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.help">(integreat_cms.core.management.commands.firebase_data_backup.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.help">(integreat_cms.core.management.commands.fix_internal_links.Command attribute)</a>
 </li>
@@ -15251,6 +15372,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.region_feedback.RegionFeedback.id">(integreat_cms.cms.models.feedback.region_feedback.RegionFeedback attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.id">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.id">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.id">(integreat_cms.cms.models.languages.language.Language attribute)</a>
 </li>
@@ -16762,6 +16885,20 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#module-integreat_cms.cms.models.feedback.search_result_feedback">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.cms.models.firebase
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#module-integreat_cms.cms.models.firebase">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.cms.models.firebase.firebase_statistic
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#module-integreat_cms.cms.models.firebase.firebase_statistic">module</a>
 </li>
       </ul></li>
       <li>
@@ -18286,6 +18423,13 @@
 </li>
       </ul></li>
       <li>
+    integreat_cms.core.management.commands.firebase_data_backup
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.firebase_data_backup">module</a>
+</li>
+      </ul></li>
+      <li>
     integreat_cms.core.management.commands.fix_internal_links
 
       <ul>
@@ -18542,6 +18686,20 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.firebase_api.html#module-integreat_cms.firebase_api.firebase_api_client">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.firebase_api.firebase_data_client
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.firebase_api.html#module-integreat_cms.firebase_api.firebase_data_client">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.firebase_api.firebase_security_service
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.firebase_api.html#module-integreat_cms.firebase_api.firebase_security_service">module</a>
 </li>
       </ul></li>
       <li>
@@ -19517,7 +19675,11 @@
       <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.language_node_by_slug">language_node_by_slug (integreat_cms.cms.models.regions.region.Region attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.mirrored_page_field_widget.MirroredPageFieldWidget.language_slug">language_slug (integreat_cms.cms.forms.pages.mirrored_page_field_widget.MirroredPageFieldWidget attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.language_slug">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic attribute)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.language_tree">language_tree (integreat_cms.cms.models.regions.region.Region attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.translations.html#integreat_cms.cms.forms.translations.translations_management_form.TranslationLanguageOptions.language_tree_node">language_tree_node (integreat_cms.cms.forms.translations.translations_management_form.TranslationLanguageOptions attribute)</a>
@@ -20404,6 +20566,8 @@
         <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.page_form.PageForm.mk_indent">(integreat_cms.cms.forms.pages.page_form.PageForm static method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/tests.html#tests.conftest.mock_firebase_credentials">mock_firebase_credentials() (in module tests.conftest)</a>
+</li>
       <li><a href="ref-ext/tests.html#tests.conftest.mock_server">mock_server() (in module tests.conftest)</a>
 </li>
       <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.utils.MockedRegion">MockedRegion (class in tests.summ_ai_api.utils)</a>
@@ -20866,6 +21030,10 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#module-integreat_cms.cms.models.feedback.search_result_feedback">integreat_cms.cms.models.feedback.search_result_feedback</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#module-integreat_cms.cms.models.firebase">integreat_cms.cms.models.firebase</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#module-integreat_cms.cms.models.firebase.firebase_statistic">integreat_cms.cms.models.firebase.firebase_statistic</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#module-integreat_cms.cms.models.languages">integreat_cms.cms.models.languages</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#module-integreat_cms.cms.models.languages.language">integreat_cms.cms.models.languages.language</a>
@@ -21300,6 +21468,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.find_missing_versions">integreat_cms.core.management.commands.find_missing_versions</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.firebase_data_backup">integreat_cms.core.management.commands.firebase_data_backup</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.fix_internal_links">integreat_cms.core.management.commands.fix_internal_links</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#module-integreat_cms.core.management.commands.hix_bulk">integreat_cms.core.management.commands.hix_bulk</a>
@@ -21373,6 +21543,10 @@
         <li><a href="ref-ext/integreat_cms.firebase_api.html#module-integreat_cms.firebase_api.apps">integreat_cms.firebase_api.apps</a>
 </li>
         <li><a href="ref-ext/integreat_cms.firebase_api.html#module-integreat_cms.firebase_api.firebase_api_client">integreat_cms.firebase_api.firebase_api_client</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.firebase_api.html#module-integreat_cms.firebase_api.firebase_data_client">integreat_cms.firebase_api.firebase_data_client</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.firebase_api.html#module-integreat_cms.firebase_api.firebase_security_service">integreat_cms.firebase_api.firebase_security_service</a>
 </li>
         <li><a href="ref-ext/integreat_cms.google_translate_api.html#module-integreat_cms.google_translate_api">integreat_cms.google_translate_api</a>
 </li>
@@ -21565,6 +21739,8 @@
         <li><a href="ref-ext/tests.firebase_api.html#module-tests.firebase_api">tests.firebase_api</a>
 </li>
         <li><a href="ref-ext/tests.firebase_api.html#module-tests.firebase_api.test_firebase_api_client">tests.firebase_api.test_firebase_api_client</a>
+</li>
+        <li><a href="ref-ext/tests.firebase_api.html#module-tests.firebase_api.test_firebase_data_client">tests.firebase_api.test_firebase_data_client</a>
 </li>
         <li><a href="ref-ext/tests.html#module-tests.mock">tests.mock</a>
 </li>
@@ -22119,6 +22295,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.region_feedback.RegionFeedback.objects">(integreat_cms.cms.models.feedback.region_feedback.RegionFeedback attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.objects">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.objects">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.objects">(integreat_cms.cms.models.languages.language.Language attribute)</a>
 </li>
@@ -22763,6 +22941,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.output_transaction">(integreat_cms.core.management.commands.find_large_files.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.output_transaction">(integreat_cms.core.management.commands.find_missing_versions.Command attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.output_transaction">(integreat_cms.core.management.commands.firebase_data_backup.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.output_transaction">(integreat_cms.core.management.commands.fix_internal_links.Command attribute)</a>
 </li>
@@ -23535,6 +23715,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.region_feedback.RegionFeedback.pk">(integreat_cms.cms.models.feedback.region_feedback.RegionFeedback property)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.pk">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback property)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.pk">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic property)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.pk">(integreat_cms.cms.models.languages.language.Language property)</a>
 </li>
@@ -24450,6 +24632,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.prepare_database_save">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.prepare_database_save">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.prepare_database_save">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.prepare_database_save">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
@@ -24515,6 +24699,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.print_help">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.print_help">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.print_help">(integreat_cms.core.management.commands.firebase_data_backup.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.print_help">(integreat_cms.core.management.commands.fix_internal_links.Command method)</a>
 </li>
@@ -25402,6 +25588,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.refresh_from_db">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.refresh_from_db">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.refresh_from_db">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.refresh_from_db">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
@@ -25481,6 +25669,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.region_feedback.RegionFeedback.region">(integreat_cms.cms.models.feedback.region_feedback.RegionFeedback attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.region">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.region">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.region">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode attribute)</a>
 </li>
@@ -25697,10 +25887,10 @@
         <li><a href="ref-ext/integreat_cms.summ_ai_api.html#integreat_cms.summ_ai_api.utils.PatientTaskQueue.remove">(integreat_cms.summ_ai_api.utils.PatientTaskQueue method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.content_utils.remove_target_attribute">remove_target_attribute() (in module integreat_cms.cms.utils.content_utils)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_permission_actions.MessageLevel.removeprefix">removeprefix() (integreat_cms.cms.views.pages.page_permission_actions.MessageLevel method)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_permission_actions.MessageLevel.removesuffix">removesuffix() (integreat_cms.cms.views.pages.page_permission_actions.MessageLevel method)</a>
@@ -26048,6 +26238,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.requires_migrations_checks">(integreat_cms.core.management.commands.find_missing_versions.Command attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.requires_migrations_checks">(integreat_cms.core.management.commands.firebase_data_backup.Command attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.requires_migrations_checks">(integreat_cms.core.management.commands.fix_internal_links.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.hix_bulk.Command.requires_migrations_checks">(integreat_cms.core.management.commands.hix_bulk.Command attribute)</a>
@@ -26075,6 +26267,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.requires_system_checks">(integreat_cms.core.management.commands.find_large_files.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.requires_system_checks">(integreat_cms.core.management.commands.find_missing_versions.Command attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.requires_system_checks">(integreat_cms.core.management.commands.firebase_data_backup.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.requires_system_checks">(integreat_cms.core.management.commands.fix_internal_links.Command attribute)</a>
 </li>
@@ -26264,7 +26458,11 @@
 </li>
       </ul></li>
       <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.response_mock_data">response_mock_data (tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient attribute)</a>
+
+      <ul>
+        <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient.response_mock_data">(tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient attribute)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/integreat_cms.api.v3.chat.html#integreat_cms.api.v3.chat.user_chat.response_or_error">response_or_error() (in module integreat_cms.api.v3.chat.user_chat)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.events.html#integreat_cms.cms.views.events.event_actions.restore">restore() (in module integreat_cms.cms.views.events.event_actions)</a>
@@ -26432,6 +26630,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.run_from_argv">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.run_from_argv">(integreat_cms.core.management.commands.firebase_data_backup.Command method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.run_from_argv">(integreat_cms.core.management.commands.fix_internal_links.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.hix_bulk.Command.run_from_argv">(integreat_cms.core.management.commands.hix_bulk.Command method)</a>
@@ -26592,6 +26792,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.save">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.save">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.save">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.save">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
@@ -26681,6 +26883,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.region_feedback.RegionFeedback.save_base">(integreat_cms.cms.models.feedback.region_feedback.RegionFeedback method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.save_base">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.save_base">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.save_base">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
@@ -27024,6 +27228,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.serializable_value">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.serializable_value">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.serializable_value">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.serializable_value">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
@@ -27109,6 +27315,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.set_logging_stream">(integreat_cms.core.management.commands.find_large_files.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.set_logging_stream">(integreat_cms.core.management.commands.find_missing_versions.Command method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.set_logging_stream">(integreat_cms.core.management.commands.firebase_data_backup.Command method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.set_logging_stream">(integreat_cms.core.management.commands.fix_internal_links.Command method)</a>
 </li>
@@ -27391,6 +27599,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.region_feedback.RegionFeedback.DoesNotExist.silent_variable_failure">(integreat_cms.cms.models.feedback.region_feedback.RegionFeedback.DoesNotExist attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.DoesNotExist.silent_variable_failure">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.DoesNotExist attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.DoesNotExist.silent_variable_failure">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.DoesNotExist attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.DoesNotExist.silent_variable_failure">(integreat_cms.cms.models.languages.language.Language.DoesNotExist attribute)</a>
 </li>
@@ -27700,6 +27910,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.stealth_options">(integreat_cms.core.management.commands.find_missing_versions.Command attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.stealth_options">(integreat_cms.core.management.commands.firebase_data_backup.Command attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.stealth_options">(integreat_cms.core.management.commands.fix_internal_links.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.hix_bulk.Command.stealth_options">(integreat_cms.core.management.commands.hix_bulk.Command attribute)</a>
@@ -27925,6 +28137,8 @@
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_large_files.Command.suppressed_base_arguments">(integreat_cms.core.management.commands.find_large_files.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.find_missing_versions.Command.suppressed_base_arguments">(integreat_cms.core.management.commands.find_missing_versions.Command attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.firebase_data_backup.Command.suppressed_base_arguments">(integreat_cms.core.management.commands.firebase_data_backup.Command attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.core.management.commands.html#integreat_cms.core.management.commands.fix_internal_links.Command.suppressed_base_arguments">(integreat_cms.core.management.commands.fix_internal_links.Command attribute)</a>
 </li>
@@ -28925,14 +29139,14 @@
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TEMPLATES">TEMPLATES (in module integreat_cms.core.settings)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.views.push_notifications.html#integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView.templates">templates (integreat_cms.cms.views.push_notifications.push_notification_list_view.PushNotificationListView attribute)</a>
 </li>
       <li><a href="documentation.html#conf.templates_path">templates_path (in module conf)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI.temporarily_closed">temporarily_closed (integreat_cms.cms.models.pois.poi.POI attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TEST">TEST (in module integreat_cms.core.settings)</a>
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_create_attachment_success">test_api_chat_create_attachment_success() (in module tests.api.test_api_chat)</a>
@@ -28979,6 +29193,8 @@
 </li>
       <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_automatic_translation">test_automatic_translation() (in module tests.mt_api.mt_api_test)</a>
 </li>
+      <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient.test_avg_per_region">test_avg_per_region() (tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient method)</a>
+</li>
       <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.mt_provider_assignment_test.test_both_providers_available">test_both_providers_available() (in module tests.mt_api.mt_provider_assignment_test)</a>
 </li>
       <li><a href="ref-ext/tests.mt_api.html#tests.mt_api.mt_api_test.test_bulk_mt">test_bulk_mt() (in module tests.mt_api.mt_api_test)</a>
@@ -29010,7 +29226,11 @@
       <li><a href="ref-ext/tests.cms.utils.html#tests.cms.utils.test_content_utils.test_clean_content">test_clean_content() (in module tests.cms.utils.test_content_utils)</a>
 </li>
       <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient.test_client_throws_exception_when_fcm_disabled">test_client_throws_exception_when_fcm_disabled() (tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient method)</a>
+
+      <ul>
+        <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient.test_client_throws_exception_when_fcm_disabled">(tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient method)</a>
 </li>
+      </ul></li>
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_media_library.test_create_directory">test_create_directory() (in module tests.cms.test_media_library)</a>
 </li>
       <li><a href="ref-ext/tests.cms.html#tests.cms.test_language.test_create_new_language_node">test_create_new_language_node() (in module tests.cms.test_language)</a>
@@ -29251,6 +29471,8 @@
 </li>
       <li><a href="ref-ext/tests.cms.views.status_code.html#tests.cms.views.status_code.test_view_status_code_9.test_view_status_code_9">test_view_status_code_9() (in module tests.cms.views.status_code.test_view_status_code_9)</a>
 </li>
+      <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient.test_without_analytics_labels">test_without_analytics_labels() (tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient method)</a>
+</li>
       <li><a href="ref-ext/tests.summ_ai_api.html#tests.summ_ai_api.summ_ai_test.test_worker">test_worker() (in module tests.summ_ai_api.summ_ai_test)</a>
 </li>
       <li><a href="ref-ext/tests.xliff.html#tests.xliff.xliff_test.test_xliff_export">test_xliff_export() (in module tests.xliff.xliff_test)</a>
@@ -29258,6 +29480,8 @@
       <li><a href="ref-ext/tests.xliff.html#tests.xliff.xliff_test.test_xliff_import">test_xliff_import() (in module tests.xliff.xliff_test)</a>
 </li>
       <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_api_client.TestFirebaseApiClient">TestFirebaseApiClient (class in tests.firebase_api.test_firebase_api_client)</a>
+</li>
+      <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient">TestFirebaseDataClient (class in tests.firebase_api.test_firebase_data_client)</a>
 </li>
       <li>
     tests
@@ -29677,6 +29901,13 @@
 
       <ul>
         <li><a href="ref-ext/tests.firebase_api.html#module-tests.firebase_api.test_firebase_api_client">module</a>
+</li>
+      </ul></li>
+      <li>
+    tests.firebase_api.test_firebase_data_client
+
+      <ul>
+        <li><a href="ref-ext/tests.firebase_api.html#module-tests.firebase_api.test_firebase_data_client">module</a>
 </li>
       </ul></li>
       <li>
@@ -30240,6 +30471,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.unique_error_message">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.unique_error_message">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.unique_error_message">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.unique_error_message">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
@@ -30297,6 +30530,8 @@
         <li><a href="ref-ext/integreat_cms.xliff.html#integreat_cms.xliff.xliff2_serializer.Deserializer.unit_node">(integreat_cms.xliff.xliff2_serializer.Deserializer attribute)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/tests.firebase_api.html#tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient.unlabeled_response_mock_data">unlabeled_response_mock_data (tests.firebase_api.test_firebase_data_client.TestFirebaseDataClient attribute)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.content_edit_lock.unlock_content">unlock_content() (in module integreat_cms.cms.utils.content_edit_lock)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.constants.html#integreat_cms.cms.constants.feedback_read_status.UNREAD">UNREAD (in module integreat_cms.cms.constants.feedback_read_status)</a>
@@ -30820,6 +31055,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.validate_constraints">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.validate_constraints">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.validate_constraints">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode.validate_constraints">(integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode method)</a>
@@ -30989,6 +31226,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.region_feedback.RegionFeedback.validate_unique">(integreat_cms.cms.models.feedback.region_feedback.RegionFeedback method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.validate_unique">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.validate_unique">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.validate_unique">(integreat_cms.cms.models.languages.language.Language method)</a>
 </li>
@@ -31611,6 +31850,10 @@
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.DoesNotExist.with_traceback">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.DoesNotExist method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.feedback.html#integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.MultipleObjectsReturned.with_traceback">(integreat_cms.cms.models.feedback.search_result_feedback.SearchResultFeedback.MultipleObjectsReturned method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.DoesNotExist.with_traceback">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.DoesNotExist method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.models.firebase.html#integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.MultipleObjectsReturned.with_traceback">(integreat_cms.cms.models.firebase.firebase_statistic.FirebaseStatistic.MultipleObjectsReturned method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.DoesNotExist.with_traceback">(integreat_cms.cms.models.languages.language.Language.DoesNotExist method)</a>
 </li>
