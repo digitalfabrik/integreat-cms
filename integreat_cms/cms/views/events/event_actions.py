@@ -186,7 +186,7 @@ def search_poi_ajax(request: HttpRequest, region_slug: str) -> HttpResponse:
 
     return render(
         request,
-        "events/_poi_query_result.html",
+        "_poi_query_result.html",
         {
             "poi_query": poi_query,
             "poi_query_result": poi_query_result,

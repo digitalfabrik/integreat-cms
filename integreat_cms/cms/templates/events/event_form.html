@@ -153,7 +153,7 @@
                 </div>
                 <div id="right-sidebar-column"
                      class="md:w-full 3xl:col-end-3 4xl:col-end-auto flex flex-wrap flex-col">
-                    {% include "./event_form_sidebar/venue_box.html" with box_id="event-venue" %}
+                    {% include "../ajax_poi_form/poi_box.html" with form=event_form box_id="event-venue" title=_("Venue") %}
                     {% include "./event_form_sidebar/icon_box.html" with box_id="event-icon" %}
                     {% if event_form.instance.id and perms.cms.change_event %}
                         {% include "./event_form_sidebar/actions_box.html" with box_id="event-actions" %}

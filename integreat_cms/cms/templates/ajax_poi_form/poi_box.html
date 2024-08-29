@@ -1,4 +1,4 @@
-{% extends "../../_collapsible_box.html" %}
+{% extends "_collapsible_box.html" %}
 {% load i18n %}
 {% load static %}
 {% load content_filters %}
@@ -8,18 +8,18 @@
     map-pin
 {% endblock collapsible_box_icon %}
 {% block collapsible_box_title %}
-    {% translate "Venue" %}
+    {{ title }}
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
-    {% render_field event_form.has_not_location class+='inline-block' %}
+    {% render_field form.has_not_location class+='inline-block' %}
     <label class="secondary !inline"
-           for="{{ event_form.has_not_location.id_for_label }}">
-        {{ event_form.has_not_location.label }}
+           for="{{ form.has_not_location.id_for_label }}">
+        {{ form.has_not_location.label }}
     </label>
     <div id="location-block"
-         class="{% if event_form.has_not_location.value %}hidden{% endif %}">
-        <label for="{{ event_form.location.id_for_label }}">
-            {{ event_form.location.label }}
+         class="{% if form.has_not_location.value %}hidden{% endif %}">
+        <label for="{{ form.location.id_for_label }}">
+            {{ form.location.label }}
         </label>
         {% translate "Name of event location" as poi_title_placeholder %}
         <div class="relative my-2">
@@ -27,7 +27,7 @@
                    type="search"
                    autocomplete="off"
                    class="pr-8 appearance-none block w-full bg-white text-gray-800 placeholder-gray-800 border border-gray-400 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:placeholder-gray-600"
-                   {% if event_form.disabled %}disabled{% endif %}
+                   {% if form.disabled %}disabled{% endif %}
                    placeholder="{% if poi %}{{ poi|poi_translation_title:current_language }}{% else %}{{ poi_title_placeholder }}{% endif %}"
                    data-url="{% url 'search_poi_ajax' region_slug=request.region.slug %}"
                    data-region-slug="{{ request.region.slug }}"
@@ -35,7 +35,7 @@
             <div class="absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
                 <button id="poi-remove"
                         title="{% translate "Remove location from event" %}"
-                        {% if event_form.disabled %}disabled{% endif %}>
+                        {% if form.disabled %}disabled{% endif %}>
                     <i icon-name="trash-2" class="h-5 w-5"></i>
                 </button>
             </div>
@@ -44,7 +44,7 @@
             {% translate "Create an event location or start typing the name of an existing location. Only published locations can be set as event venues" %}.
         </p>
         <div class="relative" id="poi-query-result">
-            {% include "events/_poi_query_result.html" %}
+            {% include "_poi_query_result.html" %}
         </div>
         <div id="poi-address-container" class="{% if not poi %} hidden{% endif %}">
             <label class="secondary">
@@ -55,7 +55,7 @@
                    class="hidden"
                    value="{% if poi %}{{ poi.id }}{% else %}-1{% endif %}"
                    readonly
-                   {% if event_form.has_not_location.value %}disabled{% endif %} />
+                   {% if form.has_not_location.value %}disabled{% endif %} />
             <div id="poi-address" class="text-lg whitespace-pre-line">
                 {% if poi %}
                     {{ poi.address }}
@@ -70,6 +70,39 @@
                rel="noopener noreferrer">
                 {% translate "Open on Google Maps" %}
             </a>
+            <label class="secondary">
+                {% translate "Contact details" %}
+            </label>
+            <div id="poi-contact-information">
+                <p>
+                    {% translate "E-mail address: " %}
+                    <span id="email">
+                        {% if poi.email %}
+                            {{ poi.email }}
+                        {% endif %}
+                    </span>
+                    <span id="no-email" class="{% if poi.email %}hidden{% endif %}">{% translate "Not provided" %}</span>
+                </p>
+                <p>
+                    {% translate "Phone number: " %}
+                    <span id="phone_number">
+                        {% if poi.phone_number %}
+                            {{ poi.phone_number }}
+                        {% endif %}
+                    </span>
+                    <span id="no-phone_number"
+                          class="{% if poi.phone_number %}hidden{% endif %}">{% translate "Not provided" %}</span>
+                </p>
+                <p>
+                    {% translate "Website: " %}
+                    <span id="website">
+                        {% if poi.website %}
+                            {{ poi.website }}
+                        {% endif %}
+                    </span>
+                    <span id="no-website" class="{% if poi.website %}hidden{% endif %}">{% translate "Not provided" %}</span>
+                </p>
+            </div>
         </div>
         <div id="poi-ajax-success-message"
              class="bg-green-100 border-l-4 border-green-500 text-green-800 px-4 py-3 hidden">
@@ -77,7 +110,7 @@
         </div>
         <div id="poi-ajax-error-message"
              class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 hidden">
-            {% trans "An error occured." %}
+            {% trans "An error occurred." %}
         </div>
         <div id="poi-form-widget">
         </div>

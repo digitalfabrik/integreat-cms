@@ -4577,6 +4577,15 @@ msgstr "Abbrechen"
 msgid "Confirm"
 msgstr "Bestätigen"
 
+#: cms/templates/_poi_query_result.html
+msgid "Select existing location"
+msgstr "Bestehenden Ort auswählen"
+
+#: cms/templates/_poi_query_result.html
+#, python-format
+msgid "Create location \"%(poi_query)s\""
+msgstr "Ort \"%(poi_query)s\" erstellen"
+
 #: cms/templates/_raw.html
 msgid "Editorial System"
 msgstr "Redaktionssystem"
@@ -4714,6 +4723,68 @@ msgstr "Automatisch den Titel des verlinkten Inhalts als Linktext verwenden"
 #: cms/templates/_tinymce_config.html
 msgid "Media Library..."
 msgstr "Medienbibliothek..."
+
+#: cms/templates/ajax_poi_form/_poi_form_widget.html
+#: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
+#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
+#: cms/templates/pages/page_sbs.html cms/templates/pois/poi_form.html
+msgid "Publish"
+msgstr "Veröffentlichen"
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "Name of event location"
+msgstr "Name des Veranstaltungsortes"
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "Remove location from event"
+msgstr "Veranstaltungsort von Veranstaltung entfernen"
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid ""
+"Create an event location or start typing the name of an existing location. "
+"Only published locations can be set as event venues"
+msgstr ""
+"Erstellen Sie einen Veranstaltungsort oder beginnen Sie den Namen eines "
+"bestehenden Veranstaltungsortes einzutippen. Nur öffentliche Orte können als "
+"Veranstaltungsorte verwendet werden"
+
+#: cms/templates/ajax_poi_form/poi_box.html
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+msgid "Address"
+msgstr "Adresse"
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "Open on Google Maps"
+msgstr "Auf Google Maps öffnen"
+
+#: cms/templates/ajax_poi_form/poi_box.html
+#: cms/templates/pois/poi_form_sidebar/contact_box.html
+msgid "Contact details"
+msgstr "Kontaktdaten"
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "E-mail address: "
+msgstr "E-Mail-Adresse: "
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "Not provided"
+msgstr "Keine Angabe"
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "Phone number: "
+msgstr "Telefonnummer: "
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "Website: "
+msgstr "Website: "
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "The new location was successfully created."
+msgstr "Ein neuer Ort wurde erfolgreich erstellt."
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "An error occurred."
+msgstr "Es ist ein Fehler aufgetreten."
 
 #: cms/templates/analytics/_broken_links_widget.html
 msgid "The list below shows all detected errors related to links."
@@ -5458,22 +5529,6 @@ msgstr "Filter zurücksetzen"
 msgid "Apply filter"
 msgstr "Filter anwenden"
 
-#: cms/templates/events/_poi_form_widget.html
-#: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
-#: cms/templates/pages/page_sbs.html cms/templates/pois/poi_form.html
-msgid "Publish"
-msgstr "Veröffentlichen"
-
-#: cms/templates/events/_poi_query_result.html
-msgid "Select existing location"
-msgstr "Bestehenden Ort auswählen"
-
-#: cms/templates/events/_poi_query_result.html
-#, python-format
-msgid "Create location \"%(poi_query)s\""
-msgstr "Ort \"%(poi_query)s\" erstellen"
-
 #: cms/templates/events/event_form.html
 #, python-format
 msgid "Edit event \"%(event_title)s\""
@@ -5520,6 +5575,10 @@ msgstr "Bearbeiten"
 msgid "Copy to clipboard"
 msgstr "In die Zwischenablage kopieren"
 
+#: cms/templates/events/event_form.html
+msgid "Venue"
+msgstr "Veranstaltungsort"
+
 #: cms/templates/events/event_form_sidebar/actions_box.html
 #: cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html
@@ -5563,44 +5622,6 @@ msgstr "Diese Veranstaltung löschen"
 #: cms/templates/events/event_form_sidebar/date_and_time_box.html
 msgid "Date and time"
 msgstr "Datum und Uhrzeit"
-
-#: cms/templates/events/event_form_sidebar/venue_box.html
-msgid "Venue"
-msgstr "Veranstaltungsort"
-
-#: cms/templates/events/event_form_sidebar/venue_box.html
-msgid "Name of event location"
-msgstr "Name des Veranstaltungsortes"
-
-#: cms/templates/events/event_form_sidebar/venue_box.html
-msgid "Remove location from event"
-msgstr "Veranstaltungsort von Veranstaltung entfernen"
-
-#: cms/templates/events/event_form_sidebar/venue_box.html
-msgid ""
-"Create an event location or start typing the name of an existing location. "
-"Only published locations can be set as event venues"
-msgstr ""
-"Erstellen Sie einen Veranstaltungsort oder beginnen Sie den Namen eines "
-"bestehenden Veranstaltungsortes einzutippen. Nur öffentliche Orte können als "
-"Veranstaltungsorte verwendet werden"
-
-#: cms/templates/events/event_form_sidebar/venue_box.html
-#: cms/templates/pois/poi_form_sidebar/position_box.html
-msgid "Address"
-msgstr "Adresse"
-
-#: cms/templates/events/event_form_sidebar/venue_box.html
-msgid "Open on Google Maps"
-msgstr "Auf Google Maps öffnen"
-
-#: cms/templates/events/event_form_sidebar/venue_box.html
-msgid "The new location was successfully created."
-msgstr "Ein neuer Ort wurde erfolgreich erstellt"
-
-#: cms/templates/events/event_form_sidebar/venue_box.html
-msgid "An error occured."
-msgstr "Es ist ein Fehler aufgetreten."
 
 #: cms/templates/events/event_list.html
 #: cms/templates/events/event_list_archived.html
@@ -7315,10 +7336,6 @@ msgstr[1] "Löschen Sie zuerst diese Veranstaltungen, um den Ort zu löschen:"
 #: cms/templates/pois/poi_form_sidebar/action_box.html
 msgid "Delete this location"
 msgstr "Diesen Ort löschen"
-
-#: cms/templates/pois/poi_form_sidebar/contact_box.html
-msgid "Contact details"
-msgstr "Kontaktdaten"
 
 #: cms/templates/pois/poi_form_sidebar/position_box.html
 msgid "Position"
@@ -10474,6 +10491,15 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Opening hours"
+#~ msgstr "Öffnungszeiten"
+
+#~ msgid "No E-mail address is provided."
+#~ msgstr "Keine E-Mail-Adresse ist angegeben."
+
+#~ msgid "No phone number is provided."
+#~ msgstr "Keine Telefonnummer ist angegeben."
+
 #~ msgid "\"{} {}\" was not in translation process."
 #~ msgid_plural "The following \"{}\" were not in translation process: \"{}\""
 #~ msgstr[0] "\"{} {}\" war nicht im Überestzungsprozess"
@@ -11986,9 +12012,6 @@ msgstr ""
 
 #~ msgid "What do you want to do?"
 #~ msgstr "Was möchten Sie tun?"
-
-#~ msgid "Your E-mail-address"
-#~ msgstr "Ihre E-Mail-Adresse"
 
 #~ msgid "Confirm your new password here"
 #~ msgstr "Ihr neues Passwort erneut eingeben"
