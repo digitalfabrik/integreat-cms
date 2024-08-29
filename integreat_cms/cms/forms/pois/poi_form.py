@@ -74,7 +74,9 @@ class POIForm(CustomModelForm):
         """
         super().__init__(**kwargs)
 
-        self.fields["organization"].queryset = self.instance.region.organizations.all()
+        self.fields["organization"].queryset = (
+            self.instance.region.organizations.filter(archived=False)
+        )
 
     # pylint: disable=too-many-return-statements
     def clean_opening_hours(self) -> list[dict[str, Any]]:

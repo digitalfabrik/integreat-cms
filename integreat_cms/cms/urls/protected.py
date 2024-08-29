@@ -15,7 +15,6 @@ from ..forms import (
     LanguageForm,
     LanguageTreeNodeForm,
     OfferTemplateForm,
-    OrganizationForm,
     PageTranslationForm,
     POITranslationForm,
     RegionForm,
@@ -24,7 +23,6 @@ from ..models import (
     Event,
     Language,
     OfferTemplate,
-    Organization,
     Page,
     POI,
     POICategory,
@@ -44,6 +42,7 @@ from ..views import (
     linkcheck,
     list_views,
     media,
+    organizations,
     pages,
     poi_categories,
     pois,
@@ -1039,33 +1038,44 @@ urlpatterns: list[URLPattern] = [
                         [
                             path(
                                 "",
-                                list_views.ModelListView.as_view(model=Organization),
+                                organizations.OrganizationListView.as_view(),
                                 name="organizations",
                             ),
                             path(
                                 "new/",
-                                form_views.CustomCreateView.as_view(
-                                    form_class=OrganizationForm
-                                ),
+                                organizations.OrganizationFormView.as_view(),
                                 name="new_organization",
                             ),
                             path(
-                                "<slug>/",
+                                "archived/",
+                                organizations.OrganizationListView.as_view(
+                                    archived=True
+                                ),
+                                name="archived_organizations",
+                            ),
+                            path(
+                                "<int:organization_id>/",
                                 include(
                                     [
                                         path(
                                             "edit/",
-                                            form_views.CustomUpdateView.as_view(
-                                                form_class=OrganizationForm
-                                            ),
+                                            organizations.OrganizationFormView.as_view(),
                                             name="edit_organization",
                                         ),
                                         path(
                                             "delete/",
-                                            delete_views.CustomDeleteView.as_view(
-                                                model=Organization,
-                                            ),
+                                            organizations.delete,
                                             name="delete_organization",
+                                        ),
+                                        path(
+                                            "archive/",
+                                            organizations.archive,
+                                            name="archive_organization",
+                                        ),
+                                        path(
+                                            "restore/",
+                                            organizations.restore,
+                                            name="restore_organization",
                                         ),
                                     ]
                                 ),

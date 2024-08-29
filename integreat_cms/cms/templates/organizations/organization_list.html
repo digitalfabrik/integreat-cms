@@ -5,21 +5,52 @@
     <div class="table-header">
         <div class="flex flex-wrap justify-between">
             <h1 class="heading">
-                {% translate "Manage Organizations" %}
+                {% if is_archive %}
+                    {% translate "Archived Organizations" %}
+                {% else %}
+                    {% translate "Manage Organizations" %}
+                {% endif %}
             </h1>
-            {% if perms.cms.change_organization %}
-                <a href="{% url 'new_organization' region_slug=request.region.slug %}"
-                   class="btn">
-                    {% translate "Create organization" %}
-                </a>
-            {% endif %}
+            <div class="justify-end">
+                {% if is_archive %}
+                    <a href="{% url 'organizations' region_slug=request.region.slug %}"
+                       class="font-bold text-sm text-gray-800 flex items-center gap-1 mb-2 hover:underline">
+                        <span><i icon-name="umbrella" class="align-top h-5"></i> {% translate "Back to organizations" %}</span>
+                    </a>
+                {% else %}
+                    <a href="{% url 'archived_organizations' region_slug=request.region.slug %}"
+                       class="font-bold text-sm text-gray-800 flex items-center pb-3 hover:underline">
+                        <span>
+                            <i icon-name="archive" class="align-top h-5"></i>
+                            {% translate "Archived organizations" %}
+                            ({{ archived_count }})
+                        </span>
+                    </a>
+                {% endif %}
+            </div>
         </div>
+        {% if not is_archive %}
+            <div class="flex justify-end">
+                {% if perms.cms.change_organization %}
+                    <a href="{% url 'new_organization' region_slug=request.region.slug %}"
+                       class="btn">
+                        {% translate "Create organization" %}
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
     </div>
     <div class="table-listing">
+        <form id="bulk-action-form" method="post">
+            {% csrf_token %}
+        </form>
         <table class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
                 <tr class="border-b border-solid border-gray-200">
-                    <th class="text-sm text-left uppercase py-3 pl-4 pr-2">
+                    <th class="py-3 pl-4 pr-2 min">
+                        <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 px-2">
                         {% translate "Name" %}
                     </th>
                     <th class="text-sm text-left uppercase py-3 px-2">
@@ -44,15 +75,38 @@
                     {% include "organizations/organization_list_row.html" %}
                 {% empty %}
                     <tr>
-                        <td colspan="6" class="px-4 py-3">
-                            {% translate "No organizations available yet." %}
+                        <td colspan="7" class="px-4 py-3">
+                            {% if is_archive %}
+                                {% translate "No archived organizations." %}
+                            {% else %}
+                                {% translate "No organizations available yet." %}
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+    {% if organizations %}
+        <div class="pt-2 px-2">
+            <div class="inline">
+                <span class="text-gray-800 font-bold" data-list-selection-count>0</span> <span class="text-gray-600">{% translate "Organizations selected" %}</span>
+            </div>
+        </div>
+    {% endif %}
+    {% if perms.cms.change_organization %}
+        <div class="flex flex-wrap gap-2 mt-4">
+            <select id="bulk-action" class="w-auto max-w-full">
+                <option>
+                    {% translate "Select bulk action" %}
+                </option>
+            </select>
+            <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
+                {% translate "Execute" %}
+            </button>
+        </div>
+    {% endif %}
     {% include "../generic_confirmation_dialog.html" %}
     {% url "organizations" as url %}
-    {% include "pagination.html" with chunk=page_obj %}
+    {% include "pagination.html" with chunk=organizations %}
 {% endblock content %}

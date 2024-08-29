@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import logging
+
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -9,6 +11,8 @@ from django.utils.translation import gettext_lazy as _
 from ..abstract_base_model import AbstractBaseModel
 from ..media.media_file import MediaFile
 from ..regions.region import Region
+
+logger = logging.getLogger(__name__)
 
 
 class Organization(AbstractBaseModel):
@@ -44,6 +48,44 @@ class Organization(AbstractBaseModel):
     )
 
     website = models.URLField(max_length=250, verbose_name=_("website"))
+    archived = models.BooleanField(default=False, verbose_name=_("archived"))
+
+    @property
+    def num_contents(self) -> int:
+        """
+
+        :return: the current number of maintained pages of an organization object
+        """
+        return self.pages.count() + self.pois.count()
+
+    @property
+    def num_members(self) -> int:
+        """
+        :return: the current number of members of an organization object
+        """
+        return self.members.count()
+
+    @property
+    def is_used(self) -> bool:
+        """
+        :return: whether this organization is used by another model
+        """
+        return self.pages.exists() or self.pois.exists() or self.members.exists()
+
+    @cached_property
+    def backend_edit_link(self) -> str:
+        """
+        This function returns the absolute url to the edit form of this region
+
+        :return: The url
+        """
+        return reverse(
+            "edit_organization",
+            kwargs={
+                "region_slug": self.region.slug,
+                "organization_id": self.id,
+            },
+        )
 
     def __str__(self) -> str:
         """
@@ -63,35 +105,44 @@ class Organization(AbstractBaseModel):
         """
         return f"<Organization (id: {self.id}, slug: {self.slug}, region: {self.region.slug})>"
 
-    @property
-    def num_contents(self) -> int:
-        """
+    def delete(self, *args: list, **kwargs: dict) -> bool:
+        r"""
+        Deletes the organization
 
-        :return: the current number of maintained pages of an organization object
+        :param \*args: The supplied arguments
+        :param \**kwargs: The supplied keyword arguments
         """
-        return self.pages.count() + self.pois.count()
+        was_successful = False
+        if not self.is_used:
+            super().delete(*args, **kwargs)
+            was_successful = True
+        else:
+            logger.debug(
+                "Can't be deleted because this organization is used by a poi, page or user"
+            )
+        return was_successful
 
-    @property
-    def num_members(self) -> int:
+    def archive(self) -> bool:
         """
-        :return: the current number of members of an organization object
+        Archives the organizations
         """
-        return self.members.count()
+        was_successful = False
+        if not self.is_used:
+            self.archived = True
+            self.save()
+            was_successful = True
+        else:
+            logger.debug(
+                "Can't be archived because this organization is used by a poi, page or user"
+            )
+        return was_successful
 
-    @cached_property
-    def backend_edit_link(self) -> str:
+    def restore(self) -> None:
         """
-        This function returns the absolute url to the edit form of this region
-
-        :return: The url
+        Restores the organization
         """
-        return reverse(
-            "edit_organization",
-            kwargs={
-                "region_slug": self.region.slug,
-                "slug": self.slug,
-            },
-        )
+        self.archived = False
+        self.save()
 
     class Meta:
         #: The verbose name of the model

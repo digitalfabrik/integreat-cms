@@ -2717,6 +2717,7 @@ msgstr "Webseite"
 
 #: cms/models/contact/contact.py cms/models/events/event.py
 #: cms/models/feedback/feedback.py cms/models/pois/poi.py
+#: cms/models/users/organization.py
 msgid "archived"
 msgstr "archiviert"
 
@@ -5689,6 +5690,7 @@ msgstr "Veranstaltungen ausgewählt"
 #: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/linkcheck/links_by_filter.html
+#: cms/templates/organizations/organization_list.html
 #: cms/templates/pages/page_tree.html
 #: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
 #: cms/templates/pois/poi_list_archived.html
@@ -5740,6 +5742,7 @@ msgstr "%(content_type)s maschinell auf %(language)s übersetzen"
 #: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/linkcheck/links_by_filter.html
+#: cms/templates/organizations/organization_list.html
 #: cms/templates/pages/_page_xliff_export_overlay.html
 #: cms/templates/pages/page_tree.html
 #: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
@@ -6634,8 +6637,20 @@ msgid "This organization currently has no members."
 msgstr "Diese Organisation hat zur Zeit keine Mitglieder."
 
 #: cms/templates/organizations/organization_list.html
+msgid "Archived Organizations"
+msgstr "Archivierte Organisationen"
+
+#: cms/templates/organizations/organization_list.html
 msgid "Manage Organizations"
-msgstr "Organisationen"
+msgstr "Organisationen verwalten"
+
+#: cms/templates/organizations/organization_list.html
+msgid "Back to organizations"
+msgstr "Zurück zu Organisationen"
+
+#: cms/templates/organizations/organization_list.html
+msgid "Archived organizations"
+msgstr "Archivierte Organisationen"
 
 #: cms/templates/organizations/organization_list.html
 msgid "Create organization"
@@ -6654,12 +6669,28 @@ msgid "Website"
 msgstr "Webseite"
 
 #: cms/templates/organizations/organization_list.html
+msgid "No archived organizations."
+msgstr "Keine archivierten Organisationen."
+
+#: cms/templates/organizations/organization_list.html
 msgid "No organizations available yet."
 msgstr "Noch keine Organisationen vorhanden."
+
+#: cms/templates/organizations/organization_list.html
+msgid "Organizations selected"
+msgstr "Organisationen ausgewählt"
 
 #: cms/templates/organizations/organization_list_row.html
 msgid "To website"
 msgstr "Zur Webseite"
+
+#: cms/templates/organizations/organization_list_row.html
+msgid "Restore organization"
+msgstr "Organisation wiederherstellen"
+
+#: cms/templates/organizations/organization_list_row.html
+msgid "Archive organization"
+msgstr "Organisationen archivieren"
 
 #: cms/templates/pages/_page_order_table.html
 msgid "Change the position of the page with drag & drop."
@@ -9233,6 +9264,91 @@ msgstr "Es ist ein Fehler aufgetreten."
 msgid "Please confirm that you really want to delete this {}"
 msgstr "Bitte bestätigen Sie, dass diese {} gelöscht werden soll"
 
+#: cms/views/organizations/organization_actions.py
+msgid "Organization was successfully archived"
+msgstr "Die Organisation wurde erfolgreich archiviert"
+
+#: cms/views/organizations/organization_actions.py
+msgid "Organization couldn't be archived as it's used by a page, poi or user"
+msgstr "Die Organisation konnte nicht archiviert werden, da sie von einer Seite, einem Ort oder eines Users verwendet wird"
+
+#: cms/views/organizations/organization_actions.py
+msgid "Organization was successfully restored"
+msgstr "Die Organisation wurde erfolgreich wiederhergestellt"
+
+#: cms/views/organizations/organization_actions.py
+msgid "Organization was successfully deleted"
+msgstr "Organisation wurde erfolgreich gespeichert"
+
+#: cms/views/organizations/organization_actions.py
+msgid "Organization couldn't be deleted as it's used by a page, poi or user"
+msgstr "Die Organisation konnte nicht gelöscht werden, da sie von einer Seite, einem Ort oder eines Users verwendet wird"
+
+#: cms/views/organizations/organization_content_mixin.py
+msgid "Please confirm that you really want to archive this organization"
+msgstr "Bitte bestätigen Sie, dass diese Organisation archiviert werden soll."
+
+#: cms/views/organizations/organization_content_mixin.py
+msgid ""
+"Archiving this organization removes it from all users and content objects "
+"that use it"
+msgstr ""
+"Das Archivieren dieser Organisation entfernt diese von allen Benutzer:innen "
+"und Inhalten, von denen sie benutzt wurde"
+
+#: cms/views/organizations/organization_content_mixin.py
+msgid "Please confirm that you really want to restore this organization"
+msgstr ""
+"Bitte bestätigen Sie, dass diese Organisation wiederhergestellt werden soll"
+
+#: cms/views/organizations/organization_content_mixin.py
+msgid "Please confirm that you really want to delete this organization"
+msgstr "Bitte bestätigen Sie, dass diese Organisation gelöscht werden soll"
+
+#: cms/views/organizations/organization_content_mixin.py
+msgid ""
+"Deleting this organization removes it from all users and content objects "
+"that use it"
+msgstr ""
+"Das Löschen dieser Organisationen entfernt diese von allen Benutzer:innen "
+"und Inhalten, von denen sie benutzt wurde"
+
+#: cms/views/organizations/organization_content_mixin.py
+msgid ""
+"You cannot archive an organization which is used by a poi, page or user. \n"
+"This also involves archived pages and pois"
+msgstr ""
+"Sie können keine Organisation archivieren, die von einem Ort, einer Seite "
+"oder von Benutzer:innen verwendet wird. \n"
+"Dies betrifft auch archivierte Orte und Seiten"
+
+#: cms/views/organizations/organization_content_mixin.py
+msgid ""
+"You cannot delete an organization which is used by a poi, page or user. \n"
+"This also involves archived pages and pois"
+msgstr ""
+"Sie können keine Organisation löschen, die von einem Ort, einer Seite oder "
+"von Benutzer:innen verwendet wird. \n"
+"Dies betrifft auch archivierte Orte und Seiten"
+
+#: cms/views/organizations/organization_form_view.py
+msgid "You cannot edit this organization because it is archived."
+msgstr "Sie können diese Organisation nicht bearbeiten, da sie archiviert ist."
+
+#: cms/views/organizations/organization_form_view.py
+msgid "You don't have the permission to edit organizations."
+msgstr ""
+"Sie haben nicht die benötigten Berechtigungen, um Organisationen zu "
+"bearbeiten."
+
+#: cms/views/organizations/organization_form_view.py
+msgid "Organization \"{}\" was successfully created"
+msgstr "Organisation \"{}\" wurde erfolgreich erstellt"
+
+#: cms/views/organizations/organization_form_view.py
+msgid "Organization \"{}\" was successfully saved"
+msgstr "Organisation \"{}\" wurde erfolgreich erstellt"
+
 #: cms/views/pages/page_actions.py
 msgid "Page was successfully archived"
 msgstr "Seite wurde erfolgreich archiviert"
@@ -11039,15 +11155,8 @@ msgstr ""
 #~ msgid "Publish the current auto save"
 #~ msgstr "Die aktuelle automatische Speicherung veröffentlichen"
 
-#~ msgid "Organization \"{}\" was successfully {}"
-#~ msgstr "Organisation \"{}\" wurde erfolgreich erstellt"
-
 #~ msgid "deleted"
 #~ msgstr "Löschen"
-
-#~ msgid "You don't have the permission to edit an organization."
-#~ msgstr ""
-#~ "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu bearbeiten."
 
 #~ msgid "edited"
 #~ msgstr "Bearbeiter"
@@ -11057,12 +11166,6 @@ msgstr ""
 
 #~ msgid "Language tree node for \"{}\" was successfully created"
 #~ msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich erstellt"
-
-#~ msgid "Organization was successfully deleted"
-#~ msgstr "Organisation wurde erfolgreich gespeichert"
-
-#~ msgid "Organization \"{}\" was successfully created"
-#~ msgstr "Organisation \"{}\" wurde erfolgreich erstellt"
 
 #~ msgid "Organization \"{}\" saved without changes"
 #~ msgstr "Organisation \"{}\" wurde erfolgreich gespeichert"
@@ -11232,9 +11335,6 @@ msgstr ""
 #~ msgid "Please confirm that you really want to delete this offer template"
 #~ msgstr ""
 #~ "Bitte bestätigen Sie, dass diese Angebots-Vorlage gelöscht werden soll"
-
-#~ msgid "Please confirm that you really want to delete this organization"
-#~ msgstr "Bitte bestätigen Sie, dass diese Organisation gelöscht werden soll"
 
 #~ msgid ""
 #~ "This will update all pages and users that are part of this organization."
@@ -11876,13 +11976,6 @@ msgstr ""
 
 #~ msgid "Enter the role's name here"
 #~ msgstr "Name der Rolle hier eingeben"
-
-#~ msgid ""
-#~ "There was an error during the establishment of a connection. Please check "
-#~ "the region and the entered key."
-#~ msgstr ""
-#~ "Es gab einen Fehler mit der Verbindung zum Matomo Server. Bitte prüfen "
-#~ "Sie Ihre Einstellungen."
 
 #~ msgid ""
 #~ "The url you have entered is invalid. Please check the corresponding "
