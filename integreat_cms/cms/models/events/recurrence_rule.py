@@ -206,7 +206,8 @@ class RecurrenceRule(AbstractBaseModel):
             kwargs["byweekday"] = self.weekdays_for_weekly
         elif self.frequency == frequency.MONTHLY:
             kwargs["byweekday"] = rrule.weekday(
-                self.weekday_for_monthly, self.week_for_monthly
+                self.weekday_for_monthly,
+                weeks.WEEK_TO_RRULE_WEEK[self.week_for_monthly],
             )
         if self.recurrence_end_date:
             kwargs["until"] = make_aware(

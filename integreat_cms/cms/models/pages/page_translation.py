@@ -18,7 +18,7 @@ if TYPE_CHECKING:
     from django.utils.functional import Promise
     from django.utils.safestring import SafeString
 
-    from ..language.language import Language
+    from ..languages.language import Language
     from ..regions.region import Region
 
 from django.utils.safestring import mark_safe
@@ -147,7 +147,7 @@ class PageTranslation(AbstractBasePageTranslation):
         :return: The text, as specified
         """
 
-        # If there is no page embetted
+        # If there is no page embedded
         if not self.page.mirrored_page:
             return ""
 
@@ -172,7 +172,7 @@ class PageTranslation(AbstractBasePageTranslation):
         if not translations:
             return ""
 
-        # If a fall back exits
+        # If a fallback exists
         error_message = (
             self.language.message_partial_live_content_not_available
             if self.content and not self.content.isspace()
@@ -295,7 +295,7 @@ class PageTranslation(AbstractBasePageTranslation):
         cls, region: Region, language: Language
     ) -> QuerySet[PageTranslation]:
         """
-        This function retrieves the most recent versions of a all :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation`
+        This function retrieves the most recent versions of all :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation`
         objects of a :class:`~integreat_cms.cms.models.regions.region.Region` in a specific :class:`~integreat_cms.cms.models.languages.language.Language`
 
         :param region: The requested :class:`~integreat_cms.cms.models.regions.region.Region`
@@ -309,7 +309,7 @@ class PageTranslation(AbstractBasePageTranslation):
     @classmethod
     def get_up_to_date_translations(
         cls, region: Region, language: Language
-    ) -> QuerySet[PageTranslation]:
+    ) -> list[PageTranslation]:
         """
         This function is similar to :func:`~integreat_cms.cms.models.pages.page_translation.PageTranslation.get_translations` but
         returns only page translations which are up to date
@@ -329,7 +329,7 @@ class PageTranslation(AbstractBasePageTranslation):
     @classmethod
     def get_current_translations(
         cls, region: Region, language: Language
-    ) -> QuerySet[PageTranslation]:
+    ) -> list[PageTranslation]:
         """
         This function is similar to :func:`~integreat_cms.cms.models.pages.page_translation.PageTranslation.get_translations` but
         returns only page translations which are currently being translated by an external translator
@@ -349,7 +349,7 @@ class PageTranslation(AbstractBasePageTranslation):
     @classmethod
     def get_outdated_translations(
         cls, region: Region, language: Language
-    ) -> QuerySet[PageTranslation]:
+    ) -> list[PageTranslation]:
         """
         This function is similar to :func:`~integreat_cms.cms.models.pages.page_translation.PageTranslation.get_translations` but
         returns only page translations which are outdated

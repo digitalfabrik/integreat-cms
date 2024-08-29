@@ -20,6 +20,7 @@ from .recurrence_rule import RecurrenceRule
 
 if TYPE_CHECKING:
     from datetime import date
+    from typing import Self
 
     from django.db.models.base import ModelBase
 
@@ -32,7 +33,7 @@ class EventQuerySet(ContentQuerySet):
     Custom QuerySet to facilitate the filtering by date while taking recurring events into account.
     """
 
-    def filter_upcoming(self, from_date: datetime | None = None) -> EventQuerySet:
+    def filter_upcoming(self, from_date: datetime | None = None) -> Self:
         """
         Filter all events that take place after the given date. This is, per definition, if at least one of the
         following conditions is true:
@@ -57,7 +58,7 @@ class EventQuerySet(ContentQuerySet):
             )
         )
 
-    def filter_completed(self, to_date: date | None = None) -> EventQuerySet:
+    def filter_completed(self, to_date: date | None = None) -> Self:
         """
         Filter all events that are not ongoing and don't have any occurrences in the future. This is, per definition, if
         at least one of the following conditions is true:
@@ -213,7 +214,7 @@ class Event(AbstractContentModel):
         Get occurrences of the event that overlap with ``[start, end]``.
         Expects ``start < end``.
 
-        :param start: the begin of the requested interval.
+        :param start: the start of the requested interval.
         :param end: the end of the requested interval.
         :return: start datetimes of occurrences of the event that are in the given timeframe
         """

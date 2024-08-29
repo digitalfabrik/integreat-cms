@@ -3,11 +3,9 @@ from __future__ import annotations
 import logging
 from typing import TYPE_CHECKING
 
-import google.auth
 import requests
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-from google.oauth2 import service_account
 from requests.exceptions import RequestException
 
 from ..cms.constants import push_notifications as pnt_const
@@ -15,6 +13,7 @@ from ..cms.forms.push_notifications.push_notification_translation_form import (
     PushNotificationTranslation,
 )
 from ..cms.models import Region
+from .firebase_security_service import FirebaseSecurityService
 
 if TYPE_CHECKING:
     from ..cms.models.push_notifications.push_notification import PushNotification
@@ -28,11 +27,6 @@ class FirebaseApiClient:
 
     Sends push notifications via FCM HTTP API.
     Definition: https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream-http-messages-json
-
-    .. warning::
-
-        We use legacy HTTP-API - Migration to HTTP v1-API will be necessary!
-        https://firebase.google.com/docs/cloud-messaging/migrate-v1
     """
 
     def __init__(self, push_notification: PushNotification) -> None:
@@ -140,7 +134,7 @@ class FirebaseApiClient:
             },
         }
         headers = {
-            "Authorization": f"Bearer {self._get_access_token()}",
+            "Authorization": f"Bearer {FirebaseSecurityService.get_messaging_access_token()}",
             "Content-Type": "application/json; UTF-8",
         }
 
@@ -178,19 +172,3 @@ class FirebaseApiClient:
                     if not self.send_pn(pnt, region):
                         status = False
         return status
-
-    @staticmethod
-    def _get_access_token() -> str:
-        """
-        Retrieve a valid access token that can be used to authorize requests.
-        This function is taken from https://github.com/firebase/quickstart-python/blob/2c68e7c5020f4dbb072cca4da03dba389fbbe4ec/messaging/messaging.py#L26-L35
-
-        :return: Access token
-        """
-        credentials = service_account.Credentials.from_service_account_file(
-            settings.FCM_CREDENTIALS,
-            scopes=["https://www.googleapis.com/auth/firebase.messaging"],
-        )
-        request = google.auth.transport.requests.Request()
-        credentials.refresh(request)
-        return credentials.token
