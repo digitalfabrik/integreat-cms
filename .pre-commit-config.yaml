@@ -16,35 +16,56 @@ repos:
         exclude: .github/PULL_REQUEST_TEMPLATE.md|tests/cms/views/dashboard/expected_output/chat.html
       - id: no-commit-to-branch
         args: [--branch, main, --branch, develop]
-  - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.4.7
+  - repo: local
     hooks:
       - id: ruff
+        name: ruff (custom script)
+        entry: ./tools/ruff.sh
+        args: ["--as-precommit"]
+        types_or: ["python", "pyi"]
+        language: script
+        pass_filenames: false
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.10.0.1
     hooks:
       - id: shellcheck
         args: [--external-sources]
-  - repo: https://github.com/psf/black
-    rev: 24.4.2
+  - repo: local
     hooks:
       - id: black
-  - repo: https://github.com/Riverside-Healthcare/djLint
-    rev: v1.34.1
+        name: black (custom script)
+        entry: ./tools/black.sh
+        args: ["--as-precommit"]
+        types_or: ["python", "pyi"]
+        language: script
+        pass_filenames: true
+  - repo: local
     hooks:
       - id: djlint-django
-        args: [--reformat, --lint, --exclude, tests/cms/views/dashboard/expected_output]
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: v8.56.0
+        name: djlint (custom script)
+        entry: ./tools/djlint.sh
+        args: ["--as-precommit"]
+        types_or: ["html"]
+        language: script
+        pass_filenames: true
+  - repo: local
     hooks:
       - id: eslint
-        files: \.[jt]sx?$
-        args: [--fix]
-        types: [file]
-        additional_dependencies:
-          - eslint@8.57.0
-          - "typescript-eslint@7.11.0"
-          - "eslint-plugin-prefer-arrow@1.2.3"
+        name: eslint (custom script)
+        entry: ./tools/eslint.sh
+        args: ["--as-precommit"]
+        types_or: ["javascript", "jsx", "ts", "tsx"]
+        language: script
+        pass_filenames: true
+  - repo: local
+    hooks:
+      - id: prettier
+        name: prettier (custom script)
+        entry: ./tools/prettier.sh
+        args: ["--as-precommit"]
+        types_or: ["javascript", "jsx", "ts", "tsx", "css", "sass", "scss", "yaml", "markdown", "json"]
+        language: script
+        pass_filenames: true
   - repo: local
     hooks:
       - id: translations
@@ -53,7 +74,7 @@ repos:
         entry: tools/check_translations.sh
         types_or: [python, html]
         language: script
-        pass_filenames: false
+        pass_filenames: true
   - repo: local
     hooks:
       - id: frontend-tests
@@ -62,8 +83,21 @@ repos:
         entry: tools/vitest.sh
         language: script
         pass_filenames: false
-  - repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.10.0
+  - repo: local
     hooks:
       - id: mypy
-        additional_dependencies: [types-python-dateutil, types-PyYAML, types-requests]
+        name: mypy (custom script)
+        entry: ./tools/mypy.sh
+        args: ["--as-precommit"]
+        types_or: ["python", "pyi"]
+        language: script
+        pass_filenames: true
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint (custom script)
+        entry: ./tools/pylint.sh
+        args: ["--as-precommit"]
+        types_or: ["python", "pyi"]
+        language: script
+        pass_filenames: true
