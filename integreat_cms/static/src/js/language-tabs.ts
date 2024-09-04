@@ -1,13 +1,3 @@
-const CLASS_ANCHOR_WHEN_SHOWN = [
-    "px-3",
-    "py-[calc(0.75rem+2px)]",
-    "bg-water-500",
-    "rounded-t",
-    "hover:bg-white",
-    "hover:text-blue-500",
-];
-
-const CLASS_ANCHOR_WHEN_HIDDEN = ["px-3", "py-2", "flex", "bg-white", "whitespace-nowrap", "hover:bg-water-500"];
 const BUFFER = 20;
 
 const hideElement = (element: HTMLElement | null) => {
@@ -33,22 +23,10 @@ const fitsInAvailableWidth = (tab: Element, usedSpace: number, availableWidth: n
 };
 
 const moveToLanguageSwitcherList = (tab: Element, languageSwitcherList: HTMLElement) => {
-    const anchor = tab.getElementsByTagName("a")[0];
-    tab.classList.remove("mr-2");
-    if (anchor) {
-        anchor.classList.remove(...CLASS_ANCHOR_WHEN_SHOWN);
-        anchor.classList.add(...CLASS_ANCHOR_WHEN_HIDDEN);
-    }
     languageSwitcherList.append(tab);
 };
 
 const moveToTabWrapper = (tab: Element, tabWrapper: HTMLElement, languageSwitcherListElement: HTMLElement) => {
-    const anchor = tab.getElementsByTagName("a")[0];
-    tab.classList.add("mr-2");
-    if (anchor && !anchor.closest("#language-switcher-list")) {
-        anchor.classList.remove(...CLASS_ANCHOR_WHEN_HIDDEN);
-        anchor.classList.add(...CLASS_ANCHOR_WHEN_SHOWN);
-    }
     if (!Array.from(tabWrapper.children).includes(tab)) {
         tabWrapper.insertBefore(tab, languageSwitcherListElement);
     }
