@@ -3,7 +3,6 @@ from __future__ import annotations
 import logging
 import time
 from collections import defaultdict
-from copy import deepcopy
 from functools import partial
 from typing import DefaultDict, TYPE_CHECKING
 from urllib.parse import unquote
@@ -17,11 +16,8 @@ from lxml.html import rewrite_links
 from ....cms.models import Region
 from ....cms.models.abstract_content_translation import AbstractContentTranslation
 from ....cms.utils import internal_link_utils
-from ....cms.utils.linkcheck_utils import (
-    fix_content_link_encoding,
-    get_region_links,
-    save_new_version,
-)
+from ....cms.utils.link_utils import fix_content_link_encoding
+from ....cms.utils.linkcheck_utils import get_region_links
 from ..log_command import LogCommand
 
 if TYPE_CHECKING:
@@ -173,7 +169,7 @@ def replace_links_of_translation(
     :param user: The user that should be credited for this action
     :param commit: Whether to write to the database
     """
-    new_translation = deepcopy(translation)
+    new_translation = translation.create_new_version_copy(user)
     new_translation.content = fix_content_link_encoding(
         rewrite_links(new_translation.content, partial(replace_link_helper, rules))
     )
@@ -181,7 +177,8 @@ def replace_links_of_translation(
         "Replacing %r link(s) in %r: %r", len(rules), new_translation, rules.keys()
     )
     if commit:
-        save_new_version(translation, new_translation, user)
+        translation.links.all().delete()
+        new_translation.save()
 
 
 def replace_link_helper(rules: dict[str, str], link: str) -> str:

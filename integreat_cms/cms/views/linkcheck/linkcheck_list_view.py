@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import logging
 import time
-from copy import deepcopy
-from functools import partial
 from typing import TYPE_CHECKING
 from urllib.parse import urlencode
 
@@ -15,13 +13,11 @@ from django.shortcuts import redirect, reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView
-from linkcheck import update_lock
 from linkcheck.models import Link, Url
-from lxml.html import rewrite_links
 
 from ...decorators import permission_required
 from ...forms.linkcheck.edit_url_form import EditUrlForm
-from ...utils.linkcheck_utils import filter_urls, fix_content_link_encoding, get_urls
+from ...utils.linkcheck_utils import filter_urls, get_urls
 
 if TYPE_CHECKING:
     from typing import Any
@@ -164,21 +160,12 @@ class LinkcheckListView(ListView):
                 }
                 # Replace the old urls with the new urls in the content
                 for translation in translations:
-                    new_translation = deepcopy(translation)
-                    # Replace link in translation
-                    logger.debug("Replacing links of %r", new_translation)
-                    new_translation.content = rewrite_links(
-                        new_translation.content,
-                        partial(self.replace_link, self.instance.url, new_url),
+                    translation.replace_urls(
+                        {self.instance.url: new_url},
+                        request.user,
+                        True,
                     )
-                    new_translation.content = fix_content_link_encoding(
-                        new_translation.content
-                    )
-                    # Save translation with replaced content as new minor version
-                    new_translation.id = None
-                    new_translation.version += 1
-                    new_translation.minor_edit = True
-                    new_translation.save()
+
                 if new_url.startswith("mailto:"):
                     messages.success(request, _("Email link was successfully replaced"))
                 elif new_url.startswith("tel:"):
@@ -188,13 +175,6 @@ class LinkcheckListView(ListView):
                 else:
                     messages.success(request, _("URL was successfully replaced"))
                 # Add short delay to allow post_save signals to finish (to keep existing URL objects when deleting the old links)
-                time.sleep(0.5)
-                # Acquire linkcheck lock to avoid race conditions between post_save signal and links.delete()
-                with update_lock:
-                    for translation in translations:
-                        # Delete now outdated link objects
-                        translation.links.all().delete()
-                # Add short delay to allow rechecking to be finished when page reloads
                 time.sleep(0.5)
             else:
                 # Show error messages

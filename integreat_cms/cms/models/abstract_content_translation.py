@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from copy import deepcopy
 from html import escape
 from typing import TYPE_CHECKING
 
@@ -11,6 +12,7 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from linkcheck.listeners import disable_listeners
+from lxml.html import rewrite_links
 
 from ..utils.tinymce_icon_utils import get_icon_html, make_icon
 
@@ -23,8 +25,10 @@ if TYPE_CHECKING:
 
     from .abstract_content_model import AbstractContentModel
     from .regions.region import Region
+    from .users.user import User
 
 from ..constants import status, translation_status
+from ..utils.link_utils import fix_content_link_encoding
 from ..utils.round_hix_score import round_hix_score
 from ..utils.translation_utils import gettext_many_lazy as __
 from .abstract_base_model import AbstractBaseModel
@@ -585,6 +589,41 @@ class AbstractContentTranslation(AbstractBaseModel):
         :return: All slugs that have been used by at least on version of this translation
         """
         return self.all_versions.values_list("slug", flat=True)
+
+    def create_new_version_copy(
+        self, user: User | None = None
+    ) -> AbstractContentTranslation:
+        """
+        Create a new version by copying
+        """
+        new_translation = deepcopy(self)
+        new_translation.pk = None
+        new_translation.version += 1
+        new_translation.minor_edit = True
+        new_translation.creator = user
+        logger.debug("Created new translation version %r", new_translation)
+
+        return new_translation
+
+    def replace_urls(
+        self,
+        urls_to_replace: dict[str, str],
+        user: User | None = None,
+        commit: bool = True,
+    ) -> None:
+        """
+        Function to replace links that are in the translation and match the given keyword `search`
+        """
+        new_translation = self.create_new_version_copy(user)
+        logger.debug("Replacing links of %r: %r", new_translation, urls_to_replace)
+        new_translation.content = rewrite_links(
+            new_translation.content,
+            lambda content_url: urls_to_replace.get(content_url, content_url),
+        )
+        new_translation.content = fix_content_link_encoding(new_translation.content)
+        if new_translation.content != self.content and commit:
+            self.links.all().delete()
+            new_translation.save()
 
     def __str__(self) -> str:
         """

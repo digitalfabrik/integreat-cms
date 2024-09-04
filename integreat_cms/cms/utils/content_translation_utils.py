@@ -6,7 +6,6 @@ from __future__ import annotations
 
 import logging
 import operator
-from copy import deepcopy
 from functools import reduce
 from typing import TYPE_CHECKING
 
@@ -15,7 +14,6 @@ from linkcheck.models import Url
 
 from .content_utils import clean_content
 from .internal_link_utils import get_public_translation_for_link
-from .linkcheck_utils import save_new_version
 
 if TYPE_CHECKING:
     from ..models import User
@@ -49,9 +47,12 @@ def update_links_to(
         if new_content == outdated_content_translation.content:
             continue
 
-        fixed_content_translation = deepcopy(outdated_content_translation)
+        fixed_content_translation = (
+            outdated_content_translation.create_new_version_copy(user)
+        )
         fixed_content_translation.content = new_content
-        save_new_version(outdated_content_translation, fixed_content_translation, user)
+        outdated_content_translation.links.all().delete()
+        fixed_content_translation.save()
 
         logger.debug(
             "Updated links to %s in %r",
