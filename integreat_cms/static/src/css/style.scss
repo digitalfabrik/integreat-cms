@@ -409,9 +409,20 @@ label:not([for]) {
     }
 }
 
+#language-switcher-current li a {
+    @apply px-3 py-[calc(0.75rem+2px)] bg-water-500 rounded-t hover:bg-white hover:text-blue-50;
+}
+
 #language-switcher-list {
     .language-name {
         @apply px-2;
+    }
+
+    li {
+        @apply mr-0;
+        a {
+            @apply px-3 py-2 flex bg-white whitespace-nowrap hover:bg-water-500 rounded-none;
+        }
     }
 }
 
