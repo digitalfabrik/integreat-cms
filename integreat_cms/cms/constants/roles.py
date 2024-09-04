@@ -187,6 +187,9 @@ SERVICE_TEAM_PERMISSIONS: Final[list[str]] = APP_TEAM_PERMISSIONS + [
     "delete_user",
     "grant_page_permissions",
     "manage_translations",
+    "change_contact",
+    "delete_contact",
+    "view_contact",
 ]
 
 #: The permissions of the cms team

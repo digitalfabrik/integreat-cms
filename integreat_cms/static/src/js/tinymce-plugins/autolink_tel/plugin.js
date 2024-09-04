@@ -28,6 +28,7 @@
 
     // constant values and magic numbers used below
     const CHAR_CODE_SPACE = 160;
+    const CHAR_CODE_SOFT_HYPHEN = 173;
     const NODE_TYPE_ELEMENT = 1;
     const NODE_TYPE_TEXT = 3;
     const MIN_RANGE_THRESHOLD = 5;
@@ -165,7 +166,7 @@
         if (text.charAt(text.length - 1) === ".") {
             setEnd(rng, endContainer, start - 1);
         }
-        text = rng.toString().trim();
+        text = rng.toString().trim().replace(String.fromCharCode(CHAR_CODE_SOFT_HYPHEN), "");
         const matches = text.match(autoLinkPattern);
         const phoneMatches = text.match(/(0|\+)[0-9\-/]{6,20}/);
         const protocol = getDefaultLinkProtocol(editor);

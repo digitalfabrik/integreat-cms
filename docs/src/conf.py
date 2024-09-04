@@ -56,7 +56,7 @@ django_github_url: Final[str] = (
 )
 
 #: The full version, including alpha/beta/rc tags
-release = "2024.7.1"
+release = "2024.8.2"
 
 # -- General configuration ---------------------------------------------------
 
@@ -205,6 +205,7 @@ nitpick_ignore: list[tuple[str, str]] = [
     ("py:class", "linkcheck.models.Link"),
     ("py:class", "linkcheck.models.Url"),
     ("py:class", "NoneType"),
+    ("py:class", "lxml.html.Element"),
     ("py:class", "polymorphic.query.PolymorphicQuerySet"),
     ("py:class", "PolymorphicQuerySet"),
     ("py:class", "pytest_django.fixtures.SettingsWrapper"),

@@ -362,7 +362,7 @@ function cleanup_docker_container {
 }
 
 function ensure_webpack_bundle_exists {
-    if [ ! -d "${PACKAGE_DIR}/static/dist/" ] || [ ! "$(ls -A "${PACKAGE_DIR}"/static/dist/ 2>/dev/null)" ]; then
+    if [ ! -d "${PACKAGE_DIR}/static/dist/" ] || [ ! "$(ls -A "${PACKAGE_DIR}"/static/dist/ 2> /dev/null)" ]; then
         echo "Building webpack bundle..." | print_info
         npm run build > /dev/null
     fi
@@ -486,4 +486,24 @@ function join_by {
     if shift 2; then
         printf %s "$f" "${@/#/$d}"
     fi
+}
+
+# This function checks if the flag "--as-precommit" was set, and if so,
+# runs the specified pre-commit hook against all changed files
+function run_as_precommit {
+    local command="$1"
+    shift
+
+    for arg in "$@"; do
+        if [[ "$arg" == "--as-precommit" ]]; then
+            shift
+            [ "$#" -eq 0 ] && exit 0
+
+            for file in "$@"; do
+                eval "$command \"$file\""
+            done
+
+            exit 0
+        fi
+    done
 }

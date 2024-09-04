@@ -81,3 +81,8 @@ class OrganizationForm(CustomModelForm):
                 ),
             )
         return cleaned_name
+
+    def save(self, commit: bool = True) -> Any:
+        result = super().save(commit)
+
+        return result

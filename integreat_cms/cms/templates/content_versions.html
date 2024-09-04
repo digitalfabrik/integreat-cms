@@ -16,38 +16,40 @@
     </div>
     <form method="post" action="{{ versions_url }}">
         {% csrf_token %}
-        <div class="w-3/5 m-auto mb-28 relative">
-            <input class="relative z-10 pt-1"
-                   type="range"
-                   name="revision"
-                   min="1"
-                   max="{{ translations|length }}"
-                   value="{{ selected_version.version }}"
-                   id="revision-slider"
-                   list="steplist" />
-            <output id="revision-info" class="whitespace-nowrap">
-                <b>{% translate "Version" %}:</b> <span id="revision-number"></span>
-                <br />
-                <b>{% translate "Author" %}:</b> <span id="revision-editor"></span>
-                <br />
-                <b>{% translate "Date" %}:</b> <span id="revision-date"></span>
-                {% if translations.first.hix_enabled and not translations.first.hix_ignore %}
-                    <br />
-                    <b>{% translate "HIX" %}:</b> <span id="revision-hix"></span>
-                {% endif %}
-            </output>
-            <datalist id="steplist" class="w-full flex font-mono">
+        <input type="hidden" name="revision" value="" />
+        <div class="w-full m-auto mb-28 flex items-center relative">
+            <div id="button-prev" class="flex-shrink-0 px-4 version-history-control">
+                <i icon-name="chevron-left" class="w-5"></i>
+            </div>
+            <div id="version-history"
+                 class="flex-grow flex items-center font-mono overflow-x-scroll gap-16 relative">
                 {% for translation in translations reversed %}
-                    <option style="{% if translation.version > 1 %} margin-left: -webkit-calc(((100% - 25.6px) / ({{ translations|length }} - 1)) - 25.6px);
-                                   margin-left: -moz-calc(((100% - 25.6px) / ({{ translations|length }} - 1)) - 25.6px);
-                                   margin-left: calc(((100% - 25.6px) / ({{ translations|length }} - 1)) - 25.6px);
-                                   {% endif %} {% if translation.version > 9 %} padding-left: 3.2px;
-                                   padding-right: 3.2px;
-                                   {% endif %}">
+                    <div class="z-10 w-8 h-8 rounded-full flex items-center justify-center timeline-item flex-shrink-0"
+                         data-number="{{ translation.version }}">
                         {{ translation.version }}
-                    </option>
+                    </div>
                 {% endfor %}
-            </datalist>
+            </div>
+            <div id="button-next" class="flex-shrink-0 px-4 version-history-control">
+                <i icon-name="chevron-right" class="w-5"></i>
+            </div>
+        </div>
+        <div id="tooltip"
+             class="hidden absolute text-white p-2 rounded revision-tooltip">
+            <p>
+                <b>{% translate "Version" %}:</b> <span id="version-text">Version Info</span>
+            </p>
+            <p>
+                <b>{% translate "Author" %}:</b> <span id="author-text">Author Info</span>
+            </p>
+            <p>
+                <b>{% translate "Date" %}:</b> <span id="date-text">Date Info</span>
+            </p>
+            {% if translations.first.hix_enabled and not translations.first.hix_ignore %}
+                <p>
+                    <b>{% translate "HIX" %}:</b> <span id="hix-text">HIX Info</span>
+                </p>
+            {% endif %}
         </div>
         {% translate "deleted account" as deleted_user_text %}
         {% for translation in translations %}

@@ -5,9 +5,17 @@ This file contains helper functions for tests.
 from __future__ import annotations
 
 import re
+from contextlib import contextmanager
 from typing import TYPE_CHECKING
 
+from django.db.models.signals import pre_save
+
+from integreat_cms.cms.models import PageTranslation
+from integreat_cms.core.signals.hix_signals import page_translation_save_handler
+
 if TYPE_CHECKING:
+    from typing import Generator
+
     from _pytest.logging import LogCaptureFixture
 
 
@@ -64,3 +72,12 @@ def assert_message_in_log(message: str, caplog: LogCaptureFixture) -> None:
         f"The following message: \n\n{message}\n\nwas not found in the message log:\n\n"
         + ("\n".join(messages) if messages else "empty message log.")
     )
+
+
+@contextmanager
+def disable_hix_post_save_signal() -> Generator[None, None, None]:
+    pre_save.disconnect(receiver=page_translation_save_handler, sender=PageTranslation)
+    try:
+        yield None
+    finally:
+        pre_save.connect(receiver=page_translation_save_handler, sender=PageTranslation)

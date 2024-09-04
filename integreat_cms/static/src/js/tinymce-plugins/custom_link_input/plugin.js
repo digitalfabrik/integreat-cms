@@ -62,6 +62,10 @@ import { getCsrfToken } from "../../utils/csrf-token";
             const anchor = getAnchor();
             const initialText = anchor ? anchor.textContent : editor.selection.getContent({ format: "text" });
             const initialUrl = anchor ? anchor.getAttribute("href") : "";
+            const initialAutoUpdateValue = anchor
+                ? anchor.getAttribute("data-integreat-auto-update") === "true"
+                : initialText === "";
+            let prevAutoupdateValue = initialAutoUpdateValue;
 
             const textDisabled = anchor ? anchor.children.length > 0 : false;
             let prevSearchText = "";
@@ -83,6 +87,19 @@ import { getCsrfToken } from "../../utils/csrf-token";
 
             const updateDialog = (api) => {
                 let data = api.getData();
+
+                if (data.autoupdate) {
+                    api.disable("text");
+                    if (!prevAutoupdateValue) {
+                        api.setData({
+                            url: "",
+                            text: "",
+                        });
+                    }
+                } else {
+                    api.enable("text");
+                }
+                prevAutoupdateValue = data.autoupdate;
 
                 let urlChangedBySearch = false;
                 // Check if the selected completion changed
@@ -106,11 +123,12 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     if (data.completions !== "") {
                         urlChangedBySearch = true;
                         api.setData({ url: data.completions });
-                        // if the text is not defined by the user, set it to the current completion item
-                        if (!data.text || (userData.text !== data.text && !textDisabled)) {
+                        // if the link should be automatically updated orthe text is not defined by the user,
+                        // set it to the current completion item
+                        if (data.autoupdate || !data.text || (userData.text !== data.text && !textDisabled)) {
                             api.setData({ text: currentCompletionText });
                         }
-                    } else {
+                    } else if (!data.autoupdate) {
                         // restore the original user data
                         api.setData({
                             url: userData.url,
@@ -155,7 +173,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
                         for (const completion of newCompletions) {
                             completionItems.push({
                                 text: completion.path,
-                                title: completion.title,
+                                title: completion.html_title,
                                 value: completion.url,
                             });
                         }
@@ -225,6 +243,11 @@ import { getCsrfToken } from "../../utils/csrf-token";
                                     items: completionItems,
                                     disabled: true,
                                 },
+                                {
+                                    type: "checkbox",
+                                    name: "autoupdate",
+                                    label: tinymceConfig.getAttribute("data-link-dialog-autoupdate-text"),
+                                },
                             ],
                         },
                     ],
@@ -245,10 +268,11 @@ import { getCsrfToken } from "../../utils/csrf-token";
                 initialData: {
                     text: initialText,
                     url: initialUrl,
+                    autoupdate: initialAutoUpdateValue,
                 },
                 onSubmit: (api) => {
                     const data = api.getData();
-                    const { url } = data;
+                    const { url, autoupdate } = data;
                     const text = textDisabled ? null : data.text || url;
 
                     if (data.url.trim() === "") {
@@ -257,13 +281,18 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     api.close();
 
                     const realUrl = checkUrlHttps(url);
+
                     // Either insert a new link or update the existing one
                     const anchor = getAnchor();
                     if (!anchor) {
-                        editor.insertContent(`<a href=${realUrl}>${text}</a>`);
+                        editor.insertContent(
+                            `<a href=${realUrl}${autoupdate ? ' data-integreat-auto-update="true"' : ""}>${text}</a>`
+                        );
                     } else {
                         updateLink(editor, anchor, text, {
-                            href: realUrl,
+                            "href": realUrl,
+                            // If false, remove the attribute rather than writing it out to equal false
+                            "data-integreat-auto-update": autoupdate ? true : null,
                         });
                     }
                 },

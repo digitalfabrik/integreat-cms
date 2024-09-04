@@ -8,6 +8,9 @@ source "$(dirname "${BASH_SOURCE[0]}")/_functions.sh"
 
 require_installed
 
+# Run djlint as a pre-commit hook
+run_as_precommit "djlint --profile=django -e=html --reformat --quiet --lint" "$@"
+
 # Run djlint
 echo "Starting code formatting with djlint..." | print_info
 djlint --reformat --quiet --lint "${PACKAGE_DIR}"

@@ -1,13 +1,26 @@
 import { createIconsAt } from "../utils/create-icons";
 import { getCsrfToken } from "../utils/csrf-token";
 
+const toggleContactInfo = (infoType: string, info: string) => {
+    document.getElementById(infoType).textContent = `${info}`;
+    const infoNotGivenMessage = document.getElementById(`no-${infoType}`);
+    if (info) {
+        infoNotGivenMessage.classList.add("hidden");
+    } else {
+        infoNotGivenMessage.classList.remove("hidden");
+    }
+};
+
 const renderPoiData = (
     queryPlaceholder: string,
     id: string,
     address: string,
     postcode: string,
     city: string,
-    country: string
+    country: string,
+    email: string,
+    phoneNumber: string,
+    website: string
 ) => {
     document.getElementById("poi-query-input").setAttribute("placeholder", queryPlaceholder);
     document.getElementById("id_location")?.setAttribute("value", id);
@@ -15,6 +28,12 @@ const renderPoiData = (
     if (poiAddress) {
         poiAddress.textContent = `${address}\n${postcode} ${city}\n${country}`;
     }
+    if (document.getElementById("poi-contact-information")) {
+        toggleContactInfo("email", email);
+        toggleContactInfo("phone_number", phoneNumber);
+        toggleContactInfo("website", website);
+    }
+
     document
         .getElementById("poi-google-maps-link")
         ?.setAttribute(
@@ -40,7 +59,10 @@ const setPoi = ({ target }: Event) => {
         option.getAttribute("data-poi-address"),
         option.getAttribute("data-poi-postcode"),
         option.getAttribute("data-poi-city"),
-        option.getAttribute("data-poi-country")
+        option.getAttribute("data-poi-country"),
+        option.getAttribute("data-poi-email"),
+        option.getAttribute("data-poi-phone_number"),
+        option.getAttribute("data-poi-website")
     );
     // Show the address container
     document.getElementById("poi-address-container")?.classList.remove("hidden");
@@ -104,7 +126,10 @@ const showPoiFormWidget = async ({ target }: Event) => {
                     formData.get("address").toString(),
                     formData.get("postcode").toString(),
                     formData.get("city").toString(),
-                    formData.get("country").toString()
+                    formData.get("country").toString(),
+                    formData.get("email").toString(),
+                    formData.get("phone_number").toString(),
+                    formData.get("website").toString()
                 );
                 document.getElementById("poi-address-container")?.classList.remove("hidden");
                 // Add the POI to the actual django form field
@@ -166,6 +191,9 @@ const removePoi = () => {
     renderPoiData(
         document.getElementById("poi-query-input").getAttribute("data-default-placeholder"),
         "-1",
+        "",
+        "",
+        "",
         "",
         "",
         "",

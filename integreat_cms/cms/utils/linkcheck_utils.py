@@ -1,19 +1,15 @@
 from __future__ import annotations
 
 import logging
-import re
 import time
-from copy import deepcopy
-from functools import partial
-from typing import TYPE_CHECKING
-from urllib.parse import ParseResult, unquote, urlparse
+from collections import defaultdict
+from typing import DefaultDict, TYPE_CHECKING
 
 from django.conf import settings
 from django.db.models import Prefetch, Q, QuerySet, Subquery
 from linkcheck import update_lock
 from linkcheck.listeners import tasks_queue
 from linkcheck.models import Link, Url
-from lxml.html import rewrite_links
 
 from integreat_cms.cms.models import (
     EventTranslation,
@@ -23,12 +19,11 @@ from integreat_cms.cms.models import (
     Region,
 )
 
-from ..models.abstract_content_translation import AbstractContentTranslation
-
 if TYPE_CHECKING:
     from typing import Any
 
-    from ..models import Region, User
+    from ..models import User
+    from ..models.abstract_content_translation import AbstractContentTranslation
 
 logger = logging.getLogger(__name__)
 
@@ -190,40 +185,6 @@ def filter_urls(
     return urls, count_dict
 
 
-def replace_link_helper(old_url: str, new_url: str, link: str) -> str:
-    """
-    A small helper function which can be passed to :meth:`lxml.html.HtmlMixin.rewrite_links`
-
-    :param old_url: The url which should be replaced
-    :param new_url: The url which should be inserted instead of the old url
-    :param link: The current link
-    :return: The replaced link
-    """
-    return new_url if link == old_url else link
-
-
-def save_new_version(
-    translation: AbstractContentTranslation,
-    new_translation: AbstractContentTranslation,
-    user: Any | None,
-) -> None:
-    """
-    Save a new translation version
-
-    :param translation: The old translation
-    :param new_translation: The new translation
-    :param user: The creator of the new version
-    """
-    translation.links.all().delete()
-    new_translation.pk = None
-    new_translation.version += 1
-    new_translation.minor_edit = True
-    new_translation.creator = user
-    new_translation.save()
-    logger.debug("Created new translation version %r", new_translation)
-
-
-# pylint: disable=too-many-locals
 def replace_links(
     search: str,
     replace: str,
@@ -243,6 +204,71 @@ def replace_links(
     :param commit: Whether changes should be written to the database
     :param link_types: Which kind of links should be replaced
     """
+    log_replacement_is_starting(search, replace, region, user)
+    content_objects = find_target_url_per_translation(
+        search, replace, region, link_types
+    )
+    with update_lock:
+        for translation, urls_to_replace in content_objects.items():
+            translation.replace_urls(urls_to_replace, user, commit)
+
+    # Wait until all post-save signals have been processed
+    logger.debug("Waiting for linkcheck listeners to update link database...")
+    time.sleep(0.1)
+    tasks_queue.join()
+    logger.info("Finished replacing %r with %r in content links", search, replace)
+
+
+def find_target_url_per_translation(
+    search: str, replace: str, region: Region | None, link_types: list[str] | None
+) -> dict[AbstractContentTranslation, dict[str, str]]:
+    """
+    returns in which translation what URL must be replaced
+
+    :param search: The (partial) URL to search
+    :param replace: The (partial) URL to replace
+    :param region: Optionally limit the replacement to one region (``None`` means a global replacement)
+    :param link_types: Which kind of links should be replaced
+
+    :return: A dictionary of translations and list of before&after of ULRs
+    """
+    # This function is used in replace_links, which is used in the management command, where region can be None, too.
+    # However get_region_links currently requires a valid region.
+    # Collect all the link objects in case no region is given.
+    links = (
+        (get_region_links(region) if region else Link.objects.all())
+        .filter(url__url__contains=search)
+        .select_related("url")
+    )
+
+    links_to_replace = (
+        [link for link in links if link.url.type in link_types] if link_types else links
+    )
+
+    content_objects: DefaultDict[AbstractContentTranslation, dict[str, str]] = (
+        defaultdict(dict)
+    )
+    for link in links_to_replace:
+        content_objects[link.content_object][link.url.url] = link.url.url.replace(
+            search, replace
+        )
+    return content_objects
+
+
+def log_replacement_is_starting(
+    search: str,
+    replace: str,
+    region: Region | None,
+    user: User | None,
+) -> None:
+    """
+    function to log the current link replacement
+
+    :param search: The (partial) URL to search
+    :param replace: The (partial) URL to replace
+    :param region: Optionally limit the replacement to one region (``None`` means a global replacement)
+    :param user: The creator of the replaced translations
+    """
     region_msg = f' of "{region!r}"' if region else ""
     user_msg = f' by "{user!r}"' if user else ""
     logger.info(
@@ -252,60 +278,3 @@ def replace_links(
         region_msg,
         user_msg,
     )
-    models = [PageTranslation, EventTranslation, POITranslation]
-    with update_lock:
-        for model in models:
-            filters = {}
-            if region:
-                filters[f"{model.foreign_field()}__region"] = region
-
-            for translation in model.objects.filter(**filters).distinct(
-                model.foreign_field(), "language"
-            ):
-                new_translation = deepcopy(translation)
-                for link in translation.links.select_related("url"):
-                    url = link.url.url
-                    should_replace = search in url and (
-                        not link_types or link.url.type in link_types
-                    )
-                    if should_replace:
-                        fixed_url = url.replace(search, replace)
-                        new_translation.content = rewrite_links(
-                            new_translation.content,
-                            partial(replace_link_helper, url, fixed_url),
-                        )
-                        logger.debug(
-                            "Replacing %r with %r in %r", url, fixed_url, translation
-                        )
-                new_translation.content = fix_content_link_encoding(
-                    new_translation.content
-                )
-                if new_translation.content != translation.content and commit:
-                    save_new_version(translation, new_translation, user)
-    # Wait until all post-save signals have been processed
-    logger.debug("Waiting for linkcheck listeners to update link database...")
-    time.sleep(0.1)
-    tasks_queue.join()
-    logger.info("Finished replacing %r with %r in content links", search, replace)
-
-
-def fix_domain_encoding(url: re.Match[str]) -> str:
-    """
-    Fix the encoding of punycode domains
-
-    :param url: The input url match
-    :return: The fixed url
-    """
-    parsed_url: ParseResult = urlparse(url.group(1))
-    parsed_url = parsed_url._replace(netloc=unquote(parsed_url.netloc))
-    return parsed_url.geturl()
-
-
-def fix_content_link_encoding(content: str) -> str:
-    """
-    Fix the encoding of punycode domains in an html content string
-
-    :param content: The input content
-    :return: The fixed content
-    """
-    return re.sub(r"(?<=[\"'])(https?://.+?)(?=[\"'])", fix_domain_encoding, content)

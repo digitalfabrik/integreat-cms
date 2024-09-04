@@ -24,7 +24,6 @@ if TYPE_CHECKING:
     from django.utils.functional import Promise
     from django.utils.safestring import SafeString
 
-    from ...nominatim_api.utils import BoundingBox
     from ..languages.language import Language
     from ..languages.language_tree_node import LanguageTreeNode
     from ..pages.imprint_page import ImprintPage
@@ -575,7 +574,7 @@ class Region(AbstractBaseModel):
     @cached_property
     def language_tree_root(self) -> LanguageTreeNode | None:
         """
-        This property returns a the root node of the region's language tree
+        This property returns the root node of the region's language tree
 
         :return: The region's language root node
         """

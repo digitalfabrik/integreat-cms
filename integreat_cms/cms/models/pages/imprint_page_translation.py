@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from typing import Iterable
 
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
@@ -77,6 +78,12 @@ class ImprintPageTranslation(AbstractBasePageTranslation):
         :return: pseudo slug for the imprint translation
         """
         return settings.IMPRINT_SLUG
+
+    def get_all_used_slugs(self) -> Iterable[str]:
+        """
+        :return: All slugs that have been used by at least on version of this translation
+        """
+        return [settings.IMPRINT_SLUG]
 
     class Meta:
         #: The verbose name of the model

@@ -62,7 +62,7 @@ def transform_notification(pnt: PushNotificationTranslation) -> dict[str, Any]:
         for translation in pnt.push_notification.translations.all()
     }
     return {
-        "id": str(pnt.pk),
+        "id": pnt.pk,
         "title": pnt.get_title(),
         "message": pnt.get_text(),
         "timestamp": pnt.last_updated,  # deprecated field in the future

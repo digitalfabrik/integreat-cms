@@ -7,6 +7,7 @@ from cacheops import invalidate_model, invalidate_obj
 from django.conf import settings
 from django.db import models
 from django.utils.functional import cached_property
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 from treebeard.ns_tree import NS_NodeQuerySet
@@ -21,6 +22,7 @@ from .page_translation import PageTranslation
 if TYPE_CHECKING:
     from typing import Any, Iterator
 
+    from django.db.models import QuerySet
     from django.db.models.base import ModelBase
     from django.utils.safestring import SafeString
 
@@ -104,8 +106,8 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
             else:
                 # Keep track of all skipped pages
                 skipped_pages.append(page)
-        logger.debug("Cached result: %r", result)
-        logger.debug("Skipped pages: %r", skipped_pages)
+        logger.debug("Cached pages: %r", len(result))
+        logger.debug("Skipped pages: %r", len(skipped_pages))
         return list(result.values())
 
 
@@ -276,7 +278,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
                 yield child_page
 
     @classmethod
-    def get_root_pages(cls, region_slug: str) -> PageQuerySet:
+    def get_root_pages(cls, region_slug: str) -> QuerySet:
         """
         Gets all root pages
 
@@ -362,7 +364,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
 
         :return: A readable string representation of the page
         """
-        return self.best_translation.path()
+        return mark_safe(self.best_translation.path())
 
     def get_repr(self) -> str:
         """

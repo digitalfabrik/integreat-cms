@@ -13,7 +13,13 @@ from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from ..constants import translation_status
-from ..models import EventTranslation, Language, PageTranslation, POITranslation
+from ..models import (
+    EventTranslation,
+    ImprintPageTranslation,
+    Language,
+    PageTranslation,
+    POITranslation,
+)
 
 if TYPE_CHECKING:
     from typing import Any
@@ -240,4 +246,6 @@ def object_translation_has_view_perm(
         return user.has_perm("cms.view_page")
     if isinstance(obj, POITranslation):
         return user.has_perm("cms.view_poi")
+    if isinstance(obj, ImprintPageTranslation):
+        return user.has_perm("cms.view_imprint")
     raise ValueError(f"Invalid model: {type(obj)}")

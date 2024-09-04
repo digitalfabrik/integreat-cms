@@ -79,7 +79,13 @@ class POIFormView(
         else:
             disabled = False
 
-        poi_form = POIForm(instance=poi, disabled=disabled)
+        poi_form = POIForm(
+            instance=poi,
+            disabled=disabled,
+            additional_instance_attributes={
+                "region": region,
+            },
+        )
         poi_translation_form = POITranslationForm(
             request=request,
             language=language,

@@ -7,18 +7,23 @@ from typing import TYPE_CHECKING
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
 from django.db.models import Q, Subquery
+from django.http import JsonResponse
+from django.urls import reverse
 from django.utils import translation
 from django.views.generic import TemplateView
 
+from ....api.decorators import json_response
 from ...constants import status
 from ...models import Feedback, PageTranslation
 from ...utils.linkcheck_utils import filter_urls
+from ...views.utils.hix import get_translation_under_hix_threshold
 from ..chat.chat_context_mixin import ChatContextMixin
 
 if TYPE_CHECKING:
     from typing import Any
 
     from django.db.models.query import QuerySet
+    from django.http import HttpRequest
     from linkcheck.models import Url
 
     from ...models.abstract_content_translation import AbstractContentTranslation
@@ -56,14 +61,16 @@ class DashboardView(TemplateView, ChatContextMixin):
                 "feed_url": settings.RSS_FEED_URLS.get(
                     language_slug, settings.DEFAULT_RSS_FEED_URL
                 ),
+                "broken_link_ajax": reverse(
+                    "get_broken_links_ajax",
+                    kwargs={"region_slug": self.request.region.slug},
+                ),
             }
         )
 
         context.update(self.get_unreviewed_pages_context())
         context.update(self.get_automatically_saved_pages())
         context.update(self.get_unread_feedback_context())
-        # Temporarily disable linkcheck todo for performance reasons
-        # context.update(self.get_broken_links_context())
         context.update(self.get_low_hix_value_context())
         context.update(self.get_outdated_pages_context())
         context.update(self.get_drafted_pages())
@@ -140,26 +147,43 @@ class DashboardView(TemplateView, ChatContextMixin):
             "unread_feedback": unread_feedback,
         }
 
+    @json_response
+    # pylint: disable=unused-argument, disable=no-self-argument
     def get_broken_links_context(
-        self,
-    ) -> dict[str, list[Url] | Url | AbstractContentTranslation]:
+        request: HttpRequest, region_slug: str
+    ) -> JsonResponse:
         r"""
         Extend context by info on broken links
 
         :return: Dictionary containing the context for broken links
         """
-        invalid_urls = filter_urls(self.request.region.slug, "invalid")[0]
+        invalid_urls = filter_urls(request.region.slug, "invalid")[0]
         invalid_url = invalid_urls[0] if invalid_urls else None
 
         relevant_translation = (
             invalid_url.region_links[0].content_object if invalid_url else None
         )
 
-        return {
-            "broken_links": invalid_urls,
-            "relevant_translation": relevant_translation,
-            "relevant_url": invalid_url,
-        }
+        edit_url = (
+            reverse(
+                "edit_url",
+                kwargs={
+                    "region_slug": request.region.slug,
+                    "url_filter": "invalid",
+                    "url_id": invalid_url.pk,
+                },
+            )
+            if invalid_url
+            else ""
+        )
+
+        return JsonResponse(
+            data={
+                "broken_links": len(invalid_urls),
+                "relevant_translation": str(relevant_translation),
+                "edit_url": f"{edit_url}" if len(edit_url) > 0 else "",
+            }
+        )
 
     def get_low_hix_value_context(self) -> dict[str, list[PageTranslation]]:
         r"""
@@ -167,25 +191,11 @@ class DashboardView(TemplateView, ChatContextMixin):
 
         :return: Dictionary containing the context for pages with low hix value
         """
-        if not settings.TEXTLAB_API_ENABLED or not self.request.region.hix_enabled:
-            return {}
-
-        translations = PageTranslation.objects.filter(
-            language__slug__in=settings.TEXTLAB_API_LANGUAGES,
-            id__in=self.latest_version_ids,
-            page__hix_ignore=False,
-            hix_score__lt=settings.HIX_REQUIRED_FOR_MT,
+        translations_under_hix_threshold = get_translation_under_hix_threshold(
+            self.request.region
         )
 
-        translations_under_hix_threshold = [
-            translation
-            for translation in translations
-            if not translation.hix_sufficient_for_mt
-        ]
-
-        return {
-            "pages_under_hix_threshold": translations_under_hix_threshold,
-        }
+        return {"pages_under_hix_threshold": translations_under_hix_threshold}
 
     def get_outdated_pages_context(
         self,

@@ -409,6 +409,23 @@ label:not([for]) {
     }
 }
 
+#language-switcher-current li a {
+    @apply px-3 py-[calc(0.75rem+2px)] bg-water-500 rounded-t hover:bg-white hover:text-blue-50;
+}
+
+#language-switcher-list {
+    .language-name {
+        @apply px-2;
+    }
+
+    li {
+        @apply mr-0;
+        a {
+            @apply px-3 py-2 flex bg-white whitespace-nowrap hover:bg-water-500 rounded-none;
+        }
+    }
+}
+
 .password_toggle {
     .eye-icon {
         width: 42px;
@@ -509,35 +526,65 @@ datalist option {
     font-weight: bolder;
 }
 
-/* Page Revision Slider */
-#revision-slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 15px;
-    border-radius: 5px;
+.timeline-item {
+    cursor: pointer;
     background: #e2e8f0;
-    outline: none;
-    opacity: 0.7;
+}
 
-    &::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 25px;
-        height: 25px;
-        border: 0;
-        border-radius: 50%;
-        background: #4299e1;
-        cursor: pointer;
-    }
+.timeline-item.active {
+    background: #4299e1 !important;
+    color: white !important;
+}
 
-    &::-moz-range-thumb {
-        width: 25px;
-        height: 25px;
-        border: 0;
-        border-radius: 50%;
-        background: #4299e1;
-        cursor: pointer;
-    }
+.revision-tooltip {
+    background: #4299e1;
+}
+
+.version-history-control.enabled {
+    cursor: pointer !important;
+}
+
+.version-history-control.disabled {
+    color: #b8b6b6;
+    cursor: default !important;
+}
+
+.timeline-item {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: 100%;
+    top: 50%;
+    height: 4px;
+    background: #e2e8f0;
+    transform: translateX(0%) translateY(-50%);
+    z-index: -1;
+}
+
+.timeline-item:last-child::before {
+    width: 0 !important;
+}
+
+.timeline-item::before {
+    width: calc(100% + 32px);
+}
+
+#version-history {
+    overflow-x: scroll; /* Allow scrolling */
+    -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+#version-history::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
 }
 
 /* Page revision slider info box */

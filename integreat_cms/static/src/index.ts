@@ -102,6 +102,7 @@ import "./js/pois/opening-hours/index";
 import "./js/menu";
 
 import "./js/poi-categories/poicategory-colors-icons";
+import "./js/dashboard/broken-links";
 
 // IE11: fetch
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */

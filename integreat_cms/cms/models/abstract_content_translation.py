@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import logging
+from copy import deepcopy
+from html import escape
 from typing import TYPE_CHECKING
 
 from django.conf import settings
@@ -10,16 +12,23 @@ from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from linkcheck.listeners import disable_listeners
+from lxml.html import rewrite_links
+
+from ..utils.tinymce_icon_utils import get_icon_html, make_icon
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable
     from typing import Any, Literal
 
     from django.db.models.query import QuerySet
+    from lxml.html import Element
 
     from .abstract_content_model import AbstractContentModel
     from .regions.region import Region
+    from .users.user import User
 
 from ..constants import status, translation_status
+from ..utils.link_utils import fix_content_link_encoding
 from ..utils.round_hix_score import round_hix_score
 from ..utils.translation_utils import gettext_many_lazy as __
 from .abstract_base_model import AbstractBaseModel
@@ -436,11 +445,14 @@ class AbstractContentTranslation(AbstractBaseModel):
     def is_up_to_date(self) -> bool:
         """
         This property checks whether a translation is up to date.
-        A translation is considered up to date when it is not outdated and not being translated at the moment.
+        A translation is considered up to date when it is either explicitly set to up-to-date, or has been machine-translated.
 
         :return: Flag which indicates whether a translation is up to date
         """
-        return self.translation_state == translation_status.UP_TO_DATE
+        return self.translation_state in [
+            translation_status.UP_TO_DATE,
+            translation_status.MACHINE_TRANSLATED,
+        ]
 
     @cached_property
     def translation_state(self) -> str:
@@ -537,12 +549,81 @@ class AbstractContentTranslation(AbstractBaseModel):
         Whether this translation has a sufficient HIX value for machine translations.
         If it is ``None``, machine translations are allowed by default.
 
-        :return: Wether the HIX value is sufficient for MT
+        :return: Whether the HIX value is sufficient for MT
         """
         return (
             self.hix_score is None
             or self.rounded_hix_score >= settings.HIX_REQUIRED_FOR_MT
         )
+
+    @staticmethod
+    def default_icon() -> str | None:
+        """
+        Returns the default icon that should be used for this content translation type, or None for no icon
+        """
+        return None
+
+    @cached_property
+    def link_title(self) -> Element | str:
+        """
+        This property returns the html that should be used as a title for a link to this translation
+
+        :return: The link content
+        """
+        foreign_object = self.foreign_object
+        if icon := getattr(foreign_object, "icon", None):
+            if url := icon.thumbnail_url:
+                img = make_icon(url)
+                img.tail = self.title
+                return img
+
+        if icon_name := self.default_icon():
+            img = get_icon_html(icon_name)
+            img.tail = self.title
+            return img
+
+        return escape(str(self))
+
+    def get_all_used_slugs(self) -> Iterable[str]:
+        """
+        :return: All slugs that have been used by at least on version of this translation
+        """
+        return self.all_versions.values_list("slug", flat=True)
+
+    def create_new_version_copy(
+        self, user: User | None = None
+    ) -> AbstractContentTranslation:
+        """
+        Create a new version by copying
+        """
+        new_translation = deepcopy(self)
+        new_translation.pk = None
+        new_translation.version += 1
+        new_translation.minor_edit = True
+        new_translation.creator = user
+        logger.debug("Created new translation version %r", new_translation)
+
+        return new_translation
+
+    def replace_urls(
+        self,
+        urls_to_replace: dict[str, str],
+        user: User | None = None,
+        commit: bool = True,
+    ) -> None:
+        """
+        Function to replace links that are in the translation and match the given keyword `search`
+        """
+        new_translation = self.create_new_version_copy(user)
+        logger.debug("Replacing links of %r: %r", new_translation, urls_to_replace)
+        new_translation.content = rewrite_links(
+            new_translation.content,
+            lambda content_url: urls_to_replace.get(content_url, content_url),
+        )
+        new_translation.content = fix_content_link_encoding(new_translation.content)
+        if new_translation.content != self.content and commit:
+            self.links.all().delete()
+            new_translation.save()
 
     def __str__(self) -> str:
         """
