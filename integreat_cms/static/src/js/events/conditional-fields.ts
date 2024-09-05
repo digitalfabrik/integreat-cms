@@ -110,16 +110,6 @@ window.addEventListener("load", () => {
         } else {
             eventsCustomTimeRangeDateInput.classList.add("hidden");
         }
-        // Hide or show all other "non-custom" time range options
-        eventsCustomTimeRangeCheckboxList.querySelectorAll("input").forEach((node) => {
-            if (node !== eventsCustomTimeRangeCheckbox) {
-                if (eventsCustomTimeRangeCheckbox.checked) {
-                    node.closest("li").classList.add("hidden");
-                } else {
-                    node.closest("li").classList.remove("hidden");
-                }
-            }
-        });
     };
     eventsCustomTimeRangeCheckbox?.addEventListener("change", updateTimeRangeInputs);
     if (eventsCustomTimeRangeCheckbox !== undefined) {
