@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-09-04T09:11:42+00:00" />
+    <meta property="article:modified_time" content="2024-09-06T10:30:48+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2024.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -190,6 +190,7 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.html">Models</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html">Chat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html">External Calendars</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.languages.html">Languages</a></li>
@@ -239,6 +240,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#content-translation-utils">Content Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#content-utils">Content Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#email-utils">Email Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#external-calendar-utils">External Calendar Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#file-utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#internal-link-checker">Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#internal-link-utils">Internal Link Utils</a></li>
@@ -265,6 +267,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.external_calendars.html">External Calendars</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.imprint.html">Imprint</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html">Language Tree</a></li>
@@ -743,6 +746,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html">Models</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html">Chat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.external_calendars.html">External Calendars</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html">Languages</a></li>
@@ -793,6 +797,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.content_translation_utils">Content Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.content_utils">Content Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.email_utils">Email Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.external_calendar_utils">External Calendar Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_checker">Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_utils">Internal Link Utils</a></li>
@@ -819,6 +824,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.external_calendars.html">External Calendars</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.imprint.html">Imprint</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.language_tree.html">Language Tree</a></li>
@@ -1002,6 +1008,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EMAIL_PORT"><code class="docutils literal notranslate"><span class="pre">EMAIL_PORT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EMAIL_USE_SSL"><code class="docutils literal notranslate"><span class="pre">EMAIL_USE_SSL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EMAIL_USE_TLS"><code class="docutils literal notranslate"><span class="pre">EMAIL_USE_TLS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EXTERNAL_CALENDAR_CATEGORY"><code class="docutils literal notranslate"><span class="pre">EXTERNAL_CALENDAR_CATEGORY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_CHANNELS"><code class="docutils literal notranslate"><span class="pre">FCM_CHANNELS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_CREDENTIALS"><code class="docutils literal notranslate"><span class="pre">FCM_CREDENTIALS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_DATA_URL"><code class="docutils literal notranslate"><span class="pre">FCM_DATA_URL</span></code></a></li>
@@ -2352,6 +2359,144 @@ version and also attach the branding logo.</p>
 </dd></dl>
 
 </section>
+<section id="external-calendar-utils">
+<h2>External Calendar Utils<a class="headerlink" href="#external-calendar-utils" title="Link to this heading"></a></h2>
+<p>Utility functions for working with external calendars</p>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.external_calendar_utils.</span></span><span class="sig-name descname"><span class="pre">IcalEventData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.date" title="(in Python v3.11)"><span class="pre">date</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.time" title="(in Python v3.11)"><span class="pre">time</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.date" title="(in Python v3.11)"><span class="pre">date</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.time" title="(in Python v3.11)"><span class="pre">time</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_all_day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_calendar_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/external_calendar_utils.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Holds data extracted from ical events</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>)</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>)</p></li>
+<li><p><strong>content</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>)</p></li>
+<li><p><strong>start_date</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.date" title="(in Python v3.11)"><em>date</em></a>)</p></li>
+<li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.time" title="(in Python v3.11)"><em>time</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>end_date</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.date" title="(in Python v3.11)"><em>date</em></a>)</p></li>
+<li><p><strong>end_time</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.time" title="(in Python v3.11)"><em>time</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>is_all_day</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>)</p></li>
+<li><p><strong>categories</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>)</p></li>
+<li><p><strong>external_calendar_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">event_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.date" title="(in Python v3.11)"><span class="pre">date</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.time" title="(in Python v3.11)"><span class="pre">time</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.date" title="(in Python v3.11)"><span class="pre">date</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.time" title="(in Python v3.11)"><span class="pre">time</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_all_day</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">categories</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_calendar_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/external_calendar_utils.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>)</p></li>
+<li><p><strong>title</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>)</p></li>
+<li><p><strong>content</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>)</p></li>
+<li><p><strong>start_date</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.date" title="(in Python v3.11)"><em>date</em></a>)</p></li>
+<li><p><strong>start_time</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.time" title="(in Python v3.11)"><em>time</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>end_date</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.date" title="(in Python v3.11)"><em>date</em></a>)</p></li>
+<li><p><strong>end_time</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/datetime.html#datetime.time" title="(in Python v3.11)"><em>time</em></a><em> | </em><em>None</em>)</p></li>
+<li><p><strong>is_all_day</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>)</p></li>
+<li><p><strong>categories</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>)</p></li>
+<li><p><strong>external_calendar_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_ical_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Component</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">language_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">external_calendar_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/logging.html#logging.Logger" title="(in Python v3.11)"><span class="pre">Logger</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.external_calendar_utils.IcalEventData" title="integreat_cms.cms.utils.external_calendar_utils.IcalEventData"><span class="pre">IcalEventData</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/external_calendar_utils.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Reads an ical event and constructs an instance of this class from it
+:param event: The ical event
+:param language_slug: The slug of the language of this event
+:param external_calendar_id: The id of the external calendar of this event
+:param logger: The logger to use
+:return: An instance of IcalEventData</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>event</strong> (<em>Component</em>)</p></li>
+<li><p><strong>language_slug</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>)</p></li>
+<li><p><strong>external_calendar_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>)</p></li>
+<li><p><strong>logger</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/logging.html#logging.Logger" title="(in Python v3.11)"><em>Logger</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.external_calendar_utils.IcalEventData" title="integreat_cms.cms.utils.external_calendar_utils.IcalEventData"><em>IcalEventData</em></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">to_event_form_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/external_calendar_utils.py#L89"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Returns a dictionary of relevant data for the event form
+:return: Dict of relevant data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">to_event_translation_form_data</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/external_calendar_utils.py#L105"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Returns a dictionary of relevant data for the event translation form
+:return: Dict of relevant data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.external_calendar_utils.</span></span><span class="sig-name descname"><span class="pre">import_event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar" title="integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar"><span class="pre">ExternalCalendar</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">event</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Component</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">errors</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/logging.html#logging.Logger" title="(in Python v3.11)"><span class="pre">Logger</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/external_calendar_utils.py#L180"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Imports an event from the external calendar</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>calendar</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar" title="integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar"><em>ExternalCalendar</em></a>) – The external calendar</p></li>
+<li><p><strong>event</strong> (<em>Component</em>) – The event that should be imported</p></li>
+<li><p><strong>errors</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – A list to which errors will be logged</p></li>
+<li><p><strong>logger</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/logging.html#logging.Logger" title="(in Python v3.11)"><em>Logger</em></a>) – The logger to use</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The uid of the event</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a> | None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.external_calendar_utils.</span></span><span class="sig-name descname"><span class="pre">import_events</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">calendar</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar" title="integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar"><span class="pre">ExternalCalendar</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">logger</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/logging.html#logging.Logger" title="(in Python v3.11)"><span class="pre">Logger</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/external_calendar_utils.py#L113"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Imports events from this calendar and sets or clears the errors field of the calendar</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>calendar</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar" title="integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar"><em>ExternalCalendar</em></a>) – The external calendar</p></li>
+<li><p><strong>logger</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/logging.html#logging.Logger" title="(in Python v3.11)"><em>Logger</em></a>) – The logger to use</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="file-utils">
 <h2>File Utils<a class="headerlink" href="#file-utils" title="Link to this heading"></a></h2>
 <p>This module contains helpers for file handling.</p>
@@ -3323,7 +3468,7 @@ version and also attach the integreat logo.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 04, 2024.
+      <span class="lastupdated">Last updated on Sep 06, 2024.
       </span></p>
   </div>
 

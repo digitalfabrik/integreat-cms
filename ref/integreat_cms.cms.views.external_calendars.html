@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-02-13T16:23:45+00:00" />
+    <meta property="article:modified_time" content="2024-09-06T10:30:48+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nominatim API &mdash; integreat-cms 2024.8.2 documentation</title>
+  <title>External Calendars &mdash; integreat-cms 2024.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
   
     <link rel="shortcut icon" href="../_static/integreat-icon.svg"/>
-    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/ref/integreat_cms.nominatim_api.html" />
+    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/ref/integreat_cms.cms.views.external_calendars.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -24,8 +24,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Sitemap" href="integreat_cms.sitemap.html" />
-    <link rel="prev" title="Matomo API" href="integreat_cms.matomo_api.html" /> 
+    <link rel="next" title="Feedback" href="integreat_cms.cms.views.feedback.html" />
+    <link rel="prev" title="Events" href="integreat_cms.cms.views.events.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -125,7 +125,7 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.html#urls">Urls</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.html">CMS</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="integreat_cms.cms.html">CMS</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.constants.html">Constants</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#administrative-division">Administrative Division</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#all-day">All Day</a></li>
@@ -260,14 +260,14 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.html">Views</a><ul>
+<li class="toctree-l3 current"><a class="reference internal" href="integreat_cms.cms.views.html">Views</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.analytics.html">Analytics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.html">Authentication</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.chat.html">Chat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.events.html">Events</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.external_calendars.html">External Calendars</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">External Calendars</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.imprint.html">Imprint</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html">Language Tree</a></li>
@@ -377,10 +377,10 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.matomo_api.html#matomo-api-client">Matomo API Client</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Nominatim API</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#apps">Apps</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#nominatim-api-client">Nominatim API Client</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#utils">Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.nominatim_api.html">Nominatim API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.nominatim_api.html#apps">Apps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.nominatim_api.html#nominatim-api-client">Nominatim API Client</a></li>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.nominatim_api.html#utils">Utils</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.sitemap.html">Sitemap</a><ul>
@@ -2015,9 +2015,11 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="integreat_cms.html">Integreat CMS</a></li>
-      <li class="breadcrumb-item active">Nominatim API</li>
+          <li class="breadcrumb-item"><a href="integreat_cms.cms.html">CMS</a></li>
+          <li class="breadcrumb-item"><a href="integreat_cms.cms.views.html">Views</a></li>
+      <li class="breadcrumb-item active">External Calendars</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../ref-ext/integreat_cms.nominatim_api.html" class="fa fa-search-plus"> Open extended view</a>
+            <a href="../ref-ext/integreat_cms.cms.views.external_calendars.html" class="fa fa-search-plus"> Open extended view</a>
           
       </li>
   </ul>
@@ -2026,332 +2028,105 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="nominatim-api">
-<h1>Nominatim API<a class="headerlink" href="#nominatim-api" title="Link to this heading"></a></h1>
-<section id="apps">
-<h2>Apps<a class="headerlink" href="#apps" title="Link to this heading"></a></h2>
-<p>Configuration of Nominatim API app</p>
-<dl class="py class">
+  <section id="external-calendars">
+<h1>External Calendars<a class="headerlink" href="#external-calendars" title="Link to this heading"></a></h1>
+<p>This package contains all views related to external calendars</p>
+<section id="external-calendar-actions">
+<h2>External Calendar Actions<a class="headerlink" href="#external-calendar-actions" title="Link to this heading"></a></h2>
+<dl class="py function">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.nominatim_api.apps.</span></span><span class="sig-name descname"><span class="pre">NominatimApiConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">app_module</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/apps.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/applications/#django.apps.AppConfig" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">AppConfig</span></code></a></p>
-<p>Nominatim API config inheriting the Django AppConfig</p>
-<dl class="py attribute">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'integreat_cms.nominatim_api'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/apps.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Full Python path to the application</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">ready</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/apps.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Checking if API is available</p>
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.external_calendars.external_calendar_actions.</span></span><span class="sig-name descname"><span class="pre">delete_external_calendar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_actions.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Delete external calendar</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The current request</p></li>
+<li><p><strong>calendar_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The id of the calendar that should be deleted</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The slug of the current region</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirection to the <code class="xref py py-class docutils literal notranslate"><span class="pre">ExternalCalendarList</span></code></p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
+<dd class="field-odd"><p><em>HttpResponseRedirect</em></p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py attribute">
+</section>
+<section id="external-calendar-form-view">
+<h2>External Calendar Form View<a class="headerlink" href="#external-calendar-form-view" title="Link to this heading"></a></h2>
+<dl class="py class">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">verbose_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Final</span><span class="p"><span class="pre">[</span></span><span class="pre">Promise</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Nominatim</span> <span class="pre">API'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/apps.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Human-readable name for the application</p>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.external_calendars.external_calendar_form_view.</span></span><span class="sig-name descname"><span class="pre">ExternalCalendarFormView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_form_view.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></a></p>
+<p>Form view for new external calendars in a region.</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_form_view.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Render <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.events.html#integreat_cms.cms.forms.events.external_calendar_form.ExternalCalendarForm" title="integreat_cms.cms.forms.events.external_calendar_form.ExternalCalendarForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExternalCalendarForm</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The current request</p></li>
+<li><p><strong>*args</strong> (<em>Any</em>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_form_view.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Submit <a class="reference internal" href="../ref-ext/integreat_cms.cms.forms.events.html#integreat_cms.cms.forms.events.external_calendar_form.ExternalCalendarForm" title="integreat_cms.cms.forms.events.external_calendar_form.ExternalCalendarForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExternalCalendarForm</span></code></a> and save <code class="xref py py-class docutils literal notranslate"><span class="pre">ExternalCalendar</span></code> object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The current request</p></li>
+<li><p><strong>*args</strong> (<em>Any</em>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 </section>
-<section id="nominatim-api-client">
-<h2>Nominatim API Client<a class="headerlink" href="#nominatim-api-client" title="Link to this heading"></a></h2>
+<section id="external-calendar-list-view">
+<h2>External Calendar List View<a class="headerlink" href="#external-calendar-list-view" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.nominatim_api.nominatim_api_client.</span></span><span class="sig-name descname"><span class="pre">NominatimApiClient</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Client to interact with the Nominatim API.
-For documentation about the underlying library, see <a class="reference external" href="https://geopy.readthedocs.io/en/stable/index.html" title="(in GeoPy v2.4.1)"><span class="xref std std-doc">GeoPy</span></a>.</p>
-<dl class="field-list simple">
-</dl>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.external_calendars.external_calendar_list_view.</span></span><span class="sig-name descname"><span class="pre">ExternalCalendarList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></a></p>
+<p>View for external calendars in regions.</p>
 <dl class="py method">
 <dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Initialize the Nominatim client</p>
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_list_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Get external calendar list context data</p>
 <dl class="field-list simple">
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/exceptions/#django.core.exceptions.ImproperlyConfigured" title="(in Django v4.2)"><strong>ImproperlyConfigured</strong></a> – When the Nominatim API is disabled</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">check_availability</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L105"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Check if Nominatim API is available</p>
-<dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_address</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Location</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L224"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Get coordinates for given address</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>latitude</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The requested latitude</p></li>
-<li><p><strong>longitude</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The requested longitude</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The address at these coordinates</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Location | None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">administrative_division</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">aliases</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><span class="pre">BoundingBox</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L136"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Get the bounding box for a given region</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>administrative_division</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The administrative division of the requested region</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name of the requested region</p></li>
-<li><p><strong>aliases</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em> | </em><em>None</em>) – A dictionary of region aliases</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The bounding box</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><em>BoundingBox</em></a> | None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_city_and_district_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><span class="pre">BoundingBox</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L173"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Get the bounding box for a given city and district</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name of the requested region</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The bounding box</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><em>BoundingBox</em></a> | None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_city_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><span class="pre">BoundingBox</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Get the bounding box for a given city</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name of the requested region</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The bounding box</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><em>BoundingBox</em></a> | None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">street</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">postalcode</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">city</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Get coordinates for given address</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>street</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The requested street</p></li>
-<li><p><strong>postalcode</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The requested postal code</p></li>
-<li><p><strong>city</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The requested city</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The coordinates of the requested address</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a>[<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)">int</a>, <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)">int</a>] | <a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a>[None, None]</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_district_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">administrative_division</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><span class="pre">BoundingBox</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L189"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Get the bounding box for a given district</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>administrative_division</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The administrative division of the requested region</p></li>
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name of the requested region</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The bounding box</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><em>BoundingBox</em></a> | None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">get_region_bounding_box</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">aliases</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><span class="pre">BoundingBox</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L205"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Get the bounding box for a given region and all its aliases</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The name of the requested region</p></li>
-<li><p><strong>aliases</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a><em>[</em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>] </em><em>| </em><em>None</em>) – A dictionary of region aliases</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The bounding box</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><em>BoundingBox</em></a> | None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">search</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exactly_one</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addressdetails</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">query_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Location</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/nominatim_api_client.py#L54"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Search for a given query, either by string or by dict.
-<code class="docutils literal notranslate"><span class="pre">query_str</span></code> and <code class="docutils literal notranslate"><span class="pre">query_dict</span></code> are mutually exclusive.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/exceptions.html#RuntimeError" title="(in Python v3.11)"><strong>RuntimeError</strong></a> – When the <code class="docutils literal notranslate"><span class="pre">query_str</span></code> and <code class="docutils literal notranslate"><span class="pre">query_dict</span></code> parameters are passed at the same time</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The context dictionary</p>
 </dd>
 <dt class="field-even">Parameters<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>query_str</strong> (<em>Any</em><em> | </em><em>None</em>) – The query string</p></li>
-<li><p><strong>exactly_one</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether only one result should be returned</p></li>
-<li><p><strong>addressdetails</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>) – Whether address details should be returned</p></li>
-<li><p><strong>**query_dict</strong> (<em>Any</em>) – The query as dictionary</p></li>
-</ul>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The location that matches the given criteria</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Location | None</p>
-</dd>
-</dl>
-</dd></dl>
-
-</dd></dl>
-
-</section>
-<section id="utils">
-<h2>Utils<a class="headerlink" href="#utils" title="Link to this heading"></a></h2>
-<p>Utilities for the Nominatim API app</p>
-<dl class="py class">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.nominatim_api.utils.</span></span><span class="sig-name descname"><span class="pre">BoundingBox</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latitude_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/utils.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Class for bounding boxes</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>latitude_min</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>)</p></li>
-<li><p><strong>latitude_max</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>)</p></li>
-<li><p><strong>longitude_min</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>)</p></li>
-<li><p><strong>longitude_max</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>)</p></li>
-</ul>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">latitude_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude_min</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude_max</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/utils.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Initialize the bounding box</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>latitude_min</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – The bottom boundary of the box</p></li>
-<li><p><strong>latitude_max</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – The top boundary of the box</p></li>
-<li><p><strong>longitude_min</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – The left boundary of the box</p></li>
-<li><p><strong>longitude_max</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><em>float</em></a>) – The right boundary of the box</p></li>
-</ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">api_representation</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/utils.py#L16"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>The bounding box in the format:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
-    <span class="p">[</span>
-        <span class="n">longitude_min</span><span class="p">,</span>
-        <span class="n">latitude_min</span>
-    <span class="p">],</span>
-    <span class="p">[</span>
-        <span class="n">longitude_max</span><span class="p">,</span>
-        <span class="n">latitude_max</span>
-    <span class="p">]</span>
-<span class="p">]</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A nested list of the borders of the box</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Location</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><span class="pre">BoundingBox</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/utils.py#L64"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Return a bounding box object from a Nominatim API result</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>result</strong> (<em>Location</em><em> | </em><em>None</em>) – The Nominatim API result</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A bounding box</p>
+<dd class="field-even"><p><strong>kwargs</strong> (<em>Any</em>)</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox">BoundingBox</a> | None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">merge</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">bounding_boxes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><span class="pre">BoundingBox</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><span class="pre">BoundingBox</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/nominatim_api/utils.py#L75"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Merge the given bounding boxes</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>*bounding_boxes</strong> (<a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><em>BoundingBox</em></a><em> | </em><em>None</em>) – The bounding boxes that should be merged</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A bounding box that contains all of the given boxes</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="../ref-ext/integreat_cms.nominatim_api.html#integreat_cms.nominatim_api.utils.BoundingBox" title="integreat_cms.nominatim_api.utils.BoundingBox"><em>BoundingBox</em></a> | None</p>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, Any]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2365,8 +2140,8 @@ For documentation about the underlying library, see <a class="reference external
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="integreat_cms.matomo_api.html" class="btn btn-neutral float-left" title="Matomo API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="integreat_cms.sitemap.html" class="btn btn-neutral float-right" title="Sitemap" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="integreat_cms.cms.views.events.html" class="btn btn-neutral float-left" title="Events" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="integreat_cms.cms.views.feedback.html" class="btn btn-neutral float-right" title="Feedback" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -2376,7 +2151,7 @@ For documentation about the underlying library, see <a class="reference external
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Feb 13, 2024.
+      <span class="lastupdated">Last updated on Sep 06, 2024.
       </span></p>
   </div>
 

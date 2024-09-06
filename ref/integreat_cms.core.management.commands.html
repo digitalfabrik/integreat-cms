@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-09-04T09:11:42+00:00" />
+    <meta property="article:modified_time" content="2024-09-06T10:30:48+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Commands &mdash; integreat-cms 2024.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -190,6 +190,7 @@
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.html">Models</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html">Chat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html">External Calendars</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.languages.html">Languages</a></li>
@@ -239,6 +240,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#content-translation-utils">Content Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#content-utils">Content Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#email-utils">Email Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#external-calendar-utils">External Calendar Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#internal-link-checker">Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#internal-link-utils">Internal Link Utils</a></li>
@@ -265,6 +267,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.external_calendars.html">External Calendars</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.imprint.html">Imprint</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html">Language Tree</a></li>
@@ -743,6 +746,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.html">Models</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.chat.html">Chat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.external_calendars.html">External Calendars</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.models.languages.html">Languages</a></li>
@@ -793,6 +797,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.content_translation_utils">Content Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.content_utils">Content Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.email_utils">Email Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.external_calendar_utils">External Calendar Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_checker">Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_utils">Internal Link Utils</a></li>
@@ -819,6 +824,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.external_calendars.html">External Calendars</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.imprint.html">Imprint</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.views.language_tree.html">Language Tree</a></li>
@@ -1002,6 +1008,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EMAIL_PORT"><code class="docutils literal notranslate"><span class="pre">EMAIL_PORT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EMAIL_USE_SSL"><code class="docutils literal notranslate"><span class="pre">EMAIL_USE_SSL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EMAIL_USE_TLS"><code class="docutils literal notranslate"><span class="pre">EMAIL_USE_TLS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.EXTERNAL_CALENDAR_CATEGORY"><code class="docutils literal notranslate"><span class="pre">EXTERNAL_CALENDAR_CATEGORY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_CHANNELS"><code class="docutils literal notranslate"><span class="pre">FCM_CHANNELS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_CREDENTIALS"><code class="docutils literal notranslate"><span class="pre">FCM_CREDENTIALS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.core.html#integreat_cms.core.settings.FCM_DATA_URL"><code class="docutils literal notranslate"><span class="pre">FCM_DATA_URL</span></code></a></li>
@@ -2469,6 +2476,33 @@ Assumes that hix is globally enabled and enabled for the region</p>
 </dd></dl>
 
 </section>
+<section id="import-events">
+<h2>Import Events<a class="headerlink" href="#import-events" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.core.management.commands.import_events.</span></span><span class="sig-name descname"><span class="pre">Command</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">no_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_color</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/import_events.py#L18"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.core.management.html#integreat_cms.core.management.log_command.LogCommand" title="integreat_cms.core.management.log_command.LogCommand"><code class="xref py py-class docutils literal notranslate"><span class="pre">LogCommand</span></code></a></p>
+<p>Management command to import events from external calendars</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">handle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/core/management/commands/import_events.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Try to run the command</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> (<em>Any</em>) – The supplied arguments</p></li>
+<li><p><strong>**options</strong> (<em>Any</em>) – The supplied keyword options</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="import-pois-from-csv">
 <h2>Import POIs From Csv<a class="headerlink" href="#import-pois-from-csv" title="Link to this heading"></a></h2>
 <dl class="py class">
@@ -2922,7 +2956,7 @@ children.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 04, 2024.
+      <span class="lastupdated">Last updated on Sep 06, 2024.
       </span></p>
   </div>
 

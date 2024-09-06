@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-09-04T09:11:42+00:00" />
+    <meta property="article:modified_time" content="2024-09-06T10:30:48+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Models &mdash; integreat-cms 2024.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -190,6 +190,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../ref/integreat_cms.cms.models.html">Models</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.chat.html">Chat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.external_calendars.html">External Calendars</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.models.languages.html">Languages</a></li>
@@ -239,6 +240,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#content-translation-utils">Content Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#content-utils">Content Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#email-utils">Email Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#external-calendar-utils">External Calendar Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#file-utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#internal-link-checker">Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#internal-link-utils">Internal Link Utils</a></li>
@@ -265,6 +267,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.views.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.views.external_calendars.html">External Calendars</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.views.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.views.imprint.html">Imprint</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.views.language_tree.html">Language Tree</a></li>
@@ -743,6 +746,7 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Models</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html">Chat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html">External Calendars</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.firebase.html">Firebase</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.languages.html">Languages</a></li>
@@ -793,6 +797,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.content_translation_utils">Content Translation Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.content_utils">Content Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.email_utils">Email Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.external_calendar_utils">External Calendar Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.file_utils">File Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_checker">Internal Link Checker</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.internal_link_utils">Internal Link Utils</a></li>
@@ -819,6 +824,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.events.html">Events</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.external_calendars.html">External Calendars</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.imprint.html">Imprint</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html">Language Tree</a></li>
@@ -1002,6 +1008,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.EMAIL_PORT"><code class="docutils literal notranslate"><span class="pre">EMAIL_PORT</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.EMAIL_USE_SSL"><code class="docutils literal notranslate"><span class="pre">EMAIL_USE_SSL</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.EMAIL_USE_TLS"><code class="docutils literal notranslate"><span class="pre">EMAIL_USE_TLS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.EXTERNAL_CALENDAR_CATEGORY"><code class="docutils literal notranslate"><span class="pre">EXTERNAL_CALENDAR_CATEGORY</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.FCM_CHANNELS"><code class="docutils literal notranslate"><span class="pre">FCM_CHANNELS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.FCM_CREDENTIALS"><code class="docutils literal notranslate"><span class="pre">FCM_CREDENTIALS</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.core.html#integreat_cms.core.settings.FCM_DATA_URL"><code class="docutils literal notranslate"><span class="pre">FCM_DATA_URL</span></code></a></li>
@@ -2363,6 +2370,9 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.edit_lock_key"><code class="docutils literal notranslate"><span class="pre">Event.edit_lock_key</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.end"><code class="docutils literal notranslate"><span class="pre">Event.end</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.end_local"><code class="docutils literal notranslate"><span class="pre">Event.end_local</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.external_calendar"><code class="docutils literal notranslate"><span class="pre">Event.external_calendar</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.external_calendar_id"><code class="docutils literal notranslate"><span class="pre">Event.external_calendar_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.external_event_id"><code class="docutils literal notranslate"><span class="pre">Event.external_event_id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.fallback_translations_enabled"><code class="docutils literal notranslate"><span class="pre">Event.fallback_translations_enabled</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.from_db"><code class="docutils literal notranslate"><span class="pre">Event.from_db()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.event.Event.full_clean"><code class="docutils literal notranslate"><span class="pre">Event.full_clean()</span></code></a></li>
@@ -2643,6 +2653,51 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule.week_for_monthly"><code class="docutils literal notranslate"><span class="pre">RecurrenceRule.week_for_monthly</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule.weekday_for_monthly"><code class="docutils literal notranslate"><span class="pre">RecurrenceRule.weekday_for_monthly</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.events.html#integreat_cms.cms.models.events.recurrence_rule.RecurrenceRule.weekdays_for_weekly"><code class="docutils literal notranslate"><span class="pre">RecurrenceRule.weekdays_for_weekly</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html">External Calendars</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#module-integreat_cms.cms.models.external_calendars.external_calendar">External Calendar</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.DoesNotExist"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.DoesNotExist</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.MultipleObjectsReturned"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.MultipleObjectsReturned</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.__init__"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.adelete"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.adelete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.arefresh_from_db"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.arefresh_from_db()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.asave"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.asave()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.check"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.check()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.clean"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.clean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.clean_fields"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.clean_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.date_error_message"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.date_error_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.delete"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.errors"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.errors</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.events"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.events</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.from_db"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.from_db()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.full_clean"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.full_clean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.get_constraints"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.get_constraints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.get_deferred_fields"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.get_deferred_fields()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.get_model_name_plural"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.get_model_name_plural()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.get_repr"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.get_repr()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.id"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.import_filter_category"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.import_filter_category</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.load_ical"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.load_ical()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.name"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.objects"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.objects</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.pk"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.pk</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.prepare_database_save"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.prepare_database_save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.refresh_from_db"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.refresh_from_db()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.region"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.region_id"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.region_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.save"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.save()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.save_base"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.save_base()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.serializable_value"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.serializable_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.unique_error_message"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.unique_error_message()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.url"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.url</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.validate_constraints"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.validate_constraints()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.external_calendars.html#integreat_cms.cms.models.external_calendars.external_calendar.ExternalCalendar.validate_unique"><code class="docutils literal notranslate"><span class="pre">ExternalCalendar.validate_unique()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -5298,6 +5353,7 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.events"><code class="docutils literal notranslate"><span class="pre">Region.events</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.events_enabled"><code class="docutils literal notranslate"><span class="pre">Region.events_enabled</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.explicitly_archived_ancestors_subquery"><code class="docutils literal notranslate"><span class="pre">Region.explicitly_archived_ancestors_subquery</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.external_calendars"><code class="docutils literal notranslate"><span class="pre">Region.external_calendars</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.external_news_enabled"><code class="docutils literal notranslate"><span class="pre">Region.external_news_enabled</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.fallback_translations_enabled"><code class="docutils literal notranslate"><span class="pre">Region.fallback_translations_enabled</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.feedback"><code class="docutils literal notranslate"><span class="pre">Region.feedback</span></code></a></li>
@@ -9004,7 +9060,7 @@ cached results set to avoid multiple SELECT COUNT(*) calls.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="integreat_cms.cms.models.abstract_tree_node.AbstractTreeNodeManager.creation_counter">
-<span class="sig-name descname"><span class="pre">creation_counter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">54</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNodeManager.creation_counter" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">creation_counter</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">55</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/abstract_tree_node.py#L26"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.models.abstract_tree_node.AbstractTreeNodeManager.creation_counter" title="Link to this definition"></a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
@@ -9304,7 +9360,7 @@ thus be available in e.g. RunPython operations.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 04, 2024.
+      <span class="lastupdated">Last updated on Sep 06, 2024.
       </span></p>
   </div>
 

@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-02-13T16:23:45+00:00" />
+    <meta property="article:modified_time" content="2024-09-06T10:30:48+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Middleware &mdash; integreat-cms 2024.8.2 documentation</title>
+  <title>External Calendars &mdash; integreat-cms 2024.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
 
   
     <link rel="shortcut icon" href="../_static/integreat-icon.svg"/>
-    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/ref-ext/integreat_cms.api.middleware.html" />
+    <link rel="canonical" href="https://digitalfabrik.github.io/integreat-cms/ref-ext/integreat_cms.cms.views.external_calendars.html" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -24,8 +24,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="V3" href="integreat_cms.api.v3.html" />
-    <link rel="prev" title="API" href="integreat_cms.api.html" /> 
+    <link rel="next" title="Feedback" href="integreat_cms.cms.views.feedback.html" />
+    <link rel="prev" title="Events" href="integreat_cms.cms.views.events.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -643,9 +643,9 @@
 <p class="caption" role="heading"><span class="caption-text">Extended Reference</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="integreat_cms.html">Integreat CMS</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="integreat_cms.api.html">API</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Middleware</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.api.middleware.json_debug_toolbar_middleware">Json Debug Toolbar Middleware</a></li>
+<li class="toctree-l2"><a class="reference internal" href="integreat_cms.api.html">API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.middleware.html">Middleware</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.api.middleware.html#module-integreat_cms.api.middleware.json_debug_toolbar_middleware">Json Debug Toolbar Middleware</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.api.v3.html">V3</a><ul>
@@ -681,7 +681,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="integreat_cms.cms.html">CMS</a><ul>
+<li class="toctree-l2 current"><a class="reference internal" href="integreat_cms.cms.html">CMS</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.constants.html">Constants</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.administrative_division">Administrative Division</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.constants.html#module-integreat_cms.cms.constants.all_day">All Day</a></li>
@@ -817,14 +817,14 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="integreat_cms.cms.views.html">Views</a><ul>
+<li class="toctree-l3 current"><a class="reference internal" href="integreat_cms.cms.views.html">Views</a><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.analytics.html">Analytics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.authentication.html">Authentication</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.chat.html">Chat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.events.html">Events</a></li>
-<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.external_calendars.html">External Calendars</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">External Calendars</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.feedback.html">Feedback</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.imprint.html">Imprint</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.views.language_tree.html">Language Tree</a></li>
@@ -2015,10 +2015,11 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="integreat_cms.html">Integreat CMS</a></li>
-          <li class="breadcrumb-item"><a href="integreat_cms.api.html">API</a></li>
-      <li class="breadcrumb-item active">Middleware</li>
+          <li class="breadcrumb-item"><a href="integreat_cms.cms.html">CMS</a></li>
+          <li class="breadcrumb-item"><a href="integreat_cms.cms.views.html">Views</a></li>
+      <li class="breadcrumb-item active">External Calendars</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../ref/integreat_cms.api.middleware.html" class="fa fa-search-minus"> Open simplified view</a>
+            <a href="../ref/integreat_cms.cms.views.external_calendars.html" class="fa fa-search-minus"> Open simplified view</a>
       </li>
   </ul>
   <hr/>
@@ -2026,36 +2027,290 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-integreat_cms.api.middleware">
-<span id="middleware"></span><h1>Middleware<a class="headerlink" href="#module-integreat_cms.api.middleware" title="Link to this heading"></a></h1>
-<section id="module-integreat_cms.api.middleware.json_debug_toolbar_middleware">
-<span id="json-debug-toolbar-middleware"></span><h2>Json Debug Toolbar Middleware<a class="headerlink" href="#module-integreat_cms.api.middleware.json_debug_toolbar_middleware" title="Link to this heading"></a></h2>
-<p>This module includes functions that extend the functionality of the Django Debug Toolbar to non HTML responses.</p>
-<dl class="py class">
-<dt class="sig sig-object py" id="integreat_cms.api.middleware.json_debug_toolbar_middleware.JsonDebugToolbarMiddleware">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.api.middleware.json_debug_toolbar_middleware.</span></span><span class="sig-name descname"><span class="pre">JsonDebugToolbarMiddleware</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">AsyncToSync</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/middleware/json_debug_toolbar_middleware.py#L21"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.middleware.json_debug_toolbar_middleware.JsonDebugToolbarMiddleware" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>The Django Debug Toolbar usually only works for views that return HTML.
-This middleware wraps any JSON response in HTML if the request
-has a ‘debug’ query parameter (e.g. <a class="reference external" href="http://localhost:8000/api/v3/augsburg/de/pages?debug">http://localhost:8000/api/v3/augsburg/de/pages?debug</a>)</p>
+  <section id="module-integreat_cms.cms.views.external_calendars">
+<span id="external-calendars"></span><h1>External Calendars<a class="headerlink" href="#module-integreat_cms.cms.views.external_calendars" title="Link to this heading"></a></h1>
+<p>This package contains all views related to external calendars</p>
+<section id="module-integreat_cms.cms.views.external_calendars.external_calendar_actions">
+<span id="external-calendar-actions"></span><h2>External Calendar Actions<a class="headerlink" href="#module-integreat_cms.cms.views.external_calendars.external_calendar_actions" title="Link to this heading"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_actions.delete_external_calendar">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.external_calendars.external_calendar_actions.</span></span><span class="sig-name descname"><span class="pre">delete_external_calendar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">calendar_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">region_slug</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponseRedirect</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_actions.py#L14"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_actions.delete_external_calendar" title="Link to this definition"></a></dt>
+<dd><p>Delete external calendar</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>get_response</strong> (<em>Callable</em><em> | </em><em>AsyncToSync</em>)</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The current request</p></li>
+<li><p><strong>calendar_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>) – The id of the calendar that should be deleted</p></li>
+<li><p><strong>region_slug</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>) – The slug of the current region</p></li>
+</ul>
 </dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="integreat_cms.api.middleware.json_debug_toolbar_middleware.JsonDebugToolbarMiddleware.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get_response</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">AsyncToSync</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/api/middleware/json_debug_toolbar_middleware.py#L28"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.api.middleware.json_debug_toolbar_middleware.JsonDebugToolbarMiddleware.__init__" title="Link to this definition"></a></dt>
-<dd><p>Initialize the middleware for the current view</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>get_response</strong> (<em>Callable</em><em> | </em><em>AsyncToSync</em>) – A callable to get the response for the current request</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A redirection to the <code class="xref py py-class docutils literal notranslate"><span class="pre">ExternalCalendarList</span></code></p>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><em>HttpResponseRedirect</em></p>
 </dd>
 </dl>
 </dd></dl>
+
+</section>
+<section id="module-integreat_cms.cms.views.external_calendars.external_calendar_form_view">
+<span id="external-calendar-form-view"></span><h2>External Calendar Form View<a class="headerlink" href="#module-integreat_cms.cms.views.external_calendars.external_calendar_form_view" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.external_calendars.external_calendar_form_view.</span></span><span class="sig-name descname"><span class="pre">ExternalCalendarFormView</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_form_view.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></a></p>
+<p>Form view for new external calendars in a region.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L53"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.__init__" title="Link to this definition"></a></dt>
+<dd><p>Constructor. Called in the URLconf; can contain helpful extra
+keyword arguments, and other things.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.as_view">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">as_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.as_view" title="Link to this definition"></a></dt>
+<dd><p>Main entry point for a request-response process.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.content_type">
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_form_view.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.content_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.dispatch">
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L133"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.dispatch" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.extra_context">
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_form_view.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.extra_context" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_form_view.py#L34"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.get" title="Link to this definition"></a></dt>
+<dd><p>Render <a class="reference internal" href="integreat_cms.cms.forms.events.html#integreat_cms.cms.forms.events.external_calendar_form.ExternalCalendarForm" title="integreat_cms.cms.forms.events.external_calendar_form.ExternalCalendarForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExternalCalendarForm</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The current request</p></li>
+<li><p><strong>*args</strong> (<em>Any</em>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L29"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.get_context_data" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.get_template_names">
+<span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L206"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.get_template_names" title="Link to this definition"></a></dt>
+<dd><p>Return a list of template names to be used for the request. Must return
+a list. May not be called if render_to_response() is overridden.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.http_method_names">
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_form_view.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.http_method_names" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.http_method_not_allowed">
+<span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.http_method_not_allowed" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.options">
+<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.options" title="Link to this definition"></a></dt>
+<dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.post">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_form_view.py#L62"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.post" title="Link to this definition"></a></dt>
+<dd><p>Submit <a class="reference internal" href="integreat_cms.cms.forms.events.html#integreat_cms.cms.forms.events.external_calendar_form.ExternalCalendarForm" title="integreat_cms.cms.forms.events.external_calendar_form.ExternalCalendarForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">ExternalCalendarForm</span></code></a> and save <code class="xref py py-class docutils literal notranslate"><span class="pre">ExternalCalendar</span></code> object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The current request</p></li>
+<li><p><strong>*args</strong> (<em>Any</em>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The rendered template response</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.render_to_response">
+<span class="sig-name descname"><span class="pre">render_to_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L190"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.render_to_response" title="Link to this definition"></a></dt>
+<dd><p>Return a response, using the <cite>response_class</cite> for this view, with a
+template rendered with the given context.</p>
+<p>Pass response_kwargs to the constructor of the response class.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.response_class">
+<span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/template/response.py#L147"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.response_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponse</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.setup" title="Link to this definition"></a></dt>
+<dd><p>Initialize attributes shared by all view methods.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.template_engine">
+<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_form_view.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.template_engine" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'events/external_calendar_form.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_form_view.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.template_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.view_is_async">
+<span class="sig-name descname"><span class="pre">view_is_async</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_form_view.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_form_view.ExternalCalendarFormView.view_is_async" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-integreat_cms.cms.views.external_calendars.external_calendar_list_view">
+<span id="external-calendar-list-view"></span><h2>External Calendar List View<a class="headerlink" href="#module-integreat_cms.cms.views.external_calendars.external_calendar_list_view" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.external_calendars.external_calendar_list_view.</span></span><span class="sig-name descname"><span class="pre">ExternalCalendarList</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/base/#django.views.generic.base.TemplateView" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateView</span></code></a></p>
+<p>View for external calendars in regions.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L53"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.__init__" title="Link to this definition"></a></dt>
+<dd><p>Constructor. Called in the URLconf; can contain helpful extra
+keyword arguments, and other things.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.as_view">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">as_view</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">initkwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L80"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.as_view" title="Link to this definition"></a></dt>
+<dd><p>Main entry point for a request-response process.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.content_type">
+<span class="sig-name descname"><span class="pre">content_type</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.content_type" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.dispatch">
+<span class="sig-name descname"><span class="pre">dispatch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L133"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.dispatch" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.extra_context">
+<span class="sig-name descname"><span class="pre">extra_context</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.extra_context" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L225"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.get" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.get_context_data">
+<span class="sig-name descname"><span class="pre">get_context_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_list_view.py#L23"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.get_context_data" title="Link to this definition"></a></dt>
+<dd><p>Get external calendar list context data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The context dictionary</p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>kwargs</strong> (<em>Any</em>)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)">dict</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a>, Any]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.get_template_names">
+<span class="sig-name descname"><span class="pre">get_template_names</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L206"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.get_template_names" title="Link to this definition"></a></dt>
+<dd><p>Return a list of template names to be used for the request. Must return
+a list. May not be called if render_to_response() is overridden.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.http_method_names">
+<span class="sig-name descname"><span class="pre">http_method_names</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['get',</span> <span class="pre">'post',</span> <span class="pre">'put',</span> <span class="pre">'patch',</span> <span class="pre">'delete',</span> <span class="pre">'head',</span> <span class="pre">'options',</span> <span class="pre">'trace']</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.http_method_names" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.http_method_not_allowed">
+<span class="sig-name descname"><span class="pre">http_method_not_allowed</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.http_method_not_allowed" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.options">
+<span class="sig-name descname"><span class="pre">options</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L163"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.options" title="Link to this definition"></a></dt>
+<dd><p>Handle responding to requests for the OPTIONS HTTP verb.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.render_to_response">
+<span class="sig-name descname"><span class="pre">render_to_response</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">context</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">response_kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L190"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.render_to_response" title="Link to this definition"></a></dt>
+<dd><p>Return a response, using the <cite>response_class</cite> for this view, with a
+template rendered with the given context.</p>
+<p>Pass response_kwargs to the constructor of the response class.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.response_class">
+<span class="sig-name descname"><span class="pre">response_class</span></span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/template/response.py#L147"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.response_class" title="Link to this definition"></a></dt>
+<dd><p>alias of <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/template-response/#django.template.response.TemplateResponse" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TemplateResponse</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/django/django/blob/stable/4.2.x/django/views/generic/base.py#L125"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.setup" title="Link to this definition"></a></dt>
+<dd><p>Initialize attributes shared by all view methods.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.template_engine">
+<span class="sig-name descname"><span class="pre">template_engine</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.template_engine" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.template_name">
+<span class="sig-name descname"><span class="pre">template_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'events/external_calendar_list.html'</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.template_name" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.view_is_async">
+<span class="sig-name descname"><span class="pre">view_is_async</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/external_calendars/external_calendar_list_view.py#L15"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.views.external_calendars.external_calendar_list_view.ExternalCalendarList.view_is_async" title="Link to this definition"></a></dt>
+<dd></dd></dl>
 
 </dd></dl>
 
@@ -2066,8 +2321,8 @@ has a ‘debug’ query parameter (e.g. <a class="reference external" href="http
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="integreat_cms.api.html" class="btn btn-neutral float-left" title="API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="integreat_cms.api.v3.html" class="btn btn-neutral float-right" title="V3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="integreat_cms.cms.views.events.html" class="btn btn-neutral float-left" title="Events" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="integreat_cms.cms.views.feedback.html" class="btn btn-neutral float-right" title="Feedback" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -2077,7 +2332,7 @@ has a ‘debug’ query parameter (e.g. <a class="reference external" href="http
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Feb 13, 2024.
+      <span class="lastupdated">Last updated on Sep 06, 2024.
       </span></p>
   </div>
 
