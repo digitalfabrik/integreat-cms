@@ -241,6 +241,13 @@
                         {% translate "Organizations" %}
                     </a>
                 {% endif %}
+                {% if perms.cms.view_externalcalendar %}
+                    <a href="{% url 'external_calendar_list' region_slug=request.region.slug %}"
+                       class="{% if current_menu_item == 'external_calendar_list' %} active{% endif %}">
+                        <i icon-name="calendar-plus"></i>
+                        {% translate "External Calendars" %}
+                    </a>
+                {% endif %}
                 {% if perms.cms.view_user %}
                     <div class="{% if current_menu_item|in_list:'region_users,region_user_form' %} active {% endif %}">
                         <a href="{% url 'region_users' region_slug=request.region.slug %}">
