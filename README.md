@@ -58,6 +58,7 @@ To configure your development container, please follow these steps carefully.
 4. Open the command palette (Ctrl + Shift + P or Cmd + Shift + P on macOS) and search for "> Remote-Containers: Open Folder in Container".
 5. VSCode will open the project in a new container, install all further required tools and load the testdata.
 
+
 #### Known Limitations
 
 The perfect is the enemy of the good; thus, this section illuminates aspects of our evolving development setup.
@@ -90,6 +91,17 @@ and then start your code editor (`code .`, `nvim`,...) from within that same she
 #### Known Limitations
 
 On MacOS, installing `libmagic` separately through `brew install libmagic` might be required.
+
+### CMS configuration file
+After setup you will be able to run the cms with most of it's functionality. In order to use a couple of features like translations or the HIX value, you need to set some settings which can be defined in a configuration file. It should be located at `/etc/integreat-cms.ini`. If you want to place the file at a different location, pass the absolute path via the environment variable `INTEGREAT_CMS_CONFIG`. An example file is located at `example-configs` in the project folder. 
+All these settings can also be configured via environment variables with the prefix `INTEGREAT_CMS_`, e.g. `INTEGREAT_CMS_SECRET_KEY`.
+
+#### Using a CMS configuration file with devcontainer
+
+If you want to use a configuration file in your development container, pass the absolute path of the configuration file with setting the environment variable `INTEGREAT_CMS_CONFIG`. All paths set in the configuration file must exist inside the workspace. If you want to configure the settings with environment variables you need to pass them via the `.devcontainer/.env` file.
+
+#### Known limitations
+When using the example file as starting point for configuration, all ports need to be defined, even without defining the rest of the respective section.
 
 ### Run development server
 
