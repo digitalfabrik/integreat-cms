@@ -67,6 +67,7 @@ Update testdata file based on the *current* database with :github-source:`tools/
 **Disclaimer**: make sure to first run ``prune_database.sh`` and make *only* the desired changes before running this tool::  
 
     ./tools/update_test_data.sh
+
 .. _translations:
 
 Translations
