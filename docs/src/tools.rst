@@ -63,7 +63,7 @@ Delete all database content with :github-source:`tools/prune_database.sh`::
 
     ./tools/prune_database.sh
 
-Update testdata file based on the *current* database with :github-source:`tools/update_test_data.sh`  
+| Update testdata file based on the *current* database with :github-source:`tools/update_test_data.sh`  
 **Disclaimer**: make sure to first run ``prune_database.sh`` and make *only* the desired changes before running this tool::  
 
     ./tools/update_test_data.sh
