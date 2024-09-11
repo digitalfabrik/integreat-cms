@@ -111,16 +111,10 @@ class ZammadChatAPI:
         :param device_id: ID of the user requesting a new chat
         :param language_slug: user's language
         """
-        responsible_handlers = [
-            user["id"]
-            for user in self.client.user.all()
-            if user["email"] and user["email"] in self.responsible_handlers
-        ]
         params = {
             "title": f"[Integreat Chat] [{language_slug.upper()}] {device_id}",
             "group": self.ticket_group,
             "customer": self.client_identity,
-            "mentions": responsible_handlers,
         }
         return self._parse_response(  # type: ignore[return-value]
             self._attempt_call(self.client.ticket.create, params=params)
