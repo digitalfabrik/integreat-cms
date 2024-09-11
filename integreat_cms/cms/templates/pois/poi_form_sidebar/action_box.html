@@ -28,43 +28,50 @@
             <label class="mt-0">
                 {% translate "Archive location" %}
             </label>
-            {% if poi_form.instance.events.exists %}
-                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-5"
-                     role="alert">
-                    <p>
-                        {% translate "You cannot archive a location which is referenced by an event." %}
-                        <br />
-                        {% blocktranslate count counter=poi_form.instance.events.count trimmed %}
-                            To archive this location, you have to delete this event first:
-                        {% plural %}
-                            To archive this location, you have to delete these events first:
-                        {% endblocktranslate %}
-                    </p>
-                </div>
-                {% for event in poi_form.instance.events.all %}
-                    <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
-                       class="block pt-2 hover:underline">
-                        <i icon-name="pen-square" class="mr-2"></i> {{ event.best_translation.title }}
-                    </a>
-                {% endfor %}
-            {% elif poi_form.instance.contacts.exists %}
-                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-5"
-                     role="alert">
-                    <p>
-                        {% translate "You cannot archive a location which is referenced by a contact." %}
-                        <br />
-                        {% blocktranslate count counter=poi_form.instance.contacts.count trimmed %}
-                            To archive this location, you have to delete this contact first:
-                        {% plural %}
-                            To archive this location, you have to delete these contacts first:
-                        {% endblocktranslate %}
-                    </p>
-                </div>
-                {% for contact in poi_form.instance.contacts.all %}
-                    <a href="#" class="block pt-2 hover:underline">
-                        <i icon-name="pen-square" class="mr-2"></i> {{ contact.title }} {{ contact.name }}
-                    </a>
-                {% endfor %}
+            {% if poi_form.instance.is_used %}
+                {% if poi_form.instance.events.exists %}
+                    <div class="mb-5">
+                        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-5"
+                             role="alert">
+                            <p>
+                                {% translate "You cannot archive a location which is referenced by an event." %}
+                                <br />
+                                {% blocktranslate count counter=poi_form.instance.events.count trimmed %}
+                                    To archive this location, you have to delete this event first:
+                                {% plural %}
+                                    To archive this location, you have to delete these events first:
+                                {% endblocktranslate %}
+                            </p>
+                        </div>
+                        {% for event in poi_form.instance.events.all %}
+                            <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
+                               class="block pt-2 hover:underline">
+                                <i icon-name="pen-square" class="mr-2"></i> {{ event.best_translation.title }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if poi_form.instance.contacts.exists %}
+                    <div class="mb-5">
+                        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-5"
+                             role="alert">
+                            <p>
+                                {% translate "You cannot archive a location which is referenced by a contact." %}
+                                <br />
+                                {% blocktranslate count counter=poi_form.instance.contacts.count trimmed %}
+                                    To archive this location, you have to delete this contact first:
+                                {% plural %}
+                                    To archive this location, you have to delete these contacts first:
+                                {% endblocktranslate %}
+                            </p>
+                        </div>
+                        {% for contact in poi_form.instance.contacts.all %}
+                            <a href="#" class="block pt-2 hover:underline">
+                                <i icon-name="pen-square" class="mr-2"></i> {{ contact.title }} {{ contact.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             {% else %}
                 <button title="{% translate "Archive location" %}"
                         class="btn confirmation-button w-full"
@@ -82,43 +89,50 @@
             <label>
                 {% translate "Delete location" %}
             </label>
-            {% if poi_form.instance.events.exists %}
-                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-5"
-                     role="alert">
-                    <p>
-                        {% translate "You cannot delete a location which is referenced by an event." %}
-                        <br />
-                        {% blocktranslate count counter=poi_form.instance.events.count trimmed %}
-                            To delete this location, you have to delete this event first:
-                        {% plural %}
-                            To delete this location, you have to delete these events first:
-                        {% endblocktranslate %}
-                    </p>
-                </div>
-                {% for event in poi_form.instance.events.all %}
-                    <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
-                       class="block pt-2 hover:underline">
-                        <i icon-name="pen-square" class="mr-2"></i> {{ event.best_translation.title }}
-                    </a>
-                {% endfor %}
-            {% elif poi_form.instance.contacts.exists %}
-                <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-5"
-                     role="alert">
-                    <p>
-                        {% translate "You cannot delete a location which is referenced by a contact." %}
-                        <br />
-                        {% blocktranslate count counter=poi_form.instance.contacts.count trimmed %}
-                            To delete this location, you have to delete this contact first:
-                        {% plural %}
-                            To delete this location, you have to delete these contacts first:
-                        {% endblocktranslate %}
-                    </p>
-                </div>
-                {% for contact in poi_form.instance.contacts.all %}
-                    <a href="#" class="block pt-2 hover:underline">
-                        <i icon-name="pen-square" class="mr-2"></i> {{ contact.title }} {{ contact.name }}
-                    </a>
-                {% endfor %}
+            {% if poi_form.instance.is_used %}
+                {% if poi_form.instance.events.exists %}
+                    <div class="mb-5">
+                        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-5"
+                             role="alert">
+                            <p>
+                                {% translate "You cannot delete a location which is referenced by an event." %}
+                                <br />
+                                {% blocktranslate count counter=poi_form.instance.events.count trimmed %}
+                                    To delete this location, you have to delete this event first:
+                                {% plural %}
+                                    To delete this location, you have to delete these events first:
+                                {% endblocktranslate %}
+                            </p>
+                        </div>
+                        {% for event in poi_form.instance.events.all %}
+                            <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
+                               class="block pt-2 hover:underline">
+                                <i icon-name="pen-square" class="mr-2"></i> {{ event.best_translation.title }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                {% if poi_form.instance.contacts.exists %}
+                    <div class="mb-5">
+                        <div class="bg-orange-100 border-l-4 border-orange-500 text-orange-700 px-4 py-3 mb-5"
+                             role="alert">
+                            <p>
+                                {% translate "You cannot delete a location which is referenced by a contact." %}
+                                <br />
+                                {% blocktranslate count counter=poi_form.instance.contacts.count trimmed %}
+                                    To delete this location, you have to delete this contact first:
+                                {% plural %}
+                                    To delete this location, you have to delete these contacts first:
+                                {% endblocktranslate %}
+                            </p>
+                        </div>
+                        {% for contact in poi_form.instance.contacts.all %}
+                            <a href="#" class="block pt-2 hover:underline">
+                                <i icon-name="pen-square" class="mr-2"></i> {{ contact.title }} {{ contact.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             {% else %}
                 <button title="{% translate "Delete location" %}"
                         class="btn confirmation-button w-full btn-red"
