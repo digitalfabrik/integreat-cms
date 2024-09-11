@@ -15,7 +15,9 @@ class Contact(AbstractBaseModel):
 
     title = models.CharField(max_length=200, verbose_name=_("title"))
     name = models.CharField(max_length=200, verbose_name=_("name"))
-    poi = models.ForeignKey(POI, on_delete=models.PROTECT, verbose_name=_("POI"))
+    poi = models.ForeignKey(
+        POI, on_delete=models.PROTECT, verbose_name=_("POI"), related_name="contacts"
+    )
     email = models.EmailField(
         blank=True,
         verbose_name=_("email address"),
@@ -63,6 +65,29 @@ class Contact(AbstractBaseModel):
         :return: The canonical string representation of the contact
         """
         return f"<Contact (id: {self.id}, title: {self.title}, name: {self.name}, region: {self.region.slug})>"
+
+    def archive(self) -> None:
+        """
+        Archives the contact
+        """
+        self.archived = True
+        self.save()
+
+    def restore(self) -> None:
+        """
+        Restores the contact
+        """
+        self.archived = False
+        self.save()
+
+    def copy(self) -> None:
+        """
+        Copies the contact
+        """
+        # In order to create a new object set pk to None
+        self.pk = None
+        self.title = self.title + " " + _("(Copy)")
+        self.save()
 
     class Meta:
         verbose_name = _("contact")

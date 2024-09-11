@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from typing import TYPE_CHECKING
 
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -19,6 +20,8 @@ from ..media.media_file import MediaFile
 from ..poi_categories.poi_category import POICategory
 from ..pois.poi_translation import POITranslation
 from ..users.organization import Organization
+
+logger = logging.getLogger(__name__)
 
 
 def get_default_opening_hours() -> list[dict[str, Any]]:
@@ -145,19 +148,42 @@ class POI(AbstractContentModel):
         """
         return POITranslation
 
-    def archive(self) -> None:
+    def delete(self, *args: list, **kwargs: dict) -> bool:
+        r"""
+        Deletes the poi
+        :param \*args: The supplied arguments
+        :param \**kwargs: The supplied keyword arguments
+        """
+        was_successful = False
+        if not self.is_used:
+            super().delete(*args, **kwargs)
+            was_successful = True
+        else:
+            logger.debug(
+                "Can't be deleted because this poi is used by an event or a contact"
+            )
+        return was_successful
+
+    def archive(self) -> bool:
         """
         Archives the poi and removes all links of this poi from the linkchecker
         """
-        self.archived = True
-        self.save()
-
-        # Delete related link objects as they are no longer required
-        Link.objects.filter(poi_translation__poi=self).delete()
+        was_successful = False
+        if not self.is_used:
+            self.archived = True
+            self.save()
+            # Delete related link objects as they are no longer required
+            Link.objects.filter(poi_translation__poi=self).delete()
+            was_successful = True
+        else:
+            logger.debug(
+                "Can't be archived because this poi is used by an event or a contact"
+            )
+        return was_successful
 
     def restore(self) -> None:
         """
-        Restores the event and adds all links of this event back
+        Restores the poi and adds all links of this poi back
         """
         self.archived = False
         self.save()
@@ -166,6 +192,13 @@ class POI(AbstractContentModel):
         for translation in self.translations.distinct("poi__pk", "language__pk"):
             # The post_save signal will create link objects from the content
             translation.save(update_timestamp=False)
+
+    @property
+    def is_used(self) -> bool:
+        """
+        :return: whether this poi is used by another model
+        """
+        return self.events.exists() or self.contacts.exists()
 
     class Meta:
         #: The verbose name of the model

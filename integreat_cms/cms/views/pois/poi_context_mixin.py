@@ -100,6 +100,12 @@ class POIContextMixin(ContextMixin):
                 "delete_dialog_text": _(
                     "All translations of this location will also be deleted."
                 ),
+                "cannot_archive_title": _(
+                    "You cannot archive a location which is used by an event or a contact. \nThis also involves archived events and contacts"
+                ),
+                "cannot_delete_title": _(
+                    "You cannot delete a location which is used by an event or a contact. \nThis also involves archived events and contacts"
+                ),
                 "opening_hour_config_data": opening_hour_config_data,
             }
         )

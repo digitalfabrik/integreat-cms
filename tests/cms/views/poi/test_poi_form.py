@@ -10,7 +10,6 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
 
 from django.conf import settings
-from django.db.models import ProtectedError
 from django.test.client import Client
 from django.urls import reverse
 
@@ -143,6 +142,7 @@ def test_poi_in_use_cannot_be_archived(
 @pytest.mark.django_db
 def test_poi_in_use_not_deleted(
     load_test_data: None,
+    caplog: LogCaptureFixture,
     login_role_user: tuple[Client, str],
 ) -> None:
     """
@@ -167,8 +167,11 @@ def test_poi_in_use_not_deleted(
             == f"{settings.LOGIN_URL}?next={delete_poi}"
         )
     elif role in HIGH_PRIV_STAFF_ROLES:
-        with pytest.raises(ProtectedError):
-            response = client.post(delete_poi)
+        client.post(delete_poi)
+        assert_message_in_log(
+            "ERROR    Location couldn't be deleted as it's used by an event or contact",
+            caplog,
+        )
     else:
         response = client.post(delete_poi)
         assert response.status_code == 403
@@ -207,7 +210,7 @@ def test_poi_in_use_not_bulk_archived(
         )
     elif role in PRIV_STAFF_ROLES + WRITE_ROLES:
         assert_message_in_log(
-            'ERROR    Location "Ort" could not be archived because it is referenced by an event.',
+            'ERROR    Location "Ort" could not be archived because it is referenced by an event or a contact.',
             caplog,
         )
     else:

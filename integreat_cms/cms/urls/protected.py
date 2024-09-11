@@ -32,6 +32,7 @@ from ..views import (
     analytics,
     bulk_action_views,
     chat,
+    contacts,
     dashboard,
     delete_views,
     events,
@@ -1348,6 +1349,50 @@ urlpatterns: list[URLPattern] = [
                                                     ),
                                                 ]
                                             ),
+                                        ),
+                                    ]
+                                ),
+                            ),
+                        ]
+                    ),
+                ),
+                path(
+                    "contact/",
+                    include(
+                        [
+                            path(
+                                "",
+                                contacts.ContactListView.as_view(),
+                                name="contacts",
+                            ),
+                            path(
+                                "archived/",
+                                contacts.ContactListView.as_view(archived=True),
+                                name="archived_contacts",
+                            ),
+                            path(
+                                "<int:contact_id>/",
+                                include(
+                                    [
+                                        path(
+                                            "copy/",
+                                            contacts.copy_contact,
+                                            name="copy_contact",
+                                        ),
+                                        path(
+                                            "archive/",
+                                            contacts.archive_contact,
+                                            name="archive_contact",
+                                        ),
+                                        path(
+                                            "restore/",
+                                            contacts.restore_contact,
+                                            name="restore_contact",
+                                        ),
+                                        path(
+                                            "delete/",
+                                            contacts.delete_contact,
+                                            name="delete_contact",
                                         ),
                                     ]
                                 ),
