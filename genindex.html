@@ -260,6 +260,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.analytics.html">Analytics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.authentication.html">Authentication</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.contacts.html">Contacts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref/integreat_cms.cms.views.events.html">Events</a></li>
@@ -817,6 +818,7 @@
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.analytics.html">Analytics</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.authentication.html">Authentication</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.chat.html">Chat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.contacts.html">Contacts</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.dashboard.html">Dashboard</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.error_handler.html">Error Handler</a></li>
 <li class="toctree-l4"><a class="reference internal" href="ref-ext/integreat_cms.cms.views.events.html">Events</a></li>
@@ -2511,6 +2513,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView.__init__">(integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.chat.html#integreat_cms.cms.views.chat.chat_context_mixin.ChatContextMixin.__init__">(integreat_cms.cms.views.chat.chat_context_mixin.ChatContextMixin method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_context_mixin.ContactContextMixin.__init__">(integreat_cms.cms.views.contacts.contact_context_mixin.ContactContextMixin method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.__init__">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.__init__">(integreat_cms.cms.views.content_version_view.ContentVersionView method)</a>
 </li>
@@ -4349,8 +4355,6 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi_translation.POITranslation.all_versions">(integreat_cms.cms.models.pois.poi_translation.POITranslation attribute)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView.allow_empty">allow_empty (integreat_cms.cms.views.bulk_action_views.BulkActionView attribute)</a>
 
       <ul>
@@ -4393,6 +4397,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin.allow_empty">(integreat_cms.cms.views.pages.page_bulk_actions.PageBulkActionMixin attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="ref-ext/integreat_cms.cms.forms.pages.html#integreat_cms.cms.forms.pages.mirrored_page_field_widget.MirroredPageFieldWidget.allow_multiple_selected">allow_multiple_selected (integreat_cms.cms.forms.pages.mirrored_page_field_widget.MirroredPageFieldWidget attribute)</a>
 
       <ul>
@@ -4531,6 +4537,8 @@
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.feedback.html#integreat_cms.cms.views.feedback.admin_feedback_actions.archive_admin_feedback">archive_admin_feedback() (in module integreat_cms.cms.views.feedback.admin_feedback_actions)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_actions.archive_contact">archive_contact() (in module integreat_cms.cms.views.contacts.contact_actions)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_actions.archive_page">archive_page() (in module integreat_cms.cms.views.pages.page_actions)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pois.html#integreat_cms.cms.views.pois.poi_actions.archive_poi">archive_poi() (in module integreat_cms.cms.views.pois.poi_actions)</a>
@@ -4571,6 +4579,8 @@
         <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI.archived">(integreat_cms.cms.models.pois.poi.POI attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.archived">(integreat_cms.cms.models.users.organization.Organization attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.archived">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.events.html#integreat_cms.cms.views.events.event_list_view.EventListView.archived">(integreat_cms.cms.views.events.event_list_view.EventListView attribute)</a>
 </li>
@@ -5311,6 +5321,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.as_view">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView.as_view">(integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView class method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.as_view">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView class method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.as_view">(integreat_cms.cms.views.content_version_view.ContentVersionView class method)</a>
 </li>
@@ -7076,7 +7088,11 @@
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.context_processors.constants_processor">constants_processor() (in module integreat_cms.core.context_processors)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI.contact">contact (integreat_cms.cms.models.pois.poi.POI attribute)</a>
+      <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_context_mixin.ContactContextMixin">ContactContextMixin (class in integreat_cms.cms.views.contacts.contact_context_mixin)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView">ContactListView (class in integreat_cms.cms.views.contacts.contact_list_view)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI.contacts">contacts (integreat_cms.cms.models.pois.poi.POI attribute)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.models.html#integreat_cms.cms.models.abstract_content_model.ContentQuerySet.contains">contains() (integreat_cms.cms.models.abstract_content_model.ContentQuerySet method)</a>
 
@@ -7144,6 +7160,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.totp_login_view.TOTPLoginView.content_type">(integreat_cms.cms.views.authentication.totp_login_view.TOTPLoginView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.webauthn.html#integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView.content_type">(integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.content_type">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.content_type">(integreat_cms.cms.views.content_version_view.ContentVersionView attribute)</a>
 </li>
@@ -7404,6 +7422,8 @@
         <li><a href="ref-ext/integreat_cms.textlab_api.html#integreat_cms.textlab_api.textlab_api_client.TextlabResult.copy">(integreat_cms.textlab_api.textlab_api_client.TextlabResult method)</a>
 </li>
       </ul></li>
+      <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_actions.copy_contact">copy_contact() (in module integreat_cms.cms.views.contacts.contact_actions)</a>
+</li>
       <li><a href="documentation.html#conf.copyright">copyright (in module conf)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.apps.CoreConfig">CoreConfig (class in integreat_cms.core.apps)</a>
@@ -8388,6 +8408,8 @@
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.chat.html#integreat_cms.cms.views.chat.chat_actions.delete_chat_message">delete_chat_message() (in module integreat_cms.cms.views.chat.chat_actions)</a>
 </li>
+      <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_actions.delete_contact">delete_contact() (in module integreat_cms.cms.views.contacts.contact_actions)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.cms.views.media.html#integreat_cms.cms.views.media.media_actions.delete_directory_ajax">delete_directory_ajax() (in module integreat_cms.cms.views.media.media_actions)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.forms.poi_categories.html#integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet.delete_existing">delete_existing() (integreat_cms.cms.forms.poi_categories.poi_category_translation_form.BaseInlinePOICategoryTranslationFormSet method)</a>
@@ -8532,6 +8554,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.dispatch">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView.dispatch">(integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.dispatch">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.dispatch">(integreat_cms.cms.views.content_version_view.ContentVersionView method)</a>
 </li>
@@ -9438,6 +9462,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView.extra_context">(integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.chat.html#integreat_cms.cms.views.chat.chat_context_mixin.ChatContextMixin.extra_context">(integreat_cms.cms.views.chat.chat_context_mixin.ChatContextMixin attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_context_mixin.ContactContextMixin.extra_context">(integreat_cms.cms.views.contacts.contact_context_mixin.ContactContextMixin attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.extra_context">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.extra_context">(integreat_cms.cms.views.content_version_view.ContentVersionView attribute)</a>
 </li>
@@ -10731,6 +10759,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView.get">(integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.get">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.get">(integreat_cms.cms.views.content_version_view.ContentVersionView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView.get">(integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView method)</a>
@@ -11316,6 +11346,10 @@
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView.get_context_data">(integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.chat.html#integreat_cms.cms.views.chat.chat_context_mixin.ChatContextMixin.get_context_data">(integreat_cms.cms.views.chat.chat_context_mixin.ChatContextMixin method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_context_mixin.ContactContextMixin.get_context_data">(integreat_cms.cms.views.contacts.contact_context_mixin.ContactContextMixin method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.get_context_data">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.get_context_data">(integreat_cms.cms.views.content_version_view.ContentVersionView method)</a>
 </li>
@@ -13993,6 +14027,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.webauthn.html#integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView.get_template_names">(integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.get_template_names">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.get_template_names">(integreat_cms.cms.views.content_version_view.ContentVersionView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView.get_template_names">(integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView method)</a>
@@ -15259,6 +15295,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView.http_method_names">(integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.http_method_names">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.http_method_names">(integreat_cms.cms.views.content_version_view.ContentVersionView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView.http_method_names">(integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView attribute)</a>
@@ -15442,6 +15480,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.http_method_not_allowed">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView.http_method_not_allowed">(integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.http_method_not_allowed">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.http_method_not_allowed">(integreat_cms.cms.views.content_version_view.ContentVersionView method)</a>
 </li>
@@ -17817,8 +17857,6 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.account_activation_view">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.views.authentication.login_view
 
@@ -17833,6 +17871,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#module-integreat_cms.cms.views.authentication.logout_view">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     integreat_cms.cms.views.authentication.password_reset_confirm_view
 
@@ -17915,6 +17955,34 @@
 
       <ul>
         <li><a href="ref-ext/integreat_cms.cms.views.chat.html#module-integreat_cms.cms.views.chat.chat_context_mixin">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.cms.views.contacts
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#module-integreat_cms.cms.views.contacts">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.cms.views.contacts.contact_actions
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#module-integreat_cms.cms.views.contacts.contact_actions">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.cms.views.contacts.contact_context_mixin
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#module-integreat_cms.cms.views.contacts.contact_context_mixin">module</a>
+</li>
+      </ul></li>
+      <li>
+    integreat_cms.cms.views.contacts.contact_list_view
+
+      <ul>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#module-integreat_cms.cms.views.contacts.contact_list_view">module</a>
 </li>
       </ul></li>
       <li>
@@ -19779,6 +19847,8 @@
       <li><a href="ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.is_used">is_used (integreat_cms.cms.models.media.media_file.MediaFile attribute)</a>
 
       <ul>
+        <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI.is_used">(integreat_cms.cms.models.pois.poi.POI property)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.is_used">(integreat_cms.cms.models.users.organization.Organization property)</a>
 </li>
       </ul></li>
@@ -21678,6 +21748,14 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.chat.html#module-integreat_cms.cms.views.chat.chat_context_mixin">integreat_cms.cms.views.chat.chat_context_mixin</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#module-integreat_cms.cms.views.contacts">integreat_cms.cms.views.contacts</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#module-integreat_cms.cms.views.contacts.contact_actions">integreat_cms.cms.views.contacts.contact_actions</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#module-integreat_cms.cms.views.contacts.contact_context_mixin">integreat_cms.cms.views.contacts.contact_context_mixin</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#module-integreat_cms.cms.views.contacts.contact_list_view">integreat_cms.cms.views.contacts.contact_list_view</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#module-integreat_cms.cms.views.content_version_view">integreat_cms.cms.views.content_version_view</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#module-integreat_cms.cms.views.dashboard">integreat_cms.cms.views.dashboard</a>
@@ -23063,6 +23141,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.options">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView.options">(integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView method)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.options">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.options">(integreat_cms.cms.views.content_version_view.ContentVersionView method)</a>
 </li>
@@ -26562,6 +26642,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.webauthn.html#integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView.render_to_response">(integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.render_to_response">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.render_to_response">(integreat_cms.cms.views.content_version_view.ContentVersionView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView.render_to_response">(integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView method)</a>
@@ -26892,6 +26974,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.webauthn.html#integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView.response_class">(integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.response_class">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.response_class">(integreat_cms.cms.views.content_version_view.ContentVersionView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView.response_class">(integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView attribute)</a>
@@ -27040,6 +27124,8 @@
 </li>
       </ul></li>
       <li><a href="ref-ext/integreat_cms.cms.views.feedback.html#integreat_cms.cms.views.feedback.admin_feedback_actions.restore_admin_feedback">restore_admin_feedback() (in module integreat_cms.cms.views.feedback.admin_feedback_actions)</a>
+</li>
+      <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_actions.restore_contact">restore_contact() (in module integreat_cms.cms.views.contacts.contact_actions)</a>
 </li>
       <li><a href="ref-ext/integreat_cms.cms.views.pages.html#integreat_cms.cms.views.pages.page_actions.restore_page">restore_page() (in module integreat_cms.cms.views.pages.page_actions)</a>
 </li>
@@ -27970,6 +28056,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView.setup">(integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView method)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.setup">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView method)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.setup">(integreat_cms.cms.views.content_version_view.ContentVersionView method)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView.setup">(integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView method)</a>
@@ -28844,6 +28932,8 @@
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.webauthn.html#integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView.template_engine">(integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView attribute)</a>
 </li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.template_engine">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView attribute)</a>
+</li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.template_engine">(integreat_cms.cms.views.content_version_view.ContentVersionView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.dashboard.html#integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView.template_engine">(integreat_cms.cms.views.dashboard.admin_dashboard_view.AdminDashboardView attribute)</a>
@@ -29101,6 +29191,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.html#integreat_cms.cms.views.authentication.totp_login_view.TOTPLoginView.template_name">(integreat_cms.cms.views.authentication.totp_login_view.TOTPLoginView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.authentication.webauthn.html#integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView.template_name">(integreat_cms.cms.views.authentication.webauthn.webauthn_login_view.WebAuthnLoginView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.template_name">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.template_name">(integreat_cms.cms.views.content_version_view.ContentVersionView attribute)</a>
 </li>
@@ -29775,10 +29867,10 @@
 </li>
       <li><a href="documentation.html#conf.templates_path">templates_path (in module conf)</a>
 </li>
-      <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI.temporarily_closed">temporarily_closed (integreat_cms.cms.models.pois.poi.POI attribute)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI.temporarily_closed">temporarily_closed (integreat_cms.cms.models.pois.poi.POI attribute)</a>
+</li>
       <li><a href="ref-ext/integreat_cms.core.html#integreat_cms.core.settings.TEST">TEST (in module integreat_cms.core.settings)</a>
 </li>
       <li><a href="ref-ext/tests.api.html#tests.api.test_api_chat.test_api_chat_create_attachment_success">test_api_chat_create_attachment_success() (in module tests.api.test_api_chat)</a>
@@ -32143,6 +32235,8 @@
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkRestoreView.view_is_async">(integreat_cms.cms.views.bulk_action_views.BulkRestoreView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView.view_is_async">(integreat_cms.cms.views.bulk_action_views.BulkUpdateBooleanFieldView attribute)</a>
+</li>
+        <li><a href="ref-ext/integreat_cms.cms.views.contacts.html#integreat_cms.cms.views.contacts.contact_list_view.ContactListView.view_is_async">(integreat_cms.cms.views.contacts.contact_list_view.ContactListView attribute)</a>
 </li>
         <li><a href="ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.content_version_view.ContentVersionView.view_is_async">(integreat_cms.cms.views.content_version_view.ContentVersionView attribute)</a>
 </li>
