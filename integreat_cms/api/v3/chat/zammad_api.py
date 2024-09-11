@@ -172,7 +172,7 @@ class ZammadChatAPI:
         params = {
             "ticket_id": chat_id,
             "body": message,
-            "type": "chat",
+            "type": "web",
             "internal": False,
             "sender": "Customer",
         }
