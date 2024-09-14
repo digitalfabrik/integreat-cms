@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-09-14T08:24:27+00:00" />
+    <meta property="article:modified_time" content="2024-09-14T16:55:45+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Models &mdash; integreat-cms 2024.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -873,6 +873,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.linklists.EventTranslationLinklist"><code class="docutils literal notranslate"><span class="pre">EventTranslationLinklist</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.linklists.ImprintTranslationLinklist"><code class="docutils literal notranslate"><span class="pre">ImprintTranslationLinklist</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.linklists.NonArchivedLinkList"><code class="docutils literal notranslate"><span class="pre">NonArchivedLinkList</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.linklists.OrganizationLinklist"><code class="docutils literal notranslate"><span class="pre">OrganizationLinklist</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.linklists.POITranslationLinklist"><code class="docutils literal notranslate"><span class="pre">POITranslationLinklist</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.html#integreat_cms.cms.linklists.PageTranslationLinklist"><code class="docutils literal notranslate"><span class="pre">PageTranslationLinklist</span></code></a></li>
 </ul>
@@ -5569,6 +5570,7 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.id"><code class="docutils literal notranslate"><span class="pre">Organization.id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.is_used"><code class="docutils literal notranslate"><span class="pre">Organization.is_used</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.last_updated"><code class="docutils literal notranslate"><span class="pre">Organization.last_updated</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.links"><code class="docutils literal notranslate"><span class="pre">Organization.links</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.members"><code class="docutils literal notranslate"><span class="pre">Organization.members</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.name"><code class="docutils literal notranslate"><span class="pre">Organization.name</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.num_contents"><code class="docutils literal notranslate"><span class="pre">Organization.num_contents</span></code></a></li>
@@ -5581,11 +5583,13 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.refresh_from_db"><code class="docutils literal notranslate"><span class="pre">Organization.refresh_from_db()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.region"><code class="docutils literal notranslate"><span class="pre">Organization.region</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.region_id"><code class="docutils literal notranslate"><span class="pre">Organization.region_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.replace_urls"><code class="docutils literal notranslate"><span class="pre">Organization.replace_urls()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.restore"><code class="docutils literal notranslate"><span class="pre">Organization.restore()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.save"><code class="docutils literal notranslate"><span class="pre">Organization.save()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.save_base"><code class="docutils literal notranslate"><span class="pre">Organization.save_base()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.serializable_value"><code class="docutils literal notranslate"><span class="pre">Organization.serializable_value()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.slug"><code class="docutils literal notranslate"><span class="pre">Organization.slug</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.title"><code class="docutils literal notranslate"><span class="pre">Organization.title</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.unique_error_message"><code class="docutils literal notranslate"><span class="pre">Organization.unique_error_message()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.validate_constraints"><code class="docutils literal notranslate"><span class="pre">Organization.validate_constraints()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization.validate_unique"><code class="docutils literal notranslate"><span class="pre">Organization.validate_unique()</span></code></a></li>
