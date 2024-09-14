@@ -416,7 +416,9 @@ class Region(AbstractBaseModel):
     zammad_url = models.URLField(
         max_length=256,
         blank=True,
-        default="",
+        null=True,
+        default=None,
+        unique=True,
         verbose_name=_("Zammad-URL"),
         help_text=_(
             "URL pointing to this region's Zammad instance. Setting this enables Zammad form offers."

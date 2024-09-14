@@ -8,6 +8,8 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from ..abstract_base_model import AbstractBaseModel
+from ..languages.language import Language
+from ..regions.region import Region
 
 if TYPE_CHECKING:
     from typing import Any
@@ -76,6 +78,19 @@ class UserChat(AbstractBaseModel):
 
     device_id = models.CharField(max_length=200)
     zammad_id = models.IntegerField()
+    region = models.ForeignKey(
+        Region,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="chats",
+        verbose_name="Region for Chat",
+    )
+    language = models.ForeignKey(
+        Language,
+        on_delete=models.CASCADE,
+        related_name="chats",
+        verbose_name="Language of chat app user",
+    )
     most_recent_hits = models.TextField(blank=True)
 
     # manager for fetching only the newest (i.e. current) chat
