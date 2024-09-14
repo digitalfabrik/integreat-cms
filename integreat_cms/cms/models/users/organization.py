@@ -1,18 +1,25 @@
 from __future__ import annotations
 
 import logging
+from typing import TYPE_CHECKING
 
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+from linkcheck.models import Link
 
+from ...utils.link_utils import fix_content_link_encoding
 from ..abstract_base_model import AbstractBaseModel
 from ..media.media_file import MediaFile
 from ..regions.region import Region
 
 logger = logging.getLogger(__name__)
+
+if TYPE_CHECKING:
+    from ..users.user import User
 
 
 class Organization(AbstractBaseModel):
@@ -49,6 +56,7 @@ class Organization(AbstractBaseModel):
 
     website = models.URLField(max_length=250, verbose_name=_("website"))
     archived = models.BooleanField(default=False, verbose_name=_("archived"))
+    links = GenericRelation(Link, related_query_name="organization")
 
     @property
     def num_contents(self) -> int:
@@ -86,6 +94,21 @@ class Organization(AbstractBaseModel):
                 "organization_id": self.id,
             },
         )
+
+    def replace_urls(
+        self,
+        urls_to_replace: dict[str, str],
+        user: User | None = None,
+        commit: bool = True,
+    ) -> None:
+        """
+        Function to replace links that are in the translation and match the given keyword `search`
+        """
+        logger.debug("Replacing links of %r: %r by %r", self, urls_to_replace, user)
+        self.website = urls_to_replace.get(self.website, self.website)
+        self.website = fix_content_link_encoding(self.website)
+        if commit:
+            self.save()
 
     def __str__(self) -> str:
         """
@@ -143,6 +166,13 @@ class Organization(AbstractBaseModel):
         """
         self.archived = False
         self.save()
+
+    @property
+    def title(self) -> str:
+        """
+        This function return the name of organization. Alias for link list template.
+        """
+        return self.name
 
     class Meta:
         #: The verbose name of the model
