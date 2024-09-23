@@ -1141,6 +1141,21 @@ urlpatterns: list[URLPattern] = [
                                 name="archived_organizations",
                             ),
                             path(
+                                "bulk-archive/",
+                                organizations.ArchiveBulkAction.as_view(),
+                                name="bulk_archive_organization",
+                            ),
+                            path(
+                                "bulk-restore/",
+                                organizations.RestoreBulkAction.as_view(),
+                                name="bulk_restore_organization",
+                            ),
+                            path(
+                                "bulk-delete/",
+                                organizations.DeleteBulkAction.as_view(),
+                                name="bulk_delete_organization",
+                            ),
+                            path(
                                 "<int:organization_id>/",
                                 include(
                                     [
