@@ -83,9 +83,13 @@ class LinkReplaceView(TemplateView):
             _("Links were replaced successfully."),
         )
 
+        if request.region:
+            return redirect(
+                "linkcheck_landing",
+                **{
+                    "region_slug": request.region.slug,
+                },
+            )
         return redirect(
             "linkcheck_landing",
-            **{
-                "region_slug": request.region.slug,
-            },
         )
