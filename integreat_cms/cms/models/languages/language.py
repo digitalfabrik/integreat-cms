@@ -75,7 +75,7 @@ class Language(AbstractBaseModel):
     #: Manage choices in :mod:`~integreat_cms.cms.constants.countries`
     primary_country_code = models.CharField(
         choices=countries.CHOICES,
-        max_length=2,
+        max_length=5,
         verbose_name=_("primary country flag"),
         help_text=__(
             _("The country with which this language is mainly associated."),
@@ -86,7 +86,7 @@ class Language(AbstractBaseModel):
     secondary_country_code = models.CharField(
         choices=countries.CHOICES,
         blank=True,
-        max_length=2,
+        max_length=5,
         verbose_name=_("secondary country flag"),
         help_text=__(
             _("Another country with which this language is also associated."),

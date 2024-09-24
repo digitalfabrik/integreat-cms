@@ -16,10 +16,12 @@
             <div class="lang-grid">
                 {% spaceless %}
                     {% for other_language in languages %}
-                        <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=other_language.slug %}">
-                            <i icon-name="{% if other_language in push_notification.languages %}edit-2{% else %}plus{% endif %}"
-                               class="text-gray-800"></i>
-                        </a>
+                        {% if other_language != request.region.default_language %}
+                            <a href="{% url 'edit_push_notification' push_notification_id=push_notification.id region_slug=request.region.slug language_slug=other_language.slug %}">
+                                <i icon-name="{% if other_language in push_notification.languages %}edit-2{% else %}plus{% endif %}"
+                                   class="text-gray-800"></i>
+                            </a>
+                        {% endif %}
                     {% endfor %}
                 {% endspaceless %}
             </div>
