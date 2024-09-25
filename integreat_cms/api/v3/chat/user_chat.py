@@ -4,16 +4,23 @@ This module provides the API endpoints for the Integreat Chat API
 
 from __future__ import annotations
 
+import json
 import logging
 import random
+import socket
 from typing import TYPE_CHECKING
 
+from django.conf import settings
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
+from google.cloud import translate_v2 as translate  # type: ignore[attr-defined]
+from google.oauth2 import service_account
 
-from ....cms.models import ABTester, AttachmentMap, UserChat
+from ....cms.models import ABTester, AttachmentMap, Language, Region, UserChat
 from ...decorators import json_response
+from .chat_bot import ChatBot
 from .zammad_api import ZammadChatAPI
 
 if TYPE_CHECKING:
@@ -99,6 +106,18 @@ def get_messages(
     return response_or_error(client.get_messages(user_chat))
 
 
+def translate_message(message: str, language_slug: str) -> str:
+    """
+    Translate a string with Google Translate
+    """
+    credentials = service_account.Credentials.from_service_account_file(
+        settings.GOOGLE_APPLICATION_CREDENTIALS
+    )
+    translate_client = translate.Client(credentials=credentials)
+    result = translate_client.translate(message, target_language=language_slug)
+    return result["translatedText"]
+
+
 def send_message(
     request: HttpRequest,
     language_slug: str,
@@ -120,7 +139,12 @@ def send_message(
     if request.POST.get("force_new") or not user_chat:
         try:
             chat_id = client.create_ticket(device_id, language_slug)["id"]
-            user_chat = UserChat.objects.create(device_id=device_id, zammad_id=chat_id)
+            user_chat = UserChat.objects.create(
+                device_id=device_id,
+                zammad_id=chat_id,
+                region=request.region,
+                language=Language.objects.get(slug=language_slug),
+            )
         except KeyError:
             logger.warning(
                 "Failed to create a new chat in %r",
@@ -210,3 +234,66 @@ def chat(
     if request.method == "GET":
         return get_messages(request, client, user_chat, device_id)
     return send_message(request, language_slug, client, user_chat, device_id)
+
+
+@csrf_exempt
+@json_response
+def zammad_webhook(request: HttpRequest) -> JsonResponse:
+    """
+    Receive webhooks from Zammad to update the latest article translation
+    """
+    zammad_url = (
+        f"https://{socket.getnameinfo((request.META.get('REMOTE_ADDR'), 0), 0)[0]}"
+    )
+    region = get_object_or_404(Region, zammad_url=zammad_url)
+    client = ZammadChatAPI(region)
+    webhook_message = json.loads(request.body)
+    message_text = webhook_message["article"]["body"]
+    zammad_chat = UserChat.objects.get(zammad_id=webhook_message["ticket"]["id"])
+
+    actions = []
+    if webhook_message["article"]["internal"]:
+        return JsonResponse(
+            {
+                "region": region.slug,
+                "results": "skipped internal message",
+            }
+        )
+    if (
+        webhook_message["article"]["created_by"]["login"]
+        == "tech+integreat-cms@tuerantuer.org"
+    ):
+        logger.debug("Automatic answer & question translation")
+        actions.append("Automatic answer & question translation")
+        client.send_message(
+            zammad_chat.zammad_id,
+            translate_message(message_text, region.default_language.slug),
+            True,
+            True,
+        )
+        chat_bot = ChatBot()
+        answer = chat_bot.automatic_answer(
+            message_text, region, zammad_chat.language.slug
+        )
+        client.send_message(
+            zammad_chat.zammad_id,
+            answer,
+            False,
+            True,
+        )
+    else:
+        logger.debug("Automatic answer translation")
+        actions.append("Automatic answer translation")
+        client.send_message(
+            zammad_chat.zammad_id,
+            translate_message(message_text, zammad_chat.language.slug),
+            False,
+            True,
+        )
+    return JsonResponse(
+        {
+            "original_message": message_text,
+            "region": region.slug,
+            "actions": actions,
+        }
+    )
