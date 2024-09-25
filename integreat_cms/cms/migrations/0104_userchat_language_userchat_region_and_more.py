@@ -22,9 +22,7 @@ class Migration(migrations.Migration):
     Add relation between user chats and regions/languages.
     """
 
-    dependencies = [
-        ("cms", "0102_alter_contact_poi"),
-    ]
+    dependencies = [("cms", "0103_alter_language_primary_country_code_and_more")]
 
     operations = [
         migrations.AddField(
