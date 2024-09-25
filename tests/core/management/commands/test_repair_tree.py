@@ -31,6 +31,7 @@ def test_fix_clean_tree_fields(load_test_data: None) -> None:
             assert not err
 
 
+@pytest.mark.skip(reason="Broken tree caught by deferrable tree constraints")
 @pytest.mark.django_db
 def test_check_broken_tree_fields(load_test_data: None) -> None:
     """
@@ -45,6 +46,7 @@ def test_check_broken_tree_fields(load_test_data: None) -> None:
     assert "lft: 2 → 1" in err
 
 
+@pytest.mark.skip(reason="Broken tree caught by deferrable tree constraints")
 @pytest.mark.django_db
 def test_fix_broken_tree_fields(load_test_data: None) -> None:
     """
