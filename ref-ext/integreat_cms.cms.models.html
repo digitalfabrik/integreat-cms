@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-09-24T13:36:59+00:00" />
+    <meta property="article:modified_time" content="2024-09-25T06:36:57+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Models &mdash; integreat-cms 2024.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -636,6 +636,11 @@
 <li class="toctree-l3"><a class="reference internal" href="../api-docs.html#id44">RESPONSE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api-docs.html#id45">REQUEST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api-docs.html#id46">RESPONSE</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api-docs.html#zammad-webhook">Zammad Webhook</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api-docs.html#id47">REQUEST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api-docs.html#id48">RESPONSE</a></li>
 </ul>
 </li>
 </ul>
@@ -2250,6 +2255,8 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.get_model_name_plural"><code class="docutils literal notranslate"><span class="pre">UserChat.get_model_name_plural()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.get_repr"><code class="docutils literal notranslate"><span class="pre">UserChat.get_repr()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.id"><code class="docutils literal notranslate"><span class="pre">UserChat.id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.language"><code class="docutils literal notranslate"><span class="pre">UserChat.language</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.language_id"><code class="docutils literal notranslate"><span class="pre">UserChat.language_id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.most_recent_hits"><code class="docutils literal notranslate"><span class="pre">UserChat.most_recent_hits</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.objects"><code class="docutils literal notranslate"><span class="pre">UserChat.objects</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.pk"><code class="docutils literal notranslate"><span class="pre">UserChat.pk</span></code></a></li>
@@ -2257,6 +2264,8 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.ratelimit_exceeded"><code class="docutils literal notranslate"><span class="pre">UserChat.ratelimit_exceeded()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.record_hit"><code class="docutils literal notranslate"><span class="pre">UserChat.record_hit()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.refresh_from_db"><code class="docutils literal notranslate"><span class="pre">UserChat.refresh_from_db()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.region"><code class="docutils literal notranslate"><span class="pre">UserChat.region</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.region_id"><code class="docutils literal notranslate"><span class="pre">UserChat.region_id</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.save"><code class="docutils literal notranslate"><span class="pre">UserChat.save()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.save_base"><code class="docutils literal notranslate"><span class="pre">UserChat.save_base()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.chat.html#integreat_cms.cms.models.chat.user_chat.UserChat.serializable_value"><code class="docutils literal notranslate"><span class="pre">UserChat.serializable_value()</span></code></a></li>
@@ -3797,6 +3806,7 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.asave"><code class="docutils literal notranslate"><span class="pre">Language.asave()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.bcp47_tag"><code class="docutils literal notranslate"><span class="pre">Language.bcp47_tag</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.can_be_pdf_exported"><code class="docutils literal notranslate"><span class="pre">Language.can_be_pdf_exported</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.chats"><code class="docutils literal notranslate"><span class="pre">Language.chats</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.check"><code class="docutils literal notranslate"><span class="pre">Language.check()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.clean"><code class="docutils literal notranslate"><span class="pre">Language.clean()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.languages.html#integreat_cms.cms.models.languages.language.Language.clean_fields"><code class="docutils literal notranslate"><span class="pre">Language.clean_fields()</span></code></a></li>
@@ -5345,6 +5355,7 @@ Please refer to <a class="reference external" href="https://docs.djangoproject.c
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.bounding_box"><code class="docutils literal notranslate"><span class="pre">Region.bounding_box</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.chat_beta_tester_percentage"><code class="docutils literal notranslate"><span class="pre">Region.chat_beta_tester_percentage</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.chat_enabled"><code class="docutils literal notranslate"><span class="pre">Region.chat_enabled</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.chats"><code class="docutils literal notranslate"><span class="pre">Region.chats</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.check"><code class="docutils literal notranslate"><span class="pre">Region.check()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.clean"><code class="docutils literal notranslate"><span class="pre">Region.clean()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.clean_fields"><code class="docutils literal notranslate"><span class="pre">Region.clean_fields()</span></code></a></li>
@@ -9367,7 +9378,7 @@ thus be available in e.g. RunPython operations.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 24, 2024.
+      <span class="lastupdated">Last updated on Sep 25, 2024.
       </span></p>
   </div>
 

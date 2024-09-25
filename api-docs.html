@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-07-30T17:55:31+00:00" />
+    <meta property="article:modified_time" content="2024-09-25T06:36:57+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>API Documentation &mdash; integreat-cms 2024.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -636,6 +636,11 @@
 <li class="toctree-l3"><a class="reference internal" href="#id44">RESPONSE</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id45">REQUEST</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#id46">RESPONSE</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#zammad-webhook">Zammad Webhook</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id47">REQUEST</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id48">RESPONSE</a></li>
 </ul>
 </li>
 </ul>
@@ -3010,6 +3015,41 @@ it will be passed along in the following format, together with a matching HTTP s
 <p>The response to <code class="docutils literal notranslate"><span class="pre">GET</span></code>-ing the endpoint with an <code class="docutils literal notranslate"><span class="pre">attachment_id</span></code> is either the (binary) file or an error in the format specified above.</p>
 </section>
 </section>
+<section id="zammad-webhook">
+<h2>Zammad Webhook<a class="headerlink" href="#zammad-webhook" title="Link to this heading"></a></h2>
+<p>This webhook triggers automatic translations and answers for incoming and outgoing chat messages via Zammad webhooks. The request payload is defined by Zammad, see <a class="reference external" href="https://admin-docs.zammad.org/en/latest/manage/webhook/payload.html">https://admin-docs.zammad.org/en/latest/manage/webhook/payload.html</a>.</p>
+<section id="id47">
+<h3>REQUEST<a class="headerlink" href="#id47" title="Link to this heading"></a></h3>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/v3/webhook/zammad/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">2</span>
+</pre></div>
+</div>
+<p>Body:</p>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="s2">&quot;article&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s2">&quot;subject&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">            </span><span class="c1">// Title of the article that triggered the webhook</span>
+<span class="w">      </span><span class="s2">&quot;internal&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">Boolean</span><span class="p">,</span><span class="w">          </span><span class="c1">// Indicates if the Zammad article is visible to the customer</span>
+<span class="w">      </span><span class="s2">&quot;body&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">               </span><span class="c1">// Article content/message</span>
+<span class="w">      </span><span class="s2">&quot;created_by&quot;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">         </span><span class="s2">&quot;login&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="w">            </span><span class="c1">// e-mail address of user that created the article</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">   </span><span class="p">},</span>
+<span class="w">   </span><span class="s2">&quot;ticket&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="s2">&quot;id&quot;</span><span class="o">:</span><span class="w"> </span><span class="nx">Integer</span><span class="p">,</span><span class="w">                </span><span class="c1">// ID of the ticket that triggered the webhook</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="id48">
+<h3>RESPONSE<a class="headerlink" href="#id48" title="Link to this heading"></a></h3>
+<div class="highlight-javascript notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">   </span><span class="s2">&quot;original_message&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">      </span><span class="c1">// Copy of the original body</span>
+<span class="w">   </span><span class="s2">&quot;region&quot;</span><span class="o">:</span><span class="w"> </span><span class="nb">String</span><span class="p">,</span><span class="w">                </span><span class="c1">// Region</span>
+<span class="w">   </span><span class="s2">&quot;actions&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="nb">Object</span><span class="w"> </span><span class="p">],</span><span class="w">           </span><span class="c1">// list of actions taken</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 
 
@@ -3027,7 +3067,7 @@ it will be passed along in the following format, together with a matching HTTP s
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Jul 30, 2024.
+      <span class="lastupdated">Last updated on Sep 25, 2024.
       </span></p>
   </div>
 
