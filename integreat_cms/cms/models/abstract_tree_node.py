@@ -7,6 +7,7 @@ from cacheops import invalidate_model
 from db_mutex import DBMutexError, DBMutexTimeoutError
 from db_mutex.db_mutex import db_mutex
 from django.db import models
+from django.db.models import CheckConstraint, Deferrable, F, Q, UniqueConstraint
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from treebeard.exceptions import InvalidPosition
@@ -349,3 +350,19 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
     class Meta:
         #: Abstract model
         abstract = True
+
+        constraints = [
+            UniqueConstraint(
+                name="%(class)s_unique_lft_tree",
+                fields=["tree_id", "lft"],
+                deferrable=Deferrable.DEFERRED,
+            ),
+            UniqueConstraint(
+                name="%(class)s_unique_rgt_tree",
+                fields=["tree_id", "rgt"],
+                deferrable=Deferrable.DEFERRED,
+            ),
+            CheckConstraint(
+                check=Q(lft__lt=F("rgt")), name="%(class)s_check_rgt_greater_lft"
+            ),
+        ]

@@ -161,7 +161,7 @@ class LanguageTreeNode(AbstractTreeNode):
             f"<LanguageTreeNode (id: {self.id}{language_str}{parent_str}{region_str})>"
         )
 
-    class Meta:
+    class Meta(AbstractTreeNode.Meta):
         #: The verbose name of the model
         verbose_name = _("language tree node")
         #: The plural verbose name of the model
