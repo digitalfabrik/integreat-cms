@@ -277,6 +277,11 @@
                     </a>
                 {% endif %}
                 {% if perms.cms.view_region %}
+                    <a href="{% url 'region_condition' %}"
+                       class="{% if current_menu_item == 'region_condition' %} active{% endif %}">
+                        <i icon-name="cctv"></i>
+                        {% translate "Region condition" %}
+                    </a>
                     <a href="{% url 'regions' %}"
                        class="{% if current_menu_item == 'regions' %} active{% endif %}">
                         <i icon-name="map"></i>

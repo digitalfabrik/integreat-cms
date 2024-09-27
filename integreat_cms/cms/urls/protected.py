@@ -57,6 +57,7 @@ from ..views import (
     translations,
     users,
     utils,
+    region_condition,
 )
 
 if TYPE_CHECKING:
@@ -235,6 +236,23 @@ urlpatterns: list[URLPattern] = [
         "admin-dashboard/",
         dashboard.AdminDashboardView.as_view(),
         name="admin_dashboard",
+    ),
+    path(
+        "region-condition/",
+        include(
+            [
+                path(
+                    "",
+                    region_condition.RegionConditionView.as_view(),
+                    name="region_condition",
+                ),
+                path(
+                    "export/<str:file_format>/",
+                    region_condition.export_region_conditions,
+                    name="export_region_conditions",
+                ),
+            ]
+        ),
     ),
     path(
         "linkcheck/",
