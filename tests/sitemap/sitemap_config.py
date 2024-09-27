@@ -39,7 +39,7 @@ SITEMAPS: Final[list[tuple[str, str, int]]] = [
     (
         "/nurnberg/de/sitemap.xml",
         "tests/sitemap/expected-sitemaps/sitemap-nurnberg-de.xml",
-        73,
+        78,
     ),
     (
         "/nurnberg/en/sitemap.xml",
