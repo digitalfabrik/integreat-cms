@@ -43,6 +43,7 @@ def setup_fake_deepl_api_server(mock_server: MockServer) -> None:
                 {
                     "detected_source_language": "DE",
                     "text": "This is your translation from DeepL",
+                    "billed_characters": 0,
                 }
             ]
         },
