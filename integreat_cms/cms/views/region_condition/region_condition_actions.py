@@ -19,6 +19,8 @@ from ...utils.linkcheck_utils import filter_urls
 from ..utils.hix import get_translation_under_hix_threshold
 
 if TYPE_CHECKING:
+    from typing import Any
+
     from django.http import HttpRequest
 
 logger = logging.getLogger(__name__)
@@ -104,6 +106,31 @@ class RegionConditionResource(resources.ModelResource):
         :return: The number of languages besides the root language
         """
         return len(region.language_tree) - 1
+
+    # pylint: disable=useless-parent-delegation
+    def get_instance(self, *args: Any, **kwargs: Any) -> Any:
+        """
+        See :meth:`import_export.resources.Resource.get_instance`
+        """
+        return super().get_instance(*args, **kwargs)
+
+    def import_data(self, *args: Any, **kwargs: Any) -> Any:
+        """
+        See :meth:`import_export.resources.Resource.import_data`
+        """
+        return super().import_data(*args, **kwargs)
+
+    def import_row(self, *args: Any, **kwargs: Any) -> Any:
+        """
+        See :meth:`import_export.resources.Resource.import_row`
+        """
+        return super().import_row(*args, **kwargs)
+
+    def save_instance(self, *args: Any, **kwargs: Any) -> Any:
+        """
+        See :meth:`import_export.resources.Resource.save_instance`
+        """
+        return super().save_instance(*args, **kwargs)
 
     # pylint:disable=too-few-public-methods
     class Meta:
