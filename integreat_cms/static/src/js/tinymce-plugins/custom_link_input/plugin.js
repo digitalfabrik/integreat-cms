@@ -89,7 +89,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
                 let data = api.getData();
 
                 if (data.autoupdate) {
-                    api.disable("text");
+                    api.setEnabled("text", false);
                     if (!prevAutoupdateValue) {
                         api.setData({
                             url: "",
@@ -97,7 +97,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
                         });
                     }
                 } else {
-                    api.enable("text");
+                    api.setEnabled("text", true);
                 }
                 prevAutoupdateValue = data.autoupdate;
 
@@ -155,11 +155,9 @@ import { getCsrfToken } from "../../utils/csrf-token";
 
                 // Disable the submit button if either one of the url or text are empty
                 data = api.getData();
-                if (data.url.trim() && (textDisabled || data.text.trim())) {
-                    api.enable("submit");
-                } else {
-                    api.disable("submit");
-                }
+
+                const enableSubmit = data.url.trim() && (textDisabled || data.text.trim());
+                api.setEnabled("submit", enableSubmit);
 
                 // make new ajax request on user input
                 if (data.search !== prevSearchText && data.search !== "") {
@@ -191,11 +189,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
                         api.focus("search");
                         prevSearchText = data.search;
 
-                        if (completionDisabled) {
-                            api.disable("completions");
-                        } else {
-                            api.enable("completions");
-                        }
+                        api.setEnabled("completions", !completionDisabled);
 
                         updateDialog(api);
                     });
@@ -327,7 +321,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     primary: true,
                     onSetup: (buttonApi) => {
                         const nodeChangeHandler = () => {
-                            buttonApi.setDisabled(editor.readonly);
+                            buttonApi.setEnabled(!editor.readonly);
                         };
                         editor.on("nodechange", nodeChangeHandler);
                         return () => {

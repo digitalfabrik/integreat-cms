@@ -3,18 +3,17 @@ import tinymce, { Editor } from "tinymce";
 import "tinymce/icons/default";
 
 import "tinymce/themes/silver";
+import "tinymce/models/dom";
 
 import "tinymce/plugins/fullscreen";
 import "tinymce/plugins/autosave";
 import "tinymce/plugins/charmap";
 import "tinymce/plugins/code";
 import "tinymce/plugins/directionality";
-import "tinymce/plugins/hr";
 import "tinymce/plugins/image";
 import "tinymce/plugins/link";
 import "tinymce/plugins/lists";
 import "tinymce/plugins/media";
-import "tinymce/plugins/paste";
 import "tinymce/plugins/preview";
 import "tinymce/plugins/wordcount";
 import "tinymce-i18n/langs/de.js";
@@ -72,6 +71,8 @@ window.addEventListener("load", () => {
     if (tinymceConfig) {
         tinymce.init({
             selector: ".tinymce_textarea",
+            license_key: "gpl",
+            promotion: false,
             deprecation_warnings: false,
             menubar: "edit view insert format icon",
             menu: {
@@ -85,7 +86,7 @@ window.addEventListener("load", () => {
                 },
                 format: {
                     title: "Format",
-                    items: "bold italic underline strikethrough superscript | formats | forecolor backcolor | notranslate",
+                    items: "bold italic underline strikethrough superscript | styles | forecolor backcolor | notranslate",
                 },
                 insert: {
                     title: "Insert",
@@ -94,23 +95,22 @@ window.addEventListener("load", () => {
             },
             link_title: false,
             autosave_interval: "120s",
-            forced_root_block: true,
-            plugins: "code fullscreen autosave preview media image lists directionality wordcount hr charmap paste",
+            plugins: "code fullscreen autosave preview media image lists directionality wordcount charmap",
             external_plugins: {
                 autolink_tel: tinymceConfig.getAttribute("data-custom-plugins"),
                 mediacenter: tinymceConfig.getAttribute("data-custom-plugins"),
                 custom_link_input: tinymceConfig.getAttribute("data-custom-plugins"),
             },
             link_default_protocol: "https",
-            target_list: false,
-            default_link_target: "",
+            link_target_list: false,
+            link_default_target: "",
             document_base_url: tinymceConfig.getAttribute("data-webapp-url"),
             relative_urls: false,
             remove_script_host: false,
             branding: false,
             paste_as_text: true,
             toolbar:
-                "bold italic underline forecolor | bullist numlist | styleselect | removeformat | undo redo | ltr rtl notranslate | aligncenter indent outdent | link openmediacenter | export ",
+                "bold italic underline forecolor | bullist numlist | styles | removeformat | undo redo | ltr rtl notranslate | aligncenter indent outdent | link openmediacenter | export ",
             style_formats: [
                 {
                     title: "Headings",
