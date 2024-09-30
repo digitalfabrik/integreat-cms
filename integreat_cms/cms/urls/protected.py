@@ -49,6 +49,7 @@ from ..views import (
     poi_categories,
     pois,
     push_notifications,
+    region_condition,
     regions,
     release_notes,
     roles,
@@ -57,7 +58,6 @@ from ..views import (
     translations,
     users,
     utils,
-    region_condition,
 )
 
 if TYPE_CHECKING:

@@ -6,17 +6,17 @@ from typing import TYPE_CHECKING
 
 import magic
 from django.db.models import Q
+from django.http import HttpResponse
+from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_POST
 from import_export import fields, resources
 from tablib.formats import registry as format_registry
-from django.utils.translation import gettext_lazy as _
-from django.http import HttpResponse
-from django.views.decorators.http import require_POST
 
-from ..utils.hix import get_translation_under_hix_threshold
-from ...constants import translation_status, region_status
+from ...constants import region_status, translation_status
 from ...decorators import permission_required
-from ...models import Region, Page
+from ...models import Page, Region
 from ...utils.linkcheck_utils import filter_urls
+from ..utils.hix import get_translation_under_hix_threshold
 
 if TYPE_CHECKING:
     from django.http import HttpRequest

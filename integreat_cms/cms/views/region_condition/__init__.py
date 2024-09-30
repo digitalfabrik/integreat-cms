@@ -1,2 +1,2 @@
-from .region_condition_view import RegionConditionView
 from .region_condition_actions import export_region_conditions
+from .region_condition_view import RegionConditionView

@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import logging
-from html import escape
 from datetime import datetime
+from html import escape
 from typing import TYPE_CHECKING
 
 from dateutil.relativedelta import relativedelta
