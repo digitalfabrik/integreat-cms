@@ -46,7 +46,7 @@ def generate_thumbnail(
             # Get minimum of original size of the image because ImageOps.fit would otherwise increase the image size
             size = min(image.width, image.height, size)
             # Resize and crop the image into a square of at most the specified size.
-            image = ImageOps.fit(image, (size, size), method=Image.LANCZOS)  # type: ignore[attr-defined]
+            image = ImageOps.fit(image, (size, size), method=Image.LANCZOS)  # type: ignore[attr-defined,assignment]
         else:
             # Resize the image so that the longer side is at most the specified size
             image.thumbnail((size, size), resample=Image.LANCZOS)  # type: ignore[attr-defined]
