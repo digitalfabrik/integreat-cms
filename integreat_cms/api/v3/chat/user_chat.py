@@ -263,8 +263,7 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
         webhook_message["article"]["created_by"]["login"]
         == "tech+integreat-cms@tuerantuer.org"
     ):
-        logger.debug("Automatic answer & question translation")
-        actions.append("Automatic answer & question translation")
+        actions.append("question translation")
         client.send_message(
             zammad_chat.zammad_id,
             translate_message(message_text, region.default_language.slug),
@@ -272,18 +271,18 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
             True,
         )
         chat_bot = ChatBot()
-        answer = chat_bot.automatic_answer(
+        if answer := chat_bot.automatic_answer(
             message_text, region, zammad_chat.language.slug
-        )
-        client.send_message(
-            zammad_chat.zammad_id,
-            answer,
-            False,
-            True,
-        )
+        ):
+            actions.append("automatic answer")
+            client.send_message(
+                zammad_chat.zammad_id,
+                answer,
+                False,
+                True,
+            )
     else:
-        logger.debug("Automatic answer translation")
-        actions.append("Automatic answer translation")
+        actions.append("answer translation")
         client.send_message(
             zammad_chat.zammad_id,
             translate_message(message_text, zammad_chat.language.slug),

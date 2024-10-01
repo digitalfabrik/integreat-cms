@@ -29,6 +29,8 @@ class ChatBot:
         """
         Transform JSON into readable message
         """
+        if not response["answer"]:
+            return ""
         sources = "".join(
             [
                 f"<li><a href='{settings.WEBAPP_URL}{path}'>{path}</a></li>"
