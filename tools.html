@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-09-14T08:24:27+00:00" />
+    <meta property="article:modified_time" content="2024-10-01T13:28:04+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Developer Tools &mdash; integreat-cms 2024.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -1964,6 +1964,7 @@
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#prettier">Prettier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="code-style.html#my-py">my[py]</a></li>
 <li class="toctree-l2"><a class="reference internal" href="code-style.html#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
@@ -2146,16 +2147,12 @@ with <a class="reference external" href="https://github.com/digitalfabrik/integr
 </section>
 <section id="code-quality">
 <h2>Code Quality<a class="headerlink" href="#code-quality" title="Link to this heading"></a></h2>
-<p>Automatically apply our python style with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/black.sh">tools/black.sh</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">black</span><span class="o">.</span><span class="n">sh</span>
-</pre></div>
-</div>
 <p>Automatically run python linting with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/ruff.sh">tools/ruff.sh</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">ruff</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
-<p>Automatically apply our CSS/JS style with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/prettier.sh">tools/prettier.sh</a>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">prettier</span><span class="o">.</span><span class="n">sh</span>
+<p>Automatically apply our python style with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/black.sh">tools/black.sh</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">black</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
 <p>Automatically apply our HTML formatting with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/djlint.sh">tools/djlint.sh</a>:</p>
@@ -2166,8 +2163,20 @@ with <a class="reference external" href="https://github.com/digitalfabrik/integr
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">pylint</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
+<p>Automatically run static file linting with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/eslint.sh">tools/eslint.sh</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">eslint</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>Automatically apply our CSS/JS style with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/prettier.sh">tools/prettier.sh</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">prettier</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
 <p>Execute all tools at once with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/code_style.sh">tools/code_style.sh</a>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">code_style</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>Check the code for python type annotations with <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/mypy.sh">tools/mypy.sh</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">mypy</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
 </section>
@@ -2253,7 +2262,7 @@ This will activate both the bash options <code class="docutils literal notransla
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Sep 14, 2024.
+      <span class="lastupdated">Last updated on Oct 01, 2024.
       </span></p>
   </div>
 

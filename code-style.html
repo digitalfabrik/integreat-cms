@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2023-12-06T13:35:53+00:00" />
+    <meta property="article:modified_time" content="2024-10-01T13:28:04+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Code Style Guidelines &mdash; integreat-cms 2024.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -1964,6 +1964,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#prettier">Prettier</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linting">Linting</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#docstrings">Docstrings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#my-py">my[py]</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#shellcheck">Shellcheck</a></li>
 </ul>
 </li>
@@ -2116,8 +2117,26 @@ model field type.</p>
 </div>
 <p>See the configuration files <a class="reference internal" href="ref-ext/integreat_cms.core.html#module-integreat_cms.core.settings" title="integreat_cms.core.settings"><code class="xref py py-mod docutils literal notranslate"><span class="pre">settings</span></code></a> and <a class="reference internal" href="documentation.html#module-conf" title="conf"><code class="xref py py-mod docutils literal notranslate"><span class="pre">conf</span></code></a> or <a class="reference internal" href="ref-ext/integreat_cms.cms.constants.html#module-integreat_cms.cms.constants" title="integreat_cms.cms.constants"><code class="xref py py-mod docutils literal notranslate"><span class="pre">constants</span></code></a> for examples.</p>
 </section>
+<section id="my-py">
+<span id="mypy"></span><h2>my[py]<a class="headerlink" href="#my-py" title="Link to this heading"></a></h2>
+<p>We use <a class="reference external" href="https://mypy.readthedocs.io/en/stable/">my[py]</a> to check type annotations of our python code.</p>
+<p>We use a <a class="reference external" href="https://pre-commit.com/">pre-commit-hook</a> to apply this check before committing, so TypeErrors will be prevented.
+Just code how you feel comfortable and let the tool do the work for you (see <a class="reference internal" href="git-flow.html#pre-commit-hooks"><span class="std std-ref">Pre-commit Hooks</span></a>).</p>
+<p>If you want to apply the formatting without committing, use our developer tool <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools/mypy.sh">tools/mypy.sh</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">mypy</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you’re unsure about a type, temporarily add <code class="docutils literal notranslate"><span class="pre">reveal_type(variable)</span></code> to the code and run <code class="docutils literal notranslate"><span class="pre">./tools/mypy.sh</span></code>, the tool will then tell you what type it would guess.</p>
+<p>Any imports that are only needed during type checking should be wrapped into a <code class="docutils literal notranslate"><span class="pre">if</span> <span class="pre">TYPE_CHECKING:</span></code> block. For that the variable <code class="docutils literal notranslate"><span class="pre">TYPE_CHECKING</span></code> should be imported from <code class="docutils literal notranslate"><span class="pre">typing</span></code>.</p>
+<p>The line <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">__future__</span> <span class="pre">import</span> <span class="pre">annotations</span></code> must be the first line (after the module docstring) of any new python file.
+(This activates PEP 563 for any python version where it is not already active by default, so we need to keep this until all python versions we support implement it. At the time of writing the first python version where this is not just optional is <a class="reference external" href="https://docs.python.org/3/library/__future__.html#module-contents">still mentioned as TBD</a>)</p>
+<p>If a third party library is incorrectly typed or missing type hints, and this results in errors you cannot fix, then you can add <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">type:</span> <span class="pre">ignore[&lt;error-class&gt;]</span></code> (where the <code class="docutils literal notranslate"><span class="pre">&lt;error-class&gt;</span></code> is the identifier of the error you’re experiencing, e.g. <code class="docutils literal notranslate"><span class="pre">attr-defined</span></code>) in the end of the line where the error is thrown.</p>
+</div>
+</section>
 <section id="shellcheck">
-<span id="id6"></span><h2>Shellcheck<a class="headerlink" href="#shellcheck" title="Link to this heading"></a></h2>
+<span id="id8"></span><h2>Shellcheck<a class="headerlink" href="#shellcheck" title="Link to this heading"></a></h2>
 <p>All developer tools in the <a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tools">tools</a> directory have to comply to the standards of shellcheck (see
 <a class="reference external" href="https://github.com/koalaman/shellcheck/wiki">ShellCheck wiki</a>).
 Shellcheck is run both in the CI-pipeline of CircleCI (see <a class="reference internal" href="continuous-integration.html#circleci-shellcheck"><span class="std std-ref">shellcheck/check</span></a>) and as pre-commit hook (see
@@ -2147,7 +2166,7 @@ Shellcheck is run both in the CI-pipeline of CircleCI (see <a class="reference i
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Dec 06, 2023.
+      <span class="lastupdated">Last updated on Oct 01, 2024.
       </span></p>
   </div>
 
