@@ -29,7 +29,12 @@ class ChatBot:
         """
         Transform JSON into readable message
         """
-        if not response["answer"]:
+        if (
+            "answer" not in response
+            or not response["answer"]
+            or "sources" not in response
+            or not response["sources"]
+        ):
             return ""
         sources = "".join(
             [
