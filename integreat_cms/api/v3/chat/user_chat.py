@@ -10,13 +10,10 @@ import random
 import socket
 from typing import TYPE_CHECKING
 
-from django.conf import settings
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
-from google.cloud import translate_v2 as translate  # type: ignore[attr-defined]
-from google.oauth2 import service_account
 
 from ....cms.models import ABTester, AttachmentMap, Language, Region, UserChat
 from ...decorators import json_response
@@ -104,18 +101,6 @@ def get_messages(
             status=404,
         )
     return response_or_error(client.get_messages(user_chat))
-
-
-def translate_message(message: str, language_slug: str) -> str:
-    """
-    Translate a string with Google Translate
-    """
-    credentials = service_account.Credentials.from_service_account_file(
-        settings.GOOGLE_APPLICATION_CREDENTIALS
-    )
-    translate_client = translate.Client(credentials=credentials)
-    result = translate_client.translate(message, target_language=language_slug)
-    return result["translatedText"]
 
 
 def send_message(
@@ -250,6 +235,7 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
     webhook_message = json.loads(request.body)
     message_text = webhook_message["article"]["body"]
     zammad_chat = UserChat.objects.get(zammad_id=webhook_message["ticket"]["id"])
+    chat_bot = ChatBot()
 
     actions = []
     if webhook_message["article"]["internal"]:
@@ -266,11 +252,12 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
         actions.append("question translation")
         client.send_message(
             zammad_chat.zammad_id,
-            translate_message(message_text, region.default_language.slug),
+            chat_bot.automatic_translation(
+                message_text, zammad_chat.language.slug, region.default_language.slug
+            ),
             True,
             True,
         )
-        chat_bot = ChatBot()
         if answer := chat_bot.automatic_answer(
             message_text, region, zammad_chat.language.slug
         ):
@@ -285,7 +272,9 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
         actions.append("answer translation")
         client.send_message(
             zammad_chat.zammad_id,
-            translate_message(message_text, zammad_chat.language.slug),
+            chat_bot.automatic_translation(
+                message_text, region.default_language.slug, zammad_chat.language.slug
+            ),
             False,
             True,
         )
