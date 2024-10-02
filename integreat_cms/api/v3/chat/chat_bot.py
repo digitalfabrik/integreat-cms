@@ -29,7 +29,12 @@ class ChatBot:
         """
         Transform JSON into readable message
         """
-        if not response["answer"]:
+        if (
+            "answer" not in response
+            or not response["answer"]
+            or "sources" not in response
+            or not response["sources"]
+        ):
             return ""
         sources = "".join(
             [
@@ -45,4 +50,13 @@ class ChatBot:
         """
         Use LLM to translate message
         """
-        raise NotImplementedError
+        url = f"https://{self.hostname}/chatanswers/translate_message/"
+        body = {
+            "message": message,
+            "source_language": source_lang_slug,
+            "target_language": target_lang_slug,
+        }
+        response = requests.post(url, json=body, timeout=30).json()
+        if "status" in response and response["status"] == "success":
+            return response["translation"]
+        return ""
