@@ -5,7 +5,6 @@ import time
 from typing import TYPE_CHECKING
 from urllib.parse import urlencode
 
-from cacheops import invalidate_model
 from django.conf import settings
 from django.contrib import messages
 from django.http import Http404
@@ -218,8 +217,6 @@ class LinkcheckListView(ListView):
                 # Add short delay to allow rechecking to be finished when page reloads
                 time.sleep(1)
 
-        invalidate_model(Link)
-        invalidate_model(Url)
         url_for_current_region = reverse("linkcheck", kwargs=kwargs)
         # Keep pagination settings
         return redirect(f"{url_for_current_region}{self.get_pagination_params()}")
