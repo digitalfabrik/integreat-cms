@@ -1,0 +1,135 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% block content %}
+    {% with request.region.default_language as current_language %}
+        <form id="content_form"
+              method="post"
+              enctype="multipart/form-data"
+              data-unsaved-warning
+              {% if contact_form.disabled %}data-disable-poi-query{% endif %}>
+            {% csrf_token %}
+            <div class="flex justify-between mb-4">
+                <h1 class="heading">
+                    {% if contact_form.instance.id %}
+                        {% translate "Edit contact" %}
+                    {% else %}
+                        {% translate "Create new contact" %}
+                    {% endif %}
+                </h1>
+                <div class="flex flex-wrap justify-between gap-4">
+                    {% if perms.cms.change_contact and not contact_form.instance.archived %}
+                        <div class="flex flex-wrap gap-4">
+                            <button class="btn">
+                                {% if contact_form.instance.id %}
+                                    {% translate "Update" %}
+                                {% else %}
+                                    {% translate "Create" %}
+                                {% endif %}
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="grid xl:grid-cols-3 gap-4">
+                {% include "ajax_poi_form/poi_box.html" with form=contact_form box_id="contact-location" title=_("Connect a location") %}
+                <div id="contact_fields"
+                     class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white {% if not contact_form.instance.id %}hidden{% endif %}">
+                    <div class="p-4 rounded bg-water-500">
+                        <h3 class="heading font-bold text-black">
+                            <i icon-name="message-square" class="mr-2"></i> {% translate "Manage contact data" %}
+                        </h3>
+                    </div>
+                    <div class="p-4">
+                        <div class="help-text mt-4 font-bold">
+                            {% translate "Add missing data or change existing data. Select the data you want to import." %}
+                        </div>
+                        <label for="{{ contact_form.title.id_for_label }}">
+                            {{ contact_form.title.label }}
+                        </label>
+                        {% render_field contact_form.title|add_error_class:"border-red-500" %}
+                        <label for="{{ contact_form.name.id_for_label }}">
+                            {{ contact_form.name.label }}
+                        </label>
+                        {% render_field contact_form.name|add_error_class:"border-red-500" %}
+                        <label for="{{ contact_form.email.id_for_label }}">
+                            {{ contact_form.email.label }}
+                        </label>
+                        {% render_field contact_form.email|add_error_class:"border-red-500" %}
+                        <label for="{{ contact_form.phone_number.id_for_label }}">
+                            {{ contact_form.phone_number.label }}
+                        </label>
+                        {% render_field contact_form.phone_number|add_error_class:"border-red-500" %}
+                        <label for="{{ contact_form.website.id_for_label }}">
+                            {{ contact_form.website.label }}
+                        </label>
+                        {% render_field contact_form.website|add_error_class:"border-red-500" %}
+                    </div>
+                </div>
+                {% if contact_form.instance.id %}
+                    <div id="contact_usage"
+                         class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                        <div class="p-4 rounded bg-water-500">
+                            <h3 class="heading font-bold text-black">
+                                <i icon-name="message-square" class="mr-2"></i> {% translate "Contact information" %}
+                            </h3>
+                        </div>
+                        <div class="p-4">
+                            <div class="help-text mt-4 font-bold">
+                                {% trans "This contact is referred to in those contents." %}
+                            </div>
+                        </div>
+                        {% include "../_related_contents_table.html" with contents=referring_pages table_title=_("Pages") no_content_message=_("This contact is not currently referred to on any page.") %}
+                        {% include "../_related_contents_table.html" with contents=referring_locations table_title=_("Locations") no_content_message=_("This contact is not currently referred to in any location.") %}
+                        {% include "../_related_contents_table.html" with contents=referring_events table_title=_("Events") no_content_message=_("This contact is not currently referred to in any event.") %}
+                    </div>
+                {% endif %}
+            </div>
+            {% if contact_form.instance.id %}
+                <div class="flex flex-wrap grow justify-end gap-2 items-center">
+                    {% if perms.cms.change_contact and not contact_form.instance.archived %}
+                        <button title="{% translate "Archive contact" %}"
+                                class="btn confirmation-button btn-blue"
+                                data-confirmation-title="{{ archive_dialog_title }}"
+                                data-confirmation-text="{{ archive_dialog_text }}"
+                                data-confirmation-subject="{{ contact_form.instance.name }}"
+                                data-action="{% url 'archive_contact' contact_id=contact_form.instance.id region_slug=request.region.slug %}">
+                            <i icon-name="archive" class="mr-2"></i>
+                            {% translate "Archive this contact" %}
+                        </button>
+                    {% endif %}
+                    {% if perms.cms.change_contact and contact_form.instance.archived %}
+                        <button title="{% translate "Restore page" %}"
+                                class="btn confirmation-button btn-blue"
+                                data-confirmation-title="{{ restore_dialog_title }}"
+                                data-confirmation-text="{{ restore_dialog_text }}"
+                                data-confirmation-subject="{{ contact_form.instance.name }}"
+                                data-action="{% url 'restore_contact' contact_id=contact_form.instance.id region_slug=request.region.slug %}">
+                            <i icon-name="refresh-ccw" class="mr-2"></i> {% translate "Restore this contact" %}
+                        </button>
+                    {% endif %}
+                    {% if perms.cms.delete_contact %}
+                        <div class="flex flex-wrap gap-4">
+                            <button title="{% translate "Delete contact" %}"
+                                    class="btn confirmation-button btn-red"
+                                    data-confirmation-title="{{ delete_dialog_title }}"
+                                    data-confirmation-text="{{ delete_dialog_text }}"
+                                    data-confirmation-subject="{{ contact_form.instance.name }}"
+                                    data-action="{% url 'delete_contact' contact_id=contact_form.instance.id region_slug=request.region.slug %}">
+                                <i icon-name="trash-2" class="mr-2"></i>
+                                {% translate "Delete contact" %}
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </form>
+        <form id="ajax_poi_form"
+              name="ajax_poi_form"
+              method="post"
+              enctype="multipart/form-data"
+              data-unsaved-warning>
+        </form>
+        {% include "generic_confirmation_dialog.html" %}
+    {% endwith %}
+{% endblock content %}

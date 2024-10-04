@@ -48,6 +48,9 @@ class EventContextMixin(ContextMixin):
                 "delete_dialog_text": _(
                     "All translations of this event will also be deleted."
                 ),
+                "help_text": _(
+                    "Create an event location or start typing the name of an existing location. Only published locations can be set as event venues."
+                ),
             }
         )
         return context

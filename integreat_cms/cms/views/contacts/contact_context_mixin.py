@@ -27,6 +27,7 @@ class ContactContextMixin(ContextMixin):
 
         context.update(
             {
+                "current_menu_item": "contacts",
                 "archive_dialog_title": _(
                     "Please confirm that you really want to archive this contact"
                 ),

@@ -26,7 +26,7 @@ def archive_contact(
     :return: A redirection to the :class:`~integreat_cms.cms.views.contacts.contact_list_view.ContactListView`
     """
     to_be_archived_contact = get_object_or_404(
-        Contact, id=contact_id, poi__region=request.region
+        Contact, id=contact_id, location__region=request.region
     )
     to_be_archived_contact.archive()
 
@@ -55,7 +55,7 @@ def delete_contact(
     :return: A redirection to the :class:`~integreat_cms.cms.views.contacts.contact_list_view.ContactListView`
     """
     to_be_deleted_contact = get_object_or_404(
-        Contact, id=contact_id, poi__region=request.region
+        Contact, id=contact_id, location__region=request.region
     )
     to_be_deleted_contact.delete()
     messages.success(
@@ -82,7 +82,7 @@ def restore_contact(
     :return: A redirection to the :class:`~integreat_cms.cms.views.contacts.contact_list_view.ContactListView`
     """
     to_be_restored_contact = get_object_or_404(
-        Contact, id=contact_id, poi__region=request.region
+        Contact, id=contact_id, location__region=request.region
     )
     to_be_restored_contact.restore()
 
@@ -112,7 +112,7 @@ def copy_contact(
     :return: A redirection to the :class:`~integreat_cms.cms.views.contacts.contact_list_view.ContactListView`
     """
     to_be_copied_contact = get_object_or_404(
-        Contact, id=contact_id, poi__region=request.region
+        Contact, id=contact_id, location__region=request.region
     )
     to_be_copied_contact.copy()
 

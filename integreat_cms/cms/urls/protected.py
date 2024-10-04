@@ -1405,9 +1405,19 @@ urlpatterns: list[URLPattern] = [
                                 name="archived_contacts",
                             ),
                             path(
+                                "new/",
+                                contacts.ContactFormView.as_view(),
+                                name="new_contact",
+                            ),
+                            path(
                                 "<int:contact_id>/",
                                 include(
                                     [
+                                        path(
+                                            "edit/",
+                                            contacts.ContactFormView.as_view(),
+                                            name="edit_contact",
+                                        ),
                                         path(
                                             "copy/",
                                             contacts.copy_contact,
