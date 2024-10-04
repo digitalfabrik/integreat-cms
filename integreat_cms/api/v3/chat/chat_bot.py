@@ -6,6 +6,7 @@ import requests
 from django.conf import settings
 
 from ....cms.models import Region
+from ....cms.utils.content_translation_utils import get_public_translation_for_link
 
 
 class ChatBot:
@@ -29,17 +30,17 @@ class ChatBot:
         """
         Transform JSON into readable message
         """
-        if (
-            "answer" not in response
-            or not response["answer"]
-            or "sources" not in response
-            or not response["sources"]
-        ):
+        if "answer" not in response or not response["answer"]:
             return ""
+        if "sources" not in response or not response["sources"]:
+            return response["answer"]
         sources = "".join(
             [
-                f"<li><a href='{settings.WEBAPP_URL}{path}'>{path}</a></li>"
+                f"<li><a href='{settings.WEBAPP_URL}{path}'>{title}</a></li>"
                 for path in response["sources"]
+                if (
+                    title := get_public_translation_for_link(settings.WEBAPP_URL + path)
+                )
             ]
         )
         return f"{response['answer']}\n<ul>{sources}</ul>"
