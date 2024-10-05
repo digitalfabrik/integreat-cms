@@ -107,14 +107,18 @@ def get_region_links(region: Region) -> QuerySet:
     organizations = Organization.objects.filter(region=region, archived=False)
     # Get all link objects of the requested region
     region_links = Link.objects.filter(
-        Q(page_translation__id__in=latest_pagetranslation_versions)
-        | Q(imprint_translation__id__in=latest_imprinttranslation_versions)
-        | Q(event_translation__id__in=latest_eventtranslation_versions)
-        | Q(poi_translation__id__in=latest_poitranslation_versions)
-        | Q(organization__id__in=organizations)
-    ).order_by("id")
+        page_translation__id__in=latest_pagetranslation_versions
+    ).union(
+        Link.objects.filter(
+            imprint_translation__id__in=latest_imprinttranslation_versions
+        ),
+        Link.objects.filter(event_translation__id__in=latest_eventtranslation_versions),
+        Link.objects.filter(poi_translation__id__in=latest_poitranslation_versions),
+        Link.objects.filter(organization__id__in=organizations),
+        all=True,
+    )
 
-    return region_links
+    return Link.objects.filter(id__in=region_links.values("pk")).order_by("id")
 
 
 def get_url_count(region_slug: str | None = None) -> dict[str, int]:
