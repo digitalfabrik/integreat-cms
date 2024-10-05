@@ -157,7 +157,9 @@ class DashboardView(TemplateView, ChatContextMixin):
 
         :return: Dictionary containing the context for broken links
         """
-        invalid_urls = filter_urls(request.region.slug, "invalid")[0]
+        invalid_urls = filter_urls(
+            request.region.slug, "invalid", prefetch_region_links=True
+        )[0]
         invalid_url = invalid_urls[0] if invalid_urls else None
 
         relevant_translation = (
