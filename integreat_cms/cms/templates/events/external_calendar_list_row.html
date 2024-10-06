@@ -30,6 +30,9 @@
             {{ calendar.events.count }}
         </a>
     </td>
+    <td>
+        {{ calendar.created_by }}
+    </td>
     <td class="pl-2 pr-4 text-right min">
         {% if perms.cms.delete_externalcalendar %}
             <button title="{% translate "Delete external calendar" %}"
