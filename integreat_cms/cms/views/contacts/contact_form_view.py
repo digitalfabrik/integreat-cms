@@ -118,7 +118,7 @@ class ContactFormView(TemplateView, ContactContextMixin):
                     ),
                 )
             elif not contact_form.has_changed():
-                messages.info(request, _("No changes detected"))
+                messages.info(request, _("No changes detected, but date refreshed"))
             else:
                 messages.success(
                     request,
