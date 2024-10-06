@@ -2,8 +2,8 @@ import pytest
 from django.test.client import Client
 from django.urls import reverse
 
-from integreat_cms.cms.models.pages.page_translation import PageTranslation
 from integreat_cms.cms.constants import translation_status
+from integreat_cms.cms.models.pages.page_translation import PageTranslation
 from tests.conftest import MANAGEMENT, PRIV_STAFF_ROLES
 
 
