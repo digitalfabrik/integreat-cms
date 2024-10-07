@@ -8,13 +8,18 @@ import logging
 from collections import deque
 from typing import TYPE_CHECKING
 
+from django.apps import apps
 from django.db import transaction
 
-from ..models import Page
 from .shadow_instance import ShadowInstance
 
 if TYPE_CHECKING:
     from typing import Iterable
+
+    from django.apps.registry import Apps
+    from django.db.models import Model
+
+    Page: Model = apps.get_model("cms", "Page")
 
 
 @transaction.atomic
@@ -22,6 +27,7 @@ def repair_tree(
     page_id: Iterable[int] | None = None,
     commit: bool = False,
     logging_name: str = __name__,
+    dj_apps: Apps = apps,
 ) -> None:
     """
     Fix the tree for a given page, or all trees if no id is given.
@@ -30,7 +36,9 @@ def repair_tree(
     """
     logger = logging.getLogger(logging_name)
 
-    mptt_fixer = MPTTFixer()
+    # Use get_model() instead of importing so this function can be used in migrations
+    Page: Model = dj_apps.get_model("cms", "Page")
+    mptt_fixer = MPTTFixer(dj_apps=dj_apps)
     root_nodes: Iterable[ShadowInstance[Page]]
 
     if page_id:
@@ -95,7 +103,7 @@ class MPTTFixer:
 
     logger = logging.getLogger(__name__)
 
-    def __init__(self) -> None:
+    def __init__(self, dj_apps: Apps = apps) -> None:
         """
         Create a fixed tree, using a :class:`~integreat_cms.cms.utils.shadow_instance.ShadowInstance` of each page.
         """
