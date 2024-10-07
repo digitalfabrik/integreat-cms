@@ -276,7 +276,7 @@
                         {% translate "Broken Links" %}
                     </a>
                 {% endif %}
-                {% if perms.cms.view_region %}
+                {% if request.user.is_superuser or request.user.is_staff %}
                     <a href="{% url 'region_condition' %}"
                        class="{% if current_menu_item == 'region_condition' %} active{% endif %}">
                         <i icon-name="cctv"></i>

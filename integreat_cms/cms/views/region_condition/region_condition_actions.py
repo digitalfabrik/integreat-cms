@@ -5,6 +5,7 @@ from datetime import datetime
 from typing import TYPE_CHECKING
 
 import magic
+from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Q
 from django.http import HttpResponse
 from django.utils.translation import gettext_lazy as _
@@ -13,7 +14,6 @@ from import_export import fields, resources
 from tablib.formats import registry as format_registry
 
 from ...constants import region_status, translation_status
-from ...decorators import permission_required
 from ...models import Page, Region
 from ...utils.linkcheck_utils import filter_urls
 from ..utils.hix import get_translation_under_hix_threshold
@@ -144,7 +144,7 @@ class RegionConditionResource(resources.ModelResource):
 
 
 @require_POST
-@permission_required("cms.view_region")
+@staff_member_required
 def export_region_conditions(request: HttpRequest, file_format: str) -> HttpResponse:
     """
     Creates a data export summarizing the condition of all region
