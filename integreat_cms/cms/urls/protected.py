@@ -1410,6 +1410,21 @@ urlpatterns: list[URLPattern] = [
                                 name="new_contact",
                             ),
                             path(
+                                "bulk-archive/",
+                                contacts.ArchiveContactBulkAction.as_view(),
+                                name="bulk_archive_contacts",
+                            ),
+                            path(
+                                "bulk-restore/",
+                                contacts.RestoreContactBulkAction.as_view(),
+                                name="bulk_restore_contacts",
+                            ),
+                            path(
+                                "bulk-delete/",
+                                contacts.DeleteContactBulkAction.as_view(),
+                                name="bulk_delete_contacts",
+                            ),
+                            path(
                                 "<int:contact_id>/",
                                 include(
                                     [

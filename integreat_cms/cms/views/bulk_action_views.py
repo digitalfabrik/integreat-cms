@@ -11,6 +11,7 @@ from cacheops import invalidate_model
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from django.http import Http404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -90,9 +91,9 @@ class BulkActionView(PermissionRequiredMixin, MultipleObjectMixin, RedirectView)
             super()
             .get_queryset()
             .filter(
-                region=self.request.region,
                 id__in=self.request.POST.getlist("selected_ids[]"),
             )
+            .filter(self.get_extra_filters())
         )
         if not queryset:
             raise Http404(f"No {self.model._meta.object_name} matches the given query.")
@@ -101,6 +102,14 @@ class BulkActionView(PermissionRequiredMixin, MultipleObjectMixin, RedirectView)
         if self.prefetch_public_translations:
             queryset = queryset.prefetch_public_translations()
         return queryset
+
+    def get_extra_filters(self) -> Q:
+        """
+        Get extra filters for get_queryset(). Overwrite this method to specify needed filters e.g. as in `~integreat_cms.cms.views.contact.contact_bulk_actions`
+
+        :return: Q Object to be used as filter argument
+        """
+        return Q(region=self.request.region)
 
 
 class BulkMachineTranslationView(BulkActionView):

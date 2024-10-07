@@ -5331,6 +5331,18 @@ msgid "Select bulk action"
 msgstr "Mehrfachaktion auswählen"
 
 #: cms/templates/contacts/contact_list.html
+msgid "Restore contacts"
+msgstr "Kontakte wiederherstellen"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Archive contacts"
+msgstr "Kontakte archivieren"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Delete contacts"
+msgstr "Kontakte löschen"
+
+#: cms/templates/contacts/contact_list.html
 #: cms/templates/events/event_list.html
 #: cms/templates/events/event_list_archived.html
 #: cms/templates/feedback/admin_feedback_list.html
@@ -8868,7 +8880,7 @@ msgstr[1] "Es gibt bereits aktuelle Übersetzungen für {}"
 msgid "The selected {} were successfully {}"
 msgstr "Die ausgewählten {} wurden erfolgreich {}"
 
-#: cms/views/bulk_action_views.py
+#: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully archived."
 msgid_plural ""
@@ -8917,7 +8929,7 @@ msgstr[1] ""
 "Die folgenden Orte können nicht archiviert werden, da sie von einer "
 "Veranstaltung oder einem Kontakt verwendet werden: \"{object_names}\""
 
-#: cms/views/bulk_action_views.py
+#: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully restored."
 msgid_plural ""
@@ -8968,6 +8980,16 @@ msgstr "Kontakt {0} wurde erfolgreich wiederhergestellt"
 #, python-brace-format
 msgid "Contact {0} was successfully copied"
 msgstr "Kontakt {0} wurde erfolgreich kopiert"
+
+#: cms/views/contacts/contact_bulk_actions.py
+#, python-brace-format
+msgid "{model_name} {object_names} was successfully deleted."
+msgid_plural ""
+"The following {model_name_plural} were successfully deleted: {object_names}"
+msgstr[0] "{model_name} {object_names} wurde erfolgreich gelöscht."
+msgstr[1] ""
+"Die folgenden {model_name_plural} wurden erfolgreich gelöscht: "
+"{object_names}"
 
 #: cms/views/contacts/contact_context_mixin.py
 msgid "Please confirm that you really want to archive this contact"
