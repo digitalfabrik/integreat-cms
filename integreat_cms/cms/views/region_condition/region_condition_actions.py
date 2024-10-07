@@ -32,7 +32,7 @@ class RegionConditionResource(resources.ModelResource):
     It represents the to-be exported status of all regions.
     """
 
-    name = fields.Field(column_name=_("Region name"), attribute="name")
+    name = fields.Field(column_name=_("Region"), attribute="name")
 
     num_broken_links = fields.Field(column_name=_("Number of broken links"))
 
@@ -47,7 +47,7 @@ class RegionConditionResource(resources.ModelResource):
     num_outdated_pages = fields.Field(column_name=_("Number of outdated pages"))
 
     has_translation_package_been_booked = fields.Field(
-        column_name=_("Has translation package been booked"),
+        column_name=_("Has translation package been booked?"),
         attribute="mt_addon_booked",
     )
 
@@ -147,7 +147,7 @@ class RegionConditionResource(resources.ModelResource):
 @staff_member_required
 def export_region_conditions(request: HttpRequest, file_format: str) -> HttpResponse:
     """
-    Creates a data export summarizing the condition of all region
+    Creates a data export summarizing the condition of all regions
 
     :param request: The current request
     :param file_format: The file format to export
