@@ -87,7 +87,6 @@ def test_pdf_export(
     response_api = client.get(f"{export_pdf_api}?{urlencode({'url': url})}")
     # Test both the PDF generation of the CMS as well as the API
     for response in [response_cms, response_api]:
-        print(response.headers)
         assert response.status_code == 302
         expected_url = f"/pdf/{quote(expected_filename)}"
         assert response.headers.get("Location") == expected_url
