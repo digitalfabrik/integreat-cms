@@ -95,6 +95,20 @@
                 <option>
                     {% translate "Select bulk action" %}
                 </option>
+                {% if is_archive %}
+                    <option data-bulk-action="{% url "bulk_restore_contacts" region_slug=request.region.slug %}">
+                        {% translate "Restore contacts" %}
+                    </option>
+                {% else %}
+                    <option data-bulk-action="{% url "bulk_archive_contacts" region_slug=request.region.slug %}">
+                        {% translate "Archive contacts" %}
+                    </option>
+                {% endif %}
+                {% if perms.cms.delete_contact %}
+                    <option data-bulk-action="{% url "bulk_delete_contacts" region_slug=request.region.slug %}">
+                        {% translate "Delete contacts" %}
+                    </option>
+                {% endif %}
             </select>
             <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
                 {% translate "Execute" %}
