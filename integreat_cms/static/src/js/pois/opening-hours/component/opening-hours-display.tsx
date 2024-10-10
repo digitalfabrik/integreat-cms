@@ -2,12 +2,12 @@
  * This component renders the opening hours of a location
  */
 import cn from "classnames";
-import { StateUpdater } from "preact/hooks";
+import { Dispatch, StateUpdater } from "preact/hooks";
 import { OpeningHours } from "../index";
 
 type Props = {
     openingHours: OpeningHours[];
-    setSelectedDays: StateUpdater<number[]>;
+    setSelectedDays: Dispatch<StateUpdater<number[]>>;
     translations: any;
     days: any;
     canChangeLocation: boolean;
