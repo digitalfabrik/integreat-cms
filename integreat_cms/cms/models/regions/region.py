@@ -1,14 +1,17 @@
 from __future__ import annotations
 
 import logging
+from datetime import datetime
 from html import escape
 from typing import TYPE_CHECKING
 
+from dateutil.relativedelta import relativedelta
 from django.apps import apps
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.db.models import Q, Subquery
 from django.http import Http404
 from django.template.defaultfilters import floatformat
 from django.urls import reverse
@@ -18,8 +21,6 @@ from django.utils.translation import gettext, override
 from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
-    from datetime import datetime
-
     from django.db.models.query import QuerySet
     from django.utils.functional import Promise
     from django.utils.safestring import SafeString
@@ -38,6 +39,7 @@ from ...constants import (
     machine_translation_permissions,
     months,
     region_status,
+    status,
 )
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_base_model import AbstractBaseModel
@@ -732,10 +734,22 @@ class Region(AbstractBaseModel):
             explicitly_archived=False,
         )
 
+    @cached_property
+    def latest_page_translations(self) -> QuerySet:
+        """
+        :return: A QuerySet of all PageTranslations of this region that are non-archived and the latest version.
+        """
+        # Get model instead of importing it to avoid circular imports
+        PageTranslation = apps.get_model(app_label="cms", model_name="PageTranslation")
+        return PageTranslation.objects.filter(
+            page__id__in=Subquery(self.non_archived_pages.values("pk")),
+        ).distinct("page__id", "language__id")
+
     def get_pages(
         self,
         archived: bool = False,
         prefetch_translations: bool = False,
+        prefetch_major_translations: bool = False,
         prefetch_public_translations: bool = False,
         annotate_language_tree: bool = False,
     ) -> PageQuerySet:
@@ -744,8 +758,9 @@ class Region(AbstractBaseModel):
         To retrieve all pages independently of their archived-state, use the reverse foreign key
         :attr:`~integreat_cms.cms.models.regions.region.Region.pages`.
 
-        :param archived: Whether or not only archived pages should be returned (default: ``False``)
+        :param archived: Whether only archived pages should be returned (default: ``False``)
         :param prefetch_translations: Whether the latest translations for each language should be prefetched (default: ``False``)
+        :param prefetch_major_translations: Whether the latest major translations for each language should be prefetched (default: ``False``)
         :param prefetch_public_translations: Whether the latest public translations for each language should be prefetched (default: ``False``)
         :param annotate_language_tree: Whether the pages should be annotated with the region's language tree (default: ``False``)
         :return: Either the archived or the non-archived pages of this region
@@ -753,6 +768,8 @@ class Region(AbstractBaseModel):
         pages = self.archived_pages if archived else self.non_archived_pages
         if prefetch_translations:
             pages = pages.prefetch_translations()
+        if prefetch_major_translations:
+            pages = pages.prefetch_major_translations()
         if prefetch_public_translations:
             pages = pages.prefetch_public_translations()
         if annotate_language_tree:
@@ -768,6 +785,41 @@ class Region(AbstractBaseModel):
         # Get model instead of importing it to avoid circular imports
         Page = apps.get_model(app_label="cms", model_name="Page")
         return Page.get_root_pages(region_slug=self.slug)
+
+    def outdated_pages(
+        self, translation_ids: QuerySet | list | None = None
+    ) -> QuerySet:
+        """
+        Returns the outdated pages of this region. A page is outdated if it has not been updated in a configurable amount of time.
+
+        :param translation_ids: Limit to the result to these ids. If None is passed, all latest page translations will be used.
+        :return: The number of outdated pages of this region.
+        """
+        # Get model instead of importing it to avoid circular imports
+        PageTranslation = apps.get_model(app_label="cms", model_name="PageTranslation")
+
+        if not self.default_language:
+            return PageTranslation.objects.none()
+
+        if translation_ids is None:
+            translation_ids = self.latest_page_translations.values_list("id", flat=True)
+
+        outdated_threshold_date = datetime.now() - relativedelta(
+            days=settings.OUTDATED_THRESHOLD_DAYS
+        )
+
+        outdated_pages = (
+            PageTranslation.objects.filter(
+                language__slug=self.default_language.slug,
+                id__in=translation_ids,
+                last_updated__lte=outdated_threshold_date.date(),
+                status=status.PUBLIC,
+            )
+            .order_by("last_updated")
+            .exclude(Q(content="") & Q(page__mirrored_page=None))
+        )
+
+        return outdated_pages
 
     @classmethod
     def search(cls, query: str) -> QuerySet[Region]:
