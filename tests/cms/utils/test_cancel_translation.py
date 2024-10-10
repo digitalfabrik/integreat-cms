@@ -42,7 +42,7 @@ def test_page_bulk_actions(
         prev_status[page_id] = translation.translation_state
 
     # call the cancellation routine
-    kwargs = {"region_slug": "augsburg", "language_slug": "de"}
+    kwargs = {"region_slug": "nurnberg", "language_slug": "de"}
     cancel_translation_process = reverse("cancel_translation_process", kwargs=kwargs)
     response = client.post(
         cancel_translation_process, data={"selected_ids[]": page_ids}
