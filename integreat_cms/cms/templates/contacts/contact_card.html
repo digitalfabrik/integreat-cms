@@ -1,0 +1,76 @@
+{% load static %}
+{% spaceless %}
+<div contenteditable="false"
+    {% if not contact %} data-invalid="true" {% endif %}
+    style="
+        display: inline-block;
+        box-sizing: border-box;
+        min-width: 50%;
+        padding: 0.1em 1em;
+        border-radius: 0.3em;
+        background: rgba(127, 127, 127, 0.15);
+        box-shadow: 0 .1em .1em rgba(0,0,0,0.4);
+        cursor: default !important;
+        color: initial;
+        text-decoration: initial;
+        background-image: linear-gradient(to right, rgba(255,255,255,0.9) 0 100%), url({% get_static_prefix %}/svg/contact.svg) !important;
+        background-blend-mode: difference;
+        background-position: calc(100% + 2em) calc(100% + 1em);
+        background-size: 7em;
+        background-repeat: no-repeat;
+    ">
+        <a href={{ contact.full_url }}
+            style="
+                opacity: 0;
+                position: absolute;
+                font-size: 0;
+            ">Contact</a>
+        {% if contact %}
+            <h4>{% if contact.point_of_contact_for and contact.point_of_contact_for.strip %}
+                    {{ contact.point_of_contact_for.strip }}:
+                {% endif %}{% if contact.name and contact.name.strip %}<span class="notranslate" dir="ltr" translate="no">{{ contact.name.strip }}
+                    </span>
+                {% endif %}
+            </h4>
+            {% if contact.email and contact.email.strip %}
+                <p>
+                    <img src="{% get_static_prefix %}/svg/email.svg"
+                        alt="Email"
+                        style="width: 15px; height: 15px;"
+                        />
+                    <a href="mailto:{{ contact.email.strip }}">
+                        <span class="notranslate" dir="ltr" translate="no">
+                            {{ contact.email.strip }}
+                        </span>
+                    </a>
+                </p>
+            {% endif %}
+            {% if contact.phone_number and contact.phone_number.strip %}
+                <p>
+                    <img src="{% get_static_prefix %}/svg/call.svg"
+                        alt="Phone Number"
+                        style="width: 15px; height: 15px;"
+                        />
+                    <a href="tel:{{ contact.phone_number.strip }}">
+                        <span class="notranslate" dir="ltr" translate="no">
+                            {{ contact.phone_number.strip }}
+                        </span>
+                    </a>
+                </p>
+            {% endif %}
+            {% if contact.website and contact.website.strip %}
+                <p>
+                    <img src="{% get_static_prefix %}/svg/www.svg"
+                        alt="Email"
+                        style="width: 15px; height: 15px;"
+                        />
+                    <a href="{{ contact.website.strip }}">
+                        <span class="notranslate" dir="ltr" translate="no">
+                            {{ contact.website.strip }}
+                        </span>
+                    </a>
+                </p>
+            {% endif %}
+        {% endif %}
+</div>
+{% endspaceless %}
