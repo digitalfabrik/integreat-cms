@@ -11,7 +11,7 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 
 from ..constants import region_status
-from ..models import Region
+from ..models import Contact, Region
 
 if TYPE_CHECKING:
     from django.db.models.fields.related import RelatedManager
@@ -299,7 +299,7 @@ def check_event_or_location(
     return url.status
 
 
-def check_internal(url: Url) -> bool | None:
+def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
     # pylint: disable=too-many-return-statements, too-many-branches
     """
     :param url: The internal URL to check
@@ -342,6 +342,12 @@ def check_internal(url: Url) -> bool | None:
     if "/" not in language_and_path:
         language_and_path += "/"
     language_slug, path = language_and_path.split("/", maxsplit=1)
+
+    if language_slug == "contact" and Contact.objects.filter(pk=path).exists():
+        logger.debug("Link to a contact is valid.")
+        mark_valid(url)
+        return url.status
+
     try:
         language = region.get_language_or_404(
             language_slug, only_active=True, only_visible=True

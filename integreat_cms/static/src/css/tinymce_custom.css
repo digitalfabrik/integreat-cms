@@ -3,10 +3,17 @@
 @import "../fonts/noto-sans-sc/noto-sans-sc.css";
 @import "../fonts/noto-sans-ethiopic/noto-sans-ethiopic.css";
 @import "../fonts/noto-sans-georgian/noto-sans-georgian.css";
+@import "./contact_card.css";
 
-[translate="no"] {
+[translate="no"]:not(.contact-card) {
     background-color: rgb(239, 68, 68);
     direction: ltr;
     display: inline-block;
     white-space: pre-wrap;
+}
+[contenteditable="false"] a {
+    pointer-events: none;
+}
+.contact-card {
+    cursor: default !important;
 }
