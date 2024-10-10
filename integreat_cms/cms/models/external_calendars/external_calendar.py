@@ -37,7 +37,7 @@ class ExternalCalendar(AbstractBaseModel):
         blank=True,
         on_delete=models.SET_NULL,
         related_name="created_by",
-        verbose_name=_("Created by"),
+        verbose_name=_("creator"),
         help_text=_("The account that created this external calendar."),
     )
 

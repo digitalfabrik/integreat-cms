@@ -25,7 +25,7 @@ class Migration(migrations.Migration):
                 on_delete=django.db.models.deletion.SET_NULL,
                 related_name="created_by",
                 to=settings.AUTH_USER_MODEL,
-                verbose_name="Created by",
+                verbose_name="Creator",
             ),
         ),
     ]
