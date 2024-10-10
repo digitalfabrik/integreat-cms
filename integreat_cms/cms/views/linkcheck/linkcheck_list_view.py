@@ -90,7 +90,9 @@ class LinkcheckListView(ListView):
         :return: The QuerySet of the filtered urls
         """
         urls, count_dict = filter_urls(
-            self.kwargs.get("region_slug"), self.kwargs.get("url_filter")
+            self.kwargs.get("region_slug"),
+            self.kwargs.get("url_filter"),
+            prefetch_region_links=True,
         )
         self.extra_context.update(count_dict)
         return urls
@@ -102,7 +104,9 @@ class LinkcheckListView(ListView):
         if edit_url_id := kwargs.pop("url_id", None):
             region = request.region.slug if request.region else None
             try:
-                self.instance = get_urls(region, url_ids=[edit_url_id])[0]
+                self.instance = get_urls(
+                    region, url_ids=[edit_url_id], prefetch_region_links=True
+                )[0]
             except IndexError as e:
                 raise Http404("This URL does not exist") from e
             if request.POST:
