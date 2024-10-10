@@ -1,13 +1,14 @@
 import logging
+from copy import deepcopy
 from html import unescape
 from urllib.parse import unquote, urlparse
 
 from django.conf import settings
 from django.db.models import Q
 from lxml.etree import LxmlError
-from lxml.html import fromstring, HtmlElement, tostring
+from lxml.html import Element, fromstring, HtmlElement, tostring
 
-from ..models import MediaFile
+from ..models import Contact, MediaFile
 from ..utils import internal_link_utils
 from ..utils.link_utils import fix_content_link_encoding
 
@@ -32,6 +33,7 @@ def clean_content(content: str, language_slug: str) -> str:
     update_links(content, language_slug)
     fix_alt_texts(content)
     hide_anchor_tag_around_image(content)
+    update_contacts(content)
 
     content_str = tostring(content, encoding="unicode", with_tail=False)
     return fix_content_link_encoding(content_str)
@@ -137,6 +139,120 @@ def update_internal_links(link: HtmlElement, language_slug: str) -> None:
             else:
                 link.text = ""
                 link.append(new_html)
+
+
+def render_contact_card(
+    contact_id: int, fetched_contacts: dict[int, Contact]
+) -> HtmlElement:
+    """
+    Produces an html element for the contact.
+
+    :param contact_id: The id of the contact to render the card for
+    :param fetched_contacts: A dictionary of pre-fetched contact objects, indexed by their id
+
+    .. Note::
+
+        This function does not fetch any contacts itself if the provided id is not in ``fetched_contacts``,
+        nor will a contact at that key be double-checked to actually have the expected id.
+        If the contact for the id is not provided, the contact will be assumed missing from our database and be labelled as invalid.
+    """
+    new_div = Element(
+        "div",
+        **{
+            "contenteditable": "false",
+            "data-contact": str(contact_id),
+        },
+    )
+    if contact_id not in fetched_contacts:
+        # TODO: css styling for this
+        new_div.set(**{"data-invalid": "true"})
+        logger.warning("Non-existent contact id %r in content", contact_id)
+    else:
+        contact = fetched_contacts[contact_id]
+        logger.debug("Rendering contact %r into content", contact)
+        title = (
+            f"{contact.title.strip()}: "
+            if contact.title and contact.title.strip()
+            else ""
+        )
+        name = contact.name.strip() if contact.name and contact.name.strip() else ""
+        h4 = Element("h4")
+        h4.text = f"{title}{name}"
+        new_div.append(h4)
+
+        if contact.email and contact.email.strip():
+            email = Element("p")
+            img = Element(
+                "img",
+                style="width: 15px; height: 15px;",
+                src="/static/svg/email.svg",
+                alt="Email",
+            )
+            img.tail = f" {contact.email.strip()}"
+            email.append(img)
+            new_div.append(email)
+        if contact.phone_number and contact.phone_number.strip():
+            phone_number = Element("p")
+            img = Element(
+                "img",
+                style="width: 15px; height: 15px;",
+                src="/static/svg/call.svg",
+                alt="Phone Number",
+            )
+            img.tail = f" {contact.phone_number.strip()}"
+            phone_number.append(img)
+            new_div.append(phone_number)
+        if contact.website and contact.website.strip():
+            website = Element("p")
+            img = Element(
+                "img",
+                style="width: 15px; height: 15px;",
+                src="/static/svg/www.svg",
+                alt="Website",
+            )
+            img.tail = f" {contact.website.strip()}"
+            website.append(img)
+            new_div.append(website)
+    return new_div
+
+
+def update_contacts(content: HtmlElement, only_ids: tuple[int] | None = None) -> None:
+    """
+    Inject rendered contact html for given ID
+
+    :param content: The content whose contacts should be updated
+    :param only_ids: A list of ids if only certain contacts should be updated, otherwise None
+    """
+    nodes_to_update: dict[int, HtmlElement] = {}
+    for div in content.iter("div"):
+        if (contact_id := div.get("data-contact", None)) is None:
+            continue
+
+        try:
+            contact_id = int(contact_id)
+        except ValueError:
+            logger.warning("Failed parsing contact id %r as int", contact_id)
+
+        if not isinstance(contact_id, int):
+            logger.warning("Malformed contact id %r in content", contact_id)
+        elif only_ids is None or contact_id in only_ids:
+            # Gather all nodes
+            if contact_id not in nodes_to_update:
+                nodes_to_update[contact_id] = []
+            nodes_to_update[contact_id].append(div)
+
+    # Get all required contacts in a single query
+    fetched_contacts = {
+        contact.pk: contact
+        for contact in Contact.objects.filter(id__in=nodes_to_update.keys())
+    }
+
+    for contact_id, divs in nodes_to_update.items():
+        new_div = render_contact_card(contact_id, fetched_contacts=fetched_contacts)
+
+        # Finally, inject the card in every occurence
+        for div in divs:
+            div.getparent().replace(div, deepcopy(new_div))
 
 
 def fix_alt_texts(content: HtmlElement) -> None:
