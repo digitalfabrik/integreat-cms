@@ -1,3 +1,9 @@
+from __future__ import annotations
+
+from functools import reduce
+from typing import TYPE_CHECKING
+
+from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
@@ -7,6 +13,9 @@ from django.utils.translation import gettext_lazy as _
 from ..abstract_base_model import AbstractBaseModel
 from ..pois.poi import POI
 from ..regions.region import Region
+
+if TYPE_CHECKING:
+    from django.db.models.query import QuerySet
 
 
 class Contact(AbstractBaseModel):
@@ -55,6 +64,39 @@ class Contact(AbstractBaseModel):
         :return: Region this contact belongs to
         """
         return self.location.region
+
+    @classmethod
+    def search(cls, region: Region, query: str) -> QuerySet:
+        """
+        Searches for all contacts which match the given `query` in their comment.
+        :param region: The current region
+        :param query: The query string used for filtering the contacts
+        :return: A query for all matching objects
+        """
+        searchable_fields = ("point_of_contact_for", "name", "email", "phone_number", "website")
+
+        q = models.Q()
+
+        for word in query.split():
+            # Every word has to appear in at least one field
+            OR = [
+                models.Q(**{f"{field}__icontains": word}) for field in searchable_fields
+            ]
+            # We OR whether it appears in each of the field, and
+            # AND those expressions corresponding to each word
+            # because we are not interested in objects where one word is missing
+            q &= reduce(lambda a, b: a | b, OR)
+
+        # We could add annotations to determine how closely each result matches the query,
+        # e.g. by finding the length of the longest common substring between each field and the original query,
+        # taking the square of that value to obtain something representing the "contribution" of that field
+        # (so longer matches in only a few fields get a much higher value than many short matches all over)
+        # and then summing those together to obtain an overall score of how relevant that object is to the query,
+        # but that would require us find the longest common substring on the db level,
+        # and that feels a bit overkill for now  (it will likely be confusing to re-discover and maintain,
+        # especially if we were to also employ fuzzy matching – which would be much preferred, if we can do it)
+
+        return cls.objects.filter(q, location__region=region)
 
     def __str__(self) -> str:
         """
@@ -120,6 +162,77 @@ class Contact(AbstractBaseModel):
         self.pk = None
         self.point_of_contact_for = self.point_of_contact_for + " " + _("(Copy)")
         self.save()
+
+    @cached_property
+    def url_prefix(self) -> str:
+        """
+        Generates the prefix of the url of the contact
+
+        For information about the components of such an url,
+        see :meth:`~integreat_cms.cms.models.contact.contact.Contact.get_absolute_url`
+
+        :return: The prefix to the url
+        """
+        return "/" + "/".join(
+            filter(
+                None,
+                [
+                    self.location.region.slug,
+                    self.url_infix,
+                ],
+            )
+        )
+
+    @cached_property
+    def url_infix(self) -> str:
+        """
+        Generates the infix of the url of the contact
+
+        For information about the components of such an url,
+        see :meth:`~integreat_cms.cms.models.contact.contact.Contact.get_absolute_url`
+        """
+        return "contact/"
+
+    @cached_property
+    def base_link(self) -> str:
+        """
+        Generates the base link which is the whole url without id
+
+        For information about the components of such an url,
+        see :meth:`~integreat_cms.cms.models.contact.contact.Contact.get_absolute_url`
+
+        :return: the base link of the content
+        """
+        if not self.id:
+            return settings.WEBAPP_URL + "/"
+        return settings.WEBAPP_URL + self.url_prefix
+
+    def get_absolute_url(self) -> str:
+        """
+        Generates the absolute url of the contact
+
+        Here is an example for demonstrating the components::
+
+            https://integreat.app/augsburg/contact/42/
+            |----------------------------------------|    full_url
+                                 |-------------------|    get_absolute_url()
+            |-------------------------------------|       base_link
+                                 |----------------|       url_prefix
+                                          |-------|       url_infix
+                                                  |--|    id
+
+        :return: The absolute url
+        """
+        return self.url_prefix + str(self.id) + "/"
+
+    @cached_property
+    def full_url(self) -> str:
+        """
+        This property returns the full url of this contact
+
+        :return: The full url
+        """
+        return settings.WEBAPP_URL + self.get_absolute_url()
 
     class Meta:
         verbose_name = _("contact")
