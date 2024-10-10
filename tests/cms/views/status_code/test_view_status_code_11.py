@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
 
 
+# pylint: disable=too-many-positional-arguments
 @pytest.mark.django_db
 @pytest.mark.parametrize("view_name,kwargs,post_data,roles", PARAMETRIZED_VIEWS[11::16])
 def test_view_status_code_11(

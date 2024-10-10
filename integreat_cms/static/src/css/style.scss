@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Country flags - define these before tailwind to make it possible to override
 $fp-prepend: true;
 $fp-enable-1x1: false;
@@ -27,8 +29,8 @@ $fp-4x3-path: "flagpack-dart-sass/flags/4x3/";
 
 $list-bg-color: white;
 $list-border-color: lightgray;
-$hover-bg-color: darken($list-border-color, 20%);
-$active-bg-color: darken($list-border-color, 10%);
+$hover-bg-color: color.adjust($list-border-color, $lightness: -20%);
+$active-bg-color: color.adjust($list-border-color, $lightness: -10%);
 
 body,
 html {
