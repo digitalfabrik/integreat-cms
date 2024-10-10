@@ -95,6 +95,7 @@ class ExternalCalendarFormView(TemplateView):
                 )
         else:
             external_calendar_form.instance.region = self.request.region
+            external_calendar_form.instance.created_by = request.user
             external_calendar_form.save()
             if not external_calendar_instance:
                 messages.success(
