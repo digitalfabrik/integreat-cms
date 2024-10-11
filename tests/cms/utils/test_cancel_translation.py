@@ -1,13 +1,12 @@
 import pytest
 from _pytest.logging import LogCaptureFixture
-
 from django.test.client import Client
 from django.urls import reverse
 
-from integreat_cms.cms.models.pages.page_translation import PageTranslation
 from integreat_cms.cms.constants import translation_status
+from integreat_cms.cms.models.pages.page_translation import PageTranslation
 from tests.conftest import PRIV_STAFF_ROLES
-from tests.utils import get_messages, assert_no_error_messages
+from tests.utils import assert_no_error_messages, get_messages
 
 success_messages = {
     translation_status.UP_TO_DATE: [
