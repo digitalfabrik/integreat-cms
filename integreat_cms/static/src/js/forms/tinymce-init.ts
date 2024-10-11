@@ -89,7 +89,7 @@ window.addEventListener("load", () => {
                 },
                 insert: {
                     title: "Insert",
-                    items: "openmediacenter add_link media | charmap hr",
+                    items: "openmediacenter add_link add_contact media | charmap hr",
                 },
             },
             link_title: false,
@@ -100,6 +100,7 @@ window.addEventListener("load", () => {
                 autolink_tel: tinymceConfig.getAttribute("data-custom-plugins"),
                 mediacenter: tinymceConfig.getAttribute("data-custom-plugins"),
                 custom_link_input: tinymceConfig.getAttribute("data-custom-plugins"),
+                custom_contact_input: tinymceConfig.getAttribute("data-custom-plugins"),
             },
             link_default_protocol: "https",
             target_list: false,
@@ -171,6 +172,7 @@ window.addEventListener("load", () => {
             directionality: tinymceConfig.getAttribute("data-directionality") as "ltr" | "rtl",
             element_format: "html",
             entity_encoding: "raw",
+            valid_children: "+a[div|h4|p]",
             setup: (editor: Editor) => {
                 addIcon(editor, tinymceConfig, "pin", "meta+alt+1", "");
                 addIcon(editor, tinymceConfig, "www", "meta+alt+2", "");

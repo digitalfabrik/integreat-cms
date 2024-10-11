@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from functools import reduce
 from typing import TYPE_CHECKING
 
@@ -7,7 +8,7 @@ from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
-from django.utils.functional import cached_property
+from django.utils.functional import cached_property, classproperty
 from django.utils.translation import gettext_lazy as _
 
 from ..abstract_base_model import AbstractBaseModel
@@ -54,6 +55,10 @@ class Contact(AbstractBaseModel):
     )
     created_date = models.DateTimeField(
         default=timezone.now, verbose_name=_("creation date")
+    )
+
+    _url_regex = re.compile(
+        r"^https:\/\/integreat\.app\/([^/?#]+)\/contact\/([0-9]+)\/"
     )
 
     @cached_property
@@ -162,6 +167,10 @@ class Contact(AbstractBaseModel):
         self.pk = None
         self.point_of_contact_for = self.point_of_contact_for + " " + _("(Copy)")
         self.save()
+
+    @classproperty
+    def url_regex(cls) -> re.Pattern:
+        return cls._url_regex
 
     @cached_property
     def url_prefix(self) -> str:

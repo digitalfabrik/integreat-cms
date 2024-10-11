@@ -21,7 +21,7 @@ from ...models import Language, POI, POITranslation
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
 from ..media.media_context_mixin import MediaContextMixin
-from ..mixins import ContentEditLockMixin
+from ..mixins import ContentEditLockMixin, HtmlEditorMixin
 from .poi_context_mixin import POIContextMixin
 
 if TYPE_CHECKING:
@@ -35,7 +35,11 @@ logger = logging.getLogger(__name__)
 @method_decorator(permission_required("cms.view_poi"), name="dispatch")
 @method_decorator(permission_required("cms.change_poi"), name="post")
 class POIFormView(
-    TemplateView, POIContextMixin, MediaContextMixin, ContentEditLockMixin
+    TemplateView,
+    POIContextMixin,
+    MediaContextMixin,
+    ContentEditLockMixin,
+    HtmlEditorMixin,
 ):
     """
     View for editing POIs

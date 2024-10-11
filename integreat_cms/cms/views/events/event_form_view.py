@@ -18,7 +18,7 @@ from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Event, EventTranslation, Language, POI, RecurrenceRule
 from ...utils.translation_utils import translate_link
 from ..media.media_context_mixin import MediaContextMixin
-from ..mixins import ContentEditLockMixin
+from ..mixins import ContentEditLockMixin, HtmlEditorMixin
 from .event_context_mixin import EventContextMixin
 
 if TYPE_CHECKING:
@@ -32,7 +32,11 @@ logger = logging.getLogger(__name__)
 @method_decorator(permission_required("cms.view_event"), name="dispatch")
 @method_decorator(permission_required("cms.change_event"), name="post")
 class EventFormView(
-    TemplateView, EventContextMixin, MediaContextMixin, ContentEditLockMixin
+    TemplateView,
+    EventContextMixin,
+    MediaContextMixin,
+    ContentEditLockMixin,
+    HtmlEditorMixin,
 ):
     """
     Class for rendering the events form
