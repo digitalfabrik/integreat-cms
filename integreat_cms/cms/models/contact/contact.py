@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 from functools import reduce
 from typing import TYPE_CHECKING
 
@@ -8,7 +9,7 @@ from django.db import models
 from django.db.models import Q
 from django.db.utils import DataError
 from django.utils import timezone
-from django.utils.functional import cached_property
+from django.utils.functional import cached_property, classproperty
 from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
@@ -59,6 +60,10 @@ class Contact(AbstractBaseModel):
         default=timezone.now, verbose_name=_("creation date")
     )
 
+    _url_regex = re.compile(
+        r"^https:\/\/integreat\.app\/([^/?#]+)\/contact\/([0-9]+)\/"
+    )
+
     @cached_property
     def region(self) -> Region:
         """
@@ -76,7 +81,13 @@ class Contact(AbstractBaseModel):
         :param query: The query string used for filtering the contacts
         :return: A query for all matching objects
         """
-        searchable_fields = ("point_of_contact_for", "name", "email", "phone_number", "website")
+        searchable_fields = (
+            "point_of_contact_for",
+            "name",
+            "email",
+            "phone_number",
+            "website",
+        )
 
         q = models.Q()
 
@@ -179,6 +190,10 @@ class Contact(AbstractBaseModel):
         self.pk = None
         self.point_of_contact_for = self.point_of_contact_for + " " + _("(Copy)")
         self.save()
+
+    @classproperty
+    def url_regex(cls) -> re.Pattern:
+        return cls._url_regex
 
     @cached_property
     def url_prefix(self) -> str:

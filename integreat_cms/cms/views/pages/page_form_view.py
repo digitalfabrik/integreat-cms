@@ -20,7 +20,7 @@ from ...models import PageTranslation
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
 from ..media.media_context_mixin import MediaContextMixin
-from ..mixins import ContentEditLockMixin
+from ..mixins import ContentEditLockMixin, HtmlEditorMixin
 from .page_context_mixin import PageContextMixin
 
 if TYPE_CHECKING:
@@ -37,7 +37,11 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
 class PageFormView(
-    TemplateView, PageContextMixin, MediaContextMixin, ContentEditLockMixin
+    TemplateView,
+    PageContextMixin,
+    MediaContextMixin,
+    ContentEditLockMixin,
+    HtmlEditorMixin,
 ):
     """
     View for the page form and page translation form
