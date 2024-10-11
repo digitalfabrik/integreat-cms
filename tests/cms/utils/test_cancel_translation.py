@@ -6,7 +6,7 @@ from django.urls import reverse
 
 from integreat_cms.cms.models.pages.page_translation import PageTranslation
 from integreat_cms.cms.constants import translation_status
-from tests.conftest import EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
+from tests.conftest import PRIV_STAFF_ROLES
 from tests.utils import get_messages, assert_no_error_messages
 
 success_messages = {
@@ -22,9 +22,7 @@ success_messages = {
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True  # Rollen
-)
+@pytest.mark.parametrize("login_role_user", PRIV_STAFF_ROLES, indirect=True)  # Rollen
 @pytest.mark.parametrize("page_ids", [[30, 31]])
 def test_page_bulk_actions(
     load_test_data: None,
