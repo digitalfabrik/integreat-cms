@@ -10,6 +10,7 @@ import logging
 
 import icalendar.cal
 from django.utils.translation import gettext as _
+from icalendar.prop import vCategory
 
 from integreat_cms.cms.constants import status
 from integreat_cms.cms.forms import EventForm, EventTranslationForm
@@ -63,7 +64,19 @@ class IcalEventData:
         )
         start = event.decoded("DTSTART")
         end = event.decoded("DTEND")
-        categories = event.get("categories").cats if event.get("categories") else []
+
+        # Categories can be a "vCategory" object, a list of such objects, or be missing
+        categories = event.get("categories", [])
+        categories = (
+            categories.cats
+            if isinstance(categories, vCategory)
+            else [
+                category
+                for sub_categories in categories
+                for category in sub_categories.cats
+            ]
+        )
+
         logger.debug(
             "Event(event_id=%s, title=%s, start=%s, end=%s, content=%s...)",
             event_id,
