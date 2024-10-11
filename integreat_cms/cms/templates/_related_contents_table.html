@@ -1,5 +1,8 @@
 {% load i18n %}
 {% load content_filters %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_language LANGUAGE_CODE as backend_language %}
+{% with request.region.default_language as region_default_language %}
 <div class="table-listing w-full px-4 pb-4">
     <div>
         <label>
@@ -63,3 +66,4 @@
         </tbody>
     </table>
 </div>
+{% endwith %}

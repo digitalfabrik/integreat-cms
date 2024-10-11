@@ -10,9 +10,10 @@ from django.views.generic import TemplateView
 
 from ...decorators import permission_required
 from ...forms import ContactForm
-from ...models import Contact
+from ...models import Contact, ContactUsage, Page, PageTranslation, POI, POITranslation, Event, EventTranslation
 from ...utils.translation_utils import gettext_many_lazy as __
 from .contact_context_mixin import ContactContextMixin
+from ...contactlist import PageTranslationContactlist, EventTranslationContactlist, POITranslationContactlist
 
 if TYPE_CHECKING:
     from typing import Any
@@ -71,6 +72,57 @@ class ContactFormView(TemplateView, ContactContextMixin):
             )
         )
 
+        referring_pages = (
+            Page.objects.filter(
+                id__in=(
+                    PageTranslation.objects.filter(
+                        id__in=(
+                            ContactUsage.objects.filter(
+                                contact_id=contact_instance.pk,
+                                content_type=PageTranslationContactlist.content_type(),
+                            ).values_list("object_id", flat=True)
+                        ),
+                    ).values_list("page_id", flat=True)
+                ),
+            )
+            if contact_instance else
+            None
+        )
+
+        referring_locations = (
+            POI.objects.filter(
+                id__in=(
+                    POITranslation.objects.filter(
+                        id__in=(
+                            ContactUsage.objects.filter(
+                                contact_id=contact_instance.pk,
+                                content_type=POITranslationContactlist.content_type(),
+                            ).values_list("object_id", flat=True)
+                        ),
+                    ).values_list("poi_id", flat=True)
+                ),
+            )
+            if contact_instance else
+            None
+        )
+
+        referring_events = (
+            Event.objects.filter(
+                id__in=(
+                    EventTranslation.objects.filter(
+                        id__in=(
+                            ContactUsage.objects.filter(
+                                contact_id=contact_instance.pk,
+                                content_type=EventTranslationContactlist.content_type(),
+                            ).values_list("object_id", flat=True)
+                        ),
+                    ).values_list("event_id", flat=True)
+                ),
+            )
+            if contact_instance else
+            None
+        )
+
         return render(
             request,
             self.template_name,
@@ -78,9 +130,9 @@ class ContactFormView(TemplateView, ContactContextMixin):
                 **self.get_context_data(**kwargs),
                 "contact_form": contact_form,
                 "poi": contact_instance.location if contact_instance else None,
-                "referring_pages": None,  # to implement later, how do we collect such pages?
-                "referring_locations": None,  # to implement later, how do we collect such POIs?
-                "referring_events": None,  # to implement later, how do we collect such Events?
+                "referring_pages": referring_pages,
+                "referring_locations": referring_locations,
+                "referring_events": referring_events,
                 "help_text": help_text,
             },
         )

@@ -82,9 +82,6 @@
             </div>
         </div>
         {% if form.instance.id %}
-            {% get_current_language as LANGUAGE_CODE %}
-            {% get_language LANGUAGE_CODE as backend_language %}
-            {% with request.region.default_language as region_default_language %}
                 <div class="grid xl:grid-cols-2 gap-4">
                     <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                         <div class="p-4 rounded bg-water-500">
@@ -96,7 +93,6 @@
                         {% include "../_related_contents_table.html" with contents=form.instance.pages.all table_title=_("Pages") no_content_message=_("This organization currently has no maintained pages.") %}
                         {% include "../_related_contents_table.html" with contents=form.instance.pois.all table_title=_("Locations") no_content_message=_("This organization currently has no maintained locations.") %}
                     </div>
-                {% endwith %}
                 <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                     <div class="p-4 rounded bg-water-500">
                         <h3 class="heading font-bold text-black">
