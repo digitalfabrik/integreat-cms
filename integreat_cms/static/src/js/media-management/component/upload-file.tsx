@@ -1,7 +1,7 @@
 /*
  * This component renders a file upload field
  */
-import { StateUpdater, useEffect, useRef } from "preact/hooks";
+import { Dispatch, StateUpdater, useEffect, useRef } from "preact/hooks";
 import { FilePlus } from "lucide-preact";
 import Dropzone from "dropzone";
 import "dropzone/dist/dropzone.css";
@@ -11,14 +11,14 @@ import { getCsrfToken } from "../../utils/csrf-token";
 
 type Props = {
     directory: Directory;
-    setUploadFile: StateUpdater<boolean>;
+    setUploadFile: Dispatch<StateUpdater<boolean>>;
     apiEndpoints: MediaApiPaths;
     mediaTranslations: any;
     mediaTypes: { allowedMediaTypes: string };
     submitForm: (event: Event, successCallback: () => void) => any;
     /* eslint-disable-next-line react/no-unused-prop-types */
     isLoading: boolean;
-    refreshState: [boolean, StateUpdater<boolean>];
+    refreshState: [boolean, Dispatch<StateUpdater<boolean>>];
 };
 
 const UploadFile = ({

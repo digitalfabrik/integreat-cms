@@ -13,7 +13,7 @@
  *   6. submitForm() submits the deletion form via AJAX
  *   7. On success, the media library is refreshed
  */
-import { StateUpdater, useEffect, useState } from "preact/hooks";
+import { Dispatch, StateUpdater, useEffect, useState } from "preact/hooks";
 import {
     AlertTriangle,
     CheckCircle,
@@ -38,7 +38,7 @@ import { showConfirmationPopupAjax } from "../../confirmation-popups";
 import { MediaApiPaths, File, MediaLibraryEntry, FileUsages } from "../index";
 
 type Props = {
-    fileIndexState: [number | null, StateUpdater<number | null>];
+    fileIndexState: [number | null, Dispatch<StateUpdater<number | null>>];
     mediaLibraryContent: MediaLibraryEntry[];
     apiEndpoints: MediaApiPaths;
     mediaTranslations: any;
@@ -52,7 +52,7 @@ type Props = {
         url: string,
         urlParams: URLSearchParams,
         successCallback: (data: any) => void,
-        loadingSetter?: StateUpdater<boolean>
+        loadingSetter?: Dispatch<StateUpdater<boolean>>
     ) => void;
     isLoading: boolean;
     canDeleteFile: boolean;
