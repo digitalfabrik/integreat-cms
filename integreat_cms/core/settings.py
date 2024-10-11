@@ -1042,6 +1042,19 @@ SUMM_AI_PLAIN_GERMAN_REGIONS: Final[list[str]] = [
 ]
 
 
+##########################
+# CONTACT USAGE TRACKING #
+##########################
+
+#: Whether archived pages should be ignored for contact usage scan.
+#: Since this causes a lot of overhead, only use this for the findcontacts management command::
+#:
+#:    $ INTEGREAT_CMS_FINDCONTACTS_COMMAND_RUNNING=1 integreat-cms-cli findcontacts
+FINDCONTACTS_COMMAND_RUNNING: Final[bool] = bool(
+    strtobool(os.environ.get("INTEGREAT_CMS_FINDCONTACTS_COMMAND_RUNNING", "False"))
+)
+
+
 ################
 # STATIC FILES #
 ################
