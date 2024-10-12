@@ -13,6 +13,7 @@ from django.views.generic.base import TemplateView
 from django.views.generic.detail import SingleObjectMixin
 
 from ..constants import status
+from ..models import Event
 
 if TYPE_CHECKING:
     from typing import Any
@@ -274,6 +275,24 @@ class ContentVersionView(PermissionRequiredMixin, SingleObjectMixin, TemplateVie
 
         :return: The rendered template response
         """
+        if self.model is Event and self.get_object().external_calendar:
+            logger.info(
+                "%s %s can not change its status as it was imported from an external calendar",
+                self.model_name,
+                self.get_object(),
+            )
+
+            messages.info(
+                request,
+                _(
+                    "%s %s can not change its status as it was imported from an external calendar"
+                )
+                % (
+                    self.model_name,
+                    self.get_object(),
+                ),
+            )
+            return redirect(self.versions_url)
 
         if desired_status := request.POST.get("status"):
             try:
