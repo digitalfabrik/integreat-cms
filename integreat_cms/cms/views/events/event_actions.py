@@ -17,6 +17,7 @@ from django.views.decorators.http import require_POST
 from ...constants import status
 from ...decorators import permission_required
 from ...models import POITranslation, Region
+from ...models.events.event import CouldNotBeCopied
 
 if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
@@ -72,7 +73,16 @@ def copy(
     region = request.region
     event = get_object_or_404(region.events, id=event_id)
 
-    event.copy(request.user)
+    try:
+        event.copy(request.user)
+    except CouldNotBeCopied:
+        messages.error(
+            request,
+            _("Event couldn't be copied because it's from an external calendar"),
+        )
+        return redirect(
+            "events", **{"region_slug": region_slug, "language_slug": language_slug}
+        )
 
     logger.debug("%r copied by %r", event, request.user)
     messages.success(request, _("Event was successfully copied"))
