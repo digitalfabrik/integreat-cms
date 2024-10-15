@@ -36,7 +36,6 @@ class ExternalCalendar(AbstractBaseModel):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name="created_by",
         verbose_name=_("creator"),
         help_text=_("The account that created this external calendar."),
     )
@@ -45,12 +44,11 @@ class ExternalCalendar(AbstractBaseModel):
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name="last_changed_by",
         verbose_name=_("last changed by"),
         help_text=_("The account that was the last to change this external calendar."),
     )
     last_changed_on = models.DateTimeField(
-        auto_now_add=True,
+        auto_now=True,
         verbose_name=_("last changed on"),
     )
 
