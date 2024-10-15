@@ -2,7 +2,7 @@
  * This component renders a grid of all subdirectories and all files of the current directory
  */
 import { Link } from "preact-router";
-import { StateUpdater } from "preact/hooks";
+import { Dispatch, StateUpdater } from "preact/hooks";
 
 import { MediaLibraryEntry, File, Directory } from "..";
 import DirectoryEntry from "./directory-entry";
@@ -14,7 +14,7 @@ export type DraggedElement = {
 };
 
 type Props = {
-    fileIndexState: [number | null, StateUpdater<number | null>];
+    fileIndexState: [number | null, Dispatch<StateUpdater<number | null>>];
     mediaLibraryContent: MediaLibraryEntry[];
     mediaTranslations: any;
     globalEdit?: boolean;
