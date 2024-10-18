@@ -51,6 +51,7 @@ class IcalEventData:
         :param logger: The logger to use
         :return: An instance of IcalEventData
         """
+        # pylint: disable=too-many-locals
         event_id = event.decoded("UID").decode("utf-8")
         title = event.decoded("SUMMARY").decode("utf-8")
         content = clean_content(
@@ -73,15 +74,25 @@ class IcalEventData:
             content[:32],
         )
 
+        is_all_day = not (
+            isinstance(start, datetime.datetime) and isinstance(end, datetime.datetime)
+        )
+        if is_all_day:
+            start_date, start_time = start, None
+            end_date, end_time = end - datetime.timedelta(days=1), None
+        else:
+            start_date, start_time = start.date(), start.time()
+            end_date, end_time = end.date(), end.time()
+
         return cls(
             event_id=event_id,
             title=title,
             content=content,
-            start_date=start.date() if isinstance(start, datetime.datetime) else start,
-            start_time=start.time() if isinstance(start, datetime.datetime) else None,
-            end_date=end.date() if isinstance(end, datetime.datetime) else end,
-            end_time=end.time() if isinstance(end, datetime.datetime) else None,
-            is_all_day=not isinstance(start, datetime.datetime),
+            start_date=start_date,
+            start_time=start_time,
+            end_date=end_date,
+            end_time=end_time,
+            is_all_day=is_all_day,
             external_calendar_id=external_calendar_id,
             categories=categories,
         )
