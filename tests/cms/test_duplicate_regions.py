@@ -53,13 +53,13 @@ def test_duplicate_regions(
             "longitude": 1,
             "latitude": 1,
             "duplicated_region": 1,
+            "duplication_keep_translations": True,
             "duplication_pbo_behavior": "activate_missing",
             "zammad_url": "https://zammad-test.example.com",
             "timezone": "Europe/Berlin",
             "mt_renewal_month": 6,
         },
     )
-    print(response.headers)
     assert response.status_code == 302
 
     target_region = Region.objects.get(slug="cloned")
@@ -98,12 +98,12 @@ def test_duplicate_regions(
         # Check if all cloned page translations exist and are identical
         source_page_translations = source_page.translations.all()
         # Limit target page translations to all that existed before the links might have been replaced
-        target_pages_translations = target_page.translations.filter(
+        target_page_translations = target_page.translations.filter(
             last_updated__lt=before_cloning
         )
-        assert len(source_page_translations) == len(target_pages_translations)
+        assert len(source_page_translations) == len(target_page_translations)
         for source_page_translation, target_page_translation in zip(
-            source_page_translations, target_pages_translations
+            source_page_translations, target_page_translations
         ):
             source_page_translation_dict = model_to_dict(
                 source_page_translation,
@@ -178,3 +178,91 @@ def test_duplicate_regions(
         combinations = model.objects.values_list("tree_id", "region")
         tree_ids = [tree_id for tree_id, region in set(combinations)]
         assert len(tree_ids) == len(set(tree_ids))
+
+
+# pylint: disable=too-many-locals
+@pytest.mark.order("last")
+@pytest.mark.django_db(transaction=True, serialized_rollback=True)
+def test_duplicate_regions_no_translations(
+    load_test_data_transactional: None, admin_client: Client
+) -> None:
+    """
+    Test whether duplicating regions works as expected when disabling the duplication of translations
+
+    :param load_test_data_transactional: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data_transactional`)
+    :param admin_client: The fixture providing the logged in admin (see :fixture:`admin_client`)
+    """
+    source_region = Region.objects.get(id=1)
+    target_region_slug = "cloned"
+    assert not Region.objects.filter(
+        slug=target_region_slug
+    ).exists(), "The target region should not exist before cloning"
+
+    before_cloning = timezone.now()
+    url = reverse("new_region")
+    response = admin_client.post(
+        url,
+        data={
+            "administrative_division": "CITY",
+            "name": "cloned",
+            "admin_mail": "cloned@example.com",
+            "postal_code": "11111",
+            "status": "ACTIVE",
+            "longitude": 1,
+            "latitude": 1,
+            "duplicated_region": 1,
+            "duplication_keep_translations": False,
+            "duplication_pbo_behavior": "activate_missing",
+            "zammad_url": "https://zammad-test.example.com",
+            "timezone": "Europe/Berlin",
+            "mt_renewal_month": 6,
+        },
+    )
+    assert response.status_code == 302
+
+    target_region = Region.objects.get(slug="cloned")
+
+    source_language_root = source_region.language_tree_root.language
+    target_languages = target_region.languages
+    assert len(target_languages) == 1
+    assert source_language_root in target_languages
+
+    # Check if all cloned pages exist and are identical
+    source_pages = source_region.non_archived_pages
+    target_pages = target_region.pages.all()
+    assert len(source_pages) == len(target_pages)
+    for source_page, target_page in zip(source_pages, target_pages):
+        source_page_dict = model_to_dict(
+            source_page,
+            exclude=[
+                "id",
+                "tree_id",
+                "region",
+                "parent",
+                "api_token",
+                "authors",
+                "editors",
+            ],
+        )
+        target_page_dict = model_to_dict(
+            target_page,
+            exclude=[
+                "id",
+                "tree_id",
+                "region",
+                "parent",
+                "api_token",
+                "authors",
+                "editors",
+            ],
+        )
+        assert source_page_dict == target_page_dict
+
+        source_page_translations_filtered = source_page.translations.filter(
+            language=source_language_root
+        )
+        target_page_translations = target_page.translations.filter(
+            last_updated__lt=before_cloning
+        )
+        assert len(source_page_translations_filtered) == len(target_page_translations)
+        assert target_page_translations[0].language == source_language_root
