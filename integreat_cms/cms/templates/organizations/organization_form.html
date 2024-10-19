@@ -27,7 +27,8 @@
                                 {% translate "Delete" %}
                             </button>
                         {% else %}
-                            <button title="{% translate "Delete organization" %}"
+                            <button type="button"
+                                    title="{% translate "Delete organization" %}"
                                     class="btn confirmation-button btn-red"
                                     data-confirmation-title="{{ delete_dialog_title }}"
                                     data-confirmation-text="{{ delete_dialog_text }}"
@@ -41,7 +42,7 @@
                 {% endif %}
                 {% if perms.cms.change_organization %}
                     <div class="flex flex-wrap gap-4">
-                        <button class="btn">
+                        <button type="submit" class="btn">
                             {% translate "Save" %}
                         </button>
                     </div>

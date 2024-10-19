@@ -21,7 +21,8 @@
                 <div class="flex flex-wrap justify-between gap-4">
                     {% if external_calendar_form.instance.id and perms.cms.delete_externalcalendar %}
                         <div class="flex flex-wrap gap-4">
-                            <button title="{% translate "Delete external calendar" %}"
+                            <button type="button"
+                                    title="{% translate "Delete external calendar" %}"
                                     class="btn confirmation-button btn-red"
                                     data-confirmation-title="{{ delete_dialog_title }}"
                                     data-confirmation-text="{{ delete_dialog_text }}"
@@ -32,7 +33,7 @@
                             </button>
                         </div>
                     {% endif %}
-                    <button class="btn">
+                    <button type="submit" class="btn">
                         {% if external_calendar_form.instance.id %}
                             {% translate "Update & Import" %}
                         {% else %}
