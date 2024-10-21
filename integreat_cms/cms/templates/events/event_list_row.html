@@ -116,13 +116,13 @@
             <i icon-name="calendar"></i> {% translate "One-time" %}
         {% endif %}
     </td>
-    {% if perms.cms.view_externalcalendar %}
-        <td class="py-3 pr-2">
-            {% if event.external_calendar %}
-                {{ event.external_calendar.name }}
-            {% endif %}
-        </td>
-    {% endif %}
+    <td class="py-3 pr-2">
+        {% if event.external_calendar %}
+            {{ event.external_calendar.name }}
+        {% else %}
+            <i icon-name="minus"></i>
+        {% endif %}
+    </td>
     <td class="pr-4 py-3 flex flex-nowrap justify-end gap-2">
         {% if event_translation.status == PUBLIC %}
             <a href="{{ WEBAPP_URL }}{{ event_translation.get_absolute_url }}"
