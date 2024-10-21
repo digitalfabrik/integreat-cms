@@ -17,6 +17,7 @@ from ..cms.utils.stringify_list import iter_to_string
 from ..core.utils.machine_translation_api_client import MachineTranslationApiClient
 from ..core.utils.machine_translation_provider import MachineTranslationProvider
 from ..textlab_api.utils import check_hix_score
+from .apps import DeepLApiClientConfig
 
 if TYPE_CHECKING:
     from django.forms.models import ModelFormMetaclass
@@ -80,6 +81,8 @@ class DeepLApiClient(MachineTranslationApiClient):
         :param queryset: The content QuerySet
         :param language_slug: The target language slug
         """
+        deepl_config: DeepLApiClientConfig = apps.get_app_config("deepl_api")
+
         with transaction.atomic():
             # Re-select the region from db to prevent simultaneous
             # requests exceeding the DeepL usage limit
@@ -146,11 +149,16 @@ class DeepLApiClient(MachineTranslationApiClient):
                     ):
                         try:
                             # data has to be unescaped for DeepL to recognize Umlaute
+                            glossary = deepl_config.get_glossary(
+                                source_language.slug, target_language_key
+                            )
+                            logger.debug("Used glossary for translation: %s", glossary)
                             data[attr] = self.translator.translate_text(
                                 unescape(getattr(source_translation, attr)),
                                 source_lang=source_language.slug,
                                 target_lang=target_language_key,
                                 tag_handling="html",
+                                glossary=glossary,
                             )
                         except DeepLException as e:
                             messages.error(

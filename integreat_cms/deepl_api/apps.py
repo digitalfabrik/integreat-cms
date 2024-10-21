@@ -9,7 +9,7 @@ import os
 import sys
 from typing import TYPE_CHECKING
 
-from deepl import Translator
+from deepl import GlossaryInfo, Translator
 from deepl.exceptions import DeepLException
 from django.apps import AppConfig
 from django.conf import settings
@@ -36,6 +36,29 @@ class DeepLApiClientConfig(AppConfig):
     supported_source_languages: list[str] = []
     #: The supported target languages
     supported_target_languages: list[str] = []
+    #: The supported glossaries, a map from (source_language, target_language) to glossary info
+    supported_glossaries: dict[tuple[str, str], GlossaryInfo] = {}
+
+    def get_glossary(
+        self, source_language: str, target_language: str
+    ) -> GlossaryInfo | None:
+        """
+        Looks up a glossary for the specified source language and target language pair.
+        This method also returns the correct glossary for region variants (for example en-gb)
+
+        :param source_language: The source language
+        :param target_language: The target language
+        :return: A :class:`~deepl.glossaries.GlossaryInfo` object or None
+        """
+
+        def normalize(language: str) -> str:
+            """
+            Normalizes the language by converting it to lower-case and only keeping the non-regional part
+            """
+            return language.lower().split("-")[0]
+
+        key = normalize(source_language), normalize(target_language)
+        return self.supported_glossaries.get(key)
 
     def ready(self) -> None:
         """
@@ -52,6 +75,7 @@ class DeepLApiClientConfig(AppConfig):
 
                     self.init_supported_source_languages(deepl_translator)
                     self.init_supported_target_languages(deepl_translator)
+                    self.init_supported_glossaries(deepl_translator)
 
                     self.assert_usage_limit_not_reached(deepl_translator)
                 except (DeepLException, AssertionError) as e:
@@ -94,6 +118,26 @@ class DeepLApiClientConfig(AppConfig):
             self.supported_target_languages,
         )
         assert self.supported_target_languages
+
+    def init_supported_glossaries(self, translator: Translator) -> None:
+        """
+        Requests the supported glossaries from the translator and sets them
+
+        :param translator: The deepl translator
+        """
+        if not settings.DEEPL_GLOSSARIES_ENABLED:
+            logger.debug("No glossaries loaded because they are disabled in settings")
+            return
+
+        glossaries = translator.list_glossaries()
+        self.supported_glossaries = {
+            (glossary.source_lang.lower(), glossary.target_lang.lower()): glossary
+            for glossary in glossaries
+            if glossary.ready
+        }
+        logger.debug(
+            "Supported glossaries by DeepL: %s", list(self.supported_glossaries.keys())
+        )
 
     @staticmethod
     def assert_usage_limit_not_reached(translator: Translator) -> None:
