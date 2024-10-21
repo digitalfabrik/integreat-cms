@@ -59,7 +59,7 @@ def archive(
 @permission_required("cms.change_event")
 def copy(
     request: HttpRequest, event_id: int, region_slug: str, language_slug: str
-) -> HttpResponseRedirect:
+) -> HttpResponseRedirect | None:
     """
     Duplicates the given event and all of its translations.
 
@@ -71,6 +71,14 @@ def copy(
     """
     region = request.region
     event = get_object_or_404(region.events, id=event_id)
+
+    if event.external_calendar:
+        messages.error(
+            request, _("Event couldn't be copied because it's from a external calendar")
+        )
+        return redirect(
+            "events", **{"region_slug": region_slug, "language_slug": language_slug}
+        )
 
     event.copy(request.user)
 
