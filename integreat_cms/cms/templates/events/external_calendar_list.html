@@ -27,8 +27,17 @@
                     <th class="px-2 py-3 text-sm text-left uppercase min-w-80">
                         {% translate "Status" %}
                     </th>
-                    <th class="px-2 py-3 text-sm text-left uppercase">
+                    <th class="px-2 py-3 text-sm text-left uppercase min-w-48">
                         {% translate "Imported events" %}
+                    </th>
+                    <th class="px-2 py-3 text-sm text-left uppercase">
+                        {% translate "Creator" %}
+                    </th>
+                    <th class="px-2 py-3 text-sm text-left uppercase">
+                        {% translate "Last changed by" %}
+                    </th>
+                    <th class="px-2 py-3 text-sm text-left uppercase">
+                        {% translate "Last updated" %}
                     </th>
                 </tr>
             </thead>
@@ -37,7 +46,7 @@
                     {% include "events/external_calendar_list_row.html" %}
                 {% empty %}
                     <tr>
-                        <td colspan="3" class="px-4 py-3">
+                        <td colspan="7" class="px-4 py-3">
                             {% translate "No external calendars available yet." %}
                         </td>
                     </tr>
