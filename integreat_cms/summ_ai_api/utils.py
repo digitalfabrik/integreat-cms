@@ -9,6 +9,7 @@ import itertools
 import logging
 import time
 from collections import deque
+from collections.abc import Callable
 from html import unescape
 from typing import Generic, TYPE_CHECKING, TypeVar
 
@@ -19,7 +20,6 @@ from lxml.etree import strip_tags, SubElement
 from lxml.html import fromstring, HtmlElement, tostring
 
 if TYPE_CHECKING:
-    from collections.abc import Callable
     from functools import partial
     from typing import Any
 
@@ -217,19 +217,16 @@ class TranslationHelper:
     :param form_class: The subclass of the current content type
     :param object_instance: The current object instance to be translated
     :param german_translation: The German source translation of the object instance
-    :param valid: Wether or not the translation was successful
     :param text_fields: The text fields of this helper
     :param html_fields: The HTML fields of this helper
     """
-
-    #: Wether or not the translation was successful
-    valid: bool = True
 
     def __init__(
         self,
         request: HttpRequest,
         form_class: ModelFormMetaclass,
         object_instance: Page,
+        budget_estimate: BudgetEstimate,
     ) -> None:
         """
         Constructor initializes the class variables
@@ -253,7 +250,6 @@ class TranslationHelper:
                     object_instance.best_translation.title,
                 ),
             )
-            self.valid = False
             return
         self.text_fields: list[TextField] = [
             TextField(name=text_field, translation=self.german_translation)
@@ -263,6 +259,56 @@ class TranslationHelper:
             HTMLField(name=html_field, translation=self.german_translation)
             for html_field in settings.SUMM_AI_HTML_FIELDS
         ]
+        self.budget_estimate = budget_estimate
+
+    @property
+    def valid(self) -> bool:
+        """
+        Wether or not the translation was successful
+        """
+        return self.german_translation is not None
+
+    def check_usage(self) -> tuple[bool, int]:
+        """
+        This function checks if the attempted translation would exceed word limit.
+
+        This value is cached the first time and not re-evaluated on subsequent calls.
+
+        :return: translation would exceed limit, word count of attempted translation
+        """
+        return self.budget_estimate.check_usage(self.plain_text)
+
+    @property
+    def would_exceed_limit(self) -> bool:
+        """
+        Whether an attempted translation would exceed the word limit
+
+        This value is cached the first time and not re-evaluated on subsequent calls.
+
+        :return: whether translation would exceed limit
+        """
+        return self.check_usage()[0]
+
+    @property
+    def word_count(self) -> int:
+        """
+        How many words need to be translated..
+
+        This value is cached the first time and not re-evaluated on subsequent calls.
+
+        :return: translation would exceed limit, word count of attempted translation
+        """
+        return self.check_usage()[1]
+
+    @property
+    def plain_text(self) -> str:
+        """
+        All relevant fields to translate concatenated into a single string.
+        Useful for determining the word count required.
+
+        :return: all translatable content as a plain text string
+        """
+        return "\n".join([x.text for x in self.get_text_fields()])
 
     @property
     def fields(self) -> list[HTMLField | TextField]:
@@ -272,6 +318,14 @@ class TranslationHelper:
         :returns: All fields which need to be translated
         """
         return self.text_fields + self.html_fields
+
+    def allocate_budget(self) -> bool:
+        """
+        Allocate budget for the translation if it fits
+
+        :returns: Whether the budget could be allocated or would have exceeded the limit
+        """
+        return self.budget_estimate.allocate(self.plain_text)
 
     def get_text_fields(self) -> list[HTMLSegment]:
         """
@@ -378,6 +432,38 @@ class TranslationHelper:
         return f"<TranslationHelper (translation: {self.german_translation!r})>"
 
 
+class BudgetEstimate:
+    """
+    A helper class to keep track of the allocated budget for asynchronous translations
+    """
+
+    def __init__(self, check_usage: Callable[[str, int], tuple[bool, int]]):
+        self._check_usage = check_usage
+        self.allocated = 0
+
+    def check_usage(
+        self, source_translation: str | AbstractContentTranslation
+    ) -> tuple[bool, int]:
+        """
+        This function checks if the attempted translation would exceed word limit.
+
+        :return: translation would exceed limit, word count of attempted translation
+        """
+        return self._check_usage(source_translation, self.allocated)
+
+    def allocate(self, source_translation: str | AbstractContentTranslation) -> bool:
+        """
+        Attempt to allocate the required budget for the translation
+
+        :returns: ``True`` if budget was allocated, ``False`` if the budget limit would be exceeded
+        """
+        (translation_exceeds_limit, budget) = self.check_usage(source_translation)
+        if translation_exceeds_limit:
+            return False
+        self.allocated += budget
+        return True
+
+
 T = TypeVar("T")
 
 
@@ -400,6 +486,9 @@ class PatientTaskQueue(deque, Generic[T]):
 
     #: Maximum amount of retries for a string to translate before giving up
     max_retries: int = settings.SUMM_AI_MAX_RETRIES
+
+    #: When greater than 0, more tasks are being added and workers asking for tasks when we have run dry should be stalled until new tasks become available
+    more_tasks_pending: int = 0
 
     def __init__(
         self,
@@ -458,6 +547,11 @@ class PatientTaskQueue(deque, Generic[T]):
                 wait_time_remaining,
             )
             await asyncio.sleep(wait_time_remaining)
+
+        while not self and self.more_tasks_pending > 0:
+            # If we currently have no tasks but are promised more, wait just a moment
+            await asyncio.sleep(0.001)
+
         try:
             task = self.popleft()
             self._in_progress.append(task)

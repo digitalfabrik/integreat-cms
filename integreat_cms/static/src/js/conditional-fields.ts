@@ -2,6 +2,8 @@ window.addEventListener("load", () => {
     // event handler to toggle form fields
     const toggleables = [
         ["id_statistics_enabled", "statistics-toggle-div"],
+        ["id_summ_ai_enabled", "summ-ai-toggle-div"],
+        ["id_summ_ai_midyear_start_enabled", "summ-ai-renewal-toggle-div"],
         ["id_mt_addon_booked", "mt-toggle-div"],
         ["id_mt_midyear_start_enabled", "mt-renewal-toggle-div"],
         ["id_automatic_translation", "language-options"],
