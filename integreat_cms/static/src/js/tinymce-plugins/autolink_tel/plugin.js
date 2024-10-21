@@ -87,7 +87,7 @@
         /* eslint-enable no-magic-numbers */
 
         return [
-            `<span class="notranslate" translate="no">${countryCode} (0) ${phoneNumberBody}</span>`,
+            `<span class="notranslate" translate="no" dir="ltr">${countryCode} (0) ${phoneNumberBody}</span>`,
             `tel:${phoneNumberCallable}`,
         ];
     };

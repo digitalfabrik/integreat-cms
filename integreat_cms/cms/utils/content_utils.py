@@ -31,6 +31,7 @@ def clean_content(content: str, language_slug: str) -> str:
     convert_monospaced_tags(content)
     update_links(content, language_slug)
     fix_alt_texts(content)
+    fix_notranslate(content)
     hide_anchor_tag_around_image(content)
 
     content_str = tostring(content, encoding="unicode", with_tail=False)
@@ -163,6 +164,25 @@ def fix_alt_texts(content: HtmlElement) -> None:
                 image.attrib["alt"] = media_file.alt_text
         else:
             logger.warning("Empty img tag was found.")
+
+
+def fix_notranslate(content: HtmlElement) -> None:
+    """
+    This function normalizes every notranslate tag,
+    assuring ``notranslate`` class, ``translate`` attribute and ``dir=ltr`` are set.
+
+    :param content: The body of content of which the notranslate markers should be processed.
+    """
+    for span in content.iter("span"):
+        if "notranslate" in span.classes or span.attrib.get("translate") == "no":
+            logger.debug("Notranslate found in content")
+            span.classes.add("notranslate")
+            span.attrib.update(
+                {
+                    "translate": "no",
+                    "dir": "ltr",
+                }
+            )
 
 
 def hide_anchor_tag_around_image(content: HtmlElement) -> None:
