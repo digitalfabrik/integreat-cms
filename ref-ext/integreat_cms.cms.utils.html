@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-10-21T14:16:52+00:00" />
+    <meta property="article:modified_time" content="2024-10-21T15:40:35+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2024.8.2 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -250,7 +250,9 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#media-utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#mfa-utils">MFA Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#pdf-utils">PDF Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#repair-tree">Repair Tree</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#round-hix-score">Round Hix Score</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#shadow-instance">Shadow Instance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#slug-utils">Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#stringify-list">Stringify List</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/integreat_cms.cms.utils.html#text-utils">Text Utils</a></li>
@@ -433,6 +435,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.utils.html#test-content-utils">Test Content Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.utils.html#test-disable-hix-post-save-signal">Test Disable Hix Post Save Signal</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.utils.html#test-internal-link-checker">Test Internal Link Checker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.utils.html#test-repair-tree">Test Repair Tree</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.utils.html#test-rounded-hix-value">Test Rounded Hix Value</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.utils.html#test-slug-utils">Test Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref/tests.cms.utils.html#test-translation-utils">Test Translation Utils</a></li>
@@ -815,7 +818,9 @@
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.media_utils">Media Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.mfa_utils">MFA Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.pdf_utils">PDF Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.repair_tree">Repair Tree</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.round_hix_score">Round Hix Score</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.shadow_instance">Shadow Instance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.slug_utils">Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.stringify_list">Stringify List</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-integreat_cms.cms.utils.text_utils">Text Utils</a></li>
@@ -1420,6 +1425,7 @@
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#module-tests.cms.utils.test_content_utils">Test Content Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#module-tests.cms.utils.test_disable_hix_post_save_signal">Test Disable Hix Post Save Signal</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#module-tests.cms.utils.test_internal_link_checker">Test Internal Link Checker</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#module-tests.cms.utils.test_repair_tree">Test Repair Tree</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#module-tests.cms.utils.test_rounded_hix_value">Test Rounded Hix Value</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#module-tests.cms.utils.test_slug_utils">Test Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="tests.cms.utils.html#module-tests.cms.utils.test_translation_utils">Test Translation Utils</a></li>
@@ -3213,6 +3219,186 @@ It returns the absolute paths to the files on the file system.</p>
 </dd></dl>
 
 </section>
+<section id="module-integreat_cms.cms.utils.repair_tree">
+<span id="repair-tree"></span><h2>Repair Tree<a class="headerlink" href="#module-integreat_cms.cms.utils.repair_tree" title="Link to this heading"></a></h2>
+<p>This module contains utilities to repair or detect inconsistencies in a tree</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.repair_tree.MPTTFixer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.repair_tree.</span></span><span class="sig-name descname"><span class="pre">MPTTFixer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dj_apps:</span> <span class="pre">Apps</span> <span class="pre">=</span> <span class="pre">&lt;django.apps.registry.Apps</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/repair_tree.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.repair_tree.MPTTFixer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Gets ALL nodes and coughs out fixed <code class="docutils literal notranslate"><span class="pre">lft</span></code>, <code class="docutils literal notranslate"><span class="pre">rgt</span></code> and <code class="docutils literal notranslate"><span class="pre">depth</span></code> values.
+Uses the parent field to fix hierarchy and sorts siblings by (potentially inconsistent) <code class="docutils literal notranslate"><span class="pre">lft</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dj_apps</strong> (<em>Apps</em>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.repair_tree.MPTTFixer.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dj_apps:</span> <span class="pre">Apps</span> <span class="pre">=</span> <span class="pre">&lt;django.apps.registry.Apps</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/repair_tree.py#L106"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.repair_tree.MPTTFixer.__init__" title="Link to this definition"></a></dt>
+<dd><p>Create a fixed tree, using a <a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShadowInstance</span></code></a> of each page.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dj_apps</strong> (<em>Apps</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.repair_tree.MPTTFixer.fix_values">
+<span class="sig-name descname"><span class="pre">fix_values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/repair_tree.py#L191"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.repair_tree.MPTTFixer.fix_values" title="Link to this definition"></a></dt>
+<dd><p>Recalculate <code class="docutils literal notranslate"><span class="pre">lft</span></code>, <code class="docutils literal notranslate"><span class="pre">rgt</span></code> and <code class="docutils literal notranslate"><span class="pre">depth</span></code> values for the reconstructed hierarchical structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.repair_tree.MPTTFixer.fix_values_on_subtree">
+<span class="sig-name descname"><span class="pre">fix_values_on_subtree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">counter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">depth</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/repair_tree.py#L198"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.repair_tree.MPTTFixer.fix_values_on_subtree" title="Link to this definition"></a></dt>
+<dd><p>Recalculate <code class="docutils literal notranslate"><span class="pre">lft</span></code>, <code class="docutils literal notranslate"><span class="pre">rgt</span></code> and <code class="docutils literal notranslate"><span class="pre">depth</span></code> values for the subtree of the reconstructed hierarchical structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>node_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>)</p></li>
+<li><p><strong>counter</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>)</p></li>
+<li><p><strong>depth</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.repair_tree.MPTTFixer.get_fixed_root_node">
+<span class="sig-name descname"><span class="pre">get_fixed_root_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance"><span class="pre">ShadowInstance</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><span class="pre">Page</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/repair_tree.py#L151"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.repair_tree.MPTTFixer.get_fixed_root_node" title="Link to this definition"></a></dt>
+<dd><p>Travel up ancestors of a page until we get the root node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>page_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance">ShadowInstance</a>[<a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page">Page</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.repair_tree.MPTTFixer.get_fixed_root_nodes">
+<span class="sig-name descname"><span class="pre">get_fixed_root_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance"><span class="pre">ShadowInstance</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><span class="pre">Page</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/repair_tree.py#L145"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.repair_tree.MPTTFixer.get_fixed_root_nodes" title="Link to this definition"></a></dt>
+<dd><p>Yield all fixed root nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Iterable[<a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance">ShadowInstance</a>[<a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page">Page</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.repair_tree.MPTTFixer.get_fixed_tree_nodes">
+<span class="sig-name descname"><span class="pre">get_fixed_tree_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance"><span class="pre">ShadowInstance</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><span class="pre">Page</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/repair_tree.py#L160"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.repair_tree.MPTTFixer.get_fixed_tree_nodes" title="Link to this definition"></a></dt>
+<dd><p>Return all nodes of this page tree.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Iterable[<a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance">ShadowInstance</a>[<a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page">Page</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.repair_tree.MPTTFixer.get_fixed_tree_of_page">
+<span class="sig-name descname"><span class="pre">get_fixed_tree_of_page</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance"><span class="pre">ShadowInstance</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><span class="pre">Page</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/repair_tree.py#L166"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.repair_tree.MPTTFixer.get_fixed_tree_of_page" title="Link to this definition"></a></dt>
+<dd><p>Yield all nodes of the same page tree as the node specified by id in order (fixed).
+If no <code class="docutils literal notranslate"><span class="pre">node_id</span></code> is specified, nodes from all trees are considered.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em> | </em><em>None</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Iterable[<a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance">ShadowInstance</a>[<a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page">Page</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.repair_tree.MPTTFixer.logger">
+<span class="sig-name descname"><span class="pre">logger</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;Logger</span> <span class="pre">integreat_cms.cms.utils.repair_tree</span> <span class="pre">(INFO)&gt;</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/repair_tree.py#L98"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.repair_tree.MPTTFixer.logger" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.repair_tree.MPTTFixer.recreate_structure">
+<span class="sig-name descname"><span class="pre">recreate_structure</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/repair_tree.py#L121"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.repair_tree.MPTTFixer.recreate_structure" title="Link to this definition"></a></dt>
+<dd><p>Extract nodes and recreate their hierarchy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.repair_tree.MPTTFixer.yield_subtree">
+<span class="sig-name descname"><span class="pre">yield_subtree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance"><span class="pre">ShadowInstance</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><span class="pre">Page</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/repair_tree.py#L182"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.repair_tree.MPTTFixer.yield_subtree" title="Link to this definition"></a></dt>
+<dd><p>Yield all nodes of the subtree as the node specified by id in order (fixed).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>node_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Iterable[<a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance">ShadowInstance</a>[<a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page">Page</a>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.repair_tree.print_changed_fields">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.repair_tree.</span></span><span class="sig-name descname"><span class="pre">print_changed_fields</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree_node</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance"><span class="pre">ShadowInstance</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><span class="pre">Page</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logging_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'integreat_cms.cms.utils.repair_tree'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/repair_tree.py#L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.repair_tree.print_changed_fields" title="Link to this definition"></a></dt>
+<dd><p>Utility function to print changed and unchanged attributes using a
+<a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShadowInstance</span></code></a> of the <a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tree_node</strong> (<a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance"><em>ShadowInstance</em></a><em>[</em><a class="reference internal" href="integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><em>Page</em></a><em>]</em>)</p></li>
+<li><p><strong>logging_name</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.repair_tree.repair_tree">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.repair_tree.</span></span><span class="sig-name descname"><span class="pre">repair_tree</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">page_id:</span> <span class="pre">Iterable[int]</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">commit:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logging_name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'integreat_cms.cms.utils.repair_tree'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dj_apps:</span> <span class="pre">Apps</span> <span class="pre">=</span> <span class="pre">&lt;django.apps.registry.Apps</span> <span class="pre">object&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/repair_tree.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.repair_tree.repair_tree" title="Link to this definition"></a></dt>
+<dd><p>Fix the tree for a given page, or all trees if no id is given.
+Changes are only written to the database if <code class="docutils literal notranslate"><span class="pre">commit</span></code> is set to <code class="docutils literal notranslate"><span class="pre">True</span></code>.
+For details see <a class="reference internal" href="#integreat_cms.cms.utils.repair_tree.MPTTFixer" title="integreat_cms.cms.utils.repair_tree.MPTTFixer"><code class="xref py py-class docutils literal notranslate"><span class="pre">MPTTFixer</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>page_id</strong> (<em>Iterable</em><em>[</em><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a><em>] </em><em>| </em><em>None</em>)</p></li>
+<li><p><strong>commit</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>)</p></li>
+<li><p><strong>logging_name</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a>)</p></li>
+<li><p><strong>dj_apps</strong> (<em>Apps</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 <section id="module-integreat_cms.cms.utils.round_hix_score">
 <span id="round-hix-score"></span><h2>Round Hix Score<a class="headerlink" href="#module-integreat_cms.cms.utils.round_hix_score" title="Link to this heading"></a></h2>
 <dl class="py function">
@@ -3227,6 +3413,120 @@ It returns the absolute paths to the files on the file system.</p>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#float" title="(in Python v3.11)">float</a> | None</p>
 </dd>
 </dl>
+</dd></dl>
+
+</section>
+<section id="module-integreat_cms.cms.utils.shadow_instance">
+<span id="shadow-instance"></span><h2>Shadow Instance<a class="headerlink" href="#module-integreat_cms.cms.utils.shadow_instance" title="Link to this heading"></a></h2>
+<p>This module contains utilities to repair or detect inconsistencies in a tree</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.shadow_instance.ShadowInstance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.utils.shadow_instance.</span></span><span class="sig-name descname"><span class="pre">ShadowInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/shadow_instance.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Generic" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Generic</span></code></a>[<code class="xref py py-obj docutils literal notranslate"><span class="pre">T</span></code>]</p>
+<p>An object shadowing the attributes of the model instance passed to it on instantiation
+and withholding any attribute changes until explicitly applied,
+allowing to compare the old and new states before committing to them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>instance</strong> (<em>T</em>)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.shadow_instance.ShadowInstance.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">T</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/shadow_instance.py#L19"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance.__init__" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>instance</strong> (<em>T</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.shadow_instance.ShadowInstance.apply_changes">
+<span class="sig-name descname"><span class="pre">apply_changes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/shadow_instance.py#L40"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance.apply_changes" title="Link to this definition"></a></dt>
+<dd><p>Apply changes of the listed attributes.
+Applies all changes if <code class="docutils literal notranslate"><span class="pre">attributes</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attributes</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Iterable" title="(in Python v3.11)"><em>Iterable</em></a><em> | </em><em>None</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.shadow_instance.ShadowInstance.changed_attributes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">changed_attributes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/shadow_instance.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance.changed_attributes" title="Link to this definition"></a></dt>
+<dd><p>A dictionary of all attributes whose value is to be changed.
+The value to each attribute name is another dictionary containing the <code class="docutils literal notranslate"><span class="pre">&quot;old&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;new&quot;</span></code> value.</p>
+<p>Note that this does not show attributes that were overwritten with the same value (so display no difference yet) –
+for this see <a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance.overwritten_attributes" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance.overwritten_attributes"><code class="xref py py-attr docutils literal notranslate"><span class="pre">overwritten_attributes</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.shadow_instance.ShadowInstance.discard_changes">
+<span class="sig-name descname"><span class="pre">discard_changes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attributes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Iterable" title="(in Python v3.11)"><span class="pre">Iterable</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/shadow_instance.py#L30"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance.discard_changes" title="Link to this definition"></a></dt>
+<dd><p>Discard changes of the listed attributes.
+Discards all changes if <code class="docutils literal notranslate"><span class="pre">attributes</span></code> is <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attributes</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Iterable" title="(in Python v3.11)"><em>Iterable</em></a><em> | </em><em>None</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.shadow_instance.ShadowInstance.instance">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">instance</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">T</span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/shadow_instance.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance.instance" title="Link to this definition"></a></dt>
+<dd><p>Return the shadowed instance.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.shadow_instance.ShadowInstance.overwritten_attributes">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">overwritten_attributes</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Any" title="(in Python v3.11)"><span class="pre">Any</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/shadow_instance.py#L12"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance.overwritten_attributes" title="Link to this definition"></a></dt>
+<dd><p>A dictionary of all overwritten attributes.
+The value to each attribute name is another dictionary containing the <code class="docutils literal notranslate"><span class="pre">&quot;old&quot;</span></code> and <code class="docutils literal notranslate"><span class="pre">&quot;new&quot;</span></code> value
+(missing the <code class="docutils literal notranslate"><span class="pre">&quot;old&quot;</span></code> value if the attribute is not set on the <a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance.instance" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance.instance"><code class="xref py py-attr docutils literal notranslate"><span class="pre">instance</span></code></a>).</p>
+<p>Note that this even shows attributes that were overwritten with the same value (so display no difference yet) –
+for only the changed values see <a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance.changed_attributes" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance.changed_attributes"><code class="xref py py-attr docutils literal notranslate"><span class="pre">changed_attributes</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.shadow_instance.ShadowInstance.reload">
+<span class="sig-name descname"><span class="pre">reload</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/shadow_instance.py#L93"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance.reload" title="Link to this definition"></a></dt>
+<dd><p>Reload the shadowed instance from the database.
+The state of the overwritten attributes is kept.</p>
+<p>This can be used to incorporate recent changes to the database object after a longer (i.e. user directed) staging period.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="integreat_cms.cms.utils.shadow_instance.ShadowInstance.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><span class="pre">list</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><span class="pre">dict</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/utils/shadow_instance.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance.save" title="Link to this definition"></a></dt>
+<dd><p>Save the shadowed instance.
+Does nothing if no changes were applied yet (see <a class="reference internal" href="#integreat_cms.cms.utils.shadow_instance.ShadowInstance.apply_changes" title="integreat_cms.cms.utils.shadow_instance.ShadowInstance.apply_changes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">apply_changes()</span></code></a>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#list" title="(in Python v3.11)"><em>list</em></a>)</p></li>
+<li><p><strong>kwargs</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#dict" title="(in Python v3.11)"><em>dict</em></a>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </section>
