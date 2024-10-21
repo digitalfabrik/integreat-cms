@@ -32,12 +32,14 @@ logger = logging.getLogger(__name__)
 def get_urls(
     region_slug: str | None = None,
     url_ids: Any | None = None,
+    prefetch_region_links: bool = False,
 ) -> list[Url] | QuerySet[Url]:
     """
     Collect all the urls which appear in the latest versions of the contents of the region, filtered by ID or region if given.
 
     :param region_slug: The slug of the current region
     :param url_ids: The list of requested url ids
+    :param prefetch_region_links: Whether to prefetch region links
     :return: The list (or queryset) of urls
     """
     urls = Url.objects.all()
@@ -49,17 +51,15 @@ def get_urls(
         region_links = get_region_links(region)
 
         # Prefetch all link objects of the requested region
-        urls = (
-            urls.filter(links__in=region_links)
-            .distinct()
-            .prefetch_related(
+        urls = urls.filter(links__in=region_links).distinct()
+        if prefetch_region_links:
+            urls = urls.prefetch_related(
                 Prefetch(
                     "links",
                     queryset=region_links,
                     to_attr="region_links",
                 )
             )
-        )
 
     # Annotate with number of links that are not ignored.
     # If there is any link that is not ignored, the url is also not ignored.
@@ -107,14 +107,18 @@ def get_region_links(region: Region) -> QuerySet:
     organizations = Organization.objects.filter(region=region, archived=False)
     # Get all link objects of the requested region
     region_links = Link.objects.filter(
-        Q(page_translation__id__in=latest_pagetranslation_versions)
-        | Q(imprint_translation__id__in=latest_imprinttranslation_versions)
-        | Q(event_translation__id__in=latest_eventtranslation_versions)
-        | Q(poi_translation__id__in=latest_poitranslation_versions)
-        | Q(organization__id__in=organizations)
-    ).order_by("id")
+        page_translation__id__in=latest_pagetranslation_versions
+    ).union(
+        Link.objects.filter(
+            imprint_translation__id__in=latest_imprinttranslation_versions
+        ),
+        Link.objects.filter(event_translation__id__in=latest_eventtranslation_versions),
+        Link.objects.filter(poi_translation__id__in=latest_poitranslation_versions),
+        Link.objects.filter(organization__id__in=organizations),
+        all=True,
+    )
 
-    return region_links
+    return Link.objects.filter(id__in=region_links.values("pk")).order_by("id")
 
 
 def get_url_count(region_slug: str | None = None) -> dict[str, int]:
@@ -132,6 +136,7 @@ def get_url_count(region_slug: str | None = None) -> dict[str, int]:
 def filter_urls(
     region_slug: str | None = None,
     url_filter: str | None = None,
+    prefetch_region_links: bool = False,
 ) -> tuple[list[Url], dict[str, int]]:
     """
     Filter all urls of one region by the given category
@@ -139,9 +144,12 @@ def filter_urls(
     :param region_slug: The slug of the current region
     :param url_filter: Which urls should be returned (one of ``valid``, ``invalid``, ``ignored``, ``unchecked``).
                         If parameter is not in these choices or omitted, all urls are returned by default.
+    :param prefetch_region_links: Whether to prefetch region links
     :return: A tuple of the requested urls and a dict containing the counters of all remaining urls
     """
-    urls = get_urls(region_slug=region_slug)
+    urls = get_urls(
+        region_slug=region_slug, prefetch_region_links=prefetch_region_links
+    )
     # Split url lists into their respective categories
     ignored_urls, valid_urls, invalid_urls, email_links, phone_links, unchecked_urls = (
         [] for _ in range(6)
