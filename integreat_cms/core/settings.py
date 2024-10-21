@@ -924,6 +924,11 @@ DEEPL_API_URL: Final[str | None] = os.environ.get("INTEGREAT_CMS_DEEPL_API_URL")
 #: Authentication token for the DeepL API. If not set, automatic translations via DeepL are disabled
 DEEPL_AUTH_KEY: str | None = os.environ.get("INTEGREAT_CMS_DEEPL_AUTH_KEY")
 
+#: Whether to enable deepl glossaries
+DEEPL_GLOSSARIES_ENABLED: Final[bool] = strtobool(
+    os.environ.get("INTEGREAT_CMS_DEEPL_GLOSSARIES_ENABLED", "False")
+)
+
 #: Whether automatic translations via DeepL are enabled.
 #: This is ``True`` if :attr:`~integreat_cms.core.settings.DEEPL_AUTH_KEY` is set, ``False`` otherwise.
 DEEPL_ENABLED: bool = bool(DEEPL_AUTH_KEY)
