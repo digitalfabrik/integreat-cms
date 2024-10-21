@@ -14,7 +14,9 @@ class Contact(AbstractBaseModel):
     Data model representing a contact
     """
 
-    title = models.CharField(max_length=200, blank=True, verbose_name=_("title"))
+    point_of_contact_for = models.CharField(
+        max_length=200, blank=True, verbose_name=_("point of contact for")
+    )
     name = models.CharField(max_length=200, blank=True, verbose_name=_("name"))
     location = models.ForeignKey(
         POI,
@@ -61,7 +63,19 @@ class Contact(AbstractBaseModel):
 
         :return: A readable string representation of the contact
         """
-        return f"{self.title} {self.name}"
+        point_of_contact_for = (
+            f"{self.point_of_contact_for.strip()}: "
+            if self.point_of_contact_for and self.point_of_contact_for.strip()
+            else ""
+        )
+        name = f"{self.name.strip()} " if self.name and self.name.strip() else ""
+        details = [
+            detail
+            for x in ["email", "phone_number", "website"]
+            if (detail := self.get(x)) and detail.strip()
+        ]
+        details_str = f"({', '.join(details)})" if details else ""
+        return f"{point_of_contact_for}{name}{details_str}"
 
     def get_repr(self) -> str:
         """
@@ -70,7 +84,7 @@ class Contact(AbstractBaseModel):
 
         :return: The canonical string representation of the contact
         """
-        return f"<Contact (id: {self.id}, title: {self.title}, name: {self.name}, region: {self.region.slug})>"
+        return f"<Contact (id: {self.id}, point of contact for: {self.point_of_contact_for}, name: {self.name}, region: {self.region.slug})>"
 
     def archive(self) -> None:
         """
@@ -92,7 +106,7 @@ class Contact(AbstractBaseModel):
         """
         # In order to create a new object set pk to None
         self.pk = None
-        self.title = self.title + " " + _("(Copy)")
+        self.point_of_contact_for = self.point_of_contact_for + " " + _("(Copy)")
         self.save()
 
     class Meta:
@@ -105,21 +119,21 @@ class Contact(AbstractBaseModel):
         constraints = [
             models.UniqueConstraint(
                 "location",
-                condition=Q(title=""),
-                name="contact_singular_empty_title_per_location",
+                condition=Q(point_of_contact_for=""),
+                name="contact_singular_empty_point_of_contact_per_location",
                 violation_error_message=_(
-                    "Only one contact per location can have an empty title."
+                    "Only one contact per location can have an empty point of contact."
                 ),
             ),
             models.CheckConstraint(
-                check=~Q(title="")
+                check=~Q(point_of_contact_for="")
                 | ~Q(name="")
                 | ~Q(email="")
                 | ~Q(phone_number="")
                 | ~Q(website=""),
                 name="contact_non_empty",
                 violation_error_message=_(
-                    "One of the following fields must be filled: title, name, e-mail, phone number, website."
+                    "One of the following fields must be filled: point of contact for, name, e-mail, phone number, website."
                 ),
             ),
         ]

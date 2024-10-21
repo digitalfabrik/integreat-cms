@@ -7,22 +7,22 @@
                form="bulk-action-form"
                class="bulk-select-item" />
     </td>
+    <td>
+        <a href="{% url 'edit_poi' region_slug=request.region.slug language_slug=request.region.default_language.slug poi_id=contact.location.id %}"
+           class="py-3 px-2 text-blue-500 hover:underline">
+            {{ contact.location }}
+        </a>
+    </td>
     <td class="pl-2">
         <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
            class="block py-3 px-2 text-gray-800">
-            {{ contact.title }}
+            {{ contact.point_of_contact_for }}
         </a>
     </td>
     <td>
         <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
            class="block py-3 px-2 text-gray-800">
             {{ contact.name }}
-        </a>
-    </td>
-    <td>
-        <a href="{% url 'edit_poi' region_slug=request.region.slug language_slug=request.region.default_language.slug poi_id=contact.location.id %}"
-           class="py-3 px-2 text-blue-500 hover:underline">
-            {{ contact.location }}
         </a>
     </td>
     <td>

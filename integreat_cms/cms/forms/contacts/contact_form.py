@@ -29,7 +29,7 @@ class ContactForm(CustomModelForm):
         model = Contact
         #: The fields of the model which should be handled by this form
         fields = [
-            "title",
+            "point_of_contact_for",
             "name",
             "location",
             "email",

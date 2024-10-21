@@ -41,13 +41,13 @@
                         </h3>
                     </div>
                     <div class="p-4">
-                        <div class="help-text mt-4 font-bold">
-                            {% translate "Add missing data or change existing data. Select the data you want to import." %}
+                        <div class="help-text">
+                            {% translate "Enter the data you wish to store for the contact here." %}
                         </div>
-                        <label for="{{ contact_form.title.id_for_label }}">
-                            {{ contact_form.title.label }}
+                        <label for="{{ contact_form.point_of_contact_for.id_for_label }}">
+                            {{ contact_form.point_of_contact_for.label }}
                         </label>
-                        {% render_field contact_form.title|add_error_class:"border-red-500" %}
+                        {% render_field contact_form.point_of_contact_for|add_error_class:"border-red-500" %}
                         <label for="{{ contact_form.name.id_for_label }}">
                             {{ contact_form.name.label }}
                         </label>
