@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ("cms", "0105_languagetreenode_languagetreenode_unique_lft_tree_and_more"),
+        ("cms", "0105_treebeard_models_add_deferrable_tree_constraints"),
     ]
 
     operations = [
