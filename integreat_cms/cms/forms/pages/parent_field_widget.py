@@ -19,7 +19,7 @@ class ParentFieldWidget(forms.widgets.Select):
     #: The form this field is bound to
     form = None
 
-    # pylint: disable=too-many-arguments
+    # pylint: disable=too-many-arguments,too-many-positional-arguments
     def create_option(
         self,
         name: str,

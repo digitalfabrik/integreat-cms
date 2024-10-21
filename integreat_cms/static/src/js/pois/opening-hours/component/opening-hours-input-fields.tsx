@@ -1,7 +1,7 @@
 /*
  * This component renders the input fields for opening hours of locations
  */
-import { StateUpdater, useEffect, useState } from "preact/hooks";
+import { Dispatch, StateUpdater, useEffect, useState } from "preact/hooks";
 import cn from "classnames";
 import { XCircle, CalendarClock } from "lucide-preact";
 
@@ -9,8 +9,8 @@ import { deepCopy } from "../../../utils/deep-copy";
 import { OpeningHours } from "../index";
 
 type Props = {
-    openingHoursState: [OpeningHours[], StateUpdater<OpeningHours[]>];
-    selectedDaysState: [number[], StateUpdater<number[]>];
+    openingHoursState: [OpeningHours[], Dispatch<StateUpdater<OpeningHours[]>>];
+    selectedDaysState: [number[], Dispatch<StateUpdater<number[]>>];
     translations: any;
     days: any;
 };
