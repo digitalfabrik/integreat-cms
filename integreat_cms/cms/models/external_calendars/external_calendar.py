@@ -31,6 +31,27 @@ class ExternalCalendar(AbstractBaseModel):
         ),
     )
     errors = models.CharField(verbose_name=_("import errors"), default="", blank=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name=_("creator"),
+        help_text=_("The account that created this external calendar."),
+    )
+    last_changed_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        related_name="+",
+        on_delete=models.SET_NULL,
+        verbose_name=_("last changed by"),
+        help_text=_("The account that was the last to change this external calendar."),
+    )
+    last_changed_on = models.DateTimeField(
+        auto_now=True,
+        verbose_name=_("last changed on"),
+    )
 
     def __str__(self) -> str:
         """
