@@ -43,6 +43,7 @@ class ExternalCalendar(AbstractBaseModel):
         settings.AUTH_USER_MODEL,
         null=True,
         blank=True,
+        related_name="+",
         on_delete=models.SET_NULL,
         verbose_name=_("last changed by"),
         help_text=_("The account that was the last to change this external calendar."),
