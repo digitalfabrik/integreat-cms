@@ -27,7 +27,7 @@ class CustomPasswordResetForm(PasswordResetForm):
         widget=forms.EmailInput(attrs={"autocomplete": "email"}),
     )
 
-    # pylint: disable=signature-differs
+    # pylint: disable=signature-differs,too-many-positional-arguments
     def send_mail(
         self,
         subject_template_name: str,
