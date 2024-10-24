@@ -141,13 +141,19 @@
         {% endif %}
         {% has_perm 'cms.change_event' request.user as can_edit_event %}
         {% if can_edit_event %}
-            <form action="{% url 'copy_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
-                  method="post">
-                {% csrf_token %}
-                <button class="btn-icon" title="{% translate "Copy event" %}">
+            {% if not event.external_calendar %}
+                <form action="{% url 'copy_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
+                      method="post">
+                    {% csrf_token %}
+                    <button class="btn-icon" title="{% translate "Copy event" %}">
+                        <i icon-name="copy"></i>
+                    </button>
+                </form>
+            {% else %}
+                <button title="{{ cannot_copy_title }}" class="btn-icon" disabled>
                     <i icon-name="copy"></i>
                 </button>
-            </form>
+            {% endif %}
             <button title="{% translate "Archive event" %}"
                     class="confirmation-button btn-icon"
                     data-confirmation-title="{{ archive_dialog_title }}"
