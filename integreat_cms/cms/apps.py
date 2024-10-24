@@ -38,3 +38,7 @@ class CmsConfig(AppConfig):
         from .utils.internal_link_checker import check_internal
 
         Url.check_internal = check_internal
+
+        from .utils.contact_usage_listeners import register_listeners
+
+        register_listeners()
