@@ -1,15 +1,7 @@
 import { createIconsAt } from "./utils/create-icons";
 import { getCsrfToken } from "./utils/csrf-token";
 
-const toggleContactInfo = (infoType: string, info: string) => {
-    document.getElementById(infoType).textContent = `${info}`;
-    const infoNotGivenMessage = document.getElementById(`no-${infoType}`);
-    if (info) {
-        infoNotGivenMessage.classList.add("hidden");
-    } else {
-        infoNotGivenMessage.classList.remove("hidden");
-    }
-};
+type FormResponse = { success: boolean; poi_address_container: string };
 
 const toggleContactFieldBox = (show: boolean) => {
     const contactFieldsBox = document.getElementById("contact_fields");
@@ -18,37 +10,15 @@ const toggleContactFieldBox = (show: boolean) => {
     contactUsageBox?.classList.toggle("hidden", !show);
 };
 
-const renderPoiData = (
-    queryPlaceholder: string,
-    id: string,
-    address: string,
-    postcode: string,
-    city: string,
-    country: string,
-    email: string,
-    phoneNumber: string,
-    website: string
-) => {
-    document.getElementById("poi-query-input").setAttribute("placeholder", queryPlaceholder);
-    document.getElementById("id_location")?.setAttribute("value", id);
-    const poiAddress = document.getElementById("poi-address");
-    if (poiAddress) {
-        poiAddress.textContent = `${address}\n${postcode} ${city}\n${country}`;
-    }
-    if (document.getElementById("poi-contact-information")) {
-        toggleContactInfo("email", email);
-        toggleContactInfo("phone_number", phoneNumber);
-        toggleContactInfo("website", website);
-    }
-
-    document
-        .getElementById("poi-google-maps-link")
-        ?.setAttribute(
-            "href",
-            `https://www.google.com/maps/search/?api=1&query=${address}, ${postcode} ${city}, ${country}`
-        );
+const hideSearchResults = () => {
     document.getElementById("poi-query-result").classList.add("hidden");
     (document.getElementById("poi-query-input") as HTMLInputElement).value = "";
+};
+
+const renderPoiData = (poiTitle: string, newPoiData: string) => {
+    document.getElementById("poi-address-container").outerHTML = newPoiData;
+    document.getElementById("poi-query-input").setAttribute("placeholder", poiTitle);
+    hideSearchResults();
     toggleContactFieldBox(true);
 };
 
@@ -61,23 +31,12 @@ const hidePoiFormWidget = () => {
 
 const setPoi = ({ target }: Event) => {
     const option = (target as HTMLElement).closest(".option-existing-poi");
-    renderPoiData(
-        option.getAttribute("data-poi-title"),
-        option.getAttribute("data-poi-id"),
-        option.getAttribute("data-poi-address"),
-        option.getAttribute("data-poi-postcode"),
-        option.getAttribute("data-poi-city"),
-        option.getAttribute("data-poi-country"),
-        option.getAttribute("data-poi-email"),
-        option.getAttribute("data-poi-phone_number"),
-        option.getAttribute("data-poi-website")
-    );
-    // Show the address container
+    renderPoiData(option.getAttribute("data-poi-title"), option.getAttribute("data-poi-address"));
     document.getElementById("poi-address-container")?.classList.remove("hidden");
     console.debug("Rendered POI data");
 };
 
-const showMessage = (response: any) => {
+const showMessage = (response: FormResponse) => {
     const timeoutDuration = 10000;
     if (response.success) {
         hidePoiFormWidget();
@@ -121,27 +80,14 @@ const showPoiFormWidget = async ({ target }: Event) => {
                 },
                 body: formData,
             });
-            // Handle messages
-            const messages = await response.json();
-            console.debug(messages);
-            showMessage(messages);
+            // Handle responseData
+            const responseData: FormResponse = await response.json();
+            console.debug(responseData);
+            showMessage(responseData);
             // If POI was created successful, show it as selected option
-            if (messages.success) {
-                console.debug(messages);
-                renderPoiData(
-                    formData.get("title").toString(),
-                    messages.id,
-                    formData.get("address").toString(),
-                    formData.get("postcode").toString(),
-                    formData.get("city").toString(),
-                    formData.get("country").toString(),
-                    formData.get("email").toString(),
-                    formData.get("phone_number").toString(),
-                    formData.get("website").toString()
-                );
+            if (responseData.success) {
+                renderPoiData(formData.get("title").toString(), responseData.poi_address_container);
                 document.getElementById("poi-address-container")?.classList.remove("hidden");
-                // Add the POI to the actual django form field
-                (document.getElementById("id_location") as HTMLInputElement).value = messages.id.toString();
             }
             hidePoiFormWidget();
         });
@@ -196,19 +142,16 @@ const queryPois = async (url: string, queryString: string, regionSlug: string, c
 };
 
 const removePoi = () => {
-    renderPoiData(
-        document.getElementById("poi-query-input").getAttribute("data-default-placeholder"),
-        "-1",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-    );
     // Hide the address container
     document.getElementById("poi-address-container")?.classList.add("hidden");
+    // Clear the search container
+    document
+        .getElementById("poi-query-input")
+        .setAttribute(
+            "placeholder",
+            document.getElementById("poi-query-input").getAttribute("data-default-placeholder")
+        );
+    hideSearchResults();
     // Clear the poi form
     hidePoiFormWidget();
     toggleContactFieldBox(false);

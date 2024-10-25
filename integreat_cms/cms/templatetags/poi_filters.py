@@ -7,6 +7,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from django import template
+from django.template.loader import render_to_string
+from django.utils.html import escape
+from django.utils.safestring import SafeString
 
 if TYPE_CHECKING:
     from ..models import Language, POI
@@ -31,3 +34,18 @@ def poi_translation_title(poi: POI, language: Language) -> str:
         poi_translation = all_poi_translations.first()
         return f"{poi_translation.title} ({poi_translation.language})"
     return ""
+
+
+@register.simple_tag
+def render_poi_address(poi: POI) -> SafeString:
+    """
+    This tag returns encoded html for the poi address container of this poi
+
+    :param poi: The requested point of interest
+    :return: An encoded html string
+    """
+    return escape(
+        render_to_string(
+            "ajax_poi_form/_poi_address_container.html", {"poi": poi, "disabled": False}
+        )
+    )

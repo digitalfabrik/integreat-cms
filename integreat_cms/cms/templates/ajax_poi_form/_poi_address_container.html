@@ -1,0 +1,58 @@
+{% load i18n %}
+<div id="poi-address-container" class="{% if not poi %} hidden{% endif %}">
+    <label class="secondary">
+        {% translate "Address" %}
+    </label>
+    <input name="location"
+           class="hidden"
+           value="{% if poi %}{{ poi.id }}{% else %}-1{% endif %}"
+           readonly
+           {% if disabled %}disabled{% endif %} />
+    <div class="text-lg">
+        {% if poi %}
+            {{ poi.address }}
+            <br>
+            {{ poi.postcode }} {{ poi.city }}
+            <br>
+            {{ poi.country }}
+        {% endif %}
+    </div>
+    <a href="https://www.google.com/maps/search/?api=1&query={% if poi %}{{ poi.address }},{{ poi.city }},{{ poi.country }}{% endif %}"
+       class="text-blue-500 hover:underline"
+       target="_blank"
+       rel="noopener noreferrer">
+        {% translate "Open on Google Maps" %}
+    </a>
+    <label class="secondary">
+        {% translate "Contact details" %}
+    </label>
+    <div>
+        <p>
+            {% translate "E-mail address: " %}
+            <span>
+                {% if poi.email %}
+                    {{ poi.email }}
+                {% endif %}
+            </span>
+            <span class="{% if poi.email %}hidden{% endif %}">{% translate "Not provided" %}</span>
+        </p>
+        <p>
+            {% translate "Phone number: " %}
+            <span>
+                {% if poi.phone_number %}
+                    {{ poi.phone_number }}
+                {% endif %}
+            </span>
+            <span class="{% if poi.phone_number %}hidden{% endif %}">{% translate "Not provided" %}</span>
+        </p>
+        <p>
+            {% translate "Website: " %}
+            <span>
+                {% if poi.website %}
+                    {{ poi.website }}
+                {% endif %}
+            </span>
+            <span class="{% if poi.website %}hidden{% endif %}">{% translate "Not provided" %}</span>
+        </p>
+    </div>
+</div>
