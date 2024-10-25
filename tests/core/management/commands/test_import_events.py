@@ -20,6 +20,9 @@ CALENDAR_WRONG_CATEGORY_TAG = "private"
 CALENDAR_CORRUPTED = (
     "tests/core/management/commands/assets/calendars/corrupted_event.ics"
 )
+CALENDAR_MULTIPLE_CATEGORIES = (
+    "tests/core/management/commands/assets/calendars/event_with_multiple_categories.ics"
+)
 CALENDARS = [
     (CALENDAR_V1, [CALENDAR_V1_EVENT_NAME]),
     (CALENDAR_v2, [CALENDAR_V2_EVENT_NAME]),
@@ -233,3 +236,22 @@ def test_import_event_with_correct_tag(
     assert EventTranslation.objects.filter(
         event__region=calendar.region, title=CALENDAR_WRONG_CATEGORY_EVENT_NAME
     ).exists(), "Event should exist after import"
+
+
+@pytest.mark.django_db
+def test_import_event_with_multiple_categories(
+    httpserver: HTTPServer, load_test_data: None
+) -> None:
+    """
+    Tests that an event does not get imported if it has multiple category definitions
+    :param httpserver: The server
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    calendar_url = serve(httpserver, CALENDAR_MULTIPLE_CATEGORIES)
+    calendar = setup_calendar(calendar_url)
+    calendar.save()
+
+    out, err = get_command_output("import_events")
+    print(err)
+    assert not err
+    assert "Imported event" in out
