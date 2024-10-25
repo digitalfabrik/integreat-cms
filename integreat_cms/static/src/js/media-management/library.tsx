@@ -3,7 +3,7 @@
  * so new directories and files can be added and the existing entries can be modified
  */
 import { FilePlus, FolderPlus, Search, Loader, Filter, FilterX, X } from "lucide-preact";
-import { StateUpdater, useEffect, useState } from "preact/hooks";
+import { Dispatch, StateUpdater, useEffect, useState } from "preact/hooks";
 import { route } from "preact-router";
 import cn from "classnames";
 
@@ -24,13 +24,13 @@ export type LibraryProps = {
     directoryId?: string;
     searchQuery?: string;
     mediaFilter?: string;
-    loadingState: [boolean, StateUpdater<boolean>];
-    refreshState: [boolean, StateUpdater<boolean>];
-    mediaLibraryContentState: [MediaLibraryEntry[], StateUpdater<MediaLibraryEntry[]>];
-    directoryPathState: [Directory[], StateUpdater<Directory[]>];
-    fileIndexState: [number, StateUpdater<number>];
-    sidebarFileState: [File, StateUpdater<File>];
-    showMessage: StateUpdater<Message>;
+    loadingState: [boolean, Dispatch<StateUpdater<boolean>>];
+    refreshState: [boolean, Dispatch<StateUpdater<boolean>>];
+    mediaLibraryContentState: [MediaLibraryEntry[], Dispatch<StateUpdater<MediaLibraryEntry[]>>];
+    directoryPathState: [Directory[], Dispatch<StateUpdater<Directory[]>>];
+    fileIndexState: [number, Dispatch<StateUpdater<number>>];
+    sidebarFileState: [File, Dispatch<StateUpdater<File>>];
+    showMessage: Dispatch<StateUpdater<Message>>;
     apiEndpoints: MediaApiPaths;
     mediaTranslations: any;
     globalEdit?: boolean;
@@ -43,7 +43,7 @@ export type LibraryProps = {
         url: string,
         urlParams: URLSearchParams,
         successCallback: (data: any) => void,
-        loadingSetter?: StateUpdater<boolean>
+        loadingSetter?: Dispatch<StateUpdater<boolean>>
     ) => void;
     canDeleteFile: boolean;
     canReplaceFile: boolean;

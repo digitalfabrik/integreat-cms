@@ -729,7 +729,7 @@ def duplicate_language_tree(
             )
 
 
-# pylint: disable=too-many-locals
+# pylint: disable=too-many-locals, too-many-positional-arguments
 def duplicate_pages(
     source_region: Region,
     target_region: Region,
