@@ -2637,6 +2637,7 @@ msgid "modification date"
 msgstr "Änderungsdatum"
 
 #: cms/models/abstract_content_translation.py
+#: cms/models/external_calendars/external_calendar.py
 msgid "creator"
 msgstr "Ersteller:in"
 
@@ -2920,6 +2921,22 @@ msgstr ""
 #: cms/models/external_calendars/external_calendar.py
 msgid "import errors"
 msgstr "Importfehler"
+
+#: cms/models/external_calendars/external_calendar.py
+msgid "The account that created this external calendar."
+msgstr "Das Konto, das diesen externen Kalender angelegt hat."
+
+#: cms/models/external_calendars/external_calendar.py
+msgid "last changed by"
+msgstr "Zuletzt geändert von"
+
+#: cms/models/external_calendars/external_calendar.py
+msgid "The account that was the last to change this external calendar."
+msgstr "Das Konto, das diesen externen Kalender zuletzt geändert hat."
+
+#: cms/models/external_calendars/external_calendar.py
+msgid "last changed on"
+msgstr "Zuletzt geändert am"
 
 #: cms/models/external_calendars/external_calendar.py
 msgid "external calendars"
@@ -6090,6 +6107,27 @@ msgid "Imported events"
 msgstr "Importierte Termine"
 
 #: cms/templates/events/external_calendar_list.html
+msgid "Creator"
+msgstr "Ersteller:in"
+
+#: cms/templates/events/external_calendar_list.html
+msgid "Last changed by"
+msgstr "Zuletzt geändert von"
+
+#: cms/templates/events/external_calendar_list.html
+#: cms/templates/languages/language_list.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/pages/_page_filter_form.html
+#: cms/templates/pages/_page_xliff_import_diff.html
+#: cms/templates/pages/page_tree.html
+#: cms/templates/pages/page_tree_archived.html
+#: cms/templates/push_notifications/push_notification_list.html
+#: cms/templates/push_notifications/push_notification_template_list.html
+#: cms/templates/regions/region_list.html
+msgid "Last updated"
+msgstr "Zuletzt aktualisiert"
+
+#: cms/templates/events/external_calendar_list.html
 msgid "No external calendars available yet."
 msgstr "Noch keine externen Kalender vorhanden."
 
@@ -6544,18 +6582,6 @@ msgstr "Schreibrichtung"
 #: cms/templates/regions/region_list.html
 msgid "Created"
 msgstr "Erstellt"
-
-#: cms/templates/languages/language_list.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/templates/pages/_page_filter_form.html
-#: cms/templates/pages/_page_xliff_import_diff.html
-#: cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html
-#: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
-#: cms/templates/regions/region_list.html
-msgid "Last updated"
-msgstr "Zuletzt aktualisiert"
 
 #: cms/templates/languages/language_list.html
 msgid "Number of regions where this language is used"
@@ -9041,9 +9067,11 @@ msgstr ""
 msgid "Contact \"{}\" was successfully created"
 msgstr "Kontakt \"{}\" wurde erfolgreich erstellt"
 
-#: cms/views/contacts/contact_form_view.py cms/views/media/media_actions.py
-msgid "No changes detected"
-msgstr "Keine Änderungen vorgenommen"
+#: cms/views/contacts/contact_form_view.py cms/views/content_version_view.py
+#: cms/views/events/event_form_view.py cms/views/pages/page_form_view.py
+#: cms/views/pois/poi_form_view.py
+msgid "No changes detected, but date refreshed"
+msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
 #: cms/views/contacts/contact_form_view.py
 msgid "Contact \"{}\" was successfully saved"
@@ -9071,11 +9099,6 @@ msgid "You cannot reject changes if there is no version to return to."
 msgstr ""
 "Sie können keine Änderungen ablehnen, wenn es keine Version gibt, zu der Sie "
 "zurückkehren können."
-
-#: cms/views/content_version_view.py cms/views/events/event_form_view.py
-#: cms/views/pages/page_form_view.py cms/views/pois/poi_form_view.py
-msgid "No changes detected, but date refreshed"
-msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
 #: cms/views/content_version_view.py
 msgid "No changes detected, but status changed to published"
@@ -9449,6 +9472,10 @@ msgstr "Links wurden erfolgreich geprüft"
 #: cms/views/media/media_actions.py
 msgid "File \"{}\" was uploaded successfully"
 msgstr "Datei \"{}\"wurde erfolgreich hochgeladen"
+
+#: cms/views/media/media_actions.py
+msgid "No changes detected"
+msgstr "Keine Änderungen vorgenommen"
 
 #: cms/views/media/media_actions.py
 msgid "File \"{}\" was saved successfully"
@@ -10943,6 +10970,9 @@ msgstr ""
 #~ msgid "Number of online accesses"
 #~ msgstr "Anzahl der Online-Zugriffe"
 
+#~ msgid "Created by"
+#~ msgstr "Erstellt von"
+
 #~ msgid "E-mail from location"
 #~ msgstr "E-mail des Ortes"
 
@@ -11691,9 +11721,6 @@ msgstr ""
 
 #~ msgid "Currently no users belong to this organization"
 #~ msgstr "Aktuell gehören dieser Organisation keine Benutzer:innen an"
-
-#~ msgid "Publish changes"
-#~ msgstr "Änderungen veröffentlichen"
 
 #~ msgid "Convert current version to draft"
 #~ msgstr "Aktuelle Version zum Entwurf konvertieren"
@@ -12834,9 +12861,6 @@ msgstr ""
 
 #~ msgid "First child of"
 #~ msgstr "Erstes Unterelement von"
-
-#~ msgid "Last child of"
-#~ msgstr "Letztes Unterelement von"
 
 #~ msgid "Private"
 #~ msgstr "Privat"

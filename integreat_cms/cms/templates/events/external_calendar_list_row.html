@@ -30,6 +30,24 @@
             {{ calendar.events.count }}
         </a>
     </td>
+    <td>
+        <a href="{% url 'edit_external_calendar' region_slug=request.region.slug calendar_id=calendar.id %}"
+           class="block px-2 py-3 text-gray-800">
+            {{ calendar.created_by }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_external_calendar' region_slug=request.region.slug calendar_id=calendar.id %}"
+           class="block px-2 py-3 text-gray-800">
+            {{ calendar.last_changed_by }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_external_calendar' region_slug=request.region.slug calendar_id=calendar.id %}"
+           class="block px-2 py-3 text-gray-800">
+            {{ calendar.last_changed_on }}
+        </a>
+    </td>
     <td class="pl-2 pr-4 text-right min">
         {% if perms.cms.delete_externalcalendar %}
             <button title="{% translate "Delete external calendar" %}"
