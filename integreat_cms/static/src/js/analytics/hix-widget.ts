@@ -94,7 +94,7 @@ const updateHixFeedback = (hixFeedback: string) => {
     feedbackSections.forEach((feedbackSection) => {
         const categoryName = feedbackSection.getAttribute("hix-feedback-category");
         const feedbackEntry = feedbackJson.find((item: { category: string }) => item.category === categoryName);
-        let feedbackResult = feedbackEntry ? feedbackEntry.result : [] || Number;
+        let feedbackResult = feedbackEntry ? feedbackEntry.result : [];
 
         // Cast array into number if HIX feedback is in the old format
         if (feedbackResult instanceof Array) {

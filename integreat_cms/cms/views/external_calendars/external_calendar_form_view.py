@@ -45,7 +45,7 @@ class ExternalCalendarFormView(TemplateView):
             id=kwargs.get("calendar_id")
         ).first()
         external_calendar_form = ExternalCalendarForm(
-            instance=external_calendar_instance
+            instance=external_calendar_instance, user=None
         )
         return render(
             request,
@@ -73,7 +73,7 @@ class ExternalCalendarFormView(TemplateView):
             id=kwargs.get("calendar_id")
         ).first()
         external_calendar_form = ExternalCalendarForm(
-            data=request.POST, instance=external_calendar_instance
+            data=request.POST, instance=external_calendar_instance, user=request.user
         )
         if not external_calendar_form.is_valid():
             external_calendar_form.add_error_messages(request)

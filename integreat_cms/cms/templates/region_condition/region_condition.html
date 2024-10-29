@@ -1,0 +1,21 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1 class="heading">
+        <i icon-name="construction"></i>
+        {% translate "This page is under construction" %}
+        <i icon-name="construction"></i>
+    </h1>
+    <div class="p-8">
+        <form action="{% url "export_region_conditions" file_format="csv" %}"
+              method="post">
+            {% csrf_token %}
+            <button type="submit"
+                    title="{% translate "Download region condition CSV" %}"
+                    class="btn">
+                {% translate "Download region condition CSV" %}
+                <i icon-name="download"></i>
+            </button>
+        </form>
+    </div>
+{% endblock content %}

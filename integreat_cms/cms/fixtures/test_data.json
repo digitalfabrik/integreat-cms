@@ -958,7 +958,7 @@
     "fields": {
       "title": "Integrationsbeauftragte",
       "name": "Martina Musterfrau",
-      "poi": 6,
+      "location": 6,
       "email": "martina-musterfrau@example.com",
       "phone_number": "0123456789",
       "website": "",
@@ -973,7 +973,7 @@
     "fields": {
       "title": "Integrationsberaterin",
       "name": "Melanie Musterfrau",
-      "poi": 6,
+      "location": 6,
       "email": "melanie-musterfrau@example.com",
       "phone_number": "0987654321",
       "website": "www.random-page.com",
@@ -988,7 +988,7 @@
     "fields": {
       "title": "Integrationsbeauftragte",
       "name": "Mariana Musterfrau",
-      "poi": 6,
+      "location": 6,
       "email": "mariana-musterfrau@example.com",
       "phone_number": "0123456789",
       "website": "https://integreat-app.de/",
@@ -2220,6 +2220,54 @@
     }
   },
   {
+    "model": "linkcheck.url",
+    "pk": 18,
+    "fields": {
+      "url": "https://tuerantuer.de/",
+      "last_checked": "2023-08-23T10:19:32Z",
+      "anchor_status": null,
+      "ssl_status": null,
+      "status": true,
+      "status_code": 302,
+      "redirect_status_code": 200,
+      "message": "200 OK",
+      "error_message": "",
+      "redirect_to": ""
+    }
+  },
+  {
+    "model": "linkcheck.url",
+    "pk": 19,
+    "fields": {
+      "url": "https://integreat.app/fake-region/de/willkommen/",
+      "last_checked": "2023-08-23T10:19:32Z",
+      "anchor_status": null,
+      "ssl_status": null,
+      "status": false,
+      "status_code": null,
+      "redirect_status_code": null,
+      "message": "",
+      "error_message": "Diese Region existiert nicht oder ist nicht aktiv.",
+      "redirect_to": ""
+    }
+  },
+  {
+    "model": "linkcheck.url",
+    "pk": 20,
+    "fields": {
+      "url": "https://tuerantuer.dx/",
+      "last_checked": "2023-08-23T10:19:32Z",
+      "anchor_status": null,
+      "ssl_status": null,
+      "status": false,
+      "status_code": null,
+      "redirect_status_code": null,
+      "message": "Name Resolution Error: Failed to resolve 'tuerantuer.dx' ([Errno -2] Name or service not known)",
+      "error_message": "Name Resolution Error: Failed to resolve 'tuerantuer.dx' ([Errno -2] Name or service not known)",
+      "redirect_to": ""
+    }
+  },
+  {
     "model": "linkcheck.link",
     "pk": 1,
     "fields": {
@@ -2624,6 +2672,54 @@
       "field": "content",
       "url": 3,
       "text": "",
+      "ignore": false
+    }
+  },
+  {
+    "model": "linkcheck.link",
+    "pk": 35,
+    "fields": {
+      "content_type": ["cms", "pagetranslation"],
+      "object_id": 99,
+      "field": "content",
+      "url": 7,
+      "text": "Internal valid link",
+      "ignore": false
+    }
+  },
+  {
+    "model": "linkcheck.link",
+    "pk": 36,
+    "fields": {
+      "content_type": ["cms", "pagetranslation"],
+      "object_id": 99,
+      "field": "content",
+      "url": 19,
+      "text": "Internal invalid link",
+      "ignore": false
+    }
+  },
+  {
+    "model": "linkcheck.link",
+    "pk": 37,
+    "fields": {
+      "content_type": ["cms", "pagetranslation"],
+      "object_id": 99,
+      "field": "content",
+      "url": 18,
+      "text": "External valid link",
+      "ignore": false
+    }
+  },
+  {
+    "model": "linkcheck.link",
+    "pk": 38,
+    "fields": {
+      "content_type": ["cms", "pagetranslation"],
+      "object_id": 99,
+      "field": "content",
+      "url": 20,
+      "text": "External invalid link",
       "ignore": false
     }
   },
@@ -3209,7 +3305,7 @@
       "created_date": "2022-02-22T16:57:08.587Z",
       "lft": 1,
       "rgt": 2,
-      "tree_id": 7,
+      "tree_id": 6,
       "depth": 1,
       "parent": null,
       "region": 1,
@@ -3232,7 +3328,7 @@
       "created_date": "2023-08-18T10:31:48.247Z",
       "lft": 1,
       "rgt": 2,
-      "tree_id": 8,
+      "tree_id": 7,
       "depth": 1,
       "parent": null,
       "region": 1,
@@ -3255,10 +3351,33 @@
       "created_date": "2023-08-18T10:31:48.247Z",
       "lft": 1,
       "rgt": 2,
-      "tree_id": 9,
+      "tree_id": 8,
       "depth": 1,
       "parent": null,
       "region": 1,
+      "explicitly_archived": false,
+      "icon": null,
+      "mirrored_page": null,
+      "mirrored_page_first": true,
+      "organization": null,
+      "api_token": "",
+      "hix_ignore": false,
+      "authors": [],
+      "editors": [],
+      "embedded_offers": []
+    }
+  },
+  {
+    "model": "cms.page",
+    "pk": 29,
+    "fields": {
+      "created_date": "2023-08-18T10:31:48.247Z",
+      "lft": 1,
+      "rgt": 2,
+      "tree_id": 9,
+      "depth": 1,
+      "parent": null,
+      "region": 2,
       "explicitly_archived": false,
       "icon": null,
       "mirrored_page": null,
@@ -5332,6 +5451,27 @@
       "creator": ["root"],
       "automatic_translation": false,
       "page": 28,
+      "hix_score": null,
+      "hix_feedback": null
+    }
+  },
+  {
+    "model": "cms.pagetranslation",
+    "pk": 99,
+    "fields": {
+      "title": "Test links",
+      "slug": "test_links",
+      "status": "PUBLIC",
+      "content": "<div><p><a href=\"https://integreat.app/augsburg/de/willkommen/\">Internal valid</a></p><p><a href=\"https://integreat.app/fake-region/de/willkommen/\">Internal invalid</a></p><p> </p><p><a class=\"link-external\" href=\"https://tuerantuer.de/\">External valid</a></p><p><a class=\"link-external\" href=\"https://tuerantuer.dx/\">External invalid</a></p></div>",
+      "language": 1,
+      "currently_in_translation": false,
+      "machine_translated": false,
+      "version": 1,
+      "minor_edit": false,
+      "last_updated": "2022-12-30T11:11:11.111Z",
+      "creator": ["root"],
+      "automatic_translation": false,
+      "page": 29,
       "hix_score": null,
       "hix_feedback": null
     }

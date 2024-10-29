@@ -250,7 +250,15 @@ def find_target_url_per_content(
     )
 
     links_to_replace = (
-        [link for link in links if link.url.type in link_types] if link_types else links
+        (
+            link
+            for link in links
+            if link.url.type in link_types
+            or link.url.status is False
+            and "invalid" in link_types
+        )
+        if link_types
+        else links
     )
 
     content_objects: DefaultDict[AbstractContentTranslation, dict[str, str]] = (

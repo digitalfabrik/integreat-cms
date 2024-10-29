@@ -106,7 +106,7 @@ content_role_id_combination = [
 ]
 
 
-# pylint:disable=too-many-locals, redefined-outer-name
+# pylint:disable=too-many-locals, redefined-outer-name, too-many-positional-arguments
 @pytest.mark.django_db
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 @pytest.mark.parametrize("content_role_id_combination", content_role_id_combination)
@@ -502,6 +502,7 @@ content_role_id_data_combination = [
 ]
 
 
+# pylint: disable=too-many-positional-arguments
 @pytest.mark.django_db
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 @pytest.mark.parametrize(

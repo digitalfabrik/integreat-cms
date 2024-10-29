@@ -6,6 +6,7 @@ import requests
 from django.conf import settings
 
 from ....cms.models import Region
+from ....cms.utils.content_translation_utils import get_public_translation_for_link
 
 
 class ChatBot:
@@ -29,12 +30,17 @@ class ChatBot:
         """
         Transform JSON into readable message
         """
-        if not response["answer"]:
+        if "answer" not in response or not response["answer"]:
             return ""
+        if "sources" not in response or not response["sources"]:
+            return response["answer"]
         sources = "".join(
             [
-                f"<li><a href='{settings.WEBAPP_URL}{path}'>{path}</a></li>"
+                f"<li><a href='{settings.WEBAPP_URL}{path}'>{title}</a></li>"
                 for path in response["sources"]
+                if (
+                    title := get_public_translation_for_link(settings.WEBAPP_URL + path)
+                )
             ]
         )
         return f"{response['answer']}\n<ul>{sources}</ul>"
@@ -45,4 +51,13 @@ class ChatBot:
         """
         Use LLM to translate message
         """
-        raise NotImplementedError
+        url = f"https://{self.hostname}/chatanswers/translate_message/"
+        body = {
+            "message": message,
+            "source_language": source_lang_slug,
+            "target_language": target_lang_slug,
+        }
+        response = requests.post(url, json=body, timeout=30).json()
+        if "status" in response and response["status"] == "success":
+            return response["translation"]
+        return ""

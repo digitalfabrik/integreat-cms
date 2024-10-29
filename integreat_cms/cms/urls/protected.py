@@ -49,6 +49,7 @@ from ..views import (
     poi_categories,
     pois,
     push_notifications,
+    region_condition,
     regions,
     release_notes,
     roles,
@@ -235,6 +236,23 @@ urlpatterns: list[URLPattern] = [
         "admin-dashboard/",
         dashboard.AdminDashboardView.as_view(),
         name="admin_dashboard",
+    ),
+    path(
+        "region-condition/",
+        include(
+            [
+                path(
+                    "",
+                    region_condition.RegionConditionView.as_view(),
+                    name="region_condition",
+                ),
+                path(
+                    "export/<str:file_format>/",
+                    region_condition.export_region_conditions,
+                    name="export_region_conditions",
+                ),
+            ]
+        ),
     ),
     path(
         "linkcheck/",
@@ -1405,9 +1423,34 @@ urlpatterns: list[URLPattern] = [
                                 name="archived_contacts",
                             ),
                             path(
+                                "new/",
+                                contacts.ContactFormView.as_view(),
+                                name="new_contact",
+                            ),
+                            path(
+                                "bulk-archive/",
+                                contacts.ArchiveContactBulkAction.as_view(),
+                                name="bulk_archive_contacts",
+                            ),
+                            path(
+                                "bulk-restore/",
+                                contacts.RestoreContactBulkAction.as_view(),
+                                name="bulk_restore_contacts",
+                            ),
+                            path(
+                                "bulk-delete/",
+                                contacts.DeleteContactBulkAction.as_view(),
+                                name="bulk_delete_contacts",
+                            ),
+                            path(
                                 "<int:contact_id>/",
                                 include(
                                     [
+                                        path(
+                                            "edit/",
+                                            contacts.ContactFormView.as_view(),
+                                            name="edit_contact",
+                                        ),
                                         path(
                                             "copy/",
                                             contacts.copy_contact,

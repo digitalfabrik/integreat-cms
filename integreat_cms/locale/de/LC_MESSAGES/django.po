@@ -47,6 +47,7 @@ msgstr "Landkreis"
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/languages/region_list_section/region_list.html
 #: cms/templates/users/user_list.html
+#: cms/views/region_condition/region_condition_actions.py
 msgid "Region"
 msgstr "Region"
 
@@ -1806,6 +1807,10 @@ msgstr "Vierte Woche"
 msgid "Last week"
 msgstr "Letzte Woche"
 
+#: cms/forms/contacts/contact_form.py
+msgid "Location cannot be empty."
+msgstr "Ort darf nicht leer sein."
+
 #: cms/forms/custom_content_model_form.py
 msgid ""
 "Could not update because this content because it is already being edited by "
@@ -2632,6 +2637,7 @@ msgid "modification date"
 msgstr "Änderungsdatum"
 
 #: cms/models/abstract_content_translation.py
+#: cms/models/external_calendars/external_calendar.py
 msgid "creator"
 msgstr "Ersteller:in"
 
@@ -2708,8 +2714,9 @@ msgstr "Nutzer-Chats"
 msgid "name"
 msgstr "Name"
 
-#: cms/models/contact/contact.py
-msgid "POI"
+#: cms/models/contact/contact.py cms/models/events/event.py
+#: cms/models/pois/poi.py cms/models/pois/poi_translation.py
+msgid "location"
 msgstr "Ort"
 
 #: cms/models/contact/contact.py cms/models/pois/poi.py
@@ -2747,10 +2754,17 @@ msgstr "Kontakt"
 msgid "contacts"
 msgstr "Kontakte"
 
-#: cms/models/events/event.py cms/models/pois/poi.py
-#: cms/models/pois/poi_translation.py
-msgid "location"
-msgstr "Ort"
+#: cms/models/contact/contact.py
+msgid "Only one contact per location can have an empty title."
+msgstr "Nur ein Kontakt per Ort darf leeren Titel haben."
+
+#: cms/models/contact/contact.py
+msgid ""
+"One of the following fields must be filled: title, name, e-mail, phone "
+"number, website."
+msgstr ""
+"Eines der folgenden Felder muss ausgefüllt werden: Title, Name, E-mail, "
+"Telefonnummer, Website."
 
 #: cms/models/events/event.py
 msgid "start"
@@ -2909,6 +2923,22 @@ msgid "import errors"
 msgstr "Importfehler"
 
 #: cms/models/external_calendars/external_calendar.py
+msgid "The account that created this external calendar."
+msgstr "Das Konto, das diesen externen Kalender angelegt hat."
+
+#: cms/models/external_calendars/external_calendar.py
+msgid "last changed by"
+msgstr "Zuletzt geändert von"
+
+#: cms/models/external_calendars/external_calendar.py
+msgid "The account that was the last to change this external calendar."
+msgstr "Das Konto, das diesen externen Kalender zuletzt geändert hat."
+
+#: cms/models/external_calendars/external_calendar.py
+msgid "last changed on"
+msgstr "Zuletzt geändert am"
+
+#: cms/models/external_calendars/external_calendar.py
 msgid "external calendars"
 msgstr "Externe Kalender"
 
@@ -2973,7 +3003,8 @@ msgid "imprint feedback"
 msgstr "Impressums-Feedback"
 
 #: cms/models/feedback/map_feedback.py cms/models/regions/region.py
-#: cms/templates/_base.html cms/templates/organizations/organization_form.html
+#: cms/templates/_base.html cms/templates/contacts/contact_form.html
+#: cms/templates/organizations/organization_form.html
 #: cms/templates/pois/poi_list.html
 msgid "Locations"
 msgstr "Orte"
@@ -4113,11 +4144,13 @@ msgid "used budget"
 msgstr "verbrauchtes Budget"
 
 #: cms/models/regions/region.py cms/templates/_base.html
+#: cms/templates/contacts/contact_form.html
 #: cms/templates/organizations/organization_form.html
 msgid "Pages"
 msgstr "Seiten"
 
 #: cms/models/regions/region.py cms/templates/_base.html
+#: cms/templates/contacts/contact_form.html
 #: cms/templates/events/event_list.html
 msgid "Events"
 msgstr "Veranstaltungen"
@@ -4460,6 +4493,10 @@ msgid "Admin Dashboard"
 msgstr "Admin Dashboard"
 
 #: cms/templates/_base.html
+msgid "Region condition"
+msgstr "Regionenzustand"
+
+#: cms/templates/_base.html
 msgid "Regions"
 msgstr "Regionen"
 
@@ -4723,8 +4760,9 @@ msgstr "Kontaktperson"
 msgid "Spoken Languages"
 msgstr "Gesprochene Sprachen"
 
-#: cms/templates/_tinymce_config.html cms/templates/events/event_form.html
-#: cms/templates/hix_widget.html cms/templates/imprint/imprint_form.html
+#: cms/templates/_tinymce_config.html cms/templates/contacts/contact_form.html
+#: cms/templates/events/event_form.html cms/templates/hix_widget.html
+#: cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html
 #: cms/templates/languagetreenodes/languagetreenode_form.html
 #: cms/templates/organizations/organization_form.html
@@ -4782,21 +4820,12 @@ msgid "Publish"
 msgstr "Veröffentlichen"
 
 #: cms/templates/ajax_poi_form/poi_box.html
-msgid "Name of event location"
-msgstr "Name des Veranstaltungsortes"
+msgid "Name of location"
+msgstr "Name des Ortes"
 
 #: cms/templates/ajax_poi_form/poi_box.html
-msgid "Remove location from event"
-msgstr "Veranstaltungsort von Veranstaltung entfernen"
-
-#: cms/templates/ajax_poi_form/poi_box.html
-msgid ""
-"Create an event location or start typing the name of an existing location. "
-"Only published locations can be set as event venues"
-msgstr ""
-"Erstellen Sie einen Veranstaltungsort oder beginnen Sie den Namen eines "
-"bestehenden Veranstaltungsortes einzutippen. Nur öffentliche Orte können als "
-"Veranstaltungsorte verwendet werden"
+msgid "Remove location"
+msgstr "Ort entfernen"
 
 #: cms/templates/ajax_poi_form/poi_box.html
 #: cms/templates/pois/poi_form_sidebar/position_box.html
@@ -5164,6 +5193,80 @@ msgstr "Chat"
 msgid "Send message"
 msgstr "Nachricht abschicken"
 
+#: cms/templates/contacts/contact_form.html
+msgid "Edit contact"
+msgstr "Kontakt bearbeiten"
+
+#: cms/templates/contacts/contact_form.html
+msgid "Create new contact"
+msgstr "Kontakt erstellen"
+
+#: cms/templates/contacts/contact_form.html
+#: cms/templates/languagetreenodes/languagetreenode_form.html
+#: cms/templates/offertemplates/offertemplate_form.html
+#: cms/views/media/media_context_mixin.py
+msgid "Create"
+msgstr "Erstellen"
+
+#: cms/templates/contacts/contact_form.html
+msgid "Connect a location"
+msgstr "Ort verknüpfen"
+
+#: cms/templates/contacts/contact_form.html
+msgid "Manage contact data"
+msgstr "Kontaktdaten verwalten"
+
+#: cms/templates/contacts/contact_form.html
+msgid ""
+"Add missing data or change existing data. Select the data you want to import."
+msgstr ""
+"Ergänzen Sie fehlende Daten oder ändern bestehende Daten. Wählen Sie die "
+"Daten aus, die übernommen werden sollen."
+
+#: cms/templates/contacts/contact_form.html
+msgid "Contact information"
+msgstr "Kontaktinformationen"
+
+#: cms/templates/contacts/contact_form.html
+msgid "This contact is referred to in those contents."
+msgstr "Dieser Kontakt wird in folgenden Inhalten verwendet."
+
+#: cms/templates/contacts/contact_form.html
+msgid "This contact is not currently referred to on any page."
+msgstr "Zur Zeit wird dieser Kontakt in keiner Seite verwendet."
+
+#: cms/templates/contacts/contact_form.html
+msgid "This contact is not currently referred to in any location."
+msgstr "Zur Zeit wird dieser Kontakt in keinem Ort verwendet."
+
+#: cms/templates/contacts/contact_form.html
+msgid "This contact is not currently referred to in any event."
+msgstr "Zur Zeit wird dieser Kontakt in keiner Veranstaltung verwendet."
+
+#: cms/templates/contacts/contact_form.html
+#: cms/templates/contacts/contact_list_row.html
+msgid "Archive contact"
+msgstr "Kontakte archivieren"
+
+#: cms/templates/contacts/contact_form.html
+msgid "Archive this contact"
+msgstr "Kontakt archivieren"
+
+#: cms/templates/contacts/contact_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
+#: cms/templates/pages/page_tree_archived_node.html
+msgid "Restore page"
+msgstr "Seite wiederherstellen"
+
+#: cms/templates/contacts/contact_form.html
+msgid "Restore this contact"
+msgstr "Kontakt wiederherstellen"
+
+#: cms/templates/contacts/contact_form.html
+#: cms/templates/contacts/contact_list_row.html
+msgid "Delete contact"
+msgstr "Kontakt löschen"
+
 #: cms/templates/contacts/contact_list.html
 msgid "Archived Contacts"
 msgstr "Archivierte Kontakte"
@@ -5175,6 +5278,10 @@ msgstr "Zurück zu Kontakte"
 #: cms/templates/contacts/contact_list.html
 msgid "Archived contacts"
 msgstr "Archivierte Kontakte"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Create contact"
+msgstr "Kontakt erstellen"
 
 #: cms/templates/contacts/contact_list.html
 #: cms/templates/pages/_page_xliff_import_diff.html
@@ -5247,6 +5354,18 @@ msgid "Select bulk action"
 msgstr "Mehrfachaktion auswählen"
 
 #: cms/templates/contacts/contact_list.html
+msgid "Restore contacts"
+msgstr "Kontakte wiederherstellen"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Archive contacts"
+msgstr "Kontakte archivieren"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Delete contacts"
+msgstr "Kontakte löschen"
+
+#: cms/templates/contacts/contact_list.html
 #: cms/templates/events/event_list.html
 #: cms/templates/events/event_list_archived.html
 #: cms/templates/feedback/admin_feedback_list.html
@@ -5275,14 +5394,6 @@ msgstr "Kontakt wiederherstellen"
 #: cms/templates/contacts/contact_list_row.html
 msgid "Copy contact"
 msgstr "Kontakt kopieren"
-
-#: cms/templates/contacts/contact_list_row.html
-msgid "Archive contact"
-msgstr "Kontakte archivieren"
-
-#: cms/templates/contacts/contact_list_row.html
-msgid "Delete contact"
-msgstr "Kontakt löschen"
 
 #: cms/templates/content_versions.html
 #, python-format
@@ -5996,6 +6107,27 @@ msgid "Imported events"
 msgstr "Importierte Termine"
 
 #: cms/templates/events/external_calendar_list.html
+msgid "Creator"
+msgstr "Ersteller:in"
+
+#: cms/templates/events/external_calendar_list.html
+msgid "Last changed by"
+msgstr "Zuletzt geändert von"
+
+#: cms/templates/events/external_calendar_list.html
+#: cms/templates/languages/language_list.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/pages/_page_filter_form.html
+#: cms/templates/pages/_page_xliff_import_diff.html
+#: cms/templates/pages/page_tree.html
+#: cms/templates/pages/page_tree_archived.html
+#: cms/templates/push_notifications/push_notification_list.html
+#: cms/templates/push_notifications/push_notification_template_list.html
+#: cms/templates/regions/region_list.html
+msgid "Last updated"
+msgstr "Zuletzt aktualisiert"
+
+#: cms/templates/events/external_calendar_list.html
 msgid "No external calendars available yet."
 msgstr "Noch keine externen Kalender vorhanden."
 
@@ -6452,18 +6584,6 @@ msgid "Created"
 msgstr "Erstellt"
 
 #: cms/templates/languages/language_list.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/templates/pages/_page_filter_form.html
-#: cms/templates/pages/_page_xliff_import_diff.html
-#: cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html
-#: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
-#: cms/templates/regions/region_list.html
-msgid "Last updated"
-msgstr "Zuletzt aktualisiert"
-
-#: cms/templates/languages/language_list.html
 msgid "Number of regions where this language is used"
 msgstr "Anzahl der Regionen, in denen diese Sprache verwendet wird"
 
@@ -6503,6 +6623,7 @@ msgid "Add language to this region"
 msgstr "Sprache zu dieser Region hinzufügen"
 
 #: cms/templates/languagetreenodes/languagetreenode_form.html
+
 #: cms/templates/offertemplates/offertemplate_form.html
 #: cms/templates/organizations/organization_form.html
 #: cms/views/media/media_context_mixin.py
@@ -6510,6 +6631,7 @@ msgid "Create"
 msgstr "Erstellen"
 
 #: cms/templates/languagetreenodes/languagetreenode_form.html
+
 msgid "Create and add more"
 msgstr "Erstellen und weitere hinzufügen"
 
@@ -6964,11 +7086,6 @@ msgstr "Archiviert, weil eine übergeordnete Seite archiviert ist"
 #: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "Mark this page as up-to-date"
 msgstr "Seite als aktuell markieren"
-
-#: cms/templates/pages/page_form_sidebar/actions_box.html
-#: cms/templates/pages/page_tree_archived_node.html
-msgid "Restore page"
-msgstr "Seite wiederherstellen"
 
 #: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "Restore this page"
@@ -7789,6 +7906,14 @@ msgstr "Name der Vorlage"
 msgid "Template name not available"
 msgstr "Name der Vorlage nicht verfügbar"
 
+#: cms/templates/region_condition/region_condition.html
+msgid "This page is under construction"
+msgstr "Diese Seite ist noch im Bau"
+
+#: cms/templates/region_condition/region_condition.html
+msgid "Download region condition CSV"
+msgstr "Regionenzustandsbericht als CSV herunterladen"
+
 #: cms/templates/regions/region_form.html
 #, python-format
 msgid "Edit region \"%(region_name)s\""
@@ -8212,8 +8337,8 @@ msgid "Register authenticator app"
 msgstr "Authenticator-App registrieren"
 
 #: cms/templates/statistics/_statistics_widget.html
-msgid "Number of online accesses over the last 14 days."
-msgstr "Anzahl der Online-Zugriffe der letzten 14 Tage."
+msgid "Number of total accesses over the last 14 days."
+msgstr "Anzahl der Gesamtzugriffe der letzten 14 Tage."
 
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_overview.html
@@ -8221,8 +8346,8 @@ msgid "The statistics network is currently experiencing heavy traffic."
 msgstr "Der Statistik-Server hat aktuell eine hohe Auslastung."
 
 #: cms/templates/statistics/statistics_overview.html
-msgid "Number of online accesses"
-msgstr "Anzahl der Online-Zugriffe"
+msgid "Total accesses"
+msgstr "Gesamtzugriffe"
 
 #: cms/templates/statistics/statistics_overview.html
 msgid "Individual languages can be hidden by clicking on the labels."
@@ -8803,7 +8928,7 @@ msgstr[1] "Es gibt bereits aktuelle Übersetzungen für {}"
 msgid "The selected {} were successfully {}"
 msgstr "Die ausgewählten {} wurden erfolgreich {}"
 
-#: cms/views/bulk_action_views.py
+#: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully archived."
 msgid_plural ""
@@ -8852,7 +8977,7 @@ msgstr[1] ""
 "Die folgenden Orte können nicht archiviert werden, da sie von einer "
 "Veranstaltung oder einem Kontakt verwendet werden: \"{object_names}\""
 
-#: cms/views/bulk_action_views.py
+#: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully restored."
 msgid_plural ""
@@ -8904,6 +9029,15 @@ msgstr "Kontakt {0} wurde erfolgreich wiederhergestellt"
 msgid "Contact {0} was successfully copied"
 msgstr "Kontakt {0} wurde erfolgreich kopiert"
 
+#: cms/views/contacts/contact_bulk_actions.py
+#, python-brace-format
+msgid "{model_name} {object_names} was successfully deleted."
+msgid_plural ""
+"The following {model_name_plural} were successfully deleted: {object_names}"
+msgstr[0] "{model_name} {object_names} wurde erfolgreich gelöscht."
+msgstr[1] ""
+"Die folgenden {model_name_plural} wurden erfolgreich gelöscht: {object_names}"
+
 #: cms/views/contacts/contact_context_mixin.py
 msgid "Please confirm that you really want to archive this contact"
 msgstr "Bitte bestätigen Sie, dass dieser Kontakt archiviert werden soll."
@@ -8916,6 +9050,41 @@ msgstr ""
 #: cms/views/contacts/contact_context_mixin.py
 msgid "Please confirm that you really want to delete this contact"
 msgstr "Bitte bestätigen Sie, dass dieser Kontakt gelöscht werden soll"
+
+#: cms/views/contacts/contact_form_view.py
+msgid "You cannot edit this contact because it is archived."
+msgstr "Sie können diesen Kontakt nicht bearbeiten, weil er archiviert ist."
+
+#: cms/views/contacts/contact_form_view.py
+msgid "You don't have the permission to edit contacts."
+msgstr "Sie haben nicht die nötige Berechtigung, um Kontakte zu bearbeiten."
+
+#: cms/views/contacts/contact_form_view.py
+msgid "This location is used for the contact."
+msgstr "Dieser Ort wird für den Kontakt verwendet."
+
+#: cms/views/contacts/contact_form_view.py
+msgid ""
+"Select a location to use for your contact or create a new location. Only "
+"published locations can be set."
+msgstr ""
+"Wählen Sie einen Ort aus, der für ihren Kontakt verwendet werden soll oder "
+"erstellen Sie einen neuen Ort. Nur veröffentlichte Orte können verwendet "
+"werden."
+
+#: cms/views/contacts/contact_form_view.py
+msgid "Contact \"{}\" was successfully created"
+msgstr "Kontakt \"{}\" wurde erfolgreich erstellt"
+
+#: cms/views/contacts/contact_form_view.py cms/views/content_version_view.py
+#: cms/views/events/event_form_view.py cms/views/pages/page_form_view.py
+#: cms/views/pois/poi_form_view.py
+msgid "No changes detected, but date refreshed"
+msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
+
+#: cms/views/contacts/contact_form_view.py
+msgid "Contact \"{}\" was successfully saved"
+msgstr "Kontakt \"{}\" wurde erfolgreich gespeichert"
 
 #: cms/views/content_version_view.py
 msgid "Back to the form"
@@ -8939,11 +9108,6 @@ msgid "You cannot reject changes if there is no version to return to."
 msgstr ""
 "Sie können keine Änderungen ablehnen, wenn es keine Version gibt, zu der Sie "
 "zurückkehren können."
-
-#: cms/views/content_version_view.py cms/views/events/event_form_view.py
-#: cms/views/pages/page_form_view.py cms/views/pois/poi_form_view.py
-msgid "No changes detected, but date refreshed"
-msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
 #: cms/views/content_version_view.py
 msgid "No changes detected, but status changed to published"
@@ -9042,6 +9206,15 @@ msgstr "Bitte bestätigen Sie, dass diese Veranstaltung gelöscht werden soll"
 #: cms/views/events/event_context_mixin.py
 msgid "All translations of this event will also be deleted."
 msgstr "Alle Übersetzungen dieser Veranstaltung werden gelöscht."
+
+#: cms/views/events/event_context_mixin.py
+msgid ""
+"Create an event location or start typing the name of an existing location. "
+"Only published locations can be set as event venues."
+msgstr ""
+"Erstellen Sie einen Ort oder beginnen Sie den Namen eines bestehenden "
+"Veranstaltungsortes einzutippen. Nur veröffentlichte Orte können als "
+"Veranstaltungsorte verwendet werden."
 
 #: cms/views/events/event_form_view.py
 msgid "You cannot edit this event because it is archived."
@@ -9669,6 +9842,14 @@ msgid "No XLIFF file was selected for import."
 msgstr "Es wurde keine XLIFF-Datei für den Import ausgewählt."
 
 #: cms/views/pages/page_actions.py
+msgid ""
+"Error while saving page. Someone else probably moved another page at the "
+"same time."
+msgstr ""
+"Fehler beim Speichern der Seite. Wahrscheinlich hat eine andere Person eine "
+"andere Seite verschoben."
+
+#: cms/views/pages/page_actions.py
 #, python-brace-format
 msgid "The page \"{page}\" was successfully moved."
 msgstr "Die Seite \"{page}\" wurde erfolgreich verschoben."
@@ -10252,6 +10433,31 @@ msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Push-"
 "Benachrichtigungen verwalten."
 
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Number of broken links"
+msgstr "Anzahl kaputter Links"
+
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Number of low hix pages"
+msgstr "Anzahl Seiten mit niedrigem HIX-Wert"
+
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Number of pages with at least one missing or outdated translation"
+msgstr ""
+"Anzahl Seiten mit mindestens einer fehlenden oder veralteten Übersetzung"
+
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Number of outdated pages"
+msgstr "Anzahl veralteter Seiten"
+
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Has translation package been booked?"
+msgstr "Wurde das Add-On für Übersetzungen gebucht?"
+
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Number of languages besides root language"
+msgstr "Anzahl Sprachen neben der Standard-Sprache"
+
 #: cms/views/regions/region_actions.py
 msgid ""
 "Region could not be deleted, because the following pages are mirrored in "
@@ -10770,6 +10976,60 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Number of online accesses"
+#~ msgstr "Anzahl der Online-Zugriffe"
+
+#~ msgid "Created by"
+#~ msgstr "Erstellt von"
+
+#~ msgid "E-mail from location"
+#~ msgstr "E-mail des Ortes"
+
+#~ msgid "Will be taken over from the location."
+#~ msgstr "Wird vom Ort übernommen."
+
+#~ msgid "phone number from location"
+#~ msgstr "Telefonnummer des Ortes"
+
+#~ msgid "website from location"
+#~ msgstr "Website des Ortes"
+
+#~ msgid ""
+#~ "E-mail address does not match with that of the selected location. Please "
+#~ "check again."
+#~ msgstr ""
+#~ "Die E-mail Adresse stimmt nicht mit der vom ausgewählten Ort überein. "
+#~ "Bitte überprüfen Sie sie erneut."
+
+#~ msgid ""
+#~ "Phone number does not match with that of the selected location. Please "
+#~ "check again."
+#~ msgstr ""
+#~ "Die Telefonnummer stimmt nicht mit der vom ausgewählten Ort überein. "
+#~ "Bitte überprüfen Sie sie erneut."
+
+#~ msgid ""
+#~ "Website URL does not match with that of the selected location. Please "
+#~ "check again."
+#~ msgstr ""
+#~ "Die Website URL stimmt nicht mit der vom ausgewählten Ort überein. Bitte "
+#~ "überprüfen Sie sie erneut."
+
+#~ msgid "Delete this contact"
+#~ msgstr "Diesen Kontakt löschen"
+
+#~ msgid "Name of related POI"
+#~ msgstr "Name des verlinkten Ortes"
+
+#~ msgid "Only published locations can be set as event venues"
+#~ msgstr "Nur veröffentlichte Orte können verwendet werden"
+
+#~ msgid "Remove location from event"
+#~ msgstr "Ort entfernen"
+
+#~ msgid "Region name"
+#~ msgstr "Name der Region"
+
 #~ msgid "Opening hours"
 #~ msgstr "Öffnungszeiten"
 
@@ -10781,9 +11041,6 @@ msgstr ""
 
 #~ msgid "Back to the location form"
 #~ msgstr "Zurück zum Orts-Formular"
-
-#~ msgid "Name of related POI"
-#~ msgstr "Name des verlinkten Ortes"
 
 #~ msgid "You cannot archive a location which is used by an event."
 #~ msgstr ""
@@ -10797,6 +11054,12 @@ msgstr ""
 
 #~ msgid "Manage Contacts"
 #~ msgstr "Kontakte verwalten"
+
+#~ msgid "Whether or not the website must be taken from the location."
+#~ msgstr "Ob Statistiken für die Region aktiviert sind oder nicht"
+
+#~ msgid "POI"
+#~ msgstr "Ort"
 
 #~ msgid "Contents"
 #~ msgstr "Inhalte"
@@ -11468,9 +11731,6 @@ msgstr ""
 #~ msgid "Currently no users belong to this organization"
 #~ msgstr "Aktuell gehören dieser Organisation keine Benutzer:innen an"
 
-#~ msgid "Publish changes"
-#~ msgstr "Änderungen veröffentlichen"
-
 #~ msgid "Convert current version to draft"
 #~ msgstr "Aktuelle Version zum Entwurf konvertieren"
 
@@ -11580,9 +11840,6 @@ msgstr ""
 
 #~ msgid "504 Gateway Timeout"
 #~ msgstr "504 Gateway-Zeitüberschreitung"
-
-#~ msgid "Number of usages"
-#~ msgstr "Anzahl an Verwendungen"
 
 #~ msgid "No links detected yet."
 #~ msgstr "Es konnten keine Links gefunden werden."
@@ -11799,9 +12056,6 @@ msgstr ""
 
 #~ msgid "POI is not public."
 #~ msgstr "POI ist nicht veröffentlicht."
-
-#~ msgid "Translation cannot be imported"
-#~ msgstr "Übersetzung kann nicht importiert werden"
 
 #~ msgid "The page or target language does not exist."
 #~ msgstr "Die Seite oder Zielsprache existiert nicht."
@@ -12275,9 +12529,6 @@ msgstr ""
 #~ msgid "Administrative division"
 #~ msgstr "Verwaltungseinheit"
 
-#~ msgid "Region name option"
-#~ msgstr "Option zum Namen der Region"
-
 #~ msgid "Name of the Role"
 #~ msgstr "Name der Rolle"
 
@@ -12619,9 +12870,6 @@ msgstr ""
 
 #~ msgid "First child of"
 #~ msgstr "Erstes Unterelement von"
-
-#~ msgid "Last child of"
-#~ msgstr "Letztes Unterelement von"
 
 #~ msgid "Private"
 #~ msgstr "Privat"
