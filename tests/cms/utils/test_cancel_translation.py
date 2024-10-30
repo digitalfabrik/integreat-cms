@@ -2,21 +2,16 @@ import pytest
 from _pytest.logging import LogCaptureFixture
 from django.test.client import Client
 from django.urls import reverse
+from pytest_django.fixtures import SettingsWrapper
 
 from integreat_cms.cms.constants import translation_status
 from integreat_cms.cms.models.pages.page_translation import PageTranslation
 from tests.conftest import PRIV_STAFF_ROLES
-from tests.utils import assert_no_error_messages, get_messages
+from tests.utils import assert_message_in_log, assert_no_error_messages, get_messages
 
 success_messages = {
-    translation_status.UP_TO_DATE: [
-        'SUCCESS  Seite "test_translation_title" war nicht im Übersetzungsprozess',
-        'SUCCESS  Page "test_translation_title" was not in translation process.',
-    ],
-    translation_status.IN_TRANSLATION: [
-        'SUCCESS  Der Übersetzungsprozess für Seite "test_translation_title" wurde erfolgreich abgebrochen.',
-        'SUCCESS  Translation process was successfully cancelled for page "test_translation_title".',
-    ],
+    translation_status.UP_TO_DATE: 'SUCCESS  Page "test_translation_title" was not in translation process.',
+    translation_status.IN_TRANSLATION: 'SUCCESS  Translation process was successfully cancelled for page "test_translation_title".',
 }
 
 
@@ -28,9 +23,13 @@ def test_page_bulk_actions(
     page_ids: list[int],
     login_role_user: tuple[Client, str],
     caplog: LogCaptureFixture,
+    settings: SettingsWrapper,
 ) -> None:
 
     client, _ = login_role_user
+
+    # Test for english messages
+    settings.LANGUAGE_CODE = "en"
 
     # store the previous translation state for each page
     prev_status = {}
@@ -66,17 +65,9 @@ def test_page_bulk_actions(
         # confirm that the page is not in translation, regardless of the initial state
         assert translation.translation_state != translation_status.IN_TRANSLATION
 
-        # generate a list of possible success messages (english and german), according to the previous state
-        target_messages = []
-        for success_message in success_messages[prev_status[page_id]]:
-
-            # generate the success message including the pagetranslation title
-            target_message = success_message.replace(
+        assert_message_in_log(
+            success_messages[prev_status[page_id]].replace(
                 "test_translation_title", translation.title
-            )
-            target_messages.append(target_message)
-
-        # check if one at least one of the target messages for this page could be found in the caplog
-        assert any(
-            message in messages for message in target_messages
-        ), f"No success message found for page {page_id} with previous state {prev_status[page_id]}"
+            ),
+            caplog,
+        )
