@@ -42,9 +42,15 @@
                 {% endif %}
                 {% if perms.cms.change_organization %}
                     <div class="flex flex-wrap gap-4">
-                        <button type="submit" class="btn">
-                            {% translate "Save" %}
-                        </button>
+                        {% if form.instance.id %}
+                            <button class="btn">
+                                {% translate "Update" %}
+                            </button>
+                        {% else %}
+                            <button class="btn">
+                                {% translate "Create" %}
+                            </button>
+                        {% endif %}
                     </div>
                 {% endif %}
             </div>
