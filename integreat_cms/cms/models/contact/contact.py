@@ -3,6 +3,7 @@ from django.db.models import Q
 from django.db.utils import DataError
 from django.utils import timezone
 from django.utils.functional import cached_property
+from django.utils.translation import gettext
 from django.utils.translation import gettext_lazy as _
 
 from ..abstract_base_model import AbstractBaseModel
@@ -90,6 +91,21 @@ class Contact(AbstractBaseModel):
             return _("with website: {}").format(self.website)
 
         return ""
+
+    def label_in_reference_list(self) -> str:
+        """
+        This function returns a display name of this contact for the poi contacts list
+        """
+
+        label = (
+            _("General contact information")
+            if not self.point_of_contact_for
+            else f"{self.point_of_contact_for} {self.name}"
+        )
+        if self.archived:
+            label += " (⚠ " + gettext("Archived") + ")"
+
+        return label
 
     def get_repr(self) -> str:
         """
