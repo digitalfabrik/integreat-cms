@@ -63,6 +63,11 @@ Delete all database content with :github-source:`tools/prune_database.sh`::
 
     ./tools/prune_database.sh
 
+| Update testdata file based on the *current* database with :github-source:`tools/update_test_data.sh`  
+
+**Disclaimer**: make sure to first run ``prune_database.sh`` and make *only* the desired changes before running this tool::  
+
+    ./tools/update_test_data.sh
 
 .. _translations:
 
@@ -124,17 +129,13 @@ with :github-source:`tools/integreat-cms-cli`::
 Code Quality
 ============
 
-Automatically apply our python style with :github-source:`tools/black.sh`::
-
-    ./tools/black.sh
-
 Automatically run python linting with :github-source:`tools/ruff.sh`::
 
     ./tools/ruff.sh
 
-Automatically apply our CSS/JS style with :github-source:`tools/prettier.sh`::
+Automatically apply our python style with :github-source:`tools/black.sh`::
 
-    ./tools/prettier.sh
+    ./tools/black.sh
 
 Automatically apply our HTML formatting with :github-source:`tools/djlint.sh`::
 
@@ -144,9 +145,21 @@ Check the code for semantic correctness with :github-source:`tools/pylint.sh`::
 
     ./tools/pylint.sh
 
+Automatically run static file linting with :github-source:`tools/eslint.sh`::
+
+    ./tools/eslint.sh
+
+Automatically apply our CSS/JS style with :github-source:`tools/prettier.sh`::
+
+    ./tools/prettier.sh
+
 Execute all tools at once with :github-source:`tools/code_style.sh`::
 
     ./tools/code_style.sh
+
+Check the code for python type annotations with :github-source:`tools/mypy.sh`::
+
+    ./tools/mypy.sh
 
 
 Release Notes

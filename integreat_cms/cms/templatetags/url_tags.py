@@ -8,9 +8,14 @@ from typing import TYPE_CHECKING
 from urllib.parse import parse_qs, urlencode, urlparse, urlunparse
 
 from django import template
+from django.urls import reverse
+from django.utils.safestring import mark_safe
 
 if TYPE_CHECKING:
+    from typing import Any
     from urllib.parse import ParseResult
+
+    from django.http import HttpRequest
 
 register = template.Library()
 
@@ -32,3 +37,18 @@ def add_queries(url: str, key: str, value: str | int) -> str:
 
     parsed_url = parsed_url._replace(query=urlencode(url_query, doseq=True))
     return urlunparse(parsed_url)
+
+
+@register.simple_tag
+@mark_safe
+def url_for_current_region(target: str, request: HttpRequest, **kwargs: Any) -> str:
+    """
+    Return the url matching the target url name, region and other supplied slugs
+
+    :param target: The name of target url
+    :param request: The current request, used to check whether a region is given or not
+    :param kwargs: Other slugs passed as the keyword argument
+    """
+    if request.region:
+        kwargs["region_slug"] = request.region.slug
+    return reverse(target, kwargs=kwargs)

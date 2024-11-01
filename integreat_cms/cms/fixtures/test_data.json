@@ -11,11 +11,6 @@
     }
   },
   {
-    "model": "cms.userchat",
-    "pk": 1,
-    "fields": { "device_id": "exampleDeviceID", "zammad_id": 1, "most_recent_hits": "" }
-  },
-  {
     "model": "cms.offertemplate",
     "pk": 1,
     "fields": {
@@ -199,7 +194,7 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "integreat_chat_enabled": false,
-      "zammad_url": "",
+      "zammad_url": null,
       "zammad_access_token": "",
       "zammad_chat_handlers": "",
       "chat_beta_tester_percentage": 0,
@@ -252,7 +247,7 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "integreat_chat_enabled": false,
-      "zammad_url": "",
+      "zammad_url": null,
       "zammad_access_token": "",
       "zammad_chat_handlers": "",
       "chat_beta_tester_percentage": 0,
@@ -305,7 +300,7 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "integreat_chat_enabled": false,
-      "zammad_url": "",
+      "zammad_url": null,
       "zammad_access_token": "",
       "zammad_chat_handlers": "",
       "chat_beta_tester_percentage": 0,
@@ -358,7 +353,7 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "integreat_chat_enabled": false,
-      "zammad_url": "",
+      "zammad_url": null,
       "zammad_access_token": "",
       "zammad_chat_handlers": "",
       "chat_beta_tester_percentage": 0,
@@ -411,7 +406,7 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "integreat_chat_enabled": false,
-      "zammad_url": "",
+      "zammad_url": null,
       "zammad_access_token": "",
       "zammad_chat_handlers": "",
       "chat_beta_tester_percentage": 0,
@@ -464,7 +459,7 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "integreat_chat_enabled": false,
-      "zammad_url": "",
+      "zammad_url": null,
       "zammad_access_token": "",
       "zammad_chat_handlers": "",
       "chat_beta_tester_percentage": 0,
@@ -487,6 +482,10 @@
       "push_notifications_enabled": true,
       "latitude": 13.404954,
       "longitude": 52.520008,
+      "longitude_min": null,
+      "latitude_min": null,
+      "longitude_max": null,
+      "latitude_max": null,
       "postal_code": "10115",
       "admin_mail": "berlin@integreat-app.de",
       "timezone": "Europe/Berlin",
@@ -513,72 +512,13 @@
       "machine_translate_events": 1,
       "machine_translate_pois": 1,
       "integreat_chat_enabled": false,
-      "zammad_url": "",
+      "zammad_url": null,
       "zammad_access_token": "",
       "zammad_chat_handlers": "",
       "chat_beta_tester_percentage": 0,
       "offers": []
     }
   },
-  {
-    "model": "cms.directory",
-    "pk": 1,
-    "fields": {
-      "name": "Test Directory",
-      "region": null,
-      "parent": null,
-      "created_date": "2019-08-11T07:57:42.456Z",
-      "is_hidden": false
-    }
-  },
-  {
-    "model": "cms.directory",
-    "pk": 2,
-    "fields": {
-      "name": "Empty Directory",
-      "region": null,
-      "parent": null,
-      "created_date": "2019-08-11T07:57:42.456Z",
-      "is_hidden": false
-    }
-  },
-  {
-    "model": "cms.mediafile",
-    "pk": 1,
-    "fields": {
-      "file": "global/integreat-logo.png",
-      "thumbnail": "",
-      "file_size": 1219,
-      "type": "image/png",
-      "name": "Test Logo",
-      "parent_directory": 1,
-      "region": null,
-      "alt_text": "alt text",
-      "uploaded_date": "2019-08-11T07:57:42.456Z",
-      "last_modified": "2019-08-11T07:57:42.456Z",
-      "is_hidden": false
-    }
-  },
-  {
-    "model": "cms.mediafile",
-    "pk": 2,
-    "fields": {
-      "file": "global/malte-logo.png",
-      "thumbnail": "",
-      "file_size": 1219,
-      "type": "image/png",
-      "name": "Test Logo 2",
-      "parent_directory": null,
-      "region": null,
-      "alt_text": "alt text",
-      "uploaded_date": "2019-08-11T07:57:42.456Z",
-      "last_modified": "2019-08-11T07:57:42.456Z",
-      "is_hidden": false
-    }
-  },
-  { "model": "cms.poicategory", "pk": 1, "fields": { "icon": "service", "color": "#07DC03" } },
-  { "model": "cms.poicategory", "pk": 2, "fields": { "icon": "office", "color": "#1DC6C6" } },
-  { "model": "cms.poicategory", "pk": 3, "fields": { "icon": "gastronomy", "color": "#2E98FB" } },
   {
     "model": "cms.language",
     "pk": 1,
@@ -790,16 +730,95 @@
     }
   },
   {
+    "model": "cms.userchat",
+    "pk": 1,
+    "fields": { "device_id": "exampleDeviceID", "zammad_id": 1, "region": null, "language": 3, "most_recent_hits": "" }
+  },
+  {
+    "model": "cms.directory",
+    "pk": 1,
+    "fields": {
+      "name": "Test Directory",
+      "region": null,
+      "parent": null,
+      "created_date": "2019-08-11T07:57:42.456Z",
+      "is_hidden": false
+    }
+  },
+  {
+    "model": "cms.directory",
+    "pk": 2,
+    "fields": {
+      "name": "Empty Directory",
+      "region": null,
+      "parent": null,
+      "created_date": "2019-08-11T07:57:42.456Z",
+      "is_hidden": false
+    }
+  },
+  {
+    "model": "cms.mediafile",
+    "pk": 1,
+    "fields": {
+      "file": "global/integreat-logo.png",
+      "thumbnail": "",
+      "file_size": 1219,
+      "type": "image/png",
+      "name": "Test Logo",
+      "parent_directory": 1,
+      "region": null,
+      "alt_text": "alt text",
+      "uploaded_date": "2019-08-11T07:57:42.456Z",
+      "last_modified": "2019-08-11T07:57:42.456Z",
+      "is_hidden": false
+    }
+  },
+  {
+    "model": "cms.mediafile",
+    "pk": 2,
+    "fields": {
+      "file": "global/malte-logo.png",
+      "thumbnail": "",
+      "file_size": 1219,
+      "type": "image/png",
+      "name": "Test Logo 2",
+      "parent_directory": null,
+      "region": null,
+      "alt_text": "alt text",
+      "uploaded_date": "2019-08-11T07:57:42.456Z",
+      "last_modified": "2019-08-11T07:57:42.456Z",
+      "is_hidden": false
+    }
+  },
+  { "model": "cms.poicategory", "pk": 1, "fields": { "icon": "service", "color": "#07DC03" } },
+  { "model": "cms.poicategory", "pk": 2, "fields": { "icon": "office", "color": "#1DC6C6" } },
+  { "model": "cms.poicategory", "pk": 3, "fields": { "icon": "gastronomy", "color": "#2E98FB" } },
+  {
     "model": "cms.organization",
     "pk": 1,
     "fields": {
-      "name": "Test Organization",
-      "slug": "test-organization",
+      "name": "Nicht archivierte Organisation",
+      "slug": "nicht-archivierte-organisation",
       "icon": 1,
       "last_updated": "2019-08-11T07:57:42.456Z",
       "region": 1,
       "created_date": "2019-08-11T07:57:42.456Z",
-      "website": "https://integreat-app.de/"
+      "website": "https://integreat-app.de/",
+      "archived": false
+    }
+  },
+  {
+    "model": "cms.organization",
+    "pk": 2,
+    "fields": {
+      "name": "Archivierte Organisation",
+      "slug": "archivierte-organisation",
+      "icon": 1,
+      "last_updated": "2024-08-08T07:57:42.456Z",
+      "region": 1,
+      "created_date": "2024-08-08T07:57:42.456Z",
+      "website": "https://integreat-app.de/",
+      "archived": true
     }
   },
   {
@@ -934,6 +953,51 @@
     }
   },
   {
+    "model": "cms.contact",
+    "pk": 1,
+    "fields": {
+      "title": "Integrationsbeauftragte",
+      "name": "Martina Musterfrau",
+      "location": 6,
+      "email": "martina-musterfrau@example.com",
+      "phone_number": "0123456789",
+      "website": "",
+      "archived": false,
+      "last_updated": "2024-08-06T13:23:45.256Z",
+      "created_date": "2024-08-06T13:23:45.256Z"
+    }
+  },
+  {
+    "model": "cms.contact",
+    "pk": 2,
+    "fields": {
+      "title": "Integrationsberaterin",
+      "name": "Melanie Musterfrau",
+      "location": 6,
+      "email": "melanie-musterfrau@example.com",
+      "phone_number": "0987654321",
+      "website": "www.random-page.com",
+      "archived": true,
+      "last_updated": "2024-08-06T13:23:45.256Z",
+      "created_date": "2024-08-06T13:23:45.256Z"
+    }
+  },
+  {
+    "model": "cms.contact",
+    "pk": 3,
+    "fields": {
+      "title": "Integrationsbeauftragte",
+      "name": "Mariana Musterfrau",
+      "location": 6,
+      "email": "mariana-musterfrau@example.com",
+      "phone_number": "0123456789",
+      "website": "https://integreat-app.de/",
+      "archived": false,
+      "last_updated": "2024-08-06T13:23:45.256Z",
+      "created_date": "2024-08-06T13:23:45.256Z"
+    }
+  },
+  {
     "model": "cms.recurrencerule",
     "pk": 1,
     "fields": {
@@ -968,7 +1032,9 @@
       "end": "2030-01-01T14:00:00Z",
       "recurrence_rule": 1,
       "icon": null,
-      "archived": false
+      "archived": false,
+      "external_calendar": null,
+      "external_event_id": ""
     }
   },
   {
@@ -982,7 +1048,9 @@
       "end": "2031-01-01T16:00:00Z",
       "recurrence_rule": 2,
       "icon": null,
-      "archived": false
+      "archived": false,
+      "external_calendar": null,
+      "external_event_id": ""
     }
   },
   { "model": "cms.imprintpage", "pk": 1, "fields": { "region": 1, "created_date": "2022-02-22T16:57:08.587Z" } },
@@ -2152,6 +2220,54 @@
     }
   },
   {
+    "model": "linkcheck.url",
+    "pk": 18,
+    "fields": {
+      "url": "https://tuerantuer.de/",
+      "last_checked": "2023-08-23T10:19:32Z",
+      "anchor_status": null,
+      "ssl_status": null,
+      "status": true,
+      "status_code": 302,
+      "redirect_status_code": 200,
+      "message": "200 OK",
+      "error_message": "",
+      "redirect_to": ""
+    }
+  },
+  {
+    "model": "linkcheck.url",
+    "pk": 19,
+    "fields": {
+      "url": "https://integreat.app/fake-region/de/willkommen/",
+      "last_checked": "2023-08-23T10:19:32Z",
+      "anchor_status": null,
+      "ssl_status": null,
+      "status": false,
+      "status_code": null,
+      "redirect_status_code": null,
+      "message": "",
+      "error_message": "Diese Region existiert nicht oder ist nicht aktiv.",
+      "redirect_to": ""
+    }
+  },
+  {
+    "model": "linkcheck.url",
+    "pk": 20,
+    "fields": {
+      "url": "https://tuerantuer.dx/",
+      "last_checked": "2023-08-23T10:19:32Z",
+      "anchor_status": null,
+      "ssl_status": null,
+      "status": false,
+      "status_code": null,
+      "redirect_status_code": null,
+      "message": "Name Resolution Error: Failed to resolve 'tuerantuer.dx' ([Errno -2] Name or service not known)",
+      "error_message": "Name Resolution Error: Failed to resolve 'tuerantuer.dx' ([Errno -2] Name or service not known)",
+      "redirect_to": ""
+    }
+  },
+  {
     "model": "linkcheck.link",
     "pk": 1,
     "fields": {
@@ -2544,6 +2660,66 @@
       "field": "content",
       "url": 17,
       "text": "Diese Seite",
+      "ignore": false
+    }
+  },
+  {
+    "model": "linkcheck.link",
+    "pk": 34,
+    "fields": {
+      "content_type": ["cms", "organization"],
+      "object_id": 1,
+      "field": "content",
+      "url": 3,
+      "text": "",
+      "ignore": false
+    }
+  },
+  {
+    "model": "linkcheck.link",
+    "pk": 35,
+    "fields": {
+      "content_type": ["cms", "pagetranslation"],
+      "object_id": 99,
+      "field": "content",
+      "url": 7,
+      "text": "Internal valid link",
+      "ignore": false
+    }
+  },
+  {
+    "model": "linkcheck.link",
+    "pk": 36,
+    "fields": {
+      "content_type": ["cms", "pagetranslation"],
+      "object_id": 99,
+      "field": "content",
+      "url": 19,
+      "text": "Internal invalid link",
+      "ignore": false
+    }
+  },
+  {
+    "model": "linkcheck.link",
+    "pk": 37,
+    "fields": {
+      "content_type": ["cms", "pagetranslation"],
+      "object_id": 99,
+      "field": "content",
+      "url": 18,
+      "text": "External valid link",
+      "ignore": false
+    }
+  },
+  {
+    "model": "linkcheck.link",
+    "pk": 38,
+    "fields": {
+      "content_type": ["cms", "pagetranslation"],
+      "object_id": 99,
+      "field": "content",
+      "url": 20,
+      "text": "External invalid link",
       "ignore": false
     }
   },
@@ -3129,7 +3305,7 @@
       "created_date": "2022-02-22T16:57:08.587Z",
       "lft": 1,
       "rgt": 2,
-      "tree_id": 7,
+      "tree_id": 6,
       "depth": 1,
       "parent": null,
       "region": 1,
@@ -3152,7 +3328,7 @@
       "created_date": "2023-08-18T10:31:48.247Z",
       "lft": 1,
       "rgt": 2,
-      "tree_id": 8,
+      "tree_id": 7,
       "depth": 1,
       "parent": null,
       "region": 1,
@@ -3175,10 +3351,33 @@
       "created_date": "2023-08-18T10:31:48.247Z",
       "lft": 1,
       "rgt": 2,
-      "tree_id": 9,
+      "tree_id": 8,
       "depth": 1,
       "parent": null,
       "region": 1,
+      "explicitly_archived": false,
+      "icon": null,
+      "mirrored_page": null,
+      "mirrored_page_first": true,
+      "organization": null,
+      "api_token": "",
+      "hix_ignore": false,
+      "authors": [],
+      "editors": [],
+      "embedded_offers": []
+    }
+  },
+  {
+    "model": "cms.page",
+    "pk": 29,
+    "fields": {
+      "created_date": "2023-08-18T10:31:48.247Z",
+      "lft": 1,
+      "rgt": 2,
+      "tree_id": 9,
+      "depth": 1,
+      "parent": null,
+      "region": 2,
       "explicitly_archived": false,
       "icon": null,
       "mirrored_page": null,
@@ -5257,6 +5456,27 @@
     }
   },
   {
+    "model": "cms.pagetranslation",
+    "pk": 99,
+    "fields": {
+      "title": "Test links",
+      "slug": "test_links",
+      "status": "PUBLIC",
+      "content": "<div><p><a href=\"https://integreat.app/augsburg/de/willkommen/\">Internal valid</a></p><p><a href=\"https://integreat.app/fake-region/de/willkommen/\">Internal invalid</a></p><p> </p><p><a class=\"link-external\" href=\"https://tuerantuer.de/\">External valid</a></p><p><a class=\"link-external\" href=\"https://tuerantuer.dx/\">External invalid</a></p></div>",
+      "language": 1,
+      "currently_in_translation": false,
+      "machine_translated": false,
+      "version": 1,
+      "minor_edit": false,
+      "last_updated": "2022-12-30T11:11:11.111Z",
+      "creator": ["root"],
+      "automatic_translation": false,
+      "page": 29,
+      "hix_score": null,
+      "hix_feedback": null
+    }
+  },
+  {
     "model": "cms.imprintpagetranslation",
     "pk": 1,
     "fields": {
@@ -5778,36 +5998,6 @@
       "automatic_translation": false,
       "poi": 4,
       "meta_description": "Meta description of the test location"
-    }
-  },
-  {
-    "model": "cms.contact",
-    "pk": 1,
-    "fields": {
-      "title": "Integrationsbeauftragte",
-      "name": "Martina Musterfrau",
-      "poi": 6,
-      "email": "martina-musterfrau@example.com",
-      "phone_number": "0123456789",
-      "website": "",
-      "archived": false,
-      "created_date": "2024-08-06T13:23:45.256Z",
-      "last_updated": "2024-08-06T13:23:45.256Z"
-    }
-  },
-  {
-    "model": "cms.contact",
-    "pk": 2,
-    "fields": {
-      "title": "Integrationsberaterin",
-      "name": "Martina Musterfrau",
-      "poi": 6,
-      "email": "martina-musterfrau@example.com",
-      "phone_number": "0987654321",
-      "website": "www.random-page.com",
-      "archived": true,
-      "created_date": "2024-08-06T13:23:45.256Z",
-      "last_updated": "2024-08-06T13:23:45.256Z"
     }
   }
 ]

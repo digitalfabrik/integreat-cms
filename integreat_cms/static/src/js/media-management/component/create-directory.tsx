@@ -3,7 +3,7 @@
  */
 import { route } from "preact-router";
 import { FolderPlus } from "lucide-preact";
-import { StateUpdater } from "preact/hooks";
+import { Dispatch, StateUpdater } from "preact/hooks";
 import { MediaApiPaths } from "../index";
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
     mediaTranslations: any;
     submitForm: (event: Event, successCallback: (data: any) => void) => void;
     isLoading: boolean;
-    setCreateDirectory: StateUpdater<boolean>;
+    setCreateDirectory: Dispatch<StateUpdater<boolean>>;
 };
 const CreateDirectory = ({
     parentDirectoryId,

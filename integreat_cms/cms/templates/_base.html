@@ -197,7 +197,7 @@
                 {% endif %}
                 {% if perms.cms.view_contact %}
                     <div class="{% if current_menu_item|in_list:'contacts,contacts_form' %} active {% endif %}">
-                        <a href="">
+                        <a href="{% url 'contacts' region_slug=request.region.slug %}">
                             <i icon-name="book-open"></i>
                             {% translate "Contacts" %}
                         </a>
@@ -241,6 +241,13 @@
                         {% translate "Organizations" %}
                     </a>
                 {% endif %}
+                {% if perms.cms.view_externalcalendar %}
+                    <a href="{% url 'external_calendar_list' region_slug=request.region.slug %}"
+                       class="{% if current_menu_item == 'external_calendar_list' %} active{% endif %}">
+                        <i icon-name="calendar-plus"></i>
+                        {% translate "External Calendars" %}
+                    </a>
+                {% endif %}
                 {% if perms.cms.view_user %}
                     <div class="{% if current_menu_item|in_list:'region_users,region_user_form' %} active {% endif %}">
                         <a href="{% url 'region_users' region_slug=request.region.slug %}">
@@ -262,7 +269,19 @@
                     <i icon-name="layout-grid"></i>
                     {% translate "Admin Dashboard" %}
                 </a>
-                {% if perms.cms.view_region %}
+                {% if perms.cms.view_broken_links %}
+                    <a href="{% url 'linkcheck_landing' %}"
+                       class="{% if current_menu_item == 'linkcheck' %} active{% endif %}">
+                        <i icon-name="link"></i>
+                        {% translate "Broken Links" %}
+                    </a>
+                {% endif %}
+                {% if request.user.is_superuser or request.user.is_staff %}
+                    <a href="{% url 'region_condition' %}"
+                       class="{% if current_menu_item == 'region_condition' %} active{% endif %}">
+                        <i icon-name="cctv"></i>
+                        {% translate "Region condition" %}
+                    </a>
                     <a href="{% url 'regions' %}"
                        class="{% if current_menu_item == 'regions' %} active{% endif %}">
                         <i icon-name="map"></i>

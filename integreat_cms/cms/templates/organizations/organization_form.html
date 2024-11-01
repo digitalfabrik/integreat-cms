@@ -10,12 +10,10 @@
         {% csrf_token %}
         <div class="flex justify-between mb-4">
             <h1 class="heading">
-                {% if form.initial %}
-                    {% with form.name.value as organization_name %}
-                        {% blocktranslate trimmed %}
-                            Edit organization "{{ organization_name }}"
-                        {% endblocktranslate %}
-                    {% endwith %}
+                {% if form.instance.id %}
+                    {% blocktranslate trimmed with organization_name=form.instance.name %}
+                        Edit organization "{{ organization_name }}"
+                    {% endblocktranslate %}
                 {% else %}
                     {% translate "Create new organization" %}
                 {% endif %}
@@ -23,22 +21,36 @@
             <div class="flex flex-wrap justify-between gap-4">
                 {% if form.instance.id and perms.cms.delete_organization %}
                     <div class="flex flex-wrap gap-4">
-                        <button title="{% translate "Delete organization" %}"
-                                class="btn confirmation-button btn-red"
-                                data-confirmation-title="{{ delete_dialog_title }}"
-                                data-confirmation-text="{{ delete_dialog_text }}"
-                                data-confirmation-subject="{{ form.name.value }}"
-                                data-action="{% url "delete_organization" region_slug=request.region.slug slug=form.instance.slug %}">
-                            <i icon-name="trash-2" class="mr-2"></i>
-                            {% translate "Delete" %}
-                        </button>
+                        {% if form.instance.is_used %}
+                            <button title="{{ cannot_delete_title }}" class="btn" disabled>
+                                <i icon-name="trash-2" class="mr-2"></i>
+                                {% translate "Delete" %}
+                            </button>
+                        {% else %}
+                            <button type="button"
+                                    title="{% translate "Delete organization" %}"
+                                    class="btn confirmation-button btn-red"
+                                    data-confirmation-title="{{ delete_dialog_title }}"
+                                    data-confirmation-text="{{ delete_dialog_text }}"
+                                    data-confirmation-subject="{{ form.name.value }}"
+                                    data-action="{% url "delete_organization" region_slug=request.region.slug organization_id=form.instance.id %}">
+                                <i icon-name="trash-2" class="mr-2"></i>
+                                {% translate "Delete" %}
+                            </button>
+                        {% endif %}
                     </div>
                 {% endif %}
                 {% if perms.cms.change_organization %}
                     <div class="flex flex-wrap gap-4">
-                        <button class="btn">
-                            {% translate "Save" %}
-                        </button>
+                        {% if form.instance.id %}
+                            <button class="btn">
+                                {% translate "Update" %}
+                            </button>
+                        {% else %}
+                            <button class="btn">
+                                {% translate "Create" %}
+                            </button>
+                        {% endif %}
                     </div>
                 {% endif %}
             </div>

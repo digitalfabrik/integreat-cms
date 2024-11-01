@@ -594,13 +594,14 @@ class RegionForm(CustomModelForm):
             )
         return cleaned_hix_enabled
 
-    def clean_zammad_url(self) -> str:
+    def clean_zammad_url(self) -> str | None:
         """
         Validate the zammad_url field (see :ref:`overriding-modelform-clean-method`).
 
         :return: The validated field
         """
-        cleaned_zammad_url = self.cleaned_data["zammad_url"]
+        if not (cleaned_zammad_url := self.cleaned_data["zammad_url"]):
+            return None
         # Remove superfluous path parts
         cleaned_zammad_url = cleaned_zammad_url.split("/api/v1")[0]
         cleaned_zammad_url = cleaned_zammad_url.rstrip("/")
@@ -728,7 +729,7 @@ def duplicate_language_tree(
             )
 
 
-# pylint: disable=too-many-locals
+# pylint: disable=too-many-locals, too-many-positional-arguments
 def duplicate_pages(
     source_region: Region,
     target_region: Region,

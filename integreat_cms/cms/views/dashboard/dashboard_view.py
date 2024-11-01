@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 
 from dateutil.relativedelta import relativedelta
 from django.conf import settings
-from django.db.models import Q, Subquery
 from django.http import JsonResponse
 from django.urls import reverse
 from django.utils import translation
@@ -24,9 +23,6 @@ if TYPE_CHECKING:
 
     from django.db.models.query import QuerySet
     from django.http import HttpRequest
-    from linkcheck.models import Url
-
-    from ...models.abstract_content_translation import AbstractContentTranslation
 
 logger = logging.getLogger(__name__)
 
@@ -83,14 +79,8 @@ class DashboardView(TemplateView, ChatContextMixin):
 
         :return: The ids of the latest page translations of the current region
         """
-        latest_version_ids = (
-            PageTranslation.objects.filter(
-                page__id__in=Subquery(
-                    self.request.region.non_archived_pages.values("pk")
-                ),
-            )
-            .distinct("page__id", "language__id")
-            .values_list("pk", flat=True)
+        latest_version_ids = self.request.region.latest_page_translations.values_list(
+            "pk", flat=True
         )
         return list(latest_version_ids)
 
@@ -157,7 +147,9 @@ class DashboardView(TemplateView, ChatContextMixin):
 
         :return: Dictionary containing the context for broken links
         """
-        invalid_urls = filter_urls(request.region.slug, "invalid")[0]
+        invalid_urls = filter_urls(
+            request.region.slug, "invalid", prefetch_region_links=True
+        )[0]
         invalid_url = invalid_urls[0] if invalid_urls else None
 
         relevant_translation = (
@@ -208,20 +200,7 @@ class DashboardView(TemplateView, ChatContextMixin):
         if not self.request.region.default_language:
             return {}
 
-        outdated_threshold_date = datetime.now() - relativedelta(
-            days=settings.OUTDATED_THRESHOLD_DAYS
-        )
-
-        outdated_pages = (
-            PageTranslation.objects.filter(
-                language__slug=self.request.region.default_language.slug,
-                id__in=self.latest_version_ids,
-                last_updated__lte=outdated_threshold_date.date(),
-                status=status.PUBLIC,
-            )
-            .order_by("last_updated")
-            .exclude(Q(content="") & Q(page__mirrored_page=None))
-        )
+        outdated_pages = self.request.region.outdated_pages(self.latest_version_ids)
 
         days_since_last_updated = (
             (datetime.now() - most_outdated_page.last_updated.replace(tzinfo=None)).days
@@ -229,6 +208,9 @@ class DashboardView(TemplateView, ChatContextMixin):
             else None
         )
 
+        outdated_threshold_date = datetime.now() - relativedelta(
+            days=settings.OUTDATED_THRESHOLD_DAYS
+        )
         outdated_threshold_date_str = outdated_threshold_date.strftime("%Y-%m-%d")
 
         return {

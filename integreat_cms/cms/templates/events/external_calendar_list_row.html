@@ -1,0 +1,63 @@
+{% load i18n %}
+<tr class="border-t border-gray-200 border-solid hover:bg-gray-100">
+    <td>
+        <a href="{% url 'edit_external_calendar' region_slug=request.region.slug calendar_id=calendar.id %}"
+           class="block px-2 py-3 text-gray-800">
+            {{ calendar.name }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_external_calendar' region_slug=request.region.slug calendar_id=calendar.id %}"
+           class="block px-2 py-3 text-gray-800">
+            {{ calendar.url }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_external_calendar' region_slug=request.region.slug calendar_id=calendar.id %}"
+           class="block px-2 py-3 text-gray-800">
+            {% if calendar.errors %}
+                <div class="text-red-500">
+                    {{ calendar.errors | safe }}
+                </div>
+            {% else %}
+                <i icon-name="check" class="text-green-500"></i>
+            {% endif %}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_external_calendar' region_slug=request.region.slug calendar_id=calendar.id %}"
+           class="block px-2 py-3 text-gray-800">
+            {{ calendar.events.count }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_external_calendar' region_slug=request.region.slug calendar_id=calendar.id %}"
+           class="block px-2 py-3 text-gray-800">
+            {{ calendar.created_by }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_external_calendar' region_slug=request.region.slug calendar_id=calendar.id %}"
+           class="block px-2 py-3 text-gray-800">
+            {{ calendar.last_changed_by }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_external_calendar' region_slug=request.region.slug calendar_id=calendar.id %}"
+           class="block px-2 py-3 text-gray-800">
+            {{ calendar.last_changed_on }}
+        </a>
+    </td>
+    <td class="pl-2 pr-4 text-right min">
+        {% if perms.cms.delete_externalcalendar %}
+            <button title="{% translate "Delete external calendar" %}"
+                    class="confirmation-button btn-icon"
+                    data-confirmation-title="{{ delete_dialog_title }}"
+                    data-confirmation-text="{{ delete_dialog_text }}"
+                    data-confirmation-subject="{{ calendar.url }}"
+                    data-action="{% url 'delete_external_calendar' region_slug=request.region.slug calendar_id=calendar.id %}">
+                <i icon-name="trash-2"></i>
+            </button>
+        {% endif %}
+    </td>
+</tr>

@@ -11,6 +11,7 @@ from cacheops import invalidate_model
 from django.contrib import messages
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from django.http import Http404
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
@@ -90,9 +91,9 @@ class BulkActionView(PermissionRequiredMixin, MultipleObjectMixin, RedirectView)
             super()
             .get_queryset()
             .filter(
-                region=self.request.region,
                 id__in=self.request.POST.getlist("selected_ids[]"),
             )
+            .filter(self.get_extra_filters())
         )
         if not queryset:
             raise Http404(f"No {self.model._meta.object_name} matches the given query.")
@@ -101,6 +102,14 @@ class BulkActionView(PermissionRequiredMixin, MultipleObjectMixin, RedirectView)
         if self.prefetch_public_translations:
             queryset = queryset.prefetch_public_translations()
         return queryset
+
+    def get_extra_filters(self) -> Q:
+        """
+        Get extra filters for get_queryset(). Overwrite this method to specify needed filters e.g. as in `~integreat_cms.cms.views.contact.contact_bulk_actions`
+
+        :return: Q Object to be used as filter argument
+        """
+        return Q(region=self.request.region)
 
 
 class BulkMachineTranslationView(BulkActionView):
@@ -274,14 +283,14 @@ class BulkArchiveView(BulkActionView):
         archive_successful = []
         archive_unchanged = []
         archive_failed_because_embedded = []
-        archive_failed_because_event_reference = []
+        archive_failed_because_reference = []
 
         for content_object in self.get_queryset():
             title = content_object.best_translation.title
             if self.model is Page and content_object.mirroring_pages.exists():
                 archive_failed_because_embedded.append(title)
-            elif self.model is POI and content_object.events.count() > 0:
-                archive_failed_because_event_reference.append(title)
+            elif self.model is POI and content_object.is_used:
+                archive_failed_because_reference.append(title)
             elif content_object.archived:
                 archive_unchanged.append(title)
             else:
@@ -336,15 +345,15 @@ class BulkArchiveView(BulkActionView):
                 ),
             )
 
-        if archive_failed_because_event_reference:
+        if archive_failed_because_reference:
             messages.error(
                 request,
                 ngettext_lazy(
-                    "Location {object_names} could not be archived because it is referenced by an event.",
-                    "The following locations could not be archived because they were referenced by an event: {object_names}",
-                    len(archive_failed_because_event_reference),
+                    "Location {object_names} could not be archived because it is referenced by an event or a contact.",
+                    "The following locations could not be archived because they were referenced by an event or a contact: {object_names}",
+                    len(archive_failed_because_reference),
                 ).format(
-                    object_names=iter_to_string(archive_failed_because_event_reference),
+                    object_names=iter_to_string(archive_failed_because_reference),
                 ),
             )
 

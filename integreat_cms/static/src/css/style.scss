@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // Country flags - define these before tailwind to make it possible to override
 $fp-prepend: true;
 $fp-enable-1x1: false;
@@ -27,8 +29,8 @@ $fp-4x3-path: "flagpack-dart-sass/flags/4x3/";
 
 $list-bg-color: white;
 $list-border-color: lightgray;
-$hover-bg-color: darken($list-border-color, 20%);
-$active-bg-color: darken($list-border-color, 10%);
+$hover-bg-color: color.adjust($list-border-color, $lightness: -20%);
+$active-bg-color: color.adjust($list-border-color, $lightness: -10%);
 
 body,
 html {
@@ -334,8 +336,6 @@ label:not([for]) {
     }
 
     table {
-        width: inherit !important;
-
         tr {
             &.level-2 {
                 > td.hierarchy {
@@ -409,9 +409,20 @@ label:not([for]) {
     }
 }
 
+#language-switcher-current li a {
+    @apply px-3 py-[calc(0.75rem+2px)] bg-water-500 rounded-t hover:bg-white hover:text-blue-50;
+}
+
 #language-switcher-list {
     .language-name {
         @apply px-2;
+    }
+
+    li {
+        @apply mr-0;
+        a {
+            @apply px-3 py-2 flex bg-white whitespace-nowrap hover:bg-water-500 rounded-none;
+        }
     }
 }
 

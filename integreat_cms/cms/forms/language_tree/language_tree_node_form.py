@@ -142,4 +142,6 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
             invalidate_obj(poi)
         for event in self.instance.region.events.all():
             invalidate_obj(event)
+        if self.instance.region.imprint:
+            invalidate_obj(self.instance.region.imprint)
         return result

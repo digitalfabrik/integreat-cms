@@ -1,0 +1,86 @@
+{% load i18n %}
+<tr class="border-t border-solid border-gray-200 hover:bg-gray-100">
+    <td class="py-3 pl-4">
+        <input type="checkbox"
+               name="selected_ids[]"
+               value="{{ contact.id }}"
+               form="bulk-action-form"
+               class="bulk-select-item" />
+    </td>
+    <td class="pl-2">
+        <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
+           class="block py-3 px-2 text-gray-800">
+            {{ contact.title }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
+           class="block py-3 px-2 text-gray-800">
+            {{ contact.name }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_poi' region_slug=request.region.slug language_slug=request.region.default_language.slug poi_id=contact.location.id %}"
+           class="py-3 px-2 text-blue-500 hover:underline">
+            {{ contact.location }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
+           class="block py-3 px-2 text-gray-800">
+            {{ contact.email }}
+        </a>
+    </td>
+    <td>
+        <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
+           class="block py-3 px-2 text-gray-800">
+            {{ contact.phone_number }}
+        </a>
+    </td>
+    <td>
+        <a href="{{ contact.website }}"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="py-3 px-2 text-blue-500 hover:underline"
+           title="{% translate "To website" %}">
+            {{ contact.website }}
+        </a>
+    </td>
+    <td class="pl-2 pr-4 text-right min">
+        {% if is_archive %}
+            {% if perms.cms.change_contact %}
+                <button title="{% translate "Restore contact" %}"
+                        class="confirmation-button btn-icon"
+                        data-confirmation-title="{{ restore_dialog_title }}"
+                        data-confirmation-subject="{{ contact.name }}"
+                        data-action="{% url 'restore_contact' contact_id=contact.id region_slug=request.region.slug %}">
+                    <i icon-name="refresh-ccw"></i>
+                </button>
+            {% endif %}
+        {% else %}
+            {% if perms.cms.change_contact %}
+                <a href="{% url 'copy_contact' contact_id=contact.id region_slug=request.region.slug %}"
+                   title="{% translate "Copy contact" %}"
+                   class="btn-icon">
+                    <i icon-name="copy"></i>
+                </a>
+                <button title="{% translate "Archive contact" %}"
+                        class="confirmation-button btn-icon"
+                        data-confirmation-title="{{ archive_dialog_title }}"
+                        data-confirmation-subject="{{ contact.name }}"
+                        data-action="{% url 'archive_contact' contact_id=contact.id region_slug=request.region.slug %}">
+                    <i icon-name="archive"></i>
+                </button>
+            {% endif %}
+        {% endif %}
+        {% if perms.cms.delete_contact %}
+            <button title="{% translate "Delete contact" %}"
+                    class="confirmation-button btn-icon"
+                    data-confirmation-title="{{ delete_dialog_title }}"
+                    data-confirmation-subject="{{ contact.name }}"
+                    data-action="{% url 'delete_contact' contact_id=contact.id region_slug=request.region.slug %}">
+                <i icon-name="trash-2"></i>
+            </button>
+        {% endif %}
+    </td>
+</tr>

@@ -18,6 +18,9 @@ from ....cms.models import AttachmentMap, Region, UserChat
 logger = logging.getLogger(__name__)
 
 
+AUTO_ANSWER_STRING = "automatically generated message"
+
+
 # pylint: disable=unused-argument
 def _raise_or_return_json(self: Any, response: HttpResponse) -> dict:
     """
@@ -90,7 +93,10 @@ class ZammadChatAPI:
             return [self._parse_response(item) for item in response]  # type: ignore[misc]
 
         if author := response.get("sender"):
-            response["user_is_author"] = author == "Customer"
+            response["user_is_author"] = (
+                author == "Customer" and response.get("subject") != AUTO_ANSWER_STRING
+            )
+        response["automatic_answer"] = response.get("subject") == AUTO_ANSWER_STRING
         keys_to_keep = [
             "status",
             "error",
@@ -98,6 +104,7 @@ class ZammadChatAPI:
             "body",
             "user_is_author",
             "attachments",
+            "automatic_answer",
         ]
 
         return {key: response[key] for key in keys_to_keep if key in response}
@@ -105,22 +112,15 @@ class ZammadChatAPI:
     # pylint: disable=method-hidden
     def create_ticket(self, device_id: str, language_slug: str) -> dict:
         """
-        Create a new ticket (i.e. initialize a new chat conversation) and
-        automatically subscribe the responsible Zammad users
+        Create a new ticket (i.e. initialize a new chat conversation)
 
         :param device_id: ID of the user requesting a new chat
         :param language_slug: user's language
         """
-        responsible_handlers = [
-            user["id"]
-            for user in self.client.user.all()
-            if user["email"] and user["email"] in self.responsible_handlers
-        ]
         params = {
             "title": f"[Integreat Chat] [{language_slug.upper()}] {device_id}",
             "group": self.ticket_group,
             "customer": self.client_identity,
-            "mentions": responsible_handlers,
         }
         return self._parse_response(  # type: ignore[return-value]
             self._attempt_call(self.client.ticket.create, params=params)
@@ -165,16 +165,22 @@ class ZammadChatAPI:
         return {"messages": response}
 
     # pylint: disable=method-hidden
-    def send_message(self, chat_id: int, message: str) -> dict:
+    def send_message(
+        self, chat_id: int, message: str, internal: bool = False, auto: bool = False
+    ) -> dict:
         """
         Post a new message to the given ticket
         """
         params = {
             "ticket_id": chat_id,
             "body": message,
-            "type": "chat",
-            "internal": False,
-            "sender": "Customer",
+            "type": "web",
+            "content_type": "text/html",
+            "internal": internal,
+            "subject": (
+                "automatically generated message" if auto else "app user message"
+            ),
+            "sender": "Customer" if not auto else "Agent",
         }
         return self._parse_response(  # type: ignore[return-value]
             self._attempt_call(self.client.ticket_article.create, params=params)

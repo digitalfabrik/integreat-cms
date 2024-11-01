@@ -23,7 +23,7 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
     """
 
     #: Template for ajax POI widget
-    template = "events/_poi_form_widget.html"
+    template = "ajax_poi_form/_poi_form_widget.html"
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""Render a POI form widget template
@@ -39,7 +39,7 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
 
         return render(
             request,
-            "events/_poi_form_widget.html",
+            "ajax_poi_form/_poi_form_widget.html",
             {
                 **self.get_context_data(**kwargs),
                 "poi_form": poi_form,

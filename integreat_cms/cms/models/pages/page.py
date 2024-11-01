@@ -380,7 +380,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         )
         return f"<Page (id: {self.id}{parent_str}{region_str}{slug_str})>"
 
-    class Meta:
+    class Meta(AbstractTreeNode.Meta):
         #: The verbose name of the model
         verbose_name = _("page")
         #: The plural verbose name of the model

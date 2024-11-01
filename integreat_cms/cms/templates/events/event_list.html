@@ -74,10 +74,12 @@
                         <div class="lang-grid flags whitespace-nowrap">
                             {% spaceless %}
                                 {% for lang in languages %}
-                                    <a href="{% url 'events' region_slug=request.region.slug language_slug=lang.slug %}">
-                                        <span class="fp fp-rounded fp-{{ lang.primary_country_code }}"
-                                              title="{{ lang.translated_name }}"></span>
-                                    </a>
+                                    {% if lang != request.region.default_language %}
+                                        <a href="{% url 'events' region_slug=request.region.slug language_slug=lang.slug %}">
+                                            <span class="fp fp-rounded fp-{{ lang.primary_country_code }}"
+                                                  title="{{ lang.translated_name }}"></span>
+                                        </a>
+                                    {% endif %}
                                 {% endfor %}
                             {% endspaceless %}
                         </div>
@@ -96,6 +98,9 @@
                     </th>
                     <th class="text-sm text-left uppercase py-3 pr-2">
                         {% translate "Recurrence" %}
+                    </th>
+                    <th class="text-sm text-left uppercase py-3 pr-2">
+                        {% translate "External calendar" %}
                     </th>
                     <th class="text-sm text-right uppercase py-3 pr-4 min">
                         {% translate "Options" %}

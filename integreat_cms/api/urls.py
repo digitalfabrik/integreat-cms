@@ -219,6 +219,7 @@ social_media_api_urlpatterns = [
 #: The url patterns of this module (see :doc:`django:topics/http/urls`)
 urlpatterns: list[URLPattern] = [
     path("api/v3/regions/", include(region_api_urlpatterns)),
+    path("api/v3/webhook/zammad/", user_chat.zammad_webhook, name="zammad_webhook"),
     path("wp-json/extensions/v3/sites/", include(region_api_urlpatterns)),
     path("api/v3/social/", include(social_media_api_urlpatterns)),
     path(

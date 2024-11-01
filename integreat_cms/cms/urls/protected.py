@@ -15,7 +15,6 @@ from ..forms import (
     LanguageForm,
     LanguageTreeNodeForm,
     OfferTemplateForm,
-    OrganizationForm,
     PageTranslationForm,
     POITranslationForm,
     RegionForm,
@@ -24,7 +23,6 @@ from ..models import (
     Event,
     Language,
     OfferTemplate,
-    Organization,
     Page,
     POI,
     POICategory,
@@ -34,9 +32,11 @@ from ..views import (
     analytics,
     bulk_action_views,
     chat,
+    contacts,
     dashboard,
     delete_views,
     events,
+    external_calendars,
     feedback,
     form_views,
     imprint,
@@ -44,10 +44,12 @@ from ..views import (
     linkcheck,
     list_views,
     media,
+    organizations,
     pages,
     poi_categories,
     pois,
     push_notifications,
+    region_condition,
     regions,
     release_notes,
     roles,
@@ -60,7 +62,6 @@ from ..views import (
 
 if TYPE_CHECKING:
     from django.urls.resolvers import URLPattern
-
 
 #: The media library ajax url patterns are reused twice (for the admin media library and the region media library)
 media_ajax_urlpatterns: list[URLPattern] = [
@@ -235,6 +236,57 @@ urlpatterns: list[URLPattern] = [
         "admin-dashboard/",
         dashboard.AdminDashboardView.as_view(),
         name="admin_dashboard",
+    ),
+    path(
+        "region-condition/",
+        include(
+            [
+                path(
+                    "",
+                    region_condition.RegionConditionView.as_view(),
+                    name="region_condition",
+                ),
+                path(
+                    "export/<str:file_format>/",
+                    region_condition.export_region_conditions,
+                    name="export_region_conditions",
+                ),
+            ]
+        ),
+    ),
+    path(
+        "linkcheck/",
+        include(
+            [
+                path(
+                    "",
+                    linkcheck.LinkcheckRedirectView.as_view(),
+                    name="linkcheck_landing",
+                ),
+                path(
+                    "<slug:url_filter>/",
+                    include(
+                        [
+                            path(
+                                "",
+                                linkcheck.LinkcheckListView.as_view(),
+                                name="linkcheck",
+                            ),
+                            path(
+                                "<int:url_id>/",
+                                linkcheck.LinkcheckListView.as_view(),
+                                name="edit_url",
+                            ),
+                        ]
+                    ),
+                ),
+                path(
+                    "search_and_replace_link",
+                    linkcheck.LinkReplaceView.as_view(),
+                    name="search_and_replace_link",
+                ),
+            ]
+        ),
     ),
     path(
         "regions/",
@@ -794,6 +846,40 @@ urlpatterns: list[URLPattern] = [
                     ),
                 ),
                 path(
+                    "external-calendars/",
+                    include(
+                        [
+                            path(
+                                "",
+                                external_calendars.ExternalCalendarList.as_view(),
+                                name="external_calendar_list",
+                            ),
+                            path(
+                                "new/",
+                                external_calendars.ExternalCalendarFormView.as_view(),
+                                name="new_external_calendar",
+                            ),
+                            path(
+                                "<int:calendar_id>/",
+                                include(
+                                    [
+                                        path(
+                                            "edit/",
+                                            external_calendars.ExternalCalendarFormView.as_view(),
+                                            name="edit_external_calendar",
+                                        ),
+                                        path(
+                                            "delete/",
+                                            external_calendars.delete_external_calendar,
+                                            name="delete_external_calendar",
+                                        ),
+                                    ]
+                                ),
+                            ),
+                        ]
+                    ),
+                ),
+                path(
                     "pages/",
                     include(
                         [
@@ -1039,33 +1125,44 @@ urlpatterns: list[URLPattern] = [
                         [
                             path(
                                 "",
-                                list_views.ModelListView.as_view(model=Organization),
+                                organizations.OrganizationListView.as_view(),
                                 name="organizations",
                             ),
                             path(
                                 "new/",
-                                form_views.CustomCreateView.as_view(
-                                    form_class=OrganizationForm
-                                ),
+                                organizations.OrganizationFormView.as_view(),
                                 name="new_organization",
                             ),
                             path(
-                                "<slug>/",
+                                "archived/",
+                                organizations.OrganizationListView.as_view(
+                                    archived=True
+                                ),
+                                name="archived_organizations",
+                            ),
+                            path(
+                                "<int:organization_id>/",
                                 include(
                                     [
                                         path(
                                             "edit/",
-                                            form_views.CustomUpdateView.as_view(
-                                                form_class=OrganizationForm
-                                            ),
+                                            organizations.OrganizationFormView.as_view(),
                                             name="edit_organization",
                                         ),
                                         path(
                                             "delete/",
-                                            delete_views.CustomDeleteView.as_view(
-                                                model=Organization,
-                                            ),
+                                            organizations.delete,
                                             name="delete_organization",
+                                        ),
+                                        path(
+                                            "archive/",
+                                            organizations.archive,
+                                            name="archive_organization",
+                                        ),
+                                        path(
+                                            "restore/",
+                                            organizations.restore,
+                                            name="restore_organization",
                                         ),
                                     ]
                                 ),
@@ -1304,6 +1401,75 @@ urlpatterns: list[URLPattern] = [
                                                     ),
                                                 ]
                                             ),
+                                        ),
+                                    ]
+                                ),
+                            ),
+                        ]
+                    ),
+                ),
+                path(
+                    "contact/",
+                    include(
+                        [
+                            path(
+                                "",
+                                contacts.ContactListView.as_view(),
+                                name="contacts",
+                            ),
+                            path(
+                                "archived/",
+                                contacts.ContactListView.as_view(archived=True),
+                                name="archived_contacts",
+                            ),
+                            path(
+                                "new/",
+                                contacts.ContactFormView.as_view(),
+                                name="new_contact",
+                            ),
+                            path(
+                                "bulk-archive/",
+                                contacts.ArchiveContactBulkAction.as_view(),
+                                name="bulk_archive_contacts",
+                            ),
+                            path(
+                                "bulk-restore/",
+                                contacts.RestoreContactBulkAction.as_view(),
+                                name="bulk_restore_contacts",
+                            ),
+                            path(
+                                "bulk-delete/",
+                                contacts.DeleteContactBulkAction.as_view(),
+                                name="bulk_delete_contacts",
+                            ),
+                            path(
+                                "<int:contact_id>/",
+                                include(
+                                    [
+                                        path(
+                                            "edit/",
+                                            contacts.ContactFormView.as_view(),
+                                            name="edit_contact",
+                                        ),
+                                        path(
+                                            "copy/",
+                                            contacts.copy_contact,
+                                            name="copy_contact",
+                                        ),
+                                        path(
+                                            "archive/",
+                                            contacts.archive_contact,
+                                            name="archive_contact",
+                                        ),
+                                        path(
+                                            "restore/",
+                                            contacts.restore_contact,
+                                            name="restore_contact",
+                                        ),
+                                        path(
+                                            "delete/",
+                                            contacts.delete_contact,
+                                            name="delete_contact",
                                         ),
                                     ]
                                 ),

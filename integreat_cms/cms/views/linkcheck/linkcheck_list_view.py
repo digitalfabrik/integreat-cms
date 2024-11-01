@@ -2,8 +2,6 @@ from __future__ import annotations
 
 import logging
 import time
-from copy import deepcopy
-from functools import partial
 from typing import TYPE_CHECKING
 from urllib.parse import urlencode
 
@@ -15,13 +13,11 @@ from django.shortcuts import redirect, reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView
-from linkcheck import update_lock
 from linkcheck.models import Link, Url
-from lxml.html import rewrite_links
 
 from ...decorators import permission_required
 from ...forms.linkcheck.edit_url_form import EditUrlForm
-from ...utils.linkcheck_utils import filter_urls, fix_content_link_encoding, get_urls
+from ...utils.linkcheck_utils import filter_urls, get_urls
 
 if TYPE_CHECKING:
     from typing import Any
@@ -94,7 +90,9 @@ class LinkcheckListView(ListView):
         :return: The QuerySet of the filtered urls
         """
         urls, count_dict = filter_urls(
-            self.kwargs.get("region_slug"), self.kwargs.get("url_filter")
+            self.kwargs.get("region_slug"),
+            self.kwargs.get("url_filter"),
+            prefetch_region_links=True,
         )
         self.extra_context.update(count_dict)
         return urls
@@ -104,9 +102,10 @@ class LinkcheckListView(ListView):
         Dispatch the view to either get() or post()
         """
         if edit_url_id := kwargs.pop("url_id", None):
+            region = request.region.slug if request.region else None
             try:
                 self.instance = get_urls(
-                    region_slug=request.region.slug, url_ids=[edit_url_id]
+                    region, url_ids=[edit_url_id], prefetch_region_links=True
                 )[0]
             except IndexError as e:
                 raise Http404("This URL does not exist") from e
@@ -141,7 +140,7 @@ class LinkcheckListView(ListView):
                 params["size"] = size
             return redirect(f"{request.path}?{urlencode(params)}")
 
-    # pylint: disable-msg=too-many-branches
+    # pylint: disable-msg=too-many-branches, too-many-locals
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
         Applies selected action for selected urls
@@ -158,27 +157,21 @@ class LinkcheckListView(ListView):
                 if TYPE_CHECKING:
                     assert self.instance
                 new_url = self.form.cleaned_data["url"]
-                # Get all current translations with the same url
-                translations = {
-                    link.content_object for link in self.instance.region_links
-                }
+                # Get all current contents with the same url
+                links = (
+                    self.instance.region_links
+                    if self.request.region
+                    else self.instance.links.all()
+                )
+                contents = {link.content_object for link in links}
                 # Replace the old urls with the new urls in the content
-                for translation in translations:
-                    new_translation = deepcopy(translation)
-                    # Replace link in translation
-                    logger.debug("Replacing links of %r", new_translation)
-                    new_translation.content = rewrite_links(
-                        new_translation.content,
-                        partial(self.replace_link, self.instance.url, new_url),
+                for content in contents:
+                    content.replace_urls(
+                        {self.instance.url: new_url},
+                        request.user,
+                        True,
                     )
-                    new_translation.content = fix_content_link_encoding(
-                        new_translation.content
-                    )
-                    # Save translation with replaced content as new minor version
-                    new_translation.id = None
-                    new_translation.version += 1
-                    new_translation.minor_edit = True
-                    new_translation.save()
+
                 if new_url.startswith("mailto:"):
                     messages.success(request, _("Email link was successfully replaced"))
                 elif new_url.startswith("tel:"):
@@ -189,13 +182,6 @@ class LinkcheckListView(ListView):
                     messages.success(request, _("URL was successfully replaced"))
                 # Add short delay to allow post_save signals to finish (to keep existing URL objects when deleting the old links)
                 time.sleep(0.5)
-                # Acquire linkcheck lock to avoid race conditions between post_save signal and links.delete()
-                with update_lock:
-                    for translation in translations:
-                        # Delete now outdated link objects
-                        translation.links.all().delete()
-                # Add short delay to allow rechecking to be finished when page reloads
-                time.sleep(0.5)
             else:
                 # Show error messages
                 for field in self.form:
@@ -204,47 +190,40 @@ class LinkcheckListView(ListView):
                 # If the form is invalid, render the invalid form
                 return super().get(request, *args, **kwargs)
 
-        action = request.POST.get("action")
-        selected_urls = get_urls(
-            region_slug=request.region.slug,
-            url_ids=request.POST.getlist("selected_ids[]"),
-        )
+        if action := request.POST.get("action"):
+            region_slug = request.region.slug if request.region else None
+            selected_urls = get_urls(
+                region_slug=region_slug,
+                url_ids=request.POST.getlist("selected_ids[]"),
+            )
 
-        if action == "ignore":
-            for url in selected_urls:
-                Link.objects.filter(
-                    id__in=[link.id for link in url.region_links]
-                ).update(ignore=True)
-            messages.success(request, _("Links were successfully ignored"))
-        elif action == "unignore":
-            for url in selected_urls:
-                Link.objects.filter(
-                    id__in=[link.id for link in url.region_links]
-                ).update(ignore=False)
-            messages.success(request, _("Links were successfully unignored"))
-        elif action == "recheck":
-            for url in selected_urls:
-                url.check_url(external_recheck_interval=0)
-            messages.success(request, _("Links were successfully checked"))
-            # Add short delay to allow rechecking to be finished when page reloads
-            time.sleep(1)
+            if action == "ignore":
+                for url in selected_urls:
+                    link_ids = (
+                        [link.id for link in url.region_links]
+                        if region_slug
+                        else url.links.all()
+                    )
+                    Link.objects.filter(id__in=link_ids).update(ignore=True)
+                messages.success(request, _("Links were successfully ignored"))
+            elif action == "unignore":
+                for url in selected_urls:
+                    link_ids = (
+                        [link.id for link in url.region_links]
+                        if region_slug
+                        else url.links.all()
+                    )
+                    Link.objects.filter(id__in=link_ids).update(ignore=False)
+                messages.success(request, _("Links were successfully unignored"))
+            elif action == "recheck":
+                for url in selected_urls:
+                    url.check_url(external_recheck_interval=0)
+                messages.success(request, _("Links were successfully checked"))
+                # Add short delay to allow rechecking to be finished when page reloads
+                time.sleep(1)
+
         invalidate_model(Link)
         invalidate_model(Url)
-        linkcheck_url = reverse("linkcheck", kwargs=kwargs)
+        url_for_current_region = reverse("linkcheck", kwargs=kwargs)
         # Keep pagination settings
-        return redirect(f"{linkcheck_url}{self.get_pagination_params()}")
-
-    @staticmethod
-    def replace_link(old_url: str, new_url: str, link: str) -> str:
-        """
-        Replace the URL of a link
-
-        :param old_url: The old URL to be replaced
-        :param new_url: The new URL
-        :param link: The input link
-        :return: The replaced link
-        """
-        if link == old_url:
-            logger.debug("Replacing %r with %r", old_url, new_url)
-            return new_url
-        return link
+        return redirect(f"{url_for_current_region}{self.get_pagination_params()}")

@@ -47,6 +47,7 @@ msgstr "Landkreis"
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/languages/region_list_section/region_list.html
 #: cms/templates/users/user_list.html
+#: cms/views/region_condition/region_condition_actions.py
 msgid "Region"
 msgstr "Region"
 
@@ -309,6 +310,14 @@ msgstr "Tschechien"
 #: cms/constants/countries.py
 msgid "Germany"
 msgstr "Deutschland"
+
+#: cms/constants/countries.py core/settings.py
+msgid "German"
+msgstr "Deutsch"
+
+#: cms/constants/countries.py
+msgid "(easy)"
+msgstr "(leicht)"
 
 #: cms/constants/countries.py
 msgid "Djibouti"
@@ -1798,6 +1807,10 @@ msgstr "Vierte Woche"
 msgid "Last week"
 msgstr "Letzte Woche"
 
+#: cms/forms/contacts/contact_form.py
+msgid "Location cannot be empty."
+msgstr "Ort darf nicht leer sein."
+
 #: cms/forms/custom_content_model_form.py
 msgid ""
 "Could not update because this content because it is already being edited by "
@@ -1973,6 +1986,7 @@ msgstr "Kategorie"
 
 #: cms/forms/feedback/region_feedback_filter_form.py
 #: cms/templates/events/event_list_archived.html
+#: cms/templates/events/external_calendar_list.html
 #: cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html
 #: cms/templates/linkcheck/links_by_filter.html
@@ -2523,6 +2537,7 @@ msgid "The new passwords do not match."
 msgstr "Die Passwörter stimmen nicht überein."
 
 #: cms/models/abstract_content_model.py cms/models/abstract_tree_node.py
+#: cms/models/external_calendars/external_calendar.py
 #: cms/models/feedback/feedback.py cms/models/media/directory.py
 #: cms/models/media/media_file.py cms/models/regions/region.py
 #: cms/models/users/organization.py
@@ -2622,6 +2637,7 @@ msgid "modification date"
 msgstr "Änderungsdatum"
 
 #: cms/models/abstract_content_translation.py
+#: cms/models/external_calendars/external_calendar.py
 msgid "creator"
 msgstr "Ersteller:in"
 
@@ -2698,8 +2714,9 @@ msgstr "Nutzer-Chats"
 msgid "name"
 msgstr "Name"
 
-#: cms/models/contact/contact.py
-msgid "POI"
+#: cms/models/contact/contact.py cms/models/events/event.py
+#: cms/models/pois/poi.py cms/models/pois/poi_translation.py
+msgid "location"
 msgstr "Ort"
 
 #: cms/models/contact/contact.py cms/models/pois/poi.py
@@ -2717,12 +2734,17 @@ msgstr "Webseite"
 
 #: cms/models/contact/contact.py cms/models/events/event.py
 #: cms/models/feedback/feedback.py cms/models/pois/poi.py
+#: cms/models/users/organization.py
 msgid "archived"
 msgstr "archiviert"
 
 #: cms/models/contact/contact.py cms/models/pois/poi.py
 msgid "Whether or not the location is read-only and hidden in the API."
 msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
+
+#: cms/models/contact/contact.py
+msgid "(Copy)"
+msgstr "(Kopie)"
 
 #: cms/models/contact/contact.py
 msgid "contact"
@@ -2732,10 +2754,17 @@ msgstr "Kontakt"
 msgid "contacts"
 msgstr "Kontakte"
 
-#: cms/models/events/event.py cms/models/pois/poi.py
-#: cms/models/pois/poi_translation.py
-msgid "location"
-msgstr "Ort"
+#: cms/models/contact/contact.py
+msgid "Only one contact per location can have an empty title."
+msgstr "Nur ein Kontakt per Ort darf leeren Titel haben."
+
+#: cms/models/contact/contact.py
+msgid ""
+"One of the following fields must be filled: title, name, e-mail, phone "
+"number, website."
+msgstr ""
+"Eines der folgenden Felder muss ausgefüllt werden: Title, Name, E-mail, "
+"Telefonnummer, Website."
 
 #: cms/models/events/event.py
 msgid "start"
@@ -2753,6 +2782,15 @@ msgstr "Wiederholungs-Regel"
 #: cms/models/poi_categories/poi_category.py cms/models/pois/poi.py
 msgid "icon"
 msgstr "Icon"
+
+#: cms/models/events/event.py
+#: cms/models/external_calendars/external_calendar.py
+msgid "external calendar"
+msgstr "Externer Kalender"
+
+#: cms/models/events/event.py
+msgid "The ID of this event in the external calendar"
+msgstr "Die ID dieses Events im externen Kalender"
 
 #: cms/models/events/event.py
 msgid "copy"
@@ -2859,6 +2897,51 @@ msgstr "Wiederholungs-Regel von \"{}\" ({})"
 msgid "recurrence rules"
 msgstr "Wiederholungs-Regeln"
 
+#: cms/models/external_calendars/external_calendar.py
+msgid "calendar name"
+msgstr "Name des Kalenders"
+
+#: cms/models/external_calendars/external_calendar.py
+#: cms/models/offers/offer_template.py cms/templates/_tinymce_config.html
+#: cms/templates/events/external_calendar_list.html
+#: cms/templates/linkcheck/links_by_filter.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/views/media/media_context_mixin.py
+msgid "URL"
+msgstr "URL"
+
+#: cms/models/external_calendars/external_calendar.py
+msgid ""
+"The category that events need to have to get imported (Leave blank to import "
+"all events)"
+msgstr ""
+"Die Kategorie, der ein Event zugeordnet sein muss, um importiert zu werden "
+"(Leer lassen, um alle Veranstaltungen zu importieren)"
+
+#: cms/models/external_calendars/external_calendar.py
+msgid "import errors"
+msgstr "Importfehler"
+
+#: cms/models/external_calendars/external_calendar.py
+msgid "The account that created this external calendar."
+msgstr "Das Konto, das diesen externen Kalender angelegt hat."
+
+#: cms/models/external_calendars/external_calendar.py
+msgid "last changed by"
+msgstr "Zuletzt geändert von"
+
+#: cms/models/external_calendars/external_calendar.py
+msgid "The account that was the last to change this external calendar."
+msgstr "Das Konto, das diesen externen Kalender zuletzt geändert hat."
+
+#: cms/models/external_calendars/external_calendar.py
+msgid "last changed on"
+msgstr "Zuletzt geändert am"
+
+#: cms/models/external_calendars/external_calendar.py
+msgid "external calendars"
+msgstr "Externe Kalender"
+
 #: cms/models/feedback/event_feedback.py
 msgid "event feedback"
 msgstr "Veranstaltungs-Feedback"
@@ -2920,7 +3003,8 @@ msgid "imprint feedback"
 msgstr "Impressums-Feedback"
 
 #: cms/models/feedback/map_feedback.py cms/models/regions/region.py
-#: cms/templates/_base.html cms/templates/organizations/organization_form.html
+#: cms/templates/_base.html cms/templates/contacts/contact_form.html
+#: cms/templates/organizations/organization_form.html
 #: cms/templates/pois/poi_list.html
 msgid "Locations"
 msgstr "Orte"
@@ -3261,13 +3345,6 @@ msgstr ""
 #: cms/models/offers/offer_template.py
 msgid "thumbnail URL"
 msgstr "Vorschaubild-URL"
-
-#: cms/models/offers/offer_template.py cms/templates/_tinymce_config.html
-#: cms/templates/linkcheck/links_by_filter.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/views/media/media_context_mixin.py
-msgid "URL"
-msgstr "URL"
 
 #: cms/models/offers/offer_template.py
 msgid "This will be an external API endpoint in most cases."
@@ -4067,11 +4144,13 @@ msgid "used budget"
 msgstr "verbrauchtes Budget"
 
 #: cms/models/regions/region.py cms/templates/_base.html
+#: cms/templates/contacts/contact_form.html
 #: cms/templates/organizations/organization_form.html
 msgid "Pages"
 msgstr "Seiten"
 
 #: cms/models/regions/region.py cms/templates/_base.html
+#: cms/templates/contacts/contact_form.html
 #: cms/templates/events/event_list.html
 msgid "Events"
 msgstr "Veranstaltungen"
@@ -4374,7 +4453,7 @@ msgstr "Inhalt"
 msgid "Media Library"
 msgstr "Medienbibliothek"
 
-#: cms/templates/_base.html
+#: cms/templates/_base.html cms/templates/contacts/contact_list.html
 msgid "Contacts"
 msgstr "Kontakte"
 
@@ -4398,6 +4477,10 @@ msgid "Organizations"
 msgstr "Organisationen"
 
 #: cms/templates/_base.html
+msgid "External Calendars"
+msgstr "Externe Kalender"
+
+#: cms/templates/_base.html
 msgid "Users"
 msgstr "Benutzer:innen"
 
@@ -4408,6 +4491,10 @@ msgstr "Sprach-Baum"
 #: cms/templates/_base.html cms/templates/dashboard/admin_dashboard.html
 msgid "Admin Dashboard"
 msgstr "Admin Dashboard"
+
+#: cms/templates/_base.html
+msgid "Region condition"
+msgstr "Regionenzustand"
 
 #: cms/templates/_base.html
 msgid "Regions"
@@ -4576,6 +4663,15 @@ msgstr "Abbrechen"
 msgid "Confirm"
 msgstr "Bestätigen"
 
+#: cms/templates/_poi_query_result.html
+msgid "Select existing location"
+msgstr "Bestehenden Ort auswählen"
+
+#: cms/templates/_poi_query_result.html
+#, python-format
+msgid "Create location \"%(poi_query)s\""
+msgstr "Ort \"%(poi_query)s\" erstellen"
+
 #: cms/templates/_raw.html
 msgid "Editorial System"
 msgstr "Redaktionssystem"
@@ -4664,10 +4760,12 @@ msgstr "Kontaktperson"
 msgid "Spoken Languages"
 msgstr "Gesprochene Sprachen"
 
-#: cms/templates/_tinymce_config.html cms/templates/events/event_form.html
-#: cms/templates/hix_widget.html cms/templates/imprint/imprint_form.html
+#: cms/templates/_tinymce_config.html cms/templates/contacts/contact_form.html
+#: cms/templates/events/event_form.html cms/templates/hix_widget.html
+#: cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html
 #: cms/templates/languagetreenodes/languagetreenode_form.html
+#: cms/templates/organizations/organization_form.html
 #: cms/templates/pages/page_form.html cms/templates/pages/page_sbs.html
 #: cms/templates/pois/poi_form.html
 #: cms/templates/push_notifications/push_notification_form.html
@@ -4713,6 +4811,59 @@ msgstr "Automatisch den Titel des verlinkten Inhalts als Linktext verwenden"
 #: cms/templates/_tinymce_config.html
 msgid "Media Library..."
 msgstr "Medienbibliothek..."
+
+#: cms/templates/ajax_poi_form/_poi_form_widget.html
+#: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
+#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
+#: cms/templates/pages/page_sbs.html cms/templates/pois/poi_form.html
+msgid "Publish"
+msgstr "Veröffentlichen"
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "Name of location"
+msgstr "Name des Ortes"
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "Remove location"
+msgstr "Ort entfernen"
+
+#: cms/templates/ajax_poi_form/poi_box.html
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+msgid "Address"
+msgstr "Adresse"
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "Open on Google Maps"
+msgstr "Auf Google Maps öffnen"
+
+#: cms/templates/ajax_poi_form/poi_box.html
+#: cms/templates/pois/poi_form_sidebar/contact_box.html
+msgid "Contact details"
+msgstr "Kontaktdaten"
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "E-mail address: "
+msgstr "E-Mail-Adresse: "
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "Not provided"
+msgstr "Keine Angabe"
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "Phone number: "
+msgstr "Telefonnummer: "
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "Website: "
+msgstr "Website: "
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "The new location was successfully created."
+msgstr "Ein neuer Ort wurde erfolgreich erstellt."
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "An error occurred."
+msgstr "Es ist ein Fehler aufgetreten."
 
 #: cms/templates/analytics/_broken_links_widget.html
 msgid "The list below shows all detected errors related to links."
@@ -5041,6 +5192,213 @@ msgstr "Chat"
 #: cms/templates/chat/_chat_widget.html
 msgid "Send message"
 msgstr "Nachricht abschicken"
+
+#: cms/templates/contacts/contact_form.html
+msgid "Edit contact"
+msgstr "Kontakt bearbeiten"
+
+#: cms/templates/contacts/contact_form.html
+msgid "Create new contact"
+msgstr "Kontakt erstellen"
+
+#: cms/templates/contacts/contact_form.html
+#: cms/templates/languagetreenodes/languagetreenode_form.html
+#: cms/templates/offertemplates/offertemplate_form.html
+#: cms/templates/organizations/organization_form.html
+#: cms/views/media/media_context_mixin.py
+msgid "Create"
+msgstr "Erstellen"
+
+#: cms/templates/contacts/contact_form.html
+msgid "Connect a location"
+msgstr "Ort verknüpfen"
+
+#: cms/templates/contacts/contact_form.html
+msgid "Manage contact data"
+msgstr "Kontaktdaten verwalten"
+
+#: cms/templates/contacts/contact_form.html
+msgid ""
+"Add missing data or change existing data. Select the data you want to import."
+msgstr ""
+"Ergänzen Sie fehlende Daten oder ändern bestehende Daten. Wählen Sie die "
+"Daten aus, die übernommen werden sollen."
+
+#: cms/templates/contacts/contact_form.html
+msgid "Contact information"
+msgstr "Kontaktinformationen"
+
+#: cms/templates/contacts/contact_form.html
+msgid "This contact is referred to in those contents."
+msgstr "Dieser Kontakt wird in folgenden Inhalten verwendet."
+
+#: cms/templates/contacts/contact_form.html
+msgid "This contact is not currently referred to on any page."
+msgstr "Zur Zeit wird dieser Kontakt in keiner Seite verwendet."
+
+#: cms/templates/contacts/contact_form.html
+msgid "This contact is not currently referred to in any location."
+msgstr "Zur Zeit wird dieser Kontakt in keinem Ort verwendet."
+
+#: cms/templates/contacts/contact_form.html
+msgid "This contact is not currently referred to in any event."
+msgstr "Zur Zeit wird dieser Kontakt in keiner Veranstaltung verwendet."
+
+#: cms/templates/contacts/contact_form.html
+#: cms/templates/contacts/contact_list_row.html
+msgid "Archive contact"
+msgstr "Kontakte archivieren"
+
+#: cms/templates/contacts/contact_form.html
+msgid "Archive this contact"
+msgstr "Kontakt archivieren"
+
+#: cms/templates/contacts/contact_form.html
+#: cms/templates/pages/page_form_sidebar/actions_box.html
+#: cms/templates/pages/page_tree_archived_node.html
+msgid "Restore page"
+msgstr "Seite wiederherstellen"
+
+#: cms/templates/contacts/contact_form.html
+msgid "Restore this contact"
+msgstr "Kontakt wiederherstellen"
+
+#: cms/templates/contacts/contact_form.html
+#: cms/templates/contacts/contact_list_row.html
+msgid "Delete contact"
+msgstr "Kontakt löschen"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Archived Contacts"
+msgstr "Archivierte Kontakte"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Back to contacts"
+msgstr "Zurück zu Kontakte"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Archived contacts"
+msgstr "Archivierte Kontakte"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Create contact"
+msgstr "Kontakt erstellen"
+
+#: cms/templates/contacts/contact_list.html
+#: cms/templates/pages/_page_xliff_import_diff.html
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "Title"
+msgstr "Titel"
+
+#: cms/templates/contacts/contact_list.html
+#: cms/templates/events/external_calendar_list.html
+#: cms/templates/languages/language_form.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/poicategories/poicategory_list.html
+#: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
+msgid "Name"
+msgstr "Name"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Name of related location"
+msgstr "Name des Veranstaltungsortes"
+
+#: cms/templates/contacts/contact_list.html
+msgid "E-Mail"
+msgstr "E-Mail"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Phone number"
+msgstr "Telefonnummer"
+
+#: cms/templates/contacts/contact_list.html
+#: cms/templates/organizations/organization_list.html
+msgid "Website"
+msgstr "Webseite"
+
+#: cms/templates/contacts/contact_list.html
+#: cms/templates/events/event_list.html
+#: cms/templates/events/event_list_archived.html
+#: cms/templates/languages/language_list.html
+#: cms/templates/linkcheck/links_by_filter.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/pages/page_tree.html
+#: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list_archived.html cms/templates/roles/role_list.html
+msgid "Options"
+msgstr "Optionen"
+
+#: cms/templates/contacts/contact_list.html
+msgid "No contacts archived yet."
+msgstr "Es gibt noch keine archivierten Kontakte."
+
+#: cms/templates/contacts/contact_list.html
+msgid "No contacts available yet."
+msgstr "Es gibt noch keine Kontakte."
+
+#: cms/templates/contacts/contact_list.html
+msgid "Contacts selected"
+msgstr "Kontakte ausgewählt"
+
+#: cms/templates/contacts/contact_list.html
+#: cms/templates/events/event_list.html
+#: cms/templates/events/event_list_archived.html
+#: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
+#: cms/templates/languagetreenodes/languagetreenode_list.html
+#: cms/templates/linkcheck/links_by_filter.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/pages/page_tree.html
+#: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list_archived.html
+msgid "Select bulk action"
+msgstr "Mehrfachaktion auswählen"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Restore contacts"
+msgstr "Kontakte wiederherstellen"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Archive contacts"
+msgstr "Kontakte archivieren"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Delete contacts"
+msgstr "Kontakte löschen"
+
+#: cms/templates/contacts/contact_list.html
+#: cms/templates/events/event_list.html
+#: cms/templates/events/event_list_archived.html
+#: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
+#: cms/templates/languagetreenodes/languagetreenode_list.html
+#: cms/templates/linkcheck/links_by_filter.html
+#: cms/templates/organizations/organization_list.html
+#: cms/templates/pages/_page_xliff_export_overlay.html
+#: cms/templates/pages/page_tree.html
+#: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list_archived.html
+msgid "Execute"
+msgstr "Ausführen"
+
+#: cms/templates/contacts/contact_list_row.html
+#: cms/templates/organizations/organization_list_row.html
+msgid "To website"
+msgstr "Zur Webseite"
+
+#: cms/templates/contacts/contact_list_row.html
+msgid "Restore contact"
+msgstr "Kontakt wiederherstellen"
+
+#: cms/templates/contacts/contact_list_row.html
+msgid "Copy contact"
+msgstr "Kontakt kopieren"
 
 #: cms/templates/content_versions.html
 #, python-format
@@ -5457,22 +5815,6 @@ msgstr "Filter zurücksetzen"
 msgid "Apply filter"
 msgstr "Filter anwenden"
 
-#: cms/templates/events/_poi_form_widget.html
-#: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
-#: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
-#: cms/templates/pages/page_sbs.html cms/templates/pois/poi_form.html
-msgid "Publish"
-msgstr "Veröffentlichen"
-
-#: cms/templates/events/_poi_query_result.html
-msgid "Select existing location"
-msgstr "Bestehenden Ort auswählen"
-
-#: cms/templates/events/_poi_query_result.html
-#, python-format
-msgid "Create location \"%(poi_query)s\""
-msgstr "Ort \"%(poi_query)s\" erstellen"
-
 #: cms/templates/events/event_form.html
 #, python-format
 msgid "Edit event \"%(event_title)s\""
@@ -5519,6 +5861,10 @@ msgstr "Bearbeiten"
 msgid "Copy to clipboard"
 msgstr "In die Zwischenablage kopieren"
 
+#: cms/templates/events/event_form.html
+msgid "Venue"
+msgstr "Veranstaltungsort"
+
 #: cms/templates/events/event_form_sidebar/actions_box.html
 #: cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html
@@ -5562,44 +5908,6 @@ msgstr "Diese Veranstaltung löschen"
 #: cms/templates/events/event_form_sidebar/date_and_time_box.html
 msgid "Date and time"
 msgstr "Datum und Uhrzeit"
-
-#: cms/templates/events/event_form_sidebar/venue_box.html
-msgid "Venue"
-msgstr "Veranstaltungsort"
-
-#: cms/templates/events/event_form_sidebar/venue_box.html
-msgid "Name of event location"
-msgstr "Name des Veranstaltungsortes"
-
-#: cms/templates/events/event_form_sidebar/venue_box.html
-msgid "Remove location from event"
-msgstr "Veranstaltungsort von Veranstaltung entfernen"
-
-#: cms/templates/events/event_form_sidebar/venue_box.html
-msgid ""
-"Create an event location or start typing the name of an existing location. "
-"Only published locations can be set as event venues"
-msgstr ""
-"Erstellen Sie einen Veranstaltungsort oder beginnen Sie den Namen eines "
-"bestehenden Veranstaltungsortes einzutippen. Nur öffentliche Orte können als "
-"Veranstaltungsorte verwendet werden"
-
-#: cms/templates/events/event_form_sidebar/venue_box.html
-#: cms/templates/pois/poi_form_sidebar/position_box.html
-msgid "Address"
-msgstr "Adresse"
-
-#: cms/templates/events/event_form_sidebar/venue_box.html
-msgid "Open on Google Maps"
-msgstr "Auf Google Maps öffnen"
-
-#: cms/templates/events/event_form_sidebar/venue_box.html
-msgid "The new location was successfully created."
-msgstr "Ein neuer Ort wurde erfolgreich erstellt"
-
-#: cms/templates/events/event_form_sidebar/venue_box.html
-msgid "An error occured."
-msgstr "Es ist ein Fehler aufgetreten."
 
 #: cms/templates/events/event_list.html
 #: cms/templates/events/event_list_archived.html
@@ -5658,16 +5966,8 @@ msgid "Recurrence"
 msgstr "Wiederholung"
 
 #: cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
-#: cms/templates/languages/language_list.html
-#: cms/templates/linkcheck/links_by_filter.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/templates/organizations/organization_list.html
-#: cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
-#: cms/templates/pois/poi_list_archived.html cms/templates/roles/role_list.html
-msgid "Options"
-msgstr "Optionen"
+msgid "External calendar"
+msgstr "Externer Kalender"
 
 #: cms/templates/events/event_list.html
 msgid "No events found with these filters."
@@ -5680,20 +5980,6 @@ msgstr "Keine zukünftigen Veranstaltungen vorhanden."
 #: cms/templates/events/event_list.html
 msgid "Events selected"
 msgstr "Veranstaltungen ausgewählt"
-
-#: cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
-#: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
-#: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
-#: cms/templates/languagetreenodes/languagetreenode_list.html
-#: cms/templates/linkcheck/links_by_filter.html
-#: cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
-#: cms/templates/pois/poi_list_archived.html
-msgid "Select bulk action"
-msgstr "Mehrfachaktion auswählen"
 
 #: cms/templates/events/event_list.html
 msgid "Archive events"
@@ -5731,21 +6017,6 @@ msgstr ""
 #, python-format
 msgid "Machine translate %(content_type)s to %(language)s"
 msgstr "%(content_type)s maschinell auf %(language)s übersetzen"
-
-#: cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
-#: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
-#: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
-#: cms/templates/languagetreenodes/languagetreenode_list.html
-#: cms/templates/linkcheck/links_by_filter.html
-#: cms/templates/pages/_page_xliff_export_overlay.html
-#: cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_list.html
-#: cms/templates/pois/poi_list_archived.html
-msgid "Execute"
-msgstr "Ausführen"
 
 #: cms/templates/events/event_list_archived.html
 msgid "Back to events"
@@ -5786,6 +6057,84 @@ msgstr ""
 #: cms/templates/events/event_list_row.html
 msgid "Copy event"
 msgstr "Veranstaltung kopieren"
+
+#: cms/templates/events/external_calendar_form.html
+#, python-format
+msgid "Edit external calendar \"%(calendar)s\""
+msgstr "Externen Kalender \"%(calendar)s\" bearbeiten"
+
+#: cms/templates/events/external_calendar_form.html
+#: cms/templates/events/external_calendar_list.html
+msgid "Add new external calendar"
+msgstr "Neuen externen Kalender hinzufügen"
+
+#: cms/templates/events/external_calendar_form.html
+#: cms/templates/events/external_calendar_list_row.html
+msgid "Delete external calendar"
+msgstr "Externen Kalender löschen"
+
+#: cms/templates/events/external_calendar_form.html
+#: cms/templates/feedback/admin_feedback_list.html
+#: cms/templates/feedback/admin_feedback_list_archived.html
+#: cms/templates/feedback/region_feedback_list.html
+#: cms/templates/feedback/region_feedback_list_archived.html
+#: cms/templates/languagetreenodes/languagetreenode_list.html
+#: cms/templates/organizations/organization_form.html
+msgid "Delete"
+msgstr "Löschen"
+
+#: cms/templates/events/external_calendar_form.html
+msgid "Update & Import"
+msgstr "Aktualisieren & Importieren"
+
+#: cms/templates/events/external_calendar_form.html
+#: cms/templates/languages/language_form.html
+#: cms/templates/linkcheck/link_list_row.html
+#: cms/templates/offertemplates/offertemplate_form.html
+#: cms/templates/poicategories/poicategory_form.html
+#: cms/templates/regions/region_form.html cms/templates/roles/role_form.html
+#: cms/templates/translations/translations_management.html
+#: cms/templates/users/region_user_form.html cms/templates/users/user_form.html
+#: cms/views/pois/poi_context_mixin.py
+msgid "Save"
+msgstr "Speichern"
+
+#: cms/templates/events/external_calendar_form.html
+msgid "New external calendar"
+msgstr "Neuer externer Kalender"
+
+#: cms/templates/events/external_calendar_list.html
+msgid "External calendars"
+msgstr "Externe Kalender"
+
+#: cms/templates/events/external_calendar_list.html
+msgid "Imported events"
+msgstr "Importierte Termine"
+
+#: cms/templates/events/external_calendar_list.html
+msgid "Creator"
+msgstr "Ersteller:in"
+
+#: cms/templates/events/external_calendar_list.html
+msgid "Last changed by"
+msgstr "Zuletzt geändert von"
+
+#: cms/templates/events/external_calendar_list.html
+#: cms/templates/languages/language_list.html
+#: cms/templates/offertemplates/offertemplate_list.html
+#: cms/templates/pages/_page_filter_form.html
+#: cms/templates/pages/_page_xliff_import_diff.html
+#: cms/templates/pages/page_tree.html
+#: cms/templates/pages/page_tree_archived.html
+#: cms/templates/push_notifications/push_notification_list.html
+#: cms/templates/push_notifications/push_notification_template_list.html
+#: cms/templates/regions/region_list.html
+msgid "Last updated"
+msgstr "Zuletzt aktualisiert"
+
+#: cms/templates/events/external_calendar_list.html
+msgid "No external calendars available yet."
+msgstr "Noch keine externen Kalender vorhanden."
 
 #: cms/templates/feedback/_feedback_widget.html
 msgid "Unread technical feedback"
@@ -5884,15 +6233,6 @@ msgstr "Als ungelesen markieren"
 #: cms/templates/feedback/region_feedback_list.html
 msgid "Archive"
 msgstr "Archivieren"
-
-#: cms/templates/feedback/admin_feedback_list.html
-#: cms/templates/feedback/admin_feedback_list_archived.html
-#: cms/templates/feedback/region_feedback_list.html
-#: cms/templates/feedback/region_feedback_list_archived.html
-#: cms/templates/languagetreenodes/languagetreenode_list.html
-#: cms/templates/organizations/organization_form.html
-msgid "Delete"
-msgstr "Löschen"
 
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list_archived.html
@@ -6148,26 +6488,6 @@ msgid "Create new language"
 msgstr "Neue Sprache erstellen"
 
 #: cms/templates/languages/language_form.html
-#: cms/templates/linkcheck/link_list_row.html
-#: cms/templates/offertemplates/offertemplate_form.html
-#: cms/templates/organizations/organization_form.html
-#: cms/templates/poicategories/poicategory_form.html
-#: cms/templates/regions/region_form.html cms/templates/roles/role_form.html
-#: cms/templates/translations/translations_management.html
-#: cms/templates/users/region_user_form.html cms/templates/users/user_form.html
-#: cms/views/pois/poi_context_mixin.py
-msgid "Save"
-msgstr "Speichern"
-
-#: cms/templates/languages/language_form.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/templates/organizations/organization_list.html
-#: cms/templates/poicategories/poicategory_list.html
-#: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
-msgid "Name"
-msgstr "Name"
-
-#: cms/templates/languages/language_form.html
 msgid "Identifier"
 msgstr "Bezeichner"
 
@@ -6269,18 +6589,6 @@ msgid "Created"
 msgstr "Erstellt"
 
 #: cms/templates/languages/language_list.html
-#: cms/templates/offertemplates/offertemplate_list.html
-#: cms/templates/pages/_page_filter_form.html
-#: cms/templates/pages/_page_xliff_import_diff.html
-#: cms/templates/pages/page_tree.html
-#: cms/templates/pages/page_tree_archived.html
-#: cms/templates/push_notifications/push_notification_list.html
-#: cms/templates/push_notifications/push_notification_template_list.html
-#: cms/templates/regions/region_list.html
-msgid "Last updated"
-msgstr "Zuletzt aktualisiert"
-
-#: cms/templates/languages/language_list.html
 msgid "Number of regions where this language is used"
 msgstr "Anzahl der Regionen, in denen diese Sprache verwendet wird"
 
@@ -6318,12 +6626,6 @@ msgstr "Sprach-Knoten \"%(translated_language_name)s\" bearbeiten"
 #: cms/templates/languagetreenodes/languagetreenode_form.html
 msgid "Add language to this region"
 msgstr "Sprache zu dieser Region hinzufügen"
-
-#: cms/templates/languagetreenodes/languagetreenode_form.html
-#: cms/templates/offertemplates/offertemplate_form.html
-#: cms/views/media/media_context_mixin.py
-msgid "Create"
-msgstr "Erstellen"
 
 #: cms/templates/languagetreenodes/languagetreenode_form.html
 msgid "Create and add more"
@@ -6388,8 +6690,12 @@ msgid "Go to source"
 msgstr "Inhalt aufrufen"
 
 #: cms/templates/linkcheck/link_list_row.html
-msgid "Replace URL globally"
-msgstr "URL zentral ersetzen"
+msgid "Replace URL centrally in the current region"
+msgstr "URL zentral in der aktuellen Region ersetzen"
+
+#: cms/templates/linkcheck/link_list_row.html
+msgid "Replace URL globally in all the regions"
+msgstr "URL global in allen Regionen ersetzen"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "All links"
@@ -6634,8 +6940,20 @@ msgid "This organization currently has no members."
 msgstr "Diese Organisation hat zur Zeit keine Mitglieder."
 
 #: cms/templates/organizations/organization_list.html
+msgid "Archived Organizations"
+msgstr "Archivierte Organisationen"
+
+#: cms/templates/organizations/organization_list.html
 msgid "Manage Organizations"
-msgstr "Organisationen"
+msgstr "Organisationen verwalten"
+
+#: cms/templates/organizations/organization_list.html
+msgid "Back to organizations"
+msgstr "Zurück zu Organisationen"
+
+#: cms/templates/organizations/organization_list.html
+msgid "Archived organizations"
+msgstr "Archivierte Organisationen"
 
 #: cms/templates/organizations/organization_list.html
 msgid "Create organization"
@@ -6650,16 +6968,24 @@ msgid "Logo"
 msgstr "Logo"
 
 #: cms/templates/organizations/organization_list.html
-msgid "Website"
-msgstr "Webseite"
+msgid "No archived organizations."
+msgstr "Keine archivierten Organisationen."
 
 #: cms/templates/organizations/organization_list.html
 msgid "No organizations available yet."
 msgstr "Noch keine Organisationen vorhanden."
 
+#: cms/templates/organizations/organization_list.html
+msgid "Organizations selected"
+msgstr "Organisationen ausgewählt"
+
 #: cms/templates/organizations/organization_list_row.html
-msgid "To website"
-msgstr "Zur Webseite"
+msgid "Restore organization"
+msgstr "Organisation wiederherstellen"
+
+#: cms/templates/organizations/organization_list_row.html
+msgid "Archive organization"
+msgstr "Organisationen archivieren"
 
 #: cms/templates/pages/_page_order_table.html
 msgid "Change the position of the page with drag & drop."
@@ -6727,11 +7053,6 @@ msgstr "Quellcode"
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
 
-#: cms/templates/pages/_page_xliff_import_diff.html
-#: cms/templates/push_notifications/push_notification_list.html
-msgid "Title"
-msgstr "Titel"
-
 #: cms/templates/pages/page_form.html
 #, python-format
 msgid "Edit page \"%(page_title)s\""
@@ -6761,11 +7082,6 @@ msgstr "Archiviert, weil eine übergeordnete Seite archiviert ist"
 #: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "Mark this page as up-to-date"
 msgstr "Seite als aktuell markieren"
-
-#: cms/templates/pages/page_form_sidebar/actions_box.html
-#: cms/templates/pages/page_tree_archived_node.html
-msgid "Restore page"
-msgstr "Seite wiederherstellen"
 
 #: cms/templates/pages/page_form_sidebar/actions_box.html
 msgid "Restore this page"
@@ -7260,6 +7576,18 @@ msgstr[1] ""
 "Löschen Sie zuerst diese Veranstaltungen, um den Ort zu archivieren:"
 
 #: cms/templates/pois/poi_form_sidebar/action_box.html
+msgid "You cannot archive a location which is referenced by a contact."
+msgstr ""
+"Der Ort kann nicht archiviert werden, da er von einem Kontakt verwendet wird."
+
+#: cms/templates/pois/poi_form_sidebar/action_box.html
+msgid "To archive this location, you have to delete this contact first:"
+msgid_plural ""
+"To archive this location, you have to delete these contacts first:"
+msgstr[0] "Löschen Sie zuerst diesen Kontakt, um den Ort zu archivieren:"
+msgstr[1] "Löschen Sie zuerst diese Kontakte, um den Ort zu archivieren:"
+
+#: cms/templates/pois/poi_form_sidebar/action_box.html
 msgid "Archive this location"
 msgstr "Diesen Ort archivieren"
 
@@ -7282,12 +7610,20 @@ msgstr[0] "Löschen Sie zuerst diese Veranstaltung, um den Ort zu löschen:"
 msgstr[1] "Löschen Sie zuerst diese Veranstaltungen, um den Ort zu löschen:"
 
 #: cms/templates/pois/poi_form_sidebar/action_box.html
+msgid "You cannot delete a location which is referenced by a contact."
+msgstr ""
+"Der Ort kann nicht gelöscht werden, da er von einem Kontakt verwendet wird."
+
+#: cms/templates/pois/poi_form_sidebar/action_box.html
+msgid "To delete this location, you have to delete this contact first:"
+msgid_plural ""
+"To delete this location, you have to delete these contacts first:"
+msgstr[0] "Löschen Sie zuerst diesen Kontakt, um den Ort zu löschen:"
+msgstr[1] "Löschen Sie zuerst diese Kontakte, um den Ort zu löschen:"
+
+#: cms/templates/pois/poi_form_sidebar/action_box.html
 msgid "Delete this location"
 msgstr "Diesen Ort löschen"
-
-#: cms/templates/pois/poi_form_sidebar/contact_box.html
-msgid "Contact details"
-msgstr "Kontaktdaten"
 
 #: cms/templates/pois/poi_form_sidebar/position_box.html
 msgid "Position"
@@ -7394,14 +7730,12 @@ msgid "No category assigned"
 msgstr "Keine Kategorie zugewiesen"
 
 #: cms/templates/pois/poi_list_archived_row.html
-#: cms/templates/pois/poi_list_row.html
 msgid "You cannot delete a location which is used by an event."
 msgstr ""
-"Der Ort kann nicht gelöscht werden, da er von einer Veranstaltung verwendet "
-"wird."
+"Der Ort kann nicht gelöscht werden, da er von einer Veranstaltung oder einem "
+"Kontakt verwendet wird."
 
 #: cms/templates/pois/poi_list_archived_row.html
-#: cms/templates/pois/poi_list_row.html
 msgid "This also involves archived events."
 msgstr "Dies betrifft auch archivierte Veranstaltungen."
 
@@ -7415,12 +7749,6 @@ msgid ""
 msgstr ""
 "Dieser Ort kann nicht in der Web-App geöffnet werden, weil er nicht "
 "veröffentlicht ist."
-
-#: cms/templates/pois/poi_list_row.html
-msgid "You cannot archive a location which is used by an event."
-msgstr ""
-"Der Ort kann nicht archiviert werden, da er von einer Veranstaltung "
-"verwendet wird."
 
 #: cms/templates/push_notifications/push_notification_form.html
 #, python-format
@@ -7573,6 +7901,14 @@ msgstr "Name der Vorlage"
 #: cms/templates/push_notifications/push_notification_template_list_row.html
 msgid "Template name not available"
 msgstr "Name der Vorlage nicht verfügbar"
+
+#: cms/templates/region_condition/region_condition.html
+msgid "This page is under construction"
+msgstr "Diese Seite ist noch im Bau"
+
+#: cms/templates/region_condition/region_condition.html
+msgid "Download region condition CSV"
+msgstr "Regionenzustandsbericht als CSV herunterladen"
 
 #: cms/templates/regions/region_form.html
 #, python-format
@@ -7997,8 +8333,8 @@ msgid "Register authenticator app"
 msgstr "Authenticator-App registrieren"
 
 #: cms/templates/statistics/_statistics_widget.html
-msgid "Number of online accesses over the last 14 days."
-msgstr "Anzahl der Online-Zugriffe der letzten 14 Tage."
+msgid "Number of total accesses over the last 14 days."
+msgstr "Anzahl der Gesamtzugriffe der letzten 14 Tage."
 
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_overview.html
@@ -8006,8 +8342,8 @@ msgid "The statistics network is currently experiencing heavy traffic."
 msgstr "Der Statistik-Server hat aktuell eine hohe Auslastung."
 
 #: cms/templates/statistics/statistics_overview.html
-msgid "Number of online accesses"
-msgstr "Anzahl der Online-Zugriffe"
+msgid "Total accesses"
+msgstr "Gesamtzugriffe"
 
 #: cms/templates/statistics/statistics_overview.html
 msgid "Individual languages can be hidden by clicking on the labels."
@@ -8348,6 +8684,24 @@ msgstr "Ein SMTP-Fehler ist aufgetreten."
 msgid "The email server refused the connection."
 msgstr "Der E-Mail-Server hat die Verbindung abgelehnt."
 
+#: cms/utils/external_calendar_utils.py
+msgid "Could not access the url of this external calendar"
+msgstr "Auf die URL dieses externen Kalenders konnte nicht zugegriffen werden"
+
+#: cms/utils/external_calendar_utils.py
+msgid "The data provided by the url of this external calendar is invalid"
+msgstr "Die Daten unter der URL des externen Kalenders sind fehlerhaft"
+
+#: cms/utils/external_calendar_utils.py
+msgid "Could not import event because it is missing a required field: {}"
+msgstr ""
+"Ein Event konnte nicht importiert werden, da ein erforderliches Feld fehlt: "
+"{}"
+
+#: cms/utils/external_calendar_utils.py
+msgid "Could not import '{}': {}"
+msgstr "'{}' konnte nicht importiert werden: {}"
+
 #: cms/utils/internal_link_checker.py
 msgid "Imprint does not exist or is not public in this language"
 msgstr ""
@@ -8570,7 +8924,7 @@ msgstr[1] "Es gibt bereits aktuelle Übersetzungen für {}"
 msgid "The selected {} were successfully {}"
 msgstr "Die ausgewählten {} wurden erfolgreich {}"
 
-#: cms/views/bulk_action_views.py
+#: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully archived."
 msgid_plural ""
@@ -8608,18 +8962,18 @@ msgstr[1] ""
 #, python-brace-format
 msgid ""
 "Location {object_names} could not be archived because it is referenced by an "
-"event."
+"event or a contact."
 msgid_plural ""
 "The following locations could not be archived because they were referenced "
-"by an event: {object_names}"
+"by an event or a contact: {object_names}"
 msgstr[0] ""
 "Ort \"{object_names}\" kann nicht archiviert werden, da er von einer "
-"Veranstaltung verwendet wird."
+"Veranstaltung oder einem Kontakt verwendet wird."
 msgstr[1] ""
 "Die folgenden Orte können nicht archiviert werden, da sie von einer "
-"Veranstaltung verwendet werden: \"{object_names}\""
+"Veranstaltung oder einem Kontakt verwendet werden: \"{object_names}\""
 
-#: cms/views/bulk_action_views.py
+#: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully restored."
 msgid_plural ""
@@ -8651,6 +9005,83 @@ msgstr[1] ""
 "Die folgenden Seiten konnten nicht wiederhergestellt werden, weil mindestens "
 "eine übergeordnete Seite archiviert ist: {}"
 
+#: cms/views/contacts/contact_actions.py
+#, python-brace-format
+msgid "Contact {0} was successfully archived"
+msgstr "Kontakt {0} wurde erfolgreich archiviert"
+
+#: cms/views/contacts/contact_actions.py
+#, python-brace-format
+msgid "Contact {0} was successfully deleted"
+msgstr "Kontakt {0} wurde erfolgreich gelöscht."
+
+#: cms/views/contacts/contact_actions.py
+#, python-brace-format
+msgid "Contact {0} was successfully restored"
+msgstr "Kontakt {0} wurde erfolgreich wiederhergestellt"
+
+#: cms/views/contacts/contact_actions.py
+#, python-brace-format
+msgid "Contact {0} was successfully copied"
+msgstr "Kontakt {0} wurde erfolgreich kopiert"
+
+#: cms/views/contacts/contact_bulk_actions.py
+#, python-brace-format
+msgid "{model_name} {object_names} was successfully deleted."
+msgid_plural ""
+"The following {model_name_plural} were successfully deleted: {object_names}"
+msgstr[0] "{model_name} {object_names} wurde erfolgreich gelöscht."
+msgstr[1] ""
+"Die folgenden {model_name_plural} wurden erfolgreich gelöscht: {object_names}"
+
+#: cms/views/contacts/contact_context_mixin.py
+msgid "Please confirm that you really want to archive this contact"
+msgstr "Bitte bestätigen Sie, dass dieser Kontakt archiviert werden soll."
+
+#: cms/views/contacts/contact_context_mixin.py
+msgid "Please confirm that you really want to restore this contact"
+msgstr ""
+"Bitte bestätigen Sie, dass dieser Kontakt wiederhergestellt werden soll"
+
+#: cms/views/contacts/contact_context_mixin.py
+msgid "Please confirm that you really want to delete this contact"
+msgstr "Bitte bestätigen Sie, dass dieser Kontakt gelöscht werden soll"
+
+#: cms/views/contacts/contact_form_view.py
+msgid "You cannot edit this contact because it is archived."
+msgstr "Sie können diesen Kontakt nicht bearbeiten, weil er archiviert ist."
+
+#: cms/views/contacts/contact_form_view.py
+msgid "You don't have the permission to edit contacts."
+msgstr "Sie haben nicht die nötige Berechtigung, um Kontakte zu bearbeiten."
+
+#: cms/views/contacts/contact_form_view.py
+msgid "This location is used for the contact."
+msgstr "Dieser Ort wird für den Kontakt verwendet."
+
+#: cms/views/contacts/contact_form_view.py
+msgid ""
+"Select a location to use for your contact or create a new location. Only "
+"published locations can be set."
+msgstr ""
+"Wählen Sie einen Ort aus, der für ihren Kontakt verwendet werden soll oder "
+"erstellen Sie einen neuen Ort. Nur veröffentlichte Orte können verwendet "
+"werden."
+
+#: cms/views/contacts/contact_form_view.py
+msgid "Contact \"{}\" was successfully created"
+msgstr "Kontakt \"{}\" wurde erfolgreich erstellt"
+
+#: cms/views/contacts/contact_form_view.py cms/views/content_version_view.py
+#: cms/views/events/event_form_view.py cms/views/pages/page_form_view.py
+#: cms/views/pois/poi_form_view.py
+msgid "No changes detected, but date refreshed"
+msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
+
+#: cms/views/contacts/contact_form_view.py
+msgid "Contact \"{}\" was successfully saved"
+msgstr "Kontakt \"{}\" wurde erfolgreich gespeichert"
+
 #: cms/views/content_version_view.py
 msgid "Back to the form"
 msgstr "Zurück zum Formular"
@@ -8673,11 +9104,6 @@ msgid "You cannot reject changes if there is no version to return to."
 msgstr ""
 "Sie können keine Änderungen ablehnen, wenn es keine Version gibt, zu der Sie "
 "zurückkehren können."
-
-#: cms/views/content_version_view.py cms/views/events/event_form_view.py
-#: cms/views/pages/page_form_view.py cms/views/pois/poi_form_view.py
-msgid "No changes detected, but date refreshed"
-msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
 #: cms/views/content_version_view.py
 msgid "No changes detected, but status changed to published"
@@ -8777,10 +9203,26 @@ msgstr "Bitte bestätigen Sie, dass diese Veranstaltung gelöscht werden soll"
 msgid "All translations of this event will also be deleted."
 msgstr "Alle Übersetzungen dieser Veranstaltung werden gelöscht."
 
+#: cms/views/events/event_context_mixin.py
+msgid ""
+"Create an event location or start typing the name of an existing location. "
+"Only published locations can be set as event venues."
+msgstr ""
+"Erstellen Sie einen Ort oder beginnen Sie den Namen eines bestehenden "
+"Veranstaltungsortes einzutippen. Nur veröffentlichte Orte können als "
+"Veranstaltungsorte verwendet werden."
+
 #: cms/views/events/event_form_view.py
 msgid "You cannot edit this event because it is archived."
 msgstr ""
 "Sie können diese Veranstaltung nicht bearbeiten, weil sie archiviert ist."
+
+#: cms/views/events/event_form_view.py
+msgid ""
+"You cannot edit this event because it was imported from an external calendar."
+msgstr ""
+"Sie können diese Veranstaltung nicht bearbeiten, weil sie von einem externen "
+"Kalender importiert worden ist."
 
 #: cms/views/events/event_form_view.py
 msgid "You don't have the permission to edit events."
@@ -8831,6 +9273,44 @@ msgstr ""
 msgid "Back to the event form"
 msgstr "Zurück zum Veranstaltungs-Formular"
 
+#: cms/views/external_calendars/external_calendar_actions.py
+msgid "External calendar was successfully deleted"
+msgstr "Externer Kalender wurde erfolgreich gelöscht"
+
+#: cms/views/external_calendars/external_calendar_form_view.py
+msgid "Please confirm that you really want to delete this external calendar"
+msgstr ""
+"Bitte bestätigen Sie, dass dieser externer Kalendar gelöscht werden soll"
+
+#: cms/views/external_calendars/external_calendar_form_view.py
+#: cms/views/form_views.py cms/views/imprint/imprint_sbs_view.py
+#: cms/views/pages/page_sbs_view.py
+#: cms/views/poi_categories/poi_category_form_view.py
+#: cms/views/roles/role_form_view.py cms/views/settings/user_settings_view.py
+#: cms/views/users/region_user_form_view.py cms/views/users/user_form_view.py
+msgid "No changes made"
+msgstr "Keine Änderungen vorgenommen"
+
+#: cms/views/external_calendars/external_calendar_form_view.py
+msgid "An error occurred while importing events from this external calendar"
+msgstr "Ein Fehler mit dem Import von Veranstaltungen ist aufgetreten"
+
+#: cms/views/external_calendars/external_calendar_form_view.py
+msgid "Successfully imported events from this external calendar"
+msgstr "Veranstaltungen des externen Kalenders wurden erfolgreich importiert"
+
+#: cms/views/external_calendars/external_calendar_form_view.py
+msgid "External calendar \"{}\" was successfully created"
+msgstr "Externer Kalender \"{}\" wurde erfolgreich erstellt"
+
+#: cms/views/external_calendars/external_calendar_form_view.py
+msgid "External calendar \"{}\" was successfully saved"
+msgstr "Externer Kalender \"{}\" wurde erfolgreich gespeichert"
+
+#: cms/views/external_calendars/external_calendar_list_view.py
+msgid "Please confirm that you really want to delete this calendar"
+msgstr "Bitte bestätigen Sie, dass dieser Kalendar gelöscht werden soll"
+
 #: cms/views/feedback/admin_feedback_actions.py
 #: cms/views/feedback/region_feedback_actions.py
 msgid "Feedback was successfully marked as read"
@@ -8859,14 +9339,6 @@ msgstr "Feedback wurde erfolgreich gelöscht"
 #: cms/views/feedback/feedback_resource.py
 msgid "Read by"
 msgstr "Gelesen von"
-
-#: cms/views/form_views.py cms/views/imprint/imprint_sbs_view.py
-#: cms/views/pages/page_sbs_view.py
-#: cms/views/poi_categories/poi_category_form_view.py
-#: cms/views/roles/role_form_view.py cms/views/settings/user_settings_view.py
-#: cms/views/users/region_user_form_view.py cms/views/users/user_form_view.py
-msgid "No changes made"
-msgstr "Keine Änderungen vorgenommen"
 
 #: cms/views/form_views.py cms/views/poi_categories/poi_category_form_view.py
 msgid "{} \"{}\" was successfully saved"
@@ -9233,6 +9705,95 @@ msgstr "Es ist ein Fehler aufgetreten."
 msgid "Please confirm that you really want to delete this {}"
 msgstr "Bitte bestätigen Sie, dass diese {} gelöscht werden soll"
 
+#: cms/views/organizations/organization_actions.py
+msgid "Organization was successfully archived"
+msgstr "Die Organisation wurde erfolgreich archiviert"
+
+#: cms/views/organizations/organization_actions.py
+msgid "Organization couldn't be archived as it's used by a page, poi or user"
+msgstr ""
+"Die Organisation konnte nicht archiviert werden, da sie von einer Seite, "
+"einem Ort oder eines Users verwendet wird"
+
+#: cms/views/organizations/organization_actions.py
+msgid "Organization was successfully restored"
+msgstr "Die Organisation wurde erfolgreich wiederhergestellt"
+
+#: cms/views/organizations/organization_actions.py
+msgid "Organization was successfully deleted"
+msgstr "Organisation wurde erfolgreich gespeichert"
+
+#: cms/views/organizations/organization_actions.py
+msgid "Organization couldn't be deleted as it's used by a page, poi or user"
+msgstr ""
+"Die Organisation konnte nicht gelöscht werden, da sie von einer Seite, einem "
+"Ort oder eines Users verwendet wird"
+
+#: cms/views/organizations/organization_content_mixin.py
+msgid "Please confirm that you really want to archive this organization"
+msgstr "Bitte bestätigen Sie, dass diese Organisation archiviert werden soll."
+
+#: cms/views/organizations/organization_content_mixin.py
+msgid ""
+"Archiving this organization removes it from all users and content objects "
+"that use it"
+msgstr ""
+"Das Archivieren dieser Organisation entfernt diese von allen Benutzer:innen "
+"und Inhalten, von denen sie benutzt wurde"
+
+#: cms/views/organizations/organization_content_mixin.py
+msgid "Please confirm that you really want to restore this organization"
+msgstr ""
+"Bitte bestätigen Sie, dass diese Organisation wiederhergestellt werden soll"
+
+#: cms/views/organizations/organization_content_mixin.py
+msgid "Please confirm that you really want to delete this organization"
+msgstr "Bitte bestätigen Sie, dass diese Organisation gelöscht werden soll"
+
+#: cms/views/organizations/organization_content_mixin.py
+msgid ""
+"Deleting this organization removes it from all users and content objects "
+"that use it"
+msgstr ""
+"Das Löschen dieser Organisationen entfernt diese von allen Benutzer:innen "
+"und Inhalten, von denen sie benutzt wurde"
+
+#: cms/views/organizations/organization_content_mixin.py
+msgid ""
+"You cannot archive an organization which is used by a poi, page or user. \n"
+"This also involves archived pages and pois"
+msgstr ""
+"Sie können keine Organisation archivieren, die von einem Ort, einer Seite "
+"oder von Benutzer:innen verwendet wird. \n"
+"Dies betrifft auch archivierte Orte und Seiten"
+
+#: cms/views/organizations/organization_content_mixin.py
+msgid ""
+"You cannot delete an organization which is used by a poi, page or user. \n"
+"This also involves archived pages and pois"
+msgstr ""
+"Sie können keine Organisation löschen, die von einem Ort, einer Seite oder "
+"von Benutzer:innen verwendet wird. \n"
+"Dies betrifft auch archivierte Orte und Seiten"
+
+#: cms/views/organizations/organization_form_view.py
+msgid "You cannot edit this organization because it is archived."
+msgstr "Sie können diese Organisation nicht bearbeiten, da sie archiviert ist."
+
+#: cms/views/organizations/organization_form_view.py
+msgid "You don't have the permission to edit organizations."
+msgstr ""
+"Sie haben nicht die benötigten Berechtigungen, um Organisationen zu "
+"bearbeiten."
+
+#: cms/views/organizations/organization_form_view.py
+msgid "Organization \"{}\" was successfully created"
+msgstr "Organisation \"{}\" wurde erfolgreich erstellt"
+
+#: cms/views/organizations/organization_form_view.py
+msgid "Organization \"{}\" was successfully saved"
+msgstr "Organisation \"{}\" wurde erfolgreich gespeichert"
+
 #: cms/views/pages/page_actions.py
 msgid "Page was successfully archived"
 msgstr "Seite wurde erfolgreich archiviert"
@@ -9275,6 +9836,14 @@ msgstr "Das ZIP-Archiv \"{}\" enthält die folgenden ungültigen Dateien: \"{}\"
 #: cms/views/pages/page_actions.py
 msgid "No XLIFF file was selected for import."
 msgstr "Es wurde keine XLIFF-Datei für den Import ausgewählt."
+
+#: cms/views/pages/page_actions.py
+msgid ""
+"Error while saving page. Someone else probably moved another page at the "
+"same time."
+msgstr ""
+"Fehler beim Speichern der Seite. Wahrscheinlich hat eine andere Person eine "
+"andere Seite verschoben."
 
 #: cms/views/pages/page_actions.py
 #, python-brace-format
@@ -9534,14 +10103,14 @@ msgid "This XLIFF import is no longer available."
 msgstr "Dieser XLIFF Import ist nicht länger verfügbar."
 
 #: cms/views/pois/poi_actions.py
-msgid "This location cannot be archived because it is referenced by an event."
-msgstr ""
-"Dieser Ort kann nicht archiviert werden, da er von einer Veranstaltung "
-"verwendet wird."
-
-#: cms/views/pois/poi_actions.py
 msgid "Location was successfully archived"
 msgstr "Ort wurde erfolgreich archiviert"
+
+#: cms/views/pois/poi_actions.py
+msgid "This location cannot be archived because it is referenced by an event."
+msgstr ""
+"Dieser Ort kann nicht archiviert werden, da er von einer Veranstaltung oder "
+"einem Kontakt verwendet wird."
 
 #: cms/views/pois/poi_actions.py
 msgid "Location was successfully restored"
@@ -9550,6 +10119,12 @@ msgstr "Ort wurde erfolgreich wiederhergestellt"
 #: cms/views/pois/poi_actions.py
 msgid "Location was successfully deleted"
 msgstr "Ort wurde erfolgreich gelöscht"
+
+#: cms/views/pois/poi_actions.py
+msgid "Location couldn't be deleted as it's used by an event or contact"
+msgstr ""
+"Der Ort konnte nicht gelöscht werden, da er von einer Veranstaltung oder "
+"einem Kontakt verwendet wird"
 
 #: cms/views/pois/poi_actions.py
 msgid "Location service is disabled"
@@ -9671,6 +10246,24 @@ msgstr "Bitte bestätigen Sie, dass dieser Ort gelöscht werden soll"
 msgid "All translations of this location will also be deleted."
 msgstr "Alle Übersetzungen dieses Ortes werden gelöscht."
 
+#: cms/views/pois/poi_context_mixin.py
+msgid ""
+"You cannot archive a location which is used by an event or a contact. \n"
+"This also involves archived events and contacts"
+msgstr ""
+"Sie können keinen Ort archivieren, der von einer Veranstaltung oder einem "
+"Kontakt verwendet wird. \n"
+"Dies betrifft auch archivierte Veranstaltungen und Kontakte"
+
+#: cms/views/pois/poi_context_mixin.py
+msgid ""
+"You cannot delete a location which is used by an event or a contact. \n"
+"This also involves archived events and contacts"
+msgstr ""
+"Sie können keinen Ort löschen, der von einer Veranstaltung oder einem "
+"Kontakt verwendet wird. \n"
+"Dies betrifft auch archivierte Veranstaltungen und Kontakte"
+
 #: cms/views/pois/poi_form_view.py
 msgid "You cannot edit this location because it is archived."
 msgstr "Sie können diesen Ort nicht bearbeiten, da er archiviert ist."
@@ -9708,7 +10301,7 @@ msgstr ""
 
 #: cms/views/pois/poi_version_view.py
 msgid "Back to the poi form"
-msgstr "Zurück zum Orts-Formular"
+msgstr "Zurück zum Formular"
 
 #: cms/views/push_notifications/push_notification_form_view.py
 #: cms/views/push_notifications/push_notification_list_view.py
@@ -9835,6 +10428,31 @@ msgid ""
 msgstr ""
 "Bitte erstellen Sie mindestens einen Sprach-Knoten, bevor Sie Push-"
 "Benachrichtigungen verwalten."
+
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Number of broken links"
+msgstr "Anzahl kaputter Links"
+
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Number of low hix pages"
+msgstr "Anzahl Seiten mit niedrigem HIX-Wert"
+
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Number of pages with at least one missing or outdated translation"
+msgstr ""
+"Anzahl Seiten mit mindestens einer fehlenden oder veralteten Übersetzung"
+
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Number of outdated pages"
+msgstr "Anzahl veralteter Seiten"
+
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Has translation package been booked?"
+msgstr "Wurde das Add-On für Übersetzungen gebucht?"
+
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Number of languages besides root language"
+msgstr "Anzahl Sprachen neben der Standard-Sprache"
 
 #: cms/views/regions/region_actions.py
 msgid ""
@@ -10046,10 +10664,6 @@ msgstr[1] ""
 #: core/apps.py
 msgid "Core"
 msgstr "Core"
-
-#: core/settings.py
-msgid "German"
-msgstr "Deutsch"
 
 #: core/settings.py
 msgid "English"
@@ -10358,10 +10972,90 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Number of online accesses"
+#~ msgstr "Anzahl der Online-Zugriffe"
+
+#~ msgid "Created by"
+#~ msgstr "Erstellt von"
+
+#~ msgid "E-mail from location"
+#~ msgstr "E-mail des Ortes"
+
+#~ msgid "Will be taken over from the location."
+#~ msgstr "Wird vom Ort übernommen."
+
+#~ msgid "phone number from location"
+#~ msgstr "Telefonnummer des Ortes"
+
+#~ msgid "website from location"
+#~ msgstr "Website des Ortes"
+
+#~ msgid ""
+#~ "E-mail address does not match with that of the selected location. Please "
+#~ "check again."
+#~ msgstr ""
+#~ "Die E-mail Adresse stimmt nicht mit der vom ausgewählten Ort überein. "
+#~ "Bitte überprüfen Sie sie erneut."
+
+#~ msgid ""
+#~ "Phone number does not match with that of the selected location. Please "
+#~ "check again."
+#~ msgstr ""
+#~ "Die Telefonnummer stimmt nicht mit der vom ausgewählten Ort überein. "
+#~ "Bitte überprüfen Sie sie erneut."
+
+#~ msgid ""
+#~ "Website URL does not match with that of the selected location. Please "
+#~ "check again."
+#~ msgstr ""
+#~ "Die Website URL stimmt nicht mit der vom ausgewählten Ort überein. Bitte "
+#~ "überprüfen Sie sie erneut."
+
+#~ msgid "Delete this contact"
+#~ msgstr "Diesen Kontakt löschen"
+
+#~ msgid "Name of related POI"
+#~ msgstr "Name des verlinkten Ortes"
+
+#~ msgid "Only published locations can be set as event venues"
+#~ msgstr "Nur veröffentlichte Orte können verwendet werden"
+
+#~ msgid "Remove location from event"
+#~ msgstr "Ort entfernen"
+
+#~ msgid "Region name"
+#~ msgstr "Name der Region"
+
+#~ msgid "Opening hours"
+#~ msgstr "Öffnungszeiten"
+
+#~ msgid "No E-mail address is provided."
+#~ msgstr "Keine E-Mail-Adresse ist angegeben."
+
+#~ msgid "No phone number is provided."
+#~ msgstr "Keine Telefonnummer ist angegeben."
+
+#~ msgid "Back to the location form"
+#~ msgstr "Zurück zum Orts-Formular"
+
+#~ msgid "You cannot archive a location which is used by an event."
+#~ msgstr ""
+#~ "Der Ort kann nicht archiviert werden, da er von einer Veranstaltung "
+#~ "verwendet wird."
+
 #~ msgid "\"{} {}\" was not in translation process."
 #~ msgid_plural "The following \"{}\" were not in translation process: \"{}\""
 #~ msgstr[0] "\"{} {}\" war nicht im Überestzungsprozess"
 #~ msgstr[1] "Die folgenden\"{} {}\" waren nicht im Übersetzungsprozess"
+
+#~ msgid "Manage Contacts"
+#~ msgstr "Kontakte verwalten"
+
+#~ msgid "Whether or not the website must be taken from the location."
+#~ msgstr "Ob Statistiken für die Region aktiviert sind oder nicht"
+
+#~ msgid "POI"
+#~ msgstr "Ort"
 
 #~ msgid "Contents"
 #~ msgstr "Inhalte"
@@ -10381,6 +11075,12 @@ msgstr ""
 
 #~ msgid "You cannot translate into the default language"
 #~ msgstr "Sie können nicht in die Standard-Sprache übersetzen"
+
+#~ msgid "Import external calendars"
+#~ msgstr "Externen Kalender importieren"
+
+#~ msgid "Import calendar"
+#~ msgstr "Kalender importieren"
 
 #~ msgid "Find more information about this"
 #~ msgstr "Mehr Informationen finden Sie"
@@ -11027,9 +11727,6 @@ msgstr ""
 #~ msgid "Currently no users belong to this organization"
 #~ msgstr "Aktuell gehören dieser Organisation keine Benutzer:innen an"
 
-#~ msgid "Publish changes"
-#~ msgstr "Änderungen veröffentlichen"
-
 #~ msgid "Convert current version to draft"
 #~ msgstr "Aktuelle Version zum Entwurf konvertieren"
 
@@ -11039,15 +11736,8 @@ msgstr ""
 #~ msgid "Publish the current auto save"
 #~ msgstr "Die aktuelle automatische Speicherung veröffentlichen"
 
-#~ msgid "Organization \"{}\" was successfully {}"
-#~ msgstr "Organisation \"{}\" wurde erfolgreich erstellt"
-
 #~ msgid "deleted"
 #~ msgstr "Löschen"
-
-#~ msgid "You don't have the permission to edit an organization."
-#~ msgstr ""
-#~ "Sie haben nicht die nötige Berechtigung, um Veranstaltungen zu bearbeiten."
 
 #~ msgid "edited"
 #~ msgstr "Bearbeiter"
@@ -11057,12 +11747,6 @@ msgstr ""
 
 #~ msgid "Language tree node for \"{}\" was successfully created"
 #~ msgstr "Sprach-Knoten für \"{}\" wurde erfolgreich erstellt"
-
-#~ msgid "Organization was successfully deleted"
-#~ msgstr "Organisation wurde erfolgreich gespeichert"
-
-#~ msgid "Organization \"{}\" was successfully created"
-#~ msgstr "Organisation \"{}\" wurde erfolgreich erstellt"
 
 #~ msgid "Organization \"{}\" saved without changes"
 #~ msgstr "Organisation \"{}\" wurde erfolgreich gespeichert"
@@ -11153,9 +11837,6 @@ msgstr ""
 #~ msgid "504 Gateway Timeout"
 #~ msgstr "504 Gateway-Zeitüberschreitung"
 
-#~ msgid "Number of usages"
-#~ msgstr "Anzahl an Verwendungen"
-
 #~ msgid "No links detected yet."
 #~ msgstr "Es konnten keine Links gefunden werden."
 
@@ -11232,9 +11913,6 @@ msgstr ""
 #~ msgid "Please confirm that you really want to delete this offer template"
 #~ msgstr ""
 #~ "Bitte bestätigen Sie, dass diese Angebots-Vorlage gelöscht werden soll"
-
-#~ msgid "Please confirm that you really want to delete this organization"
-#~ msgstr "Bitte bestätigen Sie, dass diese Organisation gelöscht werden soll"
 
 #~ msgid ""
 #~ "This will update all pages and users that are part of this organization."
@@ -11363,9 +12041,6 @@ msgstr ""
 #~ msgid "upcoming events"
 #~ msgstr "Zukünftige Termine"
 
-#~ msgid "past events"
-#~ msgstr "Vergangene Termine"
-
 #~ msgid "Event is not public."
 #~ msgstr "Veranstaltung ist nicht veröffentlicht."
 
@@ -11377,9 +12052,6 @@ msgstr ""
 
 #~ msgid "POI is not public."
 #~ msgstr "POI ist nicht veröffentlicht."
-
-#~ msgid "Translation cannot be imported"
-#~ msgstr "Übersetzung kann nicht importiert werden"
 
 #~ msgid "The page or target language does not exist."
 #~ msgstr "Die Seite oder Zielsprache existiert nicht."
@@ -11835,9 +12507,6 @@ msgstr ""
 #~ "Erlaube keine ungültigen SSL-Zertifikate bei der Interaktion mit der "
 #~ "Matomo API"
 
-#~ msgid "Calendar week"
-#~ msgstr "Kalenderwoche"
-
 #~ msgid "Month view"
 #~ msgstr "Monatsansicht"
 
@@ -11855,9 +12524,6 @@ msgstr ""
 
 #~ msgid "Administrative division"
 #~ msgstr "Verwaltungseinheit"
-
-#~ msgid "Region name option"
-#~ msgstr "Option zum Namen der Region"
 
 #~ msgid "Name of the Role"
 #~ msgstr "Name der Rolle"
@@ -11878,13 +12544,6 @@ msgstr ""
 #~ msgstr "Name der Rolle hier eingeben"
 
 #~ msgid ""
-#~ "There was an error during the establishment of a connection. Please check "
-#~ "the region and the entered key."
-#~ msgstr ""
-#~ "Es gab einen Fehler mit der Verbindung zum Matomo Server. Bitte prüfen "
-#~ "Sie Ihre Einstellungen."
-
-#~ msgid ""
 #~ "The url you have entered is invalid. Please check the corresponding "
 #~ "settings."
 #~ msgstr ""
@@ -11893,9 +12552,6 @@ msgstr ""
 
 #~ msgid "What do you want to do?"
 #~ msgstr "Was möchten Sie tun?"
-
-#~ msgid "Your E-mail-address"
-#~ msgstr "Ihre E-Mail-Adresse"
 
 #~ msgid "Confirm your new password here"
 #~ msgstr "Ihr neues Passwort erneut eingeben"
@@ -11908,9 +12564,6 @@ msgstr ""
 
 #~ msgid "Change icon"
 #~ msgstr "Icon ändern"
-
-#~ msgid "Restore icon"
-#~ msgstr "Icon wiederherstellen"
 
 #~ msgid "Integreat Backend"
 #~ msgstr "Integreat CMS"
@@ -12214,9 +12867,6 @@ msgstr ""
 #~ msgid "First child of"
 #~ msgstr "Erstes Unterelement von"
 
-#~ msgid "Last child of"
-#~ msgstr "Letztes Unterelement von"
-
 #~ msgid "Private"
 #~ msgstr "Privat"
 
@@ -12329,9 +12979,6 @@ msgstr ""
 
 #~ msgid "Yes, restore this POI now."
 #~ msgstr "Ja, diesen POI wiederherstellen."
-
-#~ msgid "Restore POI"
-#~ msgstr "POI Wiederherstellen"
 
 #~ msgid "Archive POI"
 #~ msgstr "POI archivieren"

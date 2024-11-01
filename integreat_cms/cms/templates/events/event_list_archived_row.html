@@ -39,32 +39,34 @@
     <td class="py-3 pl-2 text-gray-800 lang-grid">
         {% spaceless %}
             {% for other_language in languages %}
-                <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=other_language.slug %}">
-                    {% get_translation event other_language.slug as other_translation %}
-                    {% if other_translation %}
-                        {% if other_translation.currently_in_translation %}
-                            <span title="{% translate "Currently in translation" %}">
-                                <i icon-name="clock"
-                                   class="{% if other_language == language %}text-blue-500{% endif %}"></i>
-                            </span>
-                        {% elif other_translation.is_outdated %}
-                            <span title="{% translate "Translation outdated" %}">
-                                <i icon-name="alert-triangle"
-                                   class="{% if other_language == language %}text-yellow-500{% endif %}"></i>
-                            </span>
+                {% if other_language != request.region.default_language %}
+                    <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=other_language.slug %}">
+                        {% get_translation event other_language.slug as other_translation %}
+                        {% if other_translation %}
+                            {% if other_translation.currently_in_translation %}
+                                <span title="{% translate "Currently in translation" %}">
+                                    <i icon-name="clock"
+                                       class="{% if other_language == language %}text-blue-500{% endif %}"></i>
+                                </span>
+                            {% elif other_translation.is_outdated %}
+                                <span title="{% translate "Translation outdated" %}">
+                                    <i icon-name="alert-triangle"
+                                       class="{% if other_language == language %}text-yellow-500{% endif %}"></i>
+                                </span>
+                            {% else %}
+                                <span title="{% translate "Translation up-to-date" %}">
+                                    <i icon-name="check"
+                                       class="{% if other_language == language %}text-green-500{% endif %}"></i>
+                                </span>
+                            {% endif %}
                         {% else %}
-                            <span title="{% translate "Translation up-to-date" %}">
-                                <i icon-name="check"
-                                   class="{% if other_language == language %}text-green-500{% endif %}"></i>
+                            <span title="{% translate "Translation missing" %}">
+                                <i icon-name="x"
+                                   class="{% if other_language == language %}text-red-500{% endif %}"></i>
                             </span>
                         {% endif %}
-                    {% else %}
-                        <span title="{% translate "Translation missing" %}">
-                            <i icon-name="x"
-                               class="{% if other_language == language %}text-red-500{% endif %}"></i>
-                        </span>
-                    {% endif %}
-                </a>
+                    </a>
+                {% endif %}
             {% endfor %}
         {% endspaceless %}
     </td>

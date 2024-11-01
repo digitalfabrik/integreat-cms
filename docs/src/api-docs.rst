@@ -1192,3 +1192,43 @@ it will be passed along in the following format, together with a matching HTTP s
    }
 
 The response to ``GET``-ing the endpoint with an ``attachment_id`` is either the (binary) file or an error in the format specified above.
+
+Zammad Webhook
+==============
+
+This webhook triggers automatic translations and answers for incoming and outgoing chat messages via Zammad webhooks. The request payload is defined by Zammad, see https://admin-docs.zammad.org/en/latest/manage/webhook/payload.html.
+
+REQUEST
+~~~~~~~
+
+.. code:: http
+
+    POST /api/v3/webhook/zammad/ HTTP/2
+
+Body:
+
+.. code:: javascript
+
+   {
+      "article": {
+         "subject": String,            // Title of the article that triggered the webhook
+         "internal": Boolean,          // Indicates if the Zammad article is visible to the customer
+         "body": String,               // Article content/message
+         "created_by" {
+            "login": String            // e-mail address of user that created the article
+         }
+      },
+      "ticket": {
+         "id": Integer,                // ID of the ticket that triggered the webhook
+   }
+
+RESPONSE
+~~~~~~~~
+
+.. code:: javascript
+
+   {
+      "original_message": String,      // Copy of the original body
+      "region": String,                // Region
+      "actions": [ Object ],           // list of actions taken
+   }

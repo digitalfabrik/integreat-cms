@@ -1,14 +1,25 @@
 from __future__ import annotations
 
+import logging
+from typing import TYPE_CHECKING
+
+from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+from linkcheck.models import Link
 
+from ...utils.link_utils import fix_content_link_encoding
 from ..abstract_base_model import AbstractBaseModel
 from ..media.media_file import MediaFile
 from ..regions.region import Region
+
+logger = logging.getLogger(__name__)
+
+if TYPE_CHECKING:
+    from ..users.user import User
 
 
 class Organization(AbstractBaseModel):
@@ -44,6 +55,60 @@ class Organization(AbstractBaseModel):
     )
 
     website = models.URLField(max_length=250, verbose_name=_("website"))
+    archived = models.BooleanField(default=False, verbose_name=_("archived"))
+    links = GenericRelation(Link, related_query_name="organization")
+
+    @property
+    def num_contents(self) -> int:
+        """
+
+        :return: the current number of maintained pages of an organization object
+        """
+        return self.pages.count() + self.pois.count()
+
+    @property
+    def num_members(self) -> int:
+        """
+        :return: the current number of members of an organization object
+        """
+        return self.members.count()
+
+    @property
+    def is_used(self) -> bool:
+        """
+        :return: whether this organization is used by another model
+        """
+        return self.pages.exists() or self.pois.exists() or self.members.exists()
+
+    @cached_property
+    def backend_edit_link(self) -> str:
+        """
+        This function returns the absolute url to the edit form of this region
+
+        :return: The url
+        """
+        return reverse(
+            "edit_organization",
+            kwargs={
+                "region_slug": self.region.slug,
+                "organization_id": self.id,
+            },
+        )
+
+    def replace_urls(
+        self,
+        urls_to_replace: dict[str, str],
+        user: User | None = None,
+        commit: bool = True,
+    ) -> None:
+        """
+        Function to replace links that are in the translation and match the given keyword `search`
+        """
+        logger.debug("Replacing links of %r: %r by %r", self, urls_to_replace, user)
+        self.website = urls_to_replace.get(self.website, self.website)
+        self.website = fix_content_link_encoding(self.website)
+        if commit:
+            self.save()
 
     def __str__(self) -> str:
         """
@@ -63,35 +128,51 @@ class Organization(AbstractBaseModel):
         """
         return f"<Organization (id: {self.id}, slug: {self.slug}, region: {self.region.slug})>"
 
+    def delete(self, *args: list, **kwargs: dict) -> bool:
+        r"""
+        Deletes the organization
+
+        :param \*args: The supplied arguments
+        :param \**kwargs: The supplied keyword arguments
+        """
+        was_successful = False
+        if not self.is_used:
+            super().delete(*args, **kwargs)
+            was_successful = True
+        else:
+            logger.debug(
+                "Can't be deleted because this organization is used by a poi, page or user"
+            )
+        return was_successful
+
+    def archive(self) -> bool:
+        """
+        Archives the organizations
+        """
+        was_successful = False
+        if not self.is_used:
+            self.archived = True
+            self.save()
+            was_successful = True
+        else:
+            logger.debug(
+                "Can't be archived because this organization is used by a poi, page or user"
+            )
+        return was_successful
+
+    def restore(self) -> None:
+        """
+        Restores the organization
+        """
+        self.archived = False
+        self.save()
+
     @property
-    def num_contents(self) -> int:
+    def title(self) -> str:
         """
-
-        :return: the current number of maintained pages of an organization object
+        This function return the name of organization. Alias for link list template.
         """
-        return self.pages.count() + self.pois.count()
-
-    @property
-    def num_members(self) -> int:
-        """
-        :return: the current number of members of an organization object
-        """
-        return self.members.count()
-
-    @cached_property
-    def backend_edit_link(self) -> str:
-        """
-        This function returns the absolute url to the edit form of this region
-
-        :return: The url
-        """
-        return reverse(
-            "edit_organization",
-            kwargs={
-                "region_slug": self.region.slug,
-                "slug": self.slug,
-            },
-        )
+        return self.name
 
     class Meta:
         #: The verbose name of the model

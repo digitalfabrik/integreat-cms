@@ -1,0 +1,58 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% load static %}
+{% load content_filters %}
+{% block content %}
+    <div class="table-header">
+        <div class="flex flex-wrap justify-between">
+            <h1 class="heading">
+                {% translate "External calendars" %}
+            </h1>
+            {% if perms.cms.change_externalcalendar %}
+                <a href="{% url 'new_external_calendar' region_slug=request.region.slug %}"
+                   class="btn">{% translate "Add new external calendar" %}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="table-listing">
+        <table class="w-full mt-4 bg-white border border-gray-200 border-solid rounded shadow">
+            <thead>
+                <tr class="border-b border-gray-200 border-solid">
+                    <th class="px-2 py-3 text-sm text-left uppercase min-w-48">
+                        {% translate "Name" %}
+                    </th>
+                    <th class="px-2 py-3 text-sm text-left uppercase min-w-80">
+                        {% translate "URL" %}
+                    </th>
+                    <th class="px-2 py-3 text-sm text-left uppercase min-w-80">
+                        {% translate "Status" %}
+                    </th>
+                    <th class="px-2 py-3 text-sm text-left uppercase min-w-48">
+                        {% translate "Imported events" %}
+                    </th>
+                    <th class="px-2 py-3 text-sm text-left uppercase">
+                        {% translate "Creator" %}
+                    </th>
+                    <th class="px-2 py-3 text-sm text-left uppercase">
+                        {% translate "Last changed by" %}
+                    </th>
+                    <th class="px-2 py-3 text-sm text-left uppercase">
+                        {% translate "Last updated" %}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for calendar in external_calendars %}
+                    {% include "events/external_calendar_list_row.html" %}
+                {% empty %}
+                    <tr>
+                        <td colspan="7" class="px-4 py-3">
+                            {% translate "No external calendars available yet." %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% include "../generic_confirmation_dialog.html" %}
+{% endblock content %}

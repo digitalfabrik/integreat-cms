@@ -39,7 +39,7 @@ def test_poi_form_shows_no_contents(
     edit_organization = reverse(
         "edit_organization",
         kwargs={
-            "slug": new_organization.slug,
+            "organization_id": new_organization.id,
             "region_slug": new_organization.region.slug,
         },
     )
@@ -72,7 +72,7 @@ def test_organization_form_shows_associated_contents(
     settings: SettingsWrapper,
 ) -> None:
     """
-    Test Organization in Augsburg has two pages and one location.
+    Nicht archivierte Organisation in Augsburg has two pages and one location.
     They must be shown in the form.
     """
     # Choose an organization which has a page and a poi assigned
@@ -106,7 +106,7 @@ def test_organization_form_shows_associated_contents(
     edit_organization = reverse(
         "edit_organization",
         kwargs={
-            "slug": organization.slug,
+            "organization_id": organization.id,
             "region_slug": region.slug,
         },
     )
