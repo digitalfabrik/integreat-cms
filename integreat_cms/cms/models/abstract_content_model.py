@@ -108,8 +108,8 @@ class ContentQuerySet(models.QuerySet):
         )
 
 
-# pylint: disable=too-many-public-methods
 class AbstractContentModel(AbstractBaseModel):
+    # pylint: disable=too-many-public-methods
     """
     Abstract base class for all content models
     """

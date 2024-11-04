@@ -132,12 +132,12 @@ def get_url_count(region_slug: str | None = None) -> dict[str, int]:
     return count_dict
 
 
-# pylint: disable=too-many-branches
 def filter_urls(
     region_slug: str | None = None,
     url_filter: str | None = None,
     prefetch_region_links: bool = False,
 ) -> tuple[list[Url], dict[str, int]]:
+    # pylint: disable=too-many-branches
     """
     Filter all urls of one region by the given category
 

@@ -15,8 +15,8 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-few-public-methods
 class PageContextMixin(ContextMixin):
+    # pylint: disable=too-few-public-methods
     """
     This mixin provides extra context for page views
     """

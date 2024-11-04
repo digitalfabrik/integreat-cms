@@ -17,8 +17,8 @@ if TYPE_CHECKING:
     from django.http import HttpRequest
 
 
-# pylint: disable=too-few-public-methods
 class JsonDebugToolbarMiddleware:
+    # pylint: disable=too-few-public-methods
     """
     The Django Debug Toolbar usually only works for views that return HTML.
     This middleware wraps any JSON response in HTML if the request

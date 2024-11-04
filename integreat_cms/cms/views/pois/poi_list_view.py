@@ -50,8 +50,8 @@ class POIListView(TemplateView, POIContextMixin, MachineTranslationContextMixin)
         """
         return self.template_archived if self.archived else self.template
 
-    # pylint: disable=too-many-locals
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        # pylint: disable=too-many-locals
         r"""
         Render POI list
 

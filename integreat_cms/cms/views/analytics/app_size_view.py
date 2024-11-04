@@ -19,7 +19,6 @@ class AppSizeView(TemplateView):
     #: The template to render (see :class:`~django.views.generic.base.TemplateResponseMixin`)
     template_name = "analytics/app_size.html"
 
-    # pylint: disable=fixme
     def get_context_data(self, **kwargs: Any) -> dict:
         r"""
         Extend context by app size
@@ -29,6 +28,7 @@ class AppSizeView(TemplateView):
         """
         context = super().get_context_data(**kwargs)
 
+        # pylint: disable=fixme
         # TODO: Implement correct calculation.
         app_size_total = 0
 

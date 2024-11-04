@@ -14,8 +14,8 @@ from ..content_version_view import ContentVersionView
 from .imprint_context_mixin import ImprintContextMixin
 
 
-# pylint: disable=too-many-ancestors
 class ImprintVersionView(ImprintContextMixin, ContentVersionView):
+    # pylint: disable=too-many-ancestors
     """
     View for browsing the imprint versions and restoring old imprint versions
     """

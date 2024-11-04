@@ -25,10 +25,9 @@ if TYPE_CHECKING:
 authlog = logging.getLogger("auth")
 
 
-# pylint: disable=unused-argument
 @receiver(user_logged_in)
 def user_logged_in_callback(
-    sender: ModelBase,
+    sender: ModelBase,  # pylint: disable=unused-argument
     request: HttpRequest,
     user: User,
     **kwargs: Any,
@@ -45,10 +44,12 @@ def user_logged_in_callback(
     authlog.info("login user=%s, ip=%s", user, ip)
 
 
-# pylint: disable=unused-argument
 @receiver(user_logged_out)
 def user_logged_out_callback(
-    sender: ModelBase, request: HttpRequest, user: User, **kwargs: Any
+    sender: ModelBase,  # pylint: disable=unused-argument
+    request: HttpRequest,
+    user: User,
+    **kwargs: Any,
 ) -> None:
     r"""
     Log a logout event
@@ -62,10 +63,12 @@ def user_logged_out_callback(
     authlog.info("logout user=%s, ip=%s", user, ip)
 
 
-# pylint: disable=unused-argument
 @receiver(user_login_failed)
 def user_login_failed_callback(
-    sender: ModelBase, credentials: dict[str, str], request: HttpRequest, **kwargs: Any
+    sender: ModelBase,  # pylint: disable=unused-argument
+    credentials: dict[str, str],
+    request: HttpRequest,
+    **kwargs: Any,
 ) -> None:
     r"""
     Log a failed login event

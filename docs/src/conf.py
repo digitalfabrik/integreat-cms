@@ -77,6 +77,7 @@ intersphinx_mapping: Final[dict[str, tuple[str, str | None]]] = {
     "dateutil": ("https://dateutil.readthedocs.io/en/stable/", None),
     "geopy": ("https://geopy.readthedocs.io/en/stable/", None),
     "lxml": ("https://lxml.de/apidoc/", None),
+    "pylint": ("https://pylint.readthedocs.io/en/latest/", None),
     "python": (
         f"https://docs.python.org/{sys.version_info.major}.{sys.version_info.minor}/",
         None,

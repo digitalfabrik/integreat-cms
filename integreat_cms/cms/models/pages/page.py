@@ -111,8 +111,8 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
         return list(result.values())
 
 
-# pylint: disable=too-few-public-methods
 class PageManager(models.Manager):
+    # pylint: disable=too-few-public-methods
     """
     Custom manager for pages to inherit methods from both managers for tree nodes and content objects
     """

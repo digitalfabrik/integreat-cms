@@ -115,9 +115,10 @@ def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]
 
 
 @json_response
-# pylint: disable=unused-argument
 def locations(
-    request: HttpRequest, region_slug: str, language_slug: str
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
 ) -> JsonResponse:
     """
     List all POIs of the region and transform result into JSON

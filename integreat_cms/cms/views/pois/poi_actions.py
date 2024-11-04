@@ -126,9 +126,11 @@ def delete_poi(
 
 
 @permission_required("cms.view_poi")
-# pylint: disable=unused-argument
 def view_poi(
-    request: HttpRequest, poi_id: int, region_slug: str, language_slug: str
+    request: HttpRequest,
+    poi_id: int,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
 ) -> HttpResponse:
     """
     View POI object
@@ -153,8 +155,9 @@ def view_poi(
 @json_response
 @require_POST
 @permission_required("cms.view_poi")
-# pylint: disable=unused-argument
-def auto_complete_address(request: HttpRequest, region_slug: str) -> JsonResponse:
+def auto_complete_address(
+    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+) -> JsonResponse:
     """
     Autocomplete location address and coordinates
 
@@ -202,9 +205,8 @@ def auto_complete_address(request: HttpRequest, region_slug: str) -> JsonRespons
 @json_response
 @require_POST
 @permission_required("cms.view_poi")
-# pylint: disable=unused-argument
 def get_address_from_coordinates(
-    request: HttpRequest, region_slug: str
+    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     Derive address from the coordinates (map pin position)

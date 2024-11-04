@@ -14,8 +14,10 @@ if TYPE_CHECKING:
     from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
 
-# pylint: disable=unused-argument
-def update_mirrored_pages(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def update_mirrored_pages(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Set the field mirrored_page to None when a page is archived or belongs to an archived region.
 

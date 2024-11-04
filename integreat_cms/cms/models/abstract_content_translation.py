@@ -38,8 +38,8 @@ from .languages.language import Language
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-many-public-methods
 class AbstractContentTranslation(AbstractBaseModel):
+    # pylint: disable=too-many-public-methods
     """
     Data model representing a translation of some kind of content (e.g. pages or events)
     """

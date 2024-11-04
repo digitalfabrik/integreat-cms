@@ -36,9 +36,9 @@ logger = logging.getLogger(__name__)
 @permission_required("cms.view_directory")
 @permission_required("cms.view_mediafile")
 @json_response
-# pylint: disable=unused-argument
 def get_directory_path_ajax(
-    request: HttpRequest, region_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     View provides the frontend with the current directory path for the breadcrumbs.
@@ -67,9 +67,9 @@ def get_directory_path_ajax(
 @permission_required("cms.view_directory")
 @permission_required("cms.view_mediafile")
 @json_response
-# pylint: disable=unused-argument
 def get_directory_content_ajax(
-    request: HttpRequest, region_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     View provides the frontend with the content of a directory via AJAX.
@@ -105,9 +105,9 @@ def get_directory_content_ajax(
 @json_response
 @permission_required("cms.view_directory")
 @permission_required("cms.view_mediafile")
-# pylint: disable=unused-argument
 def get_query_search_results_ajax(
-    request: HttpRequest, region_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     View to search the media library
@@ -130,9 +130,9 @@ def get_query_search_results_ajax(
 
 @json_response
 @permission_required("cms.view_mediafile")
-# pylint: disable=unused-argument
 def get_file_usages_ajax(
-    request: HttpRequest, region_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     View to search unused media files
@@ -155,9 +155,9 @@ def get_file_usages_ajax(
 @json_response
 @permission_required("cms.view_directory")
 @permission_required("cms.view_mediafile")
-# pylint: disable=unused-argument
 def get_unused_media_files_ajax(
-    request: HttpRequest, region_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     View to search unused media files
@@ -179,9 +179,9 @@ def get_unused_media_files_ajax(
 @require_POST
 @permission_required("cms.upload_mediafile")
 @json_response
-# pylint: disable=unused-argument
 def upload_file_ajax(
-    request: HttpRequest, region_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     View to create a file via an AJAX upload.
@@ -226,9 +226,9 @@ def upload_file_ajax(
 @require_POST
 @permission_required("cms.change_mediafile")
 @json_response
-# pylint: disable=unused-argument
 def edit_file_ajax(
-    request: HttpRequest, region_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     View provides the edit of a file via AJAX.
@@ -287,9 +287,9 @@ def edit_file_ajax(
 @require_POST
 @permission_required("cms.replace_mediafile")
 @json_response
-# pylint: disable=unused-argument
 def replace_file_ajax(
-    request: HttpRequest, region_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     View provides the replacement of a file via AJAX.
@@ -338,9 +338,9 @@ def replace_file_ajax(
 @require_POST
 @permission_required("cms.delete_mediafile")
 @json_response
-# pylint: disable=unused-argument
 def delete_file_ajax(
-    request: HttpRequest, region_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     View to delete a file via an AJAX call.
@@ -395,9 +395,9 @@ def delete_file_ajax(
 @require_POST
 @permission_required("cms.add_directory")
 @json_response
-# pylint: disable=unused-argument
 def create_directory_ajax(
-    request: HttpRequest, region_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     View provides the frontend with the option to create a directory via AJAX.
@@ -442,9 +442,9 @@ def create_directory_ajax(
 @require_POST
 @permission_required("cms.change_directory")
 @json_response
-# pylint: disable=unused-argument
 def edit_directory_ajax(
-    request: HttpRequest, region_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     View provides the frontend with the option to modify a directory via AJAX.
@@ -498,9 +498,9 @@ def edit_directory_ajax(
 @require_POST
 @permission_required("cms.delete_directory")
 @json_response
-# pylint: disable=unused-argument
 def delete_directory_ajax(
-    request: HttpRequest, region_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     View provides the frontend with the option to delete a directory via AJAX.
@@ -552,9 +552,9 @@ def delete_directory_ajax(
 @permission_required("cms.change_directory")
 @permission_required("cms.change_mediafile")
 @json_response
-# pylint: disable=unused-argument
 def move_file_ajax(
-    request: HttpRequest, region_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     This view provides the frontend with the option to move files via AJAX.

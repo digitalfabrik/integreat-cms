@@ -12,8 +12,10 @@ if TYPE_CHECKING:
     from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
 
-# pylint: disable=unused-argument
-def start_and_end_init(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def start_and_end_init(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Initialize the new event datetime fields 'start' and 'end' from the respective
     existing fields *_date and *_time.
@@ -31,7 +33,10 @@ def start_and_end_init(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> N
         event.save()
 
 
-def start_and_end_reverse(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def start_and_end_reverse(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Initialize the old event date and time fields from the respective new fields start and end.
 

@@ -44,8 +44,7 @@ class AbstractBaseModel(models.Model):
         """
         try:
             return self.get_repr()
-        # pylint: disable=broad-except
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-except
             fallback_repr = f"<{type(self).__name__} (id: {self.id})>"
             # Skip logging if it's either a triggered SQL query or the id of the object is None and related objects do not exist yet
             if not (

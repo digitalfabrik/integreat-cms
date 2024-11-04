@@ -16,9 +16,9 @@ logger = logging.getLogger(__name__)
 
 
 @require_POST
-# pylint: disable=unused-argument
 def content_edit_lock_heartbeat(
-    request: HttpRequest, region_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     This function handles heartbeat requests.
@@ -52,9 +52,9 @@ def content_edit_lock_heartbeat(
 
 
 @require_POST
-# pylint: disable=unused-argument
 def content_edit_lock_release(
-    request: HttpRequest, region_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     This function handles unlock requests

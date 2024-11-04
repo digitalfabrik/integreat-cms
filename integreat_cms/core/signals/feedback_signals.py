@@ -32,8 +32,9 @@ if TYPE_CHECKING:
 
 
 @receiver(post_delete, sender=Feedback)
-# pylint: disable=unused-argument
-def feedback_delete_handler(sender: ModelBase, **kwargs: Any) -> None:
+def feedback_delete_handler(
+    sender: ModelBase, **kwargs: Any  # pylint: disable=unused-argument
+) -> None:
     r"""
     Invalidate feedback cache after feedback deletion
 
@@ -55,8 +56,9 @@ def feedback_delete_handler(sender: ModelBase, **kwargs: Any) -> None:
 @receiver(post_save, sender=RegionFeedback)
 @receiver(post_save, sender=SearchResultFeedback)
 @disable_for_loaddata
-# pylint: disable=unused-argument
-def feedback_create_handler(sender: ModelBase, **kwargs: Any) -> None:
+def feedback_create_handler(
+    sender: ModelBase, **kwargs: Any  # pylint: disable=unused-argument
+) -> None:
     r"""
     Invalidate feedback cache after feedback creation
 
