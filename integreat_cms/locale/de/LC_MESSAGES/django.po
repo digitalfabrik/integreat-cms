@@ -2554,7 +2554,7 @@ msgstr "Region"
 msgid "creation date"
 msgstr "Erstellungsdatum"
 
-#: cms/models/abstract_content_translation.py cms/models/contact/contact.py
+#: cms/models/abstract_content_translation.py
 #: cms/models/push_notifications/push_notification_translation.py
 msgid "title"
 msgstr "Titel"
@@ -2707,6 +2707,10 @@ msgstr "Nutzer-Chat"
 msgid "user chats"
 msgstr "Nutzer-Chats"
 
+#: cms/models/contact/contact.py
+msgid "point of contact for"
+msgstr "Ansprechperson für"
+
 #: cms/models/contact/contact.py cms/models/media/directory.py
 #: cms/models/media/media_file.py cms/models/offers/offer_template.py
 #: cms/models/regions/region.py cms/models/users/organization.py
@@ -2743,6 +2747,26 @@ msgid "Whether or not the location is read-only and hidden in the API."
 msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
 
 #: cms/models/contact/contact.py
+msgid "with point of contact for: {}"
+msgstr "mit Ansprechperson für: {}"
+
+#: cms/models/contact/contact.py
+msgid "with name: {}"
+msgstr "mit Name: {}"
+
+#: cms/models/contact/contact.py
+msgid "with email: {}"
+msgstr "mit E-Mail-Adresse: {}"
+
+#: cms/models/contact/contact.py
+msgid "with phone number: {}"
+msgstr "mit Telefonnummer: {}"
+
+#: cms/models/contact/contact.py
+msgid "with website: {}"
+msgstr "mit Website: {}"
+
+#: cms/models/contact/contact.py
 msgid "(Copy)"
 msgstr "(Kopie)"
 
@@ -2755,16 +2779,18 @@ msgid "contacts"
 msgstr "Kontakte"
 
 #: cms/models/contact/contact.py
-msgid "Only one contact per location can have an empty title."
-msgstr "Nur ein Kontakt per Ort darf leeren Titel haben."
+msgid "Only one contact per location can have an empty point of contact."
+msgstr ""
+"Pro Ort darf nur ein Kontakt ohne Angabe, wofür die Ansprechperson zuständig "
+"ist, eingetragen werden."
 
 #: cms/models/contact/contact.py
 msgid ""
-"One of the following fields must be filled: title, name, e-mail, phone "
-"number, website."
+"One of the following fields must be filled: point of contact for, name, e-"
+"mail, phone number, website."
 msgstr ""
-"Eines der folgenden Felder muss ausgefüllt werden: Title, Name, E-mail, "
-"Telefonnummer, Website."
+"Eines der folgenden Felder muss ausgefüllt werden: Ansprechperson für, Name, "
+"E-Mail, Telefonnummer, Website."
 
 #: cms/models/events/event.py
 msgid "start"
@@ -5218,11 +5244,9 @@ msgid "Manage contact data"
 msgstr "Kontaktdaten verwalten"
 
 #: cms/templates/contacts/contact_form.html
-msgid ""
-"Add missing data or change existing data. Select the data you want to import."
+msgid "Enter the data you wish to store for the contact here."
 msgstr ""
-"Ergänzen Sie fehlende Daten oder ändern bestehende Daten. Wählen Sie die "
-"Daten aus, die übernommen werden sollen."
+"Tragen Sie hier die Daten ein, die Sie für den Kontakt hinterlegen möchten."
 
 #: cms/templates/contacts/contact_form.html
 msgid "Contact information"
@@ -5285,10 +5309,12 @@ msgid "Create contact"
 msgstr "Kontakt erstellen"
 
 #: cms/templates/contacts/contact_list.html
-#: cms/templates/pages/_page_xliff_import_diff.html
-#: cms/templates/push_notifications/push_notification_list.html
-msgid "Title"
-msgstr "Titel"
+msgid "Name of related location"
+msgstr "Name des verlinkten Ortes"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Point of contact for"
+msgstr "Ansprechperson für"
 
 #: cms/templates/contacts/contact_list.html
 #: cms/templates/events/external_calendar_list.html
@@ -5299,10 +5325,6 @@ msgstr "Titel"
 #: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
 msgid "Name"
 msgstr "Name"
-
-#: cms/templates/contacts/contact_list.html
-msgid "Name of related location"
-msgstr "Name des Veranstaltungsortes"
 
 #: cms/templates/contacts/contact_list.html
 msgid "E-Mail"
@@ -7052,6 +7074,11 @@ msgstr "Quellcode"
 #: cms/templates/pages/_page_xliff_import_diff.html xliff/utils.py
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
+
+#: cms/templates/pages/_page_xliff_import_diff.html
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "Title"
+msgstr "Titel"
 
 #: cms/templates/pages/page_form.html
 #, python-format
@@ -9064,13 +9091,13 @@ msgid ""
 "Select a location to use for your contact or create a new location. Only "
 "published locations can be set."
 msgstr ""
-"Wählen Sie einen Ort aus, der für ihren Kontakt verwendet werden soll oder "
+"Wählen Sie einen Ort aus, der für Ihren Kontakt verwendet werden soll oder "
 "erstellen Sie einen neuen Ort. Nur veröffentlichte Orte können verwendet "
 "werden."
 
 #: cms/views/contacts/contact_form_view.py
-msgid "Contact \"{}\" was successfully created"
-msgstr "Kontakt \"{}\" wurde erfolgreich erstellt"
+msgid "Contact for \"{}\" was successfully created"
+msgstr "Kontakt für \"{}\" wurde erfolgreich erstellt"
 
 #: cms/views/contacts/contact_form_view.py cms/views/content_version_view.py
 #: cms/views/events/event_form_view.py cms/views/pages/page_form_view.py
@@ -9079,8 +9106,8 @@ msgid "No changes detected, but date refreshed"
 msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
 #: cms/views/contacts/contact_form_view.py
-msgid "Contact \"{}\" was successfully saved"
-msgstr "Kontakt \"{}\" wurde erfolgreich gespeichert"
+msgid "Contact for \"{}\" was successfully saved"
+msgstr "Kontakt für \"{}\" wurde erfolgreich gespeichert"
 
 #: cms/views/content_version_view.py
 msgid "Back to the form"
@@ -10972,11 +10999,32 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "{}{}"
+#~ msgstr "{}{}"
+
+#~ msgid " "
+#~ msgstr " "
+
+#, python-format
+#~ msgid "%s %s"
+#~ msgstr "%s %s"
+
+#, python-format
+#~ msgid "%s with %s"
+#~ msgstr "%s mit %s"
+
 #~ msgid "Number of online accesses"
 #~ msgstr "Anzahl der Online-Zugriffe"
 
 #~ msgid "Created by"
 #~ msgstr "Erstellt von"
+
+#~ msgid ""
+#~ "Add missing data or change existing data. Select the data you want to "
+#~ "import."
+#~ msgstr ""
+#~ "Ergänzen Sie fehlende Daten oder ändern bestehende Daten. Wählen Sie die "
+#~ "Daten aus, die übernommen werden sollen."
 
 #~ msgid "E-mail from location"
 #~ msgstr "E-mail des Ortes"
