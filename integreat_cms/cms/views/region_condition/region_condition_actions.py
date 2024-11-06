@@ -38,6 +38,8 @@ class RegionConditionResource(resources.ModelResource):
 
     num_low_hix_pages = fields.Field(column_name=_("Number of low hix pages"))
 
+    num_pages = fields.Field(column_name=_("Number of pages"))
+
     num_pages_with_missing_or_outdated_translation = fields.Field(
         column_name=_(
             "Number of pages with at least one missing or outdated translation"
@@ -71,6 +73,14 @@ class RegionConditionResource(resources.ModelResource):
         :return: The number of page translations with low hix value
         """
         return get_translation_under_hix_threshold(region).count()
+
+    @staticmethod
+    def dehydrate_num_pages(region: Region) -> int:
+        """
+        :param region: The region
+        :return: The number of pages in this region
+        """
+        return region.get_pages().count()
 
     @staticmethod
     def dehydrate_num_pages_with_missing_or_outdated_translation(region: Region) -> int:
