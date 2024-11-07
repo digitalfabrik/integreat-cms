@@ -32,6 +32,7 @@ from ..utils.link_utils import fix_content_link_encoding
 from ..utils.round_hix_score import round_hix_score
 from ..utils.translation_utils import gettext_many_lazy as __
 from .abstract_base_model import AbstractBaseModel
+from .fields.truncating_char_field import TruncatingCharField
 from .languages.language import Language
 
 logger = logging.getLogger(__name__)
@@ -43,7 +44,7 @@ class AbstractContentTranslation(AbstractBaseModel):
     Data model representing a translation of some kind of content (e.g. pages or events)
     """
 
-    title = models.CharField(max_length=1024, verbose_name=_("title"))
+    title = TruncatingCharField(max_length=1024, verbose_name=_("title"))
     slug = models.SlugField(
         max_length=1024,
         allow_unicode=True,
@@ -632,7 +633,7 @@ class AbstractContentTranslation(AbstractBaseModel):
 
         :return: A readable string representation of the content translation
         """
-        return self.title
+        return str(self.title)
 
     def get_repr(self) -> str:
         """

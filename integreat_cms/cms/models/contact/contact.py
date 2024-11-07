@@ -1,10 +1,12 @@
 from django.db import models
 from django.db.models import Q
+from django.db.utils import DataError
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from ..abstract_base_model import AbstractBaseModel
+from ..fields.truncating_char_field import TruncatingCharField
 from ..pois.poi import POI
 from ..regions.region import Region
 
@@ -14,7 +16,7 @@ class Contact(AbstractBaseModel):
     Data model representing a contact
     """
 
-    point_of_contact_for = models.CharField(
+    point_of_contact_for = TruncatingCharField(
         max_length=200, blank=True, verbose_name=_("point of contact for")
     )
     name = models.CharField(max_length=200, blank=True, verbose_name=_("name"))
@@ -116,7 +118,6 @@ class Contact(AbstractBaseModel):
         """
         Copies the contact
         """
-        # In order to create a new object set pk to None
         self.pk = None
         self.point_of_contact_for = self.point_of_contact_for + " " + _("(Copy)")
         self.save()
