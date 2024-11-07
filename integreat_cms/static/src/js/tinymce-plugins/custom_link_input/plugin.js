@@ -46,7 +46,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
     };
 
     tinymce.PluginManager.add("custom_link_input", (editor, _url) => {
-        const isAnchor = (node) => node.nodeName.toLowerCase() === "a" && node.href;
+        const isAnchor = (node) => node.nodeName.toLowerCase() === "a" && node.href && node.isContentEditable;
         const getAnchor = () => {
             let node = editor.selection.getNode();
             while (node !== null) {

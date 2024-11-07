@@ -128,8 +128,12 @@ def search_content_ajax(
                     "url": contact.full_url,
                     "type": "contact",
                 }
-                for contact in Contact.search(region, query).filter(
-                    archived=archived_flag
+                for contact in (
+                    Contact.search(region, query).filter(archived=archived_flag)
+                    if isinstance(query, str)
+                    # This is dirty and shouldn't be done this way,
+                    # but it's just so convenient to use as a fallback
+                    else [Contact.objects.get(id=query)]
                 )
             ]
         )
