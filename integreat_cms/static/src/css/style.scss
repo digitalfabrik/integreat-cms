@@ -27,6 +27,8 @@ $fp-4x3-path: "flagpack-dart-sass/flags/4x3/";
 
 @import "./upload_form.css";
 
+@import "./tomselect.scss";
+
 $list-bg-color: white;
 $list-border-color: lightgray;
 $hover-bg-color: color.adjust($list-border-color, $lightness: -20%);
@@ -212,7 +214,27 @@ input[type="submit"] {
 textarea,
 select,
 .slug-field {
-    @apply w-full rounded text-xl text-gray-800 bg-gray-200 border-gray-200 border-2;
+    @apply w-full text-xl text-gray-800;
+}
+@include not-tomselect(
+    '[type="text"]',
+    '[type="email"]',
+    '[type="url"]',
+    '[type="password"]',
+    '[type="number"]',
+    '[type="date"]',
+    '[type="datetime-local"]',
+    '[type="month"]',
+    '[type="search"]',
+    '[type="tel"]',
+    '[type="time"]',
+    '[type="week"]',
+    "[multiple]",
+    "textarea",
+    "select",
+    ".slug-field"
+) {
+    @apply rounded bg-gray-200 border-gray-200 border-2;
     &:focus {
         @apply bg-white border-blue-500 ring-blue-500 #{!important};
     }
@@ -229,25 +251,27 @@ select,
 }
 
 // All of the above except "select" and "multiple" which are read-only even when they can be edited
-[type="text"],
-[type="email"],
-[type="url"],
-[type="password"],
-[type="number"],
-[type="date"],
-[type="datetime-local"],
-[type="month"],
-[type="search"],
-[type="tel"],
-[type="time"],
-[type="week"],
-textarea {
+@include not-tomselect(
+    '[type="text"]',
+    '[type="email"]',
+    '[type="url"]',
+    '[type="password"]',
+    '[type="number"]',
+    '[type="date"]',
+    '[type="datetime-local"]',
+    '[type="month"]',
+    '[type="search"]',
+    '[type="tel"]',
+    '[type="time"]',
+    '[type="week"]',
+    "textarea"
+) {
     &:read-only {
         @apply text-gray-500 pointer-events-none cursor-not-allowed;
     }
 }
 
-.slug-field {
+@include not-tomselect(".slug-field") {
     @apply flex px-3 py-2 whitespace-nowrap;
     overflow: auto;
     &:focus-within {
@@ -269,8 +293,7 @@ textarea {
     }
 }
 
-[type="checkbox"],
-[type="radio"] {
+@include not-tomselect('[type="checkbox"]', '[type="radio"]') {
     @apply rounded text-blue-500 mr-2 align-text-top;
 
     &:disabled,

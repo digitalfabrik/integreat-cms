@@ -1,3 +1,4 @@
+import TomSelect from "tom-select";
 import { getCsrfToken } from "../../utils/csrf-token";
 
 (() => {
@@ -19,7 +20,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
         return null;
     };
 
-    const getCompletions = async (query, id) => {
+    const getCompletions = async (query) => {
         const url = tinymceConfig.getAttribute("data-contact-ajax-url");
 
         const response = await fetch(url, {
@@ -40,74 +41,32 @@ import { getCsrfToken } from "../../utils/csrf-token";
 
         const data = await response.json();
 
-        const normalizeString = (s) => s.trim().replaceAll(/\s+/g, " ").toLowerCase();
-
-        const normalizedQuery = normalizeString(query);
-
-        const longestCommonSublist = (a, b) => {
-            const maxLength = Math.min(a.length, b.length);
-            let longestFoundMatch = null;
-            let foundMatchLength = 0;
-            const areListsEqual = (listA, listB) => {
-                if (listA.length !== listB.length) {
-                    return false;
-                }
-                for (let i = 0; i < listA.length; i++) {
-                    if (listA[i] !== listB[i]) {
-                        return false;
-                    }
-                }
-                return true;
-            };
-            const getRealLength = (list) => list.reduce((acc, x) => acc + x.length, list.length - 1);
-            for (let len = maxLength; len > 0; len--) {
-                for (let i = 0; i <= a.length - len; i++) {
-                    const subA = a.slice(i, i + len);
-                    const realLength = getRealLength(subA);
-                    // Don't bother if we won't get a better result anyway
-                    if (longestFoundMatch === null || realLength > foundMatchLength) {
-                        for (let j = 0; j <= b.length - len; j++) {
-                            const subB = b.slice(j, j + len);
-                            if (areListsEqual(subA, subB)) {
-                                longestFoundMatch = subA.join(" ");
-                                foundMatchLength = realLength;
-                            }
-                        }
-                    }
-                }
-                // If we already found a match, naively we could abort here
-                // but since individual words might be much longer than others,
-                // that is a false conclusion that will produce bugs
-                // if (longestFoundMatch !== null)  return longestFoundMatch;
-            }
-            return longestFoundMatch;
-        };
-        const longestCommonSubstring = (a, b) => longestCommonSublist(a.split(" "), b.split(" "));
-
-        const searchableFields = ["point_of_contact_for", "name", "email", "phone_number", "website"];
-        // Figure out how relevant each result is
-        const values = data.data.map((e) => {
-            const fieldContibutions = searchableFields.map((field) => {
-                // Find longest common substring between the field and the original query
-                const lcs = longestCommonSubstring(normalizeString(e[field]), normalizedQuery);
-                if (lcs === null) {
-                    return 0;
-                }
-                // Square the length so longer matches in only a few fields get a much higher value than many short matches all over
-                return lcs.length ** 2;
-            });
-            e.matchScore = fieldContibutions.reduce((a, b) => a + b);
-            return e;
-        });
-        values.sort((a, b) => b.matchScore - a.matchScore);
-
-        return [values, id];
+        return data.data;
     };
 
     const renderContactLine = (contact) => {
         const point_of_contact_for = contact.point_of_contact_for && contact.point_of_contact_for.trim() !== "" ? `${contact.point_of_contact_for.trim()}: ` : "";
         const name = contact.name && contact.name.trim() !== "" ? contact.name.trim() : "";
         const details = ["email", "phone_number", "website"].map((k) => contact[k]).filter((e) => e && e.trim() !== "");
+        return `${point_of_contact_for}${name} (${details.join(", ")})`;
+    };
+
+    const renderSegmentedContactLine = (contact, escape) => {
+        const point_of_contact_for =
+            contact.point_of_contact_for && contact.point_of_contact_for.trim() !== ""
+                ? `<span class="point_of_contact_for">${escape(contact.point_of_contact_for.trim())}</span>: `
+                : "";
+        const name =
+            contact.name && contact.name.trim() !== ""
+                ? `<span class="name">${escape(contact.name.trim())}</span>`
+                : "";
+        const details = ["email", "phone_number", "website"].reduce((list, k) => {
+            const value = contact[k];
+            if (value && value.trim() !== "") {
+                list.push(`<span class="detail ${k}">${escape(value.trim())}</span>`);
+            }
+            return list;
+        }, []);
         return `${point_of_contact_for}${name} (${details.join(", ")})`;
     };
 
@@ -148,11 +107,16 @@ import { getCsrfToken } from "../../utils/csrf-token";
             "min-width: 50%;",
             "padding: 0.1em 1em;",
             "border-radius: 0.3em;",
-            "background: rgba(127, 127, 127, 0.25);",
-            "outline: 4px solid #b4ffff !important;",
+            "background: rgba(127, 127, 127, 0.15);",
+            "box-shadow: 0 .1em .1em rgba(0,0,0,0.4);",
             "cursor: default !important;",
             "color: initial;",
             "text-decoration: initial;",
+            `background-image: linear-gradient(to right, rgba(255,255,255,0.9) 0 100%), url(${tinymceConfig.getAttribute(`data-contact-icon-src`)}) !important;`,
+            "background-blend-mode: difference;",
+            "background-position: calc(100% + 2em) calc(100% + 1em);",
+            "background-size: 7em;",
+            "background-repeat: no-repeat;",
         ].join(" ");
         return `<div contenteditable="false" style="${styles}">${marker}${innerHTML}</div>`;
     };
@@ -174,110 +138,12 @@ import { getCsrfToken } from "../../utils/csrf-token";
             return null;
         };
 
+        let tomSelectInstance;
+
         const openDialog = () => {
             const contact = getContact();
             const match = contact ? contact.children[0].getAttribute("href").match(contactUrlRegex) : null;
             const initialId = match && match[2] ? match[2] : "";
-
-            let prevSearchText = "";
-            let prevSelectedCompletion = "";
-
-            // Store the custom user data separately, so that they can be restored when required
-            const userData = { id: "" };
-
-            // Stores the current request id, so that outdated requests get ignored
-            let ajaxRequestId = 0;
-            const defaultCompletionItem = {
-                text: tinymceConfig.getAttribute("data-contact-no-results-text"),
-                title: "",
-                value: "",
-            };
-            const completionItems = [defaultCompletionItem];
-
-            const updateDialog = (api) => {
-                let data = api.getData();
-
-                // Check if the selected completion changed
-                if (prevSelectedCompletion !== data.completions) {
-                    // Set the url either to the selected internal link or to the user link
-                    if (data.completions !== "") {
-                        api.setData({
-                            id: data.completions,
-                        });
-                    } else {
-                        // restore the original user data
-                        api.setData({
-                            id: userData.id,
-                        });
-                    }
-                }
-                prevSelectedCompletion = data.completions;
-
-                // Update the user link
-                if (data.id !== data.completions) {
-                    userData.id = data.id;
-                }
-
-                // Disable the submit button if either one of the url or text are empty
-                data = api.getData();
-                if (data.id.trim()) {
-                    api.enable("submit");
-                } else {
-                    api.disable("submit");
-                }
-
-                // make new ajax request on user input
-                if (data.search !== prevSearchText && data.search !== "") {
-                    ajaxRequestId += 1;
-                    getCompletions(data.search, ajaxRequestId).then(([newCompletions, requestId]) => {
-                        if (requestId !== ajaxRequestId) {
-                            return;
-                        }
-
-                        completionItems.length = 0;
-                        for (const completion of newCompletions) {
-                            completionItems.push({
-                                text: renderContactLine(completion),
-                                title: completion.html_title,
-                                value: `${completion.id}`,
-                            });
-                            cacheContact(completion);
-                        }
-
-                        let completionDisabled = false;
-                        if (completionItems.length === 0) {
-                            completionDisabled = true;
-                            completionItems.push(defaultCompletionItem);
-                        }
-
-                        // It seems like there is no better way to update the completion list
-                        /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
-                        api.redial(dialogConfig);
-                        api.setData(data);
-                        api.focus("search");
-                        prevSearchText = data.search;
-
-                        if (completionDisabled) {
-                            api.disable("completions");
-                        } else {
-                            api.enable("completions");
-                        }
-
-                        updateDialog(api);
-                    });
-                } else if (data.search === "" && prevSearchText !== "") {
-                    // force an update so that the original user url can get restored
-                    completionItems.length = 0;
-                    completionItems.push(defaultCompletionItem);
-                    /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
-                    api.redial(dialogConfig);
-                    api.setData(data);
-                    api.focus("search");
-                    prevSearchText = data.search;
-                    api.disable("completions");
-                    updateDialog(api);
-                }
-            };
 
             const dialogConfig = {
                 title: tinymceConfig.getAttribute("data-contact-dialog-title-text"),
@@ -285,25 +151,10 @@ import { getCsrfToken } from "../../utils/csrf-token";
                     type: "panel",
                     items: [
                         {
-                            type: "label",
-                            label: tinymceConfig.getAttribute("data-contact-dialog-search-text"),
-                            items: [
-                                {
-                                    type: "input",
-                                    name: "search",
-                                },
-                                {
-                                    type: "selectbox",
-                                    name: "completions",
-                                    items: completionItems,
-                                    disabled: true,
-                                },
-                            ],
-                        },
-                        {
-                            type: "input",
-                            name: "id",
-                            label: tinymceConfig.getAttribute("data-contact-dialog-id-text"),
+                            type: "htmlpanel",
+                            // TinyMCE only gives internal identifies, not useful ones on the generated Elements
+                            //  so we have to do with an htmlpanel and initializing TomSelect separately
+                            html: `<select id="completions" name="completions">`,
                         },
                     ],
                 },
@@ -317,23 +168,27 @@ import { getCsrfToken } from "../../utils/csrf-token";
                         name: "submit",
                         text: tinymceConfig.getAttribute("data-dialog-submit-text"),
                         primary: true,
-                        disabled: true,
                     },
                 ],
                 initialData: {
                     id: initialId,
                 },
+                onClose: () => {
+                    // Destroy TomSelect instance to avoid memory leaks
+                    if (tomSelectInstance) {
+                        tomSelectInstance.destroy();
+                        tomSelectInstance = null;
+                    }
+                },
                 onSubmit: (api) => {
-                    const data = api.getData();
-                    const { id } = data;
+                    // Either insert a new link or update the existing one
+                    const contact = getContact();
+                    const id = tomSelectInstance.getValue();
 
-                    if (data.id.trim() === "") {
+                    if (!id) {
                         return;
                     }
                     api.close();
-
-                    // Either insert a new link or update the existing one
-                    const contact = getContact();
                     const html = updateContact(editor, id, contact);
                     if (!contact) {
                         /* We want to insert the contact card as a new block element, even though it is wrapped in an anchor
@@ -360,8 +215,71 @@ import { getCsrfToken } from "../../utils/csrf-token";
                         elm.outerHTML = html;
                     }
                 },
-                onChange: updateDialog,
             };
+
+            setTimeout(() => {
+                // Get the select and submit elements after TinyMCE rendered them
+                const selectElement = document.getElementById("completions");
+                const submitElement = document.querySelector(
+                    ".tox-dialog:has(#completions) .tox-dialog__footer .tox-button:not(.tox-button--secondary)"
+                );
+                const setSubmitDisableStatus = function (value) {
+                    if (submitElement) {
+                        submitElement.disabled = !value;
+                    }
+                };
+
+                // Initialize TomSelect on the select element
+                tomSelectInstance = new TomSelect(selectElement, {
+                    valueField: "id",
+                    //labelField: "text", // By which field the object should be represented. We define a custom render function, so we don't need it
+                    searchField: ["point_of_contact_for", "name", "email", "phone_number", "website"],
+                    items: [initialId],
+                    placeholder: tinymceConfig.getAttribute("data-contact-dialog-search-text"),
+                    options: Object.values(seenContacts), // Initially empty, will populate with API response
+                    create: false, // Users cannot just inline create contacts here
+                    loadThrottle: 300, // How many ms to wait for more input before actually sending a request
+                    preload: true, // Call load() once with empty query on initialization. This fetches the contact so the details are up to date
+                    onInitialize: function () {
+                        selectElement.classList.add("hidden");
+                        this.control_input.parentElement.classList.add("tox-textfield");
+                        setSubmitDisableStatus(this.getValue());
+                    },
+                    load: function (query, callback) {
+                        if (!typeof query === "string" || query === "") {
+                            /* This is dirty and shouldn't be done this way,
+                               but it's just so convenient to use as a fallback
+                               when we only remember the id we last set.
+                               (We technically know more, but we cannot be sure it's still recent)
+                             */
+                            query = parseInt(this.getValue() || initialId);
+                        }
+                        getCompletions(query).then((newCompletions) => {
+                            newCompletions.forEach(cacheContact);
+                            callback(newCompletions);
+                            if (typeof query === "number" && newCompletions.length > 0) {
+                                // Trigger preview of of initially selected value after fetching its details
+                                this.setValue(query);
+                            }
+                        });
+                    },
+                    onChange: setSubmitDisableStatus,
+                    render: {
+                        option: (data, escape) => {
+                            // How a search result should be represented
+                            return `<div>${renderSegmentedContactLine(data, escape)}</div>`;
+                        },
+                        item: (data, escape) => {
+                            // How a selected item should be represented
+                            return `<div>${renderSegmentedContactLine(data, escape)}</div>`;
+                        },
+                        no_results: (data, escape) => {
+                            // What to display when no results are found
+                            return `<div class="no-results">${escape(tinymceConfig.getAttribute("data-contact-no-results-text"))}</div>`;
+                        },
+                    },
+                });
+            }, 0);
 
             return editor.windowManager.open(dialogConfig);
         };
