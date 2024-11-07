@@ -55,64 +55,7 @@
         <div class="relative" id="poi-query-result">
             {% include "_poi_query_result.html" %}
         </div>
-        <div id="poi-address-container" class="{% if not poi %} hidden{% endif %}">
-            <label class="secondary">
-                {% translate "Address" %}
-            </label>
-            <input name="location"
-                   id="id_location"
-                   class="hidden"
-                   value="{% if poi %}{{ poi.id }}{% else %}-1{% endif %}"
-                   readonly
-                   {% if form.has_not_location.value %}disabled{% endif %} />
-            <div id="poi-address" class="text-lg whitespace-pre-line">
-                {% if poi %}
-                    {{ poi.address }}
-                    {{ poi.postcode }} {{ poi.city }}
-                    {{ poi.country }}
-                {% endif %}
-            </div>
-            <a id="poi-google-maps-link"
-               href="https://www.google.com/maps/search/?api=1&query={% if poi %}{{ poi.address }},{{ poi.city }},{{ poi.country }}{% endif %}"
-               class="text-blue-500 hover:underline"
-               target="_blank"
-               rel="noopener noreferrer">
-                {% translate "Open on Google Maps" %}
-            </a>
-            <label class="secondary">
-                {% translate "Contact details" %}
-            </label>
-            <div id="poi-contact-information">
-                <p>
-                    {% translate "E-mail address: " %}
-                    <span id="email">
-                        {% if poi.email %}
-                            {{ poi.email }}
-                        {% endif %}
-                    </span>
-                    <span id="no-email" class="{% if poi.email %}hidden{% endif %}">{% translate "Not provided" %}</span>
-                </p>
-                <p>
-                    {% translate "Phone number: " %}
-                    <span id="phone_number">
-                        {% if poi.phone_number %}
-                            {{ poi.phone_number }}
-                        {% endif %}
-                    </span>
-                    <span id="no-phone_number"
-                          class="{% if poi.phone_number %}hidden{% endif %}">{% translate "Not provided" %}</span>
-                </p>
-                <p>
-                    {% translate "Website: " %}
-                    <span id="website">
-                        {% if poi.website %}
-                            {{ poi.website }}
-                        {% endif %}
-                    </span>
-                    <span id="no-website" class="{% if poi.website %}hidden{% endif %}">{% translate "Not provided" %}</span>
-                </p>
-            </div>
-        </div>
+        {% include "ajax_poi_form/_poi_address_container.html" with disabled=form.has_not_location.value %}
         <div id="poi-ajax-success-message"
              class="bg-green-100 border-l-4 border-green-500 text-green-800 px-4 py-3 hidden">
             {% trans "The new location was successfully created." %}
