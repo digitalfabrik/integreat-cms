@@ -10,7 +10,7 @@
             </h1>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 2xl:grid-cols-4">
-            <div class="lg:col-span-2 2xl:row-span-2 2xl:col-span-3 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+            <div class="lg:col-span-2 2xl:row-span-3 2xl:col-span-3 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                 <div class="rounded p-4 bg-water-500">
                     <h3 class="heading font-bold text-black">
                         <i icon-name="trending-up" class="pb-1"></i> {% translate "Total accesses" %}
@@ -29,12 +29,18 @@
                     <div id="chart-loading" class="px-4 hidden">
                         <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
                     </div>
-                    <div id="chart-label-help-text"
-                         class="my-2 text-s text-gray-600 text-left hidden">
-                        {% translate "Individual languages can be hidden by clicking on the labels." %}
-                    </div>
                     <canvas id="statistics"
                             data-statistics-url="{% url 'statistics_visits_per_language' region_slug=request.region.slug %}"></canvas>
+                </div>
+            </div>
+            <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white hidden"
+                 id="chart-legend-container">
+                <div class="rounded p-4 bg-water-500">
+                    <h3 class="heading font-bold text-black">
+                        <i icon-name="settings" class="pb-1"></i> {% translate "Adjust shown data" %}
+                    </h3>
+                </div>
+                <div id="chart-legend">
                 </div>
             </div>
             <div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
