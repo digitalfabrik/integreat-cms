@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-02-13T16:23:45+00:00" />
+    <meta property="article:modified_time" content="2024-11-07T15:54:20+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Debugging (Django Debug Toolbar) &mdash; integreat-cms 2024.11.0 documentation</title>
+  <title>Debugging &mdash; integreat-cms 2024.11.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -1776,7 +1776,23 @@
 <li class="toctree-l2"><a class="reference internal" href="continuous-integration.html#unauthorized-circleci">⚠ Unauthorized (CircleCI)</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Debugging (Django Debug Toolbar)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Debugging</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#django-debug-toolbar">Django Debug Toolbar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#debugging-in-various-editors-and-ides">Debugging in various editors and IDEs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#vscodium">VSCodium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#neovim">Neovim</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dap-dap-ui">DAP &amp; DAP-UI</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configure-debugpy">Configure <code class="docutils literal notranslate"><span class="pre">debugpy</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configure-the-integration-with-django">Configure the integration with Django</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#set-up-key-binds-optional">Set up key binds (optional)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage-example-pageformview">Usage example: <code class="docutils literal notranslate"><span class="pre">PageFormView</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nixvim">Nixvim</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="design-guidelines.html">Design Guidelines</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="design-guidelines.html#buttons">Buttons</a></li>
 </ul>
@@ -2035,7 +2051,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Debugging (Django Debug Toolbar)</li>
+      <li class="breadcrumb-item active">Debugging</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -2044,10 +2060,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="debugging-django-debug-toolbar">
-<h1>Debugging (Django Debug Toolbar)<a class="headerlink" href="#debugging-django-debug-toolbar" title="Link to this heading"></a></h1>
-<p>We use the <a class="reference external" href="https://django-debug-toolbar.readthedocs.io/en/latest/index.html" title="(in Django Debug Toolbar)"><span>Django Debug Toolbar</span></a> to debug the CMS.
-When <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-DEBUG" title="(in Django v4.2)"><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></a> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, on every HTML page a sidebar is rendered which contains
+  <section id="debugging">
+<h1>Debugging<a class="headerlink" href="#debugging" title="Link to this heading"></a></h1>
+<section id="django-debug-toolbar">
+<h2>Django Debug Toolbar<a class="headerlink" href="#django-debug-toolbar" title="Link to this heading"></a></h2>
+<p>We use the <a class="reference external" href="https://django-debug-toolbar.readthedocs.io/en/latest/index.html" title="(in Django Debug Toolbar)"><span>Django Debug Toolbar</span></a> to debug the CMS in the browser.
+When <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/settings/#std-setting-DEBUG" title="(in Django v4.2)"><code class="docutils literal notranslate"><span class="pre">DEBUG</span></code></a> is <code class="docutils literal notranslate"><span class="pre">True</span></code>, i.e. the CMS is run in debugging mode, usually through use of the <code class="docutils literal notranslate"><span class="pre">run.sh</span></code> script, on every HTML page a sidebar is rendered which contains
 additional information about the current request, e.g. code execution times, database queries and profiling info.</p>
 <p>When the sidebar is collapsed, you can show it by clicking on the “DJDT” button somewhere along the right edge of the screen:</p>
 <img alt="DJDT sidebar" src="_images/django-debug-toolbar.png" />
@@ -2056,6 +2074,229 @@ additional information about the current request, e.g. code execution times, dat
 </pre></div>
 </div>
 <p>(See <a class="reference internal" href="ref-ext/integreat_cms.api.middleware.html#integreat_cms.api.middleware.json_debug_toolbar_middleware.JsonDebugToolbarMiddleware" title="integreat_cms.api.middleware.json_debug_toolbar_middleware.JsonDebugToolbarMiddleware"><code class="xref py py-class docutils literal notranslate"><span class="pre">JsonDebugToolbarMiddleware</span></code></a> for reference.)</p>
+</section>
+<section id="debugging-in-various-editors-and-ides">
+<h2>Debugging in various editors and IDEs<a class="headerlink" href="#debugging-in-various-editors-and-ides" title="Link to this heading"></a></h2>
+<p>For more in depth debugging and integration of the debugging process with your editor or IDE, some setup is likely to be required with said editor.
+While multiple and often times editor-specific approaches to this exist, we recommend sticking with the <a class="reference external" href="https://github.com/microsoft/debug-adapter-protocol">Debug Adapter Protocol</a>, or <em>DAP</em> for short.
+As the name suggests, this is a set of protocols which have implementations both for many editors, and for many languages.
+DAP functions as an abstraction layer between whatever generic debugging facilities are implemented in the editor, and the actual language-specific debugger.
+This allows the latter one to be implemented in an entirely editor-agnostic way.
+For the purposes of the Integreat project, it should also be mentioned that the Python DAP implementation, <a class="reference external" href="https://github.com/microsoft/debugpy">debugpy</a>, has an option for <a class="reference external" href="https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings">debugging django applications</a> built-in,
+significantly reducing the setup effort.</p>
+<p>Generally speaking, the steps to setting up a DAP debugger with Integreat look like this:</p>
+<ol class="arabic simple">
+<li><p>Install the necessary extensions/plugins/add-ons/…, i.e. the DAP itself, <code class="docutils literal notranslate"><span class="pre">debugpy</span></code>, and possibly additional resources like a UI for DAP.</p></li>
+<li><p>Configure the DAP executable or server, telling DAP what program will do the actual debugging. In our case, this is <code class="docutils literal notranslate"><span class="pre">debugpy</span></code>.</p></li>
+<li><p>Add a so-called DAP configuration. This tells DAP how to interact with our project.</p></li>
+</ol>
+<p>It is DAP’s task to connect these two parts of the puzzle.
+Below, you can find more specific instructions for configuring your preferred editor or IDE.
+Note that <code class="docutils literal notranslate"><span class="pre">debugpy</span></code> itself is included in the <code class="docutils literal notranslate"><span class="pre">dev</span></code> dependencies in our <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, so you do not have to install it separately.</p>
+<section id="vscodium">
+<h3>VSCodium<a class="headerlink" href="#vscodium" title="Link to this heading"></a></h3>
+<p>Coming soon(TM)?</p>
+</section>
+<section id="neovim">
+<h3>Neovim<a class="headerlink" href="#neovim" title="Link to this heading"></a></h3>
+<p>Neovim enjoys excellent DAP support through the <a class="reference external" href="https://github.com/mfussenegger/nvim-dap">nvim-dap</a> plugin.
+Further, there also exists <a class="reference external" href="https://github.com/mfussenegger/nvim-dap-python">nvim-dap-python</a>, which handles step two of the three steps listed above, taking care of configuring the integration with <code class="docutils literal notranslate"><span class="pre">debugpy</span></code>.</p>
+<p>The following instructions assume that you are using <a class="reference external" href="https://github.com/folke/lazy.nvim">lazy.nvim</a> as your neovim plugin manager.
+They are easily adaptable for different plugin managers though, with all the linked projects providing instructions for multiple different plugin managers.</p>
+<section id="dap-dap-ui">
+<h4>DAP &amp; DAP-UI<a class="headerlink" href="#dap-dap-ui" title="Link to this heading"></a></h4>
+<p>Add <code class="docutils literal notranslate"><span class="pre">nvim-dap</span></code> to your installed plugins:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;mfussenegger/nvim-dap&quot;</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>It is also highly recommended to install <code class="docutils literal notranslate"><span class="pre">nvim-dap-ui</span></code> alongside it, since DAP does not come with a UI of its own:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+       <span class="s2">&quot;rcarriga/nvim-dap-ui&quot;</span><span class="p">,</span>
+       <span class="n">dependencies</span> <span class="o">=</span> <span class="p">{</span>
+               <span class="s2">&quot;mfussenegger/nvim-dap&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;nvim-neotest/nvim-nio&quot;</span><span class="p">,</span>
+       <span class="p">},</span>
+ <span class="p">}</span>
+</pre></div>
+</div>
+<p>Optionally, you can also install <code class="docutils literal notranslate"><span class="pre">nvim-dap-virtual-text</span></code>, which will place variable values next the variable definitions as virtual text (see <a class="reference external" href="#usage-example-pageformview">the usage section</a> for how this looks):</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;theHamsta/nvim-dap-virtual-text&quot;</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>All of these plugins come with their own set of configuration options, mostly concerned with key binds and visual changes. Check their respective <code class="docutils literal notranslate"><span class="pre">README</span></code> file for more.</p>
+</section>
+<section id="configure-debugpy">
+<h4>Configure <code class="docutils literal notranslate"><span class="pre">debugpy</span></code><a class="headerlink" href="#configure-debugpy" title="Link to this heading"></a></h4>
+<p>While you <a class="reference external" href="https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation#python">can do this manually</a> as well, there is virtually no benefit to handling this manually compared to using <a class="reference external" href="https://github.com/mfussenegger/nvim-dap-python">nvim-dap-python</a>.</p>
+<p>First, add the plugin:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;mfussenegger/nvim-dap-python&quot;</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>Then initialize the plugin from anywhere in your neovim config:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nb">require</span><span class="p">(</span><span class="s2">&quot;dap-python&quot;</span><span class="p">).</span><span class="n">setup</span><span class="p">(</span><span class="s2">&quot;python&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that this expects <code class="docutils literal notranslate"><span class="pre">python</span></code> to be a valid command, and to point to the <em>correct</em> python version.
+Most likely, this is the case already. You can check this by running <code class="docutils literal notranslate"><span class="pre">which</span> <span class="pre">python</span></code> when inside the Integreat project and having the Python virtual environment active.
+It should return <code class="docutils literal notranslate"><span class="pre">/home/&lt;your-user&gt;/&lt;...&gt;/integreat-cms/.venv/bin/python</span></code>.
+If this is not the case for you, you can also pass an absolute path to the <code class="docutils literal notranslate"><span class="pre">setup()</span></code> function, although this means that your DAP setup is less flexible, since it is then bound to the Integreat project’s Python installation explicitly.</p>
+</section>
+<section id="configure-the-integration-with-django">
+<h4>Configure the integration with Django<a class="headerlink" href="#configure-the-integration-with-django" title="Link to this heading"></a></h4>
+<p>The config below contains comments which can hopefully help you customize these settings, if so desired:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="nb">table.insert</span><span class="p">(</span><span class="nb">require</span><span class="p">(</span><span class="s1">&#39;dap&#39;</span><span class="p">).</span><span class="n">configurations</span><span class="p">.</span><span class="n">python</span><span class="p">,</span> <span class="p">{</span>
+   <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;Launch Django DAP&#39;</span><span class="p">,</span>                            <span class="c1">-- you can freely change this</span>
+   <span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;python&#39;</span><span class="p">,</span>                                       <span class="c1">-- this must be &quot;python&quot;. Will not work otherwise</span>
+   <span class="n">request</span> <span class="o">=</span> <span class="s1">&#39;launch&#39;</span><span class="p">,</span>                                    <span class="c1">-- either &quot;launch&quot; a new debugging session, or &quot;attach&quot; to one you&#39;ve started yourself. Recommended to leave as &quot;launch&quot;</span>
+   <span class="n">program</span> <span class="o">=</span> <span class="n">vim</span><span class="p">.</span><span class="n">loop</span><span class="p">.</span><span class="n">cwd</span><span class="p">()</span> <span class="o">..</span> <span class="s2">&quot;/.venv/bin/django-admin&quot;</span><span class="p">,</span> <span class="c1">-- see explanation below</span>
+   <span class="n">args</span> <span class="o">=</span> <span class="p">{</span> <span class="s2">&quot;runserver&quot;</span><span class="p">,</span> <span class="s2">&quot;--noreload&quot;</span> <span class="p">},</span>                  <span class="c1">-- also see explanation below</span>
+   <span class="n">console</span> <span class="o">=</span> <span class="s2">&quot;integratedTerminal&quot;</span><span class="p">,</span>                        <span class="c1">-- can also be &quot;internalConsole&quot; or &quot;externalTerminal&quot;, but this works best with nvim-dap-ui</span>
+   <span class="n">django</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>                                         <span class="c1">-- probably obvious :)</span>
+   <span class="n">justMyCode</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>                                     <span class="c1">-- will only debug our own code. Set to &quot;false&quot; in order to also debug python standard libraries etc</span>
+   <span class="n">env</span> <span class="o">=</span> <span class="p">{</span>                                                <span class="c1">-- required environment variables</span>
+     <span class="n">DJANGO_SETTINGS_MODULE</span> <span class="o">=</span> <span class="s2">&quot;integreat_cms.core.settings&quot;</span><span class="p">,</span>
+     <span class="n">INTEGREAT_CMS_DEBUG</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span><span class="p">,</span>
+     <span class="n">INTEGREAT_CMS_SECRET_KEY</span> <span class="o">=</span> <span class="s2">&quot;dummy&quot;</span><span class="p">,</span>
+   <span class="p">},</span>
+ <span class="p">})</span>
+</pre></div>
+</div>
+<p>Two options need special highlighting. <code class="docutils literal notranslate"><span class="pre">program</span></code> points to the script that should be run in order to start the CMS.
+You might have expected this to be <code class="docutils literal notranslate"><span class="pre">./tools/integreat-cms-cli</span></code> or similar, but <code class="docutils literal notranslate"><span class="pre">debugpy</span></code> expects this to be a Python file.
+As an alternative, you can swap <code class="docutils literal notranslate"><span class="pre">vim.loop.cwd()</span> <span class="pre">..</span> <span class="pre">&quot;/.venv/bin/django-admin&quot;</span></code> out with <code class="docutils literal notranslate"><span class="pre">vim.loop.cwd()</span> <span class="pre">..</span> <span class="pre">&quot;/.venv/bin/integreat-cms-cli&quot;</span></code>.
+These should work the same, but in case you are working with Django projects beyond Integreat (like Lunes or the Compass), <code class="docutils literal notranslate"><span class="pre">django-admin</span></code> would make the config work with all of those projects.</p>
+<p>Second, the arguments passed in the <code class="docutils literal notranslate"><span class="pre">args</span></code> option are mandatory. You can add more (see the documentation for <code class="docutils literal notranslate"><span class="pre">debugpy</span></code>), but without these, debugging will not work.</p>
+</section>
+<section id="set-up-key-binds-optional">
+<h4>Set up key binds (optional)<a class="headerlink" href="#set-up-key-binds-optional" title="Link to this heading"></a></h4>
+<p>These are up to you. You could, for example, use:</p>
+<div class="highlight-lua notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;&lt;cmd&gt;lua require(&#39;dap&#39;).set_breakpoint(vim.fn.input(&#39;Breakpoint condition: &#39;))&lt;cr&gt;&quot;</span><span class="p">,</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;&lt;leader&gt;dB&quot;</span><span class="p">,</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;n&quot;</span><span class="p">,</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span> <span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;Breakpoint Condition&quot;</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">},</span>
+<span class="p">},</span>
+<span class="p">{</span>
+    <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;&lt;cmd&gt;DapToggleBreakpoint&lt;cr&gt;&quot;</span><span class="p">,</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;&lt;leader&gt;db&quot;</span><span class="p">,</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;n&quot;</span><span class="p">,</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span> <span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;Toggle Breakpoint&quot;</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">},</span>
+<span class="p">},</span>
+<span class="p">{</span>
+    <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;&lt;cmd&gt;DapContinue&lt;cr&gt;&quot;</span><span class="p">,</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;&lt;leader&gt;dr&quot;</span><span class="p">,</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;n&quot;</span><span class="p">,</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span> <span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;Start or Continue&quot;</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">},</span>
+<span class="p">},</span>
+<span class="p">{</span>
+    <span class="n">action</span> <span class="o">=</span> <span class="s2">&quot;&lt;cmd&gt;lua require(&#39;dapui&#39;).toggle()&lt;cr&gt;&quot;</span><span class="p">,</span>
+    <span class="n">key</span> <span class="o">=</span> <span class="s2">&quot;&lt;leader&gt;du&quot;</span><span class="p">,</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="s2">&quot;n&quot;</span><span class="p">,</span>
+    <span class="n">options</span> <span class="o">=</span> <span class="p">{</span> <span class="n">desc</span> <span class="o">=</span> <span class="s2">&quot;Dap UI&quot;</span><span class="p">,</span> <span class="n">silent</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">},</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+</section>
+<section id="usage-example-pageformview">
+<h4>Usage example: <code class="docutils literal notranslate"><span class="pre">PageFormView</span></code><a class="headerlink" href="#usage-example-pageformview" title="Link to this heading"></a></h4>
+<p>We will round off the debugger setup for neovim with a practical example.
+Let’s say we suspect a bug somewhere in the <code class="docutils literal notranslate"><span class="pre">get</span></code> method of the <code class="docutils literal notranslate"><span class="pre">PageFormView</span></code>.
+Then the debugging workflow might look something like this:</p>
+<ol class="arabic">
+<li><p>Ensure the CMS is <em>not</em> running. The debugger will start it on its own, and an already-running CMS will block the required ports.
+However, if you have just run <code class="docutils literal notranslate"><span class="pre">./tools/prune_database.sh</span></code>, be sure to run <code class="docutils literal notranslate"><span class="pre">./tools/loadtestdata.sh</span></code> before starting the debugger:
+this is usually handled by <code class="docutils literal notranslate"><span class="pre">./tools/run.sh</span></code>, but since the debugger does not use this script, it has no way of populating the database on its own!</p></li>
+<li><p>Start the debugger using the configured key bind or the <code class="docutils literal notranslate"><span class="pre">DapContinue</span></code> command.
+You will be presented with multiple options on which debugger configuration to start - select the one you have created (named “Launch Django DAP” in the example configuration above) and press enter.</p>
+<img alt="DAP configuration selection" src="_images/debug-nvim-01-start.png" />
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nvim-dap-ui</span></code> will open and look something like this:</p>
+<img alt="DAP UI overview" src="_images/debug-nvim-02-overview.png" />
+<ul class="simple">
+<li><p>In the bottom right, you can see the usual console output you get when running the Integreat CMS.</p></li>
+<li><p>To the left of it, a number of controls are shown. From left to right these are used to:</p>
+<ul>
+<li><p>Pause/resume the debugger;</p></li>
+<li><p>Step into: move the debugger pointer into a function call, or to the next statement;</p></li>
+<li><p>Step over: move the debugger pointer over a function call, to the next statement;</p></li>
+<li><p>Step out: finish the execution of the current function, then move the debugger pointer back into the calling function;</p></li>
+<li><p>Step backwards: usually not possible with python code, as the state of the program cannot be reverted;</p></li>
+<li><p>Restart the debugger;</p></li>
+<li><p>Stop the debugger;</p></li>
+<li><p>Disconnect the debugger, but leave the debugging process running.</p></li>
+</ul>
+</li>
+<li><p>The top box on the left is currently empty. It will later be filled with all in-scope variables and their current values.</p></li>
+<li><p>The second box on the left is also empty. It will list all currently set breakpoints.</p></li>
+<li><p>The third box on the left is also empty. It will list currently existing processes.</p></li>
+<li><p>The bottom box on the left allows you to write custom (python) expressions and to see their value. This is an extremely powerful feature.
+Simply enter insert mode, type the python expression, and press enter. For more, see <a class="reference external" href="https://github.com/rcarriga/nvim-dap-ui?tab=readme-ov-file#watch-expressions">this section</a> in the docs.</p></li>
+</ul>
+</li>
+<li><p>Navigate to the <code class="docutils literal notranslate"><span class="pre">get</span></code> method and place your cursor at the first line of interest within it. Use the “toggle breakpoint” key bind or the <code class="docutils literal notranslate"><span class="pre">DapToggleBreakpoint</span></code> command to set a breakpoint.
+The breakpoint appears in the second box on the left.</p>
+<img alt="Add a breakpoint" src="_images/debug-nvim-03-breakpoint.png" />
+</li>
+<li><p>In your browser, navigate to any page form view, for example: “Willkommen” in “Stadt Augsburg”.
+Note that your browser will appear to be stuck in the page list view, unable to finish loading the page form view - this is intentional!
+The red breakpoint indicator has changed to a gray arrow, indicating the line the debugger is currently stopped at.
+The information in the boxes on the left have changed to reflect the program state at this line.
+You can navigate through the boxes with your usual key binds and extend the variable definitions to see their current values.</p>
+<img alt="First debugging step" src="_images/debug-nvim-04-start-debugging.png" />
+</li>
+<li><p>Pressing the (now no longer grayed-out) “step over” button, the cursor will move one line down.
+At the same time, the variable <code class="docutils literal notranslate"><span class="pre">region</span></code> and its value is added to the “Locals” section in the top-left box, since it has been created in the execution step we just performed.
+If you did install the <code class="docutils literal notranslate"><span class="pre">nvim-dap-virtual-text</span></code> plugin, variable values will also be placed next to that variable’s definition in the code, where it will be updated when the value changes.
+This can be a more intuitive visualization than using the variable box in the top-left corner.</p>
+<img alt="Step over demonstration" src="_images/debug-nvim-05-step-over.png" />
+</li>
+<li><p>Continue pressing “step over” or try one of the other stepping mechanisms until you have found the information you are looking for.
+Note that the debugging process will never stop if you simply keep clicking “step over”, even after you have reached and moved past the <code class="docutils literal notranslate"><span class="pre">return</span></code> statement at the bottom of the <code class="docutils literal notranslate"><span class="pre">get</span></code> method.</p></li>
+<li><p>If you want to end the debugging process, click the “play” button to let the CMS run normally again.
+Your debugging breakpoint will still exist, so repeating the attempt to load a page form view will put you right back into the debugging process.</p></li>
+</ol>
+</section>
+</section>
+<section id="nixvim">
+<h3>Nixvim<a class="headerlink" href="#nixvim" title="Link to this heading"></a></h3>
+<p>If you are a user of the <a class="reference external" href="https://github.com/nix-community/nixvim">nixvim</a> project (there’s dozens of us! Dozens!!), include the following snippet somewhere inside your nix config.
+This will result in a debugging config equivalent to the one described above for neovim. Usage is identical.</p>
+<div class="highlight-nix notranslate"><div class="highlight"><pre><span></span>programs<span class="o">.</span>nixvim<span class="o">.</span>plugins<span class="o">.</span><span class="ss">dap</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">enable</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span>
+  <span class="ss">extensions</span> <span class="o">=</span> <span class="p">{</span>
+    dap-python<span class="o">.</span><span class="ss">enable</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span>
+    dap-ui<span class="o">.</span><span class="ss">enable</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span>
+    dap-virtual-text<span class="o">.</span><span class="ss">enable</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+
+programs<span class="o">.</span>nixvim<span class="o">.</span>plugins<span class="o">.</span>dap<span class="o">.</span>configurations<span class="o">.</span><span class="ss">python</span> <span class="o">=</span> <span class="p">[{</span>
+  <span class="ss">name</span> <span class="o">=</span> <span class="s2">&quot;Launch Django DAP&quot;</span><span class="p">;</span>
+  <span class="ss">type</span> <span class="o">=</span> <span class="s2">&quot;python&quot;</span><span class="p">;</span>
+  <span class="ss">request</span> <span class="o">=</span> <span class="s2">&quot;launch&quot;</span><span class="p">;</span>
+  <span class="ss">program</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">__raw</span> <span class="o">=</span> <span class="cm">/* lua */</span> <span class="s s-Multiline">&#39;&#39; vim.loop.cwd() .. &quot;/.venv/bin/django-admin&quot; &#39;&#39;</span><span class="p">;</span> <span class="p">};</span>
+  <span class="ss">args</span> <span class="o">=</span> <span class="p">[</span> <span class="s2">&quot;runserver&quot;</span> <span class="s2">&quot;--noreload&quot;</span> <span class="p">];</span>
+  <span class="ss">justMyCode</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span>
+  <span class="ss">django</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span>
+  <span class="ss">console</span> <span class="o">=</span> <span class="s2">&quot;integratedTerminal&quot;</span><span class="p">;</span>
+  <span class="ss">env</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;DJANGO_SETTINGS_MODULE&quot;</span> <span class="o">=</span> <span class="s2">&quot;integreat_cms.core.settings&quot;</span><span class="p">;</span>
+    <span class="s2">&quot;INTEGREAT_CMS_DEBUG&quot;</span> <span class="o">=</span> <span class="s2">&quot;true&quot;</span><span class="p">;</span>
+    <span class="s2">&quot;INTEGREAT_CMS_SECRET_KEY&quot;</span> <span class="o">=</span> <span class="s2">&quot;dummy&quot;</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">}];</span>
+
+programs<span class="o">.</span>nixvim<span class="o">.</span><span class="ss">keymaps</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="ss">mode</span> <span class="o">=</span> <span class="s2">&quot;n&quot;</span><span class="p">;</span> <span class="ss">key</span> <span class="o">=</span> <span class="s2">&quot;&lt;leader&gt;dB&quot;</span><span class="p">;</span> <span class="ss">action</span> <span class="o">=</span> <span class="s2">&quot;&lt;cmd&gt;lua require(&#39;dap&#39;).set_breakpoint(vim.fn.input(&#39;Breakpoint condition: &#39;))&lt;cr&gt;&quot;</span><span class="p">;</span> <span class="ss">options</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">silent</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span> <span class="ss">desc</span> <span class="o">=</span> <span class="s2">&quot;Breakpoint Condition&quot;</span><span class="p">;</span> <span class="p">};</span> <span class="p">}</span>
+  <span class="p">{</span> <span class="ss">mode</span> <span class="o">=</span> <span class="s2">&quot;n&quot;</span><span class="p">;</span> <span class="ss">key</span> <span class="o">=</span> <span class="s2">&quot;&lt;leader&gt;db&quot;</span><span class="p">;</span> <span class="ss">action</span> <span class="o">=</span> <span class="s2">&quot;&lt;cmd&gt;DapToggleBreakpoint&lt;cr&gt;&quot;</span><span class="p">;</span> <span class="ss">options</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">silent</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span> <span class="ss">desc</span> <span class="o">=</span> <span class="s2">&quot;Toggle Breakpoint&quot;</span><span class="p">;</span> <span class="p">};</span> <span class="p">}</span>
+  <span class="p">{</span> <span class="ss">mode</span> <span class="o">=</span> <span class="s2">&quot;n&quot;</span><span class="p">;</span> <span class="ss">key</span> <span class="o">=</span> <span class="s2">&quot;&lt;leader&gt;dr&quot;</span><span class="p">;</span> <span class="ss">action</span> <span class="o">=</span> <span class="s2">&quot;&lt;cmd&gt;DapContinue&lt;cr&gt;&quot;</span><span class="p">;</span> <span class="ss">options</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">silent</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span> <span class="ss">desc</span> <span class="o">=</span> <span class="s2">&quot;Start or Continue&quot;</span><span class="p">;</span> <span class="p">};</span> <span class="p">}</span>
+  <span class="p">{</span> <span class="ss">mode</span> <span class="o">=</span> <span class="s2">&quot;n&quot;</span><span class="p">;</span> <span class="ss">key</span> <span class="o">=</span> <span class="s2">&quot;&lt;leader&gt;du&quot;</span><span class="p">;</span> <span class="ss">action</span> <span class="o">=</span> <span class="s2">&quot;&lt;cmd&gt;lua require(&#39;dapui&#39;).toggle()&lt;cr&gt;&quot;</span><span class="p">;</span> <span class="ss">options</span> <span class="o">=</span> <span class="p">{</span> <span class="ss">silent</span> <span class="o">=</span> <span class="no">true</span><span class="p">;</span> <span class="ss">desc</span> <span class="o">=</span> <span class="s2">&quot;Dap UI&quot;</span><span class="p">;</span> <span class="p">};</span> <span class="p">}</span>
+<span class="p">];</span>
+</pre></div>
+</div>
+<p>In case you are using the project’s <code class="docutils literal notranslate"><span class="pre">flake.nix</span></code> to configure your environment, feel free to omit the <code class="docutils literal notranslate"><span class="pre">env</span></code> part of the DAP configuration.</p>
+</section>
+</section>
 </section>
 
 
@@ -2073,7 +2314,7 @@ additional information about the current request, e.g. code execution times, dat
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Feb 13, 2024.
+      <span class="lastupdated">Last updated on Nov 07, 2024.
       </span></p>
   </div>
 
