@@ -31,28 +31,28 @@
     </div>
     <a href="{% if view.kwargs.url_filter == 'valid' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='valid' %}{{ pagination_params }}{% endif %}"
        class="pr-2 {% if view.kwargs.url_filter == 'valid' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
-        {% translate "Valid" %}
+        ✅ {% translate "Valid" %}
         <span class="{% if view.kwargs.url_filter == 'valid' %}text-gray-500 font-normal{% endif %}">
             ({{ number_valid_urls }})
         </span>
     </a>
     <a href="{% if view.kwargs.url_filter == 'invalid' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='invalid' %}{{ pagination_params }}{% endif %}"
        class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'invalid' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
-        {% translate "Invalid" %}
+        ⚠️ {% translate "Verification needed" %}
         <span class="{% if view.kwargs.url_filter == 'invalid' %}text-gray-500 font-normal{% endif %}">
             ({{ number_invalid_urls }})
         </span>
     </a>
     <a href="{% if view.kwargs.url_filter == 'unchecked' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='unchecked' %}{{ pagination_params }}{% endif %}"
        class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'unchecked' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
-        {% translate "Unchecked" %}
+        ❓ {% translate "Unchecked" %}
         <span class="{% if view.kwargs.url_filter == 'unchecked' %}text-gray-500 font-normal{% endif %}">
             ({{ number_unchecked_urls }})
         </span>
     </a>
     <a href="{% if view.kwargs.url_filter == 'ignored' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='ignored' %}{{ pagination_params }}{% endif %}"
        class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'ignored' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
-        {% translate "Ignored" %}
+        ✅ {% translate "Link verified" %}
         <span class="{% if view.kwargs.url_filter == 'ignored' %}text-gray-500 font-normal{% endif %}">
             ({{ number_ignored_urls }})
         </span>
@@ -61,7 +61,7 @@
         {% if LINKCHECK_EMAIL_ENABLED %}
             <a href="{% if view.kwargs.url_filter == 'email' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='email' %}{{ pagination_params }}{% endif %}"
                class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'email' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
-                {% translate "Email links" %}
+                📧 {% translate "Email links" %}
                 <span class="{% if view.kwargs.url_filter == 'email' %}text-gray-500 font-normal{% endif %}">
                     ({{ number_email_urls }})
                 </span>
@@ -70,7 +70,7 @@
         {% if LINKCHECK_PHONE_ENABLED %}
             <a href="{% if view.kwargs.url_filter == 'phone' %}#{% else %}{% url_for_current_region 'linkcheck' request url_filter='phone' %}{{ pagination_params }}{% endif %}"
                class="px-2 border-l-2 border-gray-500 {% if view.kwargs.url_filter == 'phone' %}text-black font-bold cursor-default{% else %}bg-transparent hover:underline text-blue-500 hover:text-blue-600 cursor-pointer{% endif %}">
-                {% translate "Phone links" %}
+                ☎ {% translate "Phone links" %}
                 <span class="{% if view.kwargs.url_filter == 'phone' %}text-gray-500 font-normal{% endif %}">
                     ({{ number_phone_urls }})
                 </span>
@@ -173,7 +173,7 @@
                 {% if view.kwargs.url_filter == 'ignored' %}
                     <option value="unignore"
                             data-bulk-action="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %}{{ pagination_params }}">
-                        {% translate "Unignore" %}
+                        {% translate "Revoke verification" %}
                     </option>
                 {% else %}
                     <option value="recheck"
@@ -182,7 +182,7 @@
                     </option>
                     <option value="ignore"
                             data-bulk-action="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %}{{ pagination_params }}">
-                        {% translate "Ignore" %}
+                        {% translate "Mark as verified" %}
                     </option>
                 {% endif %}
             </select>
