@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+import uuid
 from datetime import datetime
 from html import escape
 from typing import TYPE_CHECKING
@@ -418,9 +419,7 @@ class Region(AbstractBaseModel):
     zammad_url = models.URLField(
         max_length=256,
         blank=True,
-        null=True,
-        default=None,
-        unique=True,
+        default="",
         verbose_name=_("Zammad-URL"),
         help_text=_(
             "URL pointing to this region's Zammad instance. Setting this enables Zammad form offers."
@@ -433,6 +432,15 @@ class Region(AbstractBaseModel):
         verbose_name=_("Zammad access token"),
         help_text=_(
             'Access token for a Zammad user account. In Zammad, the account must be part of the "Agent" role and have full group permissions for the group:'
+        ),
+    )
+    zammad_webhook_token = models.UUIDField(
+        max_length=64,
+        blank=True,
+        default=uuid.uuid4,
+        verbose_name=_("Token used by Zammad webhook"),
+        help_text=_(
+            "Token used by Zammad webhooks to inform the Integreat CMS about changed tickets. The token has to be appended with a token= GET parameter to the webhook path."
         ),
     )
     zammad_chat_handlers = models.CharField(

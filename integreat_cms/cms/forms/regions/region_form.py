@@ -210,6 +210,7 @@ class RegionForm(CustomModelForm):
             "integreat_chat_enabled",
             "zammad_url",
             "zammad_access_token",
+            "zammad_webhook_token",
             "zammad_chat_handlers",
             "chat_beta_tester_percentage",
         ]
@@ -397,12 +398,14 @@ class RegionForm(CustomModelForm):
 
         # Integreat Chat can only be enabled if Zammad URL and access key are set
         if cleaned_data["integreat_chat_enabled"] and (
-            not cleaned_data["zammad_url"] or not cleaned_data["zammad_access_token"]
+            not cleaned_data["zammad_url"]
+            or not cleaned_data["zammad_access_token"]
+            or not cleaned_data["zammad_webhook_token"]
         ):
             self.add_error(
                 "integreat_chat_enabled",
                 _(
-                    "A Zammad URL and Access Token are required in order to enable the Integreat Chat."
+                    "A Zammad URL, Zammad Webhook Token and Access Token are required in order to enable the Integreat Chat."
                 ),
             )
 
@@ -607,14 +610,14 @@ class RegionForm(CustomModelForm):
             )
         return cleaned_hix_enabled
 
-    def clean_zammad_url(self) -> str | None:
+    def clean_zammad_url(self) -> str:
         """
         Validate the zammad_url field (see :ref:`overriding-modelform-clean-method`).
 
         :return: The validated field
         """
         if not (cleaned_zammad_url := self.cleaned_data["zammad_url"]):
-            return None
+            return ""
         # Remove superfluous path parts
         cleaned_zammad_url = cleaned_zammad_url.split("/api/v1")[0]
         cleaned_zammad_url = cleaned_zammad_url.rstrip("/")
