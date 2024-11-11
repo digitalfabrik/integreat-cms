@@ -167,6 +167,9 @@
                 <div id="right-sidebar-column"
                      class="flex flex-col flex-wrap 3xl:col-end-3 4xl:col-end-auto md:w-full">
                     {% include "./poi_form_sidebar/contact_box.html" with box_id="poi-contact" %}
+                    {% if not poi_form.instance.id and perms.cms.change_contact %}
+                        {% include "../ajax_contact_form/contact_box.html" with form=content_form box_id="location-contact" title=_("Create contact") %}
+                    {% endif %}
                     {% include "./poi_form_sidebar/opening_hours_box.html" with box_id="poi-opening-hours" no_padding=True %}
                     {% include "./poi_form_sidebar/category_box.html" with box_id="poi-category" %}
                     {% include "./poi_form_sidebar/icon_box.html" with box_id="poi-icon" %}
@@ -180,6 +183,12 @@
                 </div>
             </div>
         </div>
+    </form>
+    <form id="ajax_contact_form"
+          name="ajax_contact_form"
+          method="post"
+          enctype="multipart/form-data"
+          data-unsaved-warning>
     </form>
     {{ media_config_data|json_script:"media_config_data" }}
     {% if not perms.cms.change_poi or poi_form.instance.id and poi_form.instance.archived %}

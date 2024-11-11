@@ -1443,6 +1443,11 @@ urlpatterns: list[URLPattern] = [
                                 name="bulk_delete_contacts",
                             ),
                             path(
+                                "create-contact-ajax/",
+                                contacts.ContactFormAjaxView.as_view(),
+                                name="create_contact_ajax",
+                            ),
+                            path(
                                 "<int:contact_id>/",
                                 include(
                                     [

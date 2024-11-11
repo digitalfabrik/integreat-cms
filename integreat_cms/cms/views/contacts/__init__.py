@@ -9,5 +9,6 @@ from .contact_bulk_actions import (
     DeleteContactBulkAction,
     RestoreContactBulkAction,
 )
+from .contact_form_ajax_view import ContactFormAjaxView
 from .contact_form_view import ContactFormView
 from .contact_list_view import ContactListView
