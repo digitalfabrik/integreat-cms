@@ -4,8 +4,10 @@ from typing import TYPE_CHECKING
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
+from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 
+from ...decorators import permission_required
 from ...forms import ContactForm
 from ...models import Language
 from ...models.contact import contact
@@ -17,6 +19,8 @@ if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponse
 
 
+@method_decorator(permission_required("cms.view_contact"), name="dispatch")
+@method_decorator(permission_required("cms.change_contact"), name="post")
 class ContactFormAjaxView(TemplateView, ContactContextMixin):
     """
     View for the ajax contact widget
@@ -56,8 +60,6 @@ class ContactFormAjaxView(TemplateView, ContactContextMixin):
         """
 
         region = request.region
-        language_slug = kwargs.get("language_slug")
-        language = get_object_or_404(Language, slug=language_slug)
 
         contact_instance = contact.objects.filter(id=None).first()
 
