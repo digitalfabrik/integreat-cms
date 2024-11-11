@@ -191,6 +191,12 @@
             </div>
         </div>
     </form>
+    <form id="ajax_contact_form"
+          name="ajax_contact_form"
+          method="post"
+          enctype="multipart/form-data"
+          data-unsaved-warning>
+    </form>
     {{ media_config_data|json_script:"media_config_data" }}
     {% if not perms.cms.change_poi or poi_form.instance.id and poi_form.instance.archived %}
         {% include "../_tinymce_config.html" with readonly=1 %}
