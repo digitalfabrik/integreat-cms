@@ -59,6 +59,11 @@
             {% endif %}
         {% else %}
             {% if perms.cms.change_contact %}
+                <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
+                   title="{% translate "Edit contact" %}"
+                   class="btn-icon">
+                    <i icon-name="pencil"></i>
+                </a>
                 <a href="{% url 'copy_contact' contact_id=contact.id region_slug=request.region.slug %}"
                    title="{% translate "Copy contact" %}"
                    class="btn-icon">
