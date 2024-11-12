@@ -5,14 +5,19 @@ from functools import reduce
 from typing import TYPE_CHECKING
 
 from django.conf import settings
+from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.functional import cached_property, classproperty
 from django.utils.translation import gettext_lazy as _
+from linkcheck.models import Link
 
 from ..abstract_base_model import AbstractBaseModel
+from ..events.event_translation import EventTranslation
+from ..pages.page_translation import PageTranslation
 from ..pois.poi import POI
+from ..pois.poi_translation import POITranslation
 from ..regions.region import Region
 
 if TYPE_CHECKING:
@@ -57,10 +62,6 @@ class Contact(AbstractBaseModel):
         default=timezone.now, verbose_name=_("creation date")
     )
 
-    _url_regex = re.compile(
-        r"^https:\/\/integreat\.app\/([^/?#]+)\/contact\/([0-9]+)\/"
-    )
-
     @cached_property
     def region(self) -> Region:
         """
@@ -78,30 +79,19 @@ class Contact(AbstractBaseModel):
         :param query: The query string used for filtering the contacts
         :return: A query for all matching objects
         """
-        searchable_fields = ("point_of_contact_for", "name", "email", "phone_number", "website")
-
-        q = models.Q()
-
-        for word in query.split():
-            # Every word has to appear in at least one field
-            OR = [
-                models.Q(**{f"{field}__icontains": word}) for field in searchable_fields
-            ]
-            # We OR whether it appears in each of the field, and
-            # AND those expressions corresponding to each word
-            # because we are not interested in objects where one word is missing
-            q &= reduce(lambda a, b: a | b, OR)
-
-        # We could add annotations to determine how closely each result matches the query,
-        # e.g. by finding the length of the longest common substring between each field and the original query,
-        # taking the square of that value to obtain something representing the "contribution" of that field
-        # (so longer matches in only a few fields get a much higher value than many short matches all over)
-        # and then summing those together to obtain an overall score of how relevant that object is to the query,
-        # but that would require us find the longest common substring on the db level,
-        # and that feels a bit overkill for now  (it will likely be confusing to re-discover and maintain,
-        # especially if we were to also employ fuzzy matching – which would be much preferred, if we can do it)
-
-        return cls.objects.filter(q, location__region=region)
+        vector = SearchVector(
+            "name",
+            "email",
+            "phone_number",
+            "website",
+            "point_of_contact_for",
+        )
+        query = SearchQuery(query)
+        return (
+            Contact.objects.filter(location__region=region, archived=False)
+            .annotate(rank=SearchRank(vector, query))
+            .order_by("-rank")
+        )
 
     def __str__(self) -> str:
         """
@@ -145,6 +135,78 @@ class Contact(AbstractBaseModel):
         """
         return f"<Contact (id: {self.id}, point of contact for: {self.point_of_contact_for}, name: {self.name}, region: {self.region.slug})>"
 
+    @cached_property
+    def get_repr_short(self) -> str:
+        """
+        Returns a short representation only contaiing the relevant data, no field names.
+
+        :return: The short representation of the contact
+        """
+        point_of_contact_for = (
+            f"{self.point_of_contact_for}: " if self.point_of_contact_for else ""
+        )
+        name = f"{self.name} " if self.name else ""
+        details = [
+            detail for detail in [self.email, self.phone_number, self.website] if detail
+        ]
+        details_repr = f"({', '.join(details)})" if details else ""
+
+        return f"{point_of_contact_for}{name}{details_repr}".strip()
+
+    @cached_property
+    def referring_page_translations(self) -> QuerySet[PageTranslation]:
+        """
+        Returns a queryset containing all :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation` objects which reference this contact
+
+        :return: all PageTranslation objects referencing this contact
+        """
+        from ...linklists import PageTranslationLinklist
+
+        return PageTranslation.objects.filter(
+            id__in=(
+                Link.objects.filter(
+                    url__url=self.full_url,
+                    content_type=PageTranslationLinklist.content_type(),
+                ).values_list("object_id", flat=True)
+            ),
+        )
+
+    @cached_property
+    def referring_poi_translations(self) -> QuerySet[POITranslation]:
+        """
+        Returns a queryset containing all :class:`~integreat_cms.cms.models.pois.poi_translation.POITranslation` objects which reference this contact
+
+        :return: all POITranslation objects referencing this contact
+        """
+        from ...linklists import POITranslationLinklist
+
+        return POITranslation.objects.filter(
+            id__in=(
+                Link.objects.filter(
+                    url__url=self.full_url,
+                    content_type=POITranslationLinklist.content_type(),
+                ).values_list("object_id", flat=True)
+            ),
+        )
+
+    @cached_property
+    def referring_event_translations(self) -> QuerySet[EventTranslation]:
+        """
+        Returns a queryset containing all :class:`~integreat_cms.cms.models.events.event_translation.EventTranslation` objects which reference this contact
+
+        :return: all EventTranslation objects referencing this contact
+        """
+        from ...linklists import EventTranslationLinklist
+
+        return EventTranslation.objects.filter(
+            id__in=(
+                Link.objects.filter(
+                    url__url=self.full_url,
+                    content_type=EventTranslationLinklist.content_type(),
+                ).values_list("object_id", flat=True)
+            ),
+        )
+
     def archive(self) -> None:
         """
         Archives the contact
@@ -167,10 +229,6 @@ class Contact(AbstractBaseModel):
         self.pk = None
         self.point_of_contact_for = self.point_of_contact_for + " " + _("(Copy)")
         self.save()
-
-    @classproperty
-    def url_regex(cls) -> re.Pattern:
-        return cls._url_regex
 
     @cached_property
     def url_prefix(self) -> str:
@@ -213,8 +271,8 @@ class Contact(AbstractBaseModel):
         :return: the base link of the content
         """
         if not self.id:
-            return settings.WEBAPP_URL + "/"
-        return settings.WEBAPP_URL + self.url_prefix
+            return settings.BASE_URL + "/"
+        return settings.BASE_URL + self.url_prefix
 
     def get_absolute_url(self) -> str:
         """
@@ -241,7 +299,8 @@ class Contact(AbstractBaseModel):
 
         :return: The full url
         """
-        return settings.WEBAPP_URL + self.get_absolute_url()
+        # f"{settings.WEBAPP_URL}/{self.location.region.slug}/contact/{self.id}/"
+        return settings.BASE_URL + self.get_absolute_url()
 
     class Meta:
         verbose_name = _("contact")

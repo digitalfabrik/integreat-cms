@@ -19,15 +19,7 @@ from ..forms import (
     POITranslationForm,
     RegionForm,
 )
-from ..models import (
-    Event,
-    Language,
-    OfferTemplate,
-    Page,
-    POI,
-    POICategory,
-    Role,
-)
+from ..models import Event, Language, OfferTemplate, Page, POI, POICategory, Role
 from ..views import (
     analytics,
     bulk_action_views,
@@ -760,6 +752,11 @@ urlpatterns: list[URLPattern] = [
                                 name="search_content_ajax",
                             ),
                             path(
+                                "search/contact/",
+                                utils.search_contact_ajax,
+                                name="search_contact_ajax",
+                            ),
+                            path(
                                 "dismiss-tutorial/<slug:slug>/",
                                 settings.DismissTutorial.as_view(),
                                 name="dismiss_tutorial",
@@ -1446,6 +1443,16 @@ urlpatterns: list[URLPattern] = [
                                 "<int:contact_id>/",
                                 include(
                                     [
+                                        path(
+                                            "",
+                                            utils.get_contact,
+                                            name="get_contact",
+                                        ),
+                                        path(
+                                            "raw/",
+                                            utils.get_contact_raw,
+                                            name="get_contact_raw",
+                                        ),
                                         path(
                                             "edit/",
                                             contacts.ContactFormView.as_view(),

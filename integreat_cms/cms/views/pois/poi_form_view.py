@@ -21,7 +21,7 @@ from ...models import Language, POI, POITranslation
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
 from ..media.media_context_mixin import MediaContextMixin
-from ..mixins import ContentEditLockMixin, HtmlEditorMixin
+from ..mixins import ContentEditLockMixin
 from .poi_context_mixin import POIContextMixin
 
 if TYPE_CHECKING:
@@ -39,7 +39,6 @@ class POIFormView(
     POIContextMixin,
     MediaContextMixin,
     ContentEditLockMixin,
-    HtmlEditorMixin,
 ):
     """
     View for editing POIs

@@ -12,7 +12,6 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import ContextMixin, TemplateResponseMixin
 
 from ...core.utils.machine_translation_provider import MachineTranslationProvider
-from ..models import Contact
 
 if TYPE_CHECKING:
     from typing import Any
@@ -139,27 +138,5 @@ class MachineTranslationContextMixin(ContextMixin):
                 and language_node.mt_provider.bulk_only_for_staff
                 and not self.request.user.is_staff
             )
-        )
-        return context
-
-
-class HtmlEditorMixin(ContextMixin):
-    """
-    A mixin that provides some variables required for the HTML editor
-    """
-
-    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
-        r"""
-        Returns a dictionary representing the template context
-        (see :meth:`~django.views.generic.base.ContextMixin.get_context_data`).
-
-        :param \**kwargs: The given keyword arguments
-        :return: The template context
-        """
-        context = super().get_context_data(**kwargs)
-        context.update(
-            {
-                "contact_url_regex": Contact.url_regex.pattern,
-            }
         )
         return context

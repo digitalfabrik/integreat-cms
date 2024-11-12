@@ -1,6 +1,4 @@
 import logging
-import re
-from copy import deepcopy
 from html import unescape
 from urllib.parse import unquote, urlparse
 
@@ -144,84 +142,43 @@ def update_internal_links(link: HtmlElement, language_slug: str) -> None:
                 link.append(new_html)
 
 
-def render_contact_card(contact_id: int, fetched_contacts: dict[int, Contact]) -> str:
+def render_contact_card(contact_id: int) -> HtmlElement:
     """
     Produces a rendered html element for the contact.
 
     :param contact_id: The id of the contact to render the card for
-    :param fetched_contacts: A dictionary of pre-fetched contact objects, indexed by their id
-
-    .. Note::
-
-        This function does not fetch any contacts itself if the provided id is not in ``fetched_contacts``,
-        nor will a contact at that key be double-checked to actually have the expected id.
-        If the contact for the id is not provided, the contact will be assumed missing from our database and be labelled as invalid.
     """
     template = loader.get_template("contacts/contact_card.html")
-    context = {
-        "contact_id": contact_id,
-        "contact": (
-            fetched_contacts[contact_id] if contact_id in fetched_contacts else None
-        ),
-    }
-    return template.render(context, None)
+    try:
+        context = {
+            "contact": Contact.objects.get(pk=contact_id),
+        }
+        raw_element = template.render(context)
+        return fromstring(raw_element)
+    except Contact.DoesNotExist:
+        logger.warning("Contact with id=%i does not exist!", contact_id)
+        return Element("p", contact_id)
+    except LxmlError as e:
+        logger.debug(
+            "Failed to parse rendered HTML for contact card: %r\n→ %s\nEOF",
+            e,
+            raw_element,
+        )
+        return Element("pre", raw_element)
 
 
-def update_contacts(content: HtmlElement, only_ids: tuple[int] | None = None) -> None:
+def update_contacts(content: HtmlElement) -> None:
     """
     Inject rendered contact html for given ID
 
     :param content: The content whose contacts should be updated
-    :param only_ids: A list of ids if only certain contacts should be updated, otherwise None
     """
-    nodes_to_update: dict[int, HtmlElement] = {}
-    for div in content.iter("div"):
-        children = list(div)
-        match = None
-        if (
-            children
-            and children[0].tag == "a"
-            and (href := children[0].get("href", None))
-        ):
-            match = re.match(Contact.url_regex, href)
-        if not match:
-            continue
+    contact_cards = content.xpath("//div[@data-contact-id]")
+    contact_ids = [int(card.get("data-contact-id")) for card in contact_cards]
 
-        try:
-            contact_id = int(match.group(2))
-        except ValueError:
-            logger.warning("Failed parsing contact id %r as int", contact_id)
-
-        if not isinstance(contact_id, int):
-            logger.warning("Malformed contact id %r in content", contact_id)
-        elif only_ids is None or contact_id in only_ids:
-            # Gather all nodes
-            if contact_id not in nodes_to_update:
-                nodes_to_update[contact_id] = []
-            nodes_to_update[contact_id].append(div)
-
-    # Get all required contacts in a single query
-    fetched_contacts = {
-        contact.pk: contact
-        for contact in Contact.objects.filter(id__in=nodes_to_update.keys())
-    }
-
-    for contact_id, divs in nodes_to_update.items():
-        html = render_contact_card(contact_id, fetched_contacts=fetched_contacts)
-        try:
-            # We need the parsed form so we can plug it into our existing content tree
-            new_div = fromstring(html)
-        except LxmlError as e:
-            logger.debug(
-                "Failed to parse rendered HTML for contact card: %r\n→ %s\nEOF",
-                e,
-                html,
-            )
-            new_div = Element("pre", html)
-
-        # Finally, inject the card in every occurence
-        for div in divs:
-            div.getparent().replace(div, deepcopy(new_div))
+    for contact_id, contact_card in zip(contact_ids, contact_cards):
+        contact_card_new = render_contact_card(contact_id)
+        contact_card.getparent().replace(contact_card, contact_card_new)
 
 
 def fix_alt_texts(content: HtmlElement) -> None:
