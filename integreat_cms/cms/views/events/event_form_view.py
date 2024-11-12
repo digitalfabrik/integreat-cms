@@ -18,7 +18,7 @@ from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Event, EventTranslation, Language, POI, RecurrenceRule
 from ...utils.translation_utils import translate_link
 from ..media.media_context_mixin import MediaContextMixin
-from ..mixins import ContentEditLockMixin, HtmlEditorMixin
+from ..mixins import ContentEditLockMixin
 from .event_context_mixin import EventContextMixin
 
 if TYPE_CHECKING:
@@ -36,7 +36,6 @@ class EventFormView(
     EventContextMixin,
     MediaContextMixin,
     ContentEditLockMixin,
-    HtmlEditorMixin,
 ):
     """
     Class for rendering the events form

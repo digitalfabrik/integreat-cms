@@ -53,10 +53,9 @@
      data-contact-icon-text='{% translate "Contact Person" %}'
      data-contact-icon-src="{% get_base_url %}{% static 'svg/contact.svg' %}"
      data-contact-icon-alt="{% translate "Contact Person" %}"
-     data-contact-ajax-url="{% url 'search_content_ajax' region_slug=request.region.slug language_slug=language.slug %}"
+     data-contact-ajax-url="{% url 'search_contact_ajax' region_slug=request.region.slug %}"
      data-contact-menu-text='{% translate "Contact..." %}'
      data-contact-no-results-text='{% translate "no results" %}'
-     data-contact-url-regex="{{ contact_url_regex }}"
      data-speech-icon-text='{% translate "Spoken Languages" %}'
      data-speech-icon-src="{% get_base_url %}{% static 'svg/speech.svg' %}"
      data-speech-icon-alt="{% translate "Spoken Languages" %}"

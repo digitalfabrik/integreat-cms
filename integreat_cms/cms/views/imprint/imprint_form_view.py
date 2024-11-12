@@ -18,7 +18,6 @@ from ...utils.content_edit_lock import get_locking_user
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
 from ..media.media_context_mixin import MediaContextMixin
-from ..mixins import HtmlEditorMixin
 from .imprint_context_mixin import ImprintContextMixin
 
 if TYPE_CHECKING:
@@ -33,9 +32,7 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(permission_required("cms.view_imprintpage"), name="dispatch")
 @method_decorator(permission_required("cms.change_imprintpage"), name="post")
-class ImprintFormView(
-    TemplateView, ImprintContextMixin, MediaContextMixin, HtmlEditorMixin
-):
+class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
     """
     View for the imprint page form and imprint page translation form
     """

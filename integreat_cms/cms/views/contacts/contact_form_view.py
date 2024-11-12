@@ -7,24 +7,10 @@ from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
-from linkcheck.models import Link
 
 from ...decorators import permission_required
 from ...forms import ContactForm
-from ...linklists import (
-    EventTranslationLinklist,
-    PageTranslationLinklist,
-    POITranslationLinklist,
-)
-from ...models import (
-    Contact,
-    Event,
-    EventTranslation,
-    Page,
-    PageTranslation,
-    POI,
-    POITranslation,
-)
+from ...models import Contact, Event, Page, POI
 from ...utils.translation_utils import gettext_many_lazy as __
 from .contact_context_mixin import ContactContextMixin
 
@@ -88,14 +74,9 @@ class ContactFormView(TemplateView, ContactContextMixin):
         referring_pages = (
             Page.objects.filter(
                 id__in=(
-                    PageTranslation.objects.filter(
-                        id__in=(
-                            Link.objects.filter(
-                                url__url=contact_instance.full_url,
-                                content_type=PageTranslationLinklist.content_type(),
-                            ).values_list("object_id", flat=True)
-                        ),
-                    ).values_list("page_id", flat=True)
+                    contact_instance.referring_page_translations.values_list(
+                        "page_id", flat=True
+                    )
                 ),
             )
             if contact_instance
@@ -105,14 +86,9 @@ class ContactFormView(TemplateView, ContactContextMixin):
         referring_locations = (
             POI.objects.filter(
                 id__in=(
-                    POITranslation.objects.filter(
-                        id__in=(
-                            Link.objects.filter(
-                                url__url=contact_instance.full_url,
-                                content_type=POITranslationLinklist.content_type(),
-                            ).values_list("object_id", flat=True)
-                        ),
-                    ).values_list("poi_id", flat=True)
+                    contact_instance.referring_poi_translations.values_list(
+                        "poi_id", flat=True
+                    )
                 ),
             )
             if contact_instance
@@ -122,14 +98,9 @@ class ContactFormView(TemplateView, ContactContextMixin):
         referring_events = (
             Event.objects.filter(
                 id__in=(
-                    EventTranslation.objects.filter(
-                        id__in=(
-                            Link.objects.filter(
-                                url__url=contact_instance.full_url,
-                                content_type=EventTranslationLinklist.content_type(),
-                            ).values_list("object_id", flat=True)
-                        ),
-                    ).values_list("event_id", flat=True)
+                    contact_instance.referring_event_translations.values_list(
+                        "event_id", flat=True
+                    )
                 ),
             )
             if contact_instance

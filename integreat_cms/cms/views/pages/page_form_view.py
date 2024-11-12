@@ -20,7 +20,7 @@ from ...models import PageTranslation
 from ...utils.translation_utils import gettext_many_lazy as __
 from ...utils.translation_utils import translate_link
 from ..media.media_context_mixin import MediaContextMixin
-from ..mixins import ContentEditLockMixin, HtmlEditorMixin
+from ..mixins import ContentEditLockMixin
 from .page_context_mixin import PageContextMixin
 
 if TYPE_CHECKING:
@@ -41,7 +41,6 @@ class PageFormView(
     PageContextMixin,
     MediaContextMixin,
     ContentEditLockMixin,
-    HtmlEditorMixin,
 ):
     """
     View for the page form and page translation form
