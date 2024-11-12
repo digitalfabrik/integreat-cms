@@ -30,4 +30,5 @@ As a [type of user] I want [goals or objectives] so that [values or benefits]. -
 <!-- If the customization includes input from our design team, the detailed requirements will be collected here. Note: These will exist mainly in German to simplify internal communication. -->
 
 ### Related Issues
-<!-- A collection of all issues that are related to this issue and could be useful -->
+<!-- A collection of all issues that are related to this issue and could be useful. -->
+<!-- Please also include the related integreat-app issues, if possible. -->

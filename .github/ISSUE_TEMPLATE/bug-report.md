@@ -36,4 +36,5 @@ labels: 'bug'
 </details>
 
 ### Related Issues
-<!-- A collection of all issues that are related to this issue and could be useful -->
+<!-- A collection of all issues that are related to this issue and could be useful. -->
+<!-- Please also include the related integreat-app issues, if possible. -->
