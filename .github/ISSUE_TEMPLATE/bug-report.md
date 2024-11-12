@@ -34,3 +34,6 @@ labels: 'bug'
   ```
 
 </details>
+
+### Related Issues
+<!-- A collection of all issues that are related to this issue and could be useful -->
