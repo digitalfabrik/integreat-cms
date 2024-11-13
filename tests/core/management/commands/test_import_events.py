@@ -3,8 +3,12 @@ from __future__ import annotations
 import pytest
 from pytest_httpserver import HTTPServer
 
-from integreat_cms.cms.models import RecurrenceRule
-from integreat_cms.cms.models import EventTranslation, ExternalCalendar, Region
+from integreat_cms.cms.models import (
+    EventTranslation,
+    ExternalCalendar,
+    RecurrenceRule,
+    Region,
+)
 
 from ..utils import get_command_output
 

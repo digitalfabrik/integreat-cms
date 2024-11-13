@@ -7,27 +7,24 @@ from __future__ import annotations
 import dataclasses
 import datetime
 import logging
-from typing import Self, Any
+from typing import Any, Self
 
 import icalendar.cal
 from django.utils.translation import gettext as _
 from icalendar.prop import (
     vCategory,
+    vDDDTypes,
     vFrequency,
     vInt,
-    vDDDTypes,
-    vWeekday,
     vRecur,
+    vWeekday,
 )
 
+from integreat_cms.cms.constants import frequency, status
 from integreat_cms.cms.constants.weekdays import RRULE_WEEKDAY_TO_WEEKDAY
 from integreat_cms.cms.constants.weeks import RRULE_WEEK_TO_WEEK
-from integreat_cms.cms.forms import RecurrenceRuleForm
-from integreat_cms.cms.models import RecurrenceRule
-from integreat_cms.cms.constants import frequency
-from integreat_cms.cms.constants import status
-from integreat_cms.cms.forms import EventForm, EventTranslationForm
-from integreat_cms.cms.models import EventTranslation, ExternalCalendar
+from integreat_cms.cms.forms import EventForm, EventTranslationForm, RecurrenceRuleForm
+from integreat_cms.cms.models import EventTranslation, ExternalCalendar, RecurrenceRule
 from integreat_cms.cms.utils.content_utils import clean_content
 
 
