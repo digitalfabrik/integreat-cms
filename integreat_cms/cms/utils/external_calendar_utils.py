@@ -65,6 +65,7 @@ class IcalEventData:
         :param external_calendar_id: The id of the external calendar of this event
         :param logger: The logger to use
         :return: An instance of IcalEventData
+        :raises ValueError: If the data are invalid
         """
         # pylint: disable=too-many-locals
         event_id = event.decoded("UID").decode("utf-8")
@@ -113,7 +114,9 @@ class IcalEventData:
 
         recurrence_rule = None
         if "RRULE" in event:
-            recurrence_rule = RecurrenceRuleData.from_ical_rrule(event.decoded("RRULE"))
+            recurrence_rule = RecurrenceRuleData.from_ical_rrule(
+                event.decoded("RRULE"), logger
+            )
 
         return cls(
             event_id=event_id,
@@ -178,7 +181,7 @@ class RecurrenceRuleData:
     by_set_pos: vInt | None
 
     @classmethod
-    def from_ical_rrule(cls, recurrence_rule: vRecur) -> Self:
+    def from_ical_rrule(cls, recurrence_rule: vRecur, logger: logging.Logger) -> Self:
         """
         Constructs this class from an ical recurrence rule.
         :return: An instance of this class
@@ -199,6 +202,7 @@ class RecurrenceRuleData:
                 case other:
                     raise ValueError(f"Expected a single value for {name}, got {other}")
 
+        logger.debug("Recurrence rule: %s", recurrence_rule)
         frequency_ = pop_single_value("FREQ", required=True)
         interval = pop_single_value("INTERVAL") or 1
         until = pop_single_value("UNTIL")
@@ -358,6 +362,7 @@ def import_event(
     errors: list[str],
     logger: logging.Logger,
 ) -> str | None:
+    # pylint: disable=too-many-return-statements
     """
     Imports an event from the external calendar
 
@@ -370,9 +375,17 @@ def import_event(
     """
     language = calendar.region.default_language
 
-    event_data = IcalEventData.from_ical_event(
-        event, language.slug, calendar.pk, logger
-    )
+    try:
+        event_data = IcalEventData.from_ical_event(
+            event, language.slug, calendar.pk, logger
+        )
+    except ValueError as e:
+        logger.error("Could not import event: %r due to error: %s", event, e)
+        errors.append(_("Could not import '{}': {}").format(event.get("SUMMARY"), e))
+        try:
+            return event.decoded("UID").decode("utf-8")
+        except (KeyError, UnicodeError):
+            return None
 
     # Skip this event if it does not have the required tag
     if calendar.import_filter_category and not any(
