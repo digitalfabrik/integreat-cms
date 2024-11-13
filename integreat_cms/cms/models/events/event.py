@@ -7,6 +7,7 @@ from django.db import models
 from django.db.models import Q
 from django.utils import timezone
 from django.utils.functional import cached_property
+from django.utils.timezone import make_naive
 from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 
@@ -165,7 +166,7 @@ class Event(AbstractContentModel):
 
         :return: Whether event lies in the past
         """
-        now = timezone.now()
+        now = make_naive(timezone.now(), timezone=timezone.utc)
         duration = self.end_local - self.start_local
         future_recurrence = (
             self.is_recurring

@@ -100,7 +100,7 @@ def transform_event_translation(
         "event": transform_event(event, recurrence_date),
         "hash": None,
         "recurrence_rule": (
-            event.recurrence_rule.to_ical_rrule_string()
+            str(event.recurrence_rule.to_ical_rrule())
             if event.recurrence_rule
             else None
         ),
@@ -150,27 +150,19 @@ def transform_event_recurrences(
     """
 
     event = event_translation.event
-
-    if not event.recurrence_rule or (
-        event.recurrence_rule.recurrence_end_date
-        and event.recurrence_rule.recurrence_end_date < today
-    ):
-        return
-
-    start_date = event.start_local.date()
     event_translation.id = None
 
     # Calculate all recurrences of this event
-    for recurrence_date in event.recurrence_rule.iter_after(start_date):
-        if recurrence_date - max(start_date, today) > timedelta(
+    for recurrence_date in event.recurrence_rule.iter_after(event.start):
+        if recurrence_date.date() - max(event.start.date(), today) > timedelta(
             days=settings.API_EVENTS_MAX_TIME_SPAN_DAYS
         ):
             break
-        if recurrence_date < today:
+        if recurrence_date.date() < today:
             continue
 
         yield transform_event_translation(
-            event_translation, poi_translation, recurrence_date
+            event_translation, poi_translation, recurrence_date.date()
         )
 
 

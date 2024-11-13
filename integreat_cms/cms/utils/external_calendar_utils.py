@@ -64,6 +64,7 @@ class IcalEventData:
         )
         start = event.decoded("DTSTART")
         end = event.decoded("DTEND")
+        print(event.get("RRULE").to_ical().decode("utf-8"))
 
         # Categories can be a "vCategory" object, a list of such objects, or be missing
         categories = event.get("categories", [])

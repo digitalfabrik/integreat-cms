@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Self
 
+from attr import dataclass
+from dateutil import rrule
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from ...constants import frequency, weekdays
+from ...constants import frequency, weekdays, weeks
 from ...models import RecurrenceRule
 from ..custom_model_form import CustomModelForm
 
@@ -24,6 +26,43 @@ class RecurrenceRuleForm(CustomModelForm):
     has_recurrence_end_date = forms.BooleanField(
         required=False, label=_("Recurrence ends")
     )
+    frequency = forms.ChoiceField(
+        initial=frequency.WEEKLY,
+        choices=frequency.CHOICES,
+        label=_("frequency"),
+        help_text=_("How often the event recurs"),
+    )
+    interval = forms.IntegerField(
+        initial=1,
+        min_value=1,
+        label=_("Repeat every ... time(s)"),
+        help_text=_("The interval in which the event recurs."),
+    )
+    weekdays_for_weekly = forms.MultipleChoiceField(
+        required=False,
+        choices=weekdays.CHOICES,
+        widget=forms.SelectMultiple(choices=weekdays.CHOICES),
+        label=_("weekdays"),
+        help_text=_(
+            "If the frequency is weekly, this field determines on which days the event takes place"
+        ),
+    )
+    weekday_for_monthly = forms.ChoiceField(
+        required=False,
+        choices=[("", "---------")] + weekdays.CHOICES,
+        label=_("weekday"),
+        help_text=_(
+            "If the frequency is monthly, this field determines on which days the event takes place"
+        ),
+    )
+    week_for_monthly = forms.ChoiceField(
+        required=False,
+        choices=[("", "---------")] + weeks.CHOICES,
+        label=_("week"),
+        help_text=_(
+            "If the frequency is monthly, this field determines on which week of the month the event takes place"
+        ),
+    )
 
     class Meta:
         """
@@ -35,16 +74,10 @@ class RecurrenceRuleForm(CustomModelForm):
         model = RecurrenceRule
         #: The fields of the model which should be handled by this form
         fields = [
-            "frequency",
-            "interval",
-            "weekdays_for_weekly",
-            "weekday_for_monthly",
-            "week_for_monthly",
             "recurrence_end_date",
         ]
         #: The widgets which are used in this form
         widgets = {
-            "weekdays_for_weekly": forms.SelectMultiple(choices=weekdays.CHOICES),
             "recurrence_end_date": forms.DateInput(
                 format="%Y-%m-%d", attrs={"type": "date"}
             ),
@@ -68,6 +101,9 @@ class RecurrenceRuleForm(CustomModelForm):
             self.fields["has_recurrence_end_date"].initial = bool(
                 self.instance.recurrence_end_date
             )
+
+            rule = self.instance.to_ical_rrule()
+            # self.fields["frequency"].initial = rule.
 
     def clean(self) -> dict[str, Any]:
         """
@@ -165,3 +201,22 @@ class RecurrenceRuleForm(CustomModelForm):
         if value != initial:
             self.changed_data.append("weekdays_for_weekly")
         return bool(self.changed_data)
+
+
+@dataclass
+class FormRecurrenceRule:
+    frequency: int
+    interval: int
+    weekdays_for_weekly: list[int] | None
+    weekday_for_monthly: int | None
+    week_for_monthly: int | None
+
+    @classmethod
+    def from_ical_rrule(cls, rule: rrule.rrule) -> Self:
+        ical_freq_to_form_freq = {
+            rrule.YEARLY: frequency.YEARLY,
+            rrule.MONTHLY: frequency.MONTHLY,
+            rrule.WEEKLY: frequency.WEEKLY,
+            rrule.DAILY: frequency.DAILY,
+        }
+        return FormRecurrenceRule(frequency=ical_freq_to_form_freq[rule._freq])

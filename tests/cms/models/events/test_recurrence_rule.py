@@ -39,12 +39,12 @@ class TestCreatingIcalRule:
             end=datetime.datetime(2030, 1, 1, 12, 30, 0, 0, ZoneInfo("UTC")),
         )
         test_event.recurrence_rule = recurrence_rule
-        ical_rrule = recurrence_rule.to_ical_rrule_string()
+        ical_rrule = recurrence_rule.rule
         assert ical_rrule == "DTSTART:20200101T113000\nRRULE:FREQ=YEARLY"
 
     def check_rrule(self, recurrence_rule: rrule, expected: str) -> None:
         self.test_event.recurrence_rule = recurrence_rule
-        ical_rrule = recurrence_rule.to_ical_rrule_string()
+        ical_rrule = recurrence_rule.rule
         assert ical_rrule == expected
 
     def test_api_rrule_every_three_days(self) -> None:
