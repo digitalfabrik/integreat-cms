@@ -45,3 +45,14 @@ WORKING_DAYS: Final[list[int]] = [MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY]
 
 #: Weekend: Saturday and Sunday
 WEEKEND: Final[list[int]] = [SATURDAY, SUNDAY]
+
+#: A mapping from an ical recurrence rule weekday string to a cms weekday constant
+RRULE_WEEKDAY_TO_WEEKDAY = {
+    "MO": MONDAY,
+    "TU": TUESDAY,
+    "WE": WEDNESDAY,
+    "TH": THURSDAY,
+    "FR": FRIDAY,
+    "SA": SATURDAY,
+    "SU": SUNDAY,
+}
