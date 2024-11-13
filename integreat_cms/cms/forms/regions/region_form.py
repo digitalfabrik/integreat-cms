@@ -704,7 +704,7 @@ def duplicate_language_tree(
             "  " if i == num_source_nodes - 1 else "│  "
         )
         if target_parent:
-            # If the target parent already exist, we inherit its tree id for all its sub nodes
+            # If the target parent already exists, we inherit its tree id for all its sub nodes
             target_tree_id = target_parent.tree_id
         else:
             # If the language tree node is a root node, we need to assign a new tree id
@@ -724,6 +724,11 @@ def duplicate_language_tree(
         target_node.tree_id = target_tree_id
         # Delete the primary key to force an insert
         target_node.pk = None
+        # Fix lft and rgt of the tree if the children of this node should not be cloned
+        # Otherwise, the tree structure will be inconsistent
+        if only_root:
+            target_node.lft = 1
+            target_node.rgt = 2
         # Check if the resulting node is valid
         target_node.full_clean()
         # Save the duplicated node
