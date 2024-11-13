@@ -32,3 +32,4 @@ As a [type of user] I want [goals or objectives] so that [values or benefits]. -
 ### Related Issues
 <!-- A collection of all issues that are related to this issue and could be useful. -->
 <!-- Please also include the related integreat-app issues, if possible. -->
+<!-- If the app issue does not exist yet, ping Toni on Mattermost to create one and then link it here. -->
