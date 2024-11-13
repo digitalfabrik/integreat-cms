@@ -442,7 +442,6 @@ def import_event(
     if recurrence_rule_form_data:
         event_form.instance.recurrence_rule = recurrence_rule_form.save()
     elif event_form.instance.recurrence_rule:
-        # TODO: Write test for this
         event_form.instance.recurrence_rule.delete()
         event_form.instance.recurrence_rule = None
 
