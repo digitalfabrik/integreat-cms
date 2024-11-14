@@ -13,6 +13,7 @@ import {
 export type AjaxResponse = {
     exportLabels: Array<string>;
     chartData: ChartData;
+    legend: string;
 };
 
 // Register all components that are being used - the others will be excluded from the final webpack build
@@ -34,7 +35,6 @@ const updateChart = async (): Promise<void> => {
     const chartServerError = document.getElementById("chart-server-error");
     const chartHeavyTrafficError = document.getElementById("chart-heavy-traffic-error");
     const chartLoading = document.getElementById("chart-loading");
-    const chartLabelHelpText = document.getElementById("chart-label-help-text");
 
     // Hide error in case it was shown before
     chartNetworkError.classList.add("hidden");
@@ -86,8 +86,20 @@ const updateChart = async (): Promise<void> => {
             chart.update();
             // Save export labels
             exportLabels = data.exportLabels;
-            // Show help text
-            chartLabelHelpText?.classList.remove("hidden");
+
+            const legendDiv = document.getElementById("chart-legend-container");
+            const legendDivInner = document.getElementById("chart-legend");
+            if (legendDiv && legendDivInner) {
+                legendDivInner.innerHTML = data.legend;
+                legendDiv.classList.remove("hidden");
+            }
+            const items = chart.options.plugins.legend.labels.generateLabels(chart);
+            items.forEach((item) => {
+                document.querySelector(`[data-chart-item="${item.text}"]`).addEventListener("change", () => {
+                    chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex));
+                    chart.update();
+                });
+            });
         } else if (response.status === HTTP_STATUS_BAD_REQUEST) {
             // Client error - invalid form parameters supplied
             const data = await response.json();
@@ -203,10 +215,7 @@ window.addEventListener("load", async () => {
         options: {
             plugins: {
                 legend: {
-                    labels: {
-                        usePointStyle: true,
-                        pointStyleWidth: 18,
-                    },
+                    display: false,
                 },
                 tooltip: {
                     usePointStyle: true,

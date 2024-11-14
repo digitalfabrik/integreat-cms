@@ -1,0 +1,24 @@
+{% load i18n %}
+{% load static %}
+<div class="p-4">
+    <p class="uppercase font-bold">
+        {% translate "Shown languages" %}
+        <div class="grid grid-cols-[auto_auto_auto_1fr] gap-x-4 items-center space-y-2">
+            {% for language in languages %}
+                {{ language }}
+            {% endfor %}
+        </div>
+    </p>
+    <div id="chart-language-toggles">
+    </div>
+</div>
+<div class="p-4">
+    <p class="uppercase font-bold">
+        {% translate "Accesses" %}
+    </p>
+    <div class="grid grid-cols-[auto_auto_1fr] gap-x-4 items-center space-y-2">
+        {% for access in accesses %}
+            {{ access }}
+        {% endfor %}
+    </div>
+</div>

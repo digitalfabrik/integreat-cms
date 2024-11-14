@@ -113,7 +113,7 @@ class ContactFormView(TemplateView, ContactContextMixin):
             if not contact_instance:
                 messages.success(
                     request,
-                    _('Contact "{}" was successfully created').format(
+                    _('Contact for "{}" was successfully created').format(
                         contact_form.instance
                     ),
                 )
@@ -122,7 +122,7 @@ class ContactFormView(TemplateView, ContactContextMixin):
             else:
                 messages.success(
                     request,
-                    _('Contact "{}" was successfully saved').format(
+                    _('Contact for "{}" was successfully saved').format(
                         contact_form.instance
                     ),
                 )
@@ -134,6 +134,14 @@ class ContactFormView(TemplateView, ContactContextMixin):
                 },
             )
 
+        help_text = (
+            _("This location is used for the contact.")
+            if contact_instance
+            else _(
+                "Select a location to use for your contact or create a new location. Only published locations can be set."
+            )
+        )
+
         return render(
             request,
             self.template_name,
@@ -144,5 +152,6 @@ class ContactFormView(TemplateView, ContactContextMixin):
                 "referring_pages": None,
                 "referring_locations": None,
                 "referring_events": None,
+                "help_text": help_text,
             },
         )

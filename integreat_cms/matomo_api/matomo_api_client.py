@@ -9,6 +9,7 @@ from urllib.parse import urlencode
 
 import aiohttp
 from django.conf import settings
+from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
 from ..cms.constants import language_color, matomo_periods
@@ -345,6 +346,11 @@ class MatomoApiClient:
         # Get the separately created datasets for offline downloads
         offline_downloads = datasets.pop()
 
+        language_data, language_legends = self.get_language_data(languages, datasets)
+        access_data, access_legends = self.get_access_data(
+            total_visits, webapp_downloads, offline_downloads
+        )
+
         return {
             # Send original labels for usage in the CSV export (convert to list because type dict_keys is not JSON-serializable)
             "exportLabels": list(total_visits.keys()),
@@ -352,47 +358,12 @@ class MatomoApiClient:
             "chartData": {
                 # Make labels more readable
                 "labels": self.simplify_date_labels(total_visits.keys(), period),
-                "datasets":
-                # The datasets for the visits by language
-                [
-                    {
-                        "label": language.translated_name,
-                        "backgroundColor": language.language_color,
-                        "borderColor": language.language_color,
-                        "data": list(dataset.values()),
-                    }
-                    # zip aggregates two lists into tuples, e.g. zip([1,2,3], [4,5,6])=[(1,4), (2,5), (3,6)]
-                    # In this case, it matches the languages to their respective dataset (because the datasets are ordered)
-                    for language, dataset in zip(languages, datasets)
-                ]
-                # The dataset for offline downloads
-                + [
-                    {
-                        "label": _("Offline Accesses"),
-                        "backgroundColor": language_color.OFFLINE_ACCESS,
-                        "borderColor": language_color.OFFLINE_ACCESS,
-                        "data": list(offline_downloads.values()),
-                    }
-                ]
-                # The dataset for online/web app downloads
-                + [
-                    {
-                        "label": _("WebApp Accesses"),
-                        "backgroundColor": language_color.WEB_APP_ACCESS,
-                        "borderColor": language_color.WEB_APP_ACCESS,
-                        "data": list(webapp_downloads.values()),
-                    }
-                ]
-                # The dataset for total visits
-                + [
-                    {
-                        "label": _("Total Accesses"),
-                        "backgroundColor": language_color.TOTAL_ACCESS,
-                        "borderColor": language_color.TOTAL_ACCESS,
-                        "data": list(total_visits.values()),
-                    }
-                ],
+                "datasets": language_data + access_data,
             },
+            "legend": render_to_string(
+                "statistics/_statistics_legend.html",
+                {"languages": language_legends, "accesses": access_legends},
+            ),
         }
 
     @staticmethod
@@ -461,3 +432,98 @@ class MatomoApiClient:
             # This means the period is "year" (convert to list because type dict_keys is not JSON-serializable)
             simplified_date_labels = list(date_labels)
         return simplified_date_labels
+
+    @staticmethod
+    def get_language_data(
+        languages: list[Language], datasets: list[dict]
+    ) -> tuple[list[dict], list[str]]:
+        """
+        Structure the datasets for languages in a chart.js-compatible format,
+        returning it and the custom legend entries
+
+        :param languages: The list of languages
+        :param datasets: The Matomo datasets
+        :return: The chart.js-datasets and custom legend entries
+        """
+        data_entries = []
+        legend_entries = []
+
+        for language, dataset in zip(languages, datasets):
+            data_entries.append(
+                {
+                    "label": language.translated_name,
+                    "backgroundColor": language.language_color,
+                    "borderColor": language.language_color,
+                    "data": list(dataset.values()),
+                }
+            )
+            legend_entries.append(
+                render_to_string(
+                    "statistics/_statistics_legend_item.html",
+                    {
+                        "name": language.translated_name,
+                        "color": language.language_color,
+                        "language": language,
+                    },
+                )
+            )
+        return data_entries, legend_entries
+
+    @staticmethod
+    def get_access_data(
+        total_visits: dict, webapp_downloads: dict, offline_downloads: dict
+    ) -> tuple[list[dict], list[str]]:
+        """
+        Structure the datasets for accesses in a chart.js-compatible format,
+        returning it and the custom legend entries
+
+        :param total_visits: The total amount of visits
+        :param webapp_downloads: The amount of visits via the WebApp
+        :param offline_downloads: The amount of offline downloads
+        :return: The chart.js-datasets and custom legend entries
+        """
+        data_entries = [
+            {
+                "label": _("Offline Accesses"),
+                "backgroundColor": language_color.OFFLINE_ACCESS,
+                "borderColor": language_color.OFFLINE_ACCESS,
+                "data": list(offline_downloads.values()),
+            },
+            {
+                "label": _("WebApp Accesses"),
+                "backgroundColor": language_color.WEB_APP_ACCESS,
+                "borderColor": language_color.WEB_APP_ACCESS,
+                "data": list(webapp_downloads.values()),
+            },
+            {
+                "label": _("Total Accesses"),
+                "backgroundColor": language_color.TOTAL_ACCESS,
+                "borderColor": language_color.TOTAL_ACCESS,
+                "data": list(total_visits.values()),
+            },
+        ]
+
+        legend_entries = [
+            render_to_string(
+                "statistics/_statistics_legend_item.html",
+                {
+                    "name": _("Offline Accesses"),
+                    "color": language_color.OFFLINE_ACCESS,
+                },
+            ),
+            render_to_string(
+                "statistics/_statistics_legend_item.html",
+                {
+                    "name": _("WebApp Accesses"),
+                    "color": language_color.WEB_APP_ACCESS,
+                },
+            ),
+            render_to_string(
+                "statistics/_statistics_legend_item.html",
+                {
+                    "name": _("Total Accesses"),
+                    "color": language_color.TOTAL_ACCESS,
+                },
+            ),
+        ]
+        return data_entries, legend_entries

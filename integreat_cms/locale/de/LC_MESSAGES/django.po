@@ -2252,6 +2252,17 @@ msgstr ""
 "geklont und nicht auf Entwurf gesetzt."
 
 #: cms/forms/regions/region_form.py
+msgid "Copy languages and content translations"
+msgstr "Sprachen und Übersetzungen kopieren"
+
+#: cms/forms/regions/region_form.py
+msgid ""
+"Disable to skip copying of the language tree and all content translations."
+msgstr ""
+"Abwählen, um das Kopieren des Sprachbaums und aller Inhaltsübersetzungen zu "
+"überspringen."
+
+#: cms/forms/regions/region_form.py
 msgid "Page based offers cloning behavior"
 msgstr "Klonverhalten für seitenbasierte Angebote"
 
@@ -2554,7 +2565,7 @@ msgstr "Region"
 msgid "creation date"
 msgstr "Erstellungsdatum"
 
-#: cms/models/abstract_content_translation.py cms/models/contact/contact.py
+#: cms/models/abstract_content_translation.py
 #: cms/models/push_notifications/push_notification_translation.py
 msgid "title"
 msgstr "Titel"
@@ -2707,6 +2718,10 @@ msgstr "Nutzer-Chat"
 msgid "user chats"
 msgstr "Nutzer-Chats"
 
+#: cms/models/contact/contact.py
+msgid "point of contact for"
+msgstr "Ansprechperson für"
+
 #: cms/models/contact/contact.py cms/models/media/directory.py
 #: cms/models/media/media_file.py cms/models/offers/offer_template.py
 #: cms/models/regions/region.py cms/models/users/organization.py
@@ -2743,6 +2758,26 @@ msgid "Whether or not the location is read-only and hidden in the API."
 msgstr "Ob der Ort schreibgeschützt und in der API verborgen ist oder nicht."
 
 #: cms/models/contact/contact.py
+msgid "with point of contact for: {}"
+msgstr "mit Ansprechperson für: {}"
+
+#: cms/models/contact/contact.py
+msgid "with name: {}"
+msgstr "mit Name: {}"
+
+#: cms/models/contact/contact.py
+msgid "with email: {}"
+msgstr "mit E-Mail-Adresse: {}"
+
+#: cms/models/contact/contact.py
+msgid "with phone number: {}"
+msgstr "mit Telefonnummer: {}"
+
+#: cms/models/contact/contact.py
+msgid "with website: {}"
+msgstr "mit Website: {}"
+
+#: cms/models/contact/contact.py
 msgid "(Copy)"
 msgstr "(Kopie)"
 
@@ -2755,16 +2790,18 @@ msgid "contacts"
 msgstr "Kontakte"
 
 #: cms/models/contact/contact.py
-msgid "Only one contact per location can have an empty title."
-msgstr "Nur ein Kontakt per Ort darf leeren Titel haben."
+msgid "Only one contact per location can have an empty point of contact."
+msgstr ""
+"Pro Ort darf nur ein Kontakt ohne Angabe, wofür die Ansprechperson zuständig "
+"ist, eingetragen werden."
 
 #: cms/models/contact/contact.py
 msgid ""
-"One of the following fields must be filled: title, name, e-mail, phone "
-"number, website."
+"One of the following fields must be filled: point of contact for, name, e-"
+"mail, phone number, website."
 msgstr ""
-"Eines der folgenden Felder muss ausgefüllt werden: Title, Name, E-mail, "
-"Telefonnummer, Website."
+"Eines der folgenden Felder muss ausgefüllt werden: Ansprechperson für, Name, "
+"E-Mail, Telefonnummer, Website."
 
 #: cms/models/events/event.py
 msgid "start"
@@ -4812,6 +4849,36 @@ msgstr "Automatisch den Titel des verlinkten Inhalts als Linktext verwenden"
 msgid "Media Library..."
 msgstr "Medienbibliothek..."
 
+#: cms/templates/ajax_poi_form/_poi_address_container.html
+#: cms/templates/pois/poi_form_sidebar/position_box.html
+msgid "Address"
+msgstr "Adresse"
+
+#: cms/templates/ajax_poi_form/_poi_address_container.html
+msgid "Open on Google Maps"
+msgstr "Auf Google Maps öffnen"
+
+#: cms/templates/ajax_poi_form/_poi_address_container.html
+#: cms/templates/pois/poi_form_sidebar/contact_box.html
+msgid "Contact details"
+msgstr "Kontaktdaten"
+
+#: cms/templates/ajax_poi_form/_poi_address_container.html
+msgid "E-mail address: "
+msgstr "E-Mail-Adresse: "
+
+#: cms/templates/ajax_poi_form/_poi_address_container.html
+msgid "Not provided"
+msgstr "Keine Angabe"
+
+#: cms/templates/ajax_poi_form/_poi_address_container.html
+msgid "Phone number: "
+msgstr "Telefonnummer: "
+
+#: cms/templates/ajax_poi_form/_poi_address_container.html
+msgid "Website: "
+msgstr "Website: "
+
 #: cms/templates/ajax_poi_form/_poi_form_widget.html
 #: cms/templates/events/event_form.html cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_form.html
@@ -4826,36 +4893,6 @@ msgstr "Name des Ortes"
 #: cms/templates/ajax_poi_form/poi_box.html
 msgid "Remove location"
 msgstr "Ort entfernen"
-
-#: cms/templates/ajax_poi_form/poi_box.html
-#: cms/templates/pois/poi_form_sidebar/position_box.html
-msgid "Address"
-msgstr "Adresse"
-
-#: cms/templates/ajax_poi_form/poi_box.html
-msgid "Open on Google Maps"
-msgstr "Auf Google Maps öffnen"
-
-#: cms/templates/ajax_poi_form/poi_box.html
-#: cms/templates/pois/poi_form_sidebar/contact_box.html
-msgid "Contact details"
-msgstr "Kontaktdaten"
-
-#: cms/templates/ajax_poi_form/poi_box.html
-msgid "E-mail address: "
-msgstr "E-Mail-Adresse: "
-
-#: cms/templates/ajax_poi_form/poi_box.html
-msgid "Not provided"
-msgstr "Keine Angabe"
-
-#: cms/templates/ajax_poi_form/poi_box.html
-msgid "Phone number: "
-msgstr "Telefonnummer: "
-
-#: cms/templates/ajax_poi_form/poi_box.html
-msgid "Website: "
-msgstr "Website: "
 
 #: cms/templates/ajax_poi_form/poi_box.html
 msgid "The new location was successfully created."
@@ -5218,11 +5255,9 @@ msgid "Manage contact data"
 msgstr "Kontaktdaten verwalten"
 
 #: cms/templates/contacts/contact_form.html
-msgid ""
-"Add missing data or change existing data. Select the data you want to import."
+msgid "Enter the data you wish to store for the contact here."
 msgstr ""
-"Ergänzen Sie fehlende Daten oder ändern bestehende Daten. Wählen Sie die "
-"Daten aus, die übernommen werden sollen."
+"Tragen Sie hier die Daten ein, die Sie für den Kontakt hinterlegen möchten."
 
 #: cms/templates/contacts/contact_form.html
 msgid "Contact information"
@@ -5285,10 +5320,12 @@ msgid "Create contact"
 msgstr "Kontakt erstellen"
 
 #: cms/templates/contacts/contact_list.html
-#: cms/templates/pages/_page_xliff_import_diff.html
-#: cms/templates/push_notifications/push_notification_list.html
-msgid "Title"
-msgstr "Titel"
+msgid "Name of related location"
+msgstr "Name des verlinkten Ortes"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Point of contact for"
+msgstr "Ansprechperson für"
 
 #: cms/templates/contacts/contact_list.html
 #: cms/templates/events/external_calendar_list.html
@@ -5299,10 +5336,6 @@ msgstr "Titel"
 #: cms/templates/regions/region_list.html cms/templates/roles/role_list.html
 msgid "Name"
 msgstr "Name"
-
-#: cms/templates/contacts/contact_list.html
-msgid "Name of related location"
-msgstr "Name des Veranstaltungsortes"
 
 #: cms/templates/contacts/contact_list.html
 msgid "E-Mail"
@@ -5908,6 +5941,12 @@ msgstr "Diese Veranstaltung löschen"
 #: cms/templates/events/event_form_sidebar/date_and_time_box.html
 msgid "Date and time"
 msgstr "Datum und Uhrzeit"
+
+#: cms/templates/events/event_form_sidebar/minor_edit_box.html
+#: cms/templates/pages/page_form_sidebar/minor_edit_box.html
+#: cms/templates/pois/poi_form_sidebar/minor_edit_box.html
+msgid "Select all languages"
+msgstr "Alle Sprachen auswählen"
 
 #: cms/templates/events/event_list.html
 #: cms/templates/events/event_list_archived.html
@@ -7053,6 +7092,11 @@ msgstr "Quellcode"
 msgid "No changes detected."
 msgstr "Keine Änderungen vorgenommen."
 
+#: cms/templates/pages/_page_xliff_import_diff.html
+#: cms/templates/push_notifications/push_notification_list.html
+msgid "Title"
+msgstr "Titel"
+
 #: cms/templates/pages/page_form.html
 #, python-format
 msgid "Edit page \"%(page_title)s\""
@@ -7188,10 +7232,6 @@ msgid ""
 msgstr ""
 "Um automatische Übersetzungen nutzen zu können, muss der HIX-Wert mindestens "
 "%(minimum_hix)s betragen."
-
-#: cms/templates/pages/page_form_sidebar/minor_edit_box.html
-msgid "Select all languages"
-msgstr "Alle Sprachen auswählen"
 
 #: cms/templates/pages/page_form_sidebar/settings_box.html
 msgid "Settings of the page"
@@ -8332,6 +8372,14 @@ msgstr "Trennen"
 msgid "Register authenticator app"
 msgstr "Authenticator-App registrieren"
 
+#: cms/templates/statistics/_statistics_legend.html
+msgid "Shown languages"
+msgstr "Angezeigte Sprachen"
+
+#: cms/templates/statistics/_statistics_legend.html
+msgid "Accesses"
+msgstr "Zugriffe"
+
 #: cms/templates/statistics/_statistics_widget.html
 msgid "Number of total accesses over the last 14 days."
 msgstr "Anzahl der Gesamtzugriffe der letzten 14 Tage."
@@ -8346,10 +8394,8 @@ msgid "Total accesses"
 msgstr "Gesamtzugriffe"
 
 #: cms/templates/statistics/statistics_overview.html
-msgid "Individual languages can be hidden by clicking on the labels."
-msgstr ""
-"Einzelne Sprachen können durch Anklicken der Beschriftungen ausgeblendet "
-"werden."
+msgid "Adjust shown data"
+msgstr "Angezeigte Daten anpassen"
 
 #: cms/templates/statistics/statistics_overview.html
 msgid "Adjust time period"
@@ -9064,13 +9110,13 @@ msgid ""
 "Select a location to use for your contact or create a new location. Only "
 "published locations can be set."
 msgstr ""
-"Wählen Sie einen Ort aus, der für ihren Kontakt verwendet werden soll oder "
+"Wählen Sie einen Ort aus, der für Ihren Kontakt verwendet werden soll oder "
 "erstellen Sie einen neuen Ort. Nur veröffentlichte Orte können verwendet "
 "werden."
 
 #: cms/views/contacts/contact_form_view.py
-msgid "Contact \"{}\" was successfully created"
-msgstr "Kontakt \"{}\" wurde erfolgreich erstellt"
+msgid "Contact for \"{}\" was successfully created"
+msgstr "Kontakt für \"{}\" wurde erfolgreich erstellt"
 
 #: cms/views/contacts/contact_form_view.py cms/views/content_version_view.py
 #: cms/views/events/event_form_view.py cms/views/pages/page_form_view.py
@@ -9079,8 +9125,8 @@ msgid "No changes detected, but date refreshed"
 msgstr "Keine Änderungen vorgenommen, aber Datum aktualisiert"
 
 #: cms/views/contacts/contact_form_view.py
-msgid "Contact \"{}\" was successfully saved"
-msgstr "Kontakt \"{}\" wurde erfolgreich gespeichert"
+msgid "Contact for \"{}\" was successfully saved"
+msgstr "Kontakt für \"{}\" wurde erfolgreich gespeichert"
 
 #: cms/views/content_version_view.py
 msgid "Back to the form"
@@ -9167,6 +9213,12 @@ msgid "Event was successfully archived"
 msgstr "Veranstaltung wurde erfolgreich archiviert"
 
 #: cms/views/events/event_actions.py
+msgid "Event couldn't be copied because it's from an external calendar"
+msgstr ""
+"Sie können diese Veranstaltung nicht kopieren, weil sie von einem externen "
+"Kalender importiert worden ist."
+
+#: cms/views/events/event_actions.py
 msgid "Event was successfully copied"
 msgstr "Veranstaltung wurde erfolgreich kopiert"
 
@@ -9211,6 +9263,11 @@ msgstr ""
 "Erstellen Sie einen Ort oder beginnen Sie den Namen eines bestehenden "
 "Veranstaltungsortes einzutippen. Nur veröffentlichte Orte können als "
 "Veranstaltungsorte verwendet werden."
+
+#: cms/views/events/event_context_mixin.py
+msgid "An event from an external calendar can't be copied."
+msgstr ""
+"Eine Veranstaltung aus einem externen Kalendar kann nicht kopiert werden."
 
 #: cms/views/events/event_form_view.py
 msgid "You cannot edit this event because it is archived."
@@ -10438,6 +10495,10 @@ msgid "Number of low hix pages"
 msgstr "Anzahl Seiten mit niedrigem HIX-Wert"
 
 #: cms/views/region_condition/region_condition_actions.py
+msgid "Number of pages"
+msgstr "Anzahl an Seiten"
+
+#: cms/views/region_condition/region_condition_actions.py
 msgid "Number of pages with at least one missing or outdated translation"
 msgstr ""
 "Anzahl Seiten mit mindestens einer fehlenden oder veralteten Übersetzung"
@@ -10794,16 +10855,16 @@ msgid "Total Accesses"
 msgstr "Alle Zugriffe"
 
 #: matomo_api/matomo_api_client.py
+msgid "CW"
+msgstr "KW"
+
+#: matomo_api/matomo_api_client.py
 msgid "Offline Accesses"
 msgstr "Offline Zugriffe"
 
 #: matomo_api/matomo_api_client.py
 msgid "WebApp Accesses"
 msgstr "WebApp Zugriffe"
-
-#: matomo_api/matomo_api_client.py
-msgid "CW"
-msgstr "KW"
 
 #: nominatim_api/apps.py
 msgid "Nominatim API"
@@ -10972,11 +11033,40 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "{}{}"
+#~ msgstr "{}{}"
+
+#~ msgid " "
+#~ msgstr " "
+
+#, python-format
+#~ msgid "%s %s"
+#~ msgstr "%s %s"
+
+#, python-format
+#~ msgid "%s with %s"
+#~ msgstr "%s mit %s"
+
+#~ msgid "Individual languages can be hidden by clicking on the labels."
+#~ msgstr ""
+#~ "Einzelne Sprachen können durch Anklicken der Beschriftungen ausgeblendet "
+#~ "werden."
+
+#~ msgid "Copy"
+#~ msgstr "(Kopie)"
+
 #~ msgid "Number of online accesses"
 #~ msgstr "Anzahl der Online-Zugriffe"
 
 #~ msgid "Created by"
 #~ msgstr "Erstellt von"
+
+#~ msgid ""
+#~ "Add missing data or change existing data. Select the data you want to "
+#~ "import."
+#~ msgstr ""
+#~ "Ergänzen Sie fehlende Daten oder ändern bestehende Daten. Wählen Sie die "
+#~ "Daten aus, die übernommen werden sollen."
 
 #~ msgid "E-mail from location"
 #~ msgstr "E-mail des Ortes"

@@ -51,6 +51,9 @@ class EventContextMixin(ContextMixin):
                 "help_text": _(
                     "Create an event location or start typing the name of an existing location. Only published locations can be set as event venues."
                 ),
+                "cannot_copy_title": _(
+                    "An event from an external calendar can't be copied."
+                ),
             }
         )
         return context

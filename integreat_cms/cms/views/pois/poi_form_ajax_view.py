@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
+from django.template.loader import render_to_string
 from django.views.generic import TemplateView
 
 from ...forms import POIForm, POITranslationForm
@@ -94,8 +95,7 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
         if not poi_form.is_valid() or not poi_translation_form.is_valid():
             return JsonResponse(
                 data={
-                    "poi_form": poi_form.get_error_messages(),
-                    "poit_ranslation_form": poi_translation_form.get_error_messages(),
+                    "success": False,
                 }
             )
 
@@ -104,7 +104,10 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
 
         return JsonResponse(
             data={
-                "success": "Successfully created location",
-                "id": poi_form.instance.id,
+                "success": True,
+                "poi_address_container": render_to_string(
+                    "ajax_poi_form/_poi_address_container.html",
+                    {"poi": poi_translation_form.instance.poi},
+                ),
             }
         )

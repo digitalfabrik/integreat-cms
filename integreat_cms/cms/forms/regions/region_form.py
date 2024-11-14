@@ -114,6 +114,15 @@ class RegionForm(CustomModelForm):
         ),
     )
 
+    duplication_keep_translations = forms.BooleanField(
+        required=False,
+        label=_("Copy languages and content translations"),
+        help_text=_(
+            "Disable to skip copying of the language tree and all content translations."
+        ),
+        initial=True,
+    )
+
     duplication_pbo_behavior = forms.ChoiceField(
         choices=duplicate_pbo_behaviors.CHOICES,
         initial=duplicate_pbo_behaviors.ACTIVATE,
@@ -271,6 +280,7 @@ class RegionForm(CustomModelForm):
         if duplicate_region:
             source_region = self.cleaned_data["duplicated_region"]
             keep_status = self.cleaned_data["duplication_keep_status"]
+            keep_translations = self.cleaned_data["duplication_keep_translations"]
 
             # Determine offers to force activate or to skip when cloning pages
             required_offers = OfferTemplate.objects.filter(pages__region=source_region)
@@ -292,7 +302,9 @@ class RegionForm(CustomModelForm):
 
             # Duplicate language tree
             logger.info("Duplicating language tree of %r to %r", source_region, region)
-            duplicate_language_tree(source_region, region)
+            duplicate_language_tree(
+                source_region, region, only_root=not keep_translations
+            )
             # Disable linkcheck listeners to prevent links to be created for outdated versions
             with disable_listeners():
                 # Duplicate pages
@@ -302,6 +314,7 @@ class RegionForm(CustomModelForm):
                     region,
                     keep_status=keep_status,
                     offers_to_discard=offers_to_discard,
+                    only_root=not keep_translations,
                 )
                 # Duplicate Imprint
                 if source_region.imprint:
@@ -655,6 +668,7 @@ def duplicate_language_tree(
     source_parent: LanguageTreeNode | None = None,
     target_parent: LanguageTreeNode | None = None,
     logging_prefix: str = "",
+    only_root: bool = False,
 ) -> None:
     """
     Function to duplicate the language tree of one region to another.
@@ -669,6 +683,7 @@ def duplicate_language_tree(
     :param source_parent: The current parent node id of the recursion
     :param target_parent: The node of the target region which is the duplicate of the source parent node
     :param logging_prefix: recursion level to get a pretty log output
+    :param only_root: Set if only the root node should be copied, not its children
     """
     logger.debug(
         "%s Duplicating child nodes",
@@ -689,7 +704,7 @@ def duplicate_language_tree(
             "  " if i == num_source_nodes - 1 else "│  "
         )
         if target_parent:
-            # If the target parent already exist, we inherit its tree id for all its sub nodes
+            # If the target parent already exists, we inherit its tree id for all its sub nodes
             target_tree_id = target_parent.tree_id
         else:
             # If the language tree node is a root node, we need to assign a new tree id
@@ -709,6 +724,11 @@ def duplicate_language_tree(
         target_node.tree_id = target_tree_id
         # Delete the primary key to force an insert
         target_node.pk = None
+        # Fix lft and rgt of the tree if the children of this node should not be cloned
+        # Otherwise, the tree structure will be inconsistent
+        if only_root:
+            target_node.lft = 1
+            target_node.rgt = 2
         # Check if the resulting node is valid
         target_node.full_clean()
         # Save the duplicated node
@@ -718,7 +738,7 @@ def duplicate_language_tree(
             row_logging_prefix + ("└─" if source_node.is_leaf() else "├─"),
             target_node,
         )
-        if not source_node.is_leaf():
+        if not (source_node.is_leaf() or only_root):
             # Call the function recursively for all children of the current node
             duplicate_language_tree(
                 source_region,
@@ -729,7 +749,7 @@ def duplicate_language_tree(
             )
 
 
-# pylint: disable=too-many-locals, too-many-positional-arguments
+# pylint: disable=too-many-locals,too-many-positional-arguments,too-many-arguments
 def duplicate_pages(
     source_region: Region,
     target_region: Region,
@@ -738,6 +758,7 @@ def duplicate_pages(
     logging_prefix: str = "",
     keep_status: bool = False,
     offers_to_discard: QuerySet[OfferTemplate] | None = None,
+    only_root: bool = False,
 ) -> None:
     """
     Function to duplicate all non-archived pages from one region to another
@@ -754,6 +775,7 @@ def duplicate_pages(
     :param logging_prefix: Recursion level to get a pretty log output
     :param keep_status: Parameter to indicate whether the status of the cloned pages should be kept
     :param offers_to_discard: Offers which might be embedded in the source region, but not in the target region
+    :param only_root: Set if only the root node should be copied, not its children
     """
 
     logger.debug(
@@ -832,6 +854,7 @@ def duplicate_pages(
                 row_logging_prefix,
                 keep_status,
                 offers_to_discard,
+                only_root,
             )
 
 
@@ -851,7 +874,11 @@ def duplicate_page_translations(
         logging_prefix + ("└─" if source_page.is_leaf() else "├─"),
     )
     # Clone all page translations of the source page
-    source_page_translations = source_page.translations.all()
+    source_page_translations = source_page.translations.filter(
+        language__in=[
+            node.language for node in target_page.region.language_tree_nodes.all()
+        ]
+    )
     num_translations = len(source_page_translations)
     translation_row_logging_prefix = logging_prefix + (
         "  " if source_page.is_leaf() else "│  "
@@ -877,12 +904,15 @@ def duplicate_page_translations(
         )
 
 
-def duplicate_imprint(source_region: Region, target_region: Region) -> None:
+def duplicate_imprint(
+    source_region: Region, target_region: Region, only_root: bool = False
+) -> None:
     """
     Function to duplicate the imprint from one region to another.
 
     :param source_region: the source region from which the imprint should be duplicated
     :param target_region: the target region
+    :param only_root: Set if only the root node should be copied, not its children
     """
     source_imprint = source_region.imprint
     target_imprint = deepcopy(source_imprint)
@@ -893,6 +923,9 @@ def duplicate_imprint(source_region: Region, target_region: Region) -> None:
     target_imprint.full_clean()
 
     target_imprint.save()
+
+    if only_root:
+        return
 
     # Duplicate imprint translations by iterating to all existing ones
     source_page_translations = source_imprint.translations.all()

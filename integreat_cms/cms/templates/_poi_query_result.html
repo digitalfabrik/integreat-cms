@@ -13,15 +13,8 @@
             {% for poi in poi_query_result %}
                 <option class="option-existing-poi hover:bg-gray-200 cursor-pointer"
                         title="{{ poi.address }}, {{ poi.postcode }} {{ poi.city }}"
-                        data-poi-title="{{ poi|poi_translation_title:current_language }}"
-                        data-poi-id="{{ poi.id }}"
-                        data-poi-address="{{ poi.address }}"
-                        data-poi-postcode="{{ poi.postcode }}"
-                        data-poi-city="{{ poi.city }}"
-                        data-poi-country="{{ poi.country }}"
-                        data-poi-email="{{ poi.email }}"
-                        data-poi-phone_number="{{ poi.phone_number }}"
-                        data-poi-website="{{ poi.website }}">
+                        data-poi-address="{% render_poi_address poi %}"
+                        data-poi-title="{{ poi|poi_translation_title:current_language }}">
                     {{ poi|poi_translation_title:current_language }}
                 </option>
             {% endfor %}

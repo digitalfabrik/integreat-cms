@@ -29,6 +29,12 @@ if TYPE_CHECKING:
     from ..users.user import User
 
 
+class CouldNotBeCopied(Exception):
+    """
+    Exception for events that can't be copied
+    """
+
+
 class EventQuerySet(ContentQuerySet):
     """
     Custom QuerySet to facilitate the filtering by date while taking recurring events into account.
@@ -251,7 +257,12 @@ class Event(AbstractContentModel):
 
         :param user: The user who initiated this copy
         :return: A copy of this event
+
+        :raises CouldNotBeCopied: When event can't be copied
         """
+        if self.external_calendar:
+            raise CouldNotBeCopied
+
         # save all translations on the original object, so that they can be copied later
         translations = list(self.translations.all())
 
