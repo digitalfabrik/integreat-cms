@@ -172,16 +172,16 @@
                 </option>
                 {% if view.kwargs.url_filter == 'ignored' %}
                     <option value="unignore"
-                            data-bulk-action="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %} {{ pagination_params }}">
+                            data-bulk-action="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %}{{ pagination_params }}">
                         {% translate "Unignore" %}
                     </option>
                 {% else %}
                     <option value="recheck"
-                            data-bulk-action="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %} {{ pagination_params }}">
+                            data-bulk-action="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %}{{ pagination_params }}">
                         {% translate "Recheck" %}
                     </option>
                     <option value="ignore"
-                            data-bulk-action="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %} {{ pagination_params }}">
+                            data-bulk-action="{% url_for_current_region 'linkcheck' request url_filter=view.kwargs.url_filter %}{{ pagination_params }}">
                         {% translate "Ignore" %}
                     </option>
                 {% endif %}
