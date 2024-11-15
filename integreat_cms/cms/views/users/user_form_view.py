@@ -10,6 +10,9 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
+from integreat_cms.cms.constants.roles import OBSERVER
+from integreat_cms.cms.views.utils.user import get_pages_observer_has_access_to
+
 from ...decorators import permission_required
 from ...forms import UserForm
 from ...utils.welcome_mail_utils import send_welcome_mail
@@ -43,7 +46,6 @@ class UserFormView(TemplateView):
         :param \**kwargs: The supplied keyword arguments
         :return: The rendered template response
         """
-
         user = get_user_model().objects.filter(id=kwargs.get("user_id")).first()
 
         user_form = UserForm(instance=user)
@@ -51,12 +53,20 @@ class UserFormView(TemplateView):
         if user and not user.is_active:
             messages.info(request, _("Pending account activation"))
 
+        access_data = get_pages_observer_has_access_to(user)
+        if user and user.groups:
+            is_observer = OBSERVER in [group.name for group in user.groups.all()]
+        else:
+            is_observer = False
+
         return render(
             request,
             self.template_name,
             {
                 **self.get_context_data(**kwargs),
                 "user_form": user_form,
+                "access_data": access_data,
+                "user_is_observer": is_observer,
             },
         )
 
@@ -75,15 +85,20 @@ class UserFormView(TemplateView):
 
         user_form = UserForm(data=request.POST, instance=user_instance)
 
+        if user_instance and user_instance.groups:
+            is_observer = OBSERVER in [
+                group.name for group in user_instance.groups.all()
+            ]
+        else:
+            is_observer = False
+
         if not user_form.is_valid():
-            # Add error messages
             user_form.add_error_messages(request)
         elif not (
             user_form.cleaned_data["is_superuser"]
             or user_form.cleaned_data["is_staff"]
             or user_form.cleaned_data["regions"]
         ):
-            # Add error message
             messages.error(
                 request,
                 _(
@@ -104,7 +119,6 @@ class UserFormView(TemplateView):
                 _("Only superusers can enable or disable passwordless authentication."),
             )
         elif not user_form.has_changed():
-            # Add "no changes" messages
             messages.info(request, _("No changes made"))
         else:
             # Save forms
@@ -140,5 +154,6 @@ class UserFormView(TemplateView):
             {
                 **self.get_context_data(**kwargs),
                 "user_form": user_form,
+                "user_is_observer": is_observer,
             },
         )
