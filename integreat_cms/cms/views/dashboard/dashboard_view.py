@@ -265,7 +265,13 @@ class DashboardView(TemplateView, ChatContextMixin):
             language=request.region.default_language
         )
 
-        pages_in_region = Page.objects.filter(region=request.region)
+        pages_in_region = Page.objects.filter(
+            region=request.region, explicitly_archived=False
+        )
+        for page in pages_in_region:
+            if page.implicitly_archived:
+                pages_in_region.exclude(id=page.id)
+
         possible_translations = languages.count() * pages_in_region.count()
 
         published_foreign_translations = (
