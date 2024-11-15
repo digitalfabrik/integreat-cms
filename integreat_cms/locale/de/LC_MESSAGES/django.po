@@ -47,7 +47,7 @@ msgstr "Landkreis"
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/languages/region_list_section/region_list.html
 #: cms/templates/region_condition/region_condition.html
-#: cms/templates/users/user_list.html
+#: cms/templates/users/user_form.html cms/templates/users/user_list.html
 #: cms/views/region_condition/region_condition_actions.py
 msgid "Region"
 msgstr "Region"
@@ -1708,11 +1708,12 @@ msgstr "Archiviert"
 msgid "Manager"
 msgstr "Verwalter:in"
 
-#: cms/constants/roles.py
+#: cms/constants/roles.py cms/views/users/user_form_view.py
 msgid "Editor"
 msgstr "Redakteur:in"
 
 #: cms/constants/roles.py cms/templates/content_versions.html
+#: cms/views/users/user_form_view.py
 msgid "Author"
 msgstr "Autor:in"
 
@@ -2472,7 +2473,8 @@ msgstr ""
 
 #: cms/forms/users/user_filter_form.py cms/forms/users/user_form.py
 #: cms/templates/organizations/organization_form.html
-#: cms/templates/users/region_user_list.html cms/templates/users/user_list.html
+#: cms/templates/users/region_user_list.html cms/templates/users/user_form.html
+#: cms/templates/users/user_list.html
 msgid "Role"
 msgstr "Rolle"
 
@@ -4985,10 +4987,13 @@ msgstr "Medienbibliothek..."
 #: cms/templates/ajax_contact_form/_contact_form_widget.html
 #: cms/templates/contacts/contact_form.html
 msgid ""
-"Currently, the mobile phone number is not displayed in the Integreat App. You "
-"can find more information in the"
+"Currently, the mobile phone number is not displayed in the Integreat App. "
+"You can find more information in the"
 msgstr ""
-"Aktuell wird die Mobiltelefonnummer nicht in der Integreat App angezeigt. Mehr "
+"Aktuell wird die Mobiltelefonnummer nicht in der Integreat App angezeigt. "
+"Mehr Informationen finden Sie imAktuell wird Mobiltelefonnummer nicht in der "
+"Integreat App angezeigt. Mehr Informationen finden Sie imAktuell werden "
+"Kontakte mit Zuständigkeitsbereich nicht im Ort angezeigt. Mehr "
 "Informationen finden Sie im"
 
 #: cms/templates/ajax_poi_form/_poi_address_container.html
@@ -7370,6 +7375,7 @@ msgid "File"
 msgstr "Datei"
 
 #: cms/templates/pages/_page_xliff_import_diff.html
+#: cms/templates/users/user_form.html
 msgid "Page"
 msgstr "Seite"
 
@@ -9019,6 +9025,10 @@ msgstr ""
 #: cms/templates/users/user_form.html
 msgid "Designates whether this account has access to the network management."
 msgstr "Legt fest, ob das Konto Zugriff auf die Netzwerkverwaltung hat."
+
+#: cms/templates/users/user_form.html
+msgid "Assigned to"
+msgstr "Zugewiesen zu"
 
 #: cms/templates/users/user_form.html
 msgid "Preferred regions"
@@ -11692,15 +11702,15 @@ msgstr ""
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
 #~ msgid ""
-#~ "Your pages currently have <b>"
-#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have "
+#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell <b>"
-#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
-#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
-#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell "
+#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
+#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
+#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"
