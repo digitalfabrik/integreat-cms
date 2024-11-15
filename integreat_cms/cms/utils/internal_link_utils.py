@@ -28,7 +28,6 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=compare-to-zero
 def update_link(
     link: Element, target_language_slug: str
 ) -> Optional[tuple[str, Element | str]]:
@@ -62,7 +61,7 @@ def update_link(
 
         # Update the title if it was previously the url, otherwise use the new title
         link_html = None
-        if len(link) == 0 and link.text and current_url.strip() == link.text.strip():
+        if not link and link.text and current_url.strip() == link.text.strip():
             link_html = fixed_link
         elif link.get("data-integreat-auto-update") == "true":
             link_html = target_translation.link_title
