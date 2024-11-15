@@ -5,13 +5,17 @@ from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
+from integreat_cms.cms.constants.roles import OBSERVER
+
 from ...decorators import permission_required
 from ...forms import UserForm
+from ...models import Page
 from ...utils.welcome_mail_utils import send_welcome_mail
 
 if TYPE_CHECKING:
@@ -46,10 +50,27 @@ class UserFormView(TemplateView):
 
         user = get_user_model().objects.filter(id=kwargs.get("user_id")).first()
 
+        pages_user_has_access_to = Page.objects.filter(
+            Q(authors=user) | Q(editors=user)
+        )
+
+        access_data = []
+        for page in pages_user_has_access_to:
+            roles = []
+            if user in page.authors.all():
+                roles.append(_("Author"))
+            if user in page.editors.all():
+                roles.append(_("Editor"))
+            access_data.append(
+                {"page": page, "roles": ", ".join(str(role) for role in roles)}
+            )
+
         user_form = UserForm(instance=user)
 
         if user and not user.is_active:
             messages.info(request, _("Pending account activation"))
+
+        is_observer = OBSERVER in [group.name for group in user.groups.all()]
 
         return render(
             request,
@@ -57,6 +78,8 @@ class UserFormView(TemplateView):
             {
                 **self.get_context_data(**kwargs),
                 "user_form": user_form,
+                "access_data": access_data,
+                "user_is_observer": is_observer,
             },
         )
 
@@ -75,15 +98,15 @@ class UserFormView(TemplateView):
 
         user_form = UserForm(data=request.POST, instance=user_instance)
 
+        is_observer = OBSERVER in user_instance.groups.all()
+
         if not user_form.is_valid():
-            # Add error messages
             user_form.add_error_messages(request)
         elif not (
             user_form.cleaned_data["is_superuser"]
             or user_form.cleaned_data["is_staff"]
             or user_form.cleaned_data["regions"]
         ):
-            # Add error message
             messages.error(
                 request,
                 _(
@@ -104,7 +127,6 @@ class UserFormView(TemplateView):
                 _("Only superusers can enable or disable passwordless authentication."),
             )
         elif not user_form.has_changed():
-            # Add "no changes" messages
             messages.info(request, _("No changes made"))
         else:
             # Save forms
@@ -140,5 +162,6 @@ class UserFormView(TemplateView):
             {
                 **self.get_context_data(**kwargs),
                 "user_form": user_form,
+                "user_is_observer": is_observer,
             },
         )
