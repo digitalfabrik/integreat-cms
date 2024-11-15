@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.db.models import Q
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
@@ -12,6 +13,7 @@ from django.views.generic import TemplateView
 
 from ...decorators import permission_required
 from ...forms import UserForm
+from ...models import Page
 from ...utils.welcome_mail_utils import send_welcome_mail
 
 if TYPE_CHECKING:
@@ -46,6 +48,23 @@ class UserFormView(TemplateView):
 
         user = get_user_model().objects.filter(id=kwargs.get("user_id")).first()
 
+        pages_user_has_access_to = Page.objects.filter(
+            Q(authors=user) | Q(editors=user)
+        )
+
+        access_data = []
+        for page in pages_user_has_access_to:
+            roles = []
+            if user in page.authors.all():
+                roles.append(_("Author"))
+            if user in page.editors.all():
+                roles.append(_("Editor"))
+            access_data.append(
+                {"page": page, "roles": ", ".join(str(role) for role in roles)}
+            )
+
+        print(f"######################{access_data}")
+
         user_form = UserForm(instance=user)
 
         if user and not user.is_active:
@@ -57,6 +76,7 @@ class UserFormView(TemplateView):
             {
                 **self.get_context_data(**kwargs),
                 "user_form": user_form,
+                "access_data": access_data,
             },
         )
 
@@ -74,6 +94,8 @@ class UserFormView(TemplateView):
         )
 
         user_form = UserForm(data=request.POST, instance=user_instance)
+
+        print(f"#### {user_instance }")
 
         if not user_form.is_valid():
             # Add error messages
