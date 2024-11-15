@@ -1,0 +1,30 @@
+{% extends "_collapsible_box.html" %}
+{% load i18n %}
+{% load static %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    trending-up
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% translate "Total accesses" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    <div class="lg:col-span-2 2xl:row-span-2 2xl:col-span-3 bg-white">
+        <div class="p-5 bg-white text-center">
+            <div id="chart-network-error" class="text-red-500 px-4 hidden">
+                <i icon-name="alert-triangle"></i> {% translate "A network error has occurred." %} {% translate "Please try again later." %}
+            </div>
+            <div id="chart-heavy-traffic-error" class="text-red-500 px-4 hidden">
+                <i icon-name="alert-triangle"></i> {% translate "The statistics network is currently experiencing heavy traffic." %} {% translate "Please try again later." %}
+            </div>
+            <div id="chart-server-error" class="text-red-500 px-4 hidden">
+                <i icon-name="alert-triangle"></i> {% translate "A server error has occurred." %} {% translate "Please contact the administrator." %}
+            </div>
+            <div id="chart-loading" class="px-4 hidden">
+                <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
+            </div>
+            <canvas id="statistics"
+                    data-statistics-url="{% url 'statistics_visits_per_language' region_slug=request.region.slug %}"></canvas>
+        </div>
+    </div>
+{% endblock collapsible_box_content %}
