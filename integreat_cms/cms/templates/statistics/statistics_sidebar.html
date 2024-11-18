@@ -14,7 +14,7 @@
         {% endif %}
     </div>
 </div>
-<div class="rounded border border-solid border-blue-500 shadow-2xl bg-white">
+<div class="rounded border border-solid border-blue-500 shadow-2xl bg-white mb-2">
     <div class="rounded p-4 bg-water-500">
         <h3 class="heading font-bold text-black">
             <i icon-name="calendar" class="pb-1"></i> {% translate "Adjust time period" %}
@@ -49,4 +49,33 @@
             {% translate "Customize view" %}
         </button>
     </form>
+</div>
+<div class="rounded border border-solid border-blue-500 shadow-2xl bg-white mb-2">
+    <div class="rounded p-4 bg-water-500">
+        <h3 class="heading font-bold text-black">
+            <i icon-name="download" class="pb-1"></i> {% translate "Export" %}
+        </h3>
+    </div>
+    <div class="flex flex-col gap-4 p-4 pt-2">
+        <label for="export-format">
+            {% translate "Choose format" %}
+        </label>
+        <select id="export-format"
+                data-filename-prefix="{% translate "Statistics" %} {{ request.region.name }}"
+                data-language-column-title="{% translate "Language" %}">
+            <option value="" selected>
+                --- {% translate "please select" %} ---
+            </option>
+            <option value="image">
+                {% translate "Image/PNG" %}
+            </option>
+            <option value="csv">
+                {% translate "Table Document/CSV" %}
+            </option>
+        </select>
+        <button id="export-button" class="btn" disabled>
+            {% translate "Export" %}
+        </button>
+        <a id="export-download-link" class="hidden"></a>
+    </div>
 </div>
