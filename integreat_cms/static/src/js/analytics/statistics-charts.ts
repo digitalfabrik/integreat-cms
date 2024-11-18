@@ -95,7 +95,7 @@ const updateChart = async (): Promise<void> => {
             }
             const items = chart.options.plugins.legend.labels.generateLabels(chart);
             items.forEach((item) => {
-                document.querySelector(`[data-chart-item="${item.text}"]`).addEventListener("change", () => {
+                document.querySelector(`[data-chart-item="${item.text}"]`)?.addEventListener("change", () => {
                     chart.setDatasetVisibility(item.datasetIndex, !chart.isDatasetVisible(item.datasetIndex));
                     chart.update();
                 });
