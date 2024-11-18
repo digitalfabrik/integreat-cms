@@ -14,6 +14,7 @@ if TYPE_CHECKING:
 
     from django.utils.functional import Promise
 
+# The frequencies must adhere to the icalendar naming: https://icalendar.org/iCalendar-RFC-5545/3-3-10-recurrence-rule.html
 
 #: Daily
 DAILY: Final = "DAILY"

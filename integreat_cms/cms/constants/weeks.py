@@ -42,3 +42,6 @@ WEEK_TO_RRULE_WEEK = {
     FOURTH: 4,
     LAST: -1,
 }
+
+#: A mapping from the expected rrule values to our week constants
+RRULE_WEEK_TO_WEEK = {1: FIRST, 2: SECOND, 3: THIRD, 4: FOURTH, -1: LAST}
