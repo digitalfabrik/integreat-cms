@@ -34,23 +34,11 @@ class EventListView(TemplateView, EventContextMixin, MachineTranslationContextMi
     """
 
     #: Template for list of non-archived events
-    template = "events/event_list.html"
-    #: Template for list of archived events
-    template_archived = "events/event_list_archived.html"
+    template_name = "events/event_list.html"
     #: Whether or not to show archived events
     archived = False
     #: The translation model of this list view (used to determine whether machine translations are permitted)
     translation_model = EventTranslation
-
-    @property
-    def template_name(self) -> str:
-        """
-        Select correct HTML template, depending on :attr:`~integreat_cms.cms.views.events.event_list_view.EventListView.archived` flag
-        (see :class:`~django.views.generic.base.TemplateResponseMixin`)
-
-        :return: Path to HTML template
-        """
-        return self.template_archived if self.archived else self.template
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         r"""
@@ -117,5 +105,6 @@ class EventListView(TemplateView, EventContextMixin, MachineTranslationContextMi
                 "search_query": query,
                 "source_language": region.get_source_language(language.slug),
                 "content_type": "events",
+                "is_archive": self.archived,
             },
         )
