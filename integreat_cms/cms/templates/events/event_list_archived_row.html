@@ -82,15 +82,15 @@
         {% endif %}
     </td>
     <td class="py-3 pr-2">
-        <i icon-name="calendar"></i> {{ event.start_local|date:'d.m.Y' }}
+        <span class="whitespace-nowrap pr-2"><i icon-name="calendar"></i> {{ event.start_local|date:'d.m.Y' }}</span>
         {% if not event.is_all_day %}
-            <i icon-name="clock" class="ml-2"></i> {{ event.start_local|date:'H:i' }}
+            <span class="whitespace-nowrap pr-2"><i icon-name="clock"></i> {{ event.start_local|date:'H:i' }}</span>
         {% endif %}
     </td>
     <td class="py-3 pr-2">
-        <i icon-name="calendar"></i> {{ event.end_local|date:'d.m.Y' }}
+        <span class="whitespace-nowrap pr-2"><i icon-name="calendar"></i> {{ event.end_local|date:'d.m.Y' }}</span>
         {% if not event.is_all_day %}
-            <i icon-name="clock" class="ml-2"></i> {{ event.end_local|date:'H:i' }}
+            <span class="whitespace-nowrap pr-2"><i icon-name="clock"></i> {{ event.end_local|date:'H:i' }}</span>
         {% endif %}
     </td>
     <td class="py-3 pr-2">
