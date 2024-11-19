@@ -6,7 +6,13 @@
     chart-column-increasing
 {% endblock collapsible_box_icon %}
 {% block collapsible_box_title %}
-    {% translate "Page views" %}
+    <div class="inline-flex items-center">
+        {% translate "Page views" %}
+        <button data-show-tutorial="page-access-statistics-info"
+                class="hover:text-blue-500 pl-2">
+            <i icon-name="info" class="align-baseline"></i>
+        </button>
+    </div>
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
     <form method="post"
