@@ -7,7 +7,6 @@ from __future__ import annotations
 import json
 import logging
 import random
-import socket
 from typing import TYPE_CHECKING
 
 from django.http import HttpResponse, JsonResponse
@@ -227,10 +226,11 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
     """
     Receive webhooks from Zammad to update the latest article translation
     """
-    zammad_url = (
-        f"https://{socket.getnameinfo((request.META.get('REMOTE_ADDR'), 0), 0)[0]}"
+    region = get_object_or_404(
+        Region, zammad_webhook_token=request.GET.get("token", None)
     )
-    region = get_object_or_404(Region, zammad_url=zammad_url)
+    if not region.integreat_chat_enabled:
+        return JsonResponse({"status": "Integreat Chat disabled"})
     client = ZammadChatAPI(region)
     webhook_message = json.loads(request.body)
     message_text = webhook_message["article"]["body"]
