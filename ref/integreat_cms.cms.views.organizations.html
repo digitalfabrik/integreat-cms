@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-11-01T11:45:13+00:00" />
+    <meta property="article:modified_time" content="2024-11-19T16:26:03+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Organizations &mdash; integreat-cms 2024.11.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -2137,6 +2137,152 @@
 </dd></dl>
 
 </section>
+<section id="organization-bulk-actions">
+<h2>Organization Bulk Actions<a class="headerlink" href="#organization-bulk-actions" title="Link to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.organizations.organization_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">ArchiveBulkAction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/organizations/organization_bulk_actions.py#L33"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.organizations.html#integreat_cms.cms.views.organizations.organization_bulk_actions.OrganizationBulkAction" title="integreat_cms.cms.views.organizations.organization_bulk_actions.OrganizationBulkAction"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganizationBulkAction</span></code></a></p>
+<p>Bulk action for archiving multiple organizations</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/organizations/organization_bulk_actions.py#L38"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Function to archive multiple organizations at once</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The current request</p></li>
+<li><p><strong>*args</strong> (<em>Any</em>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The redirect</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.organizations.organization_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">DeleteBulkAction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/organizations/organization_bulk_actions.py#L123"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.organizations.html#integreat_cms.cms.views.organizations.organization_bulk_actions.OrganizationBulkAction" title="integreat_cms.cms.views.organizations.organization_bulk_actions.OrganizationBulkAction"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganizationBulkAction</span></code></a></p>
+<p>Bulk action for deleting multiple organizations</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">get_permission_required</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><span class="pre">tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/organizations/organization_bulk_actions.py#L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>This method overwrites get_permission_required()
+:return: The needed permission to delete contacts</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)">tuple</a>[<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)">str</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/organizations/organization_bulk_actions.py#L135"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Function to delete multiple organizations at once</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The current request</p></li>
+<li><p><strong>*args</strong> (<em>Any</em>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The redirect</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.organizations.organization_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">OrganizationBulkAction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/organizations/organization_bulk_actions.py#L24"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkActionView</span></code></a></p>
+<p>View for executing organization bulk actions</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">model</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/models/users/organization.py#L25"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>The model of this <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.html#integreat_cms.cms.views.bulk_action_views.BulkActionView" title="integreat_cms.cms.views.bulk_action_views.BulkActionView"><code class="xref py py-class docutils literal notranslate"><span class="pre">BulkActionView</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.BigAutoField" title="(in Django v4.2)"><em>BigAutoField</em></a>) – Primary key: ID</p></li>
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.CharField" title="(in Django v4.2)"><em>CharField</em></a>) – Name</p></li>
+<li><p><strong>slug</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.SlugField" title="(in Django v4.2)"><em>SlugField</em></a>) – Slug. Unique string identifier without spaces and special characters.</p></li>
+<li><p><strong>last_updated</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v4.2)"><em>DateTimeField</em></a>) – Modification date</p></li>
+<li><p><strong>created_date</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.DateTimeField" title="(in Django v4.2)"><em>DateTimeField</em></a>) – Creation date</p></li>
+<li><p><strong>website</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.URLField" title="(in Django v4.2)"><em>URLField</em></a>) – Website</p></li>
+<li><p><strong>archived</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.BooleanField" title="(in Django v4.2)"><em>BooleanField</em></a>) – Archived</p></li>
+</ul>
+</dd>
+</dl>
+<p>Relationship fields:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>icon</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile" title="integreat_cms.cms.models.media.media_file.MediaFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">MediaFile</span></code></a>) – Logo (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.media.html#integreat_cms.cms.models.media.media_file.MediaFile.icon_organizations" title="integreat_cms.cms.models.media.media_file.MediaFile.icon_organizations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">icon_organizations</span></code></a>)</p></li>
+<li><p><strong>region</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> to <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region" title="integreat_cms.cms.models.regions.region.Region"><code class="xref py py-class docutils literal notranslate"><span class="pre">Region</span></code></a>) – Region (related name: <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.regions.html#integreat_cms.cms.models.regions.region.Region.organizations" title="integreat_cms.cms.models.regions.region.Region.organizations"><code class="xref py py-attr docutils literal notranslate"><span class="pre">organizations</span></code></a>)</p></li>
+<li><p><strong>links</strong> (<a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/contrib/contenttypes/#django.contrib.contenttypes.fields.GenericRelation" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">GenericRelation</span></code></a> to <code class="xref py py-class docutils literal notranslate"><span class="pre">Link</span></code>) – Links (related name: <code class="xref py py-attr docutils literal notranslate"><span class="pre">organization</span></code>)</p></li>
+</ul>
+</dd>
+</dl>
+<p>Reverse relationships:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pois</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI" title="integreat_cms.cms.models.pois.poi.POI"><code class="xref py py-class docutils literal notranslate"><span class="pre">POI</span></code></a>) – All pois of this organization (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pois.html#integreat_cms.cms.models.pois.poi.POI.organization" title="integreat_cms.cms.models.pois.poi.POI.organization"><code class="xref py py-attr docutils literal notranslate"><span class="pre">organization</span></code></a>)</p></li>
+<li><p><strong>pages</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page" title="integreat_cms.cms.models.pages.page.Page"><code class="xref py py-class docutils literal notranslate"><span class="pre">Page</span></code></a>) – All pages of this organization (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.pages.html#integreat_cms.cms.models.pages.page.Page.organization" title="integreat_cms.cms.models.pages.page.Page.organization"><code class="xref py py-attr docutils literal notranslate"><span class="pre">organization</span></code></a>)</p></li>
+<li><p><strong>members</strong> (Reverse <a class="reference external" href="https://docs.djangoproject.com/en/4.2/ref/models/fields/#django.db.models.ForeignKey" title="(in Django v4.2)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ForeignKey</span></code></a> from <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User" title="integreat_cms.cms.models.users.user.User"><code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code></a>) – All members of this organization (related name of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.user.User.organization" title="integreat_cms.cms.models.users.user.User.organization"><code class="xref py py-attr docutils literal notranslate"><span class="pre">organization</span></code></a>)</p></li>
+</ul>
+</dd>
+</dl>
+<p>alias of <a class="reference internal" href="../ref-ext/integreat_cms.cms.models.users.html#integreat_cms.cms.models.users.organization.Organization" title="integreat_cms.cms.models.users.organization.Organization"><code class="xref py py-class docutils literal notranslate"><span class="pre">Organization</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">integreat_cms.cms.views.organizations.organization_bulk_actions.</span></span><span class="sig-name descname"><span class="pre">RestoreBulkAction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/organizations/organization_bulk_actions.py#L86"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference internal" href="../ref-ext/integreat_cms.cms.views.organizations.html#integreat_cms.cms.views.organizations.organization_bulk_actions.OrganizationBulkAction" title="integreat_cms.cms.views.organizations.organization_bulk_actions.OrganizationBulkAction"><code class="xref py py-class docutils literal notranslate"><span class="pre">OrganizationBulkAction</span></code></a></p>
+<p>Bulk action for restoring multiple organizations</p>
+<dl class="py method">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">post</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">HttpRequest</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">HttpResponse</span></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/cms/views/organizations/organization_bulk_actions.py#L91"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Function to restore multiple organizations at once</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request</strong> (<em>HttpRequest</em>) – The current request</p></li>
+<li><p><strong>*args</strong> (<em>Any</em>) – The supplied arguments</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – The supplied keyword arguments</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The redirect</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>HttpResponse</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
 <section id="organization-content-mixin">
 <h2>Organization Content Mixin<a class="headerlink" href="#organization-content-mixin" title="Link to this heading"></a></h2>
 <dl class="py class">
@@ -2283,7 +2429,7 @@
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 01, 2024.
+      <span class="lastupdated">Last updated on Nov 19, 2024.
       </span></p>
   </div>
 
