@@ -3,6 +3,11 @@
 {% if request.region.statistics_enabled and perms.cms.view_statistics %}
     {% block content %}
         <div class="row">
+            <div class="col-sm-12">
+                <h1 class="heading">
+                    {% translate "Statistics" %}
+                </h1>
+            </div>
             <div class="xl:flex gap-3 pt-2">
                 <div class="xl:w-3/4">
                     {% include "statistics/statistics_chart.html" with box_id="statistics_chart" %}
