@@ -100,6 +100,20 @@
                 <option>
                     {% translate "Select bulk action" %}
                 </option>
+                {% if is_archive %}
+                    <option data-bulk-action="{% url 'bulk_restore_organization' region_slug=request.region.slug %}">
+                        {% translate "Restore organizations" %}
+                    </option>
+                {% else %}
+                    <option data-bulk-action="{% url 'bulk_archive_organization' region_slug=request.region.slug %}">
+                        {% translate "Archive organizations" %}
+                    </option>
+                {% endif %}
+                {% if perms.cms.delete_organization %}
+                    <option data-bulk-action="{% url 'bulk_delete_organization' region_slug=request.region.slug %}">
+                        {% translate "Delete organizations" %}
+                    </option>
+                {% endif %}
             </select>
             <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
                 {% translate "Execute" %}
