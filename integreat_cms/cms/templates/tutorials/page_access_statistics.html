@@ -1,0 +1,38 @@
+{% extends "../generic_tutorial_dialog.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <!-- Pop-Up Header -->
+    <div class="flex items-center bg-water-500 w-full rounded h-12">
+        <h2 class="flex items-center font-semibold leading-normal pl-2 text-black text-xl">
+            {% translate "Important information about page access" %}
+        </h2>
+    </div>
+    <!-- Pop-Up Content -->
+    <div class="px-4">
+        <p class="mt-4 text-s max-w-fit text-gray-600">
+            {% translate "There is a text here that helps employees to interpret the numbers and statistics appropriately." %}
+        </p>
+        <ul class="list-disc my-2 pl-5 text-s text-gray-600">
+            <li>
+                {% translate "Offline access cannot be counted. This means that even a page with few hits in the list can have higher hits that took place offline." %}
+            </li>
+            <li>
+                {% translate "Pages that contain specific information about seasonal or one-time events (e.g. events or election times) may receive higher traffic during certain periods. Outside these phases, traffic may be lower." %}
+            </li>
+            <li>
+                {% translate "Page views should not be viewed in isolation, but always in the context of the overall communication strategy. A page with few hits can still be an important part of user guidance and information." %}
+            </li>
+            <li>
+                {% translate "Some pages may be rarely visited, but are extremely important for specific target groups (e.g. newcomers, people with special needs). For example, information about special advisory services or integration offers could not be used by the general public, but could be indispensable for the target group." %}
+            </li>
+            <li>
+                {% translate "Content that is no longer current or appears outdated can lead to a decrease in traffic. It is therefore important to regularly check whether content has been updated and how this affects the statistics. Low traffic numbers could indicate that the page is no longer perceived as relevant." %}
+            </li>
+        </ul>
+        <p class="mt-4 text-s max-w-fit text-gray-600">
+            {% translate "You can find more information about this in " %}<a href="{% url 'public:wiki_redirect' %}"
+   class="text-blue-500 underline">{% translate "Wiki" %}</a>
+        </p>
+    </div>
+{% endblock content %}

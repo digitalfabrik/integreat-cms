@@ -154,5 +154,6 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
                     currently_in_translation=True,
                 ).count()
                 > 0,
+                "tutorial_seen": request.user.page_tree_tutorial_seen,
             },
         )

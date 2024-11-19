@@ -63,5 +63,6 @@ class AnalyticsView(TemplateView):
             {
                 **self.get_context_data(**kwargs),
                 "form": form,
+                "tutorial_seen": request.user.statistics_tutorial_seen,
             },
         )

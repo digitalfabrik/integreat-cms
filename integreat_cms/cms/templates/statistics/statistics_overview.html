@@ -6,6 +6,10 @@
             <div class="col-sm-12">
                 <h1 class="heading">
                     {% translate "Statistics" %}
+                    <button data-show-tutorial="page-access-statistics-info"
+                            class="hover:text-blue-500">
+                        <i icon-name="info" class="align-baseline"></i>
+                    </button>
                 </h1>
             </div>
             <div class="xl:flex gap-3 pt-2">
@@ -17,5 +21,6 @@
                 </div>
             </div>
         </div>
+        {% include "../tutorials/page_access_statistics.html" with tutorial_id="page-access-statistics-info" hidden=tutorial_seen %}
     {% endblock content %}
 {% endif %}
