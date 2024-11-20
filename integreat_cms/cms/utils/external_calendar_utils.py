@@ -210,6 +210,10 @@ class RecurrenceRuleData:
         # If it differs from the event start month, it will be silently ignored :(
         recurrence_rule.pop("BYMONTH")
 
+        # WKST currently always has to be monday (or unset, because it defaults do monday)
+        if (wkst := pop_single_value("WKST")) and wkst.lower() != "mo":
+            raise ValueError(f"Currently only recurrence rules with weeks starting on Monday are supported (attempted WKST: {wkst})")
+        
         if len(recurrence_rule) > 0:
             raise ValueError(
                 f"Recurrence rule contained unsupported attribute(s): {list(recurrence_rule.keys())}"
