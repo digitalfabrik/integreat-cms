@@ -112,7 +112,7 @@ class IcalEventData:
         recurrence_rule = None
         if "RRULE" in event:
             recurrence_rule = RecurrenceRuleData.from_ical_rrule(
-                event.decoded("RRULE"), logger
+                recurrence_rule=event.decoded("RRULE"), start=start_date, logger=logger
             )
 
         return cls(
@@ -178,7 +178,9 @@ class RecurrenceRuleData:
     by_set_pos: vInt | None
 
     @classmethod
-    def from_ical_rrule(cls, recurrence_rule: vRecur, logger: logging.Logger) -> Self:
+    def from_ical_rrule(
+        cls, recurrence_rule: vRecur, start: datetime.date, logger: logging.Logger
+    ) -> Self:
         """
         Constructs this class from an ical recurrence rule.
         :return: An instance of this class
@@ -212,8 +214,22 @@ class RecurrenceRuleData:
 
         # WKST currently always has to be monday (or unset, because it defaults do monday)
         if (wkst := pop_single_value("WKST")) and wkst.lower() != "mo":
-            raise ValueError(f"Currently only recurrence rules with weeks starting on Monday are supported (attempted WKST: {wkst})")
-        
+            raise ValueError(
+                f"Currently only recurrence rules with weeks starting on Monday are supported (attempted WKST: {wkst})"
+            )
+
+        if (
+            by_month_day := pop_single_value("BYMONTHDAY")
+        ) and by_month_day != start.day:
+            raise ValueError(
+                f"Month day of recurrence rule does not match month day of event: {by_month_day} and {start.day}"
+            )
+
+        if (by_month := pop_single_value("BYMONTH")) and by_month != start.month:
+            raise ValueError(
+                f"Month of recurrence rule does not match month of event: {by_month} and {start.month}"
+            )
+
         if len(recurrence_rule) > 0:
             raise ValueError(
                 f"Recurrence rule contained unsupported attribute(s): {list(recurrence_rule.keys())}"
