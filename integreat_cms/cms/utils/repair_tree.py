@@ -9,9 +9,9 @@ from collections import deque
 from typing import TYPE_CHECKING
 
 from django.apps import apps
-from django.db import transaction
 
 from .shadow_instance import ShadowInstance
+from .tree_mutex import tree_mutex
 
 if TYPE_CHECKING:
     from typing import Iterable
@@ -22,7 +22,7 @@ if TYPE_CHECKING:
     Page: Model = apps.get_model("cms", "Page")
 
 
-@transaction.atomic
+@tree_mutex("page")
 def repair_tree(
     page_id: Iterable[int] | None = None,
     commit: bool = False,

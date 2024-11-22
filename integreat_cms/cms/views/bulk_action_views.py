@@ -22,6 +22,7 @@ from django.views.generic.list import MultipleObjectMixin
 from ..constants import status
 from ..models import Page, POI
 from ..utils.stringify_list import iter_to_string
+from ..utils.tree_mutex import tree_mutex
 from .utils.publication_status import change_publication_status
 
 if TYPE_CHECKING:
@@ -269,6 +270,7 @@ class BulkArchiveView(BulkActionView):
     Bulk action for restoring multiple objects at once
     """
 
+    @tree_mutex("page")
     def post(
         self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponseRedirect:
@@ -365,6 +367,7 @@ class BulkRestoreView(BulkActionView):
     Bulk action for restoring multiple objects at once
     """
 
+    @tree_mutex("page")
     def post(
         self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponseRedirect:

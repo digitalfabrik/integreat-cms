@@ -10,7 +10,6 @@ from typing import TYPE_CHECKING
 
 from cacheops import invalidate_obj
 from django.contrib import messages
-from django.db import transaction
 from django.db.models import ProtectedError
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import gettext_lazy as _
@@ -20,6 +19,7 @@ from treebeard.exceptions import InvalidMoveToDescendant, InvalidPosition
 from ...constants import position
 from ...decorators import permission_required
 from ...models import LanguageTreeNode
+from ...utils.tree_mutex import tree_mutex
 
 if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponseRedirect
@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 
 @require_POST
 @permission_required("cms.change_languagetreenode")
-@transaction.atomic
+@tree_mutex("languagetreenode")
 def move_language_tree_node(
     request: HttpRequest,
     region_slug: str,
@@ -85,7 +85,7 @@ def move_language_tree_node(
 
 @require_POST
 @permission_required("cms.delete_languagetreenode")
-@transaction.atomic
+@tree_mutex("languagetreenode")
 def delete_language_tree_node(
     request: HttpRequest, region_slug: str, pk: int
 ) -> HttpResponseRedirect:
