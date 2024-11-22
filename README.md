@@ -7,6 +7,7 @@
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 # Integreat Django CMS
+#
 
 [![Logo](.github/logo.png) Integreat - The mobile guide for newcomers.](https://integreat-app.de/en/) Multilingual. Offline. Open Source.
 
@@ -93,7 +94,7 @@ and then start your code editor (`code .`, `nvim`,...) from within that same she
 On MacOS, installing `libmagic` separately through `brew install libmagic` might be required.
 
 ### CMS configuration file
-After setup you will be able to run the cms with most of it's functionality. In order to use a couple of features like translations or the HIX value, you need to set some settings which can be defined in a configuration file. It should be located at `/etc/integreat-cms.ini`. If you want to place the file at a different location, pass the absolute path via the environment variable `INTEGREAT_CMS_CONFIG`. An example file is located at `example-configs` in the project folder. 
+After setup you will be able to run the cms with most of it's functionality. In order to use a couple of features like translations or the HIX value, you need to set some settings which can be defined in a configuration file. It should be located at `/etc/integreat-cms.ini`. If you want to place the file at a different location, pass the absolute path via the environment variable `INTEGREAT_CMS_CONFIG`. An example file is located at `example-configs` in the project folder.
 All these settings can also be configured via environment variables with the prefix `INTEGREAT_CMS_`, e.g. `INTEGREAT_CMS_SECRET_KEY`.
 
 #### Using a CMS configuration file with devcontainer
