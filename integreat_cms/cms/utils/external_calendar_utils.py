@@ -208,10 +208,6 @@ class RecurrenceRuleData:
         by_day = recurrence_rule.pop("BYDAY")
         by_set_pos = pop_single_value("BYSETPOS")
 
-        # ByMonth cannot be handled right now, but it is sometimes included with yearly repeating events, so we have to pop it.
-        # If it differs from the event start month, it will be silently ignored :(
-        recurrence_rule.pop("BYMONTH")
-
         # WKST currently always has to be monday (or unset, because it defaults do monday)
         if (wkst := pop_single_value("WKST")) and wkst.lower() != "mo":
             raise ValueError(
