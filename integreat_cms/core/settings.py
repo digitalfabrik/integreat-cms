@@ -20,7 +20,8 @@ from django.contrib.messages.constants import SUCCESS
 from django.core.exceptions import ImproperlyConfigured
 from django.utils.translation import gettext_lazy as _
 
-from ..nominatim_api.utils import BoundingBox
+from integreat_cms.nominatim_api.utils import BoundingBox
+
 from .logging_formatter import ColorFormatter, RequestFormatter
 from .utils.strtobool import strtobool
 
@@ -372,6 +373,7 @@ INSTALLED_APPS: Final[list[str]] = [
     "integreat_cms.nominatim_api",
     "integreat_cms.summ_ai_api",
     "integreat_cms.textlab_api",
+    "integreat_cms.integreat_celery",
     # Installed Django apps
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -1335,3 +1337,46 @@ USER_CHAT_WINDOW_LIMIT: Final[int] = 50
 
 #: Zammad ticket group used for Integreat chat messages
 USER_CHAT_TICKET_GROUP: Final[str] = "integreat-chat"
+
+#: Integreat Chat (app) backend server domain
+INTEGREAT_CHAT_BACK_END_DOMAIN = "igchat-inference.tuerantuer.org"
+
+##########
+# CELERY #
+##########
+
+#: Configure Celery to use a custom time zone. The timezone value can be any time zone supported by the pytz library.
+#: If not set the UTC timezone is used. For backwards compatibility there is also a CELERY_ENABLE_UTC setting,
+#: and this is set to false the system local timezone is used instead.
+CELERY_TIMEZONE = "UTC"
+
+#: If True the task will report its status as ``started`` when the task is executed by a worker.
+#: The default value is False as the normal behavior is to not report that level of granularity.
+#: Tasks are either pending, finished, or waiting to be retried.
+#: Having a ``started`` state can be useful for when there are long running tasks
+#: and there’s a need to report what task is currently running.
+CELERY_TASK_TRACK_STARTED = True
+
+#: Task hard time limit in seconds. The worker processing the task will be killed
+#: and replaced with a new one when this is exceeded.
+CELERY_TASK_TIME_LIMIT = 60 * 60 * 1
+
+#: Default broker URL.
+CELERY_BROKER_URL = os.environ.get(
+    "CELERY_REDIS_URL",
+    (
+        "redis+socket:///var/run/redis/redis-server.sock"
+        if not DEBUG
+        else "redis://localhost:6379/0"
+    ),
+)
+
+#: The backend used to store task results (tombstones). Disabled by default.
+CELERY_RESULT_BACKEND = os.environ.get(
+    "CELERY_REDIS_URL",
+    (
+        "redis+socket:///var/run/redis/redis-server.sock"
+        if not DEBUG
+        else "redis://localhost:6379/0"
+    ),
+)
