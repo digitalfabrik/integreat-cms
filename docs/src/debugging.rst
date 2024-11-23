@@ -45,6 +45,40 @@ VSCodium
 ^^^^^^^^
 Coming soon(TM)?
 
+PyCharm (Professional)
+^^^^^^^^^^^^^^^^^^^^^^
+
+PyCharm Professional has built-in support for django projects, but it needs some configuration to work with the integreat CMS.
+This is unfortunately not the case for the free edition of PyCharm. Students can get a free license for the professional version, however.
+
+Enable Django Support
+---------------------
+
+#. Go to settings → Languages & Frameworks → Django
+#. Click the ``Enable Django Support`` Checkbox
+#. Set the root ``integreat_cms`` directory as the project root
+#. For ``Settings`` use ``integreat_cms/core/docker_settings.py``
+#. Check ``Do not use Django test runner``
+#. For ``Manage script``, use ``integreat_cms/integreat-cms-cli``. If PyCharm does not let you select this script, because it does not end in .py, you can manually specify it in ``.idea/integreat-cms.iml``.
+
+Your configuration should now look similar to this:
+
+   .. image:: images/debugging/debug-pycharm-01-django-config.png
+      :alt: Django configuration
+
+Create a Run Configuration
+--------------------------
+
+#. Create a new ``Django Server`` run configuration
+#. Use a different port (For example 8001) to avoid conflicts with the non-debug server at port 8000
+#. At `Environment Variables`, add these: ``PYTHONUNBUFFERED=1;DJANGO_SETTINGS_MODULE=integreat_cms.core.docker_settings;INTEGREAT_CMS_DEBUG=True``
+
+Start Debugging
+---------------
+
+#. First execute the ``./tools/run.sh`` to make sure that the database is available and all assets are compiled.
+#. Once the server has started, you can start debugging by launching the run configuration
+
 Neovim
 ^^^^^^
 
