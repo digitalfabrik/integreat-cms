@@ -9,7 +9,7 @@ window.addEventListener("load", () => {
     const copyTranslation = document.getElementById("copy-translation-content");
     const sourceTinyMce = tinymce.get("source_translation_tinymce");
     if (sourceTinyMce) {
-        sourceTinyMce.setMode("readonly");
+        sourceTinyMce.mode.set("readonly");
     }
 
     if (copyTranslation) {
