@@ -81,7 +81,7 @@ window.addEventListener("load", () => {
                 },
                 icon: {
                     title: "Icons",
-                    items: "pin www email call clock idea group contact speech",
+                    items: "pin www email call fax clock idea group contact speech",
                 },
                 format: {
                     title: "Format",
@@ -181,6 +181,7 @@ window.addEventListener("load", () => {
                 addIcon(editor, tinymceConfig, "group", "meta+alt+7", "");
                 addIcon(editor, tinymceConfig, "contact", "meta+alt+8", "");
                 addIcon(editor, tinymceConfig, "speech", "meta+alt+9", "");
+                addIcon(editor, tinymceConfig, "fax", "meta+alt+0", "");
                 /* eslint-disable-next-line @typescript-eslint/no-var-requires, global-require */
                 editor.ui.registry.addIcon("no-translate", parseSvg(require(`../../svg/no-translate.svg`)));
                 editor.ui.registry.addButton("notranslate", {
@@ -222,6 +223,9 @@ window.addEventListener("load", () => {
                 });
                 editor.shortcuts.add("meta+alt+9", "Add speech bubble icon", () => {
                     insertIcon(editor, tinymceConfig, "speech");
+                });
+                editor.shortcuts.add("meta+alt+0", "Add fax icon", () => {
+                    insertIcon(editor, tinymceConfig, "fax");
                 });
                 document.querySelectorAll("[data-content-changed]").forEach((element) => {
                     element.dispatchEvent(new Event("tinyMCEInitialized"));
