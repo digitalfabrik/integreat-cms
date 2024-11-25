@@ -18,7 +18,7 @@ def test_delete_all_regions_is_successful(
 
     # Deletion of Augsburg will not be possible due to a cloned page in Nurnberg.
     # We want to test this is in the test below. In this test we want to make sure this is the only reason why deleting is not possible.
-    cloned_page = Page.objects.filter(id=30)
+    cloned_page = Page.objects.filter(id=CLONED_PAGE)
     cloned_page.delete()
 
     assert current_number_of_regions > 0
@@ -44,6 +44,9 @@ def test_delete_all_regions_is_successful(
             assert response.status_code == 302
             redirect = response.headers.get("location")
             response = client.get(redirect)
+            assert "Region wurde erfolgreich gelöscht" in response.content.decode(
+                "utf-8"
+            )
 
     if role in [CMS_TEAM, SERVICE_TEAM, ROOT]:
         assert Region.objects.count() == 0
