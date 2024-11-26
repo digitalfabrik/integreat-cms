@@ -119,13 +119,20 @@ class OrganizationFormView(TemplateView, OrganizationContextMixin, MediaContextM
                         organization_form.instance
                     ),
                 )
-            else:
-                messages.success(
-                    request,
-                    _('Organization "{}" was successfully saved').format(
-                        organization_form.instance
-                    ),
+                return redirect(
+                    "edit_organization",
+                    **{
+                        "region_slug": region.slug,
+                        "organization_id": organization_form.instance.id,
+                    },
                 )
+
+            messages.success(
+                request,
+                _('Organization "{}" was successfully saved').format(
+                    organization_form.instance
+                ),
+            )
         else:
             organization_form.add_error_messages(request)
 
