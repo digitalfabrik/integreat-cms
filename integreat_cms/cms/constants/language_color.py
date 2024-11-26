@@ -48,6 +48,16 @@ AQUA: Final = "#26FCFF"
 PINE_GREEN: Final = "#20B2AA"
 ALMOND: Final = "#FFDAB9"
 CHERRY: Final = "#D62728"
+DUSTY_ORANGE: Final = "#DB6D4B"
+DUST_STORM: Final = "#E0D3C0"
+SILVER: Final = "#C9C7C1"
+LIGHT_GRAY: Final = "#CED6DA"
+DARK_GRAY: Final = "#91B1C0"
+DEEP_PINK: Final = "#F72681"
+DARK_YELLOWISH_GREEN: Final = "#26662C"
+MODERATE_REDDISH_PURPLE: Final = "#9C5B87"
+STRONG_YELLOW: Final = "#C8B03C"
+BRILLIANT_PURPLISH_BLUE = "#6F79AB"
 
 TOTAL_ACCESS: Final = "#000000"
 WEB_APP_ACCESS: Final = "#FF00A8"
@@ -87,4 +97,14 @@ COLORS: Final[list[tuple[str, Promise]]] = [
     (PINE_GREEN, _("Pine green")),
     (ALMOND, _("Almond")),
     (CHERRY, _("Cherry")),
+    (DUSTY_ORANGE, _("Dusty orange")),
+    (DUST_STORM, _("Dust storm")),
+    (SILVER, _("Silver")),
+    (LIGHT_GRAY, _("Light gray")),
+    (DARK_GRAY, _("Dark gray")),
+    (DEEP_PINK, _("Deep pink")),
+    (DARK_YELLOWISH_GREEN, _("Dark yellowish green")),
+    (MODERATE_REDDISH_PURPLE, _("Moderate reddish purple")),
+    (STRONG_YELLOW, _("Strong yellow")),
+    (BRILLIANT_PURPLISH_BLUE, _("Brilliant purplish blue")),
 ]
