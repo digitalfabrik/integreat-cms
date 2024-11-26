@@ -7,16 +7,30 @@
         <div class="table-header">
             <div class="flex flex-wrap justify-between">
                 <h1 class="heading">
-                    {% translate "Events" %}
-                </h1>
-                <a href="{% url 'events_archived' region_slug=request.region.slug language_slug=language.slug %}"
-                   class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
-                    <span>
-                        <i icon-name="archive" class="align-top h-5"></i>
+                    {% if not is_archive %}
+                        {% translate "Events" %}
+                    {% else %}
                         {% translate "Archived events" %}
-                        ({{ archived_count }})
-                    </span>
-                </a>
+                    {% endif %}
+                </h1>
+                {% if not is_archive %}
+                    <a href="{% url 'events_archived' region_slug=request.region.slug language_slug=language.slug %}"
+                       class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
+                        <span>
+                            <i icon-name="archive" class="align-top h-5"></i>
+                            {% translate "Archived events" %}
+                            ({{ archived_count }})
+                        </span>
+                    </a>
+                {% else %}
+                    <a href="{% url 'events' region_slug=request.region.slug language_slug=language.slug %}"
+                       class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-2 hover:underline">
+                        <span>
+                            <i icon-name="calendar" class="align-top h-5"></i>
+                            {% translate "Back to events" %}
+                        </span>
+                    </a>
+                {% endif %}
             </div>
             <div class="flex flex-wrap justify-between gap-4">
                 <div class="flex flex-wrap gap-4">
@@ -28,18 +42,20 @@
                         <span class="filter-toggle-text {% if filters_visible %}hidden{% endif %}">{% translate "Show filters" %}</span>
                         <span class="filter-toggle-text {% if not filters_visible %}hidden{% endif %}">{% translate "Hide filters" %}</span>
                     </button>
-                    {% if request.region.default_language == language and perms.cms.change_event %}
-                        <a href="{% url 'new_event' region_slug=request.region.slug language_slug=language.slug %}"
-                           class="btn">
-                            {% translate "Create event" %}
-                        </a>
-                    {% elif perms.cms.change_event %}
-                        {% blocktranslate trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
-                            You can only create events in the default language ({{ default_language }}).
-                        {% endblocktranslate %}
-                        <button title="{{ disabled_button_title }}" class="btn" disabled>
-                            {% translate "Create event" %}
-                        </button>
+                    {% if not is_archive %}
+                        {% if request.region.default_language == language and perms.cms.change_event %}
+                            <a href="{% url 'new_event' region_slug=request.region.slug language_slug=language.slug %}"
+                               class="btn">
+                                {% translate "Create event" %}
+                            </a>
+                        {% elif perms.cms.change_event %}
+                            {% blocktranslate trimmed asvar disabled_button_title with request.region.default_language.translated_name as default_language %}
+                                You can only create events in the default language ({{ default_language }}).
+                            {% endblocktranslate %}
+                            <button title="{{ disabled_button_title }}" class="btn" disabled>
+                                {% translate "Create event" %}
+                            </button>
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>
@@ -57,7 +73,7 @@
                class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
             <thead>
                 <tr class="border-b border-solid border-gray-200">
-                    <th class="py-3 pl-4 min">
+                    <th class="py-3 pl-4 pr-2 min">
                         <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
                     </th>
                     <th class="text-sm text-left uppercase py-3 pl-2 pr-2">
@@ -115,11 +131,19 @@
                     {% endfor %}
                 {% else %}
                     <tr>
-                        <td colspan="8" class="pl-4 pr-2 py-3">
+                        <td colspan="11" class="pl-4 pr-2 py-3">
                             {% if filter_form.has_changed %}
-                                {% translate "No events found with these filters." %}
+                                {% if not is_archive %}
+                                    {% translate "No events found with these filters." %}
+                                {% else %}
+                                    {% translate "No archived events found with these filters." %}
+                                {% endif %}
                             {% else %}
-                                {% translate "No upcoming events available." %}
+                                {% if not is_archive %}
+                                    {% translate "No upcoming events available." %}
+                                {% else %}
+                                    {% translate "No upcoming events archived." %}
+                                {% endif %}
                             {% endif %}
                         </td>
                     </tr>
@@ -140,41 +164,47 @@
                 <option>
                     {% translate "Select bulk action" %}
                 </option>
-                <option data-bulk-action="{% url 'bulk_archive_events' region_slug=request.region.slug language_slug=language.slug %}">
-                    {% translate "Archive events" %}
-                </option>
-                {% if request.user.is_superuser or request.user.is_staff %}
-                    {% translate "events" as content_type %}
-                    <option data-bulk-action="{% url 'publish_multiple_events' region_slug=request.region.slug language_slug=language.slug %}">
-                        {% blocktranslate trimmed %}
-                            Publish {{ content_type }}
-                        {% endblocktranslate %}
+                {% if not is_archive %}
+                    <option data-bulk-action="{% url 'bulk_archive_events' region_slug=request.region.slug language_slug=language.slug %}">
+                        {% translate "Archive events" %}
                     </option>
-                    <option data-bulk-action="{% url 'draft_multiple_events' region_slug=request.region.slug language_slug=language.slug %}">
-                        {% blocktranslate trimmed %}
-                            Draft {{ content_type }}
-                        {% endblocktranslate %}
-                    </option>
-                {% endif %}
-                {% if MT_PERMITTED %}
-                    {% translate "events" as content_type %}
-                    {% if MT_PROVIDER %}
-                        <option id="machine-translation-option"
-                                data-mt-provider="{{ MT_PROVIDER.name }}"
-                                data-bulk-action="{% url 'machine_translation_events' region_slug=request.region.slug language_slug=language.slug %}"
-                                data-url="{% url 'word_count' region_slug=request.region.slug language_slug=language.slug model_type="event" %}">
-                            {% blocktranslate trimmed with provider=MT_PROVIDER.name %}
-                                Machine translate {{ content_type }} via {{ provider }} to {{ language }}
+                    {% if request.user.is_superuser or request.user.is_staff %}
+                        {% translate "events" as content_type %}
+                        <option data-bulk-action="{% url 'publish_multiple_events' region_slug=request.region.slug language_slug=language.slug %}">
+                            {% blocktranslate trimmed %}
+                                Publish {{ content_type }}
                             {% endblocktranslate %}
                         </option>
-                    {% else %}
-                        <option disabled
-                                title="{% translate "This language is not supported by any available machine translation provider." %}">
+                        <option data-bulk-action="{% url 'draft_multiple_events' region_slug=request.region.slug language_slug=language.slug %}">
                             {% blocktranslate trimmed %}
-                                Machine translate {{ content_type }} to {{ language }}
+                                Draft {{ content_type }}
                             {% endblocktranslate %}
                         </option>
                     {% endif %}
+                    {% if MT_PERMITTED %}
+                        {% translate "events" as content_type %}
+                        {% if MT_PROVIDER %}
+                            <option id="machine-translation-option"
+                                    data-mt-provider="{{ MT_PROVIDER.name }}"
+                                    data-bulk-action="{% url 'machine_translation_events' region_slug=request.region.slug language_slug=language.slug %}"
+                                    data-url="{% url 'word_count' region_slug=request.region.slug language_slug=language.slug model_type="event" %}">
+                                {% blocktranslate trimmed with provider=MT_PROVIDER.name %}
+                                    Machine translate {{ content_type }} via {{ provider }} to {{ language }}
+                                {% endblocktranslate %}
+                            </option>
+                        {% else %}
+                            <option disabled
+                                    title="{% translate "This language is not supported by any available machine translation provider." %}">
+                                {% blocktranslate trimmed %}
+                                    Machine translate {{ content_type }} to {{ language }}
+                                {% endblocktranslate %}
+                            </option>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    <option data-bulk-action="{% url 'bulk_restore_events' region_slug=request.region.slug language_slug=language.slug %}">
+                        {% translate "Restore events" %}
+                    </option>
                 {% endif %}
             </select>
             <button form="bulk-action-form" id="bulk-action-execute" class="btn" disabled>
