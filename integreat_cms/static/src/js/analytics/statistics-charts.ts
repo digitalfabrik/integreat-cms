@@ -245,6 +245,7 @@ window.addEventListener("load", async () => {
                     beginAtZero: true,
                 },
             },
+            maintainAspectRatio: false,
         },
     });
 
