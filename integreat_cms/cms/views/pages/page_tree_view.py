@@ -136,7 +136,7 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
 
         return render(
             request,
-            self.template_name,
+            self.template,
             {
                 **self.get_context_data(**kwargs),
                 "pages": pages,
@@ -154,5 +154,6 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
                     currently_in_translation=True,
                 ).count()
                 > 0,
+                "is_archive": self.archived,
             },
         )
