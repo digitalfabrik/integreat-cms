@@ -1,0 +1,70 @@
+{% load i18n %}
+{% load content_filters %}
+{% load page_filters %}
+{% load tree_filters %}
+{% load rules %}
+{% get_translation page language.slug as page_translation %}
+{% block content %}
+    <td class="hierarchy single_icon whitespace-nowrap">
+        <span class="pl-4">
+            <input type="checkbox"
+                   name="selected_ids[]"
+                   value="{{ page.id }}"
+                   class="bulk-select-item cursor-wait" />
+        </span>
+        {% if not filter_form.is_enabled %}
+            {% has_perm 'cms.change_page_object' request.user as can_edit_pages %}
+            <span data-drag-id="{{ page.id }}"
+                  data-node-descendants="{{ page|get_descendant_ids }}"
+                  class="drag cursor-move text-gray-800 inline-block pl-4 align-middle"
+                  draggable="{% if can_edit_pages and not is_archive and not is_statistics %}true{% else %}false{% endif %}"
+                  title="{% translate "Change the order and position of the pages with drag & drop." %}">
+                {% if can_edit_pages and not is_archive and not is_statistics %}
+                    <i icon-name="move"></i>
+                {% endif %}
+            </span>
+            {% if not is_archive %}
+                {% if not page.parent_id and not page.is_leaf or page.parent_id and page.cached_children|length > 0 %}
+                    <span class="toggle-subpages inline-block align-middle cursor-wait transform"
+                          data-expand-title="{% translate "Expand all subpages" %}"
+                          data-collapse-title="{% translate "Collapse all subpages" %}"
+                          data-page-id="{{ page.id }}"
+                          data-page-children="{{ page|get_children_ids }}"
+                          data-page-tree-id="{{ page.tree_id }}">
+                        <i icon-name="chevron-right"></i>
+                    </span>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </td>
+    <td>
+        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+           class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
+           title="{% if page_translation %} {{ page_translation.title }}{% endif %}">
+            {% if page_translation %}
+                {{ page_translation.title }}
+            {% else %}
+                <i>{% translate "Translation not available" %}</i>
+            {% endif %}
+        </a>
+    </td>
+    {% if not backend_language %}
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_language LANGUAGE_CODE as backend_language %}
+    {% endif %}
+    {% if backend_language != language %}
+        <td>
+            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=backend_language.slug %}"
+               class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
+               title="{% if page.backend_translation %} {{ page.backend_translation.title }}{% endif %}">
+                <div class="translation-title">
+                    {% if page.backend_translation %}
+                        {{ page.backend_translation.title }}
+                    {% else %}
+                        <i>{% translate "Translation not available" %}</i>
+                    {% endif %}
+                </div>
+            </a>
+        </td>
+    {% endif %}
+{% endblock content %}

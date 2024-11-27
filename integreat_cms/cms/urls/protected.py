@@ -657,9 +657,23 @@ urlpatterns: list[URLPattern] = [
                                                         name="render_mirrored_page_field",
                                                     ),
                                                     path(
-                                                        "partial-page-tree/",
-                                                        pages.render_partial_page_tree_views,
-                                                        name="get_page_tree_ajax",
+                                                        "<is_archive>/",
+                                                        include(
+                                                            [
+                                                                path(
+                                                                    "<is_statistics>/",
+                                                                    include(
+                                                                        [
+                                                                            path(
+                                                                                "partial-page-tree/",
+                                                                                pages.render_partial_page_tree_views,
+                                                                                name="get_page_tree_ajax",
+                                                                            ),
+                                                                        ],
+                                                                    ),
+                                                                ),
+                                                            ],
+                                                        ),
                                                     ),
                                                 ],
                                             ),
@@ -721,6 +735,11 @@ urlpatterns: list[URLPattern] = [
                                             "update-chart/",
                                             statistics.get_visits_per_language_ajax,
                                             name="statistics_visits_per_language",
+                                        ),
+                                        path(
+                                            "page-based-accesses/",
+                                            statistics.get_page_accesses_ajax,
+                                            name="statistics_page_based_accesses",
                                         ),
                                     ],
                                 ),
