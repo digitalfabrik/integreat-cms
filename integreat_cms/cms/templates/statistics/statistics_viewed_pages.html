@@ -9,4 +9,16 @@
     {% translate "Page views" %}
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
+    <form method="post" id="bulk-action-form" class="table-listing">
+        {% csrf_token %}
+        <div class="overflow-x-auto">
+            <table class="w-full rounded shadow bg-white table-auto">
+                <thead>
+                    <tr class="border-b border-solid border-gray-200">
+                        {% include "pages/_generic_page_tree.html" %}
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </form>
 {% endblock collapsible_box_content %}
