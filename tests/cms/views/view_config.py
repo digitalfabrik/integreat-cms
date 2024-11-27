@@ -1208,12 +1208,22 @@ VIEWS: ViewConfig = [
             ),
         ],
         # The kwargs for these views
-        {"region_slug": "augsburg", "language_slug": "de"},
+        {
+            "region_slug": "augsburg",
+            "language_slug": "de",
+            "is_archive": "False",
+            "is_statistics": "False",
+        },
     ),
     (
         [("get_page_tree_ajax", STAFF_ROLES, json.dumps([1]))],
         # The kwargs for these views
-        {"region_slug": "nurnberg", "language_slug": "de"},
+        {
+            "region_slug": "nurnberg",
+            "language_slug": "de",
+            "is_archive": "False",
+            "is_statistics": "False",
+        },
     ),
     (
         [

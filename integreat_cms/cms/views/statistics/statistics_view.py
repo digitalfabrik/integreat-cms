@@ -34,10 +34,7 @@ class AnalyticsView(TemplateView):
     extra_context = {"current_menu_item": "statistics"}
 
     def get(
-        self,
-        request: HttpRequest,
-        *args: Any,
-        **kwargs: Any,
+        self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponseRedirect:
         r"""
         Render statistics of access numbers tracked by Matomo
@@ -60,11 +57,25 @@ class AnalyticsView(TemplateView):
 
         form = StatisticsFilterForm()
 
+        page_queryset = region.pages.filter(lft=1)
+
+        # Cache tree structure to reduce database queries
+        pages = (
+            page_queryset.prefetch_major_translations()
+            .prefetch_related("mirroring_pages")
+            .cache_tree(archived=False)
+        )
+
         return render(
             request,
             self.template_name,
             {
                 **self.get_context_data(**kwargs),
                 "form": form,
+                "pages": pages,
+                "region": region,
+                "language": region.default_language,
+                "languages": region.active_languages,
+                "is_statistics": True,
             },
         )
