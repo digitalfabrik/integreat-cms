@@ -16,6 +16,9 @@
                 <thead>
                     <tr class="border-b border-solid border-gray-200">
                         {% include "pages/_generic_page_tree.html" %}
+                        <th class="text-sm text-left uppercase py-3 px-2">
+                            {% translate "Accesses" %} ({{ form.start_date.value|date:"d.m.Y" }} - {{ form.end_date.value|date:"d.m.Y" }})
+                        </th>
                     </tr>
                 </thead>
             </table>
