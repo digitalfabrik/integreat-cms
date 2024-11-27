@@ -98,7 +98,7 @@ media_ajax_urlpatterns: list[URLPattern] = [
                                 media.delete_directory_ajax,
                                 name="mediacenter_delete_directory",
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -135,7 +135,7 @@ media_ajax_urlpatterns: list[URLPattern] = [
                                 media.get_file_usages_ajax,
                                 name="mediacenter_get_file_usages",
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -148,7 +148,7 @@ media_ajax_urlpatterns: list[URLPattern] = [
                     media.get_unused_media_files_ajax,
                     name="mediacenter_filter_unused_media_files",
                 ),
-            ],
+            ]
         ),
     ),
 ]
@@ -169,7 +169,7 @@ user_settings_urlpatterns: list[URLPattern] = [
                                 settings.TOTPRegisterView.as_view(),
                                 name="register_totp",
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -181,7 +181,7 @@ user_settings_urlpatterns: list[URLPattern] = [
                                 settings.TOTPDeleteView.as_view(),
                                 name="delete_totp",
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -208,10 +208,10 @@ user_settings_urlpatterns: list[URLPattern] = [
                                 settings.DeleteUserFidoKeyView.as_view(),
                                 name="delete_fido_key",
                             ),
-                        ],
+                        ]
                     ),
                 ),
-            ],
+            ]
         ),
     ),
 ]
@@ -251,7 +251,7 @@ urlpatterns: list[URLPattern] = [
                     region_condition.export_region_conditions,
                     name="export_region_conditions",
                 ),
-            ],
+            ]
         ),
     ),
     path(
@@ -277,7 +277,7 @@ urlpatterns: list[URLPattern] = [
                                 linkcheck.LinkcheckListView.as_view(),
                                 name="edit_url",
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -285,7 +285,7 @@ urlpatterns: list[URLPattern] = [
                     linkcheck.LinkReplaceView.as_view(),
                     name="search_and_replace_link",
                 ),
-            ],
+            ]
         ),
     ),
     path(
@@ -308,14 +308,12 @@ urlpatterns: list[URLPattern] = [
                                 name="edit_region",
                             ),
                             path(
-                                "delete/",
-                                regions.delete_region,
-                                name="delete_region",
+                                "delete/", regions.delete_region, name="delete_region"
                             ),
-                        ],
+                        ]
                     ),
                 ),
-            ],
+            ]
         ),
     ),
     path("media-library/", media.AdminMediaListView.as_view(), name="media_admin"),
@@ -327,8 +325,8 @@ urlpatterns: list[URLPattern] = [
                     "",
                     list_views.ModelListView.as_view(
                         queryset=Language.objects.all().prefetch_related(
-                            "language_tree_nodes",
-                        ),
+                            "language_tree_nodes"
+                        )
                     ),
                     name="languages",
                 ),
@@ -344,7 +342,7 @@ urlpatterns: list[URLPattern] = [
                             path(
                                 "edit/",
                                 form_views.CustomUpdateView.as_view(
-                                    form_class=LanguageForm,
+                                    form_class=LanguageForm
                                 ),
                                 name="edit_language",
                             ),
@@ -355,10 +353,10 @@ urlpatterns: list[URLPattern] = [
                                 ),
                                 name="delete_language",
                             ),
-                        ],
+                        ]
                     ),
                 ),
-            ],
+            ]
         ),
     ),
     path(
@@ -382,10 +380,10 @@ urlpatterns: list[URLPattern] = [
                                 users.resend_activation_link,
                                 name="resend_activation_link",
                             ),
-                        ],
+                        ]
                     ),
                 ),
-            ],
+            ]
         ),
     ),
     path(
@@ -419,10 +417,10 @@ urlpatterns: list[URLPattern] = [
                                 poi_categories.POICategoryDeleteView.as_view(),
                                 name="delete_poicategory",
                             ),
-                        ],
+                        ]
                     ),
                 ),
-            ],
+            ]
         ),
     ),
     path(
@@ -445,10 +443,10 @@ urlpatterns: list[URLPattern] = [
                                 roles.RoleFormView.as_view(),
                                 name="delete_role",
                             ),
-                        ],
+                        ]
                     ),
                 ),
-            ],
+            ]
         ),
     ),
     path(
@@ -490,7 +488,7 @@ urlpatterns: list[URLPattern] = [
                     feedback.delete_admin_feedback,
                     name="delete_admin_feedback",
                 ),
-            ],
+            ]
         ),
     ),
     path(
@@ -500,9 +498,7 @@ urlpatterns: list[URLPattern] = [
                 path(
                     "",
                     list_views.ModelListView.as_view(
-                        queryset=OfferTemplate.objects.all().prefetch_related(
-                            "regions",
-                        ),
+                        queryset=OfferTemplate.objects.all().prefetch_related("regions")
                     ),
                     name="offertemplates",
                 ),
@@ -518,22 +514,21 @@ urlpatterns: list[URLPattern] = [
                             path(
                                 "edit/",
                                 form_views.CustomUpdateView.as_view(
-                                    form_class=OfferTemplateForm,
+                                    form_class=OfferTemplateForm
                                 ),
                                 name="edit_offertemplate",
                             ),
                             path(
                                 "delete/",
                                 delete_views.CustomDeleteView.as_view(
-                                    model=OfferTemplate,
-                                    protect_manytomany="regions",
+                                    model=OfferTemplate, protect_manytomany="regions"
                                 ),
                                 name="delete_offertemplate",
                             ),
-                        ],
+                        ]
                     ),
                 ),
-            ],
+            ]
         ),
     ),
     path("", include(user_settings_urlpatterns)),
@@ -556,7 +551,7 @@ urlpatterns: list[URLPattern] = [
                                 chat.delete_chat_message,
                                 name="delete_chat_message",
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -564,7 +559,7 @@ urlpatterns: list[URLPattern] = [
                     utils.search_content_ajax,
                     name="search_content_ajax",
                 ),
-            ],
+            ]
         ),
     ),
     path(
@@ -589,13 +584,8 @@ urlpatterns: list[URLPattern] = [
                                             "broken-links/",
                                             dashboard.DashboardView.get_broken_links_context,
                                             name="get_broken_links_ajax",
-                                        ),
-                                        path(
-                                            "translation-coverage/",
-                                            dashboard.DashboardView.get_translation_coverage_context,
-                                            name="get_translation_coverage_ajax",
-                                        ),
-                                    ],
+                                        )
+                                    ]
                                 ),
                             ),
                             path("", include(media_ajax_urlpatterns)),
@@ -622,7 +612,7 @@ urlpatterns: list[URLPattern] = [
                                                         pages.get_page_content_ajax,
                                                         name="get_page_content_ajax",
                                                     ),
-                                                ],
+                                                ]
                                             ),
                                         ),
                                         path(
@@ -640,7 +630,7 @@ urlpatterns: list[URLPattern] = [
                                             utils.build_json_for_machine_translation,
                                             name="word_count",
                                         ),
-                                    ],
+                                    ]
                                 ),
                             ),
                             path(
@@ -657,11 +647,25 @@ urlpatterns: list[URLPattern] = [
                                                         name="render_mirrored_page_field",
                                                     ),
                                                     path(
-                                                        "partial-page-tree/",
-                                                        pages.render_partial_page_tree_views,
-                                                        name="get_page_tree_ajax",
+                                                        "<is_archive>/",
+                                                        include(
+                                                            [
+                                                                path(
+                                                                    "<is_statistics>/",
+                                                                    include(
+                                                                        [
+                                                                            path(
+                                                                                "partial-page-tree/",
+                                                                                pages.render_partial_page_tree_views,
+                                                                                name="get_page_tree_ajax",
+                                                                            ),
+                                                                        ]
+                                                                    ),
+                                                                ),
+                                                            ]
+                                                        ),
                                                     ),
-                                                ],
+                                                ]
                                             ),
                                         ),
                                         path(
@@ -671,19 +675,19 @@ urlpatterns: list[URLPattern] = [
                                                     path(
                                                         "",
                                                         include(
-                                                            page_order_table_urlpatterns,
+                                                            page_order_table_urlpatterns
                                                         ),
                                                     ),
                                                     path(
                                                         "parent-<int:parent_id>/",
                                                         include(
-                                                            page_order_table_urlpatterns,
+                                                            page_order_table_urlpatterns
                                                         ),
                                                     ),
-                                                ],
+                                                ]
                                             ),
                                         ),
-                                    ],
+                                    ]
                                 ),
                             ),
                             path(
@@ -700,7 +704,7 @@ urlpatterns: list[URLPattern] = [
                                             chat.delete_chat_message,
                                             name="delete_chat_message",
                                         ),
-                                    ],
+                                    ]
                                 ),
                             ),
                             path(
@@ -722,7 +726,12 @@ urlpatterns: list[URLPattern] = [
                                             statistics.get_visits_per_language_ajax,
                                             name="statistics_visits_per_language",
                                         ),
-                                    ],
+                                        path(
+                                            "page-based-accesses/",
+                                            statistics.get_page_accesses_ajax,
+                                            name="statistics_page_based_accesses",
+                                        ),
+                                    ]
                                 ),
                             ),
                             path(
@@ -739,7 +748,7 @@ urlpatterns: list[URLPattern] = [
                                             pages.revoke_page_permission_ajax,
                                             name="revoke_page_permission_ajax",
                                         ),
-                                    ],
+                                    ]
                                 ),
                             ),
                             path(
@@ -756,7 +765,7 @@ urlpatterns: list[URLPattern] = [
                                             utils.content_edit_lock_release,
                                             name="content_edit_lock_release",
                                         ),
-                                    ],
+                                    ]
                                 ),
                             ),
                             path(
@@ -789,7 +798,7 @@ urlpatterns: list[URLPattern] = [
                                 pois.get_address_from_coordinates,
                                 name="get_address_from_coordinates",
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -834,7 +843,7 @@ urlpatterns: list[URLPattern] = [
                                                         linkcheck.LinkcheckListView.as_view(),
                                                         name="edit_url",
                                                     ),
-                                                ],
+                                                ]
                                             ),
                                         ),
                                         path(
@@ -842,10 +851,10 @@ urlpatterns: list[URLPattern] = [
                                             linkcheck.LinkReplaceView.as_view(),
                                             name="search_and_replace_link",
                                         ),
-                                    ],
+                                    ]
                                 ),
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -888,10 +897,10 @@ urlpatterns: list[URLPattern] = [
                                             external_calendars.delete_external_calendar,
                                             name="delete_external_calendar",
                                         ),
-                                    ],
+                                    ]
                                 ),
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -925,7 +934,7 @@ urlpatterns: list[URLPattern] = [
                                                     path(
                                                         "download/",
                                                         pages.ExportXliffView.as_view(
-                                                            prefetch_translations=True,
+                                                            prefetch_translations=True
                                                         ),
                                                         name="download_xliff",
                                                     ),
@@ -1067,13 +1076,13 @@ urlpatterns: list[URLPattern] = [
                                                         pages.move_page,
                                                         name="move_page",
                                                     ),
-                                                ],
+                                                ]
                                             ),
                                         ),
-                                    ],
+                                    ]
                                 ),
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -1123,7 +1132,7 @@ urlpatterns: list[URLPattern] = [
                                                 ],
                                             ),
                                         ),
-                                    ],
+                                    ]
                                 ),
                             ),
                             path(
@@ -1131,7 +1140,7 @@ urlpatterns: list[URLPattern] = [
                                 imprint.delete_imprint,
                                 name="delete_imprint",
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -1151,7 +1160,7 @@ urlpatterns: list[URLPattern] = [
                             path(
                                 "archived/",
                                 organizations.OrganizationListView.as_view(
-                                    archived=True,
+                                    archived=True
                                 ),
                                 name="archived_organizations",
                             ),
@@ -1194,10 +1203,10 @@ urlpatterns: list[URLPattern] = [
                                             organizations.restore,
                                             name="restore_organization",
                                         ),
-                                    ],
+                                    ]
                                 ),
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -1227,22 +1236,21 @@ urlpatterns: list[URLPattern] = [
                                         path(
                                             "machine-translate/",
                                             bulk_action_views.BulkMachineTranslationView.as_view(
-                                                model=Event,
-                                                form=EventTranslationForm,
+                                                model=Event, form=EventTranslationForm
                                             ),
                                             name="machine_translation_events",
                                         ),
                                         path(
                                             "bulk-archive/",
                                             bulk_action_views.BulkArchiveView.as_view(
-                                                model=Event,
+                                                model=Event
                                             ),
                                             name="bulk_archive_events",
                                         ),
                                         path(
                                             "bulk-restore/",
                                             bulk_action_views.BulkRestoreView.as_view(
-                                                model=Event,
+                                                model=Event
                                             ),
                                             name="bulk_restore_events",
                                         ),
@@ -1306,13 +1314,13 @@ urlpatterns: list[URLPattern] = [
                                                             ],
                                                         ),
                                                     ),
-                                                ],
+                                                ]
                                             ),
                                         ),
-                                    ],
+                                    ]
                                 ),
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -1342,22 +1350,21 @@ urlpatterns: list[URLPattern] = [
                                         path(
                                             "machine-translate/",
                                             bulk_action_views.BulkMachineTranslationView.as_view(
-                                                model=POI,
-                                                form=POITranslationForm,
+                                                model=POI, form=POITranslationForm
                                             ),
                                             name="machine_translation_pois",
                                         ),
                                         path(
                                             "bulk-archive/",
                                             bulk_action_views.BulkArchiveView.as_view(
-                                                model=POI,
+                                                model=POI
                                             ),
                                             name="bulk_archive_pois",
                                         ),
                                         path(
                                             "bulk-restore/",
                                             bulk_action_views.BulkRestoreView.as_view(
-                                                model=POI,
+                                                model=POI
                                             ),
                                             name="bulk_restore_pois",
                                         ),
@@ -1431,13 +1438,13 @@ urlpatterns: list[URLPattern] = [
                                                             ],
                                                         ),
                                                     ),
-                                                ],
+                                                ]
                                             ),
                                         ),
-                                    ],
+                                    ]
                                 ),
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -1473,16 +1480,6 @@ urlpatterns: list[URLPattern] = [
                                 "bulk-delete/",
                                 contacts.DeleteContactBulkAction.as_view(),
                                 name="bulk_delete_contacts",
-                            ),
-                            path(
-                                "show-contact-form-ajax/<int:poi_id>/",
-                                contacts.ContactFormAjaxView.as_view(),
-                                name="show_contact_form_ajax",
-                            ),
-                            path(
-                                "create-contact-ajax/",
-                                contacts.ContactFormAjaxView.as_view(),
-                                name="create_contact_ajax",
                             ),
                             path(
                                 "<int:contact_id>/",
@@ -1523,15 +1520,10 @@ urlpatterns: list[URLPattern] = [
                                             contacts.delete_contact,
                                             name="delete_contact",
                                         ),
-                                    ],
+                                    ]
                                 ),
                             ),
-                            path(
-                                "potential_targets",
-                                contacts.PotentialContactSourcesView.as_view(),
-                                name="potential_targets",
-                            ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -1578,7 +1570,7 @@ urlpatterns: list[URLPattern] = [
                                 feedback.export_region_feedback,
                                 name="export_region_feedback",
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -1602,7 +1594,7 @@ urlpatterns: list[URLPattern] = [
                                         path(
                                             "templates/",
                                             push_notifications.PushNotificationListView.as_view(
-                                                templates=True,
+                                                templates=True
                                             ),
                                             name="push_notifications_templates",
                                         ),
@@ -1620,13 +1612,13 @@ urlpatterns: list[URLPattern] = [
                                                         push_notifications.PushNotificationFormView.as_view(),
                                                         name="edit_push_notification",
                                                     ),
-                                                ],
+                                                ]
                                             ),
                                         ),
-                                    ],
+                                    ]
                                 ),
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path(
@@ -1670,7 +1662,7 @@ urlpatterns: list[URLPattern] = [
                                         path(
                                             "edit/",
                                             language_tree.LanguageTreeNodeUpdateView.as_view(
-                                                form_class=LanguageTreeNodeForm,
+                                                form_class=LanguageTreeNodeForm
                                             ),
                                             name="edit_languagetreenode",
                                         ),
@@ -1685,10 +1677,10 @@ urlpatterns: list[URLPattern] = [
                                             language_tree.move_language_tree_node,
                                             name="move_languagetreenode",
                                         ),
-                                    ],
+                                    ]
                                 ),
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path("media-library/", media.MediaListView.as_view(), name="media"),
@@ -1725,10 +1717,10 @@ urlpatterns: list[URLPattern] = [
                                             users.resend_activation_link_region,
                                             name="resend_activation_link_region",
                                         ),
-                                    ],
+                                    ]
                                 ),
                             ),
-                        ],
+                        ]
                     ),
                 ),
                 path("", include(user_settings_urlpatterns)),
@@ -1737,7 +1729,7 @@ urlpatterns: list[URLPattern] = [
                     release_notes.ReleaseNotesView.as_view(),
                     name="release_notes",
                 ),
-            ],
+            ]
         ),
     ),
 ]

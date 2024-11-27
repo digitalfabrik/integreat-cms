@@ -54,10 +54,7 @@ if TYPE_CHECKING:
     RedirectViewConfig: TypeAlias = list[RedirectViewGroup]
 
     ParametrizedRedirectView: TypeAlias = tuple[
-        ViewName,
-        ViewKwargs,
-        Roles,
-        RedirectTarget,
+        ViewName, ViewKwargs, Roles, RedirectTarget
     ]
     ParametrizedRedirectViewConfig: TypeAlias = list[ParametrizedRedirectView]
 
@@ -203,7 +200,7 @@ VIEWS: ViewConfig = [
                         "page_id": 21,
                         "permission": "edit",
                         "user_id": 10,
-                    },
+                    }
                 ),
             ),
             (
@@ -214,7 +211,7 @@ VIEWS: ViewConfig = [
                         "page_id": 21,
                         "permission": "publish",
                         "user_id": 9,
-                    },
+                    }
                 ),
             ),
             (
@@ -225,7 +222,7 @@ VIEWS: ViewConfig = [
                         "page_id": 5,
                         "permission": "edit",
                         "user_id": 10,
-                    },
+                    }
                 ),
             ),
             (
@@ -236,7 +233,7 @@ VIEWS: ViewConfig = [
                         "page_id": 6,
                         "permission": "publish",
                         "user_id": 10,
-                    },
+                    }
                 ),
             ),
         ],
@@ -319,7 +316,7 @@ VIEWS: ViewConfig = [
                             "events_time_range": "CUSTOM",
                             "date_from": "2023-01-01",
                             "date_to": "2030-12-31",
-                        },
+                        }
                     ),
                 ),
                 ROLES,
@@ -331,7 +328,7 @@ VIEWS: ViewConfig = [
                         {
                             "events_time_range": "CUSTOM",
                             "date_from": "2023-01-01",
-                        },
+                        }
                     ),
                 ),
                 ROLES,
@@ -343,7 +340,7 @@ VIEWS: ViewConfig = [
                         {
                             "events_time_range": "CUSTOM",
                             "date_to": "2030-12-31",
-                        },
+                        }
                     ),
                 ),
                 ROLES,
@@ -354,7 +351,7 @@ VIEWS: ViewConfig = [
                     parse.urlencode(
                         {
                             "events_time_range": ["PAST", "UPCOMING"],
-                        },
+                        }
                     ),
                 ),
                 ROLES,
@@ -368,7 +365,7 @@ VIEWS: ViewConfig = [
                             "poi_id": 4,
                             "all_day": 1,
                             "recurring": 1,
-                        },
+                        }
                     ),
                 ),
                 ROLES,
@@ -382,7 +379,7 @@ VIEWS: ViewConfig = [
                             "all_day": 2,
                             "recurring": 2,
                             "query": "test",
-                        },
+                        }
                     ),
                 ),
                 ROLES,
@@ -512,7 +509,7 @@ VIEWS: ViewConfig = [
                         "query_string": "Test-Veranstaltung",
                         "object_types": ["event"],
                         "archived": False,
-                    },
+                    }
                 ),
             ),
             (
@@ -523,7 +520,7 @@ VIEWS: ViewConfig = [
                         "query_string": "Test-Ort",
                         "object_types": ["poi"],
                         "archived": False,
-                    },
+                    }
                 ),
             ),
             (
@@ -534,7 +531,7 @@ VIEWS: ViewConfig = [
                         "query_string": "Willkommen",
                         "object_types": ["page"],
                         "archived": False,
-                    },
+                    }
                 ),
             ),
             (
@@ -545,7 +542,7 @@ VIEWS: ViewConfig = [
                         "query_string": "Test",
                         "object_types": ["feedback"],
                         "archived": False,
-                    },
+                    }
                 ),
             ),
             (
@@ -556,7 +553,7 @@ VIEWS: ViewConfig = [
                         "query_string": "Test",
                         "object_types": ["push_notification"],
                         "archived": False,
-                    },
+                    }
                 ),
             ),
             (
@@ -567,7 +564,7 @@ VIEWS: ViewConfig = [
                         "query_string": "Augsburg",
                         "object_types": ["region"],
                         "archived": False,
-                    },
+                    }
                 ),
             ),
             (
@@ -578,7 +575,7 @@ VIEWS: ViewConfig = [
                         "query_string": "root",
                         "object_types": ["user"],
                         "archived": False,
-                    },
+                    }
                 ),
             ),
             (
@@ -589,7 +586,7 @@ VIEWS: ViewConfig = [
                         "query_string": "Test",
                         "object_types": ["media"],
                         "archived": False,
-                    },
+                    }
                 ),
             ),
         ],
@@ -605,7 +602,7 @@ VIEWS: ViewConfig = [
                     {
                         "title": "Slugify event",
                         "model_id": 1,
-                    },
+                    }
                 ),
             ),
         ],
@@ -620,7 +617,7 @@ VIEWS: ViewConfig = [
                     {
                         "title": "Slugify poi",
                         "model_id": 4,
-                    },
+                    }
                 ),
             ),
         ],
@@ -635,7 +632,7 @@ VIEWS: ViewConfig = [
                     {
                         "title": "Slugify page",
                         "model_id": 1,
-                    },
+                    }
                 ),
             ),
         ],
@@ -1208,12 +1205,22 @@ VIEWS: ViewConfig = [
             ),
         ],
         # The kwargs for these views
-        {"region_slug": "augsburg", "language_slug": "de"},
+        {
+            "region_slug": "augsburg",
+            "language_slug": "de",
+            "is_archive": "False",
+            "is_statistics": "False",
+        },
     ),
     (
         [("get_page_tree_ajax", STAFF_ROLES, json.dumps([1]))],
         # The kwargs for these views
-        {"region_slug": "nurnberg", "language_slug": "de"},
+        {
+            "region_slug": "nurnberg",
+            "language_slug": "de",
+            "is_archive": "False",
+            "is_statistics": "False",
+        },
     ),
     (
         [
