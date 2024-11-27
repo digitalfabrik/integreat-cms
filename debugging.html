@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-11-14T10:10:11+00:00" />
+    <meta property="article:modified_time" content="2024-11-27T09:55:15+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Debugging &mdash; integreat-cms 2024.11.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -1781,6 +1781,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#django-debug-toolbar">Django Debug Toolbar</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#debugging-in-various-editors-and-ides">Debugging in various editors and IDEs</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#vscodium">VSCodium</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pycharm-professional">PyCharm (Professional)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#enable-django-support">Enable Django Support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-a-run-configuration">Create a Run Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#start-debugging">Start Debugging</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#neovim">Neovim</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#dap-dap-ui">DAP &amp; DAP-UI</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#configure-debugpy">Configure <code class="docutils literal notranslate"><span class="pre">debugpy</span></code></a></li>
@@ -2099,6 +2105,41 @@ Note that <code class="docutils literal notranslate"><span class="pre">debugpy</
 <h3>VSCodium<a class="headerlink" href="#vscodium" title="Link to this heading"></a></h3>
 <p>Coming soon(TM)?</p>
 </section>
+<section id="pycharm-professional">
+<h3>PyCharm (Professional)<a class="headerlink" href="#pycharm-professional" title="Link to this heading"></a></h3>
+<p>PyCharm Professional has built-in support for django projects, but it needs some configuration to work with the integreat CMS.
+This is unfortunately not the case for the free edition of PyCharm. Students can get a free license for the professional version, however.</p>
+<section id="enable-django-support">
+<h4>Enable Django Support<a class="headerlink" href="#enable-django-support" title="Link to this heading"></a></h4>
+<ol class="arabic simple">
+<li><p>Go to settings → Languages &amp; Frameworks → Django</p></li>
+<li><p>Click the <code class="docutils literal notranslate"><span class="pre">Enable</span> <span class="pre">Django</span> <span class="pre">Support</span></code> Checkbox</p></li>
+<li><p>Set the root <code class="docutils literal notranslate"><span class="pre">integreat_cms</span></code> directory as the project root</p></li>
+<li><p>For <code class="docutils literal notranslate"><span class="pre">Settings</span></code> use <code class="docutils literal notranslate"><span class="pre">integreat_cms/core/docker_settings.py</span></code></p></li>
+<li><p>Check <code class="docutils literal notranslate"><span class="pre">Do</span> <span class="pre">not</span> <span class="pre">use</span> <span class="pre">Django</span> <span class="pre">test</span> <span class="pre">runner</span></code></p></li>
+<li><p>For <code class="docutils literal notranslate"><span class="pre">Manage</span> <span class="pre">script</span></code>, use <code class="docutils literal notranslate"><span class="pre">integreat_cms/integreat-cms-cli</span></code>. If PyCharm does not let you select this script, because it does not end in .py, you can manually specify it in <code class="docutils literal notranslate"><span class="pre">.idea/integreat-cms.iml</span></code>.</p></li>
+</ol>
+<p>Your configuration should now look similar to this:</p>
+<blockquote>
+<div><img alt="Django configuration" src="_images/debug-pycharm-01-django-config.png" />
+</div></blockquote>
+</section>
+<section id="create-a-run-configuration">
+<h4>Create a Run Configuration<a class="headerlink" href="#create-a-run-configuration" title="Link to this heading"></a></h4>
+<ol class="arabic simple">
+<li><p>Create a new <code class="docutils literal notranslate"><span class="pre">Django</span> <span class="pre">Server</span></code> run configuration</p></li>
+<li><p>Use a different port (For example 8001) to avoid conflicts with the non-debug server at port 8000</p></li>
+<li><p>At <cite>Environment Variables</cite>, add these: <code class="docutils literal notranslate"><span class="pre">PYTHONUNBUFFERED=1;DJANGO_SETTINGS_MODULE=integreat_cms.core.docker_settings;INTEGREAT_CMS_DEBUG=True</span></code></p></li>
+</ol>
+</section>
+<section id="start-debugging">
+<h4>Start Debugging<a class="headerlink" href="#start-debugging" title="Link to this heading"></a></h4>
+<ol class="arabic simple">
+<li><p>First execute the <code class="docutils literal notranslate"><span class="pre">./tools/run.sh</span></code> to make sure that the database is available and all assets are compiled.</p></li>
+<li><p>Once the server has started, you can start debugging by launching the run configuration</p></li>
+</ol>
+</section>
+</section>
 <section id="neovim">
 <h3>Neovim<a class="headerlink" href="#neovim" title="Link to this heading"></a></h3>
 <p>Neovim enjoys excellent DAP support through the <a class="reference external" href="https://github.com/mfussenegger/nvim-dap">nvim-dap</a> plugin.
@@ -2316,7 +2357,7 @@ programs<span class="o">.</span>nixvim<span class="o">.</span><span class="ss">k
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 14, 2024.
+      <span class="lastupdated">Last updated on Nov 27, 2024.
       </span></p>
   </div>
 
