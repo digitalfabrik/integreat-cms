@@ -94,7 +94,7 @@ def delete(
         messages.success(request, _("Organization was successfully deleted"))
     else:
         logger.info("%r couldn't be deleted by %r", organization, request.user)
-        messages.success(
+        messages.error(
             request,
             _("Organization couldn't be deleted as it's used by a page, poi or user"),
         )

@@ -57,8 +57,8 @@ class ArchiveBulkAction(OrganizationBulkAction):
             messages.success(
                 request,
                 ngettext_lazy(
-                    "{model_name} {object_names} was succesfully archived.",
-                    "The following {model_name_plural} were succesfully archived: {object_names}.",
+                    "{model_name} {object_names} was successfully archived.",
+                    "The following {model_name_plural} were successfully archived: {object_names}.",
                     len(archive_successful),
                 ).format(
                     model_name=self.model._meta.verbose_name.title(),
@@ -107,8 +107,8 @@ class RestoreBulkAction(OrganizationBulkAction):
             messages.success(
                 request,
                 ngettext_lazy(
-                    "{model_name} {object_names} was succesfully restored.",
-                    "The following {model_name_plural} were succesfully retsored: {object_names}.",
+                    "{model_name} {object_names} was successfully restored.",
+                    "The following {model_name_plural} were successfully restored: {object_names}.",
                     len(restore_successful),
                 ).format(
                     model_name=self.model._meta.verbose_name.title(),
@@ -154,8 +154,8 @@ class DeleteBulkAction(OrganizationBulkAction):
             messages.success(
                 request,
                 ngettext_lazy(
-                    "{model_name} {object_names} was succesfully deleted.",
-                    "The following {model_name_plural} were succesfully deleted: {object_names}.",
+                    "{model_name} {object_names} was successfully deleted.",
+                    "The following {model_name_plural} were successfully deleted: {object_names}.",
                     len(delete_successful),
                 ).format(
                     model_name=self.model._meta.verbose_name.title(),
