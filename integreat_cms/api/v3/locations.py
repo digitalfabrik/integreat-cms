@@ -13,7 +13,7 @@ from django.utils import timezone
 from django.utils.html import strip_tags
 
 from ...cms.constants import status
-from ...cms.models import POICategoryTranslation
+from ...cms.models import Contact, POICategoryTranslation
 from ...cms.models.pois.poi import get_default_opening_hours
 from ...core.utils.strtobool import strtobool
 from ..decorators import json_response
@@ -70,6 +70,11 @@ def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]
     """
 
     poi = poi_translation.poi
+
+    primary_contact = Contact.objects.filter(
+        location=poi, area_of_responsibility=""
+    ).first()
+
     # Only return opening hours if they differ from the default value and the location is not temporarily closed
     opening_hours = None
     if not poi.temporarily_closed and poi.opening_hours != get_default_opening_hours():
@@ -87,9 +92,9 @@ def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]
         "available_languages": poi_translation.available_languages_dict,
         "icon": poi.icon.url if poi.icon else None,
         "thumbnail": poi.icon.thumbnail_url if poi.icon else None,
-        "website": poi.website or None,
-        "email": poi.email or None,
-        "phone_number": poi.phone_number or None,
+        "website": primary_contact.website if primary_contact else None,
+        "email": primary_contact.email if primary_contact else None,
+        "phone_number": primary_contact.phone_number if primary_contact else None,
         "category": transform_location_category(
             poi.category,
             poi_translation.language.slug,

@@ -168,7 +168,7 @@ class PotentialContactSourcesView(TemplateView):
                 "links_per_event": links_per_event,
                 "links_per_poi": links_per_poi,
                 "wanted": [
-                    "point_of_contact_for",
+                    "area_of_responsibility",
                     "name",
                     "email",
                     "phone_number",

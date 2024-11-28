@@ -307,7 +307,7 @@ def test_phone_number_conversion() -> None:
     for variant in variants:
         form_data = {
             "location": POI_ID,
-            "point_of_contact_for": "test",
+            "area_of_responsibility": "test",
             "name": "",
             "email": "mail@mail.integreat",
             "phone_number": variant,
