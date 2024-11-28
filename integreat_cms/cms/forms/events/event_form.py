@@ -83,13 +83,6 @@ class EventForm(CustomModelForm):
         widgets = {
             "icon": IconWidget(),
         }
-        error_messages = {
-            "location": {
-                "invalid_choice": _(
-                    "Either disable the event location or provide a valid location"
-                ),
-            },
-        }
 
     def __init__(self, **kwargs: Any) -> None:
         r"""
@@ -131,6 +124,16 @@ class EventForm(CustomModelForm):
         # make self.data mutable to allow values to be changed manually
         self.data = self.data.copy()
 
+        if not cleaned_data.get("has_not_location") and not cleaned_data.get(
+            "location"
+        ):
+            self.add_error(
+                "location",
+                forms.ValidationError(
+                    _("Either disable the event location or provide a valid location"),
+                    code="invalid_choice",
+                ),
+            )
         if cleaned_data.get("is_all_day"):
             cleaned_data["start_time"] = time.min
             self.data["start_time"] = time.min

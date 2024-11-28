@@ -396,6 +396,7 @@ VIEWS: ViewConfig = [
                     "end_date": "2030-01-01",
                     "is_all_day": True,
                     "status": status.DRAFT,
+                    "has_not_location": True,
                 },
             ),
             ("new_page", STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]),
@@ -730,6 +731,7 @@ VIEWS: ViewConfig = [
                     "end_date": "2030-01-01",
                     "is_all_day": True,
                     "status": status.DRAFT,
+                    "has_not_location": True,
                 },
             ),
             ("new_page", STAFF_ROLES),
@@ -1375,6 +1377,7 @@ VIEWS: ViewConfig = [
                     "end_date": "2030-01-01",
                     "is_all_day": True,
                     "status": status.DRAFT,
+                    "has_not_location": True,
                 },
             ),
             (

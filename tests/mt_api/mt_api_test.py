@@ -497,6 +497,7 @@ content_role_id_data_combination = [
             "start_date": "2030-01-01",
             "end_date": "2030-01-01",
             "is_all_day": True,
+            "has_not_location": True,
         },
     ),
 ]
