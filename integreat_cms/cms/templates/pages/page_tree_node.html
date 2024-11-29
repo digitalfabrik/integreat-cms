@@ -61,11 +61,15 @@
             {% endif %}
         </a>
     </td>
-    {% if backend_language and backend_language != language %}
+    {% if not backend_language %}
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_language LANGUAGE_CODE as backend_language %}
+    {% endif %}
+    {% if backend_language != language %}
         <td>
             <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=backend_language.slug %}"
-               class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
-               title="{% if page.backend_translation %} {{ page.backend_translation.title }}{% endif %}">
+            class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
+            title="{% if page.backend_translation %} {{ page.backend_translation.title }}{% endif %}">
                 <div class="translation-title">
                     {% if page.backend_translation %}
                         {{ page.backend_translation.title }}
@@ -76,12 +80,14 @@
             </a>
         </td>
     {% endif %}
-    <td class="whitespace-nowrap">
-        <div class="block py-1.5 px-2 text-gray-800">
-            {% for tag in page_translation.tags %}
-                <span class="bg-orange-400 text-white rounded px-2 py-1">{{ tag }}</span>
-            {% endfor %}
-        </div>
+    {% if not is_archive %}
+        <td class="whitespace-nowrap">
+            <div class="block py-1.5 px-2 text-gray-800">
+                {% for tag in page_translation.tags %}
+                    <span class="bg-orange-400 text-white rounded px-2 py-1">{{ tag }}</span>
+                {% endfor %}
+            </div>
+    {% endif %}
     </td>
     <td class="whitespace-nowrap">
         <div class="block py-1.5 px-2 text-gray-800">
