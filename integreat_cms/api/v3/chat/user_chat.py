@@ -16,8 +16,8 @@ from django.views.decorators.csrf import csrf_exempt
 
 from ....cms.models import ABTester, AttachmentMap, Language, Region, UserChat
 from ...decorators import json_response
-from .chat_bot import ChatBot
-from .zammad_api import ZammadChatAPI
+from .utils.chat_bot import process_answer, process_user_message
+from .utils.zammad_api import ZammadChatAPI
 
 if TYPE_CHECKING:
     from django.http import HttpRequest
@@ -231,11 +231,8 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
     )
     if not region.integreat_chat_enabled:
         return JsonResponse({"status": "Integreat Chat disabled"})
-    client = ZammadChatAPI(region)
     webhook_message = json.loads(request.body)
     message_text = webhook_message["article"]["body"]
-    zammad_chat = UserChat.objects.get(zammad_id=webhook_message["ticket"]["id"])
-    chat_bot = ChatBot()
 
     actions = []
     if webhook_message["article"]["internal"]:
@@ -249,34 +246,14 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
         webhook_message["article"]["created_by"]["login"]
         == "tech+integreat-cms@tuerantuer.org"
     ):
-        actions.append("question translation")
-        client.send_message(
-            zammad_chat.zammad_id,
-            chat_bot.automatic_translation(
-                message_text, zammad_chat.language.slug, region.default_language.slug
-            ),
-            True,
-            True,
+        actions.append("question translation queued")
+        process_user_message.apply_async(
+            args=[message_text, region.slug, webhook_message["ticket"]["id"]]
         )
-        if answer := chat_bot.automatic_answer(
-            message_text, region, zammad_chat.language.slug
-        ):
-            actions.append("automatic answer")
-            client.send_message(
-                zammad_chat.zammad_id,
-                answer,
-                False,
-                True,
-            )
     else:
-        actions.append("answer translation")
-        client.send_message(
-            zammad_chat.zammad_id,
-            chat_bot.automatic_translation(
-                message_text, region.default_language.slug, zammad_chat.language.slug
-            ),
-            False,
-            True,
+        actions.append("answer translation queued")
+        process_answer.apply_async(
+            args=[message_text, region.slug, webhook_message["ticket"]["id"]]
         )
     return JsonResponse(
         {

@@ -13,7 +13,7 @@ from django.conf import settings
 from requests.exceptions import HTTPError
 from zammad_py import ZammadAPI
 
-from ....cms.models import AttachmentMap, Region, UserChat
+from integreat_cms.cms.models import AttachmentMap, Region, UserChat
 
 logger = logging.getLogger(__name__)
 
@@ -166,10 +166,20 @@ class ZammadChatAPI:
 
     # pylint: disable=method-hidden
     def send_message(
-        self, chat_id: int, message: str, internal: bool = False, auto: bool = False
+        self,
+        chat_id: int,
+        message: str,
+        internal: bool = False,
+        automatic_message: bool = False,
     ) -> dict:
         """
         Post a new message to the given ticket
+
+        param chat_id: Zammad ID of the chat
+        param message: The message body
+        param internal: keep the message internal in Zammad (do not show to user)
+        param automatic_message: sets title to "automatically generated message"
+        return: dict with Zammad article data
         """
         params = {
             "ticket_id": chat_id,
@@ -178,9 +188,11 @@ class ZammadChatAPI:
             "content_type": "text/html",
             "internal": internal,
             "subject": (
-                "automatically generated message" if auto else "app user message"
+                "automatically generated message"
+                if automatic_message
+                else "app user message"
             ),
-            "sender": "Customer" if not auto else "Agent",
+            "sender": "Customer" if not automatic_message else "Agent",
         }
         return self._parse_response(  # type: ignore[return-value]
             self._attempt_call(self.client.ticket_article.create, params=params)
