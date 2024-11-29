@@ -47,6 +47,11 @@
             {% if not page_form.instance.id or not page_form.instance.archived %}
                 <div class="flex flex-wrap grow justify-end gap-2 items-center">
                     {% include "generic_auto_save_note.html" with form_instance=page_translation_form.instance %}
+                    {% has_perm 'cms.publish_page_object' request.user page as can_publish_page %}
+                    {% if can_publish_page %}
+                        <a href="{% url 'pages' region_slug=request.region.slug %}"
+                           class="btn btn-ghost">{% translate "Cancel" %}</a>
+                    {% endif %}
                     <button name="preview_page" type="button" data-preview-page data-edit-page-mode data-right-to-left={{ right_to_left }} class="btn btn-ghost">
                         {% translate "Preview" %}
                     </button>
