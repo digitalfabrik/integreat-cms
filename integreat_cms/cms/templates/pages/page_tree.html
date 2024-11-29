@@ -111,52 +111,35 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% if is_archive %}
-                        {% for page in pages %}
-                            {% get_translation page language.slug as page_translation %}
-                            {% include "pages/page_tree_archived_node.html" with page_translation=page_translation %}
-                        {% empty %}
-                            <tr>
-                                <td colspan="7" class="px-4 py-3">
-                                    {% if filter_form.is_enabled %}
-                                        {% translate "No archived pages found with these filters." %}
-                                    {% else %}
-                                        {% translate "No pages archived yet." %}
-                                    {% endif %}
+                    {% for page in pages %}
+                        {% include "pages/page_tree_node.html" with  is_archive=is_archive %}
+                        {% if forloop.last %}
+                            <tr data-drop-id="{% if page.is_root %}{{ page.id }}{% else %}{{ page.get_cached_ancestors.0.id }}{% endif %}"
+                                data-drop-position="right"
+                                class="drop drop-between h-3 hidden"
+                                title="test">
+                                <td colspan="9">
+                                    <div>
+                                        {# djlint:off H020 #}
+                                        <span></span>
+                                        {# djlint:on #}
+                                    </div>
                                 </td>
                             </tr>
-                        {% endfor %}
-                    {% else %}
-                        {% for page in pages %}
-                            {% include "pages/page_tree_node.html" %}
-                            {% if forloop.last %}
-                                <tr data-drop-id="{% if page.is_root %}{{ page.id }}{% else %}{{ page.get_cached_ancestors.0.id }}{% endif %}"
-                                    data-drop-position="right"
-                                    class="drop drop-between h-3 hidden"
-                                    title="test">
-                                    <td colspan="9">
-                                        <div>
-                                            {# djlint:off H020 #}
-                                            <span></span>
-                                            {# djlint:on #}
-                                        </div>
-                                    </td>
-                                </tr>
-                            {% endif %}
-                        {% empty %}
-                            <tr>
-                                <td>
-                                </td>
-                                <td colspan="8" class="px-2 py-3">
-                                    {% if filter_form.is_enabled %}
-                                        {% translate "No pages found with these filters." %}
-                                    {% else %}
-                                        {% translate "No pages available yet." %}
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    {% endif %}
+                        {% endif %}
+                    {% empty %}
+                        <tr>
+                            <td>
+                            </td>
+                            <td colspan="8" class="px-2 py-3">
+                                {% if filter_form.is_enabled %}
+                                    {% translate "No pages found with these filters." %}
+                                {% else %}
+                                    {% translate "No pages available yet." %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>
