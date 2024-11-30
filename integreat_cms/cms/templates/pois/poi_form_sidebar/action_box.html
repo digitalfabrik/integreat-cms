@@ -68,7 +68,7 @@
                         {% for contact in poi_form.instance.contacts.all %}
                             <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
                                class="block pt-2 hover:underline">
-                                <i icon-name="pen-square" class="mr-2"></i> {{ contact.point_of_contact_for }} {{ contact.name }}
+                                <i icon-name="pen-square" class="mr-2"></i> {{ contact.label_in_reference_list }}
                             </a>
                         {% endfor %}
                     </div>
@@ -130,7 +130,7 @@
                         {% for contact in poi_form.instance.contacts.all %}
                             <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
                                class="block pt-2 hover:underline">
-                                <i icon-name="pen-square" class="mr-2"></i> {{ contact.point_of_contact_for }} {{ contact.name }}
+                                <i icon-name="pen-square" class="mr-2"></i> {{ contact.label_in_reference_list }}
                             </a>
                         {% endfor %}
                     </div>
