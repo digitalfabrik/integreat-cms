@@ -13,7 +13,7 @@
             {% elif view.kwargs.url_filter == 'unchecked' %}
                 {% translate "Unchecked links" %}
             {% elif view.kwargs.url_filter == 'ignored' %}
-                {% translate "Ignored links" %}
+                {% translate "Link verified" %}
             {% elif LINKCHECK_EMAIL_ENABLED and view.kwargs.url_filter == 'email' %}
                 {% translate "Email links" %}
             {% elif LINKCHECK_PHONE_ENABLED and view.kwargs.url_filter == 'phone' %}
@@ -143,7 +143,7 @@
                             {% if view.kwargs.url_filter == 'valid' %}
                                 {% translate "No valid links could be found." %}
                             {% elif view.kwargs.url_filter == 'invalid' %}
-                                {% translate "No invalid links could be found." %}
+                                {% translate "No links needing verification could be found." %}
                             {% elif view.kwargs.url_filter == 'unchecked' %}
                                 {% translate "No unchecked links could be found." %}
                             {% elif LINKCHECK_EMAIL_ENABLED and view.kwargs.url_filter == 'email' %}
@@ -151,7 +151,7 @@
                             {% elif LINKCHECK_PHONE_ENABLED and view.kwargs.url_filter == 'phone' %}
                                 {% translate "No phone links could be found." %}
                             {% else %}
-                                {% translate "No ignored links could be found." %}
+                                {% translate "No verified links could be found." %}
                             {% endif %}
                         </td>
                     </tr>

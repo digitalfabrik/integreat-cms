@@ -1445,8 +1445,9 @@ msgid "Phone links"
 msgstr "Telefonnummern-Links"
 
 #: cms/constants/linkcheck.py cms/templates/analytics/_broken_links_widget.html
-msgid "Invalid links"
-msgstr "Ungültige Links"
+#: cms/templates/linkcheck/links_by_filter.html
+msgid "Verification needed"
+msgstr "Überprüfung notwendig"
 
 #: cms/constants/machine_translation_permissions.py
 msgid "No"
@@ -5014,8 +5015,8 @@ msgstr "Gültige Links"
 
 #: cms/templates/analytics/_broken_links_widget.html
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "Ignored links"
-msgstr "Ignorierte Links"
+msgid "Link verified"
+msgstr "Link überprüft"
 
 #: cms/templates/analytics/_broken_links_widget.html
 #: cms/templates/linkcheck/links_by_filter.html
@@ -6801,16 +6802,8 @@ msgid "Valid"
 msgstr "Gültig"
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "Verification needed"
-msgstr "Überprüfung notwendig"
-
-#: cms/templates/linkcheck/links_by_filter.html
 msgid "Unchecked"
 msgstr "Nicht geprüft"
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Link verified"
-msgstr "Link überprüft"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid ""
@@ -6882,8 +6875,8 @@ msgid "No valid links could be found."
 msgstr "Es konnten keine gültigen Links gefunden werden."
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "No invalid links could be found."
-msgstr "Es konnten keine ungültigen Links gefunden werden."
+msgid "No links needing verification could be found."
+msgstr "Es konnten keine zu überprüfenden Links gefunden werden."
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "No unchecked links could be found."
@@ -6898,8 +6891,8 @@ msgid "No phone links could be found."
 msgstr "Es konnten keine Telefonnummern-Links gefunden werden."
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "No ignored links could be found."
-msgstr "Es konnten keine ignorierten Links gefunden werden."
+msgid "No verified links could be found."
+msgstr "Es konnten keine überprüften Links gefunden werden."
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "Links selected"
@@ -9615,12 +9608,12 @@ msgid "URL was successfully replaced"
 msgstr "URL wurde erfolgreich ersetzt"
 
 #: cms/views/linkcheck/linkcheck_list_view.py
-msgid "Links were successfully ignored"
-msgstr "Links wurden erfolgreich ignoriert"
+msgid "Links were successfully marked as verified"
+msgstr "Links wurden erfolgreich als überprüft markiert"
 
 #: cms/views/linkcheck/linkcheck_list_view.py
-msgid "Links were successfully unignored"
-msgstr "Links werden nicht mehr ignoriert"
+msgid "Verification was revoked for the links"
+msgstr "Verifizierung wurde für die Links entzogen"
 
 #: cms/views/linkcheck/linkcheck_list_view.py
 msgid "Links were successfully checked"
@@ -11157,6 +11150,12 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "Invalid links"
+#~ msgstr "Ungültige Links"
+
+#~ msgid "Ignored links"
+#~ msgstr "Ignorierte Links"
 
 #~ msgid "Invalid"
 #~ msgstr "Ungültig"
