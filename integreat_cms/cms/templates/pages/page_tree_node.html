@@ -68,8 +68,8 @@
     {% if backend_language != language %}
         <td>
             <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=backend_language.slug %}"
-            class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
-            title="{% if page.backend_translation %} {{ page.backend_translation.title }}{% endif %}">
+               class="block py-1.5 px-2 overflow-hidden max-w-xs whitespace-nowrap text-ellipsis text-gray-800"
+               title="{% if page.backend_translation %} {{ page.backend_translation.title }}{% endif %}">
                 <div class="translation-title">
                     {% if page.backend_translation %}
                         {{ page.backend_translation.title }}
@@ -87,7 +87,7 @@
                     <span class="bg-orange-400 text-white rounded px-2 py-1">{{ tag }}</span>
                 {% endfor %}
             </div>
-    {% endif %}
+        {% endif %}
     </td>
     <td class="whitespace-nowrap">
         <div class="block py-1.5 px-2 text-gray-800">
@@ -139,9 +139,25 @@
         </div>
     </td>
     <td>
-        <div class="block py-1.5 px-2 text-gray-800">
-            {{ page_translation.get_status_display }}
-        </div>
+        {% if is_archive %}
+            {% if page.explicitly_archived %}
+                <div title="{% translate "This page is archived." %}"
+                     href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+                     class="block py-2 pl-2 text-gray-800">
+                    {% translate "Archived" %}
+                </div>
+            {% else %}
+                <div title="{% translate "This page is archived, because at least one of its parent pages is archived." %}"
+                     href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+                     class="block py-2 pl-2 text-gray-800">
+                    {% translate "Archived, because a parent page is archived" %}
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="block py-1.5 px-2 text-gray-800">
+                {{ page_translation.get_status_display }}
+            </div>
+        {% endif %}
     </td>
     <td>
         <div class="block py-1.5 px-2 whitespace-nowrap text-gray-800">
@@ -164,42 +180,63 @@
                 <i icon-name="eye"></i>
             </button>
         {% endif %}
-        {% if page_translation.status == PUBLIC %}
-            <a href="{{ WEBAPP_URL }}{{ page_translation.get_absolute_url }}"
-               rel="noopener noreferrer"
-               target="_blank"
-               title="{% translate "Open page in web app" %}"
-               class="btn-icon">
-                <i icon-name="external-link"></i>
-            </a>
-        {% else %}
-            <button title="{% translate "This page cannot be opened in the web app, because it is not public." %}"
-                    class="btn-icon"
-                    disabled>
-                <i icon-name="external-link"></i>
-            </button>
-        {% endif %}
-        <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
-           title="{% translate "Edit page" %}"
-           class="btn-icon">
-            <i icon-name="pencil"></i>
-        </a>
-        {% if can_edit_pages %}
-            {% if page.mirroring_pages.exists %}
-                <button title="{% translate "This page cannot be archived because it was embedded as live content from another page." %}"
+        {% if not is_archive %}
+            {% if page_translation.status == PUBLIC %}
+                <a href="{{ WEBAPP_URL }}{{ page_translation.get_absolute_url }}"
+                   rel="noopener noreferrer"
+                   target="_blank"
+                   title="{% translate "Open page in web app" %}"
+                   class="btn-icon">
+                    <i icon-name="external-link"></i>
+                </a>
+            {% else %}
+                <button title="{% translate "This page cannot be opened in the web app, because it is not public." %}"
                         class="btn-icon"
                         disabled>
-                    <i icon-name="archive"></i>
+                    <i icon-name="external-link"></i>
                 </button>
-            {% else %}
-                <button title="{% translate "Archive page" %}"
-                        class="confirmation-button btn-icon"
-                        data-confirmation-title="{{ archive_dialog_title }}"
-                        data-confirmation-text="{{ archive_dialog_text }}"
-                        data-confirmation-subject="{{ page.best_translation.title }}"
-                        data-action="{% url 'archive_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
-                    <i icon-name="archive"></i>
-                </button>
+            {% endif %}
+            <a href="{% url 'edit_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}"
+               title="{% translate "Edit page" %}"
+               class="btn-icon">
+                <i icon-name="pencil"></i>
+            </a>
+            {% if can_edit_pages %}
+                {% if page.mirroring_pages.exists %}
+                    <button title="{% translate "This page cannot be archived because it was embedded as live content from another page." %}"
+                            class="btn-icon"
+                            disabled>
+                        <i icon-name="archive"></i>
+                    </button>
+                {% else %}
+                    <button title="{% translate "Archive page" %}"
+                            class="confirmation-button btn-icon"
+                            data-confirmation-title="{{ archive_dialog_title }}"
+                            data-confirmation-text="{{ archive_dialog_text }}"
+                            data-confirmation-subject="{{ page.best_translation.title }}"
+                            data-action="{% url 'archive_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
+                        <i icon-name="archive"></i>
+                    </button>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            {% if can_edit_pages %}
+                {% if page.explicitly_archived %}
+                    <button title="{% translate "Restore page" %}"
+                            class="confirmation-button btn-icon"
+                            data-confirmation-title="{{ restore_dialog_title }}"
+                            data-confirmation-text="{{ restore_dialog_text }}"
+                            data-confirmation-subject="{{ page.best_translation.title }}"
+                            data-action="{% url 'restore_page' page_id=page.id region_slug=request.region.slug language_slug=language.slug %}">
+                        <i icon-name="refresh-ccw"></i>
+                    </button>
+                {% else %}
+                    <a title="{% translate "To restore this page, you have to restore its archived parent page." %}"
+                       class="btn-icon"
+                       disabled>
+                        <i icon-name="refresh-ccw"></i>
+                    </a>
+                {% endif %}
             {% endif %}
         {% endif %}
         {% if perms.cms.delete_page %}
@@ -228,7 +265,7 @@
             {% endif %}
             {# djlint:on #}
         {% endif %}
-        {% if request.region.short_urls_enabled and request.user.expert_mode %}
+        {% if not is_archive and request.region.short_urls_enabled and request.user.expert_mode %}
             {% if page_translation %}
                 <a href="#"
                    data-copy-to-clipboard="{{ page_translation.short_url }}"
