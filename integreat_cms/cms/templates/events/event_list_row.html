@@ -4,11 +4,13 @@
 {% load poi_filters %}
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100 text-gray-800">
     <td class="py-3 pl-4">
-        <input type="checkbox"
-               name="selected_ids[]"
-               value="{{ event.id }}"
-               form="bulk-action-form"
-               class="bulk-select-item" />
+        {% if perms.cms.change_event %}
+            <input type="checkbox"
+                   name="selected_ids[]"
+                   value="{{ event.id }}"
+                   form="bulk-action-form"
+                   class="bulk-select-item" />
+        {% endif %}
     </td>
     <td>
         <a title="{% if event_translation %} {{ event_translation.title }}{% endif %}"
