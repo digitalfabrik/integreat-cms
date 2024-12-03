@@ -35,10 +35,7 @@ logger = logging.getLogger(__name__)
 @method_decorator(permission_required("cms.view_poi"), name="dispatch")
 @method_decorator(permission_required("cms.change_poi"), name="post")
 class POIFormView(
-    TemplateView,
-    POIContextMixin,
-    MediaContextMixin,
-    ContentEditLockMixin,
+    TemplateView, POIContextMixin, MediaContextMixin, ContentEditLockMixin
 ):
     """
     View for editing POIs

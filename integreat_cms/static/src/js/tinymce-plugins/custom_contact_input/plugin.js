@@ -4,6 +4,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
 (() => {
     const tinymceConfig = document.getElementById("tinymce-config-options");
     const completionUrl = tinymceConfig.getAttribute("data-contact-ajax-url");
+    const HTTP_STATUS_OK = 200;
 
     const getCompletions = async (query) => {
         const response = await fetch(completionUrl, {
@@ -14,7 +15,6 @@ import { getCsrfToken } from "../../utils/csrf-token";
             body: JSON.stringify({ query_string: query }),
         });
 
-        const HTTP_STATUS_OK = 200;
         if (response.status !== HTTP_STATUS_OK) {
             return [];
         }
@@ -31,7 +31,6 @@ import { getCsrfToken } from "../../utils/csrf-token";
             },
         });
 
-        const HTTP_STATUS_OK = 200;
         if (response.status !== HTTP_STATUS_OK) {
             return "";
         }

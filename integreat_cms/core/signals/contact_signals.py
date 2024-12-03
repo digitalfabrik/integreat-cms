@@ -35,6 +35,6 @@ def contact_save_handler(instance: Contact, **kwargs: Any) -> None:
         + list(instance.referring_event_translations)
     )
     for referrer in referring_objects:
-        logger.debug("Updating %r, since if references %r.", referrer, instance)
+        logger.debug("Updating %r, since it references %r.", referrer, instance)
         referrer.content = clean_content(referrer.content, referrer.language.slug)
         referrer.save(update_fields=["content"])

@@ -316,7 +316,6 @@ class Contact(AbstractBaseModel):
 
         :return: The full url
         """
-        # f"{settings.WEBAPP_URL}/{self.location.region.slug}/contact/{self.id}/"
         return settings.BASE_URL + self.get_absolute_url()
 
     class Meta:

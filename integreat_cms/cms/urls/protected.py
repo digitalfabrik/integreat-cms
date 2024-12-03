@@ -19,7 +19,15 @@ from ..forms import (
     POITranslationForm,
     RegionForm,
 )
-from ..models import Event, Language, OfferTemplate, Page, POI, POICategory, Role
+from ..models import (
+    Event,
+    Language,
+    OfferTemplate,
+    Page,
+    POI,
+    POICategory,
+    Role,
+)
 from ..views import (
     analytics,
     bulk_action_views,

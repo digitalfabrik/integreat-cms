@@ -37,10 +37,7 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
 class PageFormView(
-    TemplateView,
-    PageContextMixin,
-    MediaContextMixin,
-    ContentEditLockMixin,
+    TemplateView, PageContextMixin, MediaContextMixin, ContentEditLockMixin
 ):
     """
     View for the page form and page translation form
