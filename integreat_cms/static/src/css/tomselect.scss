@@ -97,31 +97,3 @@
         }
     }
 }
-
-// Provide a mixin to bypass all inputs directly in tomselect
-/* We could just have
-      some, very, long, list, of, selectors {
-        &:not(.ts-wrapper > &)
-         :not(.ts…             {
-          properties: and;
-          & more > selectors {}
-        }
-      }
-   but this would generate the power set of all combinations:
-      some:not(… > some), some:not(… > very), some:not(… > long), …,
-      very:not(… > some), very:not(… > very), very:not(… > long), …,
-   etc. which would clutter the file, while we only need 1:1 correspondence:
-      some:not(… > some),
-      very:not(… > very),
-      long:not(… > long),
-      …
- */
-@mixin not-tomselect($selectors...) {
-    @each $selector in $selectors {
-        #{$selector}:not(.ts-wrapper > #{$selector})
-            :not(.ts-control > #{$selector})
-            :not(.ts-dropdown > #{$selector}) {
-            @content;
-        }
-    }
-}
