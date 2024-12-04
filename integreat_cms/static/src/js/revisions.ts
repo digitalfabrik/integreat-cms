@@ -307,10 +307,8 @@ window.addEventListener("load", () => {
 
     document.addEventListener("keydown", (event) => {
         if (event.key === "ArrowRight") {
-            event.preventDefault();
             selectNextTimelineItem();
         } else if (event.key === "ArrowLeft") {
-            event.preventDefault();
             selectPrevTimelineItem();
         }
     });
