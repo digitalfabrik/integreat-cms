@@ -46,5 +46,8 @@ done
 # Show success message once dev server is up
 listen_for_devserver &
 
+# Run Celery worker process
+celery -A integreat_cms.integreat_celery worker -l INFO -B --concurrency=1 &
+
 # Start Integreat CMS development webserver
 deescalate_privileges integreat-cms-cli runserver "localhost:${INTEGREAT_CMS_PORT}"

@@ -101,12 +101,12 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
-          from: "node_modules/tinymce/skins/ui/oxide/skin.min.css",
-          to: "skins/ui/oxide/skin.min.css",
+          from: "node_modules/tinymce/skins/ui/oxide/skin.css",
+          to: "skins/ui/oxide/skin.css",
         },
         {
-          from: "node_modules/tinymce/skins/ui/oxide/content.min.css",
-          to: "skins/ui/oxide/content.min.css",
+          from: "node_modules/tinymce/skins/ui/oxide/content.css",
+          to: "skins/ui/oxide/content.css",
         },
         { from: "integreat_cms/static/src/svg", to: "svg" },
         { from: "integreat_cms/static/src/images", to: "images" },

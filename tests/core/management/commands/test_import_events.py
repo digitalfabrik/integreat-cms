@@ -3,7 +3,12 @@ from __future__ import annotations
 import pytest
 from pytest_httpserver import HTTPServer
 
-from integreat_cms.cms.models import EventTranslation, ExternalCalendar, Region
+from integreat_cms.cms.models import (
+    EventTranslation,
+    ExternalCalendar,
+    RecurrenceRule,
+    Region,
+)
 
 from ..utils import get_command_output
 
@@ -23,11 +28,44 @@ CALENDAR_CORRUPTED = (
 CALENDAR_MULTIPLE_CATEGORIES = (
     "tests/core/management/commands/assets/calendars/event_with_multiple_categories.ics"
 )
+CALENDAR_RECURRENCE_RULES = (
+    "tests/core/management/commands/assets/calendars/recurrence_rules.ics"
+)
+CALENDAR_SINGLE_RECURRING_EVENT_A = (
+    "tests/core/management/commands/assets/calendars/single_recurring_event_a.ics"
+)
+CALENDAR_SINGLE_RECURRING_EVENT_B = (
+    "tests/core/management/commands/assets/calendars/single_recurring_event_b.ics"
+)
+
+#: A Collection of (Calendar file, events in that file, recurrence rules in that file)
 CALENDARS = [
-    (CALENDAR_V1, [CALENDAR_V1_EVENT_NAME]),
-    (CALENDAR_v2, [CALENDAR_V2_EVENT_NAME]),
-    (CALENDAR_EMPTY, []),
-    (CALENDAR_WRONG_CATEGORY, [CALENDAR_WRONG_CATEGORY_EVENT_NAME]),
+    (CALENDAR_V1, [CALENDAR_V1_EVENT_NAME], {}),
+    (CALENDAR_v2, [CALENDAR_V2_EVENT_NAME], {}),
+    (CALENDAR_EMPTY, [], {}),
+    (CALENDAR_WRONG_CATEGORY, [CALENDAR_WRONG_CATEGORY_EVENT_NAME], {}),
+    (
+        CALENDAR_RECURRENCE_RULES,
+        [
+            "Singular event",
+            "Every first Monday",
+            "Every second day",
+            "Weekly event",
+            "Every year until 2034",
+        ],
+        {
+            "DTSTART:20241112T230000\nRRULE:FREQ=MONTHLY;BYDAY=+1MO",
+            "DTSTART:20241113T130002\nRRULE:FREQ=DAILY;INTERVAL=2",
+            "DTSTART:20241113T190000\nRRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR",
+            "DTSTART:20241112T230000\nRRULE:FREQ=YEARLY;UNTIL=20341112T235959",
+        },
+    ),
+    (
+        CALENDAR_SINGLE_RECURRING_EVENT_A,
+        ["Repeating event?"],
+        {"DTSTART:20241113T230000\nRRULE:FREQ=DAILY"},
+    ),
+    (CALENDAR_SINGLE_RECURRING_EVENT_B, ["Repeating event?"], {}),
 ]
 
 
@@ -69,7 +107,9 @@ def test_import_without_calendars() -> None:
 @pytest.mark.parametrize("calendar_data", CALENDARS)
 @pytest.mark.django_db
 def test_import_successful(
-    httpserver: HTTPServer, load_test_data: None, calendar_data: tuple[str, list[str]]
+    httpserver: HTTPServer,
+    load_test_data: None,
+    calendar_data: tuple[str, list[str], set[str]],
 ) -> None:
     """
     Tests that the calendars in the test data can be imported correctly
@@ -77,13 +117,18 @@ def test_import_successful(
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     :param calendar_data: A tuple of calendar path and event names of this calendar
     """
-    calendar_file, event_names = calendar_data
+    calendar_file, event_names, recurrence_rules = calendar_data
     calendar_url = serve(httpserver, calendar_file)
     calendar = setup_calendar(calendar_url)
 
     assert not EventTranslation.objects.filter(
         event__region=calendar.region, title__in=event_names
     ).exists(), "Event should not exist before import"
+
+    for rule in RecurrenceRule.objects.all():
+        assert (
+            rule.to_ical_rrule_string() not in recurrence_rules
+        ), "Recurrence rule should not exist before import"
 
     _, err = get_command_output("import_events")
     assert not err
@@ -94,6 +139,11 @@ def test_import_successful(
         ).exists()
         for title in event_names
     ), "Events should exist after import"
+
+    new_rules = {rule.to_ical_rrule_string() for rule in RecurrenceRule.objects.all()}
+    print(new_rules)
+    for rule in recurrence_rules:
+        assert rule in new_rules, "Recurrence rule should exist after import"
 
 
 @pytest.mark.django_db
@@ -248,10 +298,43 @@ def test_import_event_with_multiple_categories(
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     calendar_url = serve(httpserver, CALENDAR_MULTIPLE_CATEGORIES)
-    calendar = setup_calendar(calendar_url)
-    calendar.save()
+    setup_calendar(calendar_url)
 
     out, err = get_command_output("import_events")
     print(err)
     assert not err
     assert "Imported event" in out
+
+
+@pytest.mark.django_db
+def test_import_and_remove_recurrence_rule(
+    httpserver: HTTPServer, load_test_data: None
+) -> None:
+    """
+    Imports an event with a recurrence rule and later the same event without recurrence rule.
+    Tests that the recurrence rule gets deleted when it is not needed anymore after the second import.
+    :param httpserver: The server
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+    calendar_url = serve(httpserver, CALENDAR_SINGLE_RECURRING_EVENT_A)
+    calendar = setup_calendar(calendar_url)
+
+    _, err = get_command_output("import_events")
+    assert not err
+
+    assert RecurrenceRule.objects.filter(
+        event__external_calendar=calendar
+    ).exists(), "The recurrence rule should exist after import"
+    event = calendar.events.first()
+    assert event, "Event should have been created"
+
+    # Now, import the updated calendar where the recurrence rule was removed
+    serve(httpserver, CALENDAR_SINGLE_RECURRING_EVENT_B)
+    _, err = get_command_output("import_events")
+    assert not err
+
+    assert not RecurrenceRule.objects.filter(
+        event__external_calendar=calendar
+    ).exists(), "The recurrence rule should not exist anymore after update"
+    new_event = calendar.events.first()
+    assert event.id == new_event.id, "The event should still exist"

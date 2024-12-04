@@ -4,11 +4,13 @@
 {% load poi_filters %}
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100 text-gray-800">
     <td class="py-3 pl-4">
-        <input type="checkbox"
-               name="selected_ids[]"
-               value="{{ event.id }}"
-               form="bulk-action-form"
-               class="bulk-select-item" />
+        {% if perms.cms.change_event %}
+            <input type="checkbox"
+                   name="selected_ids[]"
+                   value="{{ event.id }}"
+                   form="bulk-action-form"
+                   class="bulk-select-item" />
+        {% endif %}
     </td>
     <td>
         <a title="{% if event_translation %} {{ event_translation.title }}{% endif %}"
@@ -24,10 +26,10 @@
     {% get_current_language as LANGUAGE_CODE %}
     {% get_language LANGUAGE_CODE as backend_language %}
     {% if backend_language and backend_language != language %}
-        <td>
+        <td class="py-3 pr-2 text-gray-800">
             <a title="{% if event.backend_translation %} {{ event.backend_translation.title }}{% endif %}"
                href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=LANGUAGE_CODE %}"
-               class="block py-3 pr-2 text-gray-800">
+               class="block text-gray-800">
                 {% if event.backend_translation %}
                     {{ event.backend_translation.title|truncatechars:35 }}
                 {% else %}
@@ -124,44 +126,57 @@
         {% endif %}
     </td>
     <td class="pr-4 py-3 flex flex-nowrap justify-end gap-2">
-        {% if event_translation.status == PUBLIC %}
-            <a href="{{ WEBAPP_URL }}{{ event_translation.get_absolute_url }}"
-               rel="noopener noreferrer"
-               target="_blank"
-               title="{% translate "Open event in web app" %}"
-               class="btn-icon">
-                <i icon-name="external-link"></i>
-            </a>
-        {% else %}
-            <button title="{% translate "This event cannot be opened in the web app, because it is not public." %}"
-                    class="btn-icon"
-                    disabled>
-                <i icon-name="external-link"></i>
-            </button>
+        {% if not is_archive %}
+            {% if event_translation.status == PUBLIC %}
+                <a href="{{ WEBAPP_URL }}{{ event_translation.get_absolute_url }}"
+                   rel="noopener noreferrer"
+                   target="_blank"
+                   title="{% translate "Open event in web app" %}"
+                   class="btn-icon">
+                    <i icon-name="external-link"></i>
+                </a>
+            {% else %}
+                <button title="{% translate "This event cannot be opened in the web app, because it is not public." %}"
+                        class="btn-icon"
+                        disabled>
+                    <i icon-name="external-link"></i>
+                </button>
+            {% endif %}
         {% endif %}
         {% has_perm 'cms.change_event' request.user as can_edit_event %}
         {% if can_edit_event %}
-            {% if not event.external_calendar %}
-                <form action="{% url 'copy_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
-                      method="post">
-                    {% csrf_token %}
-                    <button class="btn-icon" title="{% translate "Copy event" %}">
+            {% if not is_archive %}
+                {% if not event.external_calendar %}
+                    <form action="{% url 'copy_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
+                          method="post">
+                        {% csrf_token %}
+                        <button class="btn-icon" title="{% translate "Copy event" %}">
+                            <i icon-name="copy"></i>
+                        </button>
+                    </form>
+                {% else %}
+                    <button title="{{ cannot_copy_title }}" class="btn-icon" disabled>
                         <i icon-name="copy"></i>
                     </button>
-                </form>
+                {% endif %}
+                <button title="{% translate "Archive event" %}"
+                        class="confirmation-button btn-icon"
+                        data-confirmation-title="{{ archive_dialog_title }}"
+                        data-confirmation-text="{{ archive_dialog_text }}"
+                        data-confirmation-subject="{{ event_translation.title }}"
+                        data-action="{% url 'archive_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
+                    <i icon-name="archive"></i>
+                </button>
             {% else %}
-                <button title="{{ cannot_copy_title }}" class="btn-icon" disabled>
-                    <i icon-name="copy"></i>
+                <button title="{% translate "Restore event" %}"
+                        class="confirmation-button btn-icon"
+                        data-confirmation-title="{{ restore_dialog_title }}"
+                        data-confirmation-text="{{ restore_dialog_text }}"
+                        data-confirmation-subject="{{ event_translation.title }}"
+                        data-action="{% url 'restore_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
+                    <i icon-name="refresh-ccw"></i>
                 </button>
             {% endif %}
-            <button title="{% translate "Archive event" %}"
-                    class="confirmation-button btn-icon"
-                    data-confirmation-title="{{ archive_dialog_title }}"
-                    data-confirmation-text="{{ archive_dialog_text }}"
-                    data-confirmation-subject="{{ event_translation.title }}"
-                    data-action="{% url 'archive_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}">
-                <i icon-name="archive"></i>
-            </button>
         {% endif %}
         {% if perms.cms.delete_event %}
             <button title="{% translate "Delete event" %}"

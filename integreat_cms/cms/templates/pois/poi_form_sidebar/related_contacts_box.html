@@ -1,0 +1,28 @@
+{% extends "../../_collapsible_box.html" %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% block collapsible_box_icon %}
+    message-square
+{% endblock collapsible_box_icon %}
+{% block collapsible_box_title %}
+    {% trans "Related contacts" %}
+{% endblock collapsible_box_title %}
+{% block collapsible_box_content %}
+    {% with poi_form.instance.contacts.all as contacts %}
+        <div>
+            <div class="help-text">
+                {% if contacts %}
+                    {% trans "This location is currently referred to by the following contacts." %}
+                {% else %}
+                    {% trans "This location is not currently referred to in any contact." %}
+                {% endif %}
+            </div>
+            {% for contact in contacts %}
+                <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
+                   class="block pt-2 hover:underline">
+                    <i icon-name="pen-square" class="mr-2"></i> {{ contact.label_in_reference_list }}
+                </a>
+            {% endfor %}
+        </div>
+    {% endwith %}
+{% endblock collapsible_box_content %}

@@ -64,7 +64,9 @@ def test_api_chat_incorrect_auth_error(load_test_data: None) -> None:
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     mock_api = MagicMock()
-    with patch("integreat_cms.api.v3.chat.zammad_api.ZammadAPI", return_value=mock_api):
+    with patch(
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+    ):
         mock_api.user.me.side_effect = HTTPError()
 
         client = Client()
@@ -88,7 +90,9 @@ def test_api_chat_first_chat(load_test_data: None) -> None:
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     mock_api = MagicMock()
-    with patch("integreat_cms.api.v3.chat.zammad_api.ZammadAPI", return_value=mock_api):
+    with patch(
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+    ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
         mock_api.ticket.create.return_value = {"id": 111}
@@ -112,7 +116,9 @@ def test_api_chat_force_new_chat(load_test_data: None) -> None:
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     mock_api = MagicMock()
-    with patch("integreat_cms.api.v3.chat.zammad_api.ZammadAPI", return_value=mock_api):
+    with patch(
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+    ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
         mock_api.ticket.create.return_value = {"id": 222}
@@ -139,7 +145,9 @@ def test_api_chat_send_message(load_test_data: None) -> None:
     """
     mock_api = MagicMock()
     previous_chat = UserChat.objects.current_chat(default_kwargs["device_id"]).zammad_id
-    with patch("integreat_cms.api.v3.chat.zammad_api.ZammadAPI", return_value=mock_api):
+    with patch(
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+    ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
         mock_api.ticket_article.create.return_value = {}
@@ -166,7 +174,9 @@ def test_api_chat_get_messages_success(load_test_data: None) -> None:
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     mock_api = MagicMock()
-    with patch("integreat_cms.api.v3.chat.zammad_api.ZammadAPI", return_value=mock_api):
+    with patch(
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+    ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
         mock_api.ticket.articles.return_value = []
@@ -189,7 +199,9 @@ def test_api_chat_get_messages_failure(load_test_data: None) -> None:
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     mock_api = MagicMock()
-    with patch("integreat_cms.api.v3.chat.zammad_api.ZammadAPI", return_value=mock_api):
+    with patch(
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+    ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
 
@@ -214,7 +226,9 @@ def test_api_chat_create_attachment_success(load_test_data: None) -> None:
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     mock_api = MagicMock()
-    with patch("integreat_cms.api.v3.chat.zammad_api.ZammadAPI", return_value=mock_api):
+    with patch(
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+    ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
         mock_api.ticket.articles.return_value = [
@@ -253,7 +267,9 @@ def test_api_chat_get_attachment_success(load_test_data: None) -> None:
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     mock_api = MagicMock()
-    with patch("integreat_cms.api.v3.chat.zammad_api.ZammadAPI", return_value=mock_api):
+    with patch(
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+    ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
         mock_api.ticket_article_attachment.download.return_value = b"\00"
@@ -279,7 +295,9 @@ def test_api_chat_get_attachment_incorrect_chat_failure(load_test_data: None) ->
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     mock_api = MagicMock()
-    with patch("integreat_cms.api.v3.chat.zammad_api.ZammadAPI", return_value=mock_api):
+    with patch(
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+    ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
 
@@ -308,7 +326,9 @@ def test_api_chat_get_attachment_missing_attachment_failure(
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     mock_api = MagicMock()
-    with patch("integreat_cms.api.v3.chat.zammad_api.ZammadAPI", return_value=mock_api):
+    with patch(
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+    ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
 
@@ -331,7 +351,9 @@ def test_api_chat_ratelimiting(load_test_data: None) -> None:
     :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
     """
     mock_api = MagicMock()
-    with patch("integreat_cms.api.v3.chat.zammad_api.ZammadAPI", return_value=mock_api):
+    with patch(
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+    ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
         mock_api.ticket.create.return_value = {"id": 333}

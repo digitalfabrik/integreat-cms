@@ -1368,6 +1368,46 @@ msgstr "Mandel"
 msgid "Cherry"
 msgstr "Kirsche"
 
+#: cms/constants/language_color.py
+msgid "Dusty orange"
+msgstr "Stauborange"
+
+#: cms/constants/language_color.py
+msgid "Dust storm"
+msgstr "Staubsturm"
+
+#: cms/constants/language_color.py
+msgid "Silver"
+msgstr "Silber"
+
+#: cms/constants/language_color.py
+msgid "Light gray"
+msgstr "Hellgrau"
+
+#: cms/constants/language_color.py
+msgid "Dark gray"
+msgstr "Dunkelgrau"
+
+#: cms/constants/language_color.py
+msgid "Deep pink"
+msgstr "Tiefrosa"
+
+#: cms/constants/language_color.py
+msgid "Dark yellowish green"
+msgstr "Dunkelgelbliches Grün"
+
+#: cms/constants/language_color.py
+msgid "Moderate reddish purple"
+msgstr "Mittleres Purpurrot"
+
+#: cms/constants/language_color.py
+msgid "Strong yellow"
+msgstr "Starkes Gelb"
+
+#: cms/constants/language_color.py
+msgid "Brilliant purplish blue"
+msgstr "Leuchtendes Purpurblau"
+
 #: cms/constants/linkcheck.py
 msgid ""
 "New Connection Error: Failed to establish a new connection: [Errno -2] Name "
@@ -1640,9 +1680,9 @@ msgstr "Aktiv"
 msgid "Hidden"
 msgstr "Versteckt"
 
-#: cms/constants/region_status.py cms/models/pages/page_translation.py
-#: cms/models/regions/region.py cms/templates/events/event_form.html
-#: cms/templates/pages/page_form.html
+#: cms/constants/region_status.py cms/models/contact/contact.py
+#: cms/models/pages/page_translation.py cms/models/regions/region.py
+#: cms/templates/events/event_form.html cms/templates/pages/page_form.html
 #: cms/templates/pages/page_tree_archived_node.html
 #: cms/templates/pois/poi_form.html
 msgid "Archived"
@@ -1715,7 +1755,6 @@ msgid "Right to left"
 msgstr "Rechts nach Links"
 
 #: cms/constants/translation_status.py cms/templates/_form_language_tabs.html
-#: cms/templates/events/event_list_archived_row.html
 #: cms/templates/events/event_list_row.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
 #: cms/templates/pages/page_tree_archived_node.html
@@ -1724,7 +1763,6 @@ msgid "Translation up-to-date"
 msgstr "Übersetzung ist aktuell"
 
 #: cms/constants/translation_status.py cms/templates/_form_language_tabs.html
-#: cms/templates/events/event_list_archived_row.html
 #: cms/templates/events/event_list_row.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
 #: cms/templates/pages/page_tree_archived_node.html
@@ -1733,7 +1771,6 @@ msgid "Currently in translation"
 msgstr "Wird derzeit übersetzt"
 
 #: cms/constants/translation_status.py cms/templates/_form_language_tabs.html
-#: cms/templates/events/event_list_archived_row.html
 #: cms/templates/events/event_list_row.html
 #: cms/templates/imprint/imprint_sbs.html cms/templates/pages/page_sbs.html
 #: cms/templates/pages/page_tree_archived_node.html
@@ -1742,7 +1779,6 @@ msgid "Translation outdated"
 msgstr "Übersetzung ist veraltet"
 
 #: cms/constants/translation_status.py cms/templates/_form_language_tabs.html
-#: cms/templates/events/event_list_archived_row.html
 #: cms/templates/events/event_list_row.html
 #: cms/templates/pages/page_tree_archived_node.html
 #: cms/templates/pages/page_tree_node.html
@@ -1961,7 +1997,7 @@ msgstr "Alle Regionen"
 #: cms/templates/feedback/region_feedback_list_archived.html
 #: cms/templates/languagetreenodes/languagetreenode_list.html
 #: cms/templates/pages/_page_xliff_import_diff.html
-#: cms/templates/statistics/statistics_overview.html
+#: cms/templates/statistics/statistics_sidebar.html
 #: cms/views/feedback/feedback_resource.py
 msgid "Language"
 msgstr "Sprache"
@@ -1985,7 +2021,6 @@ msgid "Category"
 msgstr "Kategorie"
 
 #: cms/forms/feedback/region_feedback_filter_form.py
-#: cms/templates/events/event_list_archived.html
 #: cms/templates/events/external_calendar_list.html
 #: cms/templates/imprint/imprint_form.html
 #: cms/templates/imprint/imprint_sbs.html
@@ -2334,11 +2369,11 @@ msgstr ""
 
 #: cms/forms/regions/region_form.py
 msgid ""
-"A Zammad URL and Access Token are required in order to enable the Integreat "
-"Chat."
+"A Zammad URL, Zammad Webhook Token and Access Token are required in order to "
+"enable the Integreat Chat."
 msgstr ""
-"Eine Zammad URL und ein Zugangstoken sind erforderlich um, den Integreat "
-"Chat aktivieren."
+"Eine Zammad URL, ein Zammad Webhook Token und ein Zugangstoken sind "
+"erforderlich um, den Integreat Chat aktivieren."
 
 #: cms/forms/regions/region_form.py
 msgid ""
@@ -2776,6 +2811,10 @@ msgstr "mit Telefonnummer: {}"
 #: cms/models/contact/contact.py
 msgid "with website: {}"
 msgstr "mit Website: {}"
+
+#: cms/models/contact/contact.py
+msgid "General contact information"
+msgstr "Allgemeine Kontaktinformationen"
 
 #: cms/models/contact/contact.py
 msgid "(Copy)"
@@ -3450,7 +3489,6 @@ msgstr "Ob die Seite explizit archiviert ist oder nicht"
 
 #: cms/models/pages/abstract_base_page_translation.py
 #: cms/templates/events/event_form.html cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
 #: cms/templates/pages/page_form.html cms/templates/pages/page_tree.html
 #: cms/templates/pages/page_tree_archived.html cms/templates/pois/poi_form.html
 #: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
@@ -4226,6 +4264,20 @@ msgstr ""
 "Gruppe haben:"
 
 #: cms/models/regions/region.py
+msgid "Token used by Zammad webhook"
+msgstr "Von Zammad Webhooks verwendeter Token"
+
+#: cms/models/regions/region.py
+msgid ""
+"Token used by Zammad webhooks to inform the Integreat CMS about changed "
+"tickets. The token has to be appended with a token= GET parameter to the "
+"webhook path."
+msgstr ""
+"Token der von Zammad Webhooks verwendet wird, um das Integreat CMS über "
+"geänderte Tickets zu informieren. Der Token muss als token= GET parameter "
+"dem Webhook-Pfad angefügt werden."
+
+#: cms/models/regions/region.py
 msgid "Zammad chat handlers"
 msgstr "Zammad Chat-Zuständige"
 
@@ -4462,6 +4514,7 @@ msgstr "Analyse"
 #: cms/templates/_base.html cms/templates/regions/region_form.html
 #: cms/templates/statistics/_statistics_widget.html
 #: cms/templates/statistics/statistics_overview.html
+#: cms/templates/statistics/statistics_sidebar.html
 msgid "Statistics"
 msgstr "Statistiken"
 
@@ -4722,7 +4775,6 @@ msgid "View content"
 msgstr "Inhalt ansehen"
 
 #: cms/templates/_related_contents_table.html
-#: cms/templates/events/event_list_archived_row.html
 #: cms/templates/events/event_list_row.html
 #: cms/templates/pages/page_tree_archived_node.html
 #: cms/templates/pages/page_tree_node.html
@@ -4796,6 +4848,10 @@ msgstr "Kontaktperson"
 #: cms/templates/_tinymce_config.html
 msgid "Spoken Languages"
 msgstr "Gesprochene Sprachen"
+
+#: cms/templates/_tinymce_config.html
+msgid "Fax Number"
+msgstr "Faxnummer"
 
 #: cms/templates/_tinymce_config.html cms/templates/contacts/contact_form.html
 #: cms/templates/events/event_form.html cms/templates/hix_widget.html
@@ -4916,7 +4972,7 @@ msgstr "Detailansicht"
 #: cms/templates/analytics/_broken_links_widget.html
 #: cms/templates/chat/_chat_widget.html
 #: cms/templates/statistics/_statistics_widget.html
-#: cms/templates/statistics/statistics_overview.html
+#: cms/templates/statistics/statistics_chart.html
 #: cms/views/media/media_context_mixin.py
 msgid "A network error has occurred."
 msgstr "Ein Netzwerkfehler ist aufgetreten."
@@ -4924,7 +4980,7 @@ msgstr "Ein Netzwerkfehler ist aufgetreten."
 #: cms/templates/analytics/_broken_links_widget.html
 #: cms/templates/chat/_chat_widget.html cms/templates/hix_widget.html
 #: cms/templates/statistics/_statistics_widget.html
-#: cms/templates/statistics/statistics_overview.html
+#: cms/templates/statistics/statistics_chart.html
 #: cms/views/media/media_context_mixin.py
 msgid "Please try again later."
 msgstr "Bitte versuchen Sie es später erneut."
@@ -4932,14 +4988,14 @@ msgstr "Bitte versuchen Sie es später erneut."
 #: cms/templates/analytics/_broken_links_widget.html
 #: cms/templates/chat/_chat_widget.html
 #: cms/templates/statistics/_statistics_widget.html
-#: cms/templates/statistics/statistics_overview.html
+#: cms/templates/statistics/statistics_chart.html
 msgid "A server error has occurred."
 msgstr "Ein Serverfehler ist aufgetreten."
 
 #: cms/templates/analytics/_broken_links_widget.html
 #: cms/templates/chat/_chat_widget.html
 #: cms/templates/statistics/_statistics_widget.html
-#: cms/templates/statistics/statistics_overview.html xliff/utils.py
+#: cms/templates/statistics/statistics_chart.html xliff/utils.py
 msgid "Please contact the administrator."
 msgstr "Bitte kontaktieren Sie eine:n Administrator:in."
 
@@ -4947,7 +5003,7 @@ msgstr "Bitte kontaktieren Sie eine:n Administrator:in."
 #: cms/templates/dashboard/_news_widget.html cms/templates/hix_widget.html
 #: cms/templates/pois/poi_form_sidebar/position_box.html
 #: cms/templates/statistics/_statistics_widget.html
-#: cms/templates/statistics/statistics_overview.html
+#: cms/templates/statistics/statistics_chart.html
 msgid "Loading..."
 msgstr "Laden..."
 
@@ -5352,7 +5408,6 @@ msgstr "Webseite"
 
 #: cms/templates/contacts/contact_list.html
 #: cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
 #: cms/templates/languages/language_list.html
 #: cms/templates/linkcheck/links_by_filter.html
 #: cms/templates/offertemplates/offertemplate_list.html
@@ -5377,7 +5432,6 @@ msgstr "Kontakte ausgewählt"
 
 #: cms/templates/contacts/contact_list.html
 #: cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
 #: cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
@@ -5405,7 +5459,6 @@ msgstr "Kontakte löschen"
 
 #: cms/templates/contacts/contact_list.html
 #: cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
 #: cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
@@ -5819,7 +5872,6 @@ msgstr "Zeitraum"
 
 #: cms/templates/events/_event_filter_form.html
 #: cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
 msgid "Event location"
 msgstr "Veranstaltungsort"
 
@@ -5911,7 +5963,7 @@ msgid "Actions"
 msgstr "Aktionen"
 
 #: cms/templates/events/event_form_sidebar/actions_box.html
-#: cms/templates/events/event_list_archived_row.html
+#: cms/templates/events/event_list_row.html
 msgid "Restore event"
 msgstr "Veranstaltung wiederherstellen"
 
@@ -5929,7 +5981,6 @@ msgid "Archive this event"
 msgstr "Diese Veranstaltung archivieren"
 
 #: cms/templates/events/event_form_sidebar/actions_box.html
-#: cms/templates/events/event_list_archived_row.html
 #: cms/templates/events/event_list_row.html
 msgid "Delete event"
 msgstr "Veranstaltung löschen"
@@ -5949,12 +6000,14 @@ msgid "Select all languages"
 msgstr "Alle Sprachen auswählen"
 
 #: cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
 msgid "Archived events"
 msgstr "Archivierte Veranstaltungen"
 
 #: cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
+msgid "Back to events"
+msgstr "Zurück zu Veranstaltungen"
+
+#: cms/templates/events/event_list.html
 #: cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
@@ -5966,7 +6019,6 @@ msgid "Show filters"
 msgstr "Filter einblenden"
 
 #: cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
 #: cms/templates/feedback/admin_feedback_list.html
 #: cms/templates/feedback/admin_feedback_list_archived.html
 #: cms/templates/feedback/region_feedback_list.html
@@ -5990,17 +6042,14 @@ msgstr ""
 "(%(default_language)s) anlegen."
 
 #: cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
 msgid "Start"
 msgstr "Beginn"
 
 #: cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
 msgid "End"
 msgstr "Ende"
 
 #: cms/templates/events/event_list.html
-#: cms/templates/events/event_list_archived.html
 msgid "Recurrence"
 msgstr "Wiederholung"
 
@@ -6013,8 +6062,16 @@ msgid "No events found with these filters."
 msgstr "Keine Veranstaltungen mit diesen Filtern gefunden."
 
 #: cms/templates/events/event_list.html
+msgid "No archived events found with these filters."
+msgstr "Keine archivierten Veranstaltungen mit diesen Filtern gefunden."
+
+#: cms/templates/events/event_list.html
 msgid "No upcoming events available."
 msgstr "Keine zukünftigen Veranstaltungen vorhanden."
+
+#: cms/templates/events/event_list.html
+msgid "No upcoming events archived."
+msgstr "Keine zukünftigen Veranstaltungen archiviert."
 
 #: cms/templates/events/event_list.html
 msgid "Events selected"
@@ -6057,28 +6114,14 @@ msgstr ""
 msgid "Machine translate %(content_type)s to %(language)s"
 msgstr "%(content_type)s maschinell auf %(language)s übersetzen"
 
-#: cms/templates/events/event_list_archived.html
-msgid "Back to events"
-msgstr "Zurück zu Veranstaltungen"
-
-#: cms/templates/events/event_list_archived.html
-msgid "No archived events found with these filters."
-msgstr "Keine archivierten Veranstaltungen mit diesen Filtern gefunden."
-
-#: cms/templates/events/event_list_archived.html
-msgid "No upcoming events archived."
-msgstr "Keine zukünftigen Veranstaltungen archiviert."
-
-#: cms/templates/events/event_list_archived.html
+#: cms/templates/events/event_list.html
 msgid "Restore events"
 msgstr "Veranstaltungen wiederherstellen"
 
-#: cms/templates/events/event_list_archived_row.html
 #: cms/templates/events/event_list_row.html
 msgid "Not specified"
 msgstr "Nicht festgelegt"
 
-#: cms/templates/events/event_list_archived_row.html
 #: cms/templates/events/event_list_row.html
 msgid "One-time"
 msgstr "Einmalig"
@@ -6749,16 +6792,16 @@ msgid "Valid"
 msgstr "Gültig"
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "Invalid"
-msgstr "Ungültig"
+msgid "Verification needed"
+msgstr "Überprüfung notwendig"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "Unchecked"
 msgstr "Nicht geprüft"
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "Ignored"
-msgstr "Ignoriert"
+msgid "Link verified"
+msgstr "Link überprüft"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid ""
@@ -6854,16 +6897,16 @@ msgid "Links selected"
 msgstr "Links ausgewählt"
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "Unignore"
-msgstr "Nicht ignorieren"
+msgid "Revoke verification"
+msgstr "Verifizierung entziehen"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "Recheck"
 msgstr "Erneut prüfen"
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "Ignore"
-msgstr "Ignorieren"
+msgid "Mark as verified"
+msgstr "Als überprüft markieren"
 
 #: cms/templates/linkcheck/search_and_replace_link.html
 msgid "Search & replace in links"
@@ -7017,6 +7060,18 @@ msgstr "Noch keine Organisationen vorhanden."
 #: cms/templates/organizations/organization_list.html
 msgid "Organizations selected"
 msgstr "Organisationen ausgewählt"
+
+#: cms/templates/organizations/organization_list.html
+msgid "Restore organizations"
+msgstr "Organisationen wiederherstellen"
+
+#: cms/templates/organizations/organization_list.html
+msgid "Archive organizations"
+msgstr "Organisationen archivieren"
+
+#: cms/templates/organizations/organization_list.html
+msgid "Delete organizations"
+msgstr "Organisationen löschen"
 
 #: cms/templates/organizations/organization_list_row.html
 msgid "Restore organization"
@@ -7709,6 +7764,18 @@ msgstr "Nur Koordinaten übernehmen"
 msgid "Please choose one option or cancel"
 msgstr "Bitte eine Option auswählen oder abbrechen"
 
+#: cms/templates/pois/poi_form_sidebar/related_contacts_box.html
+msgid "Related contacts"
+msgstr "Zugehörige Kontakte"
+
+#: cms/templates/pois/poi_form_sidebar/related_contacts_box.html
+msgid "This location is currently referred to by the following contacts."
+msgstr "Dieser Ort wird in folgenden Kontakten verwendet."
+
+#: cms/templates/pois/poi_form_sidebar/related_contacts_box.html
+msgid "This location is not currently referred to in any contact."
+msgstr "Zur Zeit gibt es keine Kontakte zu diesem Ort."
+
 #: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
 msgid "Archived locations"
 msgstr "Archivierte Orte"
@@ -8385,43 +8452,43 @@ msgid "Number of total accesses over the last 14 days."
 msgstr "Anzahl der Gesamtzugriffe der letzten 14 Tage."
 
 #: cms/templates/statistics/_statistics_widget.html
-#: cms/templates/statistics/statistics_overview.html
+#: cms/templates/statistics/statistics_chart.html
 msgid "The statistics network is currently experiencing heavy traffic."
 msgstr "Der Statistik-Server hat aktuell eine hohe Auslastung."
 
-#: cms/templates/statistics/statistics_overview.html
+#: cms/templates/statistics/statistics_chart.html
 msgid "Total accesses"
 msgstr "Gesamtzugriffe"
 
-#: cms/templates/statistics/statistics_overview.html
+#: cms/templates/statistics/statistics_sidebar.html
 msgid "Adjust shown data"
 msgstr "Angezeigte Daten anpassen"
 
-#: cms/templates/statistics/statistics_overview.html
+#: cms/templates/statistics/statistics_sidebar.html
 msgid "Adjust time period"
 msgstr "Zeitraum anpassen"
 
-#: cms/templates/statistics/statistics_overview.html
+#: cms/templates/statistics/statistics_sidebar.html
 msgid "Customize view"
 msgstr "Ansicht anpassen"
 
-#: cms/templates/statistics/statistics_overview.html
+#: cms/templates/statistics/statistics_sidebar.html
 msgid "Export"
 msgstr "Exportieren"
 
-#: cms/templates/statistics/statistics_overview.html
+#: cms/templates/statistics/statistics_sidebar.html
 msgid "Choose format"
 msgstr "Format auswählen"
 
-#: cms/templates/statistics/statistics_overview.html
+#: cms/templates/statistics/statistics_sidebar.html
 msgid "please select"
 msgstr "bitte auswählen"
 
-#: cms/templates/statistics/statistics_overview.html
+#: cms/templates/statistics/statistics_sidebar.html
 msgid "Image/PNG"
 msgstr "Bild/PNG"
 
-#: cms/templates/statistics/statistics_overview.html
+#: cms/templates/statistics/statistics_sidebar.html
 msgid "Table Document/CSV"
 msgstr "Tabellendokument/CSV"
 
@@ -8748,6 +8815,10 @@ msgstr ""
 msgid "Could not import '{}': {}"
 msgstr "'{}' konnte nicht importiert werden: {}"
 
+#: cms/utils/external_calendar_utils.py
+msgid "Could not import '{}': Unsupported recurrence rule"
+msgstr "'{}' konnte nicht importiert werden: Nicht unterstützte Wiederholung"
+
 #: cms/utils/internal_link_checker.py
 msgid "Imprint does not exist or is not public in this language"
 msgstr ""
@@ -8971,6 +9042,7 @@ msgid "The selected {} were successfully {}"
 msgstr "Die ausgewählten {} wurden erfolgreich {}"
 
 #: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
+#: cms/views/organizations/organization_bulk_actions.py
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully archived."
 msgid_plural ""
@@ -9020,6 +9092,7 @@ msgstr[1] ""
 "Veranstaltung oder einem Kontakt verwendet werden: \"{object_names}\""
 
 #: cms/views/bulk_action_views.py cms/views/contacts/contact_bulk_actions.py
+#: cms/views/organizations/organization_bulk_actions.py
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully restored."
 msgid_plural ""
@@ -9072,6 +9145,7 @@ msgid "Contact {0} was successfully copied"
 msgstr "Kontakt {0} wurde erfolgreich kopiert"
 
 #: cms/views/contacts/contact_bulk_actions.py
+#: cms/views/organizations/organization_bulk_actions.py
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully deleted."
 msgid_plural ""
@@ -9785,6 +9859,36 @@ msgid "Organization couldn't be deleted as it's used by a page, poi or user"
 msgstr ""
 "Die Organisation konnte nicht gelöscht werden, da sie von einer Seite, einem "
 "Ort oder eines Users verwendet wird"
+
+#: cms/views/organizations/organization_bulk_actions.py
+#, python-brace-format
+msgid ""
+"{model_name} {object_names} couldn't be archived as it's used by a page, poi "
+"or user."
+msgid_plural ""
+"The following {model_name_plural} couldn't be archived as they're used by a "
+"page, poi or user: {object_names}."
+msgstr[0] ""
+"Die {model_name} {object_names} konnte nicht archiviert werden, da sie von "
+"einer Seite, einem Ort oder eines Users verwendet wird"
+msgstr[1] ""
+"Die folgenden {model_name_plural} konnten nicht archiviert werden, da sie "
+"von einer Seite, einem Ort oder eines Users verwendet werden: {object_names}"
+
+#: cms/views/organizations/organization_bulk_actions.py
+#, python-brace-format
+msgid ""
+"{model_name} {object_names} couldn't be deleted as it's used by a page, poi "
+"or user."
+msgid_plural ""
+"The following {model_name_plural} couldn't be deleted as they're used by a "
+"page, poi or user: {object_names}."
+msgstr[0] ""
+"Die {model_name} {object_names} konnte nicht gelöscht werden, da sie von "
+"einer Seite, einem Ort oder eines Users verwendet wird"
+msgstr[1] ""
+"Die folgenden {model_name_plural} konnten nicht gelöscht werden, da sie von "
+"einer Seite, einem Ort oder eines Users verwendet werden: {object_names}"
 
 #: cms/views/organizations/organization_content_mixin.py
 msgid "Please confirm that you really want to archive this organization"
@@ -11033,17 +11137,27 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Invalid"
+#~ msgstr "Ungültig"
+
+#~ msgid "Ignored"
+#~ msgstr "Ignoriert"
+
+#~ msgid "Unignore"
+#~ msgstr "Nicht ignorieren"
+
+#~ msgid "Ignore"
+#~ msgstr "Ignorieren"
+
 #~ msgid "{}{}"
 #~ msgstr "{}{}"
 
 #~ msgid " "
 #~ msgstr " "
 
-#, python-format
 #~ msgid "%s %s"
 #~ msgstr "%s %s"
 
-#, python-format
 #~ msgid "%s with %s"
 #~ msgstr "%s mit %s"
 
@@ -11475,9 +11589,6 @@ msgstr ""
 
 #~ msgid "Broken redirect"
 #~ msgstr "Fehlerhafte Weiterleitung"
-
-#~ msgid "Email link (not automatically checked)"
-#~ msgstr "E-Mail-Link (nicht automatisch geprüft)"
 
 #~ msgid "Empty link"
 #~ msgstr "Leerer Link"

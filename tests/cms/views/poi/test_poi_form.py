@@ -218,3 +218,107 @@ def test_poi_in_use_not_bulk_archived(
 
     # Check the POI is not archived
     assert not POI.objects.filter(id=poi_id).first().archived
+
+
+@pytest.mark.django_db
+def test_poi_form_shows_associated_contacts(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    settings: SettingsWrapper,
+) -> None:
+    """
+    POI "Draft location" (id=6) has three related contacts. Test whether they are shown in the POI form.
+    """
+    client, role = login_role_user
+
+    # Choose a POI which has related contacts
+    POI_ID = 6
+
+    # Set the language setting to English so assertion does not fail because of corresponding German sentence appearing instead the english one.
+    settings.LANGUAGE_CODE = "en"
+
+    poi = POI.objects.filter(id=POI_ID).first()
+    related_contacts = list(poi.contacts.all())
+
+    assert len(related_contacts) > 0
+
+    edit_poi = reverse(
+        "edit_poi",
+        kwargs={
+            "poi_id": poi.id,
+            "region_slug": poi.region.slug,
+            "language_slug": poi.region.default_language.slug,
+        },
+    )
+    response = client.get(edit_poi)
+
+    if role == ANONYMOUS:
+        assert response.status_code == 302
+        assert (
+            response.headers.get("location") == f"{settings.LOGIN_URL}?next={edit_poi}"
+        )
+    # probably needs adjustment after #2958
+    elif role in HIGH_PRIV_STAFF_ROLES:
+        for contact in related_contacts:
+            if contact.point_of_contact_for:
+                assert (
+                    f"{contact.point_of_contact_for} {contact.name}"
+                    in response.content.decode("utf-8")
+                )
+            else:
+                assert "General contact information" in response.content.decode("utf-8")
+    else:
+        assert (
+            "This location is currently referred to in those contacts."
+            not in response.content.decode("utf-8")
+        )
+
+
+@pytest.mark.django_db
+def test_poi_form_shows_no_associated_contacts(
+    load_test_data: None,
+    login_role_user: tuple[Client, str],
+    settings: SettingsWrapper,
+) -> None:
+    """
+    POI "Test location" (id=4) has no related contacts. Test whether the correct message is shown in the POi form.
+    """
+    client, role = login_role_user
+
+    # Choose a POI which has related contacts
+    POI_ID = 4
+
+    # Set the language setting to English so assertion does not fail because of corresponding German sentence appearing instead the english one.
+    settings.LANGUAGE_CODE = "en"
+
+    poi = POI.objects.filter(id=POI_ID).first()
+    related_contacts = list(poi.contacts.all())
+
+    assert len(related_contacts) == 0
+
+    edit_poi = reverse(
+        "edit_poi",
+        kwargs={
+            "poi_id": poi.id,
+            "region_slug": poi.region.slug,
+            "language_slug": poi.region.default_language.slug,
+        },
+    )
+    response = client.get(edit_poi)
+
+    if role == ANONYMOUS:
+        assert response.status_code == 302
+        assert (
+            response.headers.get("location") == f"{settings.LOGIN_URL}?next={edit_poi}"
+        )
+    # probably needs adjustment after #2958
+    elif role in HIGH_PRIV_STAFF_ROLES:
+        assert (
+            "This location is not currently referred to in any contact."
+            in response.content.decode("utf-8")
+        )
+    else:
+        assert (
+            "This location is not currently referred to in any contact."
+            not in response.content.decode("utf-8")
+        )

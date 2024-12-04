@@ -50,6 +50,13 @@
             createdb -h "$INTEGREAT_CMS_DB_HOST" -p "$INTEGREAT_CMS_DB_PORT" -U "$INTEGREAT_CMS_DB_USER" "$INTEGREAT_CMS_DB_NAME"
           '';
         };
+        redis = pkgs.writeShellApplication {
+          name = "redis";
+          runtimeInputs = [ pkgs.redis ];
+          text = ''
+            redis-server --daemonize yes --unixsocket "$INTEGREAT_CMS_REDIS_SOCKET_LOCATION" --port "$INTEGREAT_CMS_REDIS_PORT" > /dev/null
+          '';
+        };
       in
       {
         devShells.default = pkgs.mkShell {
@@ -72,6 +79,7 @@
             pg-start
             pg-stop
             pg-reset
+            redis
           ];
 
           LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [ pkgs.stdenv.cc.cc.lib pkgs.file ];
@@ -104,6 +112,10 @@
             set_if_unset INTEGREAT_CMS_BACKGROUND_TASKS_ENABLED 0
             set_if_unset INTEGREAT_CMS_SUMM_AI_API_KEY "dummy"
             set_if_unset INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS 1
+
+            # Start redis and make it discoverable to the CMS
+            set_if_unset INTEGREAT_CMS_REDIS_SOCKET_LOCATION "./.redis_socket_location"
+            set_if_unset INTEGREAT_CMS_REDIS_PORT 6379
 
             # Setting LD_LIBRARY_PATH can cause issues on non-NixOS systems
             if ! command -v nixos-version &> /dev/null; then
