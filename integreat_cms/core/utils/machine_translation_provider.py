@@ -59,9 +59,9 @@ class MachineTranslationProvider(metaclass=MachineTranslationProviderType):
     #: The supported target languages
     supported_target_languages: list[str] = []
 
-    # pylint: disable=too-many-return-statements
     @classmethod
     def is_enabled(cls, region: Region, language: Language) -> bool:
+        # pylint: disable=too-many-return-statements
         """
         Whether this provider is enabled for a given region and language.
         Call this from the parent class.

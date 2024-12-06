@@ -58,8 +58,8 @@ class Command(LogCommand):
             help="The model to check",
         )
 
-    # pylint: disable=arguments-differ
     def handle(self, *args: Any, model: ModelBase, **options: Any) -> None:
+        # pylint: disable=arguments-differ
         r"""
         Try to run the command
 

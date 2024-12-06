@@ -112,8 +112,11 @@ def transform_page(page_translation: PageTranslation) -> dict[str, Any]:
 
 @matomo_tracking
 @json_response
-# pylint: disable=unused-argument
-def pages(request: HttpRequest, region_slug: str, language_slug: str) -> JsonResponse:
+def pages(
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
+) -> JsonResponse:
     """
     Function to iterate through all non-archived pages of a region and return them as JSON.
 
@@ -205,9 +208,10 @@ def get_single_page(request: HttpRequest, language_slug: str) -> Page:
 
 
 @json_response
-# pylint: disable=unused-argument
 def single_page(
-    request: HttpRequest, region_slug: str, language_slug: str
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
 ) -> JsonResponse:
     """
     View function returning the desired page as a JSON or a 404 if the
@@ -277,8 +281,11 @@ def children(
 
 
 @json_response
-# pylint: disable=unused-argument
-def parents(request: HttpRequest, region_slug: str, language_slug: str) -> JsonResponse:
+def parents(
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
+) -> JsonResponse:
     """
     Retrieves all ancestors (parent and all nodes up to the root node) of a page.
     If any ancestor is archived, an 404 is raised.
@@ -326,10 +333,9 @@ def get_public_ancestor_translations(
 
 @csrf_exempt
 @json_response
-# pylint: disable=unused-argument
 def push_page_translation_content(
     request: HttpRequest,
-    region_slug: str,
+    region_slug: str,  # pylint: disable=unused-argument
     language_slug: str,
 ) -> JsonResponse:
     """

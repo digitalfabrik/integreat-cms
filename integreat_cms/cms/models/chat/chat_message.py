@@ -13,8 +13,8 @@ if TYPE_CHECKING:
     from django.db.models.query import QuerySet
 
 
-# pylint: disable=too-few-public-methods
 class ChatHistoryManager(models.Manager):
+    # pylint: disable=too-few-public-methods
     """
     Custom manager for returning the chat history of the last x days
     (as configured in :attr:`~integreat_cms.core.settings.AUTHOR_CHAT_HISTORY_DAYS`)

@@ -183,9 +183,10 @@ def root_social_media_headers(
 
 
 @partial_html_response
-# pylint: disable=unused-argument
 def region_social_media_headers(
-    request: HttpRequest, region_slug: str, language_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str | None = None,
 ) -> HttpResponse:
     """
     Generally renders the social media headers for a root region page.
@@ -211,9 +212,11 @@ def region_social_media_headers(
 
 
 @partial_html_response
-# pylint: disable=unused-argument, fixme
 def page_social_media_headers(
-    request: HttpRequest, region_slug: str, language_slug: str, path: str
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
+    path: str,
 ) -> HttpResponse:
     """
     Tries rendering the social media headers for a page in a specified region and language.
@@ -236,6 +239,7 @@ def page_social_media_headers(
     ):
         raise Http404("Page not found in this region with this language.")
 
+    # pylint: disable=fixme
     # TODO: add breadcrumb json-ld if content_translation exists
     return render_social_media_headers(
         request=request,
@@ -247,9 +251,11 @@ def page_social_media_headers(
 
 
 @partial_html_response
-# pylint: disable=unused-argument, fixme
 def event_social_media_headers(
-    request: HttpRequest, region_slug: str, language_slug: str, slug: str
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
+    slug: str,
 ) -> HttpResponse:
     """
     Tries rendering the social_media headers for an event page in a specified region and language.
@@ -271,6 +277,7 @@ def event_social_media_headers(
     ):
         raise Http404("Event not found in this region with this language.")
 
+    # pylint: disable=fixme
     # TODO: add event json-ld
     return render_social_media_headers(
         request=request,
@@ -282,9 +289,11 @@ def event_social_media_headers(
 
 
 @partial_html_response
-# pylint: disable=unused-argument
 def news_social_media_headers(
-    request: HttpRequest, region_slug: str, language_slug: str, slug: str
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
+    slug: str,
 ) -> HttpResponse:
     """
     Tries rendering the social media headers for a news page in a specified region and language.
@@ -318,9 +327,11 @@ def news_social_media_headers(
 
 
 @partial_html_response
-# pylint: disable=unused-argument
 def location_social_media_headers(
-    request: HttpRequest, region_slug: str, language_slug: str, slug: str
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
+    slug: str,
 ) -> HttpResponse:
     """
     Tries rendering the social media headers for a location page in a specified region and language.

@@ -18,10 +18,9 @@ if TYPE_CHECKING:
     from ...utils.slug_utils import SlugKwargs
 
 
-# pylint: disable=unused-argument
 def slugify_ajax(
     request: HttpRequest,
-    region_slug: str,
+    region_slug: str,  # pylint: disable=unused-argument
     language_slug: str,
     model_type: Literal["page", "event", "poi"],
 ) -> JsonResponse:

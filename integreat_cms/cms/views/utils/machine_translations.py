@@ -21,13 +21,13 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=unused-argument, too-many-locals
 def build_json_for_machine_translation(
     request: HttpRequest,
-    region_slug: str,
+    region_slug: str,  # pylint: disable=unused-argument
     language_slug: str,
     model_type: Literal["page", "event", "poi"],
 ) -> JsonResponse:
+    # pylint: disable=too-many-locals
     """
     This function collects the hix score and the amount of words per content entry from the source
 

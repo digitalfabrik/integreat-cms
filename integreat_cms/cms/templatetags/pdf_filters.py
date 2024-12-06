@@ -34,8 +34,8 @@ def pdf_strip_fontstyles(instance: str) -> str:
 
 
 @register.filter
-# pylint: disable=unused-variable
 def pdf_truncate_links(page_content: str, max_chars: int) -> str:
+    # pylint: disable=unused-variable
     """
     This tag returns the page content with truncated link texts.
 

@@ -16,8 +16,8 @@ from integreat_cms.cms.models import Region
 from ..utils import get_command_output
 
 
-# pylint: disable=too-few-public-methods
 class datetime_not_first_day:
+    # pylint: disable=too-few-public-methods
     """
     Fake datetime object where now() is never the first day of the month
     """

@@ -7,8 +7,8 @@ from import_export.widgets import DateWidget
 from ...models import Feedback
 
 
-# pylint: disable=too-few-public-methods
 class FeedbackResource(resources.ModelResource):
+    # pylint: disable=too-few-public-methods
     """
     This is the Resource class that connects to the django-import-export library
     """
@@ -42,8 +42,8 @@ class FeedbackResource(resources.ModelResource):
         widget=DateWidget(format="%d.%m.%Y %H:%M"),
     )
 
-    # pylint: disable=useless-parent-delegation
     def get_instance(self, *args: Any, **kwargs: Any) -> Any:
+        # pylint: disable=useless-parent-delegation
         """
         See :meth:`import_export.resources.Resource.get_instance`
         """

@@ -140,8 +140,8 @@ class LinkcheckListView(ListView):
                 params["size"] = size
             return redirect(f"{request.path}?{urlencode(params)}")
 
-    # pylint: disable-msg=too-many-branches, too-many-locals
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        # pylint: disable-msg=too-many-branches, too-many-locals
         r"""
         Applies selected action for selected urls
 

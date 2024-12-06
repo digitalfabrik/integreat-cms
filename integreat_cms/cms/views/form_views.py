@@ -25,7 +25,6 @@ from .media import MediaContextMixin
 from .mixins import ModelConfirmationContextMixin, ModelTemplateResponseMixin
 
 
-# pylint: disable=too-many-ancestors
 class CustomModelFormMixin(
     PermissionRequiredMixin,
     ModelTemplateResponseMixin,
@@ -33,6 +32,7 @@ class CustomModelFormMixin(
     ModelConfirmationContextMixin,
     MediaContextMixin,
 ):
+    # pylint: disable=too-many-ancestors
     """
     This mixin handles error messages in form views of subclasses of
     :class:`~integreat_cms.cms.forms.custom_model_form.CustomModelForm`

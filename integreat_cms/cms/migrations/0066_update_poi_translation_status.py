@@ -11,9 +11,9 @@ if TYPE_CHECKING:
     from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
 
-# pylint: disable=unused-argument
 def update_poi_translation_status(
-    apps: Apps, schema_editor: BaseDatabaseSchemaEditor
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
 ) -> None:
     """
     Update poi translation status to draft for pois without the default public translation

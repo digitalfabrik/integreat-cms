@@ -36,7 +36,6 @@ class TranslationsManagementView(TemplateView):
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "translations_management"}
 
-    # pylint: disable=unused-variable
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         r"""
         Extend context by word counts
@@ -53,6 +52,7 @@ class TranslationsManagementView(TemplateView):
         for content_type in content_types:
             content_name = content_type._meta.verbose_name_plural.title()
             word_count[content_name] = Counter()
+            # pylint: disable=unused-variable
             for status, name in CHOICES:
                 word_count[content_name][status] = 0
 

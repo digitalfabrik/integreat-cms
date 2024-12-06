@@ -36,8 +36,8 @@ class Command(LogCommand):
             help="Whether the reset should be run despite it's not the 1st day of the month",
         )
 
-    # pylint: disable=arguments-differ
     def handle(self, *args: Any, force: bool, **options: Any) -> None:
+        # pylint: disable=arguments-differ
         """
         Try to run the command
         """

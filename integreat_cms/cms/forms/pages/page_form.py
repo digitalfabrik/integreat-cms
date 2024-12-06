@@ -26,8 +26,8 @@ from .parent_field_widget import ParentFieldWidget
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-many-ancestors
 class PageForm(CustomModelForm, CustomTreeNodeForm):
+    # pylint: disable=too-many-ancestors
     """
     Form for creating and modifying page objects
     """
