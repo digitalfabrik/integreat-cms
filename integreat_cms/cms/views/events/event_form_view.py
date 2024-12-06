@@ -131,7 +131,7 @@ class EventFormView(
             },
         )
 
-    # pylint: disable=too-many-locals,too-many-branches
+    # pylint: disable=too-many-locals,too-many-branches, too-many-statements
     def post(self, request: HttpRequest, **kwargs: Any) -> HttpResponse:
         r"""
         Save event and ender event form for HTTP POST requests
@@ -144,7 +144,6 @@ class EventFormView(
         """
         region = request.region
         language = Language.objects.get(slug=kwargs.get("language_slug"))
-        poi = POI.objects.filter(id=request.POST.get("location")).first()
 
         event_instance = Event.objects.filter(id=kwargs.get("event_id")).first()
         recurrence_rule_instance = RecurrenceRule.objects.filter(
@@ -154,8 +153,19 @@ class EventFormView(
             event=event_instance, language=language
         ).first()
 
+        data = request.POST.dict()
+
+        if data.get("location") == "-1" or data.get("has_not_location"):
+            data["location"] = ""
+
+        poi = (
+            POI.objects.filter(id=data.get("location")).first()
+            if data.get("location")
+            else None
+        )
+
         event_form = EventForm(
-            data=request.POST,
+            data=data,
             files=request.FILES,
             instance=event_instance,
             additional_instance_attributes={"region": region, "location": poi},
