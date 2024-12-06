@@ -88,6 +88,13 @@ def get_visits_per_language_ajax(
         )
 
     try:
+        region.statistics.get_page_based_statistics(
+            start_date=statistics_form.cleaned_data["start_date"],
+            end_date=statistics_form.cleaned_data["end_date"],
+            period=statistics_form.cleaned_data["period"],
+            region=region,
+        )
+
         result = region.statistics.get_visits_per_language(
             start_date=statistics_form.cleaned_data["start_date"],
             end_date=statistics_form.cleaned_data["end_date"],

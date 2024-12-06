@@ -13,6 +13,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
 from ..cms.constants import language_color, matomo_periods
+from .utils import create_translation_slugs
 
 if TYPE_CHECKING:
     import sys
@@ -23,7 +24,7 @@ if TYPE_CHECKING:
     from aiohttp import ClientSession
     from django.utils.functional import Promise
 
-    from ..cms.models import Language, Region
+    from ..cms.models import Language, Page, Region
 
 logger = logging.getLogger(__name__)
 
@@ -527,3 +528,96 @@ class MatomoApiClient:
             ),
         ]
         return data_entries, legend_entries
+
+    def get_page_based_statistics(
+        self,
+        start_date: date,
+        end_date: date,
+        period: str,
+        region: Region,
+    ) -> list[dict[str, Any]]:
+        """
+        Returns the statistics for each page of a region
+
+        :param start_date: Start date
+        :param end_date: End date
+        :param period: The period (one of :attr:`~integreat_cms.cms.constants.matomo_periods.CHOICES`)
+        :param region: The region
+        :return: ?
+        :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
+        """
+        query_params = {
+            "date": f"{start_date},{end_date}",
+            "expanded": "1",
+            "filter_limit": "-1",
+            "format_metrics": "1",
+            "idSite": self.matomo_id,
+            "method": "VisitsSummary.getActions",
+            "period": period,
+        }
+        logger.debug(
+            "Query params: %r",
+            query_params,
+        )
+        pages = region.get_pages()
+        languages = list(self.languages)
+
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        # Execute async request to Matomo API
+        logger.debug("Fetching visits for languages %r asynchronously.", languages)
+        datasets = loop.run_until_complete(
+            self.get_page_based_statistics_async(loop, query_params, languages, pages)
+        )
+        return datasets
+
+    async def get_page_based_statistics_async(
+        self,
+        loop: AbstractEventLoop,
+        query_params: dict[str, Any],
+        languages: list[Language],
+        pages: list[Page],
+    ) -> list[dict[str, Any]]:
+        """
+        Async wrapper to fetch the total visits with :mod:`aiohttp`.
+        Opens a :class:`~aiohttp.ClientSession`, creates a :class:`~asyncio.Task` for each language to call
+        :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch` and waits for all tasks to finish with
+        :func:`~asyncio.gather`.
+        The returned list of gathered results has the correct order in which the tasks were created (at first the
+        ordered list of languages and the last element is the task for the total visits).
+        Called from :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.get_visits_per_language`.
+
+        :param loop: The asyncio event loop
+        :param query_params: The parameters which are passed to the Matomo API
+        :param languages: The list of languages which should be retrieved
+        :param pages: The list of pages for which the data should be retrieved
+        :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
+                                                               Matomo API request
+
+        :return: The list of gathered results
+        """
+        create_translation_slugs(pages, languages)
+        async with aiohttp.ClientSession() as session:
+            # Create tasks for visits by language
+            tasks = [
+                loop.create_task(
+                    self.fetch(
+                        session,
+                        **query_params,
+                        segment=f"pageUrl=@/{language.slug}/wp-json/extensions/v3/,pageUrl=@/api/v3/{self.region_slug}/{language.slug}/",
+                    )
+                )
+                for language in languages
+            ]
+
+            result = await asyncio.gather(*tasks)
+            # We're not retrieving the matomo id as part of the tasks, thus we know that the result is a list of dicts, not a list of list of ints.
+            if TYPE_CHECKING:
+
+                def is_dict_list(
+                    lst: list[dict[str, Any] | list[int]]
+                ) -> TypeGuard[list[dict[str, Any]]]:
+                    return all(isinstance(d, dict) for d in lst)
+
+                assert is_dict_list(result)
+            return result
