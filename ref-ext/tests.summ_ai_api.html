@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-12-04T10:41:41+00:00" />
+    <meta property="article:modified_time" content="2024-12-06T20:23:58+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SUMM.AI API &mdash; integreat-cms 2024.12.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -2112,7 +2112,7 @@
 <li><p><strong>login_role_user_async</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><em>AsyncClient</em><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
 <li><p><strong>aiohttp_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.4.0.dev250)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.4.0.dev254)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2131,7 +2131,7 @@ otherwise False</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The Django settings</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.4.0.dev250)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.4.0.dev254)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2160,7 +2160,7 @@ Tests if SummAiRuntimeError is raised when invalid JSON is sent as response.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.summ_ai_api.summ_ai_test.test_patient_task_queue_hit_rate_limit">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_patient_task_queue_hit_rate_limit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L632"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_hit_rate_limit" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_patient_task_queue_hit_rate_limit</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L631"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_hit_rate_limit" title="Link to this definition"></a></dt>
 <dd><p>Test for PatientTaskQueue Class. It tests that when the maximum number of parallel requests
 to the summ_ai_api has been exceeded (rate limit exceeded), a defined time is waited until the next task object is returned via __anext__().</p>
 <dl class="field-list simple">
@@ -2172,7 +2172,7 @@ to the summ_ai_api has been exceeded (rate limit exceeded), a defined time is wa
 
 <dl class="py function">
 <dt class="sig sig-object py" id="tests.summ_ai_api.summ_ai_test.test_patient_task_queue_max_retries">
-<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_patient_task_queue_max_retries</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L687"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_max_retries" title="Link to this definition"></a></dt>
+<em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.summ_ai_test.</span></span><span class="sig-name descname"><span class="pre">test_patient_task_queue_max_retries</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/summ_ai_test.py#L686"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.summ_ai_api.summ_ai_test.test_patient_task_queue_max_retries" title="Link to this definition"></a></dt>
 <dd><p>Test for PatientTaskQueue Class. Tests that it stops early
 when requests are not successful after a cooldown, resulting in another cooldown repeatedly.</p>
 <dl class="field-list simple">
@@ -2204,7 +2204,7 @@ Checks that __anext__() removes one element each from the queue</p>
 <li><p><strong>login_role_user_async</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#tuple" title="(in Python v3.11)"><em>tuple</em></a><em>[</em><em>AsyncClient</em><em>, </em><a class="reference external" href="https://docs.python.org/3.11/library/stdtypes.html#str" title="(in Python v3.11)"><em>str</em></a><em>]</em>) – The fixture providing the http client and the current role (see <a class="reference internal" href="tests.html#tests.conftest.login_role_user" title="tests.conftest.login_role_user"><code class="xref py py-meth docutils literal notranslate"><span class="pre">login_role_user()</span></code></a>)</p></li>
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The fixture providing the django settings</p></li>
 <li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.4.0.dev250)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – The <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.4.0.dev254)"><code class="xref std std-fixture docutils literal notranslate"><span class="pre">caplog</span></code></a> fixture</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2275,7 +2275,7 @@ Checks that __anext__() removes one element each from the queue</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>settings</strong> (<em>SettingsWrapper</em>) – The Django settings</p></li>
 <li><p><strong>aiohttp_raw_server</strong> (<em>Callable</em>) – The fixture providing the dummy aiohttp server used for faking the SUMM.AI API server</p></li>
-<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.4.0.dev250)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
+<li><p><strong>caplog</strong> (<em>LogCaptureFixture</em>) – Fixture for asserting log messages in tests (see <a class="reference external" href="https://docs.pytest.org/en/latest/reference/reference.html#std-fixture-caplog" title="(in pytest v8.4.0.dev254)"><code class="docutils literal notranslate"><span class="pre">caplog</span></code></a>)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
@@ -2380,7 +2380,7 @@ PatientTaskQueue, returning the results.</p>
 <span id="utils"></span><h2>Utils<a class="headerlink" href="#module-tests.summ_ai_api.utils" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="tests.summ_ai_api.utils.MockedRegion">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">MockedRegion</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/utils.py#L142"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.summ_ai_api.utils.MockedRegion" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">MockedRegion</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/utils.py#L141"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.summ_ai_api.utils.MockedRegion" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <dl class="field-list simple">
 </dl>
@@ -2398,7 +2398,7 @@ PatientTaskQueue, returning the results.</p>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="tests.summ_ai_api.utils.MockedRequest">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">MockedRequest</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/utils.py#L129"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.summ_ai_api.utils.MockedRequest" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">tests.summ_ai_api.utils.</span></span><span class="sig-name descname"><span class="pre">MockedRequest</span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/summ_ai_api/utils.py#L128"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#tests.summ_ai_api.utils.MockedRequest" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.11/library/functions.html#object" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>Helper class mocking request, used for creating a SummAiApiclient instance. Region-property is needed therefore.</p>
 <dl class="field-list simple">
@@ -2522,7 +2522,7 @@ that can return any text as response (not just JSON)</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Dec 04, 2024.
+      <span class="lastupdated">Last updated on Dec 06, 2024.
       </span></p>
   </div>
 

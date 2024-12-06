@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-11-01T11:45:13+00:00" />
+    <meta property="article:modified_time" content="2024-12-06T20:23:58+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Code Style Guidelines &mdash; integreat-cms 2024.12.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
@@ -2129,9 +2129,12 @@ Run pylint with our developer tool <a class="extlink-github-source reference ext
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">tools</span><span class="o">/</span><span class="n">pylint</span><span class="o">.</span><span class="n">sh</span>
 </pre></div>
 </div>
-<p>When you think a warning is a false positive, add a comment before the specific line:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># pylint: disable=unused-argument</span>
-<span class="k">def</span> <span class="nf">some_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<p>When you think a warning is a false positive, add a comment (see <a class="reference external" href="https://pylint.readthedocs.io/en/latest/user_guide/messages/message_control.html" title="(in Pylint v4.0)"><span>Messages control</span></a>):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">some_function</span><span class="p">(</span>
+    <span class="n">something</span><span class="p">:</span> <span class="n">SomeModel</span><span class="p">,</span>  <span class="c1"># pylint: disable=unused-argument</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="c1"># pylint: disable=too-many-branches</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -2224,7 +2227,7 @@ Shellcheck is run both in the CI-pipeline of CircleCI (see <a class="reference i
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Nov 01, 2024.
+      <span class="lastupdated">Last updated on Dec 06, 2024.
       </span></p>
   </div>
 
