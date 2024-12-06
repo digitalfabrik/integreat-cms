@@ -7,6 +7,7 @@ from __future__ import annotations
 import dataclasses
 import datetime
 import logging
+import re
 from typing import Any, Self
 
 import icalendar.cal
@@ -26,6 +27,11 @@ from integreat_cms.cms.constants.weeks import RRULE_WEEK_TO_WEEK
 from integreat_cms.cms.forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from integreat_cms.cms.models import EventTranslation, ExternalCalendar, RecurrenceRule
 from integreat_cms.cms.utils.content_utils import clean_content
+
+# Copied from https://github.com/collective/icalendar/blob/4725c1bd57ca3afe61e7d45805a2b337842fbd29/src/icalendar/prop.py#L68-L69
+WEEKDAY_RULE = re.compile(
+    r"(?P<signal>[+-]?)(?P<relative>[\d]{0,2})(?P<weekday>[\w]{2})$"
+)
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True)
@@ -175,12 +181,13 @@ class RecurrenceRuleData:
     interval: vInt
     until: vDDDTypes | None
     by_day: list[vWeekday] | None
-    by_set_pos: vInt | None
+    by_set_pos: int | None
 
     @classmethod
     def from_ical_rrule(
         cls, recurrence_rule: vRecur, start: datetime.date, logger: logging.Logger
     ) -> Self:
+        # pylint: disable=too-many-locals
         """
         Constructs this class from an ical recurrence rule.
         :return: An instance of this class
@@ -207,6 +214,26 @@ class RecurrenceRuleData:
         until = pop_single_value("UNTIL")
         by_day = recurrence_rule.pop("BYDAY")
         by_set_pos = pop_single_value("BYSETPOS")
+
+        # by_set_pos can also be specified in `by_day`. We don't support multiple days with `by_set_pos` right now, though.
+        if by_day and len(by_day) == 1:
+            set_pos, weekday = _parse_weekday(by_day[0])
+            if by_set_pos is not None and set_pos is not None:
+                raise ValueError(
+                    f"Conflicting `BYSETPOS` and `BYDAY`: {by_set_pos} and {by_day}"
+                )
+            by_day[0] = weekday
+            by_set_pos = set_pos or by_set_pos
+        elif by_day:
+            updated_days = []
+            for day in by_day:
+                set_pos, weekday = _parse_weekday(day)
+                updated_days.append(weekday)
+                if set_pos is not None:
+                    raise ValueError(
+                        f"Cannot support multiple days with frequency right now: {by_day}"
+                    )
+            by_day = updated_days
 
         # WKST currently always has to be monday (or unset, because it defaults do monday)
         if (wkst := pop_single_value("WKST")) and wkst.lower() != "mo":
@@ -300,6 +327,30 @@ class RecurrenceRuleData:
         if len(weekdays) != len(weekdays_or_none):
             raise ValueError(f"Unknown value for weekday: {self.by_day}")
         return weekdays
+
+
+def _parse_weekday(weekdaynum: str) -> tuple[int | None, str]:
+    """
+    Parses a weekday according to https://www.rfc-editor.org/rfc/rfc5545#section-3.3.10 (see `weekdaynum`)
+    TODO: This should be handled by our icalendar package. Remove this code when a new version of icalendar is released.
+    :param weekdaynum: The weekday + frequency number
+    :return: A tuple of frequency and weekday, where the frequency is None if the weekdaynum only contained a weekday.
+    """
+    match = WEEKDAY_RULE.match(weekdaynum)
+    assert match is not None
+    sign = match["signal"]
+    relative = match["relative"]
+    weekday = match["weekday"]
+    if not relative:
+        return None, weekday
+    relative = int(relative)
+    match sign:
+        case "-":
+            return -relative, weekday
+        case "+" | "":
+            return relative, weekday
+        case _:
+            return None, weekday
 
 
 def import_events(calendar: ExternalCalendar, logger: logging.Logger) -> None:
@@ -442,7 +493,11 @@ def import_event(
     try:
         recurrence_rule_form_data = event_data.to_recurrence_rule_form_data()
     except ValueError as e:
-        logger.error("Could not import event due to unsupported recurrence rule: %r", e)
+        logger.error(
+            "Could not import event due to unsupported recurrence rule: %r\n%s",
+            e,
+            event_data,
+        )
         errors.append(
             _("Could not import '{}': Unsupported recurrence rule").format(
                 event_data.title, e
