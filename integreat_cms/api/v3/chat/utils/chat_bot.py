@@ -42,7 +42,7 @@ def automatic_answer(message: str, region: Region, language_slug: str) -> str | 
         f"https://{settings.INTEGREAT_CHAT_BACK_END_DOMAIN}/chatanswers/extract_answer/"
     )
     body = {"message": message, "language": language_slug, "region": region.slug}
-    r = requests.post(url, json=body, timeout=120)
+    r = requests.post(url, json=body, timeout=settings.INTEGREAT_CHAT_BACK_END_TIMEOUT)
     return format_message(r.json())
 
 
@@ -58,7 +58,9 @@ def automatic_translation(
         "source_language": source_language_slug,
         "target_language": target_language_slug,
     }
-    response = requests.post(url, json=body, timeout=120).json()
+    response = requests.post(
+        url, json=body, timeout=settings.INTEGREAT_CHAT_BACK_END_TIMEOUT
+    ).json()
     if "status" in response and response["status"] == "success":
         return response["translation"]
     raise ValueError("Did not receive success response for translation request.")
