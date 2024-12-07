@@ -131,104 +131,48 @@
         <div class="w-full p-4 flex justify-end gap-4 action-buttons">
             {% if not object.archived %}
                 {% if can_publish %}
-                    <!-- Reject buttons for latest version  -->
-                    <button name="status"
-                            class="btn btn-red hidden"
-                            data-status="{{ AUTO_SAVE }}"
-                            data-max>
-                        {% translate "Discard auto save" %}
+                    <button name="status" {% if translations.first.event.external_calendar %} disabled title="{% translate "The status of imported events can't be changed" %}" {% endif %} class="btn btn-red hidden" data-status="{{ AUTO_SAVE }}" data-max> {% translate "Discard auto save" %}
                     </button>
-                    <button name="status"
-                            class="btn btn-red hidden"
-                            data-status="{{ REVIEW }}"
-                            data-max>
+                    <button name="status" {% if translations.first.event.external_calendar %} disabled title="{% translate "The status of imported events can't be changed" %}" {% endif %} class="btn btn-red hidden" data-status="{{ REVIEW }}" data-max>
                         {% translate "Reject changes" %}
                     </button>
-                    <!-- Draft buttons -->
-                    <button name="status"
-                            value="{{ DRAFT }}"
-                            class="btn btn-outline hidden"
-                            data-status="{{ PUBLIC }}">
+                    <button name="status" {% if translations.first.event.external_calendar %} disabled title="{% translate "The status of imported events can't be changed" %}" {% endif %} value="{{ DRAFT }}" class="btn btn-outline hidden" data-status="{{ PUBLIC }}">
                         {% translate "Restore as draft" %}
                     </button>
-                    <button name="status"
-                            value="{{ DRAFT }}"
-                            class="btn btn-outline hidden"
-                            data-status="{{ DRAFT }}">
+                    <button name="status" {% if translations.first.event.external_calendar %} disabled title="{% translate "The status of imported events can't be changed" %}" {% endif %} value="{{ DRAFT }}" class="btn btn-outline hidden" data-status="{{ DRAFT }}">
                         {% translate "Restore as draft" %}
                     </button>
-                    <button name="status"
-                            value="{{ DRAFT }}"
-                            class="btn btn-outline hidden"
-                            data-status="{{ AUTO_SAVE }}">
+                    <button name="status" {% if translations.first.event.external_calendar %} disabled title="{% translate "The status of imported events can't be changed" %}" {% endif %} value="{{ DRAFT }}" class="btn btn-outline hidden" data-status="{{ AUTO_SAVE }}">
                         {% translate "Restore auto save as draft" %}
                     </button>
-                    <button name="status"
-                            value="{{ DRAFT }}"
-                            class="btn btn-outline hidden"
-                            data-status="{{ REVIEW }}">
+                    <button name="status" {% if translations.first.event.external_calendar %} disabled title="{% translate "The status of imported events can't be changed" %}" {% endif %} value="{{ DRAFT }}" class="btn btn-outline hidden" data-status="{{ REVIEW }}">
                         {% translate "Accept and restore changes as draft" %}
                     </button>
-                    <!-- Draft buttons for latest version -->
-                    <button name="status"
-                            value="{{ DRAFT }}"
-                            class="btn btn-outline hidden"
-                            data-status="{{ REVIEW }}"
-                            data-max>
+                    <button name="status" {% if translations.first.event.external_calendar %} disabled title="{% translate "The status of imported events can't be changed" %}" {% endif %} value="{{ DRAFT }}" class="btn btn-outline hidden" data-status="{{ REVIEW }}" data-max>
                         {% translate "Accept current changes as draft" %}
                     </button>
-                    <!-- Publish buttons -->
-                    <button name="status"
-                            value="{{ PUBLIC }}"
-                            class="btn hidden"
-                            data-status="{{ PUBLIC }}">
+                    <button name="status" {% if translations.first.event.external_calendar %} disabled title="{% translate "The status of imported events can't be changed" %}" {% endif %} value="{{ PUBLIC }}" class="btn hidden" data-status="{{ PUBLIC }}">
                         {% translate "Restore and publish" %}
                     </button>
-                    <button name="status"
-                            value="{{ PUBLIC }}"
-                            class="btn hidden"
-                            data-status="{{ DRAFT }}">
+                    <button name="status" {% if translations.first.event.external_calendar %} disabled title="{% translate "The status of imported events can't be changed" %}" {% endif %} value="{{ PUBLIC }}" class="btn hidden" data-status="{{ DRAFT }}">
                         {% translate "Restore and publish" %}
                     </button>
-                    <button name="status"
-                            value="{{ PUBLIC }}"
-                            class="btn hidden"
-                            data-status="{{ AUTO_SAVE }}">
+                    <button name="status" {% if translations.first.event.external_calendar %} disabled title="{% translate "The status of imported events can't be changed" %}" {% endif %} value="{{ PUBLIC }}" class="btn hidden" data-status="{{ AUTO_SAVE }}">
                         {% translate "Restore and publish auto save" %}
                     </button>
-                    <button name="status"
-                            value="{{ PUBLIC }}"
-                            class="btn hidden"
-                            data-status="{{ REVIEW }}">
+                    <button name="status" {% if translations.first.event.external_calendar %} disabled title="{% translate "The status of imported events can't be changed" %}" {% endif %} value="{{ PUBLIC }}" class="btn hidden" data-status="{{ REVIEW }}">
                         {% translate "Accept, restore and publish changes" %}
                     </button>
-                    <!-- Publish buttons for latest version  -->
-                    <button name="status"
-                            value="{{ PUBLIC }}"
-                            class="btn hidden"
-                            data-status="{{ PUBLIC }}"
-                            data-max>
+                    <button name="status" {% if translations.first.event.external_calendar %} disabled title="{% translate "The status of imported events can't be changed" %}" {% endif %} value="{{ PUBLIC }}" class="btn hidden" data-status="{{ PUBLIC }}" data-max>
                         {% translate "Refresh date" %}
                     </button>
-                    <button name="status"
-                            value="{{ PUBLIC }}"
-                            class="btn hidden"
-                            data-status="{{ DRAFT }}"
-                            data-max>
+                    <button name="status" {% if translations.first.event.external_calendar %} disabled title="{% translate "The status of imported events can't be changed" %}" {% endif %} value="{{ PUBLIC }}" class="btn hidden" data-status="{{ DRAFT }}" data-max>
                         {% translate "Publish the current draft" %}
                     </button>
-                    <button name="status"
-                            value="{{ PUBLIC }}"
-                            class="btn hidden"
-                            data-status="{{ AUTO_SAVE }}"
-                            data-max>
+                    <button name="status" {% if translations.first.event.external_calendar %} disabled title="{% translate "The status of imported events can't be changed" %}" {% endif %} value="{{ PUBLIC }}" class="btn hidden" data-status="{{ AUTO_SAVE }}" data-max>
                         {% translate "Publish auto save" %}
                     </button>
-                    <button name="status"
-                            value="{{ PUBLIC }}"
-                            class="btn hidden"
-                            data-status="{{ REVIEW }}"
-                            data-max>
+                    <button name="status" {% if translations.first.event.external_calendar %} disabled title="{% translate "The status of imported events can't be changed" %}" {% endif %} value="{{ PUBLIC }}" class="btn hidden" data-status="{{ REVIEW }}" data-max>
                         {% translate "Accept and publish the current changes" %}
                     </button>
                 {% elif can_edit %}
