@@ -4,6 +4,7 @@ import asyncio
 import logging
 import re
 from datetime import date, datetime
+from collections.abc import Mapping
 from typing import TYPE_CHECKING
 from urllib.parse import urlencode
 
@@ -13,7 +14,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
 from ..cms.constants import language_color, matomo_periods
-from .utils import create_translation_slugs
+from .utils import get_translation_slug
 
 if TYPE_CHECKING:
     import sys
@@ -528,7 +529,7 @@ class MatomoApiClient:
             ),
         ]
         return data_entries, legend_entries
-
+    """
     def get_page_based_statistics(
         self,
         start_date: date,
@@ -536,7 +537,6 @@ class MatomoApiClient:
         period: str,
         region: Region,
     ) -> list[dict[str, Any]]:
-        """
         Returns the statistics for each page of a region
 
         :param start_date: Start date
@@ -545,7 +545,6 @@ class MatomoApiClient:
         :param region: The region
         :return: ?
         :raises ~integreat_cms.matomo_api.matomo_api_client.MatomoException: When a :class:`~aiohttp.ClientError` was raised during a
-        """
         query_params = {
             "date": f"{start_date},{end_date}",
             "expanded": "1",
@@ -578,7 +577,6 @@ class MatomoApiClient:
         languages: list[Language],
         pages: list[Page],
     ) -> list[dict[str, Any]]:
-        """
         Async wrapper to fetch the total visits with :mod:`aiohttp`.
         Opens a :class:`~aiohttp.ClientSession`, creates a :class:`~asyncio.Task` for each language to call
         :func:`~integreat_cms.matomo_api.matomo_api_client.MatomoApiClient.fetch` and waits for all tasks to finish with
@@ -595,7 +593,6 @@ class MatomoApiClient:
                                                                Matomo API request
 
         :return: The list of gathered results
-        """
         create_translation_slugs(pages, languages)
         async with aiohttp.ClientSession() as session:
             # Create tasks for visits by language
@@ -621,3 +618,148 @@ class MatomoApiClient:
 
                 assert is_dict_list(result)
             return result
+     """
+
+    async def get_visits_per_page_and_language_async(
+        self,
+        loop: AbstractEventLoop,
+        query_params: dict[str, Any],
+        languages: list[Language],
+        pages: list[Page],
+        region_slug: str,
+    ) -> list[dict[str, Any]]:
+        translation_slugs = get_translation_slug(pages, languages)
+        print(translation_slugs)
+        async with aiohttp.ClientSession() as session:
+            # Create tasks for visits by language
+            tasks = [
+                loop.create_task(
+                    self.nice_function(session, query_params, region_slug=region_slug, page_id=page_id, lang_slug=lang_slug, full_slug=full_slug)
+                )
+                for page_id, langs in translation_slugs.items()
+                for lang_slug, full_slug in langs.items()
+            ]
+            # Wait for all tasks to finish and collect the results
+            # (the results are sorted in the order the tasks were created)
+            result = await asyncio.gather(*tasks)
+            # We're not retrieving the matomo id as part of the tasks, thus we know that the result is a list of dicts, not a list of list of ints.
+            if TYPE_CHECKING:
+
+                def is_dict_list(
+                    lst: list[dict[str, Any] | list[int]]
+                ) -> TypeGuard[list[dict[str, Any]]]:
+                    return all(isinstance(d, dict) for d in lst)
+
+                assert is_dict_list(result)
+            return result
+
+    async def nice_function(self, session: aiohttp.ClientSession, query_params: dict[str, Any], region_slug: str, page_id: int, lang_slug: str, full_slug: str) -> dict:
+        print(f"full slug: {full_slug}")
+        return {
+            page_id: {
+                lang_slug: await self.fetch( session, **query_params, segment=f"pageUrl=@/children/?depth=2&url=/{region_slug}/{full_slug}" )
+            }
+        }
+
+    def get_page_based_accesses(self, start_date: date, end_date: date, period: str, region: Region):
+        from ..cms.models import Page, Language
+
+        language1 = Language.objects.get(id=1)
+        language2 = Language.objects.get(id=2)
+        language3 = Language.objects.get(id=3)
+        print("get_page_based_accesses")
+
+        query_params = {
+            "date": f"{start_date},{end_date}",
+            "expanded": "1",
+            "filter_limit": "-1",
+            "format_metrics": "1",
+            "idSite": self.matomo_id,
+            "method": "VisitsSummary.getActions",
+            "period": period,
+        }
+        languages = [language1, language2, language3]
+        pages = region.get_pages()
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        # Execute async request to Matomo API
+        logger.debug("Fetching visits for languages %r asynchronously.", languages)
+        datasets = loop.run_until_complete(
+            self.get_visits_per_page_and_language_async(loop, query_params, languages, pages, region.slug)
+        )
+        
+        def deep_merge(*dicts):
+            """
+            Recursively merges dictionaries. Values in later dictionaries override earlier ones
+            for non-dict values, while dictionaries are merged recursively.
+            """
+            merged = {}
+            for d in dicts:
+                for key, value in d.items():
+                    if key in merged and isinstance(merged[key], Mapping) and isinstance(value, Mapping):
+                        # Recursively merge dictionaries
+                        merged[key] = deep_merge(merged[key], value)
+                    else:
+                        # Otherwise, override or add the value
+                        merged[key] = value
+            return merged
+        
+        datasets = deep_merge(*datasets)
+
+        """datasets = {
+            key: value
+            for result in datasets
+            for key, value in result.items()
+        }"""
+        print(f"Datasets: {datasets}")
+        
+        """
+        # alle Daten zu holen
+        raw_data = [
+            {
+                "slug": "/sprachkurse/integrationskurse",
+                "language_slug": "de",
+                "accesses": 8,
+            },
+            {
+                "slug": "/language_courses/integration_courses",
+                "language_slug": "de",
+                "accesses": 8,
+            },
+        ]
+
+        # strukturieren
+        # page id raus finden
+
+        translations = PageTranslations.objects.all()
+        # nicht aktuelle Versionen rausfiltern
+        for value in data:
+        # page id raus finden
+
+        translations = PageTranslations.objects.all()
+        # nicht aktuelle Versionen rausfiltern
+        for value in data:
+            gesuchte_translation = translations.get(slug=value.slug)
+            # erstelle aus der gesuchter translation ein dict
+            {
+                "id": gesuchte_translation.id, #654
+                "access": value.accesses, #88
+                "language_slug": value.language_slug, # "en"
+                "page_id": gesuchte_translation.page.id, #14
+            }
+        # rausfinden welche page translations dazu gehören
+            # gibt es mit meiner page_id schon ein dict?
+                # wenn nein, erstelle neues dict und fülle mit informationen aus, die du hast
+
+                # wenn ja, dann
+                    # hänge nur meinen language slug in accesses an
+                    # end_data.access[language_slug] = current_data.access
+
+        # schicke ich strukturiert an AJAX
+        end_data = [
+            {
+                "page_id": 14,
+                "accesses": {"de": 123, "en":23, "fr":312, "ar": 76543}
+            }
+            {"page_id": 1, "de": 12, "ru": 1},
+        """
