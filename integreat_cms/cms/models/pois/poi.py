@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
+from django.utils.functional import cached_property
 
 if TYPE_CHECKING:
     from typing import Any
@@ -199,6 +200,13 @@ class POI(AbstractContentModel):
         :return: whether this poi is used by another model
         """
         return self.events.exists() or self.contacts.exists()
+
+    @cached_property
+    def short_address(self) -> str:
+        """
+        :return: one-line representation of this POI's address
+        """
+        return f"{self.address}, {self.postcode} {self.city}"
 
     class Meta:
         #: The verbose name of the model

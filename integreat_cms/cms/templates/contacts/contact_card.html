@@ -7,15 +7,36 @@
          class="contact-card">
         <a href={{ contact.full_url }} class="marker-link">Contact</a>
         {% if contact %}
-            <h4>
-                {% if contact.point_of_contact_for and contact.point_of_contact_for.strip %}
-                    {{ contact.point_of_contact_for.strip }}:
-                {% endif %}
-                {% if contact.name and contact.name.strip %}
-                    <span class="notranslate" dir="ltr" translate="no">{{ contact.name.strip }}
-                    </span>
-                {% endif %}
-            </h4>
+            {% if contact.location %}
+                <h4>
+                    {% if contact.name and contact.name.strip %}
+                        <span class="notranslate" dir="ltr" translate="no">{{ contact.name.strip }}</span>
+                    {% endif %}
+                    {% if contact.name and contact.point_of_contact_for %}
+                        |
+                    {% endif %}
+                    {% if contact.point_of_contact_for and contact.point_of_contact_for.strip %}
+                        {{ contact.point_of_contact_for.strip }}
+                    {% endif %}
+                </h4>
+            {% endif %}
+            {% if contact.location %}
+                <p>
+                    <picture>
+                        <source srcset="{% get_base_url %}{% static "svg/pin.svg" %}" type="image/svg+xml">
+                        <img src="{% get_static_prefix %}/svg/pin.svg"
+                             alt="Address: "
+                             width="15"
+                             height="15" />
+                    </picture>
+                    &nbsp;
+                    <a href="">
+                        <span class="notranslate" dir="ltr" translate="no">
+                            {{ contact.location.short_address }}
+                        </span>
+                    </a>
+                </p>
+            {% endif %}
             {% if contact.email and contact.email.strip %}
                 <p>
                     <picture>
