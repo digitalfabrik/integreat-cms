@@ -13,7 +13,7 @@ from django.views.generic import TemplateView
 
 from ....api.decorators import json_response
 from ...constants import status
-from ...models import Feedback, PageTranslation
+from ...models import Feedback, LanguageTreeNode, Page, PageTranslation
 from ...utils.linkcheck_utils import filter_urls
 from ...views.utils.hix import get_translation_under_hix_threshold
 from ..chat.chat_context_mixin import ChatContextMixin
@@ -59,6 +59,10 @@ class DashboardView(TemplateView, ChatContextMixin):
                 ),
                 "broken_link_ajax": reverse(
                     "get_broken_links_ajax",
+                    kwargs={"region_slug": self.request.region.slug},
+                ),
+                "translation_coverage_ajax": reverse(
+                    "get_translation_coverage_ajax",
                     kwargs={"region_slug": self.request.region.slug},
                 ),
             }
@@ -242,3 +246,55 @@ class DashboardView(TemplateView, ChatContextMixin):
             "drafted_pages": drafted_pages,
             "single_drafted_page": single_drafted_page,
         }
+
+    @json_response
+    # pylint: disable=unused-argument, disable=no-self-argument
+    def get_translation_coverage_context(
+        request: HttpRequest, region_slug: str
+    ) -> JsonResponse:
+        r"""
+        Extend context by info on translation coverage of pages
+
+        :return: Dictionary containing the context for translation coverage of pages in a region
+        """
+        number_of_outdated_pages = 0
+
+        if not request.region.default_language:
+            return {}
+
+        languages = LanguageTreeNode.objects.filter(region=request.region).exclude(
+            language=request.region.default_language
+        )
+
+        pages_in_region = Page.objects.filter(
+            region=request.region, explicitly_archived=False
+        )
+        for page in pages_in_region:
+            if page.implicitly_archived:
+                pages_in_region.exclude(id=page.id)
+
+        possible_translations = languages.count() * pages_in_region.count()
+
+        published_foreign_translations = (
+            PageTranslation.objects.select_related("language")
+            .order_by("page__id", "language__id", "-version")
+            .distinct("page__id", "language__id")
+            .filter(page__region__slug=request.region.slug, minor_edit=False)
+            .exclude(language=request.region.default_language)
+            .all()
+        )
+
+        number_of_missing_translations = (
+            possible_translations - published_foreign_translations.count()
+        )
+
+        for pagetranslation in published_foreign_translations:
+            if pagetranslation.is_outdated:
+                number_of_outdated_pages += 1
+
+        return JsonResponse(
+            data={
+                "number_of_missing_or_outdated_translations": number_of_missing_translations
+                + number_of_outdated_pages
+            }
+        )
