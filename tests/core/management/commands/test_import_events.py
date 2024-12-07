@@ -31,6 +31,9 @@ CALENDAR_MULTIPLE_CATEGORIES = (
 CALENDAR_RECURRENCE_RULES = (
     "tests/core/management/commands/assets/calendars/recurrence_rules.ics"
 )
+CALENDAR_OUTLOOK = (
+    "tests/core/management/commands/assets/calendars/outlook_calendar.ics"
+)
 CALENDAR_SINGLE_RECURRING_EVENT_A = (
     "tests/core/management/commands/assets/calendars/single_recurring_event_a.ics"
 )
@@ -52,12 +55,22 @@ CALENDARS = [
             "Every second day",
             "Weekly event",
             "Every year until 2034",
+            "Every 3rd Wednesday",
         ],
         {
             "DTSTART:20241112T230000\nRRULE:FREQ=MONTHLY;BYDAY=+1MO",
             "DTSTART:20241113T130002\nRRULE:FREQ=DAILY;INTERVAL=2",
             "DTSTART:20241113T190000\nRRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR",
             "DTSTART:20241112T230000\nRRULE:FREQ=YEARLY;UNTIL=20341112T235959",
+            "DTSTART:20241112T230000\nRRULE:FREQ=MONTHLY;BYDAY=+3WE",
+        },
+    ),
+    (
+        CALENDAR_OUTLOOK,
+        ["Weekly - On Wednesday only - Never ends", "Yearly - End after 2 times"],
+        {
+            "DTSTART:20241231T230000\nRRULE:FREQ=WEEKLY;UNTIL=20250513T235959;BYDAY=WE",
+            "DTSTART:20241231T230000\nRRULE:FREQ=YEARLY;UNTIL=20271231T235959",
         },
     ),
     (
