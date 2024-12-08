@@ -40,6 +40,8 @@
                 <div class="flex flex-wrap gap-4 ml-auto mr-0 items-center">
                     {% include "generic_auto_save_note.html" with form_instance=event_form.instance %}
                     {% if perms.cms.publish_event %}
+                        <a href="{% url 'events' region_slug=request.region.slug %}"
+                           class="btn btn-ghost">{% translate "Cancel" %}</a>
                         <button name="status"
                                 value="{{ DRAFT }}"
                                 class="btn btn-outline no-premature-submission">
