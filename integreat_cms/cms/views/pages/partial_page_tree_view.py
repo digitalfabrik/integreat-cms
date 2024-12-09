@@ -15,11 +15,8 @@ from ..pages.page_context_mixin import PageContextMixin
 
 @permission_required("cms.view_page")
 @require_POST
-def render_partial_page_tree_views(
-    request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
-    language_slug: str,
-) -> JsonResponse:
+# pylint: disable=unused-argument
+def render_partial_page_tree_views(request: HttpRequest, region_slug: str, language_slug: str, is_archive: bool) -> JsonResponse:
     r"""
     Retrieve the rendered subtree of a given root page
 
@@ -33,14 +30,12 @@ def render_partial_page_tree_views(
     region = request.region
     language = region.get_language_or_404(language_slug, only_active=True)
 
+    # Convert is_archive from String to Boolean
+    is_archive = eval(is_archive)
+
     backend_language = Language.objects.filter(slug=get_language()).first()
 
-    all_pages = (
-        region.pages.filter(tree_id__in=requested_tree_ids)
-        .prefetch_major_translations()
-        .prefetch_related("mirroring_pages")
-        .cache_tree(archived=False)
-    )
+    all_pages = region.pages.filter(tree_id__in=requested_tree_ids).prefetch_major_translations().prefetch_related("mirroring_pages").cache_tree(archived=is_archive)
 
     pages_by_id = defaultdict(list)
     for page in all_pages:
@@ -67,6 +62,7 @@ def render_partial_page_tree_views(
                     "language": language,
                     "languages": region.active_languages,
                     "parent_id": parent.id,
+                    "is_archive": is_archive,
                 },
                 request,
             )
