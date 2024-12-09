@@ -647,9 +647,16 @@ urlpatterns: list[URLPattern] = [
                                                         name="render_mirrored_page_field",
                                                     ),
                                                     path(
-                                                        "partial-page-tree/",
-                                                        pages.render_partial_page_tree_views,
-                                                        name="get_page_tree_ajax",
+                                                        "<is_archive>/",
+                                                        include(
+                                                            [
+                                                                path(
+                                                                    "partial-page-tree/",
+                                                                    pages.render_partial_page_tree_views,
+                                                                    name="get_page_tree_ajax",
+                                                                ),
+                                                            ]
+                                                        ),
                                                     ),
                                                 ]
                                             ),
