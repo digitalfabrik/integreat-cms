@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from ast import literal_eval
 from collections import defaultdict
 
 from django.http import HttpRequest, JsonResponse
@@ -15,7 +16,7 @@ from ..pages.page_context_mixin import PageContextMixin
 
 @permission_required("cms.view_page")
 @require_POST
-# pylint: disable=unused-argument
+# pylint: disable=unused-argument, too-many-locals
 def render_partial_page_tree_views(
     request: HttpRequest, region_slug: str, language_slug: str, is_archive: str
 ) -> JsonResponse:
@@ -34,7 +35,7 @@ def render_partial_page_tree_views(
     language = region.get_language_or_404(language_slug, only_active=True)
 
     # Convert is_archive from String to Boolean
-    is_archive = eval(is_archive)
+    is_archive = literal_eval(is_archive)
 
     backend_language = Language.objects.filter(slug=get_language()).first()
 
