@@ -9,6 +9,7 @@ if TYPE_CHECKING:
 import pytest
 from django.test.client import Client
 from django.urls import reverse
+from linkcheck import listeners
 from linkcheck.listeners import enable_listeners
 from linkcheck.models import Link, Url
 
@@ -46,6 +47,7 @@ def test_url_replace(
     """
     Test whether link replacement in the network management per pencil icon in the column "options" work correctly.
     """
+    listeners.tests_running = True
 
     settings.LANGUAGE_CODE = "en"
     client, role = login_role_user
@@ -109,6 +111,8 @@ def test_url_replace(
         assert Link.objects.filter(url__url=OLD_URL).count() == before
         assert not Link.objects.filter(url__url=NEW_URL).exists()
 
+    listeners.tests_running = False
+
 
 # ----------- Test for search&replace -----------#
 # string to be replaced
@@ -141,6 +145,8 @@ def test_search_and_replace_links(
     """
     Test whether search & replace (on the upper right corner) is working correctly.
     """
+    listeners.tests_running = True
+
     settings.LANGUAGE_CODE = "en"
     client, role = login_role_user
     region, before, after = parameter
@@ -206,6 +212,8 @@ def test_search_and_replace_links(
         assert response.status_code == 403
         assert Link.objects.filter(url__url=SEARCH_REPLACE_TARGET_URL).count() == before
         assert Link.objects.filter(url__url=TARGET_URL_AFTER_REPLACE).count() == 0
+
+    listeners.tests_running = False
 
 
 # ----------- Test for bulk action ignore/unignore -----------#
