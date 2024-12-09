@@ -109,7 +109,9 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
                     ),
                 )
             else:
-                messages.warning(request, _("You don't have the permission to edit or create pages."))
+                messages.warning(
+                    request, _("You don't have the permission to edit or create pages.")
+                )
 
         # Initialize page filter form
         filter_form = PageFilterForm(data=request.GET)
@@ -123,7 +125,11 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
         )
 
         # Cache tree structure to reduce database queries
-        pages = page_queryset.prefetch_major_translations().prefetch_related("mirroring_pages").cache_tree(archived=self.archived)
+        pages = (
+            page_queryset.prefetch_major_translations()
+            .prefetch_related("mirroring_pages")
+            .cache_tree(archived=self.archived)
+        )
 
         # When only archived pages are requested, remove implicitly archived pages since they are handeld by loading the partial page tree
         if self.archived:
