@@ -88,17 +88,54 @@ def get_visits_per_language_ajax(
         )
 
     try:
-        region.statistics.get_page_based_accesses(
-            start_date=statistics_form.cleaned_data["start_date"],
-            end_date=statistics_form.cleaned_data["end_date"],
-            period=statistics_form.cleaned_data["period"],
-            region=region,
-        )
-
         result = region.statistics.get_visits_per_language(
             start_date=statistics_form.cleaned_data["start_date"],
             end_date=statistics_form.cleaned_data["end_date"],
             period=statistics_form.cleaned_data["period"],
+        )
+        return JsonResponse(result, safe=False)
+    except asyncio.TimeoutError:
+        return JsonResponse(
+            {"error": "Timeout during request to Matomo API"}, status=504
+        )
+    except MatomoException as e:
+        logger.exception(e)
+        return JsonResponse(
+            {"error": "The request to the Matomo API failed."}, status=500
+        )
+
+
+@require_POST
+# pylint: disable=unused-argument
+def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonResponse:
+    """
+    Ajax method to request the app hits for a certain timerange distinguished by languages.
+
+    :param request: The current request
+    :param region_slug: The slug of the current region
+    :return: A JSON with all API-Hits of the requested time period
+    """
+    region = request.region
+
+    if not region.statistics_enabled:
+        return JsonResponse(
+            {"error": "Statistics are not enabled for this region."}, status=500
+        )
+
+    statistics_form = StatisticsFilterForm(data=request.POST)
+
+    if not statistics_form.is_valid():
+        return JsonResponse(
+            {"errors": statistics_form.errors},
+            status=400,
+        )
+
+    try:
+        result = region.statistics.get_page_accesses(
+            start_date=statistics_form.cleaned_data["start_date"],
+            end_date=statistics_form.cleaned_data["end_date"],
+            period=statistics_form.cleaned_data["period"],
+            region=region,
         )
         return JsonResponse(result, safe=False)
     except asyncio.TimeoutError:

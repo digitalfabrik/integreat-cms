@@ -712,6 +712,11 @@ urlpatterns: list[URLPattern] = [
                                             statistics.get_visits_per_language_ajax,
                                             name="statistics_visits_per_language",
                                         ),
+                                        path(
+                                            "page-based-accesses/",
+                                            statistics.get_page_accesses_ajax,
+                                            name="statistics_page_based_accesses",
+                                        ),
                                     ]
                                 ),
                             ),
