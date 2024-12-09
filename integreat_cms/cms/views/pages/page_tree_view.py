@@ -32,9 +32,7 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
     """
 
     #: Template for list of non-archived pages
-    template = "pages/page_tree.html"
-    #: Template for list of archived pages
-    template_archived = "pages/page_tree_archived.html"
+    template = "pages/pages_page_tree.html"
     #: Whether or not to show archived pages
     archived = False
     #: The translation model of this list view (used to determine whether machine translations are permitted)
@@ -130,6 +128,13 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
             .prefetch_related("mirroring_pages")
             .cache_tree(archived=self.archived)
         )
+
+        # When only archived pages are requested, remove implicitly archived pages since they are handeld by loading the partial page tree
+        if self.archived:
+            archived_pages = region.archived_pages
+            for page in archived_pages:
+                if page.implicitly_archived:
+                    pages.remove(page)
 
         # Filter pages according to given filters, if any
         pages = filter_form.apply(pages, language_slug)
