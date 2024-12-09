@@ -1,33 +1,34 @@
 from __future__ import annotations
 
-from typing import Dict, TYPE_CHECKING
+from typing import TYPE_CHECKING
+
+from asgiref.sync import sync_to_async
 
 if TYPE_CHECKING:
-    from django.db.models.query import QuerySet
     from ..cms.models import Language, Page
 
 
-"""def create_translation_slugs(
-    pages: QuerySet[Page], languages: list[Language]
-) -> dict[Page, dict[str, str]]:
-    This function creates the translation slug for the matomo call. It returns then language_slug and the slug in the target translation.
-    translation_slugs: Dict[Page, Dict[str, str]] = {}
-    for page in pages:
-        translation_slugs[page] = {}
-        for language in languages:
-            if page_translation := page.get_translation(language.slug):
-                # print(page_translation.ancestor_path)Sollen wir uns Sol
-                translation_slugs[page][language.slug] = page_translation.slug
-    return translation_slugs
+def get_translation_slug(
+    pages: list[Page], languages: list[Language]
+) -> dict[int, dict[str, str]]:
     """
+    Produce mapping of page ids and language slugs to the absolute url of the corresponding translation.
+    In detail, we need to construct a slug in the foreign language, for example /en/lebensmittel-und-einkaufen needs to become /en/groceries-and-shopping.
 
-def get_translation_slug(pages: list[Page], languages: list[Language]) -> dict[int, dict[str, str]]:
-    translation_slugs = {}
+    :param pages: The list of pages for which we want the absolute url of
+    :param languages: The list of languages for which we want the absolute url of
+    :return: A dictionary of page ids, language slugs and the absolute url of the corresponding translation.
+    """
+    translation_slugs: dict = {}
     for page in pages:
         for language in languages:
             if page_translation := page.get_translation(language.slug):
                 if page.id not in translation_slugs:
                     translation_slugs[page.id] = {}
-                translation_slugs[page.id][language.slug] = f"{language.slug}/{page_translation.slug}" # nach richtigen Slug noch mal recherchieren
+                translation_slugs[page.id][
+                    language.slug
+                ] = page_translation.get_absolute_url().rstrip("/")
     return translation_slugs
 
+
+async_get_translation_slug = sync_to_async(get_translation_slug, thread_sensitive=False)
