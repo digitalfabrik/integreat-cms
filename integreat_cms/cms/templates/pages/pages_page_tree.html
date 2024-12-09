@@ -112,7 +112,7 @@
                 </thead>
                 <tbody>
                     {% for page in pages %}
-                        {% include "pages/page_tree_node.html" with is_archive=is_archive %}
+                        {% include "pages/pages_page_tree_node.html" with is_archive=is_archive %}
                         {% if forloop.last %}
                             <tr data-drop-id="{% if page.is_root %}{{ page.id }}{% else %}{{ page.get_cached_ancestors.0.id }}{% endif %}"
                                 data-drop-position="right"
