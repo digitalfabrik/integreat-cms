@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Generator, TYPE_CHECKING
+from typing import List, TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
@@ -225,16 +225,16 @@ class Contact(AbstractBaseModel):
         )
 
     @cached_property
-    def referring_objects(self) -> Generator[AbstractContentTranslation]:
+    def referring_objects(self) -> List[AbstractContentTranslation]:
         """
         Returns a list of all objects linking to this contact.
 
         :return: all objects referring to this contact
         """
-        return (
+        return [
             link.content_object
             for link in Link.objects.filter(url__url=self.absolute_url)
-        )
+        ]
 
     def archive(self) -> None:
         """

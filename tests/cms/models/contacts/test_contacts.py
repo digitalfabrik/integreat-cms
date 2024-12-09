@@ -40,37 +40,37 @@ def test_contact_string(
 def test_copying_contact_works(
     load_test_data: None,
 ) -> None:
-    assert Contact.objects.all().count() == 4
+    assert Contact.objects.all().count() == 5
 
     contact = Contact.objects.get(id=1)
     contact.copy()
 
-    assert Contact.objects.all().count() == 5
+    assert Contact.objects.all().count() == 6
 
 
 @pytest.mark.django_db
 def test_deleting_contact_works(
     load_test_data: None,
 ) -> None:
-    assert Contact.objects.all().count() == 4
+    assert Contact.objects.all().count() == 5
 
     contact = Contact.objects.get(id=1)
     contact.delete()
 
-    assert Contact.objects.all().count() == 3
+    assert Contact.objects.all().count() == 4
 
 
 @pytest.mark.django_db
 def test_archiving_contact_works(
     load_test_data: None,
 ) -> None:
-    assert Contact.objects.all().count() == 4
+    assert Contact.objects.all().count() == 5
 
     contact = Contact.objects.get(id=1)
     assert contact.archived is False
     contact.archive()
 
-    assert Contact.objects.all().count() == 4
+    assert Contact.objects.all().count() == 5
     assert contact.archived is True
 
 
@@ -78,11 +78,11 @@ def test_archiving_contact_works(
 def test_restoring_contact_works(
     load_test_data: None,
 ) -> None:
-    assert Contact.objects.all().count() == 4
+    assert Contact.objects.all().count() == 5
 
     contact = Contact.objects.get(id=2)
     assert contact.archived is True
     contact.restore()
 
-    assert Contact.objects.all().count() == 4
+    assert Contact.objects.all().count() == 5
     assert contact.archived is False

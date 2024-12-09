@@ -50,10 +50,14 @@ class ArchiveContactBulkAction(ContactBulkAction):
         """
 
         archive_successful = []
+        archive_failure = []
 
         for content_object in self.get_queryset():
-            content_object.archive()
-            archive_successful.append(content_object)
+            if not content_object.referring_objects:
+                content_object.archive()
+                archive_successful.append(content_object)
+            else:
+                archive_failure.append(content_object)
 
         if archive_successful:
             messages.success(
@@ -66,6 +70,20 @@ class ArchiveContactBulkAction(ContactBulkAction):
                     model_name=self.model._meta.verbose_name.title(),
                     model_name_plural=self.model._meta.verbose_name_plural,
                     object_names=iter_to_string(archive_successful),
+                ),
+            )
+
+        if archive_failure:
+            messages.error(
+                request,
+                ngettext_lazy(
+                    "{model_name} {object_names} cannot be archived while content objects refer to it.",
+                    "The following {model_name_plural} could be archived: {object_names}",
+                ).format(
+                    len(archive_failure),
+                    model_name=self.model._meta.verbose_name.title(),
+                    model_name_plural=self.model._meta.verbose_name_plural,
+                    object_names=iter_to_string(archive_failure),
                 ),
             )
 
@@ -131,9 +149,14 @@ class DeleteContactBulkAction(ContactBulkAction):
         :return: The redirect
         """
         delete_sucessful = []
+        delete_failure = []
+
         for content_object in self.get_queryset():
-            content_object.delete()
-            delete_sucessful.append(content_object)
+            if not content_object.referring_objects:
+                content_object.delete()
+                delete_sucessful.append(content_object)
+            else:
+                delete_failure.append(content_object)
 
         if delete_sucessful:
             messages.success(
@@ -146,6 +169,20 @@ class DeleteContactBulkAction(ContactBulkAction):
                     model_name=self.model._meta.verbose_name.title(),
                     model_name_plural=self.model._meta.verbose_name_plural,
                     object_names=iter_to_string(delete_sucessful),
+                ),
+            )
+
+        if delete_failure:
+            messages.error(
+                request,
+                ngettext_lazy(
+                    "{model_name} {object_names} cannot be deleted while content objects refer to it.",
+                    "The following {model_name_plural} could be deleted: {object_names}",
+                    len(delete_failure),
+                ).format(
+                    model_name=self.model._meta.verbose_name.title(),
+                    model_name_plural=self.model._meta.verbose_name_plural,
+                    object_names=iter_to_string(delete_failure),
                 ),
             )
 

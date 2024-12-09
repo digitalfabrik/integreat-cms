@@ -26,12 +26,11 @@
             {% endif %}
             <p>
                 <img src="{% get_svg_icon "pin" %}" alt="Address: " width="15" height="15" />
-                &nbsp; <a href="{{ contact.location.map_url }}">{{ contact.location.short_address }}</a>
+                <a href="{{ contact.location.map_url }}">{{ contact.location.short_address }}</a>
             </p>
             {% if contact.email %}
                 <p>
                     <img src="{% get_svg_icon "email" %}" alt="Email: " width="15" height="15" />
-                    &nbsp;
                     <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
                 </p>
             {% endif %}
@@ -41,13 +40,12 @@
                          alt="Phone Number: "
                          width="15"
                          height="15" />
-                    &nbsp; <a href="tel:{{ contact.phone_number }}">{{ contact.phone_number }}</a>
+                    <a href="tel:{{ contact.phone_number }}">{{ contact.phone_number }}</a>
                 </p>
             {% endif %}
             {% if contact.website %}
                 <p>
                     <img src="{% get_svg_icon "www" %}" alt="Website: " width="15" height="15" />
-                    &nbsp;
                     <a href="{{ contact.website }}">{{ contact.website }}</a>
                 </p>
             {% endif %}
