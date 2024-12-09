@@ -94,8 +94,8 @@ class Command(DebugCommand):
         """
         parser.add_argument("region_slug", help="The slug of the region")
 
-    # pylint: disable=arguments-differ
     def handle(self, *args: Any, region_slug: str, **options: Any) -> None:
+        # pylint: disable=arguments-differ
         r"""
         Try to run the command
 

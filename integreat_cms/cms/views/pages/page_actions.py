@@ -147,9 +147,11 @@ def restore_page(
 
 @permission_required("cms.view_page")
 @json_response
-# pylint: disable=unused-argument
 def preview_page_ajax(
-    request: HttpRequest, page_id: int, region_slug: str, language_slug: str
+    request: HttpRequest,
+    page_id: int,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
 ) -> JsonResponse:
     """
     Preview page object
@@ -188,9 +190,11 @@ def preview_page_ajax(
 
 @permission_required("cms.view_page")
 @json_response
-# pylint: disable=unused-argument
 def get_page_content_ajax(
-    request: HttpRequest, region_slug: str, language_slug: str, page_id: int
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
+    page_id: int,
 ) -> JsonResponse:
     """
     Get content of a page translation based on language slug
@@ -273,9 +277,11 @@ def expand_page_translation_id(
 @require_POST
 @permission_required("cms.change_page")
 @json_response
-# pylint: disable=unused-argument
 def cancel_translation_process_ajax(
-    request: HttpRequest, region_slug: str, language_slug: str, page_id: int
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
+    page_id: int,
 ) -> JsonResponse:
     """
     This view is called for manually unsetting the translation process
@@ -510,10 +516,9 @@ def move_page(
 
 
 @permission_required("cms.view_page")
-# pylint: disable=unused-argument
 def get_page_order_table_ajax(
     request: HttpRequest,
-    region_slug: str,
+    region_slug: str,  # pylint: disable=unused-argument
     parent_id: int | None = None,
     page_id: int | None = None,
 ) -> HttpResponse:
@@ -560,9 +565,10 @@ def get_page_order_table_ajax(
 
 
 @permission_required("cms.view_page")
-# pylint: disable=unused-argument
 def render_mirrored_page_field(
-    request: HttpRequest, region_slug: str, language_slug: str
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
 ) -> HttpResponse:
     """
     Retrieve the rendered mirrored page field template
@@ -595,11 +601,10 @@ def render_mirrored_page_field(
 
 
 @require_POST
-# pylint: disable=unused-argument
 def refresh_date(
     request: HttpRequest,
     page_id: int,
-    region_slug: str,
+    region_slug: str,  # pylint: disable=unused-argument
     language_slug: str,
 ) -> HttpResponseRedirect:
     """

@@ -13,8 +13,8 @@ from .language_tree_context_mixin import LanguageTreeContextMixin
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-many-ancestors
 class LanguageTreeView(LanguageTreeContextMixin, ModelListView):
+    # pylint: disable=too-many-ancestors
     """
     View for rendering the language tree view.
     This view is available in regions.

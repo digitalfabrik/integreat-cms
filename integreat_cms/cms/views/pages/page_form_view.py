@@ -52,8 +52,8 @@ class PageFormView(
     #: The url name of the view to show if the user decides to go back (see :class:`~integreat_cms.cms.views.mixins.ContentEditLockMixin`)
     back_url_name: str | None = "pages"
 
-    # pylint: disable=too-many-locals, too-many-branches
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        # pylint: disable=too-many-locals, too-many-branches
         r"""
         Render :class:`~integreat_cms.cms.forms.pages.page_form.PageForm` and :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm`
 
@@ -237,11 +237,11 @@ class PageFormView(
             },
         )
 
-    # pylint: disable=too-many-statements
     @transaction.atomic
     def post(
         self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponseRedirect:
+        # pylint: disable=too-many-statements, too-many-locals, too-many-branches
         r"""
         Submit :class:`~integreat_cms.cms.forms.pages.page_form.PageForm` and
         :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm` and save :class:`~integreat_cms.cms.models.pages.page.Page`

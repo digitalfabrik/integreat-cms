@@ -91,8 +91,9 @@ def lookup_hix_score(text: str) -> TextlabResult | None:
 
 @require_POST
 @json_response
-# pylint: disable=unused-argument
-def get_hix_score(request: HttpRequest, region_slug: str) -> JsonResponse:
+def get_hix_score(
+    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+) -> JsonResponse:
     """
     Calculates the hix score for the param 'text' in the request body and returns it.
 

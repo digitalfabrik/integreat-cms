@@ -33,10 +33,10 @@ logger = logging.getLogger(__name__)
 pdf_storage = FileSystemStorage(location=settings.PDF_ROOT, base_url=settings.PDF_URL)
 
 
-# pylint: disable=too-many-locals
 def generate_pdf(
     region: Region, language_slug: str, pages: PageQuerySet
 ) -> HttpResponseRedirect:
+    # pylint: disable=too-many-locals
     """
     Function for handling a pdf export request for pages.
     The pages were either selected by cms user or by API request (see :func:`~integreat_cms.api.v3.pdf_export`)
@@ -136,8 +136,7 @@ def generate_pdf(
     return redirect(pdf_storage.url(filename))
 
 
-# pylint: disable=unused-argument
-def link_callback(uri: str, rel: str) -> str | None:
+def link_callback(uri: str, rel: str) -> str | None:  # pylint: disable=unused-argument
     """
     According to the xhtml2pdf documentation (see `Link callback <https://xhtml2pdf.readthedocs.io/en/latest/reference/python.html#link-callback>`_,
     this function is necessary for resolving the Django static files references.

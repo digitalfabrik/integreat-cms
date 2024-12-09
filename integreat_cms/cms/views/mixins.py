@@ -53,8 +53,8 @@ class ModelTemplateResponseMixin(TemplateResponseMixin):
         return f"{model_name_plural}/{model_name}{self.template_name_suffix}.html"
 
 
-# pylint: disable=too-few-public-methods
 class ModelConfirmationContextMixin(ContextMixin):
+    # pylint: disable=too-few-public-methods
     """
     A mixin that can be used to inject confirmation text into a template of a model (e.g. list or form)
     """
@@ -80,6 +80,7 @@ class ModelConfirmationContextMixin(ContextMixin):
 
 
 class ContentEditLockMixin(ContextMixin):
+    # pylint: disable=too-few-public-methods
     """
     A mixin that provides some variables required for the content edit lock
     """
@@ -110,8 +111,8 @@ class ContentEditLockMixin(ContextMixin):
         return context
 
 
-# pylint: disable=too-few-public-methods
 class MachineTranslationContextMixin(ContextMixin):
+    # pylint: disable=too-few-public-methods
     """
     This mixin provides extra context for machine translation options
     """

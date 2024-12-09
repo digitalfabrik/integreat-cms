@@ -11,8 +11,8 @@ from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurit
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-few-public-methods
 class FirebaseDataClient:
+    # pylint: disable=too-few-public-methods
     """
     A client for interacting with Firebase Cloud Messaging Data API.
 

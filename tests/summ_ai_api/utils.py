@@ -125,8 +125,8 @@ def get_changed_pages(settings: SettingsWrapper, ids: list[int]) -> list[dict]:
     ]
 
 
-# pylint: disable=too-few-public-methods
 class MockedRequest:
+    # pylint: disable=too-few-public-methods
     """
     Helper class mocking request, used for creating a SummAiApiclient instance. Region-property is needed therefore.
     """
@@ -138,8 +138,8 @@ class MockedRequest:
         self.data = {"dummy": "dummy request"}
 
 
-# pylint: disable=too-few-public-methods, missing-class-docstring
 class MockedRegion:
+    # pylint: disable=too-few-public-methods, missing-class-docstring
     def __init__(self) -> None:
         self.id = 1
         self.slug = "augsburg"

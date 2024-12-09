@@ -19,7 +19,6 @@ class MirroredPageFieldWidget(forms.widgets.Select):
     #: The current language slug
     language_slug: str | None = None
 
-    # pylint: disable=too-many-arguments, too-many-positional-arguments
     def create_option(
         self,
         name: str,
@@ -30,6 +29,7 @@ class MirroredPageFieldWidget(forms.widgets.Select):
         subindex: int | None = None,
         attrs: dict | None = None,
     ) -> dict:
+        # pylint: disable=too-many-arguments, too-many-positional-arguments
         """
         This function creates an option which can be selected in the parent field
 

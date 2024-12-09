@@ -27,7 +27,6 @@ class CustomPasswordResetForm(PasswordResetForm):
         widget=forms.EmailInput(attrs={"autocomplete": "email"}),
     )
 
-    # pylint: disable=signature-differs,too-many-positional-arguments
     def send_mail(
         self,
         subject_template_name: str,
@@ -37,6 +36,7 @@ class CustomPasswordResetForm(PasswordResetForm):
         to_email: str,
         html_email_template_name: str,
     ) -> None:
+        # pylint: disable=signature-differs,too-many-positional-arguments
         """
         Send a django.core.mail.EmailMultiAlternatives to `to_email`.
 

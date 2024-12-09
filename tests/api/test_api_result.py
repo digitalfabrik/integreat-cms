@@ -12,7 +12,6 @@ from django.test.client import Client
 from .api_config import API_ENDPOINTS
 
 
-# pylint: disable=too-many-positional-arguments
 @pytest.mark.django_db
 @pytest.mark.parametrize(
     "endpoint,wp_endpoint,expected_result,expected_code,expected_queries", API_ENDPOINTS
@@ -26,6 +25,7 @@ def test_api_result(
     expected_code: int,
     expected_queries: int,
 ) -> None:
+    # pylint: disable=too-many-positional-arguments
     """
     This test class checks all endpoints defined in :attr:`~tests.api.api_config.API_ENDPOINTS`.
     It verifies that the content delivered by the endpoint is equivalent with the data

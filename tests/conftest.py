@@ -85,11 +85,11 @@ def load_test_data_transactional(
         call_command("loaddata", "integreat_cms/cms/fixtures/test_data.json")
 
 
-# pylint: disable=redefined-outer-name
 @pytest.fixture(scope="session", params=ALL_ROLES)
 def login_role_user(
     request: SubRequest, load_test_data: None, django_db_blocker: _DatabaseBlocker
 ) -> tuple[Client, str]:
+    # pylint: disable=redefined-outer-name
     """
     Get the test user of the current role and force a login. Gets executed only once per user.
 
@@ -107,11 +107,11 @@ def login_role_user(
     return client, request.param
 
 
-# pylint: disable=redefined-outer-name
 @pytest.fixture(scope="session", params=ALL_ROLES)
 def login_role_user_async(
     request: SubRequest, load_test_data: None, django_db_blocker: _DatabaseBlocker
 ) -> tuple[AsyncClient, str]:
+    # pylint: disable=redefined-outer-name
     """
     Get the test user of the current role and force a login. Gets executed only once per user.
     Identical to :meth:`~tests.conftest.login_role_user` with the difference that it returns

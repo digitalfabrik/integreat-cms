@@ -77,9 +77,10 @@ def transform_offer(offer: OfferTemplate, region: Region) -> dict[str, Any]:
 
 
 @json_response
-# pylint: disable=unused-argument
 def offers(
-    request: HttpRequest, region_slug: str, language_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     Function to iterate through all offers related to a region and adds them to a JSON.

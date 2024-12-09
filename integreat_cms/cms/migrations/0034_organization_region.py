@@ -16,8 +16,10 @@ WARN = "\x1b[1;33m"
 RESET = "\x1b[0;39m"
 
 
-# pylint: disable=unused-argument
-def delete_organizations(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def delete_organizations(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Delete all existing organizations because they have to be region-specific now
 

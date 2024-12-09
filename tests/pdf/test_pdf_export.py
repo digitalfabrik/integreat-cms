@@ -9,7 +9,6 @@ from django.test.client import Client
 from django.urls import reverse
 
 
-# pylint: disable=too-many-locals,too-many-positional-arguments
 @pytest.mark.django_db
 # Override urls to serve PDF files
 @pytest.mark.urls("tests.pdf.dummy_django_app.static_urls")
@@ -69,6 +68,7 @@ def test_pdf_export(
     url: str,
     expected_filename: str,
 ) -> None:
+    # pylint: disable=too-many-locals,too-many-positional-arguments
     """
     Test whether the PDF export works as expected
 

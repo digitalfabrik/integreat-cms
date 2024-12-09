@@ -21,9 +21,9 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=unused-argument
 def send_chat_message(
-    request: HttpRequest, region_slug: str | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
 ) -> HttpResponse:
     """
     Send chat message
@@ -58,9 +58,10 @@ def send_chat_message(
 
 
 @require_POST
-# pylint: disable=unused-argument
 def delete_chat_message(
-    request: HttpRequest, region_slug: str | None = None, message_id: int | None = None
+    request: HttpRequest,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
+    message_id: int | None = None,
 ) -> JsonResponse:
     """
     Delete chat message

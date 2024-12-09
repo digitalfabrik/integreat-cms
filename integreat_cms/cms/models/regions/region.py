@@ -63,8 +63,8 @@ def format_mt_help_text(help_text: Promise) -> str:
     )
 
 
-# pylint: disable=too-few-public-methods
 class RegionManager(models.Manager):
+    # pylint: disable=too-few-public-methods
     """
     This manager annotates each region object with its language tree root node.
     This is done because it is required to calculate the region's
@@ -96,8 +96,8 @@ class RegionManager(models.Manager):
         )
 
 
-# pylint: disable=too-many-public-methods
 class Region(AbstractBaseModel):
+    # pylint: disable=too-many-public-methods
     """
     Data model representing region.
     """

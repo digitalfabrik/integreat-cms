@@ -23,8 +23,9 @@ logger = logging.getLogger(__name__)
 
 
 @permission_required("cms.view_statistics")
-# pylint: disable=unused-argument
-def get_total_visits_ajax(request: HttpRequest, region_slug: str) -> JsonResponse:
+def get_total_visits_ajax(
+    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+) -> JsonResponse:
     """
     Aggregates the total API hits of the last 14 days and renders a Widget for the Dashboard.
 
@@ -60,9 +61,8 @@ def get_total_visits_ajax(request: HttpRequest, region_slug: str) -> JsonRespons
 
 
 @require_POST
-# pylint: disable=unused-argument
 def get_visits_per_language_ajax(
-    request: HttpRequest, region_slug: str
+    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     Ajax method to request the app hits for a certain timerange distinguished by languages.

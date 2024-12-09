@@ -16,8 +16,8 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-few-public-methods
 class AccessControlMiddleware:
+    # pylint: disable=too-few-public-methods
     """
     Middleware class that performs a basic access control. For urls that are whitelisted (see
     :attr:`~integreat_cms.core.middleware.access_control_middleware.AccessControlMiddleware.whitelist`), no additional

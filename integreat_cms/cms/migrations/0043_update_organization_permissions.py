@@ -12,8 +12,10 @@ if TYPE_CHECKING:
     from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
 
-# pylint: disable=unused-argument
-def update_roles(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def update_roles(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Update the role definitions
 

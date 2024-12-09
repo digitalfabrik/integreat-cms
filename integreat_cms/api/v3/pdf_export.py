@@ -24,9 +24,10 @@ logger = logging.getLogger(__name__)
 
 @json_response
 @never_cache
-# pylint: disable=unused-argument
 def pdf_export(
-    request: HttpRequest, region_slug: str, language_slug: str
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
 ) -> HttpResponseRedirect:
     """
     View function that either returns the requested page specified by the

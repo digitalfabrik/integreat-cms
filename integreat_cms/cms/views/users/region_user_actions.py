@@ -23,9 +23,10 @@ logger = logging.getLogger(__name__)
 
 @require_POST
 @permission_required("cms.delete_user")
-# pylint: disable=unused-argument
 def delete_region_user(
-    request: HttpRequest, region_slug: str, user_id: int
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    user_id: int,
 ) -> HttpResponseRedirect:
     """
     This view deletes a region user
@@ -70,9 +71,10 @@ def delete_region_user(
 
 @require_POST
 @permission_required("cms.change_user")
-# pylint: disable=unused-argument
 def resend_activation_link_region(
-    request: HttpRequest, region_slug: str, user_id: int
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    user_id: int,
 ) -> HttpResponseRedirect:
     """
     Resends an activation link to a region user

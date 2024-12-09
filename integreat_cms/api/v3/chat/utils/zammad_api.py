@@ -21,8 +21,9 @@ logger = logging.getLogger(__name__)
 AUTO_ANSWER_STRING = "automatically generated message"
 
 
-# pylint: disable=unused-argument
-def _raise_or_return_json(self: Any, response: HttpResponse) -> dict:
+def _raise_or_return_json(
+    self: Any, response: HttpResponse  # pylint: disable=unused-argument
+) -> dict:
     """
     Raise HTTPError before converting response to json
 
@@ -37,8 +38,8 @@ def _raise_or_return_json(self: Any, response: HttpResponse) -> dict:
     return json_value
 
 
-# pylint: disable=too-many-instance-attributes
 class ZammadChatAPI:
+    # pylint: disable=too-many-instance-attributes
     """
     Class providing an API for Zammad used in the context of user chats.
 
@@ -109,8 +110,8 @@ class ZammadChatAPI:
 
         return {key: response[key] for key in keys_to_keep if key in response}
 
-    # pylint: disable=method-hidden
     def create_ticket(self, device_id: str, language_slug: str) -> dict:
+        # pylint: disable=method-hidden
         """
         Create a new ticket (i.e. initialize a new chat conversation)
 
@@ -141,8 +142,8 @@ class ZammadChatAPI:
             )[0].random_hash,
         }
 
-    # pylint: disable=method-hidden
     def get_messages(self, chat: UserChat) -> dict[str, dict | list[dict]]:
+        # pylint: disable=method-hidden
         """
         Get all non-internal messages for a given ticket
 
@@ -164,7 +165,6 @@ class ZammadChatAPI:
 
         return {"messages": response}
 
-    # pylint: disable=method-hidden
     def send_message(
         self,
         chat_id: int,
@@ -172,6 +172,7 @@ class ZammadChatAPI:
         internal: bool = False,
         automatic_message: bool = False,
     ) -> dict:
+        # pylint: disable=method-hidden
         """
         Post a new message to the given ticket
 
@@ -198,8 +199,8 @@ class ZammadChatAPI:
             self._attempt_call(self.client.ticket_article.create, params=params)
         )
 
-    # pylint: disable=method-hidden
     def get_attachment(self, attachment_map: AttachmentMap) -> bytes | dict:
+        # pylint: disable=method-hidden
         """
         Get the (binary) attachment file from Zammad.
 

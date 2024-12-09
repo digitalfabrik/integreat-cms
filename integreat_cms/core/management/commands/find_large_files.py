@@ -43,8 +43,8 @@ class Command(LogCommand):
             help="Only show files larger than this threshold (in MiB, defaults to 3.0)",
         )
 
-    # pylint: disable=arguments-differ
     def handle(self, *args: Any, limit: int, threshold: int, **options: Any) -> None:
+        # pylint: disable=arguments-differ
         r"""
         Try to run the command
 

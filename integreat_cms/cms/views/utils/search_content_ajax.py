@@ -71,12 +71,12 @@ def format_object_translation(
 
 
 @require_POST
-# pylint: disable=unused-argument,too-many-branches,too-many-statements
 def search_content_ajax(
     request: HttpRequest,
-    region_slug: str | None = None,
+    region_slug: str | None = None,  # pylint: disable=unused-argument
     language_slug: str | None = None,
 ) -> JsonResponse:
+    # pylint: disable=too-many-branches,too-many-statements
     """Searches all pois, events and pages for the current region and returns all that
     match the search query. Results which match the query in the title or slug get ranked
     higher than results which only match through their text content.

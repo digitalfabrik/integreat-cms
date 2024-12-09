@@ -131,8 +131,8 @@ class EventFormView(
             },
         )
 
-    # pylint: disable=too-many-locals,too-many-branches
     def post(self, request: HttpRequest, **kwargs: Any) -> HttpResponse:
+        # pylint: disable=too-many-locals,too-many-branches
         r"""
         Save event and ender event form for HTTP POST requests
 

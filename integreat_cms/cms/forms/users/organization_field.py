@@ -18,7 +18,6 @@ class OrganizationFieldWidget(Select):
     Select widget which puts the organization's region id as data attribute on <options>
     """
 
-    # pylint: disable=too-many-arguments, too-many-positional-arguments
     def create_option(
         self,
         name: str,
@@ -29,6 +28,7 @@ class OrganizationFieldWidget(Select):
         subindex: Any | None = None,
         attrs: dict[str, str] | None = None,
     ) -> dict[str, Any]:
+        # pylint: disable=too-many-arguments, too-many-positional-arguments
         """
         This function creates an option which can be selected in the organization field
 

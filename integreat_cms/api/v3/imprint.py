@@ -49,8 +49,11 @@ def transform_imprint(imprint_translation: ImprintPageTranslation) -> dict[str, 
 
 
 @json_response
-# pylint: disable=unused-argument
-def imprint(request: HttpRequest, region_slug: str, language_slug: str) -> JsonResponse:
+def imprint(
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
+) -> JsonResponse:
     """
     Get imprint for language and return JSON object to client. If no imprint translation
     is available in the selected language, try to return the translation in the region

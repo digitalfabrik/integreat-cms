@@ -13,8 +13,10 @@ if TYPE_CHECKING:
     from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
 
-# pylint: disable=unused-argument
-def calculate_file_fields(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def calculate_file_fields(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Calculates the file size for already existing MediaFiles on the system.
     :param apps: The configuration of installed applications

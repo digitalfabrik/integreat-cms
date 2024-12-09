@@ -7,8 +7,8 @@ from ..content_version_view import ContentVersionView
 from .poi_context_mixin import POIContextMixin
 
 
-# pylint: disable=too-many-ancestors
 class POIVersionView(POIContextMixin, ContentVersionView):
+    # pylint: disable=too-many-ancestors
     """
     View for browsing the POI versions and restoring old POI versions
     """
