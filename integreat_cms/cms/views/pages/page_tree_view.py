@@ -32,7 +32,7 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
     """
 
     #: Template for list of non-archived pages
-    template = "pages/page_tree.html"
+    template = "pages/pages_page_tree.html"
     #: Whether or not to show archived pages
     archived = False
     #: The translation model of this list view (used to determine whether machine translations are permitted)
