@@ -54,6 +54,11 @@ def lookup_hix_score_helper(text: str) -> TextlabResult:
     """
     try:
         html = fromstring(text)
+
+        # remove divs which the authors have no control over (e.g. contact cards)
+        for div in html.xpath('//div[@contenteditable="false"]'):
+            div.getparent().remove(div)
+
         text_content = html.text_content()
         if not text_content.strip():
             return {
@@ -64,7 +69,7 @@ def lookup_hix_score_helper(text: str) -> TextlabResult:
         pass
 
     # Replace all line breaks with <br> because Textlab API returns different HIX value depending on the line break character
-    normalized_text = "<br>".join(text.splitlines())
+    normalized_text = "<br>".join(text_content.splitlines())
 
     try:
         return TextlabClient(
