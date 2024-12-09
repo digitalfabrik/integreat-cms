@@ -16,7 +16,9 @@ from ..pages.page_context_mixin import PageContextMixin
 @permission_required("cms.view_page")
 @require_POST
 # pylint: disable=unused-argument
-def render_partial_page_tree_views(request: HttpRequest, region_slug: str, language_slug: str, is_archive: str) -> JsonResponse:
+def render_partial_page_tree_views(
+    request: HttpRequest, region_slug: str, language_slug: str, is_archive: str
+) -> JsonResponse:
     r"""
     Retrieve the rendered subtree of a given root page
 
@@ -36,7 +38,12 @@ def render_partial_page_tree_views(request: HttpRequest, region_slug: str, langu
 
     backend_language = Language.objects.filter(slug=get_language()).first()
 
-    all_pages = region.pages.filter(tree_id__in=requested_tree_ids).prefetch_major_translations().prefetch_related("mirroring_pages").cache_tree(archived=is_archive)
+    all_pages = (
+        region.pages.filter(tree_id__in=requested_tree_ids)
+        .prefetch_major_translations()
+        .prefetch_related("mirroring_pages")
+        .cache_tree(archived=is_archive)
+    )
 
     pages_by_id = defaultdict(list)
     for page in all_pages:
