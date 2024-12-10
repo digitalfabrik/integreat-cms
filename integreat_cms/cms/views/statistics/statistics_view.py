@@ -63,5 +63,8 @@ class AnalyticsView(TemplateView):
             {
                 **self.get_context_data(**kwargs),
                 "form": form,
+                "pages": region.get_pages(),
+                "region": region,
+                "language": region.default_language,
             },
         )
