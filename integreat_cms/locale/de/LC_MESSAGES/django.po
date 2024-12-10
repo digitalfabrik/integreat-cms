@@ -9136,9 +9136,23 @@ msgid "Contact {0} was successfully archived"
 msgstr "Kontakt {0} wurde erfolgreich archiviert"
 
 #: cms/views/contacts/contact_actions.py
+#: cms/views/contacts/contact_bulk_actions.py
+#, python-brace-format
+msgid "Cannot archive contact \"{0}\" while content objects refer to it."
+msgstr ""
+"Kontakt {0} kann nicht archiviert werden solange Inhalte auf ihn verweisen."
+
+#: cms/views/contacts/contact_actions.py
 #, python-brace-format
 msgid "Contact {0} was successfully deleted"
 msgstr "Kontakt {0} wurde erfolgreich gelöscht."
+
+#: cms/views/contacts/contact_actions.py
+#: cms/views/contacts/contact_bulk_actions.py
+#, python-brace-format
+msgid "Cannot delete contact \"{0}\" while content objects refer to it."
+msgstr ""
+"Kontakt {0} kann nicht gelöscht werden solange Inhalte auf ihn verweisen."
 
 #: cms/views/contacts/contact_actions.py
 #, python-brace-format
@@ -9230,8 +9244,8 @@ msgstr "Die Version {} existiert nicht."
 msgid ""
 "%s %s can not change its status as it was imported from an external calendar"
 msgstr ""
-"Der Status von %s %s kann nicht geändert "
-"werden, da diese Veranstaltung aus einem externen Kalender importiert wurde"
+"Der Status von %s %s kann nicht geändert werden, da diese Veranstaltung aus "
+"einem externen Kalender importiert wurde"
 
 #: cms/views/content_version_view.py
 msgid "You cannot reject changes if there is no version to return to."
