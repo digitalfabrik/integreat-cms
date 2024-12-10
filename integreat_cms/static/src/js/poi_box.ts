@@ -5,9 +5,9 @@ type FormResponse = { success: boolean; poi_address_container: string };
 
 const toggleContactFieldBox = (show: boolean) => {
     const contactFieldsBox = document.getElementById("contact_fields");
-    contactFieldsBox?.classList.toggle("hidden", !show);
+    contactFieldsBox?.classList.remove("hidden");
     const contactUsageBox = document.getElementById("contact_usage");
-    contactUsageBox?.classList.toggle("hidden", !show);
+    contactUsageBox?.classList.remove("hidden");
 };
 
 const hideSearchResults = () => {
@@ -154,7 +154,6 @@ const removePoi = () => {
     hideSearchResults();
     // Clear the poi form
     hidePoiFormWidget();
-    toggleContactFieldBox(false);
     console.debug("Removed POI data");
 };
 
