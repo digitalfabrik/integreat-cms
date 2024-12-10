@@ -13,7 +13,8 @@ from .api_config import API_SOCIAL_ENDPOINTS
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "endpoint,expected_result,expected_code,expected_queries", API_SOCIAL_ENDPOINTS
+    "endpoint,expected_result,expected_code,expected_queries",
+    API_SOCIAL_ENDPOINTS,
 )
 def test_api_result(
     load_test_data: None,

@@ -25,7 +25,8 @@ def test_best_translation(load_test_data: None) -> None:
         assert pn.best_translation.title == "Test"
 
     PushNotificationTranslation.objects.filter(
-        push_notification=pn, language__slug="en"
+        push_notification=pn,
+        language__slug="en",
     ).update(title="English test")
     with translation.override("en"):
         assert pn.best_translation.title == "English test"

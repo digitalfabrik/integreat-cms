@@ -69,7 +69,8 @@ class RegionFeedbackFilterForm(CustomFilterForm):
     query = forms.CharField(required=False)
 
     def apply(
-        self, feedback: CascadeDeletePolymorphicQuerySet
+        self,
+        feedback: CascadeDeletePolymorphicQuerySet,
     ) -> tuple[CascadeDeletePolymorphicQuerySet, None]:
         """
         Filter the feedback list according to the given filter data

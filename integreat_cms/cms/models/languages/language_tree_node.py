@@ -36,7 +36,7 @@ class LanguageTreeNode(AbstractTreeNode):
         default=True,
         verbose_name=_("visible"),
         help_text=_(
-            "Defines whether the language is displayed to the users of the app"
+            "Defines whether the language is displayed to the users of the app",
         ),
     )
     active = models.BooleanField(

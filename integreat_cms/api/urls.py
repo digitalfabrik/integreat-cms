@@ -76,7 +76,9 @@ content_api_urlpatterns: list[URLPattern] = [
     path("offers/", offers, name="offers"),
     path("extras/", offers, name="offers"),
     path(
-        "pushpage/", push_page_translation_content, name="push_page_translation_content"
+        "pushpage/",
+        push_page_translation_content,
+        name="push_page_translation_content",
     ),
     re_path(
         r"^feedback/?$",
@@ -95,7 +97,9 @@ content_api_urlpatterns: list[URLPattern] = [
                 re_path(r"^page/?$", page_feedback.page_feedback, name="page_feedback"),
                 re_path(r"^poi/?$", poi_feedback.poi_feedback, name="poi_feedback"),
                 re_path(
-                    r"^event/?$", event_feedback.event_feedback, name="event_feedback"
+                    r"^event/?$",
+                    event_feedback.event_feedback,
+                    name="event_feedback",
                 ),
                 re_path(
                     r"^events/?$",
@@ -124,12 +128,16 @@ content_api_urlpatterns: list[URLPattern] = [
                     name="offer_list_feedback",
                 ),
                 re_path(
-                    r"^offer/?$", offer_feedback.offer_feedback, name="offer_feedback"
+                    r"^offer/?$",
+                    offer_feedback.offer_feedback,
+                    name="offer_feedback",
                 ),
                 re_path(
-                    r"^extra/?$", offer_feedback.offer_feedback, name="offer_feedback"
+                    r"^extra/?$",
+                    offer_feedback.offer_feedback,
+                    name="offer_feedback",
                 ),
-            ]
+            ],
         ),
     ),
     path("chat/<slug:device_id>/", user_chat.chat, name="chat"),
@@ -158,7 +166,7 @@ social_media_api_urlpatterns = [
                         root_social_media_headers,
                         name=f"social_root_reserved_default_language_{reserved}",
                     ),
-                ]
+                ],
             ),
         )
         for reserved in settings.RESERVED_REGION_SLUGS
@@ -211,7 +219,7 @@ social_media_api_urlpatterns = [
                     page_social_media_headers,
                     name="social_region_content",
                 ),
-            ]
+            ],
         ),
     ),
 ]
@@ -235,7 +243,7 @@ urlpatterns: list[URLPattern] = [
                     name="is_chat_enabled_for_user",
                 ),
                 path("<slug:language_slug>/", include(content_api_urlpatterns)),
-            ]
+            ],
         ),
     ),
     path(
@@ -243,7 +251,9 @@ urlpatterns: list[URLPattern] = [
         include(
             [
                 path(
-                    "de/wp-json/extensions/v3/languages/", languages, name="languages"
+                    "de/wp-json/extensions/v3/languages/",
+                    languages,
+                    name="languages",
                 ),
                 path(
                     "<slug:language_slug>/wp-json/extensions/v3/",
@@ -254,7 +264,7 @@ urlpatterns: list[URLPattern] = [
                     pdf_export,
                     name="pdf_export",
                 ),
-            ]
+            ],
         ),
     ),
 ]

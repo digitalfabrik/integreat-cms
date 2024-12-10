@@ -23,4 +23,4 @@ class EventTranslationForm(MachineTranslationForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = EventTranslation
         #: The fields of the model which should be handled by this form
-        fields = MachineTranslationForm.Meta.fields + ["slug"]
+        fields = [*MachineTranslationForm.Meta.fields, "slug"]

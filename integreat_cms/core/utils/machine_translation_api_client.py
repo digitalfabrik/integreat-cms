@@ -57,7 +57,9 @@ class MachineTranslationApiClient(ABC):
 
     @abstractmethod
     def translate_queryset(
-        self, queryset: QuerySet[Event | Page | POI], language_slug: str
+        self,
+        queryset: QuerySet[Event | Page | POI],
+        language_slug: str,
     ) -> None:
         """
         Translate a given queryset into one specific language.

@@ -23,7 +23,8 @@ logger = logging.getLogger(__name__)
 
 
 def update_links_to(
-    content_translation: AbstractContentTranslation, user: User | None
+    content_translation: AbstractContentTranslation,
+    user: User | None,
 ) -> None:
     """
     Updates all content translations with links that point to the given translation.
@@ -33,7 +34,7 @@ def update_links_to(
     :param user: The user who should be responsible for updating the links
     """
     for outdated_content_translation in get_referencing_translations(
-        content_translation
+        content_translation,
     ):
         # Assert that the related translation is not archived
         # Note that this should not be possible, since links to archived pages get deleted
@@ -78,13 +79,17 @@ def get_referencing_translations(
     translation_slugs = set(content_translation.get_all_used_slugs())
     translation_ids = set(content_translation.all_versions.values_list("id", flat=True))
     logger.debug(
-        "Collecting links that contain %s or %s", translation_slugs, translation_ids
+        "Collecting links that contain %s or %s",
+        translation_slugs,
+        translation_ids,
     )
     filter_query = reduce(
-        operator.or_, (Q(url__contains=slug) for slug in translation_slugs)
+        operator.or_,
+        (Q(url__contains=slug) for slug in translation_slugs),
     )
     filter_query = filter_query | reduce(
-        operator.or_, (Q(url__contains=str(uid)) for uid in translation_ids)
+        operator.or_,
+        (Q(url__contains=str(uid)) for uid in translation_ids),
     )
 
     urls = (url for url in Url.objects.filter(filter_query) if url.internal)

@@ -45,7 +45,7 @@ class POITranslation(AbstractContentTranslation):
         help_text=__(
             _("Describe the location in one or two short sentences."),
             _(
-                "This text will be displayed in the Google search results below the title."
+                "This text will be displayed in the Google search results below the title.",
             ),
         ),
     )
@@ -123,7 +123,7 @@ class POITranslation(AbstractContentTranslation):
                 .exclude(poi__translations__language__slug=language_slug)
             )
             queryset = cls.objects.filter(
-                Q(id__in=queryset) | Q(id__in=default_language_queryset)
+                Q(id__in=queryset) | Q(id__in=default_language_queryset),
             )
 
         return queryset

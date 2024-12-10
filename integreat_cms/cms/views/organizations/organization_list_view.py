@@ -45,11 +45,13 @@ class OrganizationListView(TemplateView, OrganizationContextMixin):
         region = request.region
 
         organizations = Organization.objects.filter(
-            region=region, archived=self.archived
+            region=region,
+            archived=self.archived,
         )
 
         archived_count = Organization.objects.filter(
-            region=region, archived=True
+            region=region,
+            archived=True,
         ).count()
 
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))

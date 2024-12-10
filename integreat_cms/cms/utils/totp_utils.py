@@ -25,7 +25,8 @@ def generate_totp_qrcode(key: str, user: User) -> str:
     :return: The QR code as a base64-encoded string
     """
     qr_string = pyotp.TOTP(key).provisioning_uri(
-        name=user.username, issuer_name=settings.BRANDING_TITLE
+        name=user.username,
+        issuer_name=settings.BRANDING_TITLE,
     )
 
     img = qrcode.make(qr_string)
@@ -34,11 +35,9 @@ def generate_totp_qrcode(key: str, user: User) -> str:
     img.save(img_byte_arr, format="PNG")
     img_byte_val = img_byte_arr.getvalue()
 
-    img_base64_string = "data:image/png;base64," + base64.b64encode(
-        img_byte_val
+    return "data:image/png;base64," + base64.b64encode(
+        img_byte_val,
     ).decode("utf-8")
-
-    return img_base64_string
 
 
 def check_totp_code(given_totp_code: str, key: str) -> bool:

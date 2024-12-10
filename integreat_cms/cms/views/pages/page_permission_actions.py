@@ -24,13 +24,12 @@ logger = logging.getLogger(__name__)
 @permission_required("cms.grant_page_permissions")
 def grant_page_permission_ajax(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    **_kwargs,
 ) -> HttpResponse:
     """
     Grant a user editing or publishing permissions on a specific page object
 
     :param request: The current request
-    :param region_slug: The slug of the current region
 
     :raises ~django.core.exceptions.PermissionDenied: If page permissions are disabled for this region or the user does
                                                       not have the permission to grant page permissions
@@ -50,8 +49,8 @@ def grant_page_permission_ajax(
         ensure_user_has_correct_permissions(request, page, user)
 
         permission_message = permission.grant_permission(user, page)
-    except PermissionDenied as e:
-        logger.exception(e)
+    except PermissionDenied:
+        logger.exception()
         permission_message = PermissionMessage(
             "An error has occurred. Please contact an administrator.",
             MessageLevel.ERROR,
@@ -66,13 +65,12 @@ def grant_page_permission_ajax(
 @permission_required("cms.grant_page_permissions")
 def revoke_page_permission_ajax(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    **_kwargs,
 ) -> HttpResponse:
     """
     Remove a page permission for a given user and page
 
     :param request: The current request
-    :param region_slug: The slug of the current region
 
     :raises ~django.core.exceptions.PermissionDenied: If page permissions are disabled for this region or the user does
                                                       not have the permission to revoke page permissions
@@ -92,8 +90,7 @@ def revoke_page_permission_ajax(
         ensure_user_has_correct_permissions(request, page, user)
 
         permission_message = permission.revoke_permission(user, page)
-    except PermissionDenied as e:
-        logger.exception(e)
+    except PermissionDenied:
         permission_message = PermissionMessage(
             _("An error has occurred. Please contact an administrator."),
             MessageLevel.ERROR,
@@ -177,7 +174,7 @@ class AbstractPagePermission(ABC):
             return PermissionMessage(
                 _(
                     "Page-specific permissions cannot be granted to users "
-                    "who do not have permission to view pages (e.g event managers)."
+                    "who do not have permission to view pages (e.g event managers).",
                 ),
                 MessageLevel.WARNING,
             )
@@ -209,7 +206,7 @@ class AbstractPagePermission(ABC):
         """
         if user.has_perm(self.permission, page):
             message = _(
-                'Information: The user "{}" has this permission already.'
+                'Information: The user "{}" has this permission already.',
             ).format(user.full_user_name)
             level_tag = MessageLevel.INFO
         else:
@@ -228,7 +225,7 @@ class AbstractPagePermission(ABC):
         """
         if user.has_perm(self.permission, page):
             message = self.revoke_with_no_effect_success_message.format(
-                user.full_user_name
+                user.full_user_name,
             )
             level_tag = MessageLevel.INFO
         else:
@@ -267,7 +264,7 @@ class EditPagePermission(AbstractPagePermission):
     revoke_success_message = _('Success: The user "{}" cannot edit this page anymore.')
     revoke_with_no_effect_success_message = _(
         'Information: The user "{}" has been removed from the authors of '
-        "this page, but has the implicit permission to edit this page anyway."
+        "this page, but has the implicit permission to edit this page anyway.",
     )
 
     def save_grant_permission(self, user: User, page: Page) -> None:
@@ -290,11 +287,11 @@ class PublishPagePermission(AbstractPagePermission):
 
     grant_success_message = _('Success: The user "{}" can now publish this page.')
     revoke_success_message = _(
-        'Success: The user "{}" cannot publish this page anymore.'
+        'Success: The user "{}" cannot publish this page anymore.',
     )
     revoke_with_no_effect_success_message = _(
         'Information: The user "{}" has been removed from the editors of '
-        "this page, but has the implicit permission to publish this page anyway."
+        "this page, but has the implicit permission to publish this page anyway.",
     )
 
     def save_grant_permission(self, user: User, page: Page) -> None:
@@ -308,7 +305,9 @@ class PublishPagePermission(AbstractPagePermission):
 
 
 def __render_response(
-    request: HttpRequest, page: Page, permission_message: PermissionMessage
+    request: HttpRequest,
+    page: Page,
+    permission_message: PermissionMessage,
 ) -> HttpResponse:
     return render(
         request,
@@ -365,7 +364,9 @@ def ensure_page_specific_permissions_enabled(region: Region) -> None:
 
 
 def ensure_user_has_correct_permissions(
-    request: HttpRequest, page: Page, user: User
+    request: HttpRequest,
+    page: Page,
+    user: User,
 ) -> None:
     """
     Ensure the user has correct permissions

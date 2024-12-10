@@ -24,7 +24,7 @@ class PageFilterForm(CustomFilterForm):
 
     status = forms.ChoiceField(
         label=_("Publication status"),
-        choices=[("", _("All"))] + status.CHOICES,
+        choices=[("", _("All")), *status.CHOICES],
         required=False,
     )
 
@@ -115,7 +115,9 @@ class PageFilterForm(CustomFilterForm):
         return filtered_pages
 
     def filter_by_translation_status(
-        self, pages: list[Page], language_slug: str
+        self,
+        pages: list[Page],
+        language_slug: str,
     ) -> list[Page]:
         """
         Filter the pages list by a given translation status
@@ -134,7 +136,9 @@ class PageFilterForm(CustomFilterForm):
         return filtered_pages
 
     def filter_by_publication_status(
-        self, pages: list[Page], language_slug: str
+        self,
+        pages: list[Page],
+        language_slug: str,
     ) -> list[Page]:
         """
         Filter the pages list by publication status
@@ -185,7 +189,9 @@ class PageFilterForm(CustomFilterForm):
         return filtered_pages
 
     def filter_by_pages_with_content(
-        self, pages: list[Page], language_slug: str
+        self,
+        pages: list[Page],
+        language_slug: str,
     ) -> list[Page]:
         """
         Filter only by pages that have content (including empty pages with live content)

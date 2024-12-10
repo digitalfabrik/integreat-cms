@@ -7,7 +7,6 @@ from typing import TYPE_CHECKING, TypeVar
 
 import aiohttp
 import pytest
-from django.test.client import AsyncClient
 from django.urls import reverse
 
 from integreat_cms.cms.forms import PageTranslationForm
@@ -49,6 +48,7 @@ if TYPE_CHECKING:
     from typing import Any, Final
 
     from _pytest.logging import LogCaptureFixture
+    from django.test.client import AsyncClient
     from pytest_django.fixtures import SettingsWrapper
 
 # pylint: disable=global-statement
@@ -104,7 +104,9 @@ def test_worker() -> None:
 
 
 async def test_translate_text_field_successful_translation(
-    settings: SettingsWrapper, aiohttp_raw_server: Callable, caplog: LogCaptureFixture
+    settings: SettingsWrapper,
+    aiohttp_raw_server: Callable,
+    caplog: LogCaptureFixture,
 ) -> None:
     """
     :param settings: The Django settings
@@ -119,7 +121,7 @@ async def test_translate_text_field_successful_translation(
                 "jobid": "9999",
             },
             status=200,
-        )
+        ),
     )
     # Redirect call to the SUMM.AI API to the fake server
     settings.SUMM_AI_API_URL = (
@@ -131,7 +133,8 @@ async def test_translate_text_field_successful_translation(
     assert text_field.text == "ein Text"
 
     translated_text_field = await my_api_client.translate_text_field(
-        session, text_field
+        session,
+        text_field,
     )
 
     assert translated_text_field is text_field
@@ -154,7 +157,9 @@ async def test_translate_text_field_successful_translation(
 
 
 async def test_translate_text_field_hit_rate_limit(
-    settings: SettingsWrapper, aiohttp_raw_server: Callable, caplog: LogCaptureFixture
+    settings: SettingsWrapper,
+    aiohttp_raw_server: Callable,
+    caplog: LogCaptureFixture,
 ) -> None:
     """
     see :func:`~test_translate_text_field_successful_translation`
@@ -168,7 +173,7 @@ async def test_translate_text_field_hit_rate_limit(
                 "error": "Too many requests. Please wait and resend your request.",
             },
             status=429,
-        )
+        ),
     )
     settings.SUMM_AI_API_URL = (
         f"{fake_server.scheme}://{fake_server.host}:{fake_server.port}"
@@ -180,7 +185,9 @@ async def test_translate_text_field_hit_rate_limit(
 
 
 async def test_translate_text_field_ddos_defense(
-    settings: SettingsWrapper, aiohttp_raw_server: Callable, caplog: LogCaptureFixture
+    settings: SettingsWrapper,
+    aiohttp_raw_server: Callable,
+    caplog: LogCaptureFixture,
 ) -> None:
     """
     see :func:`~test_translate_text_field_successful_translation`
@@ -194,7 +201,7 @@ async def test_translate_text_field_ddos_defense(
                 "error": "Too many requests. Please wait and resend your request.",
             },
             status=529,
-        )
+        ),
     )
     settings.SUMM_AI_API_URL = (
         f"{fake_server.scheme}://{fake_server.host}:{fake_server.port}"
@@ -206,7 +213,9 @@ async def test_translate_text_field_ddos_defense(
 
 
 async def test_translate_text_field_internal_server_error(
-    settings: SettingsWrapper, aiohttp_raw_server: Callable, caplog: LogCaptureFixture
+    settings: SettingsWrapper,
+    aiohttp_raw_server: Callable,
+    caplog: LogCaptureFixture,
 ) -> None:
     """
     see :func:`~test_translate_text_field_successful_translation`
@@ -223,7 +232,7 @@ async def test_translate_text_field_internal_server_error(
                 "jobid": "9999",
             },
             status=500,
-        )
+        ),
     )
     settings.SUMM_AI_API_URL = (
         f"{fake_server.scheme}://{fake_server.host}:{fake_server.port}"
@@ -231,7 +240,7 @@ async def test_translate_text_field_internal_server_error(
     await my_api_client.translate_text_field(session, text_field)
 
     errors = tuple(
-        (record.message for record in caplog.records if record.levelname == "ERROR")
+        record.message for record in caplog.records if record.levelname == "ERROR"
     )
     assert (
         "SUMM.AI translation of <TextField (text: ein Text)> failed because of <class 'integreat_cms.summ_ai_api.utils.SummAiRuntimeError'>: API has internal server error"
@@ -241,7 +250,9 @@ async def test_translate_text_field_internal_server_error(
 
 
 async def test_translate_text_forbidden(
-    settings: SettingsWrapper, aiohttp_raw_server: Callable, caplog: LogCaptureFixture
+    settings: SettingsWrapper,
+    aiohttp_raw_server: Callable,
+    caplog: LogCaptureFixture,
 ) -> None:
     """
     tests 403 response
@@ -259,7 +270,7 @@ async def test_translate_text_forbidden(
                 "jobid": "9999",
             },
             status=403,
-        )
+        ),
     )
     # Redirect call to the SUMM.AI API to the fake server
     settings.SUMM_AI_API_URL = (
@@ -268,7 +279,7 @@ async def test_translate_text_forbidden(
     await my_api_client.translate_text_field(session, text_field)
 
     errors = tuple(
-        (record.message for record in caplog.records if record.levelname == "ERROR")
+        record.message for record in caplog.records if record.levelname == "ERROR"
     )
     assert len(errors) >= 1
     assert (
@@ -279,7 +290,9 @@ async def test_translate_text_forbidden(
 
 
 async def test_translate_text_with_empty_text_field(
-    settings: SettingsWrapper, aiohttp_raw_server: Callable, caplog: LogCaptureFixture
+    settings: SettingsWrapper,
+    aiohttp_raw_server: Callable,
+    caplog: LogCaptureFixture,
 ) -> None:
     """
     see :func:`~test_translate_text_field_successful_translation`
@@ -296,7 +309,7 @@ async def test_translate_text_with_empty_text_field(
                 "jobid": "9999",
             },
             status=200,
-        )
+        ),
     )
     settings.SUMM_AI_API_URL = (
         f"{fake_server.scheme}://{fake_server.host}:{fake_server.port}"
@@ -349,7 +362,8 @@ async def test_auto_translate_easy_german(
         },
     )
     response = await client.post(
-        translate_easy_german, data={"selected_ids[]": selected_ids}
+        translate_easy_german,
+        data={"selected_ids[]": selected_ids},
     )
     print(response.headers)
     if role in PRIV_STAFF_ROLES:
@@ -423,7 +437,7 @@ async def test_summ_ai_error_handling(
                 "error": "An error occurred",
             },
             status=500,
-        )
+        ),
     )
     # Enable SUMM.AI in the test region
     await enable_summ_api(region_slug)
@@ -447,7 +461,8 @@ async def test_summ_ai_error_handling(
 
     ready_for_mt_page_id = 14
     response = await client.post(
-        translate_easy_german, data={"selected_ids[]": [ready_for_mt_page_id]}
+        translate_easy_german,
+        data={"selected_ids[]": [ready_for_mt_page_id]},
     )
     print(response.headers)
 
@@ -482,7 +497,8 @@ def test_validate_response_valid() -> None:
     }
     assert (
         SummAiApiClient(MockedRequest(), PageTranslationForm).validate_response(
-            response_data_translation_succeeded, 200
+            response_data_translation_succeeded,
+            200,
         )
         is True
     ), "if translated_text found in reponse-data, validate_response should return True"
@@ -499,12 +515,14 @@ def test_validate_response_invalid() -> None:
     }
     with pytest.raises(SummAiRuntimeError):
         SummAiApiClient(MockedRequest(), PageTranslationForm).validate_response(
-            response_data_translation_failed, 200
+            response_data_translation_failed,
+            200,
         )
 
 
 async def test_unexpected_html(
-    settings: SettingsWrapper, aiohttp_raw_server: Callable
+    settings: SettingsWrapper,
+    aiohttp_raw_server: Callable,
 ) -> None:
     """
     Test correct handling for an unexpected HTML response by SUMM.AI.
@@ -532,7 +550,7 @@ in the server error log.</p>
 </body></html>
             """,
             status=200,
-        )
+        ),
     )
     # Redirect call to the SUMM.AI API to the fake server
     settings.SUMM_AI_API_URL = (
@@ -547,7 +565,8 @@ in the server error log.</p>
 
 
 async def test_missing_translation(
-    settings: SettingsWrapper, aiohttp_raw_server: Callable
+    settings: SettingsWrapper,
+    aiohttp_raw_server: Callable,
 ) -> None:
     """
     Test correct handling for a json response without the translated_text key by SUMM.AI.
@@ -558,12 +577,14 @@ async def test_missing_translation(
     }
     with pytest.raises(SummAiRuntimeError):
         SummAiApiClient(MockedRequest(), PageTranslationForm).validate_response(
-            response_data_translation_missing, 200
+            response_data_translation_missing,
+            200,
         )
 
 
 def test_check_rate_limit_exceeded(
-    settings: SettingsWrapper, caplog: LogCaptureFixture
+    settings: SettingsWrapper,
+    caplog: LogCaptureFixture,
 ) -> None:
     """
     Test for check_rate_limit_exceeded method. Tests if return is True when
@@ -577,21 +598,21 @@ def test_check_rate_limit_exceeded(
 
     assert (
         SummAiApiClient(MockedRequest(), PageTranslationForm).check_rate_limit_exceeded(
-            200
+            200,
         )
         is False
     ), "if response-status not in (429, 529), check-rate-limit should return False"
     with pytest.raises(SummAiRateLimitingExceeded):
         SummAiApiClient(MockedRequest(), PageTranslationForm).check_rate_limit_exceeded(
-            429
+            429,
         )
     with pytest.raises(SummAiRateLimitingExceeded):
         SummAiApiClient(MockedRequest(), PageTranslationForm).check_rate_limit_exceeded(
-            529
+            529,
         )
 
     errors = tuple(
-        (record.message for record in caplog.records if record.levelname == "ERROR")
+        record.message for record in caplog.records if record.levelname == "ERROR"
     )
     assert len(errors) >= 2
     assert (
@@ -601,7 +622,7 @@ def test_check_rate_limit_exceeded(
 
     assert (
         SummAiApiClient(MockedRequest(), PageTranslationForm).check_rate_limit_exceeded(
-            500
+            500,
         )
         is False
     ), "if response-status not in (429, 529), check-rate-limit should return False"

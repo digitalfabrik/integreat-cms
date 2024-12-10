@@ -2,7 +2,8 @@
 This module contains utilities to repair or detect inconsistencies in a tree
 """
 
-from typing import Any, Generic, Iterable, TypeVar
+from collections.abc import Iterable
+from typing import Any, Generic, TypeVar
 
 from django.db.models import Model
 

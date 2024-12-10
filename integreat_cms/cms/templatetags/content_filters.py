@@ -41,7 +41,8 @@ register = template.Library()
 
 @register.simple_tag
 def get_translation(
-    instance: AbstractContentModel, language_slug: str
+    instance: AbstractContentModel,
+    language_slug: str,
 ) -> AbstractContentTranslation | None:
     """
     This tag returns the most recent translation of the requested content object in the requested language.
@@ -56,7 +57,8 @@ def get_translation(
 
 @register.simple_tag
 def get_public_translation(
-    instance: AbstractContentModel, language_slug: str
+    instance: AbstractContentModel,
+    language_slug: str,
 ) -> AbstractContentTranslation | None:
     """
     This tag returns the most recent public translation of the requested content object in the requested language.
@@ -111,7 +113,9 @@ def minor_edit_label(region: Region, language: Language) -> Promise:
 
 @register.simple_tag
 def minor_edit_help_text(
-    region: Region, language: Language, translation_form: CustomContentModelForm
+    region: Region,
+    language: Language,
+    translation_form: CustomContentModelForm,
 ) -> Promise:
     """
     This tag returns the help text of the minor edit field of the given form
@@ -127,7 +131,7 @@ def minor_edit_help_text(
     if language_node.is_root():
         return translation_form["minor_edit"].help_text
     return _(
-        "Tick if this edit should not change the status of this translation and does not require an update of translations in other languages."
+        "Tick if this edit should not change the status of this translation and does not require an update of translations in other languages.",
     )
 
 
@@ -171,10 +175,11 @@ def remove(elements: list[Any], element: Any) -> list[Any]:
         # Copy input list to make sure it is not modified in place
         result = elements.copy()
         result.remove(element)
-        return result
     except ValueError:
         # If the element wasn't in the list to begin with, just return the input
         return elements
+    else:
+        return result
 
 
 @register.filter
@@ -227,7 +232,8 @@ def is_empty(iterable: MultiValueDict) -> bool:
 
 @register.simple_tag
 def object_translation_has_view_perm(
-    user: SimpleLazyObject, obj: AbstractContentTranslation
+    user: SimpleLazyObject,
+    obj: AbstractContentTranslation,
 ) -> bool:
     """
     This filter accepts any translation of Event, Page or Poi and returns

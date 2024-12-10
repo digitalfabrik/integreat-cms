@@ -49,8 +49,9 @@ class CustomUserManager(UserManager):
             .get_queryset()
             .prefetch_related(
                 models.Prefetch(
-                    "regions", queryset=Region.objects.order_by("-last_updated")
-                )
+                    "regions",
+                    queryset=Region.objects.order_by("-last_updated"),
+                ),
             )
         )
 
@@ -59,13 +60,13 @@ class CustomUserManager(UserManager):
     username={"verbose_name": _("username")},
     is_active={
         "help_text": _(
-            "Designates whether this account should be treated as active. Unselect this instead of deleting accounts."
-        )
+            "Designates whether this account should be treated as active. Unselect this instead of deleting accounts.",
+        ),
     },
     is_superuser={
         "help_text": _(
-            "Designates that this account has all permissions without explicitly assigning them."
-        )
+            "Designates that this account has all permissions without explicitly assigning them.",
+        ),
     },
 )
 class User(AbstractUser, AbstractBaseModel):
@@ -88,7 +89,7 @@ class User(AbstractUser, AbstractBaseModel):
         related_name="members",
         verbose_name=_("organization"),
         help_text=_(
-            "This allows the user to edit and publish all pages for which the organisation is registered as the responsible organisation"
+            "This allows the user to edit and publish all pages for which the organisation is registered as the responsible organisation",
         ),
     )
     chat_last_visited = models.DateTimeField(
@@ -100,14 +101,14 @@ class User(AbstractUser, AbstractBaseModel):
         default=False,
         verbose_name=_("experienced user"),
         help_text=_(
-            "Enable this option to display additional features like XLIFF import/export, page filtering, mirrored pages, page-based permissions and status information for broken links"
+            "Enable this option to display additional features like XLIFF import/export, page filtering, mirrored pages, page-based permissions and status information for broken links",
         ),
     )
     page_tree_tutorial_seen = models.BooleanField(
         default=False,
         verbose_name=_("Page tree tutorial seen"),
         help_text=_(
-            "Will be set to true once the user dismissed the page tree tutorial"
+            "Will be set to true once the user dismissed the page tree tutorial",
         ),
     )
     distribute_sidebar_boxes = models.BooleanField(
@@ -115,10 +116,10 @@ class User(AbstractUser, AbstractBaseModel):
         verbose_name=_("automatically distribute sidebar boxes"),
         help_text=__(
             _(
-                "Enable this option to automatically distribute the boxes in the sidebar of forms to make the best use of screen space."
+                "Enable this option to automatically distribute the boxes in the sidebar of forms to make the best use of screen space.",
             ),
             _(
-                "This only affects screen resolutions where the boxes are displayed in two columns."
+                "This only affects screen resolutions where the boxes are displayed in two columns.",
             ),
         ),
     )
@@ -134,7 +135,7 @@ class User(AbstractUser, AbstractBaseModel):
         default=False,
         verbose_name=_("Enable passwordless authentication"),
         help_text=_(
-            "Enable this option to activate the passwordless login routine for this account"
+            "Enable this option to activate the passwordless login routine for this account",
         ),
     )
     webauthn_id = models.BinaryField(default=generate_user_handle)
@@ -150,10 +151,9 @@ class User(AbstractUser, AbstractBaseModel):
         :return: The role of this user
         """
         # Many-to-many relationships can only be used for objects that are already saved to the database
-        if self.id:
-            if groups := self.groups.all():
-                # Assume users only have one group/role
-                return groups[0].role
+        if self.id and (groups := self.groups.all()):
+            # Assume users only have one group/role
+            return groups[0].role
         return None
 
     @cached_property
@@ -220,11 +220,11 @@ class User(AbstractUser, AbstractBaseModel):
         Get a list of all pages the user has been given explicit rights to edit
         """
         access_granted_pages = Page.objects.filter(
-            models.Q(authors=self) | models.Q(editors=self)
+            models.Q(authors=self) | models.Q(editors=self),
         ).filter(region=region)
         if self.organization:
             access_granted_pages = access_granted_pages.union(
-                Page.objects.filter(organization=self.organization)
+                Page.objects.filter(organization=self.organization),
             )
         return access_granted_pages
 

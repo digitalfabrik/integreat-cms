@@ -19,7 +19,10 @@ class IconWidget(forms.HiddenInput):
     template_name = "icon_widget.html"
 
     def get_context(
-        self, name: str, value: Any | None, attrs: dict[str, Any]
+        self,
+        name: str,
+        value: Any | None,
+        attrs: dict[str, Any],
     ) -> dict[str, dict[str, Any]]:
         """
         This function gets the context of icon fields

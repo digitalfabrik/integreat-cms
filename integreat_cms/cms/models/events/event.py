@@ -62,7 +62,7 @@ class EventQuerySet(ContentQuerySet):
             | Q(
                 recurrence_rule__isnull=False,
                 recurrence_rule__recurrence_end_date__gte=from_date,
-            )
+            ),
         )
 
     def filter_completed(self, to_date: date | None = None) -> Self:
@@ -82,7 +82,7 @@ class EventQuerySet(ContentQuerySet):
             | Q(
                 recurrence_rule__isnull=False,
                 recurrence_rule__recurrence_end_date__lt=to_date,
-            )
+            ),
         )
 
 

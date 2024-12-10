@@ -31,7 +31,8 @@ def in_list(value: str | None, comma_separated_list: SafeString) -> bool:
 
 @register.filter
 def get_private_member(
-    element: LanguageTreeNodeForm | PageForm, key: SafeString
+    element: LanguageTreeNodeForm | PageForm,
+    key: SafeString,
 ) -> BoundField:
     """
     This filter returns a private member of an element
@@ -55,6 +56,5 @@ def get_mt_visibility(region: Region, perms: PermWrapper) -> bool:
     return "cms.manage_translations" in perms and (
         settings.DEEPL_ENABLED
         or settings.GOOGLE_TRANSLATE_ENABLED
-        or settings.SUMM_AI_ENABLED
-        and region.summ_ai_enabled
+        or (settings.SUMM_AI_ENABLED and region.summ_ai_enabled)
     )

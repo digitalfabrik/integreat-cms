@@ -26,13 +26,17 @@ def parse_args() -> argparse.Namespace:
 
     # Parse command line arguments
     parser = argparse.ArgumentParser(
-        description="Get contributors between two given git references"
+        description="Get contributors between two given git references",
     )
     parser.add_argument("token", metavar="TOKEN", help="GitHub API token")
     parser.add_argument("base", metavar="BASE", help="the base branch/tag/commit")
     parser.add_argument("head", metavar="HEAD", help="the head branch/tag/commit")
     parser.add_argument(
-        "-v", "--verbose", action="count", default=0, help="increase logging verbosity"
+        "-v",
+        "--verbose",
+        action="count",
+        default=0,
+        help="increase logging verbosity",
     )
     args: argparse.Namespace = parser.parse_args()
 

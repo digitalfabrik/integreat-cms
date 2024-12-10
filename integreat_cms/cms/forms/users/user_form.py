@@ -53,10 +53,10 @@ class UserForm(CustomModelForm):
         label=_("Send activation link"),
         help_text=__(
             _(
-                "Select this option to create an inactive user account and send an activation link per email to the user."
+                "Select this option to create an inactive user account and send an activation link per email to the user.",
             ),
             _(
-                "This link allows the user to choose a password and activates the account after confirmation."
+                "This link allows the user to choose a password and activates the account after confirmation.",
             ),
         ),
     )
@@ -108,7 +108,7 @@ class UserForm(CustomModelForm):
             self.fields["password"].required = False
             # adapt placeholder of password input field
             self.fields["password"].widget.attrs.update(
-                {"placeholder": _("Leave empty to keep unchanged")}
+                {"placeholder": _("Leave empty to keep unchanged")},
             )
         else:
             self.fields["is_active"].initial = False
@@ -195,7 +195,8 @@ class UserForm(CustomModelForm):
         if cleaned_data.get("is_staff"):
             if cleaned_data.get("role"):
                 logger.warning(
-                    "Staff member %r can only have staff roles", self.instance
+                    "Staff member %r can only have staff roles",
+                    self.instance,
                 )
                 self.add_error(
                     "staff_role",
@@ -216,7 +217,8 @@ class UserForm(CustomModelForm):
         else:
             if cleaned_data.get("staff_role"):
                 logger.warning(
-                    "Non-staff member %r cannot have staff roles", self.instance
+                    "Non-staff member %r cannot have staff roles",
+                    self.instance,
                 )
                 self.add_error(
                     "role",
@@ -244,7 +246,7 @@ class UserForm(CustomModelForm):
                 "send_activation_link",
                 forms.ValidationError(
                     _(
-                        "Please choose either to send an activation link or set a password."
+                        "Please choose either to send an activation link or set a password.",
                     ),
                     code="required",
                 ),
@@ -255,7 +257,8 @@ class UserForm(CustomModelForm):
         if "regions" in self.fields and cleaned_data.get("organization"):
             if cleaned_data.get("is_superuser") or cleaned_data.get("is_staff"):
                 logger.warning(
-                    "Staff member %r cannot be member of an organization", self.instance
+                    "Staff member %r cannot be member of an organization",
+                    self.instance,
                 )
                 self.add_error(
                     "organization",
@@ -265,7 +268,8 @@ class UserForm(CustomModelForm):
                     ),
                 )
             elif cleaned_data["organization"].region not in cleaned_data.get(
-                "regions", []
+                "regions",
+                [],
             ):
                 logger.warning(
                     "User %r cannot be member of organization %r of other region",
@@ -276,7 +280,7 @@ class UserForm(CustomModelForm):
                     "organization",
                     forms.ValidationError(
                         _(
-                            "Users can only be members of organizations in regions they have access to"
+                            "Users can only be members of organizations in regions they have access to",
                         ),
                         code="invalid",
                     ),

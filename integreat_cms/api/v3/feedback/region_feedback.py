@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 @feedback_handler
 @json_response
 def region_feedback(
-    data: dict,  # pylint: disable=unused-argument
+    _data: dict,
     region: Region,
     language: Language,
     comment: str,
@@ -28,7 +28,6 @@ def region_feedback(
     """
     Store feedback about region / main pages in database
 
-    :param data: HTTP request body data
     :param region: The region of this sitemap's urls
     :param language: The language of this sitemap's urls
     :param comment: The comment sent as feedback

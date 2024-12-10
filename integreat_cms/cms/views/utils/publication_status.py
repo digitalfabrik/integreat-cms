@@ -50,7 +50,7 @@ def change_publication_status(
                     translation.version += 1
                     if desired_status == status.DRAFT:
                         translation.all_versions.filter(status=status.PUBLIC).update(
-                            status=status.DRAFT
+                            status=status.DRAFT,
                         )
                     translation.save()
                     successful.append(translation.title)

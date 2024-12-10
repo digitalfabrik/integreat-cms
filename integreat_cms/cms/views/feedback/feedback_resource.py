@@ -31,7 +31,8 @@ class FeedbackResource(resources.ModelResource):
     rating = fields.Field(column_name=_("Rating"), attribute="get_rating_display")
 
     read_by_username = fields.Field(
-        column_name=_("Read by"), attribute="read_by__full_user_name"
+        column_name=_("Read by"),
+        attribute="read_by__full_user_name",
     )
 
     comment = fields.Field(column_name=_("Comment"), attribute="comment")

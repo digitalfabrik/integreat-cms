@@ -15,13 +15,12 @@ if TYPE_CHECKING:
 
 def make_user_email_field_unique(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Make sure that the email field of users is unique
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     # "Import" historic version of user model
     User = apps.get_model("cms.User")

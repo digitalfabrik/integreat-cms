@@ -57,7 +57,9 @@ class RegionFeedbackListView(TemplateView):
         region = request.region
 
         region_feedback = Feedback.objects.filter(
-            region=region, is_technical=False, archived=self.archived
+            region=region,
+            is_technical=False,
+            archived=self.archived,
         )
 
         filter_form = RegionFeedbackFilterForm(data=request.GET)
@@ -77,7 +79,9 @@ class RegionFeedbackListView(TemplateView):
                 "current_menu_item": "region_feedback",
                 "region_feedback": region_feedback_chunk,
                 "archived_count": Feedback.objects.filter(
-                    region=region, is_technical=False, archived=True
+                    region=region,
+                    is_technical=False,
+                    archived=True,
                 ).count(),
                 "filter_form": filter_form,
                 "search_query": query,

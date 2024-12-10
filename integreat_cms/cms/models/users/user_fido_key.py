@@ -20,7 +20,9 @@ class FidoKey(AbstractBaseModel):
     )
     name = models.CharField(max_length=200, verbose_name=_("key name"))
     key_id = models.BinaryField(
-        max_length=255, null=False, verbose_name=_("WebAuthn ID")
+        max_length=255,
+        null=False,
+        verbose_name=_("WebAuthn ID"),
     )
     public_key = models.BinaryField(
         max_length=255,

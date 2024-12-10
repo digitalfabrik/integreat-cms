@@ -49,7 +49,7 @@ class DeleteUserFidoKeyView(TemplateView):
             messages.warning(
                 request,
                 _(
-                    "This is your last key, once removed you will be able to log in without a second factor."
+                    "This is your last key, once removed you will be able to log in without a second factor.",
                 ),
             )
         else:
@@ -57,10 +57,10 @@ class DeleteUserFidoKeyView(TemplateView):
                 request,
                 __(
                     _(
-                        "Once you remove the key you will need to use one of the other available keys to log into your account."
+                        "Once you remove the key you will need to use one of the other available keys to log into your account.",
                     ),
                     _(
-                        "Please make sure that you have at least one extra key available to log in before removing this key."
+                        "Please make sure that you have at least one extra key available to log in before removing this key.",
                     ),
                 ),
             )
@@ -84,7 +84,7 @@ class DeleteUserFidoKeyView(TemplateView):
         messages.success(
             request,
             _('The 2-factor authentication key "{}" was successfully deleted').format(
-                key.name
+                key.name,
             ),
         )
         key.delete()

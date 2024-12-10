@@ -237,13 +237,12 @@ ROLES = [
 
 def add_roles(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Add the default roles for users
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     # Emit post-migrate signal to make sure the Permission objects are created before they can be assigned
     emit_post_migrate_signal(2, False, "default")
@@ -262,20 +261,19 @@ def add_roles(
             staff_role=role_conf.get("staff_role"),
         )
         permissions = Permission.objects.filter(
-            codename__in=role_conf.get("permissions")
+            codename__in=role_conf.get("permissions"),
         )
         group.permissions.add(*permissions)
 
 
 def remove_roles(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Remove the default roles for users
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     # We can't import the Person model directly as it may be a newer
     # version than this migration expects. We use the historical version.

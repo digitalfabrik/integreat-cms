@@ -17,7 +17,8 @@ register = template.Library()
 
 @register.simple_tag
 def get_translation(
-    push_notification: PushNotification, language_slug: str
+    push_notification: PushNotification,
+    language_slug: str,
 ) -> PushNotificationTranslation:
     """
     This tag returns the most recent translation of the requested push notification in the requested language.

@@ -44,7 +44,7 @@ class JsonDebugToolbarMiddleware:
         if "debug" in request.GET and response["Content-Type"] == "application/json":
             content = json.dumps(json.loads(response.content), sort_keys=True, indent=2)
             response = HttpResponse(
-                f"<!DOCTYPE html><html><body><pre>{content}</pre></body></html>"
+                f"<!DOCTYPE html><html><body><pre>{content}</pre></body></html>",
             )
 
         return response

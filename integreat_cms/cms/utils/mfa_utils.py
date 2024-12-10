@@ -29,7 +29,7 @@ def generate_challenge(challenge_len: int) -> str:
         [
             random.SystemRandom().choice(string.ascii_letters + string.digits)
             for i in range(challenge_len)
-        ]
+        ],
     )
 
 
@@ -41,6 +41,5 @@ def get_mfa_user(request: HttpRequest) -> User | None:
     :return: The user
     """
     if "mfa_user_id" in request.session:
-        user = get_user_model().objects.get(id=request.session["mfa_user_id"])
-        return user
+        return get_user_model().objects.get(id=request.session["mfa_user_id"])
     return None

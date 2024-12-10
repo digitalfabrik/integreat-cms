@@ -55,7 +55,7 @@ def replace_media_prefix(media: MediaFile, before: str, after: str) -> None:
 
 def rename_media_directories(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Renames the location of the physical files of the already existing MediaFiles on the system.
@@ -64,7 +64,6 @@ def rename_media_directories(
     The region media library is now located at /media/regions/...
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     # Rename all directories on the hard drive
     media_directory = Path(settings.MEDIA_ROOT)
@@ -113,7 +112,8 @@ def rename_media_directories(
     ):
         # Replace region directory
         translation.content = translation.content.replace(
-            f"{settings.BASE_URL}/media/sites/", f"{settings.BASE_URL}/media/regions/"
+            f"{settings.BASE_URL}/media/sites/",
+            f"{settings.BASE_URL}/media/regions/",
         )
         # Replace global directory
         translation.content = re.sub(
@@ -130,7 +130,7 @@ def rename_media_directories(
 
 def reverse_rename_media_directories(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Reverse the renaming of the media directories
@@ -139,7 +139,6 @@ def reverse_rename_media_directories(
     The region media library is reversed to /media/sites/...
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     # Rename all directories on the hard drive
     media_directory = Path(settings.MEDIA_ROOT)
@@ -183,11 +182,13 @@ def reverse_rename_media_directories(
     ):
         # Replace region directory
         translation.content = translation.content.replace(
-            f"{settings.BASE_URL}/media/regions/", f"{settings.BASE_URL}/media/sites/"
+            f"{settings.BASE_URL}/media/regions/",
+            f"{settings.BASE_URL}/media/sites/",
         )
         # Replace global directory
         translation.content = translation.content.replace(
-            f"{settings.BASE_URL}/media/global/", f"{settings.BASE_URL}/media/"
+            f"{settings.BASE_URL}/media/global/",
+            f"{settings.BASE_URL}/media/",
         )
         translation.save(update_fields=["content"])
     print(
@@ -207,6 +208,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunPython(
-            rename_media_directories, reverse_rename_media_directories
+            rename_media_directories,
+            reverse_rename_media_directories,
         ),
     ]

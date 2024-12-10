@@ -88,7 +88,9 @@ def prepage_url(link: str, trailing_slash: bool) -> Url:
 @pytest.mark.parametrize("link", VALID_INTERNAL_LINKS)
 @pytest.mark.parametrize("trailing_slash", [True, False])
 def test_check_internal_valid(
-    load_test_data: None, link: str, trailing_slash: bool
+    load_test_data: None,
+    link: str,
+    trailing_slash: bool,
 ) -> None:
     """
     Check whether the given internal URL is correctly identified as valid link
@@ -105,7 +107,9 @@ def test_check_internal_valid(
 @pytest.mark.parametrize("link", INVALID_INTERNAL_LINKS)
 @pytest.mark.parametrize("trailing_slash", [True, False])
 def test_check_internal_invalid(
-    load_test_data: None, link: str, trailing_slash: bool
+    load_test_data: None,
+    link: str,
+    trailing_slash: bool,
 ) -> None:
     """
     Check whether the given internal URL is correctly identified as invalid link
@@ -116,7 +120,7 @@ def test_check_internal_invalid(
     """
     url = prepage_url(link, trailing_slash)
     assert not check_internal(
-        url
+        url,
     ), f"URL '{link}' is not correctly identified as invalid"
 
 
@@ -124,7 +128,9 @@ def test_check_internal_invalid(
 @pytest.mark.parametrize("link", SKIPPED_INTERNAL_LINKS)
 @pytest.mark.parametrize("trailing_slash", [True, False])
 def test_check_internal_skipped(
-    load_test_data: None, link: str, trailing_slash: bool
+    load_test_data: None,
+    link: str,
+    trailing_slash: bool,
 ) -> None:
     """
     Check whether the given internal URL is correctly skipped

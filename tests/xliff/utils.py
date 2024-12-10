@@ -11,10 +11,10 @@ if TYPE_CHECKING:
     from typing import Any, Literal, NotRequired, TypedDict
 
     from _pytest.logging import LogCaptureFixture
+    from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+    from django.template.response import TemplateResponse
+    from django.test.client import Client
 
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-from django.template.response import TemplateResponse
-from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.constants import translation_status
@@ -51,7 +51,10 @@ def get_open_kwargs(file_name: str) -> OpenKwargs:
 
 
 def upload_files(
-    client: Client, url: str, file_1: str, file_2: str
+    client: Client,
+    url: str,
+    file_1: str,
+    file_2: str,
 ) -> HttpResponseNotFound | HttpResponseRedirect:
     """
     Helper function to upload two XLIFF files
@@ -64,9 +67,11 @@ def upload_files(
     :return: The upload response
     """
     import_path = "tests/xliff/files/import"
-    with open(f"{import_path}/{file_1}", **get_open_kwargs(file_1)) as f1:
-        with open(f"{import_path}/{file_2}", **get_open_kwargs(file_2)) as f2:
-            return client.post(url, data={"xliff_file": [f1, f2]}, format="multipart")
+    with (
+        open(f"{import_path}/{file_1}", **get_open_kwargs(file_1)) as f1,
+        open(f"{import_path}/{file_2}", **get_open_kwargs(file_2)) as f2,
+    ):
+        return client.post(url, data={"xliff_file": [f1, f2]}, format="multipart")
 
 
 def get_and_assert_200(client: Client, url: str) -> HttpResponse | TemplateResponse:
@@ -104,7 +109,8 @@ def validate_xliff_import_response(
     # If the role should be allowed to access the view, we expect a successful result
     assert response.status_code == 302
     page_tree = reverse(
-        "pages", kwargs={"region_slug": "augsburg", "language_slug": "en"}
+        "pages",
+        kwargs={"region_slug": "augsburg", "language_slug": "en"},
     )
     redirect_location = response.headers.get("Location")
     # If errors occur, we get redirected to the page tree
@@ -135,7 +141,8 @@ def validate_xliff_import_response(
         if translation.version > 1:
             # If a translation already exists for this version, assert that the status is inherited
             previous_translation = page.translations.get(
-                language__slug="en", version=translation.version - 1
+                language__slug="en",
+                version=translation.version - 1,
             )
             assert previous_translation.status == translation.status
         else:

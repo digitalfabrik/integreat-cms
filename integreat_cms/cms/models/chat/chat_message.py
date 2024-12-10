@@ -31,7 +31,7 @@ class ChatHistoryManager(models.Manager):
             .get_queryset()
             .filter(
                 sent_datetime__gt=timezone.now()
-                - timezone.timedelta(days=settings.AUTHOR_CHAT_HISTORY_DAYS)
+                - timezone.timedelta(days=settings.AUTHOR_CHAT_HISTORY_DAYS),
             )
         )
 

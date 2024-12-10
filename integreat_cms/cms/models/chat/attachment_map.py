@@ -28,10 +28,14 @@ class AttachmentMap(AbstractBaseModel):
     """
 
     user_chat = models.ForeignKey(
-        "cms.UserChat", on_delete=models.CASCADE, related_name="attachments"
+        "cms.UserChat",
+        on_delete=models.CASCADE,
+        related_name="attachments",
     )
     random_hash = models.CharField(
-        max_length=64, default=generate_random_hash, unique=True
+        max_length=64,
+        default=generate_random_hash,
+        unique=True,
     )
     article_id = models.IntegerField()
     attachment_id = models.IntegerField()

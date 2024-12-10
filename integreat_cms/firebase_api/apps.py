@@ -40,7 +40,7 @@ class FirebaseApiConfig(AppConfig):
             elif settings.DEBUG:
                 logger.info(
                     "Firebase Cloud Messaging is enabled, but in debug mode. "
-                    "Push notifications are really sent, but only to the test region."
+                    "Push notifications are really sent, but only to the test region.",
                 )
             else:
                 logger.info("Firebase Cloud Messaging is enabled in production mode.")

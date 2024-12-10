@@ -1,10 +1,14 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import pytest
 from django.core.management.base import CommandError
-from pytest_django.fixtures import SettingsWrapper
 
 from ..utils import get_command_output
+
+if TYPE_CHECKING:
+    from pytest_django.fixtures import SettingsWrapper
 
 
 @pytest.mark.django_db

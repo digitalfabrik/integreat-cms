@@ -91,13 +91,13 @@ class UploadMediaFileForm(CustomModelForm):
                     "type",
                     forms.ValidationError(
                         _("The file type {} is not allowed.").format(
-                            cleaned_data.get("type")
+                            cleaned_data.get("type"),
                         )
                         + " "
                         + _("Allowed file types")
                         + ": "
                         + ", ".join(
-                            map(str, dict(allowed_media.UPLOAD_CHOICES).values())
+                            map(str, dict(allowed_media.UPLOAD_CHOICES).values()),
                         ),
                         code="invalid",
                     ),
@@ -106,7 +106,7 @@ class UploadMediaFileForm(CustomModelForm):
             name, extension = splitext(file.name)
             # Replace file extension if it doesn't match it's mime type
             valid_extensions = mimetypes.guess_all_extensions(
-                cleaned_data.get("type", "")
+                cleaned_data.get("type", ""),
             )
             if extension not in valid_extensions and valid_extensions:
                 file.name = name + valid_extensions[0]
@@ -131,7 +131,9 @@ class UploadMediaFileForm(CustomModelForm):
             and img_type.startswith("image")
         ):
             if optimized_image := generate_thumbnail(
-                file, settings.MEDIA_OPTIMIZED_SIZE, False
+                file,
+                settings.MEDIA_OPTIMIZED_SIZE,
+                False,
             ):
                 cleaned_data["file"] = optimized_image
                 cleaned_data["thumbnail"] = generate_thumbnail(file)
@@ -140,7 +142,8 @@ class UploadMediaFileForm(CustomModelForm):
                 self.add_error(
                     "file",
                     forms.ValidationError(
-                        _("This image file is corrupt."), code="invalid"
+                        _("This image file is corrupt."),
+                        code="invalid",
                     ),
                 )
         # Add the calculated file_size and the modification date to the form data
@@ -149,6 +152,7 @@ class UploadMediaFileForm(CustomModelForm):
         cleaned_data["last_modified"] = timezone.now()
 
         logger.debug(
-            "UploadMediaFileForm validated [2] with cleaned data %r", cleaned_data
+            "UploadMediaFileForm validated [2] with cleaned data %r",
+            cleaned_data,
         )
         return cleaned_data

@@ -15,7 +15,9 @@ if TYPE_CHECKING:
 
 @permission_required("cms.change_contact")
 def archive_contact(
-    request: HttpRequest, contact_id: int, region_slug: str
+    request: HttpRequest,
+    contact_id: int,
+    region_slug: str,
 ) -> HttpResponseRedirect:
     """
     Method that archives a given contact
@@ -26,7 +28,9 @@ def archive_contact(
     :return: A redirection to the :class:`~integreat_cms.cms.views.contacts.contact_list_view.ContactListView`
     """
     to_be_archived_contact = get_object_or_404(
-        Contact, id=contact_id, location__region=request.region
+        Contact,
+        id=contact_id,
+        location__region=request.region,
     )
     to_be_archived_contact.archive()
 
@@ -44,7 +48,9 @@ def archive_contact(
 
 @permission_required("cms.delete_contact")
 def delete_contact(
-    request: HttpRequest, contact_id: int, region_slug: str
+    request: HttpRequest,
+    contact_id: int,
+    region_slug: str,
 ) -> HttpResponseRedirect:
     """
     Delete given contact
@@ -55,11 +61,14 @@ def delete_contact(
     :return: A redirection to the :class:`~integreat_cms.cms.views.contacts.contact_list_view.ContactListView`
     """
     to_be_deleted_contact = get_object_or_404(
-        Contact, id=contact_id, location__region=request.region
+        Contact,
+        id=contact_id,
+        location__region=request.region,
     )
     to_be_deleted_contact.delete()
     messages.success(
-        request, _("Contact {0} was successfully deleted").format(to_be_deleted_contact)
+        request,
+        _("Contact {0} was successfully deleted").format(to_be_deleted_contact),
     )
     return redirect(
         "contacts",
@@ -71,7 +80,9 @@ def delete_contact(
 
 @permission_required("cms.change_contact")
 def restore_contact(
-    request: HttpRequest, contact_id: int, region_slug: str
+    request: HttpRequest,
+    contact_id: int,
+    region_slug: str,
 ) -> HttpResponseRedirect:
     """
     Restore given contact
@@ -82,7 +93,9 @@ def restore_contact(
     :return: A redirection to the :class:`~integreat_cms.cms.views.contacts.contact_list_view.ContactListView`
     """
     to_be_restored_contact = get_object_or_404(
-        Contact, id=contact_id, location__region=request.region
+        Contact,
+        id=contact_id,
+        location__region=request.region,
     )
     to_be_restored_contact.restore()
 
@@ -101,7 +114,9 @@ def restore_contact(
 
 @permission_required("cms.change_contact")
 def copy_contact(
-    request: HttpRequest, contact_id: int, region_slug: str
+    request: HttpRequest,
+    contact_id: int,
+    region_slug: str,
 ) -> HttpResponseRedirect:
     """
     Method that copies an existing contact
@@ -112,12 +127,15 @@ def copy_contact(
     :return: A redirection to the :class:`~integreat_cms.cms.views.contacts.contact_list_view.ContactListView`
     """
     to_be_copied_contact = get_object_or_404(
-        Contact, id=contact_id, location__region=request.region
+        Contact,
+        id=contact_id,
+        location__region=request.region,
     )
     to_be_copied_contact.copy()
 
     messages.success(
-        request, _("Contact {0} was successfully copied").format(to_be_copied_contact)
+        request,
+        _("Contact {0} was successfully copied").format(to_be_copied_contact),
     )
     return redirect(
         "contacts",

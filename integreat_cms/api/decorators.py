@@ -40,7 +40,9 @@ def feedback_handler(func: Callable) -> Callable:
     @csrf_exempt
     @wraps(func)
     def handle_feedback(
-        request: HttpRequest, region_slug: str, language_slug: str
+        request: HttpRequest,
+        region_slug: str,
+        language_slug: str,
     ) -> JsonResponse:
         """
         Parse feedback API request parameters
@@ -57,11 +59,13 @@ def feedback_handler(func: Callable) -> Callable:
             language = Language.objects.get(slug=language_slug)
         except Region.DoesNotExist:
             return JsonResponse(
-                {"error": f'No region found with slug "{region_slug}"'}, status=404
+                {"error": f'No region found with slug "{region_slug}"'},
+                status=404,
             )
         except Language.DoesNotExist:
             return JsonResponse(
-                {"error": f'No language found with slug "{language_slug}"'}, status=404
+                {"error": f'No language found with slug "{language_slug}"'},
+                status=404,
             )
         data = (
             json.loads(request.body.decode())
@@ -76,7 +80,8 @@ def feedback_handler(func: Callable) -> Callable:
             return JsonResponse({"error": "Invalid rating."}, status=400)
         if not comment and not rating:
             return JsonResponse(
-                {"error": "Either comment or rating is required."}, status=400
+                {"error": "Either comment or rating is required."},
+                status=400,
             )
         rating_normalized: bool | None = feedback_ratings.NOT_STATED
         if rating == "up":
@@ -100,7 +105,9 @@ def json_response(function: Callable) -> Callable:
 
     @wraps(function)
     def wrap(
-        request: dict[str, str] | HttpRequest, *args: Any, **kwargs: Any
+        request: dict[str, str] | HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect | JsonResponse:
         r"""
         The inner function for this decorator.
@@ -141,16 +148,17 @@ def matomo_tracking(func: Callable) -> Callable:
         """
         data_str = parse.urlencode(data)
         url = f"{host}/matomo.php?{data_str}"
-        req = request.Request(url)
+        if not url.startswith(("http:", "https:")):
+            raise ValueError("URL must start with 'http:' or 'https:'")
+        req = request.Request(url)  # noqa: S310
         try:
-            with request.urlopen(req):
+            with request.urlopen(req):  # noqa: S310
                 pass
-        except error.HTTPError as e:
-            logger.error(
-                "Matomo Tracking API request to %r failed with: %s",
+        except error.HTTPError:
+            logger.exception(
+                "Matomo Tracking API request to %r failed",
                 # Mask auth token in log
                 re.sub(r"&token_auth=[^&]+", "&token_auth=********", url),
-                e,
             )
 
     @wraps(func)
@@ -176,7 +184,7 @@ def matomo_tracking(func: Callable) -> Callable:
             "url": request.build_absolute_uri(),
             "urlref": settings.BASE_URL,
             "ua": request.META.get("HTTP_USER_AGENT", "unknown user agent"),
-            "cip": f"{random.randint(0, 255)}.{random.randint(0, 255)}.{random.randint(0, 255)}.{random.randint(0, 255)}",
+            "cip": f"{random.randint(0, 255)}.{random.randint(0, 255)}.{random.randint(0, 255)}.{random.randint(0, 255)}",  # noqa: S311
         }
 
         t = threading.Thread(target=matomo_request, args=(settings.MATOMO_URL, data))

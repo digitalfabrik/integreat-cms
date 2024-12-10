@@ -16,7 +16,8 @@ if TYPE_CHECKING:
 
 @pytest.mark.django_db
 def test_generate_unique_slug_fallback(
-    settings: SettingsWrapper, load_test_data: None
+    settings: SettingsWrapper,
+    load_test_data: None,
 ) -> None:
     """
     Test whether the :meth:`~integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper` function correctly uses the fallback property
@@ -37,7 +38,8 @@ def test_generate_unique_slug_fallback(
 
 @pytest.mark.django_db
 def test_generate_unique_slug_reserved_region_slug(
-    settings: SettingsWrapper, load_test_data: None
+    settings: SettingsWrapper,
+    load_test_data: None,
 ) -> None:
     """
     Test whether the :meth:`~integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper` function returns the correct unique slug
@@ -59,7 +61,8 @@ def test_generate_unique_slug_reserved_region_slug(
 
 @pytest.mark.django_db
 def test_generate_unique_slug_reserved_page_slug(
-    settings: SettingsWrapper, load_test_data: None
+    settings: SettingsWrapper,
+    load_test_data: None,
 ) -> None:
     """
     Test whether the :meth:`~integreat_cms.cms.utils.slug_utils.generate_unique_slug_helper` function  function returns the correct unique slug

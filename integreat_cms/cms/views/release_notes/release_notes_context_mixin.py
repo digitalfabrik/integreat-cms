@@ -48,7 +48,8 @@ class ReleaseNotesContextMixin(ContextMixin):
         return {
             year.name: self.get_versions(year)
             for year in sorted(
-                Path(settings.RELEASE_NOTES_DIRS).iterdir(), reverse=True
+                Path(settings.RELEASE_NOTES_DIRS).iterdir(),
+                reverse=True,
             )[: self.slice]
         }
 
@@ -73,7 +74,7 @@ class ReleaseNotesContextMixin(ContextMixin):
         with ExitStack() as stack:
             return {
                 note.stem: yaml.safe_load(
-                    stack.enter_context(open(note, encoding="UTF-8"))
+                    stack.enter_context(open(note, encoding="UTF-8")),
                 )[get_language_from_request(self.request)]
                 for note in natsorted(version.iterdir())
             }

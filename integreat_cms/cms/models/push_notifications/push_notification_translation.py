@@ -47,7 +47,10 @@ class PushNotificationTranslation(AbstractBaseModel):
 
     @classmethod
     def search(
-        cls, region: Region, language_slug: str, query: str
+        cls,
+        region: Region,
+        language_slug: str,
+        query: str,
     ) -> QuerySet[PushNotificationTranslation]:
         """
         Searches for all push notifications which match the given `query` in their title.
@@ -87,9 +90,9 @@ class PushNotificationTranslation(AbstractBaseModel):
                 [
                     f"{translation.language.native_name}: {settings.WEBAPP_URL}{translation.get_absolute_url()}"
                     for translation in self.push_notification.translations.exclude(
-                        text=""
+                        text="",
                     )
-                ]
+                ],
             )
             return f"{self.language.message_content_not_available}\n{translations}"
         return self.text

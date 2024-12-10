@@ -79,7 +79,9 @@ class RegionUserFormView(TemplateView):
         user_instance = region.region_users.filter(id=kwargs.get("user_id")).first()
 
         region_user_form = RegionUserForm(
-            region=region, data=request.POST, instance=user_instance
+            region=region,
+            data=request.POST,
+            instance=user_instance,
         )
 
         if not region_user_form.is_valid():
@@ -102,7 +104,7 @@ class RegionUserFormView(TemplateView):
                 messages.success(
                     request,
                     _('Account "{}" was successfully created.').format(
-                        region_user_form.instance.full_user_name
+                        region_user_form.instance.full_user_name,
                     ),
                 )
             else:
@@ -110,7 +112,7 @@ class RegionUserFormView(TemplateView):
                 messages.success(
                     request,
                     _('Account "{}" was successfully saved.').format(
-                        region_user_form.instance.full_user_name
+                        region_user_form.instance.full_user_name,
                     ),
                 )
             return redirect(

@@ -22,9 +22,9 @@ class WPBCryptPasswordHasher(BCryptSHA256PasswordHasher):
         """
         bcrypt = self._load_library()
         algorithm, data = encoded.split("$", 1)
-        assert algorithm == self.algorithm
+        if algorithm != self.algorithm:
+            raise ValueError
         data_parts = data.split("$", 2)
         if data_parts[1] != "2y":
             return super().verify(password, encoded)
-        check = bcrypt.checkpw(bytes(password, "utf-8"), bytes(data, "utf-8"))
-        return check
+        return bcrypt.checkpw(bytes(password, "utf-8"), bytes(data, "utf-8"))

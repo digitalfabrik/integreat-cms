@@ -47,12 +47,14 @@ def make_mock_summ_ai_server_rate_limited() -> aiohttpApplication:
         if request.app["attempt"] < 2:
             # What if we get rate limited?
             return aiohttp.web.json_response(
-                data={"error": "rate limit exceeded"}, status=429
+                data={"error": "rate limit exceeded"},
+                status=429,
             )
         if request.app["attempt"] == 2:
             # What if we get invalid JSON?
             return aiohttp.web.Response(
-                text='{"incomplete json response": ', status=200
+                text='{"incomplete json response": ',
+                status=200,
             )
         return aiohttp.web.json_response(
             data={

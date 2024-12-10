@@ -40,7 +40,9 @@ class PasswordResetView(auth_views.PasswordResetView):
     form_class = CustomPasswordResetForm
 
     def dispatch(
-        self, *args: HttpRequest, **kwargs: Any
+        self,
+        *args: HttpRequest,
+        **kwargs: Any,
     ) -> HttpResponseRedirect | TemplateResponse:
         r"""
         The view part of the view. Handles all HTTP methods equally.
@@ -74,23 +76,24 @@ class PasswordResetView(auth_views.PasswordResetView):
                 self.request,
                 __(
                     _(
-                        "We've emailed you instructions for setting your password, if an account exists with the email you entered."
+                        "We've emailed you instructions for setting your password, if an account exists with the email you entered.",
                     ),
                     _("You should receive them shortly."),
                     _(
-                        "If you don’t receive an email, please make sure you’ve entered the address you registered with, and check your spam folder."
+                        "If you don’t receive an email, please make sure you’ve entered the address you registered with, and check your spam folder.",
                     ),
                 ),
             )
-            return response
         except RuntimeError as e:
             messages.error(
                 self.request,
                 __(
                     _("An error occurred! Could not send {}.").format(
-                        _("password reset email")
+                        _("password reset email"),
                     ),
                     e,
                 ),
             )
             return redirect("public:password_reset")
+        else:
+            return response

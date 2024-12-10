@@ -47,7 +47,13 @@ class ParentFieldWidget(forms.widgets.Select):
             assert self.form.instance
         # Create dictionary of options
         option_dict = super().create_option(
-            name, value, label, selected, index, subindex=subindex, attrs=attrs
+            name,
+            value,
+            label,
+            selected,
+            index,
+            subindex=subindex,
+            attrs=attrs,
         )
         kwargs = {"region_slug": self.form.instance.region.slug}
         if value:

@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import io
+from typing import TYPE_CHECKING
 from urllib.parse import quote, urlencode
 
 import PyPDF3
 import pytest
-from django.test.client import Client
 from django.urls import reverse
+
+if TYPE_CHECKING:
+    from django.test.client import Client
 
 
 @pytest.mark.django_db
@@ -96,12 +99,11 @@ def test_pdf_export(
         assert response.headers.get("Content-Type") == "application/pdf"
         # Compare file content
         result_pdf = PyPDF3.PdfFileReader(
-            io.BytesIO(b"".join(response.streaming_content))
+            io.BytesIO(b"".join(response.streaming_content)),
         )
         # pylint: disable=consider-using-with
-        expected_pdf = PyPDF3.PdfFileReader(
-            open(f"tests/pdf/files/{expected_filename}", "rb")
-        )
+        with open(f"tests/pdf/files/{expected_filename}", "rb") as file:
+            expected_pdf = PyPDF3.PdfFileReader(file)
         # Assert that both documents have same number of pages
         assert result_pdf.numPages == expected_pdf.numPages
         # Assert that the content is identical
@@ -120,7 +122,9 @@ def test_pdf_export(
 # Override urls to serve PDF files
 @pytest.mark.urls("tests.pdf.dummy_django_app.static_urls")
 def test_pdf_export_invalid(
-    load_test_data: None, client: Client, admin_client: Client
+    load_test_data: None,
+    client: Client,
+    admin_client: Client,
 ) -> None:
     """
     Test whether the PDF export throws the correct errors

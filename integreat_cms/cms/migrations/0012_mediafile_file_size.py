@@ -15,19 +15,18 @@ if TYPE_CHECKING:
 
 def calculate_file_fields(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Calculates the file size for already existing MediaFiles on the system.
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
 
     MediaFiles = apps.get_model("cms", "MediaFile")
     for media in MediaFiles.objects.all():
         media.file_size = media.file.size
         media.last_modified = make_aware(
-            datetime.fromtimestamp(getmtime(media.file.path))
+            datetime.fromtimestamp(getmtime(media.file.path)),
         )
         media.save()
 

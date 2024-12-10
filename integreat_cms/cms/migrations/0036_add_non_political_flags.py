@@ -13,13 +13,12 @@ if TYPE_CHECKING:
 
 def update_flags(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Update flags of Arabic and Farsi to be non-political
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     Language = apps.get_model("cms", "Language")
 
@@ -38,13 +37,12 @@ def update_flags(
 
 def reverse_flags(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Update flags of Arabic and Farsi to be political
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     Language = apps.get_model("cms", "Language")
 

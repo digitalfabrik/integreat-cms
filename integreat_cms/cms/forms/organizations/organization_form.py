@@ -75,7 +75,7 @@ class OrganizationForm(CustomModelForm):
                 "name",
                 forms.ValidationError(
                     _(
-                        "An organization with the same name already exists in this region. Please choose another name."
+                        "An organization with the same name already exists in this region. Please choose another name.",
                     ),
                     code="invalid",
                 ),
@@ -83,6 +83,4 @@ class OrganizationForm(CustomModelForm):
         return cleaned_name
 
     def save(self, commit: bool = True) -> Any:
-        result = super().save(commit)
-
-        return result
+        return super().save(commit)

@@ -193,7 +193,10 @@ class HTMLField:
         """
         if self.html is not None:
             return tostring(
-                self.html, encoding="unicode", method="html", pretty_print=True
+                self.html,
+                encoding="unicode",
+                method="html",
+                pretty_print=True,
             )
         return None
 
@@ -205,7 +208,8 @@ class HTMLField:
         :returns: The first exception of this HTML field
         """
         return next(
-            (segment.exception for segment in self.segments if segment.exception), None
+            (segment.exception for segment in self.segments if segment.exception),
+            None,
         )
 
 
@@ -294,7 +298,7 @@ class TranslationHelper:
                     # Get all segments of all HTML fields
                     *[html_field.segments for html_field in self.html_fields],
                 ),
-            )
+            ),
         )
         logger.debug(
             "Text fields for %r: %r",
@@ -319,7 +323,7 @@ class TranslationHelper:
             return False
         # Initialize form to create new translation object
         existing_target_translation = self.object_instance.get_translation(
-            settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG
+            settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG,
         )
         content_translation_form = self.form_class(
             data={
@@ -356,11 +360,11 @@ class TranslationHelper:
         if existing_target_translation:
             if settings.REDIS_CACHE:
                 existing_target_translation.all_versions.invalidated_update(
-                    currently_in_translation=False
+                    currently_in_translation=False,
                 )
             else:
                 existing_target_translation.all_versions.update(
-                    currently_in_translation=False
+                    currently_in_translation=False,
                 )
 
         logger.debug(
@@ -461,9 +465,10 @@ class PatientTaskQueue(deque, Generic[T]):
         try:
             task = self.popleft()
             self._in_progress.append(task)
-            return task
         except IndexError as e:
             raise StopAsyncIteration from e
+        else:
+            return task
 
     def hit_rate_limit(self, task: T) -> None:
         """
@@ -471,9 +476,10 @@ class PatientTaskQueue(deque, Generic[T]):
 
         :param task: The task that failed because of the rate limiting
         """
-        assert (
-            task in self._in_progress
-        ), f"PatientTaskQueue: Failed task not known as in progress: {task}"
+        if task not in self._in_progress:
+            raise KeyError(
+                f"PatientTaskQueue: Failed task not known as in progress: {task}",
+            )
 
         # Only save current timestamp if this is the first failed request reported
         if (
@@ -503,7 +509,7 @@ class PatientTaskQueue(deque, Generic[T]):
 
         if self.retries > self.max_retries and not self._aborted:
             self.abort(
-                f"Retried tasks a consecutive {self.max_retries} times. Giving up."
+                f"Retried tasks a consecutive {self.max_retries} times. Giving up.",
             )
 
     def completed(self, task: T) -> None:
@@ -512,9 +518,10 @@ class PatientTaskQueue(deque, Generic[T]):
 
         :param task: The task that failed because of the rate limiting
         """
-        assert (
-            task in self._in_progress
-        ), f"PatientTaskQueue: Completed task not known as in progress: {task}"
+        if task not in self._in_progress:
+            raise KeyError(
+                f"PatientTaskQueue: Completed task not known as in progress: {task}",
+            )
 
         self.retries = 0
         self._in_progress.remove(task)

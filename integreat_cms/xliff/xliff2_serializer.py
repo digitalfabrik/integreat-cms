@@ -30,7 +30,10 @@ class Serializer(base_serializer.Serializer):
     target_language = None
 
     def serialize(
-        self, queryset: list[PageTranslation], *args: Any, **kwargs: Any
+        self,
+        queryset: list[PageTranslation],
+        *args: Any,
+        **kwargs: Any,
     ) -> str:
         r"""
         Initialize serialization and find out in which source and target language the given elements are.
@@ -52,7 +55,7 @@ class Serializer(base_serializer.Serializer):
         if len(language_set) != 1:
             raise base.SerializationError(
                 "The page translations have different languages, but in XLIFF 2.0 "
-                "all objects of one file need to have the same language."
+                "all objects of one file need to have the same language.",
             )
 
         # Get all region objects of the given page translations
@@ -61,13 +64,13 @@ class Serializer(base_serializer.Serializer):
         # Check if all given translations are of the same region
         if len(region_set) != 1:
             raise base.SerializationError(
-                "The page translations are from different regions."
+                "The page translations are from different regions.",
             )
 
         region = next(iter(region_set))
         if (target_language := next(iter(language_set))) == region.default_language:
             raise base.SerializationError(
-                "The page translation is in the region's default language."
+                "The page translation is in the region's default language.",
             )
         self.target_language = target_language
         self.source_language = region.get_source_language(target_language.slug)
@@ -130,7 +133,9 @@ class Serializer(base_serializer.Serializer):
         if TYPE_CHECKING:
             assert self.xml
         logger.debug(
-            "XLIFF 2.0 serialization handling field %r of object %r", field, obj
+            "XLIFF 2.0 serialization handling field %r of object %r",
+            field,
+            obj,
         )
         attrs = {
             "id": field.name,
@@ -150,7 +155,7 @@ class Serializer(base_serializer.Serializer):
         if not source_translation:
             raise base.SerializationError(
                 f"Page translation {obj!r} does not have a source translation in "
-                f"{self.source_language!r} and therefore cannot be serialized to XLIFF."
+                f"{self.source_language!r} and therefore cannot be serialized to XLIFF.",
             )
         logger.debug("XLIFF 2.0 source translation %r", source_translation)
         self.xml.cdata(field.value_to_string(source_translation))
@@ -201,11 +206,11 @@ class Deserializer(base_serializer.Deserializer):
             if event == "START_ELEMENT" and node.nodeName == "xliff":
                 # Get source language stored in the xliff node
                 self.source_language = self.get_language(
-                    self.require_attribute(node, "srcLang")
+                    self.require_attribute(node, "srcLang"),
                 )
                 # Get target language stored in the xliff node
                 self.target_language = self.get_language(
-                    self.require_attribute(node, "trgLang")
+                    self.require_attribute(node, "trgLang"),
                 )
                 logger.debug(
                     "Starting XLIFF 2.0 deserialization for translation from %r to %r",
@@ -214,7 +219,7 @@ class Deserializer(base_serializer.Deserializer):
                 )
                 return
         raise base.DeserializationError(
-            "The XLIFF file does not contain an <xliff>-block,"
+            "The XLIFF file does not contain an <xliff>-block,",
         )
 
     def get_object(self, node: Element) -> PageTranslation:

@@ -28,7 +28,9 @@ class OfferTemplate(AbstractBaseModel):
         ),
     )
     thumbnail = models.URLField(
-        blank=True, max_length=250, verbose_name=_("thumbnail URL")
+        blank=True,
+        max_length=250,
+        verbose_name=_("thumbnail URL"),
     )
     url = models.URLField(
         blank=True,
@@ -42,7 +44,8 @@ class OfferTemplate(AbstractBaseModel):
         blank=True,
         verbose_name=_("POST parameter"),
         help_text=__(
-            _("Additional POST data for retrieving the URL."), _("Specify as JSON.")
+            _("Additional POST data for retrieving the URL."),
+            _("Specify as JSON."),
         ),
     )
     #: Manage choices in :mod:`~integreat_cms.cms.constants.postal_code`
@@ -52,7 +55,7 @@ class OfferTemplate(AbstractBaseModel):
         default=postal_code.NONE,
         verbose_name=_("use postal code"),
         help_text=_(
-            "Whether and how to insert the postcode of the region into the URL or POST data"
+            "Whether and how to insert the postcode of the region into the URL or POST data",
         ),
     )
     supported_by_app_in_content = models.BooleanField(
@@ -60,7 +63,7 @@ class OfferTemplate(AbstractBaseModel):
         blank=True,
         verbose_name=_("supported by app in content"),
         help_text=_(
-            "Whether the Integreat app supports displaying offers from this provider in pages"
+            "Whether the Integreat app supports displaying offers from this provider in pages",
         ),
     )
     is_zammad_form = models.BooleanField(

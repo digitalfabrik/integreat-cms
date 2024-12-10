@@ -73,6 +73,7 @@ class StatisticsFilterForm(forms.Form):
             )
 
         logger.debug(
-            "StatisticsFilterForm validated [2] with cleaned data %r", cleaned_data
+            "StatisticsFilterForm validated [2] with cleaned data %r",
+            cleaned_data,
         )
         return cleaned_data

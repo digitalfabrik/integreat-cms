@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 import os
+from typing import TYPE_CHECKING
 from urllib import parse
 
 import pytest
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.models import Directory, MediaFile
@@ -16,6 +16,9 @@ from tests.conftest import (
     PRIV_STAFF_ROLES,
     STAFF_ROLES,
 )
+
+if TYPE_CHECKING:
+    from django.test.client import Client
 
 
 @pytest.mark.django_db
@@ -29,7 +32,7 @@ def test_directory_path(
     query = parse.urlencode(
         {
             "directory": 1,
-        }
+        },
     )
     next_url = reverse("mediacenter_directory_path")
     url = f"{next_url}?{query}"
@@ -62,7 +65,7 @@ def test_get_directory_content(
     query = parse.urlencode(
         {
             "directory": 1,
-        }
+        },
     )
     next_url = reverse("mediacenter_get_directory_content")
     url = f"{next_url}?{query}"
@@ -97,7 +100,8 @@ def test_create_directory(
     response_directory = client.post(url, data={"name": "new directory"})
     # A new sub directory
     response_sub_directory = client.post(
-        url, data={"name": "sub directory", "parent": 1}
+        url,
+        data={"name": "sub directory", "parent": 1},
     )
 
     if role in PRIV_STAFF_ROLES:
@@ -220,7 +224,9 @@ def test_upload_file(
         "rb",
     ) as file:
         uploaded_file = SimpleUploadedFile(
-            "file", file.read(), content_type="image/png"
+            "file",
+            file.read(),
+            content_type="image/png",
         )
         response = client.post(
             url,
@@ -261,7 +267,9 @@ def test_replace_file(
         "rb",
     ) as file:
         uploaded_file = SimpleUploadedFile(
-            "file_replaced", file.read(), content_type="image/png"
+            "file_replaced",
+            file.read(),
+            content_type="image/png",
         )
         response = client.post(
             url,
@@ -422,7 +430,7 @@ def test_get_file_usages(
     query = parse.urlencode(
         {
             "file": 1,
-        }
+        },
     )
     next_url = reverse("mediacenter_get_file_usages")
     url = f"{next_url}?{query}"
@@ -455,7 +463,7 @@ def test_get_search_result(
     query = parse.urlencode(
         {
             "query": "test",
-        }
+        },
     )
     next_url = reverse("mediacenter_get_search_result")
     url = f"{next_url}?{query}"

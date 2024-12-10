@@ -32,8 +32,8 @@ from .utils import (
 
 if TYPE_CHECKING:
     from asyncio import AbstractEventLoop
-    from collections.abc import Callable
-    from typing import Any, Iterator
+    from collections.abc import Callable, Iterator
+    from typing import Any
 
     from aiohttp import ClientSession
     from django.forms.models import ModelFormMetaclass
@@ -59,10 +59,12 @@ class SummAiApiClient(MachineTranslationApiClient):
         """
         super().__init__(request, form_class)
         if not MachineTranslationProvider.is_permitted(
-            request.region, request.user, form_class._meta.model
+            request.region,
+            request.user,
+            form_class._meta.model,
         ):
             raise RuntimeError(
-                f'Machine translations are disabled for content type "{form_class._meta.model}" and {request.user!r}.'
+                f'Machine translations are disabled for content type "{form_class._meta.model}" and {request.user!r}.',
             )
         if not settings.SUMM_AI_ENABLED:
             raise RuntimeError("SUMM.AI is disabled globally.")
@@ -70,7 +72,9 @@ class SummAiApiClient(MachineTranslationApiClient):
             raise RuntimeError(f"SUMM.AI is disabled in {self.region!r}.")
 
     async def translate_text_field(
-        self, session: ClientSession, text_field: TextField
+        self,
+        session: ClientSession,
+        text_field: TextField,
     ) -> TextField:
         """
         Uses :meth:`aiohttp.ClientSession.post` to perform an asynchronous POST request to the SUMM.AI API.
@@ -124,32 +128,30 @@ class SummAiApiClient(MachineTranslationApiClient):
                 try:
                     response_data = await response.json()
                 except aiohttp.ContentTypeError as e:
-                    logger.error(
-                        "SUMM.AI API %s response failed to parse as JSON: %s: %s",
+                    logger.exception(
+                        "SUMM.AI API %s response failed to parse as JSON",
                         response.status,
-                        type(e),
-                        e,
                     )
                     raise SummAiInvalidJSONError(
-                        f"API delivered invalid JSON: {response.status} - {await response.text()}"
+                        f"API delivered invalid JSON: {response.status} - {await response.text()}",
                     ) from e
                 if self.validate_response(response_data, response.status):
                     # Let the field handle the translated text
                     text_field.translate(response_data["translated_text"])
                     # If text is not in response, validate_response()
                     # will raise exceptions - so we don't need an else branch.
-        except (aiohttp.ClientError, asyncio.TimeoutError, SummAiRuntimeError) as e:
-            logger.error(
-                "SUMM.AI translation of %r failed because of %s: %s",
+        except (TimeoutError, aiohttp.ClientError, SummAiRuntimeError) as e:
+            logger.exception(
+                "SUMM.AI translation of %r failed",
                 text_field,
-                type(e),
-                e,
             )
             text_field.exception = e
         return text_field
 
     async def translate_text_fields(
-        self, loop: AbstractEventLoop, text_fields: Iterator[TextField]
+        self,
+        loop: AbstractEventLoop,
+        text_fields: Iterator[TextField],
     ) -> chain[list[TextField]]:
         """
         Translate a list of text fields from German into Easy German.
@@ -193,11 +195,10 @@ class SummAiApiClient(MachineTranslationApiClient):
                 *[
                     worker(loop, task_generator, str(i))
                     for i in range(settings.SUMM_AI_MAX_CONCURRENT_REQUESTS)
-                ]
+                ],
             )
             # Put all results in one single list
-            all_results = chain(worker_results)
-            return all_results
+            return chain(worker_results)
 
     def translate_queryset(self, queryset: list[Page], language_slug: str) -> None:
         """
@@ -211,7 +212,7 @@ class SummAiApiClient(MachineTranslationApiClient):
         # Make sure both languages exist
         self.request.region.get_language_or_404(settings.SUMM_AI_GERMAN_LANGUAGE_SLUG)
         easy_german = self.request.region.get_language_or_404(
-            settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG
+            settings.SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG,
         )
 
         # Initialize translation helpers for each object instance
@@ -225,7 +226,7 @@ class SummAiApiClient(MachineTranslationApiClient):
             *[
                 translation_helper.get_text_fields()
                 for translation_helper in translation_helpers
-            ]
+            ],
         )
 
         # Initialize async event loop
@@ -299,10 +300,10 @@ class SummAiApiClient(MachineTranslationApiClient):
         if "translated_text" not in response_data:
             if "error" in response_data:
                 raise SummAiRuntimeError(
-                    f"API error: {response_status} - {response_data['error']}"
+                    f"API error: {response_status} - {response_data['error']}",
                 )
             raise SummAiRuntimeError(
-                f"Unexpected API result: {response_status} - {response_data!r}"
+                f"Unexpected API result: {response_status} - {response_data!r}",
             )
         return True
 

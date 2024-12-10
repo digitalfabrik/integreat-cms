@@ -14,7 +14,7 @@ import sys
 from .settings import *
 
 #: Set a dummy secret key for CircleCI build even if it's not in debug mode
-SECRET_KEY = "dummy"
+SECRET_KEY = "dummy"  # noqa: S105
 #: Set dummy credentials path to test push notifications
 FCM_CREDENTIALS = "dummy"
 #: Enable manually because existing setting derives from the unset env var

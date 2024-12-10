@@ -93,7 +93,7 @@ class PushNotification(AbstractBaseModel):
                  translated into
         """
         return Language.objects.filter(
-            push_notification_translations__push_notification=self
+            push_notification_translations__push_notification=self,
         )
 
     @property
@@ -162,7 +162,7 @@ class PushNotification(AbstractBaseModel):
             return False
 
         retention_time = timezone.now() - timedelta(
-            hours=settings.FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS
+            hours=settings.FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS,
         )
         return timezone.localtime(self.scheduled_send_date) <= retention_time
 

@@ -110,7 +110,8 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
                 )
             else:
                 messages.warning(
-                    request, _("You don't have the permission to edit or create pages.")
+                    request,
+                    _("You don't have the permission to edit or create pages."),
                 )
 
         # Initialize page filter form

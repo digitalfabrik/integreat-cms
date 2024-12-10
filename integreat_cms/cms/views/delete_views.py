@@ -71,7 +71,7 @@ class CustomModelDeleteMixin(
             manytomany_manager = getattr(self.object, self.protect_manytomany)
             if manytomany_manager.exists():
                 raise IntegrityError(
-                    f"The object {self.object!r} cannot be deleted because of the following many to many relationship: {manytomany_manager.all()}"
+                    f"The object {self.object!r} cannot be deleted because of the following many to many relationship: {manytomany_manager.all()}",
                 )
         success_url = self.get_success_url()
         self.object.delete()
@@ -79,7 +79,8 @@ class CustomModelDeleteMixin(
         messages.success(
             request,
             _('{} "{}" was successfully deleted').format(
-                self.object._meta.verbose_name, self.object
+                self.object._meta.verbose_name,
+                self.object,
             ),
         )
         return HttpResponseRedirect(success_url)

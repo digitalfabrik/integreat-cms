@@ -65,7 +65,7 @@ def poi_feedback(
         raise Http404("No matching location found for slug.")
 
     poi_translation = poi.get_translation(language.slug) or poi.get_translation(
-        region.default_language.slug
+        region.default_language.slug,
     )
 
     POIFeedback.objects.create(

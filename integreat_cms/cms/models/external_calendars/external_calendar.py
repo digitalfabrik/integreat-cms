@@ -27,7 +27,7 @@ class ExternalCalendar(AbstractBaseModel):
         blank=True,
         default=settings.EXTERNAL_CALENDAR_CATEGORY,
         verbose_name=_(
-            "The category that events need to have to get imported (Leave blank to import all events)"
+            "The category that events need to have to get imported (Leave blank to import all events)",
         ),
     )
     errors = models.CharField(verbose_name=_("import errors"), default="", blank=True)
@@ -69,8 +69,8 @@ class ExternalCalendar(AbstractBaseModel):
         """
         response = requests.get(self.url, timeout=60)
         if response.status_code != 200:
-            raise IOError(
-                f"Failed to load external calendar. Status code: {response.status_code}"
+            raise OSError(
+                f"Failed to load external calendar. Status code: {response.status_code}",
             )
         return icalendar.Calendar.from_ical(response.content)
 

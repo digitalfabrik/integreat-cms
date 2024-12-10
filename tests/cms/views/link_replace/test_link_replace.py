@@ -3,10 +3,12 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import pytest
-from django.contrib.contenttypes.models import ContentType
 
 from integreat_cms.cms.models import PageTranslation, Region
 from integreat_cms.cms.utils.linkcheck_utils import find_target_url_per_content
+
+if TYPE_CHECKING:
+    from django.contrib.contenttypes.models import ContentType
 
 REGION: str = "nurnberg"
 
@@ -46,7 +48,10 @@ def test_find_target_url_per_content_invalid_links(
 
     # "d" is something many of our links can contain thanks to ".de" or language slug "de"
     result = find_target_url_per_content(
-        "d", "d", Region.objects.filter(slug=REGION).first(), link_types
+        "d",
+        "d",
+        Region.objects.filter(slug=REGION).first(),
+        link_types,
     )
 
     content_type, content_id = target_content_detail

@@ -38,7 +38,7 @@ class PasswordlessAuthenticationForm(forms.Form):
             _("Please use the default login."),
         ),
         "not_available": _(
-            "In order to use passwordless authentication, you have to configure at least one 2-factor authentication method."
+            "In order to use passwordless authentication, you have to configure at least one 2-factor authentication method.",
         ),
     }
 
@@ -60,7 +60,7 @@ class PasswordlessAuthenticationForm(forms.Form):
 
         # Set the max length and label for the "username" field.
         self.username_field = get_user_model()._meta.get_field(
-            get_user_model().USERNAME_FIELD
+            get_user_model().USERNAME_FIELD,
         )
         username_max_length = self.username_field.max_length or 254
         self.fields["username"].max_length = username_max_length

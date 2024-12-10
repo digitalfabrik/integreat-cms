@@ -20,28 +20,32 @@ class Migration(migrations.Migration):
             model_name="eventtranslation",
             name="last_updated",
             field=models.DateTimeField(
-                default=django.utils.timezone.now, verbose_name="modification date"
+                default=django.utils.timezone.now,
+                verbose_name="modification date",
             ),
         ),
         migrations.AlterField(
             model_name="imprintpagetranslation",
             name="last_updated",
             field=models.DateTimeField(
-                default=django.utils.timezone.now, verbose_name="modification date"
+                default=django.utils.timezone.now,
+                verbose_name="modification date",
             ),
         ),
         migrations.AlterField(
             model_name="pagetranslation",
             name="last_updated",
             field=models.DateTimeField(
-                default=django.utils.timezone.now, verbose_name="modification date"
+                default=django.utils.timezone.now,
+                verbose_name="modification date",
             ),
         ),
         migrations.AlterField(
             model_name="poitranslation",
             name="last_updated",
             field=models.DateTimeField(
-                default=django.utils.timezone.now, verbose_name="modification date"
+                default=django.utils.timezone.now,
+                verbose_name="modification date",
             ),
         ),
     ]

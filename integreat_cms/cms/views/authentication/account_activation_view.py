@@ -64,7 +64,7 @@ class AccountActivationView(auth_views.PasswordResetConfirmView):
                 _("This account activation link is invalid."),
                 _("It may have already been used."),
                 _(
-                    "Please contact an administrator to request a new link to activate your account."
+                    "Please contact an administrator to request a new link to activate your account.",
                 ),
             ),
         )

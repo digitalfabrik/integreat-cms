@@ -84,21 +84,24 @@ OBSERVER_PERMISSIONS: Final[list[str]] = [
 ]
 
 #: The permissions of the author role
-AUTHOR_PERMISSIONS: Final[list[str]] = EVENT_MANAGER_PERMISSIONS + [
+AUTHOR_PERMISSIONS: Final[list[str]] = [
+    *EVENT_MANAGER_PERMISSIONS,
     "change_page",
     "view_page",
 ]
 
 
 #: The permissions of the editor role
-EDITOR_PERMISSIONS: Final[list[str]] = AUTHOR_PERMISSIONS + [
+EDITOR_PERMISSIONS: Final[list[str]] = [
+    *AUTHOR_PERMISSIONS,
     "publish_page",
     "view_translation_report",
     "view_broken_links",
 ]
 
 #: The permissions of the management role
-MANAGEMENT_PERMISSIONS: Final[list[str]] = EDITOR_PERMISSIONS + [
+MANAGEMENT_PERMISSIONS: Final[list[str]] = [
+    *EDITOR_PERMISSIONS,
     "change_feedback",
     "change_imprintpage",
     "change_organization",
@@ -144,7 +147,8 @@ MARKETING_TEAM_PERMISSIONS: Final[list[str]] = [
 ]
 
 #: The permissions of the app team
-APP_TEAM_PERMISSIONS: Final[list[str]] = MARKETING_TEAM_PERMISSIONS + [
+APP_TEAM_PERMISSIONS: Final[list[str]] = [
+    *MARKETING_TEAM_PERMISSIONS,
     "add_directory",
     "change_directory",
     "change_event",
@@ -164,7 +168,8 @@ APP_TEAM_PERMISSIONS: Final[list[str]] = MARKETING_TEAM_PERMISSIONS + [
 ]
 
 #: The permissions of the service team
-SERVICE_TEAM_PERMISSIONS: Final[list[str]] = APP_TEAM_PERMISSIONS + [
+SERVICE_TEAM_PERMISSIONS: Final[list[str]] = [
+    *APP_TEAM_PERMISSIONS,
     "change_externalcalendar",
     "change_language",
     "change_languagetreenode",

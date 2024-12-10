@@ -15,12 +15,14 @@ import inspect
 import os
 import sys
 from datetime import date
-from typing import Final
+from typing import Final, TYPE_CHECKING
 
-from django import VERSION as django_version_tuple
-from sphinx.application import Sphinx
+from django import VERSION as DJANGO_VERSION_TUPLE
 
 from integreat_cms.core import settings
+
+if TYPE_CHECKING:
+    from sphinx.application import Sphinx
 
 # Append project source directory to path environment variable
 sys.path.append(os.path.abspath("../.."))
@@ -29,7 +31,7 @@ sys.path.append(os.path.abspath("."))
 #: The path to the django settings module (see :doc:`sphinxcontrib-django:readme`)
 django_settings: Final[str] = "integreat_cms.core.sphinx_settings"
 #: The "major.minor" version of Django
-django_version: Final[str] = f"{django_version_tuple[0]}.{django_version_tuple[1]}"
+django_version: Final[str] = f"{DJANGO_VERSION_TUPLE[0]}.{DJANGO_VERSION_TUPLE[1]}"
 
 # -- Project information -----------------------------------------------------
 

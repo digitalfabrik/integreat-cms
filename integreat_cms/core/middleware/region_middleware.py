@@ -52,7 +52,8 @@ class RegionMiddleware:
         request.region = self.get_current_region(request)
         request.available_regions = self.get_available_regions(request, user_regions)
         request.quick_access_regions = self.get_quick_access_regions(
-            request, user_regions
+            request,
+            user_regions,
         )
         return self.get_response(request)
 
@@ -91,7 +92,8 @@ class RegionMiddleware:
 
     @staticmethod
     def get_quick_access_regions(
-        request: HttpRequest, user_regions: QuerySet
+        request: HttpRequest,
+        user_regions: QuerySet,
     ) -> list[Region]:
         """
         This method returns the regions that are available for quick access in this request.
@@ -109,7 +111,7 @@ class RegionMiddleware:
             user_regions
             if (request.user.is_superuser or request.user.is_staff)
             and len(user_regions) > 0
-            else request.available_regions
+            else request.available_regions,
         )
         if request.region in quick_access_regions:
             quick_access_regions.remove(request.region)

@@ -46,8 +46,8 @@ class ActiveLanguageLinklist(Linklist):
                         region=OuterRef(f"{objects.model.foreign_field()}__region"),
                         language=OuterRef("language"),
                         active=True,
-                    )
-                )
+                    ),
+                ),
             ).filter(active=True)
 
         return objects
@@ -103,11 +103,9 @@ class NonArchivedLinkList(ActiveLanguageLinklist):
         # Apply filter of parent class
         objects = super().filter_callable(objects)
         # Exclude archived events/locations
-        objects = objects.filter(
-            **{f"{objects.model.foreign_field()}__archived": False}
+        return objects.filter(
+            **{f"{objects.model.foreign_field()}__archived": False},
         ).distinct(f"{objects.model.foreign_field()}__pk", "language__pk")
-
-        return objects
 
 
 class EventTranslationLinklist(NonArchivedLinkList):
@@ -129,9 +127,7 @@ class EventTranslationLinklist(NonArchivedLinkList):
         objects = super().filter_callable(objects)
         # Exclude past events
         upcoming_events = Event.objects.filter_upcoming()
-        objects = objects.filter(event__in=upcoming_events)
-
-        return objects
+        return objects.filter(event__in=upcoming_events)
 
 
 class POITranslationLinklist(NonArchivedLinkList):

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import Iterable
+from typing import TYPE_CHECKING
 
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
@@ -12,6 +12,9 @@ from django.utils.translation import gettext_lazy as _
 from linkcheck.models import Link
 
 from .abstract_base_page_translation import AbstractBasePageTranslation
+
+if TYPE_CHECKING:
+    from collections.abc import Iterable
 
 logger = logging.getLogger(__name__)
 

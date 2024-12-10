@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import pytest
-from pytest_httpserver import HTTPServer
 
 from integreat_cms.cms.models import (
     EventTranslation,
@@ -11,6 +12,9 @@ from integreat_cms.cms.models import (
 )
 
 from ..utils import get_command_output
+
+if TYPE_CHECKING:
+    from pytest_httpserver import HTTPServer
 
 CALENDAR_V1_EVENT_NAME = "Testevent"
 CALENDAR_V1 = "tests/core/management/commands/assets/calendars/single_event.ics"
@@ -76,7 +80,7 @@ def serve(server: HTTPServer, file: str) -> str:
     :param file: The file to serve
     :return: The url of the served file
     """
-    with open(file, "r", encoding="utf-8") as f:
+    with open(file, encoding="utf-8") as f:
         server.expect_oneshot_request("/get_calendar").respond_with_data(f.read())
     return server.url_for("/get_calendar")
 
@@ -89,7 +93,10 @@ def setup_calendar(url: str) -> ExternalCalendar:
     """
     region = Region.objects.get(slug="testumgebung")
     calendar = ExternalCalendar.objects.create(
-        region=region, url=url, name="Test Calendar", import_filter_category=""
+        region=region,
+        url=url,
+        name="Test Calendar",
+        import_filter_category="",
     )
     calendar.save()
     return calendar
@@ -122,7 +129,8 @@ def test_import_successful(
     calendar = setup_calendar(calendar_url)
 
     assert not EventTranslation.objects.filter(
-        event__region=calendar.region, title__in=event_names
+        event__region=calendar.region,
+        title__in=event_names,
     ).exists(), "Event should not exist before import"
 
     for rule in RecurrenceRule.objects.all():
@@ -135,7 +143,8 @@ def test_import_successful(
 
     assert all(
         EventTranslation.objects.filter(
-            event__region=calendar.region, title=title
+            event__region=calendar.region,
+            title=title,
         ).exists()
         for title in event_names
     ), "Events should exist after import"
@@ -161,7 +170,8 @@ def test_update_event(httpserver: HTTPServer, load_test_data: None) -> None:
     assert "Imported event" in out
 
     event_translation = EventTranslation.objects.filter(
-        event__region=calendar.region, title=CALENDAR_V1_EVENT_NAME
+        event__region=calendar.region,
+        title=CALENDAR_V1_EVENT_NAME,
     ).first()
     assert event_translation is not None, "Event should exist after import"
 
@@ -189,7 +199,8 @@ def test_delete_event(httpserver: HTTPServer, load_test_data: None) -> None:
     assert not err
 
     event_translation = EventTranslation.objects.filter(
-        event__region=calendar.region, title=CALENDAR_V1_EVENT_NAME
+        event__region=calendar.region,
+        title=CALENDAR_V1_EVENT_NAME,
     ).first()
     assert event_translation is not None, "Event should exist after import"
 
@@ -199,7 +210,7 @@ def test_delete_event(httpserver: HTTPServer, load_test_data: None) -> None:
     assert "Deleting 1 unused events: " in out
 
     assert not EventTranslation.objects.filter(
-        slug=event_translation.slug
+        slug=event_translation.slug,
     ).exists(), "Event should be deleted"
 
 
@@ -219,7 +230,8 @@ def test_import_corrupted_event(httpserver: HTTPServer, load_test_data: None) ->
 
 @pytest.mark.django_db
 def test_import_event_without_tags(
-    httpserver: HTTPServer, load_test_data: None
+    httpserver: HTTPServer,
+    load_test_data: None,
 ) -> None:
     """
     Tests that an event does not get imported if it does not have tags, but tags are required
@@ -239,7 +251,8 @@ def test_import_event_without_tags(
 
 @pytest.mark.django_db
 def test_import_event_with_wrong_tag(
-    httpserver: HTTPServer, load_test_data: None
+    httpserver: HTTPServer,
+    load_test_data: None,
 ) -> None:
     """
     Tests that an event does not get imported if it does not have the right tag
@@ -262,7 +275,8 @@ def test_import_event_with_wrong_tag(
 
 @pytest.mark.django_db
 def test_import_event_with_correct_tag(
-    httpserver: HTTPServer, load_test_data: None
+    httpserver: HTTPServer,
+    load_test_data: None,
 ) -> None:
     """
     Tests that an event gets imported if it has the right tag
@@ -276,7 +290,8 @@ def test_import_event_with_correct_tag(
     calendar.save()
 
     assert not EventTranslation.objects.filter(
-        event__region=calendar.region, title=CALENDAR_WRONG_CATEGORY_EVENT_NAME
+        event__region=calendar.region,
+        title=CALENDAR_WRONG_CATEGORY_EVENT_NAME,
     ).exists(), "Event should not exist before import"
 
     out, err = get_command_output("import_events")
@@ -284,13 +299,15 @@ def test_import_event_with_correct_tag(
     assert "Imported event" in out
 
     assert EventTranslation.objects.filter(
-        event__region=calendar.region, title=CALENDAR_WRONG_CATEGORY_EVENT_NAME
+        event__region=calendar.region,
+        title=CALENDAR_WRONG_CATEGORY_EVENT_NAME,
     ).exists(), "Event should exist after import"
 
 
 @pytest.mark.django_db
 def test_import_event_with_multiple_categories(
-    httpserver: HTTPServer, load_test_data: None
+    httpserver: HTTPServer,
+    load_test_data: None,
 ) -> None:
     """
     Tests that an event does not get imported if it has multiple category definitions
@@ -308,7 +325,8 @@ def test_import_event_with_multiple_categories(
 
 @pytest.mark.django_db
 def test_import_and_remove_recurrence_rule(
-    httpserver: HTTPServer, load_test_data: None
+    httpserver: HTTPServer,
+    load_test_data: None,
 ) -> None:
     """
     Imports an event with a recurrence rule and later the same event without recurrence rule.
@@ -323,7 +341,7 @@ def test_import_and_remove_recurrence_rule(
     assert not err
 
     assert RecurrenceRule.objects.filter(
-        event__external_calendar=calendar
+        event__external_calendar=calendar,
     ).exists(), "The recurrence rule should exist after import"
     event = calendar.events.first()
     assert event, "Event should have been created"
@@ -334,7 +352,7 @@ def test_import_and_remove_recurrence_rule(
     assert not err
 
     assert not RecurrenceRule.objects.filter(
-        event__external_calendar=calendar
+        event__external_calendar=calendar,
     ).exists(), "The recurrence rule should not exist anymore after update"
     new_event = calendar.events.first()
     assert event.id == new_event.id, "The event should still exist"

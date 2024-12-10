@@ -86,7 +86,7 @@ class POICategoryMixin(
         # If the formset is bound to a POICategory instance, only pass languages which do not yet have a translation
         if self.object:
             languages = languages.exclude(
-                id__in=self.object.translations.values_list("language__id", flat=True)
+                id__in=self.object.translations.values_list("language__id", flat=True),
             )
         # Get te formset class
         POICategoryTranslationFormSet = poi_category_translation_formset_factory()
@@ -111,7 +111,10 @@ class POICategoryMixin(
         return context
 
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Check whether the formset is valid and delegate to the respective function
@@ -191,7 +194,8 @@ class POICategoryCreateView(POICategoryMixin, CreateView):
         messages.success(
             self.request,
             _('{} "{}" was successfully created').format(
-                self.object._meta.verbose_name, self.object
+                self.object._meta.verbose_name,
+                self.object,
             ),
         )
         return super().form_valid(form)
@@ -207,7 +211,10 @@ class POICategoryUpdateView(POICategoryMixin, UpdateView):
     """
 
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Get the current :class:`~integreat_cms.cms.models.poi_categories.poi_category.POICategory`
@@ -243,7 +250,8 @@ class POICategoryUpdateView(POICategoryMixin, UpdateView):
             messages.success(
                 self.request,
                 _('{} "{}" was successfully saved').format(
-                    self.object._meta.verbose_name, self.object
+                    self.object._meta.verbose_name,
+                    self.object,
                 ),
             )
         return super().form_valid(form)
@@ -259,7 +267,10 @@ class POICategoryDeleteView(CustomDeleteView):
     model = POICategory
 
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Attempt to delete the :class:`~integreat_cms.cms.models.poi_categories.poi_category.POICategory`
@@ -277,7 +288,7 @@ class POICategoryDeleteView(CustomDeleteView):
             messages.error(
                 request,
                 _(
-                    "You cannot delete a location category that is used in at least one location."
+                    "You cannot delete a location category that is used in at least one location.",
                 ),
             )
             return HttpResponseRedirect(reverse("poicategories"))

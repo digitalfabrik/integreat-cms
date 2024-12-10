@@ -71,7 +71,7 @@ class AccessControlMiddleware:
                     repr(request.region) if request.region else "the staff area"
                 )
                 raise PermissionDenied(
-                    f"{request.user!r} does not have the permission to access {requested_area}"
+                    f"{request.user!r} does not have the permission to access {requested_area}",
                 )
         # Continue with the request
         return self.get_response(request)

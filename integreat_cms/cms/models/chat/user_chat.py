@@ -103,7 +103,7 @@ class UserChat(AbstractBaseModel):
         timestamps = self.most_recent_hits.split(",") if self.most_recent_hits else []
         while len(timestamps) > settings.USER_CHAT_WINDOW_LIMIT:
             timestamps.pop(0)
-        self.most_recent_hits = ",".join(timestamps + [str(int(time.time()))])
+        self.most_recent_hits = ",".join([*timestamps, str(int(time.time()))])
         self.save()
 
     def ratelimit_exceeded(self) -> bool:

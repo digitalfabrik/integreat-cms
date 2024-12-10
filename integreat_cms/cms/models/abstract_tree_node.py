@@ -45,7 +45,7 @@ class AbstractTreeNodeManager(NS_NodeManager):
             "last-sibling",
         )
         arguments = list(args) + [
-            f"{k}={repr(v)}" for k, v in kwargs.items() if k not in mptt_props
+            f"{k}={v!r}" for k, v in kwargs.items() if k not in mptt_props
         ]
 
         BOLD = "\033[1m"
@@ -54,14 +54,14 @@ class AbstractTreeNodeManager(NS_NodeManager):
         def b(string):  # type: ignore[no-untyped-def]
             return f"{BOLD}{string}{RESET}"
 
-        print(
+        print(  # noqa: T201
             f"""
 #### {BOLD}Don't use {obj.__class__.__name__}.objects.create().{RESET} To avoid collisions from manually setting {b('lft')}, {b('rgt')}, {b('tree_id')} and {b('depth')} please use one of the following:
      {obj.__class__.__name__}{b('.add_root(')}{', '.join(arguments)})
      some_parent_node{b('.add_child(')}{', '.join(arguments)})
      some_sibling_node{BOLD}.add_sibling(pos={' | '.join([repr(p) for p in positions])},{RESET}  {', '.join(arguments)})
      More details at https://django-treebeard.readthedocs.io/en/latest/api.html#treebeard.models.Node.add_root
-        """
+        """,
         )
         return obj
 
@@ -260,7 +260,7 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         :return: This node including its descendants with relative max depth
         """
         return self.__class__.get_tree(parent=self).filter(
-            depth__lte=self.depth + max_depth
+            depth__lte=self.depth + max_depth,
         )
 
     def move(self, target: AbstractTreeNode, pos: str | None = None) -> None:
@@ -292,8 +292,8 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
                 ):
                     raise InvalidPosition(
                         _(
-                            'The node "{}" in region "{}" cannot be moved to "{}".'
-                        ).format(self, self.region, target.region)
+                            'The node "{}" in region "{}" cannot be moved to "{}".',
+                        ).format(self, self.region, target.region),
                     )
                 # Moving a node can modify all other nodes via raw sql queries (which are not recognized by cachalot),
                 # so we have to invalidate the whole model manually.
@@ -301,11 +301,11 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
                 super().move(target, pos)
         except DBMutexError as e:
             raise DBMutexError(
-                _('Could not change position in tree of "{}".').format(self)
+                _('Could not change position in tree of "{}".').format(self),
             ) from e
         except DBMutexTimeoutError as e:
             raise DBMutexTimeoutError(
-                _('Could not change position in tree of "{}".').format(self)
+                _('Could not change position in tree of "{}".').format(self),
             ) from e
         invalidate_model(self.__class__)
 
@@ -363,6 +363,7 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
                 deferrable=Deferrable.DEFERRED,
             ),
             CheckConstraint(
-                check=Q(lft__lt=F("rgt")), name="%(class)s_check_rgt_greater_lft"
+                check=Q(lft__lt=F("rgt")),
+                name="%(class)s_check_rgt_greater_lft",
             ),
         ]

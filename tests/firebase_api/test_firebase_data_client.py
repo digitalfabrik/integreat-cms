@@ -250,7 +250,7 @@ class TestFirebaseDataClient:
                 "analyticsLabel": "berlin-en",
                 "data": {},
             },
-        ]
+        ],
     }
 
     unlabeled_response_mock_data = {
@@ -305,7 +305,7 @@ class TestFirebaseDataClient:
                 "date": {"year": 2024, "month": 6, "day": 29},
                 "data": {},
             },
-        ]
+        ],
     }
 
     @pytest.mark.django_db

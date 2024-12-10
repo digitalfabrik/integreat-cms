@@ -42,14 +42,17 @@ class UserSettingsView(TemplateView):
                 "user_email_form": UserEmailForm(instance=self.request.user),
                 "user_password_form": UserPasswordForm(instance=self.request.user),
                 "user_preferences_form": UserPreferencesForm(
-                    instance=self.request.user
+                    instance=self.request.user,
                 ),
-            }
+            },
         )
         return context
 
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Submit :class:`~integreat_cms.cms.forms.users.user_email_form.UserEmailForm` and
@@ -105,7 +108,8 @@ class UserSettingsView(TemplateView):
 
         elif request.POST.get("submit_form") == "preferences_form":
             user_preferences_form = UserPreferencesForm(
-                data=request.POST, instance=user
+                data=request.POST,
+                instance=user,
             )
             if not user_preferences_form.is_valid():
                 user_preferences_form.add_error_messages(request)

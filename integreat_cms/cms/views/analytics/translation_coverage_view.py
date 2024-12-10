@@ -64,7 +64,7 @@ class TranslationCoverageView(TemplateView):
                 lambda page: page.get_translation_state(region.default_language.slug)
                 == UP_TO_DATE,
                 pages,
-            )
+            ),
         )
         # Iterate over all active languages of the current region
         for language in region.active_languages:
@@ -85,11 +85,11 @@ class TranslationCoverageView(TemplateView):
                     source_language = region.get_source_language(language.slug)
                     # If the source translation does not exist, fall back to the default translation
                     translation = page.get_translation(
-                        source_language.slug
+                        source_language.slug,
                     ) or page.get_translation(region.default_language.slug)
                     # Provide a rough estimation of the word count
                     word_count[language][translation_state] += len(
-                        translation.content.split()
+                        translation.content.split(),
                     )
         logger.debug("Translation status count: %r", translation_count)
         logger.debug("Word count: %r", word_count)
@@ -114,7 +114,7 @@ class TranslationCoverageView(TemplateView):
                 "word_count": word_count,
                 "total_outdated_words": sum(c[OUTDATED] for c in word_count.values()),
                 "total_missing_words": sum(c[MISSING] for c in word_count.values()),
-            }
+            },
         )
         context.update(self.get_hix_context())
         return context
@@ -134,7 +134,7 @@ class TranslationCoverageView(TemplateView):
         )
 
         translations_under_hix_threshold = get_translation_under_hix_threshold(
-            self.request.region
+            self.request.region,
         ).count()
 
         total_count = get_translations_relevant_to_hix(self.request.region).count()

@@ -43,7 +43,7 @@ class TestMediaFile:
                 start=timezone.now() - timedelta(days=2),
                 end=timezone.now() - timedelta(days=1),
                 region=region,
-            )
+            ),
         )
 
         assert file.past_event_usages.count() == 1
@@ -69,7 +69,7 @@ class TestMediaFile:
                 start=timezone.now() - timedelta(days=2),
                 end=timezone.now() - timedelta(days=1),
                 region=region,
-            )
+            ),
         )
 
         assert file.is_only_used_in_past_events
@@ -95,7 +95,7 @@ class TestMediaFile:
                 start=timezone.now() - timedelta(days=2),
                 end=timezone.now() - timedelta(days=1),
                 region=region,
-            )
+            ),
         )
 
         # Upcoming event
@@ -104,7 +104,7 @@ class TestMediaFile:
                 start=timezone.now() + timedelta(days=2),
                 end=timezone.now() + timedelta(days=1),
                 region=region,
-            )
+            ),
         )
 
         assert not file.is_deletable
@@ -130,7 +130,7 @@ class TestMediaFile:
                 start=timezone.now() - timedelta(days=2),
                 end=timezone.now() - timedelta(days=1),
                 region=region,
-            )
+            ),
         )
 
         assert file.is_deletable
@@ -156,7 +156,7 @@ class TestMediaFile:
                 start=timezone.now() - timedelta(days=2),
                 end=timezone.now() - timedelta(days=1),
                 region=region,
-            )
+            ),
         )
 
         # Organization Icon
@@ -278,7 +278,7 @@ class TestMediaFile:
 
         find_all_links()
 
-        file.is_deletable
+        assert file.is_deletable
 
     @pytest.mark.django_db
     def test_is_deletable_when_used_in_translation_of_event_which_rrule_ended(

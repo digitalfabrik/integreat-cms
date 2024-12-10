@@ -6,10 +6,8 @@ from __future__ import annotations
 
 import dataclasses
 import datetime
-import logging
-from typing import Any, Self
+from typing import Any, Self, TYPE_CHECKING
 
-import icalendar.cal
 from django.utils.translation import gettext as _
 from icalendar.prop import (
     vCategory,
@@ -26,6 +24,11 @@ from integreat_cms.cms.constants.weeks import RRULE_WEEK_TO_WEEK
 from integreat_cms.cms.forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from integreat_cms.cms.models import EventTranslation, ExternalCalendar, RecurrenceRule
 from integreat_cms.cms.utils.content_utils import clean_content
+
+if TYPE_CHECKING:
+    import logging
+
+    import icalendar.cal
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True)
@@ -112,7 +115,8 @@ class IcalEventData:
         recurrence_rule = None
         if "RRULE" in event:
             recurrence_rule = RecurrenceRuleData.from_ical_rrule(
-                event.decoded("RRULE"), logger
+                event.decoded("RRULE"),
+                logger,
             )
 
         return cls(
@@ -212,7 +216,7 @@ class RecurrenceRuleData:
 
         if len(recurrence_rule) > 0:
             raise ValueError(
-                f"Recurrence rule contained unsupported attribute(s): {list(recurrence_rule.keys())}"
+                f"Recurrence rule contained unsupported attribute(s): {list(recurrence_rule.keys())}",
             )
 
         return cls(
@@ -307,7 +311,9 @@ def import_events(calendar: ExternalCalendar, logger: logging.Logger) -> None:
 
 
 def _import_events(
-    calendar: ExternalCalendar, errors: list[str], logger: logging.Logger
+    calendar: ExternalCalendar,
+    errors: list[str],
+    logger: logging.Logger,
 ) -> None:
     """
     Imports events from this calendar and sets or clears the errors field of the calendar
@@ -317,14 +323,14 @@ def _import_events(
     """
     try:
         ical = calendar.load_ical()
-    except IOError as e:
-        logger.error("Could not import events from %s: %s", calendar, e)
+    except OSError:
+        logger.exception("Could not import events from %s", calendar)
         errors.append(_("Could not access the url of this external calendar"))
         return
-    except ValueError as e:
-        logger.error("Malformed calendar %s: %s", calendar, e)
+    except ValueError:
+        logger.exception("Malformed calendar %s", calendar)
         errors.append(
-            _("The data provided by the url of this external calendar is invalid")
+            _("The data provided by the url of this external calendar is invalid"),
         )
         return
 
@@ -334,21 +340,22 @@ def _import_events(
             if (event_uid := import_event(calendar, event, errors, logger)) is not None:
                 calendar_events.add(event_uid)
         except KeyError as e:
-            logger.error(
-                "Could not import event because it does not have a required field: %s, missing field: %r",
+            logger.exception(
+                "Could not import event because it does not have a required field: %s, missing field",
                 event,
-                e,
             )
             errors.append(
                 _(
-                    "Could not import event because it is missing a required field: {}"
-                ).format(e)
+                    "Could not import event because it is missing a required field: {}",
+                ).format(e),
             )
             continue
 
     events_to_delete = calendar.events.exclude(external_event_id__in=calendar_events)
     logger.info(
-        "Deleting %s unused events: %r", events_to_delete.count(), events_to_delete
+        "Deleting %s unused events: %r",
+        events_to_delete.count(),
+        events_to_delete,
     )
     events_to_delete.delete()
 
@@ -374,10 +381,13 @@ def import_event(
 
     try:
         event_data = IcalEventData.from_ical_event(
-            event, language.slug, calendar.pk, logger
+            event,
+            language.slug,
+            calendar.pk,
+            logger,
         )
     except ValueError as e:
-        logger.error("Could not import event: %r due to error: %s", event, e)
+        logger.exception("Could not import event: %r due to error", event)
         errors.append(_("Could not import '{}': {}").format(event.get("SUMMARY"), e))
         try:
             return event.decoded("UID").decode("utf-8")
@@ -419,18 +429,19 @@ def import_event(
     if not event_form.is_valid():
         logger.error("Could not import event: %r", event_form.errors)
         errors.append(
-            _("Could not import '{}': {}").format(event_data.title, event_form.errors)
+            _("Could not import '{}': {}").format(event_data.title, event_form.errors),
         )
         return event_data.event_id
 
     try:
         recurrence_rule_form_data = event_data.to_recurrence_rule_form_data()
     except ValueError as e:
-        logger.error("Could not import event due to unsupported recurrence rule: %r", e)
+        logger.exception("Could not import event due to unsupported recurrence rule")
         errors.append(
             _("Could not import '{}': Unsupported recurrence rule").format(
-                event_data.title, e
-            )
+                event_data.title,
+                e,
+            ),
         )
         return event_data.event_id
     recurrence_rule_form = RecurrenceRuleForm(
@@ -440,12 +451,14 @@ def import_event(
     )
     if recurrence_rule_form_data and not recurrence_rule_form.is_valid():
         logger.error(
-            "Could not import recurrence rule: %r", recurrence_rule_form.errors
+            "Could not import recurrence rule: %r",
+            recurrence_rule_form.errors,
         )
         errors.append(
             _("Could not import '{}': {}").format(
-                event_data.title, recurrence_rule_form.errors
-            )
+                event_data.title,
+                recurrence_rule_form.errors,
+            ),
         )
         return event_data.event_id
 
@@ -469,8 +482,9 @@ def import_event(
         logger.error("Could not import event: %r", event_translation_form.errors)
         errors.append(
             _("Could not import '{}': {}").format(
-                event_data.title, event_translation_form.errors
-            )
+                event_data.title,
+                event_translation_form.errors,
+            ),
         )
         return event_data.event_id
 
@@ -483,7 +497,10 @@ def import_event(
     ):
         event_translation = event_translation_form.save()
         logger.success(
-            "Imported event %r, %r, %r", event, event_translation, event.recurrence_rule
+            "Imported event %r, %r, %r",
+            event,
+            event_translation,
+            event.recurrence_rule,
         )  # type: ignore[attr-defined]
     else:
         logger.info("Event %r has not changed", event_translation_form.instance)

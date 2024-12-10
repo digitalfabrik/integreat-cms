@@ -14,7 +14,7 @@ from integreat_cms.cms.models import PageTranslation
 from integreat_cms.core.signals.hix_signals import page_translation_save_handler
 
 if TYPE_CHECKING:
-    from typing import Generator
+    from collections.abc import Generator
 
     from _pytest.logging import LogCaptureFixture
 

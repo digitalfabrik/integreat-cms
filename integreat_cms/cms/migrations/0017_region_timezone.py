@@ -19,7 +19,9 @@ class Migration(migrations.Migration):
             model_name="region",
             name="timezone",
             field=models.CharField(
-                default="Europe/Berlin", max_length=150, verbose_name="timezone"
+                default="Europe/Berlin",
+                max_length=150,
+                verbose_name="timezone",
             ),
         ),
     ]

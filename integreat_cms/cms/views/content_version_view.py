@@ -187,7 +187,8 @@ class ContentVersionView(PermissionRequiredMixin, SingleObjectMixin, TemplateVie
         context = super().get_context_data(**kwargs)
 
         api_version = next(
-            (t for t in self.translations if t.status == status.PUBLIC), None
+            (t for t in self.translations if t.status == status.PUBLIC),
+            None,
         )
 
         try:
@@ -206,20 +207,23 @@ class ContentVersionView(PermissionRequiredMixin, SingleObjectMixin, TemplateVie
                 "back_to_form_label": self.back_to_form_label,
                 "slug_label": slug_label,
                 "title_label": self.selected_version._meta.get_field(
-                    "title"
+                    "title",
                 ).verbose_name,
                 "content_label": self.selected_version._meta.get_field(
-                    "content"
+                    "content",
                 ).verbose_name,
                 "can_edit": self.has_change_permission(),
                 "can_publish": self.has_publish_permission(),
-            }
+            },
         )
 
         return context
 
     def dispatch(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect | TemplateResponse:
         r"""
         Validate the versions view
@@ -236,7 +240,8 @@ class ContentVersionView(PermissionRequiredMixin, SingleObjectMixin, TemplateVie
             assert self.object
 
         self.language = self.request.region.get_language_or_404(
-            kwargs.get("language_slug"), only_active=True
+            kwargs.get("language_slug"),
+            only_active=True,
         )
 
         self.translations = self.object.translations.filter(language=self.language)
@@ -263,7 +268,10 @@ class ContentVersionView(PermissionRequiredMixin, SingleObjectMixin, TemplateVie
         return super().dispatch(request, *args, **kwargs)
 
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Restore a previous revision of a page translation
@@ -285,7 +293,7 @@ class ContentVersionView(PermissionRequiredMixin, SingleObjectMixin, TemplateVie
             messages.info(
                 request,
                 _(
-                    "%s %s can not change its status as it was imported from an external calendar"
+                    "%s %s can not change its status as it was imported from an external calendar",
                 )
                 % (
                     self.model_name,
@@ -311,7 +319,7 @@ class ContentVersionView(PermissionRequiredMixin, SingleObjectMixin, TemplateVie
                 return redirect(self.versions_url)
             if desired_status not in dict(status.CHOICES):
                 raise PermissionDenied(
-                    f"{request.user!r} tried to restore {restored_version!r} of {self.object!r} with invalid status {desired_status!r}"
+                    f"{request.user!r} tried to restore {restored_version!r} of {self.object!r} with invalid status {desired_status!r}",
                 )
         else:
             # If the current version should be rejected, return to the latest version that is neither an auto save nor in review
@@ -351,7 +359,7 @@ class ContentVersionView(PermissionRequiredMixin, SingleObjectMixin, TemplateVie
                 messages.error(
                     request,
                     _(
-                        "This version is identical to the current version of this translation."
+                        "This version is identical to the current version of this translation.",
                     ),
                 )
                 return redirect(self.versions_url)

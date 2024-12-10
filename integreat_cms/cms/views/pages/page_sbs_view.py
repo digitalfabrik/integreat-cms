@@ -30,7 +30,10 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
 class PageSideBySideView(
-    TemplateView, PageContextMixin, MediaContextMixin, ContentEditLockMixin
+    TemplateView,
+    PageContextMixin,
+    MediaContextMixin,
+    ContentEditLockMixin,
 ):
     """
     View for the page side by side form
@@ -42,7 +45,10 @@ class PageSideBySideView(
     back_url_name: str | None = "pages"
 
     def get(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponse | HttpResponseRedirect:
         r"""
         Render :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm` on the side by side view
@@ -58,14 +64,14 @@ class PageSideBySideView(
 
         target_language = Language.objects.get(slug=kwargs.get("language_slug"))
         if source_language_node := region.language_tree_nodes.get(
-            language=target_language
+            language=target_language,
         ).parent:
             source_language = source_language_node.language
         else:
             messages.error(
                 request,
                 _(
-                    "You cannot use the side-by-side-view for the region's default language (in this case {default_language})."
+                    "You cannot use the side-by-side-view for the region's default language (in this case {default_language}).",
                 ).format(default_language=target_language.translated_name),
             )
             return redirect(
@@ -84,7 +90,7 @@ class PageSideBySideView(
             messages.error(
                 request,
                 _(
-                    "You cannot use the side-by-side-view if the source translation (in this case {source_language}) does not exist."
+                    "You cannot use the side-by-side-view if the source translation (in this case {source_language}) does not exist.",
                 ).format(source_language=source_language.translated_name),
             )
             return redirect(
@@ -111,7 +117,9 @@ class PageSideBySideView(
         )
 
         old_translation_content = get_old_source_content(
-            page, source_language, target_language
+            page,
+            source_language,
+            target_language,
         )
 
         return render(
@@ -144,23 +152,23 @@ class PageSideBySideView(
 
         if not request.user.has_perm("cms.change_page_object", page):
             raise PermissionDenied(
-                f"{request.user!r} does not have the permission to edit {page!r}"
+                f"{request.user!r} does not have the permission to edit {page!r}",
             )
 
         target_language = Language.objects.get(slug=kwargs.get("language_slug"))
         source_language_node = region.language_tree_nodes.get(
-            language=target_language
+            language=target_language,
         ).parent
 
         if source_language_node:
             source_page_translation = page.get_translation(
-                source_language_node.language.slug
+                source_language_node.language.slug,
             )
         else:
             messages.error(
                 request,
                 _(
-                    "You cannot use the side-by-side-view for the region's default language (in this case {default_language})."
+                    "You cannot use the side-by-side-view for the region's default language (in this case {default_language}).",
                 ).format(default_language=target_language.translated_name),
             )
             return redirect(
@@ -178,7 +186,7 @@ class PageSideBySideView(
             messages.error(
                 request,
                 _(
-                    "You cannot use the side-by-side-view if the source translation (in this case {source_language}) does not exist."
+                    "You cannot use the side-by-side-view if the source translation (in this case {source_language}) does not exist.",
                 ).format(source_language=source_language_node.language.translated_name),
             )
             return redirect(
@@ -213,7 +221,7 @@ class PageSideBySideView(
         ):
             # Raise PermissionDenied if user wants to publish page but doesn't have the permission
             raise PermissionDenied(
-                f"{request.user!r} does not have the permission to publish {page!r}"
+                f"{request.user!r} does not have the permission to publish {page!r}",
             )
         else:
             # Save form
@@ -222,7 +230,9 @@ class PageSideBySideView(
             page_translation_form.add_success_message(request)
 
         old_translation_content = get_old_source_content(
-            page, source_language_node.language, target_language
+            page,
+            source_language_node.language,
+            target_language,
         )
 
         return render(
@@ -239,7 +249,9 @@ class PageSideBySideView(
 
 
 def get_old_source_content(
-    page: Page, source_language: Language, target_language: Language
+    page: Page,
+    source_language: Language,
+    target_language: Language,
 ) -> str:
     """
     This function returns the content of the source language translation that was up to date when the latest (no minor edit)
@@ -250,16 +262,20 @@ def get_old_source_content(
     :param target_language: The target language of the page
     :return: The content of the translation
     """
-    if major_target_page_translation := page.translations.filter(
-        language__slug=target_language.slug, minor_edit=False
-    ).first():
-        if source_previous_translation := (
+    if (
+        major_target_page_translation := page.translations.filter(
+            language__slug=target_language.slug,
+            minor_edit=False,
+        ).first()
+    ) and (
+        source_previous_translation := (
             page.translations.filter(
                 language=source_language,
                 last_updated__lte=major_target_page_translation.last_updated,
             )
             .order_by("-last_updated")
             .first()
-        ):
-            return source_previous_translation.content
+        )
+    ):
+        return source_previous_translation.content
     return ""

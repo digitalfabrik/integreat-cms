@@ -14,13 +14,12 @@ if TYPE_CHECKING:
 
 def update_roles(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Update the role definitions
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     # We can't import the Person model directly as it may be a newer
     # version than this migration expects. We use the historical version.
@@ -34,7 +33,7 @@ def update_roles(
         group.permissions.clear()
         # Set permissions
         group.permissions.add(
-            *Permission.objects.filter(codename__in=roles.PERMISSIONS[role_name])
+            *Permission.objects.filter(codename__in=roles.PERMISSIONS[role_name]),
         )
 
 

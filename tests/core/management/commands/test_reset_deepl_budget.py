@@ -16,7 +16,7 @@ from integreat_cms.cms.models import Region
 from ..utils import get_command_output
 
 
-class datetime_not_first_day:
+class DatetimeNotFirstDay:
     # pylint: disable=too-few-public-methods
     """
     Fake datetime object where now() is never the first day of the month
@@ -33,7 +33,7 @@ class datetime_not_first_day:
         return real_now.replace(day=2)
 
 
-@patch("datetime.datetime", datetime_not_first_day)
+@patch("datetime.datetime", DatetimeNotFirstDay)
 def test_not_first_day() -> None:
     """
     Ensure that the command will not run when it's not the 1st day of the month without --force

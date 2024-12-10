@@ -4,18 +4,19 @@ import json
 from typing import TYPE_CHECKING
 
 import pytest
-from django.http import HttpResponse
 from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.constants import status
 from integreat_cms.cms.models.pages.page import Page
 from integreat_cms.cms.models.regions.region import Region
-from tests.mock import MockServer
 
 if TYPE_CHECKING:
+    from django.http import HttpResponse
     from django.test.client import Client
     from pytest_django.fixtures import SettingsWrapper
+
+    from tests.mock import MockServer
 
 
 def update_page_content(
@@ -330,7 +331,7 @@ dummy_hix_result = {
                             "tag": ["NN"],
                             "wordcount": 1,
                             "words": ["Jahrhundert"],
-                        }
+                        },
                     ],
                     "term": {
                         "check_words": 1,
@@ -357,7 +358,7 @@ dummy_hix_result = {
                             "tag": ["NE", "NE", "NN"],
                             "wordcount": 3,
                             "words": ["Frequently", "Asked", "Questions"],
-                        }
+                        },
                     ],
                     "term": {
                         "check_words": 1,
@@ -406,7 +407,9 @@ def test_hix_score_update(
     Region.objects.filter(slug="augsburg").update(hix_enabled=True)
 
     edit_page, response = update_page_content(
-        admin_client, "Willkommen in Augsburg", "Neuer Inhalt"
+        admin_client,
+        "Willkommen in Augsburg",
+        "Neuer Inhalt",
     )
 
     assert response.status_code == 302
@@ -456,7 +459,9 @@ def test_hix_disable_on_region(
     Region.objects.filter(slug="augsburg").update(hix_enabled=False)
 
     edit_page, response = update_page_content(
-        admin_client, "Willkommen in Augsburg", "Neuer Inhalt1"
+        admin_client,
+        "Willkommen in Augsburg",
+        "Neuer Inhalt1",
     )
 
     assert response.status_code == 302
@@ -498,7 +503,10 @@ def test_ignore_hix_on_page_update(
     Region.objects.filter(slug="augsburg").update(hix_enabled=True)
 
     edit_page, response = update_page_content(
-        admin_client, "Willkommen in Augsburg", "Neuer Inhalt2", hix_ignore=True
+        admin_client,
+        "Willkommen in Augsburg",
+        "Neuer Inhalt2",
+        hix_ignore=True,
     )
 
     assert response.status_code == 302
@@ -540,7 +548,9 @@ def test_hix_page_content_empty(
     Region.objects.filter(slug="augsburg").update(hix_enabled=True)
 
     edit_page, response = update_page_content(
-        admin_client, "Willkommen in Augsburg", ""
+        admin_client,
+        "Willkommen in Augsburg",
+        "",
     )
 
     assert response.status_code == 302
@@ -591,7 +601,9 @@ def test_hix_no_content_changes(
     assert previous_content != ""
 
     edit_page, response = update_page_content(
-        admin_client, "Neuer Titel", previous_content
+        admin_client,
+        "Neuer Titel",
+        previous_content,
     )
 
     assert response.status_code == 302
@@ -602,7 +614,7 @@ def test_hix_no_content_changes(
 
     assert page_translation.hix_score == previous_hix_score
     assert json.loads(page_translation.hix_feedback) == json.loads(
-        previous_hix_feedback
+        previous_hix_feedback,
     )
     assert mock_server.requests_counter == 0
 
@@ -633,7 +645,9 @@ def test_hix_response_400_on_page_update(
     Region.objects.filter(slug="augsburg").update(hix_enabled=True)
 
     edit_page, response = update_page_content(
-        admin_client, "Willkommen in Augsburg", "Neuer Inhalt3"
+        admin_client,
+        "Willkommen in Augsburg",
+        "Neuer Inhalt3",
     )
 
     assert response.status_code == 302

@@ -31,6 +31,6 @@ class ImprintContextMixin(ContextMixin):
             {
                 "current_menu_item": "imprint",
                 "IMPRINT_SLUG": settings.IMPRINT_SLUG,
-            }
+            },
         )
         return context

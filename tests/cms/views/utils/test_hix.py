@@ -5,7 +5,6 @@ from copy import deepcopy
 from typing import TYPE_CHECKING
 
 import pytest
-from pytest_django.fixtures import SettingsWrapper
 
 from integreat_cms.cms.constants.administrative_division import MUNICIPALITY
 from integreat_cms.cms.constants.region_status import ACTIVE
@@ -26,6 +25,7 @@ from integreat_cms.cms.views.utils.hix import (
 from tests.utils import disable_hix_post_save_signal
 
 if TYPE_CHECKING:
+    from pytest_django.fixtures import SettingsWrapper
     from pytest_django.plugin import _DatabaseBlocker  # type: ignore[attr-defined]
 
 
@@ -68,10 +68,12 @@ def test_hix_rounding(settings: SettingsWrapper) -> None:
     # Since this will likely differ from the mathematical threshold due to floating point errors,
     # get the nearest value representable in memory as examples for the raw hix score
     hix_score_just_on_threshold = math.nextafter(
-        actual_raw_hix_score_threshold, math.inf
+        actual_raw_hix_score_threshold,
+        math.inf,
     )
     hix_score_just_under_threshold = math.nextafter(
-        actual_raw_hix_score_threshold, -math.inf
+        actual_raw_hix_score_threshold,
+        -math.inf,
     )
 
     assert (
@@ -84,7 +86,8 @@ def test_hix_rounding(settings: SettingsWrapper) -> None:
 
 @pytest.mark.django_db
 def test_disregard_archived_pages(
-    settings: SettingsWrapper, dummy_region: Region
+    settings: SettingsWrapper,
+    dummy_region: Region,
 ) -> None:
     dummy_language = dummy_region.default_language
     settings.TEXTLAB_API_LANGUAGES = [dummy_language.slug]
@@ -146,7 +149,8 @@ def test_disregard_archived_pages(
 
 @pytest.mark.django_db
 def test_disregard_pages_with_hix_ignore(
-    settings: SettingsWrapper, dummy_region: Region
+    settings: SettingsWrapper,
+    dummy_region: Region,
 ) -> None:
     dummy_language = dummy_region.default_language
     settings.TEXTLAB_API_LANGUAGES = [dummy_language.slug]
@@ -223,10 +227,12 @@ def test_hix_values(settings: SettingsWrapper, dummy_region: Region) -> None:
     # Since this will likely differ from the mathematical threshold due to floating point errors,
     # get the nearest value representable in memory as examples for the raw hix score
     hix_score_just_on_threshold = math.nextafter(
-        actual_raw_hix_score_threshold, math.inf
+        actual_raw_hix_score_threshold,
+        math.inf,
     )
     hix_score_just_under_threshold = math.nextafter(
-        actual_raw_hix_score_threshold, -math.inf
+        actual_raw_hix_score_threshold,
+        -math.inf,
     )
 
     with disable_hix_post_save_signal():

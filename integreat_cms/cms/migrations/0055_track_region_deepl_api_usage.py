@@ -28,7 +28,8 @@ class Migration(migrations.Migration):
             model_name="region",
             name="deepl_budget_used",
             field=models.PositiveIntegerField(
-                default=0, verbose_name="used DeepL budget"
+                default=0,
+                verbose_name="used DeepL budget",
             ),
         ),
         migrations.AddField(

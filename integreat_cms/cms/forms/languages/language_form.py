@@ -53,7 +53,8 @@ class LanguageForm(CustomModelForm):
 
         # Sort countries by translated name
         sorted_language_choices = sorted(
-            self.fields["primary_country_code"].choices, key=lambda x: x[1]
+            self.fields["primary_country_code"].choices,
+            key=lambda x: x[1],
         )
         self.fields["primary_country_code"].choices = sorted_language_choices
         self.fields["secondary_country_code"].choices = sorted_language_choices

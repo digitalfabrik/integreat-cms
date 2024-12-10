@@ -22,7 +22,7 @@ class LogCommand(BaseCommand):
         The actual logic of the command. Subclasses must implement this method.
         """
         raise NotImplementedError(
-            "subclasses of BaseCommand must provide a handle() method"
+            "subclasses of BaseCommand must provide a handle() method",
         )
 
     def set_logging_stream(self) -> None:

@@ -38,5 +38,5 @@ class ContactForm(CustomModelForm):
         ]
 
         error_messages = {
-            "location": {"invalid_choice": _("Location cannot be empty.")}
+            "location": {"invalid_choice": _("Location cannot be empty.")},
         }

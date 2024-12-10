@@ -63,7 +63,7 @@ class EventFilterForm(CustomFilterForm):
             attrs={
                 "data-default-checked-value": events_time_range.UPCOMING,
                 "data-custom-time-range-value": events_time_range.CUSTOM,
-            }
+            },
         ),
         choices=events_time_range.CHOICES,
         initial=[events_time_range.UPCOMING],
@@ -74,7 +74,10 @@ class EventFilterForm(CustomFilterForm):
     query = forms.CharField(required=False)
 
     def apply(
-        self, events: EventQuerySet, region: Region, language_slug: str
+        self,
+        events: EventQuerySet,
+        region: Region,
+        language_slug: str,
     ) -> tuple[EventQuerySet, None, None]:
         # pylint: disable=too-many-branches
         """
@@ -92,7 +95,7 @@ class EventFilterForm(CustomFilterForm):
         # Filter events by time range
         cleaned_time_range = self.cleaned_data["events_time_range"]
         if not cleaned_time_range or set(cleaned_time_range) == set(
-            events_time_range.ALL_EVENTS
+            events_time_range.ALL_EVENTS,
         ):
             # Either post & upcoming or no checkboxes are checked => skip filtering
             pass
@@ -104,7 +107,9 @@ class EventFilterForm(CustomFilterForm):
             else:
                 from_local = datetime.min.replace(tzinfo=zoneinfo.ZoneInfo(key="UTC"))
             to_local = datetime.combine(
-                self.cleaned_data["date_to"] or date.max, time.max, tzinfo=tzinfo
+                self.cleaned_data["date_to"] or date.max,
+                time.max,
+                tzinfo=tzinfo,
             )
             events = events.filter_upcoming(from_local).filter(end__lte=to_local)
         elif events_time_range.UPCOMING in cleaned_time_range:
@@ -151,7 +156,7 @@ class EventFilterForm(CustomFilterForm):
         # Filter events by the search query
         if query := self.cleaned_data["query"]:
             event_ids = EventTranslation.search(region, language_slug, query).values(
-                "event__pk"
+                "event__pk",
             )
             events = events.filter(pk__in=event_ids)
 

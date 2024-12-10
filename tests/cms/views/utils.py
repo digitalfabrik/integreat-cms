@@ -3,7 +3,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from django.conf import settings
-from django.test.client import Client
 from django.urls import reverse
 
 from ...conftest import ANONYMOUS
@@ -13,6 +12,7 @@ if TYPE_CHECKING:
     from typing import Any
 
     from _pytest.logging import LogCaptureFixture
+    from django.test.client import Client
 
     from .view_config import PostData, Roles, ViewKwargs, ViewName
 

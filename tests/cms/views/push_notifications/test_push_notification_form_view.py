@@ -7,7 +7,6 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
 
 import pytest
-from django.test.client import Client
 from django.urls import reverse
 
 from tests.conftest import ANONYMOUS, PRIV_STAFF_ROLES, STAFF_ROLES, WRITE_ROLES
@@ -67,7 +66,7 @@ def test_validate_forms_with_no_german_title(
 
     if role in PRIV_STAFF_ROLES:
         assert "Title (German): This field is required" in response.content.decode(
-            "utf-8"
+            "utf-8",
         )
 
 
@@ -126,5 +125,5 @@ def test_validate_forms_with_only_german_title(
 
     if role in PRIV_STAFF_ROLES:
         assert "Title (English): This field is required" in response.content.decode(
-            "utf-8"
+            "utf-8",
         )

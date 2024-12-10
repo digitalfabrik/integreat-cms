@@ -14,7 +14,9 @@ logger = logging.getLogger(__name__)
 @require_POST
 @permission_required("cms.delete_externalcalendar")
 def delete_external_calendar(
-    request: HttpRequest, calendar_id: int, region_slug: str
+    request: HttpRequest,
+    calendar_id: int,
+    region_slug: str,
 ) -> HttpResponseRedirect:
     """
     Delete external calendar

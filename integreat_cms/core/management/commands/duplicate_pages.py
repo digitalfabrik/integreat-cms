@@ -48,7 +48,7 @@ def duplicate_page(old_page: Page, new_parent: Page | None = None) -> Page:
     new_page.parent = new_page.get_parent(update=True)
     new_page.save()
     for translation in translations:
-        rand_str = "".join(random.choices(string.printable, k=5))
+        rand_str = "".join(random.choices(string.printable, k=5))  # noqa: S311
         new_title = translation.title.split(" - ")[0] + f" - {rand_str}"
         translation.id = None
         translation.page = new_page
@@ -60,7 +60,9 @@ def duplicate_page(old_page: Page, new_parent: Page | None = None) -> Page:
 
 
 def duplicate_pages(
-    region: Region, old_parent: Page | None = None, new_parent: Page | None = None
+    region: Region,
+    old_parent: Page | None = None,
+    new_parent: Page | None = None,
 ) -> None:
     """
     Duplicate pages recursively for the given region
@@ -110,7 +112,7 @@ class Command(DebugCommand):
             region = Region.objects.get(slug=region_slug)
         except Region.DoesNotExist as e:
             raise CommandError(
-                f'Region with slug "{region_slug}" does not exist.'
+                f'Region with slug "{region_slug}" does not exist.',
             ) from e
 
         logger.info("Duplicating pages for %r", region)

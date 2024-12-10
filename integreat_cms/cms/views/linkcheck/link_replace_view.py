@@ -36,7 +36,8 @@ class LinkReplaceView(TemplateView):
         :return: The rendered template response
         """
         form = LinkReplaceForm(
-            region=self.request.region, initial={"link_types": ["internal"]}
+            region=self.request.region,
+            initial={"link_types": ["internal"]},
         )
 
         return render(

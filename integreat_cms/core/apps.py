@@ -43,12 +43,15 @@ class CoreConfig(AppConfig):
         logging.addLevelName(SUCCESS, "SUCCESS")
 
         def success(
-            self: logging.Logger, message: str, *args: Any, **kwargs: Any
+            self: logging.Logger,
+            message: str,
+            *args: Any,
+            **kwargs: Any,
         ) -> None:
             if self.isEnabledFor(SUCCESS):
                 self._log(SUCCESS, message, args, **kwargs)
 
-        setattr(logging.getLoggerClass(), "success", success)
+        logging.getLoggerClass().success = success
 
         # Determine whether the availability of external APIs should be checked
         self.test_external_apis = (

@@ -6,7 +6,9 @@ from tests.conftest import EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 
 
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR], indirect=True
+    "login_role_user",
+    [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR],
+    indirect=True,
 )
 @pytest.mark.django_db
 def test_clean_content(

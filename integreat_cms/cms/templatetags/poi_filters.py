@@ -9,9 +9,10 @@ from typing import TYPE_CHECKING
 from django import template
 from django.template.loader import render_to_string
 from django.utils.html import escape
-from django.utils.safestring import SafeString
 
 if TYPE_CHECKING:
+    from django.utils.safestring import SafeString
+
     from ..models import Language, POI
 
 register = template.Library()
@@ -46,6 +47,7 @@ def render_poi_address(poi: POI) -> SafeString:
     """
     return escape(
         render_to_string(
-            "ajax_poi_form/_poi_address_container.html", {"poi": poi, "disabled": False}
-        )
+            "ajax_poi_form/_poi_address_container.html",
+            {"poi": poi, "disabled": False},
+        ),
     )

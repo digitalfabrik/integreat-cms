@@ -18,13 +18,12 @@ RESET = "\x1b[0;39m"
 
 def delete_organizations(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Delete all existing organizations because they have to be region-specific now
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     Organization = apps.get_model("cms", "Organization")
     if organizations := Organization.objects.all():

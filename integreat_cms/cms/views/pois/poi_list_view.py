@@ -79,7 +79,7 @@ class POIListView(TemplateView, POIContextMixin, MachineTranslationContextMixin)
             messages.error(
                 request,
                 _(
-                    "Please create at least one language node before creating locations."
+                    "Please create at least one language node before creating locations.",
                 ),
             )
             return redirect(
@@ -91,7 +91,8 @@ class POIListView(TemplateView, POIContextMixin, MachineTranslationContextMixin)
 
         if not request.user.has_perm("cms.change_poi"):
             messages.warning(
-                request, _("You don't have the permission to edit or create locations.")
+                request,
+                _("You don't have the permission to edit or create locations."),
             )
 
         pois = region.pois.filter(archived=self.archived)
@@ -102,14 +103,15 @@ class POIListView(TemplateView, POIContextMixin, MachineTranslationContextMixin)
         if search_form.is_valid():
             query = search_form.cleaned_data["query"]
             poi_keys = POITranslation.search(region, language_slug, query).values(
-                "poi__pk"
+                "poi__pk",
             )
             pois = pois.filter(pk__in=poi_keys)
 
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))
         # for consistent pagination querysets should be ordered
         paginator = Paginator(
-            pois.prefetch_translations().order_by("region__slug"), chunk_size
+            pois.prefetch_translations().order_by("region__slug"),
+            chunk_size,
         )
         chunk = request.GET.get("page")
         poi_chunk = paginator.get_page(chunk)

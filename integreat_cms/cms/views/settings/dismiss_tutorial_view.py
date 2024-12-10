@@ -33,7 +33,8 @@ class DismissTutorial(View):
             request.user.page_tree_tutorial_seen = True
         else:
             return JsonResponse(
-                {"error": f"Tutorial '{tutorial_slug}' not found."}, status=404
+                {"error": f"Tutorial '{tutorial_slug}' not found."},
+                status=404,
             )
 
         request.user.save()

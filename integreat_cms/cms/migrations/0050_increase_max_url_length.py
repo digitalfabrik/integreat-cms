@@ -30,7 +30,9 @@ class Migration(migrations.Migration):
     ]
 
     def mutate_state(
-        self, project_state: ProjectState, preserve: bool = True
+        self,
+        project_state: ProjectState,
+        preserve: bool = True,
     ) -> ProjectState:
         """
         This is a workaround that allows to store ``linkcheck``

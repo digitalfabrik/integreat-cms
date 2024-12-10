@@ -9,7 +9,6 @@ if TYPE_CHECKING:
 import pytest
 from django.conf import settings
 from django.contrib import auth
-from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.models.feedback.feedback import Feedback
@@ -30,7 +29,8 @@ def test_mark_admin_feedback_as_read(
     mark_admin_feedback_as_read = reverse("mark_admin_feedback_as_read")
     test_feedback_id = 1
     response = client.post(
-        mark_admin_feedback_as_read, data={"selected_ids[]": [test_feedback_id]}
+        mark_admin_feedback_as_read,
+        data={"selected_ids[]": [test_feedback_id]},
     )
 
     if role in PRIV_STAFF_ROLES:
@@ -42,7 +42,8 @@ def test_mark_admin_feedback_as_read(
         # Check for a success message
         response = client.get(feedback_list)
         assert_message_in_log(
-            "SUCCESS  Feedback was successfully marked as read", caplog
+            "SUCCESS  Feedback was successfully marked as read",
+            caplog,
         )
 
         # Check that feedback has been marked as read by the user in the database
@@ -75,7 +76,8 @@ def test_mark_admin_feedback_as_unread(
     mark_admin_feedback_as_unread = reverse("mark_admin_feedback_as_unread")
     test_feedback_id = 3
     response = client.post(
-        mark_admin_feedback_as_unread, data={"selected_ids[]": [test_feedback_id]}
+        mark_admin_feedback_as_unread,
+        data={"selected_ids[]": [test_feedback_id]},
     )
 
     if role in PRIV_STAFF_ROLES:
@@ -87,7 +89,8 @@ def test_mark_admin_feedback_as_unread(
         # Check for a success message
         response = client.get(feedback_list)
         assert_message_in_log(
-            "SUCCESS  Feedback was successfully marked as unread", caplog
+            "SUCCESS  Feedback was successfully marked as unread",
+            caplog,
         )
 
         # Check that feedback has been marked as unread by the user in the database
@@ -120,7 +123,8 @@ def test_archive_admin_feedback(
     archive_admin_feedback = reverse("archive_admin_feedback")
     test_feedback_id = 1
     response = client.post(
-        archive_admin_feedback, data={"selected_ids[]": [test_feedback_id]}
+        archive_admin_feedback,
+        data={"selected_ids[]": [test_feedback_id]},
     )
 
     if role in PRIV_STAFF_ROLES:
@@ -163,7 +167,8 @@ def test_restore_admin_feedback(
     restore_admin_feedback = reverse("restore_admin_feedback")
     test_feedback_id = 2
     response = client.post(
-        restore_admin_feedback, data={"selected_ids[]": [test_feedback_id]}
+        restore_admin_feedback,
+        data={"selected_ids[]": [test_feedback_id]},
     )
 
     if role in PRIV_STAFF_ROLES:
@@ -206,7 +211,8 @@ def test_delete_admin_feedback(
     delete_admin_feedback = reverse("delete_admin_feedback")
     feedback_to_delete_id = 1
     response = client.post(
-        delete_admin_feedback, data={"selected_ids[]": [feedback_to_delete_id]}
+        delete_admin_feedback,
+        data={"selected_ids[]": [feedback_to_delete_id]},
     )
 
     if role in HIGH_PRIV_STAFF_ROLES:

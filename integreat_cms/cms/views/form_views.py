@@ -117,14 +117,16 @@ class CustomModelFormMixin(
             messages.success(
                 self.request,
                 _('{} "{}" was successfully saved').format(
-                    self.object._meta.verbose_name, self.object
+                    self.object._meta.verbose_name,
+                    self.object,
                 ),
             )
         else:
             messages.success(
                 self.request,
                 _('{} "{}" was successfully created').format(
-                    form.instance._meta.verbose_name, form.instance
+                    form.instance._meta.verbose_name,
+                    form.instance,
                 ),
             )
         return super().form_valid(form)

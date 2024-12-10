@@ -50,7 +50,13 @@ class OrganizationFieldWidget(Select):
             region_id = None
         # Create dictionary of options
         option_dict = super().create_option(
-            name, value, label, selected, index, subindex=subindex, attrs=attrs
+            name,
+            value,
+            label,
+            selected,
+            index,
+            subindex=subindex,
+            attrs=attrs,
         )
         if region_id:
             # Add organization's region id as data attribute

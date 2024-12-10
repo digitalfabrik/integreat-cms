@@ -72,7 +72,8 @@ class EventListView(TemplateView, EventContextMixin, MachineTranslationContextMi
 
         if not request.user.has_perm("cms.change_event"):
             messages.warning(
-                request, _("You don't have the permission to edit or create events.")
+                request,
+                _("You don't have the permission to edit or create events."),
             )
 
         # all events of the current region in the current language

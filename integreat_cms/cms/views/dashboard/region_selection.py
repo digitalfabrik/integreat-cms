@@ -27,7 +27,10 @@ class RegionSelection(TemplateView):
     template_name = "dashboard/region_selection.html"
 
     def get(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Redirect to correct dashboard or render the region selection if dashboard cannot be automatically determined

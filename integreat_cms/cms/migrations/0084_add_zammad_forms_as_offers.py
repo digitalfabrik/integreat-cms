@@ -38,7 +38,9 @@ class Migration(migrations.Migration):
             model_name="offertemplate",
             name="thumbnail",
             field=models.URLField(
-                blank=True, max_length=250, verbose_name="thumbnail URL"
+                blank=True,
+                max_length=250,
+                verbose_name="thumbnail URL",
             ),
         ),
         migrations.AlterField(

@@ -16,13 +16,12 @@ if TYPE_CHECKING:
 
 def update_roles(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Update analytics permissions
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     Group = apps.get_model("auth", "Group")
     Permission = apps.get_model("auth", "Permission")
@@ -37,7 +36,7 @@ def update_roles(
         group.permissions.clear()
         # Set permissions
         group.permissions.add(
-            *Permission.objects.filter(codename__in=roles.PERMISSIONS[role_name])
+            *Permission.objects.filter(codename__in=roles.PERMISSIONS[role_name]),
         )
 
 

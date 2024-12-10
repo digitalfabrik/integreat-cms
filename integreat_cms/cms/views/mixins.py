@@ -71,10 +71,10 @@ class ModelConfirmationContextMixin(ContextMixin):
         context.update(
             {
                 "delete_dialog_title": _(
-                    "Please confirm that you really want to delete this {}"
+                    "Please confirm that you really want to delete this {}",
                 ).format(self.model._meta.verbose_name),
                 "delete_dialog_text": _("This cannot be reversed."),
-            }
+            },
         )
         return context
 
@@ -105,8 +105,8 @@ class ContentEditLockMixin(ContextMixin):
                         "region_slug": kwargs["region_slug"],
                         "language_slug": kwargs["language_slug"],
                     },
-                )
-            }
+                ),
+            },
         )
         return context
 
@@ -131,7 +131,9 @@ class MachineTranslationContextMixin(ContextMixin):
         context["MT_PROVIDER"] = language_node.mt_provider
         context["MT_PERMITTED"] = (
             MachineTranslationProvider.is_permitted(
-                self.request.region, self.request.user, self.translation_model
+                self.request.region,
+                self.request.user,
+                self.translation_model,
             )
             and not language_node.is_root()
             and not (

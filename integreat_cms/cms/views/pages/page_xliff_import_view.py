@@ -57,10 +57,11 @@ class PageXliffImportView(TemplateView, PageContextMixin):
                 "current_menu_item": "pages",
                 "upload_dir": os.path.basename(self.xliff_dir),
                 "translation_diffs": get_xliff_import_diff(
-                    self.request, self.xliff_dir
+                    self.request,
+                    self.xliff_dir,
                 ),
                 "language": self.language,
-            }
+            },
         )
         return context
 
@@ -78,11 +79,13 @@ class PageXliffImportView(TemplateView, PageContextMixin):
         if TYPE_CHECKING:
             assert self.region
         self.language = self.region.get_language_or_404(
-            kwargs.get("language_slug"), only_active=True
+            kwargs.get("language_slug"),
+            only_active=True,
         )
         # Get directory path of the uploaded XLIFF files
         self.xliff_dir = os.path.join(
-            settings.XLIFF_UPLOAD_DIR, str(kwargs.get("xliff_dir"))
+            settings.XLIFF_UPLOAD_DIR,
+            str(kwargs.get("xliff_dir")),
         )
 
         if not os.path.isdir(self.xliff_dir):
@@ -100,7 +103,10 @@ class PageXliffImportView(TemplateView, PageContextMixin):
         return super().dispatch(request, *args, **kwargs)
 
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Confirm the xliff import

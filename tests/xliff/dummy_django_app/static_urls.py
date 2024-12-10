@@ -17,10 +17,10 @@ urlpatterns += [
                         f"{settings.XLIFF_URL}<path:path>".lstrip("/"),
                         serve,
                         {"document_root": settings.XLIFF_DOWNLOAD_DIR},
-                    )
+                    ),
                 ],
                 "xliff_files",
-            )
+            ),
         ),
     ),
 ]

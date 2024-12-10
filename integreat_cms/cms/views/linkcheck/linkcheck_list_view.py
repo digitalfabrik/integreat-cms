@@ -105,7 +105,9 @@ class LinkcheckListView(ListView):
             region = request.region.slug if request.region else None
             try:
                 self.instance = get_urls(
-                    region, url_ids=[edit_url_id], prefetch_region_links=True
+                    region,
+                    url_ids=[edit_url_id],
+                    prefetch_region_links=True,
                 )[0]
             except IndexError as e:
                 raise Http404("This URL does not exist") from e
@@ -129,10 +131,10 @@ class LinkcheckListView(ListView):
         """
         try:
             return super().get(request, *args, **kwargs)
-        except Http404 as e:
+        except Http404:
             # If already the last page was requested, raise the error
             if request.GET.get("page") == "last":
-                raise e
+                raise
             # If the page does not exist, use the last page as fallback
             logger.debug("Redirecting to last page because response was 404")
             params = {"page": "last"}
@@ -176,7 +178,8 @@ class LinkcheckListView(ListView):
                     messages.success(request, _("Email link was successfully replaced"))
                 elif new_url.startswith("tel:"):
                     messages.success(
-                        request, _("Phone number link was successfully replaced")
+                        request,
+                        _("Phone number link was successfully replaced"),
                     )
                 else:
                     messages.success(request, _("URL was successfully replaced"))

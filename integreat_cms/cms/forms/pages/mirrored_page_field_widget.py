@@ -49,7 +49,13 @@ class MirroredPageFieldWidget(forms.widgets.Select):
 
         # Create dictionary of options
         option_dict = super().create_option(
-            name, value, label, selected, index, subindex=subindex, attrs=attrs
+            name,
+            value,
+            label,
+            selected,
+            index,
+            subindex=subindex,
+            attrs=attrs,
         )
         preview_url = reverse(
             "get_page_content_ajax",

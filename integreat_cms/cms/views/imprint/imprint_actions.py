@@ -58,7 +58,8 @@ def delete_imprint(request: HttpRequest, region_slug: str) -> HttpResponseRedire
 
 
 def expand_imprint_translation_id(
-    request: HttpRequest, imprint_translation_id: int
+    request: HttpRequest,
+    imprint_translation_id: int,
 ) -> HttpResponseRedirect | HttpResponseNotFound:
     """
     Searches for an imprint translation with corresponding ID and redirects browser to web app
@@ -69,7 +70,7 @@ def expand_imprint_translation_id(
     """
 
     imprint_translation = ImprintPageTranslation.objects.get(
-        id=imprint_translation_id
+        id=imprint_translation_id,
     ).public_version
 
     if imprint_translation and not imprint_translation.page.archived:

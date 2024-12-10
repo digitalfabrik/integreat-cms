@@ -51,7 +51,10 @@ class GeneratePdfView(PageBulkActionMixin, BulkActionView):
 
     @method_decorator(never_cache)
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Apply the bulk action on every item in the queryset and redirect
@@ -80,7 +83,10 @@ class ExportXliffView(PageBulkActionMixin, BulkActionView):
     require_change_permission = False
 
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Function for handling a XLIFF export request for pages.
@@ -107,11 +113,11 @@ class ExportXliffView(PageBulkActionMixin, BulkActionView):
             message = __(
                 (
                     _(
-                        "XLIFF file with published pages only for translation to {} successfully created."
+                        "XLIFF file with published pages only for translation to {} successfully created.",
                     )
                     if self.only_public
                     else _(
-                        "XLIFF file with unpublished and published pages for translation to {} successfully created."
+                        "XLIFF file with unpublished and published pages for translation to {} successfully created.",
                     )
                 ).format(target_language),
                 _(
@@ -161,12 +167,15 @@ class ExportMultiLanguageXliffView(PageBulkActionMixin, BulkActionView):
         ]
 
         if xliff_file_url := pages_to_xliff_file(
-            request, self.get_queryset(), target_languages, only_public=False
+            request,
+            self.get_queryset(),
+            target_languages,
+            only_public=False,
         ):
             # Insert link with automatic download into success message
             message = __(
                 _(
-                    "XLIFF file for translation to selected languages successfully created."
+                    "XLIFF file for translation to selected languages successfully created.",
                 ),
                 _(
                     "If the download does not start automatically, please click <a>here</a>.",
@@ -211,8 +220,8 @@ class CancelTranslationProcess(PageBulkActionMixin, BulkActionView):
 
         for content_object in self.get_queryset():
             if (
-                not content_object.get_translation_state(language_slug)
-                == translation_status.IN_TRANSLATION
+                content_object.get_translation_state(language_slug)
+                != translation_status.IN_TRANSLATION
             ):
                 not_in_translation.append(content_object.best_translation.title)
             else:

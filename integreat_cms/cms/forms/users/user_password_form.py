@@ -93,6 +93,7 @@ class UserPasswordForm(CustomModelForm):
             self.add_error("new_password_confirm", _("The new passwords do not match."))
 
         logger.debug(
-            "UserPasswordForm validated [2] with cleaned data %r", cleaned_data
+            "UserPasswordForm validated [2] with cleaned data %r",
+            cleaned_data,
         )
         return cleaned_data

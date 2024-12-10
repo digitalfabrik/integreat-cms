@@ -18,7 +18,7 @@ from ...decorators import feedback_handler, json_response
 @feedback_handler
 @json_response
 def map_feedback(
-    data: dict,  # pylint: disable=unused-argument
+    _data: dict,
     region: Region,
     language: Language,
     comment: str,
@@ -28,7 +28,6 @@ def map_feedback(
     """
     Store feedback on map in database
 
-    :param data: HTTP request body data
     :param region: The region of this sitemap's urls
     :param language: The language of this sitemap's urls
     :param comment: The comment sent as feedback

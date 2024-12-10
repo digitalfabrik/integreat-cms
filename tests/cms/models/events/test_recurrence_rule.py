@@ -57,7 +57,8 @@ class TestCreatingIcalRule:
             recurrence_end_date=None,
         )
         self.check_rrule(
-            recurrence_rule, "DTSTART:20300101T113000\nRRULE:FREQ=DAILY;INTERVAL=3"
+            recurrence_rule,
+            "DTSTART:20300101T113000\nRRULE:FREQ=DAILY;INTERVAL=3",
         )
 
     def test_api_rrule_weekly(self) -> None:
@@ -70,7 +71,8 @@ class TestCreatingIcalRule:
             recurrence_end_date=None,
         )
         self.check_rrule(
-            recurrence_rule, "DTSTART:20300101T113000\nRRULE:FREQ=WEEKLY;BYDAY=MO,TU"
+            recurrence_rule,
+            "DTSTART:20300101T113000\nRRULE:FREQ=WEEKLY;BYDAY=MO,TU",
         )
 
     def test_api_rrule_monthly(self) -> None:
@@ -83,7 +85,8 @@ class TestCreatingIcalRule:
             recurrence_end_date=None,
         )
         self.check_rrule(
-            recurrence_rule, "DTSTART:20300101T113000\nRRULE:FREQ=MONTHLY;BYDAY=+1FR"
+            recurrence_rule,
+            "DTSTART:20300101T113000\nRRULE:FREQ=MONTHLY;BYDAY=+1FR",
         )
 
     def test_api_rrule_last_week_in_month(self) -> None:
@@ -96,7 +99,8 @@ class TestCreatingIcalRule:
             recurrence_end_date=None,
         )
         self.check_rrule(
-            recurrence_rule, "DTSTART:20300101T113000\nRRULE:FREQ=MONTHLY;BYDAY=-1WE"
+            recurrence_rule,
+            "DTSTART:20300101T113000\nRRULE:FREQ=MONTHLY;BYDAY=-1WE",
         )
 
     def test_api_rrule_bimonthly_until(self) -> None:

@@ -75,7 +75,7 @@ def region_permission_required(function: Callable) -> Callable:
         if request.region in user.regions.all():
             return function(request, *args, **kwargs)
         raise PermissionDenied(
-            f"{user!r} does not have the permission to access {request.region!r}"
+            f"{user!r} does not have the permission to access {request.region!r}",
         )
 
     return wrap

@@ -14,7 +14,7 @@ from __future__ import annotations
 from .settings import *
 
 #: Set a dummy secret key for documentation build even if it's not in debug mode
-SECRET_KEY = "dummy"
+SECRET_KEY = "dummy"  # noqa: S105
 
 #: A boolean that specifies whether Django’s translation system should be enabled
 #: (see :setting:`django:USE_I18N` and :doc:`django:topics/i18n/index`)

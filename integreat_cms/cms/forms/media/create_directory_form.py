@@ -48,7 +48,7 @@ class CreateDirectoryForm(CustomModelForm):
                 "parent",
                 forms.ValidationError(
                     _(
-                        "The directory cannot be created in a directory of another region."
+                        "The directory cannot be created in a directory of another region.",
                     ),
                     code="invalid",
                 ),
@@ -58,7 +58,7 @@ class CreateDirectoryForm(CustomModelForm):
         if self.instance.region:
             # If directory is created for a region, only limit choices to the global library and the regional one
             queryset = queryset.filter(
-                Q(region=self.instance.region) | Q(region__isnull=True)
+                Q(region=self.instance.region) | Q(region__isnull=True),
             )
         if queryset.filter(
             parent=cleaned_data.get("parent"),
@@ -68,13 +68,14 @@ class CreateDirectoryForm(CustomModelForm):
                 "name",
                 forms.ValidationError(
                     _('A directory with the name "{}" already exists.').format(
-                        cleaned_data.get("name")
+                        cleaned_data.get("name"),
                     ),
                     code="invalid",
                 ),
             )
 
         logger.debug(
-            "CreateDirectoryForm validated [2] with cleaned data %r", cleaned_data
+            "CreateDirectoryForm validated [2] with cleaned data %r",
+            cleaned_data,
         )
         return cleaned_data

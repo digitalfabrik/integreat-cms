@@ -34,10 +34,20 @@ def test_repair_tree(load_test_data_transactional: None) -> None:
 
     root_page = Page(region=region, lft=2, rgt=6, tree_id=999, depth=0)
     child1_page = Page(
-        region=region, lft=1, rgt=4, tree_id=999, depth=1, parent=root_page
+        region=region,
+        lft=1,
+        rgt=4,
+        tree_id=999,
+        depth=1,
+        parent=root_page,
     )
     child2_page = Page(
-        region=region, lft=4, rgt=5, tree_id=999, depth=1, parent=root_page
+        region=region,
+        lft=4,
+        rgt=5,
+        tree_id=999,
+        depth=1,
+        parent=root_page,
     )
 
     root_page.save()
@@ -82,7 +92,7 @@ def test_repair_tree(load_test_data_transactional: None) -> None:
 
 
 @pytest.mark.xfail(
-    reason="Constraints on the model prohibit the broken state used as basis for this test"
+    reason="Constraints on the model prohibit the broken state used as basis for this test",
 )
 @pytest.mark.order("last", after=after_tests)
 @pytest.mark.django_db(transaction=True, serialized_rollback=True)

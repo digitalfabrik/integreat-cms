@@ -17,7 +17,9 @@ from integreat_cms.core.utils.word_count import word_count
 
 
 def get_content_translations(
-    content_model: ModelBase, ids: list[int], *language_slugs: str
+    content_model: ModelBase,
+    ids: list[int],
+    *language_slugs: str,
 ) -> list[dict[str, Any]]:
     """
     Load the translations for the given content model from the database

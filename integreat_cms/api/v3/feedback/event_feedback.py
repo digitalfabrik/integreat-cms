@@ -38,7 +38,12 @@ def event_feedback(
     :return: decorated function that saves feedback in database
     """
     return event_feedback_internal(
-        data, region, language, comment, rating, is_technical
+        data,
+        region,
+        language,
+        comment,
+        rating,
+        is_technical,
     )
 
 
@@ -92,7 +97,7 @@ def event_feedback_internal(
         raise Http404("No matching event found for slug.")
 
     event_translation = event.get_translation(language.slug) or event.get_translation(
-        region.default_language.slug
+        region.default_language.slug,
     )
 
     EventFeedback.objects.create(

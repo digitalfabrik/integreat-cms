@@ -18,7 +18,9 @@ class Contact(AbstractBaseModel):
     """
 
     point_of_contact_for = TruncatingCharField(
-        max_length=200, blank=True, verbose_name=_("point of contact for")
+        max_length=200,
+        blank=True,
+        verbose_name=_("point of contact for"),
     )
     name = models.CharField(max_length=200, blank=True, verbose_name=_("name"))
     location = models.ForeignKey(
@@ -47,7 +49,8 @@ class Contact(AbstractBaseModel):
         verbose_name=_("modification date"),
     )
     created_date = models.DateTimeField(
-        default=timezone.now, verbose_name=_("creation date")
+        default=timezone.now,
+        verbose_name=_("creation date"),
     )
 
     @cached_property
@@ -151,7 +154,7 @@ class Contact(AbstractBaseModel):
                 condition=Q(point_of_contact_for=""),
                 name="contact_singular_empty_point_of_contact_per_location",
                 violation_error_message=_(
-                    "Only one contact per location can have an empty point of contact."
+                    "Only one contact per location can have an empty point of contact.",
                 ),
             ),
             models.CheckConstraint(
@@ -162,7 +165,7 @@ class Contact(AbstractBaseModel):
                 | ~Q(website=""),
                 name="contact_non_empty",
                 violation_error_message=_(
-                    "One of the following fields must be filled: point of contact for, name, e-mail, phone number, website."
+                    "One of the following fields must be filled: point of contact for, name, e-mail, phone number, website.",
                 ),
             ),
         ]

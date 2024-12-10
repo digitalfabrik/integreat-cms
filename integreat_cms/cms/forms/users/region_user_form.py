@@ -35,12 +35,13 @@ class RegionUserForm(UserForm):
         if self.instance.id:
             # If the user exists, limit organization choices to the user's regions
             self.fields["organization"].queryset = Organization.objects.filter(
-                region__in=self.instance.regions.all(), archived=False
+                region__in=self.instance.regions.all(),
+                archived=False,
             )
         else:
             # If the user does not yet exist, only allow the current region
             self.fields["organization"].queryset = region.organizations.filter(
-                archived=False
+                archived=False,
             )
 
     class Meta:

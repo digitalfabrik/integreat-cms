@@ -464,71 +464,95 @@ strict_equality = true
 line-length = 88
 target-version = "py311"
 
+# [tool.ruff.lint.pydocstyle]
+# waiting for: https://github.com/astral-sh/ruff/issues/6606
+# convention = "sphinx"
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 279
+
 [tool.ruff.lint]
 select = [
-  "I",      # isort
   "A",      # flake8-builtins
   "AIR",    # Airflow
+  "ARG",    # flake8-unused-arguments - TODO
   "ASYNC",  # flake8-async
+  "ASYNC1", # flake8-trio
+  "B",      # flake8-bugbear
   "BLE",    # flake8-blind-except
-  "C4",   # flake8-comprehensions
+  "C4",     # flake8-comprehensions
   "C90",    # McCabe cyclomatic complexity
+  "COM",    # flake8-commas
+  # "D",    # pydocstyle - makes no sense until sphinx docstyle available
   "DJ",     # flake8-django
   "E",      # pycodestyle
+  "ERA",    # eradicate
   "EXE",    # flake8-executable
   "F",      # Pyflakes
   "FA",     # flake8-future-annotations
   "FIX",    # flake8-fixme
   "FLY",    # flynt
+  "FURB",   # refurb
   "G",      # flake8-logging-format
+  "I",      # isort
   "ICN",    # flake8-import-conventions
   "INP",    # flake8-no-pep420
   "INT",    # flake8-gettext
   "ISC",    # flake8-implicit-str-concat
   "LOG",    # flake8-logging
+  "N",      # pep8-naming
   "NPY",    # NumPy-specific rules
   "PD",     # pandas-vet
   "PERF",   # Perflint
   "PGH",    # pygrep-hooks
   "PIE",    # flake8-pie
   "PL",     # Pylint
+  "PLC",    # Pylint conventions
+  "PLE",    # Pylint errors
+  "PLR",    # Pylint refactor
+  "PLW",    # Pylint warnings
   "PYI",    # flake8-pyi
+  "Q",      # flake8-quotes
+  "RET",    # flake8-return
   "RSE",    # flake8-raise
+  "RUF",    # Ruff-specific rules
+  "S",      # flake8-bandit
+  "SIM",    # flake8-simplify
   "SLOT",   # flake8-slots
   "T10",    # flake8-debugger
-  "TRIO",   # flake8-trio
+  "T20",    # flake8-print
+  "TD",     # flake8-todos
+  "TCH",    # flake8-type-checking
+  "TRY",    # tryceratops
+  "UP",     # pyupgrade
   "W",      # pycodestyle
   "YTT",    # flake8-2020
   # "ANN",  # flake8-annotations
-  # "ARG",  # flake8-unused-arguments
-  # "B",    # flake8-bugbear
-  # "COM",  # flake8-commas
   # "CPY",  # flake8-copyright
-  # "D",    # pydocstyle
   # "DTZ",  # flake8-datetimez
   # "EM",   # flake8-errmsg
-  # "ERA",  # eradicate
   # "FBT",  # flake8-boolean-trap
-  # "FURB", # refurb
-  # "N",    # pep8-naming
   # "PT",   # flake8-pytest-style
   # "PTH",  # flake8-use-pathlib
-  # "Q",    # flake8-quotes
-  # "RET",  # flake8-return
-  # "RUF",  # Ruff-specific rules
-  # "S",    # flake8-bandit
-  # "SIM",  # flake8-simplify
   # "SLF",  # flake8-self
-  # "T20",  # flake8-print
-  # "TCH",  # flake8-type-checking
-  # "TD",   # flake8-todos
   # "TID",  # flake8-tidy-imports
-  # "TRY",  # tryceratops
-  # "UP",   # pyupgrade
 ]
 ignore = [
   "F401",
   "INP001",
+  "N806",
+  "N818",
+  "N999",
+  "RUF001",
+  "RUF002",
+  "RUF003",
+  "RUF012",
+  "E501", # TODO
+  "TRY003",
+  "S308", # mark_safe may expose cross-site scripting vulnerabilities
+]
+extend-select = [
+  "D419"
 ]
 
 [tool.ruff.lint.mccabe]
@@ -559,7 +583,7 @@ order-by-type = false
 "integreat_cms/google_translate_api/apps.py" = ["BLE001"]
 "integreat_cms/google_translate_api/google_translate_api_client.py" = ["BLE001"]
 "integreat_cms/nominatim_api/nominatim_api_client.py" = ["PERF401"]
-"tests/*" = ["S101", "ARG001", "ARG002", "ARG005", "T201"]
+"tests/*" = ["S101", "ARG001", "ARG002", "ARG005", "T201", "S105"]
 "integreat_cms/cms/migrations/*" = ["T201"]
 ".circleci/*" = ["T201"]
 "tests/core/management/commands/test_summ_ai_bulk.py" = ["FIX002"]

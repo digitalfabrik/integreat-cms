@@ -96,7 +96,9 @@ class MachineTranslationProvider(metaclass=MachineTranslationProviderType):
 
         if not language_node.machine_translation_enabled:
             logger.debug(
-                "Machine translations are disabled for %r in %r.", language, region
+                "Machine translations are disabled for %r in %r.",
+                language,
+                region,
             )
             return False
 
@@ -139,7 +141,9 @@ class MachineTranslationProvider(metaclass=MachineTranslationProviderType):
 
     @staticmethod
     def is_permitted(
-        region: Region, user: SimpleLazyObject, content_type: ModelBase
+        region: Region,
+        user: SimpleLazyObject,
+        content_type: ModelBase,
     ) -> bool:
         """
         Checks if a machine translation is permitted, i.e. if for the
@@ -185,7 +189,9 @@ class MachineTranslationProvider(metaclass=MachineTranslationProviderType):
         return True
 
     def is_needed(
-        self, queryset: QuerySet[Event | Page | POI], target_language: Language
+        self,
+        queryset: QuerySet[Event | Page | POI],
+        target_language: Language,
     ) -> list[Event | Page | POI]:
         """
         Checks if a machine translation is needed, thus checking if the
@@ -200,7 +206,7 @@ class MachineTranslationProvider(metaclass=MachineTranslationProviderType):
         to_translate = []
         for content_object in queryset:
             existing_target_translation = content_object.get_translation(
-                target_language.slug
+                target_language.slug,
             )
             if (
                 existing_target_translation

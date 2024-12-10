@@ -19,14 +19,18 @@ class Migration(migrations.Migration):
             model_name="poi",
             name="email",
             field=models.EmailField(
-                blank=True, max_length=254, verbose_name="email address"
+                blank=True,
+                max_length=254,
+                verbose_name="email address",
             ),
         ),
         migrations.AddField(
             model_name="poi",
             name="phone_number",
             field=models.CharField(
-                blank=True, max_length=250, verbose_name="phone number"
+                blank=True,
+                max_length=250,
+                verbose_name="phone number",
             ),
         ),
         migrations.AddField(

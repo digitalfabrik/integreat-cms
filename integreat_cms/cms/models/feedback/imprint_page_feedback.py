@@ -26,11 +26,10 @@ class ImprintPageFeedback(Feedback):
         :return: The name of the object this feedback refers to
         """
         try:
-            translation = (
+            return (
                 self.region.imprint.get_translation(self.language.slug)
                 or self.region.imprint.default_translation
             )
-            return translation
         except ImprintPage.DoesNotExist:
             return _("Imprint")
 
@@ -57,7 +56,9 @@ class ImprintPageFeedback(Feedback):
         :return: The queryset of related feedback
         """
         return ImprintPageFeedback.objects.filter(
-            region=self.region, language=self.language, is_technical=self.is_technical
+            region=self.region,
+            language=self.language,
+            is_technical=self.is_technical,
         )
 
     class Meta:

@@ -14,7 +14,8 @@ from .api_config import API_ENDPOINTS
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "endpoint,wp_endpoint,expected_result,expected_code,expected_queries", API_ENDPOINTS
+    "endpoint,wp_endpoint,expected_result,expected_code,expected_queries",
+    API_ENDPOINTS,
 )
 def test_api_result(
     load_test_data: None,

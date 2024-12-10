@@ -76,7 +76,7 @@ class PushNotificationForm(CustomModelForm):
             self.fields["scheduled_send_date_time"].disabled = True
 
         self.fields["scheduled_send_date_day"].widget.attrs["min"] = str(
-            timezone.now().date()
+            timezone.now().date(),
         )
 
         # Set the day and time fields
@@ -108,7 +108,7 @@ class PushNotificationForm(CustomModelForm):
         cleaned_data = super().clean()
 
         if cleaned_data.get("schedule_send") and not cleaned_data.get(
-            "scheduled_send_date_day"
+            "scheduled_send_date_day",
         ):
             self.add_error(
                 "scheduled_send_date_day",
@@ -122,7 +122,8 @@ class PushNotificationForm(CustomModelForm):
                 "schedule_send",
                 forms.ValidationError(
                     _('News "{}" was already sent on {}').format(
-                        self.instance, localize(localtime(self.instance.sent_date))
+                        self.instance,
+                        localize(localtime(self.instance.sent_date)),
                     ),
                 ),
             )
@@ -140,7 +141,8 @@ class PushNotificationForm(CustomModelForm):
             time = cleaned_data["scheduled_send_date_time"] or datetime.time()
 
             cleaned_data["scheduled_send_date"] = datetime.datetime.combine(
-                cleaned_data["scheduled_send_date_day"], time
+                cleaned_data["scheduled_send_date_day"],
+                time,
             ).replace(tzinfo=tzinfo)
 
             if cleaned_data["scheduled_send_date"] < timezone.now():

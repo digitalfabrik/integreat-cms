@@ -10,7 +10,6 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
 
 import pytest
-from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.models import Language, LanguageTreeNode, Region
@@ -24,7 +23,9 @@ REGION_SLUG: Final[str] = "augsburg"
 
 
 def check_mt_provider(
-    region_slug: str, language_slug: str, mt_provider: str | None
+    region_slug: str,
+    language_slug: str,
+    mt_provider: str | None,
 ) -> None:
     """
     Check whether the correct MT provider is assigned for the language
@@ -37,7 +38,8 @@ def check_mt_provider(
     region = Region.objects.filter(slug=region_slug).first()
     language = Language.objects.filter(slug=language_slug).first()
     language_node = LanguageTreeNode.objects.filter(
-        region=region, language=language
+        region=region,
+        language=language,
     ).first()
 
     if mt_provider:
@@ -176,7 +178,7 @@ def test_change_to_supporting_provider(
         },
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES + [MANAGEMENT]:
+    if role in [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT]:
         assert response.status_code == 302
         # Check the provider assignment was successfully changed
         check_mt_provider(REGION_SLUG, "en", "Google Translate")
@@ -227,7 +229,7 @@ def test_change_to_not_supporting_provider(
         },
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES + [MANAGEMENT]:
+    if role in [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT]:
         assert response.status_code == 302
         # Check the provider assignment was not changed
         check_mt_provider(REGION_SLUG, "en", "DeepL")

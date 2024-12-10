@@ -156,7 +156,7 @@ def fix_alt_texts(content: HtmlElement) -> None:
                 relative_url = relative_url[len(settings.MEDIA_URL) :]
             # Check whether media file exists in database
             media_file = MediaFile.objects.filter(
-                Q(file=relative_url) | Q(thumbnail=relative_url)
+                Q(file=relative_url) | Q(thumbnail=relative_url),
             ).first()
             # Replace alternative text
             if media_file and media_file.alt_text:
@@ -181,7 +181,7 @@ def fix_notranslate(content: HtmlElement) -> None:
                 {
                     "translate": "no",
                     "dir": "ltr",
-                }
+                },
             )
 
 

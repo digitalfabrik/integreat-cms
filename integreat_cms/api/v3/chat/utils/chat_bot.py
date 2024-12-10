@@ -29,7 +29,7 @@ def format_message(response: dict) -> str:
             f"<li><a href='{settings.WEBAPP_URL}{path}'>{title}</a></li>"
             for path in response["sources"]
             if (title := get_public_translation_for_link(settings.WEBAPP_URL + path))
-        ]
+        ],
     )
     return f"{response['answer']}\n<ul>{sources}</ul>"
 
@@ -47,7 +47,9 @@ def automatic_answer(message: str, region: Region, language_slug: str) -> str | 
 
 
 def automatic_translation(
-    message: str, source_language_slug: str, target_language_slug: str
+    message: str,
+    source_language_slug: str,
+    target_language_slug: str,
 ) -> str:
     """
     Use LLM to translate message
@@ -59,7 +61,9 @@ def automatic_translation(
         "target_language": target_language_slug,
     }
     response = requests.post(
-        url, json=body, timeout=settings.INTEGREAT_CHAT_BACK_END_TIMEOUT
+        url,
+        json=body,
+        timeout=settings.INTEGREAT_CHAT_BACK_END_TIMEOUT,
     ).json()
     if "status" in response and response["status"] == "success":
         return response["translation"]
@@ -68,7 +72,9 @@ def automatic_translation(
 
 @shared_task
 def process_user_message(
-    message_text: str, region_slug: str, zammad_ticket_id: int
+    message_text: str,
+    region_slug: str,
+    zammad_ticket_id: int,
 ) -> None:
     """
     Process the message from an Integreat App user
@@ -77,7 +83,9 @@ def process_user_message(
     region = Region.objects.get(slug=region_slug)
     client = ZammadChatAPI(region)
     if translation := automatic_translation(
-        message_text, zammad_chat.language.slug, region.default_language.slug
+        message_text,
+        zammad_chat.language.slug,
+        region.default_language.slug,
     ):
         client.send_message(
             zammad_chat.zammad_id,
@@ -103,7 +111,9 @@ def process_answer(message_text: str, region_slug: str, zammad_ticket_id: int) -
     region = Region.objects.get(slug=region_slug)
     client = ZammadChatAPI(region)
     if translation := automatic_translation(
-        message_text, region.default_language.slug, zammad_chat.language.slug
+        message_text,
+        region.default_language.slug,
+        zammad_chat.language.slug,
     ):
         client.send_message(
             zammad_chat.zammad_id,

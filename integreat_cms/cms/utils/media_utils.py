@@ -64,8 +64,8 @@ def generate_thumbnail(
             charset=None,
         )
         logger.debug("Successfully generated thumbnail %r", thumbnail)
+    except OSError:
+        logger.exception("Thumbnail generation for %r failed", original_image)
+        return None
+    else:
         return thumbnail
-    except IOError as e:
-        logger.error("Thumbnail generation for %r failed", original_image)
-        logger.exception(e)
-    return None

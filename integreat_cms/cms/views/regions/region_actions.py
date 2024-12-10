@@ -29,7 +29,9 @@ logger = logging.getLogger(__name__)
 @require_POST
 @permission_required("cms.delete_region")
 def delete_region(
-    request: HttpRequest, *args: Any, **kwargs: Any
+    request: HttpRequest,
+    *args: Any,
+    **kwargs: Any,
 ) -> HttpResponseRedirect:
     r"""
     This view deletes a region. All content is cascade deleted. Region users, who are not assigned to any other region,
@@ -45,7 +47,8 @@ def delete_region(
 
     # Check whether region can be safely deleted
     mirrored_pages = Page.objects.filter(
-        region=region, mirroring_pages__isnull=False
+        region=region,
+        mirroring_pages__isnull=False,
     ).distinct()
     if len(mirrored_pages) > 0:
         messages.error(
@@ -53,7 +56,7 @@ def delete_region(
             format_html(
                 "{}<ul class='list-disc pl-4'>{}</ul>",
                 _(
-                    "Region could not be deleted, because the following pages are mirrored in other regions:"
+                    "Region could not be deleted, because the following pages are mirrored in other regions:",
                 ),
                 format_html_join(
                     "\n",
@@ -114,7 +117,9 @@ def delete_region(
     # Get orphan users who aren't superuser or staff and don't have a region assigned
     # (Creating users with these combination is impossible, so they were region users of the deleted region before)
     orphan_users = get_user_model().objects.filter(
-        is_superuser=False, is_staff=False, regions=None
+        is_superuser=False,
+        is_staff=False,
+        regions=None,
     )
     if orphan_users.exists():
         logger.info(

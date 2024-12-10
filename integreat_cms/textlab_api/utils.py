@@ -43,7 +43,7 @@ def check_hix_score(
             messages.error(
                 request,
                 _(
-                    'HIX score {:.2f} of "{}" is too low for machine translation (minimum required: {})'
+                    'HIX score {:.2f} of "{}" is too low for machine translation (minimum required: {})',
                 ).format(
                     source_translation.hix_score,
                     source_translation,
@@ -56,7 +56,7 @@ def check_hix_score(
             messages.error(
                 request,
                 _(
-                    'Machine translations are disabled for "{}", because its HIX value is ignored'
+                    'Machine translations are disabled for "{}", because its HIX value is ignored',
                 ).format(
                     source_translation.title,
                 ),
@@ -103,7 +103,7 @@ def format_hix_feedback(response: dict) -> list[dict[str, Any]]:
         {
             "category": "abbreviations",
             "result": abbreviations_total,
-        }
+        },
     )
     return feedback_details
 

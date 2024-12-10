@@ -35,7 +35,10 @@ logger = logging.getLogger(__name__)
 @method_decorator(permission_required("cms.view_poi"), name="dispatch")
 @method_decorator(permission_required("cms.change_poi"), name="post")
 class POIFormView(
-    TemplateView, POIContextMixin, MediaContextMixin, ContentEditLockMixin
+    TemplateView,
+    POIContextMixin,
+    MediaContextMixin,
+    ContentEditLockMixin,
 ):
     """
     View for editing POIs
@@ -69,12 +72,14 @@ class POIFormView(
         if poi and poi.archived:
             disabled = True
             messages.warning(
-                request, _("You cannot edit this location because it is archived.")
+                request,
+                _("You cannot edit this location because it is archived."),
             )
         elif not request.user.has_perm("cms.change_poi"):
             disabled = True
             messages.warning(
-                request, _("You don't have the permission to edit locations.")
+                request,
+                _("You don't have the permission to edit locations."),
             )
         else:
             disabled = False
@@ -178,7 +183,7 @@ class POIFormView(
             # Save forms
             poi_translation_form.instance.poi = poi_form.save()
             poi_translation_instance = poi_translation_form.save(
-                foreign_form_changed=poi_form.has_changed()
+                foreign_form_changed=poi_form.has_changed(),
             )
 
             # If any source translation changes to draft, set all depending translations/versions to draft
@@ -188,20 +193,22 @@ class POIFormView(
                     node.language for node in language_tree_node.get_descendants()
                 ]
                 poi_translation_form.instance.poi.translations.filter(
-                    language__in=languages
+                    language__in=languages,
                 ).update(status=status.DRAFT)
             elif (
                 poi_translation_form.instance.status == status.PUBLIC
                 and poi_translation_form.instance.minor_edit
             ):
                 poi_translation_form.instance.poi.translations.filter(
-                    language=language
+                    language=language,
                 ).update(status=status.PUBLIC)
 
             # Show a message that the slug was changed if it was not unique
             if user_slug and user_slug != poi_translation_form.cleaned_data["slug"]:
                 other_translation = POITranslation.objects.filter(
-                    poi__region=region, slug=user_slug, language=language
+                    poi__region=region,
+                    slug=user_slug,
+                    language=language,
                 ).first()
                 other_translation_link = other_translation.backend_edit_link
                 message = _(
@@ -228,7 +235,7 @@ class POIFormView(
                 messages.success(
                     request,
                     _('Location "{}" was successfully created').format(
-                        poi_translation_form.instance
+                        poi_translation_form.instance,
                     ),
                 )
             elif not poi_form.has_changed() and not poi_translation_form.has_changed():
@@ -242,7 +249,7 @@ class POIFormView(
                     request,
                     __(
                         _(
-                            "The distance between the manually entered coordinates and the coordinates of the address is {}km."
+                            "The distance between the manually entered coordinates and the coordinates of the address is {}km.",
                         ).format(poi_form.nominatim_distance_delta),
                         _("Please make sure the entered values are correct."),
                     ),

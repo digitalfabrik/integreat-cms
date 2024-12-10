@@ -15,7 +15,7 @@ from ...constants import frequency, weekdays, weeks
 from ..abstract_base_model import AbstractBaseModel
 
 if TYPE_CHECKING:
-    from typing import Iterator
+    from collections.abc import Iterator
 
 
 class RecurrenceRule(AbstractBaseModel):
@@ -43,7 +43,7 @@ class RecurrenceRule(AbstractBaseModel):
         blank=True,
         verbose_name=_("weekdays"),
         help_text=_(
-            "If the frequency is weekly, this field determines on which days the event takes place"
+            "If the frequency is weekly, this field determines on which days the event takes place",
         ),
     )
     #: Manage choices in :mod:`~integreat_cms.cms.constants.weekdays`
@@ -53,7 +53,7 @@ class RecurrenceRule(AbstractBaseModel):
         blank=True,
         verbose_name=_("weekday"),
         help_text=_(
-            "If the frequency is monthly, this field determines on which days the event takes place"
+            "If the frequency is monthly, this field determines on which days the event takes place",
         ),
     )
     #: Manage choices in :mod:`~integreat_cms.cms.constants.weeks`
@@ -63,7 +63,7 @@ class RecurrenceRule(AbstractBaseModel):
         blank=True,
         verbose_name=_("week"),
         help_text=_(
-            "If the frequency is monthly, this field determines on which week of the month the event takes place"
+            "If the frequency is monthly, this field determines on which week of the month the event takes place",
         ),
     )
     recurrence_end_date = models.DateField(
@@ -71,7 +71,7 @@ class RecurrenceRule(AbstractBaseModel):
         blank=True,
         verbose_name=_("recurrence end date"),
         help_text=_(
-            "If the recurrence is not for an indefinite period, this field contains the end date"
+            "If the recurrence is not for an indefinite period, this field contains the end date",
         ),
     )
 
@@ -133,14 +133,16 @@ class RecurrenceRule(AbstractBaseModel):
                     if weekday < next_recurrence.weekday():
                         continue
                     next_recurrence += timedelta(
-                        days=weekday - next_recurrence.weekday()
+                        days=weekday - next_recurrence.weekday(),
                     )
                     yield next_recurrence
                 # advance to the next monday
                 next_recurrence += timedelta(days=7 - next_recurrence.weekday())
             elif self.frequency == frequency.MONTHLY:
                 next_recurrence = get_nth_weekday(
-                    next_recurrence, self.weekday_for_monthly, self.week_for_monthly
+                    next_recurrence,
+                    self.weekday_for_monthly,
+                    self.week_for_monthly,
                 )
                 if next_recurrence < start_date:
                     next_recurrence = get_nth_weekday(
@@ -158,7 +160,7 @@ class RecurrenceRule(AbstractBaseModel):
                 while True:
                     try:
                         next_recurrence = next_recurrence.replace(
-                            year=next_recurrence.year + year_dif
+                            year=next_recurrence.year + year_dif,
                         )
                         break
                     except ValueError:
@@ -182,7 +184,8 @@ class RecurrenceRule(AbstractBaseModel):
         :return: A readable string representation of the recurrence rule
         """
         return gettext('Recurrence rule of "{}" ({})').format(
-            self.event.best_translation.title, self.get_frequency_display()
+            self.event.best_translation.title,
+            self.get_frequency_display(),
         )
 
     def get_repr(self) -> str:
@@ -215,13 +218,12 @@ class RecurrenceRule(AbstractBaseModel):
                 self.event.start.tzinfo,
             )
 
-        ical_rrule = rrule.rrule(
+        return rrule.rrule(
             getattr(rrule, self.frequency),
             dtstart=self.event.start,
             interval=self.interval,
             **kwargs,
         )
-        return ical_rrule
 
     def to_ical_rrule_string(self) -> str:
         """
