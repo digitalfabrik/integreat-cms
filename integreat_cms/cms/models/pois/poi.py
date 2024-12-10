@@ -208,6 +208,17 @@ class POI(AbstractContentModel):
         """
         return f"{self.address}, {self.postcode} {self.city}"
 
+    @cached_property
+    def map_url(self) -> str:
+        """
+        :return: the link to the POI of the default (public) translation
+        """
+        return (
+            self.default_public_translation.map_url
+            if self.default_public_translation
+            else self.default_translation.map_url
+        )
+
     class Meta:
         #: The verbose name of the model
         verbose_name = _("location")
