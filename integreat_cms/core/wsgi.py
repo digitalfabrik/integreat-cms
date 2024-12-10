@@ -40,9 +40,9 @@ def application(environ: dict[str, str], start_response: Callable) -> WSGIHandle
             os.environ.setdefault(f"INTEGREAT_CMS_{KEY.upper()}", VALUE)
 
     # Read config from environment
-    for key in environ:
+    for key, value in environ.items():
         if key.startswith("INTEGREAT_CMS_"):
-            os.environ[key] = environ[key]
+            os.environ[key] = value
 
     _application = get_wsgi_application()
 
