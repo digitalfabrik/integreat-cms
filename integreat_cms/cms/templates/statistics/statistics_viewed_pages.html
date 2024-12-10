@@ -9,10 +9,13 @@
     {% translate "Page views" %}
 {% endblock collapsible_box_title %}
 {% block collapsible_box_content %}
-    <form method="post" id="bulk-action-form" class="table-listing">
+    <form method="post"
+          id="statistics-page-access"
+          class="table-listing"
+          data-page-accesses-url="{% url 'statistics_page_based_accesses' region_slug=request.region.slug %}">
         {% csrf_token %}
         <div class="overflow-x-auto">
-            <table class="w-full rounded shadow bg-white table-auto">
+            <table class="w-full rounded border-2 border-solid border-gray-200 shadow bg-white table-auto">
                 <thead>
                     <tr class="border-b border-solid border-gray-200">
                         {% include "pages/_generic_page_tree.html" %}
@@ -21,6 +24,18 @@
                         </th>
                     </tr>
                 </thead>
+                <tbody>
+                    {% for page in pages %}
+                        <tr id="page-{{ page.id }}"
+                            data-drop-id="{{ page.id }}"
+                            data-drop-position="last-child"
+                            class="page-row drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 level-{{ page.relative_depth }} {% if parent_id %}hidden parent-page-{{ parent_id }}{% endif %}">
+                            {% include "pages/_generic_page_tree_node.html" %}
+                            <td class="accesses">
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
     </form>

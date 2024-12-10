@@ -75,9 +75,17 @@ const updateChart = async (): Promise<void> => {
 
     // Get AJAX URL
     const url = chart.canvas.getAttribute("data-statistics-url");
+    const pageAccessesURL = document.getElementById("statistics-page-access").getAttribute("data-page-accesses-url");
 
     try {
         const response = await fetch(url, parameters);
+        const response2 = await fetch(pageAccessesURL, parameters);
+
+        if (response.status === HTTP_STATUS_OK) {
+            // The response text contains the data from Matomo as JSON.
+            const data = (await response2.json()) as AjaxResponse;
+            console.log(data);
+        }
 
         if (response.status === HTTP_STATUS_OK) {
             // The response text contains the data from Matomo as JSON.
