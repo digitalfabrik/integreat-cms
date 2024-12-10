@@ -26,5 +26,5 @@ LINK_TYPES: Final = [
     ("external", _("External links")),
     ("mailto", _("Email links")),
     ("phone", _("Phone links")),
-    ("invalid", _("Invalid links")),
+    ("invalid", _("Verification needed")),
 ]
