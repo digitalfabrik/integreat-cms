@@ -59,10 +59,13 @@ def check_view_status_code(
                 or post_kwargs.get("content_type") == "application/json"
             ):
                 # Json-views should return 200 or 201 CREATED (for feedback)
-                assert response.status_code in [
-                    200,
-                    201,
-                ], f"JSON view {view_name} returned status code {response.status_code} instead of 200 or 201 for role {role}"
+                assert (
+                    response.status_code
+                    in [
+                        200,
+                        201,
+                    ]
+                ), f"JSON view {view_name} returned status code {response.status_code} instead of 200 or 201 for role {role}"
             else:
                 # Normal post-views should redirect after a successful operation (200 usually mean form errors)
                 assert (

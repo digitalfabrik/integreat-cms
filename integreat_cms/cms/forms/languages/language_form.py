@@ -80,12 +80,12 @@ class LanguageForm(CustomModelForm):
 
         # Make left border rounded if no flag is selected yet
         if not self.instance.primary_country_code:
-            self.fields["primary_country_code"].widget.attrs[
-                "class"
-            ] = "rounded-l border-l"
+            self.fields["primary_country_code"].widget.attrs["class"] = (
+                "rounded-l border-l"
+            )
         if not self.instance.secondary_country_code:
-            self.fields["secondary_country_code"].widget.attrs[
-                "class"
-            ] = "rounded-l border-l"
+            self.fields["secondary_country_code"].widget.attrs["class"] = (
+                "rounded-l border-l"
+            )
         if not self.instance.language_color:
             self.fields["language_color"].widget.attrs["class"] = "rounded-l border-l"

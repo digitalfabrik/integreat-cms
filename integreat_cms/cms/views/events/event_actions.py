@@ -159,7 +159,8 @@ def delete(
 @require_POST
 @permission_required("cms.view_event")
 def search_poi_ajax(
-    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
 ) -> HttpResponse:
     """
     AJAX endpoint for searching POIs

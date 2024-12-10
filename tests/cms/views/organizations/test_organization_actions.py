@@ -73,10 +73,9 @@ def test_archive_organization(
                 "ERROR    Organization couldn't be archived as it's used by a page, poi or user",
                 caplog,
             )
-            assert "Organization couldn&#x27;t be archived as it&#x27;s used by a page, poi or user" in client.get(
-                redirect_url
-            ).content.decode(
-                "utf-8"
+            assert (
+                "Organization couldn&#x27;t be archived as it&#x27;s used by a page, poi or user"
+                in client.get(redirect_url).content.decode("utf-8")
             )
             assert not Organization.objects.filter(id=organization_id).first().archived
 
@@ -143,10 +142,9 @@ def test_delete_organization(
                 "ERROR    Organization couldn't be deleted as it's used by a page, poi or user",
                 caplog,
             )
-            assert "Organization couldn&#x27;t be deleted as it&#x27;s used by a page, poi or user" in client.get(
-                redirect_url
-            ).content.decode(
-                "utf-8"
+            assert (
+                "Organization couldn&#x27;t be deleted as it&#x27;s used by a page, poi or user"
+                in client.get(redirect_url).content.decode("utf-8")
             )
             assert Organization.objects.filter(id=organization_id).first()
 

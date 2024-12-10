@@ -156,7 +156,8 @@ def view_poi(
 @require_POST
 @permission_required("cms.view_poi")
 def auto_complete_address(
-    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     Autocomplete location address and coordinates
@@ -206,7 +207,8 @@ def auto_complete_address(
 @require_POST
 @permission_required("cms.view_poi")
 def get_address_from_coordinates(
-    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     Derive address from the coordinates (map pin position)

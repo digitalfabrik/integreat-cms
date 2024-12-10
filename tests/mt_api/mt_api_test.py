@@ -561,8 +561,9 @@ def test_automatic_translation(
     data = copy.deepcopy(data)
     data.update(
         {
-            "mt_translations_to_"
-            + create_or_update: Language.objects.filter(slug=target_language_slug)
+            "mt_translations_to_" + create_or_update: Language.objects.filter(
+                slug=target_language_slug
+            )
             .first()
             .id,
             "status": (

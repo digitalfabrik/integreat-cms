@@ -33,20 +33,6 @@ jobs:
           paths:
             - .venv
             - integreat_cms.egg-info
-  black:
-    docker:
-      - image: cimg/python:3.11.7
-    resource_class: small
-    steps:
-      - checkout
-      - attach_workspace:
-          at: .
-      - run:
-          name: Enable virtual environment
-          command: echo "source .venv/bin/activate" >> $BASH_ENV
-      - run:
-          name: Check black code style
-          command: black --check .
   djlint:
     docker:
       - image: cimg/python:3.11.7
@@ -668,9 +654,6 @@ workflows:
                 - /.*-publish-dev-package/
           requires:
             - build-dev-package
-      - black:
-          requires:
-            - pip-install
       - djlint:
           requires:
             - pip-install

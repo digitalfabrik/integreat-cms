@@ -139,9 +139,7 @@ extlinks: Final[dict[str, tuple[str, str]]] = {
     "django-source": (f"{django_github_url}/%s", "%s"),
 }
 #: A string of reStructuredText that will be included at the end of every source file that is read. Used for substitutions.
-rst_epilog: Final[
-    str
-] = f"""
+rst_epilog: Final[str] = f"""
 .. |github-username| replace:: {github_username}
 .. |github-repository| replace:: {github_repository}
 .. |github-pages-url| replace:: {github_pages_url}

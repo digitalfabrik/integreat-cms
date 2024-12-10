@@ -60,7 +60,8 @@ def upload_path(instance: MediaFile, filename: str) -> str:
 
 
 def upload_path_thumbnail(
-    instance: MediaFile, filename: str  # pylint: disable=unused-argument
+    instance: MediaFile,
+    filename: str,  # pylint: disable=unused-argument
 ) -> str:
     """
     This function derives the upload path of a thumbnail file from it's original file.

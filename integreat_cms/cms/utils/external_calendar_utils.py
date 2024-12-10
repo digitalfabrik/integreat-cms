@@ -482,7 +482,9 @@ def import_event(
         or recurrence_rule_form.has_changed()
     ):
         event_translation = event_translation_form.save()
-        logger.success("Imported event %r, %r, %r", event, event_translation, event.recurrence_rule)  # type: ignore[attr-defined]
+        logger.success(
+            "Imported event %r, %r, %r", event, event_translation, event.recurrence_rule
+        )  # type: ignore[attr-defined]
     else:
         logger.info("Event %r has not changed", event_translation_form.instance)
 

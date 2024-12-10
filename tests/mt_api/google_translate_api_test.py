@@ -35,12 +35,12 @@ def setup_google_translate_supported_languages(
     :param source_languages: The supported source languages
     :param target_languages: The supported target languages
     """
-    apps.get_app_config("google_translate_api").supported_source_languages = (
-        source_languages
-    )
-    apps.get_app_config("google_translate_api").supported_target_languages = (
-        target_languages
-    )
+    apps.get_app_config(
+        "google_translate_api"
+    ).supported_source_languages = source_languages
+    apps.get_app_config(
+        "google_translate_api"
+    ).supported_target_languages = target_languages
 
 
 # pylint:disable=too-few-public-methods

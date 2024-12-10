@@ -15,6 +15,7 @@ run_as_precommit "ruff check --fix" "$@"
 
 # Run ruff
 echo "Starting code linting and formatting with ruff..." | print_info
+ruff format "${BASE_DIR}"
 ruff check --fix "${BASE_DIR}"
 # ruff format "${BASE_DIR}"
-echo "✔ Code formatting finished" | print_success
+echo "✔ Code formatting & linting finished" | print_success

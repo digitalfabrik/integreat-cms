@@ -24,7 +24,6 @@ def update_page_content(
     content: str,
     hix_ignore: bool = False,
 ) -> tuple[str, HttpResponse]:
-
     edit_page = reverse(
         "edit_page",
         kwargs={
@@ -53,7 +52,6 @@ def create_page(
     content: str,
     hix_ignore: bool = False,
 ) -> HttpResponse:
-
     new_page = reverse(
         "new_page",
         kwargs={

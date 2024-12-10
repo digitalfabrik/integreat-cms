@@ -293,7 +293,7 @@ class MatomoApiClient:
             if TYPE_CHECKING:
 
                 def is_dict_list(
-                    lst: list[dict[str, Any] | list[int]]
+                    lst: list[dict[str, Any] | list[int]],
                 ) -> TypeGuard[list[dict[str, Any]]]:
                     return all(isinstance(d, dict) for d in lst)
 

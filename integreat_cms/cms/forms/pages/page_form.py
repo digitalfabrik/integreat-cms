@@ -107,9 +107,9 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
 
         # Set the initial value for the mirrored page region
         if self.instance.mirrored_page:
-            self.fields["mirrored_page_region"].initial = (
-                self.instance.mirrored_page.region_id
-            )
+            self.fields[
+                "mirrored_page_region"
+            ].initial = self.instance.mirrored_page.region_id
 
         # Let mirrored page queryset be empty per default and only fill it if a region is selected
         mirrored_page_queryset = Page.objects.none()
@@ -171,9 +171,9 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             for page in mirrored_page_queryset.cache_tree(archived=False)
         ]
 
-        self.fields["organization"].queryset = (
-            self.instance.region.organizations.filter(archived=False)
-        )
+        self.fields[
+            "organization"
+        ].queryset = self.instance.region.organizations.filter(archived=False)
 
         # Set choices of parent and _ref_node_id fields manually to make use of cache_tree()
         logger.debug("Set choices for parent field:")

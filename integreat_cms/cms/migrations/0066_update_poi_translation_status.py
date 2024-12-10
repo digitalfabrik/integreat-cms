@@ -36,9 +36,7 @@ def update_poi_translation_status(
                 translations__language=default_language,
                 translations__status=status.PUBLIC,
             )
-        ).update(
-            status=status.DRAFT
-        )
+        ).update(status=status.DRAFT)
 
 
 class Migration(migrations.Migration):

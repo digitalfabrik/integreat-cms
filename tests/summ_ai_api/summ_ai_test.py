@@ -738,7 +738,10 @@ async def test_patient_task_queue_max_retries() -> None:
     assert (
         len(task_generator) == 2
     ), "PatientTaskQueue should have two tasks left that could not be completed"
-    assert set(task_generator) == {
-        tasks[1],
-        tasks[2],
-    }, "PatientTaskQueue should have the second and third task left as they could not be completed"
+    assert (
+        set(task_generator)
+        == {
+            tasks[1],
+            tasks[2],
+        }
+    ), "PatientTaskQueue should have the second and third task left as they could not be completed"

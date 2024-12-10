@@ -37,7 +37,8 @@ def transform_language(language: Language) -> dict[str, Any]:
 
 @json_response
 def languages(
-    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     Function to add all languages related to a region to a JSON.

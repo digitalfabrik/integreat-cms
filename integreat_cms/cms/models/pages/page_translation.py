@@ -156,9 +156,7 @@ class PageTranslation(AbstractBasePageTranslation):
             return content
 
         # Get all translations of this page which have a corresponding translation of the mirrored page
-        languages = (
-            self.page.mirrored_page.prefetched_major_public_translations_by_language_slug.keys()
-        )
+        languages = self.page.mirrored_page.prefetched_major_public_translations_by_language_slug.keys()
         translations = [
             self.page.get_public_translation(language_slug)
             for language_slug in languages

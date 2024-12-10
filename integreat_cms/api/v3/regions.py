@@ -70,7 +70,8 @@ def regions(_: HttpRequest) -> JsonResponse:
 
 @json_response
 def region_by_slug(
-    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
 ) -> JsonResponse:
     """
     Retrieve a single region and transform result into JSON

@@ -461,7 +461,7 @@ warn_redundant_casts = true
 strict_equality = true
 
 [tool.ruff]
-line-length = 279
+line-length = 88
 target-version = "py311"
 
 [tool.ruff.lint]
@@ -559,7 +559,9 @@ order-by-type = false
 "integreat_cms/google_translate_api/apps.py" = ["BLE001"]
 "integreat_cms/google_translate_api/google_translate_api_client.py" = ["BLE001"]
 "integreat_cms/nominatim_api/nominatim_api_client.py" = ["PERF401"]
-"tests/*" = ["S101"]
+"tests/*" = ["S101", "ARG001", "ARG002", "ARG005", "T201"]
+"integreat_cms/cms/migrations/*" = ["T201"]
+".circleci/*" = ["T201"]
 "tests/core/management/commands/test_summ_ai_bulk.py" = ["FIX002"]
 "tests/deepl_api/deepl_api_test.py" = ["PIE804"]
 "tests/pdf/test_pdf_export.py" = ["PLW2901"]

@@ -52,10 +52,9 @@ def assert_no_error_messages(caplog: LogCaptureFixture) -> None:
     :raises AssertionError: When the the logs contains error messages
     """
     error_messages = get_error_messages(caplog)
-    assert (
-        not error_messages
-    ), "The following error messages were found in the message log:\n\n" + "\n".join(
-        error_messages
+    assert not error_messages, (
+        "The following error messages were found in the message log:\n\n"
+        + "\n".join(error_messages)
     )
 
 

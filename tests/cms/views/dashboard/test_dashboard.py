@@ -25,7 +25,6 @@ def test_permission_to_view_chat(
     load_test_data: None,
     login_role_user: tuple[Client, str],
 ) -> None:
-
     client, role = login_role_user
 
     get_dashboard = reverse(

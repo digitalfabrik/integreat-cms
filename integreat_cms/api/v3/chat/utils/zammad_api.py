@@ -22,7 +22,8 @@ AUTO_ANSWER_STRING = "automatically generated message"
 
 
 def _raise_or_return_json(
-    self: Any, response: HttpResponse  # pylint: disable=unused-argument
+    self: Any,
+    response: HttpResponse,  # pylint: disable=unused-argument
 ) -> dict:
     """
     Raise HTTPError before converting response to json

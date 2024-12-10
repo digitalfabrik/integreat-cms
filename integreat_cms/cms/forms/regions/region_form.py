@@ -254,9 +254,9 @@ class RegionForm(CustomModelForm):
         )
         self.fields["offers"].widget.disabled_options = self.disabled_offer_options
 
-        self.fields["zammad_offers"].widget.disabled_options = (
-            self.disabled_offer_options
-        )
+        self.fields[
+            "zammad_offers"
+        ].widget.disabled_options = self.disabled_offer_options
         self.fields["zammad_offers"].initial = (
             self.instance.offers.filter(is_zammad_form=True) if self.instance.id else []
         )
@@ -947,7 +947,8 @@ def duplicate_imprint(
 
 
 def duplicate_media(
-    source_region: Region, target_region: Region  # pylint: disable=unused-argument
+    source_region: Region,
+    target_region: Region,  # pylint: disable=unused-argument
 ) -> None:
     """
     Function to duplicate all media of one region to another.

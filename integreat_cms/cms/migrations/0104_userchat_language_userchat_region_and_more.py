@@ -8,7 +8,8 @@ from django.db import migrations, models
 
 
 def set_zammad_urls(
-    apps: Apps, schema_editor: Callable  # pylint: disable=unused-argument
+    apps: Apps,
+    schema_editor: Callable,  # pylint: disable=unused-argument
 ) -> None:
     """
     Update empty Zammad URLs to Null

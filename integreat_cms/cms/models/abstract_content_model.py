@@ -274,9 +274,7 @@ class AbstractContentModel(AbstractBaseModel):
                     language_slug
                 ].language
                 # Reset prefetched translations
-                public_translation.foreign_object.prefetched_public_translations_by_language_slug = (
-                    self.prefetched_public_translations_by_language_slug
-                )
+                public_translation.foreign_object.prefetched_public_translations_by_language_slug = self.prefetched_public_translations_by_language_slug
                 # Clear cached property in case url with different language was already calculated before
                 try:
                     del public_translation.url_prefix
