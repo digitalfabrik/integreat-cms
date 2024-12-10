@@ -14,7 +14,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
-from ...constants import status
+from ...constants import status, text_directions
 from ...decorators import permission_required
 from ...forms import POIForm, POITranslationForm
 from ...models import Language, POI, POITranslation
@@ -107,6 +107,9 @@ class POIFormView(
                 "languages": region.active_languages if poi else [language],
                 "url_link": url_link,
                 "translation_states": poi.translation_states if poi else [],
+                "right_to_left": (
+                    language.text_direction == text_directions.RIGHT_TO_LEFT
+                ),
             },
         )
 
@@ -270,6 +273,9 @@ class POIFormView(
                 "url_link": url_link,
                 "translation_states": (
                     poi_instance.translation_states if poi_instance else []
+                ),
+                "right_to_left": (
+                    language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
             },
         )

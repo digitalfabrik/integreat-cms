@@ -28,7 +28,7 @@
         <label for="{{ form.location.id_for_label }}">
             {{ form.location.label }}
         </label>
-        {% translate "Name of location" as poi_title_placeholder %}
+        {% translate "Select a location" as poi_title_placeholder %}
         <div class="relative my-2">
             <input id="poi-query-input"
                    type="search"
@@ -43,7 +43,7 @@
                 <button id="poi-remove"
                         title="{% translate "Remove location" %}"
                         {% if form.disabled %}disabled{% endif %}>
-                    <i icon-name="trash-2" class="h-5 w-5"></i>
+                    <i icon-name="pencil" class="h-5 w-5"></i>
                 </button>
             </div>
         </div>
@@ -55,6 +55,15 @@
         <div class="relative" id="poi-query-result">
             {% include "_poi_query_result.html" %}
         </div>
+        {% if current_menu_item == "contacts" %}
+            <div id="info-location-mandatory"
+                 class="py-2 {% if poi %}hidden{% endif %}">
+                <i icon-name="alert-circle" class="h-5 w-5"></i>
+                <span class="help-text italic align-middle">
+                    {% trans "This field cannot be empty. Please select a location." %}
+                </span>
+            </div>
+        {% endif %}
         {% include "ajax_poi_form/_poi_address_container.html" with disabled=form.has_not_location.value %}
         <div id="poi-ajax-success-message"
              class="bg-green-100 border-l-4 border-green-500 text-green-800 px-4 py-3 hidden">

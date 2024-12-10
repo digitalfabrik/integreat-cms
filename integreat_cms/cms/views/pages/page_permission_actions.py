@@ -171,6 +171,11 @@ class AbstractPagePermission(ABC):
 
         :return: Response message
         """
+        if not user.is_active:
+            return PermissionMessage(
+                _("Inactive users cannot be assigned to pages."),
+                MessageLevel.WARNING,
+            )
         if not user.has_perm("cms.view_page"):
             return PermissionMessage(
                 _(

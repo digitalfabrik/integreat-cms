@@ -647,4 +647,11 @@ class MatomoApiClient:
                         merged[key] = value
             return merged
 
-        return deep_merge(*datasets)
+        merged_datasets = deep_merge(*datasets)
+        # Get language labels for export
+        languageLabels = list(merged_datasets[list(merged_datasets.keys())[0]].keys())
+
+        return {
+            "languageLabels": languageLabels,
+            "responseData": merged_datasets,
+        }

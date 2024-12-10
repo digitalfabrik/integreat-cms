@@ -28,7 +28,7 @@
             {% endif %}
         </div>
         <div class="flex flex-wrap justify-end gap-4">
-            {% if perms.cms.change_contact %}
+            {% if perms.cms.change_contact and not is_archive %}
                 <a href="{% url 'new_contact' region_slug=request.region.slug %}"
                    class="btn">
                     {% translate "Create contact" %}

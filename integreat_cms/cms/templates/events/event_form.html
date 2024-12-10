@@ -36,8 +36,15 @@
                     {% translate "Create new event" %}
                 {% endif %}
             </h1>
-            {% if not disabled %}
-                <div class="flex flex-wrap gap-4 ml-auto mr-0 items-center">
+            <div class="flex flex-wrap gap-4 ml-auto mr-0 items-center">
+                {% if event_form.instance.archived %}
+                    <a href="{% url 'events_archived' region_slug=request.region.slug language_slug=language.slug %}"
+                       class="btn btn-ghost">{% translate "Cancel" %}</a>
+                {% else %}
+                    <a href="{% url 'events' region_slug=request.region.slug %}"
+                       class="btn btn-ghost">{% translate "Cancel" %}</a>
+                {% endif %}
+                {% if not disabled %}
                     {% include "generic_auto_save_note.html" with form_instance=event_form.instance %}
                     {% if perms.cms.publish_event %}
                         <button name="status"
@@ -61,8 +68,8 @@
                             {% translate "Submit for approval" %}
                         </button>
                     {% endif %}
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
         <div class="3xl:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_816px] gap-4">
             <div class="col-span-2 3xl:col-span-1 flex flex-wrap flex-col">

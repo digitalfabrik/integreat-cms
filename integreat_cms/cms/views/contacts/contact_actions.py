@@ -28,18 +28,25 @@ def archive_contact(
     to_be_archived_contact = get_object_or_404(
         Contact, id=contact_id, location__region=request.region
     )
-    to_be_archived_contact.archive()
-
-    messages.success(
+    if not to_be_archived_contact.referring_objects:
+        to_be_archived_contact.archive()
+        messages.success(
+            request,
+            _("Contact {0} was successfully archived").format(to_be_archived_contact),
+        )
+        return redirect(
+            "contacts",
+            **{
+                "region_slug": region_slug,
+            },
+        )
+    messages.error(
         request,
-        _("Contact {0} was successfully archived").format(to_be_archived_contact),
+        _('Cannot archive contact "{0}" while content objects refer to it.').format(
+            to_be_archived_contact,
+        ),
     )
-    return redirect(
-        "contacts",
-        **{
-            "region_slug": region_slug,
-        },
-    )
+    return redirect("edit_contact", region_slug=region_slug, contact_id=contact_id)
 
 
 @permission_required("cms.delete_contact")
@@ -57,16 +64,25 @@ def delete_contact(
     to_be_deleted_contact = get_object_or_404(
         Contact, id=contact_id, location__region=request.region
     )
-    to_be_deleted_contact.delete()
-    messages.success(
-        request, _("Contact {0} was successfully deleted").format(to_be_deleted_contact)
+    if not to_be_deleted_contact.referring_objects:
+        to_be_deleted_contact.delete()
+        messages.success(
+            request,
+            _("Contact {0} was successfully deleted").format(to_be_deleted_contact),
+        )
+        return redirect(
+            "contacts",
+            **{
+                "region_slug": region_slug,
+            },
+        )
+    messages.error(
+        request,
+        _('Cannot delete contact "{0}" while content objects refer to it.').format(
+            to_be_deleted_contact,
+        ),
     )
-    return redirect(
-        "contacts",
-        **{
-            "region_slug": region_slug,
-        },
-    )
+    return redirect("edit_contact", region_slug=region_slug, contact_id=contact_id)
 
 
 @permission_required("cms.change_contact")

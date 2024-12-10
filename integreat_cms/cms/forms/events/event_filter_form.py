@@ -10,12 +10,13 @@ from datetime import date, datetime, time
 from typing import TYPE_CHECKING
 
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 if TYPE_CHECKING:
-    from ..models import Region
-    from ..models.events.event import EventQuerySet
+    from ...models import Region
+    from ...models.events.event import EventQuerySet
 
-from ...constants import all_day, events_time_range, recurrence
+from ...constants import all_day, calendar, events_time_range, recurrence
 from ...models import EventTranslation
 from ..custom_filter_form import CustomFilterForm
 
@@ -69,6 +70,15 @@ class EventFilterForm(CustomFilterForm):
         initial=[events_time_range.UPCOMING],
         required=False,
     )
+
+    imported_event = forms.TypedMultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple(attrs={"class": "default-checked"}),
+        choices=calendar.CHOICES,
+        initial=[key for (key, val) in calendar.CHOICES],
+        coerce=calendar.DATATYPE,
+        required=False,
+    )
+
     poi_id = forms.IntegerField(widget=forms.HiddenInput, initial=-1, required=False)
 
     query = forms.CharField(required=False)
@@ -95,6 +105,7 @@ class EventFilterForm(CustomFilterForm):
             events_time_range.ALL_EVENTS
         ):
             # Either post & upcoming or no checkboxes are checked => skip filtering
+            # We do this to check if either all options or none were selected from this group
             pass
         elif events_time_range.CUSTOM in cleaned_time_range:
             # Filter events for their start and end
@@ -148,6 +159,22 @@ class EventFilterForm(CustomFilterForm):
         elif recurrence.NOT_RECURRING in self.cleaned_data["recurring"]:
             # Only non-recurring events
             events = events.filter(recurrence_rule__isnull=True)
+
+        if (
+            len(self.cleaned_data["imported_event"]) == len(calendar.CHOICES)
+            or not self.cleaned_data["imported_event"]
+        ):
+            pass
+        elif (
+            calendar.EVENT_NOT_FROM_EXTERNAL_CALENDAR
+            in self.cleaned_data["imported_event"]
+        ):
+            events = events.filter(external_calendar__isnull=True)
+        elif (
+            calendar.EVENT_FROM_EXTERNAL_CALENDAR in self.cleaned_data["imported_event"]
+        ):
+            events = events.filter(external_calendar__isnull=False)
+
         # Filter events by the search query
         if query := self.cleaned_data["query"]:
             event_ids = EventTranslation.search(region, language_slug, query).values(

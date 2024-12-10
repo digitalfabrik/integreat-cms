@@ -18,11 +18,12 @@ from tests.utils import assert_message_in_log
 # Use the region Augsburg, as it has some contacts in the test data
 REGION_SLUG = "augsburg"
 
+USED_CONTACT_ID = 5
 NOT_USED_CONTACT_ID = 3
 ARCHIVED_CONTACT_ID = 2
 
 
-test_archive_parameters = [(NOT_USED_CONTACT_ID, True)]
+test_archive_parameters = [(NOT_USED_CONTACT_ID, True), (USED_CONTACT_ID, False)]
 
 
 @pytest.mark.django_db
@@ -68,14 +69,14 @@ def test_archive_contact(
             ).content.decode("utf-8")
             assert Contact.objects.filter(id=contact_id).first().archived
         else:
-            # To be adjusted after #3282
             assert_message_in_log(
-                "ERROR    Contact couldn't be archived as it's used in a content",
+                f'ERROR    Cannot archive contact "{contact_string}" while content objects refer to it.',
                 caplog,
             )
-            assert (
-                "Contact couldn&#x27;t be archived as it&#x27;s used in a content"
-                in client.get(redirect_url).content.decode("utf-8")
+            assert f"Cannot archive contact &quot;{contact_string}&quot; while content objects refer to it." in client.get(
+                redirect_url
+            ).content.decode(
+                "utf-8"
             )
             assert not Contact.objects.filter(id=contact_id).first().archived
     elif role == ANONYMOUS:
@@ -88,7 +89,7 @@ def test_archive_contact(
         assert response.status_code == 403
 
 
-test_delete_parameters = [(NOT_USED_CONTACT_ID, True)]
+test_delete_parameters = [(NOT_USED_CONTACT_ID, True), (USED_CONTACT_ID, False)]
 
 
 @pytest.mark.django_db
@@ -134,14 +135,14 @@ def test_delete_contact(
             ).content.decode("utf-8")
             assert not Contact.objects.filter(id=contact_id).first()
         else:
-            # To be adjusted after #3282
             assert_message_in_log(
-                "ERROR    Contact couldn't be archived as it's used in a content",
+                f'ERROR    Cannot delete contact "{contact_string}" while content objects refer to it.',
                 caplog,
             )
-            assert (
-                "Contact couldn&#x27;t be archived as it&#x27;s used in a content"
-                in client.get(redirect_url).content.decode("utf-8")
+            assert f"Cannot delete contact &quot;{contact_string}&quot; while content objects refer to it." in client.get(
+                redirect_url
+            ).content.decode(
+                "utf-8"
             )
             assert Contact.objects.filter(id=contact_id).first()
     elif role == ANONYMOUS:
@@ -184,7 +185,7 @@ def test_restore_contact(
     response = client.post(restore_contact)
 
     if role in HIGH_PRIV_STAFF_ROLES:
-        response.status_code == 302
+        assert response.status_code == 302
         redirect_url = response.headers.get("location")
         assert_message_in_log(
             f"SUCCESS  Contact {contact_string} was successfully restored",
@@ -205,7 +206,7 @@ def test_restore_contact(
         assert response.status_code == 403
 
 
-BULK_ARCHIVE_SELECTED_IDS = [NOT_USED_CONTACT_ID]
+BULK_ARCHIVE_SELECTED_IDS = [NOT_USED_CONTACT_ID, USED_CONTACT_ID]
 
 
 @pytest.mark.django_db
@@ -226,6 +227,7 @@ def test_bulk_archive_contacts(
     not_used_contact_string = str(
         Contact.objects.filter(id=NOT_USED_CONTACT_ID).first()
     )
+    used_contact_string = str(Contact.objects.filter(id=USED_CONTACT_ID).first())
 
     bulk_archive_contacts = reverse(
         "bulk_archive_contacts",
@@ -239,25 +241,18 @@ def test_bulk_archive_contacts(
     )
 
     if role in HIGH_PRIV_STAFF_ROLES:
-        response.status_code == 302
+        assert response.status_code == 302
         redirect_url = response.headers.get("location")
         redirect_page = client.get(redirect_url).content.decode("utf-8")
-        # To be adjusted after #3282
-        """
         assert_message_in_log(
-            "ERROR    could not be archived",
+            f'ERROR    Contact "{used_contact_string}" cannot be archived while content objects refer to it.',
             caplog,
         )
         assert (
-            " could not be archived"
+            f"Contact &quot;{used_contact_string}&quot; cannot be archived while content objects refer to it."
             in redirect_page
         )
-        assert (
-            not Contact.objects.filter(id=USED_CONTACT_ID)
-            .first()
-            .archived
-        )
-        """
+        assert not Contact.objects.filter(id=USED_CONTACT_ID).first().archived
         assert_message_in_log(
             f'SUCCESS  Contact "{not_used_contact_string}" was successfully archived.',
             caplog,
@@ -277,7 +272,7 @@ def test_bulk_archive_contacts(
         assert response.status_code == 403
 
 
-BULK_DELETE_SELECTED_IDS = [NOT_USED_CONTACT_ID]
+BULK_DELETE_SELECTED_IDS = [NOT_USED_CONTACT_ID, USED_CONTACT_ID]
 
 
 @pytest.mark.django_db
@@ -298,6 +293,7 @@ def test_bulk_delete_contacts(
     not_used_contact_string = str(
         Contact.objects.filter(id=NOT_USED_CONTACT_ID).first()
     )
+    used_contact_string = str(Contact.objects.filter(id=USED_CONTACT_ID).first())
 
     bulk_delete_contacts = reverse(
         "bulk_delete_contacts",
@@ -311,25 +307,18 @@ def test_bulk_delete_contacts(
     )
 
     if role in HIGH_PRIV_STAFF_ROLES:
-        response.status_code == 302
+        assert response.status_code == 302
         redirect_url = response.headers.get("location")
         redirect_page = client.get(redirect_url).content.decode("utf-8")
-        # To be adjusted after #3282
-        """
         assert_message_in_log(
-            "ERROR    could not be archived",
+            f'ERROR    Contact "{used_contact_string}" cannot be deleted while content objects refer to it.',
             caplog,
         )
         assert (
-            " could not be archived"
+            f"Contact &quot;{used_contact_string}&quot; cannot be deleted while content objects refer to it."
             in redirect_page
         )
-        assert (
-            not Contact.objects.filter(id=USED_CONTACT_ID)
-            .first()
-            .archived
-        )
-        """
+        assert Contact.objects.filter(id=USED_CONTACT_ID).first()
         assert_message_in_log(
             f'SUCCESS  Contact "{not_used_contact_string}" was successfully deleted.',
             caplog,
@@ -381,7 +370,7 @@ def test_bulk_restore_contacts(
     )
 
     if role in HIGH_PRIV_STAFF_ROLES:
-        response.status_code == 302
+        assert response.status_code == 302
         redirect_url = response.headers.get("location")
         redirect_page = client.get(redirect_url).content.decode("utf-8")
 

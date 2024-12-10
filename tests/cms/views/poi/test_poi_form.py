@@ -227,7 +227,7 @@ def test_poi_form_shows_associated_contacts(
     settings: SettingsWrapper,
 ) -> None:
     """
-    POI "Draft location" (id=6) has three related contacts. Test whether they are shown in the POI form.
+    POI "Draft location" (id=6) has four related contacts. Test whether they are shown in the POI form.
     """
     client, role = login_role_user
 

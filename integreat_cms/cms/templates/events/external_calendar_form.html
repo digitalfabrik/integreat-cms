@@ -19,6 +19,8 @@
             </div>
             <div class="flex justify-end w-2/5">
                 <div class="flex flex-wrap justify-between gap-4">
+                    <a href="{% url 'external_calendar_list' region_slug=request.region.slug %}"
+                       class="btn btn-ghost">{% translate "Cancel" %}</a>
                     {% if external_calendar_form.instance.id and perms.cms.delete_externalcalendar %}
                         <div class="flex flex-wrap gap-4">
                             <button type="button"

@@ -18,6 +18,9 @@ if TYPE_CHECKING:
 
     from django.http import HttpRequest, HttpResponse
 
+    from integreat_cms.cms.models import ExternalCalendar
+    from integreat_cms.cms.utils.external_calendar_utils import ImportResult
+
 
 logger = logging.getLogger(__name__)
 
@@ -80,19 +83,9 @@ class ExternalCalendarFormView(TemplateView):
         elif not external_calendar_form.has_changed():
             messages.info(request, _("No changes made"))
 
-            import_events(external_calendar_form.instance, logger)
-            if external_calendar_form.instance.errors:
-                messages.error(
-                    request,
-                    _(
-                        "An error occurred while importing events from this external calendar"
-                    ),
-                )
-            else:
-                messages.success(
-                    request,
-                    _("Successfully imported events from this external calendar"),
-                )
+            import_result = import_events(external_calendar_form.instance, logger)
+            self.show_import_messages(external_calendar_form.instance, import_result)
+
         else:
             external_calendar_form.instance.region = self.request.region
             external_calendar_form.save()
@@ -111,19 +104,8 @@ class ExternalCalendarFormView(TemplateView):
                     ),
                 )
 
-            import_events(external_calendar_form.instance, logger)
-            if external_calendar_form.instance.errors:
-                messages.error(
-                    request,
-                    _(
-                        "An error occurred while importing events from this external calendar"
-                    ),
-                )
-            else:
-                messages.success(
-                    request,
-                    _("Successfully imported events from this external calendar"),
-                )
+            import_result = import_events(external_calendar_form.instance, logger)
+            self.show_import_messages(external_calendar_form.instance, import_result)
 
             return redirect(
                 "edit_external_calendar",
@@ -139,3 +121,41 @@ class ExternalCalendarFormView(TemplateView):
                 "current_menu_item": "external_calendar_list",
             },
         )
+
+    def show_import_messages(
+        self, external_calendar_instance: ExternalCalendar, import_result: ImportResult
+    ) -> None:
+        """
+        This function shows the message after the import has been done
+
+        :param external_calendar_instance: The instance of the external calendar
+        :param import_result: The results of the import, either successes or errors
+        """
+        number_of_errors = import_result.number_of_errors
+        number_of_successes = external_calendar_instance.events.count()
+
+        if not number_of_successes and number_of_errors > 0:
+            messages.error(
+                self.request,
+                _(
+                    "No events have been successfully imported from this external calendar"
+                ),
+            )
+        elif number_of_successes > 0 and number_of_errors > 0:
+            messages.warning(
+                self.request,
+                _(
+                    _(
+                        "Could not import %d events of this external calendar (out of %d total). See the status for more information"
+                    )
+                    % (
+                        number_of_errors,
+                        number_of_errors + number_of_successes,
+                    )
+                ),
+            )
+        else:
+            messages.success(
+                self.request,
+                _("Successfully imported events from this external calendar"),
+            )

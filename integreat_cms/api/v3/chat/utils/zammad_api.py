@@ -142,7 +142,7 @@ class ZammadChatAPI:
             )[0].random_hash,
         }
 
-    def get_messages(self, chat: UserChat) -> dict[str, dict | list[dict]]:
+    def get_messages(self, chat: UserChat) -> dict[str, dict | list[dict] | str]:
         # pylint: disable=method-hidden
         """
         Get all non-internal messages for a given ticket
@@ -163,7 +163,10 @@ class ZammadChatAPI:
                     for attachment in message["attachments"]
                 ]
 
-        return {"messages": response}
+        return {
+            "messages": response,
+            "ticket_url": f"{chat.region.zammad_url}/#ticket/zoom/{chat.zammad_id}",
+        }
 
     def send_message(
         self,

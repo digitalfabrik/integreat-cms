@@ -136,13 +136,14 @@ const updateChart = async (): Promise<void> => {
  * This function enables/disables the export button depending on whether an export format is selected or not.
  */
 const toggleExportButton = () => {
-    // Only activate button if an export format is selected
+    // Only activate button if the statistics to export and an export format is selected
     const exportFormat = document.getElementById("export-format") as HTMLSelectElement;
+    const exportStatistics = document.getElementById("export-statistics") as HTMLSelectElement;
     const exportButton = document.getElementById("export-button") as HTMLInputElement;
-    if (!exportFormat || !exportButton) {
+    if (!exportFormat || !exportStatistics || !exportButton) {
         return;
     }
-    exportButton.disabled = exportFormat.value === "";
+    exportButton.disabled = (exportFormat.value === "" || exportStatistics.value === "");
 };
 
 /*
@@ -161,42 +162,61 @@ const downloadFile = (filename: string, content: string) => {
  * This function exports the current data of the chart into either PNG or CSV.
  */
 const exportStatisticsData = (): void => {
-    // Get Chart instance
-    const chart = Chart.instances[0];
-    // Get format select field
-    const exportFormat = document.getElementById("export-format") as HTMLSelectElement;
-    // Build filename
-    const filename = `Integreat ${exportFormat.getAttribute("data-filename-prefix")} ${exportLabels[0]} - ${
-        exportLabels[exportLabels.length - 1]
-    }`;
+    // Get kind of statistics to export. If total statistics is requested, proceed.
+    const exportStatistics = document.getElementById("export-statistics") as HTMLSelectElement;
+    if (exportStatistics.value === "total-accesses") {
+        // Get Chart instance
+        const chart = Chart.instances[0];
+        // Get format select field
+        const exportFormat = document.getElementById("export-format") as HTMLSelectElement;
+        // Build filename
+        const filename = `Integreat ${exportFormat.getAttribute("data-filename-prefix")} ${exportLabels[0]} - ${
+            exportLabels[exportLabels.length - 1]
+        }`;
 
-    if (exportFormat.value === "image") {
-        // This is needed to get a white background for the image. The default background is transparent.
-        const ctx = chart.canvas.getContext("2d");
-        ctx.globalCompositeOperation = "destination-over";
-        ctx.fillStyle = "white";
-        ctx.fillRect(0, 0, chart.canvas.width, chart.canvas.height);
-        // Image Creation of the chart
-        const image = chart.toBase64Image();
-        // Initiate download
-        downloadFile(`${filename}.png`, image);
-    } else if (exportFormat.value === "csv") {
-        // Convert datasets into the format [["language 1", "hits on day 1", "hits 2", ...], [["language 1", "hits on day 1", ...], ...]
-        const datasetsWithLabels: string[][] = chart.data.datasets.map((dataset) =>
-            [dataset.label].concat(dataset.data.map(String))
-        );
-        // Ensure export labels don't contain comma and corrupt CSV
-        exportLabels = exportLabels.map((x) => x.replace(",", " - "));
-        // Create matrix with date labels in the first row and the hits per language in the subsequent rows
-        const csvMatrix: string[][] = [[""].concat(exportLabels)].concat(datasetsWithLabels);
-        // Transpose matrix (swap rows and columns) and join to a single csv string
-        const csvContent = csvMatrix[0].map((col, i) => csvMatrix.map((row) => row[i]).join(",")).join("\n");
-        // Initiate download
-        downloadFile(`${filename}.csv`, `data:text/csv;charset=utf-8;base64,${btoa(csvContent)}`);
-    } else {
-        // eslint-disable-next-line no-alert
-        alert("Export format is not supported.");
-        console.error("Export format not supported");
+        if (exportFormat.value === "image") {
+            const timeoutDuration = 300;
+            chart.options.plugins.legend.display = true;
+            chart.update();
+
+            // Wait till the legend is fully rendered
+            setTimeout(() => {
+                const ctx = chart.canvas.getContext("2d");
+
+                if (ctx) {
+                    // This is needed to get a white background for the image. The default background is transparent.
+                    ctx.globalCompositeOperation = "destination-over";
+                    ctx.fillStyle = "white";
+                    ctx.fillRect(0, 0, chart.canvas.width, chart.canvas.height);
+
+                    // Capture the chart as a PNG image
+                    const image = chart.toBase64Image();
+                    // Initiate download
+                    downloadFile(`${filename}.png`, image);
+
+                    chart.options.plugins.legend.display = false;
+                    chart.update();
+                }
+            }, timeoutDuration);
+        } else if (exportFormat.value === "csv") {
+            // Convert datasets into the format [["language 1", "hits on day 1", "hits 2", ...], [["language 1", "hits on day 1", ...], ...]
+            const datasets = chart.data.datasets;
+            const datasetsWithLabels: string[][] = datasets
+                .filter((dataset) => chart.isDatasetVisible(datasets.indexOf(dataset)))
+                .map((dataset) => [dataset.label].concat(dataset.data.map(String)));
+            // Ensure export labels don't contain comma and corrupt CSV
+            exportLabels = exportLabels.map((x) => x.replace(",", " - "));
+            // Create matrix with date labels in the first row and the hits per language in the subsequent rows
+            const csvMatrix: string[][] = [[""].concat(exportLabels)].concat(datasetsWithLabels);
+            // Transpose matrix (swap rows and columns) and join to a single csv string
+            const csvContent = csvMatrix[0].map((col, i) => csvMatrix.map((row) => row[i]).join(",")).join("\n");
+            // Initiate download
+            downloadFile(`${filename}.csv`, `data:text/csv;charset=utf-8;base64,${btoa(csvContent)}`);
+        } else {
+            // eslint-disable-next-line no-alert
+            alert("Export format is not supported.");
+            console.error("Export format not supported");
+        }
     }
 };
 
@@ -217,6 +237,10 @@ window.addEventListener("load", async () => {
             plugins: {
                 legend: {
                     display: false,
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: "circle",
+                    },
                 },
                 tooltip: {
                     usePointStyle: true,
@@ -250,4 +274,5 @@ window.addEventListener("load", async () => {
 
     // Event handler for toggling export button
     document.getElementById("export-format")?.addEventListener("change", toggleExportButton);
+    document.getElementById("export-statistics")?.addEventListener("change", toggleExportButton);
 });
