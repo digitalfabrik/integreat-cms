@@ -1,0 +1,99 @@
+.ts-wrapper {
+    & .ts-dropdown {
+        border: 1px solid #bbb !important;
+        border-top: none !important;
+        border-radius: 0.1em 0.1em 0.3em 0.3em;
+        padding: 0.2em !important;
+        box-shadow: #bbb 0em 0em 0.3em !important;
+
+        --highlight-bg: rgb(251, 218, 22);
+        --highlight-fg: #000;
+    }
+
+    & .ts-dropdown-content {
+        & .option {
+            border-radius: 0.2em;
+            padding: 0.4em 0.3em;
+
+            & .highlight {
+                text-decoration: underline !important;
+                font-weight: bold !important;
+                color: var(--highlight-fg) !important;
+                background: var(--highlight-bg) !important;
+                box-shadow: var(--highlight-bg) 0 0 0 0.1em !important;
+                border-radius: 0.1em;
+            }
+        }
+
+        & .option.active {
+            background: rgb(59, 130, 246);
+            color: white;
+        }
+
+        & .no-results {
+            padding: 0 0.3em;
+            color: #888;
+            font-style: italic;
+        }
+
+        & .spinner {
+            // CC0 from loading.io \o/
+            &,
+            &:after {
+                box-sizing: border-box;
+            }
+            & {
+                display: inline-block;
+                width: 3em;
+                height: 3em;
+            }
+            &:after {
+                content: " ";
+                display: block;
+                width: 2em;
+                height: 2em;
+                margin: 0.6em;
+                border-radius: 50%;
+                border: 0.35em solid currentColor;
+                border-color: currentColor transparent currentColor transparent;
+                animation: spinner 1.2s linear infinite;
+            }
+            @keyframes spinner {
+                0% {
+                    transform: rotate(0deg);
+                }
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+        }
+    }
+
+    /* As TinyMCE field, trick into displaying combo box as one visual unit */
+
+    & .ts-control.tox-textfield {
+        & [type="text"],
+        & [type="email"],
+        & [type="url"],
+        & [type="password"],
+        & [type="number"],
+        & [type="date"],
+        & [type="datetime-local"],
+        & [type="month"],
+        & [type="search"],
+        & [type="tel"],
+        & [type="time"],
+        & [type="week"],
+        & [multiple],
+        & textarea,
+        & select,
+        & .slug-field {
+            width: 100%;
+            &:focus {
+                border-color: initial !important;
+                background-color: initial !important;
+                box-shadow: none !important;
+            }
+        }
+    }
+}

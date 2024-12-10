@@ -1,0 +1,93 @@
+{% load settings_tags %}
+{% load static %}
+{% spaceless %}
+    <div contenteditable="false"
+         data-contact-id="{{ contact.pk }}"
+         data-contact-url="{{ contact.full_url }}"
+         class="contact-card">
+        <a href={{ contact.full_url }} class="marker-link">Contact</a>
+        {% if contact %}
+            {% if contact.location %}
+                <h4>
+                    {% if contact.name and contact.name.strip %}
+                        <span class="notranslate" dir="ltr" translate="no">{{ contact.name.strip }}</span>
+                    {% endif %}
+                    {% if contact.name and contact.point_of_contact_for %}
+                        |
+                    {% endif %}
+                    {% if contact.point_of_contact_for and contact.point_of_contact_for.strip %}
+                        {{ contact.point_of_contact_for.strip }}
+                    {% endif %}
+                </h4>
+            {% endif %}
+            {% if contact.location %}
+                <p>
+                    <picture>
+                        <source srcset="{% get_base_url %}{% static "svg/pin.svg" %}" type="image/svg+xml">
+                        <img src="{% get_static_prefix %}/svg/pin.svg"
+                             alt="Address: "
+                             width="15"
+                             height="15" />
+                    </picture>
+                    &nbsp;
+                    <a href="{{ contact.location.map_url }}">
+                        <span class="notranslate" dir="ltr" translate="no">
+                            {{ contact.location.short_address }}
+                        </span>
+                    </a>
+                </p>
+            {% endif %}
+            {% if contact.email and contact.email.strip %}
+                <p>
+                    <picture>
+                        <source srcset="{% get_base_url %}{% static "svg/email.svg" %}" type="image/svg+xml">
+                        <img src="{% get_static_prefix %}/svg/email.svg"
+                             alt="Email: "
+                             width="15"
+                             height="15" />
+                    </picture>
+                    &nbsp;
+                    <a href="mailto:{{ contact.email.strip }}">
+                        <span class="notranslate" dir="ltr" translate="no">
+                            {{ contact.email.strip }}
+                        </span>
+                    </a>
+                </p>
+            {% endif %}
+            {% if contact.phone_number and contact.phone_number.strip %}
+                <p>
+                    <picture>
+                        <source srcset="{% get_base_url %}{% static "svg/call.svg" %}" type="image/svg+xml">
+                        <img src="{% get_static_prefix %}/svg/call.svg"
+                             alt="Phone Number: "
+                             width="15"
+                             height="15" />
+                    </picture>
+                    &nbsp;
+                    <a href="tel:{{ contact.phone_number.strip }}">
+                        <span class="notranslate" dir="ltr" translate="no">
+                            {{ contact.phone_number.strip }}
+                        </span>
+                    </a>
+                </p>
+            {% endif %}
+            {% if contact.website and contact.website.strip %}
+                <p>
+                    <picture>
+                        <source srcset="{% get_base_url %}{% static "svg/www.svg" %}" type="image/svg+xml">
+                        <img src="{% get_static_prefix %}/svg/www.svg"
+                             alt="Website: "
+                             width="15"
+                             height="15" />
+                    </picture>
+                    &nbsp;
+                    <a href="{{ contact.website.strip }}">
+                        <span class="notranslate" dir="ltr" translate="no">
+                            {{ contact.website.strip }}
+                        </span>
+                    </a>
+                </p>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endspaceless %}
