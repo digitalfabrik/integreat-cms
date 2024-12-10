@@ -36,12 +36,12 @@ const queryObjects = async (url: string, type: string, queryString: string, arch
             child.classList.add(
                 "inline-block",
                 "whitespace-nowrap",
+                "my-0.5",
                 "px-4",
                 "py-3",
                 "text-gray-800",
                 "focus:ring-2",
                 "hover:bg-gray-300",
-                "bg-gray-200",
                 "w-full",
                 "overflow-x-hidden",
                 "text-ellipsis",
@@ -68,7 +68,7 @@ export const setSearchQueryEventListeners = () => {
     // AJAX search
     tableSearchInput.addEventListener("keyup", (event) => {
         // Ignore navigation keys for API calls
-        if (["ArrowDown", "ArrowUp", "Enter", "Escape", "Tab"].includes(event.key)) {
+        if (["ArrowDown", "ArrowUp", "ArrowLeft", "ArrowRight", "Escape", "Tab"].includes(event.key)) {
             return;
         }
 
@@ -90,9 +90,24 @@ export const setSearchQueryEventListeners = () => {
 
     tableSearchInput.addEventListener("keydown", (event) => {
         const suggestions = Array.from(suggestionList?.children || []) as HTMLElement[];
+        const input = event.target as HTMLInputElement;
 
         if (suggestions.length === 0) {
             return;
+        }
+
+        if (event.key === "ArrowLeft") {
+            event.preventDefault();
+            if (input.selectionStart !== null && input.selectionEnd !== null) {
+                const newCaretPosition = Math.max(0, input.selectionStart - 1);
+                input.setSelectionRange(newCaretPosition, newCaretPosition);
+            }
+        } else if (event.key === "ArrowRight") {
+            event.preventDefault();
+            if (input.selectionStart !== null && input.selectionEnd !== null) {
+                const newCaretPosition = Math.min(input.value.length, input.selectionEnd + 1);
+                input.setSelectionRange(newCaretPosition, newCaretPosition);
+            }
         }
 
         if (event.key === "ArrowDown") {
@@ -121,17 +136,14 @@ export const setSearchQueryEventListeners = () => {
             if (index === focusedIndex) {
                 child.setAttribute("aria-selected", "true");
                 child.classList.add("bg-gray-300");
-                child.classList.add("focus:ring-2");
-                child.classList.remove("bg-gray-200");
             } else {
                 child.setAttribute("aria-selected", "false");
                 child.classList.remove("bg-gray-300");
-                child.classList.add("bg-gray-200");
             }
         });
     });
 
-    suggestionList.addEventListener("keydown", (event) => {
+    suggestionList?.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
             const activeSuggestion = document.activeElement as HTMLElement;
             if (activeSuggestion && suggestionList.contains(activeSuggestion)) {
