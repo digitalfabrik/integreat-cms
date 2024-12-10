@@ -1,12 +1,16 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import pytest
 from django.core.management.base import CommandError
-from pytest_django.fixtures import SettingsWrapper
 
 from integreat_cms.cms.models import Region
 
 from ..utils import get_command_output
+
+if TYPE_CHECKING:
+    from pytest_django.fixtures import SettingsWrapper
 
 
 def test_summ_ai_bulk_missing_args() -> None:
@@ -58,12 +62,12 @@ def test_summ_ai_bulk_disabled_region(load_test_data: None) -> None:
     """
     Ensure that calling when disabled in a region throws an error
     """
-    # pylint: disable=fixme
-    # TODO: Ensure there are no race conditions with tests.summ_ai_api.summ.ai_test module
+    # TODO(timobrembeck): Ensure there are no race conditions with tests.summ_ai_api.summ.ai_test module
+    # https://github.com/digitalfabrik/integreat-cms/issues/2119
     #
     # with pytest.raises(CommandError) as exc_info:
-    #    assert not any(get_command_output("summ_ai_bulk", "augsburg", "non-existing"))
-    # assert str(exc_info.value) == 'SUMM.AI API is disabled in "Stadt Augsburg".'
+    #    assert not any(get_command_output("summ_ai_bulk", "augsburg", "non-existing"))  # noqa: ERA001
+    # assert str(exc_info.value) == 'SUMM.AI API is disabled in "Stadt Augsburg".'  # noqa: ERA001
 
 
 @pytest.mark.django_db

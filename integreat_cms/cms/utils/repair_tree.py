@@ -14,7 +14,7 @@ from .shadow_instance import ShadowInstance
 from .tree_mutex import tree_mutex
 
 if TYPE_CHECKING:
-    from typing import Iterable
+    from collections.abc import Iterable
 
     from django.apps.registry import Apps
     from django.db.models import Model
@@ -48,7 +48,7 @@ def repair_tree(
                 Page.objects.get(id=single_id)
             except Page.DoesNotExist as e:
                 raise ValueError(
-                    f'The page with id "{single_id}" does not exist.'
+                    f'The page with id "{single_id}" does not exist.',
                 ) from e
         # All ids in page_id are valid, get them from mptt_fixer
         root_nodes = {
@@ -75,7 +75,8 @@ def repair_tree(
 
 
 def print_changed_fields(
-    tree_node: ShadowInstance[Page], logging_name: str = __name__
+    tree_node: ShadowInstance[Page],
+    logging_name: str = __name__,
 ) -> None:
     """
     Utility function to print changed and unchanged attributes using a
@@ -164,7 +165,8 @@ class MPTTFixer:
         return self.fixed_nodes.values()
 
     def get_fixed_tree_of_page(
-        self, node_id: int | None = None
+        self,
+        node_id: int | None = None,
     ) -> Iterable[ShadowInstance[Page]]:
         """
         Yield all nodes of the same page tree as the node specified by id in order (fixed).

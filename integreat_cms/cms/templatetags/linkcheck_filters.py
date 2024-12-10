@@ -6,7 +6,6 @@ from django import template
 from django.utils.safestring import mark_safe
 
 if TYPE_CHECKING:
-
     from linkcheck.models import Url
 
 register = template.Library()

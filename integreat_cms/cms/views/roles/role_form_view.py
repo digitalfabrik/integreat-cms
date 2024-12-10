@@ -75,7 +75,8 @@ class RoleFormView(TemplateView):
         )
         role_form = RoleForm(data=request.POST, instance=role_instance)
         group_form = GroupForm(
-            data=request.POST, instance=getattr(role_instance, "group", None)
+            data=request.POST,
+            instance=getattr(role_instance, "group", None),
         )
 
         if not role_form.is_valid() or not group_form.is_valid():

@@ -8,8 +8,6 @@ from typing import TYPE_CHECKING
 
 from django.utils.translation import gettext_lazy as _
 
-from ..utils.translation_utils import gettext_many_lazy as __
-
 if TYPE_CHECKING:
     from typing import Final
 

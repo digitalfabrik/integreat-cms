@@ -12,7 +12,6 @@ from io import StringIO
 import pytest
 from django.conf import settings
 from django.contrib import auth
-from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.models.feedback.feedback import Feedback
@@ -39,14 +38,16 @@ def test_mark_region_feedback_as_read(
 
     # Mark feedback as read
     mark_region_feedback_as_read = reverse(
-        "mark_region_feedback_as_read", kwargs=region_slug_param
+        "mark_region_feedback_as_read",
+        kwargs=region_slug_param,
     )
     test_feedback_id = 4
     response = client.post(
-        mark_region_feedback_as_read, data={"selected_ids[]": [test_feedback_id]}
+        mark_region_feedback_as_read,
+        data={"selected_ids[]": [test_feedback_id]},
     )
 
-    if role in PRIV_STAFF_ROLES + [MANAGEMENT]:
+    if role in [*PRIV_STAFF_ROLES, MANAGEMENT]:
         # Check for a redirect to the feedback list
         feedback_list = reverse("region_feedback", kwargs=region_slug_param)
         assert response.status_code == 302
@@ -55,7 +56,8 @@ def test_mark_region_feedback_as_read(
         # Check for a success message
         response = client.get(feedback_list)
         assert_message_in_log(
-            "SUCCESS  Feedback was successfully marked as read", caplog
+            "SUCCESS  Feedback was successfully marked as read",
+            caplog,
         )
 
         # Check that feedback has been marked as read by the user in the database
@@ -86,14 +88,16 @@ def test_mark_region_feedback_as_unread(
 
     # Mark feedback as unread
     mark_region_feedback_as_unread = reverse(
-        "mark_region_feedback_as_unread", kwargs=region_slug_param
+        "mark_region_feedback_as_unread",
+        kwargs=region_slug_param,
     )
     test_feedback_id = 6
     response = client.post(
-        mark_region_feedback_as_unread, data={"selected_ids[]": [test_feedback_id]}
+        mark_region_feedback_as_unread,
+        data={"selected_ids[]": [test_feedback_id]},
     )
 
-    if role in PRIV_STAFF_ROLES + [MANAGEMENT]:
+    if role in [*PRIV_STAFF_ROLES, MANAGEMENT]:
         # Check for a redirect to the feedback list
         feedback_list = reverse("region_feedback", kwargs=region_slug_param)
         assert response.status_code == 302
@@ -102,7 +106,8 @@ def test_mark_region_feedback_as_unread(
         # Check for a success message
         response = client.get(feedback_list)
         assert_message_in_log(
-            "SUCCESS  Feedback was successfully marked as unread", caplog
+            "SUCCESS  Feedback was successfully marked as unread",
+            caplog,
         )
 
         # Check that feedback has been marked as unread by the user in the database
@@ -133,14 +138,16 @@ def test_archive_region_feedback(
 
     # Archive feedback
     archive_region_feedback = reverse(
-        "archive_region_feedback", kwargs=region_slug_param
+        "archive_region_feedback",
+        kwargs=region_slug_param,
     )
     test_feedback_id = 4
     response = client.post(
-        archive_region_feedback, data={"selected_ids[]": [test_feedback_id]}
+        archive_region_feedback,
+        data={"selected_ids[]": [test_feedback_id]},
     )
 
-    if role in PRIV_STAFF_ROLES + [MANAGEMENT]:
+    if role in [*PRIV_STAFF_ROLES, MANAGEMENT]:
         # Check for a redirect to the feedback list
         feedback_list = reverse("region_feedback", kwargs=region_slug_param)
         assert response.status_code == 302
@@ -178,14 +185,16 @@ def test_restore_region_feedback(
 
     # Restore feedback
     restore_region_feedback = reverse(
-        "restore_region_feedback", kwargs=region_slug_param
+        "restore_region_feedback",
+        kwargs=region_slug_param,
     )
     test_feedback_id = 5
     response = client.post(
-        restore_region_feedback, data={"selected_ids[]": [test_feedback_id]}
+        restore_region_feedback,
+        data={"selected_ids[]": [test_feedback_id]},
     )
 
-    if role in PRIV_STAFF_ROLES + [MANAGEMENT]:
+    if role in [*PRIV_STAFF_ROLES, MANAGEMENT]:
         # Check for a redirect to the feedback list
         feedback_list = reverse("region_feedback_archived", kwargs=region_slug_param)
         assert response.status_code == 302
@@ -225,10 +234,11 @@ def test_delete_region_feedback(
     delete_region_feedback = reverse("delete_region_feedback", kwargs=region_slug_param)
     feedback_to_delete_id = 4
     response = client.post(
-        delete_region_feedback, data={"selected_ids[]": [feedback_to_delete_id]}
+        delete_region_feedback,
+        data={"selected_ids[]": [feedback_to_delete_id]},
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES + [MANAGEMENT]:
+    if role in [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT]:
         # Check for a redirect to the feedback list
         feedback_list = reverse("region_feedback", kwargs=region_slug_param)
         assert response.status_code == 302
@@ -263,12 +273,13 @@ def test_csv_export_feedback(
     client, role = login_role_user
 
     csv_export = reverse(
-        "export_region_feedback", kwargs={**region_slug_param, "file_format": "csv"}
+        "export_region_feedback",
+        kwargs={**region_slug_param, "file_format": "csv"},
     )
     csv_to_export_ids = [7, 8]
     response = client.post(csv_export, data={"selected_ids[]": csv_to_export_ids})
 
-    if role in STAFF_ROLES + [MANAGEMENT]:
+    if role in [*STAFF_ROLES, MANAGEMENT]:
         assert response.status_code == 200
         assert response.headers.get("Content-Type") == "text/csv"
 

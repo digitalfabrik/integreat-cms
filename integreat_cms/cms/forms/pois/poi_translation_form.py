@@ -13,7 +13,6 @@ logger = logging.getLogger(__name__)
 
 
 class POITranslationForm(MachineTranslationForm):
-    # pylint: disable=too-many-ancestors
     """
     Form for creating and modifying POI translation objects
     """
@@ -27,7 +26,7 @@ class POITranslationForm(MachineTranslationForm):
         #: The model of this :class:`django.forms.ModelForm`
         model = POITranslation
         #: The fields of the model which should be handled by this form
-        fields = MachineTranslationForm.Meta.fields + ["meta_description", "slug"]
+        fields = [*MachineTranslationForm.Meta.fields, "meta_description", "slug"]
 
     def __init__(self, **kwargs: Any) -> None:
         r"""

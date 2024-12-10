@@ -53,10 +53,12 @@ class DashboardView(TemplateView, ChatContextMixin):
             {
                 "current_menu_item": "region_dashboard",
                 "blog_url": settings.BLOG_URLS.get(
-                    language_slug, settings.DEFAULT_BLOG_URL
+                    language_slug,
+                    settings.DEFAULT_BLOG_URL,
                 ),
                 "feed_url": settings.RSS_FEED_URLS.get(
-                    language_slug, settings.DEFAULT_RSS_FEED_URL
+                    language_slug,
+                    settings.DEFAULT_RSS_FEED_URL,
                 ),
                 "broken_link_ajax": reverse(
                     "get_broken_links_ajax",
@@ -66,7 +68,7 @@ class DashboardView(TemplateView, ChatContextMixin):
                     "get_translation_coverage_ajax",
                     kwargs={"region_slug": self.request.region.slug},
                 ),
-            }
+            },
         )
 
         context.update(self.get_unreviewed_pages_context())
@@ -85,7 +87,8 @@ class DashboardView(TemplateView, ChatContextMixin):
         :return: The ids of the latest page translations of the current region
         """
         latest_version_ids = self.request.region.latest_page_translations.values_list(
-            "pk", flat=True
+            "pk",
+            flat=True,
         )
         return list(latest_version_ids)
 
@@ -136,17 +139,19 @@ class DashboardView(TemplateView, ChatContextMixin):
         :return: Dictionary containing the context for unreviewed pages
         """
         unread_feedback = Feedback.objects.filter(
-            read_by=None, archived=False, region=self.request.region
+            read_by=None,
+            archived=False,
+            region=self.request.region,
         )
         return {
             "unread_feedback": unread_feedback,
         }
 
+    @staticmethod
     @json_response
     def get_broken_links_context(
-        # pylint: disable=no-self-argument
         request: HttpRequest,
-        region_slug: str,  # pylint: disable=unused-argument
+        **kwargs: Any,
     ) -> JsonResponse:
         r"""
         Extend context by info on broken links
@@ -154,7 +159,9 @@ class DashboardView(TemplateView, ChatContextMixin):
         :return: Dictionary containing the context for broken links
         """
         invalid_urls = filter_urls(
-            request.region.slug, "invalid", prefetch_region_links=True
+            request.region.slug,
+            "invalid",
+            prefetch_region_links=True,
         )[0]
         invalid_url = invalid_urls[0] if invalid_urls else None
 
@@ -180,7 +187,7 @@ class DashboardView(TemplateView, ChatContextMixin):
                 "broken_links": len(invalid_urls),
                 "relevant_translation": str(relevant_translation),
                 "edit_url": f"{edit_url}" if len(edit_url) > 0 else "",
-            }
+            },
         )
 
     def get_low_hix_value_context(self) -> dict[str, list[PageTranslation]]:
@@ -190,7 +197,7 @@ class DashboardView(TemplateView, ChatContextMixin):
         :return: Dictionary containing the context for pages with low hix value
         """
         translations_under_hix_threshold = get_translation_under_hix_threshold(
-            self.request.region
+            self.request.region,
         )
 
         return {"pages_under_hix_threshold": translations_under_hix_threshold}
@@ -215,7 +222,7 @@ class DashboardView(TemplateView, ChatContextMixin):
         )
 
         outdated_threshold_date = datetime.now() - relativedelta(
-            days=settings.OUTDATED_THRESHOLD_DAYS
+            days=settings.OUTDATED_THRESHOLD_DAYS,
         )
         outdated_threshold_date_str = outdated_threshold_date.strftime("%Y-%m-%d")
 
@@ -248,8 +255,8 @@ class DashboardView(TemplateView, ChatContextMixin):
             "single_drafted_page": single_drafted_page,
         }
 
+    @staticmethod
     @json_response
-    # pylint: disable=unused-argument, disable=no-self-argument
     def get_translation_coverage_context(
         request: HttpRequest, region_slug: str
     ) -> JsonResponse:

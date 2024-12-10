@@ -8,7 +8,6 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
 
 import pytest
-from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.models import Organization
@@ -54,7 +53,7 @@ def test_archive_organization(
     )
     response = client.post(archive_organization)
 
-    if role in HIGH_PRIV_STAFF_ROLES + [MANAGEMENT]:
+    if role in [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT]:
         assert response.status_code == 302
 
         redirect_url = response.headers.get("location")
@@ -65,7 +64,7 @@ def test_archive_organization(
                 caplog,
             )
             assert "Organization was successfully archived" in client.get(
-                redirect_url
+                redirect_url,
             ).content.decode("utf-8")
             assert Organization.objects.filter(id=organization_id).first().archived
         else:
@@ -73,10 +72,9 @@ def test_archive_organization(
                 "ERROR    Organization couldn't be archived as it's used by a page, poi or user",
                 caplog,
             )
-            assert "Organization couldn&#x27;t be archived as it&#x27;s used by a page, poi or user" in client.get(
-                redirect_url
-            ).content.decode(
-                "utf-8"
+            assert (
+                "Organization couldn&#x27;t be archived as it&#x27;s used by a page, poi or user"
+                in client.get(redirect_url).content.decode("utf-8")
             )
             assert not Organization.objects.filter(id=organization_id).first().archived
 
@@ -124,7 +122,7 @@ def test_delete_organization(
     )
     response = client.post(delete_organization)
 
-    if role in HIGH_PRIV_STAFF_ROLES + [MANAGEMENT]:
+    if role in [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT]:
         assert response.status_code == 302
 
         redirect_url = response.headers.get("location")
@@ -135,7 +133,7 @@ def test_delete_organization(
                 caplog,
             )
             assert "Organization was successfully deleted" in client.get(
-                redirect_url
+                redirect_url,
             ).content.decode("utf-8")
             assert not Organization.objects.filter(id=organization_id).first()
         else:
@@ -143,10 +141,9 @@ def test_delete_organization(
                 "ERROR    Organization couldn't be deleted as it's used by a page, poi or user",
                 caplog,
             )
-            assert "Organization couldn&#x27;t be deleted as it&#x27;s used by a page, poi or user" in client.get(
-                redirect_url
-            ).content.decode(
-                "utf-8"
+            assert (
+                "Organization couldn&#x27;t be deleted as it&#x27;s used by a page, poi or user"
+                in client.get(redirect_url).content.decode("utf-8")
             )
             assert Organization.objects.filter(id=organization_id).first()
 
@@ -176,7 +173,8 @@ def test_restore_organization(
     settings.LANGUAGE_CODE = "en"
 
     archived_organization = Organization.objects.filter(
-        region__slug=REGION_SLUG, archived=True
+        region__slug=REGION_SLUG,
+        archived=True,
     ).first()
     assert archived_organization
 
@@ -191,15 +189,15 @@ def test_restore_organization(
     )
     response = client.post(restore_organization)
 
-    if role in HIGH_PRIV_STAFF_ROLES + [MANAGEMENT]:
-        response.status_code == 302
+    if role in [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT]:
+        assert response.status_code == 302
         redirect_url = response.headers.get("location")
         assert_message_in_log(
             "SUCCESS  Organization was successfully restored",
             caplog,
         )
         assert "Organization was successfully restored" in client.get(
-            redirect_url
+            redirect_url,
         ).content.decode("utf-8")
         assert (
             not Organization.objects.filter(id=archived_organization_id)
@@ -246,8 +244,8 @@ def test_bulk_archive_organizations(
         data={"selected_ids[]": BULK_ARCHIVE_SELECTED_IDS},
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES + [MANAGEMENT]:
-        response.status_code == 302
+    if role in [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT]:
+        assert response.status_code == 302
         redirect_url = response.headers.get("location")
         redirect_page = client.get(redirect_url).content.decode("utf-8")
 
@@ -316,8 +314,8 @@ def test_bulk_delete_organizations(
         data={"selected_ids[]": BULK_DELETE_SELECTED_IDS},
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES + [MANAGEMENT]:
-        response.status_code == 302
+    if role in [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT]:
+        assert response.status_code == 302
         redirect_url = response.headers.get("location")
         redirect_page = client.get(redirect_url).content.decode("utf-8")
 
@@ -339,7 +337,7 @@ def test_bulk_delete_organizations(
             in redirect_page
         )
         assert not Organization.objects.filter(
-            id=NOT_REFERENCED_ORGANIZATION_ID
+            id=NOT_REFERENCED_ORGANIZATION_ID,
         ).exists()
     elif role == ANONYMOUS:
         assert response.status_code == 302
@@ -380,8 +378,8 @@ def test_bulk_restore_organizations(
         data={"selected_ids[]": BULK_RESTORE_SELECTED_IDS},
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES + [MANAGEMENT]:
-        response.status_code == 302
+    if role in [*HIGH_PRIV_STAFF_ROLES, MANAGEMENT]:
+        assert response.status_code == 302
         redirect_url = response.headers.get("location")
         redirect_page = client.get(redirect_url).content.decode("utf-8")
 

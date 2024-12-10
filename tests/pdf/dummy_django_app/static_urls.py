@@ -17,10 +17,10 @@ urlpatterns += [
                         f"{settings.PDF_URL}<path:path>".lstrip("/"),
                         serve,
                         {"document_root": settings.PDF_ROOT},
-                    )
+                    ),
                 ],
                 "pdf_files",
-            )
+            ),
         ),
     ),
 ]

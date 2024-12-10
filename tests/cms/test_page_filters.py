@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
 from urllib.parse import urlencode
 
 import pytest
-from django.test.client import Client
 from django.urls import reverse
+
+if TYPE_CHECKING:
+    from django.test.client import Client
 
 
 @pytest.mark.django_db
@@ -16,7 +19,8 @@ def test_page_filters(load_test_data: None, admin_client: Client) -> None:
     :param admin_client: The fixture providing the logged in admin
     """
     page_tree = reverse(
-        "pages", kwargs={"region_slug": "augsburg", "language_slug": "en"}
+        "pages",
+        kwargs={"region_slug": "augsburg", "language_slug": "en"},
     )
     # Get with no data should result in the normal, unfiltered view with only root pages
     response = admin_client.get(page_tree)

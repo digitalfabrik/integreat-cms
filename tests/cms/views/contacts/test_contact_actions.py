@@ -8,7 +8,6 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
 
 import pytest
-from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.models import Contact
@@ -65,7 +64,7 @@ def test_archive_contact(
                 caplog,
             )
             assert f"Contact {contact_string} was successfully archived" in client.get(
-                redirect_url
+                redirect_url,
             ).content.decode("utf-8")
             assert Contact.objects.filter(id=contact_id).first().archived
         else:
@@ -73,10 +72,9 @@ def test_archive_contact(
                 f'ERROR    Cannot archive contact "{contact_string}" while content objects refer to it.',
                 caplog,
             )
-            assert f"Cannot archive contact &quot;{contact_string}&quot; while content objects refer to it." in client.get(
-                redirect_url
-            ).content.decode(
-                "utf-8"
+            assert (
+                f"Cannot archive contact &quot;{contact_string}&quot; while content objects refer to it."
+                in client.get(redirect_url).content.decode("utf-8")
             )
             assert not Contact.objects.filter(id=contact_id).first().archived
     elif role == ANONYMOUS:
@@ -131,7 +129,7 @@ def test_delete_contact(
                 caplog,
             )
             assert f"Contact {contact_string} was successfully deleted" in client.get(
-                redirect_url
+                redirect_url,
             ).content.decode("utf-8")
             assert not Contact.objects.filter(id=contact_id).first()
         else:
@@ -139,10 +137,9 @@ def test_delete_contact(
                 f'ERROR    Cannot delete contact "{contact_string}" while content objects refer to it.',
                 caplog,
             )
-            assert f"Cannot delete contact &quot;{contact_string}&quot; while content objects refer to it." in client.get(
-                redirect_url
-            ).content.decode(
-                "utf-8"
+            assert (
+                f"Cannot delete contact &quot;{contact_string}&quot; while content objects refer to it."
+                in client.get(redirect_url).content.decode("utf-8")
             )
             assert Contact.objects.filter(id=contact_id).first()
     elif role == ANONYMOUS:
@@ -192,7 +189,7 @@ def test_restore_contact(
             caplog,
         )
         assert f"Contact {contact_string} was successfully restored" in client.get(
-            redirect_url
+            redirect_url,
         ).content.decode("utf-8")
         assert not Contact.objects.filter(id=ARCHIVED_CONTACT_ID).first().archived
 
@@ -225,7 +222,7 @@ def test_bulk_archive_contacts(
     settings.LANGUAGE_CODE = "en"
 
     not_used_contact_string = str(
-        Contact.objects.filter(id=NOT_USED_CONTACT_ID).first()
+        Contact.objects.filter(id=NOT_USED_CONTACT_ID).first(),
     )
     used_contact_string = str(Contact.objects.filter(id=USED_CONTACT_ID).first())
 
@@ -291,7 +288,7 @@ def test_bulk_delete_contacts(
     settings.LANGUAGE_CODE = "en"
 
     not_used_contact_string = str(
-        Contact.objects.filter(id=NOT_USED_CONTACT_ID).first()
+        Contact.objects.filter(id=NOT_USED_CONTACT_ID).first(),
     )
     used_contact_string = str(Contact.objects.filter(id=USED_CONTACT_ID).first())
 

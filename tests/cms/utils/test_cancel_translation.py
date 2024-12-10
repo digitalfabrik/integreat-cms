@@ -8,10 +8,7 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
 
 import pytest
-from _pytest.logging import LogCaptureFixture
-from django.test.client import Client
 from django.urls import reverse
-from pytest_django.fixtures import SettingsWrapper
 
 from integreat_cms.cms.constants import translation_status
 from integreat_cms.cms.models import Page
@@ -43,10 +40,8 @@ def test_bulk_cancel_translation_process(
         )
     for page_id in IDS_PAGES_NOT_IN_TRANSLATION_PROCESS:
         assert (
-            not Page.objects.filter(id=page_id)
-            .first()
-            .get_translation_state(LANGUAGE_SLUG)
-            == translation_status.IN_TRANSLATION
+            Page.objects.filter(id=page_id).first().get_translation_state(LANGUAGE_SLUG)
+            != translation_status.IN_TRANSLATION
         )
 
     kwargs = {"region_slug": REGION_SLUG, "language_slug": LANGUAGE_SLUG}
@@ -58,7 +53,7 @@ def test_bulk_cancel_translation_process(
         cancel_translation_process, data={"selected_ids[]": combined_page_ids}
     )
 
-    if role in PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]:
+    if role in [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR]:
         assert response.status_code == 302
         redirect_url = response.headers.get("location")
         response = client.get(redirect_url)
@@ -80,10 +75,10 @@ def test_bulk_cancel_translation_process(
         )
         for page_id in combined_page_ids:
             assert (
-                not Page.objects.filter(id=page_id)
+                Page.objects.filter(id=page_id)
                 .first()
                 .get_translation_state(LANGUAGE_SLUG)
-                == translation_status.IN_TRANSLATION
+                != translation_status.IN_TRANSLATION
             )
     elif role == ANONYMOUS:
         assert response.status_code == 302

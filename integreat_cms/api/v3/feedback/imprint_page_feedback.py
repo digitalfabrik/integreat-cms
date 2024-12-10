@@ -40,12 +40,17 @@ def imprint_page_feedback(
     :return: decorated function that saves feedback in database
     """
     return imprint_page_feedback_internal(
-        data, region, language, comment, rating, is_technical
+        data,
+        region,
+        language,
+        comment,
+        rating,
+        is_technical,
     )
 
 
 def imprint_page_feedback_internal(
-    data: dict,  # pylint: disable=unused-argument
+    _data: dict,
     region: Region,
     language: Language,
     comment: str,
@@ -55,7 +60,6 @@ def imprint_page_feedback_internal(
     """
     Store feedback about imprint in database
 
-    :param data: HTTP request body data
     :param region: The region of this sitemap's urls
     :param language: The language of this sitemap's urls
     :param comment: The comment sent as feedback
@@ -81,5 +85,5 @@ def imprint_page_feedback_internal(
         language,
     )
     raise Http404(
-        "The imprint does not exist in this region for the selected language."
+        "The imprint does not exist in this region for the selected language.",
     )

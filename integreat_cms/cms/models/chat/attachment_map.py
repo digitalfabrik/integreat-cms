@@ -2,15 +2,11 @@ from __future__ import annotations
 
 import hashlib
 import secrets
-from typing import TYPE_CHECKING
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from ..abstract_base_model import AbstractBaseModel
-
-if TYPE_CHECKING:
-    from typing import Any
 
 
 def generate_random_hash() -> str:
@@ -28,10 +24,14 @@ class AttachmentMap(AbstractBaseModel):
     """
 
     user_chat = models.ForeignKey(
-        "cms.UserChat", on_delete=models.CASCADE, related_name="attachments"
+        "cms.UserChat",
+        on_delete=models.CASCADE,
+        related_name="attachments",
     )
     random_hash = models.CharField(
-        max_length=64, default=generate_random_hash, unique=True
+        max_length=64,
+        default=generate_random_hash,
+        unique=True,
     )
     article_id = models.IntegerField()
     attachment_id = models.IntegerField()

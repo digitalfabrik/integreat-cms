@@ -12,13 +12,12 @@ if TYPE_CHECKING:
 
 def forwards_func(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Adopting the old data when applying this migration
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     PushNotification = apps.get_model("cms", "PushNotification")
     for pn in PushNotification.objects.all():
@@ -27,13 +26,12 @@ def forwards_func(
 
 def reverse_func(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Reverting (most of the) newer data when reverting this migration
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     PushNotification = apps.get_model("cms", "PushNotification")
     for pn in PushNotification.objects.all():

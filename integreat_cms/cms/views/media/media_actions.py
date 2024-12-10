@@ -38,13 +38,12 @@ logger = logging.getLogger(__name__)
 @json_response
 def get_directory_path_ajax(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
 ) -> JsonResponse:
     """
     View provides the frontend with the current directory path for the breadcrumbs.
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :return: JSON response which indicates error or success
     """
     region = request.region
@@ -69,13 +68,12 @@ def get_directory_path_ajax(
 @json_response
 def get_directory_content_ajax(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
 ) -> JsonResponse:
     """
     View provides the frontend with the content of a directory via AJAX.
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :return: JSON response which indicates error or success
     """
     region = request.region
@@ -94,7 +92,8 @@ def get_directory_content_ajax(
         Q(parent_directory=directory),
     )
     directories = Directory.objects.filter(
-        Q(region=region) | Q(region__isnull=True, is_hidden=False), parent=directory
+        Q(region=region) | Q(region__isnull=True, is_hidden=False),
+        parent=directory,
     )
 
     result = [d.serialize() for d in list(directories) + list(media_files)]
@@ -107,13 +106,12 @@ def get_directory_content_ajax(
 @permission_required("cms.view_mediafile")
 def get_query_search_results_ajax(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
 ) -> JsonResponse:
     """
     View to search the media library
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :return: JSON response with the search result
     """
     query = request.GET.get("query")
@@ -132,13 +130,12 @@ def get_query_search_results_ajax(
 @permission_required("cms.view_mediafile")
 def get_file_usages_ajax(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
 ) -> JsonResponse:
     """
     View to search unused media files
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :return: JSON response with the search result
     """
 
@@ -157,18 +154,17 @@ def get_file_usages_ajax(
 @permission_required("cms.view_mediafile")
 def get_unused_media_files_ajax(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
 ) -> JsonResponse:
     """
     View to search unused media files
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :return: JSON response with the search result
     """
 
     unused_media_files = MediaFile.objects.filter(
-        Q(region=request.region) | Q(region__isnull=True, is_hidden=False)
+        Q(region=request.region) | Q(region__isnull=True, is_hidden=False),
     ).filter_unused()
 
     result = [d.serialize() for d in unused_media_files]
@@ -181,13 +177,12 @@ def get_unused_media_files_ajax(
 @json_response
 def upload_file_ajax(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
 ) -> JsonResponse:
     """
     View to create a file via an AJAX upload.
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :return: JSON response which indicates error or success
     """
     region = request.region
@@ -214,12 +209,12 @@ def upload_file_ajax(
                 {
                     "type": "success",
                     "text": _('File "{}" was uploaded successfully').format(
-                        media_file.name
+                        media_file.name,
                     ),
-                }
+                },
             ],
             "file": media_file.serialize(),
-        }
+        },
     )
 
 
@@ -228,19 +223,19 @@ def upload_file_ajax(
 @json_response
 def edit_file_ajax(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
 ) -> JsonResponse:
     """
     View provides the edit of a file via AJAX.
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :return: JSON response which indicates error or success
     """
     region = request.region
 
     media_file = get_object_or_404(
-        MediaFile.objects.filter(region=region), id=request.POST.get("id")
+        MediaFile.objects.filter(region=region),
+        id=request.POST.get("id"),
     )
 
     media_file_form = MediaFileForm(data=request.POST, instance=media_file)
@@ -260,10 +255,10 @@ def edit_file_ajax(
                     {
                         "type": "info",
                         "text": _("No changes detected"),
-                    }
+                    },
                 ],
                 "file": media_file.serialize(),
-            }
+            },
         )
 
     # Save form
@@ -275,12 +270,12 @@ def edit_file_ajax(
                 {
                     "type": "success",
                     "text": _('File "{}" was saved successfully').format(
-                        media_file.name
+                        media_file.name,
                     ),
-                }
+                },
             ],
             "file": media_file.serialize(),
-        }
+        },
     )
 
 
@@ -289,23 +284,26 @@ def edit_file_ajax(
 @json_response
 def replace_file_ajax(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
 ) -> JsonResponse:
     """
     View provides the replacement of a file via AJAX.
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :return: JSON response which indicates error or success
     """
     region = request.region
 
     media_file = get_object_or_404(
-        MediaFile.objects.filter(region=region), id=request.POST.get("id")
+        MediaFile.objects.filter(region=region),
+        id=request.POST.get("id"),
     )
 
     media_file_form = ReplaceMediaFileForm(
-        user=request.user, data=request.POST, instance=media_file, files=request.FILES
+        user=request.user,
+        data=request.POST,
+        instance=media_file,
+        files=request.FILES,
     )
 
     if not media_file_form.is_valid():
@@ -326,12 +324,12 @@ def replace_file_ajax(
                 {
                     "type": "success",
                     "text": _('File "{}" was saved successfully').format(
-                        media_file.name
+                        media_file.name,
                     ),
-                }
+                },
             ],
             "file": media_file.serialize(),
-        }
+        },
     )
 
 
@@ -340,19 +338,19 @@ def replace_file_ajax(
 @json_response
 def delete_file_ajax(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
 ) -> JsonResponse:
     """
     View to delete a file via an AJAX call.
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :return: JSON response which indicates error or success
     """
     region = request.region
 
     media_file = get_object_or_404(
-        MediaFile.objects.filter(region=region), id=request.POST.get("id")
+        MediaFile.objects.filter(region=region),
+        id=request.POST.get("id"),
     )
 
     # Check if the media file is in use
@@ -363,9 +361,9 @@ def delete_file_ajax(
                     {
                         "type": "warning",
                         "text": _(
-                            'File "{}" cannot be deleted because it is used as an icon or content.'
+                            'File "{}" cannot be deleted because it is used as an icon or content.',
                         ).format(media_file.name),
-                    }
+                    },
                 ],
             },
             status=400,
@@ -383,12 +381,12 @@ def delete_file_ajax(
                 {
                     "type": "success",
                     "text": _('File "{}" was successfully deleted').format(
-                        media_file.name
+                        media_file.name,
                     ),
-                }
+                },
             ],
             "file": media_file.serialize(),
-        }
+        },
     )
 
 
@@ -397,13 +395,12 @@ def delete_file_ajax(
 @json_response
 def create_directory_ajax(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
 ) -> JsonResponse:
     """
     View provides the frontend with the option to create a directory via AJAX.
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :return: JSON response which indicates error or success
     """
     region = request.region
@@ -430,12 +427,12 @@ def create_directory_ajax(
                 {
                     "type": "success",
                     "text": _('Directory "{}" was created successfully').format(
-                        directory.name
+                        directory.name,
                     ),
-                }
+                },
             ],
             "directory": directory.serialize(),
-        }
+        },
     )
 
 
@@ -444,19 +441,19 @@ def create_directory_ajax(
 @json_response
 def edit_directory_ajax(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
 ) -> JsonResponse:
     """
     View provides the frontend with the option to modify a directory via AJAX.
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :return: JSON response which indicates error or success
     """
     region = request.region
 
     directory = get_object_or_404(
-        Directory.objects.filter(region=region), id=request.POST.get("id")
+        Directory.objects.filter(region=region),
+        id=request.POST.get("id"),
     )
 
     directory_form = DirectoryForm(data=request.POST, instance=directory)
@@ -474,7 +471,7 @@ def edit_directory_ajax(
             {
                 "messages": [{"type": "info", "text": _("No changes detected")}],
                 "directory": directory.serialize(),
-            }
+            },
         )
 
     # Save form
@@ -486,12 +483,12 @@ def edit_directory_ajax(
                 {
                     "type": "success",
                     "text": _('Directory "{}" was saved successfully').format(
-                        directory.name
+                        directory.name,
                     ),
-                }
+                },
             ],
             "directory": directory.serialize(),
-        }
+        },
     )
 
 
@@ -500,19 +497,19 @@ def edit_directory_ajax(
 @json_response
 def delete_directory_ajax(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
 ) -> JsonResponse:
     """
     View provides the frontend with the option to delete a directory via AJAX.
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :return: JSON response which indicates error or success
     """
     region = request.region
 
     directory = get_object_or_404(
-        Directory.objects.filter(region=region), id=request.POST.get("id")
+        Directory.objects.filter(region=region),
+        id=request.POST.get("id"),
     )
     serialized = directory.serialize()
 
@@ -525,9 +522,9 @@ def delete_directory_ajax(
                     {
                         "type": "warning",
                         "text": _(
-                            'Directory "{}" cannot be deleted because it is not empty'
+                            'Directory "{}" cannot be deleted because it is not empty',
                         ).format(directory.name),
-                    }
+                    },
                 ],
             },
             status=400,
@@ -539,12 +536,12 @@ def delete_directory_ajax(
                 {
                     "type": "success",
                     "text": _('Directory "{}" was successfully deleted').format(
-                        directory.name
+                        directory.name,
                     ),
-                }
+                },
             ],
             "directory": serialized,
-        }
+        },
     )
 
 
@@ -554,20 +551,20 @@ def delete_directory_ajax(
 @json_response
 def move_file_ajax(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
 ) -> JsonResponse:
     """
     This view provides the frontend with the option to move files via AJAX.
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :return: JSON response which indicates error or success
     """
 
     region = request.region
 
     media_file = get_object_or_404(
-        MediaFile.objects.filter(region=region), id=request.POST.get("mediafile_id")
+        MediaFile.objects.filter(region=region),
+        id=request.POST.get("mediafile_id"),
     )
 
     media_move_form = MediaMoveForm(data=request.POST, instance=media_file)
@@ -584,7 +581,7 @@ def move_file_ajax(
         return JsonResponse(
             {
                 "messages": [{"type": "info", "text": _("No changes detected")}],
-            }
+            },
         )
 
     # Save form
@@ -596,9 +593,9 @@ def move_file_ajax(
                 {
                     "type": "success",
                     "text": _(
-                        'File "{}" was moved successfully into directory "{}"'
+                        'File "{}" was moved successfully into directory "{}"',
                     ).format(media_file.name, media_file.parent_directory or "Home"),
-                }
+                },
             ],
-        }
+        },
     )

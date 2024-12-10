@@ -36,12 +36,13 @@ class WebAuthnAssertView(View):
         """
         if not (user := get_mfa_user(request)):
             return JsonResponse(
-                {"success": False, "error": _("You need to log in first")}, status=403
+                {"success": False, "error": _("You need to log in first")},
+                status=403,
             )
 
         if request.user.is_authenticated:
             return JsonResponse(
-                {"success": False, "error": _("You are already logged in.")}
+                {"success": False, "error": _("You are already logged in.")},
             )
 
         webauthn_challenge = generate_authentication_options(
@@ -54,7 +55,7 @@ class WebAuthnAssertView(View):
 
         request.session["challenge"] = bytes_to_base64url(webauthn_challenge.challenge)
 
-        # pylint: disable=http-response-with-content-type-json
         return HttpResponse(
-            options_to_json(webauthn_challenge), content_type="application/json"
+            options_to_json(webauthn_challenge),
+            content_type="application/json",
         )

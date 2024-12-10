@@ -55,7 +55,8 @@ class AdminFeedbackListView(TemplateView):
         """
 
         admin_feedback = Feedback.objects.filter(
-            is_technical=True, archived=self.archived
+            is_technical=True,
+            archived=self.archived,
         )
 
         # Filter pages according to given filters, if any
@@ -76,7 +77,8 @@ class AdminFeedbackListView(TemplateView):
                 "current_menu_item": "admin_feedback",
                 "admin_feedback": admin_feedback_chunk,
                 "archived_count": Feedback.objects.filter(
-                    is_technical=True, archived=True
+                    is_technical=True,
+                    archived=True,
                 ).count(),
                 "filter_form": filter_form,
                 "search_query": query,

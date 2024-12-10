@@ -61,7 +61,7 @@ def move_language_tree_node(
 
     try:
         if target.depth == 1 and target_position in [position.LEFT, position.RIGHT]:
-            raise InvalidPosition(_("A region can only have one root language."))
+            raise InvalidPosition(_("A region can only have one root language."))  # noqa: TRY301
         language_tree_node.move(target, target_position)
         # Call the save method on the (reloaded) node in order to trigger possible signal handlers etc.
         # (The move()-method executes raw sql which might cause problems if the instance isn't fetched again)
@@ -71,7 +71,7 @@ def move_language_tree_node(
         messages.success(
             request,
             _('The language tree node "{}" was successfully moved.').format(
-                language_tree_node.translated_name
+                language_tree_node.translated_name,
             ),
         )
         logger.debug(
@@ -83,7 +83,7 @@ def move_language_tree_node(
         )
     except (ValueError, InvalidPosition, InvalidMoveToDescendant) as e:
         messages.error(request, e)
-        logger.exception(e)
+        logger.exception("")
 
     return redirect("languagetreenodes", **{"region_slug": region_slug})
 
@@ -92,7 +92,9 @@ def move_language_tree_node(
 @permission_required("cms.delete_languagetreenode")
 @tree_mutex("languagetreenode")
 def delete_language_tree_node(
-    request: HttpRequest, region_slug: str, pk: int
+    request: HttpRequest,
+    region_slug: str,
+    pk: int,
 ) -> HttpResponseRedirect:
     """
     Deletes the language node of distinct region
@@ -128,7 +130,7 @@ def delete_language_tree_node(
         messages.error(
             request,
             _(
-                'The language tree node "{}" cannot be deleted because it is the source language of other language(s).'
+                'The language tree node "{}" cannot be deleted because it is the source language of other language(s).',
             ).format(language_node.translated_name),
         )
         return redirect("languagetreenodes", **{"region_slug": region_slug})
@@ -138,7 +140,7 @@ def delete_language_tree_node(
     messages.success(
         request,
         _(
-            'The language tree node "{}" and all corresponding translations were successfully deleted.'
+            'The language tree node "{}" and all corresponding translations were successfully deleted.',
         ).format(language_node.translated_name),
     )
     return redirect("languagetreenodes", **{"region_slug": region_slug})

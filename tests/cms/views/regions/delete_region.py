@@ -71,7 +71,7 @@ def test_delete_all_regions_is_successful(
             redirect = response.headers.get("location")
             response = client.get(redirect)
             assert "Region wurde erfolgreich gelöscht" in response.content.decode(
-                "utf-8"
+                "utf-8",
             )
 
     if role in [CMS_TEAM, SERVICE_TEAM, ROOT]:

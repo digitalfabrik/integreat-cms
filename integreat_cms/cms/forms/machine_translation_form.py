@@ -30,7 +30,10 @@ class MachineTranslationForm(CustomContentModelForm):
 
     mt_translations_to_create = forms.ModelMultipleChoiceField(
         widget=forms.CheckboxSelectMultiple(
-            attrs={"class": "bulk-select-language", "name": "selected_language_slugs[]"}
+            attrs={
+                "class": "bulk-select-language",
+                "name": "selected_language_slugs[]",
+            },
         ),
         queryset=LanguageTreeNode.objects.none(),
         required=False,
@@ -65,7 +68,9 @@ class MachineTranslationForm(CustomContentModelForm):
             return
 
         if not MachineTranslationProvider.is_permitted(
-            self.request.region, self.request.user, self._meta.model
+            self.request.region,
+            self.request.user,
+            self._meta.model,
         ):
             return
 
@@ -87,12 +92,12 @@ class MachineTranslationForm(CustomContentModelForm):
             )
             target_type.append(target.id)
 
-        self.fields["mt_translations_to_create"].queryset = (
-            self.request.region.language_tree_nodes.filter(id__in=to_create)
-        )
-        self.fields["mt_translations_to_update"].queryset = (
-            self.request.region.language_tree_nodes.filter(id__in=to_update)
-        )
+        self.fields[
+            "mt_translations_to_create"
+        ].queryset = self.request.region.language_tree_nodes.filter(id__in=to_create)
+        self.fields[
+            "mt_translations_to_update"
+        ].queryset = self.request.region.language_tree_nodes.filter(id__in=to_update)
         self.initial["mt_translations_to_update"] = to_update
 
         localized_fields = ["title"]
@@ -129,7 +134,9 @@ class MachineTranslationForm(CustomContentModelForm):
         return cleaned_data
 
     def save(
-        self, commit: bool = True, foreign_form_changed: bool = False
+        self,
+        commit: bool = True,
+        foreign_form_changed: bool = False,
     ) -> EventTranslation | (PageTranslation | POITranslation):
         """
         Create machine translations and save them to the database
@@ -141,7 +148,7 @@ class MachineTranslationForm(CustomContentModelForm):
         self.instance = super().save(commit, foreign_form_changed)
 
         language_nodes = self.cleaned_data["mt_translations_to_create"].union(
-            self.cleaned_data["mt_translations_to_update"]
+            self.cleaned_data["mt_translations_to_update"],
         )
         if commit and language_nodes and check_hix_score(self.request, self.instance):
             for language_node in language_nodes:
@@ -152,12 +159,14 @@ class MachineTranslationForm(CustomContentModelForm):
                     self.instance,
                 )
                 api_client = language_node.mt_provider.api_client(
-                    self.request, type(self)
+                    self.request,
+                    type(self),
                 )
                 # Invalidate cached property to take new version into account
                 self.instance.foreign_object.invalidate_cached_translations()
                 api_client.translate_object(
-                    self.instance.foreign_object, language_node.slug
+                    self.instance.foreign_object,
+                    language_node.slug,
                 )
         return self.instance
 

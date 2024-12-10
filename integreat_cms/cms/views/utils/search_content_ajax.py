@@ -50,7 +50,7 @@ def format_object_translation(
     """
     if object_translation.language.slug != target_language_slug:
         object_translation = object_translation.foreign_object.get_public_translation(
-            target_language_slug
+            target_language_slug,
         )
     if isinstance(object_translation.link_title, str):
         html_title = object_translation.link_title
@@ -73,16 +73,14 @@ def format_object_translation(
 @require_POST
 def search_content_ajax(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
     language_slug: str | None = None,
 ) -> JsonResponse:
-    # pylint: disable=too-many-branches,too-many-statements
     """Searches all pois, events and pages for the current region and returns all that
     match the search query. Results which match the query in the title or slug get ranked
     higher than results which only match through their text content.
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :param language_slug: language slug
     :type language_slug: str
 
@@ -132,7 +130,7 @@ def search_content_ajax(
                 "type": "feedback",
             }
             for feedback in Feedback.search(region, query).filter(
-                archived=archived_flag
+                archived=archived_flag,
             )
         )
 
@@ -150,7 +148,7 @@ def search_content_ajax(
                 or query.lower() in page_translation.title.lower()
             ):
                 results.append(
-                    format_object_translation(page_translation, "page", language_slug)
+                    format_object_translation(page_translation, "page", language_slug),
                 )
 
     if "poi" in object_types:
@@ -182,7 +180,9 @@ def search_content_ajax(
                 "type": "push_notification",
             }
             for push_notification in PushNotificationTranslation.search(
-                region, language_slug, query
+                region,
+                language_slug,
+                query,
             )
         )
 

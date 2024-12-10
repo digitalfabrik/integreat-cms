@@ -86,7 +86,7 @@ class EventForm(CustomModelForm):
         error_messages = {
             "location": {
                 "invalid_choice": _(
-                    "Either disable the event location or provide a valid location"
+                    "Either disable the event location or provide a valid location",
                 ),
             },
         }
@@ -169,7 +169,7 @@ class EventForm(CustomModelForm):
                     "end_date",
                     forms.ValidationError(
                         _(
-                            "The end of the event can't be before the start of the event"
+                            "The end of the event can't be before the start of the event",
                         ),
                         code="invalid",
                     ),
@@ -185,7 +185,7 @@ class EventForm(CustomModelForm):
                         "end_time",
                         forms.ValidationError(
                             _(
-                                "The end of the event can't be before the start of the event"
+                                "The end of the event can't be before the start of the event",
                             ),
                             code="invalid",
                         ),
@@ -195,7 +195,7 @@ class EventForm(CustomModelForm):
                     "end_date",
                     forms.ValidationError(
                         _(
-                            "The maximum duration for events is {} days. Consider using recurring events if the event is not continuous."
+                            "The maximum duration for events is {} days. Consider using recurring events if the event is not continuous.",
                         ).format(settings.MAX_EVENT_DURATION),
                         code="invalid",
                     ),

@@ -25,7 +25,6 @@ def test_permission_to_view_chat(
     load_test_data: None,
     login_role_user: tuple[Client, str],
 ) -> None:
-
     client, role = login_role_user
 
     get_dashboard = reverse(
@@ -51,7 +50,7 @@ def test_permission_to_view_chat(
         assert response.status_code == 200
         assert chat_head not in response.content.decode("utf-8")
 
-    elif role in STAFF_ROLES + [MANAGEMENT]:
+    elif role in [*STAFF_ROLES, MANAGEMENT]:
         assert response.status_code == 200
         assert chat_head in response.content.decode("utf-8")
 
@@ -109,7 +108,7 @@ def test_permission_to_view_to_do_board(
             not in response.content.decode("utf-8")
         )
 
-    elif role in [PRIV_STAFF_ROLES] + [AUTHOR, EDITOR, MANAGEMENT]:
+    elif role in [PRIV_STAFF_ROLES, AUTHOR, EDITOR, MANAGEMENT]:
         assert response.status_code == 200
         assert "To-Dos" in response.content.decode("utf-8")
         assert (
@@ -144,7 +143,9 @@ def test_permission_to_view_admin_dashboard(
 
 
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR], indirect=True
+    "login_role_user",
+    [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
+    indirect=True,
 )
 @pytest.mark.django_db
 @freeze_time("2024-01-01")
@@ -173,13 +174,15 @@ def test_number_of_outdated_pages_is_correct(
         response.content.decode("utf-8"),
     )
     assert match, "Number of outdated pages not displayed"
-    assert (
-        int(match.group(3)) == expected_number_of_pages
-    ), "Wrong number of pages displayed as outdated"
+    assert int(match.group(3)) == expected_number_of_pages, (
+        "Wrong number of pages displayed as outdated"
+    )
 
 
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR], indirect=True
+    "login_role_user",
+    [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
+    indirect=True,
 )
 @pytest.mark.django_db
 @freeze_time("2024-01-01")
@@ -203,13 +206,15 @@ def test_most_outdated_page_is_correct(
         response.content.decode("utf-8"),
     )
     assert match, "Not updated message missing"
-    assert (
-        int(match.group(1)) == days_since_page_is_outdated
-    ), "Not updated message displaying wrong days count"
+    assert int(match.group(1)) == days_since_page_is_outdated, (
+        "Not updated message displaying wrong days count"
+    )
 
 
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR], indirect=True
+    "login_role_user",
+    [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
+    indirect=True,
 )
 @pytest.mark.django_db
 def test_link_to_most_outdated_page_is_valid(
@@ -243,7 +248,9 @@ def assert_button_leads_to_valid_page(client: Client) -> None:
 
 
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR], indirect=True
+    "login_role_user",
+    [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
+    indirect=True,
 )
 @pytest.mark.django_db
 def test_number_of_drafted_pages_is_correct(
@@ -271,13 +278,15 @@ def test_number_of_drafted_pages_is_correct(
         response.content.decode("utf-8"),
     )
     assert match, "Number of drafted pages not displayed"
-    assert (
-        int(match.group(3)) == expected_number_of_pages
-    ), "Wrong number of pages displayed as outdated"
+    assert int(match.group(3)) == expected_number_of_pages, (
+        "Wrong number of pages displayed as outdated"
+    )
 
 
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR], indirect=True
+    "login_role_user",
+    [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR],
+    indirect=True,
 )
 @pytest.mark.django_db
 def test_single_drafted_page_is_correct(

@@ -83,19 +83,14 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "black",
     "build",
     "bumpver",
     "debugpy",
     "djlint",
     "freezegun",
-    "isort",
     "mypy",
     "pre-commit",
     "pyjwt",
-    "pylint",
-    "pylint-django",
-    "pylint-per-file-ignores",
     "pytest-circleci-parallelized",
     "pytest-cov",
     "pytest-django",
@@ -245,7 +240,6 @@ dev-pinned = [
     "astroid==3.3.4",
     "babel==2.16.0",
     "backports.tarfile==1.2.0",
-    "black==24.8.0",
     "build==1.2.2",
     "bumpver==2023.1129",
     "cfgv==3.4.0",
@@ -268,7 +262,6 @@ dev-pinned = [
     "imagesize==1.4.1",
     "importlib_metadata==8.5.0",
     "iniconfig==2.0.0",
-    "isort==5.13.2",
     "jaraco.classes==3.4.0",
     "jaraco.context==6.0.1",
     "jaraco.functools==4.1.0",
@@ -296,10 +289,6 @@ dev-pinned = [
     "pprintpp==0.4.0",
     "pre-commit==3.8.0",
     "PyJWT==2.9.0",
-    "pylint==3.3.1",
-    "pylint-django==2.5.5",
-    "pylint-per-file-ignores==1.3.2",
-    "pylint-plugin-utils==0.8.2",
     "pyproject_hooks==1.2.0",
     "pytest==7.4.4",
     "pytest-circleci-parallelized==0.1.0",
@@ -316,7 +305,7 @@ dev-pinned = [
     "requests-toolbelt==1.0.0",
     "rfc3986==2.0.0",
     "rich==13.8.1",
-    "ruff==0.6.8",
+    "ruff==0.9.4",
     "SecretStorage==3.3.3",
     "shellcheck-py==0.10.0.1",
     "snowballstemmer==2.2.0",
@@ -394,21 +383,6 @@ line_break_after_multiline_tag=true
 # exclude invalid html files until this is resolved https://github.com/djlint/djLint/issues/703
 exclude = "integreat_cms/api/v3/templates/"
 
-[tool.isort]
-profile = "black"
-order_by_type = false
-
-[tool.pylint.main]
-jobs = 0
-load-plugins = [
-    "pylint_django",
-    "pylint_per_file_ignores",
-    "pylint.extensions.code_style",
-    "pylint.extensions.comparison_placement",
-    "pylint.extensions.consider_ternary_expression",
-    "pylint.extensions.docparams",
-    "pylint.extensions.for_any_all",
-]
 recursive = true
 ignore-paths = [
   ".venv",
@@ -419,41 +393,6 @@ fail-on = "I"
 extension-pkg-whitelist = ["lxml"]
 django-settings-module="integreat_cms.core.settings"
 
-[tool.pylint.design]
-max-args = 7
-max-attributes = 7
-max-branches = 12
-max-locals = 15
-max-parents = 8
-max-position = 6
-
-[tool.pylint.messages_control]
-disable = [
-    "consider-using-namedtuple-or-dataclass",
-    "consider-using-tuple",
-    "duplicate-code",
-    "invalid-name",
-    "line-too-long",
-    "missing-module-docstring",
-    "no-member",
-    "too-many-lines",
-    "ungrouped-imports",
-    "unsupported-binary-operation",
-    "wrong-import-position",
-]
-enable = [
-    "consider-using-augmented-assign",
-    "use-implicit-booleaness-not-comparison-to-string",
-    "use-implicit-booleaness-not-comparison-to-zero",
-    "useless-suppression",
-]
-
-[tool.pylint.reports]
-output-format = "colorized"
-
-[tool.pylint-per-file-ignores]
-"/tests/"="unused-argument,missing-function-docstring"
-
 [tool.mypy]
 disallow_untyped_defs = true
 ignore_missing_imports = true
@@ -461,81 +400,111 @@ warn_redundant_casts = true
 strict_equality = true
 
 [tool.ruff]
-line-length = 279
+line-length = 88
 target-version = "py311"
+
+# [tool.ruff.lint.pydocstyle]
+# waiting for: https://github.com/astral-sh/ruff/issues/6606
+# convention = "sphinx"
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 279
 
 [tool.ruff.lint]
 select = [
-  "I",      # isort
   "A",      # flake8-builtins
   "AIR",    # Airflow
+  "ARG",    # flake8-unused-arguments - TODO
   "ASYNC",  # flake8-async
+  "ASYNC1", # flake8-trio
+  "B",      # flake8-bugbear
   "BLE",    # flake8-blind-except
-  "C4",   # flake8-comprehensions
+  "C4",     # flake8-comprehensions
   "C90",    # McCabe cyclomatic complexity
+  "COM",    # flake8-commas
+  # "D",    # pydocstyle - makes no sense until sphinx docstyle available
   "DJ",     # flake8-django
   "E",      # pycodestyle
+  "ERA",    # eradicate
   "EXE",    # flake8-executable
   "F",      # Pyflakes
   "FA",     # flake8-future-annotations
   "FIX",    # flake8-fixme
   "FLY",    # flynt
+  "FURB",   # refurb
   "G",      # flake8-logging-format
+  "I",      # isort
   "ICN",    # flake8-import-conventions
   "INP",    # flake8-no-pep420
   "INT",    # flake8-gettext
   "ISC",    # flake8-implicit-str-concat
   "LOG",    # flake8-logging
+  "N",      # pep8-naming
   "NPY",    # NumPy-specific rules
   "PD",     # pandas-vet
   "PERF",   # Perflint
   "PGH",    # pygrep-hooks
   "PIE",    # flake8-pie
   "PL",     # Pylint
+  "PLC",    # Pylint conventions
+  "PLE",    # Pylint errors
+  "PLR",    # Pylint refactor
+  "PLW",    # Pylint warnings
   "PYI",    # flake8-pyi
+  "Q",      # flake8-quotes
+  "RET",    # flake8-return
   "RSE",    # flake8-raise
+  "RUF",    # Ruff-specific rules
+  "S",      # flake8-bandit
+  "SIM",    # flake8-simplify
   "SLOT",   # flake8-slots
   "T10",    # flake8-debugger
-  "TRIO",   # flake8-trio
+  "T20",    # flake8-print
+  "TD",     # flake8-todos
+  "TCH",    # flake8-type-checking
+  "TRY",    # tryceratops
+  "UP",     # pyupgrade
   "W",      # pycodestyle
   "YTT",    # flake8-2020
   # "ANN",  # flake8-annotations
-  # "ARG",  # flake8-unused-arguments
-  # "B",    # flake8-bugbear
-  # "COM",  # flake8-commas
   # "CPY",  # flake8-copyright
-  # "D",    # pydocstyle
   # "DTZ",  # flake8-datetimez
   # "EM",   # flake8-errmsg
-  # "ERA",  # eradicate
   # "FBT",  # flake8-boolean-trap
-  # "FURB", # refurb
-  # "N",    # pep8-naming
   # "PT",   # flake8-pytest-style
   # "PTH",  # flake8-use-pathlib
-  # "Q",    # flake8-quotes
-  # "RET",  # flake8-return
-  # "RUF",  # Ruff-specific rules
-  # "S",    # flake8-bandit
-  # "SIM",  # flake8-simplify
   # "SLF",  # flake8-self
-  # "T20",  # flake8-print
-  # "TCH",  # flake8-type-checking
-  # "TD",   # flake8-todos
   # "TID",  # flake8-tidy-imports
-  # "TRY",  # tryceratops
-  # "UP",   # pyupgrade
 ]
 ignore = [
-  "F401",
   "INP001",
+  "N806",
+  "N818",
+  "N999",
+  "RUF001",
+  "RUF002",
+  "RUF003",
+  "RUF012",
+  "E501", # line too long - only applicable to strings and comments, everything else is auto-formatted by ruff
+  "TRY003",
+  "S308", # mark_safe may expose cross-site scripting vulnerabilities
+  "COM812", # missing trailing comma - recommended to disable when using ruff formatter
+  "ISC001", # single line implicit line concatenation - recommended to disable when using ruff formatter
 ]
+extend-select = [
+  "D419"
+]
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))|request|region_slug|language_slug|queryset|commit$"
+
 
 [tool.ruff.lint.mccabe]
 max-complexity = 23  # default is 10
 
 [tool.ruff.lint.isort]
 order-by-type = false
+
+[tool.ruff.lint.flake8-unused-arguments]
+ignore-variadic-names = true
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401", "F403"]
@@ -559,7 +528,9 @@ order-by-type = false
 "integreat_cms/google_translate_api/apps.py" = ["BLE001"]
 "integreat_cms/google_translate_api/google_translate_api_client.py" = ["BLE001"]
 "integreat_cms/nominatim_api/nominatim_api_client.py" = ["PERF401"]
-"tests/*" = ["S101"]
+"tests/*" = ["ARG001", "ARG002", "ARG005", "S101", "S105", "T201"]
+"integreat_cms/cms/migrations/*" = ["T201"]
+".circleci/*" = ["T201"]
 "tests/core/management/commands/test_summ_ai_bulk.py" = ["FIX002"]
 "tests/deepl_api/deepl_api_test.py" = ["PIE804"]
 "tests/pdf/test_pdf_export.py" = ["PLW2901"]

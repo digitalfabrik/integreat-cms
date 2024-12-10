@@ -47,7 +47,7 @@ class POITranslation(AbstractContentTranslation):
         help_text=__(
             _("Describe the location in one or two short sentences."),
             _(
-                "This text will be displayed in the Google search results below the title."
+                "This text will be displayed in the Google search results below the title.",
             ),
         ),
     )
@@ -105,7 +105,7 @@ class POITranslation(AbstractContentTranslation):
         """
         :return: the link to the POI on the Integreat map (if it exists), to google maps otherwise
         """
-        if not self.poi.location_on_map and not self.status == status.DRAFT:
+        if not self.poi.location_on_map and self.status != status.DRAFT:
             return f"{settings.WEBAPP_URL}{self.get_absolute_url()}"
         return f"https://www.google.com/maps/search/?api=1&query={self.poi.address},{self.poi.city},{self.poi.country}"
 
@@ -134,7 +134,7 @@ class POITranslation(AbstractContentTranslation):
                 .exclude(poi__translations__language__slug=language_slug)
             )
             queryset = cls.objects.filter(
-                Q(id__in=queryset) | Q(id__in=default_language_queryset)
+                Q(id__in=queryset) | Q(id__in=default_language_queryset),
             )
 
         return queryset

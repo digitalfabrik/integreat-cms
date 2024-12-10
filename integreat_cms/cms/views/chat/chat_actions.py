@@ -23,13 +23,12 @@ logger = logging.getLogger(__name__)
 
 def send_chat_message(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
 ) -> HttpResponse:
     """
     Send chat message
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :return: A redirection to the :class:`~integreat_cms.cms.views.pages.page_tree_view.PageTreeView`
     """
     chat_form = ChatMessageForm(data=request.POST, sender=request.user)
@@ -60,14 +59,13 @@ def send_chat_message(
 @require_POST
 def delete_chat_message(
     request: HttpRequest,
-    region_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str | None = None,
     message_id: int | None = None,
 ) -> JsonResponse:
     """
     Delete chat message
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :param message_id: The id of the message
     :raises ~django.core.exceptions.PermissionDenied: If user does not have the permission to delete the specific message
 
@@ -78,7 +76,7 @@ def delete_chat_message(
     if not request.user.has_perm("cms.delete_chat_message_object", message):
         # If the user is neither superuser or staff, nor the sender of the message, he cannot delete it
         raise PermissionDenied(
-            f"{request.user!r} does not have the permission to delete {message!r}"
+            f"{request.user!r} does not have the permission to delete {message!r}",
         )
 
     message.delete()
@@ -89,5 +87,5 @@ def delete_chat_message(
             "success": True,
             "status": "The chat message was successfully deleted.",
             "message": str(message),
-        }
+        },
     )

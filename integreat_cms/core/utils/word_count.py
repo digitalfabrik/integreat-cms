@@ -6,7 +6,6 @@ from typing import TYPE_CHECKING
 from django.utils.html import strip_tags
 
 if TYPE_CHECKING:
-
     from ...cms.models import EventTranslation, PageTranslation, POITranslation
 
 

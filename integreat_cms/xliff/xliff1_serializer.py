@@ -53,7 +53,7 @@ class Serializer(base_serializer.Serializer):
             source_language := obj.page.region.get_source_language(obj.language.slug)
         ):
             raise base.SerializationError(
-                "The page translation is in the region's default language."
+                "The page translation is in the region's default language.",
             )
         self.xml.startElement(
             "file",
@@ -77,7 +77,8 @@ class Serializer(base_serializer.Serializer):
             },
         )
         self.xml.addQuickElement(
-            "phase", attrs={"phase-name": "post_type", "process-name": "Post type"}
+            "phase",
+            attrs={"phase-name": "post_type", "process-name": "Post type"},
         )
         self.xml.endElement("phase-group")
         self.xml.endElement("header")
@@ -94,7 +95,7 @@ class Serializer(base_serializer.Serializer):
             assert self.xml
         # Use legacy field name if available
         REVERSE_XLIFF_LEGACY_FIELDS: dict[str, str] = dict(
-            map(reversed, settings.XLIFF_LEGACY_FIELDS.items())  # type: ignore[arg-type]
+            map(reversed, settings.XLIFF_LEGACY_FIELDS.items()),  # type: ignore[arg-type]
         )
         field_name = REVERSE_XLIFF_LEGACY_FIELDS.get(field.name, field.name)
         attrs = {
@@ -120,7 +121,7 @@ class Serializer(base_serializer.Serializer):
 
         self.xml.endElement("trans-unit")
 
-    def end_object(self, obj: PageTranslation) -> None:
+    def end_object(self, _obj: PageTranslation) -> None:
         """
         Called after handling all fields for an object.
         Ends the ``<file>``-block.
@@ -158,7 +159,7 @@ class Deserializer(base_serializer.Deserializer):
             # If the id isn't a number or if no page with this id is found, check if the external file reference is given
             if not (external_file := node.getElementsByTagName("external-file")):
                 # If no such reference is given, just raise the initial error
-                raise e
+                raise
             # Get href of external file and parse url
             page_link = (
                 urlparse(self.require_attribute(external_file[0], "href"))
@@ -172,7 +173,7 @@ class Deserializer(base_serializer.Deserializer):
             # Expect the link to be in the format /<region_slug>/<language_slug>/[<parent_page_slug>]/<page_slug>/
             if len(page_link) < 3:
                 raise base.DeserializationError(
-                    "The page link of the <external-file> reference needs at least 3 segments"
+                    "The page link of the <external-file> reference needs at least 3 segments",
                 ) from e
             page_translation_slug = page_link.pop()
             region_slug, language_slug = page_link[:2]
@@ -183,7 +184,7 @@ class Deserializer(base_serializer.Deserializer):
             ).first()
             if not page:
                 # If no page matches the link, just raise the initial error
-                raise e
+                raise
 
         logger.debug(
             "Referenced original page: %r",
@@ -192,7 +193,7 @@ class Deserializer(base_serializer.Deserializer):
 
         # Get target language of this file
         target_language = self.get_language(
-            self.require_attribute(node, "target-language")
+            self.require_attribute(node, "target-language"),
         )
 
         # Get existing target translation or create a new one
@@ -205,7 +206,7 @@ class Deserializer(base_serializer.Deserializer):
         }
         # Get source translation to inherit status field
         source_language = self.get_language(
-            self.require_attribute(node, "source-language")
+            self.require_attribute(node, "source-language"),
         )
         if source_translation := page.get_translation(source_language.slug):
             attrs["status"] = source_translation.status

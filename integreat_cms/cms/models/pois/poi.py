@@ -44,7 +44,8 @@ class POI(AbstractContentModel):
     """
 
     address = models.CharField(
-        max_length=250, verbose_name=_("street and house number")
+        max_length=250,
+        verbose_name=_("street and house number"),
     )
     postcode = models.CharField(max_length=10, verbose_name=_("postal code"))
     city = models.CharField(max_length=250, verbose_name=_("city"))
@@ -87,7 +88,9 @@ class POI(AbstractContentModel):
         verbose_name=_("email address"),
     )
     phone_number = models.CharField(
-        max_length=250, blank=True, verbose_name=_("phone number")
+        max_length=250,
+        blank=True,
+        verbose_name=_("phone number"),
     )
     category = models.ForeignKey(
         POICategory,
@@ -108,7 +111,7 @@ class POI(AbstractContentModel):
         blank=True,
         verbose_name=_("appointment link"),
         help_text=_(
-            "Link to an external website where an appointment for this location can be made."
+            "Link to an external website where an appointment for this location can be made.",
         ),
     )
     opening_hours = models.JSONField(
@@ -161,7 +164,7 @@ class POI(AbstractContentModel):
             was_successful = True
         else:
             logger.debug(
-                "Can't be deleted because this poi is used by an event or a contact"
+                "Can't be deleted because this poi is used by an event or a contact",
             )
         return was_successful
 
@@ -178,7 +181,7 @@ class POI(AbstractContentModel):
             was_successful = True
         else:
             logger.debug(
-                "Can't be archived because this poi is used by an event or a contact"
+                "Can't be archived because this poi is used by an event or a contact",
             )
         return was_successful
 

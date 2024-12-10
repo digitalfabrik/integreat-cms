@@ -8,7 +8,6 @@ from .page_context_mixin import PageContextMixin
 
 
 class PageVersionView(PageContextMixin, ContentVersionView):
-    # pylint: disable=too-many-ancestors
     """
     View for browsing the page versions and restoring old page versions
     """

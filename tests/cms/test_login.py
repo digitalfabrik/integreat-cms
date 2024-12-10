@@ -1,15 +1,20 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import pytest
 from django.contrib import auth
-from django.test.client import Client
 from django.urls import reverse
-from pytest_django.fixtures import SettingsWrapper
+
+if TYPE_CHECKING:
+    from django.test.client import Client
+    from pytest_django.fixtures import SettingsWrapper
 
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "username", ["root", "root@root.root", "management", "management@example.com"]
+    "username",
+    ["root", "root@root.root", "management", "management@example.com"],
 )
 def test_login_success(
     load_test_data: None,
@@ -27,7 +32,8 @@ def test_login_success(
     """
     # Test login via username/password
     response = client.post(
-        settings.LOGIN_URL, data={"username": username, "password": "root1234"}
+        settings.LOGIN_URL,
+        data={"username": username, "password": "root1234"},
     )
     print(response.headers)
     assert response.status_code == 302
@@ -43,7 +49,8 @@ def test_login_success(
     else:
         # Region user should get redirected to the region dashboard
         assert response.headers.get("location") == reverse(
-            "dashboard", kwargs={"region_slug": "augsburg"}
+            "dashboard",
+            kwargs={"region_slug": "augsburg"},
         )
 
 
@@ -61,7 +68,10 @@ def test_login_success(
     ],
 )
 def test_login_failure(
-    load_test_data: None, client: Client, settings: SettingsWrapper, username: str
+    load_test_data: None,
+    client: Client,
+    settings: SettingsWrapper,
+    username: str,
 ) -> None:
     """
     Test whether login with incorrect credentials does not work
@@ -75,7 +85,8 @@ def test_login_failure(
     settings.LANGUAGE_CODE = "en"
     # Test login via username/password
     response = client.post(
-        settings.LOGIN_URL, data={"username": username, "password": "incorrect"}
+        settings.LOGIN_URL,
+        data={"username": username, "password": "incorrect"},
     )
     print(response.headers)
     assert response.status_code == 200

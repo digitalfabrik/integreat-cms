@@ -39,7 +39,6 @@ logger = logging.getLogger(__name__)
 
 
 class AbstractContentTranslation(AbstractBaseModel):
-    # pylint: disable=too-many-public-methods
     """
     Data model representing a translation of some kind of content (e.g. pages or events)
     """
@@ -72,7 +71,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         default=False,
         verbose_name=_("currently in translation"),
         help_text=_(
-            "Flag to indicate a translation is being updated by an external translator"
+            "Flag to indicate a translation is being updated by an external translator",
         ),
     )
     machine_translated = models.BooleanField(
@@ -85,7 +84,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         default=False,
         verbose_name=_("minor edit"),
         help_text=_(
-            "Tick if this change does not require an update of translations in other languages."
+            "Tick if this change does not require an update of translations in other languages.",
         ),
     )
     last_updated = models.DateTimeField(
@@ -103,7 +102,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         default=False,
         verbose_name=_("Automatic translation"),
         help_text=_(
-            "Tick if updating this content should automatically refresh or create its translations."
+            "Tick if updating this content should automatically refresh or create its translations.",
         ),
     )
     #: The HIX score is ``None`` if not overwritten by a submodel
@@ -150,7 +149,7 @@ class AbstractContentTranslation(AbstractBaseModel):
                         self.language.slug,
                         self.url_infix,
                     ],
-                )
+                ),
             )
             + "/"
         )
@@ -276,13 +275,13 @@ class AbstractContentTranslation(AbstractBaseModel):
             if language == self.language:
                 continue
             if other_translation := self.foreign_object.get_public_translation(
-                language.slug
+                language.slug,
             ):
                 available_languages.append(
                     {
                         "location": f"{settings.WEBAPP_URL}{other_translation.get_absolute_url()}",
                         "lang_slug": other_translation.language.slug,
-                    }
+                    },
                 )
         return available_languages
 
@@ -337,7 +336,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         """
         if self.source_language:
             return self.foreign_object.get_public_or_draft_translation(
-                self.source_language.slug
+                self.source_language.slug,
             )
         return None
 
@@ -354,7 +353,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         """
         if self.source_language:
             return self.foreign_object.get_major_public_translation(
-                self.source_language.slug
+                self.source_language.slug,
             )
         return None
 
@@ -572,7 +571,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         :return: The link content
         """
         foreign_object = self.foreign_object
-        if icon := getattr(foreign_object, "icon", None):
+        if icon := getattr(foreign_object, "icon", None):  # noqa: SIM102
             if url := icon.thumbnail_url:
                 img = make_icon(url)
                 img.tail = self.title
@@ -592,7 +591,8 @@ class AbstractContentTranslation(AbstractBaseModel):
         return self.all_versions.values_list("slug", flat=True)
 
     def create_new_version_copy(
-        self, user: User | None = None
+        self,
+        user: User | None = None,
     ) -> AbstractContentTranslation:
         """
         Create a new version by copying
@@ -661,7 +661,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         """
         if self.read_only:
             raise RuntimeError(
-                "This object is read-only - changes cannot be saved to the database."
+                "This object is read-only - changes cannot be saved to the database.",
             )
         if kwargs.pop("update_timestamp", True):
             self.last_updated = timezone.now()
@@ -678,7 +678,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         try:
             second_last_manual_save = (
                 self.foreign_object.translations.filter(language=self.language).exclude(
-                    status=status.AUTO_SAVE
+                    status=status.AUTO_SAVE,
                 )
             )[1]
 
@@ -687,7 +687,7 @@ class AbstractContentTranslation(AbstractBaseModel):
                     language=self.language,
                     status=status.AUTO_SAVE,
                     version__lt=second_last_manual_save.version,
-                )
+                ),
             )
 
         except IndexError:
@@ -700,7 +700,7 @@ class AbstractContentTranslation(AbstractBaseModel):
         logger.debug("Deleting autosaves: %r", delete_auto_saves)
         first_deleted_version = delete_auto_saves[-1].version
         self.foreign_object.translations.filter(
-            id__in=[t.id for t in delete_auto_saves]
+            id__in=[t.id for t in delete_auto_saves],
         ).delete()
 
         # Get all versions which have now outdated version numbers and lock the database rows
@@ -715,7 +715,8 @@ class AbstractContentTranslation(AbstractBaseModel):
         with disable_listeners():
             # Make version numbers continuous
             for new_version, translation in enumerate(
-                remaining_versions, start=first_deleted_version
+                remaining_versions,
+                start=first_deleted_version,
             ):
                 logger.debug("Fixing version %s → %s", translation.version, new_version)
                 translation.version = new_version

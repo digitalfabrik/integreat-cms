@@ -1,5 +1,4 @@
 from collections import Counter
-from typing import Dict, Tuple
 
 from ...constants.translation_status import MISSING, OUTDATED, UP_TO_DATE
 from ...models import Language, Region
@@ -7,7 +6,7 @@ from ...models import Language, Region
 
 def get_translation_and_word_count(
     region: Region,
-) -> Tuple[Dict[Language, Counter], Dict[Language, Counter]]:
+) -> tuple[dict[Language, Counter], dict[Language, Counter]]:
     """
     This function counts the translations and words of a region
 

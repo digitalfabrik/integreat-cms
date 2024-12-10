@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
 
 from django import forms
 from django.core.validators import EmailValidator, URLValidator

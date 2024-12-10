@@ -51,8 +51,8 @@ class ImprintSideBySideView(TemplateView, ImprintContextMixin, MediaContextMixin
                     kwargs={
                         "region_slug": kwargs["region_slug"],
                     },
-                )
-            }
+                ),
+            },
         )
         return context
 
@@ -80,12 +80,13 @@ class ImprintSideBySideView(TemplateView, ImprintContextMixin, MediaContextMixin
         if not request.user.has_perm("cms.change_imprintpage"):
             disabled = True
             messages.warning(
-                request, _("You don't have the permission to edit the imprint.")
+                request,
+                _("You don't have the permission to edit the imprint."),
             )
 
         target_language = Language.objects.get(slug=kwargs.get("language_slug"))
         source_language_node = region.language_tree_nodes.get(
-            language=target_language
+            language=target_language,
         ).parent
 
         if source_language_node:
@@ -94,7 +95,7 @@ class ImprintSideBySideView(TemplateView, ImprintContextMixin, MediaContextMixin
             messages.error(
                 request,
                 _(
-                    "You cannot use the side-by-side-view for the region's default language (in this case {default_language})."
+                    "You cannot use the side-by-side-view for the region's default language (in this case {default_language}).",
                 ).format(default_language=target_language.translated_name),
             )
             return redirect(
@@ -112,7 +113,7 @@ class ImprintSideBySideView(TemplateView, ImprintContextMixin, MediaContextMixin
             messages.error(
                 request,
                 _(
-                    "You cannot use the side-by-side-view if the source translation (in this case {source_language}) does not exist."
+                    "You cannot use the side-by-side-view if the source translation (in this case {source_language}) does not exist.",
                 ).format(source_language=source_language.translated_name),
             )
             return redirect(
@@ -124,11 +125,14 @@ class ImprintSideBySideView(TemplateView, ImprintContextMixin, MediaContextMixin
             )
 
         imprint_translation_form = ImprintTranslationForm(
-            instance=target_imprint_translation, disabled=disabled
+            instance=target_imprint_translation,
+            disabled=disabled,
         )
 
         old_translation_content = get_old_source_content(
-            imprint, source_language_node.language, target_language
+            imprint,
+            source_language_node.language,
+            target_language,
         )
 
         return render(
@@ -165,18 +169,18 @@ class ImprintSideBySideView(TemplateView, ImprintContextMixin, MediaContextMixin
 
         target_language = Language.objects.get(slug=kwargs.get("language_slug"))
         source_language_node = region.language_tree_nodes.get(
-            language=target_language
+            language=target_language,
         ).parent
 
         if source_language_node:
             source_imprint_translation = imprint.get_translation(
-                source_language_node.language.slug
+                source_language_node.language.slug,
             )
         else:
             messages.error(
                 request,
                 _(
-                    "You cannot use the side-by-side-view for the region's default language (in this case {default_language})."
+                    "You cannot use the side-by-side-view for the region's default language (in this case {default_language}).",
                 ).format(default_language=target_language.translated_name),
             )
             return redirect(
@@ -193,7 +197,7 @@ class ImprintSideBySideView(TemplateView, ImprintContextMixin, MediaContextMixin
             messages.error(
                 request,
                 _(
-                    "You cannot use the side-by-side-view if the source translation (in this case {source_language}) does not exist."
+                    "You cannot use the side-by-side-view if the source translation (in this case {source_language}) does not exist.",
                 ).format(source_language=source_language_node.language.translated_name),
             )
             return redirect(
@@ -234,7 +238,9 @@ class ImprintSideBySideView(TemplateView, ImprintContextMixin, MediaContextMixin
             )
 
         old_translation_content = get_old_source_content(
-            imprint, source_language_node.language, target_language
+            imprint,
+            source_language_node.language,
+            target_language,
         )
 
         return render(
@@ -251,7 +257,9 @@ class ImprintSideBySideView(TemplateView, ImprintContextMixin, MediaContextMixin
 
 
 def get_old_source_content(
-    imprint: ImprintPage, source_language: Language, target_language: Language
+    imprint: ImprintPage,
+    source_language: Language,
+    target_language: Language,
 ) -> str:
     """
     This function returns the content of the source language translation that was up to date when the latest (no minor edit)
@@ -264,16 +272,20 @@ def get_old_source_content(
     """
     # For the text diff, use the latest source translation that was created before the latest no minor edit target translation
 
-    if major_target_imprint_translation := imprint.translations.filter(
-        language__slug=target_language.slug, minor_edit=False
-    ).first():
-        if source_previous_translation := (
+    if (
+        major_target_imprint_translation := imprint.translations.filter(
+            language__slug=target_language.slug,
+            minor_edit=False,
+        ).first()
+    ) and (
+        source_previous_translation := (
             imprint.translations.filter(
                 language=source_language,
                 last_updated__lte=major_target_imprint_translation.last_updated,
             )
             .order_by("-last_updated")
             .first()
-        ):
-            return source_previous_translation.content
+        )
+    ):
+        return source_previous_translation.content
     return ""

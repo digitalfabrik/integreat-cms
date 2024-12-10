@@ -66,7 +66,7 @@ def extract_zip_archive(
             invalid_files = [
                 file_path
                 for file_path in extracted_files
-                if not file_path.endswith(("/",) + tuple(allowed_file_extensions))
+                if not file_path.endswith(("/", *allowed_file_extensions))
             ]
             # Remove all invalid files from extracted files
             extracted_files = list(set(extracted_files) - set(invalid_files))

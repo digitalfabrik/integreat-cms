@@ -36,7 +36,8 @@ class WebAuthnVerifyView(View):
         """
         if not (user := get_mfa_user(request)):
             return JsonResponse(
-                {"success": False, "error": _("You need to log in first")}, status=403
+                {"success": False, "error": _("You need to log in first")},
+                status=403,
             )
 
         challenge = request.session["challenge"]
@@ -48,7 +49,7 @@ class WebAuthnVerifyView(View):
         try:
             authentication_verification = verify_authentication_response(
                 credential=parse_authentication_credential_json(
-                    json.loads(request.body)
+                    json.loads(request.body),
                 ),
                 expected_challenge=base64url_to_bytes(challenge),
                 expected_rp_id=settings.HOSTNAME,
@@ -56,10 +57,11 @@ class WebAuthnVerifyView(View):
                 credential_public_key=key.public_key,
                 credential_current_sign_count=key.sign_count,
             )
-        except InvalidAuthenticationResponse as e:
-            logger.exception(e)
+        except InvalidAuthenticationResponse:
+            logger.exception("")
             return JsonResponse(
-                {"success": False, "error": "Authentication rejected"}, status=403
+                {"success": False, "error": "Authentication rejected"},
+                status=403,
             )
 
         # Update counter.

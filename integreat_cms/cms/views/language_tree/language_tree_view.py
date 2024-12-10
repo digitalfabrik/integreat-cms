@@ -14,7 +14,6 @@ logger = logging.getLogger(__name__)
 
 
 class LanguageTreeView(LanguageTreeContextMixin, ModelListView):
-    # pylint: disable=too-many-ancestors
     """
     View for rendering the language tree view.
     This view is available in regions.

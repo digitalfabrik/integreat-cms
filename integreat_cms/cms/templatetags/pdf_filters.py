@@ -35,7 +35,6 @@ def pdf_strip_fontstyles(instance: str) -> str:
 
 @register.filter
 def pdf_truncate_links(page_content: str, max_chars: int) -> str:
-    # pylint: disable=unused-variable
     """
     This tag returns the page content with truncated link texts.
 
@@ -47,7 +46,7 @@ def pdf_truncate_links(page_content: str, max_chars: int) -> str:
         content = fromstring(page_content)
     except ParserError:
         return page_content
-    for elem, attrib, link, pos in content.iterlinks():
+    for elem, _attrib, _link, _pos in content.iterlinks():
         if elem.text:
             elem.text = " ".join(
                 Truncator(word).chars(max_chars) for word in elem.text.split(" ")

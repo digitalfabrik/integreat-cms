@@ -7,7 +7,6 @@ if TYPE_CHECKING:
 
 
 import pytest
-from django.utils import translation
 
 from integreat_cms.cms.models import Contact
 

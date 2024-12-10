@@ -29,7 +29,9 @@ class GvzApiWrapper:
     """
 
     def search(
-        self, region_name: str | None, division_category: int | None
+        self,
+        region_name: str | None,
+        division_category: int | None,
     ) -> list[dict[str, Any]]:
         """
         Search for a region and return candidates
@@ -39,11 +41,10 @@ class GvzApiWrapper:
         :return: JSON search results defined in the GVZ API
         """
         logger.debug("Searching for %r", region_name)
-        regions = requests.get(
+        return requests.get(
             f"{self.api_url}/api/administrative_divisions/?search={region_name}&division_category={division_category}",
             timeout=settings.DEFAULT_REQUEST_TIMEOUT,
         ).json()["results"]
-        return regions
 
     def get_details(self, ags: str) -> dict | None:
         """
@@ -82,7 +83,8 @@ class GvzApiWrapper:
         result = {}
         for url in child_urls:
             response = requests.get(
-                url, timeout=settings.DEFAULT_REQUEST_TIMEOUT
+                url,
+                timeout=settings.DEFAULT_REQUEST_TIMEOUT,
             ).json()
             result[response["name"]] = {
                 "longitude": response["longitude"],
@@ -125,7 +127,9 @@ class GvzApiWrapper:
         return result
 
     def best_match(
-        self, region_name: str | None, division_type: str | None
+        self,
+        region_name: str | None,
+        division_type: str | None,
     ) -> dict[str, Any] | None:
         """
         Tries to find the correct region id (single search hit)
@@ -137,7 +141,8 @@ class GvzApiWrapper:
         # First: let's try normal search. If there is only one result, then
         # everything is good.
         results = self.search(
-            region_name, self.translate_division_category(division_type)
+            region_name,
+            self.translate_division_category(division_type),
         )
 
         if len(results) == 1:

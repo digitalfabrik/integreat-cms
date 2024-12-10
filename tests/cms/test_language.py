@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import pytest
 from django.conf import settings
-from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.models import Language, LanguageTreeNode, Region
@@ -11,6 +12,9 @@ from tests.mt_api.deepl_api_test import setup_deepl_supported_languages
 from tests.mt_api.google_translate_api_test import (
     setup_google_translate_supported_languages,
 )
+
+if TYPE_CHECKING:
+    from django.test.client import Client
 
 
 @pytest.mark.django_db
@@ -30,7 +34,8 @@ def test_create_new_language_node(
     assert new_language not in region.languages
 
     next_url = url = reverse(
-        "new_languagetreenode", kwargs={"region_slug": region.slug}
+        "new_languagetreenode",
+        kwargs={"region_slug": region.slug},
     )
     response = client.post(
         url,
@@ -48,7 +53,8 @@ def test_create_new_language_node(
         # Verify the new language node was created
         assert (
             LanguageTreeNode.objects.filter(
-                region=region, language=new_language
+                region=region,
+                language=new_language,
             ).count()
             == 1
         )
@@ -87,12 +93,13 @@ def test_update_language_node(
     region = Region.objects.filter(slug="nurnberg").first()
     language = Language.objects.filter(slug="fa").first()
     language_node = LanguageTreeNode.objects.filter(
-        region=region, language=language
+        region=region,
+        language=language,
     ).first()
     root_language_node = region.language_tree_root
 
     # Make sure the parent node is not German
-    assert not language_node.parent.id == root_language_node.id
+    assert language_node.parent.id != root_language_node.id
 
     next_url = url = reverse(
         "edit_languagetreenode",
@@ -140,7 +147,8 @@ def test_move_language_node(
     region = Region.objects.filter(slug="augsburg").first()
     language = Language.objects.filter(slug="ar").first()
     language_node = LanguageTreeNode.objects.filter(
-        language=language, region=region
+        language=language,
+        region=region,
     ).first()
 
     next_url = url = reverse(
@@ -184,12 +192,14 @@ def test_delete_language_node(
     # Choose a node without children to verify the delete function successes
     deletable_language = Language.objects.filter(slug="ar").first()
     deletable_language_node = LanguageTreeNode.objects.filter(
-        language=deletable_language, region=region
+        language=deletable_language,
+        region=region,
     ).first()
     # Choose a node with children to verify the delete function is cancelled
     not_deletable_language = Language.objects.filter(slug="en").first()
     not_deletable_language_node = LanguageTreeNode.objects.filter(
-        language=not_deletable_language, region=region
+        language=not_deletable_language,
+        region=region,
     ).first()
 
     deletable_next_url = deletable_url = reverse(
@@ -209,11 +219,13 @@ def test_delete_language_node(
         assert response_fail.status_code == 302
         # Verify that the language node without children was deleted
         assert not LanguageTreeNode.objects.filter(
-            language=deletable_language, region=region
+            language=deletable_language,
+            region=region,
         ).first()
         # Verify that the language node with child nodes was not deleted
         assert LanguageTreeNode.objects.filter(
-            language=not_deletable_language, region=region
+            language=not_deletable_language,
+            region=region,
         ).first()
     elif role == ANONYMOUS:
         # For anonymous users, we want to redirect to the login form instead of showing an error

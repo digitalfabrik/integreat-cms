@@ -8,7 +8,6 @@ from .event_context_mixin import EventContextMixin
 
 
 class EventVersionView(EventContextMixin, ContentVersionView):
-    # pylint: disable=too-many-ancestors
     """
     View for browsing the event versions and restoring old event versions
     """

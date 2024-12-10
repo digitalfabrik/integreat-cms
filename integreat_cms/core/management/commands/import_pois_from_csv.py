@@ -50,7 +50,7 @@ class Command(LogCommand):
         """
         if not (
             default_category := POICategory.objects.filter(
-                icon=poicategory.OTHER
+                icon=poicategory.OTHER,
             ).first()
         ):
             default_category = POICategory.objects.create(
@@ -65,7 +65,9 @@ class Command(LogCommand):
         return default_category
 
     def get_category(
-        self, category_name: str, default_language: Language
+        self,
+        category_name: str,
+        default_language: Language,
     ) -> POICategory:
         """
         Get a POI category object from the category's name
@@ -75,7 +77,7 @@ class Command(LogCommand):
         :returns: The given POI category
         """
         if category_translation := POICategoryTranslation.objects.filter(
-            name=category_name
+            name=category_name,
         ).first():
             return category_translation.category
         return self.get_or_create_default_category(default_language)
@@ -163,7 +165,8 @@ class Command(LogCommand):
         """
         parser.add_argument("csv_filename", help="The source CSV file to import from")
         parser.add_argument(
-            "region_slug", help="Import the POI objects into this region"
+            "region_slug",
+            help="Import the POI objects into this region",
         )
         parser.add_argument("username", help="The username of the creator")
 
@@ -175,7 +178,6 @@ class Command(LogCommand):
         username: str,
         **options: Any,
     ) -> None:
-        # pylint: disable=arguments-differ
         r"""
         Try to run the command
 
@@ -192,14 +194,14 @@ class Command(LogCommand):
             region = Region.objects.get(slug=region_slug)
         except Region.DoesNotExist as e:
             raise CommandError(
-                f'Region with slug "{region_slug}" does not exist.'
+                f'Region with slug "{region_slug}" does not exist.',
             ) from e
 
         try:
             user = get_user_model().objects.get(username=username)
         except get_user_model().DoesNotExist as e:
             raise CommandError(
-                f'User with username "{username}" does not exist.'
+                f'User with username "{username}" does not exist.',
             ) from e
 
         with open(csv_filename, newline="", encoding="utf-8") as csv_file:
@@ -220,7 +222,8 @@ class Command(LogCommand):
                     "opening_hours": json.dumps(self.get_opening_hours(poi)),
                     "temporarily_closed": strtobool(poi["temporarily_closed"]),
                     "category": self.get_category(
-                        poi["category"], region.default_language
+                        poi["category"],
+                        region.default_language,
                     ).id,
                     "website": poi["website"],
                     "appointment_url": poi["appointment_url"],
@@ -251,7 +254,7 @@ class Command(LogCommand):
                             "\n\t• "
                             + "\n\t• ".join(
                                 m["text"] for m in poi_form.get_error_messages()
-                            )
+                            ),
                         )
                     if not poi_translation_form.is_valid():
                         raise CommandError(
@@ -259,7 +262,7 @@ class Command(LogCommand):
                             + "\n\t• ".join(
                                 m["text"]
                                 for m in poi_translation_form.get_error_messages()
-                            )
+                            ),
                         )
                 # Save forms
                 poi_translation_form.instance.poi = poi_form.save()

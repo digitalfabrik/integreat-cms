@@ -28,7 +28,10 @@ logger = logging.getLogger(__name__)
 @require_POST
 @permission_required("cms.change_event")
 def archive(
-    request: HttpRequest, event_id: int, region_slug: str, language_slug: str
+    request: HttpRequest,
+    event_id: int,
+    region_slug: str,
+    language_slug: str,
 ) -> HttpResponseRedirect:
     """
     Set archived flag for an event
@@ -59,7 +62,10 @@ def archive(
 @require_POST
 @permission_required("cms.change_event")
 def copy(
-    request: HttpRequest, event_id: int, region_slug: str, language_slug: str
+    request: HttpRequest,
+    event_id: int,
+    region_slug: str,
+    language_slug: str,
 ) -> HttpResponseRedirect:
     """
     Duplicates the given event and all of its translations.
@@ -81,21 +87,26 @@ def copy(
             _("Event couldn't be copied because it's from an external calendar"),
         )
         return redirect(
-            "events", **{"region_slug": region_slug, "language_slug": language_slug}
+            "events",
+            **{"region_slug": region_slug, "language_slug": language_slug},
         )
 
     logger.debug("%r copied by %r", event, request.user)
     messages.success(request, _("Event was successfully copied"))
 
     return redirect(
-        "events", **{"region_slug": region_slug, "language_slug": language_slug}
+        "events",
+        **{"region_slug": region_slug, "language_slug": language_slug},
     )
 
 
 @require_POST
 @permission_required("cms.change_event")
 def restore(
-    request: HttpRequest, event_id: int, region_slug: str, language_slug: str
+    request: HttpRequest,
+    event_id: int,
+    region_slug: str,
+    language_slug: str,
 ) -> HttpResponseRedirect:
     """
     Remove archived flag for an event
@@ -126,7 +137,10 @@ def restore(
 @require_POST
 @permission_required("cms.delete_event")
 def delete(
-    request: HttpRequest, event_id: int, region_slug: str, language_slug: str
+    request: HttpRequest,
+    event_id: int,
+    region_slug: str,
+    language_slug: str,
 ) -> HttpResponseRedirect:
     """
     Delete a single event
@@ -159,13 +173,13 @@ def delete(
 @require_POST
 @permission_required("cms.view_event")
 def search_poi_ajax(
-    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+    request: HttpRequest,
+    region_slug: str,
 ) -> HttpResponse:
     """
     AJAX endpoint for searching POIs
 
     :param request: Object representing the user call
-    :param region_slug: The current regions slug
     :return: The rendered template response
     """
     data = json.loads(request.body.decode("utf-8"))

@@ -5,16 +5,17 @@ from typing import TYPE_CHECKING
 from unittest.mock import patch
 
 import pytest
-import requests
 from django.core.management import call_command
 from django.core.management.base import CommandError
-from pytest_django.fixtures import SettingsWrapper
-from requests_mock.mocker import Mocker
 
 from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurityService
 
 if TYPE_CHECKING:
     from typing import Any
+
+    import requests
+    from pytest_django.fixtures import SettingsWrapper
+    from requests_mock.mocker import Mocker
 
 from integreat_cms.cms.models import (
     Language,
@@ -55,7 +56,9 @@ class TestSendPushNotification:
         self.called_success = 0
 
     def success_json_function(
-        self, _request: requests.PreparedRequest, _context: Any
+        self,
+        request: requests.PreparedRequest,
+        context: Any,
     ) -> dict[str, str | int]:
         self.called_success += 1
 
@@ -65,7 +68,9 @@ class TestSendPushNotification:
         }
 
     def error_json_function(
-        self, _request: requests.PreparedRequest, _context: Any
+        self,
+        request: requests.PreparedRequest,
+        context: Any,
     ) -> dict[str, str | int]:
         self.called_error += 1
 
@@ -103,7 +108,9 @@ class TestSendPushNotification:
 
     @pytest.mark.django_db
     def test_ignore_overdue_notification(
-        self, settings: SettingsWrapper, requests_mock: Mocker
+        self,
+        settings: SettingsWrapper,
+        requests_mock: Mocker,
     ) -> None:
         requests_mock.post(
             "https://fcm.googleapis.com/v1/projects/integreat-2020/messages:send",
@@ -171,7 +178,9 @@ class TestSendPushNotification:
 
     @pytest.mark.django_db
     def test_retry_failed_notification(
-        self, settings: SettingsWrapper, requests_mock: Mocker
+        self,
+        settings: SettingsWrapper,
+        requests_mock: Mocker,
     ) -> None:
         requests_mock.post(
             "https://fcm.googleapis.com/v1/projects/integreat-2020/messages:send",

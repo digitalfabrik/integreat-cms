@@ -42,7 +42,7 @@ class TOTPRegisterView(TemplateView):
             messages.error(
                 request,
                 _(
-                    "You have already registered a TOTP key. Please disconnect your app before adding a new one."
+                    "You have already registered a TOTP key. Please disconnect your app before adding a new one.",
                 ),
             )
             kwargs = {"region_slug": request.region.slug} if request.region else {}
@@ -72,10 +72,12 @@ class TOTPRegisterView(TemplateView):
             user.totp_key = key
             user.save()
             logger.info(
-                "Account %r added TOTP as a authentication method.", request.user
+                "Account %r added TOTP as a authentication method.",
+                request.user,
             )
             messages.success(
-                request, _("The TOTP Authenticator has been added successfully.")
+                request,
+                _("The TOTP Authenticator has been added successfully."),
             )
             # Clear session variable
             del request.session["new_totp_key"]

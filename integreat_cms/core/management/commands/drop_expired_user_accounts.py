@@ -32,12 +32,12 @@ class Command(LogCommand):
 
         # Fetch users who have not been activated and whose creation date is before the cutoff date
         users_to_delete = User.objects.filter(
-            is_active=False, date_joined__lte=cutoff_date
+            is_active=False,
+            date_joined__lte=cutoff_date,
         )
 
         num_users_to_delete = users_to_delete.count()
 
-        # pylint: disable=consider-using-assignment-expr
         if not num_users_to_delete:
             logger.info("No inactive users were found who need to be deleted.")
             return

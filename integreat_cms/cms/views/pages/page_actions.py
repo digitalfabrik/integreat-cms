@@ -49,7 +49,10 @@ logger = logging.getLogger(__name__)
 @require_POST
 @tree_mutex("page")
 def archive_page(
-    request: HttpRequest, page_id: int, region_slug: str, language_slug: str
+    request: HttpRequest,
+    page_id: int,
+    region_slug: str,
+    language_slug: str,
 ) -> HttpResponseRedirect:
     """
     Archive page object
@@ -67,14 +70,14 @@ def archive_page(
 
     if not request.user.has_perm("cms.change_page_object", page):
         raise PermissionDenied(
-            f"{request.user!r} does not have the permission to archive {page!r}"
+            f"{request.user!r} does not have the permission to archive {page!r}",
         )
 
     if page.mirroring_pages.exists():
         messages.error(
             request,
             _(
-                "This page cannot be archived because it was embedded as live content from another page."
+                "This page cannot be archived because it was embedded as live content from another page.",
             ),
         )
     else:
@@ -95,7 +98,10 @@ def archive_page(
 @require_POST
 @tree_mutex("page")
 def restore_page(
-    request: HttpRequest, page_id: int, region_slug: str, language_slug: str
+    request: HttpRequest,
+    page_id: int,
+    region_slug: str,
+    language_slug: str,
 ) -> HttpResponseRedirect:
     """
     Restore page object (set ``archived=False``)
@@ -114,7 +120,7 @@ def restore_page(
 
     if not request.user.has_perm("cms.change_page_object", page):
         raise PermissionDenied(
-            f"{request.user!r} does not have the permission to restore {page!r}"
+            f"{request.user!r} does not have the permission to restore {page!r}",
         )
 
     page.restore()
@@ -130,7 +136,7 @@ def restore_page(
             _("Page was successfully restored.")
             + " "
             + _(
-                "However, it is still archived because one of its parent pages is archived."
+                "However, it is still archived because one of its parent pages is archived.",
             ),
         )
         return redirect(
@@ -157,7 +163,7 @@ def restore_page(
 def preview_page_ajax(
     request: HttpRequest,
     page_id: int,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
 ) -> JsonResponse:
     """
@@ -165,7 +171,6 @@ def preview_page_ajax(
 
     :param request: The current request
     :param page_id: The id of the page which should be viewed
-    :param region_slug: The slug of the current region
     :param language_slug: The slug of the current language
     :raises ~django.http.Http404: HTTP status 404 if page translation does not exist
 
@@ -190,7 +195,7 @@ def preview_page_ajax(
                     if page_translation
                     else False
                 ),
-            }
+            },
         )
     raise Http404("Translation of the given page could not be found")
 
@@ -199,7 +204,7 @@ def preview_page_ajax(
 @json_response
 def get_page_content_ajax(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
     page_id: int,
 ) -> JsonResponse:
@@ -207,7 +212,6 @@ def get_page_content_ajax(
     Get content of a page translation based on language slug
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :param language_slug: The slug of the current language
     :param page_id: The id of the page which should be viewed
     :raises ~django.http.Http404: HTTP status 404 if page translation does not exist
@@ -225,7 +229,10 @@ def get_page_content_ajax(
 @permission_required("cms.delete_page")
 @tree_mutex("page")
 def delete_page(
-    request: HttpRequest, page_id: int, region_slug: str, language_slug: str
+    request: HttpRequest,
+    page_id: int,
+    region_slug: str,
+    language_slug: str,
 ) -> HttpResponseRedirect:
     """
     Delete page object
@@ -246,7 +253,7 @@ def delete_page(
         messages.error(
             request,
             _(
-                "This page cannot be deleted because it was embedded as live content from another page."
+                "This page cannot be deleted because it was embedded as live content from another page.",
             ),
         )
     else:
@@ -264,7 +271,8 @@ def delete_page(
 
 
 def expand_page_translation_id(
-    request: HttpRequest, short_url_id: int
+    request: HttpRequest,
+    short_url_id: int,
 ) -> HttpResponseRedirect:
     """
     Searches for a page translation with corresponding ID and redirects browser to web app
@@ -286,7 +294,7 @@ def expand_page_translation_id(
 @json_response
 def cancel_translation_process_ajax(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
     page_id: int,
 ) -> JsonResponse:
@@ -294,7 +302,6 @@ def cancel_translation_process_ajax(
     This view is called for manually unsetting the translation process
 
     :param request: ajax request
-    :param region_slug: The slug of the current region
     :param language_slug: The slug of the current language
     :param page_id: The id of the requested page
     :return: on success returns language of updated translation
@@ -305,8 +312,8 @@ def cancel_translation_process_ajax(
         return JsonResponse(
             {
                 "error": _(
-                    'Page "{}" does not have a translation for language "{}"'
-                ).format(page, language_slug)
+                    'Page "{}" does not have a translation for language "{}"',
+                ).format(page, language_slug),
             },
             status=404,
         )
@@ -319,18 +326,20 @@ def cancel_translation_process_ajax(
     return JsonResponse(
         {
             "success": _(
-                'Cancelled translation process for page "{}" and language "{}"'
+                'Cancelled translation process for page "{}" and language "{}"',
             ).format(page, page_translation.language),
             "languageSlug": page_translation.language.slug,
             "translationState": translation_state,
-        }
+        },
     )
 
 
 @require_POST
 @permission_required("cms.change_page")
 def upload_xliff(
-    request: HttpRequest, region_slug: str, language_slug: str
+    request: HttpRequest,
+    region_slug: str,
+    language_slug: str,
 ) -> HttpResponseRedirect:
     """
     Upload and import an XLIFF file
@@ -354,7 +363,7 @@ def upload_xliff(
                 messages.error(
                     request,
                     _('File "{}" is neither a ZIP archive nor an XLIFF file.').format(
-                        upload_file.name
+                        upload_file.name,
                     ),
                 )
                 logger.warning(
@@ -373,7 +382,8 @@ def upload_xliff(
             if upload_file.name.endswith(".zip"):
                 # Extract zip archive
                 xliff_paths_tmp, invalid_file_paths = extract_zip_archive(
-                    os.path.join(upload_dir, upload_file.name), upload_dir
+                    os.path.join(upload_dir, upload_file.name),
+                    upload_dir,
                 )
                 # Append contents of zip archive to total list of xliff files
                 xliff_paths += xliff_paths_tmp
@@ -381,14 +391,14 @@ def upload_xliff(
                     messages.error(
                         request,
                         _('The ZIP archive "{}" does not contain XLIFF files.').format(
-                            upload_file.name
+                            upload_file.name,
                         ),
                     )
                 elif invalid_file_paths:
                     messages.warning(
                         request,
                         _(
-                            'The ZIP archive "{}" contains the following invalid files: "{}"'
+                            'The ZIP archive "{}" contains the following invalid files: "{}"',
                         ).format(upload_file.name, '", "'.join(invalid_file_paths)),
                     )
             else:
@@ -475,14 +485,14 @@ def move_page(
                 repair_tree([page_id, target_id], commit=True)
                 try:
                     page.save()
-                except IntegrityError as e:
+                except IntegrityError:
                     messages.error(
                         request,
                         _(
-                            "Error while saving page. Someone else probably moved another page at the same time."
+                            "Error while saving page. Someone else probably moved another page at the same time.",
                         ),
                     )
-                    logger.exception(e)
+                    logger.exception("")
         logger.debug(
             "%r moved to %r of %r by %r",
             page,
@@ -493,7 +503,7 @@ def move_page(
         messages.success(
             request,
             _('The page "{page}" was successfully moved.').format(
-                page=page.best_translation.title
+                page=page.best_translation.title,
             ),
         )
     except (
@@ -502,7 +512,7 @@ def move_page(
         InvalidMoveToDescendant,
     ) as e:
         messages.error(request, e)
-        logger.exception(e)
+        logger.exception("")
 
     return redirect(
         "pages",
@@ -516,7 +526,7 @@ def move_page(
 @permission_required("cms.view_page")
 def get_page_order_table_ajax(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     parent_id: int | None = None,
     page_id: int | None = None,
 ) -> HttpResponse:
@@ -525,7 +535,6 @@ def get_page_order_table_ajax(
     This is used in the page form to change the order of a page relative to its siblings.
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :param parent_id: The id of the parent page to which the order table should be returned
     :param page_id: The id of the page of the current page form
     :return: The rendered page order table
@@ -565,14 +574,13 @@ def get_page_order_table_ajax(
 @permission_required("cms.view_page")
 def render_mirrored_page_field(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
 ) -> HttpResponse:
     """
     Retrieve the rendered mirrored page field template
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :param language_slug: The slug of the current language
     :return: The rendered mirrored page field
     """
@@ -602,7 +610,7 @@ def render_mirrored_page_field(
 def refresh_date(
     request: HttpRequest,
     page_id: int,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
 ) -> HttpResponseRedirect:
     """
@@ -610,7 +618,6 @@ def refresh_date(
 
     :param request: The current request
     :param page_id: The id of the page of the current page form
-    :param region_slug: The slug of the current region
     :param language_slug: The slug of the current language
     :raises ~django.core.exceptions.PermissionDenied: If the user does not have the permission to refresh page dates
 
@@ -621,19 +628,19 @@ def refresh_date(
 
     if not request.user.has_perm("cms.change_page_object", page):
         raise PermissionDenied(
-            f"{request.user!r} does not have the permission mark {page!r} as up-to-date"
+            f"{request.user!r} does not have the permission mark {page!r} as up-to-date",
         )
 
     # Consider only the last version of each translation
     page_translations = page.translations.filter(
-        language__in=region.active_languages
+        language__in=region.active_languages,
     ).distinct("page__pk", "language__pk")
     # Sort page translations according to the position of their languages in the
     # language tree to ensure that the translations are not considered outdated.
     page_translations = sorted(
         page_translations,
         key=lambda page_translation: region.active_languages.index(
-            page_translation.language
+            page_translation.language,
         ),
     )
     translations_to_update = [

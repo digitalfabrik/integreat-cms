@@ -8,11 +8,10 @@ if TYPE_CHECKING:
     from typing import Any, Final
 
     from _pytest.logging import LogCaptureFixture
-    from django.db.models.base import ModelBase
-    from django.forms.models import ModelFormMetaclass
-    from django.http import HttpRequest
     from django.test.client import Client
     from pytest_django.fixtures import SettingsWrapper
+
+    from tests.mock import MockServer
 
 from unittest.mock import patch
 
@@ -26,7 +25,6 @@ from integreat_cms.cms.utils.stringify_list import iter_to_string
 from integreat_cms.google_translate_api.google_translate_api_client import (
     GoogleTranslateApiClient,
 )
-from tests.mock import MockServer
 
 from ..conftest import (
     ANONYMOUS,
@@ -90,7 +88,7 @@ def mt_setup(
 content_role_id_combination = [
     (
         Page,
-        PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR],
+        [*PRIV_STAFF_ROLES, AUTHOR, MANAGEMENT, EDITOR],
         [28],
     ),
     (
@@ -106,7 +104,6 @@ content_role_id_combination = [
 ]
 
 
-# pylint:disable=too-many-locals, redefined-outer-name, too-many-positional-arguments
 @pytest.mark.django_db
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 @pytest.mark.parametrize("content_role_id_combination", content_role_id_combination)
@@ -149,7 +146,9 @@ def test_bulk_mt(
     )
 
     with patch.object(
-        GoogleTranslateApiClient, "__init__", setup_fake_google_translate_api
+        GoogleTranslateApiClient,
+        "__init__",
+        setup_fake_google_translate_api,
     ):
         response = client.post(machine_translation, data={"selected_ids[]": ids})
         print(response.headers)
@@ -168,7 +167,10 @@ def test_bulk_mt(
             response = client.get(tree)
 
             translations = get_content_translations(
-                content_type, ids, source_language_slug, target_language_slug
+                content_type,
+                ids,
+                source_language_slug,
+                target_language_slug,
             )
 
             for translation in translations:
@@ -197,7 +199,7 @@ def test_bulk_mt(
 
             # Check that used MT budget value in the region has been increased to the number of translated words
             translated_word_count = get_word_count(
-                [translation[source_language_slug] for translation in translations]
+                [translation[source_language_slug] for translation in translations],
             )
             assert (
                 Region.objects.get(slug=REGION_SLUG).mt_budget_used
@@ -218,7 +220,9 @@ def test_bulk_mt(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user",
+    [*PRIV_STAFF_ROLES, AUTHOR, MANAGEMENT, EDITOR],
+    indirect=True,
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_bulk_mt_exceeds_limit(
@@ -259,10 +263,13 @@ def test_bulk_mt_exceeds_limit(
     )
 
     with patch.object(
-        GoogleTranslateApiClient, "__init__", setup_fake_google_translate_api
+        GoogleTranslateApiClient,
+        "__init__",
+        setup_fake_google_translate_api,
     ):
         response = client.post(
-            machine_translation, data={"selected_ids[]": selected_ids}
+            machine_translation,
+            data={"selected_ids[]": selected_ids},
         )
         print(response.headers)
 
@@ -279,12 +286,15 @@ def test_bulk_mt_exceeds_limit(
 
         # Get the page objects including their translations from the database
         page_translations = get_content_translations(
-            Page, selected_ids, source_language_slug, target_language_slug
+            Page,
+            selected_ids,
+            source_language_slug,
+            target_language_slug,
         )
 
         # Check for a failure message
         translations_str = iter_to_string(
-            [t[source_language_slug].title for t in page_translations]
+            [t[source_language_slug].title for t in page_translations],
         )
         assert_message_in_log(
             f"ERROR    The following pages could not be translated because they would exceed the remaining budget of 0 words: {translations_str}",
@@ -299,7 +309,9 @@ def test_bulk_mt_exceeds_limit(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user",
+    [*PRIV_STAFF_ROLES, AUTHOR, MANAGEMENT, EDITOR],
+    indirect=True,
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_bulk_mt_up_to_date(
@@ -339,7 +351,9 @@ def test_bulk_mt_up_to_date(
     )
 
     with patch.object(
-        GoogleTranslateApiClient, "__init__", setup_fake_google_translate_api
+        GoogleTranslateApiClient,
+        "__init__",
+        setup_fake_google_translate_api,
     ):
         response = client.post(
             machine_translation,
@@ -367,7 +381,9 @@ def test_bulk_mt_up_to_date(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user",
+    [*PRIV_STAFF_ROLES, AUTHOR, MANAGEMENT, EDITOR],
+    indirect=True,
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_bulk_mt_up_to_date_and_ready_for_mt(
@@ -409,7 +425,9 @@ def test_bulk_mt_up_to_date_and_ready_for_mt(
     )
 
     with patch.object(
-        GoogleTranslateApiClient, "__init__", setup_fake_google_translate_api
+        GoogleTranslateApiClient,
+        "__init__",
+        setup_fake_google_translate_api,
     ):
         response = client.post(
             machine_translation,
@@ -457,7 +475,7 @@ def test_bulk_mt_up_to_date_and_ready_for_mt(
 content_role_id_data_combination = [
     (
         Page,
-        PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR],
+        [*PRIV_STAFF_ROLES, AUTHOR, MANAGEMENT, EDITOR],
         4,
         {
             "title": "Neuer Titel",
@@ -506,7 +524,8 @@ content_role_id_data_combination = [
 @pytest.mark.django_db
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 @pytest.mark.parametrize(
-    "content_role_id_data_combination", content_role_id_data_combination
+    "content_role_id_data_combination",
+    content_role_id_data_combination,
 )
 def test_automatic_translation(
     load_test_data: None,
@@ -517,7 +536,6 @@ def test_automatic_translation(
     mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:
-    # pylint: disable=too-many-positional-arguments
     """
     Check machine translation of the page/event/poi when automatic_translation checkbox in set on the form
 
@@ -545,7 +563,8 @@ def test_automatic_translation(
     create_or_update = (
         "update"
         if content_type.objects.filter(
-            id=content_id, translations__language__slug=target_language_slug
+            id=content_id,
+            translations__language__slug=target_language_slug,
         ).exists()
         else "create"
     )
@@ -562,8 +581,9 @@ def test_automatic_translation(
     data = copy.deepcopy(data)
     data.update(
         {
-            "mt_translations_to_"
-            + create_or_update: Language.objects.filter(slug=target_language_slug)
+            "mt_translations_to_" + create_or_update: Language.objects.filter(
+                slug=target_language_slug,
+            )
             .first()
             .id,
             "status": (
@@ -571,11 +591,13 @@ def test_automatic_translation(
                 if content_type is Page and role is AUTHOR
                 else status.PUBLIC
             ),
-        }
+        },
     )
 
     with patch.object(
-        GoogleTranslateApiClient, "__init__", setup_fake_google_translate_api
+        GoogleTranslateApiClient,
+        "__init__",
+        setup_fake_google_translate_api,
     ):
         response = client.post(
             edit_content,
@@ -585,7 +607,10 @@ def test_automatic_translation(
         if role in entitled_roles:
             # If the role should be allowed to access the view, we expect a successful result
             translations = get_content_translations(
-                content_type, [content_id], source_language_slug, target_language_slug
+                content_type,
+                [content_id],
+                source_language_slug,
+                target_language_slug,
             )
             source_translation = translations[0][source_language_slug]
             target_translation = translations[0][target_language_slug]
@@ -625,7 +650,9 @@ def test_automatic_translation(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user",
+    [*PRIV_STAFF_ROLES, AUTHOR, MANAGEMENT, EDITOR],
+    indirect=True,
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_bulk_mt_no_source_language(
@@ -662,10 +689,13 @@ def test_bulk_mt_no_source_language(
         },
     )
     with patch.object(
-        GoogleTranslateApiClient, "__init__", setup_fake_google_translate_api
+        GoogleTranslateApiClient,
+        "__init__",
+        setup_fake_google_translate_api,
     ):
         response = client.post(
-            machine_translation, data={"selected_ids[]": selected_ids}
+            machine_translation,
+            data={"selected_ids[]": selected_ids},
         )
         print(response.headers)
 
@@ -682,7 +712,9 @@ def test_bulk_mt_no_source_language(
 
         # Get the page objects including their translations from the database
         page_translations = get_content_translations(
-            Page, selected_ids, target_language_slug
+            Page,
+            selected_ids,
+            target_language_slug,
         )
 
         # Check for a failure message
@@ -700,7 +732,9 @@ def test_bulk_mt_no_source_language(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user",
+    [*PRIV_STAFF_ROLES, AUTHOR, MANAGEMENT, EDITOR],
+    indirect=True,
 )
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 def test_deepl_bulk_mt_no_target_language(
@@ -737,10 +771,13 @@ def test_deepl_bulk_mt_no_target_language(
         },
     )
     with patch.object(
-        GoogleTranslateApiClient, "__init__", setup_fake_google_translate_api
+        GoogleTranslateApiClient,
+        "__init__",
+        setup_fake_google_translate_api,
     ):
         response = client.post(
-            machine_translation, data={"selected_ids[]": selected_ids}
+            machine_translation,
+            data={"selected_ids[]": selected_ids},
         )
         print(response.headers)
 
@@ -757,7 +794,9 @@ def test_deepl_bulk_mt_no_target_language(
 
         # Get the page objects including their translations from the database
         page_translations = get_content_translations(
-            Page, selected_ids, target_language_slug
+            Page,
+            selected_ids,
+            target_language_slug,
         )
 
         # Check for a failure message

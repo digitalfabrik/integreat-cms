@@ -20,7 +20,8 @@ from ..decorators import json_response
 
 
 def transform_location_category(
-    location_category: POICategory, language_slug: str
+    location_category: POICategory,
+    language_slug: str,
 ) -> dict[str, Any] | None:
     """
     Function to create a JSON from a single location category object.
@@ -52,14 +53,13 @@ def transform_location_category(
 @json_response
 def location_categories(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
 ) -> JsonResponse:
     """
     Function to return all POI categories as JSON.
 
     :param request: The current request
-    :param region_slug: The slug of the requested region
     :param language_slug: The slug of the requested language
     :return: JSON object of all POI categories
     """
@@ -71,5 +71,6 @@ def location_categories(
         for location_category in POICategory.objects.all()
     ]
     return JsonResponse(
-        result, safe=False
+        result,
+        safe=False,
     )  # Turn off Safe-Mode to allow serializing arrays

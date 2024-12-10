@@ -17,7 +17,7 @@ class FirebaseSecurityService:
         """
 
         return FirebaseSecurityService._get_access_token(
-            "https://www.googleapis.com/auth/firebase.messaging"
+            "https://www.googleapis.com/auth/firebase.messaging",
         )
 
     @staticmethod
@@ -29,7 +29,7 @@ class FirebaseSecurityService:
         """
 
         return FirebaseSecurityService._get_access_token(
-            "https://www.googleapis.com/auth/cloud-platform"
+            "https://www.googleapis.com/auth/cloud-platform",
         )
 
     @staticmethod

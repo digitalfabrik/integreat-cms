@@ -36,13 +36,12 @@ ROLES = [
 
 def update_roles(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Update the permissions of roles
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     # We can't import the Person model directly as it may be a newer
     # version than this migration expects. We use the historical version.
@@ -52,24 +51,23 @@ def update_roles(
     for role_conf in ROLES:
         group = Group.objects.get(name=role_conf.get("name"))
         add_permissions = Permission.objects.filter(
-            codename__in=role_conf.get("add_permissions")
+            codename__in=role_conf.get("add_permissions"),
         )
         group.permissions.add(*add_permissions)
         remove_permissions = Permission.objects.filter(
-            codename__in=role_conf.get("remove_permissions")
+            codename__in=role_conf.get("remove_permissions"),
         )
         group.permissions.remove(*remove_permissions)
 
 
 def revert_roles(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Revert the permission changes of this migration
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     # We can't import the Person model directly as it may be a newer
     # version than this migration expects. We use the historical version.
@@ -80,12 +78,12 @@ def revert_roles(
         group = Group.objects.get(name=role_conf.get("name"))
         # The permissions that were added with this migration need to be removed
         add_permissions = Permission.objects.filter(
-            codename__in=role_conf.get("add_permissions")
+            codename__in=role_conf.get("add_permissions"),
         )
         group.permissions.remove(*add_permissions)
         # The migrations that were removed with this migration need to be added again
         remove_permissions = Permission.objects.filter(
-            codename__in=role_conf.get("remove_permissions")
+            codename__in=role_conf.get("remove_permissions"),
         )
         group.permissions.add(*remove_permissions)
 

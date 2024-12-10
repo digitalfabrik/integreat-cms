@@ -15,12 +15,14 @@ import inspect
 import os
 import sys
 from datetime import date
-from typing import Final
+from typing import Final, TYPE_CHECKING
 
-from django import VERSION as django_version_tuple
-from sphinx.application import Sphinx
+from django import VERSION as DJANGO_VERSION_TUPLE
 
 from integreat_cms.core import settings
+
+if TYPE_CHECKING:
+    from sphinx.application import Sphinx
 
 # Append project source directory to path environment variable
 sys.path.append(os.path.abspath("../.."))
@@ -29,13 +31,12 @@ sys.path.append(os.path.abspath("."))
 #: The path to the django settings module (see :doc:`sphinxcontrib-django:readme`)
 django_settings: Final[str] = "integreat_cms.core.sphinx_settings"
 #: The "major.minor" version of Django
-django_version: Final[str] = f"{django_version_tuple[0]}.{django_version_tuple[1]}"
+django_version: Final[str] = f"{DJANGO_VERSION_TUPLE[0]}.{DJANGO_VERSION_TUPLE[1]}"
 
 # -- Project information -----------------------------------------------------
 
 #: The project name
 project: Final[str] = "integreat-cms"
-# pylint: disable=redefined-builtin
 #: The copyright notice
 copyright: Final[str] = f"{date.today().year} {settings.COMPANY}"
 #: The project author
@@ -77,7 +78,6 @@ intersphinx_mapping: Final[dict[str, tuple[str, str | None]]] = {
     "dateutil": ("https://dateutil.readthedocs.io/en/stable/", None),
     "geopy": ("https://geopy.readthedocs.io/en/stable/", None),
     "lxml": ("https://lxml.de/apidoc/", None),
-    "pylint": ("https://pylint.readthedocs.io/en/latest/", None),
     "python": (
         f"https://docs.python.org/{sys.version_info.major}.{sys.version_info.minor}/",
         None,
@@ -139,9 +139,7 @@ extlinks: Final[dict[str, tuple[str, str]]] = {
     "django-source": (f"{django_github_url}/%s", "%s"),
 }
 #: A string of reStructuredText that will be included at the end of every source file that is read. Used for substitutions.
-rst_epilog: Final[
-    str
-] = f"""
+rst_epilog: Final[str] = f"""
 .. |github-username| replace:: {github_username}
 .. |github-repository| replace:: {github_repository}
 .. |github-pages-url| replace:: {github_pages_url}

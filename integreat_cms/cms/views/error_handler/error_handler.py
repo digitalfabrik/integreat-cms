@@ -36,7 +36,7 @@ def render_error_template(context: dict[str, Any]) -> SafeString:
             "COMPANY_URL": settings.COMPANY_URL,
             "BRANDING": settings.BRANDING,
             "BRANDING_TITLE": settings.BRANDING_TITLE,
-        }
+        },
     )
     return render_to_string("error_handler/http_error.html", context)
 
@@ -60,7 +60,8 @@ def handler400(request: HttpRequest, exception: BadRequest) -> HttpResponseBadRe
 
 
 def handler403(
-    request: HttpRequest, exception: PermissionDenied
+    request: HttpRequest,
+    exception: PermissionDenied,
 ) -> HttpResponseForbidden:
     """
     Render a HTTP 403 Error code

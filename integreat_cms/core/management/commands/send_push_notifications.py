@@ -48,7 +48,7 @@ class Command(LogCommand):
                 )
             except Region.DoesNotExist as e:
                 raise CommandError(
-                    f"The system runs with DEBUG=True but the region with TEST_REGION_SLUG={settings.TEST_REGION_SLUG} does not exist."
+                    f"The system runs with DEBUG=True but the region with TEST_REGION_SLUG={settings.TEST_REGION_SLUG} does not exist.",
                 ) from e
 
         retain_time = settings.FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS
@@ -70,7 +70,7 @@ class Command(LogCommand):
         )
 
         pending_push_notifications = list(failed_push_notifications) + list(
-            scheduled_push_notifications
+            scheduled_push_notifications,
         )
 
         if total := len(pending_push_notifications):
@@ -82,11 +82,14 @@ class Command(LogCommand):
             )
         else:
             logger.info(
-                "There are currently no push notifications scheduled to be sent."
+                "There are currently no push notifications scheduled to be sent.",
             )
 
     def send_push_notification(
-        self, counter: int, total: int, push_notification: PushNotification
+        self,
+        counter: int,
+        total: int,
+        push_notification: PushNotification,
     ) -> None:
         """
         Sends a push notification
@@ -120,11 +123,10 @@ class Command(LogCommand):
                     total,
                     push_notification,
                 )
-        except ImproperlyConfigured as e:
-            logger.error(
-                "Push notification %d/%d %r could not be sent due to a configuration error: %s",
+        except ImproperlyConfigured:
+            logger.exception(
+                "Push notification %d/%d %r could not be sent due to a configuration error",
                 counter,
                 total,
                 push_notification,
-                e,
             )

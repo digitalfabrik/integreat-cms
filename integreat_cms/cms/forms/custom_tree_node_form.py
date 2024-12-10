@@ -47,7 +47,8 @@ class CustomTreeNodeForm(MoveNodeForm):
         return super()._clean_cleaned_data()
 
     def _get_position_ref_node(
-        self, instance: LanguageTreeNode | Page
+        self,
+        instance: LanguageTreeNode | Page,
     ) -> dict[str, str]:
         """
         Get the initial values for the referenced node and the position
@@ -67,7 +68,9 @@ class CustomTreeNodeForm(MoveNodeForm):
             # If the next sibling exists and is of this region, reference this instance to the left of the next sibling
             if next_sibling and next_sibling.region == instance.region:
                 logger.debug(
-                    "Node %r is now referenced left to node %r", instance, next_sibling
+                    "Node %r is now referenced left to node %r",
+                    instance,
+                    next_sibling,
                 )
                 return {"_ref_node_id": str(next_sibling.id), "_position": "left"}
             # If the page is the only root page of this region, do not reference other nodes
@@ -82,7 +85,9 @@ class CustomTreeNodeForm(MoveNodeForm):
 
     @classmethod
     def mk_dropdown_tree(
-        cls, model: ModelBase, for_node: None | (LanguageTreeNode | Page) = None
+        cls,
+        model: ModelBase,  # noqa: ARG003
+        for_node: None | (LanguageTreeNode | Page) = None,  # noqa: ARG003
     ) -> list:
         """
         Creates a tree-like list of choices. Overwrites the parent method because the field is hidden anyway and

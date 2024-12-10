@@ -5,13 +5,13 @@ from dataclasses import dataclass
 from typing import TYPE_CHECKING
 
 from django import forms
-from django.utils.translation import gettext_lazy as _
 
 from ...models import LanguageTreeNode, Region
 from ..custom_model_form import CustomModelForm
 
 if TYPE_CHECKING:
-    from typing import Any, Iterator
+    from collections.abc import Iterator
+    from typing import Any
 
     from ....core.utils.machine_translation_provider import (
         MachineTranslationProviderType,
@@ -100,13 +100,14 @@ class TranslationsManagementForm(CustomModelForm):
         super().__init__(*args, **kwargs)
         self.languages_dict = kwargs.pop("languages_dict", {})
         languages = self.instance.language_tree_nodes.filter(
-            active=True, parent__isnull=False
+            active=True,
+            parent__isnull=False,
         ).select_related("language")
         self.unavailable_languages = []
         for language in languages:
             if language.mt_provider:
                 self.languages_dict[language.slug] = TranslationLanguageOptions(
-                    language_tree_node=language
+                    language_tree_node=language,
                 )
             else:
                 self.unavailable_languages.append(language.translated_name)
@@ -143,7 +144,10 @@ class TranslationsManagementForm(CustomModelForm):
                     )
                     language_options.language_tree_node.save()
                     logger.info(
-                        "%s: Set provider %s for %s", region.slug, provider_name, lang
+                        "%s: Set provider %s for %s",
+                        region.slug,
+                        provider_name,
+                        lang,
                     )
                 else:
                     logger.info(
@@ -155,7 +159,9 @@ class TranslationsManagementForm(CustomModelForm):
                     )
             else:
                 logger.info(
-                    "%s: Provider for language %s was not sent", region.slug, lang
+                    "%s: Provider for language %s was not sent",
+                    region.slug,
+                    lang,
                 )
 
         return region

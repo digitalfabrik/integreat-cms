@@ -32,7 +32,10 @@ logger = logging.getLogger(__name__)
 @method_decorator(permission_required("cms.view_event"), name="dispatch")
 @method_decorator(permission_required("cms.change_event"), name="post")
 class EventFormView(
-    TemplateView, EventContextMixin, MediaContextMixin, ContentEditLockMixin
+    TemplateView,
+    EventContextMixin,
+    MediaContextMixin,
+    ContentEditLockMixin,
 ):
     """
     Class for rendering the events form
@@ -56,42 +59,45 @@ class EventFormView(
         """
         region = request.region
         language = region.get_language_or_404(
-            kwargs.get("language_slug"), only_active=True
+            kwargs.get("language_slug"),
+            only_active=True,
         )
 
         # get event and event translation objects if they exist, otherwise objects are None
         event_instance = region.events.filter(id=kwargs.get("event_id")).first()
         event_translation_instance = language.event_translations.filter(
-            event=event_instance
+            event=event_instance,
         ).first()
         recurrence_rule_instance = RecurrenceRule.objects.filter(
-            event=event_instance
+            event=event_instance,
         ).first()
         # Make form disabled if event is archived or user doesn't have the permission to edit the event
         if event_instance and event_instance.archived:
             disabled = True
             messages.warning(
-                request, _("You cannot edit this event because it is archived.")
+                request,
+                _("You cannot edit this event because it is archived."),
             )
         elif event_instance and event_instance.external_calendar:
             disabled = True
             messages.warning(
                 request,
                 _(
-                    "You cannot edit this event because it was imported from an external calendar."
+                    "You cannot edit this event because it was imported from an external calendar.",
                 ),
             )
         elif not request.user.has_perm("cms.change_event"):
             disabled = True
             messages.warning(
-                request, _("You don't have the permission to edit events.")
+                request,
+                _("You don't have the permission to edit events."),
             )
         elif not request.user.has_perm("cms.publish_event"):
             disabled = False
             messages.warning(
                 request,
                 _(
-                    "You don't have the permission to publish events, but you can propose changes and submit them for review instead."
+                    "You don't have the permission to publish events, but you can propose changes and submit them for review instead.",
                 ),
             )
         else:
@@ -108,7 +114,8 @@ class EventFormView(
             disabled=disabled,
         )
         recurrence_rule_form = RecurrenceRuleForm(
-            instance=recurrence_rule_instance, disabled=disabled
+            instance=recurrence_rule_instance,
+            disabled=disabled,
         )
 
         url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/{event_translation_form.instance.url_infix}/"
@@ -135,7 +142,6 @@ class EventFormView(
         )
 
     def post(self, request: HttpRequest, **kwargs: Any) -> HttpResponse:
-        # pylint: disable=too-many-locals,too-many-branches
         r"""
         Save event and ender event form for HTTP POST requests
 
@@ -151,10 +157,11 @@ class EventFormView(
 
         event_instance = Event.objects.filter(id=kwargs.get("event_id")).first()
         recurrence_rule_instance = RecurrenceRule.objects.filter(
-            event=event_instance
+            event=event_instance,
         ).first()
         event_translation_instance = EventTranslation.objects.filter(
-            event=event_instance, language=language
+            event=event_instance,
+            language=language,
         ).first()
 
         event_form = EventForm(
@@ -212,7 +219,7 @@ class EventFormView(
                 status.PUBLIC,
             ] and not request.user.has_perm("cms.publish_event"):
                 raise PermissionDenied(
-                    f"{request.user!r} does not have the permission 'cms.publish_event'"
+                    f"{request.user!r} does not have the permission 'cms.publish_event'",
                 )
             # Save forms
             if event_form.cleaned_data.get("is_recurring"):
@@ -242,7 +249,7 @@ class EventFormView(
                     node.language for node in language_tree_node.get_descendants()
                 ]
                 event_translation_form.instance.event.translations.filter(
-                    language__in=languages
+                    language__in=languages,
                 ).update(status=status.DRAFT)
 
             elif (
@@ -250,12 +257,14 @@ class EventFormView(
                 and event_translation_form.instance.minor_edit
             ):
                 event_translation_form.instance.event.translations.filter(
-                    language=language
+                    language=language,
                 ).update(status=status.PUBLIC)
             # Show a message that the slug was changed if it was not unique
             if user_slug and user_slug != event_translation_form.cleaned_data["slug"]:
                 other_translation = EventTranslation.objects.filter(
-                    event__region=region, slug=user_slug, language=language
+                    event__region=region,
+                    slug=user_slug,
+                    language=language,
                 ).first()
                 other_translation_link = other_translation.backend_edit_link
                 message = _(
@@ -282,7 +291,7 @@ class EventFormView(
                 messages.success(
                     request,
                     _('Event "{}" was successfully created').format(
-                        event_translation_form.instance
+                        event_translation_form.instance,
                     ),
                 )
             elif (

@@ -20,7 +20,8 @@ from .abstract_base_page import AbstractBasePage
 from .page_translation import PageTranslation
 
 if TYPE_CHECKING:
-    from typing import Any, Iterator
+    from collections.abc import Iterator
+    from typing import Any
 
     from django.db.models import QuerySet
     from django.db.models.base import ModelBase
@@ -35,7 +36,9 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
     """
 
     def cache_tree(
-        self, archived: bool | None = None, language_slug: str | None = None
+        self,
+        archived: bool | None = None,
+        language_slug: str | None = None,
     ) -> list[Page]:
         """
         Caches a page tree queryset in a python data structure.
@@ -49,7 +52,7 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
         """
         if language_slug is not None and archived is not False:
             raise ValueError(
-                "archived must be False in order to filter for public translations by language_slug"
+                "archived must be False in order to filter for public translations by language_slug",
             )
         result: dict[int, Page] = {}
         skipped_pages: list[Page] = []
@@ -58,12 +61,10 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
             .prefetch_public_translations()
             .order_by("tree_id", "lft")
         ):
-            # pylint: disable=protected-access
             page._cached_ancestors = []
             page._cached_descendants = []
             page._cached_children = []
             # Determine whether the page should be included in the result
-            # pylint: disable=too-many-boolean-expressions
             if (
                 # If page is explicitly archived, include it only when archive is either True or None
                 (page.explicitly_archived and archived is not False)
@@ -85,12 +86,11 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
             ):
                 if page.parent_id in result:
                     # Cache the page as child of the parent page
-                    # pylint: disable=protected-access
                     result[page.parent_id]._cached_children.append(page)
                     result[page.parent_id]._cached_descendants.append(page)
                     # Cache the parent page as ancestor of the current page
                     page._cached_ancestors.extend(
-                        result[page.parent_id]._cached_ancestors
+                        result[page.parent_id]._cached_ancestors,
                     )
                     page._cached_ancestors.append(result[page.parent_id])
                     # Cache the current page as descendant of the parent's page ancestors
@@ -112,7 +112,6 @@ class PageQuerySet(NS_NodeQuerySet, ContentQuerySet):
 
 
 class PageManager(models.Manager):
-    # pylint: disable=too-few-public-methods
     """
     Custom manager for pages to inherit methods from both managers for tree nodes and content objects
     """
@@ -147,7 +146,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         related_name="mirroring_pages",
         verbose_name=_("mirrored page"),
         help_text=_(
-            "If the page embeds live content from another page, it is referenced here."
+            "If the page embeds live content from another page, it is referenced here.",
         ),
     )
     mirrored_page_first = models.BooleanField(
@@ -156,7 +155,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         blank=True,
         verbose_name=_("Position of mirrored page"),
         help_text=_(
-            "If a mirrored page is set, this field determines whether the live content is embedded before the content of this page or after."
+            "If a mirrored page is set, this field determines whether the live content is embedded before the content of this page or after.",
         ),
     )
     authors = models.ManyToManyField(
@@ -167,7 +166,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         help_text=__(
             _("A list of users who have the permission to edit this specific page."),
             _(
-                "Only has effect if these users do not have the permission to edit pages anyway."
+                "Only has effect if these users do not have the permission to edit pages anyway.",
             ),
         ),
     )
@@ -179,7 +178,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         help_text=__(
             _("A list of users who have the permission to publish this specific page."),
             _(
-                "Only has effect if these users do not have the permission to publish pages anyway."
+                "Only has effect if these users do not have the permission to publish pages anyway.",
             ),
         ),
     )
@@ -190,7 +189,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         on_delete=models.SET_NULL,
         verbose_name=_("responsible organization"),
         help_text=_(
-            "This allows all members of the organization to edit and publish this page."
+            "This allows all members of the organization to edit and publish this page.",
         ),
     )
     api_token = models.CharField(
@@ -209,7 +208,7 @@ class Page(AbstractTreeNode, AbstractBasePage):
         blank=True,
         verbose_name=_("page based offer"),
         help_text=_(
-            "Select an offer provider whose offers should be displayed on this page."
+            "Select an offer provider whose offers should be displayed on this page.",
         ),
     )
 
@@ -352,7 +351,8 @@ class Page(AbstractTreeNode, AbstractBasePage):
             # Restore related link objects
             for child_page in self.get_non_archived_children():
                 for translation in child_page.translations.distinct(
-                    "page__pk", "language__pk"
+                    "page__pk",
+                    "language__pk",
                 ):
                     # The post_save signal will create link objects from the content
                     translation.save(update_timestamp=False)

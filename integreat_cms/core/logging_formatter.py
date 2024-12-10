@@ -39,7 +39,6 @@ class ColorFormatter(logging.Formatter):
         # Make level name bold
         fmt = self._fmt.replace("{levelname}", "\x1b[1m{levelname}" + color)
         # Make entire line colored
-        # pylint: disable=protected-access
         self._style._fmt = color + fmt + "\x1b[0m"
         return super().format(record)
 

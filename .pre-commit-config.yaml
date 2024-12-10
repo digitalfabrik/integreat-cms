@@ -21,8 +21,7 @@ repos:
       - id: ruff
         name: ruff (custom script)
         entry: ./tools/ruff.sh
-        args: ["--as-precommit"]
-        types_or: ["python", "pyi"]
+        args: ["--as-precommit", "."]
         language: script
         pass_filenames: false
   - repo: https://github.com/shellcheck-py/shellcheck-py
@@ -30,15 +29,6 @@ repos:
     hooks:
       - id: shellcheck
         args: [--external-sources]
-  - repo: local
-    hooks:
-      - id: black
-        name: black (custom script)
-        entry: ./tools/black.sh
-        args: ["--as-precommit"]
-        types_or: ["python", "pyi"]
-        language: script
-        pass_filenames: true
   - repo: local
     hooks:
       - id: djlint-django
@@ -88,15 +78,6 @@ repos:
       - id: mypy
         name: mypy (custom script)
         entry: ./tools/mypy.sh
-        args: ["--as-precommit"]
-        types_or: ["python", "pyi"]
-        language: script
-        pass_filenames: true
-  - repo: local
-    hooks:
-      - id: pylint
-        name: pylint (custom script)
-        entry: ./tools/pylint.sh
         args: ["--as-precommit"]
         types_or: ["python", "pyi"]
         language: script

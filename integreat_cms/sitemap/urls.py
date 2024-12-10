@@ -45,7 +45,7 @@ urlpatterns: list[URLPattern] = [
                     "wp-json/ig-sitemap/v1/sitemap.xml",
                     SitemapView.as_view(),
                 ),
-            ]
+            ],
         ),
     ),
 ]

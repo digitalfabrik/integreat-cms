@@ -79,19 +79,18 @@ def transform_offer(offer: OfferTemplate, region: Region) -> dict[str, Any]:
 @json_response
 def offers(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
-    language_slug: str | None = None,  # pylint: disable=unused-argument
+    region_slug: str,
+    language_slug: str | None = None,
 ) -> JsonResponse:
     """
     Function to iterate through all offers related to a region and adds them to a JSON.
 
     :param request: Django request
-    :param region_slug: slug of a region
-    :param language_slug: language slug
     :return: JSON object according to APIv3 offers endpoint definition
     """
     region = request.region
     result = [transform_offer(offer, region) for offer in region.offers.all()]
     return JsonResponse(
-        result, safe=False
+        result,
+        safe=False,
     )  # Turn off Safe-Mode to allow serializing arrays

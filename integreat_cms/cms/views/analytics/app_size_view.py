@@ -28,8 +28,8 @@ class AppSizeView(TemplateView):
         """
         context = super().get_context_data(**kwargs)
 
-        # pylint: disable=fixme
-        # TODO: Implement correct calculation.
+        # TODO(ulliholtgrave): Implement correct calculation.
+        # https://github.com/digitalfabrik/integreat-cms/issues/3286
         app_size_total = 0
 
         context.update({"current_menu_item": "app_size", "app_size": app_size_total})

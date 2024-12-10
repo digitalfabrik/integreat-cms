@@ -3,15 +3,13 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 import pytest
-from django.test.client import Client
 from django.urls import reverse
 
 from .view_config import PARAMETRIZED_REDIRECT_VIEWS
 
 if TYPE_CHECKING:
-    from typing import Any
-
     from _pytest.logging import LogCaptureFixture
+    from django.test.client import Client
 
     from .view_config import RedirectTarget, Roles, ViewKwargs, ViewNameStr
 

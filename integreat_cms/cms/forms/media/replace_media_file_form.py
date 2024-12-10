@@ -102,8 +102,8 @@ class ReplaceMediaFileForm(CustomModelForm):
                     "file",
                     forms.ValidationError(
                         _(
-                            "The file type of the new file ({}) does not match the original file's type ({})."
-                        ).format(new_type_display, self.instance.get_type_display())
+                            "The file type of the new file ({}) does not match the original file's type ({}).",
+                        ).format(new_type_display, self.instance.get_type_display()),
                     ),
                 )
 
@@ -113,7 +113,9 @@ class ReplaceMediaFileForm(CustomModelForm):
         # If everything looks good until now, generate a thumbnail and an optimized image
         if not self.errors and self.instance.type.startswith("image"):
             if optimized_image := generate_thumbnail(
-                file, settings.MEDIA_OPTIMIZED_SIZE, False
+                file,
+                settings.MEDIA_OPTIMIZED_SIZE,
+                False,
             ):
                 cleaned_data["file"] = optimized_image
                 cleaned_data["thumbnail"] = generate_thumbnail(file)
@@ -121,7 +123,8 @@ class ReplaceMediaFileForm(CustomModelForm):
                 self.add_error(
                     "file",
                     forms.ValidationError(
-                        _("This image file is corrupt."), code="invalid"
+                        _("This image file is corrupt."),
+                        code="invalid",
                     ),
                 )
         # Add the calculated file_size to the form data
@@ -130,7 +133,8 @@ class ReplaceMediaFileForm(CustomModelForm):
         cleaned_data["last_modified"] = timezone.now()
 
         logger.debug(
-            "ReplaceMediaFileForm validated [2] with cleaned data %r", cleaned_data
+            "ReplaceMediaFileForm validated [2] with cleaned data %r",
+            cleaned_data,
         )
         return cleaned_data
 
@@ -142,7 +146,8 @@ class ReplaceMediaFileForm(CustomModelForm):
                 logger.debug("Removed old file %r", self.original_file_path)
             except FileNotFoundError:
                 logger.debug(
-                    "The file %r could not be removed", self.original_file_path
+                    "The file %r could not be removed",
+                    self.original_file_path,
                 )
             # Remove old thumbnail
             if self.original_thumbnail_path:
@@ -153,7 +158,8 @@ class ReplaceMediaFileForm(CustomModelForm):
 
         # Update the file url in content
         new_url = self.instance.url
-        assert self.original_file_url
+        if not self.original_file_url:
+            raise ValueError
         replace_links(
             self.original_file_url,
             new_url,

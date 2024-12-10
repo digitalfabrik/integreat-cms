@@ -52,23 +52,23 @@ class TranslationsManagementView(TemplateView):
         for content_type in content_types:
             content_name = content_type._meta.verbose_name_plural.title()
             word_count[content_name] = Counter()
-            # pylint: disable=unused-variable
-            for status, name in CHOICES:
+            for status, _name in CHOICES:
                 word_count[content_name][status] = 0
 
             contents = (
                 region.get_pages(prefetch_translations=True)
                 if content_type == Page
                 else content_type.objects.filter(
-                    region=region, archived=False
+                    region=region,
+                    archived=False,
                 ).prefetch_translations()
             )
             for content in contents:
                 if latest_version := content.get_translation(
-                    region.default_language.slug
+                    region.default_language.slug,
                 ):
                     word_count[content_name][latest_version.status] += len(
-                        latest_version.content.split()
+                        latest_version.content.split(),
                     )
 
         context = super().get_context_data(**kwargs)
@@ -81,7 +81,7 @@ class TranslationsManagementView(TemplateView):
                 "total_autosave_words": sum(
                     c["AUTO_SAVE"] for c in word_count.values()
                 ),
-            }
+            },
         )
         return context
 
@@ -108,7 +108,10 @@ class TranslationsManagementView(TemplateView):
 
     @transaction.atomic
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Submit :class:`~integreat_cms.cms.forms.translations.translations_management_form.TranslationsManagementForm` objects.

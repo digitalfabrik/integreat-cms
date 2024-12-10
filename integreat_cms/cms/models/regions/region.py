@@ -64,7 +64,6 @@ def format_mt_help_text(help_text: Promise) -> str:
 
 
 class RegionManager(models.Manager):
-    # pylint: disable=too-few-public-methods
     """
     This manager annotates each region object with its language tree root node.
     This is done because it is required to calculate the region's
@@ -81,7 +80,8 @@ class RegionManager(models.Manager):
         """
         # Get model instead of importing it to avoid circular imports
         LanguageTreeNode = apps.get_model(
-            app_label="cms", model_name="LanguageTreeNode"
+            app_label="cms",
+            model_name="LanguageTreeNode",
         )
         return (
             super()
@@ -91,13 +91,12 @@ class RegionManager(models.Manager):
                     "language_tree_nodes",
                     queryset=LanguageTreeNode.objects.all().select_related("language"),
                     to_attr="prefetched_language_tree_nodes",
-                )
+                ),
             )
         )
 
 
 class Region(AbstractBaseModel):
-    # pylint: disable=too-many-public-methods
     """
     Data model representing region.
     """
@@ -110,7 +109,7 @@ class Region(AbstractBaseModel):
         blank=True,
         verbose_name=_("community identification number"),
         help_text=_(
-            "Number sequence for identifying politically independent administrative units"
+            "Number sequence for identifying politically independent administrative units",
         ),
     )
     slug = models.SlugField(
@@ -156,7 +155,7 @@ class Region(AbstractBaseModel):
         help_text=__(
             _("Enter parts of the name that should not affect sorting."),
             _(
-                "Use this field only if the prefix is not an available choice in the list of administrative divisions above."
+                "Use this field only if the prefix is not an available choice in the list of administrative divisions above.",
             ),
         ),
     )
@@ -217,7 +216,7 @@ class Region(AbstractBaseModel):
         max_length=10,
         verbose_name=_("postal code"),
         help_text=_(
-            "For districts, enter the postcode of the administrative headquarters."
+            "For districts, enter the postcode of the administrative headquarters.",
         ),
     )
 
@@ -248,7 +247,7 @@ class Region(AbstractBaseModel):
         default=False,
         verbose_name=_("activate SEO section"),
         help_text=_(
-            "Enable possibility to fill meta description for pages, events and locations"
+            "Enable possibility to fill meta description for pages, events and locations",
         ),
     )
     matomo_id = models.PositiveSmallIntegerField(
@@ -266,7 +265,7 @@ class Region(AbstractBaseModel):
         default="",
         verbose_name=_("Matomo authentication token"),
         help_text=_(
-            "The secret Matomo access token of the region is used to authenticate in API requests"
+            "The secret Matomo access token of the region is used to authenticate in API requests",
         ),
     )
 
@@ -274,7 +273,7 @@ class Region(AbstractBaseModel):
         default=False,
         verbose_name=_("activate page-specific permissions"),
         help_text=_(
-            "This allows individual users to be granted the right to edit or publish a specific page."
+            "This allows individual users to be granted the right to edit or publish a specific page.",
         ),
     )
 
@@ -291,7 +290,7 @@ class Region(AbstractBaseModel):
         default=True,
         verbose_name=_("activate author chat"),
         help_text=_(
-            "This gives all users of this region access to the cross-regional author chat."
+            "This gives all users of this region access to the cross-regional author chat.",
         ),
     )
 
@@ -300,10 +299,10 @@ class Region(AbstractBaseModel):
         verbose_name=_("include administrative division into name"),
         help_text=__(
             _(
-                "Determines whether the administrative division is displayed next to the region name."
+                "Determines whether the administrative division is displayed next to the region name.",
             ),
             _(
-                "Sorting is always based on the name, independently from the administrative division."
+                "Sorting is always based on the name, independently from the administrative division.",
             ),
         ),
     )
@@ -315,10 +314,10 @@ class Region(AbstractBaseModel):
         verbose_name=_("offers"),
         help_text=__(
             _(
-                "Integreat offers are extended features apart from pages and events and are usually offered by a third party."
+                "Integreat offers are extended features apart from pages and events and are usually offered by a third party.",
             ),
             _(
-                "In most cases, the url is an external API endpoint which the frontend apps can query and render the results inside the Integreat app."
+                "In most cases, the url is an external API endpoint which the frontend apps can query and render the results inside the Integreat app.",
             ),
         ),
     )
@@ -333,7 +332,7 @@ class Region(AbstractBaseModel):
         default=False,
         verbose_name=_("Enable external news"),
         help_text=_(
-            "Enable to display external articles in addition to local news managed by the CMS"
+            "Enable to display external articles in addition to local news managed by the CMS",
         ),
     )
 
@@ -341,7 +340,7 @@ class Region(AbstractBaseModel):
         default=True,
         verbose_name=_("Show content in default language as fallback"),
         help_text=_(
-            "Whether or not events and locations are shown in default language as fallback"
+            "Whether or not events and locations are shown in default language as fallback",
         ),
     )
 
@@ -349,7 +348,7 @@ class Region(AbstractBaseModel):
         default=False,
         verbose_name=_("Activate HIX analysis"),
         help_text=_(
-            "Allow users of this region to analyze understandability of text content via TextLab API."
+            "Allow users of this region to analyze understandability of text content via TextLab API.",
         ),
     )
 
@@ -357,7 +356,7 @@ class Region(AbstractBaseModel):
         default=False,
         verbose_name=_("activate automatic translations via SUMM.AI"),
         help_text=_(
-            "Whether automatic translations into Easy German with SUMM.AI are enabled"
+            "Whether automatic translations into Easy German with SUMM.AI are enabled",
         ),
     )
 
@@ -373,8 +372,8 @@ class Region(AbstractBaseModel):
         verbose_name=_("Add-on package for foreign languages booked"),
         help_text=format_mt_help_text(
             _(
-                "This makes {} translation credits available to the region in addition to the {} free ones."
-            )
+                "This makes {} translation credits available to the region in addition to the {} free ones.",
+            ),
         ),
     )
 
@@ -422,7 +421,7 @@ class Region(AbstractBaseModel):
         default="",
         verbose_name=_("Zammad-URL"),
         help_text=_(
-            "URL pointing to this region's Zammad instance. Setting this enables Zammad form offers."
+            "URL pointing to this region's Zammad instance. Setting this enables Zammad form offers.",
         ),
     )
     zammad_access_token = models.CharField(
@@ -431,7 +430,7 @@ class Region(AbstractBaseModel):
         default="",
         verbose_name=_("Zammad access token"),
         help_text=_(
-            'Access token for a Zammad user account. In Zammad, the account must be part of the "Agent" role and have full group permissions for the group:'
+            'Access token for a Zammad user account. In Zammad, the account must be part of the "Agent" role and have full group permissions for the group:',
         ),
     )
     zammad_webhook_token = models.UUIDField(
@@ -440,7 +439,7 @@ class Region(AbstractBaseModel):
         default=uuid.uuid4,
         verbose_name=_("Token used by Zammad webhook"),
         help_text=_(
-            "Token used by Zammad webhooks to inform the Integreat CMS about changed tickets. The token has to be appended with a token= GET parameter to the webhook path."
+            "Token used by Zammad webhooks to inform the Integreat CMS about changed tickets. The token has to be appended with a token= GET parameter to the webhook path.",
         ),
     )
     zammad_chat_handlers = models.CharField(
@@ -449,7 +448,7 @@ class Region(AbstractBaseModel):
         default="",
         verbose_name=_("Zammad chat handlers"),
         help_text=_(
-            "Comma-separated email addresses of the accounts which should automatically be subscribed to new chat tickets. Note that these users must have full group permissions for the group:"
+            "Comma-separated email addresses of the accounts which should automatically be subscribed to new chat tickets. Note that these users must have full group permissions for the group:",
         ),
     )
 
@@ -459,7 +458,7 @@ class Region(AbstractBaseModel):
         validators=[MinValueValidator(0), MaxValueValidator(100)],
         verbose_name=_("Chat beta tester percentage"),
         help_text=_(
-            "Percentage of users selected as beta testers for the Integreat Chat feature"
+            "Percentage of users selected as beta testers for the Integreat Chat feature",
         ),
     )
 
@@ -479,7 +478,7 @@ class Region(AbstractBaseModel):
                 self.latitude_min,
                 self.longitude_max,
                 self.latitude_max,
-            ]
+            ],
         )
 
     @cached_property
@@ -670,7 +669,10 @@ class Region(AbstractBaseModel):
         return MatomoApiClient(self)
 
     def get_language_or_404(
-        self, language_slug: str, only_active: bool = False, only_visible: bool = False
+        self,
+        language_slug: str,
+        only_active: bool = False,
+        only_visible: bool = False,
     ) -> Language:
         """
         This class method returns the requested language of this region with optional filters ``active`` and ``visible``
@@ -685,16 +687,17 @@ class Region(AbstractBaseModel):
         try:
             node = self.language_node_by_slug[language_slug]
             if only_active and not node.active:
-                raise KeyError(
-                    f"Language {node.language} is not active in region {self}"
+                raise KeyError(  # noqa: TRY301
+                    f"Language {node.language} is not active in region {self}",
                 )
             if only_visible and not node.visible:
-                raise KeyError(
-                    f"Language {node.language} is not visible in region {self}"
+                raise KeyError(  # noqa: TRY301
+                    f"Language {node.language} is not visible in region {self}",
                 )
-            return node.language
         except KeyError as e:
             raise Http404("No language matches the given query.") from e
+        else:
+            return node.language
 
     @property
     def explicitly_archived_ancestors_subquery(self) -> PageQuerySet:
@@ -725,7 +728,7 @@ class Region(AbstractBaseModel):
             id=models.Case(
                 models.When(
                     models.Exists(
-                        self.explicitly_archived_ancestors_subquery.values("pk")
+                        self.explicitly_archived_ancestors_subquery.values("pk"),
                     ),
                     then=models.F("pk"),
                 ),
@@ -734,7 +737,7 @@ class Region(AbstractBaseModel):
                     then=models.F("pk"),
                 ),
                 default=None,
-            )
+            ),
         )
 
     @cached_property
@@ -751,7 +754,7 @@ class Region(AbstractBaseModel):
             id=models.Case(
                 models.When(
                     models.Exists(
-                        self.explicitly_archived_ancestors_subquery.values("pk")
+                        self.explicitly_archived_ancestors_subquery.values("pk"),
                     ),
                     then=None,
                 ),
@@ -813,7 +816,8 @@ class Region(AbstractBaseModel):
         return Page.get_root_pages(region_slug=self.slug)
 
     def outdated_pages(
-        self, translation_ids: QuerySet | list | None = None
+        self,
+        translation_ids: QuerySet | list | None = None,
     ) -> QuerySet:
         """
         Returns the outdated pages of this region. A page is outdated if it has not been updated in a configurable amount of time.
@@ -831,10 +835,10 @@ class Region(AbstractBaseModel):
             translation_ids = self.latest_page_translations.values_list("id", flat=True)
 
         outdated_threshold_date = datetime.now() - relativedelta(
-            days=settings.OUTDATED_THRESHOLD_DAYS
+            days=settings.OUTDATED_THRESHOLD_DAYS,
         )
 
-        outdated_pages = (
+        return (
             PageTranslation.objects.filter(
                 language__slug=self.default_language.slug,
                 id__in=translation_ids,
@@ -844,8 +848,6 @@ class Region(AbstractBaseModel):
             .order_by("last_updated")
             .exclude(Q(content="") & Q(page__mirrored_page=None))
         )
-
-        return outdated_pages
 
     @classmethod
     def search(cls, query: str) -> QuerySet[Region]:
@@ -917,12 +919,13 @@ class Region(AbstractBaseModel):
         :return: the last content update date
         """
         min_date = django_timezone.make_aware(
-            django_timezone.datetime.min, django_timezone.get_default_timezone()
+            django_timezone.datetime.min,
+            django_timezone.get_default_timezone(),
         )
 
         latest_page_update = (
             self.pages.aggregate(
-                latest_update=models.Max("translations__last_updated")
+                latest_update=models.Max("translations__last_updated"),
             )["latest_update"]
             or min_date
         )
@@ -934,13 +937,13 @@ class Region(AbstractBaseModel):
         )
         latest_event_update = (
             self.events.aggregate(
-                latest_update=models.Max("translations__last_updated")
+                latest_update=models.Max("translations__last_updated"),
             )["latest_update"]
             or min_date
         )
         latest_imprint_update = (
             self.imprint.translations.aggregate(
-                latest_update=models.Max("last_updated")
+                latest_update=models.Max("last_updated"),
             )["latest_update"]
             if self.imprint
             else None

@@ -46,7 +46,9 @@ feedback_type_dict: Final[dict[str, ModelBase]] = {
 @pytest.mark.django_db
 @pytest.mark.parametrize("view_name,post_data", API_FEEDBACK_VIEWS)
 def test_api_feedback_success(
-    load_test_data: None, view_name: str, post_data: dict[str, str]
+    load_test_data: None,
+    view_name: str,
+    post_data: dict[str, str],
 ) -> None:
     """
     Check successful feedback submission for different feedback types
@@ -89,7 +91,8 @@ def test_api_feedback_success(
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "view_name,kwargs,post_data,response_data", API_FEEDBACK_ERRORS
+    "view_name,kwargs,post_data,response_data",
+    API_FEEDBACK_ERRORS,
 )
 def test_api_feedback_errors(
     load_test_data: None,
@@ -126,7 +129,8 @@ def test_api_feedback_invalid_method(load_test_data: None) -> None:
     """
     client = Client()
     url = reverse(
-        "api:region_feedback", kwargs={"region_slug": "augsburg", "language_slug": "de"}
+        "api:region_feedback",
+        kwargs={"region_slug": "augsburg", "language_slug": "de"},
     )
     response = client.get(url)
     assert response.status_code == 405

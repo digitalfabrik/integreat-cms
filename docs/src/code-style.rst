@@ -2,20 +2,19 @@
 Code Style Guidelines
 *********************
 
+.. _ruff:
 
-.. _black-code-style:
+Ruff
+------
 
-Black
------
+We use `ruff <https://github.com/astral-sh/ruff/>`__ to format and lint our Python files.
 
-We use the `black <https://github.com/psf/black>`_ coding style, a flavour of `PEP-8 <https://www.python.org/dev/peps/pep-0008/>`_ for Python.
-
-We use a `pre-commit-hook <https://pre-commit.com/>`_ to apply this style before committing, so you don't have to bother about formatting.
+We use a `pre-commit-hook <https://pre-commit.com/>`_ to apply these rules before committing, so you don't have to bother about doing so manually.
 Just code how you feel comfortable and let the tool do the work for you (see :ref:`pre-commit-hooks`).
 
-If you want to apply the formatting without committing, use our developer tool :github-source:`tools/black.sh`::
+If you want to lint your code and apply the formatting without committing, use our developer tool :github-source:`tools/ruff.sh`::
 
-    ./tools/black.sh
+    ./tools/ruff.sh
 
 
 .. _djlint:
@@ -48,36 +47,6 @@ If you want to apply the formatting without committing, use our developer tool :
     ./tools/prettier.sh
 
 
-.. _pylint:
-
-Linting
--------
-
-In addition to black, we use pylint to check the code for semantic correctness.
-Run pylint with our developer tool :github-source:`tools/pylint.sh`::
-
-    ./tools/pylint.sh
-
-When you think a warning is a false positive, add a comment (see :doc:`pylint:user_guide/messages/message_control`)::
-
-    def some_function(
-        something: SomeModel,  # pylint: disable=unused-argument
-        *args, 
-        **kwargs) -> None:
-        # pylint: disable=too-many-branches
-
-.. Note::
-
-    Please use the string identifiers (``unused-argument``) instead of the alphanumeric code (``W0613``) when disabling warnings.
-
-.. Hint::
-
-    If you want to run both tools at once, use our developer tool :github-source:`tools/code_style.sh`::
-
-        ./tools/code_style.sh
-
-.. include:: _docstrings.rst
-
 
 .. _mypy:
 
@@ -103,6 +72,14 @@ If you want to apply the formatting without committing, use our developer tool :
     (This activates PEP 563 for any python version where it is not already active by default, so we need to keep this until all python versions we support implement it. At the time of writing the first python version where this is not just optional is `still mentioned as TBD <https://docs.python.org/3/library/__future__.html#module-contents>`_)
 
     If a third party library is incorrectly typed or missing type hints, and this results in errors you cannot fix, then you can add ``# type: ignore[<error-class>]`` (where the ``<error-class>`` is the identifier of the error you're experiencing, e.g. ``attr-defined``) in the end of the line where the error is thrown.
+
+.. Hint::
+
+    If you want to run all tools at once, use our developer tool :github-source:`tools/code_style.sh`::
+
+        ./tools/code_style.sh
+
+.. include:: _docstrings.rst
 
 
 .. _shellcheck:

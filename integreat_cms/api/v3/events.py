@@ -16,8 +16,9 @@ from ..decorators import json_response
 from .locations import transform_poi
 
 if TYPE_CHECKING:
+    from collections.abc import Iterator
     from datetime import date
-    from typing import Any, Iterator
+    from typing import Any
 
     from django.http import HttpRequest
 
@@ -41,7 +42,9 @@ def transform_event(event: Event, custom_date: date | None = None) -> dict[str, 
             tzinfo=end_local.tzinfo,
         )
         start_local = datetime.combine(
-            custom_date, start_local.time(), tzinfo=start_local.tzinfo
+            custom_date,
+            start_local.time(),
+            tzinfo=start_local.tzinfo,
         )
 
     return {
@@ -108,7 +111,8 @@ def transform_event_translation(
 
 
 def transform_available_languages(
-    event_translation: EventTranslation, recurrence_date: date
+    event_translation: EventTranslation,
+    recurrence_date: date,
 ) -> dict[str, dict[str, str | None]]:
     """
     Function to create a JSON object of all available translations of an event translation.
@@ -163,28 +167,29 @@ def transform_event_recurrences(
     # Calculate all recurrences of this event
     for recurrence_date in event.recurrence_rule.iter_after(start_date):
         if recurrence_date - max(start_date, today) > timedelta(
-            days=settings.API_EVENTS_MAX_TIME_SPAN_DAYS
+            days=settings.API_EVENTS_MAX_TIME_SPAN_DAYS,
         ):
             break
         if recurrence_date < today:
             continue
 
         yield transform_event_translation(
-            event_translation, poi_translation, recurrence_date
+            event_translation,
+            poi_translation,
+            recurrence_date,
         )
 
 
 @json_response
 def events(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
 ) -> JsonResponse:
     """
     List all events of the region and transform result into JSON
 
     :param request: The current request
-    :param region_slug: The slug of the requested region
     :param language_slug: The slug of the requested language
     :return: JSON object according to APIv3 events endpoint definition
     """
@@ -208,15 +213,18 @@ def events(
                 result.extend(
                     iter(
                         transform_event_recurrences(
-                            event_translation, poi_translation, now
-                        )
-                    )
+                            event_translation,
+                            poi_translation,
+                            now,
+                        ),
+                    ),
                 )
             else:
                 result.append(
-                    transform_event_translation(event_translation, poi_translation)
+                    transform_event_translation(event_translation, poi_translation),
                 )
 
     return JsonResponse(
-        result, safe=False
+        result,
+        safe=False,
     )  # Turn off Safe-Mode to allow serializing arrays

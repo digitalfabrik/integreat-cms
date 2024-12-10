@@ -11,13 +11,12 @@ from integreat_cms.cms.constants import roles
 
 def update_roles(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Add permissions for managing external calendars
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     Group = apps.get_model("auth", "Group")
     Permission = apps.get_model("auth", "Permission")
@@ -32,7 +31,7 @@ def update_roles(
         group.permissions.clear()
         # Set permissions
         group.permissions.add(
-            *Permission.objects.filter(codename__in=roles.PERMISSIONS[role_name])
+            *Permission.objects.filter(codename__in=roles.PERMISSIONS[role_name]),
         )
 
 
@@ -70,7 +69,9 @@ class Migration(migrations.Migration):
                 (
                     "name",
                     models.CharField(
-                        default="", max_length=255, verbose_name="calendar name"
+                        default="",
+                        max_length=255,
+                        verbose_name="calendar name",
                     ),
                 ),
                 (
@@ -98,7 +99,9 @@ class Migration(migrations.Migration):
                 (
                     "errors",
                     models.CharField(
-                        blank=True, default="", verbose_name="import errors"
+                        blank=True,
+                        default="",
+                        verbose_name="import errors",
                     ),
                 ),
             ],

@@ -60,7 +60,8 @@ def upload_path(instance: MediaFile, filename: str) -> str:
 
 
 def upload_path_thumbnail(
-    instance: MediaFile, filename: str  # pylint: disable=unused-argument
+    instance: MediaFile,
+    _filename: str,
 ) -> str:
     """
     This function derives the upload path of a thumbnail file from it's original file.
@@ -72,7 +73,6 @@ def upload_path_thumbnail(
     will be stored as ``A_EOHRFQ2_thumbnail.jpg``, making it easier to examine these files on the file system.
 
     :param instance: The media library object
-    :param filename: The (unused) initial filename of thumbnail
     :return: The upload path of the thumbnail
     """
     # Derive the thumbnail name from the original file name
@@ -92,8 +92,8 @@ def file_size_limit(value: FieldFile) -> None:
     if value.size > settings.MEDIA_MAX_UPLOAD_SIZE:
         raise ValidationError(
             _("File too large. Size should not exceed {}.").format(
-                filesizeformat(settings.MEDIA_MAX_UPLOAD_SIZE)
-            )
+                filesizeformat(settings.MEDIA_MAX_UPLOAD_SIZE),
+            ),
         )
 
 
@@ -110,8 +110,10 @@ class MediaFileQuerySet(models.QuerySet):
         """
         urls = Url.objects.filter(
             url=Concat(
-                Value(settings.BASE_URL), Value(settings.MEDIA_URL), OuterRef("file")
-            )
+                Value(settings.BASE_URL),
+                Value(settings.MEDIA_URL),
+                OuterRef("file"),
+            ),
         )
         return self.annotate(is_embedded=Exists(urls)).filter(
             icon_organizations__isnull=True,
@@ -166,7 +168,9 @@ class MediaFile(AbstractBaseModel):
         verbose_name=_("region"),
     )
     alt_text = models.CharField(
-        max_length=512, blank=True, verbose_name=_("description")
+        max_length=512,
+        blank=True,
+        verbose_name=_("description"),
     )
     uploaded_date = models.DateTimeField(
         auto_now_add=True,

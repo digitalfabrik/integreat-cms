@@ -11,7 +11,6 @@ from typing import TYPE_CHECKING
 
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404
-from django.utils.translation import gettext_lazy as _
 from django.views.decorators.csrf import csrf_exempt
 
 from ....cms.models import ABTester, AttachmentMap, Language, Region, UserChat
@@ -53,7 +52,7 @@ def get_attachment(
     if (
         not (
             attachment_map := AttachmentMap.objects.filter(
-                random_hash=attachment_id
+                random_hash=attachment_id,
             ).first()
         )
         or (not user_chat)
@@ -139,7 +138,7 @@ def send_message(
                 status=500,
             )
     return response_or_error(
-        client.send_message(user_chat.zammad_id, request.POST.get("message"))  # type: ignore[union-attr]
+        client.send_message(user_chat.zammad_id, request.POST.get("message")),  # type: ignore[union-attr]
     )
 
 
@@ -147,14 +146,13 @@ def send_message(
 @json_response
 def is_chat_enabled_for_user(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     device_id: str,
 ) -> JsonResponse:
     """
     Function to check if the chat feature is enabled for the given region and the given user.
 
     :param request: Django request
-    :param region_slug: slug of a region
     :param device_id: ID of the user attempting to use the chat
     :return: JSON object according to APIv3 chat endpoint definition
     """
@@ -164,10 +162,12 @@ def is_chat_enabled_for_user(
     is_enabled = bool(
         request.region.zammad_url
         and request.region.zammad_access_token
-        and random.random() < (0.01 * request.region.chat_beta_tester_percentage)
+        and random.random() < (0.01 * request.region.chat_beta_tester_percentage),  # noqa: S311
     )
     ABTester.objects.create(
-        device_id=device_id, region=request.region, is_tester=is_enabled
+        device_id=device_id,
+        region=request.region,
+        is_tester=is_enabled,
     )
     return JsonResponse({"is_chat_enabled": is_enabled}, status=200)
 
@@ -176,7 +176,7 @@ def is_chat_enabled_for_user(
 @json_response
 def chat(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
     device_id: str,
     attachment_id: str = "",
@@ -186,7 +186,6 @@ def chat(
     or to create one if no chat exists or the user requested a new one.
 
     :param request: Django request
-    :param region_slug: slug of a region
     :param language_slug: language slug
     :param device_id: ID of the user requesting the messages
     :param attachment_id: ID of the requested attachment (optional)
@@ -208,7 +207,8 @@ def chat(
         # since new chat creation also depends on passing this check
         if user_chat.ratelimit_exceeded():
             logger.warning(
-                "Client with device ID %s has exceeded their ratelimit.", device_id
+                "Client with device ID %s has exceeded their ratelimit.",
+                device_id,
             )
             return JsonResponse({"error": "You're doing that too often."}, status=429)
         user_chat.record_hit()
@@ -227,7 +227,8 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
     Receive webhooks from Zammad to update the latest article translation
     """
     region = get_object_or_404(
-        Region, zammad_webhook_token=request.GET.get("token", None)
+        Region,
+        zammad_webhook_token=request.GET.get("token", None),
     )
     if not region.integreat_chat_enabled:
         return JsonResponse({"status": "Integreat Chat disabled"})
@@ -240,7 +241,7 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
             {
                 "region": region.slug,
                 "results": "skipped internal message",
-            }
+            },
         )
     if (
         webhook_message["article"]["created_by"]["login"]
@@ -248,17 +249,17 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
     ):
         actions.append("question translation queued")
         process_user_message.apply_async(
-            args=[message_text, region.slug, webhook_message["ticket"]["id"]]
+            args=[message_text, region.slug, webhook_message["ticket"]["id"]],
         )
     else:
         actions.append("answer translation queued")
         process_answer.apply_async(
-            args=[message_text, region.slug, webhook_message["ticket"]["id"]]
+            args=[message_text, region.slug, webhook_message["ticket"]["id"]],
         )
     return JsonResponse(
         {
             "original_message": message_text,
             "region": region.slug,
             "actions": actions,
-        }
+        },
     )

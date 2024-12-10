@@ -91,7 +91,8 @@ def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]
         "email": poi.email or None,
         "phone_number": poi.phone_number or None,
         "category": transform_location_category(
-            poi.category, poi_translation.language.slug
+            poi.category,
+            poi_translation.language.slug,
         ),
         "temporarily_closed": poi.temporarily_closed,
         # Only return opening hours if not temporarily closed and they differ from the default value
@@ -117,14 +118,13 @@ def transform_poi_translation(poi_translation: POITranslation) -> dict[str, Any]
 @json_response
 def locations(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
     language_slug: str,
+    **kwargs: Any,
 ) -> JsonResponse:
     """
     List all POIs of the region and transform result into JSON
 
     :param request: The current request
-    :param region_slug: The slug of the requested region
     :param language_slug: The slug of the requested language
     :return: JSON object according to APIv3 locations endpoint definition
     """
@@ -146,7 +146,7 @@ def locations(
             Prefetch(
                 "category__translations",
                 queryset=POICategoryTranslation.objects.select_related("language"),
-            )
+            ),
         )
     )
 
@@ -162,5 +162,6 @@ def locations(
             result.append(transform_poi_translation(translation))
 
     return JsonResponse(
-        result, safe=False
+        result,
+        safe=False,
     )  # Turn off Safe-Mode to allow serializing arrays

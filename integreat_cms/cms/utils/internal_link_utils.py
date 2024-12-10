@@ -19,8 +19,6 @@ from ..models import (
 )
 
 if TYPE_CHECKING:
-    from typing import Optional
-
     from lxml.html import Element
 
     from ..models.abstract_content_translation import AbstractContentTranslation
@@ -29,9 +27,9 @@ logger = logging.getLogger(__name__)
 
 
 def update_link(
-    link: Element, target_language_slug: str
-) -> Optional[tuple[str, Element | str]]:
-    # pylint: disable=compare-to-zero
+    link: Element,
+    target_language_slug: str,
+) -> tuple[str, Element | str] | None:
     """
     Fixes the internal link, if it is broken.
     This includes:
@@ -55,7 +53,7 @@ def update_link(
         return None
 
     if target_translation := source_translation.foreign_object.get_public_translation(
-        target_language_slug
+        target_language_slug,
     ):
         # Always use the full url, even if the url was previously a short url
         fixed_link = target_translation.full_url
@@ -111,12 +109,16 @@ def get_public_translation_for_webapp_link(
     region_slug, language_slug, *path_parts = parts
 
     return get_public_translation_for_webapp_link_parts(
-        region_slug, language_slug, path_parts
+        region_slug,
+        language_slug,
+        path_parts,
     )
 
 
 def get_public_translation_for_webapp_link_parts(
-    region_slug: str, language_slug: str, path_parts: list[str]
+    region_slug: str,
+    language_slug: str,
+    path_parts: list[str],
 ) -> AbstractContentTranslation | None:
     """
     Calculates the content translation that corresponds to the given path, region slug and language slug.

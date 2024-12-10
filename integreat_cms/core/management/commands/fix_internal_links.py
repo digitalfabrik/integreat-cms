@@ -4,7 +4,7 @@ import logging
 import time
 from collections import defaultdict
 from functools import partial
-from typing import DefaultDict, TYPE_CHECKING
+from typing import TYPE_CHECKING
 from urllib.parse import unquote
 
 from django.contrib.auth import get_user_model
@@ -14,7 +14,6 @@ from linkcheck.models import Url
 from lxml.html import rewrite_links
 
 from ....cms.models import Region
-from ....cms.models.abstract_content_translation import AbstractContentTranslation
 from ....cms.utils import internal_link_utils
 from ....cms.utils.link_utils import fix_content_link_encoding
 from ....cms.utils.linkcheck_utils import get_region_links
@@ -26,6 +25,7 @@ if TYPE_CHECKING:
     from django.core.management.base import CommandParser
 
     from ....cms.models import User
+    from ....cms.models.abstract_content_translation import AbstractContentTranslation
 
 logger = logging.getLogger(__name__)
 
@@ -76,7 +76,8 @@ class Command(LogCommand):
         :param parser: The argument parser
         """
         parser.add_argument(
-            "--region-slug", help="Only fix links in the region with this slug"
+            "--region-slug",
+            help="Only fix links in the region with this slug",
         )
         parser.add_argument("--username", help="The username of the creator")
         parser.add_argument(
@@ -86,9 +87,13 @@ class Command(LogCommand):
         )
 
     def handle(
-        self, *args: Any, region_slug: str, username: str, commit: bool, **options: Any
+        self,
+        *args: Any,
+        region_slug: str,
+        username: str,
+        commit: bool,
+        **options: Any,
     ) -> None:
-        # pylint: disable=arguments-differ, too-many-locals
         r"""
         Try to run the command
 
@@ -104,7 +109,7 @@ class Command(LogCommand):
         region = get_region(region_slug) if region_slug else None
         user = get_user(username) if username else None
 
-        translation_updates: DefaultDict[AbstractContentTranslation, dict[str, str]] = (
+        translation_updates: defaultdict[AbstractContentTranslation, dict[str, str]] = (
             defaultdict(dict)
         )
 
@@ -117,7 +122,7 @@ class Command(LogCommand):
             if not url.internal:
                 continue
             source_translation = internal_link_utils.get_public_translation_for_link(
-                url.url
+                url.url,
             )
             if not source_translation:
                 continue
@@ -128,7 +133,7 @@ class Command(LogCommand):
                 if target_language_slug != source_translation.language.slug:
                     target_translation = (
                         source_translation.foreign_object.get_public_translation(
-                            target_language_slug
+                            target_language_slug,
                         )
                     )
 
@@ -136,7 +141,10 @@ class Command(LogCommand):
                 source_url = unquote(url.url)
                 if target_url.strip("/") != source_url.strip("/"):
                     logger.debug(
-                        "%r: %r -> %r", link.content_object, source_url, target_url
+                        "%r: %r -> %r",
+                        link.content_object,
+                        source_url,
+                        target_url,
                     )
                     translation_updates[link.content_object][source_url] = target_url
 
@@ -171,10 +179,13 @@ def replace_links_of_translation(
     """
     new_translation = translation.create_new_version_copy(user)
     new_translation.content = fix_content_link_encoding(
-        rewrite_links(new_translation.content, partial(replace_link_helper, rules))
+        rewrite_links(new_translation.content, partial(replace_link_helper, rules)),
     )
     logger.debug(
-        "Replacing %r link(s) in %r: %r", len(rules), new_translation, rules.keys()
+        "Replacing %r link(s) in %r: %r",
+        len(rules),
+        new_translation,
+        rules.keys(),
     )
     if commit:
         translation.links.all().delete()

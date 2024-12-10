@@ -6,7 +6,6 @@ from django.conf import settings
 from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
-from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
 from ...decorators import permission_required
@@ -40,11 +39,13 @@ class ContactListView(TemplateView, ContactContextMixin):
         region = request.region
 
         contacts = Contact.objects.filter(
-            location__region=region, archived=self.archived
+            location__region=region,
+            archived=self.archived,
         ).select_related("location")
 
         archived_count = Contact.objects.filter(
-            location__region=region, archived=True
+            location__region=region,
+            archived=True,
         ).count()
 
         chunk_size = int(request.GET.get("size", settings.PER_PAGE))

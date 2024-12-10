@@ -28,7 +28,9 @@ class Migration(migrations.Migration):
             model_name="contact",
             name="point_of_contact_for",
             field=models.CharField(
-                blank=True, max_length=200, verbose_name="point of contact for"
+                blank=True,
+                max_length=200,
+                verbose_name="point of contact for",
             ),
         ),
         migrations.AddConstraint(
