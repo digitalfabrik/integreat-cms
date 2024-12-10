@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from django.conf import settings
 from django.contrib.contenttypes.fields import GenericRelation
 from django.db import models
 from django.db.models import Q
@@ -17,6 +18,7 @@ if TYPE_CHECKING:
 
     from .. import POI, Region
 
+from ...constants import status
 from ...utils.translation_utils import gettext_many_lazy as __
 from ..abstract_content_translation import AbstractContentTranslation
 from ..decorators import modify_fields
@@ -97,6 +99,15 @@ class POITranslation(AbstractContentTranslation):
                 "region_slug": self.poi.region.slug,
             },
         )
+
+    @cached_property
+    def map_url(self) -> str:
+        """
+        :return: the link to the POI on the Integreat map (if it exists), to google maps otherwise
+        """
+        if not self.poi.location_on_map and not self.status == status.DRAFT:
+            return f"{settings.WEBAPP_URL}{self.get_absolute_url()}"
+        return f"https://www.google.com/maps/search/?api=1&query={self.poi.address},{self.poi.city},{self.poi.country}"
 
     @staticmethod
     def default_icon() -> str | None:
