@@ -50,9 +50,10 @@ def transform_location_category(
 
 
 @json_response
-# pylint: disable=unused-argument
 def location_categories(
-    request: HttpRequest, region_slug: str, language_slug: str
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
 ) -> JsonResponse:
     """
     Function to return all POI categories as JSON.

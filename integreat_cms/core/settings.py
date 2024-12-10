@@ -1339,7 +1339,14 @@ USER_CHAT_WINDOW_LIMIT: Final[int] = 50
 USER_CHAT_TICKET_GROUP: Final[str] = "integreat-chat"
 
 #: Integreat Chat (app) backend server domain
-INTEGREAT_CHAT_BACK_END_DOMAIN = "igchat-inference.tuerantuer.org"
+INTEGREAT_CHAT_BACK_END_DOMAIN = os.environ.get(
+    "INTEGREAT_CMS_INTEGREAT_CHAT_BACK_END_DOMAIN", "igchat-inference.tuerantuer.org"
+)
+
+#: Integreat Chat (app) backend timeout
+INTEGREAT_CHAT_BACK_END_TIMEOUT = os.environ.get(
+    "INTEGREAT_CMS_INTEGREAT_CHAT_BACK_END_TIMEOUT", 300
+)
 
 ##########
 # CELERY #

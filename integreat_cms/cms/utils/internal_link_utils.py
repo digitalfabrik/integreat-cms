@@ -28,10 +28,10 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=compare-to-zero
 def update_link(
     link: Element, target_language_slug: str
 ) -> Optional[tuple[str, Element | str]]:
+    # pylint: disable=compare-to-zero
     """
     Fixes the internal link, if it is broken.
     This includes:

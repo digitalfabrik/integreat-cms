@@ -71,10 +71,10 @@ def check_imprint(
     return url.status
 
 
-# pylint: disable=too-many-branches
 def check_news_link(
     url: Url, path_components: list[str], region: Region, language: Language
 ) -> bool | None:
+    # pylint: disable=too-many-branches
     """
     Check whether the news exists in the given region
 
@@ -299,8 +299,8 @@ def check_event_or_location(
     return url.status
 
 
-# pylint: disable=too-many-return-statements
 def check_internal(url: Url) -> bool | None:
+    # pylint: disable=too-many-return-statements, too-many-branches
     """
     :param url: The internal URL to check
     :returns: The status of the URL

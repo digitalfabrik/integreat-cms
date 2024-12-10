@@ -10,8 +10,10 @@ if TYPE_CHECKING:
     from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
 
-# pylint: disable=unused-argument
-def add_roles(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def add_roles(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Add the default roles for users
 
@@ -28,8 +30,10 @@ def add_roles(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
     management_group.permissions.add(delete_imprint_permission)
 
 
-# pylint: disable=unused-argument
-def remove_roles(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def remove_roles(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Remove the default roles for users
 

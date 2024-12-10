@@ -14,7 +14,6 @@ if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
 
 
-# pylint: disable=too-many-positional-arguments
 @pytest.mark.django_db
 @pytest.mark.parametrize("view_name,kwargs,post_data,roles", PARAMETRIZED_VIEWS[5::16])
 def test_view_status_code_5(
@@ -26,4 +25,5 @@ def test_view_status_code_5(
     roles: list[str],
     mock_firebase_credentials: None,
 ) -> None:
+    # pylint: disable=too-many-positional-arguments
     check_view_status_code(login_role_user, caplog, view_name, kwargs, post_data, roles)

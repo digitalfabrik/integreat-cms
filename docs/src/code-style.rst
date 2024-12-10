@@ -58,10 +58,13 @@ Run pylint with our developer tool :github-source:`tools/pylint.sh`::
 
     ./tools/pylint.sh
 
-When you think a warning is a false positive, add a comment before the specific line::
+When you think a warning is a false positive, add a comment (see :doc:`pylint:user_guide/messages/message_control`)::
 
-    # pylint: disable=unused-argument
-    def some_function(*args, **kwargs)
+    def some_function(
+        something: SomeModel,  # pylint: disable=unused-argument
+        *args, 
+        **kwargs) -> None:
+        # pylint: disable=too-many-branches
 
 .. Note::
 

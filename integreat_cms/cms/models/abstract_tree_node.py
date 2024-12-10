@@ -66,8 +66,8 @@ class AbstractTreeNodeManager(NS_NodeManager):
         return obj
 
 
-# pylint: disable=attribute-defined-outside-init
 class AbstractTreeNode(NS_Node, AbstractBaseModel):
+    # pylint: disable=attribute-defined-outside-init
     """
     Abstract data model representing a tree node within a region.
     """

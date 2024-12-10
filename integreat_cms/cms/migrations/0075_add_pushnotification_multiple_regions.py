@@ -10,8 +10,10 @@ if TYPE_CHECKING:
     from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
 
-# pylint: disable=unused-argument
-def forwards_func(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def forwards_func(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Adopting the old data when applying this migration
 
@@ -23,8 +25,10 @@ def forwards_func(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
         pn.regions.add(pn.region)
 
 
-# pylint: disable=unused-argument
-def reverse_func(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def reverse_func(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Reverting (most of the) newer data when reverting this migration
 

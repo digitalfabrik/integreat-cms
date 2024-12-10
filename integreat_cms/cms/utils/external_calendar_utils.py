@@ -28,9 +28,9 @@ from integreat_cms.cms.models import EventTranslation, ExternalCalendar, Recurre
 from integreat_cms.cms.utils.content_utils import clean_content
 
 
-# pylint: disable=too-many-instance-attributes
 @dataclasses.dataclass(frozen=True, kw_only=True)
 class IcalEventData:
+    # pylint: disable=too-many-instance-attributes
     """
     Holds data extracted from ical events
     """

@@ -34,8 +34,10 @@ ROLES = [
 ]
 
 
-# pylint: disable=unused-argument
-def update_roles(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def update_roles(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Update the permissions of roles
 
@@ -59,8 +61,10 @@ def update_roles(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
         group.permissions.remove(*remove_permissions)
 
 
-# pylint: disable=unused-argument
-def revert_roles(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def revert_roles(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Revert the permission changes of this migration
 

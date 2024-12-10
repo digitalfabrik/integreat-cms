@@ -22,13 +22,13 @@ if TYPE_CHECKING:
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-many-ancestors
 class ModelListView(
     PermissionRequiredMixin,
     ModelTemplateResponseMixin,
     ModelConfirmationContextMixin,
     ListView,
 ):
+    # pylint: disable=too-many-ancestors
     """
     Render some list of objects, set by ``self.model`` or ``self.queryset``.
     """

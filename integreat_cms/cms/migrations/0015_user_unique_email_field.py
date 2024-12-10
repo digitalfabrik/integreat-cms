@@ -13,9 +13,9 @@ if TYPE_CHECKING:
     from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
 
-# pylint: disable=unused-argument
 def make_user_email_field_unique(
-    apps: Apps, schema_editor: BaseDatabaseSchemaEditor
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
 ) -> None:
     """
     Make sure that the email field of users is unique

@@ -73,10 +73,10 @@ class EventFilterForm(CustomFilterForm):
 
     query = forms.CharField(required=False)
 
-    # pylint: disable=too-many-branches
     def apply(
         self, events: EventQuerySet, region: Region, language_slug: str
     ) -> tuple[EventQuerySet, None, None]:
+        # pylint: disable=too-many-branches
         """
         Filter the events according to the given filter data
 

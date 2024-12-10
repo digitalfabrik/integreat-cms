@@ -71,10 +71,10 @@ class DeepLApiClient(MachineTranslationApiClient):
                 return code
         return ""
 
-    # pylint: disable=too-many-locals, too-many-branches, too-many-statements
     def translate_queryset(
         self, queryset: list[Event] | (list[Page] | list[POI]), language_slug: str
     ) -> None:
+        # pylint: disable=too-many-locals, too-many-branches, too-many-statements
         """
         This function translates a content queryset via DeepL
 

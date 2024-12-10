@@ -17,9 +17,8 @@ from ...decorators import feedback_handler, json_response
 
 @feedback_handler
 @json_response
-# pylint: disable=unused-argument
 def map_feedback(
-    data: dict,
+    data: dict,  # pylint: disable=unused-argument
     region: Region,
     language: Language,
     comment: str,

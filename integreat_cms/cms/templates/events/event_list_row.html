@@ -146,6 +146,11 @@
         {% has_perm 'cms.change_event' request.user as can_edit_event %}
         {% if can_edit_event %}
             {% if not is_archive %}
+                <a href="{% url 'edit_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
+                   title="{% translate "Edit event" %}"
+                   class="btn-icon">
+                    <i icon-name="pencil"></i>
+                </a>
                 {% if not event.external_calendar %}
                     <form action="{% url 'copy_event' event_id=event.id region_slug=request.region.slug language_slug=language.slug %}"
                           method="post">

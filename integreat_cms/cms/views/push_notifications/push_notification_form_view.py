@@ -48,8 +48,8 @@ class PushNotificationFormView(TemplateView):
         "schedule_interval": settings.FCM_SCHEDULE_INTERVAL_MINUTES,
     }
 
-    # pylint: disable=too-many-locals
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        # pylint: disable=too-many-locals
         r"""
         Open form for creating or editing a push notification
 
@@ -423,10 +423,10 @@ def create_from_template(
     return new_push_notification
 
 
-# pylint: disable=too-many-return-statements
 def send_pn(
     request: HttpRequest, pn_form: PushNotificationForm, schedule: bool = False
 ) -> bool:
+    # pylint: disable=too-many-return-statements
     """
     Send (or schedule) a push notification
 

@@ -175,8 +175,11 @@ def transform_event_recurrences(
 
 
 @json_response
-# pylint: disable=unused-argument
-def events(request: HttpRequest, region_slug: str, language_slug: str) -> JsonResponse:
+def events(
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
+) -> JsonResponse:
     """
     List all events of the region and transform result into JSON
 

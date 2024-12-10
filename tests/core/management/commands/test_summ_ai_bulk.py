@@ -53,12 +53,12 @@ def test_summ_ai_bulk_non_existing_region() -> None:
     assert str(exc_info.value) == 'Region with slug "non-existing" does not exist.'
 
 
-# pylint: disable=fixme
 @pytest.mark.django_db
 def test_summ_ai_bulk_disabled_region(load_test_data: None) -> None:
     """
     Ensure that calling when disabled in a region throws an error
     """
+    # pylint: disable=fixme
     # TODO: Ensure there are no race conditions with tests.summ_ai_api.summ.ai_test module
     #
     # with pytest.raises(CommandError) as exc_info:

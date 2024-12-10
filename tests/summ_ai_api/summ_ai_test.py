@@ -628,8 +628,8 @@ async def test_patient_task_queue_normal_deque() -> None:
         await anext(task_generator)
 
 
-# pylint: disable=comparison-with-callable
 async def test_patient_task_queue_hit_rate_limit() -> None:
+    # pylint: disable=comparison-with-callable
     """
     Test for PatientTaskQueue Class. It tests that when the maximum number of parallel requests
     to the summ_ai_api has been exceeded (rate limit exceeded), a defined time is waited until the next task object is returned via __anext__().
@@ -683,8 +683,8 @@ async def test_patient_task_queue_hit_rate_limit() -> None:
     ), "PatientTaskQueue should be empty after three tasks have been removed"
 
 
-# pylint: disable=comparison-with-callable
 async def test_patient_task_queue_max_retries() -> None:
+    # pylint: disable=comparison-with-callable
     """
     Test for PatientTaskQueue Class. Tests that it stops early
     when requests are not successful after a cooldown, resulting in another cooldown repeatedly.

@@ -50,8 +50,8 @@ class PushNotificationListView(TemplateView):
 
         return self.template_templates if self.templates else self.template
 
-    # pylint: disable=too-many-locals
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        # pylint: disable=too-many-locals
         r"""
         Create a list that shows existing push notifications and translations
 

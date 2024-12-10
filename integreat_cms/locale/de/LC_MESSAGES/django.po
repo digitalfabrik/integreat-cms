@@ -1445,8 +1445,9 @@ msgid "Phone links"
 msgstr "Telefonnummern-Links"
 
 #: cms/constants/linkcheck.py cms/templates/analytics/_broken_links_widget.html
-msgid "Invalid links"
-msgstr "Ungültige Links"
+#: cms/templates/linkcheck/links_by_filter.html
+msgid "Verification needed"
+msgstr "Überprüfung notwendig"
 
 #: cms/constants/machine_translation_permissions.py
 msgid "No"
@@ -5014,8 +5015,8 @@ msgstr "Gültige Links"
 
 #: cms/templates/analytics/_broken_links_widget.html
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "Ignored links"
-msgstr "Ignorierte Links"
+msgid "Link verified"
+msgstr "Link überprüft"
 
 #: cms/templates/analytics/_broken_links_widget.html
 #: cms/templates/linkcheck/links_by_filter.html
@@ -5287,6 +5288,7 @@ msgid "Send message"
 msgstr "Nachricht abschicken"
 
 #: cms/templates/contacts/contact_form.html
+#: cms/templates/contacts/contact_list_row.html
 msgid "Edit contact"
 msgstr "Kontakt bearbeiten"
 
@@ -5338,7 +5340,7 @@ msgstr "Zur Zeit wird dieser Kontakt in keiner Veranstaltung verwendet."
 #: cms/templates/contacts/contact_form.html
 #: cms/templates/contacts/contact_list_row.html
 msgid "Archive contact"
-msgstr "Kontakte archivieren"
+msgstr "Kontakt archivieren"
 
 #: cms/templates/contacts/contact_form.html
 msgid "Archive this contact"
@@ -5530,6 +5532,10 @@ msgstr "Diese Übersetzung wird <b>nicht</b> in den Apps angezeigt"
 #: cms/templates/content_versions.html cms/templates/imprint/imprint_form.html
 msgid "Minor edit"
 msgstr "Geringfügige Änderung"
+
+#: cms/templates/content_versions.html
+msgid "The status of imported events can't be changed"
+msgstr "Der Status von importierten Veranstaltungen kann nicht geändert werden"
 
 #: cms/templates/content_versions.html
 msgid "Discard auto save"
@@ -6135,6 +6141,10 @@ msgid "This event cannot be opened in the web app, because it is not public."
 msgstr ""
 "Diese Veranstaltung kann nicht in der Web-App geöffnet werden, weil sie "
 "nicht veröffentlicht ist."
+
+#: cms/templates/events/event_list_row.html
+msgid "Edit event"
+msgstr "Veranstaltung bearbeiten"
 
 #: cms/templates/events/event_list_row.html
 msgid "Copy event"
@@ -6792,16 +6802,8 @@ msgid "Valid"
 msgstr "Gültig"
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "Verification needed"
-msgstr "Überprüfung notwendig"
-
-#: cms/templates/linkcheck/links_by_filter.html
 msgid "Unchecked"
 msgstr "Nicht geprüft"
-
-#: cms/templates/linkcheck/links_by_filter.html
-msgid "Link verified"
-msgstr "Link überprüft"
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid ""
@@ -6873,8 +6875,8 @@ msgid "No valid links could be found."
 msgstr "Es konnten keine gültigen Links gefunden werden."
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "No invalid links could be found."
-msgstr "Es konnten keine ungültigen Links gefunden werden."
+msgid "No links needing verification could be found."
+msgstr "Es konnten keine zu überprüfenden Links gefunden werden."
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "No unchecked links could be found."
@@ -6889,8 +6891,8 @@ msgid "No phone links could be found."
 msgstr "Es konnten keine Telefonnummern-Links gefunden werden."
 
 #: cms/templates/linkcheck/links_by_filter.html
-msgid "No ignored links could be found."
-msgstr "Es konnten keine ignorierten Links gefunden werden."
+msgid "No verified links could be found."
+msgstr "Es konnten keine überprüften Links gefunden werden."
 
 #: cms/templates/linkcheck/links_by_filter.html
 msgid "Links selected"
@@ -7856,6 +7858,10 @@ msgid ""
 msgstr ""
 "Dieser Ort kann nicht in der Web-App geöffnet werden, weil er nicht "
 "veröffentlicht ist."
+
+#: cms/templates/pois/poi_list_row.html
+msgid "Edit location"
+msgstr "Ort bearbeiten"
 
 #: cms/templates/push_notifications/push_notification_form.html
 #, python-format
@@ -9220,6 +9226,14 @@ msgid "The version {} does not exist."
 msgstr "Die Version {} existiert nicht."
 
 #: cms/views/content_version_view.py
+#, python-format
+msgid ""
+"%s %s can not change its status as it was imported from an external calendar"
+msgstr ""
+"Der Status von %s %s kann nicht geändert "
+"werden, da diese Veranstaltung aus einem externen Kalender importiert wurde"
+
+#: cms/views/content_version_view.py
 msgid "You cannot reject changes if there is no version to return to."
 msgstr ""
 "Sie können keine Änderungen ablehnen, wenn es keine Version gibt, zu der Sie "
@@ -9594,12 +9608,12 @@ msgid "URL was successfully replaced"
 msgstr "URL wurde erfolgreich ersetzt"
 
 #: cms/views/linkcheck/linkcheck_list_view.py
-msgid "Links were successfully ignored"
-msgstr "Links wurden erfolgreich ignoriert"
+msgid "Links were successfully marked as verified"
+msgstr "Links wurden erfolgreich als überprüft markiert"
 
 #: cms/views/linkcheck/linkcheck_list_view.py
-msgid "Links were successfully unignored"
-msgstr "Links werden nicht mehr ignoriert"
+msgid "Verification was revoked for the links"
+msgstr "Verifizierung wurde für die Links entzogen"
 
 #: cms/views/linkcheck/linkcheck_list_view.py
 msgid "Links were successfully checked"
@@ -11137,6 +11151,12 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Invalid links"
+#~ msgstr "Ungültige Links"
+
+#~ msgid "Ignored links"
+#~ msgstr "Ignorierte Links"
+
 #~ msgid "Invalid"
 #~ msgstr "Ungültig"
 
@@ -12226,9 +12246,6 @@ msgstr ""
 
 #~ msgid "ID"
 #~ msgstr "ID"
-
-#~ msgid "Edit event"
-#~ msgstr "Veranstaltung bearbeiten"
 
 #~ msgid "Not before"
 #~ msgstr "Nicht vor"

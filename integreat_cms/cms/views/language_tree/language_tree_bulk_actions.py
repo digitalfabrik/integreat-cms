@@ -79,8 +79,8 @@ class LanguageTreeBulkActionView(BulkUpdateBooleanFieldView):
         return response
 
 
-# pylint: disable=too-many-ancestors
 class BulkMakeVisibleView(LanguageTreeBulkActionView):
+    # pylint: disable=too-many-ancestors
     """
     Bulk action for making multiple language tree nodes visible at once
     """
@@ -92,8 +92,8 @@ class BulkMakeVisibleView(LanguageTreeBulkActionView):
     action = _("made visible")
 
 
-# pylint: disable=too-many-ancestors
 class BulkHideView(BulkMakeVisibleView):
+    # pylint: disable=too-many-ancestors
     """
     Bulk action for hiding multiple language tree nodes at once
     """
@@ -105,8 +105,8 @@ class BulkHideView(BulkMakeVisibleView):
     action = _("hidden")
 
 
-# pylint: disable=too-many-ancestors
 class BulkActivateView(LanguageTreeBulkActionView):
+    # pylint: disable=too-many-ancestors
     """
     Bulk action for activating multiple language tree nodes at once
     """
@@ -138,8 +138,8 @@ class BulkActivateView(LanguageTreeBulkActionView):
         return super().post(request, *args, **kwargs)
 
 
-# pylint: disable=too-many-ancestors
 class BulkDisableView(BulkActivateView):
+    # pylint: disable=too-many-ancestors
     """
     Bulk action for disabling multiple language tree nodes at once
     """

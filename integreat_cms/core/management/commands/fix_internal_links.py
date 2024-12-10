@@ -85,10 +85,10 @@ class Command(LogCommand):
             help="Whether changes should be written to the database",
         )
 
-    # pylint: disable=arguments-differ, too-many-locals
     def handle(
         self, *args: Any, region_slug: str, username: str, commit: bool, **options: Any
     ) -> None:
+        # pylint: disable=arguments-differ, too-many-locals
         r"""
         Try to run the command
 

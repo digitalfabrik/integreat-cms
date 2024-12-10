@@ -331,8 +331,8 @@ class RegionForm(CustomModelForm):
 
         return region
 
-    # pylint: disable=too-many-branches
     def clean(self) -> dict[str, Any]:
+        # pylint: disable=too-many-branches
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
 
@@ -752,7 +752,6 @@ def duplicate_language_tree(
             )
 
 
-# pylint: disable=too-many-locals,too-many-positional-arguments,too-many-arguments
 def duplicate_pages(
     source_region: Region,
     target_region: Region,
@@ -763,6 +762,7 @@ def duplicate_pages(
     offers_to_discard: QuerySet[OfferTemplate] | None = None,
     only_root: bool = False,
 ) -> None:
+    # pylint: disable=too-many-locals, too-many-positional-arguments, too-many-arguments
     """
     Function to duplicate all non-archived pages from one region to another
 
@@ -946,14 +946,16 @@ def duplicate_imprint(
         imprint_translation.save(update_timestamp=False)
 
 
-# pylint: disable=unused-argument,fixme
-def duplicate_media(source_region: Region, target_region: Region) -> None:
+def duplicate_media(
+    source_region: Region, target_region: Region  # pylint: disable=unused-argument
+) -> None:
     """
     Function to duplicate all media of one region to another.
 
     :param source_region: the source region from which the pages should be duplicated
     :param target_region: the target region
     """
+    # pylint: disable=fixme
     # TODO: implement duplication of all media files
 
 

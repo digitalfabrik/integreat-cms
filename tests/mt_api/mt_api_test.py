@@ -502,7 +502,6 @@ content_role_id_data_combination = [
 ]
 
 
-# pylint: disable=too-many-positional-arguments
 @pytest.mark.django_db
 @pytest.mark.parametrize("provider_language_combination", provider_language_combination)
 @pytest.mark.parametrize(
@@ -517,6 +516,7 @@ def test_automatic_translation(
     mock_server: MockServer,
     caplog: LogCaptureFixture,
 ) -> None:
+    # pylint: disable=too-many-positional-arguments
     """
     Check machine translation of the page/event/poi when automatic_translation checkbox in set on the form
 

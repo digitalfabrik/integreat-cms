@@ -177,12 +177,11 @@ def delete_region_feedback(
     return redirect("region_feedback", region_slug=region_slug)
 
 
-# pylint: disable=unused-argument
 @require_POST
 @permission_required("cms.view_feedback")
 def export_region_feedback(
     request: HttpRequest,
-    region_slug: str,
+    region_slug: str,  # pylint: disable=unused-argument
     file_format: str,
 ) -> HttpResponse:
     """

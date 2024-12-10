@@ -11,9 +11,9 @@ if TYPE_CHECKING:
     from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
 
-# pylint: disable=unused-argument
 def set_default_appointment_only(
-    apps: Apps, schema_editor: BaseDatabaseSchemaEditor
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
 ) -> None:
     """
     Set default value for appointmentOnly

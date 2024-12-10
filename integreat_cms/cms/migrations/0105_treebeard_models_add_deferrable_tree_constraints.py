@@ -16,9 +16,8 @@ if TYPE_CHECKING:
 
 def forwards_func(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
 ) -> None:
-    # pylint: disable=unused-argument
     """
     Data migration step attempting to fix all trees
     to remove any lingering inconsistencies before adding constraints
@@ -27,10 +26,9 @@ def forwards_func(
 
 
 def reverse_func(
-    apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,
+    apps: Apps,  # pylint: disable=unused-argument
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
 ) -> None:
-    # pylint: disable=unused-argument
     """
     Data migration when reverting this migration
     (nothing to do since the data is already consistent)

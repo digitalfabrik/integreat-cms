@@ -17,9 +17,8 @@ if TYPE_CHECKING:
 
 @feedback_handler
 @json_response
-# pylint: disable=unused-argument
 def region_feedback(
-    data: dict,
+    data: dict,  # pylint: disable=unused-argument
     region: Region,
     language: Language,
     comment: str,
