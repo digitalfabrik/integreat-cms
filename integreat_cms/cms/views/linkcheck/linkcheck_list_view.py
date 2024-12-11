@@ -140,8 +140,8 @@ class LinkcheckListView(ListView):
                 params["size"] = size
             return redirect(f"{request.path}?{urlencode(params)}")
 
-    # pylint: disable-msg=too-many-branches, too-many-locals
     def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        # pylint: disable-msg=too-many-branches, too-many-locals
         r"""
         Applies selected action for selected urls
 
@@ -206,7 +206,9 @@ class LinkcheckListView(ListView):
                         else url.links.all()
                     )
                     Link.objects.filter(id__in=link_ids).update(ignore=True)
-                messages.success(request, _("Links were successfully ignored"))
+                messages.success(
+                    request, _("Links were successfully marked as verified")
+                )
             elif action == "unignore":
                 for url in selected_urls:
                     link_ids = (
@@ -215,7 +217,7 @@ class LinkcheckListView(ListView):
                         else url.links.all()
                     )
                     Link.objects.filter(id__in=link_ids).update(ignore=False)
-                messages.success(request, _("Links were successfully unignored"))
+                messages.success(request, _("Verification was revoked for the links"))
             elif action == "recheck":
                 for url in selected_urls:
                     url.check_url(external_recheck_interval=0)

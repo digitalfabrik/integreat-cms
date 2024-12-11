@@ -235,8 +235,10 @@ ROLES = [
 ]
 
 
-# pylint: disable=unused-argument
-def add_roles(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def add_roles(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Add the default roles for users
 
@@ -265,8 +267,10 @@ def add_roles(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
         group.permissions.add(*permissions)
 
 
-# pylint: disable=unused-argument
-def remove_roles(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def remove_roles(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Remove the default roles for users
 

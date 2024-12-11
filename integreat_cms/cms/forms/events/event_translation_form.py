@@ -8,8 +8,8 @@ from ..machine_translation_form import MachineTranslationForm
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-many-ancestors
 class EventTranslationForm(MachineTranslationForm):
+    # pylint: disable=too-many-ancestors
     """
     Form for creating and modifying event translation objects
     """

@@ -53,9 +53,9 @@ def replace_media_prefix(media: MediaFile, before: str, after: str) -> None:
         )
 
 
-# pylint: disable=unused-argument
 def rename_media_directories(
-    apps: Apps, schema_editor: BaseDatabaseSchemaEditor
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
 ) -> None:
     """
     Renames the location of the physical files of the already existing MediaFiles on the system.
@@ -128,9 +128,9 @@ def rename_media_directories(
     )
 
 
-# pylint: disable=unused-argument
 def reverse_rename_media_directories(
-    apps: Apps, schema_editor: BaseDatabaseSchemaEditor
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
 ) -> None:
     """
     Reverse the renaming of the media directories

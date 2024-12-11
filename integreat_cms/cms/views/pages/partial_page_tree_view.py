@@ -15,9 +15,10 @@ from ..pages.page_context_mixin import PageContextMixin
 
 @permission_required("cms.view_page")
 @require_POST
-# pylint: disable=unused-argument
 def render_partial_page_tree_views(
-    request: HttpRequest, region_slug: str, language_slug: str
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    language_slug: str,
 ) -> JsonResponse:
     r"""
     Retrieve the rendered subtree of a given root page

@@ -35,7 +35,6 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
 
 
-# pylint: disable=too-many-locals
 @pytest.mark.django_db
 # Override urls to serve XLIFF files
 @pytest.mark.urls("tests.xliff.dummy_django_app.static_urls")
@@ -52,6 +51,7 @@ def test_xliff_export(
     view: str,
     directory: str,
 ) -> None:
+    # pylint: disable=too-many-locals
     """
     This test checks whether the xliff export works as expected
 

@@ -22,8 +22,9 @@ logger = logging.getLogger(__name__)
 @require_POST
 @permission_required("cms.change_page")
 @permission_required("cms.grant_page_permissions")
-# pylint: disable=unused-argument
-def grant_page_permission_ajax(request: HttpRequest, region_slug: str) -> HttpResponse:
+def grant_page_permission_ajax(
+    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+) -> HttpResponse:
     """
     Grant a user editing or publishing permissions on a specific page object
 
@@ -62,8 +63,9 @@ def grant_page_permission_ajax(request: HttpRequest, region_slug: str) -> HttpRe
 @require_POST
 @permission_required("cms.change_page")
 @permission_required("cms.grant_page_permissions")
-# pylint: disable=unused-argument
-def revoke_page_permission_ajax(request: HttpRequest, region_slug: str) -> HttpResponse:
+def revoke_page_permission_ajax(
+    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+) -> HttpResponse:
     """
     Remove a page permission for a given user and page
 

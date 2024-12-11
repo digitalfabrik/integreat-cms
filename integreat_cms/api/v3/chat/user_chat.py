@@ -145,9 +145,10 @@ def send_message(
 
 @csrf_exempt
 @json_response
-# pylint: disable=unused-argument
 def is_chat_enabled_for_user(
-    request: HttpRequest, region_slug: str, device_id: str
+    request: HttpRequest,
+    region_slug: str,  # pylint: disable=unused-argument
+    device_id: str,
 ) -> JsonResponse:
     """
     Function to check if the chat feature is enabled for the given region and the given user.
@@ -173,10 +174,9 @@ def is_chat_enabled_for_user(
 
 @csrf_exempt
 @json_response
-# pylint: disable=unused-argument
 def chat(
     request: HttpRequest,
-    region_slug: str,
+    region_slug: str,  # pylint: disable=unused-argument
     language_slug: str,
     device_id: str,
     attachment_id: str = "",

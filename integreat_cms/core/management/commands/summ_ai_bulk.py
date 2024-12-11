@@ -67,8 +67,7 @@ def summ_ai_bulk(region: Region, username: str, initial: bool = True) -> None:
             source = page.get_translation(settings.SUMM_AI_GERMAN_LANGUAGE_SLUG)
             if source and source.content.strip():
                 time.sleep(30)
-        # pylint: disable=broad-exception-caught
-        except Exception as e:
+        except Exception as e:  # pylint: disable=broad-exception-caught
             logger.exception(e)
             time.sleep(30)
     logger.info(
@@ -98,10 +97,10 @@ class Command(LogCommand):
             help="Whether existing translations should not be updated",
         )
 
-    # pylint: disable=arguments-differ
     def handle(
         self, *args: Any, region_slug: str, username: str, initial: bool, **options: Any
     ) -> None:
+        # pylint: disable=arguments-differ
         r"""
         Try to run the command
 

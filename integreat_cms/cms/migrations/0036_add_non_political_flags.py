@@ -11,8 +11,10 @@ if TYPE_CHECKING:
     from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 
 
-# pylint: disable=unused-argument
-def update_flags(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def update_flags(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Update flags of Arabic and Farsi to be non-political
 
@@ -34,8 +36,10 @@ def update_flags(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
         farsi.save()
 
 
-# pylint: disable=unused-argument
-def reverse_flags(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def reverse_flags(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Update flags of Arabic and Farsi to be political
 

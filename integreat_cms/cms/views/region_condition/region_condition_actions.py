@@ -117,8 +117,8 @@ class RegionConditionResource(resources.ModelResource):
         """
         return len(region.language_tree) - 1
 
-    # pylint: disable=useless-parent-delegation
     def get_instance(self, *args: Any, **kwargs: Any) -> Any:
+        # pylint: disable=useless-parent-delegation
         """
         See :meth:`import_export.resources.Resource.get_instance`
         """

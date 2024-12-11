@@ -44,9 +44,8 @@ def imprint_page_feedback(
     )
 
 
-# pylint: disable=unused-argument
 def imprint_page_feedback_internal(
-    data: dict,
+    data: dict,  # pylint: disable=unused-argument
     region: Region,
     language: Language,
     comment: str,

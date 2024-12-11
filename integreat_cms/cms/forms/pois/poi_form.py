@@ -78,8 +78,8 @@ class POIForm(CustomModelForm):
             self.instance.region.organizations.filter(archived=False)
         )
 
-    # pylint: disable=too-many-return-statements
     def clean_opening_hours(self) -> list[dict[str, Any]]:
+        # pylint: disable=too-many-return-statements
         """
         Validate the opening hours field (see :ref:`overriding-modelform-clean-method`).
 

@@ -15,8 +15,8 @@ if TYPE_CHECKING:
     from typing import Any
 
 
-# pylint: disable=too-few-public-methods
 class UserChatManager(models.Manager):
+    # pylint: disable=too-few-public-methods
     """
     custom manager providing function to get the current chat
     """

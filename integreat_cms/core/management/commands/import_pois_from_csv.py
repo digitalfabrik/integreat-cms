@@ -167,7 +167,6 @@ class Command(LogCommand):
         )
         parser.add_argument("username", help="The username of the creator")
 
-    # pylint: disable=arguments-differ
     def handle(
         self,
         *args: Any,
@@ -176,6 +175,7 @@ class Command(LogCommand):
         username: str,
         **options: Any,
     ) -> None:
+        # pylint: disable=arguments-differ
         r"""
         Try to run the command
 

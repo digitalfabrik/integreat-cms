@@ -12,8 +12,8 @@ if TYPE_CHECKING:
     from typing import Any
 
 
-# pylint: disable=too-few-public-methods
 class MediaContextMixin(ContextMixin):
+    # pylint: disable=too-few-public-methods
     """
     This mixin provides context data required by the the media library.
     """

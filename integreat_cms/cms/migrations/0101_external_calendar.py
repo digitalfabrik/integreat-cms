@@ -9,8 +9,10 @@ from django.db.backends.base.schema import BaseDatabaseSchemaEditor
 from integreat_cms.cms.constants import roles
 
 
-# pylint: disable=unused-argument
-def update_roles(apps: Apps, schema_editor: BaseDatabaseSchemaEditor) -> None:
+def update_roles(
+    apps: Apps,
+    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+) -> None:
     """
     Add permissions for managing external calendars
 

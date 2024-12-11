@@ -104,8 +104,8 @@ class TextField:
         return f"<{type(self).__name__} (text: {self.text})>"
 
 
-# pylint: disable=too-few-public-methods
 class HTMLSegment(TextField):
+    # pylint: disable=too-few-public-methods
     """
     A class for translatable HTML segments
     """
@@ -113,8 +113,8 @@ class HTMLSegment(TextField):
     #: The current HTML segment
     segment: HtmlElement
 
-    # pylint: disable=super-init-not-called
     def __init__(self, segment: HtmlElement) -> None:
+        # pylint: disable=super-init-not-called
         """
         Convert the lxml tree element to a flat text string.
         Preserve <br> tags as new lines characters.

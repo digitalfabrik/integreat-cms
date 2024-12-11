@@ -65,8 +65,8 @@ class Command(LogCommand):
             nargs="*",
         )
 
-    # pylint: disable=arguments-differ
     def handle(self, *args: Any, region_slugs: list[str], **options: Any) -> None:
+        # pylint: disable=arguments-differ
         r"""
         Try to run the command
 
