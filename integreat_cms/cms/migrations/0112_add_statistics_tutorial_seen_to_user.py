@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
     """
 
     dependencies = [
-        ("cms", "0110_region_zammad_webhook_token_alter_region_zammad_url"),
+        ("cms", "0111_alter_language_language_color"),
     ]
 
     operations = [
