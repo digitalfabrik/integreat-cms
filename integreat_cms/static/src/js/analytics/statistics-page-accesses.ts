@@ -27,10 +27,9 @@ const setAccessesPerLanguage = (
     const languageColor = childElement.getAttribute("data-language-color");
     const accesses = countAccesses(accessesOverTime);
     const width = allAccesses !== 0 ? Math.floor((accesses / allAccesses) * 100) : 0;
-    const languageColorString = `bg-[${languageColor}%]`;
-    childElement.classList.add(`w-[${width}%]`);
-    childElement.classList.add(languageColorString);
-    console.log(languageColor);
+    (childElement as HTMLElement).style.backgroundColor = languageColor;
+    (childElement as HTMLElement).style.width = `${String(width)}%`;
+    (childElement as HTMLElement).title = String(accesses);
 };
 
 const updateChart = async (): Promise<void> => {

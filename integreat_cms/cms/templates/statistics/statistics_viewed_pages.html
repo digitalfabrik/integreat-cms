@@ -31,13 +31,12 @@
                             data-drop-position="last-child"
                             class="page-row drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 level-{{ page.relative_depth }} {% if parent_id %}hidden parent-page-{{ parent_id }}{% endif %}">
                             {% include "pages/_generic_page_tree_node.html" %}
-                            <td class="flex accesses px-2">
+                            <td class="flex items-stretch accesses px-2">
                                 {% for language in languages %}
                                     <span data-language-color="{{ language.language_color }}"
                                           data-language-slug="{{ language.slug }}"
-                                          class="w-9 bg-[{{ language.language_color }}] h-8"></span>
+                                          class="cursor-pointer bg-[{{ language.language_color }}] h-9"></span>
                                 {% endfor %}
-                                {% comment %} <span class="w-[30%] h-8 bg-red-500"></span> {% endcomment %}
                             </td>
                             <td class="total-accesses font-bold ml-4"
                                 data-translation="{% translate "Accesses in total" %}">
