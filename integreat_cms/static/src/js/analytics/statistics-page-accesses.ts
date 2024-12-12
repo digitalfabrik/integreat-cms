@@ -1,5 +1,3 @@
-export {};
-
 export type AjaxResponse = {
     pageId: number;
     accesses: object;
@@ -8,18 +6,32 @@ export type AjaxResponse = {
 export type Access = {
     languageSlug: string;
     accessesOverTime: object;
-}
+};
 
-const calculateAllAccessesPerPage = (accessesOverTime: object): number => {
-    console.log(accessesOverTime)
+const countAccesses = (accessesOverTime: object): number => {
     let accesses: number = 0;
     Object.values(accessesOverTime).forEach((entry) => {
-        if (entry) {
-            accesses += entry;
-        }
-    })
+        accesses += entry;
+    });
     return accesses;
-}
+};
+
+const setAccessesPerLanguage = (
+    accessField: Element,
+    languageSlug: string,
+    accessesOverTime: object,
+    allAccesses: number
+) => {
+    const parentElement = accessField as HTMLElement;
+    const childElement = parentElement.querySelector(`.accesses span[data-language-slug="${languageSlug}"]`);
+    const languageColor = childElement.getAttribute("data-language-color");
+    const accesses = countAccesses(accessesOverTime);
+    const width = allAccesses !== 0 ? Math.floor((accesses / allAccesses) * 100) : 0;
+    const languageColorString = `bg-[${languageColor}%]`;
+    childElement.classList.add(`w-[${width}%]`);
+    childElement.classList.add(languageColorString);
+    console.log(languageColor);
+};
 
 const updateChart = async (): Promise<void> => {
     // const chart = Chart.instances[0];
@@ -58,24 +70,28 @@ const updateChart = async (): Promise<void> => {
             const data = (await response.json()) as AjaxResponse;
             Object.entries(data).forEach((values) => {
                 Array.from(accessFields).forEach((accessField) => {
-                    const id = values[0]
+                    const id = values[0];
                     const pageId = accessField.parentElement.getAttribute("id").replace("page-", "");
                     if (id === pageId) {
-                        const accesses = values[1]
-                        const editableAccessField = accessField
-                        let allAccesses: number = 0
+                        const accesses = values[1];
+                        const allAccessesField = Array.from(accessField.parentElement?.children || []).find(
+                            (el) => el !== accessField && el.classList.contains("total-accesses")
+                        );
+                        const editableAllAccessField = allAccessesField;
+                        let allAccesses: number = 0;
                         Object.entries(accesses).forEach((access) => {
-                            const languageSlug = access[0]
-                            const accessesOverTime = access[1]
-                            allAccesses += calculateAllAccessesPerPage(accessesOverTime)
-                            console.log(languageSlug, accesses)
-                            // calculateAccessesPerLanguage(languageSlug, accessesOverTime)
-                            // console.log(accessesOverTime)
-                        })
-                        editableAccessField.textContent = String(allAccesses);
-                        console.log(allAccesses)
+                            const accessesOverTime = access[1];
+                            allAccesses += countAccesses(accessesOverTime);
+                        });
+                        editableAllAccessField.textContent = `${String(allAccesses)} ${editableAllAccessField.getAttribute("data-translation")}`;
+                        Object.entries(accesses).forEach((access) => {
+                            const languageSlug = access[0];
+                            const accessesOverTime = access[1];
+                            setAccessesPerLanguage(accessField, languageSlug, accessesOverTime, allAccesses);
+                        });
                     }
                 });
+                // console.log(data)
             });
         }
     } catch (error) {

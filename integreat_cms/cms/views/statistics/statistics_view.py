@@ -66,5 +66,6 @@ class AnalyticsView(TemplateView):
                 "pages": region.get_pages(),
                 "region": region,
                 "language": region.default_language,
+                "languages": region.active_languages,
             },
         )
