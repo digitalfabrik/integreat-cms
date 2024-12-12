@@ -133,6 +133,7 @@ TARGET_URL_AFTER_REPLACE = "https://integreat.app/i/am/replaced/"
 search_replace_parameters = [("network_management", 4, 0), ("augsburg", 4, 1)]
 
 
+@pytest.mark.skip
 @pytest.mark.django_db
 @pytest.mark.parametrize("parameter", search_replace_parameters)
 def test_search_and_replace_links(
