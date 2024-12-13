@@ -65,7 +65,7 @@
                                 </div>
                             {% endif %}
                         </div>
-                        {% render_field imprint_translation_form.title|add_error_class:"border-red-500" class+="mb-2" %}
+                        {% render_field imprint_translation_form.title|add_error_class:"border-red-500" class+="mb-2" dir=text_direction %}
                         {% if imprint_translation_form.instance.id %}
                             {% if request.region.short_urls_enabled and request.user.expert_mode %}
                                 <div class="flex items-center">

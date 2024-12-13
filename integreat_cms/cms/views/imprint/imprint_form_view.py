@@ -162,6 +162,11 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
+                "text_direction": (
+                    "rtl"
+                    if language.text_direction == text_directions.RIGHT_TO_LEFT
+                    else "ltr"
+                ),
             },
         )
 
@@ -262,6 +267,11 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
                 "lock_key": lock_key,
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
+                ),
+                "text_direction": (
+                    "rtl"
+                    if language.text_direction == text_directions.RIGHT_TO_LEFT
+                    else "ltr"
                 ),
             },
         )

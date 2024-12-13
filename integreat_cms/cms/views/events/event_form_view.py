@@ -131,6 +131,11 @@ class EventFormView(
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
+                "text_direction": (
+                    "rtl"
+                    if language.text_direction == text_directions.RIGHT_TO_LEFT
+                    else "ltr"
+                ),
             },
         )
 
@@ -321,6 +326,11 @@ class EventFormView(
                 ),
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
+                ),
+                "text_direction": (
+                    "rtl"
+                    if language.text_direction == text_directions.RIGHT_TO_LEFT
+                    else "ltr"
                 ),
             },
         )

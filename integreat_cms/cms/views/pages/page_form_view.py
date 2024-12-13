@@ -232,6 +232,11 @@ class PageFormView(
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
+                "text_direction": (
+                    "rtl"
+                    if language.text_direction == text_directions.RIGHT_TO_LEFT
+                    else "ltr"
+                ),
                 "translation_states": page.translation_states if page else [],
                 "minimum_hix": settings.HIX_REQUIRED_FOR_MT,
             },
@@ -455,6 +460,11 @@ class PageFormView(
                 ),
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
+                ),
+                "text_direction": (
+                    "rtl"
+                    if language.text_direction == text_directions.RIGHT_TO_LEFT
+                    else "ltr"
                 ),
                 "translation_states": (
                     page_instance.translation_states if page_instance else []
