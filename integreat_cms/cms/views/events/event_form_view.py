@@ -12,7 +12,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
-from ...constants import status, translation_status
+from ...constants import status, text_directions, translation_status
 from ...decorators import permission_required
 from ...forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from ...models import Event, EventTranslation, Language, POI, RecurrenceRule
@@ -128,6 +128,9 @@ class EventFormView(
                     event_instance.translation_states if event_instance else []
                 ),
                 "disabled": disabled,
+                "right_to_left": (
+                    language.text_direction == text_directions.RIGHT_TO_LEFT
+                ),
             },
         )
 
@@ -315,6 +318,9 @@ class EventFormView(
                 "url_link": url_link,
                 "translation_states": (
                     event_instance.translation_states if event_instance else []
+                ),
+                "right_to_left": (
+                    language.text_direction == text_directions.RIGHT_TO_LEFT
                 ),
             },
         )
