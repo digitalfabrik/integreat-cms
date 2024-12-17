@@ -68,7 +68,8 @@
                 <select name="weekdays_for_weekly"
                         id="id_weekdays_for_weekly"
                         multiple="multiple"
-                        class="{% if recurrence_rule_form.weekdays_for_weekly.errors %} border-red-500{% endif %}">
+                        class="{% if recurrence_rule_form.weekdays_for_weekly.errors %} border-red-500{% endif %}"
+                        {% if recurrence_rule_form.weekdays_for_weekly.field.disabled %} disabled {% endif %}>
                     {% for choice_value, choice_label in recurrence_rule_form.fields.weekdays_for_weekly.widget.choices %}
                         <option value="{{ choice_value }}"
                                 {% if not recurrence_rule_form.data|is_empty %} {% if choice_value in recurrence_rule_form.data|get_int_list:'weekdays_for_weekly' %}selected{% endif %}
