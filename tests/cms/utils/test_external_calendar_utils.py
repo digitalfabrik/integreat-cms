@@ -22,6 +22,14 @@ INVALID_CALENDARS = [
         "tests/cms/utils/assets/calendars/invalid_recurrence_rule_bymonthday.ics",
         r"Month day of recurrence rule does not match month day of event: 3 and 1",
     ),
+    (
+        "tests/cms/utils/assets/calendars/invalid_recurrence_rule_conflicting_byday_and_bysetpos.ics",
+        r"Conflicting `BYSETPOS` and `BYDAY`: 3 and \['2WE'\]",
+    ),
+    (
+        "tests/cms/utils/assets/calendars/invalid_recurrence_rule_multiple_byday_frequencies.ics",
+        r"Cannot support multiple days with frequency right now: \['2WE', '3TH'\]",
+    ),
 ]
 
 

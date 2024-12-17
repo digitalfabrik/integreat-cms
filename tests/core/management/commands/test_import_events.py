@@ -55,12 +55,14 @@ CALENDARS = [
             "Every second day",
             "Weekly event",
             "Every year until 2034",
+            "Every 3rd Wednesday",
         ],
         {
             "DTSTART:20241112T230000\nRRULE:FREQ=MONTHLY;BYDAY=+1MO",
             "DTSTART:20241113T130002\nRRULE:FREQ=DAILY;INTERVAL=2",
             "DTSTART:20241113T190000\nRRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR",
             "DTSTART:20241112T230000\nRRULE:FREQ=YEARLY;UNTIL=20341112T235959",
+            "DTSTART:20241112T230000\nRRULE:FREQ=MONTHLY;BYDAY=+3WE",
         },
     ),
     (
