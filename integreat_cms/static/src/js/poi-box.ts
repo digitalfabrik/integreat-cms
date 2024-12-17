@@ -156,7 +156,7 @@ const removePoi = () => {
     // Clear the poi form
     hidePoiFormWidget();
     console.debug("Removed POI data");
-    document.getElementById("poi-address-container").getElementsByTagName("input")[0].value = "-1";
+    (document.getElementById("id_location") as HTMLInputElement).value = "-1";
     document.getElementById("info-location-mandatory")?.classList.remove("hidden");
 };
 
