@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 import logging
 from typing import TYPE_CHECKING
 
@@ -81,14 +82,6 @@ class POI(AbstractContentModel):
         verbose_name=_("archived"),
         help_text=_("Whether or not the location is read-only and hidden in the API."),
     )
-    website = models.URLField(max_length=250, blank=True, verbose_name=_("website"))
-    email = models.EmailField(
-        blank=True,
-        verbose_name=_("email address"),
-    )
-    phone_number = models.CharField(
-        max_length=250, blank=True, verbose_name=_("phone number")
-    )
     category = models.ForeignKey(
         POICategory,
         on_delete=models.PROTECT,
@@ -148,6 +141,20 @@ class POI(AbstractContentModel):
         :return: The class of translations
         """
         return POITranslation
+
+    @property
+    def get_primary_contact(self) -> None:
+        """
+        Returns the primary contact from Contact
+        """
+        contact_module = importlib.import_module("Contact")
+
+        primary_contact = contact_module.objects.filter(
+            location=self,
+            point_of_contact_for="",
+            name="",
+        ).first()
+        return primary_contact
 
     def delete(self, *args: list, **kwargs: dict) -> bool:
         r"""
