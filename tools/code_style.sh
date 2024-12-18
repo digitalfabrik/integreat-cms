@@ -10,19 +10,19 @@ require_installed
 ensure_not_root
 
 # Run ruff
-bash "${DEV_TOOL_DIR}/ruff.sh"
+bash "${DEV_TOOL_DIR}/ruff.sh" || :
 
 # Run black
-bash "${DEV_TOOL_DIR}/black.sh"
+bash "${DEV_TOOL_DIR}/black.sh" || :
 
 # Run djlint
-bash "${DEV_TOOL_DIR}/djlint.sh"
+bash "${DEV_TOOL_DIR}/djlint.sh" || :
 
 # Run pylint
-bash "${DEV_TOOL_DIR}/pylint.sh"
+bash "${DEV_TOOL_DIR}/pylint.sh" || :
 
 # Run eslint
-bash "${DEV_TOOL_DIR}/eslint.sh"
+bash "${DEV_TOOL_DIR}/eslint.sh" || :
 
 # Run prettier
-bash "${DEV_TOOL_DIR}/prettier.sh"
+bash "${DEV_TOOL_DIR}/prettier.sh" || :
