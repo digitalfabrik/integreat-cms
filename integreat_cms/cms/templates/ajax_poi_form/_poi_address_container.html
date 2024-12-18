@@ -18,11 +18,11 @@
             {{ poi.country }}
         {% endif %}
     </div>
-    <a href="https://www.google.com/maps/search/?api=1&query={% if poi %}{{ poi.address }},{{ poi.city }},{{ poi.country }}{% endif %}"
+    <a href="{{ poi.map_url }}"
        class="text-blue-500 hover:underline"
        target="_blank"
        rel="noopener noreferrer">
-        {% translate "Open on Google Maps" %}
+        {% translate "Open on Maps" %}
     </a>
     <label class="secondary">
         {% translate "Contact details" %}
