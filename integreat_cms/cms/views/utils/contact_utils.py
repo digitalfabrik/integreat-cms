@@ -54,7 +54,7 @@ def search_contact_ajax(
         {
             "data": [
                 {
-                    "url": result.full_url,
+                    "url": result.get_absolute_url(),
                     "name": result.get_repr_short,
                 }
                 for result in results
