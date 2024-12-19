@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.db.models import Q
-from django.utils.translation import ngettext_lazy
+from django.utils.translation import gettext_lazy, ngettext_lazy
 
 from ...models import Contact
 from ...utils.stringify_list import iter_to_string
@@ -52,8 +52,22 @@ class ArchiveContactBulkAction(ContactBulkAction):
         archive_successful = []
 
         for content_object in self.get_queryset():
-            content_object.archive()
-            archive_successful.append(content_object)
+            if not (
+                content_object.referring_page_translations
+                or content_object.referring_poi_translations
+                or content_object.referring_event_translations
+            ):
+                content_object.archive()
+                archive_successful.append(content_object)
+            else:
+                messages.error(
+                    request,
+                    gettext_lazy(
+                        'Cannot archive contact "{0}" while content objects refer to it.'
+                    ).format(
+                        content_object,
+                    ),
+                )
 
         if archive_successful:
             messages.success(
@@ -132,8 +146,22 @@ class DeleteContactBulkAction(ContactBulkAction):
         """
         delete_sucessful = []
         for content_object in self.get_queryset():
-            content_object.delete()
-            delete_sucessful.append(content_object)
+            if not (
+                content_object.referring_page_translations
+                or content_object.referring_poi_translations
+                or content_object.referring_event_translations
+            ):
+                content_object.delete()
+                delete_sucessful.append(content_object)
+            else:
+                messages.error(
+                    request,
+                    gettext_lazy(
+                        'Cannot delete contact "{0}" while content objects refer to it.'
+                    ).format(
+                        content_object,
+                    ),
+                )
 
         if delete_sucessful:
             messages.success(
