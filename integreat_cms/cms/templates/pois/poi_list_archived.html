@@ -34,7 +34,9 @@
             <thead>
                 <tr class="border-b border-gray-200">
                     <th class="py-3 pl-4 pr-2 min">
-                        <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
+                        {% if perms.cms.change_poi %}
+                            <input form="bulk-action-form" type="checkbox" id="bulk-select-all" />
+                        {% endif %}
                     </th>
                     <th class="text-sm text-left uppercase py-3 pr-2">
                         {% translate "Title in" %} {{ language.translated_name }}
