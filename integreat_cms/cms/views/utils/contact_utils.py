@@ -7,6 +7,7 @@ from typing import TYPE_CHECKING
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 from django.views.decorators.http import require_POST
 
 from ...decorators import permission_required
@@ -37,8 +38,6 @@ def search_contact_ajax(
     :raises ~django.core.exceptions.PermissionDenied: If the user has no permission to the object type
     :return: Json object containing all matching elements, of shape {title: str, url: str, type: str}
     """
-    # pylint: disable=unused-argument
-
     body = json.loads(request.body.decode("utf-8"))
     if (query := body["query_string"]) is None:
         return JsonResponse({"data": []})
@@ -54,7 +53,10 @@ def search_contact_ajax(
         {
             "data": [
                 {
-                    "url": result.get_absolute_url(),
+                    "url": reverse(
+                        "get_contact",
+                        kwargs={"contact_id": result.id, "region_slug": region_slug},
+                    ),
                     "name": result.get_repr_short,
                 }
                 for result in results

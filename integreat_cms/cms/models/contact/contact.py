@@ -257,18 +257,6 @@ class Contact(AbstractBaseModel):
         self.point_of_contact_for = self.point_of_contact_for + " " + _("(Copy)")
         self.save()
 
-    def get_absolute_url(self) -> str:
-        """
-        Returns the absolute url to this contact:
-
-        For example::
-
-            /region_slug/contact/1
-
-        :return: The absolute url to this contact
-        """
-        return f"/{self.location.region.slug}/contact/{self.id}/"
-
     @cached_property
     def full_url(self) -> str:
         """
@@ -276,8 +264,7 @@ class Contact(AbstractBaseModel):
 
         :return: The full url
         """
-        absolute_url = self.get_absolute_url()
-        return f"{settings.BASE_URL}{absolute_url}"
+        return f"{settings.BASE_URL}/{self.location.region.slug}/contact/{self.id}/"
 
     class Meta:
         verbose_name = _("contact")
