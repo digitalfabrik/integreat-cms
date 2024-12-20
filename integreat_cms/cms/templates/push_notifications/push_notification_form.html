@@ -30,6 +30,8 @@
                     {% if perms.cms.change_pushnotification and not not_accessible_regions_warning %}
                         {% if push_notification_form.is_template.value %}
                             {# BUTTONS FOR NEWS TEMPLATES #}
+                            <a href="{% url 'push_notifications_templates' region_slug=request.region.slug language_slug=language.slug %}"
+                               class="btn btn-ghost">{% translate "Cancel" %}</a>
                             <button name="submit_draft" class="btn btn-outline">
                                 {% if push_notification_form.instance.id %}
                                     {% translate "Update template" %}
@@ -42,6 +44,8 @@
                             </button>
                         {% else %}
                             {# BUTTONS FOR NEWS #}
+                            <a href="{% url 'push_notifications' region_slug=request.region.slug %}"
+                               class="btn btn-ghost">{% translate "Cancel" %}</a>
                             <button name="submit_draft" class="btn btn-outline">
                                 {% translate "Save as draft" %}
                             </button>

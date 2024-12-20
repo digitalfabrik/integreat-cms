@@ -42,6 +42,8 @@
                 {% endif %}
                 {% if perms.cms.change_organization %}
                     <div class="flex flex-wrap gap-4">
+                        <a href="{% url 'organizations' region_slug=request.region.slug %}"
+                           class="btn btn-ghost">{% translate "Cancel" %}</a>
                         {% if form.instance.id %}
                             <button class="btn">
                                 {% translate "Update" %}
