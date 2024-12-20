@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import importlib
 import logging
 from typing import TYPE_CHECKING
 
@@ -140,20 +139,6 @@ class POI(AbstractContentModel):
         :return: The class of translations
         """
         return POITranslation
-
-    @property
-    def get_primary_contact(self) -> None:
-        """
-        Returns the primary contact from Contact
-        """
-        contact_module = importlib.import_module("Contact")
-
-        primary_contact = contact_module.objects.filter(
-            location=self,
-            point_of_contact_for="",
-            name="",
-        ).first()
-        return primary_contact
 
     def delete(self, *args: list, **kwargs: dict) -> bool:
         r"""
