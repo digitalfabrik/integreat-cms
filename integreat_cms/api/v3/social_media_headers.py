@@ -40,13 +40,19 @@ logger = logging.getLogger(__name__)
 
 def get_excerpt(content: str) -> str:
     """
-    Correctly escapes, truncates and normalizes the content of the page to display in a search result
+    Correctly escapes, truncates and normalizes the content of the page to display in a search result.
+    Then apply some crazy string operations to handle several edge cases.
 
     :param content: The content of the page
 
     :return: A page excerpt containing the first 100 characters of "raw" content
     """
-    return unescape(strip_tags(content))[:100].replace("\n", " ").replace("\r", "")
+    stripped_content = unescape(
+        strip_tags(content.replace("\n", " ").replace("\r", "").replace("<br>", " "))
+    )
+    if len(stripped_content) <= 100:
+        return stripped_content.strip().replace("  ", " ")
+    return stripped_content[:100].strip().rsplit(' ', 1)[0]+" ..."
 
 
 def get_region_title(region: Region, page_title: str) -> str:
