@@ -334,9 +334,9 @@ RESPONSE
          ],
          "icon": String | null,          // the url to the icon for this location
          "thumbnail": String | null,     // The thumbnail url for this location
-         "website": String | null,       // The website for this location
-         "email": String | null,         // The email for this location
-         "phone_number": String | null,  // The phone number for this location
+         "website": String | null,       // The website for this location if primary_contact exists
+         "email": String | null,         // The email for this location if primary_contact exists
+         "phone_number": String | null,  // The phone number for this location if primary_contact exists
          "category": {                   // The category of this location
             "id": Number,                // The id of the category
             "name": String,              // The translated name of the category
