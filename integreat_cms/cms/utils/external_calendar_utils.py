@@ -29,6 +29,15 @@ from integreat_cms.cms.utils.content_utils import clean_content
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True)
+class ImportResult:
+    """
+    Datatype for the result of `import_event`
+    """
+
+    number_of_errors: int
+
+
+@dataclasses.dataclass(frozen=True, kw_only=True)
 class IcalEventData:
     # pylint: disable=too-many-instance-attributes
     """
@@ -302,12 +311,13 @@ class RecurrenceRuleData:
         return weekdays
 
 
-def import_events(calendar: ExternalCalendar, logger: logging.Logger) -> None:
+def import_events(calendar: ExternalCalendar, logger: logging.Logger) -> ImportResult:
     """
     Imports events from this calendar and sets or clears the errors field of the calendar
 
     :param calendar: The external calendar
     :param logger: The logger to use
+    :return: the result of the import (count of errors and successes).
     """
 
     errors: list[str] = []
@@ -319,7 +329,7 @@ def import_events(calendar: ExternalCalendar, logger: logging.Logger) -> None:
     else:
         calendar.errors = ""
 
-    calendar.save()
+    return ImportResult(number_of_errors=len(errors))
 
 
 def _import_events(
