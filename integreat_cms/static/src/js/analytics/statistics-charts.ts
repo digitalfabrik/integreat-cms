@@ -29,6 +29,7 @@ let exportLabels: Array<string>;
 const updateChart = async (): Promise<void> => {
     // Get Chart instance
     const chart = Chart.instances[0];
+    (window as any).chart = chart;
 
     // Get HTML elements
     const chartNetworkError = document.getElementById("chart-network-error");

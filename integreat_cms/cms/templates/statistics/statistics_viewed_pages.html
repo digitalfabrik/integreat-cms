@@ -15,12 +15,22 @@
           data-page-accesses-url="{% url 'statistics_page_based_accesses' region_slug=request.region.slug %}">
         {% csrf_token %}
         <div class="overflow-x-auto">
+            <div id="page-accesses-network-error" class="text-red-500 px-4 hidden">
+                <i icon-name="alert-triangle"></i> {% translate "A network error has occurred." %} {% translate "Please try again later." %}
+            </div>
+            <div id="page-accesses-heavy-traffic-error"
+                 class="text-red-500 px-4 hidden">
+                <i icon-name="alert-triangle"></i> {% translate "The statistics network is currently experiencing heavy traffic." %} {% translate "Please try again later." %}
+            </div>
+            <div id="page-accesses-server-error" class="text-red-500 px-4 hidden">
+                <i icon-name="alert-triangle"></i> {% translate "A server error has occurred." %} {% translate "Please contact the administrator." %}
+            </div>
             <table class="w-full rounded border-2 border-solid border-gray-200 shadow bg-white table-auto">
                 <thead>
                     <tr class="border-b border-solid border-gray-200">
                         {% include "pages/_generic_page_tree.html" %}
                         <th class="text-sm text-left uppercase py-3 px-2">
-                            {% translate "Accesses" %} ({{ form.start_date.value|date:"d.m.Y" }} - {{ form.end_date.value|date:"d.m.Y" }})
+                            {% translate "Accesses" %} (<span id="date-range-start">{{ form.start_date.value|date:"d.m.Y" }}</span> - <span id="date-range-end">{{ form.end_date.value|date:"d.m.Y" }}</span>)
                         </th>
                     </tr>
                 </thead>
@@ -31,11 +41,16 @@
                             data-drop-position="last-child"
                             class="page-row drop drop-on border-t border-b border-solid border-gray-200 hover:bg-gray-100 level-{{ page.relative_depth }} {% if parent_id %}hidden parent-page-{{ parent_id }}{% endif %}">
                             {% include "pages/_generic_page_tree_node.html" %}
-                            <td class="flex items-stretch accesses px-2">
+                            <td class="flex items-stretch accesses px-2"
+                                data-no-data="{% translate "This page has no accesses in the selected time span" %}">
+                                <div class="page-accesses-loading px-4">
+                                    <i icon-name="loader" class="animate-spin"></i> {% translate "Loading..." %}
+                                </div>
                                 {% for language in languages %}
                                     <span data-language-color="{{ language.language_color }}"
                                           data-language-slug="{{ language.slug }}"
-                                          class="cursor-pointer bg-[{{ language.language_color }}] h-9"></span>
+                                          class="cursor-pointer bg-[{{ language.language_color }}] h-9">
+                                    </span>
                                 {% endfor %}
                             </td>
                             <td class="total-accesses font-bold ml-4"
