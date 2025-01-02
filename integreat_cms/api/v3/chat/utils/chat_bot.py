@@ -4,53 +4,41 @@ Wrapper for the Chat Bot / LLM API
 
 from __future__ import annotations
 
-import requests
+import asyncio
+
+import aiohttp
 from celery import shared_task
 from django.conf import settings
 
 from integreat_cms.cms.models import Region, UserChat
-from integreat_cms.cms.utils.content_translation_utils import (
-    get_public_translation_for_link,
-)
 
 from .zammad_api import ZammadChatAPI
 
 
-def format_message(response: dict) -> str:
+async def automatic_answer(
+    message: str, region_slug: str, language_slug: str, session: aiohttp.ClientSession
+) -> dict:
     """
-    Transform JSON into readable message
-    """
-    if "answer" not in response or not response["answer"]:
-        raise ValueError("Could not format message, no answer attribute in response")
-    if "sources" not in response or not response["sources"]:
-        return response["answer"]
-    sources = "".join(
-        [
-            f"<li><a href='{settings.WEBAPP_URL}{path}'>{title}</a></li>"
-            for path in response["sources"]
-            if (title := get_public_translation_for_link(settings.WEBAPP_URL + path))
-        ]
-    )
-    return f"{response['answer']}\n<ul>{sources}</ul>"
-
-
-def automatic_answer(message: str, region: Region, language_slug: str) -> str | None:
-    """
-    Get automatic answer to question
+    Get automatic answer to question asynchronously
     """
     url = (
         f"https://{settings.INTEGREAT_CHAT_BACK_END_DOMAIN}/chatanswers/extract_answer/"
     )
-    body = {"message": message, "language": language_slug, "region": region.slug}
-    r = requests.post(url, json=body, timeout=settings.INTEGREAT_CHAT_BACK_END_TIMEOUT)
-    return format_message(r.json())
+    body = {"message": message, "language": language_slug, "region": region_slug}
+    async with session.post(
+        url, json=body, timeout=settings.INTEGREAT_CHAT_BACK_END_TIMEOUT
+    ) as response:
+        return await response.json()
 
 
-def automatic_translation(
-    message: str, source_language_slug: str, target_language_slug: str
-) -> str:
+async def automatic_translation(
+    message: str,
+    source_language_slug: str,
+    target_language_slug: str,
+    session: aiohttp.ClientSession,
+) -> dict:
     """
-    Use LLM to translate message
+    Use LLM to translate message asynchronously
     """
     url = f"https://{settings.INTEGREAT_CHAT_BACK_END_DOMAIN}/chatanswers/translate_message/"
     body = {
@@ -58,12 +46,33 @@ def automatic_translation(
         "source_language": source_language_slug,
         "target_language": target_language_slug,
     }
-    response = requests.post(
+    async with session.post(
         url, json=body, timeout=settings.INTEGREAT_CHAT_BACK_END_TIMEOUT
-    ).json()
-    if "status" in response and response["status"] == "success":
-        return response["translation"]
-    raise ValueError("Did not receive success response for translation request.")
+    ) as response:
+        return await response.json()
+
+
+async def async_process_user_message(
+    zammad_chat_language_slug: str,
+    region_slug: str,
+    region_default_language_slug: str,
+    message_text: str,
+) -> tuple[dict, dict]:
+    """
+    Process the message from an Integreat App user
+    """
+    async with aiohttp.ClientSession() as session:
+        translation_task = automatic_translation(
+            message_text,
+            zammad_chat_language_slug,
+            region_default_language_slug,
+            session,
+        )
+        answer_task = automatic_answer(
+            message_text, region_slug, zammad_chat_language_slug, session
+        )
+        translation, answer = await asyncio.gather(translation_task, answer_task)
+        return translation, answer
 
 
 @shared_task
@@ -71,27 +80,46 @@ def process_user_message(
     message_text: str, region_slug: str, zammad_ticket_id: int
 ) -> None:
     """
-    Process the message from an Integreat App user
+    Call the async processing of the message from an Integreat App user
     """
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id)
     region = Region.objects.get(slug=region_slug)
     client = ZammadChatAPI(region)
-    if translation := automatic_translation(
-        message_text, zammad_chat.language.slug, region.default_language.slug
-    ):
+    translation, answer = asyncio.run(
+        async_process_user_message(
+            zammad_chat.language.slug,
+            region_slug,
+            region.default_language.slug,
+            message_text,
+        )
+    )
+    if translation:
         client.send_message(
             zammad_chat.zammad_id,
-            translation,
+            translation["translation"],
             True,
             True,
         )
-    if answer := automatic_answer(message_text, region, zammad_chat.language.slug):
+    if answer:
         client.send_message(
             zammad_chat.zammad_id,
-            answer,
+            answer["answer"],
             False,
             True,
         )
+
+
+async def async_process_answer(
+    message_text: str, source_language: str, target_language: str
+) -> dict:
+    """
+    Process automatic or counselor answers
+    """
+    async with aiohttp.ClientSession() as session:
+        translation_task = automatic_translation(
+            message_text, source_language, target_language, session
+        )
+        return await translation_task
 
 
 @shared_task
@@ -102,12 +130,15 @@ def process_answer(message_text: str, region_slug: str, zammad_ticket_id: int) -
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id)
     region = Region.objects.get(slug=region_slug)
     client = ZammadChatAPI(region)
-    if translation := automatic_translation(
-        message_text, region.default_language.slug, zammad_chat.language.slug
-    ):
+    translation = asyncio.run(
+        async_process_answer(
+            message_text, region.default_language.slug, zammad_chat.language.slug
+        )
+    )
+    if translation:
         client.send_message(
             zammad_chat.zammad_id,
-            translation,
+            translation["translation"],
             False,
             True,
         )
