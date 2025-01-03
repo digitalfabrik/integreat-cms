@@ -1,12 +1,11 @@
 from __future__ import annotations
 
 import logging
-import re
 
-from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 from ...models import Contact
+from ...utils.link_utils import format_phone_number
 from ..custom_model_form import CustomModelForm
 
 logger = logging.getLogger(__name__)
@@ -47,18 +46,4 @@ class ContactForm(CustomModelForm):
         :return: The reformatted phone number
         """
         phone_number = self.cleaned_data["phone_number"]
-        if not phone_number or re.fullmatch(r"^\+\d{2,3} \(0\) \d*$", phone_number):
-            return phone_number
-
-        phone_number = re.sub(r"[^0-9+]", "", phone_number)
-        prefix = settings.DEFAULT_PHONE_NUMBER_COUNTRY_CODE
-        if phone_number.startswith("00"):
-            prefix = f"+{phone_number[2:4]}"
-            phone_number = phone_number[4:]
-        elif phone_number.startswith("0"):
-            phone_number = phone_number[1:]
-        elif phone_number.startswith("+"):
-            prefix = phone_number[0:3]
-            phone_number = phone_number[3:]
-
-        return f"{prefix} (0) {phone_number}"
+        return format_phone_number(phone_number)

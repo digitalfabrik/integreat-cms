@@ -11,21 +11,27 @@
                     {% translate "Contacts" %}
                 {% endif %}
             </h1>
-            {% if is_archive %}
-                <a href="{% url 'contacts' region_slug=request.region.slug %}"
-                   class="font-bold text-sm text-gray-800 flex items-center gap-1 mb-2 hover:underline">
-                    <span><i icon-name="book-open" class="align-top h-5"></i> {% translate "Back to contacts" %}</span>
+            <div class="flex gap-4">
+                <a href="{% url 'potential_targets' region_slug=request.region.slug %}"
+                   class="font-bold text-sm text-gray-800 flex items-center gap-1 hover:underline pb-3">
+                    <i icon-name="lightbulb" class="align-baseline"></i>{% trans "Analysis of content for existing contacts" %}
                 </a>
-            {% else %}
-                <a href="{% url 'archived_contacts' region_slug=request.region.slug %}"
-                   class="font-bold text-sm text-gray-800 flex items-center pb-3 hover:underline">
-                    <span>
-                        <i icon-name="archive" class="align-top h-5"></i>
-                        {% translate "Archived contacts" %}
-                        ({{ archived_count }})
-                    </span>
-                </a>
-            {% endif %}
+                {% if is_archive %}
+                    <a href="{% url 'contacts' region_slug=request.region.slug %}"
+                       class="font-bold text-sm text-gray-800 flex items-center gap-1 pb-3 hover:underline">
+                        <span><i icon-name="book-open" class="align-top h-5"></i> {% translate "Back to contacts" %}</span>
+                    </a>
+                {% else %}
+                    <a href="{% url 'archived_contacts' region_slug=request.region.slug %}"
+                       class="font-bold text-sm text-gray-800 flex items-center pb-3 hover:underline">
+                        <span>
+                            <i icon-name="archive" class="align-top h-5"></i>
+                            {% translate "Archived contacts" %}
+                            ({{ archived_count }})
+                        </span>
+                    </a>
+                {% endif %}
+            </div>
         </div>
         <div class="flex flex-wrap justify-end gap-4">
             {% if perms.cms.change_contact and not is_archive %}

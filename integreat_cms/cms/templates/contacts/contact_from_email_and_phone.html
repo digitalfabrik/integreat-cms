@@ -1,0 +1,64 @@
+{% extends "_base.html" %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <div class="flex justify-between mb-4">
+        <h1 class="heading">
+            {% translate "Potential contact data" %}
+        </h1>
+    </div>
+    <div class="pb-4">
+        <span class="pb-4">
+            {% translate "Here is the list of E-mail addresses and phone numbers that are embedded in contents. We recommend to replace them with a contact card so they can be centrally managed and updated in the future." %}
+        </span>
+        <label>
+            {% translate "Please note that contact details need to be replaced with contact cards manually. Found details will be removed from the list below once you have replaced them with a contact card in the corresponding page, poi, or event in all languages." %}
+        </label>
+    </div>
+    <div class="pb-4">
+        <div class="pb-4">
+            <h2 class="font-bold">
+                {% translate "Pages" %}
+            </h2>
+            {% if links_per_page %}
+                {{ links_per_page|length }}{% translate " pages have potential contacts." %}
+            {% endif %}
+        </div>
+        {% for content, links, contacts in links_per_page %}
+            {% include "contacts/contact_from_email_and_phone_row.html" with collapsed=True icon="layout" button_title=_("Go to this page") %}
+        {% empty %}
+            {% translate "No E-mail address and phone number detected" %}
+        {% endfor %}
+    </div>
+    <div class="pb-4">
+        <div class="pb-4">
+            <h2 class="font-bold">
+                {% translate "Events" %}
+            </h2>
+            {% if links_per_event %}
+                {{ links_per_event|length }}{% translate " events have potential contacts." %}
+            {% endif %}
+        </div>
+        {% for content, links, contacts in links_per_event %}
+            {% include "contacts/contact_from_email_and_phone_row.html" with collapsed=True icon="calendar" button_title=_("Go to this event") %}
+        {% empty %}
+            {% translate "No E-mail address and phone number detected" %}
+        {% endfor %}
+    </div>
+    <div class="pb-4">
+        <div class="pb-4">
+            <h2 class="font-bold">
+                {% translate "Locations" %}
+            </h2>
+            {% if links_per_poi %}
+                {{ links_per_poi|length }}{% translate " events have potential contacts." %}
+            {% endif %}
+        </div>
+        {% for content, links, contacts in links_per_poi %}
+            {% include "contacts/contact_from_email_and_phone_row.html" with collapsed=True icon="map-pin" button_title=_("Go to this location") %}
+        {% empty %}
+            {% translate "No E-mail address and phone number detected" %}
+        {% endfor %}
+    </div>
+    {% include "pagination.html" with chunk=contacts %}
+{% endblock content %}

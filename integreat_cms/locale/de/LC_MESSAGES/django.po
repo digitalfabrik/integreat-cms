@@ -2855,8 +2855,8 @@ msgid ""
 "One of the following fields must be filled: area of responsibility, name, e-"
 "mail, phone number, website."
 msgstr ""
-"Eines der folgenden Felder muss ausgefüllt werden: Zuständigkeitsbereich, Name, "
-"E-Mail, Telefonnummer, Website."
+"Eines der folgenden Felder muss ausgefüllt werden: Zuständigkeitsbereich, "
+"Name, E-Mail, Telefonnummer, Website."
 
 #: cms/models/events/event.py
 msgid "start"
@@ -3104,6 +3104,7 @@ msgstr "Impressums-Feedback"
 
 #: cms/models/feedback/map_feedback.py cms/models/regions/region.py
 #: cms/templates/_base.html cms/templates/contacts/contact_form.html
+#: cms/templates/contacts/contact_from_email_and_phone.html
 #: cms/templates/organizations/organization_form.html
 #: cms/templates/pois/poi_list.html
 msgid "Locations"
@@ -4244,12 +4245,14 @@ msgstr "verbrauchtes Budget"
 
 #: cms/models/regions/region.py cms/templates/_base.html
 #: cms/templates/contacts/contact_form.html
+#: cms/templates/contacts/contact_from_email_and_phone.html
 #: cms/templates/organizations/organization_form.html
 msgid "Pages"
 msgstr "Seiten"
 
 #: cms/models/regions/region.py cms/templates/_base.html
 #: cms/templates/contacts/contact_form.html
+#: cms/templates/contacts/contact_from_email_and_phone.html
 #: cms/templates/events/event_list.html
 msgid "Events"
 msgstr "Veranstaltungen"
@@ -4895,8 +4898,7 @@ msgstr "Kontaktperson"
 
 #: cms/templates/_tinymce_config.html
 msgid "Please select at least one detail before inserting the contact."
-msgstr ""
-"Bitte wählen Sie mindestens ein Detail aus, um den Kontakt einzufügen."
+msgstr "Bitte wählen Sie mindestens ein Detail aus, um den Kontakt einzufügen."
 
 #: cms/templates/_tinymce_config.html
 msgid "Contact..."
@@ -5436,9 +5438,75 @@ msgstr "Kontakt löschen"
 msgid "Deletion not possible"
 msgstr "Löschen nicht möglich"
 
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid "Potential contact data"
+msgstr "Mögliche Kontaktdaten"
+
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid ""
+"Here is the list of E-mail addresses and phone numbers that are embedded in "
+"contents. We recommend to replace them with a contact card so they can be "
+"centrally managed and updated in the future."
+msgstr ""
+"Hier ist die Liste der E-Mail-Adressen und Telefonnummern, die in Inhalten "
+"eingebettet sind. Wir empfehlen, diese durch eine Kontaktkarte zu ersetzen, "
+"damit sie künftig zentral verwaltet und aktualisiert werden können."
+
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid ""
+"Please note that contact details need to be replaced with contact cards "
+"manually. Found details will be removed from the list below once you have "
+"replaced them with a contact card in the corresponding page, poi, or event "
+"in all languages."
+msgstr "Bitte beachten Sie, dass Kontaktdaten manuell durch Kontaktkarten ersetzt werden müssen. Gefundene Details werden aus der Liste unten entfernt, sobald Sie sie durch eine Kontaktkarte auf der entsprechenden Seite, Ort oder Veranstaltung in allen Sprachen ersetzt haben."
+
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid " pages have potential contacts."
+msgstr " Seiten haben mögliche Kontakte."
+
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid "Go to this page"
+msgstr "Zur Seite"
+
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid "No E-mail address and phone number detected"
+msgstr "Keine E-Mail-Ad­res­se und Te­le­fon­num­mer gefunden."
+
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid " events have potential contacts."
+msgstr " Veranstaltungen haben mögliche Kontakte."
+
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid "Go to this event"
+msgstr "Zur Veranstaltung"
+
+#: cms/templates/contacts/contact_from_email_and_phone.html
+msgid "Go to this location"
+msgstr "Zum Ort"
+
+#: cms/templates/contacts/contact_from_email_and_phone_row.html
+msgid "Phone numbers and emails found in the page"
+msgstr "Vorhandene Kontakte, die mit den gefundenen Details übereinstimmen"
+
+#: cms/templates/contacts/contact_from_email_and_phone_row.html
+msgid "Convert to contact"
+msgstr "Zu Kontakt konvertieren"
+
+#: cms/templates/contacts/contact_from_email_and_phone_row.html
+msgid "Existing contacts matching the found details"
+msgstr "Vorhandene Kontakte, die den gefundenen Details entsprechen"
+
+#: cms/templates/contacts/contact_from_email_and_phone_row.html
+msgid "No contact matching these details exists."
+msgstr "Es existiert kein Kontakt, der diesen Angaben entspricht."
+
 #: cms/templates/contacts/contact_list.html
 msgid "Archived Contacts"
 msgstr "Archivierte Kontakte"
+
+#: cms/templates/contacts/contact_list.html
+msgid "Analysis of content for existing contacts"
+msgstr "Inhaltsanalyse für bestehende Kontaktdaten"
 
 #: cms/templates/contacts/contact_list.html
 msgid "Back to contacts"
@@ -11439,6 +11507,9 @@ msgstr ""
 #~ msgid "Event does not come from an external calendar"
 #~ msgstr "Veranstaltung kommt nicht aus einem externen Kalender"
 
+#~ msgid "There is no page yet."
+#~ msgstr "Es gibt keinen Seiteninhalt."
+
 #~ msgid "Invalid links"
 #~ msgstr "Ungültige Links"
 
@@ -11978,9 +12049,6 @@ msgstr ""
 
 #~ msgid "Status message"
 #~ msgstr "Status-Nachricht"
-
-#~ msgid "There is no page yet."
-#~ msgstr "Es gibt keinen Seiteninhalt."
 
 #~ msgid "Current machine translation"
 #~ msgstr "Die Übersetzung ist aktuell und wurde maschinell erzeugt"

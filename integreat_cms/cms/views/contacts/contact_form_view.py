@@ -16,7 +16,7 @@ from .contact_context_mixin import ContactContextMixin
 if TYPE_CHECKING:
     from typing import Any
 
-    from django.http import HttpRequest, HttpResponse
+    from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 
 
 @method_decorator(permission_required("cms.view_contact"), name="dispatch")
@@ -38,6 +38,7 @@ class ContactFormView(TemplateView, ContactContextMixin):
         :param \**kwargs: The supplied keyword arguments
         :return: The rendered template response
         """
+        link = request.GET.get("link", None)
         region = request.region
         contact_instance = Contact.objects.filter(
             id=kwargs.get("contact_id"),
@@ -112,6 +113,12 @@ class ContactFormView(TemplateView, ContactContextMixin):
             else None
         )
 
+        if link:
+            if "@" in link:
+                contact_form.fields["email"].initial = link
+            else:
+                contact_form.fields["phone_number"].initial = "+" + link.strip()
+
         return render(
             request,
             self.template_name,
@@ -126,7 +133,9 @@ class ContactFormView(TemplateView, ContactContextMixin):
             },
         )
 
-    def post(self, request: HttpRequest, **kwargs: Any) -> HttpResponse:
+    def post(
+        self, request: HttpRequest, **kwargs: Any
+    ) -> HttpResponseRedirect | HttpResponse:
         r"""
         Save contact and ender contact form for HTTP POST requests
 
@@ -136,6 +145,7 @@ class ContactFormView(TemplateView, ContactContextMixin):
 
         :return: The rendered template response
         """
+        link = request.GET.get("link", None)
         region = request.region
 
         contact_instance = Contact.objects.filter(
@@ -167,6 +177,13 @@ class ContactFormView(TemplateView, ContactContextMixin):
                     _('Contact for "{}" was successfully saved').format(
                         contact_form.instance,
                     ),
+                )
+            if link:
+                return redirect(
+                    "potential_targets",
+                    **{
+                        "region_slug": region.slug,
+                    },
                 )
             return redirect(
                 "edit_contact",
