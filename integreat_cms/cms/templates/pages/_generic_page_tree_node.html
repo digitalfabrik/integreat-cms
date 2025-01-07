@@ -17,8 +17,8 @@
             <span data-drag-id="{{ page.id }}"
                   data-node-descendants="{{ page|get_descendant_ids }}"
                   class="drag cursor-move text-gray-800 inline-block pl-4 align-middle"
-                  draggable="{% if can_edit_pages and not is_archive %}true{% else %}false{% endif %}"
-                  title="{% if not is_archive %}{% translate "Change the order and position of the pages with drag & drop." %}{% else %}{% translate "Drag & drop is disabled for archived pages." %}{% endif %}">
+                  draggable="{% if can_edit_pages and not is_archive and not is_statistics %}true{% else %}false{% endif %}"
+                  title="{% if not is_archive and not is_statistics %}{% translate "Change the order and position of the pages with drag & drop." %}{% else %}{% translate "Drag & drop is disabled for archived pages and statistics." %}{% endif %}">
                 {% if can_edit_pages %}
                     <i icon-name="move"></i>
                 {% endif %}

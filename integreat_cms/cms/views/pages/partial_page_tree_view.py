@@ -18,7 +18,11 @@ from ..pages.page_context_mixin import PageContextMixin
 @require_POST
 # pylint: disable=unused-argument, too-many-locals
 def render_partial_page_tree_views(
-    request: HttpRequest, region_slug: str, language_slug: str, is_archive: str
+    request: HttpRequest,
+    region_slug: str,
+    language_slug: str,
+    is_archive: str,
+    is_statistics: str,
 ) -> JsonResponse:
     r"""
     Retrieve the rendered subtree of a given root page
@@ -36,6 +40,9 @@ def render_partial_page_tree_views(
 
     # Convert is_archive from String to Boolean
     is_archive = literal_eval(is_archive)
+
+    # Convert is_statistics from String to Boolean
+    is_statistics = literal_eval(is_statistics)
 
     backend_language = Language.objects.filter(slug=get_language()).first()
 

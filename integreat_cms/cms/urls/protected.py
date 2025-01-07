@@ -651,9 +651,16 @@ urlpatterns: list[URLPattern] = [
                                                         include(
                                                             [
                                                                 path(
-                                                                    "partial-page-tree/",
-                                                                    pages.render_partial_page_tree_views,
-                                                                    name="get_page_tree_ajax",
+                                                                    "<is_statistics>/",
+                                                                    include(
+                                                                        [
+                                                                            path(
+                                                                                "partial-page-tree/",
+                                                                                pages.render_partial_page_tree_views,
+                                                                                name="get_page_tree_ajax",
+                                                                            ),
+                                                                        ]
+                                                                    ),
                                                                 ),
                                                             ]
                                                         ),

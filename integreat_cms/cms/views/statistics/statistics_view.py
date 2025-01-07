@@ -67,5 +67,6 @@ class AnalyticsView(TemplateView):
                 "region": region,
                 "language": region.default_language,
                 "languages": region.active_languages,
+                "is_statistics": True,
             },
         )
