@@ -33,9 +33,7 @@ class AnalyticsView(TemplateView):
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "statistics"}
 
-    def get(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
-    ) -> HttpResponseRedirect:
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseRedirect:
         r"""
         Render statistics of access numbers tracked by Matomo
 

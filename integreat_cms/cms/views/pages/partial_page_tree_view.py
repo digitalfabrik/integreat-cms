@@ -46,12 +46,7 @@ def render_partial_page_tree_views(
 
     backend_language = Language.objects.filter(slug=get_language()).first()
 
-    all_pages = (
-        region.pages.filter(tree_id__in=requested_tree_ids)
-        .prefetch_major_translations()
-        .prefetch_related("mirroring_pages")
-        .cache_tree(archived=is_archive)
-    )
+    all_pages = region.pages.filter(tree_id__in=requested_tree_ids).prefetch_major_translations().prefetch_related("mirroring_pages").cache_tree(archived=is_archive)
 
     pages_by_id = defaultdict(list)
     for page in all_pages:
