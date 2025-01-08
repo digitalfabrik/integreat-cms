@@ -18,6 +18,13 @@
                     {% endif %}
                 </h1>
                 <div class="flex flex-wrap justify-between gap-4">
+                    {% if contact_form.instance.archived %}
+                        <a href="{% url 'archived_contacts' region_slug=request.region.slug %}"
+                           class="btn btn-ghost">{% translate "Cancel" %}</a>
+                    {% else %}
+                        <a href="{% url 'contacts' region_slug=request.region.slug %}"
+                           class="btn btn-ghost">{% translate "Cancel" %}</a>
+                    {% endif %}
                     {% if perms.cms.change_contact and not contact_form.instance.archived %}
                         <div class="flex flex-wrap gap-4">
                             <button class="btn">
