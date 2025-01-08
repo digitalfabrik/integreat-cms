@@ -74,6 +74,7 @@ def render_partial_page_tree_views(
                     "languages": region.active_languages,
                     "parent_id": parent.id,
                     "is_archive": is_archive,
+                    "is_statistics": is_statistics,
                 },
                 request,
             )

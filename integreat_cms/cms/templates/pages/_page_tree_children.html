@@ -3,7 +3,11 @@
 <table>
     <tbody>
         {% for page in pages %}
-            {% include "pages/pages_page_tree_node.html" %}
+            {%if is_statistics %}
+                {% include "statistics/statistics_viewed_pages_node.html" %}
+            {% else %}
+                {% include "pages/pages_page_tree_node.html" %}
+            {% endif %}
         {% endfor %}
     </tbody>
 </table>
