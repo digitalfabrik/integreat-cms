@@ -181,9 +181,10 @@ const exportStatisticsData = (): void => {
         downloadFile(`${filename}.png`, image);
     } else if (exportFormat.value === "csv") {
         // Convert datasets into the format [["language 1", "hits on day 1", "hits 2", ...], [["language 1", "hits on day 1", ...], ...]
-        const datasetsWithLabels: string[][] = chart.data.datasets.map((dataset) =>
-            [dataset.label].concat(dataset.data.map(String))
-        );
+        const datasets = chart.data.datasets;
+        const datasetsWithLabels: string[][] = datasets
+            .filter((dataset) => chart.isDatasetVisible(datasets.indexOf(dataset)))
+            .map((dataset) => [dataset.label].concat(dataset.data.map(String)));
         // Ensure export labels don't contain comma and corrupt CSV
         exportLabels = exportLabels.map((x) => x.replace(",", " - "));
         // Create matrix with date labels in the first row and the hits per language in the subsequent rows
