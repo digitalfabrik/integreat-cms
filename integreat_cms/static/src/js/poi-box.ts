@@ -3,11 +3,11 @@ import { getCsrfToken } from "./utils/csrf-token";
 
 type FormResponse = { success: boolean; poi_address_container: string };
 
-const toggleContactFieldBox = (show: boolean) => {
+const showContactFieldBox = () => {
     const contactFieldsBox = document.getElementById("contact_fields");
-    contactFieldsBox?.classList.toggle("hidden", !show);
+    contactFieldsBox?.classList.remove("hidden");
     const contactUsageBox = document.getElementById("contact_usage");
-    contactUsageBox?.classList.toggle("hidden", !show);
+    contactUsageBox?.classList.remove("hidden");
 };
 
 const hideSearchResults = () => {
@@ -19,7 +19,7 @@ const renderPoiData = (poiTitle: string, newPoiData: string) => {
     document.getElementById("poi-address-container").outerHTML = newPoiData;
     document.getElementById("poi-query-input").setAttribute("placeholder", poiTitle);
     hideSearchResults();
-    toggleContactFieldBox(true);
+    showContactFieldBox();
 };
 
 const hidePoiFormWidget = () => {
@@ -34,6 +34,7 @@ const setPoi = ({ target }: Event) => {
     renderPoiData(option.getAttribute("data-poi-title"), option.getAttribute("data-poi-address"));
     document.getElementById("poi-address-container")?.classList.remove("hidden");
     console.debug("Rendered POI data");
+    document.getElementById("info-location-mandatory")?.classList.add("hidden");
 };
 
 const showMessage = (response: FormResponse) => {
@@ -154,8 +155,9 @@ const removePoi = () => {
     hideSearchResults();
     // Clear the poi form
     hidePoiFormWidget();
-    toggleContactFieldBox(false);
     console.debug("Removed POI data");
+    (document.getElementById("id_location") as HTMLInputElement).value = "-1";
+    document.getElementById("info-location-mandatory")?.classList.remove("hidden");
 };
 
 let scheduledFunction: number | null = null;
@@ -207,4 +209,11 @@ window.addEventListener("load", () => {
         // event handler to reset filter form
         document.getElementById("filter-reset")?.addEventListener("click", removePoi);
     }
+
+    const contactFields = document.getElementById("contact_fields");
+    contactFields?.querySelectorAll("input").forEach((el) => {
+        if ((el as HTMLInputElement).value) {
+            showContactFieldBox();
+        }
+    });
 });

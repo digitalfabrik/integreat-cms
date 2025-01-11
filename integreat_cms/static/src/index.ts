@@ -49,7 +49,7 @@ import "./js/grids/toggle-grid-checkbox";
 import "./js/chat/send-chat-message";
 import "./js/chat/delete-chat-message";
 
-import "./js/poi_box";
+import "./js/poi-box";
 import "./js/events/conditional-fields";
 import "./js/events/auto-complete";
 
