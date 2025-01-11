@@ -31,6 +31,7 @@ def render_partial_page_tree_views(
     :param region_slug: The slug of the current region
     :param language_slug: The slug of the current language
     :param is_archive: True when only archive pages are requested, False otherwise
+    :param is_statistics: True when this page tree is for statistics, if for pages it's False
     :return: The rendered template responses
     """
     requested_tree_ids = [int(i) for i in json.loads(request.body.decode("utf-8"))]
@@ -46,7 +47,12 @@ def render_partial_page_tree_views(
 
     backend_language = Language.objects.filter(slug=get_language()).first()
 
-    all_pages = region.pages.filter(tree_id__in=requested_tree_ids).prefetch_major_translations().prefetch_related("mirroring_pages").cache_tree(archived=is_archive)
+    all_pages = (
+        region.pages.filter(tree_id__in=requested_tree_ids)
+        .prefetch_major_translations()
+        .prefetch_related("mirroring_pages")
+        .cache_tree(archived=is_archive)
+    )
 
     pages_by_id = defaultdict(list)
     for page in all_pages:

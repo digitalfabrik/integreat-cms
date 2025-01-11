@@ -25,8 +25,10 @@
             <div id="page-accesses-server-error" class="text-red-500 px-4 hidden">
                 <i icon-name="alert-triangle"></i> {% translate "A server error has occurred." %} {% translate "Please contact the administrator." %}
             </div>
-            <table data-delay-event-handlers data-activate-tree-drag-drop data-descendants-url={% url 'get_page_tree_ajax' region_slug=request.region.slug language_slug=language.slug is_archive=False is_statistics=is_statistics %}
-                class="w-full rounded border-2 border-solid border-gray-200 shadow bg-white table-auto">
+            <table data-delay-event-handlers
+                   data-activate-tree-drag-drop
+                   data-descendants-url="{% url 'get_page_tree_ajax' region_slug=request.region.slug language_slug=language.slug is_archive=False is_statistics=is_statistics %}"
+                   class="w-full rounded border-2 border-solid border-gray-200 shadow bg-white table-auto">
                 <thead>
                     <tr class="border-b border-solid border-gray-200">
                         {% include "pages/_generic_page_tree.html" %}
@@ -37,7 +39,7 @@
                 </thead>
                 <tbody>
                     {% for page in pages %}
-                        {% include "statistics/statistics_viewed_pages_node.html" with is_archive=is_archive%}
+                        {% include "statistics/statistics_viewed_pages_node.html" with is_archive=is_archive %}
                     {% endfor %}
                 </tbody>
             </table>
