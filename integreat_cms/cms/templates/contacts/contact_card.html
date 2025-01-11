@@ -3,12 +3,12 @@
 {% spaceless %}
     <div contenteditable="false"
          data-contact-id="{{ contact.pk }}"
-         data-contact-url="{{ contact.full_url }}"
+         data-contact-url="{{ contact.absolute_url }}"
          class="contact-card notranslate"
          dir="ltr"
          translate="no">
         {# djlint:off H021 #}
-        <a href="{{ contact.full_url }}" style="display: none">Contact</a>
+        <a href="{{ contact.absolute_url }}" style="display: none">Contact</a>
         {# djlint:on #}
         {% if contact %}
             {% if contact.name or contact.point_of_contact_for %}

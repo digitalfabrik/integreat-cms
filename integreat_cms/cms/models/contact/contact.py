@@ -182,7 +182,7 @@ class Contact(AbstractBaseModel):
         return PageTranslation.objects.filter(
             id__in=(
                 Link.objects.filter(
-                    url__url=self.full_url,
+                    url__url=self.absolute_url,
                     content_type=PageTranslationLinklist.content_type(),
                 ).values("object_id")
             ),
@@ -200,7 +200,7 @@ class Contact(AbstractBaseModel):
         return POITranslation.objects.filter(
             id__in=(
                 Link.objects.filter(
-                    url__url=self.full_url,
+                    url__url=self.absolute_url,
                     content_type=POITranslationLinklist.content_type(),
                 ).values("object_id")
             ),
@@ -218,7 +218,7 @@ class Contact(AbstractBaseModel):
         return EventTranslation.objects.filter(
             id__in=(
                 Link.objects.filter(
-                    url__url=self.full_url,
+                    url__url=self.absolute_url,
                     content_type=EventTranslationLinklist.content_type(),
                 ).values("object_id")
             ),
@@ -232,7 +232,8 @@ class Contact(AbstractBaseModel):
         :return: all objects referring to this contact
         """
         return (
-            link.content_object for link in Link.objects.filter(url__url=self.full_url)
+            link.content_object
+            for link in Link.objects.filter(url__url=self.absolute_url)
         )
 
     def archive(self) -> None:
@@ -258,13 +259,13 @@ class Contact(AbstractBaseModel):
         self.save()
 
     @cached_property
-    def full_url(self) -> str:
+    def absolute_url(self) -> str:
         """
-        This property returns the full url of this contact
+        This property returns the absolute url of this contact
 
         :return: The full url
         """
-        return f"{settings.BASE_URL}/{self.location.region.slug}/contact/{self.id}/"
+        return f"/{self.location.region.slug}/contact/{self.id}/"
 
     class Meta:
         verbose_name = _("contact")

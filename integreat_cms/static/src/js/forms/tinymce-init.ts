@@ -106,7 +106,7 @@ window.addEventListener("load", () => {
             link_target_list: false,
             link_default_target: "",
             document_base_url: tinymceConfig.getAttribute("data-webapp-url"),
-            relative_urls: false,
+            convert_urls: false,
             remove_script_host: false,
             branding: false,
             paste_as_text: true,
