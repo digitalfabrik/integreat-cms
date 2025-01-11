@@ -33,7 +33,9 @@ class AnalyticsView(TemplateView):
     #: The context dict passed to the template (see :class:`~django.views.generic.base.ContextMixin`)
     extra_context = {"current_menu_item": "statistics"}
 
-    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponseRedirect:
+    def get(
+        self, request: HttpRequest, *args: Any, **kwargs: Any
+    ) -> HttpResponseRedirect:
         r"""
         Render statistics of access numbers tracked by Matomo
 
@@ -58,7 +60,11 @@ class AnalyticsView(TemplateView):
         page_queryset = region.pages.filter(lft=1)
 
         # Cache tree structure to reduce database queries
-        pages = page_queryset.prefetch_major_translations().prefetch_related("mirroring_pages").cache_tree(archived=False)
+        pages = (
+            page_queryset.prefetch_major_translations()
+            .prefetch_related("mirroring_pages")
+            .cache_tree(archived=False)
+        )
 
         return render(
             request,
