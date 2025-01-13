@@ -380,6 +380,7 @@ def import_events(calendar: ExternalCalendar, logger: logging.Logger) -> ImportR
     else:
         calendar.errors = ""
 
+    calendar.save()
     return ImportResult(number_of_errors=len(errors))
 
 
