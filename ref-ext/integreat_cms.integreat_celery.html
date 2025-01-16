@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2024-12-04T10:41:41+00:00" />
+    <meta property="article:modified_time" content="2025-01-16T13:19:52+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Integreat Celery &mdash; integreat-cms 2024.12.1 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -1260,7 +1260,10 @@
 <li class="toctree-l4"><a class="reference internal" href="#integreat_cms.integreat_celery.apps.IntegreatCeleryConfig"><code class="docutils literal notranslate"><span class="pre">IntegreatCeleryConfig</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#module-integreat_cms.integreat_celery.celery">Celery</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-integreat_cms.integreat_celery.celery">Celery</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#integreat_cms.integreat_celery.celery.setup_periodic_tasks"><code class="docutils literal notranslate"><span class="pre">setup_periodic_tasks()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="integreat_cms.matomo_api.html">Matomo API</a><ul>
@@ -2174,6 +2177,23 @@ Keyword arguments aren’t documented; they’re a private API.</p>
 <section id="module-integreat_cms.integreat_celery.celery">
 <span id="celery"></span><h2>Celery<a class="headerlink" href="#module-integreat_cms.integreat_celery.celery" title="Link to this heading"></a></h2>
 <p>Celery worker</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="integreat_cms.integreat_celery.celery.setup_periodic_tasks">
+<span class="sig-prename descclassname"><span class="pre">integreat_cms.integreat_celery.celery.</span></span><span class="sig-name descname"><span class="pre">setup_periodic_tasks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sender</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/integreat_cms/integreat_celery/celery.py#L47"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#integreat_cms.integreat_celery.celery.setup_periodic_tasks" title="Link to this definition"></a></dt>
+<dd><p>Set up a periodic job to import evens from the external calendars at 0:23 every day</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sender</strong> (<em>Any</em>)</p></li>
+<li><p><strong>kwargs</strong> (<em>Any</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 
@@ -2192,7 +2212,7 @@ Keyword arguments aren’t documented; they’re a private API.</p>
         | <a href="https://integreat-app.de/" target="_blank">Website</a>
         | <a href="https://integreat.app/" target="_blank">Web-App</a>
         | <a href="https://github.com/digitalfabrik/" target="_blank">GitHub</a>
-      <span class="lastupdated">Last updated on Dec 04, 2024.
+      <span class="lastupdated">Last updated on Jan 16, 2025.
       </span></p>
   </div>
 
