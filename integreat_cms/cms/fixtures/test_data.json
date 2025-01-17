@@ -1035,6 +1035,21 @@
     }
   },
   {
+    "model": "cms.contact",
+    "pk": 5,
+    "fields": {
+      "point_of_contact_for": "Testkontakt",
+      "name": "referred to in a page",
+      "location": 6,
+      "email": "",
+      "phone_number": "",
+      "website": "",
+      "archived": false,
+      "last_updated": "2025-01-08T13:53:31.813Z",
+      "created_date": "2025-01-08T13:53:31.806Z"
+    }
+  },
+  {
     "model": "cms.recurrencerule",
     "pk": 1,
     "fields": {
@@ -2305,6 +2320,22 @@
     }
   },
   {
+    "model": "linkcheck.url",
+    "pk": 21,
+    "fields": {
+      "url": "/augsburg/contact/5/",
+      "last_checked": "2025-01-08T13:54:42.851Z",
+      "anchor_status": null,
+      "ssl_status": null,
+      "status": true,
+      "status_code": 200,
+      "redirect_status_code": null,
+      "message": "",
+      "error_message": "",
+      "redirect_to": ""
+    }
+  },
+  {
     "model": "linkcheck.link",
     "pk": 1,
     "fields": {
@@ -2757,6 +2788,18 @@
       "field": "content",
       "url": 20,
       "text": "External invalid link",
+      "ignore": false
+    }
+  },
+  {
+    "model": "linkcheck.link",
+    "pk": 40,
+    "fields": {
+      "content_type": ["cms", "pagetranslation"],
+      "object_id": 101,
+      "field": "content",
+      "url": 21,
+      "text": "Contact",
       "ignore": false
     }
   },
@@ -3442,6 +3485,29 @@
       "icon": null,
       "mirrored_page": 6,
       "mirrored_page_first": false,
+      "organization": null,
+      "api_token": "",
+      "hix_ignore": false,
+      "authors": [],
+      "editors": [],
+      "embedded_offers": []
+    }
+  },
+  {
+    "model": "cms.page",
+    "pk": 31,
+    "fields": {
+      "created_date": "2025-01-11T07:07:46.585Z",
+      "lft": 1,
+      "rgt": 2,
+      "tree_id": 11,
+      "depth": 1,
+      "parent": null,
+      "region": 1,
+      "explicitly_archived": false,
+      "icon": null,
+      "mirrored_page": null,
+      "mirrored_page_first": true,
       "organization": null,
       "api_token": "",
       "hix_ignore": false,
@@ -4262,7 +4328,7 @@
       "title": "Gesundheitsamt",
       "slug": "gesundheitsamt",
       "status": "PUBLIC",
-      "content": "<div><p><strong>Leistungen des Gesundheitsamtes:</strong></p>\r\n<ul>\r\n<li>Beratung zur Gesundheitsfragen</li>\r\n<li>Beratung für Menschen, die an einer psychischen Krankheit leiden</li>\r\n<li>Kontaktstelle für Selbsthilfegruppen Infos auch unter:<br><a href=\"https://www.augsburg.de/umwelt-soziales/gesundheit/selbsthilfegruppen\">www.augsburg.de/selbsthilfe-schwaben</a></li>\r\n<li>Beratung für Schwangere</li>\r\n<li>Impfberatung</li>\r\n<li>Belehrung nach Infektionsschutzgesetz  § 43 (Lebensmittelbelehrung, Gesundheitszeugnis)</li>\r\n<li>Untersuchung für Kinder, bevor sie in die Schule gehen können (Schuleingangsuntersuchung)</li>\r\n<li>Erstuntersuchung von unbegleiteten minderjährigen Ausländerinnen und Ausländern auf Veranlassung des AKJF</li>\r\n<li>Erstuntersuchung nach amtlicher Vorladung im Bereich Migration und Asyl</li>\r\n<li>Meldepflichtige Krankheiten (Tuberkulose, Gelbsucht etc.)</li>\r\n<li>Tuberkulosefürsorge</li>\r\n<li>Gesundheitsberatung und Untersuchung für Prostituierte</li>\r\n<li>anonyme AIDS-Beratung / HIV-Test</li>\r\n</ul>\r\n</div>",
+      "content": "<div><p><strong>Leistungen des Gesundheitsamtes:</strong></p>\r\n<ul>\r\n<li>Beratung zur Gesundheitsfragen</li>\r\n<li>Beratung für Menschen, die an einer psychischen Krankheit leiden</li>\r\n<li>Kontaktstelle für Selbsthilfegruppen Infos auch unter:<br><a href=\"https://www.augsburg.de/umwelt-soziales/gesundheit/selbsthilfegruppen\">www.augsburg.de/selbsthilfe-schwaben</a></li>\r\n<li>Beratung für Schwangere</li>\r\n<li>Impfberatung</li>\r\n<li>Belehrung nach Infektionsschutzgesetz § 43 (Lebensmittelbelehrung, Gesundheitszeugnis)</li>\r\n<li>Untersuchung für Kinder, bevor sie in die Schule gehen können (Schuleingangsuntersuchung)</li>\r\n<li>Erstuntersuchung von unbegleiteten minderjährigen Ausländerinnen und Ausländern auf Veranlassung des AKJF</li>\r\n<li>Erstuntersuchung nach amtlicher Vorladung im Bereich Migration und Asyl</li>\r\n<li>Meldepflichtige Krankheiten (Tuberkulose, Gelbsucht etc.)</li>\r\n<li>Tuberkulosefürsorge</li>\r\n<li>Gesundheitsberatung und Untersuchung für Prostituierte</li>\r\n<li>anonyme AIDS-Beratung / HIV-Test</li>\r\n</ul>\r\n</div>",
       "language": 1,
       "currently_in_translation": false,
       "machine_translated": false,
@@ -5553,6 +5619,27 @@
       "creator": ["root"],
       "automatic_translation": false,
       "page": 30,
+      "hix_score": null,
+      "hix_feedback": null
+    }
+  },
+  {
+    "model": "cms.pagetranslation",
+    "pk": 101,
+    "fields": {
+      "title": "Wichtige Kontakte",
+      "slug": "wichtige-kontakte",
+      "status": "PUBLIC",
+      "content": "<div class=\"contact-card notranslate\" dir=\"ltr\" contenteditable=\"false\" translate=\"no\" data-contact-id=\"5\" data-contact-url=\"http://localhost:8000/augsburg/contact/5/\"><a style=\"display: none;\" href=\"http://localhost:8000/augsburg/contact/5/\">Contact</a>\r\n<h4>referred to in a page | Testkontakt</h4>\r\n<p><img src=\"http://localhost:8000/static/svg/pin.svg\" alt=\"Address: \" width=\"15\" height=\"15\"><a href=\"https://www.google.com/maps/search/?api=1&amp;query=Viktoriastra%C3%9Fe%201,Augsburg,Deutschland\" class=\"link-external\">Viktoriastraße 1, 86150 Augsburg</a></p>\r\n</div>",
+      "language": 1,
+      "currently_in_translation": false,
+      "machine_translated": false,
+      "version": 1,
+      "minor_edit": false,
+      "last_updated": "2025-01-11T07:07:46.642Z",
+      "creator": ["root"],
+      "automatic_translation": false,
+      "page": 31,
       "hix_score": null,
       "hix_feedback": null
     }
