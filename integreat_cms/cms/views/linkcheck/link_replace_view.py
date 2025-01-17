@@ -4,9 +4,11 @@ from typing import TYPE_CHECKING
 
 from django.contrib import messages
 from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic.base import TemplateView
 
+from ...decorators import permission_required
 from ...forms import LinkReplaceForm
 
 if TYPE_CHECKING:
@@ -15,6 +17,7 @@ if TYPE_CHECKING:
     from django.http import HttpRequest, HttpResponse
 
 
+@method_decorator(permission_required("cms.view_broken_links"), name="dispatch")
 class LinkReplaceView(TemplateView):
     """
     View for link replace form
