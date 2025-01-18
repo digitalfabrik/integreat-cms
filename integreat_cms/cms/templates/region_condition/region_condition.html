@@ -1,21 +1,46 @@
 {% extends "_base.html" %}
 {% load i18n %}
 {% block content %}
-    <h1 class="heading">
-        <i icon-name="construction"></i>
-        {% translate "This page is under construction" %}
-        <i icon-name="construction"></i>
-    </h1>
-    <div class="p-8">
+    <div class="flex justify-between">
+        <h1 class="heading">
+            {% translate "Region condition" %}
+        </h1>
         <form action="{% url "export_region_conditions" file_format="csv" %}"
               method="post">
             {% csrf_token %}
             <button type="submit"
-                    title="{% translate "Download region condition CSV" %}"
+                    title="{% translate "Download region condition as CSV" %}"
                     class="btn">
-                {% translate "Download region condition CSV" %}
+                {% translate "Download as CSV" %}
                 <i icon-name="download"></i>
             </button>
         </form>
+    </div>
+    <div>
+        <table id="region-condition"
+               class="w-full mt-4 rounded border border-solid border-gray-200 shadow bg-white">
+            <thead>
+                <tr class="border-b border-solid border-gray-200">
+                    <th class="text-left py-3 pl-4 pr-2 min">
+                        {% translate "Municipality" %}
+                    </th>
+                    <th>
+                        {% translate "Number of pages" %}
+                    </th>
+                    <th>
+                        {% translate "Number of outdated pages" %}
+                    </th>
+                    <th>
+                        {% translate "Number of active languages besides default language" %}
+                    </th>
+                    <th>
+                        {% translate "Add-on for MT" %}
+                    </th>
+                </tr>
+            </thead>
+            {% for region in regions %}
+                {% include "./region_condition_row.html" %}
+            {% endfor %}
+        </table>
     </div>
 {% endblock content %}
