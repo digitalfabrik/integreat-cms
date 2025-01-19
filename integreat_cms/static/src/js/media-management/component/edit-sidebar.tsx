@@ -128,7 +128,6 @@ const EditSidebar = ({
             ...changedFile,
             isHidden: !changedFile.isHidden,
         });
-        console.log(changedFile);
     };
 
     return (
