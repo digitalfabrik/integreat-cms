@@ -1958,22 +1958,13 @@ msgstr ""
 msgid "The end of the event can't be before the start of the event"
 msgstr "Das Ende der Veranstaltung kann nicht vor ihrem Beginn sein"
 
-#: cms/forms/events/event_form.py
-msgid ""
-"The maximum duration for events is {} days. Consider using recurring events "
-"if the event is not continuous."
-msgstr ""
-"Die maximale Veranstaltungsdauer beträgt {} Tage. Verwenden Sie "
-"wiederkehrende Veranstaltungen, wenn die Veranstaltung nicht kontinuierlich "
-"stattfindet."
-
-#: cms/forms/events/recurrence_rule_form.py
-msgid "Recurrence ends"
-msgstr "Wiederholung endet"
-
 #: cms/forms/events/recurrence_rule_form.py
 msgid "No recurrence frequency selected"
 msgstr "Keine Häufigkeit der Wiederholung angegeben"
+
+#: cms/forms/events/recurrence_rule_form.py
+msgid "Recurrence \"daily\" is not allowed anymore"
+msgstr "Tägliche Wiederholung ist nicht mehr zugelassen"
 
 #: cms/forms/events/recurrence_rule_form.py
 msgid "No weekdays for weekly recurrence selected"
@@ -1986,12 +1977,6 @@ msgstr "Kein Wochentag für die monatliche Wiederholung eingegeben"
 #: cms/forms/events/recurrence_rule_form.py
 msgid "No week for monthly recurrence selected"
 msgstr "Keine Woche für die monatliche Wiederholung eingegeben"
-
-#: cms/forms/events/recurrence_rule_form.py
-msgid "If the recurrence ends, the recurrence end date is required"
-msgstr ""
-"Wenn die Wiederholung endet, ist ein End-Datum für die Wiederholung "
-"erforderlich"
 
 #: cms/forms/events/recurrence_rule_form.py
 msgid "The recurrence end date has to be after the event's start date"
@@ -2881,6 +2866,14 @@ msgstr "Beginn"
 #: cms/models/events/event.py
 msgid "end"
 msgstr "Ende"
+
+#: cms/models/events/event.py
+msgid "Only weekdays"
+msgstr "Nur Wochentags"
+
+#: cms/models/events/event.py
+msgid "Tick if this event takes place only on weekdays"
+msgstr "Kreuzen Sie an, wenn diese Veranstaltung nur wochentags stattfindet"
 
 #: cms/models/events/event.py cms/models/events/recurrence_rule.py
 msgid "recurrence rule"
@@ -6004,6 +5997,15 @@ msgstr "Fehler"
 msgid "Return back home"
 msgstr "Zurück zur Startseite"
 
+#: cms/templates/events/_event_duration_tab.html
+msgid "One-time or recurrent"
+msgstr "Einmalig oder wiederkehrend"
+
+#: cms/templates/events/_event_duration_tab.html
+#: cms/templates/events/event_list_row.html
+msgid "Long-term"
+msgstr "Fortlaufend"
+
 #: cms/templates/events/_event_filter_form.html
 #: cms/templates/feedback/_admin_feedback_filter_form.html
 #: cms/templates/feedback/_region_feedback_filter_form.html
@@ -6136,6 +6138,35 @@ msgstr "Diese Veranstaltung löschen"
 #: cms/templates/events/event_form_sidebar/date_and_time_box.html
 msgid "Date and time"
 msgstr "Datum und Uhrzeit"
+
+#: cms/templates/events/event_form_sidebar/date_and_time_box.html
+msgid ""
+"One-time events take place on a specific date. For recurring events (e.g. "
+"weekly) this can be set under “Recurring”."
+msgstr ""
+"Einmalige Veranstaltungen finden an einem bestimmten Termin statt. Bei "
+"wiederkehrenden Veranstaltungen (z.B. wöchentlich) kann dies unter "
+"“wiederkehrend” eingestellt werden."
+
+#: cms/templates/events/event_form_sidebar/date_and_time_box.html
+msgid ""
+"These events take place over a longer period of time. E.g. Christmas markets "
+"or similar."
+msgstr ""
+"Diese Veranstaltungen finden über einen längeren Zeitraum statt. Z.B. "
+"Weihnachtsmärkte o.ä."
+
+#: cms/templates/events/event_form_sidebar/date_and_time_box.html
+msgid "These events take place daily."
+msgstr "Diese Veranstaltungen finden täglich statt."
+
+#: cms/templates/events/event_form_sidebar/date_and_time_box.html
+msgid "Please create daily repeating events under “Long-term”."
+msgstr "Täglich wiederholende Events bitte unter “Fortlaufend” anlegen."
+
+#: cms/templates/events/event_form_sidebar/date_and_time_box.html
+msgid "optional"
+msgstr "optional"
 
 #: cms/templates/events/event_form_sidebar/minor_edit_box.html
 #: cms/templates/pages/page_form_sidebar/minor_edit_box.html
@@ -11382,6 +11413,22 @@ msgstr ""
 #~ msgid "This page is under construction"
 #~ msgstr "Diese Seite ist noch im Bau"
 
+#~ msgid "Recurrence end date"
+#~ msgstr "Enddatum der Widerholung"
+
+#~ msgid "If the recurrence ends, the recurrence end date is required"
+#~ msgstr ""
+#~ "Wenn die Wiederholung endet, ist ein End-Datum für die Wiederholung "
+#~ "erforderlich"
+
+#~ msgid ""
+#~ "The maximum duration for events is {} days. Consider using recurring "
+#~ "events if the event is not continuous."
+#~ msgstr ""
+#~ "Die maximale Veranstaltungsdauer beträgt {} Tage. Verwenden Sie "
+#~ "wiederkehrende Veranstaltungen, wenn die Veranstaltung nicht "
+#~ "kontinuierlich stattfindet."
+
 #~ msgid "An error occurred while importing events from this external calendar"
 #~ msgstr "Ein Fehler mit dem Import von Veranstaltungen ist aufgetreten"
 
@@ -11521,17 +11568,16 @@ msgstr ""
 #~ "Wir laden im Hintergrund gerade Ihre veralteten und fehlenden "
 #~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
 
-#, python-format
 #~ msgid ""
-#~ "Your pages currently have "
-#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "Your pages currently have <b>"
+#~ "%(number_of_missing_or_outdated_translations)s pages </b>that have an "
 #~ "outdated or no translation. In order for the users to benefit from your "
 #~ "content you should translate them or have them translated."
 #~ msgstr ""
-#~ "Ihre Inhalten haben aktuell "
-#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
-#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
-#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
+#~ "Ihre Inhalten haben aktuell <b>"
+#~ "%(number_of_missing_or_outdated_translations)s Seiten </b> mit fehlender "
+#~ "oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
+#~ "profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"
@@ -13104,9 +13150,6 @@ msgstr ""
 
 #~ msgid "Week"
 #~ msgstr "Woche"
-
-#~ msgid "Recurrence end date"
-#~ msgstr "Wiederholung Enddatum"
 
 #~ msgid "Common Region Identifier"
 #~ msgstr "Gemeindeschlüssel"

@@ -100,7 +100,15 @@ class Event(AbstractContentModel):
         verbose_name=_("location"),
     )
     start = models.DateTimeField(verbose_name=_("start"))
-    end = models.DateTimeField(verbose_name=_("end"))
+    end = models.DateTimeField(
+        verbose_name=_("end"),
+        blank=True,
+    )
+    only_weekdays = models.BooleanField(
+        default=False,
+        verbose_name=_("Only weekdays"),
+        help_text=_("Tick if this event takes place only on weekdays"),
+    )
     #: If the event is recurring, the recurrence rule contains all necessary information on the frequency, interval etc.
     #: which is needed to calculate the single instances of a recurring event
     recurrence_rule = models.OneToOneField(

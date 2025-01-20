@@ -2,11 +2,10 @@ from __future__ import annotations
 
 import logging
 import zoneinfo
-from datetime import datetime, time, timedelta
+from datetime import datetime, time
 from typing import TYPE_CHECKING
 
 from django import forms
-from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 from ...constants import status
@@ -48,6 +47,7 @@ class EventForm(CustomModelForm):
         widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
     )
     end_date = forms.DateField(
+        required=False,
         label=_("end date"),
         widget=forms.DateInput(format="%Y-%m-%d", attrs={"type": "date"}),
     )
@@ -60,6 +60,9 @@ class EventForm(CustomModelForm):
         label=_("end time"),
         required=False,
         widget=forms.TimeInput(format="%H:%M", attrs={"type": "time"}),
+    )
+    is_long_term = forms.BooleanField(
+        required=False,
     )
 
     class Meta:
@@ -78,6 +81,7 @@ class EventForm(CustomModelForm):
             "location",
             "external_calendar",
             "external_event_id",
+            "only_weekdays",
         ]
         #: The widgets which are used in this form
         widgets = {
@@ -104,6 +108,7 @@ class EventForm(CustomModelForm):
         # since they will be set later in the clean method
         self.fields["start"].required = False
         self.fields["end"].required = False
+        self.fields["is_long_term"].initial = False
         if self.instance.id:
             # Initialize non-model fields based on event
             self.fields["start_date"].initial = self.instance.start_local.date()
@@ -119,6 +124,8 @@ class EventForm(CustomModelForm):
                 else None
             )
             self.fields["external_event_id"].initial = self.instance.external_event_id
+            if self.instance.start_local.date() != self.instance.end_local.date():
+                self.fields["is_long_term"].initial = True
 
     def clean(self) -> dict[str, Any]:
         """
@@ -160,6 +167,14 @@ class EventForm(CustomModelForm):
             ] == time.max.replace(second=0, microsecond=0):
                 self.data["is_all_day"] = True
 
+        if not cleaned_data.get("is_long_term") and not cleaned_data.get(
+            "external_calendar"
+        ):
+            cleaned_data["end_date"] = cleaned_data.get("start_date")
+
+        if cleaned_data.get("is_long_term"):
+            cleaned_data["is_recurring"] = False
+
         if (start_date := cleaned_data.get("start_date")) and (
             end_date := cleaned_data.get("end_date")
         ):
@@ -174,32 +189,23 @@ class EventForm(CustomModelForm):
                         code="invalid",
                     ),
                 )
-            elif end_date == start_date:
+            if (
+                end_date == start_date
+                and (start_time := cleaned_data.get("start_time"))
+                and (end_time := cleaned_data.get("end_time"))
+                and end_time < start_time
+            ):
                 # If both dates are identical, check the times
-                if (
-                    (start_time := cleaned_data.get("start_time"))
-                    and (end_time := cleaned_data.get("end_time"))
-                    and end_time < start_time
-                ):
-                    self.add_error(
-                        "end_time",
-                        forms.ValidationError(
-                            _(
-                                "The end of the event can't be before the start of the event",
-                            ),
-                            code="invalid",
-                        ),
-                    )
-            elif end_date - start_date > timedelta(settings.MAX_EVENT_DURATION - 1):
                 self.add_error(
-                    "end_date",
+                    "end_time",
                     forms.ValidationError(
                         _(
-                            "The maximum duration for events is {} days. Consider using recurring events if the event is not continuous.",
-                        ).format(settings.MAX_EVENT_DURATION),
+                            "The end of the event can't be before the start of the event",
+                        ),
                         code="invalid",
                     ),
                 )
+
         # If everything looks good until now, combine the dates and times into timezone-aware datetimes
         if not self.errors:
             tzinfo = zoneinfo.ZoneInfo(self.instance.timezone)
