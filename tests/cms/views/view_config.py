@@ -54,9 +54,7 @@ if TYPE_CHECKING:
     RedirectViewGroup: TypeAlias = tuple[list[RedirectView], ViewKwargs]
     RedirectViewConfig: TypeAlias = list[RedirectViewGroup]
 
-    ParametrizedRedirectView: TypeAlias = tuple[
-        ViewName, ViewKwargs, Roles, RedirectTarget
-    ]
+    ParametrizedRedirectView: TypeAlias = tuple[ViewName, ViewKwargs, Roles, RedirectTarget]
     ParametrizedRedirectViewConfig: TypeAlias = list[ParametrizedRedirectView]
 
     ParametrizedPublicView = tuple[ViewNameStr, PostDataDict]
@@ -196,46 +194,38 @@ VIEWS: ViewConfig = [
             (
                 "grant_page_permission_ajax",
                 HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
-                json.dumps(
-                    {
-                        "page_id": 21,
-                        "permission": "edit",
-                        "user_id": 10,
-                    }
-                ),
+                json.dumps({
+                    "page_id": 21,
+                    "permission": "edit",
+                    "user_id": 10,
+                }),
             ),
             (
                 "grant_page_permission_ajax",
                 HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
-                json.dumps(
-                    {
-                        "page_id": 21,
-                        "permission": "publish",
-                        "user_id": 9,
-                    }
-                ),
+                json.dumps({
+                    "page_id": 21,
+                    "permission": "publish",
+                    "user_id": 9,
+                }),
             ),
             (
                 "revoke_page_permission_ajax",
                 HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
-                json.dumps(
-                    {
-                        "page_id": 5,
-                        "permission": "edit",
-                        "user_id": 10,
-                    }
-                ),
+                json.dumps({
+                    "page_id": 5,
+                    "permission": "edit",
+                    "user_id": 10,
+                }),
             ),
             (
                 "revoke_page_permission_ajax",
                 HIGH_PRIV_STAFF_ROLES + [MANAGEMENT],
-                json.dumps(
-                    {
-                        "page_id": 6,
-                        "permission": "publish",
-                        "user_id": 10,
-                    }
-                ),
+                json.dumps({
+                    "page_id": 6,
+                    "permission": "publish",
+                    "user_id": 10,
+                }),
             ),
         ],
         # The kwargs for these views
@@ -312,76 +302,64 @@ VIEWS: ViewConfig = [
             (
                 (
                     "events",
-                    parse.urlencode(
-                        {
-                            "events_time_range": "CUSTOM",
-                            "date_from": "2023-01-01",
-                            "date_to": "2030-12-31",
-                        }
-                    ),
+                    parse.urlencode({
+                        "events_time_range": "CUSTOM",
+                        "date_from": "2023-01-01",
+                        "date_to": "2030-12-31",
+                    }),
                 ),
                 ROLES,
             ),
             (
                 (
                     "events",
-                    parse.urlencode(
-                        {
-                            "events_time_range": "CUSTOM",
-                            "date_from": "2023-01-01",
-                        }
-                    ),
+                    parse.urlencode({
+                        "events_time_range": "CUSTOM",
+                        "date_from": "2023-01-01",
+                    }),
                 ),
                 ROLES,
             ),
             (
                 (
                     "events",
-                    parse.urlencode(
-                        {
-                            "events_time_range": "CUSTOM",
-                            "date_to": "2030-12-31",
-                        }
-                    ),
+                    parse.urlencode({
+                        "events_time_range": "CUSTOM",
+                        "date_to": "2030-12-31",
+                    }),
                 ),
                 ROLES,
             ),
             (
                 (
                     "events",
-                    parse.urlencode(
-                        {
-                            "events_time_range": ["PAST", "UPCOMING"],
-                        }
-                    ),
+                    parse.urlencode({
+                        "events_time_range": ["PAST", "UPCOMING"],
+                    }),
                 ),
                 ROLES,
             ),
             (
                 (
                     "events",
-                    parse.urlencode(
-                        {
-                            "events_time_range": "UPCOMING",
-                            "poi_id": 4,
-                            "all_day": 1,
-                            "recurring": 1,
-                        }
-                    ),
+                    parse.urlencode({
+                        "events_time_range": "UPCOMING",
+                        "poi_id": 4,
+                        "all_day": 1,
+                        "recurring": 1,
+                    }),
                 ),
                 ROLES,
             ),
             (
                 (
                     "events",
-                    parse.urlencode(
-                        {
-                            "events_time_range": "PAST",
-                            "all_day": 2,
-                            "recurring": 2,
-                            "query": "test",
-                        }
-                    ),
+                    parse.urlencode({
+                        "events_time_range": "PAST",
+                        "all_day": 2,
+                        "recurring": 2,
+                        "query": "test",
+                    }),
                 ),
                 ROLES,
             ),
@@ -505,90 +483,74 @@ VIEWS: ViewConfig = [
             (
                 "search_content_ajax",
                 ROLES,
-                json.dumps(
-                    {
-                        "query_string": "Test-Veranstaltung",
-                        "object_types": ["event"],
-                        "archived": False,
-                    }
-                ),
+                json.dumps({
+                    "query_string": "Test-Veranstaltung",
+                    "object_types": ["event"],
+                    "archived": False,
+                }),
             ),
             (
                 "search_content_ajax",
                 ROLES,
-                json.dumps(
-                    {
-                        "query_string": "Test-Ort",
-                        "object_types": ["poi"],
-                        "archived": False,
-                    }
-                ),
+                json.dumps({
+                    "query_string": "Test-Ort",
+                    "object_types": ["poi"],
+                    "archived": False,
+                }),
             ),
             (
                 "search_content_ajax",
                 STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER],
-                json.dumps(
-                    {
-                        "query_string": "Willkommen",
-                        "object_types": ["page"],
-                        "archived": False,
-                    }
-                ),
+                json.dumps({
+                    "query_string": "Willkommen",
+                    "object_types": ["page"],
+                    "archived": False,
+                }),
             ),
             (
                 "search_content_ajax",
                 STAFF_ROLES + [MANAGEMENT],
-                json.dumps(
-                    {
-                        "query_string": "Test",
-                        "object_types": ["feedback"],
-                        "archived": False,
-                    }
-                ),
+                json.dumps({
+                    "query_string": "Test",
+                    "object_types": ["feedback"],
+                    "archived": False,
+                }),
             ),
             (
                 "search_content_ajax",
                 STAFF_ROLES + [MANAGEMENT],
-                json.dumps(
-                    {
-                        "query_string": "Test",
-                        "object_types": ["push_notification"],
-                        "archived": False,
-                    }
-                ),
+                json.dumps({
+                    "query_string": "Test",
+                    "object_types": ["push_notification"],
+                    "archived": False,
+                }),
             ),
             (
                 "search_content_ajax",
                 STAFF_ROLES,
-                json.dumps(
-                    {
-                        "query_string": "Augsburg",
-                        "object_types": ["region"],
-                        "archived": False,
-                    }
-                ),
+                json.dumps({
+                    "query_string": "Augsburg",
+                    "object_types": ["region"],
+                    "archived": False,
+                }),
             ),
             (
                 "search_content_ajax",
                 STAFF_ROLES + [MANAGEMENT],
-                json.dumps(
-                    {
-                        "query_string": "root",
-                        "object_types": ["user"],
-                        "archived": False,
-                    }
-                ),
+                json.dumps({
+                    "query_string": "root",
+                    "object_types": ["user"],
+                    "archived": False,
+                }),
             ),
             (
                 "search_content_ajax",
                 ROLES,
-                json.dumps(
-                    {
-                        "query_string": "Test",
-                        "object_types": ["media"],
-                        "archived": False,
-                    }
-                ),
+                json.dumps({
+                    "query_string": "Test",
+                    "object_types": ["media"],
+                    "archived": False,
+                }),
             ),
         ],
         # The kwargs for these views
@@ -599,12 +561,10 @@ VIEWS: ViewConfig = [
             (
                 "slugify_ajax",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
-                json.dumps(
-                    {
-                        "title": "Slugify event",
-                        "model_id": 1,
-                    }
-                ),
+                json.dumps({
+                    "title": "Slugify event",
+                    "model_id": 1,
+                }),
             ),
         ],
         {"region_slug": "augsburg", "language_slug": "de", "model_type": "event"},
@@ -614,12 +574,10 @@ VIEWS: ViewConfig = [
             (
                 "slugify_ajax",
                 PRIV_STAFF_ROLES + WRITE_ROLES,
-                json.dumps(
-                    {
-                        "title": "Slugify poi",
-                        "model_id": 4,
-                    }
-                ),
+                json.dumps({
+                    "title": "Slugify poi",
+                    "model_id": 4,
+                }),
             ),
         ],
         {"region_slug": "augsburg", "language_slug": "de", "model_type": "poi"},
@@ -629,12 +587,10 @@ VIEWS: ViewConfig = [
             (
                 "slugify_ajax",
                 PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR],
-                json.dumps(
-                    {
-                        "title": "Slugify page",
-                        "model_id": 1,
-                    }
-                ),
+                json.dumps({
+                    "title": "Slugify page",
+                    "model_id": 1,
+                }),
             ),
         ],
         {"region_slug": "augsburg", "language_slug": "de", "model_type": "page"},
@@ -1206,12 +1162,12 @@ VIEWS: ViewConfig = [
             )
         ],
         # The kwargs for these views
-        {"region_slug": "augsburg", "language_slug": "de"},
+        {"region_slug": "augsburg", "language_slug": "de", "is_archive": "False", "is_statistics": "False"},
     ),
     (
         [("get_page_tree_ajax", STAFF_ROLES, json.dumps([1]))],
         # The kwargs for these views
-        {"region_slug": "nurnberg", "language_slug": "de"},
+        {"region_slug": "nurnberg", "language_slug": "de", "is_archive": "False", "is_statistics": "False"},
     ),
     (
         [
@@ -1708,11 +1664,7 @@ if settings.FCM_ENABLED:
     ]
 
 #: In order for these views to be used as parameters, we have to flatten the nested structure
-PARAMETRIZED_VIEWS: Final[ParametrizedViewConfig] = [
-    (view_name, kwargs, post_data[0] if post_data else {}, roles)
-    for view_conf, kwargs in VIEWS
-    for view_name, roles, *post_data in view_conf
-]
+PARAMETRIZED_VIEWS: Final[ParametrizedViewConfig] = [(view_name, kwargs, post_data[0] if post_data else {}, roles) for view_conf, kwargs in VIEWS for view_name, roles, *post_data in view_conf]
 
 #: This list contains the config for all views which should check whether they correctly redirect to another url
 REDIRECT_VIEWS: Final[RedirectViewConfig] = [
@@ -1898,11 +1850,7 @@ REDIRECT_VIEWS: Final[RedirectViewConfig] = [
 ]
 
 #: In order for these views to be used as parameters, we have to flatten the nested structure
-PARAMETRIZED_REDIRECT_VIEWS: Final[ParametrizedRedirectViewConfig] = [
-    (view_name, kwargs, roles, target)
-    for view_conf, kwargs in REDIRECT_VIEWS
-    for view_name, roles, target in view_conf
-]
+PARAMETRIZED_REDIRECT_VIEWS: Final[ParametrizedRedirectViewConfig] = [(view_name, kwargs, roles, target) for view_conf, kwargs in REDIRECT_VIEWS for view_name, roles, target in view_conf]
 
 #: Public views that only work for anonymous users
 PARAMETRIZED_PUBLIC_VIEWS: Final[ParametrizedPublicViewConfig] = [
