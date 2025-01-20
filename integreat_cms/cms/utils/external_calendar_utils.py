@@ -190,7 +190,6 @@ class RecurrenceRuleData:
     def from_ical_rrule(
         cls, recurrence_rule: vRecur, start: datetime.date, logger: logging.Logger
     ) -> Self:
-        # pylint: disable=too-many-locals
         """
         Constructs this class from an ical recurrence rule.
         :return: An instance of this class
@@ -220,19 +219,17 @@ class RecurrenceRuleData:
 
         # by_set_pos can also be specified in `by_day`. We don't support multiple days with `by_set_pos` right now, though.
         if by_day and len(by_day) == 1:
-            vweekday = vWeekday(by_day[0])
-            if by_set_pos is not None and vweekday.relative is not None:
+            if by_set_pos is not None and by_day[0].relative is not None:
                 raise ValueError(
                     f"Conflicting `BYSETPOS` and `BYDAY`: {by_set_pos} and {by_day}"
                 )
-            by_day[0] = vweekday.weekday
-            by_set_pos = vweekday.relative or by_set_pos
+            by_set_pos = by_day[0].relative or by_set_pos
+            by_day[0] = by_day[0].weekday
         elif by_day:
             updated_days = []
             for day in by_day:
-                vweekday = vWeekday(day)
-                updated_days.append(vweekday.weekday)
-                if vweekday.relative is not None:
+                updated_days.append(day.weekday)
+                if day.relative is not None:
                     raise ValueError(
                         f"Cannot support multiple days with frequency right now: {by_day}"
                     )
