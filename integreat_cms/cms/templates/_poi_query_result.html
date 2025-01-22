@@ -14,7 +14,8 @@
                 <option class="option-existing-poi hover:bg-gray-200 cursor-pointer"
                         title="{{ poi.address }}, {{ poi.postcode }} {{ poi.city }}"
                         data-poi-address="{% render_poi_address poi %}"
-                        data-poi-title="{{ poi|poi_translation_title:current_language }}">
+                        data-poi-title="{{ poi|poi_translation_title:current_language }}"
+                        data-poi-id="{{ poi.id }}">
                     {{ poi|poi_translation_title:current_language }}
                 </option>
             {% endfor %}
