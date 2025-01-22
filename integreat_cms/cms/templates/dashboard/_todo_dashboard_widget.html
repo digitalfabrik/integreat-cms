@@ -30,5 +30,8 @@
             {% include "dashboard/todo_dashboard_rows/_automatically_saved_pages_row.html" %}
             {% include "dashboard/todo_dashboard_rows/_drafted_pages_row.html" %}
         {% endif %}
+        {% if perms.cms.change_page %}
+            {% include "dashboard/todo_dashboard_rows/number_of_missing_or_outdated_translations_row.html" %}
+        {% endif %}
     </div>
 {% endblock collapsible_box_content %}

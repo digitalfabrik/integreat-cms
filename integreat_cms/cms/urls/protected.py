@@ -584,7 +584,12 @@ urlpatterns: list[URLPattern] = [
                                             "broken-links/",
                                             dashboard.DashboardView.get_broken_links_context,
                                             name="get_broken_links_ajax",
-                                        )
+                                        ),
+                                        path(
+                                            "translation-coverage/",
+                                            dashboard.DashboardView.get_translation_coverage_context,
+                                            name="get_translation_coverage_ajax",
+                                        ),
                                     ]
                                 ),
                             ),
