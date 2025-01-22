@@ -82,8 +82,8 @@ def process_user_message(
     """
     Call the async processing of the message from an Integreat App user
     """
-    zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id)
     region = Region.objects.get(slug=region_slug)
+    zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
     client = ZammadChatAPI(region)
     translation, answer = asyncio.run(
         async_process_user_message(
@@ -127,8 +127,8 @@ def process_answer(message_text: str, region_slug: str, zammad_ticket_id: int) -
     """
     Process automatic or counselor answers
     """
-    zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id)
     region = Region.objects.get(slug=region_slug)
+    zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
     client = ZammadChatAPI(region)
     translation = asyncio.run(
         async_process_answer(
