@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.db import models
 from django.db.models import Q
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext
@@ -266,6 +267,21 @@ class Contact(AbstractBaseModel):
         :return: The full url
         """
         return f"/{self.location.region.slug}/contact/{self.id}/"
+
+    @cached_property
+    def backend_edit_link(self) -> str:
+        """
+        This function returns the absolute url to the edit form of this region
+
+        :return: The url
+        """
+        return reverse(
+            "edit_contact",
+            kwargs={
+                "region_slug": self.region.slug,
+                "contact_id": self.id,
+            },
+        )
 
     class Meta:
         verbose_name = _("contact")
