@@ -272,7 +272,7 @@ class Contact(AbstractBaseModel):
         default_related_name = "contact"
         verbose_name_plural = _("contacts")
         default_permissions = ("change", "delete", "view")
-        ordering = ["name"]
+        ordering = ["location", "name"]
 
         constraints = [
             models.UniqueConstraint(
