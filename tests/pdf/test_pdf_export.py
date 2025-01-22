@@ -23,9 +23,9 @@ from django.urls import reverse
         ),
         (
             "de",
-            [1, 2, 3, 4, 5, 6, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 26, 27, 28],
+            [1, 2, 3, 4, 5, 6, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 26, 27, 28, 31],
             "",
-            "429b3fbce4/Integreat - Deutsch - Augsburg.pdf",
+            "89219cf973/Integreat - Deutsch - Augsburg.pdf",
         ),
         (
             "en",

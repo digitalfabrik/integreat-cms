@@ -4,10 +4,11 @@ from urllib.parse import unquote, urlparse
 
 from django.conf import settings
 from django.db.models import Q
+from django.template import loader
 from lxml.etree import LxmlError
-from lxml.html import fromstring, HtmlElement, tostring
+from lxml.html import Element, fromstring, HtmlElement, tostring
 
-from ..models import MediaFile
+from ..models import Contact, MediaFile
 from ..utils import internal_link_utils
 from ..utils.link_utils import fix_content_link_encoding
 
@@ -33,6 +34,7 @@ def clean_content(content: str, language_slug: str) -> str:
     fix_alt_texts(content)
     fix_notranslate(content)
     hide_anchor_tag_around_image(content)
+    update_contacts(content)
 
     content_str = tostring(content, encoding="unicode", with_tail=False)
     return fix_content_link_encoding(content_str)
@@ -138,6 +140,45 @@ def update_internal_links(link: HtmlElement, language_slug: str) -> None:
             else:
                 link.text = ""
                 link.append(new_html)
+
+
+def render_contact_card(contact_id: int) -> HtmlElement:
+    """
+    Produces a rendered html element for the contact.
+
+    :param contact_id: The id of the contact to render the card for
+    """
+    template = loader.get_template("contacts/contact_card.html")
+    try:
+        context = {
+            "contact": Contact.objects.get(pk=contact_id),
+        }
+        raw_element = template.render(context)
+        return fromstring(raw_element)
+    except Contact.DoesNotExist:
+        logger.warning("Contact with id=%i does not exist!", contact_id)
+        return Element("p")
+    except LxmlError as e:
+        logger.debug(
+            "Failed to parse rendered HTML for contact card: %r\n→ %s\nEOF",
+            e,
+            raw_element,
+        )
+        return Element("pre", raw_element)
+
+
+def update_contacts(content: HtmlElement) -> None:
+    """
+    Inject rendered contact html for given ID
+
+    :param content: The content whose contacts should be updated
+    """
+    contact_cards = content.xpath("//div[@data-contact-id]")
+    contact_ids = [int(card.get("data-contact-id")) for card in contact_cards]
+
+    for contact_id, contact_card in zip(contact_ids, contact_cards):
+        contact_card_new = render_contact_card(contact_id)
+        contact_card.getparent().replace(contact_card, contact_card_new)
 
 
 def fix_alt_texts(content: HtmlElement) -> None:

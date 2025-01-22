@@ -858,7 +858,7 @@ class Region(AbstractBaseModel):
         if not self.mt_addon_booked:
             return settings.MT_CREDITS_FREE
         # All regions which did book the add-on, but not mid-year, get the add-on credits
-        if not self.mt_midyear_start_month:
+        if self.mt_midyear_start_month is None:
             return settings.MT_CREDITS_ADDON + settings.MT_CREDITS_FREE
         # All regions which booked the add-on in mid-year get a fraction of the add-on credits
         # Calculate how many months lie between the renewal month and the start month of the add-on

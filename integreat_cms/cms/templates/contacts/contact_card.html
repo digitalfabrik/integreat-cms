@@ -1,0 +1,54 @@
+{% load svg_tags %}
+{% load static %}
+{% spaceless %}
+    <div contenteditable="false"
+         data-contact-id="{{ contact.pk }}"
+         data-contact-url="{{ contact.absolute_url }}"
+         class="contact-card notranslate"
+         dir="ltr"
+         translate="no">
+        {# djlint:off H021 #}
+        <a href="{{ contact.absolute_url }}" style="display: none">Contact</a>
+        {# djlint:on #}
+        {% if contact %}
+            {% if contact.name or contact.point_of_contact_for %}
+                <h4>
+                    {% if contact.name %}
+                        {{ contact.name }}
+                    {% endif %}
+                    {% if contact.name and contact.point_of_contact_for %}
+                        |
+                    {% endif %}
+                    {% if contact.point_of_contact_for %}
+                        {{ contact.point_of_contact_for }}
+                    {% endif %}
+                </h4>
+            {% endif %}
+            <p>
+                <img src="{% get_svg_icon "pin" %}" alt="Address: " width="15" height="15" />
+                <a href="{{ contact.location.map_url }}">{{ contact.location.short_address }}</a>
+            </p>
+            {% if contact.email %}
+                <p>
+                    <img src="{% get_svg_icon "email" %}" alt="Email: " width="15" height="15" />
+                    <a href="mailto:{{ contact.email }}">{{ contact.email }}</a>
+                </p>
+            {% endif %}
+            {% if contact.phone_number %}
+                <p>
+                    <img src="{% get_svg_icon "call" %}"
+                         alt="Phone Number: "
+                         width="15"
+                         height="15" />
+                    <a href="tel:{{ contact.phone_number }}">{{ contact.phone_number }}</a>
+                </p>
+            {% endif %}
+            {% if contact.website %}
+                <p>
+                    <img src="{% get_svg_icon "www" %}" alt="Website: " width="15" height="15" />
+                    <a href="{{ contact.website }}">{{ contact.website }}</a>
+                </p>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endspaceless %}

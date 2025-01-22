@@ -44,8 +44,15 @@
                     {% translate "Create new page" %}
                 {% endif %}
             </h1>
-            {% if not page_form.instance.id or not page_form.instance.archived %}
-                <div class="flex flex-wrap grow justify-end gap-2 items-center">
+            <div class="flex flex-wrap grow justify-end gap-2 items-center">
+                {% if page_form.instance.id and page_form.instance.archived %}
+                    <a href="{% url 'archived_pages' region_slug=request.region.slug language_slug=language.slug %}"
+                       class="btn btn-ghost">{% translate "Cancel" %}</a>
+                {% else %}
+                    <a href="{% url 'pages' region_slug=request.region.slug language_slug=language.slug %}"
+                       class="btn btn-ghost">{% translate "Cancel" %}</a>
+                {% endif %}
+                {% if not page_form.instance.id or not page_form.instance.archived %}
                     {% include "generic_auto_save_note.html" with form_instance=page_translation_form.instance %}
                     <button name="preview_page" type="button" data-preview-page data-edit-page-mode data-right-to-left={{ right_to_left }} class="btn btn-ghost">
                         {% translate "Preview" %}
@@ -73,8 +80,8 @@
                             {% translate "Submit for approval" %}
                         </button>
                     {% endif %}
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
         <div class="3xl:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] {% if page %}4xl:grid-cols-[minmax(0px,_1fr)_816px]{% endif %} gap-4">
             <div class="col-span-2 3xl:col-span-1 flex flex-wrap flex-col flex-auto">

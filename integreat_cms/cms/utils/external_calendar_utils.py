@@ -7,6 +7,7 @@ from __future__ import annotations
 import dataclasses
 import datetime
 import logging
+import re
 from typing import Any, Self
 
 import icalendar.cal
@@ -26,6 +27,20 @@ from integreat_cms.cms.constants.weeks import RRULE_WEEK_TO_WEEK
 from integreat_cms.cms.forms import EventForm, EventTranslationForm, RecurrenceRuleForm
 from integreat_cms.cms.models import EventTranslation, ExternalCalendar, RecurrenceRule
 from integreat_cms.cms.utils.content_utils import clean_content
+
+# Copied from https://github.com/collective/icalendar/blob/4725c1bd57ca3afe61e7d45805a2b337842fbd29/src/icalendar/prop.py#L68-L69
+WEEKDAY_RULE = re.compile(
+    r"(?P<signal>[+-]?)(?P<relative>[\d]{0,2})(?P<weekday>[\w]{2})$"
+)
+
+
+@dataclasses.dataclass(frozen=True, kw_only=True)
+class ImportResult:
+    """
+    Datatype for the result of `import_event`
+    """
+
+    number_of_errors: int
 
 
 @dataclasses.dataclass(frozen=True, kw_only=True)
@@ -112,7 +127,7 @@ class IcalEventData:
         recurrence_rule = None
         if "RRULE" in event:
             recurrence_rule = RecurrenceRuleData.from_ical_rrule(
-                event.decoded("RRULE"), logger
+                recurrence_rule=event.decoded("RRULE"), start=start_date, logger=logger
             )
 
         return cls(
@@ -175,10 +190,13 @@ class RecurrenceRuleData:
     interval: vInt
     until: vDDDTypes | None
     by_day: list[vWeekday] | None
-    by_set_pos: vInt | None
+    by_set_pos: int | None
 
     @classmethod
-    def from_ical_rrule(cls, recurrence_rule: vRecur, logger: logging.Logger) -> Self:
+    def from_ical_rrule(
+        cls, recurrence_rule: vRecur, start: datetime.date, logger: logging.Logger
+    ) -> Self:
+        # pylint: disable=too-many-locals
         """
         Constructs this class from an ical recurrence rule.
         :return: An instance of this class
@@ -206,9 +224,43 @@ class RecurrenceRuleData:
         by_day = recurrence_rule.pop("BYDAY")
         by_set_pos = pop_single_value("BYSETPOS")
 
-        # ByMonth cannot be handled right now, but it is sometimes included with yearly repeating events, so we have to pop it.
-        # If it differs from the event start month, it will be silently ignored :(
-        recurrence_rule.pop("BYMONTH")
+        # by_set_pos can also be specified in `by_day`. We don't support multiple days with `by_set_pos` right now, though.
+        if by_day and len(by_day) == 1:
+            set_pos, weekday = _parse_weekday(by_day[0])
+            if by_set_pos is not None and set_pos is not None:
+                raise ValueError(
+                    f"Conflicting `BYSETPOS` and `BYDAY`: {by_set_pos} and {by_day}"
+                )
+            by_day[0] = weekday
+            by_set_pos = set_pos or by_set_pos
+        elif by_day:
+            updated_days = []
+            for day in by_day:
+                set_pos, weekday = _parse_weekday(day)
+                updated_days.append(weekday)
+                if set_pos is not None:
+                    raise ValueError(
+                        f"Cannot support multiple days with frequency right now: {by_day}"
+                    )
+            by_day = updated_days
+
+        # WKST currently always has to be monday (or unset, because it defaults do monday)
+        if (wkst := pop_single_value("WKST")) and wkst.lower() != "mo":
+            raise ValueError(
+                f"Currently only recurrence rules with weeks starting on Monday are supported (attempted WKST: {wkst})"
+            )
+
+        if (
+            by_month_day := pop_single_value("BYMONTHDAY")
+        ) and by_month_day != start.day:
+            raise ValueError(
+                f"Month day of recurrence rule does not match month day of event: {by_month_day} and {start.day}"
+            )
+
+        if (by_month := pop_single_value("BYMONTH")) and by_month != start.month:
+            raise ValueError(
+                f"Month of recurrence rule does not match month of event: {by_month} and {start.month}"
+            )
 
         if len(recurrence_rule) > 0:
             raise ValueError(
@@ -286,12 +338,37 @@ class RecurrenceRuleData:
         return weekdays
 
 
-def import_events(calendar: ExternalCalendar, logger: logging.Logger) -> None:
+def _parse_weekday(weekdaynum: str) -> tuple[int | None, str]:
+    """
+    Parses a weekday according to https://www.rfc-editor.org/rfc/rfc5545#section-3.3.10 (see `weekdaynum`)
+    TODO: This should be handled by our icalendar package. Remove this code when a new version of icalendar is released.
+    :param weekdaynum: The weekday + frequency number
+    :return: A tuple of frequency and weekday, where the frequency is None if the weekdaynum only contained a weekday.
+    """
+    match = WEEKDAY_RULE.match(weekdaynum)
+    assert match is not None
+    sign = match["signal"]
+    ordinal_week_number = match["relative"]
+    weekday = match["weekday"]
+    if not ordinal_week_number:
+        return None, weekday
+    ordinal_week_number = int(ordinal_week_number)
+    match sign:
+        case "-":
+            return -ordinal_week_number, weekday
+        case "+" | "":
+            return ordinal_week_number, weekday
+        case _:
+            return None, weekday
+
+
+def import_events(calendar: ExternalCalendar, logger: logging.Logger) -> ImportResult:
     """
     Imports events from this calendar and sets or clears the errors field of the calendar
 
     :param calendar: The external calendar
     :param logger: The logger to use
+    :return: the result of the import (count of errors and successes).
     """
 
     errors: list[str] = []
@@ -304,6 +381,7 @@ def import_events(calendar: ExternalCalendar, logger: logging.Logger) -> None:
         calendar.errors = ""
 
     calendar.save()
+    return ImportResult(number_of_errors=len(errors))
 
 
 def _import_events(
@@ -426,7 +504,11 @@ def import_event(
     try:
         recurrence_rule_form_data = event_data.to_recurrence_rule_form_data()
     except ValueError as e:
-        logger.error("Could not import event due to unsupported recurrence rule: %r", e)
+        logger.error(
+            "Could not import event due to unsupported recurrence rule: %r\n%s",
+            e,
+            event_data,
+        )
         errors.append(
             _("Could not import '{}': Unsupported recurrence rule").format(
                 event_data.title, e

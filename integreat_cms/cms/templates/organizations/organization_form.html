@@ -19,6 +19,13 @@
                 {% endif %}
             </h1>
             <div class="flex flex-wrap justify-between gap-4">
+                {% if form.instance.archived %}
+                    <a href="{% url 'archived_organizations' region_slug=request.region.slug %}"
+                       class="btn btn-ghost">{% translate "Cancel" %}</a>
+                {% else %}
+                    <a href="{% url 'organizations' region_slug=request.region.slug %}"
+                       class="btn btn-ghost">{% translate "Cancel" %}</a>
+                {% endif %}
                 {% if form.instance.id and perms.cms.delete_organization %}
                     <div class="flex flex-wrap gap-4">
                         {% if form.instance.is_used %}
@@ -40,8 +47,8 @@
                         {% endif %}
                     </div>
                 {% endif %}
-                {% if perms.cms.change_organization %}
-                    <div class="flex flex-wrap gap-4">
+                <div class="flex flex-wrap gap-4">
+                    {% if perms.cms.change_organization %}
                         {% if form.instance.id %}
                             <button class="btn">
                                 {% translate "Update" %}
@@ -51,8 +58,8 @@
                                 {% translate "Create" %}
                             </button>
                         {% endif %}
-                    </div>
-                {% endif %}
+                    {% endif %}
+                </div>
             </div>
         </div>
         <div class="grid xl:grid-cols-2 gap-4">
@@ -89,21 +96,17 @@
             </div>
         </div>
         {% if form.instance.id %}
-            {% get_current_language as LANGUAGE_CODE %}
-            {% get_language LANGUAGE_CODE as backend_language %}
-            {% with request.region.default_language as region_default_language %}
-                <div class="grid xl:grid-cols-2 gap-4">
-                    <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
-                        <div class="p-4 rounded bg-water-500">
-                            <h3 class="heading font-bold text-black">
-                                <i icon-name="layout" class="mr-2"></i>
-                                {% translate "Pages and locations" %}
-                            </h3>
-                        </div>
-                        {% include "../_related_contents_table.html" with contents=form.instance.pages.all table_title=_("Pages") no_content_message=_("This organization currently has no maintained pages.") %}
-                        {% include "../_related_contents_table.html" with contents=form.instance.pois.all table_title=_("Locations") no_content_message=_("This organization currently has no maintained locations.") %}
+            <div class="grid xl:grid-cols-2 gap-4">
+                <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
+                    <div class="p-4 rounded bg-water-500">
+                        <h3 class="heading font-bold text-black">
+                            <i icon-name="layout" class="mr-2"></i>
+                            {% translate "Pages and locations" %}
+                        </h3>
                     </div>
-                {% endwith %}
+                    {% include "../_related_contents_table.html" with contents=form.instance.pages.all table_title=_("Pages") no_content_message=_("This organization currently has no maintained pages.") %}
+                    {% include "../_related_contents_table.html" with contents=form.instance.pois.all table_title=_("Locations") no_content_message=_("This organization currently has no maintained locations.") %}
+                </div>
                 <div class="mb-4 rounded border border-solid border-blue-500 shadow-2xl bg-white">
                     <div class="p-4 rounded bg-water-500">
                         <h3 class="heading font-bold text-black">

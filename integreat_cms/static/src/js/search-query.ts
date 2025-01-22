@@ -31,36 +31,46 @@ const queryObjects = async (url: string, type: string, queryString: string, arch
 
     if (data) {
         // Set and display new data
-        for (const value of data.data) {
+        data.data.forEach((value: any, index: number) => {
             const child = document.createElement("li");
             child.classList.add(
                 "inline-block",
                 "whitespace-nowrap",
+                "my-0.5",
                 "px-4",
                 "py-3",
                 "text-gray-800",
+                "focus:ring-2",
                 "hover:bg-gray-300",
-                "bg-gray-200",
                 "w-full",
                 "overflow-x-hidden",
                 "text-ellipsis",
                 "align-top"
             );
+            child.setAttribute("role", "option");
+            child.setAttribute("id", `suggestion-${index}`);
+            child.setAttribute("tabindex", "0");
             child.innerText = value.title;
             suggestionList.appendChild(child);
-        }
+        });
     }
 };
 
 let scheduledFunction: number | null = null;
+let focusedIndex = -1;
 
 export const setSearchQueryEventListeners = () => {
     console.debug("Setting search query event listeners");
+    const resetButton = document.getElementById("search-reset-btn");
+    const suggestionList = document.getElementById("table-search-suggestions");
     const tableSearchInput = document.getElementById("table-search-input") as HTMLInputElement;
 
     // AJAX search
     tableSearchInput.addEventListener("keyup", (event) => {
-        event.preventDefault();
+        // Ignore navigation keys for API calls
+        if (["ArrowDown", "ArrowUp", "ArrowLeft", "ArrowRight", "Escape", "Tab"].includes(event.key)) {
+            return;
+        }
 
         // Reschedule function execution on new input
         if (scheduledFunction != null) {
@@ -78,36 +88,77 @@ export const setSearchQueryEventListeners = () => {
         );
     });
 
-    const tableSearch = document.getElementById("table-search");
+    tableSearchInput.addEventListener("keydown", (event) => {
+        const suggestions = Array.from(suggestionList?.children || []) as HTMLElement[];
 
-    tableSearch.addEventListener("focusout", (_event) => {
-        const searchSuggestion = document.getElementById("table-search-suggestions");
-        searchSuggestion.classList.add("hidden");
-    });
-
-    tableSearch.addEventListener("focusin", (_event) => {
-        const searchSuggestion = document.getElementById("table-search-suggestions");
-        searchSuggestion.classList.remove("hidden");
-    });
-
-    document.getElementById("table-search-suggestions").addEventListener("mousedown", ({ target }) => {
-        const tableSearchInput = document.getElementById("table-search-input") as HTMLInputElement;
-        // Don't submit a value if the user clicked e.g. on the search bar and not a specific list element
-        if (!(target as HTMLElement).matches("li")) {
+        if (suggestions.length === 0) {
             return;
         }
-        // Fill in search field with selected suggestion
-        tableSearchInput.value = (target as HTMLElement).textContent;
-        // Submit the search
-        document.getElementById("search-submit-btn").click();
+
+        if (event.key === "ArrowDown") {
+            event.preventDefault();
+            focusedIndex = (focusedIndex + 1) % suggestions.length;
+        } else if (event.key === "ArrowUp") {
+            event.preventDefault();
+            focusedIndex = (focusedIndex - 1 + suggestions.length) % suggestions.length;
+        } else if (event.key === "Enter") {
+            const target = event.target as HTMLElement;
+            const activeSuggestion = suggestions[focusedIndex];
+            if (activeSuggestion || target.matches("li")) {
+                tableSearchInput.value = activeSuggestion.textContent || target.textContent;
+                document.getElementById("search-submit-btn")?.click();
+            }
+            return;
+        } else if (event.key === "Escape") {
+            suggestionList?.classList.add("hidden");
+            focusedIndex = -1;
+            return;
+        }
+
+        suggestions.forEach((child, index) => {
+            if (index === focusedIndex) {
+                child.setAttribute("aria-selected", "true");
+                child.classList.add("bg-gray-300");
+            } else {
+                child.setAttribute("aria-selected", "false");
+                child.classList.remove("bg-gray-300");
+            }
+        });
     });
 
-    // Reset the search
-    document.getElementById("search-reset-btn")?.addEventListener("click", (_event) => {
-        // Empty the search value
+    suggestionList?.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            const activeSuggestion = document.activeElement as HTMLElement;
+            if (activeSuggestion && suggestionList.contains(activeSuggestion)) {
+                event.preventDefault();
+                tableSearchInput.value = activeSuggestion.textContent || "";
+                document.getElementById("search-submit-btn")?.click();
+                suggestionList?.classList.add("hidden");
+            }
+        }
+    });
+
+    suggestionList?.addEventListener("mousedown", (event) => {
+        const target = event.target as HTMLElement;
+        if (target.matches("li")) {
+            // Fill in search field with selected suggestion
+            tableSearchInput.value = target.textContent || "";
+            document.getElementById("search-submit-btn")?.click();
+        }
+    });
+
+    tableSearchInput.addEventListener("focus", (_event) => {
+        suggestionList.classList.remove("hidden");
+    });
+
+    tableSearchInput.addEventListener("blur", (_event) => {
+        suggestionList.classList.remove("hidden");
+    });
+
+    resetButton?.addEventListener("click", () => {
         tableSearchInput.value = "";
-        // Submit the search
         document.getElementById("search-submit-btn").click();
+        focusedIndex = -1;
     });
 };
 

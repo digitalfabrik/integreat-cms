@@ -143,6 +143,14 @@ msgstr "PPT-Dokument"
 msgid "PPTX document"
 msgstr "PPTX-Dokument"
 
+#: cms/constants/calendar.py
+msgid "Event not from an external calendar"
+msgstr "Veranstaltung kommt nicht aus einem externen Kalender"
+
+#: cms/constants/calendar.py
+msgid "Event from an external calendar"
+msgstr "Veranstaltung kommt aus einem externen Kalender"
+
 #: cms/constants/countries.py
 msgid "Arabic"
 msgstr "Arabisch"
@@ -4736,10 +4744,17 @@ msgid "Show more"
 msgstr "Mehr anzeigen"
 
 #: cms/templates/_machine_translation_overlay.html
-#: cms/templates/_tinymce_config.html
+#: cms/templates/_tinymce_config.html cms/templates/contacts/contact_form.html
+#: cms/templates/events/event_form.html
+#: cms/templates/events/external_calendar_form.html
 #: cms/templates/generic_confirmation_dialog.html
+#: cms/templates/languagetreenodes/languagetreenode_form.html
 #: cms/templates/linkcheck/link_list_row.html
+#: cms/templates/organizations/organization_form.html
+#: cms/templates/pages/page_form.html cms/templates/pois/poi_form.html
 #: cms/templates/pois/poi_form_sidebar/position_box.html
+#: cms/templates/push_notifications/push_notification_form.html
+#: cms/templates/users/region_user_form.html
 #: cms/views/pois/poi_context_mixin.py
 msgid "Cancel"
 msgstr "Abbrechen"
@@ -4843,8 +4858,32 @@ msgid "A group of people"
 msgstr "Eine Gruppe von Personen"
 
 #: cms/templates/_tinymce_config.html
+msgid "Search for contact"
+msgstr "Kontakte suchen"
+
+#: cms/templates/_tinymce_config.html
+msgid "Add Contact"
+msgstr "Kontakt hinzufügen"
+
+#: cms/templates/_tinymce_config.html
+msgid "Change Contact"
+msgstr "Kontakt ändern"
+
+#: cms/templates/_tinymce_config.html
+msgid "Remove Contact"
+msgstr "Kontakt entfernen"
+
+#: cms/templates/_tinymce_config.html
 msgid "Contact Person"
 msgstr "Kontaktperson"
+
+#: cms/templates/_tinymce_config.html
+msgid "Contact..."
+msgstr "Kontakt..."
+
+#: cms/templates/_tinymce_config.html
+msgid "no results"
+msgstr "keine Ergebnisse"
 
 #: cms/templates/_tinymce_config.html
 msgid "Spoken Languages"
@@ -4912,8 +4951,8 @@ msgid "Address"
 msgstr "Adresse"
 
 #: cms/templates/ajax_poi_form/_poi_address_container.html
-msgid "Open on Google Maps"
-msgstr "Auf Google Maps öffnen"
+msgid "Open on Maps"
+msgstr "Auf Maps öffnen"
 
 #: cms/templates/ajax_poi_form/_poi_address_container.html
 #: cms/templates/pois/poi_form_sidebar/contact_box.html
@@ -4944,12 +4983,16 @@ msgid "Publish"
 msgstr "Veröffentlichen"
 
 #: cms/templates/ajax_poi_form/poi_box.html
-msgid "Name of location"
-msgstr "Name des Ortes"
+msgid "Select a location"
+msgstr "Ort eingeben"
 
 #: cms/templates/ajax_poi_form/poi_box.html
 msgid "Remove location"
 msgstr "Ort entfernen"
+
+#: cms/templates/ajax_poi_form/poi_box.html
+msgid "This field cannot be empty. Please select a location."
+msgstr "Dieses Feld darf nicht leer sein. Bitte geben Sie einen Ort ein."
 
 #: cms/templates/ajax_poi_form/poi_box.html
 msgid "The new location was successfully created."
@@ -5875,6 +5918,10 @@ msgstr "Zurück zur Startseite"
 #: cms/templates/feedback/_region_feedback_filter_form.html
 msgid "Time range"
 msgstr "Zeitraum"
+
+#: cms/templates/events/_event_filter_form.html
+msgid "Calendar"
+msgstr "Kalender"
 
 #: cms/templates/events/_event_filter_form.html
 #: cms/templates/events/event_list.html
@@ -7813,7 +7860,7 @@ msgstr "Keine Orte mit diesen Filtern gefunden."
 msgid "No locations available yet."
 msgstr "Noch keine Orte vorhanden."
 
-#: cms/templates/pois/poi_list.html
+#: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
 msgid "Locations selected"
 msgstr "Orte ausgewählt"
 
@@ -9137,8 +9184,20 @@ msgstr "Kontakt {0} wurde erfolgreich archiviert"
 
 #: cms/views/contacts/contact_actions.py
 #, python-brace-format
+msgid "Cannot archive contact \"{0}\" while content objects refer to it."
+msgstr ""
+"Kontakt {0} kann nicht archiviert werden solange Inhalte auf ihn verweisen."
+
+#: cms/views/contacts/contact_actions.py
+#, python-brace-format
 msgid "Contact {0} was successfully deleted"
 msgstr "Kontakt {0} wurde erfolgreich gelöscht."
+
+#: cms/views/contacts/contact_actions.py
+#, python-brace-format
+msgid "Cannot delete contact \"{0}\" while content objects refer to it."
+msgstr ""
+"Kontakt {0} kann nicht gelöscht werden solange Inhalte auf ihn verweisen."
 
 #: cms/views/contacts/contact_actions.py
 #, python-brace-format
@@ -9151,6 +9210,20 @@ msgid "Contact {0} was successfully copied"
 msgstr "Kontakt {0} wurde erfolgreich kopiert"
 
 #: cms/views/contacts/contact_bulk_actions.py
+#, python-brace-format
+msgid ""
+"{model_name} {object_names} cannot be archived while content objects refer "
+"to it."
+msgid_plural ""
+"The following {model_name_plural} could be archived: {object_names}"
+msgstr[0] ""
+"{model_name} {object_names} kann nicht archiviert werden solange Inhalte auf "
+"ihn verweisen."
+msgstr[1] ""
+"Die folgenden {model_name_plural} konnten nicht archiviert werden: "
+"{object_names}"
+
+#: cms/views/contacts/contact_bulk_actions.py
 #: cms/views/organizations/organization_bulk_actions.py
 #, python-brace-format
 msgid "{model_name} {object_names} was successfully deleted."
@@ -9159,6 +9232,20 @@ msgid_plural ""
 msgstr[0] "{model_name} {object_names} wurde erfolgreich gelöscht."
 msgstr[1] ""
 "Die folgenden {model_name_plural} wurden erfolgreich gelöscht: {object_names}"
+
+#: cms/views/contacts/contact_bulk_actions.py
+#, python-brace-format
+msgid ""
+"{model_name} {object_names} cannot be deleted while content objects refer to "
+"it."
+msgid_plural ""
+"The following {model_name_plural} could be deleted: {object_names}"
+msgstr[0] ""
+"{model_name} {object_names} kann nicht gelöscht werden solange Inhalte auf "
+"ihn verweisen."
+msgstr[1] ""
+"Die folgenden {model_name_plural} konnten nicht gelöscht werden: "
+"{object_names}"
 
 #: cms/views/contacts/contact_context_mixin.py
 msgid "Please confirm that you really want to archive this contact"
@@ -9230,8 +9317,8 @@ msgstr "Die Version {} existiert nicht."
 msgid ""
 "%s %s can not change its status as it was imported from an external calendar"
 msgstr ""
-"Der Status von %s %s kann nicht geändert "
-"werden, da diese Veranstaltung aus einem externen Kalender importiert wurde"
+"Der Status von %s %s kann nicht geändert werden, da diese Veranstaltung aus "
+"einem externen Kalender importiert wurde"
 
 #: cms/views/content_version_view.py
 msgid "You cannot reject changes if there is no version to return to."
@@ -9437,20 +9524,30 @@ msgid "No changes made"
 msgstr "Keine Änderungen vorgenommen"
 
 #: cms/views/external_calendars/external_calendar_form_view.py
-msgid "An error occurred while importing events from this external calendar"
-msgstr "Ein Fehler mit dem Import von Veranstaltungen ist aufgetreten"
-
-#: cms/views/external_calendars/external_calendar_form_view.py
-msgid "Successfully imported events from this external calendar"
-msgstr "Veranstaltungen des externen Kalenders wurden erfolgreich importiert"
-
-#: cms/views/external_calendars/external_calendar_form_view.py
 msgid "External calendar \"{}\" was successfully created"
 msgstr "Externer Kalender \"{}\" wurde erfolgreich erstellt"
 
 #: cms/views/external_calendars/external_calendar_form_view.py
 msgid "External calendar \"{}\" was successfully saved"
 msgstr "Externer Kalender \"{}\" wurde erfolgreich gespeichert"
+
+#: cms/views/external_calendars/external_calendar_form_view.py
+msgid "No events have been successfully imported from this external calendar"
+msgstr ""
+"Keine Veranstaltungen des externen Kalenders wurden erfolgreich importiert"
+
+#: cms/views/external_calendars/external_calendar_form_view.py
+#, python-format
+msgid ""
+"Could not import %d events of this external calendar (out of %d total). See "
+"the status for more information"
+msgstr ""
+"%d (von insgesamt %d) Veranstaltungen konnten nicht aus dem Kalender "
+"importiert werden. Mehr Informationen finden Sie im Fehlerstatus."
+
+#: cms/views/external_calendars/external_calendar_form_view.py
+msgid "Successfully imported events from this external calendar"
+msgstr "Veranstaltungen des externen Kalenders wurden erfolgreich importiert"
 
 #: cms/views/external_calendars/external_calendar_list_view.py
 msgid "Please confirm that you really want to delete this calendar"
@@ -10216,6 +10313,12 @@ msgstr "Seite \"{}\" wurde erfolgreich erstellt"
 msgid "An error has occurred. Please contact an administrator."
 msgstr ""
 "Ein Fehler ist aufgetreten. Bitte kontaktieren Sie eine:n Administrator:in."
+
+#: cms/views/pages/page_permission_actions.py
+msgid "Inactive users cannot be assigned to pages."
+msgstr ""
+"Benutzer:innen können keiner Seite zugeordnet werden, solange ihr Konto "
+"nicht aktiviert wurde."
 
 #: cms/views/pages/page_permission_actions.py
 msgid ""
@@ -11150,6 +11253,12 @@ msgid "This page belongs to another region ({})."
 msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
+
+#~ msgid "An error occurred while importing events from this external calendar"
+#~ msgstr "Ein Fehler mit dem Import von Veranstaltungen ist aufgetreten"
+
+#~ msgid "Event does not come from an external calendar"
+#~ msgstr "Veranstaltung kommt nicht aus einem externen Kalender"
 
 #~ msgid "Invalid links"
 #~ msgstr "Ungültige Links"

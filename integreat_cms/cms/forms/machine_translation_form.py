@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 
 from ...core.utils.machine_translation_provider import MachineTranslationProvider
 from ...textlab_api.utils import check_hix_score
+from ..constants import text_directions
 from ..models import LanguageTreeNode
 from .custom_content_model_form import CustomContentModelForm
 
@@ -93,6 +94,14 @@ class MachineTranslationForm(CustomContentModelForm):
             self.request.region.language_tree_nodes.filter(id__in=to_update)
         )
         self.initial["mt_translations_to_update"] = to_update
+
+        localized_fields = ["title"]
+        for field in localized_fields:
+            self.fields[field].widget.attrs["dir"] = (
+                "rtl"
+                if self.language.text_direction == text_directions.RIGHT_TO_LEFT
+                else "ltr"
+            )
 
     def mt_form_is_enabled(self) -> NS_NodeQuerySet:
         """

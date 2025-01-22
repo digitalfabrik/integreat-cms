@@ -64,7 +64,6 @@ module.exports = {
         "implicit-arrow-linebreak": "off",
         "max-len": "off",
         "no-confusing-arrow": "off",
-        "no-console": "off",
         "no-multiple-empty-lines": "off",
         "object-curly-newline": "off",
         "operator-linebreak": "off",
@@ -137,6 +136,7 @@ module.exports = {
         "react/function-component-definition": ["error", { namedComponents: "arrow-function" }],
         "react-hooks/exhaustive-deps": "error",
         "vars-on-top": "error",
+        "no-console": ["error", { allow: ["debug", "warn", "error"] }],
     },
     overrides: [
         {

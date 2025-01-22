@@ -18,11 +18,15 @@
                     {% translate "Create new account" %}
                 {% endif %}
             </h1>
-            {% if perms.cms.change_user %}
-                <button class="btn">
-                    {% translate "Save" %}
-                </button>
-            {% endif %}
+            <div class="flex flex-wrap grow justify-end gap-2 items-center">
+                <a href="{% url 'region_users' region_slug=request.region.slug %}"
+                   class="btn btn-ghost">{% translate "Cancel" %}</a>
+                {% if perms.cms.change_user %}
+                    <button class="btn">
+                        {% translate "Save" %}
+                    </button>
+                {% endif %}
+            </div>
         </div>
         <div class="grid xl:grid-cols-2 2xl:grid-cols-3 gap-4">
             <div class="mb-4 rounded border border-blue-500 shadow-2xl bg-white">

@@ -10,7 +10,7 @@ from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import TemplateView
 
-from ...constants import status, translation_status
+from ...constants import status, text_directions, translation_status
 from ...decorators import permission_required
 from ...forms import ImprintTranslationForm
 from ...models import ImprintPage, ImprintPageTranslation
@@ -159,6 +159,14 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
                 ),
                 "translation_states": imprint.translation_states if imprint else [],
                 "lock_key": edit_lock_key,
+                "right_to_left": (
+                    language.text_direction == text_directions.RIGHT_TO_LEFT
+                ),
+                "text_direction": (
+                    "rtl"
+                    if language.text_direction == text_directions.RIGHT_TO_LEFT
+                    else "ltr"
+                ),
             },
         )
 
@@ -257,6 +265,14 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
                     imprint_instance.translation_states if imprint_instance else []
                 ),
                 "lock_key": lock_key,
+                "right_to_left": (
+                    language.text_direction == text_directions.RIGHT_TO_LEFT
+                ),
+                "text_direction": (
+                    "rtl"
+                    if language.text_direction == text_directions.RIGHT_TO_LEFT
+                    else "ltr"
+                ),
             },
         )
 

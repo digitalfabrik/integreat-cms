@@ -32,8 +32,15 @@
                     {% translate "Create new location" %}
                 {% endif %}
             </h1>
-            {% if not poi_form.instance.archived and perms.cms.change_poi %}
-                <div class="flex flex-wrap items-center gap-4 ml-auto mr-0">
+            <div class="flex flex-wrap items-center gap-4 ml-auto mr-0">
+                {% if poi_form.instance.archived %}
+                    <a href="{% url 'archived_pois' region_slug=request.region.slug language_slug=language.slug %}"
+                       class="btn btn-ghost">{% translate "Cancel" %}</a>
+                {% else %}
+                    <a href="{% url 'pois' region_slug=request.region.slug %}"
+                       class="btn btn-ghost">{% translate "Cancel" %}</a>
+                {% endif %}
+                {% if not poi_form.instance.archived and perms.cms.change_poi %}
                     {% include "generic_auto_save_note.html" with form_instance=poi_translation_form.instance %}
                     <button name="status"
                             value="{{ DRAFT }}"
@@ -50,8 +57,8 @@
                             {% translate "Publish" %}
                         {% endif %}
                     </button>
-                </div>
-            {% endif %}
+                {% endif %}
+            </div>
         </div>
         <div class="pt-4 lg:pt-0 3xl:grid grid-cols-2 3xl:grid-cols-[minmax(0px,_1fr)_400px] 4xl:grid-cols-[minmax(0px,_1fr)_816px] gap-4">
             <div class="flex flex-col flex-wrap col-span-2 3xl:col-span-1">
