@@ -237,6 +237,34 @@ class Contact(AbstractBaseModel):
             for link in Link.objects.filter(url__url=self.absolute_url)
         ]
 
+    @cached_property
+    def available_details(self) -> dict:
+        """
+        Returns the available details and their human-readable representation
+
+        :return: key-value pairs of available detail and human-readable representation
+        """
+        details = {
+            "address": _("show address"),
+        }
+
+        if self.point_of_contact_for:
+            details["point_of_contact_for"] = _("show point of contact")
+
+        if self.name:
+            details["name"] = _("show name")
+
+        if self.email:
+            details["email"] = _("show email")
+
+        if self.phone_number:
+            details["phone_number"] = _("show phone number")
+
+        if self.website:
+            details["website"] = _("show website")
+
+        return details
+
     def archive(self) -> None:
         """
         Archives the contact

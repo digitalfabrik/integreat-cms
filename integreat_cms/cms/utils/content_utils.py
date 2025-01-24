@@ -142,16 +142,18 @@ def update_internal_links(link: HtmlElement, language_slug: str) -> None:
                 link.append(new_html)
 
 
-def render_contact_card(contact_id: int) -> HtmlElement:
+def render_contact_card(contact_id: int, wanted_details: list[str]) -> HtmlElement:
     """
     Produces a rendered html element for the contact.
 
     :param contact_id: The id of the contact to render the card for
+    :param wanted_details: list of details to be shown in the rendered card
     """
     template = loader.get_template("contacts/contact_card.html")
     try:
         context = {
             "contact": Contact.objects.get(pk=contact_id),
+            "wanted": wanted_details,
         }
         raw_element = template.render(context)
         return fromstring(raw_element)
@@ -175,9 +177,17 @@ def update_contacts(content: HtmlElement) -> None:
     """
     contact_cards = content.xpath("//div[@data-contact-id]")
     contact_ids = [int(card.get("data-contact-id")) for card in contact_cards]
+    contact_urls = [card.get("data-contact-url") for card in contact_cards]
 
-    for contact_id, contact_card in zip(contact_ids, contact_cards):
-        contact_card_new = render_contact_card(contact_id)
+    for contact_id, contact_url, contact_card in zip(
+        contact_ids, contact_urls, contact_cards
+    ):
+        try:
+            wanted_details = contact_url.split("details=", 1)[1].split(",")
+        except IndexError:
+            wanted_details = []
+
+        contact_card_new = render_contact_card(contact_id, wanted_details)
         contact_card.getparent().replace(contact_card, contact_card_new)
 
 
