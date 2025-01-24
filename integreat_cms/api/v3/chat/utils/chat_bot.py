@@ -121,10 +121,11 @@ def process_user_message(
             answer["answer"],
             False,
             True,
+            answer["automatic_answers"],
         )
 
 
-async def async_process_answer(
+async def async_process_translate(
     message_text: str,
     source_language: str,
     target_language: str,
@@ -143,7 +144,9 @@ async def async_process_answer(
 
 
 @shared_task
-def process_answer(message_text: str, region_slug: str, zammad_ticket_id: int) -> None:
+def process_translate_answer(
+    message_text: str, region_slug: str, zammad_ticket_id: int
+) -> None:
     """
     Process automatic or counselor answers. These messages just need a translation.
     """
@@ -151,7 +154,7 @@ def process_answer(message_text: str, region_slug: str, zammad_ticket_id: int) -
     zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
     client = ZammadChatAPI(region)
     translation = asyncio.run(
-        async_process_answer(
+        async_process_translate(
             message_text,
             region.default_language.slug,
             zammad_chat.language.slug,
@@ -162,5 +165,29 @@ def process_answer(message_text: str, region_slug: str, zammad_ticket_id: int) -
             zammad_chat.zammad_id,
             translation["translation"],
             False,
+            True,
+        )
+
+
+@shared_task
+def process_translate_question(
+    message_text: str, region_slug: str, zammad_ticket_id: int
+) -> None:
+    """
+    Process translation of app user questions
+    """
+    region = Region.objects.get(slug=region_slug)
+    zammad_chat = UserChat.objects.get(zammad_id=zammad_ticket_id, region=region)
+    client = ZammadChatAPI(region)
+    translation = asyncio.run(
+        async_process_translate(
+            message_text, zammad_chat.language.slug, region.default_language.slug
+        )
+    )
+    if translation:
+        client.send_message(
+            zammad_chat.zammad_id,
+            translation["translation"],
+            True,
             True,
         )
