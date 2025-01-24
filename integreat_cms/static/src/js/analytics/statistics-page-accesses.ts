@@ -30,10 +30,12 @@ const setAccessesPerLanguage = (
     const childElement = parentElement.querySelector(`.accesses span[data-language-slug="${languageSlug}"]`);
     const languageColor = childElement.getAttribute("data-language-color");
     const accesses = countAccesses(accessesOverTime);
+    const roundedPercentage = ((accesses / allAccesses) * 100).toFixed(2);
     const width = allAccesses !== 0 ? (accesses / allAccesses) * 100 : 0;
     (childElement as HTMLElement).style.backgroundColor = languageColor;
     (childElement as HTMLElement).style.width = `${String(width)}%`;
-    (childElement as HTMLElement).title = String(accesses);
+    (childElement as HTMLElement).title =
+        `${accesses} ${childElement.getAttribute("data-access-translation")} (${roundedPercentage} %)`;
 };
 
 const hideLoader = () => {
