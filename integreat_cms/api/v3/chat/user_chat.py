@@ -225,7 +225,9 @@ def chat(
 
 
 def is_app_user_message(webhook_message: dict) -> bool:
-    """ """
+    """
+    Check if the message was sent by the Integreat App
+    """
     return (
         webhook_message["article"]["created_by"]["login"]
         == "tech+integreat-cms@tuerantuer.org"

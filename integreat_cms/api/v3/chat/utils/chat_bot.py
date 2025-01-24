@@ -97,16 +97,16 @@ def process_user_message(
         client.send_message(
             zammad_chat.zammad_id,
             translation["translation"],
-            internal=True,
-            automatic_message=True,
+            True,
+            True,
         )
     if answer:
         client.send_message(
             zammad_chat.zammad_id,
             answer["answer"],
-            internal=False,
-            automatic_message=True,
-            automatic_answers=answer["automatic_answers"],
+            False,
+            True,
+            answer["automatic_answers"],
         )
 
 
@@ -142,8 +142,8 @@ def process_translate_answer(
         client.send_message(
             zammad_chat.zammad_id,
             translation["translation"],
-            internal=False,
-            automatic_message=True,
+            False,
+            True,
         )
 
 
@@ -166,6 +166,6 @@ def process_translate_question(
         client.send_message(
             zammad_chat.zammad_id,
             translation["translation"],
-            internal=True,
-            automatic_message=True,
+            True,
+            True,
         )
