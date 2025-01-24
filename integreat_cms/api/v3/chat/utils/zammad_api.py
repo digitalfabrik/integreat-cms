@@ -174,6 +174,7 @@ class ZammadChatAPI:
         message: str,
         internal: bool = False,
         automatic_message: bool = False,
+        automatic_answers: bool = True,
     ) -> dict:
         # pylint: disable=method-hidden
         """
@@ -183,6 +184,7 @@ class ZammadChatAPI:
         param message: The message body
         param internal: keep the message internal in Zammad (do not show to user)
         param automatic_message: sets title to "automatically generated message"
+        param automatic_answers: sets the attribute
         return: dict with Zammad article data
         """
         params = {
@@ -197,6 +199,7 @@ class ZammadChatAPI:
                 else "app user message"
             ),
             "sender": "Customer" if not automatic_message else "Agent",
+            "automatic_answers": automatic_answers,
         }
         return self._parse_response(  # type: ignore[return-value]
             self._attempt_call(self.client.ticket_article.create, params=params)

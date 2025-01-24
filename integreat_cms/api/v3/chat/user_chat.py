@@ -251,7 +251,7 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
         )
     if is_app_user_message(webhook_message) and not webhook_message["ticket"]["automatic_answers"]:
         actions.append("question translation queued")
-        process_answer.apply_async(
+        process_translate_question.apply_async(
             args=[message_text, region.slug, webhook_message["ticket"]["id"]]
         )
     elif is_app_user_message(webhook_message):
@@ -261,7 +261,7 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
         )
     else:
         actions.append("answer translation queued")
-        process_answer.apply_async(
+        process_translate_answer.apply_async(
             args=[message_text, region.slug, webhook_message["ticket"]["id"]]
         )
     return JsonResponse(

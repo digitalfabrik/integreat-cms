@@ -97,15 +97,16 @@ def process_user_message(
         client.send_message(
             zammad_chat.zammad_id,
             translation["translation"],
-            True,
-            True,
+            internal = True,
+            automatic_message = True,
         )
     if answer:
         client.send_message(
             zammad_chat.zammad_id,
             answer["answer"],
-            False,
-            True,
+            internal = False,
+            automatic_message = True,
+            automatic_answers = answer["automatic_answers"],
         )
 
 
@@ -139,8 +140,8 @@ def process_translate_answer(message_text: str, region_slug: str, zammad_ticket_
         client.send_message(
             zammad_chat.zammad_id,
             translation["translation"],
-            False,
-            True,
+            internal = False,
+            automatic_message = True,
         )
 
 
@@ -160,6 +161,6 @@ def process_translate_question(message_text: str, region_slug: str, zammad_ticke
         client.send_message(
             zammad_chat.zammad_id,
             translation["translation"],
-            True,
-            True,
+            internal = True,
+            automatic_message = True,
         )
