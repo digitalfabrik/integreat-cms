@@ -97,16 +97,16 @@ def process_user_message(
         client.send_message(
             zammad_chat.zammad_id,
             translation["translation"],
-            internal = True,
-            automatic_message = True,
+            internal=True,
+            automatic_message=True,
         )
     if answer:
         client.send_message(
             zammad_chat.zammad_id,
             answer["answer"],
-            internal = False,
-            automatic_message = True,
-            automatic_answers = answer["automatic_answers"],
+            internal=False,
+            automatic_message=True,
+            automatic_answers=answer["automatic_answers"],
         )
 
 
@@ -124,7 +124,9 @@ async def async_process_translate(
 
 
 @shared_task
-def process_translate_answer(message_text: str, region_slug: str, zammad_ticket_id: int) -> None:
+def process_translate_answer(
+    message_text: str, region_slug: str, zammad_ticket_id: int
+) -> None:
     """
     Process translation of automatic or counselor answers
     """
@@ -140,13 +142,15 @@ def process_translate_answer(message_text: str, region_slug: str, zammad_ticket_
         client.send_message(
             zammad_chat.zammad_id,
             translation["translation"],
-            internal = False,
-            automatic_message = True,
+            internal=False,
+            automatic_message=True,
         )
 
 
 @shared_task
-def process_translate_question(message_text: str, region_slug: str, zammad_ticket_id: int) -> None:
+def process_translate_question(
+    message_text: str, region_slug: str, zammad_ticket_id: int
+) -> None:
     """
     Process translation of app user questions
     """
@@ -155,12 +159,13 @@ def process_translate_question(message_text: str, region_slug: str, zammad_ticke
     client = ZammadChatAPI(region)
     translation = asyncio.run(
         async_process_translate(
-            message_text, zammad_chat.language.slug, region.default_language.slug)
+            message_text, zammad_chat.language.slug, region.default_language.slug
+        )
     )
     if translation:
         client.send_message(
             zammad_chat.zammad_id,
             translation["translation"],
-            internal = True,
-            automatic_message = True,
+            internal=True,
+            automatic_message=True,
         )

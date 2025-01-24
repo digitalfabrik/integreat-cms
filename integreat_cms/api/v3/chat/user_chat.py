@@ -16,7 +16,11 @@ from django.views.decorators.csrf import csrf_exempt
 
 from ....cms.models import ABTester, AttachmentMap, Language, Region, UserChat
 from ...decorators import json_response
-from .utils.chat_bot import process_answer, process_user_message
+from .utils.chat_bot import (
+    process_translate_answer,
+    process_translate_question,
+    process_user_message,
+)
 from .utils.zammad_api import ZammadChatAPI
 
 if TYPE_CHECKING:
@@ -219,13 +223,14 @@ def chat(
         return get_messages(request, client, user_chat, device_id)
     return send_message(request, language_slug, client, user_chat, device_id)
 
-def is_app_user_message(message: dict) -> bool:
-    """
 
-    """
-    return (webhook_message["article"]["created_by"]["login"]
-            == "tech+integreat-cms@tuerantuer.org"
-            )
+def is_app_user_message(webhook_message: dict) -> bool:
+    """ """
+    return (
+        webhook_message["article"]["created_by"]["login"]
+        == "tech+integreat-cms@tuerantuer.org"
+    )
+
 
 @csrf_exempt
 @json_response
@@ -249,7 +254,10 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
                 "results": "skipped internal message",
             }
         )
-    if is_app_user_message(webhook_message) and not webhook_message["ticket"]["automatic_answers"]:
+    if (
+        is_app_user_message(webhook_message)
+        and not webhook_message["ticket"]["automatic_answers"]
+    ):
         actions.append("question translation queued")
         process_translate_question.apply_async(
             args=[message_text, region.slug, webhook_message["ticket"]["id"]]
