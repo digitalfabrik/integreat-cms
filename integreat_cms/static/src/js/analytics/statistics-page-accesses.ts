@@ -12,6 +12,7 @@ export type Access = {
 
 let chart: Chart | null = null;
 
+/* Loop over the object containing the accesses over time and count them to a total */
 const countAccesses = (accessesOverTime: object): number => {
     let accesses: number = 0;
     Object.values(accessesOverTime).forEach((entry) => {
@@ -20,6 +21,7 @@ const countAccesses = (accessesOverTime: object): number => {
     return accesses;
 };
 
+/* Set the bar for every language */
 const setAccessesPerLanguage = (
     accessField: Element,
     languageSlug: string,
@@ -38,6 +40,7 @@ const setAccessesPerLanguage = (
         `${accesses} ${childElement.getAttribute("data-access-translation")} (${roundedPercentage} %)`;
 };
 
+/* This function hides the loader icon once the data is there */
 const hideLoader = () => {
     const loaderIcons = document.getElementsByClassName("page-accesses-loading");
     Array.from(loaderIcons).forEach((loaderIcon) => {
@@ -45,6 +48,7 @@ const hideLoader = () => {
     });
 };
 
+/* Set the selected date at the top of the table */
 const setDates = () => {
     const unformattedStartDate = (document.getElementById("id_start_date") as HTMLInputElement).value;
     const unformattedEndDate = (document.getElementById("id_end_date") as HTMLInputElement).value;
@@ -52,6 +56,7 @@ const setDates = () => {
     document.getElementById("date-range-end").innerHTML = new Date(unformattedEndDate).toLocaleDateString();
 };
 
+/* The main function which updates the accesses */
 const updatePageAccesses = async (): Promise<void> => {
     const pageAccessesNetworkError = document.getElementById("page-accesses-network-error");
     const pageAccessesServerError = document.getElementById("page-accesses-server-error");
@@ -82,18 +87,27 @@ const updatePageAccesses = async (): Promise<void> => {
         const response = await fetch(pageAccessesURL, parameters);
         if (response.status === HTTP_STATUS_OK) {
             const data = (await response.json()) as AjaxResponse;
+            /* data is the nested response we get from our client. On the first level it contains the page_id and an object.
+            This object in itself contains the language_slug and another object. On the third level this object contains the accesses over time with
+            a date and the according accesses. */
             const languageSlugToDatasetId: Map<string, number> = new Map();
             Object.entries(data).forEach((values) => {
+                // We're on the first level of our data. Here we have the page_id and the rest of the object.
                 Array.from(accessFields).forEach((accessField) => {
                     const id = values[0];
                     const pageId = accessField.parentElement.getAttribute("id").replace("page-", "");
+                    // pageId is the id of a page in our page tree. Id is the id in our data object. In the next line we compare them, to find the right
+                    // data for the right row.
                     if (id === pageId) {
                         const accesses = values[1];
+                        // We get the column 'total accesses' in our table
                         const allAccessesField = Array.from(accessField.parentElement?.children || []).find(
                             (el) => el !== accessField && el.classList.contains("total-accesses")
                         );
                         const editableAllAccessField = allAccessesField;
                         let allAccesses: number = 0;
+                        // The next part goes through the subobject and the subobject. It counts the sum of accesses
+                        // for all languages and all accesses for the selected timeframe
                         Object.entries(accesses).forEach((access) => {
                             const languageSlug = access[0];
                             if (languageSlugToDatasetId.get(languageSlug) === undefined) {
@@ -111,6 +125,7 @@ const updatePageAccesses = async (): Promise<void> => {
                             }
                         });
                         editableAllAccessField.textContent = `${String(allAccesses)} ${editableAllAccessField.getAttribute("data-translation")}`;
+                        // Go to the object on the second level. Set the bar of accesses for every language for the selected timeframe.
                         Object.entries(accesses).forEach((access) => {
                             const languageSlug = access[0];
                             const accessesOverTime = access[1];
@@ -146,6 +161,7 @@ const updatePageAccesses = async (): Promise<void> => {
 window.addEventListener("load", async () => {
     updatePageAccesses();
     chart = Chart.instances[0];
+    // Refresh the statistics every time a new timeframe or language is selected
     const oldUpdate = chart.update;
     chart.update = async () => {
         oldUpdate.call(chart);
