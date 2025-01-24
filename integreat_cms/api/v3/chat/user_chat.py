@@ -219,6 +219,13 @@ def chat(
         return get_messages(request, client, user_chat, device_id)
     return send_message(request, language_slug, client, user_chat, device_id)
 
+def is_app_user_message(message: dict) -> bool:
+    """
+
+    """
+    return (webhook_message["article"]["created_by"]["login"]
+            == "tech+integreat-cms@tuerantuer.org"
+            )
 
 @csrf_exempt
 @json_response
@@ -242,11 +249,13 @@ def zammad_webhook(request: HttpRequest) -> JsonResponse:
                 "results": "skipped internal message",
             }
         )
-    if (
-        webhook_message["article"]["created_by"]["login"]
-        == "tech+integreat-cms@tuerantuer.org"
-    ):
+    if is_app_user_message(webhook_message) and not webhook_message["ticket"]["automatic_answers"]:
         actions.append("question translation queued")
+        process_answer.apply_async(
+            args=[message_text, region.slug, webhook_message["ticket"]["id"]]
+        )
+    elif is_app_user_message(webhook_message):
+        actions.append("question translation and answering queued")
         process_user_message.apply_async(
             args=[message_text, region.slug, webhook_message["ticket"]["id"]]
         )
