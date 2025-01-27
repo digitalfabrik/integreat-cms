@@ -31,6 +31,8 @@ class PageContextMixin(ContextMixin):
         context = super().get_context_data(**kwargs)
         context.update(
             {
+                "MT_PERMITTED": context.get("MT_PERMITTED", False)
+                and self.request.user.has_perm("cms.publish_page_object"),
                 "current_menu_item": "pages",
                 "translation_status": translation_status,
                 "archive_dialog_title": _(
