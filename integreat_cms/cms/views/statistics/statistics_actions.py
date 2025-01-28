@@ -106,8 +106,8 @@ def get_visits_per_language_ajax(
 
 
 @require_POST
-# pylint: disable=unused-argument
 def get_page_accesses_ajax(request: HttpRequest, region_slug: str) -> JsonResponse:
+    # pylint: disable=unused-argument
     """
     Ajax method to request the app hits for a certain timerange distinguished by languages.
 
