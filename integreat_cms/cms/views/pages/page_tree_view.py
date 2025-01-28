@@ -129,13 +129,6 @@ class PageTreeView(TemplateView, PageContextMixin, MachineTranslationContextMixi
             .cache_tree(archived=self.archived)
         )
 
-        # When only archived pages are requested, remove implicitly archived pages since they are handeld by loading the partial page tree
-        # if self.archived:
-        #    archived_pages = region.archived_pages
-        #    for page in archived_pages:
-        #        if page.implicitly_archived:
-        #            pages.remove(page)
-
         # Filter pages according to given filters, if any
         pages = filter_form.apply(pages, language_slug)
 
