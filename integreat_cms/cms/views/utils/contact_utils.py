@@ -102,7 +102,7 @@ def get_contact_raw(
     return JsonResponse(
         {
             "data": {
-                "url": contact.full_url,
+                "url": contact.absolute_url,
                 "name": contact.get_repr_short,
                 "details": contact.available_details,
             }
