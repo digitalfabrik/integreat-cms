@@ -343,10 +343,15 @@ def check_internal(url: Url) -> bool | None:  # noqa: PLR0911
         language_and_path += "/"
     language_slug, path = language_and_path.split("/", maxsplit=1)
 
-    if language_slug == "contact" and Contact.objects.filter(pk=path).exists():
-        logger.debug("Link to a contact is valid.")
-        mark_valid(url)
-        return url.status
+    if language_slug == "contact":
+        try:
+            pk, _details = path.split("/", 1)
+            if Contact.objects.filter(pk=pk).exists():
+                logger.debug("Link to a contact is valid.")
+                mark_valid(url)
+                return url.status
+        except ValueError:
+            pass
 
     try:
         language = region.get_language_or_404(
