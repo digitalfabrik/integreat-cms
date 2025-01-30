@@ -44,8 +44,6 @@ from django.urls import reverse
                 27,
                 28,
                 31,
-                32,
-                33,
             ],
             "",
             "990a572a06/Integreat - Deutsch - Augsburg.pdf",

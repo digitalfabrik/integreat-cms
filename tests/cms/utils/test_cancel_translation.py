@@ -9,6 +9,7 @@ if TYPE_CHECKING:
 
 import pytest
 from _pytest.logging import LogCaptureFixture
+from django.core.management import call_command
 from django.test.client import Client
 from django.urls import reverse
 from pytest_django.fixtures import SettingsWrapper
@@ -31,6 +32,7 @@ def test_bulk_cancel_translation_process(
     caplog: LogCaptureFixture,
     settings: SettingsWrapper,
 ) -> None:
+    call_command("loaddata", "test_data_in_translation.json")
     client, role = login_role_user
 
     # Test for english messages
