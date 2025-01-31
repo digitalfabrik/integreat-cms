@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="article:modified_time" content="2025-01-31T20:35:47+00:00" />
+    <meta property="article:modified_time" content="2025-01-31T21:52:23+00:00" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Utils &mdash; integreat-cms 2025.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
@@ -261,6 +261,7 @@
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#tinymce-icon-utils">Tinymce Icon Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#totp-utils">Totp Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#translation-utils">Translation Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#tree-mutex">Tree Mutex</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#user-utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="integreat_cms.cms.utils.html#welcome-mail-utils">Welcome Mail Utils</a></li>
 </ul>
@@ -450,6 +451,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#test-rounded-hix-value">Test Rounded Hix Value</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#test-slug-utils">Test Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#test-translation-utils">Test Translation Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test-tree-mutex">Test Tree Mutex</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="tests.cms.views.html">Views</a><ul>
@@ -840,6 +842,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.tinymce_icon_utils">Tinymce Icon Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.totp_utils">Totp Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.translation_utils">Translation Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.tree_mutex">Tree Mutex</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.user_utils">User Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#module-integreat_cms.cms.utils.welcome_mail_utils">Welcome Mail Utils</a></li>
 </ul>
@@ -1465,6 +1468,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_rounded_hix_value">Test Rounded Hix Value</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_slug_utils">Test Slug Utils</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_translation_utils">Test Translation Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../ref-ext/tests.cms.utils.html#module-tests.cms.utils.test_tree_mutex">Test Tree Mutex</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../ref-ext/tests.cms.views.html">Views</a><ul>
@@ -2238,7 +2242,7 @@
 Since there seem to be some weird side effects happening
 for unrelated tests when testing database consistency, we first run those,
 then the tests that make sure the <a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.repair_tree.repair_tree" title="integreat_cms.cms.utils.repair_tree.repair_tree"><code class="xref py py-func docutils literal notranslate"><span class="pre">repair_tree()</span></code></a> is effective,
-and last the effectiveness of <code class="xref py py-func docutils literal notranslate"><span class="pre">tree_mutex()</span></code> itself.
+and last the effectiveness of <a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.tree_mutex.tree_mutex" title="integreat_cms.cms.utils.tree_mutex.tree_mutex"><code class="xref py py-func docutils literal notranslate"><span class="pre">tree_mutex()</span></code></a> itself.
 This ordering is facilitated using pytest_order
 to specify the tests to run <code class="docutils literal notranslate"><span class="pre">&quot;last&quot;</span></code> (eqivalent to <code class="docutils literal notranslate"><span class="pre">-1</span></code>, absolute ordering)
 and after certain other tests (relative ordering).</p>
@@ -2368,6 +2372,150 @@ text while preserving the link tags</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="test-tree-mutex">
+<h2>Test Tree Mutex<a class="headerlink" href="#test-tree-mutex" title="Link to this heading"></a></h2>
+<p>Test tree mutex for page tree</p>
+<p>Test execution order:
+Since there seem to be some weird side effects happening
+for unrelated tests when testing database consistency, we first run those,
+then the tests that make sure the <a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.repair_tree.repair_tree" title="integreat_cms.cms.utils.repair_tree.repair_tree"><code class="xref py py-func docutils literal notranslate"><span class="pre">repair_tree()</span></code></a> is effective,
+and last the effectiveness of <a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.tree_mutex.tree_mutex" title="integreat_cms.cms.utils.tree_mutex.tree_mutex"><code class="xref py py-func docutils literal notranslate"><span class="pre">tree_mutex()</span></code></a> itself.
+This ordering is facilitated using pytest_order
+to specify the tests to run <code class="docutils literal notranslate"><span class="pre">&quot;last&quot;</span></code> (eqivalent to <code class="docutils literal notranslate"><span class="pre">-1</span></code>, absolute ordering)
+and after certain other tests (relative ordering).</p>
+<p>See <a class="reference external" href="https://pytest-order.readthedocs.io/en/stable/usage.html#order-relative-to-other-tests">https://pytest-order.readthedocs.io/en/stable/usage.html#order-relative-to-other-tests</a></p>
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_tree_mutex.</span></span><span class="sig-name descname"><span class="pre">back</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contestant_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_tree_mutex.py#L184"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Gets the page with id <code class="docutils literal notranslate"><span class="pre">contestant_id</span></code> and the target page with id <code class="docutils literal notranslate"><span class="pre">20</span></code>
+and moves the contestant out as the right sibling of the target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>contestant_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_tree_mutex.</span></span><span class="sig-name descname"><span class="pre">five_ten_five</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contestant_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_mutex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">handle_exception</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Callable" title="(in Python v3.11)"><span class="pre">Callable</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_tree_mutex.py#L118"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Move a “contestant” page back and forth repeatedly.
+Exceptions are caught and handed to <code class="docutils literal notranslate"><span class="pre">handle_exception</span></code>,
+this is necessary to get them back out to the main thread.
+<code class="docutils literal notranslate"><span class="pre">use_mutex</span></code> dictates whether to use <a class="reference internal" href="../ref-ext/tests.cms.utils.html#tests.cms.utils.test_tree_mutex.mforth" title="tests.cms.utils.test_tree_mutex.mforth"><code class="xref py py-func docutils literal notranslate"><span class="pre">mforth()</span></code></a>/<a class="reference internal" href="../ref-ext/tests.cms.utils.html#tests.cms.utils.test_tree_mutex.mback" title="tests.cms.utils.test_tree_mutex.mback"><code class="xref py py-func docutils literal notranslate"><span class="pre">mback()</span></code></a>
+or <a class="reference internal" href="../ref-ext/tests.cms.utils.html#tests.cms.utils.test_tree_mutex.forth" title="tests.cms.utils.test_tree_mutex.forth"><code class="xref py py-func docutils literal notranslate"><span class="pre">forth()</span></code></a>/<a class="reference internal" href="../ref-ext/tests.cms.utils.html#tests.cms.utils.test_tree_mutex.back" title="tests.cms.utils.test_tree_mutex.back"><code class="xref py py-func docutils literal notranslate"><span class="pre">back()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>contestant_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>)</p></li>
+<li><p><strong>use_mutex</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>)</p></li>
+<li><p><strong>handle_exception</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/typing.html#typing.Callable" title="(in Python v3.11)"><em>Callable</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_tree_mutex.</span></span><span class="sig-name descname"><span class="pre">forth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contestant_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_tree_mutex.py#L170"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Gets the page with id <code class="docutils literal notranslate"><span class="pre">contestant_id</span></code> and the target page with id <code class="docutils literal notranslate"><span class="pre">20</span></code>
+and moves the contestant in as the last child of the target.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>contestant_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_tree_mutex.</span></span><span class="sig-name descname"><span class="pre">mback</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contestant_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_tree_mutex.py#L162"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Only calls <a class="reference internal" href="../ref-ext/tests.cms.utils.html#tests.cms.utils.test_tree_mutex.back" title="tests.cms.utils.test_tree_mutex.back"><code class="xref py py-func docutils literal notranslate"><span class="pre">back()</span></code></a>, but decorated with <a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.tree_mutex.tree_mutex" title="integreat_cms.cms.utils.tree_mutex.tree_mutex"><code class="xref py py-func docutils literal notranslate"><span class="pre">tree_mutex()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>contestant_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_tree_mutex.</span></span><span class="sig-name descname"><span class="pre">mforth</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">contestant_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_tree_mutex.py#L154"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Only calls <a class="reference internal" href="../ref-ext/tests.cms.utils.html#tests.cms.utils.test_tree_mutex.forth" title="tests.cms.utils.test_tree_mutex.forth"><code class="xref py py-func docutils literal notranslate"><span class="pre">forth()</span></code></a>, but decorated with <a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.tree_mutex.tree_mutex" title="integreat_cms.cms.utils.tree_mutex.tree_mutex"><code class="xref py py-func docutils literal notranslate"><span class="pre">tree_mutex()</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>contestant_id</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#int" title="(in Python v3.11)"><em>int</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_tree_mutex.</span></span><span class="sig-name descname"><span class="pre">run_mutex_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">use_mutex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_tree_mutex.py#L74"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Start two <a class="reference internal" href="../ref-ext/tests.cms.utils.html#tests.cms.utils.test_tree_mutex.five_ten_five" title="tests.cms.utils.test_tree_mutex.five_ten_five"><code class="xref py py-func docutils literal notranslate"><span class="pre">five_ten_five()</span></code></a> tests in parallel, in separate threads.
+These each constantly move their “contestant” page back and forth.
+TreeBeard seems to quickly run into inconsistencies,
+as their code bypasses Djangos Object-Relationional Mapper (ORM),
+directly running raw SQL commands, without database transactions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>use_mutex</strong> (<a class="reference external" href="https://docs.python.org/3.11/library/functions.html#bool" title="(in Python v3.11)"><em>bool</em></a>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_tree_mutex.</span></span><span class="sig-name descname"><span class="pre">test_rule_out_false_positive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_tree_mutex.py#L45"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Rule out that <a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.tree_mutex.tree_mutex" title="integreat_cms.cms.utils.tree_mutex.tree_mutex"><code class="xref py py-func docutils literal notranslate"><span class="pre">tree_mutex()</span></code></a> is just doing nothing and <a class="reference internal" href="../ref-ext/tests.cms.utils.html#tests.cms.utils.test_tree_mutex.test_tree_mutex" title="tests.cms.utils.test_tree_mutex.test_tree_mutex"><code class="xref py py-func docutils literal notranslate"><span class="pre">test_tree_mutex()</span></code></a>
+only succeeded because the system magically worked without it.
+Provoke and expect a variety of possible exceptions using <a class="reference internal" href="../ref-ext/tests.cms.utils.html#tests.cms.utils.test_tree_mutex.run_mutex_test" title="tests.cms.utils.test_tree_mutex.run_mutex_test"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_mutex_test()</span></code></a>.</p>
+<p>If this test fails with an exception not expected and you can prove that it is indicative of
+treebeard shooting itself in the foot, please add the exception as expected!</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data_transactional</strong> (<em>None</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py">
+<span class="sig-prename descclassname"><span class="pre">tests.cms.utils.test_tree_mutex.</span></span><span class="sig-name descname"><span class="pre">test_tree_mutex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">load_test_data_transactional</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3.11/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference external" href="https://github.com/digitalfabrik/integreat-cms/blob/develop/tests/cms/utils/test_tree_mutex.py#L35"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Check whether <a class="reference internal" href="../ref-ext/integreat_cms.cms.utils.html#integreat_cms.cms.utils.tree_mutex.tree_mutex" title="integreat_cms.cms.utils.tree_mutex.tree_mutex"><code class="xref py py-func docutils literal notranslate"><span class="pre">tree_mutex()</span></code></a> is actually preventing collisions.
+See <a class="reference internal" href="../ref-ext/tests.cms.utils.html#tests.cms.utils.test_tree_mutex.run_mutex_test" title="tests.cms.utils.test_tree_mutex.run_mutex_test"><code class="xref py py-func docutils literal notranslate"><span class="pre">run_mutex_test()</span></code></a> for details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>load_test_data_transactional</strong> (<em>None</em>)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
 </dd>
 </dl>
 </dd></dl>
