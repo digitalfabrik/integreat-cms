@@ -54,7 +54,7 @@ class RegionConditionResource(resources.ModelResource):
     )
 
     num_languages_besides_root_language = fields.Field(
-        column_name=_("Number of languages besides root language")
+        column_name=_("Number of active languages besides default language")
     )
 
     @staticmethod
@@ -115,7 +115,7 @@ class RegionConditionResource(resources.ModelResource):
         :param region: The region
         :return: The number of languages besides the root language
         """
-        return len(region.language_tree) - 1
+        return len(region.active_languages_without_default_language)
 
     def get_instance(self, *args: Any, **kwargs: Any) -> Any:
         # pylint: disable=useless-parent-delegation
