@@ -1,5 +1,10 @@
 """
 This module contains the base view for bulk actions
+
+.. warning::
+    Any action modifying the database with treebeard should use ``@tree_mutex(MODEL_NAME)`` from ``integreat_cms.cms.utils.tree_mutex``
+    as a decorator instead of ``@transaction.atomic`` to force treebeard to actually use transactions.
+    Otherwise, the data WILL get corrupted during concurrent treebeard calls!
 """
 
 from __future__ import annotations
@@ -22,6 +27,7 @@ from django.views.generic.list import MultipleObjectMixin
 from ..constants import status
 from ..models import Page, POI
 from ..utils.stringify_list import iter_to_string
+from ..utils.tree_mutex import tree_mutex
 from .utils.publication_status import change_publication_status
 
 if TYPE_CHECKING:
@@ -269,6 +275,7 @@ class BulkArchiveView(BulkActionView):
     Bulk action for restoring multiple objects at once
     """
 
+    @tree_mutex("page")
     def post(
         self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponseRedirect:
@@ -365,6 +372,7 @@ class BulkRestoreView(BulkActionView):
     Bulk action for restoring multiple objects at once
     """
 
+    @tree_mutex("page")
     def post(
         self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponseRedirect:

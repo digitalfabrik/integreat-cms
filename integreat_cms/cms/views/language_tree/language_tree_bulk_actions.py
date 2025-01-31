@@ -1,3 +1,10 @@
+"""
+.. warning::
+    Any action modifying the database with treebeard should use ``@tree_mutex(MODEL_NAME)`` from ``integreat_cms.cms.utils.tree_mutex``
+    as a decorator instead of ``@transaction.atomic`` to force treebeard to actually use transactions.
+    Otherwise, the data WILL get corrupted during concurrent treebeard calls!
+"""
+
 from __future__ import annotations
 
 import logging
@@ -12,6 +19,7 @@ from ...models import (
     PageTranslation,
     POITranslation,
 )
+from ...utils.tree_mutex import tree_mutex
 from ..bulk_action_views import BulkUpdateBooleanFieldView
 
 if TYPE_CHECKING:
@@ -53,6 +61,7 @@ class LanguageTreeBulkActionView(BulkUpdateBooleanFieldView):
             "Subclasses of LanguageTreeBulkActionView must provide an 'action' attribute"
         )
 
+    @tree_mutex("languagetreenode")
     def post(
         self, request: HttpRequest, *args: Any, **kwargs: Any
     ) -> HttpResponseRedirect:
