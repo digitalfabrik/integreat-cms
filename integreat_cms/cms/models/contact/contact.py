@@ -183,7 +183,7 @@ class Contact(AbstractBaseModel):
         return PageTranslation.objects.filter(
             id__in=(
                 Link.objects.filter(
-                    url__url=self.absolute_url,
+                    url__url__startswith=self.absolute_url,
                     content_type=PageTranslationLinklist.content_type(),
                 ).values("object_id")
             ),
@@ -201,7 +201,7 @@ class Contact(AbstractBaseModel):
         return POITranslation.objects.filter(
             id__in=(
                 Link.objects.filter(
-                    url__url=self.absolute_url,
+                    url__url__startswith=self.absolute_url,
                     content_type=POITranslationLinklist.content_type(),
                 ).values("object_id")
             ),
@@ -219,7 +219,7 @@ class Contact(AbstractBaseModel):
         return EventTranslation.objects.filter(
             id__in=(
                 Link.objects.filter(
-                    url__url=self.absolute_url,
+                    url__url__startswith=self.absolute_url,
                     content_type=EventTranslationLinklist.content_type(),
                 ).values("object_id")
             ),
@@ -234,7 +234,7 @@ class Contact(AbstractBaseModel):
         """
         return [
             link.content_object
-            for link in Link.objects.filter(url__url=self.absolute_url)
+            for link in Link.objects.filter(url__url__startswith=self.absolute_url)
         ]
 
     @cached_property
