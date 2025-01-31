@@ -154,6 +154,16 @@ input[type="submit"] {
                 @apply bg-blue-100;
             }
         }
+        // Different types of buttons
+        &.btn-small {
+            @apply py-2 px-3;
+        }
+        &.btn-red {
+            @apply bg-red-500;
+            &:hover {
+                @apply bg-red-600;
+            }
+        }
         // Pseudo-classes
         &:hover {
             @apply bg-blue-600;
@@ -164,15 +174,8 @@ input[type="submit"] {
         &:disabled,
         &[disabled] {
             @apply bg-gray-400 cursor-not-allowed;
-        }
-        // Different types of buttons
-        &.btn-small {
-            @apply py-2 px-3;
-        }
-        &.btn-red {
-            @apply bg-red-500;
             &:hover {
-                @apply bg-red-600;
+                @apply bg-gray-500;
             }
         }
         // Override base styles
