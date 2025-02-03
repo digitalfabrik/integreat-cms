@@ -15,7 +15,7 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from lxml.etree import LxmlError
-from lxml.html import fromstring
+from lxml.html import fromstring, tostring
 
 from integreat_cms.cms.models.pages.page_translation import PageTranslation
 from integreat_cms.cms.models.regions.region import Region
@@ -54,12 +54,19 @@ def lookup_hix_score_helper(text: str) -> TextlabResult:
     """
     try:
         html = fromstring(text)
+
+        # remove divs which the authors have no control over (e.g. contact cards)
+        for div in html.xpath('//div[@contenteditable="false"]'):
+            div.getparent().remove(div)
+
         text_content = html.text_content()
         if not text_content.strip():
             return {
                 "score": None,
                 "feedback": [],
             }
+
+        text = tostring(html, encoding="unicode")
     except LxmlError:
         pass
 
