@@ -913,6 +913,12 @@ FORMAT_MODULE_PATH: Final[list[str]] = [
     "integreat_cms.core.formats",
 ]
 
+#: The country code used for phone numbers when converting user input to a standardized international format,
+#: if no country code is specified by the user.
+DEFAULT_PHONE_NUMBER_COUNTRY_CODE: Final[str] = os.environ.get(
+    "INTEGREAT_CMS_DEFAULT_PHONE_NUMBER_COUNTRY_CODE", "+49"
+)
+
 
 #####################################
 # MT Global - AUTOMATIC TRANSLATION #
