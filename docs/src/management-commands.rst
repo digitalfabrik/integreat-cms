@@ -198,6 +198,23 @@ Reset MT budget of regions whose renewal month is the current month::
 * ``--force``: Allow to reset the budget even if it's not the first day of the month
 
 
+``update_link_text``
+~~~~~~~~~~~~~~~~~~~~~~
+
+Update ALL link text of links of the given URL:
+
+    integreat-cms-cli update_link_text --target-url TARGET_URL --new-link-text NEW_LINK_TEXT [--username USERNAME]
+
+**Arguments:**
+
+* ``TARGET_URL``: Update the link text of ALL links of the url ``TARGET_URL``
+* ``NEW_LINK_TEXT``: Update the link texts to ``NEW_LINK_TEXT``
+
+**Options:**
+
+* ``USERNAME``: Associate any new created translations with ``USERNAME``
+
+
 Create new commands
 -------------------
 
