@@ -109,5 +109,6 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
                     "ajax_poi_form/_poi_address_container.html",
                     {"poi": poi_translation_form.instance.poi},
                 ),
+                "poi_id": poi_translation_form.instance.poi.id,
             }
         )

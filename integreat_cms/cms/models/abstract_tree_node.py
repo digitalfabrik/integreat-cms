@@ -1,11 +1,16 @@
+"""
+.. warning::
+    Any action modifying the database with treebeard should use ``@tree_mutex(MODEL_NAME)`` from ``integreat_cms.cms.utils.tree_mutex``
+    as a decorator instead of ``@transaction.atomic`` to force treebeard to actually use transactions.
+    Otherwise, the data WILL get corrupted during concurrent treebeard calls!
+"""
+
 from __future__ import annotations
 
 import logging
 from typing import TYPE_CHECKING
 
 from cacheops import invalidate_model
-from db_mutex import DBMutexError, DBMutexTimeoutError
-from db_mutex.db_mutex import db_mutex
 from django.db import models
 from django.db.models import CheckConstraint, Deferrable, F, Q, UniqueConstraint
 from django.utils.functional import cached_property
@@ -272,41 +277,29 @@ class AbstractTreeNode(NS_Node, AbstractBaseModel):
         :param pos: The new position of the page relative to the target
                     (choices: :mod:`~integreat_cms.cms.constants.position`)
         :raises ~treebeard.exceptions.InvalidPosition: If the node is moved to another region
-        :raises ~db_mutex.exceptions.DBMutexError: If the DB mutex could not be retrieved
-        :raises ~db_mutex.exceptions.DBMutexTimeoutError: If waiting for the DB mutex timed out
         """
         logger.debug("Moving %r to position %r of %r", self, pos, target)
-        try:
-            with db_mutex(self.__class__.__name__):
-                # Do not allow to move a node outside its region, but allow
-                # moving as siblings of root nodes (because it's a separate tree)
-                if self.region != target.region and not (
-                    target.is_root()
-                    and pos
-                    in [
-                        position.LEFT,
-                        position.RIGHT,
-                        position.FIRST_SIBLING,
-                        position.LAST_SIBLING,
-                    ]
-                ):
-                    raise InvalidPosition(
-                        _(
-                            'The node "{}" in region "{}" cannot be moved to "{}".'
-                        ).format(self, self.region, target.region)
-                    )
-                # Moving a node can modify all other nodes via raw sql queries (which are not recognized by cachalot),
-                # so we have to invalidate the whole model manually.
-                invalidate_model(self.__class__)
-                super().move(target, pos)
-        except DBMutexError as e:
-            raise DBMutexError(
-                _('Could not change position in tree of "{}".').format(self)
-            ) from e
-        except DBMutexTimeoutError as e:
-            raise DBMutexTimeoutError(
-                _('Could not change position in tree of "{}".').format(self)
-            ) from e
+        # Do not allow to move a node outside its region, but allow
+        # moving as siblings of root nodes (because it's a separate tree)
+        if self.region != target.region and not (
+            target.is_root()
+            and pos
+            in [
+                position.LEFT,
+                position.RIGHT,
+                position.FIRST_SIBLING,
+                position.LAST_SIBLING,
+            ]
+        ):
+            raise InvalidPosition(
+                _('The node "{}" in region "{}" cannot be moved to "{}".').format(
+                    self, self.region, target.region
+                )
+            )
+        # Moving a node can modify all other nodes via raw sql queries (which are not recognized by cachalot),
+        # so we have to invalidate the whole model manually.
+        invalidate_model(self.__class__)
+        super().move(target, pos)
         invalidate_model(self.__class__)
 
         # Reload 'self' because lft/rgt may have changed

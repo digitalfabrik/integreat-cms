@@ -8,6 +8,8 @@ RUN apt-get update && \
     ln -sf /usr/local/bin/node /usr/bin/node
 
 RUN apt-get install -y netcat-traditional pcregrep
+RUN apt-get install -y redis-server && \
+    usermod -aG redis www-data
 
 WORKDIR /workspace
 

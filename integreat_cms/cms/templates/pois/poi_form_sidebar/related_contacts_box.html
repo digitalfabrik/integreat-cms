@@ -17,12 +17,38 @@
                     {% trans "This location is not currently referred to in any contact." %}
                 {% endif %}
             </div>
-            {% for contact in contacts %}
-                <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
-                   class="block pt-2 hover:underline">
-                    <i icon-name="pen-square" class="mr-2"></i> {{ contact.label_in_reference_list }}
-                </a>
-            {% endfor %}
+            <div id="related-contact-list">
+                {% for contact in contacts %}
+                    <a href="{% url 'edit_contact' contact_id=contact.id region_slug=request.region.slug %}"
+                       class="block pt-2 hover:underline">
+                        <i icon-name="pencil" class="mr-2"></i> {{ contact.label_in_reference_list }}
+                    </a>
+                {% endfor %}
+            </div>
         </div>
+        {% if perms.cms.change_contact %}
+            <div>
+                <div class="help-text mt-4 font-bold">
+                    <div>
+                        <button id="show-contact-form-button"
+                                form="ajax_contact_form"
+                                class="btn w-full mt-4 mb-2"
+                                data-url="{% url 'show_contact_form_ajax' region_slug=request.region.slug poi_id=poi_id %}">
+                            {% translate "Create a new contact" %}
+                        </button>
+                    </div>
+                </div>
+                <div id="contact-ajax-success-message"
+                     class="bg-green-100 border-l-4 border-green-500 text-green-800 px-4 py-3 hidden">
+                    {% trans "The new contact was successfully created." %}
+                </div>
+                <div id="contact-ajax-error-message"
+                     class="bg-red-100 border-l-4 border-red-500 text-red-700 px-4 py-3 hidden">
+                    {% trans "An error occurred." %}
+                </div>
+                <div id="contact-form-widget">
+                </div>
+            </div>
+        {% endif %}
     {% endwith %}
 {% endblock collapsible_box_content %}

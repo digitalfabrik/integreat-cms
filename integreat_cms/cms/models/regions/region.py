@@ -571,6 +571,24 @@ class Region(AbstractBaseModel):
         return [node.language for node in self.language_tree if node.active]
 
     @cached_property
+    def active_languages_without_default_language(self) -> list[Language]:
+        """
+        This property returns a list of all :class:`~integreat_cms.cms.models.languages.language.Language` objects
+        which have  an active :class:`~integreat_cms.cms.models.languages.language_tree_node.LanguageTreeNode` which
+        belongs to this region, but excludes the default language.
+
+        :return: A list of all active :class:`~integreat_cms.cms.models.languages.language.Language` instances of this region without the default language
+        """
+        default_language = self.default_language
+        active_languages = self.active_languages
+        active_languages_without_default_language = active_languages
+
+        if default_language and default_language in active_languages:
+            active_languages_without_default_language.remove(default_language)
+
+        return active_languages_without_default_language
+
+    @cached_property
     def visible_languages(self) -> list[Language]:
         """
         This property returns a list of all :class:`~integreat_cms.cms.models.languages.language.Language` objects

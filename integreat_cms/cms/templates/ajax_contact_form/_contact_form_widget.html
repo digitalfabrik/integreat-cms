@@ -1,0 +1,33 @@
+{% load i18n %}
+{% load widget_tweaks %}
+<div>
+    <label for="{{ contact_form.title.id_for_label }}">
+        {{ contact_form.point_of_contact_for.label }}
+    </label>
+    {% render_field contact_form.point_of_contact_for|append_attr:"form:ajax_contact_form" %}
+    <label for="{{ contact_form.name.id_for_label }}">
+        {{ contact_form.name.label }}
+    </label>
+    {% render_field contact_form.name|append_attr:"form:ajax_contact_form" %}
+    <label for="{{ contact_form.email.id_for_label }}">
+        {{ contact_form.email.label }}
+    </label>
+    {% render_field contact_form.email|append_attr:"form:ajax_contact_form" %}
+    <label for="{{ contact_form.phone_number.id_for_label }}">
+        {{ contact_form.phone_number.label }}
+    </label>
+    {% render_field contact_form.phone_number|append_attr:"form:ajax_contact_form" %}
+    <label for="{{ contact_form.website.id_for_label }}">
+        {{ contact_form.website.label }}
+    </label>
+    {% render_field contact_form.website|append_attr:"form:ajax_contact_form" %}
+    <button id="submit-contact-form-button"
+            name="location"
+            value="{{ poi_id }}"
+            form="ajax_contact_form"
+            data-btn-save-contact-form
+            class="btn w-full mt-4 mb-2"
+            data-url="{% url 'create_contact_ajax' region_slug=request.region.slug %}">
+        {% translate "Submit" %}
+    </button>
+</div>

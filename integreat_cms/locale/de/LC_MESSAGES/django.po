@@ -80,6 +80,7 @@ msgid "Federal state"
 msgstr "Bundesland"
 
 #: cms/constants/administrative_division.py
+#: cms/templates/region_condition/region_condition.html
 msgid "Municipality"
 msgstr "Gemeinde"
 
@@ -1458,10 +1459,12 @@ msgid "Verification needed"
 msgstr "Überprüfung notwendig"
 
 #: cms/constants/machine_translation_permissions.py
+#: cms/templates/region_condition/region_condition_row.html
 msgid "No"
 msgstr "Nein"
 
 #: cms/constants/machine_translation_permissions.py
+#: cms/templates/region_condition/region_condition_row.html
 msgid "Yes"
 msgstr "Ja"
 
@@ -2717,10 +2720,6 @@ msgid "The node \"{}\" in region \"{}\" cannot be moved to \"{}\"."
 msgstr ""
 "Der Knoten \"{}\" in Region \"{}\" kann nicht nach \"{}\" verschoben werden."
 
-#: cms/models/abstract_tree_node.py
-msgid "Could not change position in tree of \"{}\"."
-msgstr "Position von \"{}\" im Baum konnte nicht geändert werden."
-
 #: cms/models/chat/attachment_map.py
 msgid "attachment map"
 msgstr "Anhangs-Mapping"
@@ -2824,6 +2823,30 @@ msgstr "mit Website: {}"
 #: cms/models/contact/contact.py
 msgid "General contact information"
 msgstr "Allgemeine Kontaktinformationen"
+
+#: cms/models/contact/contact.py
+msgid "show address"
+msgstr "Adresse anzeigen"
+
+#: cms/models/contact/contact.py
+msgid "show point of contact"
+msgstr "Ansprechperson anzeigen"
+
+#: cms/models/contact/contact.py
+msgid "show name"
+msgstr "Name anzeigen"
+
+#: cms/models/contact/contact.py
+msgid "show email"
+msgstr "Email anzeigen"
+
+#: cms/models/contact/contact.py
+msgid "show phone number"
+msgstr "Telefonnummer anzeigen"
+
+#: cms/models/contact/contact.py
+msgid "show website"
+msgstr "Webseite anzeigen"
 
 #: cms/models/contact/contact.py
 msgid "(Copy)"
@@ -4592,6 +4615,7 @@ msgid "Admin Dashboard"
 msgstr "Admin Dashboard"
 
 #: cms/templates/_base.html
+#: cms/templates/region_condition/region_condition.html
 msgid "Region condition"
 msgstr "Regionenzustand"
 
@@ -4905,7 +4929,9 @@ msgstr "Faxnummer"
 msgid "Update"
 msgstr "Aktualisieren"
 
-#: cms/templates/_tinymce_config.html cms/views/media/media_context_mixin.py
+#: cms/templates/_tinymce_config.html
+#: cms/templates/ajax_contact_form/_contact_form_widget.html
+#: cms/views/media/media_context_mixin.py
 msgid "Submit"
 msgstr "Speichern"
 
@@ -4999,6 +5025,7 @@ msgid "The new location was successfully created."
 msgstr "Ein neuer Ort wurde erfolgreich erstellt."
 
 #: cms/templates/ajax_poi_form/poi_box.html
+#: cms/templates/pois/poi_form_sidebar/related_contacts_box.html
 msgid "An error occurred."
 msgstr "Es ist ein Fehler aufgetreten."
 
@@ -5381,13 +5408,17 @@ msgid "This contact is not currently referred to in any event."
 msgstr "Zur Zeit wird dieser Kontakt in keiner Veranstaltung verwendet."
 
 #: cms/templates/contacts/contact_form.html
+msgid "At least one content object refers to this contact."
+msgstr "Mindestens ein Inhalt referenziert diesen Kontakt."
+
+#: cms/templates/contacts/contact_form.html
 #: cms/templates/contacts/contact_list_row.html
 msgid "Archive contact"
 msgstr "Kontakt archivieren"
 
 #: cms/templates/contacts/contact_form.html
-msgid "Archive this contact"
-msgstr "Kontakt archivieren"
+msgid "Archival not possible"
+msgstr "Archivieren nicht möglich"
 
 #: cms/templates/contacts/contact_form.html
 #: cms/templates/pages/page_form_sidebar/actions_box.html
@@ -5403,6 +5434,10 @@ msgstr "Kontakt wiederherstellen"
 #: cms/templates/contacts/contact_list_row.html
 msgid "Delete contact"
 msgstr "Kontakt löschen"
+
+#: cms/templates/contacts/contact_form.html
+msgid "Deletion not possible"
+msgstr "Löschen nicht möglich"
 
 #: cms/templates/contacts/contact_list.html
 msgid "Archived Contacts"
@@ -5530,6 +5565,18 @@ msgstr "Kontakt wiederherstellen"
 #: cms/templates/contacts/contact_list_row.html
 msgid "Copy contact"
 msgstr "Kontakt kopieren"
+
+#: cms/templates/contacts/contact_list_row.html
+msgid ""
+"Archival is not possible. At least one content object refers to this contact."
+msgstr ""
+"Archivieren nicht möglich. Mindestens ein Inhalt referenziert diesen Kontakt."
+
+#: cms/templates/contacts/contact_list_row.html
+msgid ""
+"Deletion is not possible. At least one content object refers to this contact."
+msgstr ""
+"Löschen nicht möglich. Mindestens ein Inhalt referenziert diesen Kontakt."
 
 #: cms/templates/content_versions.html
 #, python-format
@@ -5762,6 +5809,32 @@ msgid "At the moment all pages are ready for machine translation. Good job!"
 msgstr ""
 "Aktuell sind alle Seiten bereit zur maschinellen Übersetzung. Gute Arbeit!"
 
+#: cms/templates/dashboard/todo_dashboard_rows/_missing_translations_row.html
+#: cms/templates/dashboard/todo_dashboard_rows/number_of_missing_or_outdated_translations_row.html
+msgid "Outdated and missing translations"
+msgstr "Veraltete und fehlende Übersetzungen"
+
+#: cms/templates/dashboard/todo_dashboard_rows/_missing_translations_row.html
+#, python-format
+msgid ""
+"Your pages currently have <b>%(number_of_missing_translations)s</b> outdated "
+"or missing translations. In order for the users to benefit from your content "
+"you should translate them."
+msgstr ""
+"Ihre Seiten haben momentan <b>%(number_of_missing_translations)s</b> "
+"veraltete oder fehlendende Übersetzungen. Damit die Nutzer:innen von Ihren "
+"Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
+
+#: cms/templates/dashboard/todo_dashboard_rows/_missing_translations_row.html
+#: cms/templates/dashboard/todo_dashboard_rows/number_of_missing_or_outdated_translations_row.html
+msgid "At the moment all pages have up-to-date translations. Good job!"
+msgstr "Aktuell haben alle Ihre Seiten aktuelle Übersetzungen. Gute Arbeit!"
+
+#: cms/templates/dashboard/todo_dashboard_rows/_missing_translations_row.html
+#: cms/templates/dashboard/todo_dashboard_rows/number_of_missing_or_outdated_translations_row.html
+msgid "Go to <br> translation coverage"
+msgstr "Zum Bericht"
+
 #: cms/templates/dashboard/todo_dashboard_rows/_outdated_pages_row.html
 msgid "Outdated pages"
 msgstr "Veraltete Seiten"
@@ -5821,6 +5894,24 @@ msgstr ""
 #: cms/templates/dashboard/todo_dashboard_rows/_unreviewed_pages_row.html
 msgid "At the moment there is no page waiting for approval. Good job!"
 msgstr "Aktuell liegen keine Seiten zur Freigabe vor. Gute Arbeit!"
+
+#: cms/templates/dashboard/todo_dashboard_rows/number_of_missing_or_outdated_translations_row.html
+msgid ""
+"Your pages currently have <b></b> <b>pages</b> that have an outdated or no "
+"translation. In order for the users to benefit from your content you should "
+"translate them or have them translated."
+msgstr ""
+"Ihre Inhalte haben momentan <b></b> <b>Seiten</b> mit fehlender oder "
+"veralteter Übersetzung. Damit die Nutzer:innen von Ihren Inhalten "
+"profitieren können, sollten Sie diese übersetzen (lassen)."
+
+#: cms/templates/dashboard/todo_dashboard_rows/number_of_missing_or_outdated_translations_row.html
+msgid ""
+"We are loading your outdated and missing translations in the background. "
+"Please be patient."
+msgstr ""
+"Wir laden im Hintergrund gerade Ihre kaputten Links. Bitte haben Sie noch "
+"ein wenig Geduld."
 
 #: cms/templates/emails/_base_email.html
 #: cms/templates/emails/password_reset_email.txt
@@ -7825,6 +7916,14 @@ msgstr "Dieser Ort wird in folgenden Kontakten verwendet."
 msgid "This location is not currently referred to in any contact."
 msgstr "Zur Zeit gibt es keine Kontakte zu diesem Ort."
 
+#: cms/templates/pois/poi_form_sidebar/related_contacts_box.html
+msgid "Create a new contact"
+msgstr "Kontakt erstellen"
+
+#: cms/templates/pois/poi_form_sidebar/related_contacts_box.html
+msgid "The new contact was successfully created."
+msgstr "Der neue Kontakt wurde erfolgreich erstellt."
+
 #: cms/templates/pois/poi_list.html cms/templates/pois/poi_list_archived.html
 msgid "Archived locations"
 msgstr "Archivierte Orte"
@@ -8063,12 +8162,31 @@ msgid "Template name not available"
 msgstr "Name der Vorlage nicht verfügbar"
 
 #: cms/templates/region_condition/region_condition.html
-msgid "This page is under construction"
-msgstr "Diese Seite ist noch im Bau"
+msgid "Download region condition as CSV"
+msgstr "Regionenzustandsbericht als CSV herunterladen"
 
 #: cms/templates/region_condition/region_condition.html
-msgid "Download region condition CSV"
-msgstr "Regionenzustandsbericht als CSV herunterladen"
+msgid "Download as CSV"
+msgstr "CSV herunterladen"
+
+#: cms/templates/region_condition/region_condition.html
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Number of pages"
+msgstr "Anzahl an Seiten"
+
+#: cms/templates/region_condition/region_condition.html
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Number of outdated pages"
+msgstr "Anzahl veralteter Seiten"
+
+#: cms/templates/region_condition/region_condition.html
+#: cms/views/region_condition/region_condition_actions.py
+msgid "Number of active languages besides default language"
+msgstr "Anzahl aktiver Sprachen neben der Standard-Sprache"
+
+#: cms/templates/region_condition/region_condition.html
+msgid "Add-on for MT"
+msgstr "Add-on für MT"
 
 #: cms/templates/regions/region_form.html
 #, python-format
@@ -10716,25 +10834,13 @@ msgid "Number of low hix pages"
 msgstr "Anzahl Seiten mit niedrigem HIX-Wert"
 
 #: cms/views/region_condition/region_condition_actions.py
-msgid "Number of pages"
-msgstr "Anzahl an Seiten"
-
-#: cms/views/region_condition/region_condition_actions.py
 msgid "Number of pages with at least one missing or outdated translation"
 msgstr ""
 "Anzahl Seiten mit mindestens einer fehlenden oder veralteten Übersetzung"
 
 #: cms/views/region_condition/region_condition_actions.py
-msgid "Number of outdated pages"
-msgstr "Anzahl veralteter Seiten"
-
-#: cms/views/region_condition/region_condition_actions.py
 msgid "Has translation package been booked?"
 msgstr "Wurde das Add-On für Übersetzungen gebucht?"
-
-#: cms/views/region_condition/region_condition_actions.py
-msgid "Number of languages besides root language"
-msgstr "Anzahl Sprachen neben der Standard-Sprache"
 
 #: cms/views/regions/region_actions.py
 msgid ""
@@ -11254,6 +11360,28 @@ msgstr ""
 "Diese Seite konnte nicht importiert werden, da sie zu einer anderen Region "
 "gehört ({})."
 
+#~ msgid "Archive this contact"
+#~ msgstr "Kontakt archivieren"
+
+#~ msgid "Number of active languages besides active language"
+#~ msgstr "Anzahl aktiver Sprachen neben der Standard-Sprache"
+
+#~ msgid "Number of languages"
+#~ msgstr "Anzahl an Sprachen"
+
+#~ msgid "Here you can create a new contact with this location."
+#~ msgstr "Hier können Sie einen neuen Kontakt mit diesem Ort erstellen."
+
+#~ msgid ""
+#~ "Add missing data or change existing data. Select the data you want to "
+#~ "import."
+#~ msgstr ""
+#~ "Ergänzen Sie fehlende Daten oder ändern bestehende Daten. Wählen Sie die "
+#~ "Daten aus, die übernommen werden sollen."
+
+#~ msgid "This page is under construction"
+#~ msgstr "Diese Seite ist noch im Bau"
+
 #~ msgid "An error occurred while importing events from this external calendar"
 #~ msgstr "Ein Fehler mit dem Import von Veranstaltungen ist aufgetreten"
 
@@ -11303,13 +11431,6 @@ msgstr ""
 
 #~ msgid "Created by"
 #~ msgstr "Erstellt von"
-
-#~ msgid ""
-#~ "Add missing data or change existing data. Select the data you want to "
-#~ "import."
-#~ msgstr ""
-#~ "Ergänzen Sie fehlende Daten oder ändern bestehende Daten. Wählen Sie die "
-#~ "Daten aus, die übernommen werden sollen."
 
 #~ msgid "E-mail from location"
 #~ msgstr "E-mail des Ortes"
@@ -11392,6 +11513,25 @@ msgstr ""
 
 #~ msgid "Contents"
 #~ msgstr "Inhalte"
+
+#~ msgid ""
+#~ "We are loading your translation coverage in the background. Please be "
+#~ "patient."
+#~ msgstr ""
+#~ "Wir laden im Hintergrund gerade Ihre veralteten und fehlenden "
+#~ "Übersetzungen. Bitte haben Sie noch ein wenig Geduld."
+
+#, python-format
+#~ msgid ""
+#~ "Your pages currently have "
+#~ "<b>%(number_of_missing_or_outdated_translations)s pages </b>that have an "
+#~ "outdated or no translation. In order for the users to benefit from your "
+#~ "content you should translate them or have them translated."
+#~ msgstr ""
+#~ "Ihre Inhalten haben aktuell "
+#~ "<b>%(number_of_missing_or_outdated_translations)s Seiten </b> mit "
+#~ "fehlender oder veralteter Übersetzung. Damit die Nutzer:innen von Ihren "
+#~ "Inhalten profitieren können, sollten Sie diese übersetzen (lassen)."
 
 #~ msgid "View location"
 #~ msgstr "Ort ansehen"
@@ -11536,6 +11676,9 @@ msgstr ""
 #~ msgstr ""
 #~ "%(content_type)s maschinell via %(provider)s auf Deutsch (einfach) "
 #~ "übersetzen"
+
+#~ msgid "Could not change position in tree of \"{}\"."
+#~ msgstr "Position von \"{}\" im Baum konnte nicht geändert werden."
 
 #~ msgid "Language Selection"
 #~ msgstr "Sprachauswahl"
@@ -12675,9 +12818,6 @@ msgstr ""
 
 #~ msgid "Translations missing"
 #~ msgstr "Fehlende Übersetzungen"
-
-#~ msgid "Translation Coverage"
-#~ msgstr "Abdeckung der Übersetzungen"
 
 #~ msgid "Settings for"
 #~ msgstr "Einstellungen für"

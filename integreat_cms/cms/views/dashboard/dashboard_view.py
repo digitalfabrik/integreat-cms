@@ -17,6 +17,7 @@ from ...models import Feedback, PageTranslation
 from ...utils.linkcheck_utils import filter_urls
 from ...views.utils.hix import get_translation_under_hix_threshold
 from ..chat.chat_context_mixin import ChatContextMixin
+from ..utils import get_translation_and_word_count
 
 if TYPE_CHECKING:
     from typing import Any
@@ -59,6 +60,10 @@ class DashboardView(TemplateView, ChatContextMixin):
                 ),
                 "broken_link_ajax": reverse(
                     "get_broken_links_ajax",
+                    kwargs={"region_slug": self.request.region.slug},
+                ),
+                "translation_coverage_ajax": reverse(
+                    "get_translation_coverage_ajax",
                     kwargs={"region_slug": self.request.region.slug},
                 ),
             }
@@ -242,3 +247,26 @@ class DashboardView(TemplateView, ChatContextMixin):
             "drafted_pages": drafted_pages,
             "single_drafted_page": single_drafted_page,
         }
+
+    @json_response
+    # pylint: disable=unused-argument, disable=no-self-argument
+    def get_translation_coverage_context(
+        request: HttpRequest, region_slug: str
+    ) -> JsonResponse:
+        r"""
+        Extend context by info on translation coverage of pages
+
+        :return: Dictionary containing the context for translation coverage of pages in a region
+        """
+        total_missing = 0
+        total_outdated = 0
+
+        translation_count, _ = get_translation_and_word_count(request.region)
+
+        for counts in translation_count.values():
+            total_missing += counts.get("MISSING", 0)
+            total_outdated += counts.get("OUTDATED", 0)
+
+        total = total_missing + total_outdated
+
+        return JsonResponse(data={"number_of_missing_or_outdated_translations": total})

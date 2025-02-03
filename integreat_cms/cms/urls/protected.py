@@ -584,7 +584,12 @@ urlpatterns: list[URLPattern] = [
                                             "broken-links/",
                                             dashboard.DashboardView.get_broken_links_context,
                                             name="get_broken_links_ajax",
-                                        )
+                                        ),
+                                        path(
+                                            "translation-coverage/",
+                                            dashboard.DashboardView.get_translation_coverage_context,
+                                            name="get_translation_coverage_ajax",
+                                        ),
                                     ]
                                 ),
                             ),
@@ -1461,6 +1466,16 @@ urlpatterns: list[URLPattern] = [
                                 "bulk-delete/",
                                 contacts.DeleteContactBulkAction.as_view(),
                                 name="bulk_delete_contacts",
+                            ),
+                            path(
+                                "show-contact-form-ajax/<int:poi_id>/",
+                                contacts.ContactFormAjaxView.as_view(),
+                                name="show_contact_form_ajax",
+                            ),
+                            path(
+                                "create-contact-ajax/",
+                                contacts.ContactFormAjaxView.as_view(),
+                                name="create_contact_ajax",
                             ),
                             path(
                                 "<int:contact_id>/",

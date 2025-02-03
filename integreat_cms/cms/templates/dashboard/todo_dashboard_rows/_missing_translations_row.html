@@ -1,0 +1,38 @@
+{% extends "../_todo_dashboard_row.html" %}
+{% load i18n %}
+{% block todo_dashboard_icon %}
+    languages
+{% endblock todo_dashboard_icon %}
+{% block todo_dashboard_title_link %}
+    {% url 'translation_coverage' region_slug=request.region.slug %}
+{% endblock todo_dashboard_title_link %}
+{% block todo_dashboard_title %}
+    {% translate "Outdated and missing translations" %}
+{% endblock todo_dashboard_title %}
+{% block todo_dashboard_number %}
+    {% with total=number_of_missing_translations %}
+        {{ block.super }}
+    {% endwith %}
+{% endblock todo_dashboard_number %}
+{% block todo_dashboard_description %}
+    {% if number_of_missing_translations > 0 %}
+        {% blocktranslate trimmed %}
+            Your pages currently have <b>{{ number_of_missing_translations }}</b> outdated or missing translations.
+            In order for the users to benefit from your content you should translate them.
+        {% endblocktranslate %}
+    {% else %}
+        {% blocktranslate trimmed %}
+            At the moment all pages have up-to-date translations. Good job!
+        {% endblocktranslate %}
+    {% endif %}
+{% endblock todo_dashboard_description %}
+{% block todo_dashboard_button_link %}
+    {% if outdated_pages %}
+        <a class="btn !rounded-full"
+           href="{% url 'translation_coverage' region_slug=request.region.slug %}">
+            {% translate "Go to <br> translation coverage" %}
+        </a>
+    {% else %}
+        <i class="w-8 h-8 text-green-500" icon-name="check-circle-2"></i>
+    {% endif %}
+{% endblock todo_dashboard_button_link %}

@@ -103,7 +103,9 @@ import "./js/menu";
 
 import "./js/poi-categories/poicategory-colors-icons";
 import "./js/dashboard/broken-links";
+import "./js/dashboard/translation-coverage";
 
+import "./js/ajax-contact-form";
 // IE11: fetch
 /* eslint-disable-next-line @typescript-eslint/no-var-requires */
 require("element-closest").default(window);

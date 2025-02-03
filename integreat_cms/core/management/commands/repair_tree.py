@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
+from typing import Iterable, TYPE_CHECKING
 
 from ....cms.utils.repair_tree import repair_tree
 from ..log_command import LogCommand
@@ -39,7 +39,9 @@ class Command(LogCommand):
             help="Whether changes should be written to the database",
         )
 
-    def handle(self, *args: Any, page_id: int, commit: bool, **options: Any) -> None:
+    def handle(
+        self, *args: Any, page_id: Iterable[int], commit: bool, **options: Any
+    ) -> None:
         # pylint: disable=arguments-differ
         """
         Try to run the command

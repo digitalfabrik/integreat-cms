@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import logging
-from collections import Counter
 from typing import TYPE_CHECKING
 
 from django.conf import settings
@@ -13,13 +12,13 @@ from ...constants.translation_status import (
     COLORS,
     MISSING,
     OUTDATED,
-    UP_TO_DATE,
 )
 from ...decorators import permission_required
 from ...views.utils.hix import (
     get_translation_under_hix_threshold,
     get_translations_relevant_to_hix,
 )
+from ..utils import get_translation_and_word_count
 
 if TYPE_CHECKING:
     from typing import Any
@@ -49,48 +48,9 @@ class TranslationCoverageView(TemplateView):
         """
         # The current region
         region = self.request.region
-        # Initialize dicts which will hold the counter per language
-        translation_count: dict[Language, Counter] = {}
-        word_count: dict[Language, Counter] = {}
-        # Cache the page tree to avoid database overhead
-        pages = (
-            region.pages.filter(explicitly_archived=False)
-            .prefetch_major_translations()
-            .cache_tree(archived=False)
-        )
-        # Ignore all pages which do not have a published translation in the default language
-        pages = list(
-            filter(
-                lambda page: page.get_translation_state(region.default_language.slug)
-                == UP_TO_DATE,
-                pages,
-            )
-        )
-        # Iterate over all active languages of the current region
-        for language in region.active_languages:
-            # Only check pages that are not in the default language
-            if language == region.default_language:
-                continue
-            # Initialize counter dicts for both the translation count and the word count
-            translation_count[language] = Counter()
-            word_count[language] = Counter()
-            # Iterate over all non-archived pages
-            for page in pages:
-                # Retrieve the translation state of the current language
-                translation_state = page.get_translation_state(language.slug)
-                translation_count[language][translation_state] += 1
-                # If the state is either outdated or missing, keep track of the word count
-                if translation_state in [OUTDATED, MISSING]:
-                    # Check word count of translation in source language
-                    source_language = region.get_source_language(language.slug)
-                    # If the source translation does not exist, fall back to the default translation
-                    translation = page.get_translation(
-                        source_language.slug
-                    ) or page.get_translation(region.default_language.slug)
-                    # Provide a rough estimation of the word count
-                    word_count[language][translation_state] += len(
-                        translation.content.split()
-                    )
+
+        translation_count, word_count = get_translation_and_word_count(region)
+
         logger.debug("Translation status count: %r", translation_count)
         logger.debug("Word count: %r", word_count)
         # Assemble the ChartData in the format expected by ChartJS (one dataset for each translation status)

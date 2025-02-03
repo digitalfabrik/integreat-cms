@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.postgres.search import SearchQuery, SearchRank, SearchVector
 from django.db import models
 from django.db.models import Q
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import gettext
@@ -182,7 +183,7 @@ class Contact(AbstractBaseModel):
         return PageTranslation.objects.filter(
             id__in=(
                 Link.objects.filter(
-                    url__url=self.absolute_url,
+                    url__url__startswith=self.absolute_url,
                     content_type=PageTranslationLinklist.content_type(),
                 ).values("object_id")
             ),
@@ -200,7 +201,7 @@ class Contact(AbstractBaseModel):
         return POITranslation.objects.filter(
             id__in=(
                 Link.objects.filter(
-                    url__url=self.absolute_url,
+                    url__url__startswith=self.absolute_url,
                     content_type=POITranslationLinklist.content_type(),
                 ).values("object_id")
             ),
@@ -218,7 +219,7 @@ class Contact(AbstractBaseModel):
         return EventTranslation.objects.filter(
             id__in=(
                 Link.objects.filter(
-                    url__url=self.absolute_url,
+                    url__url__startswith=self.absolute_url,
                     content_type=EventTranslationLinklist.content_type(),
                 ).values("object_id")
             ),
@@ -233,8 +234,36 @@ class Contact(AbstractBaseModel):
         """
         return [
             link.content_object
-            for link in Link.objects.filter(url__url=self.absolute_url)
+            for link in Link.objects.filter(url__url__startswith=self.absolute_url)
         ]
+
+    @cached_property
+    def available_details(self) -> dict:
+        """
+        Returns the available details and their human-readable representation
+
+        :return: key-value pairs of available detail and human-readable representation
+        """
+        details = {
+            "address": _("show address"),
+        }
+
+        if self.point_of_contact_for:
+            details["point_of_contact_for"] = _("show point of contact")
+
+        if self.name:
+            details["name"] = _("show name")
+
+        if self.email:
+            details["email"] = _("show email")
+
+        if self.phone_number:
+            details["phone_number"] = _("show phone number")
+
+        if self.website:
+            details["website"] = _("show website")
+
+        return details
 
     def archive(self) -> None:
         """
@@ -267,12 +296,27 @@ class Contact(AbstractBaseModel):
         """
         return f"/{self.location.region.slug}/contact/{self.id}/"
 
+    @cached_property
+    def backend_edit_link(self) -> str:
+        """
+        This function returns the absolute url to the edit form of this region
+
+        :return: The url
+        """
+        return reverse(
+            "edit_contact",
+            kwargs={
+                "region_slug": self.region.slug,
+                "contact_id": self.id,
+            },
+        )
+
     class Meta:
         verbose_name = _("contact")
         default_related_name = "contact"
         verbose_name_plural = _("contacts")
         default_permissions = ("change", "delete", "view")
-        ordering = ["name"]
+        ordering = ["location", "name"]
 
         constraints = [
             models.UniqueConstraint(

@@ -1,7 +1,7 @@
 import { createIconsAt } from "./utils/create-icons";
 import { getCsrfToken } from "./utils/csrf-token";
 
-type FormResponse = { success: boolean; poi_address_container: string };
+type FormResponse = { success: boolean; poi_address_container: string; poi_id: string };
 
 const showContactFieldBox = () => {
     const contactFieldsBox = document.getElementById("contact_fields");
@@ -15,9 +15,13 @@ const hideSearchResults = () => {
     (document.getElementById("poi-query-input") as HTMLInputElement).value = "";
 };
 
-const renderPoiData = (poiTitle: string, newPoiData: string) => {
-    document.getElementById("poi-address-container").outerHTML = newPoiData;
+const renderPoiData = (poiTitle: string, newPoiData: string, poiId: string) => {
+    const poiAddressContainer = document.getElementById("poi-address-container");
+    if (poiAddressContainer) {
+        poiAddressContainer.outerHTML = newPoiData;
+    }
     document.getElementById("poi-query-input").setAttribute("placeholder", poiTitle);
+    (document.getElementById("id_location") as HTMLInputElement).value = poiId;
     hideSearchResults();
     showContactFieldBox();
 };
@@ -31,7 +35,11 @@ const hidePoiFormWidget = () => {
 
 const setPoi = ({ target }: Event) => {
     const option = (target as HTMLElement).closest(".option-existing-poi");
-    renderPoiData(option.getAttribute("data-poi-title"), option.getAttribute("data-poi-address"));
+    renderPoiData(
+        option.getAttribute("data-poi-title"),
+        option.getAttribute("data-poi-address"),
+        option.getAttribute("data-poi-id")
+    );
     document.getElementById("poi-address-container")?.classList.remove("hidden");
     console.debug("Rendered POI data");
     document.getElementById("info-location-mandatory")?.classList.add("hidden");
@@ -87,7 +95,11 @@ const showPoiFormWidget = async ({ target }: Event) => {
             showMessage(responseData);
             // If POI was created successful, show it as selected option
             if (responseData.success) {
-                renderPoiData(formData.get("title").toString(), responseData.poi_address_container);
+                renderPoiData(
+                    formData.get("title").toString(),
+                    responseData.poi_address_container,
+                    responseData.poi_id
+                );
                 document.getElementById("poi-address-container")?.classList.remove("hidden");
             }
             hidePoiFormWidget();
