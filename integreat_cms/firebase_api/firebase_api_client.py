@@ -112,7 +112,7 @@ class FirebaseApiClient:
                 "topic": f"{region.slug}-{pnt.language.slug}-{self.push_notification.channel}",
                 "notification": {"title": pnt.title, "body": pnt.text},
                 "data": {
-                    "news_id": str(pnt.id),
+                    "news_id": pnt.id,
                     "city_code": region.slug,
                     "language_code": pnt.language.slug,
                     "group": self.push_notification.channel,
