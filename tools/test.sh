@@ -88,20 +88,21 @@ if [[ -z "${CHANGED}" ]] && (( ${#TESTS[@]} == 0 )); then
 fi
 
 if [[ -n "${KW_EXPR}" ]] || [[ -n "${MARKER}" ]] || (( ${#TESTS[@]} )); then
-    MESSAGES=()
+    TEST_MESSAGE=""
     if [[ -n "${KW_EXPR}" ]]; then
-        MESSAGES+=("\"${KW_EXPR}\"")
+        TEST_MESSAGE+=" \"${KW_EXPR}\""
         PYTEST_ARGS+=("-k" "${KW_EXPR}")
     fi
     if [[ -n "${MARKER}" ]]; then
-        MESSAGES+=("with ${MARKER}")
+        TEST_MESSAGE+=" with ${MARKER}"
         PYTEST_ARGS+=("-m" "${MARKER}")
     fi
+    FILES=()
     # Check whether test paths exist
     for t in "${TESTS[@]}"; do
         if [[ -e "${t%%::*}" ]]; then
             # Adapt message and append to pytest arguments
-            MESSAGES+=("${t}")
+            FILES+=("${t}")
             PYTEST_ARGS+=("${t}")
         elif [[ -n "${t}" ]]; then
             # If the test path does not exist but was non-zero, show an error
@@ -109,8 +110,8 @@ if [[ -n "${KW_EXPR}" ]] || [[ -n "${MARKER}" ]] || (( ${#TESTS[@]} )); then
             exit 1
         fi
     done
-    TEST_MESSAGE=$(join_by ", " "${MESSAGES[@]}")
-    TEST_MESSAGE=" in ${TEST_MESSAGE}"
+    FILES_MESSAGE=$(join_by ", " "${FILES[@]}")
+    TEST_MESSAGE+=" in $FILES_MESSAGE"
 fi
 
 "$(dirname "${BASH_SOURCE[0]}")/prune_pdf_cache.sh"
