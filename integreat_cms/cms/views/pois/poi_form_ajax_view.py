@@ -96,7 +96,7 @@ class POIFormAjaxView(TemplateView, POIContextMixin):
             return JsonResponse(
                 data={
                     "success": False,
-                }
+                },
             )
 
         poi_translation_form.instance.poi = poi_form.save()

@@ -19,7 +19,6 @@ logger = logging.getLogger(__name__)
 
 
 class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
-    # pylint: disable=too-many-ancestors
     """
     Form for creating and modifying language tree node objects
     """
@@ -64,7 +63,7 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
             descendant_ids = [
                 descendant.id
                 for descendant in self.instance.get_cached_descendants(
-                    include_self=True
+                    include_self=True,
                 )
             ]
             parent_queryset = parent_queryset.exclude(id__in=descendant_ids)
@@ -75,7 +74,7 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
             # Make sure it's not possible to create multiple nodes for the same language
             # by limiting possible languages to those which are not yet included in the tree
             self.fields["language"].queryset = Language.objects.exclude(
-                id__in=[language.id for language in self.instance.region.languages]
+                id__in=[language.id for language in self.instance.region.languages],
             )
 
         # limit possible parents to nodes of current region
@@ -114,13 +113,14 @@ class LanguageTreeNodeForm(CustomModelForm, CustomTreeNodeForm):
                 forms.ValidationError(
                     _(
                         "This region has already a default language."
-                        "Please specify a source language for this language."
+                        "Please specify a source language for this language.",
                     ),
                     code="invalid",
                 ),
             )
         logger.debug(
-            "LanguageTreeNodeForm validated [2] with cleaned data %r", cleaned_data
+            "LanguageTreeNodeForm validated [2] with cleaned data %r",
+            cleaned_data,
         )
         return cleaned_data
 

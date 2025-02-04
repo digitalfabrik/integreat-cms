@@ -84,7 +84,7 @@ def get_timezone_area_choices() -> list[tuple[str, str]]:
             tz.split("/")[0]
             for tz in available_timezones()
             if "/" in tz and "Etc" not in tz and "SystemV" not in tz
-        }
+        },
     )
     timezone_regions.sort()
     return (
@@ -110,7 +110,7 @@ class RegionForm(CustomModelForm):
         required=False,
         label=_("Keep publication status of pages"),
         help_text=_(
-            "Enable it to keep the initial publication status of the pages and don't overwrite them to draft."
+            "Enable it to keep the initial publication status of the pages and don't overwrite them to draft.",
         ),
     )
 
@@ -118,7 +118,7 @@ class RegionForm(CustomModelForm):
         required=False,
         label=_("Copy languages and content translations"),
         help_text=_(
-            "Disable to skip copying of the language tree and all content translations."
+            "Disable to skip copying of the language tree and all content translations.",
         ),
         initial=True,
     )
@@ -130,7 +130,7 @@ class RegionForm(CustomModelForm):
         required=False,
         label=_("Page based offers cloning behavior"),
         help_text=_(
-            "Decide whether offers which have not been activated but are required for embedded content should be auto-activated, or their embeddings be ignored during cloning."
+            "Decide whether offers which have not been activated but are required for embedded content should be auto-activated, or their embeddings be ignored during cloning.",
         ),
     )
 
@@ -146,7 +146,7 @@ class RegionForm(CustomModelForm):
         help_text=__(
             _("Enable to set an add-on starting date differing from the renewal date."),
             format_mt_help_text(
-                _("Budget will be set as a monthly fraction of {} credits")
+                _("Budget will be set as a monthly fraction of {} credits"),
             ),
         ),
     )
@@ -156,7 +156,7 @@ class RegionForm(CustomModelForm):
         required=False,
         label=_("Zammad forms"),
         help_text=_(
-            "Zammad forms are a type of offer which can only be used if a Zammad-URL is provided for the region."
+            "Zammad forms are a type of offer which can only be used if a Zammad-URL is provided for the region.",
         ),
         widget=CheckboxSelectMultipleWithDisabled(),
     )
@@ -250,13 +250,13 @@ class RegionForm(CustomModelForm):
             else OfferTemplate.objects.none()
         )
         self.fields["offers"].queryset = OfferTemplate.objects.filter(
-            is_zammad_form=False
+            is_zammad_form=False,
         )
         self.fields["offers"].widget.disabled_options = self.disabled_offer_options
 
-        self.fields["zammad_offers"].widget.disabled_options = (
-            self.disabled_offer_options
-        )
+        self.fields[
+            "zammad_offers"
+        ].widget.disabled_options = self.disabled_offer_options
         self.fields["zammad_offers"].initial = (
             self.instance.offers.filter(is_zammad_form=True) if self.instance.id else []
         )
@@ -298,13 +298,15 @@ class RegionForm(CustomModelForm):
                 )
             else:
                 offers_to_discard = required_offers.exclude(
-                    id__in=region.offers.values_list("id", flat=True)
+                    id__in=region.offers.values_list("id", flat=True),
                 )
 
             # Duplicate language tree
             logger.info("Duplicating language tree of %r to %r", source_region, region)
             duplicate_language_tree(
-                source_region, region, only_root=not keep_translations
+                source_region,
+                region,
+                only_root=not keep_translations,
             )
             # Disable linkcheck listeners to prevent links to be created for outdated versions
             with disable_listeners():
@@ -320,7 +322,9 @@ class RegionForm(CustomModelForm):
                 # Duplicate Imprint
                 if source_region.imprint:
                     logger.info(
-                        "Duplicating imprint of %r to %r", source_region, region
+                        "Duplicating imprint of %r to %r",
+                        source_region,
+                        region,
                     )
                     duplicate_imprint(source_region, region)
             # Duplicate media content
@@ -332,7 +336,6 @@ class RegionForm(CustomModelForm):
         return region
 
     def clean(self) -> dict[str, Any]:
-        # pylint: disable=too-many-branches
         """
         Validate form fields which depend on each other, see :meth:`django.forms.Form.clean`
 
@@ -345,19 +348,20 @@ class RegionForm(CustomModelForm):
             self.add_error(
                 "statistics_enabled",
                 _(
-                    "Statistics can only be enabled when a valid access token is supplied."
+                    "Statistics can only be enabled when a valid access token is supplied.",
                 ),
             )
         # Automatically set the Matomo ID
         if cleaned_data["matomo_token"]:
             try:
                 cleaned_data["matomo_id"] = self.instance.statistics.get_matomo_id(
-                    token_auth=cleaned_data["matomo_token"]
+                    token_auth=cleaned_data["matomo_token"],
                 )
-            except MatomoException as e:
-                logger.exception(e)
+            except MatomoException:
+                logger.exception("")
                 self.add_error(
-                    "matomo_token", _("The provided access token is invalid.")
+                    "matomo_token",
+                    _("The provided access token is invalid."),
                 )
         else:
             cleaned_data["matomo_id"] = None
@@ -370,7 +374,7 @@ class RegionForm(CustomModelForm):
             self.add_error(
                 "mt_midyear_start_month",
                 _(
-                    "Please provide a valid budget year start date for foreign language translation."
+                    "Please provide a valid budget year start date for foreign language translation.",
                 ),
             )
         elif (
@@ -384,7 +388,7 @@ class RegionForm(CustomModelForm):
         if not cleaned_data["zammad_url"]:
             cleaned_data["zammad_offers"] = []
         cleaned_data["offers"] = list(cleaned_data["offers"]) + list(
-            cleaned_data["zammad_offers"]
+            cleaned_data["zammad_offers"],
         )
         if self.disabled_offer_options and not all(
             offer in cleaned_data["offers"] for offer in self.disabled_offer_options
@@ -392,7 +396,7 @@ class RegionForm(CustomModelForm):
             self.add_error(
                 "offers",
                 _(
-                    "Some offers could not be disabled, since they are currently embedded in at least one page."
+                    "Some offers could not be disabled, since they are currently embedded in at least one page.",
                 ),
             )
 
@@ -405,7 +409,7 @@ class RegionForm(CustomModelForm):
             self.add_error(
                 "integreat_chat_enabled",
                 _(
-                    "A Zammad URL, Zammad Webhook Token and Access Token are required in order to enable the Integreat Chat."
+                    "A Zammad URL, Zammad Webhook Token and Access Token are required in order to enable the Integreat Chat.",
                 ),
             )
 
@@ -432,7 +436,7 @@ class RegionForm(CustomModelForm):
                 "latitude",
                 forms.ValidationError(
                     _(
-                        "Could not retrieve the coordinates automatically, please fill the field manually."
+                        "Could not retrieve the coordinates automatically, please fill the field manually.",
                     ),
                     code="required",
                 ),
@@ -442,7 +446,7 @@ class RegionForm(CustomModelForm):
                 "longitude",
                 forms.ValidationError(
                     _(
-                        "Could not retrieve the coordinates automatically, please fill the field manually."
+                        "Could not retrieve the coordinates automatically, please fill the field manually.",
                     ),
                     code="required",
                 ),
@@ -450,7 +454,7 @@ class RegionForm(CustomModelForm):
 
         # If a region is being cloned but no PBO cloning behavior has been selected, throw an error
         if cleaned_data.get("duplicated_region") and not cleaned_data.get(
-            "duplication_pbo_behavior"
+            "duplication_pbo_behavior",
         ):
             self.add_error(
                 "duplication_pbo_behavior",
@@ -493,7 +497,7 @@ class RegionForm(CustomModelForm):
                 with override(language_slug):
                     # Force evaluation of lazy-translated text
                     translated_administrative_divisions = list(
-                        map(str, administrative_divisions)
+                        map(str, administrative_divisions),
                     )
                 # Check if custom prefix could also be set via the administrative division
                 if (
@@ -503,17 +507,17 @@ class RegionForm(CustomModelForm):
                     error_messages = []
                     # Get currently selected administrative division
                     selected_administrative_division = dict(
-                        self.fields["administrative_division"].choices
+                        self.fields["administrative_division"].choices,
                     )[cleaned_data.get("administrative_division")]
                     # Check if administrative division needs to be changed to translated version
                     if cleaned_data.get("custom_prefix") in administrative_divisions:
                         desired_administrative_division = cleaned_data.get(
-                            "custom_prefix"
+                            "custom_prefix",
                         )
                     else:
                         # Get index of translated administrative division
                         index = translated_administrative_divisions.index(
-                            cleaned_data.get("custom_prefix")
+                            cleaned_data.get("custom_prefix"),
                         )
                         # Get original label which needs to be selected in list
                         desired_administrative_division = administrative_divisions[
@@ -525,14 +529,14 @@ class RegionForm(CustomModelForm):
                     ):
                         error_messages.append(
                             _(
-                                "'{}' is already selected as administrative division."
-                            ).format(selected_administrative_division)
+                                "'{}' is already selected as administrative division.",
+                            ).format(selected_administrative_division),
                         )
                     else:
                         error_messages.append(
                             _("Please select '{}' as administrative division.").format(
-                                desired_administrative_division
-                            )
+                                desired_administrative_division,
+                            ),
                         )
                     # Check if default language needs to be changed in order to use this administrative division
                     if (
@@ -541,15 +545,15 @@ class RegionForm(CustomModelForm):
                     ):
                         error_messages.append(
                             _(
-                                "Please set {} as default language for this region."
-                            ).format(_(language_name))
+                                "Please set {} as default language for this region.",
+                            ).format(_(language_name)),
                         )
                     # Check if administrative division is included in name yet
                     if not cleaned_data.get("administrative_division_included"):
                         error_messages.append(
                             _("Please enable '{}'.").format(
-                                self.fields["administrative_division_included"].label
-                            )
+                                self.fields["administrative_division_included"].label,
+                            ),
                         )
                     self.add_error(
                         "custom_prefix",
@@ -557,12 +561,12 @@ class RegionForm(CustomModelForm):
                     )
         # Check if administrative division is also included in the name and allow only one of both prefix options
         if cleaned_data.get("custom_prefix") and cleaned_data.get(
-            "administrative_division_included"
+            "administrative_division_included",
         ):
             self.add_error(
                 "custom_prefix",
                 _(
-                    "You cannot include the administrative division into the name and use a custom prefix at the same time."
+                    "You cannot include the administrative division into the name and use a custom prefix at the same time.",
                 ),
             )
         return cleaned_data.get("custom_prefix")
@@ -591,7 +595,8 @@ class RegionForm(CustomModelForm):
         """
         if self.cleaned_data.get("summ_ai_enabled") and not settings.SUMM_AI_ENABLED:
             self.add_error(
-                "summ_ai_enabled", _("Currently SUMM.AI is globally deactivated")
+                "summ_ai_enabled",
+                _("Currently SUMM.AI is globally deactivated"),
             )
             return False
         return self.cleaned_data.get("summ_ai_enabled")
@@ -606,7 +611,8 @@ class RegionForm(CustomModelForm):
         # Check whether someone tries to activate hix when no API key is set
         if cleaned_hix_enabled and not settings.TEXTLAB_API_ENABLED:
             self.add_error(
-                "hix_enabled", _("No Textlab API key is set on this system.")
+                "hix_enabled",
+                _("No Textlab API key is set on this system."),
             )
         return cleaned_hix_enabled
 
@@ -620,8 +626,7 @@ class RegionForm(CustomModelForm):
             return ""
         # Remove superfluous path parts
         cleaned_zammad_url = cleaned_zammad_url.split("/api/v1")[0]
-        cleaned_zammad_url = cleaned_zammad_url.rstrip("/")
-        return cleaned_zammad_url
+        return cleaned_zammad_url.rstrip("/")
 
     def clean_zammad_access_token(self) -> str:
         """
@@ -762,7 +767,6 @@ def duplicate_pages(
     offers_to_discard: QuerySet[OfferTemplate] | None = None,
     only_root: bool = False,
 ) -> None:
-    # pylint: disable=too-many-locals, too-many-positional-arguments, too-many-arguments
     """
     Function to duplicate all non-archived pages from one region to another
 
@@ -790,7 +794,8 @@ def duplicate_pages(
     # At first, get all pages from the source region with a specific parent page, except archived ones
     # As the parent will be None for the initial call, this returns all pages from the root level
     source_pages = source_region.pages.filter(
-        parent=source_parent, explicitly_archived=False
+        parent=source_parent,
+        explicitly_archived=False,
     )
     num_source_pages = len(source_pages)
     for i, source_page in enumerate(source_pages):
@@ -835,7 +840,7 @@ def duplicate_pages(
             source_page.embedded_offers.all()
             if not offers_to_discard
             else source_page.embedded_offers.exclude(
-                id__in=offers_to_discard.values_list("id", flat=True)
+                id__in=offers_to_discard.values_list("id", flat=True),
             )
         )
         target_page.embedded_offers.add(*embedded_offers)
@@ -845,7 +850,10 @@ def duplicate_pages(
             target_page,
         )
         duplicate_page_translations(
-            source_page, target_page, row_logging_prefix, keep_status
+            source_page,
+            target_page,
+            row_logging_prefix,
+            keep_status,
         )
         if not source_page.is_leaf():
             # Recursively call this function with the current pages as new parents
@@ -862,7 +870,10 @@ def duplicate_pages(
 
 
 def duplicate_page_translations(
-    source_page: Page, target_page: Page, logging_prefix: str, keep_status: bool
+    source_page: Page,
+    target_page: Page,
+    logging_prefix: str,
+    keep_status: bool,
 ) -> None:
     """
     Duplicate all translations of a given source page to a given target page
@@ -880,7 +891,7 @@ def duplicate_page_translations(
     source_page_translations = source_page.translations.filter(
         language__in=[
             node.language for node in target_page.region.language_tree_nodes.all()
-        ]
+        ],
     )
     num_translations = len(source_page_translations)
     translation_row_logging_prefix = logging_prefix + (
@@ -908,7 +919,9 @@ def duplicate_page_translations(
 
 
 def duplicate_imprint(
-    source_region: Region, target_region: Region, only_root: bool = False
+    source_region: Region,
+    target_region: Region,
+    only_root: bool = False,
 ) -> None:
     """
     Function to duplicate the imprint from one region to another.
@@ -947,16 +960,14 @@ def duplicate_imprint(
 
 
 def duplicate_media(
-    source_region: Region, target_region: Region  # pylint: disable=unused-argument
+    _source_region: Region,
+    _target_region: Region,
 ) -> None:
     """
     Function to duplicate all media of one region to another.
-
-    :param source_region: the source region from which the pages should be duplicated
-    :param target_region: the target region
     """
-    # pylint: disable=fixme
-    # TODO: implement duplication of all media files
+    # TODO(timobrembeck): implement duplication of all media files
+    # https://github.com/digitalfabrik/integreat-cms/issues/1414
 
 
 def create_and_replace_links_async(source_region: Region, region: Region) -> None:
@@ -991,7 +1002,8 @@ def find_links(region: Region) -> None:
     logger.info("Scanning for broken links in region %r", region)
     # Get the latest page translations of the region
     translations = PageTranslation.objects.filter(page__region=region).distinct(
-        "page_id", "language_id"
+        "page_id",
+        "language_id",
     )
     # Trigger post-save signal to create link objects
     for translation in translations:
@@ -1001,7 +1013,8 @@ def find_links(region: Region) -> None:
     tasks_queue.join()
     # Check whether finding links succeeded
     logger.debug(
-        "Found links: %r", Link.objects.filter(Q(page_translation__page__region=region))
+        "Found links: %r",
+        Link.objects.filter(Q(page_translation__page__region=region)),
     )
 
 

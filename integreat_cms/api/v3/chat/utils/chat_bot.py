@@ -16,7 +16,10 @@ from .zammad_api import ZammadChatAPI
 
 
 async def automatic_answer(
-    message: str, region_slug: str, language_slug: str, session: aiohttp.ClientSession
+    message: str,
+    region_slug: str,
+    language_slug: str,
+    session: aiohttp.ClientSession,
 ) -> dict:
     """
     Get automatic answer to question asynchronously
@@ -26,7 +29,9 @@ async def automatic_answer(
     )
     body = {"message": message, "language": language_slug, "region": region_slug}
     async with session.post(
-        url, json=body, timeout=settings.INTEGREAT_CHAT_BACK_END_TIMEOUT
+        url,
+        json=body,
+        timeout=settings.INTEGREAT_CHAT_BACK_END_TIMEOUT,
     ) as response:
         return await response.json()
 
@@ -47,7 +52,9 @@ async def automatic_translation(
         "target_language": target_language_slug,
     }
     async with session.post(
-        url, json=body, timeout=settings.INTEGREAT_CHAT_BACK_END_TIMEOUT
+        url,
+        json=body,
+        timeout=settings.INTEGREAT_CHAT_BACK_END_TIMEOUT,
     ) as response:
         return await response.json()
 
@@ -69,7 +76,10 @@ async def async_process_user_message(
             session,
         )
         answer_task = automatic_answer(
-            message_text, region_slug, zammad_chat_language_slug, session
+            message_text,
+            region_slug,
+            zammad_chat_language_slug,
+            session,
         )
         translation, answer = await asyncio.gather(translation_task, answer_task)
         return translation, answer
@@ -77,7 +87,9 @@ async def async_process_user_message(
 
 @shared_task
 def process_user_message(
-    message_text: str, region_slug: str, zammad_ticket_id: int
+    message_text: str,
+    region_slug: str,
+    zammad_ticket_id: int,
 ) -> None:
     """
     Call the async processing of the message from an Integreat App user
@@ -91,7 +103,7 @@ def process_user_message(
             region_slug,
             region.default_language.slug,
             message_text,
-        )
+        ),
     )
     if translation:
         client.send_message(
@@ -110,14 +122,19 @@ def process_user_message(
 
 
 async def async_process_answer(
-    message_text: str, source_language: str, target_language: str
+    message_text: str,
+    source_language: str,
+    target_language: str,
 ) -> dict:
     """
     Process automatic or counselor answers
     """
     async with aiohttp.ClientSession() as session:
         translation_task = automatic_translation(
-            message_text, source_language, target_language, session
+            message_text,
+            source_language,
+            target_language,
+            session,
         )
         return await translation_task
 
@@ -132,8 +149,10 @@ def process_answer(message_text: str, region_slug: str, zammad_ticket_id: int) -
     client = ZammadChatAPI(region)
     translation = asyncio.run(
         async_process_answer(
-            message_text, region.default_language.slug, zammad_chat.language.slug
-        )
+            message_text,
+            region.default_language.slug,
+            zammad_chat.language.slug,
+        ),
     )
     if translation:
         client.send_message(

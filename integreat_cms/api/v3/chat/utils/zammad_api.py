@@ -21,25 +21,7 @@ logger = logging.getLogger(__name__)
 AUTO_ANSWER_STRING = "automatically generated message"
 
 
-def _raise_or_return_json(
-    self: Any, response: HttpResponse  # pylint: disable=unused-argument
-) -> dict:
-    """
-    Raise HTTPError before converting response to json
-
-    :param response: Request response object
-    """
-    response.raise_for_status()
-
-    try:
-        json_value = response.json()
-    except ValueError:
-        return response.content
-    return json_value
-
-
 class ZammadChatAPI:
-    # pylint: disable=too-many-instance-attributes
     """
     Class providing an API for Zammad used in the context of user chats.
 
@@ -49,18 +31,19 @@ class ZammadChatAPI:
 
     def __init__(self, region: Region):
         self.client = ZammadAPI(
-            url=f"{region.zammad_url}/api/v1/", http_token=region.zammad_access_token
+            url=f"{region.zammad_url}/api/v1/",
+            http_token=region.zammad_access_token,
         )
 
         # Patch the relevant methods to allow us to capture error response codes
         self.client.ticket.__class__.__base__._raise_or_return_json = (
-            _raise_or_return_json
+            self._raise_or_return_json
         )
         self.client.ticket_article.__class__.__base__._raise_or_return_json = (
-            _raise_or_return_json
+            self._raise_or_return_json
         )
         self.client.user.__class__.__base__._raise_or_return_json = (
-            _raise_or_return_json
+            self._raise_or_return_json
         )
 
         try:
@@ -76,6 +59,23 @@ class ZammadChatAPI:
 
         self.ticket_group = settings.USER_CHAT_TICKET_GROUP
         self.responsible_handlers = region.zammad_chat_handlers
+
+    @staticmethod
+    def _raise_or_return_json(
+        response: HttpResponse,
+    ) -> dict:
+        """
+        Raise HTTPError before converting response to json
+
+        :param response: Request response object
+        """
+        response.raise_for_status()
+
+        try:
+            json_value = response.json()
+        except ValueError:
+            return response.content
+        return json_value
 
     @staticmethod
     def _attempt_call(call: Callable, *args: Any, **kwargs: Any) -> Any:
@@ -111,7 +111,6 @@ class ZammadChatAPI:
         return {key: response[key] for key in keys_to_keep if key in response}
 
     def create_ticket(self, device_id: str, language_slug: str) -> dict:
-        # pylint: disable=method-hidden
         """
         Create a new ticket (i.e. initialize a new chat conversation)
 
@@ -124,12 +123,14 @@ class ZammadChatAPI:
             "customer": self.client_identity,
         }
         return self._parse_response(  # type: ignore[return-value]
-            self._attempt_call(self.client.ticket.create, params=params)
+            self._attempt_call(self.client.ticket.create, params=params),
         )
 
     @staticmethod
     def _transform_attachment(
-        chat: UserChat, article_id: int, attachment: dict
+        chat: UserChat,
+        article_id: int,
+        attachment: dict,
     ) -> dict:
         return {
             "filename": attachment.get("filename", ""),
@@ -143,7 +144,6 @@ class ZammadChatAPI:
         }
 
     def get_messages(self, chat: UserChat) -> dict[str, dict | list[dict] | str]:
-        # pylint: disable=method-hidden
         """
         Get all non-internal messages for a given ticket
 
@@ -154,7 +154,7 @@ class ZammadChatAPI:
             return self._parse_response(raw_response)  # type: ignore[return-value]
 
         response = self._parse_response(
-            [article for article in raw_response if not article.get("internal")]
+            [article for article in raw_response if not article.get("internal")],
         )
         for message in response:
             if "attachments" in message:
@@ -175,7 +175,6 @@ class ZammadChatAPI:
         internal: bool = False,
         automatic_message: bool = False,
     ) -> dict:
-        # pylint: disable=method-hidden
         """
         Post a new message to the given ticket
 
@@ -199,11 +198,10 @@ class ZammadChatAPI:
             "sender": "Customer" if not automatic_message else "Agent",
         }
         return self._parse_response(  # type: ignore[return-value]
-            self._attempt_call(self.client.ticket_article.create, params=params)
+            self._attempt_call(self.client.ticket_article.create, params=params),
         )
 
     def get_attachment(self, attachment_map: AttachmentMap) -> bytes | dict:
-        # pylint: disable=method-hidden
         """
         Get the (binary) attachment file from Zammad.
 

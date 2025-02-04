@@ -83,7 +83,9 @@ class TOTPLoginView(TemplateView):
 
         if check_totp_code(user_totp, self.user.totp_key):
             auth_login(
-                request, self.user, backend="django.contrib.auth.backends.ModelBackend"
+                request,
+                self.user,
+                backend="django.contrib.auth.backends.ModelBackend",
             )
             return redirect("public:region_selection")
 

@@ -110,7 +110,7 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
                 )
                 message = __(
                     _(
-                        "This is not the most recent public revision of this translation."
+                        "This is not the most recent public revision of this translation.",
                     ),
                     _(
                         "Instead, <a>revision {}</a> is shown in the apps.",
@@ -131,11 +131,13 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
         if not request.user.has_perm("cms.change_imprintpage"):
             disabled = True
             messages.warning(
-                request, _("You don't have the permission to edit the imprint.")
+                request,
+                _("You don't have the permission to edit the imprint."),
             )
 
         imprint_translation_form = ImprintTranslationForm(
-            instance=imprint_translation, disabled=disabled
+            instance=imprint_translation,
+            disabled=disabled,
         )
 
         # If the imprint does not exist yet, create the key manually
@@ -155,7 +157,9 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
                 # Languages for tab view
                 "languages": region.active_languages if imprint else [language],
                 "side_by_side_language_options": self.get_side_by_side_language_options(
-                    region, language, imprint
+                    region,
+                    language,
+                    imprint,
                 ),
                 "translation_states": imprint.translation_states if imprint else [],
                 "lock_key": edit_lock_key,
@@ -184,7 +188,8 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
 
         region = request.region
         language = region.get_language_or_404(
-            kwargs.get("language_slug"), only_active=True
+            kwargs.get("language_slug"),
+            only_active=True,
         )
 
         try:
@@ -259,7 +264,9 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
                     region.active_languages if imprint_instance else [language]
                 ),
                 "side_by_side_language_options": self.get_side_by_side_language_options(
-                    region, language, imprint_instance
+                    region,
+                    language,
+                    imprint_instance,
                 ),
                 "translation_states": (
                     imprint_instance.translation_states if imprint_instance else []
@@ -278,7 +285,9 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
 
     @staticmethod
     def get_side_by_side_language_options(
-        region: Region, language: Language, imprint: ImprintPage | None
+        region: Region,
+        language: Language,
+        imprint: ImprintPage | None,
     ) -> list[dict[str, Any]]:
         """
         This is a helper function to generate the side-by-side language options for both the get and post requests.
@@ -304,6 +313,6 @@ class ImprintFormView(TemplateView, ImprintContextMixin, MediaContextMixin):
                         ),
                         "selected": language_node.language == language,
                         "disabled": not source_translation.exists(),
-                    }
+                    },
                 )
         return side_by_side_language_options

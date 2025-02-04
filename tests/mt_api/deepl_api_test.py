@@ -3,21 +3,19 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from typing import Any, Final
+    from typing import Final
 
     from _pytest.logging import LogCaptureFixture
-    from django.db.models.base import ModelBase
-    from django.forms.models import ModelFormMetaclass
-    from django.http import HttpRequest
     from django.test.client import Client
     from pytest_django.fixtures import SettingsWrapper
+
+    from tests.mock import MockServer
 
 import pytest
 from django.apps import apps
 from django.urls import reverse
 
 from integreat_cms.cms.models import Page
-from tests.mock import MockServer
 
 from ..conftest import AUTHOR, EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 from ..utils import assert_message_in_log
@@ -44,14 +42,15 @@ def setup_fake_deepl_api_server(mock_server: MockServer) -> None:
                     "detected_source_language": "DE",
                     "text": "This is your translation from DeepL",
                     "billed_characters": 0,
-                }
-            ]
+                },
+            ],
         },
     )
 
 
 def setup_deepl_supported_languages(
-    source_languages: list[str], target_languages: list[str]
+    source_languages: list[str],
+    target_languages: list[str],
 ) -> None:
     """
     Setup supported languages for DeepL
@@ -69,7 +68,9 @@ api_errors = [404, 413, 429, 456, 500]
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user",
+    [*PRIV_STAFF_ROLES, AUTHOR, MANAGEMENT, EDITOR],
+    indirect=True,
 )
 @pytest.mark.parametrize("error", api_errors)
 def test_deepl_bulk_mt_api_error(
@@ -129,7 +130,9 @@ def test_deepl_bulk_mt_api_error(
 
     # Get the page objects including their translations from the database
     page_translations = get_content_translations(
-        Page, selected_ids, TARGET_LANGUAGE_SLUG
+        Page,
+        selected_ids,
+        TARGET_LANGUAGE_SLUG,
     )
 
     # Check for a failure message

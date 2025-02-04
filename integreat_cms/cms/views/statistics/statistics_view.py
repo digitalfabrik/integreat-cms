@@ -34,7 +34,10 @@ class AnalyticsView(TemplateView):
     extra_context = {"current_menu_item": "statistics"}
 
     def get(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Render statistics of access numbers tracked by Matomo

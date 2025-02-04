@@ -17,21 +17,33 @@ def main() -> None:
     # Parse command line arguments
     parser = argparse.ArgumentParser(description="Create GitHub release")
     parser.add_argument(
-        "-p", "--prerelease", action="store_true", help="mark the release as prerelease"
+        "-p",
+        "--prerelease",
+        action="store_true",
+        help="mark the release as prerelease",
     )
     parser.add_argument("token", metavar="TOKEN", help="GitHub API token")
     parser.add_argument("tag", metavar="TAG", help="tag for the release")
     parser.add_argument(
-        "prev_tag", metavar="PREV_TAG", help="the previous tag of the release"
+        "prev_tag",
+        metavar="PREV_TAG",
+        help="the previous tag of the release",
     )
     parser.add_argument(
-        "changelog", metavar="CHANGELOG", help="changelog of the release"
+        "changelog",
+        metavar="CHANGELOG",
+        help="changelog of the release",
     )
     parser.add_argument(
-        "contributors", metavar="CONTRIBUTORS", help="contributors of the release"
+        "contributors",
+        metavar="CONTRIBUTORS",
+        help="contributors of the release",
     )
     parser.add_argument(
-        "assets", metavar="ASSET", help="uploadable asset file", nargs="*"
+        "assets",
+        metavar="ASSET",
+        help="uploadable asset file",
+        nargs="*",
     )
     args = parser.parse_args()
 

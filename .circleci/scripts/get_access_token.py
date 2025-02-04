@@ -24,7 +24,7 @@ def main() -> None:
         deliverino_private_key = os.environ["DELIVERINO_PRIVATE_KEY"]
     except KeyError as e:
         raise RuntimeError(
-            "Please make sure this step has access to the 'deliverino' CircleCI context."
+            "Please make sure this step has access to the 'deliverino' CircleCI context.",
         ) from e
 
     # Generate payload for the JWT
@@ -39,7 +39,9 @@ def main() -> None:
 
     # Sign payload and encode JWT
     encoded_jwt = jwt.encode(
-        payload, b64decode(deliverino_private_key), algorithm="RS256"
+        payload,
+        b64decode(deliverino_private_key),
+        algorithm="RS256",
     )
 
     # Request access token

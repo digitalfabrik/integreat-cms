@@ -54,7 +54,7 @@ urlpatterns: list[URLPattern] = [
                     imprint.expand_imprint_translation_id,
                     name="expand_imprint_translation_id",
                 ),
-            ]
+            ],
         ),
     ),
     path(
@@ -69,7 +69,7 @@ urlpatterns: list[URLPattern] = [
                 path(
                     "passwordless/",
                     authentication.PasswordlessLoginView.as_view(
-                        extra_context=auth_context
+                        extra_context=auth_context,
                     ),
                     name="passwordless_login",
                 ),
@@ -97,10 +97,10 @@ urlpatterns: list[URLPattern] = [
                                 authentication.WebAuthnVerifyView.as_view(),
                                 name="login_webauthn_verify",
                             ),
-                        ]
+                        ],
                     ),
                 ),
-            ]
+            ],
         ),
     ),
     path(
@@ -127,11 +127,11 @@ urlpatterns: list[URLPattern] = [
                 path(
                     "<uidb64>/<token>/",
                     authentication.PasswordResetConfirmView.as_view(
-                        extra_context=auth_context
+                        extra_context=auth_context,
                     ),
                     name="password_reset_confirm",
                 ),
-            ]
+            ],
         ),
     ),
     path(
@@ -147,7 +147,7 @@ urlpatterns: list[URLPattern] = [
     path(
         "favicon.ico",
         RedirectView.as_view(
-            url=f"/static/logos/{settings.BRANDING}/{settings.BRANDING}-icon.svg"
+            url=f"/static/logos/{settings.BRANDING}/{settings.BRANDING}-icon.svg",
         ),
     ),
 ]

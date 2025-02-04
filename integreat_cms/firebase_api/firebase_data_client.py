@@ -1,6 +1,5 @@
 import logging
 from datetime import date
-from typing import Dict, List, Union
 
 import requests
 from django.conf import settings
@@ -12,7 +11,6 @@ logger = logging.getLogger(__name__)
 
 
 class FirebaseDataClient:
-    # pylint: disable=too-few-public-methods
     """
     A client for interacting with Firebase Cloud Messaging Data API.
 
@@ -28,14 +26,14 @@ class FirebaseDataClient:
         """
         if not settings.FCM_ENABLED:
             raise ImproperlyConfigured(
-                "Push notifications are disabled, so are the analytics"
+                "Push notifications are disabled, so are the analytics",
             )
 
         self.endpoint_url = settings.FCM_DATA_URL
 
     def fetch_notification_statistics(
         self,
-    ) -> List[Dict[str, Union[str, int]]]:
+    ) -> list[dict[str, str | int]]:
         """
         Fetches messaging statistics from the Firebase API and calculates the counts of notifications sent per date,
         per region, and per language within the returned timespan.
@@ -72,7 +70,9 @@ class FirebaseDataClient:
                 date_info = item.get("date")
 
                 date_obj = date(
-                    date_info.get("year"), date_info.get("month"), date_info.get("day")
+                    date_info.get("year"),
+                    date_info.get("month"),
+                    date_info.get("day"),
                 )
 
                 count_accepted = int(item["data"]["countNotificationsAccepted"])
@@ -84,7 +84,7 @@ class FirebaseDataClient:
                             "region": region,
                             "language_slug": language,
                             "count": count_accepted,
-                        }
+                        },
                     )
 
         return statistics_list

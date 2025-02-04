@@ -83,24 +83,24 @@ def test_creating_new_external_calendar(
 
         edit_url = response.headers.get("location")
         url_params = resolve(edit_url)
-        assert (
-            url_params.url_name == "edit_external_calendar"
-        ), "We should be redirected to the edit view"
-        assert (
-            url_params.kwargs["region_slug"] == "augsburg"
-        ), "The region shouldn't be different from the request"
+        assert url_params.url_name == "edit_external_calendar", (
+            "We should be redirected to the edit view"
+        )
+        assert url_params.kwargs["region_slug"] == "augsburg", (
+            "The region shouldn't be different from the request"
+        )
         id_of_external_calendar = url_params.kwargs["calendar_id"]
 
         external_calendar = ExternalCalendar.objects.get(id=id_of_external_calendar)
-        assert (
-            external_calendar.name == "Test external calendar"
-        ), "Name should be successfully set on the model"
-        assert (
-            external_calendar.url == "https://integreat.app/"
-        ), "URL should be successfully set on the model"
-        assert (
-            external_calendar.import_filter_category == "integreat"
-        ), "Filter category should be successfully set on the model"
+        assert external_calendar.name == "Test external calendar", (
+            "Name should be successfully set on the model"
+        )
+        assert external_calendar.url == "https://integreat.app/", (
+            "URL should be successfully set on the model"
+        )
+        assert external_calendar.import_filter_category == "integreat", (
+            "Filter category should be successfully set on the model"
+        )
     elif role == ANONYMOUS:
         assert response.status_code == 302, "We should be redirected to the login view"
         assert (

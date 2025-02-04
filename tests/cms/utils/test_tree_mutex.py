@@ -16,7 +16,7 @@ See https://pytest-order.readthedocs.io/en/stable/usage.html#order-relative-to-o
 from __future__ import annotations
 
 from threading import Thread
-from typing import Callable
+from typing import TYPE_CHECKING
 
 import pytest
 from django.db.utils import IntegrityError
@@ -24,6 +24,9 @@ from treebeard.exceptions import InvalidMoveToDescendant
 
 from integreat_cms.cms.models import Page
 from integreat_cms.cms.utils.tree_mutex import tree_mutex
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 after_tests = (
     "tests/core/management/commands/test_replace_links.py::test_replace_links_commit",
@@ -42,7 +45,7 @@ def test_tree_mutex(load_test_data_transactional: None) -> None:
     run_mutex_test(use_mutex=True)
 
 
-@pytest.mark.order("last", after=after_tests + ("test_tree_mutex",))
+@pytest.mark.order("last", after=(*after_tests, "test_tree_mutex"))
 @pytest.mark.django_db(transaction=True, serialized_rollback=True)
 def test_rule_out_false_positive(load_test_data_transactional: None) -> None:
     """
@@ -112,7 +115,7 @@ def run_mutex_test(use_mutex: bool) -> None:
 
     if exception:
         # Raise the exception from the child thread here in the main thread
-        raise exception  # pylint: disable-msg=E0702
+        raise exception
 
 
 def five_ten_five(
@@ -139,11 +142,11 @@ def five_ten_five(
             else:
                 forth(contestant_id)
                 back(contestant_id)
-    except Exception as e:  # pylint: disable=broad-exception-caught # noqa: BLE001
+    except Exception as e:  # noqa: BLE001
         if handle_exception:
             handle_exception(e)
         print(
-            f"failed 5-10-5 of contestant #{contestant_id} {'with' if use_mutex else 'without'} tree_mutex:\n  {repr(e)}"
+            f"failed 5-10-5 of contestant #{contestant_id} {'with' if use_mutex else 'without'} tree_mutex:\n  {e!r}"
         )
     else:
         print(

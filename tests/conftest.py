@@ -4,14 +4,13 @@ This module contains shared fixtures for pytest
 
 from __future__ import annotations
 
-from typing import Generator, TYPE_CHECKING
+from typing import TYPE_CHECKING
 from unittest.mock import patch
 
 import pytest
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test.client import AsyncClient, Client
-from pytest_httpserver.httpserver import HTTPServer
 
 from integreat_cms.cms.constants.roles import (
     APP_TEAM,
@@ -28,10 +27,12 @@ from integreat_cms.firebase_api.firebase_security_service import FirebaseSecurit
 from tests.mock import MockServer
 
 if TYPE_CHECKING:
+    from collections.abc import Generator
     from typing import Final
 
     from _pytest.fixtures import SubRequest
     from pytest_django.plugin import _DatabaseBlocker  # type: ignore[attr-defined]
+    from pytest_httpserver.httpserver import HTTPServer
 
 
 #: A role identifier for superusers
@@ -42,7 +43,7 @@ ANONYMOUS: Final = "ANONYMOUS"
 #: All roles with editing permissions
 WRITE_ROLES: Final = [MANAGEMENT, EDITOR, AUTHOR, EVENT_MANAGER]
 #: All roles of region users
-REGION_ROLES: Final = WRITE_ROLES + [OBSERVER]
+REGION_ROLES: Final = [*WRITE_ROLES, OBSERVER]
 #: All roles of staff users
 STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM, APP_TEAM, MARKETING_TEAM]
 #: All roles of staff users that don't just have read-only permissions
@@ -52,7 +53,7 @@ HIGH_PRIV_STAFF_ROLES: Final = [ROOT, SERVICE_TEAM, CMS_TEAM]
 #: All region and staff roles
 ROLES: Final = REGION_ROLES + STAFF_ROLES
 #: All region and staff roles and anonymous users
-ALL_ROLES: Final = ROLES + [ANONYMOUS]
+ALL_ROLES: Final = [*ROLES, ANONYMOUS]
 
 #: Enable the aiohttp pytest plugin to make use of the test server
 pytest_plugins: Final = "aiohttp.pytest_plugin"
@@ -72,7 +73,8 @@ def load_test_data(django_db_setup: None, django_db_blocker: _DatabaseBlocker) -
 
 @pytest.fixture(scope="function")
 def load_test_data_transactional(
-    transactional_db: None, django_db_blocker: _DatabaseBlocker
+    transactional_db: None,
+    django_db_blocker: _DatabaseBlocker,
 ) -> None:
     """
     Load the test data initially for all transactional test cases
@@ -87,9 +89,10 @@ def load_test_data_transactional(
 
 @pytest.fixture(scope="session", params=ALL_ROLES)
 def login_role_user(
-    request: SubRequest, load_test_data: None, django_db_blocker: _DatabaseBlocker
+    request: SubRequest,
+    load_test_data: None,
+    django_db_blocker: _DatabaseBlocker,
 ) -> tuple[Client, str]:
-    # pylint: disable=redefined-outer-name
     """
     Get the test user of the current role and force a login. Gets executed only once per user.
 
@@ -109,9 +112,10 @@ def login_role_user(
 
 @pytest.fixture(scope="session", params=ALL_ROLES)
 def login_role_user_async(
-    request: SubRequest, load_test_data: None, django_db_blocker: _DatabaseBlocker
+    request: SubRequest,
+    load_test_data: None,
+    django_db_blocker: _DatabaseBlocker,
 ) -> tuple[AsyncClient, str]:
-    # pylint: disable=redefined-outer-name
     """
     Get the test user of the current role and force a login. Gets executed only once per user.
     Identical to :meth:`~tests.conftest.login_role_user` with the difference that it returns

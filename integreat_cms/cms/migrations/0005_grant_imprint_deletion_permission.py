@@ -12,13 +12,12 @@ if TYPE_CHECKING:
 
 def add_roles(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Add the default roles for users
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     # We can't import the Person model directly as it may be a newer
     # version than this migration expects. We use the historical version.
@@ -32,13 +31,12 @@ def add_roles(
 
 def remove_roles(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Remove the default roles for users
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     # We can't import the Person model directly as it may be a newer
     # version than this migration expects. We use the historical version.

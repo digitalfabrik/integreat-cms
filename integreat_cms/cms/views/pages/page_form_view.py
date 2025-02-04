@@ -44,7 +44,10 @@ logger = logging.getLogger(__name__)
 
 @method_decorator(permission_required("cms.view_page"), name="dispatch")
 class PageFormView(
-    TemplateView, PageContextMixin, MediaContextMixin, ContentEditLockMixin
+    TemplateView,
+    PageContextMixin,
+    MediaContextMixin,
+    ContentEditLockMixin,
 ):
     """
     View for the page form and page translation form
@@ -60,7 +63,6 @@ class PageFormView(
     back_url_name: str | None = "pages"
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        # pylint: disable=too-many-locals, too-many-branches
         r"""
         Render :class:`~integreat_cms.cms.forms.pages.page_form.PageForm` and :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm`
 
@@ -74,7 +76,8 @@ class PageFormView(
 
         region = request.region
         language = region.get_language_or_404(
-            kwargs.get("language_slug"), only_active=True
+            kwargs.get("language_slug"),
+            only_active=True,
         )
 
         # Get page and translation objects if they exist
@@ -92,14 +95,15 @@ class PageFormView(
             if page.explicitly_archived:
                 disabled = True
                 messages.warning(
-                    request, _("You cannot edit this page because it is archived.")
+                    request,
+                    _("You cannot edit this page because it is archived."),
                 )
             elif page.implicitly_archived:
                 disabled = True
                 messages.warning(
                     request,
                     _(
-                        "You cannot edit this page, because one of its parent pages is archived and therefore, this page is archived as well."
+                        "You cannot edit this page, because one of its parent pages is archived and therefore, this page is archived as well.",
                     ),
                 )
             # If the page is not public, check whether we need additional messages to prevent confusion
@@ -125,7 +129,7 @@ class PageFormView(
                         message = __(
                             status_message,
                             _(
-                                "You can {action} these changes in the <a>version overview</a>."
+                                "You can {action} these changes in the <a>version overview</a>.",
                             ).format(action=action),
                         )
                         status_message = translate_link(
@@ -153,7 +157,7 @@ class PageFormView(
                         },
                     )
                     message = _(
-                        "Currently, <a>version {}</a> of this page is displayed in the app."
+                        "Currently, <a>version {}</a> of this page is displayed in the app.",
                     ).format(public_translation.version)
                     messages.info(
                         request,
@@ -178,7 +182,7 @@ class PageFormView(
             messages.warning(
                 request,
                 _(
-                    "You don't have the permission to publish this page, but you can propose changes and submit them for review instead."
+                    "You don't have the permission to publish this page, but you can propose changes and submit them for review instead.",
                 ),
             )
 
@@ -204,7 +208,9 @@ class PageFormView(
 
         # Pass side by side language options
         side_by_side_language_options = self.get_side_by_side_language_options(
-            region, language, page
+            region,
+            language,
+            page,
         )
 
         # Pass siblings to template to enable rendering of page order table
@@ -246,9 +252,11 @@ class PageFormView(
 
     @tree_mutex("page")
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
-        # pylint: disable=too-many-statements, too-many-locals, too-many-branches
         r"""
         Submit :class:`~integreat_cms.cms.forms.pages.page_form.PageForm` and
         :class:`~integreat_cms.cms.forms.pages.page_translation_form.PageTranslationForm` and save :class:`~integreat_cms.cms.models.pages.page.Page`
@@ -266,14 +274,15 @@ class PageFormView(
 
         region = request.region
         language = region.get_language_or_404(
-            kwargs.get("language_slug"), only_active=True
+            kwargs.get("language_slug"),
+            only_active=True,
         )
 
         page_instance = region.pages.filter(id=kwargs.get("page_id")).first()
 
         if not request.user.has_perm("cms.change_page_object", page_instance):
             raise PermissionDenied(
-                f"{request.user!r} does not have the permission to edit {page_instance!r}"
+                f"{request.user!r} does not have the permission to edit {page_instance!r}",
             )
 
         page_translation_instance = PageTranslation.objects.filter(
@@ -314,14 +323,15 @@ class PageFormView(
             page_form.add_error_messages(request)
             page_translation_form.add_error_messages(request)
         elif not request.user.has_perm(
-            "cms.publish_page_object", page_form.instance
+            "cms.publish_page_object",
+            page_form.instance,
         ) and (
             page_translation_form.cleaned_data.get("status")
             in [status.DRAFT, status.PUBLIC]
         ):
             # Raise PermissionDenied if user wants to publish page but doesn't have the permission
             raise PermissionDenied(
-                f"{request.user!r} does not have the permission to publish {page_form.instance!r}"
+                f"{request.user!r} does not have the permission to publish {page_form.instance!r}",
             )
         elif (
             page_translation_form.instance.status == status.AUTO_SAVE
@@ -339,13 +349,15 @@ class PageFormView(
                 page_translation_form.instance.page = page_form.save()
             # Save page translation form
             page_translation_instance = page_translation_form.save(
-                foreign_form_changed=page_form.has_changed()
+                foreign_form_changed=page_form.has_changed(),
             )
 
             # Show a message that the slug was changed if it was not unique
             if user_slug and user_slug != page_translation_form.cleaned_data["slug"]:
                 other_translation = PageTranslation.objects.filter(
-                    page__region=region, slug=user_slug, language=language
+                    page__region=region,
+                    slug=user_slug,
+                    language=language,
                 ).first()
                 other_translation_link = reverse(
                     "page_versions",
@@ -382,7 +394,8 @@ class PageFormView(
                     node.language for node in language_tree_node.get_descendants()
                 ]
                 page_translation_form.instance.page.translations.filter(
-                    language__in=languages, status=status.PUBLIC
+                    language__in=languages,
+                    status=status.PUBLIC,
                 ).update(status=status.DRAFT)
             # If this is the first version and the minor edit checkbox is checked, remove it
             if (
@@ -394,7 +407,7 @@ class PageFormView(
                 messages.info(
                     request,
                     _(
-                        'The "minor edit" option was disabled because the first version can never be a minor edit.'
+                        'The "minor edit" option was disabled because the first version can never be a minor edit.',
                     ),
                 )
             # If this is not an autosave, clean up previous auto saves
@@ -407,14 +420,14 @@ class PageFormView(
                     messages.success(
                         request,
                         _(
-                            'Page "{}" was successfully created and submitted for approval'
+                            'Page "{}" was successfully created and submitted for approval',
                         ).format(page_translation_form.instance.title),
                     )
                 else:
                     messages.success(
                         request,
                         _('Page "{}" was successfully created').format(
-                            page_translation_form.instance.title
+                            page_translation_form.instance.title,
                         ),
                     )
             elif (
@@ -442,7 +455,7 @@ class PageFormView(
         else:
             siblings = region.get_root_pages()
         siblings = siblings.filter(
-            explicitly_archived=page_form.instance.explicitly_archived
+            explicitly_archived=page_form.instance.explicitly_archived,
         )
 
         return render(
@@ -458,7 +471,9 @@ class PageFormView(
                 # Languages for tab view
                 "languages": region.active_languages if page_instance else [language],
                 "side_by_side_language_options": self.get_side_by_side_language_options(
-                    region, language, page_instance
+                    region,
+                    language,
+                    page_instance,
                 ),
                 "right_to_left": (
                     language.text_direction == text_directions.RIGHT_TO_LEFT
@@ -471,7 +486,9 @@ class PageFormView(
 
     @staticmethod
     def get_side_by_side_language_options(
-        region: Region, language: Language, page: Page | None
+        region: Region,
+        language: Language,
+        page: Page | None,
     ) -> list[dict[str, Any]]:
         """
         This is a helper function to generate the side-by-side language options for both the get and post requests.
@@ -486,7 +503,7 @@ class PageFormView(
         for language_node in filter(lambda n: n.active, region.language_tree):
             if not language_node.is_root():
                 source_language = region.language_node_by_id.get(
-                    language_node.parent_id
+                    language_node.parent_id,
                 ).language
                 side_by_side_language_options.append(
                     {
@@ -497,6 +514,6 @@ class PageFormView(
                         ),
                         "selected": language_node.language == language,
                         "disabled": not page or source_language not in page.languages,
-                    }
+                    },
                 )
         return side_by_side_language_options

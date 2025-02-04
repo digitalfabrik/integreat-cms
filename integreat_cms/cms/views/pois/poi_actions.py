@@ -29,7 +29,10 @@ logger = logging.getLogger(__name__)
 @require_POST
 @permission_required("cms.change_poi")
 def archive_poi(
-    request: HttpRequest, poi_id: int, region_slug: str, language_slug: str
+    request: HttpRequest,
+    poi_id: int,
+    region_slug: str,
+    language_slug: str,
 ) -> HttpResponseRedirect:
     """
     Archive POI object
@@ -63,7 +66,10 @@ def archive_poi(
 @require_POST
 @permission_required("cms.change_poi")
 def restore_poi(
-    request: HttpRequest, poi_id: int, region_slug: str, language_slug: str
+    request: HttpRequest,
+    poi_id: int,
+    region_slug: str,
+    language_slug: str,
 ) -> HttpResponseRedirect:
     """
     Restore POI object (set ``archived=False``)
@@ -93,7 +99,10 @@ def restore_poi(
 @require_POST
 @permission_required("cms.delete_poi")
 def delete_poi(
-    request: HttpRequest, poi_id: int, region_slug: str, language_slug: str
+    request: HttpRequest,
+    poi_id: int,
+    region_slug: str,
+    language_slug: str,
 ) -> HttpResponseRedirect:
     """
     Delete POI object
@@ -129,7 +138,7 @@ def delete_poi(
 def view_poi(
     request: HttpRequest,
     poi_id: int,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
 ) -> HttpResponse:
     """
@@ -137,7 +146,6 @@ def view_poi(
 
     :param request: The current request
     :param poi_id: The id of the POI which should be viewed
-    :param region_slug: The slug of the current region
     :param language_slug: The slug of the current language
     :raises ~django.http.Http404: If user no translation exists for the requested POI and language
 
@@ -156,13 +164,13 @@ def view_poi(
 @require_POST
 @permission_required("cms.view_poi")
 def auto_complete_address(
-    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+    request: HttpRequest,
+    region_slug: str,
 ) -> JsonResponse:
     """
     Autocomplete location address and coordinates
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :raises ~django.http.Http404: If no location was found for the given address
 
     :return: The address and coordinates of the location
@@ -198,7 +206,7 @@ def auto_complete_address(
             "country": address.get("country"),
             "longitude": result.longitude,
             "latitude": result.latitude,
-        }
+        },
     )
 
 
@@ -206,13 +214,13 @@ def auto_complete_address(
 @require_POST
 @permission_required("cms.view_poi")
 def get_address_from_coordinates(
-    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+    request: HttpRequest,
+    region_slug: str,
 ) -> JsonResponse:
     """
     Derive address from the coordinates (map pin position)
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :raises ~django.http.Http404: If no address was found for the given coordinates
 
     :return: The address of the location
@@ -225,7 +233,8 @@ def get_address_from_coordinates(
     nominatim_api_client = NominatimApiClient()
 
     result = nominatim_api_client.get_address(
-        data.get("latitude"), data.get("longitude")
+        data.get("latitude"),
+        data.get("longitude"),
     )
 
     if not result:
@@ -242,5 +251,5 @@ def get_address_from_coordinates(
             or address.get("town")
             or address.get("village"),
             "country": address.get("country"),
-        }
+        },
     )

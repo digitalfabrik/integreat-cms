@@ -51,7 +51,7 @@ def transform_page(page_translation: PageTranslation) -> dict[str, Any]:
     parent_page = page_translation.page.cached_parent
     if parent_page and not parent_page.explicitly_archived:
         if parent_public_translation := parent_page.get_public_translation(
-            page_translation.language.slug
+            page_translation.language.slug,
         ):
             parent_absolute_url = parent_public_translation.get_absolute_url()
             parent = {
@@ -114,14 +114,13 @@ def transform_page(page_translation: PageTranslation) -> dict[str, Any]:
 @json_response
 def pages(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
 ) -> JsonResponse:
     """
     Function to iterate through all non-archived pages of a region and return them as JSON.
 
     :param request: Django request
-    :param region_slug: slug of a region
     :param language_slug: language slug
     :return: JSON object according to APIv3 pages endpoint definition
     """
@@ -142,7 +141,8 @@ def pages(
         if page_translation := page.get_public_translation(language_slug):
             result.append(transform_page(page_translation))
     return JsonResponse(
-        result, safe=False
+        result,
+        safe=False,
     )  # Turn off Safe-Mode to allow serializing arrays
 
 
@@ -189,7 +189,7 @@ def get_single_page(request: HttpRequest, language_slug: str) -> Page:
                 filtered_pages,
             )
             raise MultipleObjectsReturned(
-                "This page translation slug is not unique, please contact your server administrator."
+                "This page translation slug is not unique, please contact your server administrator.",
             )
         if not filtered_pages:
             raise Http404("No matching page translation found for url.")
@@ -210,7 +210,7 @@ def get_single_page(request: HttpRequest, language_slug: str) -> Page:
 @json_response
 def single_page(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
 ) -> JsonResponse:
     """
@@ -218,7 +218,6 @@ def single_page(
     requested page does not exist.
 
     :param request: The request that has been sent to the Django server
-    :param region_slug: Slug defining the region
     :param language_slug: Code to identify the desired language
     :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
 
@@ -237,7 +236,9 @@ def single_page(
 @matomo_tracking
 @json_response
 def children(
-    request: HttpRequest, region_slug: str, language_slug: str
+    request: HttpRequest,
+    region_slug: str,
+    language_slug: str,
 ) -> JsonResponse:
     """
     Retrieves all children for a single page
@@ -266,7 +267,8 @@ def children(
         request.region.pages.select_related("organization__icon")
         .prefetch_related("embedded_offers")
         .filter(
-            explicitly_archived=False, tree_id__in=[page.tree_id for page in root_pages]
+            explicitly_archived=False,
+            tree_id__in=[page.tree_id for page in root_pages],
         )
         .cache_tree(archived=False, language_slug=language_slug)
     )
@@ -275,7 +277,7 @@ def children(
         for descendant in public_region_pages:
             if descendant in descendants:
                 result.append(
-                    transform_page(descendant.get_public_translation(language_slug))
+                    transform_page(descendant.get_public_translation(language_slug)),
                 )
     return JsonResponse(result, safe=False)
 
@@ -283,7 +285,7 @@ def children(
 @json_response
 def parents(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
 ) -> JsonResponse:
     """
@@ -291,7 +293,6 @@ def parents(
     If any ancestor is archived, an 404 is raised.
 
     :param request: The request that has been sent to the Django server
-    :param region_slug: Slug defining the region
     :param language_slug: Code to identify the desired language
     :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
 
@@ -308,7 +309,8 @@ def parents(
 
 
 def get_public_ancestor_translations(
-    current_page: Page, language_slug: str
+    current_page: Page,
+    language_slug: str,
 ) -> list[dict[str, Any]]:
     """
     Retrieves all ancestors (parent and all nodes up to the root node) of a page.
@@ -335,14 +337,13 @@ def get_public_ancestor_translations(
 @json_response
 def push_page_translation_content(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
 ) -> JsonResponse:
     """
     Retrieves all ancestors (parent and all nodes up to the root node) of a page
 
     :param request: The request that has been sent to the Django server
-    :param region_slug: Slug defining the region
     :param language_slug: Code to identify the desired language
     :raises ~django.http.Http404: HTTP status 404 if the request is malformed or no page with the given id or url exists.
 
@@ -350,8 +351,8 @@ def push_page_translation_content(
     """
     try:
         data = json.loads(request.body)
-    except json.decoder.JSONDecodeError as e:
-        logger.error("Push Content: failed to parse JSON: %s", e)
+    except json.decoder.JSONDecodeError:
+        logger.exception("Push Content: failed to parse JSON")
         return JsonResponse({"status": "error"}, status=405)
 
     if not all(key in data for key in ["content", "token"]):

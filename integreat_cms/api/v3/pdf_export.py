@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 @never_cache
 def pdf_export(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
 ) -> HttpResponseRedirect:
     """
@@ -35,7 +35,6 @@ def pdf_export(
     by forwarding the request to :func:`~integreat_cms.cms.utils.pdf_utils.generate_pdf`
 
     :param request: request that was sent to the server
-    :param region_slug: Slug defining the region
     :param language_slug: current language slug
     :raises ~django.http.Http404: HTTP status 404 if the requested page translation cannot be found.
 

@@ -33,7 +33,7 @@ CHOICES: Final[list[tuple[str, Promise]]] = [
     (IN_TRANSLATION, _("Currently in translation")),
     (OUTDATED, _("Translation outdated")),
     # Do not show fallback translations in translation coverage
-    # (FALLBACK, _("Default language is duplicated")),
+    # (FALLBACK, _("Default language is duplicated")),  # noqa: ERA001
     (MISSING, _("Translation missing")),
     (MACHINE_TRANSLATED, _("Machine translated")),
 ]

@@ -40,11 +40,11 @@ class SummAiApiConfig(AppConfig):
                 logger.info("SUMM.AI API is disabled")
             elif settings.SUMM_AI_TEST_MODE:
                 logger.info(
-                    "SUMM.AI API is enabled, but in test mode. No credits get charged, but only a dummy text is returned."
+                    "SUMM.AI API is enabled, but in test mode. No credits get charged, but only a dummy text is returned.",
                 )
             elif settings.DEBUG:
                 logger.info(
-                    "SUMM.AI API is enabled, but in debug mode. Text is really translated and credits get charged, but user is 'testumgebung'"
+                    "SUMM.AI API is enabled, but in debug mode. Text is really translated and credits get charged, but user is 'testumgebung'",
                 )
             else:
                 logger.info("SUMM.AI API is enabled in production mode.")

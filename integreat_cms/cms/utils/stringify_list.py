@@ -4,7 +4,10 @@ from django.utils.translation import gettext_lazy as _
 
 
 def iter_to_string(
-    iterable: Iterable, *, quotation_char: str = '"', max_items: int = 5
+    iterable: Iterable,
+    *,
+    quotation_char: str = '"',
+    max_items: int = 5,
 ) -> str:
     """
     This is a helper function that turns a list into a string using different delimiters.

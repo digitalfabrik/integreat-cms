@@ -44,7 +44,6 @@ class Command(LogCommand):
         )
 
     def handle(self, *args: Any, limit: int, threshold: int, **options: Any) -> None:
-        # pylint: disable=arguments-differ
         r"""
         Try to run the command
 
@@ -63,10 +62,12 @@ class Command(LogCommand):
             raise CommandError("Please select a limit smaller than 100.")
         threshold_bytes = threshold * 1024 * 1024
         logger.info(
-            "Searching the largest %s media with more than %sMiB...", limit, threshold
+            "Searching the largest %s media with more than %sMiB...",
+            limit,
+            threshold,
         )
         if queryset := MediaFile.objects.filter(file_size__gt=threshold_bytes).order_by(
-            "-file_size"
+            "-file_size",
         )[:limit]:
             file_info = [
                 (filesizeformat(file.file_size), file.name, file.region or "global")

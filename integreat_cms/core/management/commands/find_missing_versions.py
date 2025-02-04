@@ -35,7 +35,7 @@ def get_model(model_str: str) -> ModelBase:
         return MODELS[model_str]
     except KeyError as e:
         raise ArgumentTypeError(
-            "Invalid model (must be either page, event or poi)"
+            "Invalid model (must be either page, event or poi)",
         ) from e
 
 
@@ -59,7 +59,6 @@ class Command(LogCommand):
         )
 
     def handle(self, *args: Any, model: ModelBase, **options: Any) -> None:
-        # pylint: disable=arguments-differ
         r"""
         Try to run the command
 
@@ -69,14 +68,16 @@ class Command(LogCommand):
         """
         self.set_logging_stream()
         logger.info(
-            "Checking the model %s for version inconsistencies...", model.__name__
+            "Checking the model %s for version inconsistencies...",
+            model.__name__,
         )
         success = True
         for latest_version in model.objects.distinct(
-            f"{model.foreign_field()}__pk", "language__pk"
+            f"{model.foreign_field()}__pk",
+            "language__pk",
         ):
             num = latest_version.foreign_object.translations.filter(
-                language=latest_version.language
+                language=latest_version.language,
             ).count()
             if latest_version.version != num:
                 logger.error(

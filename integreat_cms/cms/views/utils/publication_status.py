@@ -7,7 +7,6 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from django.contrib import messages
-from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext_lazy
 
 from ...constants import status
@@ -50,7 +49,7 @@ def change_publication_status(
                     translation.version += 1
                     if desired_status == status.DRAFT:
                         translation.all_versions.filter(status=status.PUBLIC).update(
-                            status=status.DRAFT
+                            status=status.DRAFT,
                         )
                     translation.save()
                     successful.append(translation.title)

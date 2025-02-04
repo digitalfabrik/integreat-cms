@@ -43,19 +43,19 @@ class GvzApiConfig(AppConfig):
                 try:
                     response = requests.get(f"{settings.GVZ_API_URL}/api/", timeout=3)
                     # Require the response to return a valid JSON, otherwise it's probably an error
-                    assert json.loads(response.text)
+                    if not json.loads(response.text):
+                        raise ValueError  # noqa: TRY301
                     logger.info("GVZ API is available at: %r", settings.GVZ_API_URL)
                     self.api_available = True
                 except (
                     json.decoder.JSONDecodeError,
                     requests.exceptions.RequestException,
                     requests.exceptions.Timeout,
-                    AssertionError,
-                ) as e:
-                    logger.error(e)
-                    logger.error(
+                    ValueError,
+                ):
+                    logger.exception(
                         "GVZ API is unavailable. You won't be able to "
-                        "automatically import region coordinates and aliases."
+                        "automatically import region coordinates and aliases.",
                     )
             else:
                 logger.info("GVZ API is disabled")

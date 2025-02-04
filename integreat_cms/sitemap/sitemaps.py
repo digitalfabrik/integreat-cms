@@ -81,7 +81,7 @@ class WebappSitemap(ABC, Sitemap):
         """
         return translation.last_updated
 
-    def _urls(self, page: int, protocol: str, domain: str) -> list[dict[str, Any]]:
+    def _urls(self, page: int, _protocol: str, _domain: str) -> list[dict[str, Any]]:
         """
         This is a patched version of :func:`django.contrib.sitemaps.Sitemap._urls` which adds the alternative languages
         to the list of urls.
@@ -92,8 +92,8 @@ class WebappSitemap(ABC, Sitemap):
         support this functionality when used together with :doc:`django:ref/contrib/sites`.
 
         :param page: The page for the paginator (will always be ``1`` in our case)
-        :param protocol: The protocol of the urls
-        :param domain: The domain of the urls
+        :param _protocol: The protocol of the urls
+        :param _domain: The domain of the urls
         :return: A list of urls
         """
         splitted_url = urlsplit(settings.WEBAPP_URL)
@@ -105,7 +105,8 @@ class WebappSitemap(ABC, Sitemap):
         return urls
 
     def sitemap_alternates(
-        self, obj: OfferTemplate | AbstractContentTranslation
+        self,
+        obj: OfferTemplate | AbstractContentTranslation,
     ) -> list[dict[str, str]]:
         """
         This function returns the sitemap alternatives for a given object
@@ -129,7 +130,7 @@ class PageSitemap(WebappSitemap):
     priority: float = 1.0
     #: The :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation` :class:`~django.db.models.query.QuerySet` of this sitemap
     queryset: QuerySet[PageTranslation] = PageTranslation.objects.filter(
-        status=status.PUBLIC
+        status=status.PUBLIC,
     )
 
     def __init__(self, region: Region, language: Language) -> None:
@@ -162,7 +163,8 @@ class EventSitemap(WebappSitemap):
 
     #: The :class:`~integreat_cms.cms.models.events.event_translation.EventTranslation` :class:`~django.db.models.query.QuerySet` of this sitemap
     queryset: QuerySet[EventTranslation] = EventTranslation.objects.filter(
-        event__archived=False, status=status.PUBLIC
+        event__archived=False,
+        status=status.PUBLIC,
     )
 
     def __init__(self, region: Region, language: Language) -> None:
@@ -176,7 +178,8 @@ class EventSitemap(WebappSitemap):
         super().__init__(region, language)
         # Filter queryset based on region and language
         self.queryset = self.queryset.filter(
-            event__in=self.region.events.all(), language=self.language
+            event__in=self.region.events.all(),
+            language=self.language,
         ).distinct("event__pk")
 
 
@@ -192,7 +195,8 @@ class POISitemap(WebappSitemap):
 
     #: The :class:`~integreat_cms.cms.models.pois.poi_translation.POITranslation` :class:`~django.db.models.query.QuerySet` queryset of this sitemap
     queryset: QuerySet[POITranslation] = POITranslation.objects.filter(
-        poi__archived=False, status=status.PUBLIC
+        poi__archived=False,
+        status=status.PUBLIC,
     )
 
     def __init__(self, region: Region, language: Language) -> None:
@@ -206,7 +210,8 @@ class POISitemap(WebappSitemap):
         super().__init__(region, language)
         # Filter queryset based on region and language
         self.queryset = self.queryset.filter(
-            poi__in=self.region.pois.all(), language=self.language
+            poi__in=self.region.pois.all(),
+            language=self.language,
         ).distinct("poi__pk")
 
 

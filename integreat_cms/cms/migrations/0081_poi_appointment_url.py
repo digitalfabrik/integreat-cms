@@ -13,13 +13,12 @@ if TYPE_CHECKING:
 
 def set_default_appointment_only(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Set default value for appointmentOnly
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     POI = apps.get_model("cms", "POI")
     for obj in POI.objects.all():

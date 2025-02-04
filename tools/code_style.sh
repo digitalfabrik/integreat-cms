@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script can be used to runs all of our code style tools: ruff, djlint, black, pylint, eslint and prettier
+# This script can be used to runs all of our code style tools: ruff, mypy, djlint, eslint and prettier
 
 # Import utility functions
 # shellcheck source=./tools/_functions.sh
@@ -12,14 +12,11 @@ ensure_not_root
 # Run ruff
 bash "${DEV_TOOL_DIR}/ruff.sh" || :
 
-# Run black
-bash "${DEV_TOOL_DIR}/black.sh" || :
+# Run mypy
+bash "${DEV_TOOL_DIR}/mypy.sh" || :
 
 # Run djlint
 bash "${DEV_TOOL_DIR}/djlint.sh" || :
-
-# Run pylint
-bash "${DEV_TOOL_DIR}/pylint.sh" || :
 
 # Run eslint
 bash "${DEV_TOOL_DIR}/eslint.sh" || :

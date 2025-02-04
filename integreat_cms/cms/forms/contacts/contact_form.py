@@ -1,15 +1,11 @@
 from __future__ import annotations
 
 import logging
-from typing import TYPE_CHECKING
 
 from django.utils.translation import gettext_lazy as _
 
 from ...models import Contact
 from ..custom_model_form import CustomModelForm
-
-if TYPE_CHECKING:
-    from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -38,5 +34,5 @@ class ContactForm(CustomModelForm):
         ]
 
         error_messages = {
-            "location": {"invalid_choice": _("Location cannot be empty.")}
+            "location": {"invalid_choice": _("Location cannot be empty.")},
         }

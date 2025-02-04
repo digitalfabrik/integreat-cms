@@ -65,7 +65,8 @@ def test_api_chat_incorrect_auth_error(load_test_data: None) -> None:
     """
     mock_api = MagicMock()
     with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
+        return_value=mock_api,
     ):
         mock_api.user.me.side_effect = HTTPError()
 
@@ -78,7 +79,7 @@ def test_api_chat_incorrect_auth_error(load_test_data: None) -> None:
 
         assert response.status_code == 500
         assert response.json() == {
-            "error": "An error occurred while attempting to connect to the chat server."
+            "error": "An error occurred while attempting to connect to the chat server.",
         }
 
 
@@ -91,7 +92,8 @@ def test_api_chat_first_chat(load_test_data: None) -> None:
     """
     mock_api = MagicMock()
     with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
+        return_value=mock_api,
     ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
@@ -117,7 +119,8 @@ def test_api_chat_force_new_chat(load_test_data: None) -> None:
     """
     mock_api = MagicMock()
     with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
+        return_value=mock_api,
     ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
@@ -146,7 +149,8 @@ def test_api_chat_send_message(load_test_data: None) -> None:
     mock_api = MagicMock()
     previous_chat = UserChat.objects.current_chat(default_kwargs["device_id"]).zammad_id
     with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
+        return_value=mock_api,
     ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
@@ -175,7 +179,8 @@ def test_api_chat_get_messages_success(load_test_data: None) -> None:
     """
     mock_api = MagicMock()
     with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
+        return_value=mock_api,
     ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
@@ -200,7 +205,8 @@ def test_api_chat_get_messages_failure(load_test_data: None) -> None:
     """
     mock_api = MagicMock()
     with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
+        return_value=mock_api,
     ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
@@ -214,7 +220,7 @@ def test_api_chat_get_messages_failure(load_test_data: None) -> None:
 
         assert response.status_code == 404
         assert response.json() == {
-            "error": "The requested chat does not exist. Did you delete it?"
+            "error": "The requested chat does not exist. Did you delete it?",
         }
 
 
@@ -227,7 +233,8 @@ def test_api_chat_create_attachment_success(load_test_data: None) -> None:
     """
     mock_api = MagicMock()
     with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
+        return_value=mock_api,
     ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
@@ -242,7 +249,7 @@ def test_api_chat_create_attachment_success(load_test_data: None) -> None:
                         "filename": "sample.pdf",
                         "size": "41412",
                         "preferences": {"Content-Type": "application/pdf"},
-                    }
+                    },
                 ],
             },
         ]
@@ -268,7 +275,8 @@ def test_api_chat_get_attachment_success(load_test_data: None) -> None:
     """
     mock_api = MagicMock()
     with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
+        return_value=mock_api,
     ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
@@ -280,7 +288,8 @@ def test_api_chat_get_attachment_success(load_test_data: None) -> None:
         response = client.get(url)
 
         url = reverse(
-            "api:chat", kwargs=default_kwargs | {"attachment_id": "exampleRandomHash"}
+            "api:chat",
+            kwargs=default_kwargs | {"attachment_id": "exampleRandomHash"},
         )
         response = client.get(url)
 
@@ -296,7 +305,8 @@ def test_api_chat_get_attachment_incorrect_chat_failure(load_test_data: None) ->
     """
     mock_api = MagicMock()
     with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
+        return_value=mock_api,
     ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
@@ -327,7 +337,8 @@ def test_api_chat_get_attachment_missing_attachment_failure(
     """
     mock_api = MagicMock()
     with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
+        return_value=mock_api,
     ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
@@ -352,7 +363,8 @@ def test_api_chat_ratelimiting(load_test_data: None) -> None:
     """
     mock_api = MagicMock()
     with patch(
-        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI", return_value=mock_api
+        "integreat_cms.api.v3.chat.utils.zammad_api.ZammadAPI",
+        return_value=mock_api,
     ):
         mock_api.user.all.return_value = []
         mock_api.user.me.return_value = {"login": "bot-user"}
@@ -381,6 +393,7 @@ def test_api_chat_ratelimiting(load_test_data: None) -> None:
 
         # make sure ratelimiting cannot be circumvented by force-creating new chats
         response_force = client.post(
-            url, data={"message": "no, it's spam.", "force_new": True}
+            url,
+            data={"message": "no, it's spam.", "force_new": True},
         )
         assert response_force.status_code == 429

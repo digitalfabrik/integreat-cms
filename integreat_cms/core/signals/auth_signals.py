@@ -27,7 +27,7 @@ authlog = logging.getLogger("auth")
 
 @receiver(user_logged_in)
 def user_logged_in_callback(
-    sender: ModelBase,  # pylint: disable=unused-argument
+    sender: ModelBase,  # noqa: ARG001
     request: HttpRequest,
     user: User,
     **kwargs: Any,
@@ -35,7 +35,6 @@ def user_logged_in_callback(
     r"""
     Log a successful login event
 
-    :param sender: The class of the user that just logged in.
     :param request: The current request
     :param user: The user instance that just logged in.
     :param \**kwargs: The supplied keyword arguments
@@ -46,7 +45,7 @@ def user_logged_in_callback(
 
 @receiver(user_logged_out)
 def user_logged_out_callback(
-    sender: ModelBase,  # pylint: disable=unused-argument
+    sender: ModelBase,  # noqa: ARG001
     request: HttpRequest,
     user: User,
     **kwargs: Any,
@@ -54,7 +53,6 @@ def user_logged_out_callback(
     r"""
     Log a logout event
 
-    :param sender: The class of the user that just logged out or ``None`` if the user was not authenticated.
     :param request: The current request
     :param user: The user instance that just logged out or ``None`` if the user was not authenticated.
     :param \**kwargs: The supplied keyword arguments
@@ -65,7 +63,7 @@ def user_logged_out_callback(
 
 @receiver(user_login_failed)
 def user_login_failed_callback(
-    sender: ModelBase,  # pylint: disable=unused-argument
+    sender: ModelBase,  # noqa: ARG001
     credentials: dict[str, str],
     request: HttpRequest,
     **kwargs: Any,
@@ -73,7 +71,6 @@ def user_login_failed_callback(
     r"""
     Log a failed login event
 
-    :param sender: The name of the module used for authentication.
     :param credentials: A dictionary of keyword arguments containing the user credentials that were passed to
                         :func:`~django.contrib.auth.authenticate`. Credentials matching a set of ‘sensitive’ patterns,
                         (including password) will not be sent in the clear as part of the signal.

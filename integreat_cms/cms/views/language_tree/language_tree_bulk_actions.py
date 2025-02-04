@@ -47,7 +47,7 @@ class LanguageTreeBulkActionView(BulkUpdateBooleanFieldView):
         :raises NotImplementedError: If the ``field_name`` attribute is not implemented in the subclass
         """
         raise NotImplementedError(
-            "Subclasses of LanguageTreeBulkActionView must provide a 'field_name' attribute"
+            "Subclasses of LanguageTreeBulkActionView must provide a 'field_name' attribute",
         )
 
     @property
@@ -58,12 +58,15 @@ class LanguageTreeBulkActionView(BulkUpdateBooleanFieldView):
         :raises NotImplementedError: If the ``action`` attribute is not implemented in the subclass
         """
         raise NotImplementedError(
-            "Subclasses of LanguageTreeBulkActionView must provide an 'action' attribute"
+            "Subclasses of LanguageTreeBulkActionView must provide an 'action' attribute",
         )
 
     @tree_mutex("languagetreenode")
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Execute bulk action for language tree node and flush the cache
@@ -89,7 +92,6 @@ class LanguageTreeBulkActionView(BulkUpdateBooleanFieldView):
 
 
 class BulkMakeVisibleView(LanguageTreeBulkActionView):
-    # pylint: disable=too-many-ancestors
     """
     Bulk action for making multiple language tree nodes visible at once
     """
@@ -102,7 +104,6 @@ class BulkMakeVisibleView(LanguageTreeBulkActionView):
 
 
 class BulkHideView(BulkMakeVisibleView):
-    # pylint: disable=too-many-ancestors
     """
     Bulk action for hiding multiple language tree nodes at once
     """
@@ -115,7 +116,6 @@ class BulkHideView(BulkMakeVisibleView):
 
 
 class BulkActivateView(LanguageTreeBulkActionView):
-    # pylint: disable=too-many-ancestors
     """
     Bulk action for activating multiple language tree nodes at once
     """
@@ -127,7 +127,10 @@ class BulkActivateView(LanguageTreeBulkActionView):
     action = _("activated")
 
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         for language_tree_node in self.get_queryset():
             models = [PageTranslation, EventTranslation, POITranslation]
@@ -148,7 +151,6 @@ class BulkActivateView(LanguageTreeBulkActionView):
 
 
 class BulkDisableView(BulkActivateView):
-    # pylint: disable=too-many-ancestors
     """
     Bulk action for disabling multiple language tree nodes at once
     """

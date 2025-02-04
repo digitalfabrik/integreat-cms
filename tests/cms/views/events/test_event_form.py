@@ -9,7 +9,6 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
 
 import pytest
-from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.constants import status
@@ -75,8 +74,7 @@ def test_create_event(
         data=data,
     )
     if role in PRIV_STAFF_ROLES + WRITE_ROLES:
-        response.status_code == 302
-
+        assert response.status_code in [200, 302]
         if successfully_created:
             redirect_url = response.headers.get("location")
             assert_message_in_log(
@@ -89,7 +87,7 @@ def test_create_event(
             )
 
             event_translation = EventTranslation.objects.filter(
-                title=EVENT_TITLE
+                title=EVENT_TITLE,
             ).first()
             assert event_translation
             assert Event.objects.filter(id=event_translation.event.id).first()
@@ -105,7 +103,7 @@ def test_create_event(
             )
 
             event_translation = EventTranslation.objects.filter(
-                title=EVENT_TITLE
+                title=EVENT_TITLE,
             ).first()
             assert not event_translation
 

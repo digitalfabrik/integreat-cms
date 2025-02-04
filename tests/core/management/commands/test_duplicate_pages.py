@@ -1,12 +1,16 @@
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
 import pytest
 from django.core.management.base import CommandError
-from pytest_django.fixtures import SettingsWrapper
 
 from integreat_cms.cms.models import Page, PageTranslation
 
 from ..utils import get_command_output
+
+if TYPE_CHECKING:
+    from pytest_django.fixtures import SettingsWrapper
 
 
 def test_duplicate_pages_prod() -> None:
@@ -51,7 +55,7 @@ def test_duplicate_pages(settings: SettingsWrapper, load_test_data: None) -> Non
     region_slug = "augsburg"
     page_count_before = Page.objects.filter(region__slug=region_slug).count()
     translations_count_before = PageTranslation.objects.filter(
-        page__region__slug=region_slug
+        page__region__slug=region_slug,
     ).count()
     out, err = get_command_output("duplicate_pages", "augsburg")
     assert (
@@ -60,11 +64,11 @@ def test_duplicate_pages(settings: SettingsWrapper, load_test_data: None) -> Non
     assert not err
     page_count_after = Page.objects.filter(region__slug=region_slug).count()
     translations_count_after = PageTranslation.objects.filter(
-        page__region__slug=region_slug
+        page__region__slug=region_slug,
     ).count()
-    assert (
-        page_count_after == 2 * page_count_before
-    ), "The count of pages should have doubled after the command"
-    assert (
-        translations_count_after == 2 * translations_count_before
-    ), "The count of page translations should have doubled after the command"
+    assert page_count_after == 2 * page_count_before, (
+        "The count of pages should have doubled after the command"
+    )
+    assert translations_count_after == 2 * translations_count_before, (
+        "The count of page translations should have doubled after the command"
+    )

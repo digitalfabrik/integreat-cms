@@ -34,7 +34,7 @@ class Language(AbstractBaseModel):
         validators=[MinLengthValidator(2)],
         verbose_name=_("Language Slug"),
         help_text=_(
-            "Unique string identifier used in URLs without spaces and special characters."
+            "Unique string identifier used in URLs without spaces and special characters.",
         ),
     )
     #: The recommended minimum buffer for `bcp47 <https://tools.ietf.org/html/bcp47>`__ is 35.
@@ -49,7 +49,7 @@ class Language(AbstractBaseModel):
         help_text=__(
             _("Language identifier without spaces and special characters."),
             _(
-                "This field usually contains a combination of subtags from the IANA Subtag Registry."
+                "This field usually contains a combination of subtags from the IANA Subtag Registry.",
             ),
         ),
     )
@@ -101,7 +101,7 @@ class Language(AbstractBaseModel):
         blank=False,
         default="#000000",
         help_text=_(
-            "This color is used to represent the color label of the chosen language"
+            "This color is used to represent the color label of the chosen language",
         ),
     )
     created_date = models.DateTimeField(
@@ -126,7 +126,7 @@ class Language(AbstractBaseModel):
         blank=True,
         verbose_name=_("Social media title of the WebApp"),
         help_text=_(
-            "Displayed title of the WebApp in the search results and on social media pages (max 100 characters)."
+            "Displayed title of the WebApp in the search results and on social media pages (max 100 characters).",
         ),
     )
     social_media_webapp_description = models.TextField(
@@ -134,7 +134,7 @@ class Language(AbstractBaseModel):
         blank=True,
         verbose_name=_("Social media description"),
         help_text=_(
-            "Displayed description of the WebApp in the search results and on social media pages (max 200 characters)."
+            "Displayed description of the WebApp in the search results and on social media pages (max 200 characters).",
         ),
     )
     message_content_not_available = models.CharField(
@@ -142,10 +142,10 @@ class Language(AbstractBaseModel):
         blank=False,
         default="This page does not exist in the selected language. It is however available in these languages:",
         verbose_name=_(
-            '"This page does not exist in the selected language. It is however available in these languages:" in this language'
+            '"This page does not exist in the selected language. It is however available in these languages:" in this language',
         ),
         help_text=_(
-            "This is shown to the user when a page is not available in their language."
+            "This is shown to the user when a page is not available in their language.",
         ),
     )
     message_partial_live_content_not_available = models.CharField(
@@ -153,10 +153,10 @@ class Language(AbstractBaseModel):
         blank=False,
         default="Part of the page does not exist in the selected language. It is however available in these languages:",
         verbose_name=_(
-            '"Part of the page does not exist in the selected language. It is however available in these languages:" in this language'
+            '"Part of the page does not exist in the selected language. It is however available in these languages:" in this language',
         ),
         help_text=_(
-            "This is shown to the user when the mirrored part of a page is not available in their language."
+            "This is shown to the user when the mirrored part of a page is not available in their language.",
         ),
     )
 
@@ -177,7 +177,8 @@ class Language(AbstractBaseModel):
         :return: regions in which the language is active
         """
         return Region.objects.filter(
-            language_tree_nodes__language=self, language_tree_nodes__active=True
+            language_tree_nodes__language=self,
+            language_tree_nodes__active=True,
         )
 
     @cached_property

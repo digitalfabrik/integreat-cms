@@ -19,7 +19,6 @@ from ...cms.models.languages.language import Language
 from ...cms.models.push_notifications.push_notification_translation import (
     PushNotificationTranslation,
 )
-from ...cms.models.regions.region import Region
 from ...cms.utils.internal_link_utils import (
     get_public_translation_for_webapp_link_parts,
 )
@@ -34,6 +33,8 @@ if TYPE_CHECKING:
         HttpResponseRedirect,
         JsonResponse,
     )
+
+    from ...cms.models.regions.region import Region
 
 logger = logging.getLogger(__name__)
 
@@ -86,7 +87,9 @@ def partial_html_response(function: Callable) -> Callable:
 
     @wraps(function)
     def wrap(
-        request: dict[str, str] | HttpRequest, *args: Any, **kwargs: Any
+        request: dict[str, str] | HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect | JsonResponse:
         r"""
         The inner function for this decorator.
@@ -111,7 +114,11 @@ def partial_html_response(function: Callable) -> Callable:
 
 
 def render_social_media_headers(
-    request: HttpRequest, title: str, language_code: str, excerpt: str | None, url: str
+    request: HttpRequest,
+    title: str,
+    language_code: str,
+    excerpt: str | None,
+    url: str,
 ) -> HttpResponse:
     """
     Renders the social media headers with the specified arguments
@@ -159,7 +166,8 @@ def render_error_headers(request: HttpRequest, error: str) -> HttpResponse:
 
 @partial_html_response
 def root_social_media_headers(
-    request: HttpRequest, language_slug: str = settings.LANGUAGE_CODE
+    request: HttpRequest,
+    language_slug: str = settings.LANGUAGE_CODE,
 ) -> HttpResponse:
     """
     Renders the social media headers for a root page
@@ -185,7 +193,7 @@ def root_social_media_headers(
 @partial_html_response
 def region_social_media_headers(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str | None = None,
 ) -> HttpResponse:
     """
@@ -193,7 +201,6 @@ def region_social_media_headers(
     This is also used as a fallback for any routes in a region, where no content can be found.
 
     :param request: The current request
-    :param region_slug: The region the request refers to
     :param language_slug: The current language
 
     :return: HTML social meta headers required by social media platforms
@@ -214,7 +221,7 @@ def region_social_media_headers(
 @partial_html_response
 def page_social_media_headers(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
     path: str,
 ) -> HttpResponse:
@@ -222,7 +229,6 @@ def page_social_media_headers(
     Tries rendering the social media headers for a page in a specified region and language.
 
     :param request: The current request
-    :param region_slug: The region slug for the region, which the page belongs to
     :param language_slug: The language slug of the language, which the page belongs to
     :param path: The page path (url_infix + slug)
 
@@ -234,13 +240,15 @@ def page_social_media_headers(
     path_parts = unquote(path).strip("/").split("/")
     if not (
         page_translation := get_public_translation_for_webapp_link_parts(
-            region.slug, language_slug, path_parts
+            region.slug,
+            language_slug,
+            path_parts,
         )
     ):
         raise Http404("Page not found in this region with this language.")
 
-    # pylint: disable=fixme
-    # TODO: add breadcrumb json-ld if content_translation exists
+    # TODO(sarahsporck): add breadcrumb json-ld if content_translation exists
+    # https://github.com/digitalfabrik/integreat-cms/issues/3287
     return render_social_media_headers(
         request=request,
         title=get_region_title(region, page_translation.title),
@@ -253,7 +261,7 @@ def page_social_media_headers(
 @partial_html_response
 def event_social_media_headers(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
     slug: str,
 ) -> HttpResponse:
@@ -261,7 +269,6 @@ def event_social_media_headers(
     Tries rendering the social_media headers for an event page in a specified region and language.
 
     :param request: The current request
-    :param region_slug: The region slug for the region, which the event belongs to
     :param language_slug: The language slug of the language, which the event belongs to
     :param slug: The event slug
 
@@ -272,13 +279,15 @@ def event_social_media_headers(
 
     if not (
         event_translation := get_public_translation_for_webapp_link_parts(
-            region.slug, language_slug, ["events", slug]
+            region.slug,
+            language_slug,
+            ["events", slug],
         )
     ):
         raise Http404("Event not found in this region with this language.")
 
-    # pylint: disable=fixme
-    # TODO: add event json-ld
+    # TODO(sarahsporck): add event json-ld
+    # https://github.com/digitalfabrik/integreat-cms/issues/3287
     return render_social_media_headers(
         request=request,
         title=get_region_title(region, event_translation.title),
@@ -291,7 +300,7 @@ def event_social_media_headers(
 @partial_html_response
 def news_social_media_headers(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
     slug: str,
 ) -> HttpResponse:
@@ -299,7 +308,6 @@ def news_social_media_headers(
     Tries rendering the social media headers for a news page in a specified region and language.
 
     :param request: The current request
-    :param region_slug: The region slug for the region, which the push notification belongs to
     :param language_slug: The language slug of the language, which the push notification belongs to
     :param slug: The news specific slug of the news route e.g. /local/<slug>
 
@@ -329,7 +337,7 @@ def news_social_media_headers(
 @partial_html_response
 def location_social_media_headers(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
     slug: str,
 ) -> HttpResponse:
@@ -337,7 +345,6 @@ def location_social_media_headers(
     Tries rendering the social media headers for a location page in a specified region and language.
 
     :param request: The current request
-    :param region_slug: The region slug for the region, which the location belongs to
     :param language_slug: The language slug of the language, which the location belongs to
     :param slug: The location slug
 
@@ -348,7 +355,9 @@ def location_social_media_headers(
 
     if not (
         location_translation := get_public_translation_for_webapp_link_parts(
-            region.slug, language_slug, ["locations", slug]
+            region.slug,
+            language_slug,
+            ["locations", slug],
         )
     ):
         raise Http404("POI not found in this region with this language.")

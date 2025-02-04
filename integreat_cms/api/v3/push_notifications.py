@@ -21,7 +21,9 @@ if TYPE_CHECKING:
 
 @json_response
 def sent_push_notifications(
-    request: HttpRequest, region_slug: str, language_slug: str
+    request: HttpRequest,
+    region_slug: str,
+    language_slug: str,
 ) -> JsonResponse:
     """
     Function to iterate through all sent push notifications related to a region and adds them to a JSON.
@@ -34,11 +36,11 @@ def sent_push_notifications(
     channel = request.GET.get("channel", "all")
     query_result = (
         PushNotificationTranslation.objects.filter(
-            push_notification__regions__slug=region_slug
+            push_notification__regions__slug=region_slug,
         )
         .filter(
             push_notification__sent_date__gte=timezone.now()
-            - timezone.timedelta(days=settings.FCM_HISTORY_DAYS)
+            - timezone.timedelta(days=settings.FCM_HISTORY_DAYS),
         )
         .filter(language__slug=language_slug)
         .filter(push_notification__draft=False)

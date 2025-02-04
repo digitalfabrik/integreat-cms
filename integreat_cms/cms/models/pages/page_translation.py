@@ -72,7 +72,7 @@ class PageTranslation(AbstractBasePageTranslation):
         slugs = []
         for ancestor in self.page.get_cached_ancestors():
             if public_translation := ancestor.get_public_translation(
-                self.language.slug
+                self.language.slug,
             ):
                 slugs.append(public_translation.slug)
                 continue
@@ -119,7 +119,8 @@ class PageTranslation(AbstractBasePageTranslation):
         """
 
         return settings.SHORT_LINKS_URL + reverse(
-            "public:expand_page_translation_id", kwargs={"short_url_id": self.id}
+            "public:expand_page_translation_id",
+            kwargs={"short_url_id": self.id},
         )
 
     @cached_property
@@ -130,11 +131,10 @@ class PageTranslation(AbstractBasePageTranslation):
 
         :return: The text
         """
-        if self.page.mirrored_page:
-            if translation := self.page.get_mirrored_page_translation(
-                self.language.slug
-            ):
-                return translation.content
+        if self.page.mirrored_page and (
+            translation := self.page.get_mirrored_page_translation(self.language.slug)
+        ):
+            return translation.content
         return ""
 
     @cached_property
@@ -156,9 +156,7 @@ class PageTranslation(AbstractBasePageTranslation):
             return content
 
         # Get all translations of this page which have a corresponding translation of the mirrored page
-        languages = (
-            self.page.mirrored_page.prefetched_major_public_translations_by_language_slug.keys()
-        )
+        languages = self.page.mirrored_page.prefetched_major_public_translations_by_language_slug.keys()
         translations = [
             self.page.get_public_translation(language_slug)
             for language_slug in languages
@@ -193,7 +191,7 @@ class PageTranslation(AbstractBasePageTranslation):
 
         :return: Html text for the content of this translation
         """
-        if self.content and not self.content.isspace() or self.page.mirrored_page:
+        if (self.content and not self.content.isspace()) or self.page.mirrored_page:
             return self.content
 
         fallback_translations = [
@@ -243,7 +241,7 @@ class PageTranslation(AbstractBasePageTranslation):
         :return: The last_updated date of this or the mirrored page translation
         """
         mirrored_page_translation = self.page.get_mirrored_page_translation(
-            self.language.slug
+            self.language.slug,
         )
         if (
             not self.content
@@ -292,7 +290,9 @@ class PageTranslation(AbstractBasePageTranslation):
 
     @classmethod
     def get_translations(
-        cls, region: Region, language: Language
+        cls,
+        region: Region,
+        language: Language,
     ) -> QuerySet[PageTranslation]:
         """
         This function retrieves the most recent versions of all :class:`~integreat_cms.cms.models.pages.page_translation.PageTranslation`
@@ -303,12 +303,14 @@ class PageTranslation(AbstractBasePageTranslation):
         :return: A :class:`~django.db.models.query.QuerySet` of all page translations of a region in a specific language
         """
         return cls.objects.filter(page__region=region, language=language).distinct(
-            "page"
+            "page",
         )
 
     @classmethod
     def get_up_to_date_translations(
-        cls, region: Region, language: Language
+        cls,
+        region: Region,
+        language: Language,
     ) -> list[PageTranslation]:
         """
         This function is similar to :func:`~integreat_cms.cms.models.pages.page_translation.PageTranslation.get_translations` but
@@ -321,14 +323,17 @@ class PageTranslation(AbstractBasePageTranslation):
         return [
             t
             for t in cls.objects.filter(
-                page__region=region, language=language
+                page__region=region,
+                language=language,
             ).distinct("page")
             if t.is_up_to_date
         ]
 
     @classmethod
     def get_current_translations(
-        cls, region: Region, language: Language
+        cls,
+        region: Region,
+        language: Language,
     ) -> list[PageTranslation]:
         """
         This function is similar to :func:`~integreat_cms.cms.models.pages.page_translation.PageTranslation.get_translations` but
@@ -341,14 +346,17 @@ class PageTranslation(AbstractBasePageTranslation):
         return [
             t
             for t in cls.objects.filter(
-                page__region=region, language=language
+                page__region=region,
+                language=language,
             ).distinct("page")
             if t.currently_in_translation
         ]
 
     @classmethod
     def get_outdated_translations(
-        cls, region: Region, language: Language
+        cls,
+        region: Region,
+        language: Language,
     ) -> list[PageTranslation]:
         """
         This function is similar to :func:`~integreat_cms.cms.models.pages.page_translation.PageTranslation.get_translations` but
@@ -361,7 +369,8 @@ class PageTranslation(AbstractBasePageTranslation):
         return [
             t
             for t in cls.objects.filter(
-                page__region=region, language=language
+                page__region=region,
+                language=language,
             ).distinct("page")
             if t.is_outdated
         ]
@@ -378,13 +387,13 @@ class PageTranslation(AbstractBasePageTranslation):
                 escape(
                     (
                         ancestor.prefetched_public_translations_by_language_slug.get(
-                            self.language.slug
+                            self.language.slug,
                         )
                         or ancestor.best_translation
-                    ).title
+                    ).title,
                 )
                 for ancestor in self.page.get_cached_ancestors(include_self=True)
-            ]
+            ],
         )
         # Add warning if page is archived
         if self.page.archived:

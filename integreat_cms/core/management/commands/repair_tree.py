@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 import logging
-from typing import Iterable, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from ....cms.utils.repair_tree import repair_tree
 from ..log_command import LogCommand
 
 if TYPE_CHECKING:
+    from collections.abc import Iterable
     from typing import Any
 
     from django.core.management.base import CommandParser
@@ -42,7 +43,6 @@ class Command(LogCommand):
     def handle(
         self, *args: Any, page_id: Iterable[int], commit: bool, **options: Any
     ) -> None:
-        # pylint: disable=arguments-differ
         """
         Try to run the command
         """

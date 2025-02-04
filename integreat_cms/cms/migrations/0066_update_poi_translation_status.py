@@ -13,20 +13,20 @@ if TYPE_CHECKING:
 
 def update_poi_translation_status(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Update poi translation status to draft for pois without the default public translation
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     Region = apps.get_model("cms", "Region")
     POITranslation = apps.get_model("cms", "POITranslation")
 
     for region in Region.objects.filter(pois__isnull=False).distinct():
         default_language = region.language_tree_nodes.values_list(
-            "language", flat=True
+            "language",
+            flat=True,
         ).first()
         POITranslation.objects.filter(
             poi__region=region,
@@ -35,10 +35,8 @@ def update_poi_translation_status(
             poi__in=region.pois.filter(
                 translations__language=default_language,
                 translations__status=status.PUBLIC,
-            )
-        ).update(
-            status=status.DRAFT
-        )
+            ),
+        ).update(status=status.DRAFT)
 
 
 class Migration(migrations.Migration):

@@ -3,12 +3,16 @@ This module contains a custom decorator for db / redis mutexes
 """
 
 import functools
+import logging
 import threading
+from collections.abc import Callable, Generator
 from contextlib import contextmanager
-from typing import Callable, Generator, ParamSpec, Type, TypeVar
+from typing import ParamSpec, TypeVar
 
 from django.db import DEFAULT_DB_ALIAS, transaction
 from treebeard.models import Node
+
+logger = logging.getLogger(__name__)
 
 #: For how many seconds the lock persists, and the timeout for retrying to acquire it.
 LOCK_SECONDS = 10
@@ -20,7 +24,6 @@ INTERVAL = 0.1
 _LOCKS = {}
 
 
-# pylint: disable=protected-access
 @contextmanager
 def monkeypatch_cursor_func(
     using: str = DEFAULT_DB_ALIAS,
@@ -33,14 +36,17 @@ def monkeypatch_cursor_func(
     connection = transaction.get_connection(using=using)
     original_get_database_cursor = Node._get_database_cursor
 
-    def monkeypatched_get_cursor(cls: Type, action: str) -> None:
+    def monkeypatched_get_cursor(cls: type, action: str) -> None:
         """
         A fake classmethod to overwrite :meth:`treebeard.models.Node._get_database_cursor` with.
         Gets the cursor for the currend django connection instead,
         allowing treebeard to be forced to use database transactions.
         """
-        print(
-            f"someone is getting our monkeypatched db cursor ({using})! {cls}, {action}"
+        logger.debug(
+            "someone is getting our monkeypatched db cursor (%s)! %r, %s",
+            using,
+            cls,
+            action,
         )
         return connection.cursor()
 
@@ -87,10 +93,12 @@ def tree_mutex(classname: str) -> Callable[[Callable[P, R]], Callable[P, R]]:
             monkey patch :meth:`treebeard.models.Node._get_database_cursor` to get djangos db cursor
             and finally call the decorated ``func``.
             """
-            with lock:
-                with transaction.atomic(using=DEFAULT_DB_ALIAS, durable=False):
-                    with monkeypatch_cursor_func(using=DEFAULT_DB_ALIAS):
-                        return func(*args, **kwargs)
+            with (
+                lock,
+                transaction.atomic(using=DEFAULT_DB_ALIAS, durable=False),
+                monkeypatch_cursor_func(using=DEFAULT_DB_ALIAS),
+            ):
+                return func(*args, **kwargs)
 
         return innermost_function
 

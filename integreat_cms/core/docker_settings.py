@@ -8,8 +8,6 @@ For more information on this file, see :doc:`django:topics/settings`.
 For the full list of settings and their values, see :doc:`django:ref/settings`.
 """
 
-# pylint: disable=wildcard-import
-# pylint: disable=unused-wildcard-import
 from __future__ import annotations
 
 from .settings import *
@@ -24,5 +22,5 @@ DATABASES = {
         "PASSWORD": "password",
         "HOST": "localhost",
         "PORT": "5433",
-    }
+    },
 }

@@ -40,23 +40,26 @@ BASE_DIR: Final[str] = os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 #: The URL to our webapp. This is used for urls in the ``sitemap.xml``
 #: (see :mod:`~integreat_cms.sitemap` for more information).
 WEBAPP_URL: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_WEBAPP_URL", "https://integreat.app"
+    "INTEGREAT_CMS_WEBAPP_URL",
+    "https://integreat.app",
 )
 
 #: The URL to a domain that handles short links.
 #: This is currently the same as `BASE_URL` but will change in the future.
 SHORT_LINKS_URL: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_SHORT_LINKS_URL", "http://localhost:8000"
+    "INTEGREAT_CMS_SHORT_LINKS_URL",
+    "http://localhost:8000",
 )
 
 #: The URL to the Matomo statistics server.
 MATOMO_URL: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_MATOMO_URL", "https://statistics.integreat-app.de"
+    "INTEGREAT_CMS_MATOMO_URL",
+    "https://statistics.integreat-app.de",
 )
 
 #: Enable tracking of API requests in Matomo
 MATOMO_TRACKING: Final[bool] = bool(
-    strtobool(os.environ.get("INTEGREAT_CMS_MATOMO_TRACKING", "False"))
+    strtobool(os.environ.get("INTEGREAT_CMS_MATOMO_TRACKING", "False")),
 )
 
 #: The slug for the legal notice (see e.g. :class:`~integreat_cms.cms.models.pages.imprint_page_translation.ImprintPageTranslation`)
@@ -90,7 +93,8 @@ RESERVED_REGION_PAGE_PATTERNS: Final[list[str]] = [
 
 #: URL to the Integreat Website
 WEBSITE_URL: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_WEBSITE_URL", "https://integreat-app.de"
+    "INTEGREAT_CMS_WEBSITE_URL",
+    "https://integreat-app.de",
 )
 
 #: An alias of :attr:`~integreat_cms.core.settings.WEBAPP_URL`.
@@ -109,7 +113,8 @@ DEFAULT_BLOG_URL: Final[str] = BLOG_URLS["en"]
 
 #: URL to the Integreat wiki
 WIKI_URL: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_WIKI_URL", "https://wiki.integreat-app.de"
+    "INTEGREAT_CMS_WIKI_URL",
+    "https://wiki.integreat-app.de",
 )
 
 #: RSS feed URLs to the Integreat blog
@@ -129,17 +134,19 @@ API_EVENTS_MAX_TIME_SPAN_DAYS: Final[int] = 31
 
 #: The maximum duration of an event
 MAX_EVENT_DURATION: Final[int] = int(
-    os.environ.get("INTEGREAT_CMS_MAX_EVENT_DURATION", 28)
+    os.environ.get("INTEGREAT_CMS_MAX_EVENT_DURATION", 28),
 )
 
 #: The company operating this CMS
 COMPANY: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_COMPANY", "Tür an Tür – Digitalfabrik gGmbH"
+    "INTEGREAT_CMS_COMPANY",
+    "Tür an Tür – Digitalfabrik gGmbH",
 )
 
 #: The URL to the company's website
 COMPANY_URL: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_COMPANY_URL", "https://tuerantuer.de/digitalfabrik/"
+    "INTEGREAT_CMS_COMPANY_URL",
+    "https://tuerantuer.de/digitalfabrik/",
 )
 
 #: The available inbuilt brandings of the CMS
@@ -153,10 +160,9 @@ AVAILABLE_BRANDINGS: Final[dict[str, str]] = {
 #: The branding of the CMS
 BRANDING: Final[str] = os.environ.get("INTEGREAT_CMS_BRANDING", "integreat")
 
-# pylint: disable=consider-using-assignment-expr
 if BRANDING not in AVAILABLE_BRANDINGS:
     raise ImproperlyConfigured(
-        f"The branding {BRANDING!r} is not supported, must be one of {list(AVAILABLE_BRANDINGS)}."
+        f"The branding {BRANDING!r} is not supported, must be one of {list(AVAILABLE_BRANDINGS)}.",
     )
 
 #: The readable title of the branding
@@ -178,7 +184,7 @@ DEFAULT_BOUNDING_BOX: Final[BoundingBox] = BoundingBox(
 
 #: The default timeout in seconds for retrieving external APIs etc.
 DEFAULT_REQUEST_TIMEOUT: Final[int] = int(
-    os.environ.get("INTEGREAT_CMS_DEFAULT_REQUEST_TIMEOUT", 10)
+    os.environ.get("INTEGREAT_CMS_DEFAULT_REQUEST_TIMEOUT", 10),
 )
 
 #: Where release notes are stored
@@ -186,14 +192,15 @@ RELEASE_NOTES_DIRS: Final[str] = os.path.join(BASE_DIR, "release_notes")
 
 #: Custom path for additional local translation files
 CUSTOM_LOCALE_PATH: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_CUSTOM_LOCALE_PATH", "/etc/integreat-cms/locale"
+    "INTEGREAT_CMS_CUSTOM_LOCALE_PATH",
+    "/etc/integreat-cms/locale",
 )
 
 #: The number of regions that are available via the dropdown
 NUM_REGIONS_QUICK_ACCESS: Final[int] = 15
 
 BACKGROUND_TASKS_ENABLED = bool(
-    strtobool(os.environ.get("INTEGREAT_CMS_BACKGROUND_TASKS_ENABLED", "True"))
+    strtobool(os.environ.get("INTEGREAT_CMS_BACKGROUND_TASKS_ENABLED", "True")),
 )
 
 #: The tag that events from external calendars need to get imported
@@ -231,15 +238,14 @@ FCM_HISTORY_DAYS: Final[int] = 28
 #: The interval at which scheduled push notifications are sent out
 #: Must be <= 60 and a divisor of 60
 FCM_SCHEDULE_INTERVAL_MINUTES: Final[int] = int(
-    os.environ.get("INTEGREAT_CMS_FCM_SCHEDULE_INTERVAL_MINUTES", 60)
+    os.environ.get("INTEGREAT_CMS_FCM_SCHEDULE_INTERVAL_MINUTES", 60),
 )
-assert (
-    not 60 % FCM_SCHEDULE_INTERVAL_MINUTES
-), "Interval must be <= 60 and a divisor of 60"
+if 60 % FCM_SCHEDULE_INTERVAL_MINUTES:
+    raise ValueError("Interval must be <= 60 and a divisor of 60")
 
 #: Duration (in hours) that we retain pending push notifications for retry attempts before discarding them
 FCM_NOTIFICATION_RETAIN_TIME_IN_HOURS: Final[int] = int(
-    os.environ.get("INTEGREAT_CMS_NOTIFICATION_RETAIN_TIME_IN_HOURS", 24)
+    os.environ.get("INTEGREAT_CMS_NOTIFICATION_RETAIN_TIME_IN_HOURS", 24),
 )
 
 ###########
@@ -262,13 +268,14 @@ GVZ_API_URL: Final[str] = "https://gvz.integreat-app.de"
 #: Whether or not the Nominatim API for OpenStreetMap queries is enabled.
 #: This is used to automatically derive coordinates from addresses.
 NOMINATIM_API_ENABLED: Final[bool] = bool(
-    strtobool(os.environ.get("INTEGREAT_CMS_NOMINATIM_API_ENABLED", "True"))
+    strtobool(os.environ.get("INTEGREAT_CMS_NOMINATIM_API_ENABLED", "True")),
 )
 
 #: The URL to our Nominatim API.
 #: This is used to automatically derive coordinates from addresses.
 NOMINATIM_API_URL: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_NOMINATIM_API_URL", "http://nominatim.maps.tuerantuer.org/nominatim/"
+    "INTEGREAT_CMS_NOMINATIM_API_URL",
+    "http://nominatim.maps.tuerantuer.org/nominatim/",
 )
 
 
@@ -278,7 +285,8 @@ NOMINATIM_API_URL: Final[str] = os.environ.get(
 
 #: URL to the Textlab API
 TEXTLAB_API_URL: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_TEXTLAB_API_URL", "https://textlab.online/api/"
+    "INTEGREAT_CMS_TEXTLAB_API_URL",
+    "https://textlab.online/api/",
 )
 
 #: Key for the Textlab API
@@ -290,7 +298,8 @@ TEXTLAB_API_ENABLED: bool = bool(TEXTLAB_API_KEY)
 
 #: Username for the Textlab API
 TEXTLAB_API_USERNAME: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_TEXTLAB_API_USERNAME", "Integreat"
+    "INTEGREAT_CMS_TEXTLAB_API_USERNAME",
+    "Integreat",
 )
 
 #: Which language slugs are allowed for the Textlab API
@@ -301,22 +310,22 @@ TEXTLAB_API_CONTENT_TYPES: Final[list[str]] = ["pagetranslation"]
 
 #: How many seconds we should wait between the requests in the bulk management command
 TEXTLAB_API_BULK_WAITING_TIME: Final[float] = float(
-    os.environ.get("INTEGREAT_CMS_TEXTLAB_API_BULK_WAITING_TIME", 0.5)
+    os.environ.get("INTEGREAT_CMS_TEXTLAB_API_BULK_WAITING_TIME", 0.5),
 )
 
 #: How many seconds we should wait after finishing a region in the bulk management command
 TEXTLAB_API_BULK_COOL_DOWN_PERIOD: Final[float] = float(
-    os.environ.get("INTEGREAT_CMS_TEXTLAB_API_BULK_COOL_DOWN_PERIOD", 60)
+    os.environ.get("INTEGREAT_CMS_TEXTLAB_API_BULK_COOL_DOWN_PERIOD", 60),
 )
 
 #: Which text type / benchmark id to default to
 TEXTLAB_API_DEFAULT_BENCHMARK_ID: Final[int] = int(
-    os.environ.get("INTEGREAT_CMS_TEXTLAB_API_DEFAULT_BENCHMARK_ID", 420)
+    os.environ.get("INTEGREAT_CMS_TEXTLAB_API_DEFAULT_BENCHMARK_ID", 420),
 )
 
 #: The minimum HIX score required for machine translation
 HIX_REQUIRED_FOR_MT: Final[float] = float(
-    os.environ.get("INTEGREAT_CMS_HIX_REQUIRED_FOR_MT", 15.0)
+    os.environ.get("INTEGREAT_CMS_HIX_REQUIRED_FOR_MT", 15.0),
 )
 
 
@@ -396,7 +405,7 @@ INSTALLED_APPS: Final[list[str]] = [
 
 #: Check whether redis is activated
 REDIS_CACHE: Final[bool] = bool(
-    strtobool(os.environ.get("INTEGREAT_CMS_REDIS_CACHE", "False"))
+    strtobool(os.environ.get("INTEGREAT_CMS_REDIS_CACHE", "False")),
 )
 
 # Install cacheops only if redis cache is available
@@ -472,11 +481,12 @@ DATABASES: dict[str, dict[str, str]] = {
         "NAME": os.environ.get("INTEGREAT_CMS_DB_NAME", "integreat"),
         "USER": os.environ.get("INTEGREAT_CMS_DB_USER", "integreat"),
         "PASSWORD": os.environ.get(
-            "INTEGREAT_CMS_DB_PASSWORD", "password" if DEBUG else ""
+            "INTEGREAT_CMS_DB_PASSWORD",
+            "password" if DEBUG else "",
         ),
         "HOST": os.environ.get("INTEGREAT_CMS_DB_HOST", "localhost"),
         "PORT": os.environ.get("INTEGREAT_CMS_DB_PORT", "5432"),
-    }
+    },
 }
 
 #: Default primary key field type to use for models that don’t have a field with
@@ -561,7 +571,7 @@ PASSWORD_HASHERS: Final[list[str]] = [
 #: (see :setting:`django:AUTH_PASSWORD_VALIDATORS` and :ref:`django:password-validation`)
 AUTH_PASSWORD_VALIDATORS: Final[list[dict[str, str]]] = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
@@ -590,12 +600,14 @@ SYS_LOG_LEVEL: Final[str] = "INFO"
 
 #: The log level for dependencies
 DEPS_LOG_LEVEL: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_DEPS_LOG_LEVEL", "INFO" if DEBUG else "WARN"
+    "INTEGREAT_CMS_DEPS_LOG_LEVEL",
+    "INFO" if DEBUG else "WARN",
 )
 
 #: The file path of the logfile. Needs to be writable by the application.
 LOGFILE: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_LOGFILE", os.path.join(BASE_DIR, "integreat-cms.log")
+    "INTEGREAT_CMS_LOGFILE",
+    os.path.join(BASE_DIR, "integreat-cms.log"),
 )
 
 #: A custom message store for logging (see :setting:`django:MESSAGE_STORAGE`)
@@ -603,7 +615,7 @@ MESSAGE_STORAGE: Final[str] = "integreat_cms.core.storages.MessageLoggerStorage"
 
 #: Whether to log all entries from the messages framework
 MESSAGE_LOGGING_ENABLED: bool = bool(
-    strtobool(os.environ.get("INTEGREAT_CMS_MESSAGE_LOGGING_ENABLED", str(DEBUG)))
+    strtobool(os.environ.get("INTEGREAT_CMS_MESSAGE_LOGGING_ENABLED", str(DEBUG))),
 )
 
 #: Logging configuration dictionary (see :setting:`django:LOGGING`)
@@ -785,13 +797,15 @@ EMAIL_BACKEND: Final[str] = (
 #: Default email address to use for various automated correspondence from the site manager(s)
 #: (see :setting:`django:DEFAULT_FROM_EMAIL`)
 DEFAULT_FROM_EMAIL: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_SERVER_EMAIL", "keineantwort@integreat-app.de"
+    "INTEGREAT_CMS_SERVER_EMAIL",
+    "keineantwort@integreat-app.de",
 )
 
 #: The email address that error messages come from, such as those sent to :attr:`~integreat_cms.core.settings.ADMINS`.
 #: (see :setting:`django:SERVER_EMAIL`)
 SERVER_EMAIL: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_SERVER_EMAIL", "keineantwort@integreat-app.de"
+    "INTEGREAT_CMS_SERVER_EMAIL",
+    "keineantwort@integreat-app.de",
 )
 
 #: A list of all the people who get code error notifications. When :attr:`~integreat_cms.core.settings.DEBUG` is ``False``,
@@ -804,13 +818,14 @@ EMAIL_HOST: Final[str] = os.environ.get("INTEGREAT_CMS_EMAIL_HOST", "localhost")
 #: Password to use for the SMTP server defined in :attr:`~integreat_cms.core.settings.EMAIL_HOST`
 #: (see :setting:`django:EMAIL_HOST_PASSWORD`). If empty, Django won’t attempt authentication.
 EMAIL_HOST_PASSWORD: Final[str | None] = os.environ.get(
-    "INTEGREAT_CMS_EMAIL_HOST_PASSWORD"
+    "INTEGREAT_CMS_EMAIL_HOST_PASSWORD",
 )
 
 #: Username to use for the SMTP server defined in :attr:`~integreat_cms.core.settings.EMAIL_HOST`
 #: (see :setting:`django:EMAIL_HOST_USER`). If empty, Django won’t attempt authentication.
 EMAIL_HOST_USER: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_EMAIL_HOST_USER", SERVER_EMAIL
+    "INTEGREAT_CMS_EMAIL_HOST_USER",
+    SERVER_EMAIL,
 )
 
 #: Port to use for the SMTP server defined in :attr:`~integreat_cms.core.settings.EMAIL_HOST`
@@ -821,14 +836,14 @@ EMAIL_PORT: Final[int] = int(os.environ.get("INTEGREAT_CMS_EMAIL_PORT", 587))
 #: This is used for explicit TLS connections, generally on port 587.
 #: (see :setting:`django:EMAIL_USE_TLS`)
 EMAIL_USE_TLS: Final[bool] = bool(
-    strtobool(os.environ.get("INTEGREAT_CMS_EMAIL_USE_TLS", "True"))
+    strtobool(os.environ.get("INTEGREAT_CMS_EMAIL_USE_TLS", "True")),
 )
 
 #: Whether to use an implicit TLS (secure) connection when talking to the SMTP server.
 #: In most email documentation this type of TLS connection is referred to as SSL. It is generally used on port 465.
 #: (see :setting:`django:EMAIL_USE_SSL`)
 EMAIL_USE_SSL: Final[bool] = bool(
-    strtobool(os.environ.get("INTEGREAT_CMS_EMAIL_USE_SSL", "False"))
+    strtobool(os.environ.get("INTEGREAT_CMS_EMAIL_USE_SSL", "False")),
 )
 
 
@@ -855,7 +870,8 @@ LANGUAGES: Final[list[tuple[str, Promise]]] = [
         (
             language.strip()
             for language in os.environ.get(
-                "INTEGREAT_CMS_LANGUAGES", "\n".join(DEFAULT_LANGUAGES)
+                "INTEGREAT_CMS_LANGUAGES",
+                "\n".join(DEFAULT_LANGUAGES),
             ).splitlines()
         ),
     )
@@ -875,7 +891,8 @@ TIME_ZONE: Final[str] = "UTC"
 
 #: A string representing the time zone that is used for rendering
 CURRENT_TIME_ZONE: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_CURRENT_TIME_ZONE", "Europe/Berlin"
+    "INTEGREAT_CMS_CURRENT_TIME_ZONE",
+    "Europe/Berlin",
 )
 
 #: A boolean that specifies whether Django’s translation system should be enabled
@@ -909,7 +926,7 @@ MT_CREDITS_ADDON: Final[int] = int(os.environ.get("MT_CREDITS_ADDON", 1_000_000)
 
 #: A floating point that specifies the percentage of MT_CREDITS_FREE used as a soft margin
 MT_SOFT_MARGIN_FRACTION: Final[float] = float(
-    os.environ.get("INTEGREAT_CMS_MT_SOFT_MARGIN", 0.01)
+    os.environ.get("INTEGREAT_CMS_MT_SOFT_MARGIN", 0.01),
 )
 
 #: The actual number of words which are used as soft margin
@@ -928,7 +945,7 @@ DEEPL_AUTH_KEY: str | None = os.environ.get("INTEGREAT_CMS_DEEPL_AUTH_KEY")
 
 #: Whether to enable deepl glossaries
 DEEPL_GLOSSARIES_ENABLED: Final[bool] = strtobool(
-    os.environ.get("INTEGREAT_CMS_DEEPL_GLOSSARIES_ENABLED", "False")
+    os.environ.get("INTEGREAT_CMS_DEEPL_GLOSSARIES_ENABLED", "False"),
 )
 
 #: Whether automatic translations via DeepL are enabled.
@@ -942,12 +959,13 @@ DEEPL_ENABLED: bool = bool(DEEPL_AUTH_KEY)
 
 #: Version of Google Translate, either Basic or Advanced
 GOOGLE_TRANSLATE_VERSION: str = os.environ.get(
-    "INTEGREAT_CMS_GOOGLE_TRANSLATE_VERSION", "Basic"
+    "INTEGREAT_CMS_GOOGLE_TRANSLATE_VERSION",
+    "Basic",
 )
 
 #: Path to the saved credential json file
 GOOGLE_APPLICATION_CREDENTIALS: str | None = os.environ.get(
-    "INTEGREAT_CMS_GOOGLE_CREDENTIALS"
+    "INTEGREAT_CMS_GOOGLE_CREDENTIALS",
 )
 
 #: Google project id
@@ -955,12 +973,13 @@ GOOGLE_PROJECT_ID: str | None = os.environ.get("INTEGREAT_CMS_GOOGLE_PROJECT_ID"
 
 #: Location for google translate. Default to "global". This must be non-global for custom glossaries.
 GOOGLE_TRANSLATE_LOCATION: str = os.environ.get(
-    "INTEGREAT_CMS_GOOGLE_TRANSLATE_LOCATION", "global"
+    "INTEGREAT_CMS_GOOGLE_TRANSLATE_LOCATION",
+    "global",
 )
 
 #: This is ``True`` when both the credentials and project id are provided
 GOOGLE_TRANSLATE_ENABLED: bool = bool(GOOGLE_APPLICATION_CREDENTIALS) and bool(
-    GOOGLE_PROJECT_ID
+    GOOGLE_PROJECT_ID,
 )
 
 #: `parent` parameter for Google Translate, consists of project id and location
@@ -975,7 +994,8 @@ GOOGLE_PARENT_PARAM: Final[str] = (
 
 #: The URL to our SUMM.AI API for automatic translations from German into Easy German
 SUMM_AI_API_URL: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_SUMM_AI_API_URL", "https://backend.summ-ai.com/translate/v1/"
+    "INTEGREAT_CMS_SUMM_AI_API_URL",
+    "https://backend.summ-ai.com/translate/v1/",
 )
 
 #: Authentication token for SUMM.AI,
@@ -988,7 +1008,7 @@ SUMM_AI_ENABLED: bool = bool(SUMM_AI_API_KEY)
 
 #: Whether requests to the SUMM.AI are done with the ``is_test`` flag
 SUMM_AI_TEST_MODE: Final[bool] = strtobool(
-    os.environ.get("INTEGREAT_CMS_SUMM_AI_TEST_MODE", str(DEBUG))
+    os.environ.get("INTEGREAT_CMS_SUMM_AI_TEST_MODE", str(DEBUG)),
 )
 
 #: The timeout in minutes for requests to the SUMM.AI API
@@ -996,12 +1016,12 @@ SUMM_AI_TIMEOUT: Final[int] = 10
 
 #: The limit for "Too many requests".
 SUMM_AI_MAX_CONCURRENT_REQUESTS = int(
-    os.environ.get("INTEGREAT_CMS_SUMM_AI_MAX_CONCURRENT_REQUESTS", 20)
+    os.environ.get("INTEGREAT_CMS_SUMM_AI_MAX_CONCURRENT_REQUESTS", 20),
 )
 
 #: Waiting time after "Too many requests" response was sent
 SUMM_AI_RATE_LIMIT_COOLDOWN = float(
-    os.environ.get("INTEGREAT_CMS_SUMM_AI_RATE_LIMIT_COOLDOWN", 30)
+    os.environ.get("INTEGREAT_CMS_SUMM_AI_RATE_LIMIT_COOLDOWN", 30),
 )
 
 #: Maximum amount of retries before giving up
@@ -1010,17 +1030,20 @@ SUMM_AI_MAX_RETRIES = int(os.environ.get("INTEGREAT_CMS_SUMM_AI_MAX_RETRIES", 5)
 
 #: The language slugs for German
 SUMM_AI_GERMAN_LANGUAGE_SLUG: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_SUMM_AI_GERMAN_LANGUAGE_SLUG", "de"
+    "INTEGREAT_CMS_SUMM_AI_GERMAN_LANGUAGE_SLUG",
+    "de",
 )
 
 #: The language slug for Easy German
 SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG", "de-si"
+    "INTEGREAT_CMS_SUMM_AI_EASY_GERMAN_LANGUAGE_SLUG",
+    "de-si",
 )
 
 #: The separator which is used to split compound words, e.g. Bundes-Kanzler (hyphen) or Bundes·kanzler (interpunct)
 SUMM_AI_SEPARATOR: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_SUMM_AI_SEPARATOR", "hyphen"
+    "INTEGREAT_CMS_SUMM_AI_SEPARATOR",
+    "hyphen",
 )
 
 #: All plain text fields of the content models which should be translated
@@ -1037,14 +1060,15 @@ SUMM_AI_HTML_TAGS: Final[list[str]] = ["p", "li"]
 
 #: Value of the ``is_initial`` flag
 SUMM_AI_IS_INITIAL: Final[bool] = bool(
-    strtobool(os.environ.get("INTEGREAT_CMS_SUMM_AI_IS_INITIAL", "True"))
+    strtobool(os.environ.get("INTEGREAT_CMS_SUMM_AI_IS_INITIAL", "True")),
 )
 
 # Slugs of regions that prefer Plain German over Easy German in the management command
 SUMM_AI_PLAIN_GERMAN_REGIONS: Final[list[str]] = [
     x.strip()
     for x in os.environ.get(
-        "INTEGREAT_CMS_SUMM_AI_PLAIN_GERMAN_REGIONS", ""
+        "INTEGREAT_CMS_SUMM_AI_PLAIN_GERMAN_REGIONS",
+        "",
     ).splitlines()
 ]
 
@@ -1084,7 +1108,8 @@ MEDIA_URL: Final[str] = "/media/"
 
 #: Absolute filesystem path to the directory that will hold user-uploaded files (see :setting:`django:MEDIA_ROOT`)
 MEDIA_ROOT: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_MEDIA_ROOT", os.path.join(BASE_DIR, "media")
+    "INTEGREAT_CMS_MEDIA_ROOT",
+    os.path.join(BASE_DIR, "media"),
 )
 
 #: The maximum size of media images in pixels (larger images will automatically be resized)
@@ -1098,12 +1123,12 @@ MEDIA_THUMBNAIL_CROP: Final[bool] = False
 
 #: Enables the possibility to upload further file formats (e.g. DOC, GIF).
 LEGACY_FILE_UPLOAD: Final[bool] = bool(
-    strtobool(os.environ.get("INTEGREAT_CMS_LEGACY_FILE_UPLOAD", "False"))
+    strtobool(os.environ.get("INTEGREAT_CMS_LEGACY_FILE_UPLOAD", "False")),
 )
 
 #: The maximum size of media files in bytes
 MEDIA_MAX_UPLOAD_SIZE: Final[int] = int(
-    os.environ.get("INTEGREAT_CMS_MEDIA_MAX_UPLOAD_SIZE", 3 * 1024 * 1024)
+    os.environ.get("INTEGREAT_CMS_MEDIA_MAX_UPLOAD_SIZE", 3 * 1024 * 1024),
 )
 
 
@@ -1171,7 +1196,7 @@ LINKCHECK_SITE_DOMAINS: Final[list[str]] = [WEBAPP_URL, SHORT_LINKS_URL]
 
 #: Disable linkcheck listeners e.g. when the fixtures are loaded
 LINKCHECK_DISABLE_LISTENERS: bool = bool(
-    strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS", "False"))
+    strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_DISABLE_LISTENERS", "False")),
 )
 
 #: The maximum length of URLs which can be checked. Longer URLs will be silently ignored.
@@ -1181,7 +1206,8 @@ LINKCHECK_MAX_URL_LENGTH: Final[int] = 1024
 LINKCHECK_IGNORED_URL_TYPES: Final[list[str]] = [
     url_type.strip()
     for url_type in os.environ.get(
-        "INTEGREAT_CMS_LINKCHECK_IGNORED_URL_TYPES", ""
+        "INTEGREAT_CMS_LINKCHECK_IGNORED_URL_TYPES",
+        "",
     ).splitlines()
     if url_type
 ]
@@ -1197,7 +1223,7 @@ LINKCHECK_PHONE_ENABLED: Final[bool] = "phone" not in LINKCHECK_IGNORED_URL_TYPE
 #:
 #:    $ INTEGREAT_CMS_LINKCHECK_COMMAND_RUNNING=1 integreat-cms-cli findlinks
 LINKCHECK_COMMAND_RUNNING: Final[bool] = bool(
-    strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_COMMAND_RUNNING", "False"))
+    strtobool(os.environ.get("INTEGREAT_CMS_LINKCHECK_COMMAND_RUNNING", "False")),
 )
 
 
@@ -1226,7 +1252,7 @@ WEBPACK_LOADER: Final[dict[str, dict[str, str]]] = {
     "DEFAULT": {
         "BUNDLE_DIR_NAME": "",
         "STATS_FILE": os.path.join(BASE_DIR, "webpack-stats.json"),
-    }
+    },
 }
 
 
@@ -1259,7 +1285,8 @@ DEBUG_TOOLBAR_PANELS: Final[list[str]] = [
 
 #: The directory where PDF files are stored
 PDF_ROOT: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_PDF_ROOT", os.path.join(BASE_DIR, "pdf")
+    "INTEGREAT_CMS_PDF_ROOT",
+    os.path.join(BASE_DIR, "pdf"),
 )
 
 #: The URL path where PDF files are served for download
@@ -1268,7 +1295,8 @@ PDF_URL: Final[str] = "/pdf/"
 
 #: Slugs of languages for which PDF export should be deactivated
 PDF_DEACTIVATED_LANGUAGES: Final[str | list[str]] = os.environ.get(
-    "INTEGREAT_CMS_PDF_DEACTIVATED_LANGUAGES", []
+    "INTEGREAT_CMS_PDF_DEACTIVATED_LANGUAGES",
+    [],
 )
 
 
@@ -1286,7 +1314,8 @@ SERIALIZATION_MODULES: Final[dict[str, str]] = {
 
 #: The xliff version to be used for exports
 XLIFF_EXPORT_VERSION: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_XLIFF_EXPORT_VERSION", "xliff-1.2"
+    "INTEGREAT_CMS_XLIFF_EXPORT_VERSION",
+    "xliff-1.2",
 )
 
 #: The default fields to be used for the XLIFF serialization
@@ -1297,7 +1326,8 @@ XLIFF_LEGACY_FIELDS: Final[dict[str, str]] = {"body": "content"}
 
 #: The directory where xliff files are stored
 XLIFF_ROOT: Final[str] = os.environ.get(
-    "INTEGREAT_CMS_XLIFF_ROOT", os.path.join(BASE_DIR, "xliff")
+    "INTEGREAT_CMS_XLIFF_ROOT",
+    os.path.join(BASE_DIR, "xliff"),
 )
 
 #: The directory to which xliff files should be uploaded (this should not be reachable by the webserver)
@@ -1340,12 +1370,14 @@ USER_CHAT_TICKET_GROUP: Final[str] = "integreat-chat"
 
 #: Integreat Chat (app) backend server domain
 INTEGREAT_CHAT_BACK_END_DOMAIN = os.environ.get(
-    "INTEGREAT_CMS_INTEGREAT_CHAT_BACK_END_DOMAIN", "igchat-inference.tuerantuer.org"
+    "INTEGREAT_CMS_INTEGREAT_CHAT_BACK_END_DOMAIN",
+    "igchat-inference.tuerantuer.org",
 )
 
 #: Integreat Chat (app) backend timeout
 INTEGREAT_CHAT_BACK_END_TIMEOUT = os.environ.get(
-    "INTEGREAT_CMS_INTEGREAT_CHAT_BACK_END_TIMEOUT", 300
+    "INTEGREAT_CMS_INTEGREAT_CHAT_BACK_END_TIMEOUT",
+    300,
 )
 
 ##########

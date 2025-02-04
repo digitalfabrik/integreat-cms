@@ -34,7 +34,8 @@ class Command(LogCommand):
         parser.add_argument("search", help="The (partial) URL to search")
         parser.add_argument("replace", help="The (partial) URL to replace")
         parser.add_argument(
-            "--region-slug", help="Only replace links in the region with this slug"
+            "--region-slug",
+            help="Only replace links in the region with this slug",
         )
         parser.add_argument("--username", help="The username of the creator")
         parser.add_argument(
@@ -53,7 +54,6 @@ class Command(LogCommand):
         commit: bool,
         **options: Any,
     ) -> None:
-        # pylint: disable=arguments-differ
         r"""
         Try to run the command
 
@@ -73,7 +73,7 @@ class Command(LogCommand):
                 region = Region.objects.get(slug=region_slug)
             except Region.DoesNotExist as e:
                 raise CommandError(
-                    f'Region with slug "{region_slug}" does not exist.'
+                    f'Region with slug "{region_slug}" does not exist.',
                 ) from e
         else:
             region = None
@@ -82,7 +82,7 @@ class Command(LogCommand):
                 user = get_user_model().objects.get(username=username)
             except get_user_model().DoesNotExist as e:
                 raise CommandError(
-                    f'User with username "{username}" does not exist.'
+                    f'User with username "{username}" does not exist.',
                 ) from e
         else:
             user = None

@@ -42,8 +42,8 @@ class RegionConditionResource(resources.ModelResource):
 
     num_pages_with_missing_or_outdated_translation = fields.Field(
         column_name=_(
-            "Number of pages with at least one missing or outdated translation"
-        )
+            "Number of pages with at least one missing or outdated translation",
+        ),
     )
 
     num_outdated_pages = fields.Field(column_name=_("Number of outdated pages"))
@@ -97,7 +97,9 @@ class RegionConditionResource(resources.ModelResource):
             )
 
         pages = region.get_pages(
-            archived=False, prefetch_translations=True, prefetch_major_translations=True
+            archived=False,
+            prefetch_translations=True,
+            prefetch_major_translations=True,
         )
         return sum(1 for page in pages if has_bad_translation(page))
 
@@ -118,7 +120,6 @@ class RegionConditionResource(resources.ModelResource):
         return len(region.active_languages_without_default_language)
 
     def get_instance(self, *args: Any, **kwargs: Any) -> Any:
-        # pylint: disable=useless-parent-delegation
         """
         See :meth:`import_export.resources.Resource.get_instance`
         """
@@ -142,7 +143,6 @@ class RegionConditionResource(resources.ModelResource):
         """
         return super().save_instance(*args, **kwargs)
 
-    # pylint:disable=too-few-public-methods
     class Meta:
         """
         Metaclass of the region status resource
@@ -166,8 +166,8 @@ def export_region_conditions(request: HttpRequest, file_format: str) -> HttpResp
     resource = RegionConditionResource()
     dataset = resource.export(
         queryset=Region.objects.filter(
-            Q(status=region_status.ACTIVE) | Q(status=region_status.HIDDEN)
-        ).order_by("name")
+            Q(status=region_status.ACTIVE) | Q(status=region_status.HIDDEN),
+        ).order_by("name"),
     )
 
     supported_file_formats = (f.title for f in format_registry.formats())
@@ -177,7 +177,7 @@ def export_region_conditions(request: HttpRequest, file_format: str) -> HttpResp
     blob = getattr(dataset, file_format)
     mime = magic.from_buffer(blob, mime=True)
     response = HttpResponse(blob, content_type=mime)
-    filename = f'region conditions summary {datetime.now().strftime("%Y-%m-%d %H:%M")}.{file_format}'
+    filename = f"region conditions summary {datetime.now().strftime('%Y-%m-%d %H:%M')}.{file_format}"
     response["Content-Disposition"] = f'attachment; filename="{filename}"'
 
     return response

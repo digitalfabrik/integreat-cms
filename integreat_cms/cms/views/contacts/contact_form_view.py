@@ -11,7 +11,6 @@ from django.views.generic import TemplateView
 from ...decorators import permission_required
 from ...forms import ContactForm
 from ...models import Contact, Event, Page, POI
-from ...utils.translation_utils import gettext_many_lazy as __
 from .contact_context_mixin import ContactContextMixin
 
 if TYPE_CHECKING:
@@ -41,18 +40,21 @@ class ContactFormView(TemplateView, ContactContextMixin):
         """
         region = request.region
         contact_instance = Contact.objects.filter(
-            id=kwargs.get("contact_id"), location__region=region
+            id=kwargs.get("contact_id"),
+            location__region=region,
         ).first()
 
         if contact_instance and contact_instance.archived:
             disabled = True
             messages.warning(
-                request, _("You cannot edit this contact because it is archived.")
+                request,
+                _("You cannot edit this contact because it is archived."),
             )
         elif not request.user.has_perm("cms.change_contact"):
             disabled = True
             messages.warning(
-                request, _("You don't have the permission to edit contacts.")
+                request,
+                _("You don't have the permission to edit contacts."),
             )
         else:
             disabled = False
@@ -67,7 +69,7 @@ class ContactFormView(TemplateView, ContactContextMixin):
             _("This location is used for the contact.")
             if contact_instance
             else _(
-                "Select a location to use for your contact or create a new location. Only published locations can be set."
+                "Select a location to use for your contact or create a new location. Only published locations can be set.",
             )
         )
 
@@ -75,7 +77,8 @@ class ContactFormView(TemplateView, ContactContextMixin):
             Page.objects.filter(
                 id__in=(
                     contact_instance.referring_page_translations.values_list(
-                        "page_id", flat=True
+                        "page_id",
+                        flat=True,
                     )
                 ),
             )
@@ -87,7 +90,8 @@ class ContactFormView(TemplateView, ContactContextMixin):
             POI.objects.filter(
                 id__in=(
                     contact_instance.referring_poi_translations.values_list(
-                        "poi_id", flat=True
+                        "poi_id",
+                        flat=True,
                     )
                 ),
             )
@@ -99,7 +103,8 @@ class ContactFormView(TemplateView, ContactContextMixin):
             Event.objects.filter(
                 id__in=(
                     contact_instance.referring_event_translations.values_list(
-                        "event_id", flat=True
+                        "event_id",
+                        flat=True,
                     )
                 ),
             )
@@ -134,7 +139,8 @@ class ContactFormView(TemplateView, ContactContextMixin):
         region = request.region
 
         contact_instance = Contact.objects.filter(
-            id=kwargs.get("contact_id"), location__region=region
+            id=kwargs.get("contact_id"),
+            location__region=region,
         ).first()
         contact_form = ContactForm(
             data=request.POST,
@@ -150,7 +156,7 @@ class ContactFormView(TemplateView, ContactContextMixin):
                 messages.success(
                     request,
                     _('Contact for "{}" was successfully created').format(
-                        contact_form.instance
+                        contact_form.instance,
                     ),
                 )
             elif not contact_form.has_changed():
@@ -159,7 +165,7 @@ class ContactFormView(TemplateView, ContactContextMixin):
                 messages.success(
                     request,
                     _('Contact for "{}" was successfully saved').format(
-                        contact_form.instance
+                        contact_form.instance,
                     ),
                 )
             return redirect(
@@ -174,7 +180,7 @@ class ContactFormView(TemplateView, ContactContextMixin):
             _("This location is used for the contact.")
             if contact_instance
             else _(
-                "Select a location to use for your contact or create a new location. Only published locations can be set."
+                "Select a location to use for your contact or create a new location. Only published locations can be set.",
             )
         )
 

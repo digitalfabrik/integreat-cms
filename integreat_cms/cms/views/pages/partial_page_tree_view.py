@@ -17,14 +17,13 @@ from ..pages.page_context_mixin import PageContextMixin
 @require_POST
 def render_partial_page_tree_views(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
 ) -> JsonResponse:
     r"""
     Retrieve the rendered subtree of a given root page
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :param language_slug: The slug of the current language
     :return: The rendered template responses
     """
@@ -69,7 +68,7 @@ def render_partial_page_tree_views(
                     "parent_id": parent.id,
                 },
                 request,
-            )
+            ),
         )
 
     return JsonResponse({"data": sub_trees})

@@ -49,7 +49,6 @@ class PushNotificationFormView(TemplateView):
     }
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
-        # pylint: disable=too-many-locals
         r"""
         Open form for creating or editing a push notification
 
@@ -76,7 +75,8 @@ class PushNotificationFormView(TemplateView):
             return redirect("dashboard", **{"region_slug": region.slug})
 
         language = region.get_language_or_404(
-            kwargs.get("language_slug"), only_active=True
+            kwargs.get("language_slug"),
+            only_active=True,
         )
 
         push_notification_id = kwargs.get("push_notification_id")
@@ -95,10 +95,10 @@ class PushNotificationFormView(TemplateView):
                     request,
                     __(
                         _(
-                            "This news has already been sent as push notification to mobile devices."
+                            "This news has already been sent as push notification to mobile devices.",
                         ),
                         _(
-                            'Subsequent changes are displayed in the "News" area of the app, but have no effect on the push notification sent.'
+                            'Subsequent changes are displayed in the "News" area of the app, but have no effect on the push notification sent.',
                         ),
                     ),
                 )
@@ -107,12 +107,12 @@ class PushNotificationFormView(TemplateView):
                     __(
                         _("You are not allowed to edit this news."),
                         _(
-                            "This news belongs to regions you don't have access to: {}."
+                            "This news belongs to regions you don't have access to: {}.",
                         ).format(", ".join(map(str, details["other_regions"]))),
                         _(
-                            "Please ask a person responsible for all regions or contact an administrator."
+                            "Please ask a person responsible for all regions or contact an administrator.",
                         ),
-                    )
+                    ),
                 )
                 messages.warning(
                     request,
@@ -183,7 +183,7 @@ class PushNotificationFormView(TemplateView):
         language = Language.objects.get(slug=kwargs.get("language_slug"))
 
         push_notification_instance = PushNotification.objects.filter(
-            id=kwargs.get("push_notification_id")
+            id=kwargs.get("push_notification_id"),
         ).first()
 
         if not request.user.has_perm("cms.change_pushnotification"):
@@ -195,7 +195,9 @@ class PushNotificationFormView(TemplateView):
             raise PermissionDenied
 
         details = extract_pn_details(
-            request, push_notification_instance, sort_for_region=region
+            request,
+            push_notification_instance,
+            sort_for_region=region,
         )
 
         pn_form = PushNotificationForm(
@@ -239,7 +241,8 @@ class PushNotificationFormView(TemplateView):
                 messages.success(
                     request,
                     _('Template "{}" was successfully {}').format(
-                        pn_form.instance.template_name, action
+                        pn_form.instance.template_name,
+                        action,
                     ),
                 )
             else:
@@ -273,7 +276,7 @@ class PushNotificationFormView(TemplateView):
                 success = send_pn(request, pn_form)
             else:
                 raise NotImplementedError(
-                    "One of the following keys is required in POST data: 'submit_draft', 'submit_update', 'create_from_template', 'submit_schedule', 'submit_send'"
+                    "One of the following keys is required in POST data: 'submit_draft', 'submit_update', 'create_from_template', 'submit_schedule', 'submit_send'",
                 )
 
             if success:
@@ -317,11 +320,11 @@ def validate_forms(
     if details["disable_edit"]:
         not_accessible_regions_warning = __(
             _(
-                "This news is also assigned to regions you don't have access to: {}."
+                "This news is also assigned to regions you don't have access to: {}.",
             ).format(", ".join(map(str, details["other_regions"]))),
             _("Thus you cannot edit or delete this news."),
             _(
-                "Please ask the one responsible for all of these regions or contact an administrator."
+                "Please ask the one responsible for all of these regions or contact an administrator.",
             ),
         )
         messages.error(
@@ -367,7 +370,9 @@ def validate_forms(
 
 
 def save_forms(
-    instance: PushNotification, pn_form: PushNotificationForm, pnt_formset: Any
+    instance: PushNotification,
+    pn_form: PushNotificationForm,
+    pnt_formset: Any,
 ) -> None:
     """
     Saves the forms
@@ -383,7 +388,8 @@ def save_forms(
 
 
 def create_from_template(
-    request: HttpRequest, pn_form: PushNotificationForm
+    request: HttpRequest,
+    pn_form: PushNotificationForm,
 ) -> PushNotification | None:
     """
     Create a push notification from a template
@@ -415,7 +421,8 @@ def create_from_template(
         request,
         __(
             _('News "{}" was successfully created from template "{}".').format(
-                new_push_notification, pn_form.instance.template_name
+                new_push_notification,
+                pn_form.instance.template_name,
             ),
             _("In the next step, the news can now be sent."),
         ),
@@ -424,9 +431,10 @@ def create_from_template(
 
 
 def send_pn(
-    request: HttpRequest, pn_form: PushNotificationForm, schedule: bool = False
+    request: HttpRequest,
+    pn_form: PushNotificationForm,
+    schedule: bool = False,
 ) -> bool:
-    # pylint: disable=too-many-return-statements
     """
     Send (or schedule) a push notification
 
@@ -449,22 +457,22 @@ def send_pn(
         messages.error(
             request,
             _('News "{}" was already sent on {}').format(
-                pn_form.instance, localize(localtime(pn_form.instance.sent_date))
+                pn_form.instance,
+                localize(localtime(pn_form.instance.sent_date)),
             ),
         )
         return False
 
     try:
         push_sender = FirebaseApiClient(pn_form.instance)
-    except ImproperlyConfigured as e:
-        logger.error(
-            "News could not be sent due to a configuration error: %s",
-            e,
+    except ImproperlyConfigured:
+        logger.exception(
+            "News could not be sent due to a configuration error",
         )
         messages.error(
             request,
             _('News "{}" could not be sent due to a configuration error.').format(
-                pn_form.instance
+                pn_form.instance,
             ),
         )
         return False
@@ -472,7 +480,7 @@ def send_pn(
         messages.error(
             request,
             _('News "{}" cannot be sent because required texts are missing').format(
-                pn_form.instance
+                pn_form.instance,
             ),
         )
         return False
@@ -481,7 +489,7 @@ def send_pn(
             messages.error(
                 request,
                 _('News "{}" cannot be scheduled because the date is missing').format(
-                    pn_form.instance
+                    pn_form.instance,
                 ),
             )
             return False
@@ -508,7 +516,8 @@ def send_pn(
     pn_form.instance.draft = False
     pn_form.instance.save()
     messages.success(
-        request, _('News "{}" was successfully sent').format(pn_form.instance)
+        request,
+        _('News "{}" was successfully sent').format(pn_form.instance),
     )
     return True
 
@@ -536,7 +545,8 @@ def extract_pn_details(
     )
     other_regions = list(set(all_regions).difference(request.available_regions))
     all_languages = Language.objects.filter(
-        language_tree_nodes__region__in=all_regions, language_tree_nodes__active=True
+        language_tree_nodes__region__in=all_regions,
+        language_tree_nodes__active=True,
     ).distinct()
 
     if sort_for_region is not None:
@@ -546,7 +556,7 @@ def extract_pn_details(
             key=lambda x: act.index(x) if x in act else 1,
         )
     disable_edit = bool(
-        not request.user.is_superuser and not request.user.is_staff and other_regions
+        not request.user.is_superuser and not request.user.is_staff and other_regions,
     )
     return {
         "all_regions": all_regions,

@@ -8,7 +8,6 @@ if TYPE_CHECKING:
     from pytest_django.fixtures import SettingsWrapper
 
 import pytest
-from django.test.client import Client
 from django.urls import reverse
 
 from integreat_cms.cms.models import Contact, Region

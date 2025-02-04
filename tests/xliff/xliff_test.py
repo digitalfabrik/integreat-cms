@@ -51,7 +51,6 @@ def test_xliff_export(
     view: str,
     directory: str,
 ) -> None:
-    # pylint: disable=too-many-locals
     """
     This test checks whether the xliff export works as expected
 
@@ -66,17 +65,20 @@ def test_xliff_export(
     settings.XLIFF_EXPORT_VERSION = xliff_version
     client, role = login_role_user
     export_xliff = reverse(
-        view, kwargs={"region_slug": "augsburg", "language_slug": "en"}
+        view,
+        kwargs={"region_slug": "augsburg", "language_slug": "en"},
     )
     response = client.post(
-        export_xliff, data={"selected_ids[]": [1, 2, 3, 4, 5, 14, 15]}
+        export_xliff,
+        data={"selected_ids[]": [1, 2, 3, 4, 5, 14, 15]},
     )
     print(response.headers)
-    if role in STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR, OBSERVER]:
+    if role in [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR, OBSERVER]:
         # If the role should be allowed to access the view, we expect a successful result
         assert response.status_code == 302
         page_tree = reverse(
-            "pages", kwargs={"region_slug": "augsburg", "language_slug": "en"}
+            "pages",
+            kwargs={"region_slug": "augsburg", "language_slug": "en"},
         )
         assert response.headers.get("Location") == page_tree
         response = client.get(page_tree)
@@ -107,7 +109,8 @@ def test_xliff_export(
             zipped_file.extractall(path=tmp_path)
             for xliff_file in zipped_file.namelist():
                 assert filecmp.cmp(
-                    f"{tmp_path}/{xliff_file}", f"{expected_result_dir}/{xliff_file}"
+                    f"{tmp_path}/{xliff_file}",
+                    f"{expected_result_dir}/{xliff_file}",
                 )
         # Check if existing translations are now "currently in translation"
         for page in Page.objects.filter(id__in=[1, 2]):
@@ -153,11 +156,12 @@ def test_xliff_import(
     settings.LANGUAGE_CODE = "en"
     client, role = login_role_user
     upload_xliff = reverse(
-        "upload_xliff", kwargs={"region_slug": "augsburg", "language_slug": "en"}
+        "upload_xliff",
+        kwargs={"region_slug": "augsburg", "language_slug": "en"},
     )
     response = upload_files(client, upload_xliff, import_1["file"], import_2["file"])
     # Check which role uploaded the files
-    if role in PRIV_STAFF_ROLES + [MANAGEMENT, EDITOR, AUTHOR]:
+    if role in [*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR]:
         validate_xliff_import_response(
             client,
             caplog,

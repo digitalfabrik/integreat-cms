@@ -4,7 +4,6 @@ This module contains view actions related to pages.
 
 from __future__ import annotations
 
-import asyncio
 import logging
 from datetime import date, timedelta
 from typing import TYPE_CHECKING
@@ -24,13 +23,13 @@ logger = logging.getLogger(__name__)
 
 @permission_required("cms.view_statistics")
 def get_total_visits_ajax(
-    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+    request: HttpRequest,
+    region_slug: str,
 ) -> JsonResponse:
     """
     Aggregates the total API hits of the last 14 days and renders a Widget for the Dashboard.
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :return: A JSON with all API-Hits of the last 2 weeks
     """
 
@@ -38,7 +37,8 @@ def get_total_visits_ajax(
 
     if not region.statistics_enabled:
         return JsonResponse(
-            {"error": "Statistics are not enabled for this region."}, status=500
+            {"error": "Statistics are not enabled for this region."},
+            status=500,
         )
 
     start_date = date.today() - timedelta(days=15)
@@ -46,29 +46,32 @@ def get_total_visits_ajax(
 
     try:
         result = region.statistics.get_total_visits(
-            start_date=start_date, end_date=end_date
+            start_date=start_date,
+            end_date=end_date,
         )
         return JsonResponse(result)
-    except asyncio.TimeoutError:
+    except TimeoutError:
         return JsonResponse(
-            {"error": "Timeout during request to Matomo API"}, status=504
+            {"error": "Timeout during request to Matomo API"},
+            status=504,
         )
-    except MatomoException as e:
-        logger.exception(e)
+    except MatomoException:
+        logger.exception("")
         return JsonResponse(
-            {"error": "The request to the Matomo API failed."}, status=500
+            {"error": "The request to the Matomo API failed."},
+            status=500,
         )
 
 
 @require_POST
 def get_visits_per_language_ajax(
-    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+    request: HttpRequest,
+    region_slug: str,
 ) -> JsonResponse:
     """
     Ajax method to request the app hits for a certain timerange distinguished by languages.
 
     :param request: The current request
-    :param region_slug: The slug of the current region
     :return: A JSON with all API-Hits of the requested time period
     """
 
@@ -76,7 +79,8 @@ def get_visits_per_language_ajax(
 
     if not region.statistics_enabled:
         return JsonResponse(
-            {"error": "Statistics are not enabled for this region."}, status=500
+            {"error": "Statistics are not enabled for this region."},
+            status=500,
         )
 
     statistics_form = StatisticsFilterForm(data=request.POST)
@@ -94,12 +98,14 @@ def get_visits_per_language_ajax(
             period=statistics_form.cleaned_data["period"],
         )
         return JsonResponse(result, safe=False)
-    except asyncio.TimeoutError:
+    except TimeoutError:
         return JsonResponse(
-            {"error": "Timeout during request to Matomo API"}, status=504
+            {"error": "Timeout during request to Matomo API"},
+            status=504,
         )
-    except MatomoException as e:
-        logger.exception(e)
+    except MatomoException:
+        logger.exception("")
         return JsonResponse(
-            {"error": "The request to the Matomo API failed."}, status=500
+            {"error": "The request to the Matomo API failed."},
+            status=500,
         )

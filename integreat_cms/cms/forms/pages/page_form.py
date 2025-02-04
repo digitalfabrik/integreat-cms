@@ -27,7 +27,6 @@ logger = logging.getLogger(__name__)
 
 
 class PageForm(CustomModelForm, CustomTreeNodeForm):
-    # pylint: disable=too-many-ancestors
     """
     Form for creating and modifying page objects
     """
@@ -37,7 +36,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
         required=False,
         label=_("Authors"),
         help_text=_(
-            "These users can edit this page, but are not allowed to publish it."
+            "These users can edit this page, but are not allowed to publish it.",
         ),
     )
     editors = forms.ModelChoiceField(
@@ -107,16 +106,16 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
 
         # Set the initial value for the mirrored page region
         if self.instance.mirrored_page:
-            self.fields["mirrored_page_region"].initial = (
-                self.instance.mirrored_page.region_id
-            )
+            self.fields[
+                "mirrored_page_region"
+            ].initial = self.instance.mirrored_page.region_id
 
         # Let mirrored page queryset be empty per default and only fill it if a region is selected
         mirrored_page_queryset = Page.objects.none()
 
         # Filter the offer providers available for embedding
         self.fields["embedded_offers"].queryset = self.instance.region.offers.filter(
-            supported_by_app_in_content=True
+            supported_by_app_in_content=True,
         )
 
         # Filter Zammad forms out if the region has no Zammad-URL set
@@ -131,7 +130,7 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             # If no region was selected, allow no mirrored page
             if mirrored_page_region := self.data["mirrored_page_region"]:
                 mirrored_page_queryset = Region.objects.get(
-                    id=mirrored_page_region
+                    id=mirrored_page_region,
                 ).pages.all()
             # Dirty hack to remove fields when submitted by POST (since they are handles by AJAX)
             del self.fields["authors"]
@@ -171,9 +170,9 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             for page in mirrored_page_queryset.cache_tree(archived=False)
         ]
 
-        self.fields["organization"].queryset = (
-            self.instance.region.organizations.filter(archived=False)
-        )
+        self.fields[
+            "organization"
+        ].queryset = self.instance.region.organizations.filter(archived=False)
 
         # Set choices of parent and _ref_node_id fields manually to make use of cache_tree()
         logger.debug("Set choices for parent field:")
@@ -182,11 +181,11 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             [
                 (page.id, str(page))
                 for page in parent_queryset.cache_tree(archived=False)
-            ]
+            ],
         )
         ref_node_choices = [("", "---------")]
         ref_node_choices.extend(
-            [(page.id, str(page)) for page in parent_queryset.cache_tree()]
+            [(page.id, str(page)) for page in parent_queryset.cache_tree()],
         )
         self.fields["parent"].choices = cached_parent_choices
         self.fields["_ref_node_id"].choices = ref_node_choices
@@ -221,12 +220,12 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
                 Q(groups__permissions__codename="change_page")
                 | Q(user_permissions__codename="change_page")
                 | Q(editable_pages=self.instance)
-                | Q(publishable_pages=self.instance)
+                | Q(publishable_pages=self.instance),
             )
         )
         if self.instance.id:
             users_without_permissions = users_without_permissions.difference(
-                self.instance.authors.all()
+                self.instance.authors.all(),
             )
         return users_without_permissions
 
@@ -249,12 +248,12 @@ class PageForm(CustomModelForm, CustomTreeNodeForm):
             .exclude(
                 Q(groups__permissions__codename="publish_page")
                 | Q(user_permissions__codename="publish_page")
-                | Q(publishable_pages=self.instance)
+                | Q(publishable_pages=self.instance),
             )
         )
         if self.instance.id:
             users_without_permissions = users_without_permissions.difference(
-                self.instance.editors.all()
+                self.instance.editors.all(),
             )
         return users_without_permissions
 

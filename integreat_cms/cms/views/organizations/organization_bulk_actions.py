@@ -4,7 +4,6 @@ import logging
 from typing import TYPE_CHECKING
 
 from django.contrib import messages
-from django.utils.translation import gettext_lazy as _
 from django.utils.translation import ngettext_lazy
 
 from integreat_cms.cms.utils.stringify_list import iter_to_string
@@ -16,7 +15,6 @@ if TYPE_CHECKING:
     from typing import Any
 
     from django.http import HttpRequest, HttpResponse
-    from django.http.response import HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 

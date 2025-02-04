@@ -27,7 +27,8 @@ TARGET_LANGUAGE_SLUG: Final[str] = "ar"
 
 
 def setup_google_translate_supported_languages(
-    source_languages: list[str], target_languages: list[str]
+    source_languages: list[str],
+    target_languages: list[str],
 ) -> None:
     """
     Setup supported languages for Google Translate
@@ -35,15 +36,14 @@ def setup_google_translate_supported_languages(
     :param source_languages: The supported source languages
     :param target_languages: The supported target languages
     """
-    apps.get_app_config("google_translate_api").supported_source_languages = (
-        source_languages
-    )
-    apps.get_app_config("google_translate_api").supported_target_languages = (
-        target_languages
-    )
+    apps.get_app_config(
+        "google_translate_api",
+    ).supported_source_languages = source_languages
+    apps.get_app_config(
+        "google_translate_api",
+    ).supported_target_languages = target_languages
 
 
-# pylint:disable=too-few-public-methods
 class FakeClient:
     """
     Fake client to replace translate_v2.Client
@@ -60,7 +60,9 @@ class FakeClient:
 
 
 def setup_fake_google_translate_api(  # type: ignore[no-untyped-def]
-    self, request: HttpRequest, form_class: ModelFormMetaclass
+    self,
+    request: HttpRequest,
+    form_class: ModelFormMetaclass,
 ) -> None:
     """
     Setup a fake for Google Translate API
@@ -80,7 +82,9 @@ def setup_fake_google_translate_api(  # type: ignore[no-untyped-def]
 
 @pytest.mark.django_db
 @pytest.mark.parametrize(
-    "login_role_user", PRIV_STAFF_ROLES + [AUTHOR, MANAGEMENT, EDITOR], indirect=True
+    "login_role_user",
+    [*PRIV_STAFF_ROLES, AUTHOR, MANAGEMENT, EDITOR],
+    indirect=True,
 )
 def test_google_translate_error(
     login_role_user: tuple[Client, str],

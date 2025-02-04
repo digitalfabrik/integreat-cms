@@ -20,14 +20,13 @@ if TYPE_CHECKING:
 
 def slugify_ajax(
     request: HttpRequest,
-    region_slug: str,  # pylint: disable=unused-argument
+    region_slug: str,
     language_slug: str,
     model_type: Literal["page", "event", "poi"],
 ) -> JsonResponse:
     """checks the current user input for title and generates unique slug for permalink
 
     :param request: The current request
-    :param region_slug: region identifier
     :param language_slug: language slug
     :param model_type: The type of model to generate a unique slug for, one of `event|page|poi`
     :return: unique translation slug
@@ -51,7 +50,7 @@ def slugify_ajax(
 
     manager = managers[model_type].objects
     object_instance = manager.filter(
-        **{model_type: model_id, "language": language}
+        **{model_type: model_id, "language": language},
     ).first()
 
     if not (

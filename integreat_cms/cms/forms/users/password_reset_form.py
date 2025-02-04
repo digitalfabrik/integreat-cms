@@ -29,21 +29,20 @@ class CustomPasswordResetForm(PasswordResetForm):
 
     def send_mail(
         self,
-        subject_template_name: str,
+        _subject_template_name: str,
         email_template_name: str,
         context: dict[str, Any],
-        from_email: Any | None,
+        _from_email: Any | None,
         to_email: str,
         html_email_template_name: str,
     ) -> None:
-        # pylint: disable=signature-differs,too-many-positional-arguments
         """
         Send a django.core.mail.EmailMultiAlternatives to `to_email`.
 
-        :param subject_template_name: The template to be used to render the subject of the email
+        :param _subject_template_name: The template to be used to render the subject of the email
         :param email_template_name: The template to be used to render the text email
         :param context: The template context variables
-        :param from_email: The email address of the sender
+        :param _from_email: The email address of the sender
         :param to_email: The email address of the recipient
         :param html_email_template_name: The template to be used to render the HTML email
         """

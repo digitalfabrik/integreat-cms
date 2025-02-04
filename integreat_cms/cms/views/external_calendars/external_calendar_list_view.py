@@ -32,8 +32,8 @@ class ExternalCalendarList(TemplateView):
                 "current_menu_item": "external_calendar_list",
                 "external_calendars": self.request.region.external_calendars.all(),
                 "delete_dialog_title": _(
-                    "Please confirm that you really want to delete this calendar"
+                    "Please confirm that you really want to delete this calendar",
                 ),
-            }
+            },
         )
         return context

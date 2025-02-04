@@ -4,16 +4,14 @@ from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from _pytest.logging import LogCaptureFixture
+    from django.test.client import Client
     from pytest_django.fixtures import SettingsWrapper
 
 import pytest
-from django.test.client import Client
 from django.urls import reverse
-from linkcheck import listeners
 from linkcheck.listeners import enable_listeners
 from linkcheck.models import Link, Url
 
-from integreat_cms.cms.models import Region
 from integreat_cms.cms.utils.linkcheck_utils import filter_urls
 from tests.conftest import ANONYMOUS, EDITOR, MANAGEMENT, STAFF_ROLES
 from tests.utils import assert_message_in_log
@@ -26,12 +24,10 @@ from tests.utils import assert_message_in_log
 OLD_URL = "https://integreat.app/augsburg/de/willkommen/"
 # Url to replace with
 NEW_URL = "https://integreat.app/augsburg/de/this-is-new-url/"
-# Parameters for test
-# (
-# <network management or region>,
+# Parameters for test:
+# ( <network management or region>,
 # <number of links with url=OLD_URL before successful search&replace>,
-# <number of links with url=OLD_URL after successful search&replace>
-# )
+# <number of links with url=OLD_URL after successful search&replace> )
 url_replace_parameters = [("network_management", 4, 0), ("augsburg", 4, 1)]
 
 
@@ -60,7 +56,7 @@ def test_url_replace(
         "url_filter": "valid",
         "url_id": url_object.id,
     }
-    if not region == "network_management":
+    if region != "network_management":
         kwargs.update(
             {
                 "region_slug": region,
@@ -82,7 +78,7 @@ def test_url_replace(
     entitled_roles = (
         STAFF_ROLES
         if region == "network_management"
-        else STAFF_ROLES + [MANAGEMENT, EDITOR]
+        else [*STAFF_ROLES, MANAGEMENT, EDITOR]
     )
 
     if role in entitled_roles:
@@ -94,7 +90,9 @@ def test_url_replace(
         )
 
         assert Link.objects.filter(url__url=OLD_URL).count() == after
-        # assert Link.objects.filter(url__url=NEW_URL).count() == before - after
+        """
+        assert Link.objects.filter(url__url=NEW_URL).count() == before - after
+        """
 
     elif role == ANONYMOUS:
         assert response.status_code == 302
@@ -121,11 +119,9 @@ REPLACE = "/i/am/replaced/"
 SEARCH_REPLACE_TARGET_URL = "https://integreat.app/augsburg/de/willkommen/"
 TARGET_URL_AFTER_REPLACE = "https://integreat.app/i/am/replaced/"
 # Parameters for test
-# (
-# <network management or region>,
+# ( <network management or region>,
 # <number of links with url=SEARCH_REPLACE_TARGET_URL before successful search&replace>,
-# <number of links with url=SEARCH_REPLACE_TARGET_URL which must stay unchanged after successful search&replace>
-# )
+# <number of links with url=SEARCH_REPLACE_TARGET_URL which must stay unchanged after successful search&replace> )
 search_replace_parameters = [("network_management", 4, 0), ("augsburg", 4, 1)]
 
 
@@ -151,7 +147,7 @@ def test_search_and_replace_links(
     assert Link.objects.filter(url=target_url_object).count() == before
 
     kwargs = {}
-    if not region == "network_management":
+    if region != "network_management":
         kwargs.update(
             {
                 "region_slug": region,
@@ -176,7 +172,7 @@ def test_search_and_replace_links(
     entitled_roles = (
         STAFF_ROLES
         if region == "network_management"
-        else STAFF_ROLES + [MANAGEMENT, EDITOR]
+        else [*STAFF_ROLES, MANAGEMENT, EDITOR]
     )
 
     if role in entitled_roles:
@@ -188,10 +184,12 @@ def test_search_and_replace_links(
         )
 
         assert Link.objects.filter(url__url=SEARCH_REPLACE_TARGET_URL).count() == after
-        # assert (
-        #    Link.objects.filter(url__url=TARGET_URL_AFTER_REPLACE).count()
-        #    == before - after
-        # )
+        """
+        assert (
+           Link.objects.filter(url__url=TARGET_URL_AFTER_REPLACE).count()
+           == before - after
+        )
+        """
 
     elif role == ANONYMOUS:
         assert response.status_code == 302
@@ -216,12 +214,10 @@ def test_search_and_replace_links(
 IGNORE_UNIGNORE_TARGET_URL = "https://integreat.app/augsburg/de/willkommen/"
 
 # Parameters for test
-# (
-# <action>,
+# ( <action>,
 # <network management or region>,
 # (<number of links with ignore=True before successful action>, <number of links with ignore=False before successful action>),
-# (<number of links with ignore=True after successful action>, <number of links with ignore=False> after successful action)
-# )
+# (<number of links with ignore=True after successful action>, <number of links with ignore=False> after successful action) )
 ignore_unignore_parameters = [
     ("ignore", "network_management", (0, 4), (4, 0)),
     ("ignore", "augsburg", (0, 4), (3, 1)),
@@ -261,7 +257,7 @@ def test_bulk_ignore_unignore_links(
     assert target_links.filter(ignore=False).count() == before[1]
 
     kwargs = {"url_filter": "valid"}
-    if not region == "network_management":
+    if region != "network_management":
         kwargs.update(
             {
                 "region_slug": region,
@@ -283,7 +279,7 @@ def test_bulk_ignore_unignore_links(
     entitled_roles = (
         STAFF_ROLES
         if region == "network_management"
-        else STAFF_ROLES + [MANAGEMENT, EDITOR]
+        else [*STAFF_ROLES, MANAGEMENT, EDITOR]
     )
 
     if role in entitled_roles:
@@ -347,12 +343,12 @@ def test_bulk_recheck_links(
     target_url_object = Url.objects.filter(url=RECHECK_TARGET_URL).first()
     assert target_url_object
 
-    region_slug = region if not region == "network_management" else None
+    region_slug = region if region != "network_management" else None
     unchecked_url, _ = filter_urls(region_slug, "unchecked")
     assert len(unchecked_url) == 1
 
     kwargs = {"url_filter": "unchecked"}
-    if not region == "network_management":
+    if region != "network_management":
         kwargs.update(
             {
                 "region_slug": region,
@@ -374,7 +370,7 @@ def test_bulk_recheck_links(
     entitled_roles = (
         STAFF_ROLES
         if region == "network_management"
-        else STAFF_ROLES + [MANAGEMENT, EDITOR]
+        else [*STAFF_ROLES, MANAGEMENT, EDITOR]
     )
     unchecked_url, _ = filter_urls(region_slug, "unchecked")
 

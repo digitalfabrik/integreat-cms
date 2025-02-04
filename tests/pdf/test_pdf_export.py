@@ -1,12 +1,15 @@
 from __future__ import annotations
 
 import io
+from typing import TYPE_CHECKING
 from urllib.parse import quote, urlencode
 
 import PyPDF3
 import pytest
-from django.test.client import Client
 from django.urls import reverse
+
+if TYPE_CHECKING:
+    from django.test.client import Client
 
 
 @pytest.mark.django_db
@@ -91,7 +94,6 @@ def test_pdf_export(
     url: str,
     expected_filename: str,
 ) -> None:
-    # pylint: disable=too-many-locals,too-many-positional-arguments
     """
     Test whether the PDF export works as expected
 
@@ -119,31 +121,31 @@ def test_pdf_export(
         assert response.headers.get("Content-Type") == "application/pdf"
         # Compare file content
         result_pdf = PyPDF3.PdfFileReader(
-            io.BytesIO(b"".join(response.streaming_content))
+            io.BytesIO(b"".join(response.streaming_content)),
         )
-        # pylint: disable=consider-using-with
-        expected_pdf = PyPDF3.PdfFileReader(
-            open(f"tests/pdf/files/{expected_filename}", "rb")
-        )
-        # Assert that both documents have same number of pages
-        assert result_pdf.numPages == expected_pdf.numPages
-        # Assert that the content is identical
-        for page_number in range(result_pdf.numPages):
-            result_page = result_pdf.getPage(page_number)
-            expected_page = expected_pdf.getPage(page_number)
-            assert result_page.artBox == expected_page.artBox
-            assert result_page.bleedBox == expected_page.bleedBox
-            assert result_page.cropBox == expected_page.cropBox
-            assert result_page.mediaBox == expected_page.mediaBox
-            assert result_page.extractText() == expected_page.extractText()
-            assert result_page.getContents() == expected_page.getContents()
+        with open(f"tests/pdf/files/{expected_filename}", "rb") as file:
+            expected_pdf = PyPDF3.PdfFileReader(file)
+            # Assert that both documents have same number of pages
+            assert result_pdf.numPages == expected_pdf.numPages
+            # Assert that the content is identical
+            for page_number in range(result_pdf.numPages):
+                result_page = result_pdf.getPage(page_number)
+                expected_page = expected_pdf.getPage(page_number)
+                assert result_page.artBox == expected_page.artBox
+                assert result_page.bleedBox == expected_page.bleedBox
+                assert result_page.cropBox == expected_page.cropBox
+                assert result_page.mediaBox == expected_page.mediaBox
+                assert result_page.extractText() == expected_page.extractText()
+                assert result_page.getContents() == expected_page.getContents()
 
 
 @pytest.mark.django_db
 # Override urls to serve PDF files
 @pytest.mark.urls("tests.pdf.dummy_django_app.static_urls")
 def test_pdf_export_invalid(
-    load_test_data: None, client: Client, admin_client: Client
+    load_test_data: None,
+    client: Client,
+    admin_client: Client,
 ) -> None:
     """
     Test whether the PDF export throws the correct errors

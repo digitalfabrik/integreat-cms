@@ -28,7 +28,6 @@ class ModelListView(
     ModelConfirmationContextMixin,
     ListView,
 ):
-    # pylint: disable=too-many-ancestors
     """
     Render some list of objects, set by ``self.model`` or ``self.queryset``.
     """

@@ -1,10 +1,9 @@
 [![CircleCI](https://circleci.com/gh/digitalfabrik/integreat-cms.svg?style=shield)](https://circleci.com/gh/digitalfabrik/integreat-cms)
-[![Pylint](https://img.shields.io/badge/pylint-10.00-brightgreen)](https://www.pylint.org/)
+[![Ruff](https://img.shields.io/badge/ruff-0.9.2-brightgreen)](https://docs.astral.sh/ruff/)
 ![Coverage](https://img.shields.io/codeclimate/coverage/digitalfabrik/integreat-cms)
 [![PyPi](https://img.shields.io/pypi/v/integreat-cms.svg)](https://pypi.org/project/integreat-cms/)
 [![Release Notes](https://img.shields.io/badge/%F0%9F%93%9C-release%20notes-blue)](https://digitalfabrik.github.io/integreat-cms/release-notes.html)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 # Integreat Django CMS
 
@@ -93,8 +92,9 @@ and then start your code editor (`code .`, `nvim`,...) from within that same she
 On MacOS, installing `libmagic` separately through `brew install libmagic` might be required.
 
 ### CMS configuration file
-After setup you will be able to run the cms with most of it's functionality. In order to use a couple of features like translations or the HIX value, you need to set some settings which can be defined in a configuration file. It should be located at `/etc/integreat-cms.ini`. If you want to place the file at a different location, pass the absolute path via the environment variable `INTEGREAT_CMS_CONFIG`. An example file is located at `example-configs` in the project folder. 
-All these settings can also be configured via environment variables with the prefix `INTEGREAT_CMS_`, e.g. `INTEGREAT_CMS_SECRET_KEY`.
+After setup you will be able to run the cms with most of its functionality. In order to use a couple of features like translations or the HIX value, you need to set some settings which can be defined as individual environment variables or in a configuration file. It should be located at `/etc/integreat-cms.ini`. If you want to place the file at a different location, pass the absolute path via the environment variable `INTEGREAT_CMS_CONFIG`. An example file is located at `example-configs` in the project folder.
+In general, all environment variables should be the name of the setting in the system but with the prefix `INTEGREAT_CMS_`, e.g. `INTEGREAT_CMS_SECRET_KEY`.
+Note that, contrary to how other programs work, in integreat cms the settings from the configuration file overwrite the values loaded from environment variables, not the other way around. Feel free to submit a pull request fixing this.
 
 #### Using a CMS configuration file with devcontainer
 

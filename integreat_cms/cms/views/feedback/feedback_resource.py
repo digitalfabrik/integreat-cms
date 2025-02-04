@@ -8,7 +8,6 @@ from ...models import Feedback
 
 
 class FeedbackResource(resources.ModelResource):
-    # pylint: disable=too-few-public-methods
     """
     This is the Resource class that connects to the django-import-export library
     """
@@ -31,7 +30,8 @@ class FeedbackResource(resources.ModelResource):
     rating = fields.Field(column_name=_("Rating"), attribute="get_rating_display")
 
     read_by_username = fields.Field(
-        column_name=_("Read by"), attribute="read_by__full_user_name"
+        column_name=_("Read by"),
+        attribute="read_by__full_user_name",
     )
 
     comment = fields.Field(column_name=_("Comment"), attribute="comment")
@@ -43,7 +43,6 @@ class FeedbackResource(resources.ModelResource):
     )
 
     def get_instance(self, *args: Any, **kwargs: Any) -> Any:
-        # pylint: disable=useless-parent-delegation
         """
         See :meth:`import_export.resources.Resource.get_instance`
         """

@@ -45,10 +45,11 @@ class ExternalCalendarFormView(TemplateView):
         """
         region = request.region
         external_calendar_instance = region.external_calendars.filter(
-            id=kwargs.get("calendar_id")
+            id=kwargs.get("calendar_id"),
         ).first()
         external_calendar_form = ExternalCalendarForm(
-            instance=external_calendar_instance, user=None
+            instance=external_calendar_instance,
+            user=None,
         )
         return render(
             request,
@@ -57,7 +58,7 @@ class ExternalCalendarFormView(TemplateView):
                 "external_calendar_form": external_calendar_form,
                 "current_menu_item": "external_calendar_list",
                 "delete_dialog_title": _(
-                    "Please confirm that you really want to delete this external calendar"
+                    "Please confirm that you really want to delete this external calendar",
                 ),
             },
         )
@@ -73,10 +74,12 @@ class ExternalCalendarFormView(TemplateView):
         """
         region = request.region
         external_calendar_instance = region.external_calendars.filter(
-            id=kwargs.get("calendar_id")
+            id=kwargs.get("calendar_id"),
         ).first()
         external_calendar_form = ExternalCalendarForm(
-            data=request.POST, instance=external_calendar_instance, user=request.user
+            data=request.POST,
+            instance=external_calendar_instance,
+            user=request.user,
         )
         if not external_calendar_form.is_valid():
             external_calendar_form.add_error_messages(request)
@@ -93,14 +96,14 @@ class ExternalCalendarFormView(TemplateView):
                 messages.success(
                     request,
                     _('External calendar "{}" was successfully created').format(
-                        external_calendar_form.instance
+                        external_calendar_form.instance,
                     ),
                 )
             else:
                 messages.success(
                     request,
                     _('External calendar "{}" was successfully saved').format(
-                        external_calendar_form.instance
+                        external_calendar_form.instance,
                     ),
                 )
 
@@ -123,7 +126,9 @@ class ExternalCalendarFormView(TemplateView):
         )
 
     def show_import_messages(
-        self, external_calendar_instance: ExternalCalendar, import_result: ImportResult
+        self,
+        external_calendar_instance: ExternalCalendar,
+        import_result: ImportResult,
     ) -> None:
         """
         This function shows the message after the import has been done
@@ -138,7 +143,7 @@ class ExternalCalendarFormView(TemplateView):
             messages.error(
                 self.request,
                 _(
-                    "No events have been successfully imported from this external calendar"
+                    "No events have been successfully imported from this external calendar",
                 ),
             )
         elif number_of_successes > 0 and number_of_errors > 0:
@@ -146,12 +151,12 @@ class ExternalCalendarFormView(TemplateView):
                 self.request,
                 _(
                     _(
-                        "Could not import %d events of this external calendar (out of %d total). See the status for more information"
+                        "Could not import %d events of this external calendar (out of %d total). See the status for more information",
                     )
                     % (
                         number_of_errors,
                         number_of_errors + number_of_successes,
-                    )
+                    ),
                 ),
             )
         else:

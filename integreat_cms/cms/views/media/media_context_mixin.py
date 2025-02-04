@@ -13,7 +13,6 @@ if TYPE_CHECKING:
 
 
 class MediaContextMixin(ContextMixin):
-    # pylint: disable=too-few-public-methods
     """
     This mixin provides context data required by the the media library.
     """
@@ -51,7 +50,7 @@ class MediaContextMixin(ContextMixin):
                 "btn_change_directory": _("Save changes"),
                 "btn_delete_directory": _("Delete directory"),
                 "btn_delete_empty_directory": _(
-                    "You can only delete empty directories"
+                    "You can only delete empty directories",
                 ),
                 "btn_back": _("Back"),
                 "btn_close": _("Close detail view"),
@@ -81,17 +80,17 @@ class MediaContextMixin(ContextMixin):
                 "text_enter_directory_name": _("Enter directory name here"),
                 "text_file_readonly": _("This file is read-only and cannot be edited."),
                 "text_dir_readonly": _(
-                    "This directory is read-only and cannot be edited."
+                    "This directory is read-only and cannot be edited.",
                 ),
                 "text_only_image": _("Only images can be selected as an icon."),
                 "text_file_delete_confirm": _(
-                    "Please confirm that you really want to delete this file"
+                    "Please confirm that you really want to delete this file",
                 ),
                 "text_dir_delete_confirm": _(
-                    "Please confirm that you really want to delete this directory"
+                    "Please confirm that you really want to delete this directory",
                 ),
                 "text_error_invalid_file_type": _(
-                    "This file type is not supported. Supported types are:"
+                    "This file type is not supported. Supported types are:",
                 ),
                 "text_error": (
                     _("An error has occurred.") + " " + _("Please try again later.")
@@ -102,7 +101,7 @@ class MediaContextMixin(ContextMixin):
                     + _("Please try again later.")
                 ),
                 "text_allowed_media_types": ", ".join(
-                    map(str, dict(allowed_media.UPLOAD_CHOICES).values())
+                    map(str, dict(allowed_media.UPLOAD_CHOICES).values()),
                 ),
             },
             "mediaTypes": {
@@ -144,7 +143,8 @@ class MediaContextMixin(ContextMixin):
             "deleteFile": reverse("mediacenter_delete_file", kwargs=kwargs),
             "replaceFile": reverse("mediacenter_replace_file", kwargs=kwargs),
             "filterUnusedMediaFiles": reverse(
-                "mediacenter_filter_unused_media_files", kwargs=kwargs
+                "mediacenter_filter_unused_media_files",
+                kwargs=kwargs,
             ),
         }
 

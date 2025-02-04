@@ -50,7 +50,7 @@ def send_welcome_mail(request: HttpRequest, user: User, activation: bool) -> Non
             {
                 "uid": uid,
                 "token": token,
-            }
+            },
         )
     else:
         subject += _("Welcome")
@@ -74,7 +74,8 @@ def send_welcome_mail(request: HttpRequest, user: User, activation: bool) -> Non
         messages.success(
             request,
             _("{} was successfully sent to user {}.").format(
-                debug_mail_type, user.full_user_name
+                debug_mail_type,
+                user.full_user_name,
             ),
         )
     except RuntimeError as e:

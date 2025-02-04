@@ -3,7 +3,8 @@ This file contains decorators that are used in core.
 """
 
 import functools
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 
 def disable_for_loaddata(function: Callable) -> Callable:

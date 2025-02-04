@@ -130,7 +130,10 @@ class BulkMachineTranslationView(BulkActionView):
     form: ModelForm | None = None
 
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Translate multiple objects automatically
@@ -150,27 +153,31 @@ class BulkMachineTranslationView(BulkActionView):
             messages.error(
                 request,
                 _('Machine translations are disabled for language "{}"').format(
-                    language_node
+                    language_node,
                 ),
             )
             return super().post(request, *args, **kwargs)
         if not language_node.mt_provider.is_permitted(
-            request.region, request.user, self.form._meta.model
+            request.region,
+            request.user,
+            self.form._meta.model,
         ):
             messages.error(
                 request,
                 _(
-                    "Machine translations are not allowed for the current user or content type"
+                    "Machine translations are not allowed for the current user or content type",
                 ).format(language_node),
             )
             return super().post(request, *args, **kwargs)
         if language_node.mt_provider.bulk_only_for_staff and not request.user.is_staff:
             raise PermissionDenied(
-                f"Only staff users have the permission to bulk translate {self.form._meta.model._meta.model_name} via {language_node.mt_provider}"
+                f"Only staff users have the permission to bulk translate {self.form._meta.model._meta.model_name} via {language_node.mt_provider}",
             )
 
         to_translate = language_node.mt_provider.is_needed(
-            request.region, self.get_queryset(), language_node
+            request.region,
+            self.get_queryset(),
+            language_node,
         )
         if not to_translate:
             messages.error(
@@ -223,7 +230,7 @@ class BulkUpdateBooleanFieldView(BulkActionView):
         :raises NotImplementedError: If the ``field_name`` attribute is not implemented in the subclass
         """
         raise NotImplementedError(
-            "Subclasses of BulkUpdateBooleanFieldView must provide a 'field_name' attribute"
+            "Subclasses of BulkUpdateBooleanFieldView must provide a 'field_name' attribute",
         )
 
     @property
@@ -234,11 +241,14 @@ class BulkUpdateBooleanFieldView(BulkActionView):
         :raises NotImplementedError: If the ``action`` attribute is not implemented in the subclass
         """
         raise NotImplementedError(
-            "Subclasses of BulkUpdateBooleanFieldView must provide an 'action' attribute"
+            "Subclasses of BulkUpdateBooleanFieldView must provide an 'action' attribute",
         )
 
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Update the fields of the selected objects and redirect
@@ -263,7 +273,8 @@ class BulkUpdateBooleanFieldView(BulkActionView):
         messages.success(
             request,
             _("The selected {} were successfully {}").format(
-                self.model._meta.verbose_name_plural, self.action
+                self.model._meta.verbose_name_plural,
+                self.action,
             ),
         )
         # Let the base view handle the redirect
@@ -277,7 +288,10 @@ class BulkArchiveView(BulkActionView):
 
     @tree_mutex("page")
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Archive multiple objects
@@ -374,7 +388,10 @@ class BulkRestoreView(BulkActionView):
 
     @tree_mutex("page")
     def post(
-        self, request: HttpRequest, *args: Any, **kwargs: Any
+        self,
+        request: HttpRequest,
+        *args: Any,
+        **kwargs: Any,
     ) -> HttpResponseRedirect:
         r"""
         Restore multiple objects
@@ -391,7 +408,7 @@ class BulkRestoreView(BulkActionView):
         for content_object in self.get_queryset():
             if self.get_queryset().model is Page and content_object.implicitly_archived:
                 restore_failed_because_parent_archived.append(
-                    content_object.best_translation.title
+                    content_object.best_translation.title,
                 )
             elif not content_object.archived:
                 restore_unchanged.append(content_object.best_translation.title)
@@ -460,7 +477,10 @@ class BulkPublishingView(BulkActionView):
         :return: The redirect
         """
         change_publication_status(
-            request, self.get_queryset(), kwargs["language_slug"], status.PUBLIC
+            request,
+            self.get_queryset(),
+            kwargs["language_slug"],
+            status.PUBLIC,
         )
         return super().post(request, *args, **kwargs)
 
@@ -480,6 +500,9 @@ class BulkDraftingView(BulkActionView):
         :return: The redirect
         """
         change_publication_status(
-            request, self.get_queryset(), kwargs["language_slug"], status.DRAFT
+            request,
+            self.get_queryset(),
+            kwargs["language_slug"],
+            status.DRAFT,
         )
         return super().post(request, *args, **kwargs)

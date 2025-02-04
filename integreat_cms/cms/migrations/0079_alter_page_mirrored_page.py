@@ -16,13 +16,12 @@ if TYPE_CHECKING:
 
 def update_mirrored_pages(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Set the field mirrored_page to None when a page is archived or belongs to an archived region.
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
 
     Page = apps.get_model("cms", "Page")
@@ -32,7 +31,8 @@ def update_mirrored_pages(
 
     pages_archived = [
         Page.objects.filter(
-            tree_id=page.tree_id, lft__range=(page.lft, page.rgt - 1)
+            tree_id=page.tree_id,
+            lft__range=(page.lft, page.rgt - 1),
         ).order_by()
         for page in Page.objects.filter(explicitly_archived=True)
     ]

@@ -44,16 +44,6 @@ This job executes ``npm ci`` and makes use of the `CircleCI Dependency Cache <ht
 After that, it compiles all static files with webpack (``npm run prod``) and passes the output in
 ``integreat_cms/static/dist`` to the subsequent jobs.
 
-pylint
-------
-
-This job executes ``pylint_runner``, which checks whether the :ref:`pylint` throws any errors or warnings.
-
-black
------
-
-This job executes ``black --check .``, which checks whether the code matches the :ref:`black-code-style` code style.
-
 check-migrations
 ----------------
 

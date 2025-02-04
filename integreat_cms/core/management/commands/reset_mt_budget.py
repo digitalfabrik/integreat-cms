@@ -37,7 +37,6 @@ class Command(LogCommand):
         )
 
     def handle(self, *args: Any, force: bool, **options: Any) -> None:
-        # pylint: disable=arguments-differ
         """
         Try to run the command
         """
@@ -57,7 +56,7 @@ class Command(LogCommand):
                 )
             else:
                 raise CommandError(
-                    "It is not the 1st day of the month. If you want to reset MT budget despite that, run the command with --force"
+                    "It is not the 1st day of the month. If you want to reset MT budget despite that, run the command with --force",
                 )
 
         if not (regions := Region.objects.filter(mt_renewal_month=current_month)):

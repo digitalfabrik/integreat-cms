@@ -39,10 +39,12 @@ class TextlabApiConfig(AppConfig):
             if settings.TEXTLAB_API_ENABLED:
                 try:
                     TextlabClient(
-                        settings.TEXTLAB_API_USERNAME, settings.TEXTLAB_API_KEY
+                        settings.TEXTLAB_API_USERNAME,
+                        settings.TEXTLAB_API_KEY,
                     )
                     logger.info(
-                        "Textlab API is available at: %r", settings.TEXTLAB_API_URL
+                        "Textlab API is available at: %r",
+                        settings.TEXTLAB_API_URL,
                     )
                 except (URLError, OSError) as e:
                     logger.info("Textlab API is unavailable: %r", e)

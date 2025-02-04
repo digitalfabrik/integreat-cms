@@ -14,14 +14,13 @@ if TYPE_CHECKING:
 
 def start_and_end_init(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Initialize the new event datetime fields 'start' and 'end' from the respective
     existing fields *_date and *_time.
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     Event = apps.get_model("cms", "Event")
     for event in Event.objects.all():
@@ -35,13 +34,12 @@ def start_and_end_init(
 
 def start_and_end_reverse(
     apps: Apps,
-    schema_editor: BaseDatabaseSchemaEditor,  # pylint: disable=unused-argument
+    _schema_editor: BaseDatabaseSchemaEditor,
 ) -> None:
     """
     Initialize the old event date and time fields from the respective new fields start and end.
 
     :param apps: The configuration of installed applications
-    :param schema_editor: The database abstraction layer that creates actual SQL code
     """
     Event = apps.get_model("cms", "Event")
     for event in Event.objects.all():

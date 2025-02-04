@@ -44,7 +44,7 @@ def send_mail(
             "COMPANY": settings.COMPANY,
             "BRANDING": settings.BRANDING,
             "BRANDING_TITLE": settings.BRANDING_TITLE,
-        }
+        },
     )
     # Assemble message body
     body = render_to_string(
@@ -59,7 +59,7 @@ def send_mail(
     email.attach_alternative(html_message, "text/html")
     # Attach logo
     if image_path := finders.find(
-        f"logos/{settings.BRANDING}/{settings.BRANDING}-logo.png"
+        f"logos/{settings.BRANDING}/{settings.BRANDING}-logo.png",
     ):
         with open(image_path, mode="rb") as f:
             image = MIMEImage(f.read())
@@ -74,14 +74,14 @@ def send_mail(
     try:
         email.send()
     except BadHeaderError as e:
-        logger.error(e)
+        logger.exception("")
         raise RuntimeError(_("Malformed header data.")) from e
     except SMTPAuthenticationError as e:
-        logger.error(e)
+        logger.exception("")
         raise RuntimeError(_("Invalid email credentials.")) from e
     except SMTPException as e:
-        logger.error(e)
-        raise RuntimeError(_("An SMTP error occured.")) from e
+        logger.exception("")
+        raise RuntimeError(_("An SMTP error occurred.")) from e
     except ConnectionRefusedError as e:
-        logger.error(e)
+        logger.exception("")
         raise RuntimeError(_("The email server refused the connection.")) from e

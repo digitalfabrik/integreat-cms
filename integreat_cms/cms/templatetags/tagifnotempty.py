@@ -15,4 +15,4 @@ def tagifnotempty(value: SafeString, args: SafeString) -> str:
     :return: Correctly formatted properties
     """
     value = value.strip()
-    return f'{str(args)}="{value}"' if value else value
+    return f'{args!s}="{value}"' if value else value

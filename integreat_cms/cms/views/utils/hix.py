@@ -18,17 +18,18 @@ from lxml.etree import LxmlError
 from lxml.html import fromstring, tostring
 
 from integreat_cms.cms.models.pages.page_translation import PageTranslation
-from integreat_cms.cms.models.regions.region import Region
 from integreat_cms.cms.utils.round_hix_score import round_hix_score
 
 from ....api.decorators import json_response
 from ....textlab_api.textlab_api_client import TextlabClient, TextlabResult
 
 if TYPE_CHECKING:
-    from typing import Final
+    from typing import Any, Final
 
     from django.db.models.query import QuerySet
     from django.http import HttpRequest
+
+    from integreat_cms.cms.models.regions.region import Region
 
 logger = logging.getLogger(__name__)
 
@@ -75,7 +76,8 @@ def lookup_hix_score_helper(text: str) -> TextlabResult:
 
     try:
         return TextlabClient(
-            settings.TEXTLAB_API_USERNAME, settings.TEXTLAB_API_KEY
+            settings.TEXTLAB_API_USERNAME,
+            settings.TEXTLAB_API_KEY,
         ).benchmark(normalized_text)
     except (URLError, OSError) as e:
         logger.warning("HIX benchmark API call failed: %r", e)
@@ -99,13 +101,13 @@ def lookup_hix_score(text: str) -> TextlabResult | None:
 @require_POST
 @json_response
 def get_hix_score(
-    request: HttpRequest, region_slug: str  # pylint: disable=unused-argument
+    request: HttpRequest,
+    **kwargs: Any,
 ) -> JsonResponse:
     """
     Calculates the hix score for the param 'text' in the request body and returns it.
 
     :param request: The request
-    :param region_slug: The slug of the current region
     :return: A json response, of {"score": value} in case of success
     """
     # Don't pass texts larger than 100kb to the api in order to avoid being vulnerable to dos attacks
@@ -124,7 +126,7 @@ def get_hix_score(
             {
                 "score": round_hix_score(response.get("score")),
                 "feedback": response.get("feedback"),
-            }
+            },
         )
 
     return JsonResponse({"error": "Could not retrieve hix score"})
@@ -145,7 +147,7 @@ def get_translations_relevant_to_hix(region: Region) -> QuerySet:
                 language__slug__in=settings.TEXTLAB_API_LANGUAGES,
                 page__in=region.get_pages().filter(hix_ignore=False),
             ).distinct("page_id", "language_id")
-        )
+        ),
     ).order_by("hix_score")
 
 
@@ -177,5 +179,5 @@ def get_translation_over_hix_threshold(
     :param region: The region for which to get all of the translations
     """
     return get_translations_relevant_to_hix(region=region).filter(
-        hix_score__gte=ACTUAL_RAW_HIX_SCORE_THRESHOLD
+        hix_score__gte=ACTUAL_RAW_HIX_SCORE_THRESHOLD,
     )
