@@ -95,7 +95,7 @@ if [[ -n "${KW_EXPR}" ]] || [[ -n "${MARKER}" ]] || (( ${#TESTS[@]} )); then
     fi
     if [[ -n "${MARKER}" ]]; then
         MESSAGES+=("with ${MARKER}")
-        PYTEST_ARGS+=("-m" "${KW_EXPR}")
+        PYTEST_ARGS+=("-m" "${MARKER}")
     fi
     # Check whether test paths exist
     for t in "${TESTS[@]}"; do
