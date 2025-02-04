@@ -4,6 +4,7 @@ Developer Tools
 
 This is a collection of scripts which facilitate the development process.
 They are targeted at as much platforms and configurations as possible, but there might be edge cases in which they don't work as expected.
+They are not intended to be run with the virtual environment already activated.
 
 
 Installation
