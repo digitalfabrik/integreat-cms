@@ -2,8 +2,9 @@
 {% load rules %}
 {% load content_filters %}
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100 text-gray-800">
-    <td class="py-3 pl-4">
-        {{ region.name }}
+    <td>
+        <a class="py-3 pl-4 text-blue-500 hover:underline"
+           href="{% url "dashboard" region_slug=region.slug %}">{{ region.get_administrative_division_display }} {{ region.name }}</a>
     </td>
     <td class="text-center py-3 pr-2">
         {{ region.get_pages.count }}
