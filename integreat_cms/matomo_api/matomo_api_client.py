@@ -499,7 +499,7 @@ class MatomoApiClient:
         """
         data_entries = [
             {
-                "label": _("Offline Accesses"),
+                "label": _("Phone App Accesses"),
                 "backgroundColor": language_color.OFFLINE_ACCESS,
                 "borderColor": language_color.OFFLINE_ACCESS,
                 "data": list(offline_downloads.values()),
@@ -522,7 +522,7 @@ class MatomoApiClient:
             render_to_string(
                 "statistics/_statistics_legend_item.html",
                 {
-                    "name": _("Offline Accesses"),
+                    "name": _("Phone App Accesses"),
                     "color": language_color.OFFLINE_ACCESS,
                 },
             ),
