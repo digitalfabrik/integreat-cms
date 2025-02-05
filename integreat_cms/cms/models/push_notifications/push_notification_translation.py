@@ -121,7 +121,7 @@ class PushNotificationTranslation(AbstractBaseModel):
 
         :return: The canonical string representation of the event
         """
-        return f"<PushNotificationTranslation (id: {self.id}, push_notification_id: {self.push_notification.id}, title: {self.title})>"
+        return f"<PushNotificationTranslation (id: {self.id}, push_notification_id: {self.push_notification.id}, title: {self.title!r})>"
 
     class Meta:
         #: The verbose name of the model
