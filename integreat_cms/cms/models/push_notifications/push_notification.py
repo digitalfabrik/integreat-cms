@@ -182,7 +182,7 @@ class PushNotification(AbstractBaseModel):
 
         :return: The canonical string representation of the push notification
         """
-        return f"<PushNotification (id: {self.id}, channel: {self.channel}, regions: {self.regions.values_list('slug', flat=True)})>"
+        return f"<PushNotification (id: {self.id}, channel: {self.channel!r}, regions: {self.regions.values_list('slug', flat=True)})>"
 
     class Meta:
         #: The verbose name of the model

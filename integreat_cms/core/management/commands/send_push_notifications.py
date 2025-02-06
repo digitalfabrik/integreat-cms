@@ -74,7 +74,7 @@ class Command(LogCommand):
         )
 
         if total := len(pending_push_notifications):
-            for counter, push_notification in enumerate(pending_push_notifications):
+            for counter, push_notification in enumerate(pending_push_notifications, 1):
                 self.send_push_notification(counter, total, push_notification)
             logger.success(  # type: ignore[attr-defined]
                 "✔ All %d scheduled push notifications have been processed.",
@@ -102,14 +102,14 @@ class Command(LogCommand):
             push_sender = FirebaseApiClient(push_notification)
             if not push_sender.is_valid():
                 logger.error(
-                    "Push notification %d/%d %r cannot be sent because required texts are missing",
+                    "Push notification %d/%d cannot be sent because required texts are missing: %r",
                     counter,
                     total,
                     push_notification,
                 )
             elif push_sender.send_all():
                 logger.success(  # type: ignore[attr-defined]
-                    "Successfully sent %d/%d %r",
+                    "Successfully sent %d/%d: %r",
                     counter,
                     total,
                     push_notification,
@@ -118,14 +118,14 @@ class Command(LogCommand):
                 push_notification.save()
             else:
                 logger.error(
-                    "Push notification %d/%d %r could not be sent",
+                    "Push notification %d/%d could not be sent: %r",
                     counter,
                     total,
                     push_notification,
                 )
         except ImproperlyConfigured:
             logger.exception(
-                "Push notification %d/%d %r could not be sent due to a configuration error",
+                "Push notification %d/%d could not be sent due to a configuration error: %r",
                 counter,
                 total,
                 push_notification,
