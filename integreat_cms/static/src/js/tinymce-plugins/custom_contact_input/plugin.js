@@ -4,6 +4,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
 (() => {
     const tinymceConfig = document.getElementById("tinymce-config-options");
     const completionUrl = tinymceConfig.getAttribute("data-contact-ajax-url");
+    const noEmptyContactHint = tinymceConfig.getAttribute("data-no-empty-contact-hint");
     const HTTP_STATUS_OK = 200;
 
     const getCompletions = async (query) => {
@@ -136,14 +137,19 @@ import { getCsrfToken } from "../../utils/csrf-token";
                 const submitElement = document.querySelector(
                     ".tox-dialog:has(#completions) .tox-dialog__footer .tox-button:not(.tox-button--secondary)"
                 );
+                const anyChecked = () =>
+                    Array.from(document.querySelectorAll(".details-checkbox")).some((checkbox) => checkbox.checked);
                 const setSubmitDisableStatus = (value) => {
                     if (!submitElement) {
                         return;
                     }
 
-                    submitElement.disabled = !value;
+                    submitElement.disabled = !value || !anyChecked();
                     if (!submitElement.disabled) {
                         submitElement.focus();
+                        submitElement.title = "";
+                    } else {
+                        submitElement.title = noEmptyContactHint;
                     }
                 };
                 const updateDetailSelection = (value) => {
@@ -161,6 +167,7 @@ import { getCsrfToken } from "../../utils/csrf-token";
 
                         const checkbox = document.createElement("input");
                         checkbox.type = "checkbox";
+                        checkbox.classList = ["details-checkbox"];
                         checkbox.checked = selectedDetails?.includes(key) || !selectedDetails;
                         checkbox.value = key;
                         checkbox.id = key;
@@ -178,6 +185,10 @@ import { getCsrfToken } from "../../utils/csrf-token";
                         wrapper.append(checkbox);
                         wrapper.append(label);
                         detailsArea.append(wrapper);
+
+                        checkbox.addEventListener("click", () => {
+                            setSubmitDisableStatus(true);
+                        });
                     }
                 };
 

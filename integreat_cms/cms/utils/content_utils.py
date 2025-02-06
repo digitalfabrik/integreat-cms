@@ -187,7 +187,11 @@ def update_contacts(content: HtmlElement) -> None:
         except IndexError:
             wanted_details = []
 
-        contact_card_new = render_contact_card(contact_id, wanted_details)
+        contact_card_new = (
+            render_contact_card(contact_id, wanted_details)
+            if any(detail for detail in wanted_details)
+            else Element("p")
+        )
         contact_card.getparent().replace(contact_card, contact_card_new)
 
 
