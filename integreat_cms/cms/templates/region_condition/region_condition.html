@@ -22,7 +22,7 @@
             <thead>
                 <tr class="border-b border-solid border-gray-200">
                     <th class="text-left py-3 pl-4 pr-2 min">
-                        {% translate "Municipality" %}
+                        {% translate "Region" %}
                     </th>
                     <th>
                         {% translate "Number of pages" %}
@@ -43,4 +43,5 @@
             {% endfor %}
         </table>
     </div>
+    {% include "pagination.html" with chunk=regions %}
 {% endblock content %}

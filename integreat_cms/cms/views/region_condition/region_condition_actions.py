@@ -32,7 +32,7 @@ class RegionConditionResource(resources.ModelResource):
     It represents the to-be exported status of all regions.
     """
 
-    name = fields.Field(column_name=_("Region"), attribute="name")
+    name = fields.Field(column_name=_("Region"))
 
     num_broken_links = fields.Field(column_name=_("Number of broken links"))
 
@@ -56,6 +56,14 @@ class RegionConditionResource(resources.ModelResource):
     num_languages_besides_root_language = fields.Field(
         column_name=_("Number of active languages besides default language")
     )
+
+    @staticmethod
+    def dehydrate_name(region: Region) -> str:
+        """
+        :param region: The region
+        :return: The number of broken links
+        """
+        return f"{region.get_administrative_division_display()} {region.name}"
 
     @staticmethod
     def dehydrate_num_broken_links(region: Region) -> int:
