@@ -10,7 +10,11 @@
         {{ offer_template.slug }}
     </td>
     <td class="pr-2">
-        {{ offer_template.url }}
+        {% if offer_template.url %}
+            {{ offer_template.url }}
+        {% else %}
+            <i icon-name="minus"></i>
+        {% endif %}
     </td>
     <td class="pr-2">
         {{ offer_template.last_updated|date:"SHORT_DATE_FORMAT" }}
