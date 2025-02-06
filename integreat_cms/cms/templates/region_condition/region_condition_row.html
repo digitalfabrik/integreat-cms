@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load rules %}
 {% load content_filters %}
+{% load hix_pages %}
 <tr class="border-t border-solid border-gray-200 hover:bg-gray-100 text-gray-800">
     <td class="py-3 pl-4">
         {{ region.name }}
@@ -10,6 +11,12 @@
     </td>
     <td class="text-center py-3 pr-2">
         {{ region.outdated_pages.count }}
+    </td>
+    <td>
+        {% get_translations_under_hix_threshold region as translations %}
+        {% for translation in translations %}
+            {{ translation }}
+        {% endfor %}
     </td>
     <td class="text-center py-3 pr-2">
         {{ region.active_languages_without_default_language|length }}
