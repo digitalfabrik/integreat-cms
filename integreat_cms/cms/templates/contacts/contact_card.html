@@ -12,16 +12,16 @@
            style="display: none">Contact</a>
         {# djlint:on #}
         {# "and" takes precedent: https://docs.djangoproject.com/en/4.2/ref/templates/builtins/#boolean-operators #}
-        {% if contact.name and "name" in wanted or contact.point_of_contact_for and "point_of_contact_for" in wanted %}
+        {% if contact.name and "name" in wanted or contact.area_of_responsibility and "area_of_responsibility" in wanted %}
             <h4>
                 {% if contact.name and "name" in wanted %}
                     {{ contact.name }}
                 {% endif %}
-                {% if contact.name and "name" in wanted and contact.point_of_contact_for and "point_of_contact_for" in wanted %}
+                {% if contact.name and "name" in wanted and contact.area_of_responsibility and "area_of_responsibility" in wanted %}
                     |
                 {% endif %}
-                {% if contact.point_of_contact_for and "point_of_contact_for" in wanted %}
-                    {{ contact.point_of_contact_for }}
+                {% if contact.area_of_responsibility and "area_of_responsibility" in wanted %}
+                    {{ contact.area_of_responsibility }}
                 {% endif %}
             </h4>
         {% endif %}

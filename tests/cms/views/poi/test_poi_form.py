@@ -260,9 +260,9 @@ def test_poi_form_shows_associated_contacts(
     # probably needs adjustment after #2958
     elif role in HIGH_PRIV_STAFF_ROLES:
         for contact in related_contacts:
-            if contact.point_of_contact_for:
+            if contact.area_of_responsibility:
                 assert (
-                    f"{contact.point_of_contact_for} {contact.name}"
+                    f"{contact.area_of_responsibility} {contact.name}"
                     in response.content.decode("utf-8")
                 )
             else:
