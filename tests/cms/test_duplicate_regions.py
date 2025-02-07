@@ -129,10 +129,10 @@ def test_duplicate_regions(
         "number_all_urls": 18,
         "number_email_urls": 0,
         "number_ignored_urls": 1,
-        "number_invalid_urls": 4,
+        "number_invalid_urls": 5,
         "number_phone_urls": 0,
         "number_unchecked_urls": 0,
-        "number_valid_urls": 13,
+        "number_valid_urls": 12,
     }, "Links should exist in the source region"
     # Check if links have been cloned (except ignored ones)
     assert get_url_count(target_region.slug) == {
