@@ -38,6 +38,9 @@ CALENDAR_RECURRENCE_RULES = (
 CALENDAR_OUTLOOK = (
     "tests/core/management/commands/assets/calendars/outlook_calendar.ics"
 )
+CALENDAR_DAILY_EVENT = (
+    "tests/core/management/commands/assets/calendars/event_with_daily_recurrence.ics"
+)
 CALENDAR_SINGLE_RECURRING_EVENT_A = (
     "tests/core/management/commands/assets/calendars/single_recurring_event_a.ics"
 )
@@ -56,14 +59,12 @@ CALENDARS = [
         [
             "Singular event",
             "Every first Monday",
-            "Every second day",
             "Weekly event",
             "Every year until 2034",
             "Every 3rd Wednesday",
         ],
         {
             "DTSTART:20241112T230000\nRRULE:FREQ=MONTHLY;BYDAY=+1MO",
-            "DTSTART:20241113T130002\nRRULE:FREQ=DAILY;INTERVAL=2",
             "DTSTART:20241113T190000\nRRULE:FREQ=WEEKLY;BYDAY=MO,WE,FR",
             "DTSTART:20241112T230000\nRRULE:FREQ=YEARLY;UNTIL=20341112T235959",
             "DTSTART:20241112T230000\nRRULE:FREQ=MONTHLY;BYDAY=+3WE",
@@ -76,11 +77,6 @@ CALENDARS = [
             "DTSTART:20241231T230000\nRRULE:FREQ=WEEKLY;UNTIL=20250513T235959;BYDAY=WE",
             "DTSTART:20241231T230000\nRRULE:FREQ=YEARLY;UNTIL=20271231T235959",
         },
-    ),
-    (
-        CALENDAR_SINGLE_RECURRING_EVENT_A,
-        ["Repeating event?"],
-        {"DTSTART:20241113T230000\nRRULE:FREQ=DAILY"},
     ),
     (CALENDAR_SINGLE_RECURRING_EVENT_B, ["Repeating event?"], {}),
 ]
@@ -369,3 +365,24 @@ def test_import_and_remove_recurrence_rule(
     ).exists(), "The recurrence rule should not exist anymore after update"
     new_event = calendar.events.first()
     assert event.id == new_event.id, "The event should still exist"
+
+
+@pytest.mark.django_db
+def test_daily_event_not_imported(httpserver: HTTPServer, load_test_data: None) -> None:
+    """
+    Tests that an event with daily recurrence is not imported
+    :param httpserver: The server
+    :param load_test_data: The fixture providing the test data (see :meth:`~tests.conftest.load_test_data`)
+    """
+
+    calendar_url = serve(httpserver, CALENDAR_DAILY_EVENT)
+    calendar = setup_calendar(calendar_url)
+
+    _, err = get_command_output("import_events")
+
+    assert not RecurrenceRule.objects.filter(
+        event__external_calendar=calendar
+    ).exists(), "The recurrence rule should not exist"
+    assert not calendar.events.exists(), "The event should not exist"
+
+    assert "Could not import event because it does not have a required field: " in err

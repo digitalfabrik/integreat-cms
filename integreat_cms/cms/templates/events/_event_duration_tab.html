@@ -1,0 +1,24 @@
+{% load i18n %}
+{% load content_filters %}
+<ul id="tab-wrapper" class="flex items-end px-4">
+    <li class="mr-2 -mb-[2px] z-10" id="one-time-and-recurring-tab">
+        <div class="font-bold {% if not event_form.is_long_term.value %}bg-white{% else %}bg-water-500{% endif %}">
+            <div class="border-b-2 border-white">
+                <div id="one-time-and-recurring-text"
+                     class="py-[calc(0.75rem+2px)] px-4 border-l border-t border-r {% if event_form.is_long_term.value %}border-b{% endif %} border-blue-500 rounded-t text-blue-500 cursor-default">
+                    <span class="flex-grow">{% translate "One-time or recurrent" %}</span>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="mr-2 -mb-[2px] z-10" id="long-term-tab">
+        <div class="font-bold {% if event_form.is_long_term.value %}bg-white{% else %}bg-water-500{% endif %}">
+            <div class="border-b-2 border-white">
+                <div id="long-term-text"
+                     class="py-[calc(0.75rem+2px)] px-4 border-l border-t border-r {% if not event_form.is_long_term.value %}border-b{% endif %} border-blue-500 rounded-t text-blue-500 cursor-default">
+                    <span class="flex-grow">{% translate "Long-term" %}</span>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>

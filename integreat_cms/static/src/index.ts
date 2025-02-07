@@ -31,6 +31,7 @@ import "./js/language-tabs";
 import "./js/machine-translation-overlay";
 import "./js/revisions";
 import "./js/search-query";
+import "./js/event-duration";
 
 import "./js/forms/slug-error";
 import "./js/forms/update-permalink";

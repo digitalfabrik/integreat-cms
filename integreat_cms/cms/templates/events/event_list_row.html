@@ -112,10 +112,14 @@
         {% endif %}
     </td>
     <td class="py-3 pr-2 whitespace-nowrap">
-        {% if event.recurrence_rule %}
-            <i icon-name="repeat"></i> {{ event.recurrence_rule.get_frequency_display }}
+        {% if not event.start_local.date == event.end_local.date %}
+            <i icon-name="step-forward"></i> {% translate "Long-term" %}
         {% else %}
-            <i icon-name="calendar"></i> {% translate "One-time" %}
+            {% if event.recurrence_rule %}
+                <i icon-name="repeat"></i> {{ event.recurrence_rule.get_frequency_display }}
+            {% else %}
+                <i icon-name="calendar"></i> {% translate "One-time" %}
+            {% endif %}
         {% endif %}
     </td>
     <td class="py-3 pr-2">
