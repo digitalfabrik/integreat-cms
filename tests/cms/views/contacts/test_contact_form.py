@@ -10,6 +10,7 @@ if TYPE_CHECKING:
 import pytest
 from django.urls import reverse
 
+from integreat_cms.cms.forms import ContactForm
 from integreat_cms.cms.models import Contact, Region
 from tests.conftest import ANONYMOUS, HIGH_PRIV_STAFF_ROLES
 from tests.utils import assert_message_in_log
@@ -287,3 +288,37 @@ def test_one_primary_contact_per_poi(
         )
     else:
         assert response.status_code == 403
+
+
+@pytest.mark.django_db
+def test_phone_number_conversion() -> None:
+    """
+    Test that phone numbers are converted to the expected international format.
+    """
+    variants = [
+        "+49123456789",
+        "0123456789",
+        "012 34/56789",
+        "01234-56789",
+        "0049123456789",
+        "00 (49) (1234) 56789",
+        " +49/1234-56789",
+    ]
+    for variant in variants:
+        form_data = {
+            "location": POI_ID,
+            "point_of_contact_for": "test",
+            "name": "",
+            "email": "mail@mail.integreat",
+            "phone_number": variant,
+            "website": "https://integreat-app.de/",
+        }
+
+        form = ContactForm(
+            data=form_data,
+            instance=None,
+            additional_instance_attributes={"region": REGION_SLUG},
+        )
+        form.is_valid()  # this is not an assert, because it would fail. calling is_valid() is required to populate cleaned_data.
+        cleaned = form.clean()
+        assert cleaned["phone_number"] == "+49 (0) 123456789"

@@ -43,7 +43,7 @@
                      alt="Phone Number: "
                      width="15"
                      height="15" />
-                <a href="tel:{{ contact.phone_number }}">{{ contact.phone_number }}</a>
+                <a href="tel:{{ contact.phone_number|cut:" (0) " }}">{{ contact.phone_number }}</a>
             </p>
         {% endif %}
         {% if contact.website and "website" in wanted %}
