@@ -10,6 +10,7 @@ from datetime import date, datetime, time
 from typing import TYPE_CHECKING
 
 from django import forms
+from django.db.models import F, Q
 
 if TYPE_CHECKING:
     from ...models import Region
@@ -89,6 +90,9 @@ class EventFilterForm(CustomFilterForm):
         :param events: the unfiltered events
         :param events: the filtered events
         """
+        if not self.is_enabled:
+            return events
+
         cleaned_time_range = self.cleaned_data["events_time_range"]
         if not cleaned_time_range or set(cleaned_time_range) == set(
             events_time_range.ALL_EVENTS,
@@ -160,11 +164,17 @@ class EventFilterForm(CustomFilterForm):
             or not self.cleaned_data["recurring"]
         ):
             return events
+
+        query = Q()
+
         if recurrence.RECURRING in self.cleaned_data["recurring"]:
-            events = events.filter(recurrence_rule__isnull=False)
-        elif recurrence.NOT_RECURRING in self.cleaned_data["recurring"]:
-            events = events.filter(recurrence_rule__isnull=True)
-        return events
+            query |= Q(recurrence_rule__isnull=False)
+        if recurrence.ONE_TIME in self.cleaned_data["recurring"]:
+            query |= Q(start__date=F("end__date"), recurrence_rule__isnull=True)
+        if recurrence.LONG_TERM in self.cleaned_data["recurring"]:
+            query |= Q(~Q(start__date=F("end__date")), recurrence_rule__isnull=True)
+
+        return events.filter(query)
 
     def filter_events_by_imported_event(self, events: EventQuerySet) -> EventQuerySet:
         """
