@@ -60,8 +60,8 @@ class ZammadChatAPI:
         self.ticket_group = settings.USER_CHAT_TICKET_GROUP
         self.responsible_handlers = region.zammad_chat_handlers
 
-    @staticmethod
     def _raise_or_return_json(
+        self,
         response: HttpResponse,
     ) -> dict:
         """
