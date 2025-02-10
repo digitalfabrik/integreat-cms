@@ -45,6 +45,9 @@
                 {% endif %}
             </h1>
             <div class="flex flex-wrap grow justify-end gap-2 items-center">
+                {% if page_form.instance.id and not page_form.instance.archived and can_edit_page %}
+                    {% include "generic_auto_save_note.html" with form_instance=page_translation_form.instance %}
+                {% endif %}
                 {% if page_form.instance.id and page_form.instance.archived %}
                     <a href="{% url 'archived_pages' region_slug=request.region.slug language_slug=language.slug %}"
                        class="btn btn-ghost">{% translate "Cancel" %}</a>
@@ -53,7 +56,6 @@
                        class="btn btn-ghost">{% translate "Cancel" %}</a>
                 {% endif %}
                 {% if not page_form.instance.id or not page_form.instance.archived %}
-                    {% include "generic_auto_save_note.html" with form_instance=page_translation_form.instance %}
                     <button name="preview_page" type="button" data-preview-page data-edit-page-mode data-right-to-left={{ right_to_left }} class="btn btn-ghost">
                         {% translate "Preview" %}
                     </button>
