@@ -7,7 +7,7 @@ import integreat_cms.cms.models.fields.truncating_char_field
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("cms", "0112_sort_contacts_by_POI_and_name"),
+        ("cms", "0113_alter_event_end"),
     ]
 
     operations = [
