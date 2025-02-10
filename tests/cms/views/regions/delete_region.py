@@ -116,7 +116,7 @@ def test_deleting_mirrored_region_is_unsucessful(
         redirect = response.headers.get("location")
         response = client.get(redirect)
         assert (
-            "Die Region konnte nicht gelöscht werden, weil die folgenden Seiten in anderen Region gespiegelt werden:"
+            "Die Region konnte nicht gelöscht werden, weil die folgenden Seiten in anderen Regionen gespiegelt werden:"
             in response.content.decode("utf-8")
         )
         assert Region.objects.filter(slug="augsburg").exists()
