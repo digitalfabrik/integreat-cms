@@ -25,7 +25,7 @@ def test_contact_string(
     contact_1 = Contact.objects.filter(id=1).first()
     assert (
         str(contact_1)
-        == "Draft location with point of contact for: Integrationsbeauftragte"
+        == "Draft location with area of responsibility: Integrationsberatung"
     )
 
     contact_4 = Contact.objects.filter(id=4).first()

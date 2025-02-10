@@ -46,7 +46,7 @@ def test_create_a_new_contact(
         new_contact,
         data={
             "location": POI_ID,
-            "point_of_contact_for": "Title",
+            "area_of_responsibility": "Title",
             "name": "Name",
             "email": "mail@mail.integreat",
             "phone_number": "0123456789",
@@ -56,13 +56,13 @@ def test_create_a_new_contact(
 
     if role in HIGH_PRIV_STAFF_ROLES:
         assert_message_in_log(
-            'SUCCESS  Contact for "Draft location with point of contact for: Title" was successfully created',
+            'SUCCESS  Contact for "Draft location with area of responsibility: Title" was successfully created',
             caplog,
         )
         edit_url = response.headers.get("location")
         response = client.get(edit_url)
         assert (
-            "Contact for &quot;Draft location with point of contact for: Title&quot; was successfully created"
+            "Contact for &quot;Draft location with area of responsibility: Title&quot; was successfully created"
             in response.content.decode("utf-8")
         )
 
@@ -105,7 +105,7 @@ def test_edit_a_contact(
         edit_contact,
         data={
             "location": POI_ID,
-            "point_of_contact_for": "Title Updated",
+            "area_of_responsibility": "Title Updated",
             "name": "New Name",
             "email": "mail@mail.integreat",
             "phone_number": "0123456789",
@@ -115,13 +115,13 @@ def test_edit_a_contact(
 
     if role in HIGH_PRIV_STAFF_ROLES:
         assert_message_in_log(
-            'SUCCESS  Contact for "Draft location with point of contact for: Title Updated" was successfully saved',
+            'SUCCESS  Contact for "Draft location with area of responsibility: Title Updated" was successfully saved',
             caplog,
         )
         edit_url = response.headers.get("location")
         response = client.get(edit_url)
         assert (
-            "Contact for &quot;Draft location with point of contact for: Title Updated&quot; was successfully saved"
+            "Contact for &quot;Draft location with area of responsibility: Title Updated&quot; was successfully saved"
             in response.content.decode("utf-8")
         )
 
@@ -159,7 +159,7 @@ def test_no_contact_without_poi(
     response = client.post(
         new_contact,
         data={
-            "point_of_contact_for": "Title",
+            "area_of_responsibility": "Title",
             "name": "Name",
             "email": "mail@mail.integreat",
             "phone_number": "0123456789",
@@ -209,7 +209,7 @@ def test_at_least_one_field_filled(
         new_contact,
         data={
             "location": POI_ID,
-            "point_of_contact_for": "",
+            "area_of_responsibility": "",
             "name": "",
             "email": "",
             "phone_number": "",
@@ -219,11 +219,11 @@ def test_at_least_one_field_filled(
 
     if role in HIGH_PRIV_STAFF_ROLES:
         assert_message_in_log(
-            "ERROR    One of the following fields must be filled: point of contact for, name, e-mail, phone number, website.",
+            "ERROR    One of the following fields must be filled: area of responsibility, name, e-mail, phone number, website.",
             caplog,
         )
         assert (
-            "One of the following fields must be filled: point of contact for, name, e-mail, phone number, website."
+            "One of the following fields must be filled: area of responsibility, name, e-mail, phone number, website."
             in response.content.decode("utf-8")
         )
 
@@ -262,7 +262,7 @@ def test_one_primary_contact_per_poi(
         new_contact,
         data={
             "location": POI_ID,
-            "point_of_contact_for": "",
+            "area_of_responsibility": "",
             "name": "",
             "email": "mail@mail.integreat",
             "phone_number": "0123456789",
@@ -272,11 +272,11 @@ def test_one_primary_contact_per_poi(
 
     if role in HIGH_PRIV_STAFF_ROLES:
         assert_message_in_log(
-            "ERROR    Only one contact per location can have an empty point of contact.",
+            "ERROR    Only one contact per location can have an empty area of responsibility.",
             caplog,
         )
         assert (
-            "Only one contact per location can have an empty point of contact."
+            "Only one contact per location can have an empty area of responsibility."
             in response.content.decode("utf-8")
         )
 

@@ -31,10 +31,10 @@ class Contact(AbstractBaseModel):
     Data model representing a contact
     """
 
-    point_of_contact_for = TruncatingCharField(
+    area_of_responsibility = TruncatingCharField(
         max_length=200,
         blank=True,
-        verbose_name=_("point of contact for"),
+        verbose_name=_("area of responsibility"),
     )
     name = models.CharField(max_length=200, blank=True, verbose_name=_("name"))
     location = models.ForeignKey(
@@ -89,7 +89,7 @@ class Contact(AbstractBaseModel):
             "email",
             "phone_number",
             "website",
-            "point_of_contact_for",
+            "area_of_responsibility",
         )
         query = SearchQuery(query)
         return (
@@ -114,8 +114,10 @@ class Contact(AbstractBaseModel):
         This function determines which string is shown for the contact
         """
 
-        if self.point_of_contact_for:
-            return _("with point of contact for: {}").format(self.point_of_contact_for)
+        if self.area_of_responsibility:
+            return _("with area of responsibility: {}").format(
+                self.area_of_responsibility
+            )
 
         if self.name:
             return _("with name: {}").format(self.name)
@@ -138,8 +140,8 @@ class Contact(AbstractBaseModel):
 
         label = (
             _("General contact information")
-            if not self.point_of_contact_for
-            else f"{self.point_of_contact_for} {self.name}"
+            if not self.area_of_responsibility
+            else f"{self.area_of_responsibility} {self.name}"
         )
         if self.archived:
             label += " (⚠ " + gettext("Archived") + ")"
@@ -153,7 +155,7 @@ class Contact(AbstractBaseModel):
 
         :return: The canonical string representation of the contact
         """
-        return f"<Contact (id: {self.id}, point of contact for: {self.point_of_contact_for}, name: {self.name}, region: {self.region.slug})>"
+        return f"<Contact (id: {self.id}, area of responsibility: {self.area_of_responsibility}, name: {self.name}, region: {self.region.slug})>"
 
     @cached_property
     def get_repr_short(self) -> str:
@@ -162,8 +164,8 @@ class Contact(AbstractBaseModel):
 
         :return: The short representation of the contact
         """
-        point_of_contact_for = (
-            f"{self.point_of_contact_for}: " if self.point_of_contact_for else ""
+        area_of_responsibility = (
+            f"{self.area_of_responsibility}: " if self.area_of_responsibility else ""
         )
         name = f"{self.name} " if self.name else ""
         details = [
@@ -171,7 +173,7 @@ class Contact(AbstractBaseModel):
         ]
         details_repr = f"({', '.join(details)})" if details else ""
 
-        return f"{point_of_contact_for}{name}{details_repr}".strip()
+        return f"{area_of_responsibility}{name}{details_repr}".strip()
 
     @cached_property
     def referring_page_translations(self) -> QuerySet[PageTranslation]:
@@ -250,8 +252,8 @@ class Contact(AbstractBaseModel):
             "address": _("show address"),
         }
 
-        if self.point_of_contact_for:
-            details["point_of_contact_for"] = _("show point of contact")
+        if self.area_of_responsibility:
+            details["area_of_responsibility"] = _("show area of responsibility")
 
         if self.name:
             details["name"] = _("show name")
@@ -286,7 +288,7 @@ class Contact(AbstractBaseModel):
         Copies the contact
         """
         self.pk = None
-        self.point_of_contact_for = self.point_of_contact_for + " " + _("(Copy)")
+        self.area_of_responsibility = self.area_of_responsibility + " " + _("(Copy)")
         self.save()
 
     @cached_property
@@ -323,21 +325,21 @@ class Contact(AbstractBaseModel):
         constraints = [
             models.UniqueConstraint(
                 "location",
-                condition=Q(point_of_contact_for=""),
-                name="contact_singular_empty_point_of_contact_per_location",
+                condition=Q(area_of_responsibility=""),
+                name="contact_singular_empty_area_of_responsibility_per_location",
                 violation_error_message=_(
-                    "Only one contact per location can have an empty point of contact.",
+                    "Only one contact per location can have an empty area of responsibility.",
                 ),
             ),
             models.CheckConstraint(
-                check=~Q(point_of_contact_for="")
+                check=~Q(area_of_responsibility="")
                 | ~Q(name="")
                 | ~Q(email="")
                 | ~Q(phone_number="")
                 | ~Q(website=""),
                 name="contact_non_empty",
                 violation_error_message=_(
-                    "One of the following fields must be filled: point of contact for, name, e-mail, phone number, website.",
+                    "One of the following fields must be filled: area of responsibility, name, e-mail, phone number, website.",
                 ),
             ),
         ]
