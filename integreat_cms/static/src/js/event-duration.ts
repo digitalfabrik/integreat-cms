@@ -49,6 +49,8 @@ window.addEventListener("load", () => {
 
     document.querySelector("option[value=DAILY]")?.classList.add("hidden");
 
-    alignTabHeight();
-    window.addEventListener("resize", alignTabHeight);
+    if (document.getElementById("long-term-tab")) {
+        alignTabHeight();
+        window.addEventListener("resize", alignTabHeight);
+    }
 });
