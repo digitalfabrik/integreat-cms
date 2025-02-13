@@ -116,6 +116,13 @@ class EventFormView(
         recurrence_rule_form = RecurrenceRuleForm(
             instance=recurrence_rule_instance,
             disabled=disabled,
+            initial={
+                "recurrence_end_date": (
+                    recurrence_rule_instance.recurrence_end_date
+                    if recurrence_rule_instance
+                    else None
+                )
+            },
         )
 
         url_link = f"{settings.WEBAPP_URL}/{region.slug}/{language.slug}/{event_translation_form.instance.url_infix}/"
