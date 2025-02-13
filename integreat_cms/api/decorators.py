@@ -175,6 +175,7 @@ def matomo_tracking(func: Callable) -> Callable:
             not settings.MATOMO_TRACKING
             or not request.region.matomo_id
             or not request.region.matomo_token
+            or request.headers.get("X-Integreat-Development") == "true"
         ):
             return func(request, *args, **kwargs)
         data = {
