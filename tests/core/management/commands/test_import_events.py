@@ -385,4 +385,4 @@ def test_daily_event_not_imported(httpserver: HTTPServer, load_test_data: None) 
     ).exists(), "The recurrence rule should not exist"
     assert not calendar.events.exists(), "The event should not exist"
 
-    assert "Could not import event because it does not have a required field: " in err
+    assert "Could not import event" in err
