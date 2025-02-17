@@ -192,7 +192,7 @@ def update_contacts(content: HtmlElement) -> None:
             if any(detail for detail in wanted_details)
             else Element("p")
         )
-        contact_card.getparent().replace(contact_card, contact_card_new)
+        contact_card.getparent().replace(contact_card, *contact_card_new)
 
 
 def fix_alt_texts(content: HtmlElement) -> None:
