@@ -90,6 +90,9 @@ class EventFilterForm(CustomFilterForm):
         :param events: the unfiltered events
         :param events: the filtered events
         """
+        if not self.is_enabled:
+            return events
+
         cleaned_time_range = self.cleaned_data["events_time_range"]
         if not cleaned_time_range or set(cleaned_time_range) == set(
             events_time_range.ALL_EVENTS,
