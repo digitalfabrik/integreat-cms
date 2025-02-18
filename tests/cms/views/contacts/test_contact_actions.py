@@ -11,7 +11,14 @@ import pytest
 from django.urls import reverse
 
 from integreat_cms.cms.models import Contact
-from tests.conftest import ANONYMOUS, HIGH_PRIV_STAFF_ROLES
+from tests.conftest import (
+    ANONYMOUS,
+    AUTHOR,
+    EDITOR,
+    HIGH_PRIV_STAFF_ROLES,
+    MANAGEMENT,
+    PRIV_STAFF_ROLES,
+)
 from tests.utils import assert_message_in_log
 
 # Use the region Augsburg, as it has some contacts in the test data
@@ -55,7 +62,7 @@ def test_archive_contact(
     )
     response = client.post(archive_contact)
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert response.status_code == 302
         redirect_url = response.headers.get("location")
         if should_be_archived:
@@ -181,7 +188,7 @@ def test_restore_contact(
     )
     response = client.post(restore_contact)
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert response.status_code == 302
         redirect_url = response.headers.get("location")
         assert_message_in_log(
@@ -237,7 +244,7 @@ def test_bulk_archive_contacts(
         data={"selected_ids[]": BULK_ARCHIVE_SELECTED_IDS},
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert response.status_code == 302
         redirect_url = response.headers.get("location")
         redirect_page = client.get(redirect_url).content.decode("utf-8")
@@ -366,7 +373,7 @@ def test_bulk_restore_contacts(
         data={"selected_ids[]": BULK_RESTORE_SELECTED_IDS},
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert response.status_code == 302
         redirect_url = response.headers.get("location")
         redirect_page = client.get(redirect_url).content.decode("utf-8")
