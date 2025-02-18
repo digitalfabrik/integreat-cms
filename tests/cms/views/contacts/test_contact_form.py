@@ -12,7 +12,7 @@ from django.urls import reverse
 
 from integreat_cms.cms.forms import ContactForm
 from integreat_cms.cms.models import Contact, Region
-from tests.conftest import ANONYMOUS, HIGH_PRIV_STAFF_ROLES
+from tests.conftest import ANONYMOUS, AUTHOR, EDITOR, MANAGEMENT, PRIV_STAFF_ROLES
 from tests.utils import assert_message_in_log
 
 # Use the region Augsburg, as it has some contacts in the test data
@@ -54,7 +54,7 @@ def test_create_a_new_contact(
         },
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert_message_in_log(
             'SUCCESS  Contact for "Draft location with area of responsibility: Title" was successfully created',
             caplog,
@@ -113,7 +113,7 @@ def test_edit_a_contact(
         },
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert_message_in_log(
             'SUCCESS  Contact for "Draft location with area of responsibility: Title Updated" was successfully saved',
             caplog,
@@ -167,7 +167,7 @@ def test_no_contact_without_poi(
         },
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert_message_in_log(
             "ERROR    Location: This field is required.",
             caplog,
@@ -217,7 +217,7 @@ def test_at_least_one_field_filled(
         },
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert_message_in_log(
             "ERROR    One of the following fields must be filled: area of responsibility, name, e-mail, phone number, website.",
             caplog,
@@ -270,7 +270,7 @@ def test_one_primary_contact_per_poi(
         },
     )
 
-    if role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*PRIV_STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert_message_in_log(
             "ERROR    Only one contact per location can have an empty area of responsibility.",
             caplog,

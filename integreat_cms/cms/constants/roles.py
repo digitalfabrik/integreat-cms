@@ -88,6 +88,8 @@ AUTHOR_PERMISSIONS: Final[list[str]] = [
     *EVENT_MANAGER_PERMISSIONS,
     "change_page",
     "view_page",
+    "view_contact",
+    "change_contact",
 ]
 
 
@@ -144,6 +146,7 @@ MARKETING_TEAM_PERMISSIONS: Final[list[str]] = [
     "view_translation_report",
     "view_broken_links",
     "view_statistics",
+    "view_contact",
 ]
 
 #: The permissions of the app team
@@ -165,6 +168,7 @@ APP_TEAM_PERMISSIONS: Final[list[str]] = [
     "replace_mediafile",
     "send_push_notification",
     "upload_mediafile",
+    "change_contact",
 ]
 
 #: The permissions of the service team
@@ -194,9 +198,7 @@ SERVICE_TEAM_PERMISSIONS: Final[list[str]] = [
     "delete_user",
     "grant_page_permissions",
     "manage_translations",
-    "change_contact",
     "delete_contact",
-    "view_contact",
     "view_externalcalendar",
 ]
 

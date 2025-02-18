@@ -23,8 +23,12 @@ from integreat_cms.cms.models import (
 )
 from tests.conftest import (
     ANONYMOUS,
+    AUTHOR,
+    EDITOR,
     HIGH_PRIV_STAFF_ROLES,
+    MANAGEMENT,
     PRIV_STAFF_ROLES,
+    STAFF_ROLES,
     WRITE_ROLES,
 )
 from tests.utils import assert_message_in_log
@@ -311,8 +315,7 @@ def test_poi_form_shows_no_associated_contacts(
         assert (
             response.headers.get("location") == f"{settings.LOGIN_URL}?next={edit_poi}"
         )
-    # probably needs adjustment after #2958
-    elif role in HIGH_PRIV_STAFF_ROLES:
+    if role in (*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR):
         assert (
             "This location is not currently referred to in any contact."
             in response.content.decode("utf-8")
