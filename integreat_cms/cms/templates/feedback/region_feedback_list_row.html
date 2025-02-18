@@ -39,7 +39,11 @@
             <i icon-name="minus" class="pr-1"></i>
         {% else %}
             <div class="table-cell-truncate">
-                <span class="table-cell-content">{{ feedback.comment }}</span>
+                {% if feedback.comment %}
+                    <span class="table-cell-content">{{ feedback.comment }}</span>
+                {% else %}
+                    <i icon-name="minus" class="pr-1"></i>
+                {% endif %}
                 <a class="toggle-table-cell">
                     <i icon-name="chevron-down" class="more"></i>
                     <i icon-name="chevron-up" class="less"></i>
@@ -57,18 +61,25 @@
         {% endif %}
     </td>
     <td class="pr-2 rating">
-        <span class="{% if not feedback.rating_sum_positive %}invisible{% endif %}">
+        <span class="{% if not feedback.rating_sum_positive %}hidden{% endif %}">
             <i icon-name="thumbs-up" class="pr-1"></i> {{ feedback.rating_sum_positive }}
         </span>
-        <span class="{% if not feedback.rating_sum_negative %}invisible{% endif %}">
+        <span class="{% if not feedback.rating_sum_negative %}hidden{% endif %}">
             <i icon-name="thumbs-down" class="pl-1"></i> {{ feedback.rating_sum_negative }}
+        </span>
+        <span class="{% if feedback.rating_sum_positive or feedback.rating_sum_negative %}hidden{% endif %}">
+            <i icon-name="minus" class="pr-1"></i>
         </span>
     </td>
     <td class="pr-2">
-        {% if feedback.read_by.email %}
-            <a href="mailto:{{ feedback.read_by.email }}" class="hover:underline">{{ feedback.read_by.full_user_name }}</a>
+        {% if feedback.read_by %}
+            {% if feedback.read_by.email %}
+                <a href="mailto:{{ feedback.read_by.email }}" class="hover:underline">{{ feedback.read_by.full_user_name }}</a>
+            {% else %}
+                {{ feedback.read_by.full_user_name }}
+            {% endif %}
         {% else %}
-            {{ feedback.read_by.full_user_name }}
+            <i icon-name="minus" class="pr-1"></i>
         {% endif %}
     </td>
     <td class="pr-2 text-right whitespace-nowrap">

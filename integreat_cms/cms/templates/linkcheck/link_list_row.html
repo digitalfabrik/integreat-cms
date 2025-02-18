@@ -37,12 +37,20 @@
             {% endif %}
         </td>
         <td class="pr-2 whitespace-nowrap" title="{{ url.ssl_message }}">
-            {% url_ssl_icon url %}
+            {% if url.ssl_message %}
+                {% url_ssl_icon url %}
+            {% else %}
+                <i icon-name="minus"></i>
+            {% endif %}
         </td>
         {% if request.user.expert_mode %}
             <td class="whitespace-nowrap"
                 title="{{ url.anchor_message }}{% if url.anchor %}{% if url.last_checked %}:{% endif %} #{{ url.anchor }} {% endif %}">
-                {% url_anchor_icon url %}
+                {% if url.anchor_message %}
+                    {% url_anchor_icon url %}
+                {% else %}
+                    <i icon-name="minus"></i>
+                {% endif %}
             </td>
         {% endif %}
         <td class="pr-2 whitespace-nowrap">
@@ -54,6 +62,8 @@
                 <div title="{{ url.get_status_code_display }}">
                     {{ url.status_code }}
                 </div>
+            {% else %}
+                <i icon-name="minus"></i>
             {% endif %}
         </td>
         <td class="pr-2 {% if view.kwargs.url_filter == 'invalid' %} text-red-500 {% elif view.kwargs.url_filter == 'valid' %} text-green-500 {% endif %} max-w-[75px] sm:max-w-[100px] md:max-w-[100px] lg:max-w-[100px] xl:max-w-[150px] 2xl:max-w-[200px] 3xl:max-w-[260px] 4xl:max-w-[400px]"
