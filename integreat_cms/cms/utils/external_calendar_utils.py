@@ -114,21 +114,14 @@ class IcalEventData:
 
         recurrence_rule = None
         if "RRULE" in event:
-            if (
-                event.decoded("RRULE")["FREQ"] == ["DAILY"]
-                and event.decoded("RRULE")["UNTIL"]
-            ):
-                if start_date == end_date:
-                    end_date = event.decoded("RRULE")["UNTIL"][0]
-                else:
-                    pass
-            else:
-                end_date = start_date
-                recurrence_rule = RecurrenceRuleData.from_ical_rrule(
-                    recurrence_rule=event.decoded("RRULE"),
-                    start=start_date,
-                    logger=logger,
-                )
+            if event.decoded("RRULE")["FREQ"] == ["DAILY"]:
+                raise ValueError("Daily events are not allowed anymore.")
+            end_date = start_date
+            recurrence_rule = RecurrenceRuleData.from_ical_rrule(
+                recurrence_rule=event.decoded("RRULE"),
+                start=start_date,
+                logger=logger,
+            )
 
         return cls(
             event_id=event_id,
