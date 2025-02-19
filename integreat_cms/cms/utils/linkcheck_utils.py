@@ -3,15 +3,28 @@ from __future__ import annotations
 import logging
 import time
 from collections import defaultdict
+from itertools import chain
 from typing import TYPE_CHECKING
+from urllib.parse import quote
 
 from django.conf import settings
-from django.db.models import Count, Prefetch, Q, QuerySet, Subquery
+from django.db.models import (
+    CharField,
+    Count,
+    F,
+    Prefetch,
+    Q,
+    QuerySet,
+    Subquery,
+    Value,
+)
+from django.db.models.functions import Concat, Replace
 from linkcheck import update_lock
 from linkcheck.listeners import tasks_queue
 from linkcheck.models import Link, Url
 
 from integreat_cms.cms.models import (
+    Contact,
     EventTranslation,
     ImprintPageTranslation,
     Organization,
@@ -60,6 +73,32 @@ def get_urls(
                     to_attr="region_links",
                 ),
             )
+
+    # Temporary: hide all links contained in contacts
+    contacts = (
+        Contact.objects.filter(location__region=region)
+        if region_slug
+        else Contact.objects.all()
+    )
+    contact_links = chain.from_iterable(
+        contacts.annotate(
+            transformed_email=Concat(
+                Value("mailto:"), F("email"), output_field=CharField()
+            ),
+            transformed_phone=Concat(
+                Value("tel:"),
+                Replace(F("phone_number"), Value(" (0) "), Value("")),
+                output_field=CharField(),
+            ),
+        ).values_list("transformed_email", "transformed_phone", "website")
+    )
+    urls = urls.exclude(url__in=contact_links)
+
+    absolute_url_filters = Q()
+    for contact in contacts:
+        absolute_url_filters |= Q(url__startswith=contact.absolute_url)
+        absolute_url_filters |= Q(url=quote(contact.location.map_url, safe="/:&=?,-"))
+    urls = urls.exclude(absolute_url_filters)
 
     # Annotate with number of links that are not ignored.
     # If there is any link that is not ignored, the url is also not ignored.
