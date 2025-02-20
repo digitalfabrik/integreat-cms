@@ -8,7 +8,7 @@ from lxml.html import fromstring, tostring
 from pytest_django.fixtures import SettingsWrapper
 
 from integreat_cms.cms.utils.content_utils import update_contacts
-from tests.conftest import HIGH_PRIV_STAFF_ROLES
+from tests.conftest import AUTHOR, EDITOR, MANAGEMENT, STAFF_ROLES
 
 REGION_SLUG = "augsburg"
 CONTACT1 = {
@@ -77,9 +77,7 @@ def test_search_contact_single(
         content_type="application/json",
     )
 
-    # to do: needs an update after.
-    # https://github.com/digitalfabrik/integreat-cms/issues/2958
-    if role not in HIGH_PRIV_STAFF_ROLES:
+    if role not in [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR]:
         assert response.status_code in [302, 403]
         return
 
@@ -114,7 +112,7 @@ def test_search_contact_multiple(
         content_type="application/json",
     )
 
-    if role not in HIGH_PRIV_STAFF_ROLES:
+    if role not in [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR]:
         assert response.status_code in [302, 403]
         return
 
@@ -147,7 +145,7 @@ def test_get_contact_card(
         {"details": CONTACT1["details"]},
     )
 
-    if role not in HIGH_PRIV_STAFF_ROLES:
+    if role not in [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR]:
         assert response.status_code in [302, 403]
         return
 
@@ -177,7 +175,7 @@ def test_get_contact_card_raw(
         ),
     )
 
-    if role not in HIGH_PRIV_STAFF_ROLES:
+    if role not in [*STAFF_ROLES, MANAGEMENT, EDITOR, AUTHOR]:
         assert response.status_code in [302, 403]
         return
 
