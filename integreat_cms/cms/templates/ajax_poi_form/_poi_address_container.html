@@ -24,36 +24,4 @@
        rel="noopener noreferrer">
         {% translate "Open on Maps" %}
     </a>
-    <label class="secondary">
-        {% translate "Contact details" %}
-    </label>
-    <div>
-        <p>
-            {% translate "E-mail address: " %}
-            <span>
-                {% if poi.email %}
-                    {{ poi.email }}
-                {% endif %}
-            </span>
-            <span class="{% if poi.email %}hidden{% endif %}">{% translate "Not provided" %}</span>
-        </p>
-        <p>
-            {% translate "Phone number: " %}
-            <span>
-                {% if poi.phone_number %}
-                    {{ poi.phone_number }}
-                {% endif %}
-            </span>
-            <span class="{% if poi.phone_number %}hidden{% endif %}">{% translate "Not provided" %}</span>
-        </p>
-        <p>
-            {% translate "Website: " %}
-            <span>
-                {% if poi.website %}
-                    {{ poi.website }}
-                {% endif %}
-            </span>
-            <span class="{% if poi.website %}hidden{% endif %}">{% translate "Not provided" %}</span>
-        </p>
-    </div>
 </div>
